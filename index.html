@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0d1117">
+<title>Sihan, MET 2026 Flashcards</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --panel-2: #1f252d;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --accent-dim: #1f6feb;
+    --good: #3fb950;
+    --bad: #f85149;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Text', sans-serif;
+    min-height: 100vh;
+    overscroll-behavior: none;
+  }
+  .app {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  header {
+    text-align: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-size: 18px;
+    margin: 0 0 4px 0;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .subtitle {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .countdown {
+    font-size: 11px;
+    color: var(--accent);
+    margin-top: 4px;
+  }
+  .deck-picker {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+  .deck-picker label {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  select {
+    width: 100%;
+    background: var(--panel-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 15px;
+    font-family: inherit;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%238b949e' d='M2 4l4 4 4-4z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+  }
+  .progress-bar {
+    height: 4px;
+    background: var(--panel);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  .card-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+    margin-bottom: 20px;
+    min-height: 280px;
+  }
+  .card {
+    width: 100%;
+    min-height: 280px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+  }
+  .card.flipped { transform: rotateY(180deg); }
+  .card-face {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 280px;
+  }
+  .card-face.back {
+    transform: rotateY(180deg);
+    background: var(--panel-2);
+    border-color: var(--accent-dim);
+  }
+  .card-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .card-label.back { color: var(--accent); }
+  .card-content {
+    font-size: 17px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .card-hint {
+    font-size: 11px;
+    color: var(--muted);
+    position: absolute;
+    bottom: 14px;
+    left: 0; right: 0;
+    text-align: center;
+  }
+  .controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  button {
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 15px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-weight: 500;
+  }
+  button:hover:not(:disabled) {
+    background: var(--panel-2);
+    border-color: var(--accent-dim);
+  }
+  button:active:not(:disabled) { transform: scale(0.98); }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-good { border-color: var(--good); color: var(--good); }
+  .btn-good:hover:not(:disabled) { background: rgba(63, 185, 80, 0.1); }
+  .btn-bad { border-color: var(--bad); color: var(--bad); }
+  .btn-bad:hover:not(:disabled) { background: rgba(248, 81, 73, 0.1); }
+  .shuffle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .shuffle-row button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  .stats {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 12px;
+    padding: 10px;
+    background: var(--panel);
+    border-radius: 6px;
+  }
+  .stats .good { color: var(--good); }
+  .stats .bad { color: var(--bad); }
+  footer {
+    text-align: center;
+    font-size: 10px;
+    color: var(--muted);
+    padding: 16px 0 8px 0;
+    margin-top: auto;
+  }
+  @media (max-width: 400px) {
+    .card-content { font-size: 15px; }
+    button { padding: 12px; font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>Sihan, MET 2026 Flashcards</h1>
+    <div class="subtitle">Manipal Entrance Test, MA Clinical Psychology</div>
+    <div class="countdown" id="countdown"></div>
+  </header>
+
+  <div class="deck-picker">
+    <label for="deckSelect">Deck</label>
+    <select id="deckSelect"></select>
+  </div>
+
+  <div class="shuffle-row">
+    <span id="cardPosition">1 / 20</span>
+    <button id="shuffleBtn">Shuffle</button>
+  </div>
+
+  <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+
+  <div class="card-wrap">
+    <div id="card" class="card" role="button" aria-label="Flip card">
+      <div class="card-face">
+        <div class="card-label">Question</div>
+        <div id="cardQuestion" class="card-content"></div>
+        <div class="card-hint">Tap to reveal answer</div>
+      </div>
+      <div class="card-face back">
+        <div class="card-label back">Answer</div>
+        <div id="cardAnswer" class="card-content"></div>
+        <div class="card-hint">Tap to flip back</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button id="prevBtn">← Prev</button>
+    <button id="nextBtn">Next →</button>
+  </div>
+
+  <div class="controls">
+    <button id="knewBtn" class="btn-good">Knew it</button>
+    <button id="missedBtn" class="btn-bad">Missed</button>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <footer>
+    Tap card to flip. Progress saved locally per deck.
+  </footer>
+</div>
+
+<script>
+// =====================================================================
+// DECK DATA, MET 2026 Clinical Psychology
+// =====================================================================
+const DECKS = [
+  {
+    id: 'bio-01',
+    track: 'Biopsychology',
+    title: 'Deck 1, Neurons and Glia',
+    cards: [
+      { q: "Four morphological types of neurons?",
+        a: "Multipolar (most common, CNS motor, pyramidal), Bipolar (retina, olfactory), Unipolar / Pseudounipolar (dorsal root ganglion sensory), Anaxonic (some amacrine cells, no clear axon)." },
+      { q: "Four CNS glial cell types?",
+        a: "Astrocytes, Oligodendrocytes, Microglia, Ependymal cells." },
+      { q: "Two PNS glial cell types?",
+        a: "Schwann cells (myelinate PNS axons), Satellite cells (surround ganglion cell bodies)." },
+      { q: "Most common glial cell in the PNS?",
+        a: "Schwann cells. They outnumber satellite cells significantly." },
+      { q: "Most abundant glial cell in the CNS overall?",
+        a: "Astrocytes (majority of CNS glia)." },
+      { q: "Oligodendrocytes vs Schwann cells, how many axons does each myelinate?",
+        a: "Oligodendrocyte: many axons at once (multiple internodes on multiple CNS axons). Schwann: one internode on one PNS axon." },
+      { q: "Which glia act as CNS immune cells?",
+        a: "Microglia. Derived from mesoderm (not neural tube like others). Phagocytose debris, respond to injury." },
+      { q: "What do ependymal cells do?",
+        a: "Line the ventricles and central canal. Produce and circulate CSF." },
+      { q: "What is the blood-brain barrier maintained by?",
+        a: "Astrocyte end-feet wrapping capillaries + tight junctions between endothelial cells." },
+      { q: "Nodes of Ranvier, what are they?",
+        a: "Gaps between myelin segments. Site of voltage-gated Na+ channels. Enable saltatory conduction." },
+      { q: "Saltatory conduction, why faster?",
+        a: "Action potential 'jumps' from node to node (salta = jump). Myelin insulates internodes, ion exchange only at nodes, so signal propagates much faster than unmyelinated axons." },
+      { q: "Erlanger-Gasser fiber classification fastest to slowest?",
+        a: "A-alpha, A-beta, A-gamma, A-delta, B, C. A-alpha = largest, myelinated, fastest (proprioception, motor). C = smallest, unmyelinated, slowest (slow pain, temperature, autonomic)." },
+      { q: "Which fiber carries fast, sharp pain?",
+        a: "A-delta (thinly myelinated). Slow, dull pain is C fibers (unmyelinated)." },
+      { q: "Purkinje neurons, where and what?",
+        a: "Cerebellar cortex. Large, highly branched dendrites. GABAergic. Output of the cerebellar cortex." },
+      { q: "Betz cells, where and why famous?",
+        a: "Primary motor cortex (area 4), layer V. Largest pyramidal cells. Project to spinal cord (corticospinal tract)." },
+      { q: "Mirror neurons, where and what?",
+        a: "Ventral premotor cortex + inferior parietal lobule. Fire when performing AND when observing an action. Implicated in imitation, empathy." },
+      { q: "Structure that synapses on post-synaptic cell, releases neurotransmitter?",
+        a: "Axon terminal (terminal bouton). Contains synaptic vesicles with neurotransmitter." },
+      { q: "What drives neurotransmitter release?",
+        a: "Ca2+ influx through voltage-gated Ca channels at the terminal, triggered by arrival of the action potential." },
+      { q: "Gray matter vs white matter, what is what?",
+        a: "Gray = cell bodies + unmyelinated processes. White = myelinated axons (white because of myelin lipid)." },
+      { q: "Which glial cell forms scar tissue after CNS injury?",
+        a: "Astrocytes (astrogliosis / glial scar). Seals injury but blocks regeneration." }
+    ]
+  },
+  {
+    id: 'bio-02',
+    track: 'Biopsychology',
+    title: 'Deck 2, Brain Anatomy',
+    cards: [
+      { q: "Four lobes of the cerebral cortex?",
+        a: "Frontal, Parietal, Temporal, Occipital." },
+      { q: "Primary motor cortex, location and Brodmann area?",
+        a: "Precentral gyrus, frontal lobe. Brodmann area 4." },
+      { q: "Primary somatosensory cortex, location and Brodmann areas?",
+        a: "Postcentral gyrus, parietal lobe. Brodmann areas 3, 1, 2." },
+      { q: "Primary visual cortex, location and Brodmann area?",
+        a: "Calcarine sulcus, occipital lobe. Brodmann area 17 (V1)." },
+      { q: "Primary auditory cortex, location and Brodmann areas?",
+        a: "Superior temporal gyrus (Heschl's gyrus). Brodmann areas 41, 42." },
+      { q: "Broca's area, location and function?",
+        a: "Left inferior frontal gyrus, Brodmann 44/45. Speech production. Lesion = Broca's aphasia (non-fluent, effortful, comprehension mostly preserved)." },
+      { q: "Wernicke's area, location and function?",
+        a: "Left superior temporal gyrus, Brodmann 22. Language comprehension. Lesion = Wernicke's aphasia (fluent but meaningless, poor comprehension)." },
+      { q: "Four 'subcortical big' structures?",
+        a: "Thalamus, Hypothalamus, Basal ganglia, Limbic system." },
+      { q: "Thalamus, main function?",
+        a: "Relay station for almost all sensory info to cortex (except smell). Also involved in motor, arousal, consciousness." },
+      { q: "Hypothalamus, functions (4 Fs)?",
+        a: "Feeding, Fighting, Fleeing, Mating. Also controls pituitary, autonomic, temperature, circadian (via SCN)." },
+      { q: "Basal ganglia, main components?",
+        a: "Caudate, Putamen, Globus pallidus, Subthalamic nucleus, Substantia nigra. Motor control, habit, reward." },
+      { q: "Parkinson's disease, basal ganglia lesion?",
+        a: "Degeneration of dopaminergic neurons in the substantia nigra pars compacta. Reduced dopamine input to striatum." },
+      { q: "Huntington's disease, basal ganglia lesion?",
+        a: "Degeneration of medium spiny neurons in the caudate and putamen. Chorea, cognitive decline." },
+      { q: "Papez circuit, sequence?",
+        a: "Hippocampus → Fornix → Mammillary bodies → Anterior thalamus → Cingulate cortex → Parahippocampal gyrus → back to Hippocampus. Emotion + memory." },
+      { q: "Amygdala, main function?",
+        a: "Emotional processing, especially fear. Threat detection, fear conditioning, emotional memory." },
+      { q: "Hippocampus, main function?",
+        a: "Declarative (explicit) memory consolidation, spatial navigation. Damage → anterograde amnesia (patient HM)." },
+      { q: "Cerebellum, main function?",
+        a: "Motor coordination, balance, timing, motor learning. Lesion → ataxia, dysmetria, intention tremor." },
+      { q: "Three parts of the brainstem?",
+        a: "Midbrain, Pons, Medulla oblongata." },
+      { q: "Reticular activating system, function?",
+        a: "Arousal, sleep-wake cycle, consciousness. Lesion = coma." },
+      { q: "Corpus callosum, function?",
+        a: "Largest white-matter tract. Connects left and right hemispheres. Sectioned in split-brain surgery (Sperry's work)." }
+    ]
+  },
+  {
+    id: 'bio-03',
+    track: 'Biopsychology',
+    title: 'Deck 3, Sleep, ANS, HPA',
+    cards: [
+      { q: "Five sleep stages and their EEG?",
+        a: "Wake (beta, 13-30 Hz). Stage 1 NREM (theta, 4-8 Hz). Stage 2 NREM (spindles, K-complexes). Stage 3 NREM (delta, slow-wave, 0.5-4 Hz). REM (mixed frequency, low amplitude, looks like awake but with muscle atonia)." },
+      { q: "Which sleep stage has muscle atonia?",
+        a: "REM. Pons suppresses motor output. Prevents dream enactment. Loss = REM sleep behavior disorder." },
+      { q: "Which stage has most dreaming?",
+        a: "REM, vivid narrative dreams. NREM dreams are less emotional, more thought-like." },
+      { q: "Sympathetic vs parasympathetic, dominant when?",
+        a: "Sympathetic = fight-or-flight, stress, arousal. Parasympathetic = rest-and-digest, recovery." },
+      { q: "Sympathetic effect on heart rate?",
+        a: "Increases (tachycardia). Via norepinephrine on beta-1 receptors." },
+      { q: "Parasympathetic effect on heart rate?",
+        a: "Decreases (bradycardia). Via acetylcholine on M2 receptors. Main nerve = vagus (CN X)." },
+      { q: "Sympathetic effect on pupils?",
+        a: "Dilation (mydriasis). Parasympathetic = constriction (miosis)." },
+      { q: "Main sympathetic neurotransmitter at target organ?",
+        a: "Norepinephrine (from postganglionic sympathetic neurons). Except sweat glands = acetylcholine." },
+      { q: "Main parasympathetic neurotransmitter?",
+        a: "Acetylcholine (at both ganglion and target)." },
+      { q: "HPA axis sequence?",
+        a: "Stressor → Hypothalamus releases CRH → Anterior pituitary releases ACTH → Adrenal cortex releases Cortisol → Negative feedback to hypothalamus and pituitary." },
+      { q: "What is CRH?",
+        a: "Corticotropin-releasing hormone. Hypothalamic peptide that triggers pituitary ACTH release." },
+      { q: "What is ACTH?",
+        a: "Adrenocorticotropic hormone. Anterior pituitary hormone that stimulates adrenal cortex to release cortisol." },
+      { q: "What is cortisol?",
+        a: "Glucocorticoid from adrenal cortex. Raises blood glucose, suppresses immune function, mobilizes energy. Peak in morning (cortisol awakening response)." },
+      { q: "Cushing's vs Addison's?",
+        a: "Cushing's = hypercortisolism (too much). Addison's = adrenal insufficiency (too little cortisol + aldosterone)." },
+      { q: "SCN, where and what?",
+        a: "Suprachiasmatic nucleus of the hypothalamus. Master circadian clock. Entrained by light via retinohypothalamic tract." },
+      { q: "Melatonin, where and when?",
+        a: "Pineal gland. Released in darkness. Promotes sleep onset. Regulated by SCN." },
+      { q: "Two hemispheres of the visual field, crossing point?",
+        a: "Optic chiasm. Nasal retinal fibers cross. Temporal retinal fibers stay ipsilateral. So left visual field processed by right hemisphere." },
+      { q: "Dorsal vs ventral visual stream?",
+        a: "Dorsal (where/how, parietal): motion, spatial, action guidance. Ventral (what, temporal): object recognition, face processing." },
+      { q: "Main excitatory CNS neurotransmitter?",
+        a: "Glutamate." },
+      { q: "Main inhibitory CNS neurotransmitter?",
+        a: "GABA." }
+    ]
+  },
+  {
+    id: 'ass-01',
+    track: 'Psych Assessment',
+    title: 'Deck 1, Reliability, Validity, Norms',
+    cards: [
+      { q: "Formula for difficulty index (p)?",
+        a: "p = (right / attempted). Range 0 to 1." },
+      { q: "Formula for discrimination index (D)?",
+        a: "D = p_upper − p_lower. Top 27% minus bottom 27%. Range −1 to +1." },
+      { q: "What does a negative discrimination index mean?",
+        a: "Miskeyed or misleading item. Low scorers beat high scorers. Discard." },
+      { q: "Ideal item difficulty for a free-response test?",
+        a: "p ≈ 0.50. For 4-option MCQ adjust for guessing → about 0.625." },
+      { q: "What does Spearman-Brown formula estimate?",
+        a: "Full-test reliability from split-half correlation. r_full = 2·r_half / (1 + r_half)." },
+      { q: "What is Cronbach's alpha equivalent to?",
+        a: "Mean of all possible split-half correlations. Index of internal consistency. NOT a measure of unidimensionality." },
+      { q: "When do you use KR-20 instead of Cronbach's alpha?",
+        a: "When items are dichotomously scored (right/wrong, yes/no). KR-20 is alpha for 0/1 items." },
+      { q: "Formula for SEM (Standard Error of Measurement)?",
+        a: "SEM = SD · √(1 − r_xx)." },
+      { q: "Which coefficient for inter-rater reliability on categorical data?",
+        a: "Cohen's kappa. Corrects for chance agreement. ≥ 0.81 = almost perfect." },
+      { q: "Which coefficient for inter-rater reliability on continuous data?",
+        a: "Intraclass Correlation Coefficient (ICC)." },
+      { q: "Predictive vs concurrent validity, difference?",
+        a: "Predictive = criterion measured LATER (e.g., GRE → grad GPA). Concurrent = measured at the SAME time." },
+      { q: "Convergent vs discriminant validity?",
+        a: "Convergent = high r with related constructs. Discriminant = low r with unrelated constructs. Both subtypes of construct validity." },
+      { q: "Campbell-Fiske 1959, what matrix?",
+        a: "Multitrait-Multimethod (MTMM). Establishes convergent and discriminant validity simultaneously." },
+      { q: "Validity ceiling formula?",
+        a: "Validity ≤ √(r_xx · r_yy). An unreliable test cannot be strongly valid." },
+      { q: "Face validity vs content validity?",
+        a: "Face = looks valid to laypeople (weakest form). Content = expert judgment of domain coverage." },
+      { q: "Wechsler IQ mean and SD?",
+        a: "M = 100, SD = 15. Old Stanford-Binet used SD = 16." },
+      { q: "Stanine mean and SD?",
+        a: "M = 5, SD = 2. Range 1 to 9. Not SD = 1." },
+      { q: "T score mean and SD?",
+        a: "M = 50, SD = 10. Used in MMPI, Big Five." },
+      { q: "Bhatia Battery, how many subtests and names?",
+        a: "5: Koh's Block Design, Alexander's Pass-Along, Pattern Drawing, Immediate Memory, Picture Construction." },
+      { q: "Rorschach, how many cards?",
+        a: "10 cards. 5 chromatic (color), 5 achromatic (black-and-white)." }
+    ]
+  },
+  {
+    id: 'ass-02',
+    track: 'Psych Assessment',
+    title: 'Deck 2, Tests and Scales',
+    cards: [
+      { q: "WAIS-IV, age range?",
+        a: "16:0 to 90:11 years. Adult Wechsler." },
+      { q: "WISC-V, age range?",
+        a: "6:0 to 16:11 years. Children's Wechsler." },
+      { q: "WPPSI-IV, age range?",
+        a: "2:6 to 7:7 years. Preschool Wechsler." },
+      { q: "WAIS-IV, four index scores?",
+        a: "Verbal Comprehension (VCI), Perceptual Reasoning (PRI), Working Memory (WMI), Processing Speed (PSI). Combine into FSIQ." },
+      { q: "Raven's Progressive Matrices, what does it measure?",
+        a: "Nonverbal general intelligence (g, fluid reasoning). Culture-reduced. Three forms: SPM, CPM (children), APM (high ability)." },
+      { q: "Big Five personality, OCEAN expansion?",
+        a: "Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism. Measured by NEO-PI-R / NEO-FFI." },
+      { q: "Who created the NEO-PI?",
+        a: "Paul Costa and Robert McCrae." },
+      { q: "MMPI-2, how many clinical scales?",
+        a: "10 clinical scales: Hs, D, Hy, Pd, Mf, Pa, Pt, Sc, Ma, Si. Plus validity scales (L, F, K, etc.)." },
+      { q: "16PF, who created it?",
+        a: "Raymond Cattell. 16 primary factors, 5 global factors. Not the same as the Big Five." },
+      { q: "TAT, how many cards total?",
+        a: "31 cards. 20 used per administration, selected by age and sex. Murray and Morgan, 1935." },
+      { q: "TAT, what is it based on theoretically?",
+        a: "Henry Murray's needs-press theory. Ambiguous pictures elicit projection of unconscious needs and conflicts." },
+      { q: "Likert scale, year and key idea?",
+        a: "1932. Summated rating scale. Typically 5-point (Strongly Agree to Strongly Disagree). Sum item scores for total." },
+      { q: "Thurstone scale, year and key idea?",
+        a: "1928. Equal-appearing intervals. Judges rate items 1 to 11. Item scale values assigned before administration." },
+      { q: "Y-BOCS, what does it measure?",
+        a: "Yale-Brown Obsessive-Compulsive Scale. 10 items. Gold standard for OCD severity." },
+      { q: "BDI-II, what does it measure?",
+        a: "Beck Depression Inventory, 2nd edition. 21 items. Self-report. 0 to 3 each. Total 0 to 63." },
+      { q: "HAM-D, clinician or self?",
+        a: "Hamilton Depression Rating Scale. Clinician-administered. 17 or 21 items." },
+      { q: "PANSS, what does it assess?",
+        a: "Positive and Negative Syndrome Scale. 30 items. Severity of schizophrenia symptoms." },
+      { q: "MMSE, max score and impairment cutoff?",
+        a: "Max = 30. Cutoff ≤ 23 or 24 suggests cognitive impairment. Folstein et al." },
+      { q: "MoCA, max score and advantage over MMSE?",
+        a: "Max = 30. More sensitive to mild cognitive impairment than MMSE. Cutoff ≤ 25 typically." },
+      { q: "Holland's RIASEC, what are the six types?",
+        a: "Realistic, Investigative, Artistic, Social, Enterprising, Conventional. Used in Self-Directed Search and Strong Interest Inventory." }
+    ]
+  }
+];
+
+// =====================================================================
+// COUNTDOWN
+// =====================================================================
+function updateCountdown() {
+  const exam = new Date('2026-05-23T00:00:00+05:30');
+  const now = new Date();
+  const ms = exam - now;
+  if (ms <= 0) { document.getElementById('countdown').textContent = 'Exam day!'; return; }
+  const days = Math.floor(ms / (1000 * 60 * 60 * 24));
+  document.getElementById('countdown').textContent = `${days} days to MET, 23 May 2026`;
+}
+
+// =====================================================================
+// STATE
+// =====================================================================
+const state = {
+  deckIdx: 0,
+  cardIdx: 0,
+  order: [],
+  flipped: false,
+  progress: {}
+};
+
+function storageKey(deckId) { return `sihan-met-progress-${deckId}`; }
+
+function loadProgress(deckId) {
+  try {
+    const raw = localStorage.getItem(storageKey(deckId));
+    if (!raw) return { knew: new Set(), missed: new Set() };
+    const obj = JSON.parse(raw);
+    return { knew: new Set(obj.knew || []), missed: new Set(obj.missed || []) };
+  } catch { return { knew: new Set(), missed: new Set() }; }
+}
+
+function saveProgress(deckId) {
+  const p = state.progress[deckId];
+  if (!p) return;
+  localStorage.setItem(storageKey(deckId), JSON.stringify({
+    knew: [...p.knew], missed: [...p.missed]
+  }));
+}
+
+function currentDeck() { return DECKS[state.deckIdx]; }
+function currentCard() {
+  const deck = currentDeck();
+  const actualIdx = state.order[state.cardIdx];
+  return { card: deck.cards[actualIdx], actualIdx };
+}
+
+// =====================================================================
+// RENDER
+// =====================================================================
+function render() {
+  const deck = currentDeck();
+  const { card } = currentCard();
+  document.getElementById('cardQuestion').textContent = card.q;
+  document.getElementById('cardAnswer').textContent = card.a;
+  document.getElementById('cardPosition').textContent = `${state.cardIdx + 1} / ${deck.cards.length}`;
+  const pct = ((state.cardIdx + 1) / deck.cards.length) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+
+  const cardEl = document.getElementById('card');
+  state.flipped = false;
+  cardEl.classList.remove('flipped');
+
+  document.getElementById('prevBtn').disabled = state.cardIdx === 0;
+  document.getElementById('nextBtn').disabled = state.cardIdx === deck.cards.length - 1;
+
+  renderStats();
+}
+
+function renderStats() {
+  const deck = currentDeck();
+  const p = state.progress[deck.id] || { knew: new Set(), missed: new Set() };
+  const total = deck.cards.length;
+  const seen = p.knew.size + p.missed.size;
+  const el = document.getElementById('stats');
+  el.innerHTML = `Seen: ${seen} / ${total}  •  <span class="good">Knew: ${p.knew.size}</span>  •  <span class="bad">Missed: ${p.missed.size}</span>`;
+}
+
+function populateDeckPicker() {
+  const sel = document.getElementById('deckSelect');
+  sel.innerHTML = '';
+  DECKS.forEach((d, i) => {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = `${d.track}: ${d.title} (${d.cards.length} cards)`;
+    sel.appendChild(opt);
+  });
+  sel.value = state.deckIdx;
+}
+
+// =====================================================================
+// ACTIONS
+// =====================================================================
+function flip() {
+  state.flipped = !state.flipped;
+  document.getElementById('card').classList.toggle('flipped', state.flipped);
+}
+
+function next() {
+  const deck = currentDeck();
+  if (state.cardIdx < deck.cards.length - 1) {
+    state.cardIdx++;
+    render();
+  }
+}
+
+function prev() {
+  if (state.cardIdx > 0) {
+    state.cardIdx--;
+    render();
+  }
+}
+
+function shuffle() {
+  const deck = currentDeck();
+  state.order = [...Array(deck.cards.length).keys()].sort(() => Math.random() - 0.5);
+  state.cardIdx = 0;
+  render();
+}
+
+function resetOrder() {
+  const deck = currentDeck();
+  state.order = [...Array(deck.cards.length).keys()];
+  state.cardIdx = 0;
+}
+
+function markKnew() {
+  const deck = currentDeck();
+  const { actualIdx } = currentCard();
+  const p = state.progress[deck.id];
+  p.knew.add(actualIdx);
+  p.missed.delete(actualIdx);
+  saveProgress(deck.id);
+  renderStats();
+  if (state.cardIdx < deck.cards.length - 1) next();
+}
+
+function markMissed() {
+  const deck = currentDeck();
+  const { actualIdx } = currentCard();
+  const p = state.progress[deck.id];
+  p.missed.add(actualIdx);
+  p.knew.delete(actualIdx);
+  saveProgress(deck.id);
+  renderStats();
+  if (state.cardIdx < deck.cards.length - 1) next();
+}
+
+function switchDeck(idx) {
+  state.deckIdx = idx;
+  const deck = currentDeck();
+  if (!state.progress[deck.id]) state.progress[deck.id] = loadProgress(deck.id);
+  resetOrder();
+  render();
+}
+
+// =====================================================================
+// INIT + EVENTS
+// =====================================================================
+function init() {
+  updateCountdown();
+  setInterval(updateCountdown, 60 * 60 * 1000);
+  populateDeckPicker();
+  DECKS.forEach(d => { state.progress[d.id] = loadProgress(d.id); });
+  resetOrder();
+  render();
+
+  document.getElementById('deckSelect').addEventListener('change', e => switchDeck(parseInt(e.target.value)));
+  document.getElementById('card').addEventListener('click', flip);
+  document.getElementById('prevBtn').addEventListener('click', prev);
+  document.getElementById('nextBtn').addEventListener('click', next);
+  document.getElementById('knewBtn').addEventListener('click', markKnew);
+  document.getElementById('missedBtn').addEventListener('click', markMissed);
+  document.getElementById('shuffleBtn').addEventListener('click', shuffle);
+
+  document.addEventListener('keydown', e => {
+    if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); flip(); }
+    else if (e.key === 'ArrowRight') next();
+    else if (e.key === 'ArrowLeft') prev();
+    else if (e.key === '1') markMissed();
+    else if (e.key === '2') markKnew();
+  });
+
+  let touchStartX = 0;
+  document.getElementById('card').addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  document.getElementById('card').addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 60) {
+      if (dx < 0) next(); else prev();
+    }
+  }, { passive: true });
+}
+
+init();
+</script>
+</body>
+</html>
