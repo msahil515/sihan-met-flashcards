@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0d1117">
+<title>MCQ Quiz — MET 2026 + NIMHANS</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --panel-2: #1f252d;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --accent-dim: #1f6feb;
+    --good: #3fb950;
+    --bad: #f85149;
+    --warn: #f0b429;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Text', sans-serif;
+    line-height: 1.5;
+  }
+  .app {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 16px;
+    min-height: 100vh;
+  }
+  nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    font-size: 13px;
+  }
+  nav a {
+    color: var(--accent);
+    text-decoration: none;
+    padding: 6px 10px;
+    border: 1px solid var(--accent-dim);
+    border-radius: 6px;
+  }
+  header {
+    text-align: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-size: 18px;
+    margin: 0 0 4px 0;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .subtitle {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .filters {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filters label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  select {
+    background: var(--panel-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 14px;
+    font-family: inherit;
+    flex: 1;
+    min-width: 140px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%238b949e' d='M2 4l4 4 4-4z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 28px;
+  }
+  .progress {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .progress-bar {
+    height: 4px;
+    background: var(--panel);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  .question-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 12px;
+  }
+  .section-tag {
+    display: inline-block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    background: rgba(88, 166, 255, 0.08);
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .question-text {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 14px;
+    white-space: pre-wrap;
+  }
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .option {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .option:hover:not(.disabled) {
+    border-color: var(--accent-dim);
+    background: rgba(31, 111, 235, 0.05);
+  }
+  .option.selected {
+    border-color: var(--accent);
+    background: rgba(88, 166, 255, 0.08);
+  }
+  .option.correct {
+    border-color: var(--good);
+    background: rgba(63, 185, 80, 0.1);
+  }
+  .option.incorrect {
+    border-color: var(--bad);
+    background: rgba(248, 81, 73, 0.08);
+  }
+  .option.disabled {
+    cursor: default;
+  }
+  .option-letter {
+    font-weight: 600;
+    color: var(--accent);
+    flex-shrink: 0;
+    width: 20px;
+  }
+  .option.correct .option-letter { color: var(--good); }
+  .option.incorrect .option-letter { color: var(--bad); }
+  .guess-row {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .guess-row.checked {
+    border-color: var(--warn);
+    background: rgba(240, 180, 41, 0.06);
+  }
+  .guess-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.1s ease;
+  }
+  .guess-row.checked .guess-checkbox {
+    border-color: var(--warn);
+    background: var(--warn);
+  }
+  .guess-row.checked .guess-checkbox::after {
+    content: "✓";
+    color: var(--bg);
+    font-weight: 800;
+    font-size: 14px;
+  }
+  .guess-label {
+    flex: 1;
+  }
+  .guess-label small {
+    display: block;
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 2px;
+  }
+  .controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  button {
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-weight: 500;
+  }
+  button:hover:not(:disabled) {
+    background: var(--panel-2);
+    border-color: var(--accent-dim);
+  }
+  button:active:not(:disabled) { transform: scale(0.98); }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-primary {
+    border-color: var(--accent-dim);
+    color: var(--accent);
+  }
+  .btn-primary:hover:not(:disabled) { background: rgba(88, 166, 255, 0.08); }
+  .explanation {
+    background: var(--panel-2);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin-top: 14px;
+    font-size: 14px;
+    color: var(--text);
+    display: none;
+  }
+  .explanation.visible { display: block; }
+  .explanation strong { color: var(--accent); }
+  .stats {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 16px;
+    font-size: 13px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    text-align: center;
+  }
+  .stat-item {
+    padding: 4px;
+  }
+  .stat-num {
+    font-size: 20px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .stat-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .stat-confident-right { color: var(--good); }
+  .stat-guessed-right { color: var(--warn); }
+  .stat-wrong { color: var(--bad); }
+  .stat-skipped { color: var(--muted); }
+  .review-area {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .review-area h3 {
+    font-size: 14px;
+    margin: 0 0 8px 0;
+    color: var(--text);
+  }
+  .review-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .review-list li {
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .review-list li:last-child { border-bottom: none; }
+  .review-tag {
+    display: inline-block;
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-right: 6px;
+    font-weight: 600;
+  }
+  .review-tag.guessed { background: rgba(240, 180, 41, 0.15); color: var(--warn); }
+  .review-tag.wrong { background: rgba(248, 81, 73, 0.15); color: var(--bad); }
+  .reset-btn {
+    margin-top: 12px;
+    width: 100%;
+    color: var(--muted);
+    font-size: 12px;
+  }
+  footer {
+    text-align: center;
+    font-size: 10px;
+    color: var(--muted);
+    padding: 24px 0 8px 0;
+  }
+  @media (max-width: 400px) {
+    .question-text { font-size: 15px; }
+    .option { font-size: 14px; padding: 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <nav><a href="../">← Flashcards</a> <a href="../notes/">Notes</a></nav>
+  <header>
+    <h1>MCQ Quiz</h1>
+    <div class="subtitle">MET 2026 + NIMHANS · interactive · confidence-tracked</div>
+  </header>
+
+  <div class="filters">
+    <label for="sectionSelect">Section</label>
+    <select id="sectionSelect">
+      <option value="all">All sections</option>
+      <option value="biopsych">Biopsychology</option>
+      <option value="dev">Developmental</option>
+      <option value="abnormal">Abnormal</option>
+      <option value="assessment">Psychological Assessment</option>
+      <option value="therapy">Psychotherapy</option>
+      <option value="biostats">Biostats / Research</option>
+      <option value="social">Social Psychology</option>
+      <option value="general">General Psychology</option>
+    </select>
+  </div>
+
+  <div class="progress" id="progress">0 / 0</div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div id="quizArea"></div>
+
+  <div class="stats" id="stats">
+    <div class="stat-item"><span class="stat-num stat-confident-right" id="statRight">0</span><span class="stat-label">Right (Solid)</span></div>
+    <div class="stat-item"><span class="stat-num stat-guessed-right" id="statGuessed">0</span><span class="stat-label">Right (Guessed)</span></div>
+    <div class="stat-item"><span class="stat-num stat-wrong" id="statWrong">0</span><span class="stat-label">Wrong</span></div>
+    <div class="stat-item"><span class="stat-num stat-skipped" id="statSkipped">0</span><span class="stat-label">Skipped</span></div>
+  </div>
+
+  <div class="review-area" id="reviewArea" style="display:none;">
+    <h3>Things to come back to</h3>
+    <ul class="review-list" id="reviewList"></ul>
+    <button class="reset-btn" id="resetBtn">Reset all stats and start over</button>
+  </div>
+
+  <footer>Progress saved locally per section. Refresh to keep.</footer>
+</div>
+
+<script>
+// =====================================================================
+// QUESTION BANK
+// Each Q: { id, section, q, options: {a,b,c,d}, correct, explanation, exam }
+// exam: "MET", "NIMHANS", or "both"
+// =====================================================================
+const QUESTIONS = [
+  // ============ BIOPSYCHOLOGY ============
+  { id: "bio01", section: "biopsych", exam: "both",
+    q: "The most abundant glial cell in the central nervous system is:",
+    options: { a: "Microglia", b: "Oligodendrocytes", c: "Astrocytes", d: "Ependymal cells" },
+    correct: "c",
+    explanation: "Astrocytes are the most numerous glial cell in the CNS overall. They maintain the blood-brain barrier, regulate extracellular ion concentrations, and form glial scars after injury. Oligodendrocytes (b) handle CNS myelination, microglia (a) are immune cells, ependymal cells (d) line the ventricles." },
+
+  { id: "bio02", section: "biopsych", exam: "both",
+    q: "Broca's area is located in the:",
+    options: {
+      a: "Superior temporal gyrus of the left hemisphere",
+      b: "Inferior frontal gyrus of the left hemisphere",
+      c: "Postcentral gyrus of the parietal lobe",
+      d: "Cingulate gyrus"
+    },
+    correct: "b",
+    explanation: "Broca's area is in the inferior frontal gyrus (Brodmann 44/45) of the dominant (usually left) hemisphere. Lesion produces non-fluent (Broca's) aphasia: effortful speech, comprehension mostly preserved. (a) describes Wernicke's area." },
+
+  { id: "bio03", section: "biopsych", exam: "both",
+    q: "Muscle atonia during sleep is characteristic of:",
+    options: { a: "Stage 2 NREM", b: "Stage 3 NREM (delta)", c: "REM", d: "Stage 1 NREM" },
+    correct: "c",
+    explanation: "REM is paradoxical sleep: cortical activity looks awake, but the pons actively paralyzes skeletal muscles via descending inhibition to spinal motor neurons. Loss of this atonia in the elderly is REM Sleep Behavior Disorder (RBD), an early α-synucleinopathy sign." },
+
+  { id: "bio04", section: "biopsych", exam: "both",
+    q: "Cortisol is released by the:",
+    options: {
+      a: "Anterior pituitary",
+      b: "Posterior pituitary",
+      c: "Adrenal medulla",
+      d: "Adrenal cortex (zona fasciculata)"
+    },
+    correct: "d",
+    explanation: "Cortisol comes from the zona fasciculata of the adrenal CORTEX. The medulla (c) makes epinephrine and norepinephrine. HPA axis: hypothalamus CRH → anterior pituitary ACTH → adrenal cortex cortisol → negative feedback." },
+
+  { id: "bio05", section: "biopsych", exam: "both",
+    q: "Dopaminergic neurons of the substantia nigra pars compacta primarily project to:",
+    options: { a: "Hippocampus", b: "Striatum (caudate + putamen)", c: "Prefrontal cortex", d: "Cerebellum" },
+    correct: "b",
+    explanation: "Substantia nigra → striatum is the nigrostriatal pathway. Degeneration here causes Parkinson's disease. (a) hippocampus gets DA from VTA via mesolimbic, (c) prefrontal cortex from VTA via mesocortical." },
+
+  { id: "bio06", section: "biopsych", exam: "both",
+    q: "The four major dopamine pathways include all EXCEPT:",
+    options: {
+      a: "Nigrostriatal",
+      b: "Mesolimbic",
+      c: "Tuberoinfundibular",
+      d: "Corticospinal"
+    },
+    correct: "d",
+    explanation: "Corticospinal is a motor pathway (cortex → spinal cord), not a dopamine pathway. The four DA pathways are nigrostriatal, mesolimbic, mesocortical, and tuberoinfundibular." },
+
+  { id: "bio07", section: "biopsych", exam: "NIMHANS",
+    q: "A patient with Wernicke-Korsakoff syndrome typically presents with all EXCEPT:",
+    options: {
+      a: "Anterograde amnesia",
+      b: "Confabulation",
+      c: "Ataxia and ophthalmoplegia",
+      d: "Receptive aphasia"
+    },
+    correct: "d",
+    explanation: "Wernicke-Korsakoff is caused by thiamine (B1) deficiency, classically in chronic alcohol use. Triad: confusion + ataxia + ophthalmoplegia (Wernicke phase) progressing to amnesia + confabulation (Korsakoff phase). Receptive aphasia is unrelated; that is a Wernicke's area lesion." },
+
+  // ============ DEVELOPMENTAL ============
+  { id: "dev01", section: "dev", exam: "both",
+    q: "Piaget's sensorimotor stage covers:",
+    options: { a: "0 to 2 years", b: "2 to 7 years", c: "7 to 11 years", d: "11+ years" },
+    correct: "a",
+    explanation: "Piaget: sensorimotor (0-2), preoperational (2-7), concrete operational (7-11), formal operational (11+). Object permanence emerges around 8-12 months within sensorimotor." },
+
+  { id: "dev02", section: "dev", exam: "both",
+    q: "Erikson's stage for adolescence is:",
+    options: {
+      a: "Trust vs Mistrust",
+      b: "Identity vs Role Confusion",
+      c: "Intimacy vs Isolation",
+      d: "Generativity vs Stagnation"
+    },
+    correct: "b",
+    explanation: "Erikson's 8 stages: Trust/Mistrust (infant), Autonomy/Shame (toddler), Initiative/Guilt (preschool), Industry/Inferiority (school age), Identity/Role Confusion (adolescent 12-18), Intimacy/Isolation (young adult), Generativity/Stagnation (middle adult), Integrity/Despair (late adult)." },
+
+  { id: "dev03", section: "dev", exam: "both",
+    q: "Ainsworth's Strange Situation originally identified how many attachment classifications?",
+    options: { a: "2", b: "3", c: "4", d: "5" },
+    correct: "b",
+    explanation: "Original 3 classifications: secure (B), anxious-avoidant (A), anxious-resistant/ambivalent (C). Disorganized (D) was added later by Main & Solomon (1986)." },
+
+  { id: "dev04", section: "dev", exam: "both",
+    q: "Vygotsky's Zone of Proximal Development refers to:",
+    options: {
+      a: "Upper limit of cognitive ability at a given age",
+      b: "Gap between what a child can do alone vs with help",
+      c: "Concrete operational range",
+      d: "Critical period for language"
+    },
+    correct: "b",
+    explanation: "ZPD = the range of tasks a learner cannot do alone but can complete with guidance from a More Knowledgeable Other (MKO). Scaffolding fills this gap. Vygotsky's social constructivism contrasts Piaget's solo-cognition view." },
+
+  { id: "dev05", section: "dev", exam: "NIMHANS",
+    q: "Kohlberg's preconventional level of moral reasoning is characterized by:",
+    options: {
+      a: "Maintaining social order",
+      b: "Universal ethical principles",
+      c: "Avoiding punishment / seeking rewards",
+      d: "Following social contracts"
+    },
+    correct: "c",
+    explanation: "Kohlberg's 3 levels (6 stages): Preconventional (obedience/punishment, instrumental exchange) → Conventional (good-boy interpersonal, law and order) → Postconventional (social contract, universal principles)." },
+
+  // ============ ABNORMAL ============
+  { id: "abn01", section: "abnormal", exam: "both",
+    q: "DSM-5 requires Major Depressive Disorder symptoms to last at least:",
+    options: { a: "1 week", b: "2 weeks", c: "1 month", d: "6 months" },
+    correct: "b",
+    explanation: "MDD: 5+ symptoms (including depressed mood OR anhedonia) most of the day, nearly every day, for at least 2 weeks. Persistent depressive disorder (dysthymia) requires 2 years." },
+
+  { id: "abn02", section: "abnormal", exam: "both",
+    q: "Schneider's first-rank symptoms are most characteristic of:",
+    options: { a: "Bipolar disorder", b: "Schizophrenia", c: "OCD", d: "PTSD" },
+    correct: "b",
+    explanation: "Kurt Schneider (1959) listed first-rank symptoms of schizophrenia: thought withdrawal/insertion/broadcasting, audible thoughts, voices arguing or commenting, somatic passivity, delusional perception, made affect/impulses/volitional acts." },
+
+  { id: "abn03", section: "abnormal", exam: "both",
+    q: "DSM-5 GAD requires excessive worry for at least:",
+    options: { a: "1 month", b: "3 months", c: "6 months", d: "1 year" },
+    correct: "c",
+    explanation: "GAD: excessive anxiety/worry on more days than not, for at least 6 months, with 3+ of (restlessness, fatigue, concentration difficulty, irritability, muscle tension, sleep disturbance)." },
+
+  { id: "abn04", section: "abnormal", exam: "both",
+    q: "Perfectionism, preoccupation with rules, and inflexibility, in the absence of obsessions/compulsions, suggests:",
+    options: { a: "OCD", b: "OCPD", c: "Schizotypal PD", d: "Narcissistic PD" },
+    correct: "b",
+    explanation: "OCPD = personality disorder, ego-syntonic, no true obsessions or compulsions, just rigid perfectionism and control. OCD has ego-dystonic obsessions and compulsions (washing, checking, etc.) that the patient recognizes as excessive." },
+
+  { id: "abn05", section: "abnormal", exam: "both",
+    q: "Which is a NEGATIVE symptom of schizophrenia?",
+    options: { a: "Hallucinations", b: "Delusions", c: "Avolition", d: "Disorganized speech" },
+    correct: "c",
+    explanation: "Negative symptoms = reductions/absences. The 5 As: Anhedonia, Avolition, Alogia, Affective flattening, Asociality. Positive symptoms (a, b, d) are excesses or distortions of normal function." },
+
+  // ============ ASSESSMENT ============
+  { id: "ass01", section: "assessment", exam: "both",
+    q: "If a test has reliability 0.81 and SD 20, the Standard Error of Measurement is about:",
+    options: { a: "3.8", b: "8.7", c: "18.0", d: "20.0" },
+    correct: "b",
+    explanation: "SEM = SD × √(1 − r_xx) = 20 × √(1 − 0.81) = 20 × √0.19 = 20 × 0.436 ≈ 8.72. Higher reliability shrinks SEM." },
+
+  { id: "ass02", section: "assessment", exam: "both",
+    q: "A correlation of 0.30 between GRE scores and graduate GPA two years later reflects:",
+    options: { a: "Predictive validity", b: "Concurrent validity", c: "Content validity", d: "Face validity" },
+    correct: "a",
+    explanation: "Predictive = criterion measured in the future. Concurrent = same time. Memory hook: Predictive = Postponed." },
+
+  { id: "ass03", section: "assessment", exam: "both",
+    q: "The MMPI-2 has how many clinical scales?",
+    options: { a: "8", b: "10", c: "13", d: "16" },
+    correct: "b",
+    explanation: "10 clinical scales: Hs, D, Hy, Pd, Mf, Pa, Pt, Sc, Ma, Si. Plus validity scales (L, F, K, etc.). Do not confuse with 16PF (Cattell, 16 primary factors, different test)." },
+
+  { id: "ass04", section: "assessment", exam: "both",
+    q: "The Thematic Apperception Test (TAT) uses how many total cards?",
+    options: { a: "10", b: "15", c: "20", d: "31" },
+    correct: "d",
+    explanation: "TAT = 31 total cards, 20 used per administration (selected by age and sex). Murray + Morgan, 1935. Memory hook: TAT = Thirty-one. Rorschach = Ten." },
+
+  { id: "ass05", section: "assessment", exam: "both",
+    q: "Most appropriate reliability method for a 30-item right/wrong exam, one administration:",
+    options: { a: "Test-retest", b: "Alternate forms", c: "KR-20", d: "Cohen's kappa" },
+    correct: "c",
+    explanation: "KR-20 is internal consistency for dichotomous (0/1) items. Equivalent to Cronbach alpha for right/wrong scoring. Cohen's kappa is INTER-RATER, not internal consistency." },
+
+  { id: "ass06", section: "assessment", exam: "both",
+    q: "Wechsler IQ uses a deviation IQ with:",
+    options: {
+      a: "Mean = 100, SD = 16",
+      b: "Mean = 100, SD = 15",
+      c: "Mean = 50, SD = 10",
+      d: "Mean = 500, SD = 100"
+    },
+    correct: "b",
+    explanation: "Wechsler (WAIS, WISC, WPPSI): M = 100, SD = 15. Old Stanford-Binet used SD = 16. (c) describes T scores. Common trap." },
+
+  // ============ PSYCHOTHERAPY ============
+  { id: "the01", section: "therapy", exam: "both",
+    q: "Systematic desensitization was developed by:",
+    options: { a: "B.F. Skinner", b: "Joseph Wolpe", c: "Albert Ellis", d: "Aaron Beck" },
+    correct: "b",
+    explanation: "Wolpe (1958), based on reciprocal inhibition: pair an anxiety hierarchy with relaxation. Skinner = operant, Ellis = REBT, Beck = CBT." },
+
+  { id: "the02", section: "therapy", exam: "both",
+    q: "In Ellis's REBT, the ABC model has C standing for:",
+    options: { a: "Cognition", b: "Consequence", c: "Condition", d: "Context" },
+    correct: "b",
+    explanation: "Activating event → Belief (rational or irrational) → Consequence (emotional/behavioral). Disputing the irrational B is the therapy core." },
+
+  { id: "the03", section: "therapy", exam: "both",
+    q: "Unconditional positive regard is central to:",
+    options: {
+      a: "Gestalt therapy",
+      b: "Behavior therapy",
+      c: "Person-centered therapy (Rogers)",
+      d: "Psychoanalysis"
+    },
+    correct: "c",
+    explanation: "Rogers: 3 therapist conditions for change = unconditional positive regard, empathy, congruence (genuineness). Humanistic / person-centered tradition." },
+
+  { id: "the04", section: "therapy", exam: "both",
+    q: "Hot seat and present-moment awareness are techniques of:",
+    options: { a: "CBT", b: "Gestalt therapy", c: "Logotherapy", d: "Reality therapy" },
+    correct: "b",
+    explanation: "Gestalt therapy = Fritz Perls. Hot seat, empty chair, here-and-now awareness. Logotherapy = Frankl (meaning). Reality therapy = Glasser (choices, responsibility)." },
+
+  { id: "the05", section: "therapy", exam: "both",
+    q: "DBT (Dialectical Behavior Therapy) was developed by:",
+    options: { a: "Aaron Beck", b: "Marsha Linehan", c: "Steven Hayes", d: "Albert Bandura" },
+    correct: "b",
+    explanation: "Linehan, late 1980s, originally for borderline personality disorder. Combines CBT with mindfulness and acceptance. Hayes = ACT, Bandura = social learning theory." },
+
+  // ============ BIOSTATS ============
+  { id: "bst01", section: "biostats", exam: "both",
+    q: "A Type I error is:",
+    options: {
+      a: "Accepting H0 when it is false",
+      b: "Rejecting H0 when it is true",
+      c: "Increasing power",
+      d: "H0 being true"
+    },
+    correct: "b",
+    explanation: "Type I (alpha) = rejecting a true null = false positive. Type II (beta) = failing to reject a false null = false negative. Power = 1 − beta." },
+
+  { id: "bst02", section: "biostats", exam: "both",
+    q: "To compare means across 3+ independent groups, use:",
+    options: { a: "Independent samples t-test", b: "Paired t-test", c: "One-way ANOVA", d: "Chi-square" },
+    correct: "c",
+    explanation: "ANOVA generalizes the t-test to 3+ groups. Independent t-test only works for 2. Chi-square is for categorical frequencies." },
+
+  { id: "bst03", section: "biostats", exam: "both",
+    q: "A Cronbach alpha of 0.62 for a new scale means:",
+    options: {
+      a: "Excellent reliability",
+      b: "Acceptable for individual decisions",
+      c: "Poor; scale needs revision",
+      d: "Perfect internal consistency"
+    },
+    correct: "c",
+    explanation: "Standard thresholds: ≥0.90 excellent, 0.80-0.89 good, 0.70-0.79 acceptable for research on groups, <0.70 unacceptable for individual decisions." },
+
+  // ============ SOCIAL PSYCHOLOGY (NIMHANS) ============
+  { id: "soc01", section: "social", exam: "NIMHANS",
+    q: "The Asch line-judgment experiments demonstrated:",
+    options: {
+      a: "Diffusion of responsibility",
+      b: "Conformity to group pressure",
+      c: "Cognitive dissonance",
+      d: "Bystander effect"
+    },
+    correct: "b",
+    explanation: "Asch (1951, 1956): participants conformed to obviously wrong group answers about line lengths approximately 37% of trials. Demonstrated normative social influence even when the group is clearly wrong." },
+
+  { id: "soc02", section: "social", exam: "NIMHANS",
+    q: "Festinger's cognitive dissonance theory predicts that people experience tension when:",
+    options: {
+      a: "They are observed by an authority figure",
+      b: "Their attitudes and behaviors conflict",
+      c: "They are part of a large group",
+      d: "Their identity is threatened"
+    },
+    correct: "b",
+    explanation: "Festinger (1957): inconsistency between cognitions (attitudes, beliefs, behaviors) creates uncomfortable arousal that motivates change in one of the cognitions to restore consistency. Classic study: Festinger & Carlsmith (1959), $1 vs $20 boring task." },
+
+  { id: "soc03", section: "social", exam: "NIMHANS",
+    q: "Milgram's obedience studies showed that:",
+    options: {
+      a: "Most participants refused to administer painful shocks",
+      b: "Approximately two-thirds continued to the maximum 450V level",
+      c: "Female participants refused more often than male",
+      d: "Religiosity predicted refusal"
+    },
+    correct: "b",
+    explanation: "Milgram (1963, Yale): about 65% of participants continued shocking the 'learner' to the maximum 450V despite distress. Demonstrated power of legitimate authority to override personal moral objections." },
+
+  { id: "soc04", section: "social", exam: "NIMHANS",
+    q: "The fundamental attribution error refers to:",
+    options: {
+      a: "Overestimating situational causes for our own behavior",
+      b: "Overestimating dispositional causes for others' behavior",
+      c: "Attributing success to luck",
+      d: "Self-serving bias"
+    },
+    correct: "b",
+    explanation: "FAE (Ross, 1977): tendency to over-attribute others' behavior to internal traits while under-weighting situational factors. The actor-observer bias is the related concept where we attribute our own behavior more situationally." },
+
+  // ============ GENERAL PSYCHOLOGY (NIMHANS) ============
+  { id: "gen01", section: "general", exam: "NIMHANS",
+    q: "Classical conditioning was first demonstrated by:",
+    options: { a: "B.F. Skinner", b: "Ivan Pavlov", c: "John B. Watson", d: "Edward Thorndike" },
+    correct: "b",
+    explanation: "Pavlov (1890s-1900s): salivating dogs, demonstrated unconditioned and conditioned stimuli/responses. Skinner = operant, Watson = behaviorism founder (Little Albert), Thorndike = law of effect." },
+
+  { id: "gen02", section: "general", exam: "NIMHANS",
+    q: "The Atkinson-Shiffrin (1968) model of memory proposes:",
+    options: {
+      a: "A single unitary memory store",
+      b: "Sensory, short-term, and long-term stores",
+      c: "Working memory with phonological loop and visuospatial sketchpad",
+      d: "Implicit and explicit memory pathways"
+    },
+    correct: "b",
+    explanation: "Atkinson-Shiffrin multi-store model: information flows from sensory memory (brief, modality-specific) → STM (limited capacity, ~7±2 items) → LTM (effectively unlimited). (c) describes Baddeley's working memory model." },
+
+  { id: "gen03", section: "general", exam: "NIMHANS",
+    q: "Maslow's hierarchy of needs places self-actualization at the:",
+    options: {
+      a: "Bottom of the pyramid",
+      b: "Middle of the pyramid",
+      c: "Just below the top",
+      d: "Top of the pyramid (in the original 5-level model)"
+    },
+    correct: "d",
+    explanation: "Original 1943 hierarchy: Physiological → Safety → Belongingness/Love → Esteem → Self-actualization. Later expanded versions add cognitive, aesthetic, and self-transcendence above self-actualization, but the classic 5-level model has self-actualization at the top." },
+
+  { id: "gen04", section: "general", exam: "NIMHANS",
+    q: "Sternberg's triarchic theory of intelligence proposes three components:",
+    options: {
+      a: "Fluid, crystallized, general",
+      b: "Analytical, creative, practical",
+      c: "Linguistic, logical, spatial",
+      d: "Verbal, performance, full-scale"
+    },
+    correct: "b",
+    explanation: "Sternberg (1985): analytical (componential), creative (experiential), practical (contextual). (a) is Cattell-Horn, (c) is Gardner's multiple intelligences, (d) is older Wechsler structure." }
+];
+
+// =====================================================================
+// STATE
+// =====================================================================
+const state = {
+  filtered: [],
+  index: 0,
+  selected: null,
+  guessed: false,
+  submitted: false,
+  results: {} // qid -> { selected, correct, guessed }
+};
+
+const STORAGE_KEY = "sihan-met-quiz-results-v1";
+
+function loadResults() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) state.results = JSON.parse(raw);
+  } catch {}
+}
+function saveResults() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.results));
+}
+
+// =====================================================================
+// RENDER
+// =====================================================================
+function applyFilter() {
+  const sel = document.getElementById("sectionSelect").value;
+  state.filtered = sel === "all" ? QUESTIONS : QUESTIONS.filter(q => q.section === sel);
+  state.index = 0;
+  render();
+}
+
+function currentQ() {
+  return state.filtered[state.index];
+}
+
+function render() {
+  const qa = document.getElementById("quizArea");
+  if (!state.filtered.length) {
+    qa.innerHTML = '<div class="question-card">No questions in this section yet.</div>';
+    document.getElementById("progress").textContent = "0 / 0";
+    document.getElementById("progressFill").style.width = "0%";
+    renderStats();
+    return;
+  }
+  const q = currentQ();
+  const stored = state.results[q.id];
+  state.selected = stored ? stored.selected : null;
+  state.guessed = stored ? stored.guessed : false;
+  state.submitted = !!stored;
+
+  document.getElementById("progress").textContent = `${state.index + 1} / ${state.filtered.length}`;
+  document.getElementById("progressFill").style.width = `${((state.index + 1) / state.filtered.length) * 100}%`;
+
+  const sectionLabels = {
+    biopsych: "Biopsychology", dev: "Developmental", abnormal: "Abnormal",
+    assessment: "Psych Assessment", therapy: "Psychotherapy", biostats: "Biostats / Research",
+    social: "Social Psychology", general: "General Psychology"
+  };
+
+  qa.innerHTML = `
+    <div class="question-card">
+      <span class="section-tag">${sectionLabels[q.section]} · ${q.exam === "both" ? "MET + NIMHANS" : q.exam}</span>
+      <div class="question-text">${escapeHtml(q.q)}</div>
+      <div class="options" id="options">
+        ${["a","b","c","d"].map(letter => `
+          <div class="option ${state.selected === letter ? "selected" : ""} ${state.submitted && letter === q.correct ? "correct" : ""} ${state.submitted && state.selected === letter && letter !== q.correct ? "incorrect" : ""} ${state.submitted ? "disabled" : ""}" data-letter="${letter}">
+            <span class="option-letter">${letter.toUpperCase()}</span>
+            <span class="option-text">${escapeHtml(q.options[letter])}</span>
+          </div>
+        `).join("")}
+      </div>
+      <div class="guess-row ${state.guessed ? "checked" : ""}" id="guessRow">
+        <div class="guess-checkbox"></div>
+        <div class="guess-label">
+          I was guessing
+          <small>tap if you do not know this topic well enough</small>
+        </div>
+      </div>
+      <div class="controls">
+        <button id="submitBtn" class="btn-primary" ${state.submitted || !state.selected ? "disabled" : ""}>${state.submitted ? "Answered" : "Submit"}</button>
+        <button id="nextBtn" ${state.index >= state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+      </div>
+      <div class="explanation ${state.submitted ? "visible" : ""}" id="explanation">
+        <strong>Correct: ${q.correct.toUpperCase()}.</strong> ${escapeHtml(q.explanation)}
+      </div>
+    </div>
+  `;
+
+  // Bind handlers
+  document.querySelectorAll("#options .option").forEach(el => {
+    if (state.submitted) return;
+    el.addEventListener("click", () => {
+      state.selected = el.dataset.letter;
+      render();
+    });
+  });
+  document.getElementById("guessRow").addEventListener("click", () => {
+    if (state.submitted) return;
+    state.guessed = !state.guessed;
+    render();
+  });
+  document.getElementById("submitBtn").addEventListener("click", submit);
+  document.getElementById("nextBtn").addEventListener("click", next);
+
+  renderStats();
+}
+
+function escapeHtml(s) {
+  const div = document.createElement("div");
+  div.textContent = s;
+  return div.innerHTML;
+}
+
+function submit() {
+  if (state.submitted || !state.selected) return;
+  const q = currentQ();
+  state.results[q.id] = {
+    selected: state.selected,
+    correct: state.selected === q.correct,
+    guessed: state.guessed
+  };
+  saveResults();
+  state.submitted = true;
+  render();
+}
+
+function next() {
+  if (state.index < state.filtered.length - 1) {
+    state.index++;
+    render();
+  }
+}
+
+function renderStats() {
+  let confidentRight = 0, guessedRight = 0, wrong = 0, skipped = 0;
+  const reviewItems = [];
+  state.filtered.forEach(q => {
+    const r = state.results[q.id];
+    if (!r) {
+      skipped++;
+    } else if (r.correct && !r.guessed) {
+      confidentRight++;
+    } else if (r.correct && r.guessed) {
+      guessedRight++;
+      reviewItems.push({ q, tag: "guessed", label: "right but guessed" });
+    } else if (!r.correct) {
+      wrong++;
+      reviewItems.push({ q, tag: "wrong", label: "wrong" });
+    }
+  });
+  document.getElementById("statRight").textContent = confidentRight;
+  document.getElementById("statGuessed").textContent = guessedRight;
+  document.getElementById("statWrong").textContent = wrong;
+  document.getElementById("statSkipped").textContent = skipped;
+
+  const reviewArea = document.getElementById("reviewArea");
+  const reviewList = document.getElementById("reviewList");
+  if (reviewItems.length === 0) {
+    reviewArea.style.display = "none";
+  } else {
+    reviewArea.style.display = "block";
+    reviewList.innerHTML = reviewItems.map(item => `
+      <li>
+        <span class="review-tag ${item.tag}">${item.label}</span>
+        ${escapeHtml(item.q.q.substring(0, 80))}${item.q.q.length > 80 ? "..." : ""}
+      </li>
+    `).join("");
+  }
+}
+
+document.getElementById("sectionSelect").addEventListener("change", applyFilter);
+document.getElementById("resetBtn")?.addEventListener("click", () => {
+  if (confirm("Reset all quiz progress?")) {
+    state.results = {};
+    saveResults();
+    render();
+  }
+});
+
+// Init
+loadResults();
+applyFilter();
+</script>
+</body>
+</html>
