@@ -320,6 +320,48 @@
     color: var(--good);
     font-weight: 500;
   }
+  .resume-banner {
+    background: rgba(63, 185, 80, 0.08);
+    border: 1px solid var(--good);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: var(--text);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  .resume-banner button {
+    flex: 0 0 auto;
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  .backup-area {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    margin-top: 16px;
+  }
+  .backup-area h3 {
+    font-size: 13px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 8px 0;
+  }
+  .backup-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0 0 10px 0;
+  }
+  .backup-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
   .stats {
     background: var(--panel);
     border: 1px solid var(--border);
@@ -476,6 +518,8 @@
     </select>
   </div>
 
+  <div id="resumeBanner" class="resume-banner" style="display:none;"></div>
+
   <div class="progress" id="progress">0 / 0</div>
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
 
@@ -499,7 +543,16 @@
     <button class="reset-btn" data-action="reset">Reset all stats and start over</button>
   </div>
 
-  <footer>Progress saved locally per section. Refresh to keep.</footer>
+  <div class="backup-area">
+    <h3>Backup / restore</h3>
+    <p class="backup-note">If your browser ever wipes your progress, paste the code from a previous backup here. Save the code somewhere safe (WhatsApp to yourself works).</p>
+    <div class="backup-controls">
+      <button data-action="exportProgress">Copy backup code</button>
+      <button data-action="importProgress">Restore from code</button>
+    </div>
+  </div>
+
+  <footer>Progress saved locally per section after every tap. Backup the code if you want to be extra safe.</footer>
 </div>
 
 <script>
@@ -1278,8 +1331,10 @@ const state = {
 
 const STORAGE_KEY = "sihan-met-quiz-results-v1";
 const STORAGE_KEY_NOTES = "sihan-met-quiz-notes-v1";
+const STORAGE_KEY_PROGRESS = "sihan-met-quiz-progress-v1";
 
 state.notes = {};
+state.progress = { lastIndex: 0, lastSection: "all", drafts: {} };
 
 function loadResults() {
   try {
@@ -1290,12 +1345,24 @@ function loadResults() {
     const raw = localStorage.getItem(STORAGE_KEY_NOTES);
     if (raw) state.notes = JSON.parse(raw);
   } catch {}
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_PROGRESS);
+    if (raw) state.progress = Object.assign(state.progress, JSON.parse(raw));
+  } catch {}
 }
 function saveResults() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.results));
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.results)); } catch {}
 }
 function saveNotes() {
-  localStorage.setItem(STORAGE_KEY_NOTES, JSON.stringify(state.notes));
+  try { localStorage.setItem(STORAGE_KEY_NOTES, JSON.stringify(state.notes)); } catch {}
+}
+function saveProgress() {
+  try { localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(state.progress)); } catch {}
+}
+function saveDraft(qid) {
+  if (!qid) return;
+  state.progress.drafts[qid] = { selected: state.selected, guessed: state.guessed };
+  saveProgress();
 }
 let notesSaveTimer = null;
 function handleNotesInput(qid, text) {
@@ -1332,10 +1399,17 @@ function currentQ() { return state.filtered[state.index]; }
 // =====================================================================
 // RENDER (only rebuilds DOM on next/section change/submit)
 // =====================================================================
-function applyFilter() {
+function applyFilter(opts) {
+  opts = opts || {};
   const sel = document.getElementById("sectionSelect").value;
   state.filtered = sel === "all" ? QUESTIONS : QUESTIONS.filter(q => q.section === sel);
-  state.index = 0;
+  // On first load, honor saved position. On manual section change, restart.
+  if (opts.preservePosition && sel === state.progress.lastSection) {
+    state.index = Math.min(state.progress.lastIndex || 0, state.filtered.length - 1);
+    if (state.index < 0) state.index = 0;
+  } else {
+    state.index = 0;
+  }
   renderQuestion();
 }
 
@@ -1350,9 +1424,24 @@ function renderQuestion() {
   }
   const q = currentQ();
   const stored = state.results[q.id];
-  state.selected = stored ? stored.selected : null;
-  state.guessed = stored ? stored.guessed : false;
-  state.submitted = !!stored;
+  const draft = state.progress.drafts[q.id];
+  if (stored) {
+    state.selected = stored.selected;
+    state.guessed = stored.guessed;
+    state.submitted = true;
+  } else if (draft) {
+    state.selected = draft.selected || null;
+    state.guessed = !!draft.guessed;
+    state.submitted = false;
+  } else {
+    state.selected = null;
+    state.guessed = false;
+    state.submitted = false;
+  }
+  // Persist position so reload comes back to this exact question.
+  state.progress.lastIndex = state.index;
+  state.progress.lastSection = document.getElementById("sectionSelect").value;
+  saveProgress();
 
   document.getElementById("progress").textContent = `${state.index + 1} / ${state.filtered.length}`;
   document.getElementById("progressFill").style.width = `${((state.index + 1) / state.filtered.length) * 100}%`;
@@ -1439,12 +1528,16 @@ function selectOption(letter) {
   if (state.submitted) return;
   state.selected = letter;
   updateSelectionVisual();
+  const q = currentQ();
+  if (q) saveDraft(q.id);
 }
 
 function toggleGuess() {
   if (state.submitted) return;
   state.guessed = !state.guessed;
   updateGuessVisual();
+  const q = currentQ();
+  if (q) saveDraft(q.id);
 }
 
 function submitAnswer() {
@@ -1522,13 +1615,83 @@ document.querySelector(".app").addEventListener("click", function(ev) {
   } else if (action === "reset") {
     if (confirm("Reset all quiz progress?")) {
       state.results = {};
+      state.notes = {};
+      state.progress = { lastIndex: 0, lastSection: "all", drafts: {} };
       saveResults();
-      renderQuestion();
+      saveNotes();
+      saveProgress();
+      const sel = document.getElementById("sectionSelect");
+      if (sel) sel.value = "all";
+      applyFilter({ preservePosition: false });
     }
+  } else if (action === "exportProgress") {
+    exportProgress();
+  } else if (action === "importProgress") {
+    importProgress();
+  } else if (action === "dismissResume") {
+    document.getElementById("resumeBanner").style.display = "none";
   }
 });
 
-document.getElementById("sectionSelect").addEventListener("change", applyFilter);
+function showResumeBanner() {
+  const banner = document.getElementById("resumeBanner");
+  if (!banner) return;
+  const lastIdx = state.progress.lastIndex || 0;
+  const total = state.filtered.length;
+  const answered = Object.keys(state.results).length;
+  const drafted = Object.keys(state.progress.drafts).length;
+  if (lastIdx <= 0 && answered === 0 && drafted === 0) {
+    banner.style.display = "none";
+    return;
+  }
+  const pos = Math.min(lastIdx + 1, total);
+  banner.innerHTML = `<span>Resumed from question ${pos} of ${total} · ${answered} answered, ${drafted} drafts saved.</span><button data-action="dismissResume">Dismiss</button>`;
+  banner.style.display = "flex";
+}
+
+function exportProgress() {
+  const payload = {
+    v: 1,
+    ts: new Date().toISOString(),
+    results: state.results,
+    notes: state.notes,
+    progress: state.progress
+  };
+  const code = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+  // Try clipboard, fall back to a prompt.
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(code).then(
+      () => alert("Backup code copied to clipboard. Paste it somewhere safe (WhatsApp to yourself works)."),
+      () => prompt("Copy this backup code somewhere safe:", code)
+    );
+  } else {
+    prompt("Copy this backup code somewhere safe:", code);
+  }
+}
+
+function importProgress() {
+  const code = prompt("Paste a backup code to restore your progress. This will REPLACE everything currently saved.");
+  if (!code) return;
+  try {
+    const payload = JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
+    if (payload.v !== 1) throw new Error("unknown version");
+    if (payload.results) state.results = payload.results;
+    if (payload.notes) state.notes = payload.notes;
+    if (payload.progress) state.progress = Object.assign({ lastIndex: 0, lastSection: "all", drafts: {} }, payload.progress);
+    saveResults();
+    saveNotes();
+    saveProgress();
+    const sel = document.getElementById("sectionSelect");
+    if (sel && state.progress.lastSection) sel.value = state.progress.lastSection;
+    applyFilter({ preservePosition: true });
+    showResumeBanner();
+    alert(`Restored ${Object.keys(state.results).length} answered, ${Object.keys(state.notes).length} notes, ${Object.keys(state.progress.drafts).length} drafts.`);
+  } catch (e) {
+    alert("Could not restore: that does not look like a valid backup code.");
+  }
+}
+
+document.getElementById("sectionSelect").addEventListener("change", () => applyFilter({ preservePosition: false }));
 
 // =====================================================================
 // STATS (overall + per-section breakdown)
@@ -1602,7 +1765,15 @@ function renderStats() {
 
 // Init
 loadResults();
-applyFilter();
+// Restore saved section before applying filter so position-restore lines up.
+if (state.progress.lastSection) {
+  const sel = document.getElementById("sectionSelect");
+  if ([...sel.options].some(o => o.value === state.progress.lastSection)) {
+    sel.value = state.progress.lastSection;
+  }
+}
+applyFilter({ preservePosition: true });
+showResumeBanner();
 </script>
 </body>
 </html>
