@@ -790,7 +790,423 @@ const QUESTIONS = [
       d: "Verbal, performance, full-scale"
     },
     correct: "b",
-    explanation: "Sternberg (1985): analytical (componential), creative (experiential), practical (contextual). (a) is Cattell-Horn, (c) is Gardner's multiple intelligences, (d) is older Wechsler structure." }
+    explanation: "Sternberg (1985): analytical (componential), creative (experiential), practical (contextual). (a) is Cattell-Horn, (c) is Gardner's multiple intelligences, (d) is older Wechsler structure." },
+
+  // ==== Action Potential / Neurophysiology (fresh batch) ====
+  { id: "bio08", section: "biopsych", exam: "both",
+    q: "The resting membrane potential of a typical neuron is closest to:",
+    options: { a: "-30 mV", b: "-55 mV", c: "-70 mV", d: "-90 mV" },
+    correct: "c",
+    explanation: "RMP is approximately -70 mV. -55 mV is threshold; -90 mV is the K+ equilibrium potential." },
+
+  { id: "bio09", section: "biopsych", exam: "both",
+    q: "Resting membrane potential is primarily determined by:",
+    options: { a: "Na+/K+ ATPase pump", b: "K+ leak channels", c: "Voltage-gated Na+ channels", d: "Cl- channels" },
+    correct: "b",
+    explanation: "K+ leak channels make the membrane ~50x more permeable to K+ than Na+ at rest. The pump maintains gradients but does not directly set the voltage." },
+
+  { id: "bio10", section: "biopsych", exam: "both",
+    q: "During the depolarization phase of an action potential, the dominant ion movement is:",
+    options: { a: "K+ out", b: "Na+ in", c: "Ca2+ in", d: "Cl- in" },
+    correct: "b",
+    explanation: "Voltage-gated Na+ channels open at threshold and Na+ rushes in down its electrochemical gradient." },
+
+  { id: "bio11", section: "biopsych", exam: "both",
+    q: "Repolarization of a neuron is caused mainly by:",
+    options: { a: "Closing of K+ channels", b: "Opening of voltage-gated K+ channels", c: "Na+/K+ pump activity", d: "Ca2+ entry" },
+    correct: "b",
+    explanation: "Voltage-gated K+ channels open with a slight delay; K+ exits and brings the membrane back toward -70 mV." },
+
+  { id: "bio12", section: "biopsych", exam: "both",
+    q: "The Na+/K+ ATPase moves:",
+    options: { a: "2 Na+ out, 3 K+ in", b: "3 Na+ out, 2 K+ in", c: "3 Na+ in, 2 K+ out", d: "1 Na+ out, 1 K+ in" },
+    correct: "b",
+    explanation: "3 Na+ out, 2 K+ in per 1 ATP. Net export of +1 charge makes it electrogenic." },
+
+  { id: "bio13", section: "biopsych", exam: "both",
+    q: "During the absolute refractory period:",
+    options: { a: "A stronger stimulus can elicit an AP", b: "Only Cl- channels are open", c: "Na+ channels are inactivated", d: "K+ channels are closed" },
+    correct: "c",
+    explanation: "Na+ channels enter an inactivated state (distinct from closed). No new AP can fire until they reset, ensuring one-way propagation." },
+
+  { id: "bio14", section: "biopsych", exam: "both",
+    q: "Saltatory conduction requires:",
+    options: { a: "Unmyelinated axons", b: "Continuous Na+ channels along the axon", c: "Nodes of Ranvier", d: "C fibers" },
+    correct: "c",
+    explanation: "AP 'jumps' between Nodes of Ranvier where voltage-gated Na+ channels are concentrated. Gives speeds up to 120 m/s." },
+
+  { id: "bio15", section: "biopsych", exam: "both",
+    q: "Neurotransmitter release at the axon terminal is triggered by:",
+    options: { a: "Na+ entry", b: "K+ exit", c: "Ca2+ entry", d: "Cl- entry" },
+    correct: "c",
+    explanation: "Voltage-gated Ca2+ channels open at the terminal, Ca2+ enters, binds synaptotagmin, triggers vesicle fusion via SNARE." },
+
+  { id: "bio16", section: "biopsych", exam: "both",
+    q: "The all-or-none principle means that:",
+    options: { a: "AP amplitude varies with stimulus strength", b: "AP amplitude is fixed once threshold is reached", c: "APs do not propagate", d: "APs are graded potentials" },
+    correct: "b",
+    explanation: "Above threshold, every AP has the same amplitude. Stimulus intensity is encoded as frequency, not amplitude." },
+
+  { id: "bio17", section: "biopsych", exam: "NIMHANS",
+    q: "An IPSP typically involves:",
+    options: { a: "Na+ influx", b: "Cl- influx or K+ efflux", c: "Ca2+ influx", d: "Closing of K+ channels" },
+    correct: "b",
+    explanation: "Cl- in or K+ out hyperpolarizes the membrane, moving it away from threshold and inhibiting the postsynaptic neuron." },
+
+  { id: "bio18", section: "biopsych", exam: "both",
+    q: "The action potential is initiated at the:",
+    options: { a: "Cell body (soma)", b: "Dendrites", c: "Axon hillock", d: "Synaptic terminal" },
+    correct: "c",
+    explanation: "Axon hillock has the highest density of voltage-gated Na+ channels and the lowest threshold." },
+
+  { id: "bio19", section: "biopsych", exam: "both",
+    q: "Most abundant glial cell in the CNS:",
+    options: { a: "Microglia", b: "Astrocytes", c: "Oligodendrocytes", d: "Schwann cells" },
+    correct: "b",
+    explanation: "Astrocytes are the most numerous glia overall in the CNS. Oligodendrocytes do CNS myelination; Schwann cells are PNS only." },
+
+  { id: "bio20", section: "biopsych", exam: "both",
+    q: "Most abundant glial cell in the PNS:",
+    options: { a: "Astrocytes", b: "Microglia", c: "Schwann cells", d: "Satellite cells" },
+    correct: "c",
+    explanation: "Schwann cells outnumber satellite cells in the PNS. Schwann = myelination; satellite = surround cell bodies in ganglia." },
+
+  // ==== Developmental Psychology (fresh batch) ====
+  { id: "dev06", section: "dev", exam: "both",
+    q: "In Vygotsky's Zone of Proximal Development, the upper limit of the ZPD is:",
+    options: {
+      a: "What the child can do alone",
+      b: "What the child can do with guidance from a more knowledgeable other",
+      c: "Adult-level mastery",
+      d: "Peer-average performance"
+    },
+    correct: "b",
+    explanation: "ZPD = gap between independent performance (lower) and what can be achieved with scaffolding from a more knowledgeable other (upper). Scaffolding gradually fades as competence grows." },
+
+  { id: "dev07", section: "dev", exam: "both",
+    q: "In ZPD theory, the focus has shifted in modern interpretations toward:",
+    options: {
+      a: "Strict adult-only instruction",
+      b: "The role of any 'more knowledgeable other' including peers, parents, teachers, or facilitators",
+      c: "Solo cognitive development",
+      d: "Genetic predisposition to learning"
+    },
+    correct: "b",
+    explanation: "Modern ZPD interpretations emphasize that ANY more knowledgeable other (parent, peer, teacher, facilitator, even technology) can scaffold learning, not strictly adults." },
+
+  { id: "dev08", section: "dev", exam: "both",
+    q: "Piaget's stage in which children develop object permanence is:",
+    options: { a: "Sensorimotor", b: "Preoperational", c: "Concrete operational", d: "Formal operational" },
+    correct: "a",
+    explanation: "Object permanence emerges around 8-12 months in the sensorimotor stage (0-2 yrs). Before this, 'out of sight' = 'out of mind'." },
+
+  { id: "dev09", section: "dev", exam: "both",
+    q: "Conservation of liquid quantity is typically achieved in which Piagetian stage?",
+    options: { a: "Sensorimotor", b: "Preoperational", c: "Concrete operational", d: "Formal operational" },
+    correct: "c",
+    explanation: "Conservation tasks (liquid, mass, number) are mastered in concrete operational (7-11 yrs). Preoperational children are fooled by perceptual changes." },
+
+  { id: "dev10", section: "dev", exam: "both",
+    q: "Erikson's stage during adolescence is:",
+    options: {
+      a: "Industry vs. Inferiority",
+      b: "Identity vs. Role Confusion",
+      c: "Intimacy vs. Isolation",
+      d: "Generativity vs. Stagnation"
+    },
+    correct: "b",
+    explanation: "Identity vs. Role Confusion (12-18 yrs) is Erikson's adolescent stage. Industry/Inferiority is school-age (6-12)." },
+
+  { id: "dev11", section: "dev", exam: "NIMHANS",
+    q: "Kohlberg's preconventional level of moral reasoning is characterized by:",
+    options: {
+      a: "Conformity to social rules",
+      b: "Punishment-and-obedience and instrumental orientation",
+      c: "Universal ethical principles",
+      d: "Social contract reasoning"
+    },
+    correct: "b",
+    explanation: "Preconventional (stages 1-2): morality based on punishment avoidance and self-interest. Conventional = social rules. Postconventional = principles." },
+
+  { id: "dev12", section: "dev", exam: "both",
+    q: "Bowlby's attachment theory categorizes a child who shows distress on separation but is easily soothed on return as:",
+    options: { a: "Insecure-avoidant", b: "Secure", c: "Insecure-resistant (ambivalent)", d: "Disorganized" },
+    correct: "b",
+    explanation: "Secure attachment (Type B): distressed on separation, comforted by reunion. Avoidant (A) ignores parent; resistant (C) is hard to soothe; disorganized (D) shows contradictory behavior." },
+
+  // ==== Assessment / Reliability (fresh batch) ====
+  { id: "ass07", section: "assessment", exam: "both",
+    q: "In classical test theory, the formula X = T + E means:",
+    options: {
+      a: "Observed score = True score + Error",
+      b: "Test reliability = Total + Error",
+      c: "Cross-validation = True + Estimate",
+      d: "X-axis = Theta + Eta"
+    },
+    correct: "a",
+    explanation: "Foundational equation of CTT. Reliability = ratio of true score variance to total observed variance: r_xx = sigma_T^2 / sigma_X^2." },
+
+  { id: "ass08", section: "assessment", exam: "both",
+    q: "The reliability coefficient r_xx represents:",
+    options: {
+      a: "The correlation of a test with itself",
+      b: "The proportion of observed variance attributable to true score variance",
+      c: "Test-retest agreement only",
+      d: "Inter-rater agreement only"
+    },
+    correct: "b",
+    explanation: "r_xx = sigma_T^2 / sigma_X^2 = proportion of observed variance that is true variance. The remaining (1 - r_xx) is error variance." },
+
+  { id: "ass09", section: "assessment", exam: "both",
+    q: "If a test has reliability of 0.81, the maximum possible validity coefficient is:",
+    options: { a: "0.81", b: "0.90", c: "0.65", d: "1.00" },
+    correct: "b",
+    explanation: "Validity ceiling = sqrt(reliability). sqrt(0.81) = 0.90. A test cannot correlate with anything else more than it correlates with itself." },
+
+  { id: "ass10", section: "assessment", exam: "both",
+    q: "Spearman-Brown prophecy formula is used to estimate:",
+    options: {
+      a: "Validity from reliability",
+      b: "How reliability changes when test length is altered",
+      c: "Item difficulty from discrimination",
+      d: "Standard error of measurement"
+    },
+    correct: "b",
+    explanation: "Spearman-Brown predicts the new reliability if you lengthen or shorten a test. Doubling length on a test of r=0.6 gives new r = 2(0.6)/(1+0.6) = 0.75." },
+
+  { id: "ass11", section: "assessment", exam: "both",
+    q: "Cronbach's alpha measures:",
+    options: {
+      a: "Test-retest reliability", b: "Internal consistency reliability",
+      c: "Inter-rater reliability", d: "Predictive validity"
+    },
+    correct: "b",
+    explanation: "Alpha estimates how consistently items measure the same construct. Range 0-1; >=0.7 acceptable, >=0.8 good. KR-20 is the dichotomous version." },
+
+  { id: "ass12", section: "assessment", exam: "NIMHANS",
+    q: "Standard Error of Measurement (SEM) is calculated as:",
+    options: {
+      a: "SD * sqrt(1 - reliability)",
+      b: "SD * sqrt(reliability)",
+      c: "Variance / N",
+      d: "Mean / SD"
+    },
+    correct: "a",
+    explanation: "SEM = SD * sqrt(1 - r_xx). Used to build confidence intervals around an obtained score. Lower SEM = more precise measurement." },
+
+  { id: "ass13", section: "assessment", exam: "both",
+    q: "The ideal item difficulty index (p) for maximizing test discrimination is approximately:",
+    options: { a: "0.10", b: "0.50", c: "0.90", d: "1.00" },
+    correct: "b",
+    explanation: "p = 0.5 maximizes variance and thus discrimination. Items with p near 0 or 1 distinguish poorly between high and low scorers." },
+
+  // ==== Therapy / Counseling (fresh batch) ====
+  { id: "the06", section: "therapy", exam: "both",
+    q: "Systematic desensitization, developed by Wolpe, is based on:",
+    options: {
+      a: "Operant conditioning", b: "Reciprocal inhibition", c: "Cognitive restructuring", d: "Free association"
+    },
+    correct: "b",
+    explanation: "Wolpe's reciprocal inhibition: relaxation is incompatible with anxiety. Pair gradual exposure with relaxation up an anxiety hierarchy." },
+
+  { id: "the07", section: "therapy", exam: "both",
+    q: "Beck's cognitive triad in depression includes negative views of:",
+    options: {
+      a: "Self, world, future",
+      b: "Self, parents, society",
+      c: "Past, present, future",
+      d: "Body, mind, spirit"
+    },
+    correct: "a",
+    explanation: "Beck's triad: negative views of self ('I am worthless'), the world ('everything is hopeless'), the future ('it will never get better')." },
+
+  { id: "the08", section: "therapy", exam: "both",
+    q: "Unconditional positive regard is a core condition described by:",
+    options: { a: "Freud", b: "Rogers", c: "Skinner", d: "Beck" },
+    correct: "b",
+    explanation: "Carl Rogers' three core conditions: empathy, congruence (genuineness), unconditional positive regard. Person-centered therapy." },
+
+  { id: "the09", section: "therapy", exam: "NIMHANS",
+    q: "DBT (Dialectical Behavior Therapy) was developed by:",
+    options: { a: "Aaron Beck", b: "Albert Ellis", c: "Marsha Linehan", d: "Steven Hayes" },
+    correct: "c",
+    explanation: "Linehan developed DBT in the 1980s for borderline personality disorder. Core skills: mindfulness, distress tolerance, emotion regulation, interpersonal effectiveness." },
+
+  { id: "the10", section: "therapy", exam: "both",
+    q: "ACT (Acceptance and Commitment Therapy) emphasizes:",
+    options: {
+      a: "Eliminating negative thoughts",
+      b: "Psychological flexibility through acceptance and value-based action",
+      c: "Childhood trauma resolution",
+      d: "Operant reinforcement schedules"
+    },
+    correct: "b",
+    explanation: "ACT (Hayes): accept what cannot be changed, commit to value-based action. Six processes: acceptance, defusion, present moment, self-as-context, values, committed action." },
+
+  // ==== Abnormal Psychology (fresh batch) ====
+  { id: "abn06", section: "abnormal", exam: "both",
+    q: "First-rank symptoms of schizophrenia were described by:",
+    options: { a: "Bleuler", b: "Schneider", c: "Kraepelin", d: "Jaspers" },
+    correct: "b",
+    explanation: "Kurt Schneider (1959): first-rank symptoms include audible thoughts, voices arguing, voices commenting, somatic passivity, thought withdrawal/insertion/broadcasting, made feelings, made impulses, delusional perception." },
+
+  { id: "abn07", section: "abnormal", exam: "both",
+    q: "The DSM-5 minimum duration for a diagnosis of schizophrenia is:",
+    options: { a: "1 week", b: "1 month", c: "6 months", d: "1 year" },
+    correct: "c",
+    explanation: "Schizophrenia: 6 months total of disturbance, with at least 1 month of active-phase symptoms. <1 month = brief psychotic disorder; 1-6 months = schizophreniform." },
+
+  { id: "abn08", section: "abnormal", exam: "both",
+    q: "A core feature distinguishing OCD from generalized worry is:",
+    options: {
+      a: "Worry is more intense in OCD",
+      b: "OCD has ego-dystonic intrusive thoughts and compulsive behaviors",
+      c: "OCD never involves anxiety",
+      d: "GAD has hallucinations"
+    },
+    correct: "b",
+    explanation: "OCD obsessions are ego-dystonic (unwanted, distressing) and trigger compulsions performed to reduce distress. GAD worry is ego-syntonic and free-floating." },
+
+  { id: "abn09", section: "abnormal", exam: "NIMHANS",
+    q: "Capgras syndrome is best described as:",
+    options: {
+      a: "Belief that a familiar person has been replaced by an identical impostor",
+      b: "Belief that strangers are familiar",
+      c: "Belief one is dead",
+      d: "Belief one's body is rotting"
+    },
+    correct: "a",
+    explanation: "Capgras = impostor delusion. Fregoli = strangers are familiar in disguise. Cotard = nihilistic delusion of death/non-existence." },
+
+  { id: "abn10", section: "abnormal", exam: "both",
+    q: "Major depressive episode requires symptoms for at least:",
+    options: { a: "1 day", b: "1 week", c: "2 weeks", d: "1 month" },
+    correct: "c",
+    explanation: "MDE requires 2 weeks of >=5 symptoms, with at least one being depressed mood OR anhedonia." },
+
+  // ==== Biostats / Research Methodology (fresh batch) ====
+  { id: "bst04", section: "biostats", exam: "both",
+    q: "A Type I error occurs when:",
+    options: {
+      a: "Null hypothesis is rejected when it is actually true",
+      b: "Null hypothesis is accepted when it is actually false",
+      c: "Sample size is too small",
+      d: "Variance is unequal"
+    },
+    correct: "a",
+    explanation: "Type I = false positive (alpha). Type II = false negative (beta). Power = 1 - beta." },
+
+  { id: "bst05", section: "biostats", exam: "both",
+    q: "The mean of a standard normal distribution is:",
+    options: { a: "0", b: "1", c: "100", d: "Variable" },
+    correct: "a",
+    explanation: "Standard normal: mean = 0, SD = 1. Z-scores transform any normal distribution to this." },
+
+  { id: "bst06", section: "biostats", exam: "both",
+    q: "An IQ of 130 on the Wechsler scales (mean 100, SD 15) corresponds to a z-score of:",
+    options: { a: "1.0", b: "1.5", c: "2.0", d: "3.0" },
+    correct: "c",
+    explanation: "z = (X - mu) / sigma = (130 - 100) / 15 = 2.0. This is approximately the 98th percentile." },
+
+  { id: "bst07", section: "biostats", exam: "NIMHANS",
+    q: "ANOVA is used to compare:",
+    options: {
+      a: "Two proportions", b: "Means of three or more groups",
+      c: "Two means", d: "Frequencies"
+    },
+    correct: "b",
+    explanation: "Analysis of Variance compares means across 3+ groups. Pairwise t-tests inflate Type I error; ANOVA controls family-wise alpha." },
+
+  { id: "bst08", section: "biostats", exam: "both",
+    q: "A correlation of r = -0.85 indicates:",
+    options: {
+      a: "Weak negative relationship",
+      b: "Strong negative relationship",
+      c: "No relationship",
+      d: "Causation in reverse direction"
+    },
+    correct: "b",
+    explanation: "|r| close to 1 = strong; sign indicates direction. -0.85 is strong negative. Correlation alone never establishes causation." },
+
+  // ==== Social Psychology (fresh batch) ====
+  { id: "soc05", section: "social", exam: "NIMHANS",
+    q: "Festinger's cognitive dissonance theory predicts that people will:",
+    options: {
+      a: "Avoid all decisions to prevent mental discomfort",
+      b: "Change attitudes or behaviors to reduce inconsistency",
+      c: "Always seek out conflicting information",
+      d: "Become aggressive when uncertain"
+    },
+    correct: "b",
+    explanation: "Festinger (1957): inconsistency between cognitions creates discomfort (dissonance). People reduce it by changing attitude, behavior, or adding consonant cognitions." },
+
+  { id: "soc06", section: "social", exam: "NIMHANS",
+    q: "The fundamental attribution error is the tendency to:",
+    options: {
+      a: "Overestimate situational and underestimate dispositional causes for others' behavior",
+      b: "Overestimate dispositional and underestimate situational causes for others' behavior",
+      c: "Attribute all behavior to luck",
+      d: "Blame the victim of an accident"
+    },
+    correct: "b",
+    explanation: "FAE = overweight personality, underweight situation when explaining others. Self-serving bias is the opposite for our own behavior." },
+
+  { id: "soc07", section: "social", exam: "NIMHANS",
+    q: "Milgram's obedience studies showed that:",
+    options: {
+      a: "Most people will refuse to harm others on command",
+      b: "About 65% of participants administered the maximum shock",
+      c: "Only sociopaths would comply",
+      d: "Compliance was unrelated to authority"
+    },
+    correct: "b",
+    explanation: "Milgram (1963): 65% delivered the full 450V shock under authoritative pressure. Demonstrated power of legitimate authority over individual conscience." },
+
+  // ==== General Psychology (fresh batch) ====
+  { id: "gen05", section: "general", exam: "NIMHANS",
+    q: "Working memory model with phonological loop, visuospatial sketchpad, and central executive was proposed by:",
+    options: { a: "Atkinson and Shiffrin", b: "Baddeley and Hitch", c: "Tulving", d: "Miller" },
+    correct: "b",
+    explanation: "Baddeley and Hitch (1974) added the central executive coordinating two slave systems. Episodic buffer added by Baddeley in 2000." },
+
+  { id: "gen06", section: "general", exam: "NIMHANS",
+    q: "Tulving distinguished long-term memory into:",
+    options: {
+      a: "Short-term and long-term",
+      b: "Episodic and semantic (and later procedural)",
+      c: "Sensory and working",
+      d: "Implicit and unconscious only"
+    },
+    correct: "b",
+    explanation: "Tulving (1972): episodic (events with time/place), semantic (general knowledge). Later added procedural (skills). Episodic is what's lost first in Alzheimer's." },
+
+  { id: "gen07", section: "general", exam: "NIMHANS",
+    q: "Miller's classic finding 'the magical number seven, plus or minus two' refers to:",
+    options: {
+      a: "Long-term memory capacity",
+      b: "Sensory memory duration",
+      c: "Short-term memory capacity in chunks",
+      d: "Reaction time variability"
+    },
+    correct: "c",
+    explanation: "Miller (1956): STM holds about 7 +/- 2 chunks. Modern estimates (Cowan) put it closer to 4 chunks for true working memory." },
+
+  { id: "gen08", section: "general", exam: "NIMHANS",
+    q: "Operant conditioning was systematized by:",
+    options: { a: "Pavlov", b: "Watson", c: "Skinner", d: "Thorndike" },
+    correct: "c",
+    explanation: "Skinner formalized operant conditioning with the Skinner box, schedules of reinforcement, and behavior shaping. Thorndike laid groundwork with the Law of Effect." },
+
+  { id: "gen09", section: "general", exam: "NIMHANS",
+    q: "Variable-ratio reinforcement schedules produce:",
+    options: {
+      a: "Slow, easily extinguished response patterns",
+      b: "High, steady response rates that resist extinction",
+      c: "Bursts followed by long pauses",
+      d: "No response at all"
+    },
+    correct: "b",
+    explanation: "VR schedules (e.g., slot machines) produce the highest, most extinction-resistant responding because reinforcement is unpredictable but inevitable." }
 ];
 
 // =====================================================================
@@ -886,8 +1302,13 @@ function renderQuestion() {
         </div>
       </div>
       <div class="controls">
+        <button data-action="prev" ${state.index <= 0 ? "disabled" : ""}>← Prev</button>
         <button data-action="submit" class="btn-primary" ${state.submitted || !state.selected ? "disabled" : ""}>${state.submitted ? "Answered" : "Submit"}</button>
         <button data-action="next" ${state.index >= state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+      </div>
+      <div class="controls" style="margin-top: 8px; justify-content: space-between;">
+        <button data-action="jumpUnanswered" style="font-size: 13px;">Jump to next unanswered</button>
+        <button data-action="shuffle" style="font-size: 13px;">Shuffle order</button>
       </div>
       <div class="explanation ${state.submitted ? "visible" : ""}">
         <strong>Correct: ${q.correct.toUpperCase()}.</strong> ${escapeHtml(q.explanation)}
@@ -947,6 +1368,36 @@ function nextQuestion() {
   }
 }
 
+function prevQuestion() {
+  if (state.index > 0) {
+    state.index--;
+    renderQuestion();
+  }
+}
+
+function jumpToNextUnanswered() {
+  const start = state.index;
+  for (let i = 1; i <= state.filtered.length; i++) {
+    const idx = (start + i) % state.filtered.length;
+    const q = state.filtered[idx];
+    if (!state.results[q.id]) {
+      state.index = idx;
+      renderQuestion();
+      return;
+    }
+  }
+  alert("All questions in this section are answered.");
+}
+
+function shuffleQuestions() {
+  for (let i = state.filtered.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [state.filtered[i], state.filtered[j]] = [state.filtered[j], state.filtered[i]];
+  }
+  state.index = 0;
+  renderQuestion();
+}
+
 // =====================================================================
 // EVENT DELEGATION (single listener on stable parent — bulletproof on mobile)
 // =====================================================================
@@ -962,6 +1413,12 @@ document.querySelector(".app").addEventListener("click", function(ev) {
     submitAnswer();
   } else if (action === "next") {
     nextQuestion();
+  } else if (action === "prev") {
+    prevQuestion();
+  } else if (action === "jumpUnanswered") {
+    jumpToNextUnanswered();
+  } else if (action === "shuffle") {
+    shuffleQuestions();
   } else if (action === "reset") {
     if (confirm("Reset all quiz progress?")) {
       state.results = {};
