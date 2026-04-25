@@ -340,6 +340,58 @@
     color: var(--muted);
     font-size: 12px;
   }
+  .section-scores {
+    margin-top: 16px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+  }
+  .section-scores h3 {
+    font-size: 13px;
+    margin: 0 0 10px 0;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .section-score-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-score-row:last-child { border-bottom: none; }
+  .section-score-name {
+    flex: 0 0 130px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+  .section-score-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--panel-2);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+  }
+  .section-score-bar > span { display: block; height: 100%; }
+  .ssr-right { background: var(--good); }
+  .ssr-guessed { background: var(--warn); }
+  .ssr-wrong { background: var(--bad); }
+  .ssr-skipped { background: transparent; }
+  .section-score-num {
+    flex: 0 0 90px;
+    text-align: right;
+    color: var(--text);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+  @media (max-width: 400px) {
+    .section-score-name { flex-basis: 100px; font-size: 11px; }
+    .section-score-num { flex-basis: 70px; font-size: 11px; }
+  }
   footer {
     text-align: center;
     font-size: 10px;
@@ -387,10 +439,15 @@
     <div class="stat-item"><span class="stat-num stat-skipped" id="statSkipped">0</span><span class="stat-label">Skipped</span></div>
   </div>
 
+  <div class="section-scores">
+    <h3>Per-section breakdown</h3>
+    <div id="sectionScores"></div>
+  </div>
+
   <div class="review-area" id="reviewArea" style="display:none;">
     <h3>Things to come back to</h3>
     <ul class="review-list" id="reviewList"></ul>
-    <button class="reset-btn" id="resetBtn">Reset all stats and start over</button>
+    <button class="reset-btn" data-action="reset">Reset all stats and start over</button>
   </div>
 
   <footer>Progress saved locally per section. Refresh to keep.</footer>
@@ -739,13 +796,19 @@ const QUESTIONS = [
 // =====================================================================
 // STATE
 // =====================================================================
+const SECTION_LABELS = {
+  biopsych: "Biopsychology", dev: "Developmental", abnormal: "Abnormal",
+  assessment: "Psych Assessment", therapy: "Psychotherapy", biostats: "Biostats / Research",
+  social: "Social Psychology", general: "General Psychology"
+};
+
 const state = {
   filtered: [],
   index: 0,
   selected: null,
   guessed: false,
   submitted: false,
-  results: {} // qid -> { selected, correct, guessed }
+  results: {}
 };
 
 const STORAGE_KEY = "sihan-met-quiz-results-v1";
@@ -760,21 +823,25 @@ function saveResults() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state.results));
 }
 
+function escapeHtml(s) {
+  const div = document.createElement("div");
+  div.textContent = s;
+  return div.innerHTML;
+}
+
+function currentQ() { return state.filtered[state.index]; }
+
 // =====================================================================
-// RENDER
+// RENDER (only rebuilds DOM on next/section change/submit)
 // =====================================================================
 function applyFilter() {
   const sel = document.getElementById("sectionSelect").value;
   state.filtered = sel === "all" ? QUESTIONS : QUESTIONS.filter(q => q.section === sel);
   state.index = 0;
-  render();
+  renderQuestion();
 }
 
-function currentQ() {
-  return state.filtered[state.index];
-}
-
-function render() {
+function renderQuestion() {
   const qa = document.getElementById("quizArea");
   if (!state.filtered.length) {
     qa.innerHTML = '<div class="question-card">No questions in this section yet.</div>';
@@ -792,25 +859,26 @@ function render() {
   document.getElementById("progress").textContent = `${state.index + 1} / ${state.filtered.length}`;
   document.getElementById("progressFill").style.width = `${((state.index + 1) / state.filtered.length) * 100}%`;
 
-  const sectionLabels = {
-    biopsych: "Biopsychology", dev: "Developmental", abnormal: "Abnormal",
-    assessment: "Psych Assessment", therapy: "Psychotherapy", biostats: "Biostats / Research",
-    social: "Social Psychology", general: "General Psychology"
-  };
+  const examTag = q.exam === "both" ? "MET + NIMHANS" : q.exam;
+  let optionsHtml = "";
+  for (const letter of ["a","b","c","d"]) {
+    let cls = "option";
+    if (!state.submitted && state.selected === letter) cls += " selected";
+    if (state.submitted && letter === q.correct) cls += " correct";
+    if (state.submitted && state.selected === letter && letter !== q.correct) cls += " incorrect";
+    if (state.submitted) cls += " disabled";
+    optionsHtml += `<div class="${cls}" data-action="select" data-letter="${letter}">
+      <span class="option-letter">${letter.toUpperCase()}</span>
+      <span class="option-text">${escapeHtml(q.options[letter])}</span>
+    </div>`;
+  }
 
   qa.innerHTML = `
     <div class="question-card">
-      <span class="section-tag">${sectionLabels[q.section]} · ${q.exam === "both" ? "MET + NIMHANS" : q.exam}</span>
+      <span class="section-tag">${SECTION_LABELS[q.section]} · ${examTag}</span>
       <div class="question-text">${escapeHtml(q.q)}</div>
-      <div class="options" id="options">
-        ${["a","b","c","d"].map(letter => `
-          <div class="option ${state.selected === letter ? "selected" : ""} ${state.submitted && letter === q.correct ? "correct" : ""} ${state.submitted && state.selected === letter && letter !== q.correct ? "incorrect" : ""} ${state.submitted ? "disabled" : ""}" data-letter="${letter}">
-            <span class="option-letter">${letter.toUpperCase()}</span>
-            <span class="option-text">${escapeHtml(q.options[letter])}</span>
-          </div>
-        `).join("")}
-      </div>
-      <div class="guess-row ${state.guessed ? "checked" : ""}" id="guessRow">
+      <div class="options" id="options">${optionsHtml}</div>
+      <div class="guess-row ${state.guessed ? "checked" : ""}" data-action="toggleGuess">
         <div class="guess-checkbox"></div>
         <div class="guess-label">
           I was guessing
@@ -818,70 +886,104 @@ function render() {
         </div>
       </div>
       <div class="controls">
-        <button id="submitBtn" class="btn-primary" ${state.submitted || !state.selected ? "disabled" : ""}>${state.submitted ? "Answered" : "Submit"}</button>
-        <button id="nextBtn" ${state.index >= state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+        <button data-action="submit" class="btn-primary" ${state.submitted || !state.selected ? "disabled" : ""}>${state.submitted ? "Answered" : "Submit"}</button>
+        <button data-action="next" ${state.index >= state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
       </div>
-      <div class="explanation ${state.submitted ? "visible" : ""}" id="explanation">
+      <div class="explanation ${state.submitted ? "visible" : ""}">
         <strong>Correct: ${q.correct.toUpperCase()}.</strong> ${escapeHtml(q.explanation)}
       </div>
     </div>
   `;
-
-  // Bind handlers
-  document.querySelectorAll("#options .option").forEach(el => {
-    if (state.submitted) return;
-    el.addEventListener("click", () => {
-      state.selected = el.dataset.letter;
-      render();
-    });
-  });
-  document.getElementById("guessRow").addEventListener("click", () => {
-    if (state.submitted) return;
-    state.guessed = !state.guessed;
-    render();
-  });
-  document.getElementById("submitBtn").addEventListener("click", submit);
-  document.getElementById("nextBtn").addEventListener("click", next);
-
   renderStats();
 }
 
-function escapeHtml(s) {
-  const div = document.createElement("div");
-  div.textContent = s;
-  return div.innerHTML;
+// Update only what changed when an option is tapped (do not rebuild)
+function updateSelectionVisual() {
+  document.querySelectorAll("#options .option").forEach(el => {
+    el.classList.toggle("selected", el.dataset.letter === state.selected);
+  });
+  const submitBtn = document.querySelector('[data-action="submit"]');
+  if (submitBtn) submitBtn.disabled = state.submitted || !state.selected;
 }
 
-function submit() {
+function updateGuessVisual() {
+  const row = document.querySelector('[data-action="toggleGuess"]');
+  if (row) row.classList.toggle("checked", state.guessed);
+}
+
+// =====================================================================
+// ACTIONS
+// =====================================================================
+function selectOption(letter) {
+  if (state.submitted) return;
+  state.selected = letter;
+  updateSelectionVisual();
+}
+
+function toggleGuess() {
+  if (state.submitted) return;
+  state.guessed = !state.guessed;
+  updateGuessVisual();
+}
+
+function submitAnswer() {
   if (state.submitted || !state.selected) return;
   const q = currentQ();
   state.results[q.id] = {
     selected: state.selected,
     correct: state.selected === q.correct,
-    guessed: state.guessed
+    guessed: state.guessed,
+    section: q.section
   };
   saveResults();
   state.submitted = true;
-  render();
+  renderQuestion();
 }
 
-function next() {
+function nextQuestion() {
   if (state.index < state.filtered.length - 1) {
     state.index++;
-    render();
+    renderQuestion();
   }
 }
 
+// =====================================================================
+// EVENT DELEGATION (single listener on stable parent — bulletproof on mobile)
+// =====================================================================
+document.querySelector(".app").addEventListener("click", function(ev) {
+  const target = ev.target.closest("[data-action]");
+  if (!target) return;
+  const action = target.dataset.action;
+  if (action === "select") {
+    selectOption(target.dataset.letter);
+  } else if (action === "toggleGuess") {
+    toggleGuess();
+  } else if (action === "submit") {
+    submitAnswer();
+  } else if (action === "next") {
+    nextQuestion();
+  } else if (action === "reset") {
+    if (confirm("Reset all quiz progress?")) {
+      state.results = {};
+      saveResults();
+      renderQuestion();
+    }
+  }
+});
+
+document.getElementById("sectionSelect").addEventListener("change", applyFilter);
+
+// =====================================================================
+// STATS (overall + per-section breakdown)
+// =====================================================================
 function renderStats() {
   let confidentRight = 0, guessedRight = 0, wrong = 0, skipped = 0;
   const reviewItems = [];
   state.filtered.forEach(q => {
     const r = state.results[q.id];
-    if (!r) {
-      skipped++;
-    } else if (r.correct && !r.guessed) {
-      confidentRight++;
-    } else if (r.correct && r.guessed) {
+    if (!r) { skipped++; }
+    else if (r.correct && !r.guessed) { confidentRight++; }
+    else if (r.correct && r.guessed) {
       guessedRight++;
       reviewItems.push({ q, tag: "guessed", label: "right but guessed" });
     } else if (!r.correct) {
@@ -893,6 +995,38 @@ function renderStats() {
   document.getElementById("statGuessed").textContent = guessedRight;
   document.getElementById("statWrong").textContent = wrong;
   document.getElementById("statSkipped").textContent = skipped;
+
+  // Per-section breakdown across ALL questions in the bank, not just filtered
+  const bySection = {};
+  for (const q of QUESTIONS) {
+    if (!bySection[q.section]) bySection[q.section] = { total: 0, right: 0, guessed: 0, wrong: 0, skipped: 0 };
+    bySection[q.section].total++;
+    const r = state.results[q.id];
+    if (!r) bySection[q.section].skipped++;
+    else if (r.correct && !r.guessed) bySection[q.section].right++;
+    else if (r.correct && r.guessed) bySection[q.section].guessed++;
+    else if (!r.correct) bySection[q.section].wrong++;
+  }
+
+  const sectionPanel = document.getElementById("sectionScores");
+  let rows = "";
+  for (const sec of Object.keys(SECTION_LABELS)) {
+    const s = bySection[sec];
+    if (!s) continue;
+    const attempted = s.right + s.guessed + s.wrong;
+    const accuracy = attempted ? Math.round(((s.right + s.guessed) / attempted) * 100) : null;
+    rows += `<div class="section-score-row">
+      <div class="section-score-name">${SECTION_LABELS[sec]}</div>
+      <div class="section-score-bar">
+        <span class="ssr-right" style="flex: ${s.right};"></span>
+        <span class="ssr-guessed" style="flex: ${s.guessed};"></span>
+        <span class="ssr-wrong" style="flex: ${s.wrong};"></span>
+        <span class="ssr-skipped" style="flex: ${s.skipped};"></span>
+      </div>
+      <div class="section-score-num">${s.right + s.guessed}/${s.total}${accuracy !== null ? " · " + accuracy + "%" : ""}</div>
+    </div>`;
+  }
+  sectionPanel.innerHTML = rows;
 
   const reviewArea = document.getElementById("reviewArea");
   const reviewList = document.getElementById("reviewList");
@@ -908,15 +1042,6 @@ function renderStats() {
     `).join("");
   }
 }
-
-document.getElementById("sectionSelect").addEventListener("change", applyFilter);
-document.getElementById("resetBtn")?.addEventListener("click", () => {
-  if (confirm("Reset all quiz progress?")) {
-    state.results = {};
-    saveResults();
-    render();
-  }
-});
 
 // Init
 loadResults();
