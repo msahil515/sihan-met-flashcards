@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Psychological Assessment, Read-First Primer — MET 2026</title>
+<link rel="stylesheet" href="../../notes-style.css">
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <a href="../../">← Flashcards</a>
+  <a href="../">All Notes</a>
+</nav>
+<h1>Psychological Assessment, Read-First Primer</h1>
+<h1 id="psychological-assessment-read-first-primer">Psychological
+Assessment, Read-First Primer</h1>
+<p>This is written in explanation mode. Read it like a chapter, not a
+cheatsheet. Every fact has a “why” attached. Once this clicks, the
+existing flashcard decks (Assessment 1 and 2) become useful as a
+self-test, not a confusion machine.</p>
+<p>If you walk away with one mental model, it is this: <strong>a
+psychological test is a measuring instrument, and like any instrument,
+it has to be (a) consistent and (b) accurate.</strong> Consistent =
+reliability. Accurate = validity. Everything else in this section is
+either a way to estimate reliability, a way to estimate validity, a way
+to interpret scores against norms, or an example of a real-world test.
+That is the whole map.</p>
+<h2 id="why-test-construction-is-even-a-thing">1. Why test construction
+is even a thing</h2>
+<p>Psychology is uncomfortably stuck between two facts. First, the
+things we want to measure (anxiety, intelligence, personality) are not
+directly observable. There is no anxiety-meter you can clip to a
+fingertip. Second, we still need to make decisions: should this child be
+in special education? Is this candidate fit for the army? Does this
+patient have OCD? So we build instruments out of items, like a
+thermometer made of questions.</p>
+<p>That is why item analysis exists. Each item is a single sensor
+reading. If the sensor is too easy (everyone gets it right) it tells us
+nothing. If the sensor is too hard (no one gets it) it tells us nothing.
+If the sensor agrees with the rest of the test, it is doing its job. If
+it disagrees, something is wrong with that item.</p>
+<h3 id="difficulty-index-p">Difficulty index, p</h3>
+<p>The difficulty index is just the proportion who got an item
+right.</p>
+<pre><code>p = (number who got the item right) / (total who attempted)</code></pre>
+<p>Range zero to one. p = 0.50 means half the test-takers got it right.
+That is the sweet spot for a free-response item, because it
+discriminates the most. For a 4-option MCQ, the sweet spot is closer to
+0.625 because guessers will pick the right answer 25% of the time by
+chance, and you want item difficulty to land halfway between guessing
+(0.25) and ceiling (1.00).</p>
+<p>Items with p above 0.80 are too easy and items below 0.20 are too
+hard. Both are candidates for revision because they cannot tell strong
+students from weak ones.</p>
+<h3 id="discrimination-index-d">Discrimination index, D</h3>
+<p>This one asks: do the test-takers who scored well on the whole test
+do better on this item than the test-takers who scored badly?
+Specifically:</p>
+<pre><code>D = p_upper - p_lower</code></pre>
+<p>Where p_upper is the proportion correct in the top 27% of scorers and
+p_lower is the proportion in the bottom 27%. Range is minus one to plus
+one.</p>
+<p>If D is high (above 0.40), the item agrees with the overall test. Top
+scorers got it right, bottom scorers got it wrong. The item is a good
+signal.</p>
+<p>If D is near zero, the item is random noise. Both groups perform
+similarly.</p>
+<p>If D is <strong>negative</strong>, something is wrong. The bottom
+group out-performed the top group. That happens when an item is
+mis-keyed, ambiguously worded, or has a trick that strong test-takers
+over-think. Negative D means discard immediately.</p>
+<p>Always read negative D as a red flag, not as a hard item.</p>
+<h2 id="reliability-the-consistency-story">2. Reliability, the
+consistency story</h2>
+<p>Reliability is not about whether the test is correct. It is about
+whether the test is <strong>consistent</strong>. A bathroom scale that
+reads 75 kg every time you step on it is reliable, even if it is
+calibrated wrong and the true weight is 70. A scale that bounces between
+60, 90, and 80 is unreliable, full stop.</p>
+<p>Why does this matter? Because if a test is unreliable, you cannot
+trust any single score from it. The next time you give the same test to
+the same person, you will get a different answer for reasons that have
+nothing to do with the trait you are trying to measure. You are
+measuring noise.</p>
+<p>The classical test theory equation summarizes this:</p>
+<pre><code>Observed Score = True Score + Error</code></pre>
+<p>Reliability is the proportion of observed score variance that is true
+variance, not error. A reliability of 0.80 says 80% of what you are
+seeing is signal, 20% is noise.</p>
+<p>There are several reliability methods because there are several ways
+to think about “consistency”:</p>
+<ul>
+<li><strong>Across time:</strong> test the same person twice on
+different days (test-retest).</li>
+<li><strong>Across forms:</strong> give two different versions of the
+test (parallel forms).</li>
+<li><strong>Within one administration, across items:</strong> check that
+the items hang together (split-half, Cronbach alpha, KR-20).</li>
+<li><strong>Across raters:</strong> check that two judges agree (Cohen
+kappa for categorical, ICC for continuous).</li>
+</ul>
+<h3 id="test-retest-the-time-stability-check">Test-retest, the
+time-stability check</h3>
+<p>Give the test on Monday, give it again three weeks later, correlate
+the two scores. If the correlation is high, the test is stable across
+time.</p>
+<p>The trap: if you wait too long, the trait itself can change, and the
+correlation drops not because the test is bad but because the person
+actually changed. If you wait too short, memory carryover inflates the
+correlation. The standard window is two to four weeks.</p>
+<h3 id="split-half-plus-spearman-brown">Split-half plus
+Spearman-Brown</h3>
+<p>Give the test once, split the items into two halves (often
+odd-numbered vs even-numbered), and correlate the two halves. The result
+tells you how internally consistent the test is.</p>
+<p>Catch: by splitting, you have effectively halved the test length, and
+shorter tests are less reliable. So the raw split-half correlation
+underestimates the full-test reliability. Spearman-Brown corrects for
+that:</p>
+<pre><code>r_full = 2 * r_half / (1 + r_half)</code></pre>
+<p>If r_half is 0.60, the full-test estimated reliability is 1.20 / 1.60
+= 0.75. Spearman-Brown is the standard fix you apply after any
+split.</p>
+<h3 id="cronbach-alpha">Cronbach alpha</h3>
+<p>Imagine doing every possible split-half (odd-even, first-half
+last-half, items 1-3-5 vs 2-4-6, etc.) and averaging the result. That
+mean is Cronbach alpha. It is the most common internal-consistency
+measure for tests with multi-point items (like Likert).</p>
+<p>Important: alpha is <strong>not</strong> a measure of
+unidimensionality. A test can have high alpha and still be measuring two
+distinct constructs. Alpha rises with item count, item homogeneity, and
+variance in the trait. The MET love this trap.</p>
+<h3 id="kr-20">KR-20</h3>
+<p>When items are right-or-wrong (dichotomous, 1 or 0), Cronbach alpha
+simplifies to a special formula called KR-20 (Kuder-Richardson 20). It
+is the same idea, just adapted for 0/1 items. So if you see “30-item
+right-wrong vocabulary test, one administration, which reliability?”,
+the answer is KR-20.</p>
+<h3 id="inter-rater-kappa-and-icc">Inter-rater, kappa and ICC</h3>
+<p>What if humans do the scoring (Rorschach protocols, clinical
+interviews, essay grades)? Then reliability is about whether two raters
+agree. For categorical decisions (does the patient have OCD, yes or
+no?), Cohen kappa corrects for chance agreement. Kappa = 0.81 or above
+is almost-perfect; 0.61 to 0.80 is substantial.</p>
+<p>For continuous ratings (a 0-100 severity score), use the intraclass
+correlation coefficient (ICC). Different forms of ICC exist depending on
+whether raters are random or fixed.</p>
+<p>Critical: kappa is <strong>not</strong> an internal-consistency
+measure. If a question describes a one-administration internal-structure
+test, kappa is wrong.</p>
+<h3 id="standard-error-of-measurement-sem">Standard Error of Measurement
+(SEM)</h3>
+<p>SEM is the practical takeaway of reliability. It tells you the band
+of error around any one observed score.</p>
+<pre><code>SEM = SD * sqrt(1 - r_xx)</code></pre>
+<p>where SD is the test’s standard deviation and r_xx is its
+reliability.</p>
+<p>Example: a test with SD = 20 and reliability 0.81 has SEM = 20 *
+sqrt(0.19) = 20 * 0.436 = 8.72. So if a person scores 100, the 68%
+confidence band is roughly 91 to 109 (one SEM either side).</p>
+<p>Higher reliability shrinks SEM. SEM is what lets you say “this score
+is meaningfully different from that one” or “this is within the noise
+band.”</p>
+<h2 id="validity-the-accuracy-story">3. Validity, the accuracy
+story</h2>
+<p>A test can be perfectly reliable and still measure the wrong thing.
+Validity asks whether the test measures the construct it claims to
+measure.</p>
+<p>There are three broad evidence types in the classical model. (Modern
+theorists, especially Messick, fold them all into “construct validity,”
+but MET still uses the classical breakdown so know both.)</p>
+<h3 id="content-validity">Content validity</h3>
+<p>Does the test cover the domain it claims to cover? An anxiety scale
+that only asks about racing heart but ignores worry, restlessness, and
+sleep is content-deficient. Content validity is established by expert
+panels who rate whether items adequately sample the content domain.
+Lawshe’s CVR is the technical formula but expert judgment is the
+core.</p>
+<p>Do not confuse with face validity. Face validity is whether the test
+<strong>looks</strong> valid to a layperson taking it. That is the
+weakest form because laypeople are not domain experts. A test can have
+high face validity and bad content validity (looks plausible but misses
+key content) or low face validity and high content validity (rigorous
+content but feels weird to take).</p>
+<h3 id="criterion-validity">Criterion validity</h3>
+<p>Does the test correlate with a real-world outcome (the criterion)?
+Two flavors:</p>
+<ul>
+<li><strong>Concurrent</strong>: criterion measured at the same time.
+Example: a new depression scale today vs an established gold standard
+like HAM-D today. Used when a gold standard already exists.</li>
+<li><strong>Predictive</strong>: criterion measured later. Example: GRE
+today predicts graduate GPA two years later. Used when you want to
+forecast future behavior.</li>
+</ul>
+<p>Memory hook: <strong>Predictive = Postponed.</strong> Concurrent =
+Current.</p>
+<h3 id="construct-validity">Construct validity</h3>
+<p>The most abstract form. It asks: if my test really measures Construct
+X, then it should correlate strongly with other measures of X
+(convergent), correlate weakly with measures of unrelated constructs
+(discriminant), and behave the way theory predicts in study after study
+(nomological network).</p>
+<p>The classic technique here is <strong>Campbell and Fiske’s 1959
+multitrait-multimethod matrix (MTMM)</strong>, which tests convergent
+and discriminant validity simultaneously by measuring multiple traits
+with multiple methods.</p>
+<h3 id="validity-ceiling">Validity ceiling</h3>
+<p>Validity cannot exceed the square root of reliability:</p>
+<pre><code>Maximum validity coefficient between Test A and Test B = sqrt(r_xx_A * r_xx_B)</code></pre>
+<p>If A is 0.64 reliable and B is 0.81 reliable, the maximum correlation
+between them is sqrt(0.64 * 0.81) = 0.72. Unreliable tests cannot be
+strongly valid. Reliability is necessary for validity, not
+sufficient.</p>
+<h2 id="norms-and-standard-scores-the-comparison-story">4. Norms and
+standard scores, the comparison story</h2>
+<p>A raw score by itself means nothing. “Sahil scored 47 on a vocabulary
+test” tells you nothing until you know what other people score. Norms
+convert raw scores into a frame of reference.</p>
+<p>The two most useful conversions are percentile ranks and standard
+scores.</p>
+<h3 id="percentile-ranks">Percentile ranks</h3>
+<p>The percentage of the norm group scoring at or below the person’s
+score. A 75th percentile means 75% of people scored at or below this
+person. Easy to interpret, but ordinal (the gap between the 50th and
+60th percentile is much smaller than the gap between the 90th and
+99th).</p>
+<h3 id="standard-scores">Standard scores</h3>
+<p>These convert raw scores onto an interval scale where the mean and SD
+are fixed. The conversion is always:</p>
+<pre><code>Standard Score = M + (SD * z)</code></pre>
+<p>where z is the person’s z-score from the norm group.</p>
+<p>You need to memorize a handful of standard score systems cold. They
+get tested every cycle:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 28%" />
+<col style="width: 19%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr>
+<th>Score</th>
+<th>Mean</th>
+<th>SD</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>z</td>
+<td>0</td>
+<td>1</td>
+<td>Universal</td>
+</tr>
+<tr>
+<td>T</td>
+<td>50</td>
+<td>10</td>
+<td>MMPI, Big Five inventories</td>
+</tr>
+<tr>
+<td><strong>Wechsler IQ</strong></td>
+<td><strong>100</strong></td>
+<td><strong>15</strong></td>
+<td>WAIS, WISC, WPPSI</td>
+</tr>
+<tr>
+<td>Old Stanford-Binet IQ</td>
+<td>100</td>
+<td>16</td>
+<td>Older SB versions</td>
+</tr>
+<tr>
+<td>Stanine</td>
+<td>5</td>
+<td>2</td>
+<td>Achievement tests, range 1 to 9</td>
+</tr>
+<tr>
+<td>Sten</td>
+<td>5.5</td>
+<td>2</td>
+<td>16PF</td>
+</tr>
+<tr>
+<td>Wechsler subtest scaled</td>
+<td>10</td>
+<td>3</td>
+<td>Subtests inside WAIS/WISC, range 1 to 19</td>
+</tr>
+</tbody>
+</table>
+<p>The most-tested traps: - Wechsler IQ uses SD = 15. Old Binet used SD
+= 16. Read the question carefully. - Stanine has SD = 2,
+<strong>not</strong> 1. Common distractor. - T is 50/10,
+<strong>not</strong> 100/10.</p>
+<p>Normal-curve landmarks worth memorizing: 68% within 1 SD, 95% within
+2 SD, 99.7% within 3 SD. A z of plus 1 lands at the 84th percentile. A z
+of plus 2 lands at the 98th percentile.</p>
+<h2 id="the-major-intelligence-tests">5. The major intelligence
+tests</h2>
+<h3 id="the-wechsler-family">The Wechsler family</h3>
+<p>Wechsler is the workhorse. Three versions for three age bands:</p>
+<ul>
+<li><strong>WPPSI</strong> (Preschool and Primary), ages 2:6 to 7:7,
+currently version IV.</li>
+<li><strong>WISC</strong> (Children), ages 6:0 to 16:11, currently
+version V.</li>
+<li><strong>WAIS</strong> (Adult), ages 16:0 to 90:11, currently version
+IV (with WAIS-5 in rollout).</li>
+</ul>
+<p>WAIS-IV produces a Full-Scale IQ (FSIQ) plus four index scores:
+Verbal Comprehension, Perceptual Reasoning, Working Memory, Processing
+Speed. WISC-V expanded to five indices (Verbal Comprehension, Visual
+Spatial, Fluid Reasoning, Working Memory, Processing Speed) by
+separating fluid reasoning from visual-spatial.</p>
+<h3 id="stanford-binet">Stanford-Binet</h3>
+<p>The granddaddy. Started as Binet-Simon in France in 1905, brought to
+Stanford by Lewis Terman in 1916 with the famous IQ ratio formula (IQ =
+MA / CA times 100). Modern SB-5 abandoned the ratio in favor of
+deviation IQ (M = 100, SD = 15 since 2003).</p>
+<h3 id="ravens-progressive-matrices">Raven’s Progressive Matrices</h3>
+<p>Nonverbal, pattern-completion, culture-reduced. Used widely in
+cross-cultural research and India. Three forms: Standard (SPM), Coloured
+(CPM, for children and elderly), Advanced (APM, for above-average
+ability).</p>
+<h3 id="indian-adaptations-high-yield-for-both-met-and-nimhans">Indian
+adaptations (high yield for both MET and NIMHANS)</h3>
+<ul>
+<li><strong>Bhatia Battery of Performance Tests of
+Intelligence</strong>: C.M. Bhatia, 1955. <strong>Five
+subtests</strong>: Koh’s Block Design, Alexander’s Pass-Along, Pattern
+Drawing, Immediate Memory, Picture Construction. For ages 11 to 16 with
+Indian norms.</li>
+<li><strong>Malin’s Intelligence Scale for Indian Children
+(MISIC)</strong>: WISC adaptation, ages 6 to 15.</li>
+<li><strong>Binet-Kamat Test (BKT)</strong>: Kamat’s Marathi/Kannada
+adaptation of the Binet.</li>
+<li><strong>Seguin Form Board</strong>: Nonverbal, ages 3 to 7, measures
+speed of visual-motor coordination.</li>
+</ul>
+<p>Bhatia having five subtests is a chronic MCQ trap. Memorize the
+count.</p>
+<h2 id="personality-assessment-two-big-families">6. Personality
+assessment, two big families</h2>
+<h3 id="objective-self-report">Objective (self-report)</h3>
+<p>The big four to know:</p>
+<ul>
+<li><strong>MMPI-2 / MMPI-2-RF / MMPI-3</strong>: 10 clinical scales
+(Hs, D, Hy, Pd, Mf, Pa, Pt, Sc, Ma, Si) plus validity scales (L, F, K).
+Authored by Hathaway and McKinley. 567 true-false items in MMPI-2.
+<strong>The number is 10 clinical, not 8.</strong></li>
+<li><strong>NEO-PI-3</strong>: Big Five (OCEAN: Openness,
+Conscientiousness, Extraversion, Agreeableness, Neuroticism). 240 items.
+By Costa and McCrae.</li>
+<li><strong>16PF</strong>: Cattell’s 16 primary factors plus 5 globals.
+185 items. <strong>16PF is not Big Five</strong>; they are different
+theories.</li>
+<li><strong>EPQ-R</strong>: Eysenck’s three big traits (Extraversion,
+Neuroticism, Psychoticism) plus Lie scale.</li>
+</ul>
+<h3 id="projective-ambiguous-stimulus">Projective (ambiguous
+stimulus)</h3>
+<p>Theory: ambiguous stimuli pull unconscious material to the surface
+(projection).</p>
+<ul>
+<li><strong>Rorschach</strong>: <strong>10 inkblots</strong>, 5
+chromatic and 5 achromatic. Hermann Rorschach, 1921. Modern scoring via
+Exner Comprehensive System or R-PAS.</li>
+<li><strong>TAT (Thematic Apperception Test)</strong>: <strong>31 cards
+total</strong>, 20 administered per session selected by age and sex of
+subject. Henry Murray and Christiana Morgan, 1935. Theory:
+needs-press.</li>
+<li><strong>CAT (Children’s Apperception Test)</strong>: Bellak, 1949.
+Animal cards for children.</li>
+<li><strong>Sentence Completion (RISB)</strong>: Rotter.</li>
+<li><strong>Draw-a-Person, House-Tree-Person, Bender-Gestalt</strong>:
+drawing-based; HTP and DAP are Buck/Machover.</li>
+</ul>
+<p>The card-count traps the MET asks every cycle: - Rorschach =
+<strong>10 cards</strong> (not 12, not 15, not 20). - TAT = <strong>31
+total</strong> (not 10, not 20).</p>
+<h2 id="aptitude-attitude-interest-briefly">7. Aptitude, attitude,
+interest, briefly</h2>
+<ul>
+<li><strong>DAT (Differential Aptitude Test)</strong>: 8 subtests
+(Verbal, Numerical, Abstract, Mechanical, Space, Spelling, Language,
+Perceptual). Bennett, Seashore, Wesman.</li>
+<li><strong>GATB</strong>: nine aptitudes, US Employment Service.</li>
+</ul>
+<p>Attitude scales: - <strong>Thurstone (1928)</strong>: equal-appearing
+intervals, judges scale items 1 to 11. - <strong>Likert (1932)</strong>:
+summated rating, typically 5-point. - <strong>Guttman (1944)</strong>:
+cumulative; endorsing a stronger item implies endorsing weaker ones. -
+<strong>Bogardus</strong>: social distance. - <strong>Osgood semantic
+differential</strong>: bipolar adjectives, 3 factors (evaluation,
+potency, activity).</p>
+<p>Interest inventories: - <strong>Strong Interest Inventory</strong>:
+Holland themes (RIASEC) plus occupational scales. - <strong>Kuder Career
+Search</strong>: forced-choice triads. - <strong>Holland Self-Directed
+Search</strong>: RIASEC (Realistic, Investigative, Artistic, Social,
+Enterprising, Conventional).</p>
+<h2 id="psychiatric-rating-scales-the-clinical-tool-family">8.
+Psychiatric rating scales, the clinical-tool family</h2>
+<p>These come up constantly. Memorize what each scale measures and
+whether it is clinician-rated or self-rated.</p>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 43%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr>
+<th>Scale</th>
+<th>Measures</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BDI-II</td>
+<td>Depression</td>
+<td>Self, 21 items</td>
+</tr>
+<tr>
+<td>HAM-D / HDRS</td>
+<td>Depression</td>
+<td>Clinician, 17-21 items</td>
+</tr>
+<tr>
+<td>MADRS</td>
+<td>Depression</td>
+<td>Clinician, 10 items</td>
+</tr>
+<tr>
+<td>PHQ-9</td>
+<td>Depression</td>
+<td>Self, 9 items</td>
+</tr>
+<tr>
+<td>BAI</td>
+<td>Anxiety</td>
+<td>Self, 21 items</td>
+</tr>
+<tr>
+<td>HAM-A</td>
+<td>Anxiety</td>
+<td>Clinician, 14 items</td>
+</tr>
+<tr>
+<td>GAD-7</td>
+<td>Anxiety</td>
+<td>Self, 7 items</td>
+</tr>
+<tr>
+<td><strong>Y-BOCS</strong></td>
+<td><strong>OCD severity (gold standard)</strong></td>
+<td>Clinician, 10 items</td>
+</tr>
+<tr>
+<td><strong>PANSS</strong></td>
+<td><strong>Schizophrenia symptoms (positive + negative)</strong></td>
+<td>Clinician, 30 items</td>
+</tr>
+<tr>
+<td>BPRS</td>
+<td>Brief psychiatric symptoms</td>
+<td>Clinician, 18 items</td>
+</tr>
+<tr>
+<td>YMRS</td>
+<td>Mania</td>
+<td>Clinician, 11 items</td>
+</tr>
+<tr>
+<td><strong>MMSE</strong></td>
+<td><strong>Cognitive screening (general)</strong></td>
+<td>30 points, cutoff 23-24</td>
+</tr>
+<tr>
+<td><strong>MoCA</strong></td>
+<td><strong>Mild cognitive impairment</strong></td>
+<td>30 points, cutoff 25, more sensitive than MMSE</td>
+</tr>
+<tr>
+<td>C-SSRS</td>
+<td>Suicide severity</td>
+<td>—</td>
+</tr>
+<tr>
+<td>CAPS-5</td>
+<td>PTSD</td>
+<td>Clinician</td>
+</tr>
+<tr>
+<td>AUDIT</td>
+<td>Alcohol use</td>
+<td>Self</td>
+</tr>
+</tbody>
+</table>
+<p>The chronic confusions: - Y-BOCS is <strong>OCD
+specifically</strong>, not anxiety in general. If a question mentions
+“obsessive-compulsive severity gold standard”, the answer is Y-BOCS. -
+PANSS is <strong>schizophrenia</strong>, covers both positive and
+negative symptoms. BPRS is briefer and more general. - MMSE has
+<strong>30 points</strong> with a cutoff in the 23-24 range. Frequently
+asked.</p>
+<h2 id="educational-measurement-basics">9. Educational measurement
+basics</h2>
+<p>Three distinctions worth knowing:</p>
+<ul>
+<li><strong>Achievement</strong> measures what you have learned (past).
+Examples: WIAT, school finals.</li>
+<li><strong>Aptitude</strong> measures what you can learn (future).
+Examples: DAT, SAT.</li>
+<li><strong>Intelligence</strong> measures general cognitive capacity.
+Examples: WAIS, SB.</li>
+</ul>
+<p>Scoring frame: - <strong>Norm-referenced</strong>: compare student to
+peer group (ranking, selection). -
+<strong>Criterion-referenced</strong>: compare student to absolute
+standard (mastery, licensing).</p>
+<p>Timing: - <strong>Formative</strong>: during learning, low-stakes
+feedback. - <strong>Summative</strong>: end of unit, high-stakes
+outcome.</p>
+<h2 id="the-10-traps-to-memorize-cold">10. The 10 traps to memorize
+cold</h2>
+<ol type="1">
+<li>Validity has a ceiling at sqrt(reliability). Unreliable tests cannot
+be strongly valid.</li>
+<li>Negative discrimination index = miskeyed item. Discard
+immediately.</li>
+<li>Cronbach alpha is not unidimensionality. High alpha can mask
+multiple factors.</li>
+<li>Wechsler IQ uses SD 15. Old Stanford-Binet used SD 16.</li>
+<li>Stanine has SD 2, range 1 to 9.</li>
+<li>Predictive = future criterion. Concurrent = same-time
+criterion.</li>
+<li>Face validity is the weakest form. Content validity is
+expert-judgment of domain coverage.</li>
+<li>MMPI-2 has 10 clinical scales (Hs D Hy Pd Mf Pa Pt Sc Ma Si).</li>
+<li>Rorschach = 10 inkblots. TAT = 31 total cards (20 per admin).</li>
+<li>Y-BOCS = OCD. PANSS = schizophrenia. MMSE = 30 points, cutoff
+23-24.</li>
+</ol>
+<h2 id="how-to-use-this-primer-with-the-flashcard-app">11. How to use
+this primer with the flashcard app</h2>
+<p>Read this top to bottom, even the sections you think you know. Then
+go to:</p>
+<p>https://msahil515.github.io/sihan-met-flashcards/</p>
+<p>Open Psych Assessment Deck 1 (Reliability, Validity, Norms). Tap each
+card. <strong>Try to answer in your head before flipping.</strong> That
+step is the whole point. Mark Knew or Missed honestly. Then Deck 2
+(Tests and Scales).</p>
+<p>After both decks, you will know roughly which 3-5 facts are not
+sticking. Tell me which Q numbers you Missed and I will hammer those
+specifically next session.</p>
+<footer>Sihan MET 2026 Prep · Generated 2026-04-25</footer>
+</div>
+</body>
+</html>
