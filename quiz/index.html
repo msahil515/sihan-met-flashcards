@@ -271,6 +271,55 @@
   }
   .explanation.visible { display: block; }
   .explanation strong { color: var(--accent); }
+  .notes-area {
+    margin-top: 14px;
+    border-top: 1px dashed var(--border);
+    padding-top: 12px;
+  }
+  .notes-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .notes-saved {
+    font-size: 11px;
+    color: var(--good);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .notes-saved.visible { opacity: 1; }
+  .notes-textarea {
+    width: 100%;
+    min-height: 70px;
+    background: var(--panel-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.45;
+    resize: vertical;
+    box-sizing: border-box;
+  }
+  .notes-textarea:focus {
+    outline: none;
+    border-color: var(--accent-dim);
+    background: rgba(31, 111, 235, 0.04);
+  }
+  .notes-textarea::placeholder { color: var(--muted); }
+  .has-note .section-tag::after {
+    content: " · 📝 noted";
+    color: var(--good);
+    font-weight: 500;
+  }
   .stats {
     background: var(--panel);
     border: 1px solid var(--border);
@@ -1228,15 +1277,48 @@ const state = {
 };
 
 const STORAGE_KEY = "sihan-met-quiz-results-v1";
+const STORAGE_KEY_NOTES = "sihan-met-quiz-notes-v1";
+
+state.notes = {};
 
 function loadResults() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) state.results = JSON.parse(raw);
   } catch {}
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_NOTES);
+    if (raw) state.notes = JSON.parse(raw);
+  } catch {}
 }
 function saveResults() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state.results));
+}
+function saveNotes() {
+  localStorage.setItem(STORAGE_KEY_NOTES, JSON.stringify(state.notes));
+}
+let notesSaveTimer = null;
+function handleNotesInput(qid, text) {
+  if (text && text.trim()) {
+    state.notes[qid] = text;
+  } else {
+    delete state.notes[qid];
+  }
+  if (notesSaveTimer) clearTimeout(notesSaveTimer);
+  notesSaveTimer = setTimeout(() => {
+    saveNotes();
+    const tag = document.querySelector(".notes-saved");
+    if (tag) {
+      tag.classList.add("visible");
+      setTimeout(() => tag.classList.remove("visible"), 1200);
+    }
+    // Update has-note marker live without rebuilding card
+    const card = document.querySelector(".question-card");
+    if (card) {
+      if (state.notes[qid]) card.classList.add("has-note");
+      else card.classList.remove("has-note");
+    }
+  }, 400);
 }
 
 function escapeHtml(s) {
@@ -1289,8 +1371,11 @@ function renderQuestion() {
     </div>`;
   }
 
+  const noteText = state.notes[q.id] || "";
+  const hasNoteCls = noteText ? " has-note" : "";
+
   qa.innerHTML = `
-    <div class="question-card">
+    <div class="question-card${hasNoteCls}">
       <span class="section-tag">${SECTION_LABELS[q.section]} · ${examTag}</span>
       <div class="question-text">${escapeHtml(q.q)}</div>
       <div class="options" id="options">${optionsHtml}</div>
@@ -1313,8 +1398,23 @@ function renderQuestion() {
       <div class="explanation ${state.submitted ? "visible" : ""}">
         <strong>Correct: ${q.correct.toUpperCase()}.</strong> ${escapeHtml(q.explanation)}
       </div>
+      <div class="notes-area">
+        <div class="notes-label">
+          <span>Your notes</span>
+          <span class="notes-saved">saved</span>
+        </div>
+        <textarea
+          class="notes-textarea"
+          id="notesInput"
+          data-qid="${q.id}"
+          placeholder="Anything you want to remember about this question — mnemonic, where it came from, source page, why you missed it...">${escapeHtml(noteText)}</textarea>
+      </div>
     </div>
   `;
+  const notesEl = document.getElementById("notesInput");
+  if (notesEl) {
+    notesEl.addEventListener("input", e => handleNotesInput(e.target.dataset.qid, e.target.value));
+  }
   renderStats();
 }
 
