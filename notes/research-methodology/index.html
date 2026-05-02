@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Methodology + Biostatistics, Full Primer — MET 2026</title>
+<link rel="stylesheet" href="../../notes-style.css">
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <a href="../../">← Flashcards</a>
+  <a href="../">All Notes</a>
+</nav>
+<h1>Research Methodology + Biostatistics, Full Primer</h1>
+<p>Built 2026-05-02. Covers everything MET might ask in section 6
+(Biostatistics &amp; Research Methodology). Read top-to-bottom. Memorize
+the tables and the MCQ traps at the end.</p>
+
+<h2 id="types-of-data">1. Types of Data (Levels of Measurement)</h2>
+<p>Stevens (1946) gave us the four levels. Knowing the level dictates
+which statistical test you can use.</p>
+<table>
+<thead>
+<tr><th>Level</th><th>Properties</th><th>Example</th><th>Allowed stats</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Nominal</strong></td><td>Categories only, no order</td><td>Sex, blood group, religion, diagnosis (yes/no)</td><td>Mode, frequency, chi-square</td></tr>
+<tr><td><strong>Ordinal</strong></td><td>Order, but unequal intervals</td><td>Pain scale 0-10, Likert (agree/disagree), socio-economic class</td><td>Median, percentile, Spearman's rho, Mann-Whitney U</td></tr>
+<tr><td><strong>Interval</strong></td><td>Equal intervals, no true zero</td><td>Temperature in °C, IQ, calendar years</td><td>Mean, SD, t-test, ANOVA, Pearson's r</td></tr>
+<tr><td><strong>Ratio</strong></td><td>Equal intervals + true zero</td><td>Height, weight, reaction time, age</td><td>All of the above + geometric mean, ratios meaningful</td></tr>
+</tbody>
+</table>
+<p><strong>Memory hook:</strong> <em>NOIR</em> = Nominal, Ordinal, Interval,
+Ratio (in increasing order of information).</p>
+
+<h2 id="descriptive-statistics">2. Descriptive Statistics</h2>
+<h3>Central Tendency (where the middle is)</h3>
+<ul>
+<li><strong>Mean</strong> — arithmetic average. Sensitive to outliers. Use for symmetric/normal data.</li>
+<li><strong>Median</strong> — 50th percentile. Robust to outliers. Use for skewed data or ordinal data.</li>
+<li><strong>Mode</strong> — most frequent value. Only measure for nominal data. A distribution can be bimodal/multimodal.</li>
+</ul>
+
+<h3>Dispersion (how spread out the data is)</h3>
+<ul>
+<li><strong>Range</strong> = max − min. Crude, sensitive to outliers.</li>
+<li><strong>IQR (Interquartile Range)</strong> = Q3 − Q1. Robust. Used in box plots.</li>
+<li><strong>Variance</strong> = mean of squared deviations from the mean. Units are squared.</li>
+<li><strong>Standard Deviation (SD)</strong> = √variance. Same units as the data. The default dispersion measure.</li>
+<li><strong>Standard Error of the Mean (SEM)</strong> = SD / √n. Dispersion of the <em>sample mean</em>, not of individuals. Always smaller than SD.</li>
+<li><strong>Coefficient of Variation (CV)</strong> = SD/mean × 100%. Compares variability across different scales.</li>
+</ul>
+
+<h3>Shape</h3>
+<ul>
+<li><strong>Skewness</strong> — asymmetry. Positive skew = long right tail (mean &gt; median &gt; mode). Negative skew = long left tail (mean &lt; median &lt; mode).</li>
+<li><strong>Kurtosis</strong> — peakedness. Leptokurtic = tall, narrow peak (high kurtosis, fat tails). Platykurtic = flat. Mesokurtic = normal.</li>
+</ul>
+
+<h2 id="distributions">3. Distributions</h2>
+<h3>Normal (Gaussian) Distribution</h3>
+<p>Bell-shaped, symmetric, mean = median = mode at center. Defined by μ and σ.</p>
+<ul>
+<li><strong>68-95-99.7 rule:</strong> 68% within ±1 SD, 95% within ±2 SD (more precisely 1.96), 99.7% within ±3 SD.</li>
+<li><strong>z-score</strong> = (x − μ) / σ. Standardizes any value to the standard normal (μ=0, σ=1).</li>
+<li><strong>Central Limit Theorem (CLT):</strong> the sampling distribution of the mean approaches normal as n increases, regardless of the shape of the underlying population. Foundation of inferential statistics. Rule of thumb: n ≥ 30.</li>
+</ul>
+
+<h3>Other distributions you should recognize</h3>
+<ul>
+<li><strong>t distribution</strong> — like normal but with fatter tails, shaped by degrees of freedom (df). Approaches normal as df → ∞.</li>
+<li><strong>Chi-square (χ²)</strong> — right-skewed, only positive values. Used for categorical data.</li>
+<li><strong>F distribution</strong> — ratio of two variances. Used in ANOVA and regression.</li>
+<li><strong>Binomial</strong> — discrete, two outcomes (success/failure) over n trials.</li>
+<li><strong>Poisson</strong> — count of rare events in fixed time/space (e.g., suicides per year, ER admissions per hour).</li>
+</ul>
+
+<h2 id="inferential-statistics">4. Inferential Statistics</h2>
+<h3>Hypothesis Testing Framework</h3>
+<ol>
+<li>State <strong>H₀ (null)</strong>: no effect / no difference.</li>
+<li>State <strong>H₁ (alternative)</strong>: there is an effect.</li>
+<li>Choose α (significance level), usually 0.05.</li>
+<li>Compute the test statistic and p-value.</li>
+<li>If p &lt; α, reject H₀. If p ≥ α, fail to reject H₀.</li>
+</ol>
+<p><strong>Important:</strong> we never <em>accept</em> H₀, we only <em>fail to
+reject</em> it. Absence of evidence ≠ evidence of absence.</p>
+
+<h3>Errors</h3>
+<table>
+<thead>
+<tr><th></th><th>H₀ true</th><th>H₀ false</th></tr>
+</thead>
+<tbody>
+<tr><td>Reject H₀</td><td><strong>Type I error (α)</strong> — false positive</td><td>Correct (power, 1−β)</td></tr>
+<tr><td>Fail to reject H₀</td><td>Correct (1−α)</td><td><strong>Type II error (β)</strong> — false negative</td></tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Type I (α)</strong> = saying there's an effect when there isn't. Standard cap at 0.05.</li>
+<li><strong>Type II (β)</strong> = missing a real effect. Standard target ≤ 0.20.</li>
+<li><strong>Power = 1 − β.</strong> Probability of correctly detecting a real effect. Convention: aim for 0.80.</li>
+<li><strong>Power increases when:</strong> n ↑, effect size ↑, α ↑ (more lenient), variability ↓, one-tailed test.</li>
+</ul>
+
+<h3>One-tailed vs Two-tailed</h3>
+<ul>
+<li><strong>Two-tailed (default):</strong> tests whether the difference is non-zero in either direction. α split, 0.025 in each tail.</li>
+<li><strong>One-tailed:</strong> tests for difference in a specific direction. More power, but only if you have a strong a priori reason. Considered conservative practice to use two-tailed by default.</li>
+</ul>
+
+<h3>p-values</h3>
+<ul>
+<li>Probability of observing the data (or more extreme) <em>if H₀ is true.</em></li>
+<li><strong>NOT</strong> the probability that H₀ is true. Common MCQ trap.</li>
+<li>p &lt; 0.05 = "statistically significant" (by convention, not by nature).</li>
+<li>Statistical significance ≠ clinical/practical significance.</li>
+</ul>
+
+<h3>Confidence Intervals (CI)</h3>
+<ul>
+<li>Range of plausible values for the true population parameter.</li>
+<li>95% CI means: if we repeated the study many times, 95% of constructed CIs would contain the true value.</li>
+<li>If 95% CI for a difference excludes 0, p &lt; 0.05.</li>
+<li>If 95% CI for a ratio (OR/RR) excludes 1, p &lt; 0.05.</li>
+<li>Wider CI = less precise estimate (small n or high variability).</li>
+</ul>
+
+<h3>Effect Size</h3>
+<ul>
+<li>Magnitude of the effect, independent of sample size.</li>
+<li><strong>Cohen's d</strong> for mean differences: 0.2 small, 0.5 medium, 0.8 large.</li>
+<li><strong>Pearson's r</strong> for correlation: 0.10 small, 0.30 medium, 0.50 large.</li>
+<li><strong>Eta squared (η²) / partial η²</strong> for ANOVA: 0.01 small, 0.06 medium, 0.14 large.</li>
+<li><strong>Odds Ratio (OR)</strong> / <strong>Relative Risk (RR)</strong> for case-control / cohort.</li>
+</ul>
+
+<h2 id="parametric-tests">5. Parametric Tests</h2>
+<p>Assume normal distribution (or large n via CLT) and interval/ratio data.</p>
+<table>
+<thead>
+<tr><th>Question</th><th>Test</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>Mean of one sample vs known value</td><td><strong>One-sample t-test</strong></td><td>df = n − 1</td></tr>
+<tr><td>Two related (paired) means (pre/post, twins)</td><td><strong>Paired t-test</strong></td><td>df = n − 1 (n = pairs)</td></tr>
+<tr><td>Two independent group means</td><td><strong>Independent samples t-test</strong></td><td>df = n₁ + n₂ − 2. Assumes equal variance (use Welch's if not).</td></tr>
+<tr><td>Three or more independent group means</td><td><strong>One-way ANOVA</strong></td><td>F-test. If significant, follow with post-hoc (Tukey HSD, Bonferroni, Scheffé).</td></tr>
+<tr><td>Three or more related group means (within-subjects)</td><td><strong>Repeated-measures ANOVA</strong></td><td>Each subject in all conditions. Sphericity assumption.</td></tr>
+<tr><td>Two factors at once (e.g., drug × dose)</td><td><strong>Two-way / Factorial ANOVA</strong></td><td>Tests main effects + interaction.</td></tr>
+<tr><td>Linear association between two continuous variables</td><td><strong>Pearson's r</strong></td><td>Range −1 to +1. r² = variance explained.</td></tr>
+<tr><td>Predict Y from X (linear)</td><td><strong>Linear regression</strong></td><td>Y = a + bX + ε. Multiple regression for several predictors.</td></tr>
+<tr><td>Predict binary outcome</td><td><strong>Logistic regression</strong></td><td>Output = log odds, gives Odds Ratios.</td></tr>
+</tbody>
+</table>
+
+<h3>Parametric assumptions (always 4)</h3>
+<ol>
+<li>Normality of the dependent variable / residuals</li>
+<li>Homogeneity of variance (Levene's test)</li>
+<li>Independence of observations</li>
+<li>Interval/ratio measurement</li>
+</ol>
+
+<h2 id="non-parametric-tests">6. Non-parametric Tests</h2>
+<p>Use when assumptions are violated, sample is small, or data is ordinal.</p>
+<table>
+<thead>
+<tr><th>Parametric equivalent</th><th>Non-parametric test</th></tr>
+</thead>
+<tbody>
+<tr><td>One-sample t-test</td><td><strong>Wilcoxon signed-rank</strong> (or sign test)</td></tr>
+<tr><td>Paired t-test</td><td><strong>Wilcoxon signed-rank</strong></td></tr>
+<tr><td>Independent t-test</td><td><strong>Mann-Whitney U</strong> (also called Wilcoxon rank-sum)</td></tr>
+<tr><td>One-way ANOVA</td><td><strong>Kruskal-Wallis H</strong></td></tr>
+<tr><td>Repeated-measures ANOVA</td><td><strong>Friedman test</strong></td></tr>
+<tr><td>Pearson's r</td><td><strong>Spearman's rho</strong> (or Kendall's tau)</td></tr>
+<tr><td>Comparing categorical proportions</td><td><strong>Chi-square (χ²)</strong> for independence/goodness of fit; <strong>Fisher's exact</strong> for small n</td></tr>
+<tr><td>Paired categorical (pre/post yes/no)</td><td><strong>McNemar's test</strong></td></tr>
+</tbody>
+</table>
+
+<h2 id="sampling">7. Sampling</h2>
+<h3>Probability sampling (random, generalizable)</h3>
+<ul>
+<li><strong>Simple random</strong> — every individual has equal chance. Lottery method.</li>
+<li><strong>Stratified random</strong> — divide population into strata (sex, age groups, etc.), then sample randomly within each. Ensures representation.</li>
+<li><strong>Cluster</strong> — divide into clusters (schools, villages), randomly select clusters, study everyone within. Cheaper for large geographic areas.</li>
+<li><strong>Systematic</strong> — every kth person from a list. k = N/n. Risk: periodicity in the list.</li>
+<li><strong>Multistage</strong> — combination (e.g., random districts → random schools → random students).</li>
+</ul>
+
+<h3>Non-probability sampling (less rigorous, often used in qualitative research)</h3>
+<ul>
+<li><strong>Convenience</strong> — whoever is available. Most biased.</li>
+<li><strong>Purposive (judgmental)</strong> — researcher chooses based on expertise/criteria.</li>
+<li><strong>Quota</strong> — fill quotas (e.g., 50 men, 50 women) but not randomly.</li>
+<li><strong>Snowball</strong> — participants recruit other participants. Used for hidden/stigmatized populations.</li>
+</ul>
+
+<h3>Sample size — drivers</h3>
+<ul>
+<li>Larger when: smaller expected effect size, higher variability, lower α (e.g., 0.01), higher power required, multiple comparisons.</li>
+<li>Pilot study or prior literature gives the variance estimate.</li>
+<li>Common formulas use Cohen's tables, G*Power software.</li>
+</ul>
+
+<h2 id="research-designs">8. Research Designs</h2>
+<h3>Quantitative — by control over variables</h3>
+<table>
+<thead>
+<tr><th>Design</th><th>Manipulation</th><th>Random assignment</th><th>Strength</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>True experimental (RCT)</strong></td><td>Yes</td><td>Yes</td><td>Highest internal validity. Gold standard for causation.</td></tr>
+<tr><td><strong>Quasi-experimental</strong></td><td>Yes</td><td>No</td><td>Used when randomization is impossible (school classes, hospitals)</td></tr>
+<tr><td><strong>Pre-experimental</strong></td><td>Yes (loosely)</td><td>No</td><td>One-group pretest-posttest, very weak. Many threats to validity.</td></tr>
+<tr><td><strong>Non-experimental / Observational</strong></td><td>No</td><td>No</td><td>Just observe. Cohort, case-control, cross-sectional.</td></tr>
+</tbody>
+</table>
+
+<h3>Observational / Epidemiological</h3>
+<table>
+<thead>
+<tr><th>Design</th><th>Direction</th><th>Measure</th><th>Use when</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Cohort</strong></td><td>Forward (exposure → outcome)</td><td>Relative Risk (RR)</td><td>Rare exposure, common outcome. Prospective stronger than retrospective.</td></tr>
+<tr><td><strong>Case-control</strong></td><td>Backward (outcome → exposure)</td><td>Odds Ratio (OR)</td><td>Rare outcome (e.g., suicide). Cheaper, faster.</td></tr>
+<tr><td><strong>Cross-sectional</strong></td><td>Single time point</td><td>Prevalence</td><td>Snapshots. Cannot establish temporality.</td></tr>
+<tr><td><strong>Ecological</strong></td><td>Group-level data</td><td>Correlation</td><td>Risk: ecological fallacy (group → individual).</td></tr>
+<tr><td><strong>Case study / case series</strong></td><td>Descriptive</td><td>—</td><td>Generates hypotheses, not tests them.</td></tr>
+</tbody>
+</table>
+
+<h3>By time</h3>
+<ul>
+<li><strong>Cross-sectional</strong> — one time point. Cheap, no causation.</li>
+<li><strong>Longitudinal</strong> — same subjects over time. Causation possible. Risk: attrition (drop-out).</li>
+<li><strong>Cohort sequential</strong> — combines cross-sectional and longitudinal. Distinguishes age vs cohort effects.</li>
+</ul>
+
+<h2 id="clinical-trial-phases">9. Clinical Trial Phases &amp; Design Features</h2>
+<table>
+<thead>
+<tr><th>Phase</th><th>Purpose</th><th>Sample size</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Phase 0</strong></td><td>Microdosing, exploratory pharmacokinetics</td><td>~10-15</td></tr>
+<tr><td><strong>Phase I</strong></td><td>Safety, dose-finding, healthy volunteers (or patients for cancer drugs)</td><td>20-100</td></tr>
+<tr><td><strong>Phase II</strong></td><td>Efficacy + safety in target population</td><td>100-300</td></tr>
+<tr><td><strong>Phase III</strong></td><td>Confirmatory efficacy, comparison vs standard. Required for licensing.</td><td>1,000-3,000</td></tr>
+<tr><td><strong>Phase IV</strong></td><td>Post-marketing surveillance. Long-term effects, rare adverse events.</td><td>Thousands+</td></tr>
+</tbody>
+</table>
+
+<h3>Blinding</h3>
+<ul>
+<li><strong>Single-blind</strong> — subject doesn't know group allocation.</li>
+<li><strong>Double-blind</strong> — subject AND researcher (assessor) don't know.</li>
+<li><strong>Triple-blind</strong> — also data analyst is blinded.</li>
+<li><strong>Open-label</strong> — no blinding. Used when blinding is impossible (surgery vs no surgery).</li>
+</ul>
+
+<h3>Other RCT design features</h3>
+<ul>
+<li><strong>Placebo control</strong> — inert intervention to control for expectancy effects.</li>
+<li><strong>Active control</strong> — comparison vs current standard treatment (more ethical when one exists).</li>
+<li><strong>Crossover design</strong> — each subject receives both treatments in random order, separated by washout. Each subject is their own control. Cannot use for chronic/cure conditions.</li>
+<li><strong>Intention-to-treat (ITT) analysis</strong> — analyze subjects in their originally assigned group, even if they dropped out or switched. Preserves randomization, more conservative.</li>
+<li><strong>Per-protocol analysis</strong> — only analyze subjects who completed protocol. Inflates effect sizes.</li>
+</ul>
+
+<h2 id="variables">10. Variables</h2>
+<ul>
+<li><strong>Independent variable (IV)</strong> — manipulated or grouping variable. Cause.</li>
+<li><strong>Dependent variable (DV)</strong> — measured outcome. Effect.</li>
+<li><strong>Confounding variable</strong> — third variable associated with BOTH IV and DV; creates spurious associations. Control by randomization, matching, stratification, or statistical adjustment.</li>
+<li><strong>Mediator (intervening)</strong> — explains <em>how</em> IV affects DV. IV → Mediator → DV. (Stress → cortisol → immune suppression.)</li>
+<li><strong>Moderator</strong> — affects the <em>strength</em> or <em>direction</em> of the IV-DV relationship. (Therapy works better for women than men: sex moderates therapy → outcome.)</li>
+<li><strong>Extraneous variable</strong> — any variable other than IV that could affect DV. Becomes a confound if associated with IV.</li>
+</ul>
+
+<h2 id="validity">11. Validity in Research</h2>
+<p>Different from validity of a <em>test</em> (which is in section 4 assessment). Here we mean validity of a <em>study's conclusions</em>.</p>
+<table>
+<thead>
+<tr><th>Type</th><th>Question</th><th>Threats</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Internal validity</strong></td><td>Did the IV cause the DV?</td><td>History, maturation, testing, instrumentation, regression to mean, selection, attrition (Cook &amp; Campbell)</td></tr>
+<tr><td><strong>External validity</strong></td><td>Can we generalize to other people, settings, times?</td><td>Sampling bias, artificial setting, novelty effects</td></tr>
+<tr><td><strong>Construct validity</strong></td><td>Are we measuring the construct we claim?</td><td>Mono-operation bias, mono-method bias, demand characteristics</td></tr>
+<tr><td><strong>Statistical conclusion validity</strong></td><td>Is the statistical inference correct?</td><td>Low power, Type I/II errors, violated assumptions, unreliable measures</td></tr>
+</tbody>
+</table>
+
+<h2 id="qualitative-methods">12. Qualitative Methods</h2>
+<table>
+<thead>
+<tr><th>Method</th><th>Aim</th><th>Hallmark</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Phenomenology</strong> (Husserl, Giorgi)</td><td>Lived experience of a phenomenon</td><td>"Bracketing" personal assumptions; rich description</td></tr>
+<tr><td><strong>Grounded theory</strong> (Glaser &amp; Strauss, 1967)</td><td>Build theory from data</td><td>Constant comparison, theoretical sampling, open/axial/selective coding</td></tr>
+<tr><td><strong>Ethnography</strong></td><td>Understand a culture from within</td><td>Long-term immersion, participant observation</td></tr>
+<tr><td><strong>Narrative analysis</strong></td><td>How people story their lives</td><td>Life history interviews</td></tr>
+<tr><td><strong>Thematic analysis</strong> (Braun &amp; Clarke, 2006)</td><td>Identify recurring themes</td><td>6 phases: familiarize → coding → themes → review → define → write up</td></tr>
+<tr><td><strong>Case study</strong></td><td>In-depth look at one case</td><td>Multiple data sources triangulated</td></tr>
+<tr><td><strong>Discourse analysis</strong></td><td>How language constructs meaning</td><td>Examines power, ideology in talk/text</td></tr>
+</tbody>
+</table>
+
+<h3>Trustworthiness criteria (Lincoln &amp; Guba, 1985)</h3>
+<ul>
+<li><strong>Credibility</strong> ≈ internal validity. Achieved by triangulation, member checking, prolonged engagement.</li>
+<li><strong>Transferability</strong> ≈ external validity. Thick description of context.</li>
+<li><strong>Dependability</strong> ≈ reliability. Audit trail.</li>
+<li><strong>Confirmability</strong> ≈ objectivity. Reflexivity, audit.</li>
+</ul>
+
+<h2 id="mixed-methods">13. Mixed Methods</h2>
+<ul>
+<li>Combines qualitative + quantitative for a fuller picture.</li>
+<li><strong>Sequential explanatory:</strong> quant first, then qual to explain results.</li>
+<li><strong>Sequential exploratory:</strong> qual first to develop hypotheses, then quant to test.</li>
+<li><strong>Convergent (parallel):</strong> both done together, results compared.</li>
+<li><strong>Embedded:</strong> one supplements the other (e.g., qual interviews within an RCT).</li>
+</ul>
+
+<h2 id="research-ethics">14. Research Ethics</h2>
+<h3>Foundational documents (memorize the order)</h3>
+<ol>
+<li><strong>Nuremberg Code (1947)</strong> — after Nazi medical experiments. First major ethics code. Voluntary consent absolute.</li>
+<li><strong>Declaration of Helsinki (1964, last revised 2013)</strong> — World Medical Association. Ethics for medical research.</li>
+<li><strong>Belmont Report (1979)</strong> — US, after Tuskegee syphilis study. Three principles below.</li>
+<li><strong>CIOMS Guidelines</strong> — international ethics for biomedical research.</li>
+<li><strong>ICMR Guidelines</strong> (India) — Indian Council of Medical Research, 2017 revision.</li>
+</ol>
+
+<h3>Belmont Principles (memorize these three)</h3>
+<ol>
+<li><strong>Respect for persons</strong> — autonomy, informed consent. Special protection for vulnerable groups.</li>
+<li><strong>Beneficence</strong> — maximize benefits, minimize harm.</li>
+<li><strong>Justice</strong> — fair distribution of risks and benefits. No exploiting vulnerable populations.</li>
+</ol>
+
+<h3>Informed consent — required elements</h3>
+<ul>
+<li>Purpose, procedures, expected duration</li>
+<li>Risks and benefits</li>
+<li>Alternative procedures</li>
+<li>Confidentiality</li>
+<li>Voluntary participation; right to withdraw without penalty</li>
+<li>Contact info for questions</li>
+</ul>
+
+<h3>IRB / Ethics Committee</h3>
+<ul>
+<li>Reviews proposals before data collection.</li>
+<li>Multidisciplinary: scientists + non-scientists + community member + lay person.</li>
+<li>Categories of review: <strong>exempt</strong> (low risk, anonymous data), <strong>expedited</strong> (minimal risk), <strong>full board</strong> (greater than minimal risk).</li>
+</ul>
+
+<h3>Key ethical violations to know</h3>
+<ul>
+<li><strong>Tuskegee syphilis study (1932-1972)</strong> — Black men denied treatment to study natural progression of syphilis. Led directly to the Belmont Report.</li>
+<li><strong>Milgram obedience experiment (1961)</strong> — deception, severe psychological distress.</li>
+<li><strong>Stanford Prison Experiment (1971, Zimbardo)</strong> — inadequate safeguards, role conflict (Zimbardo as researcher AND superintendent).</li>
+<li><strong>Little Albert (1920, Watson)</strong> — fear conditioning of an infant, no debriefing.</li>
+<li><strong>Willowbrook hepatitis study (1956-1970)</strong> — children with intellectual disabilities deliberately infected with hepatitis.</li>
+</ul>
+
+<h2 id="critical-appraisal">15. Critical Appraisal &amp; Evidence Hierarchy</h2>
+<h3>Evidence hierarchy (top = strongest)</h3>
+<ol>
+<li>Systematic reviews / meta-analyses of RCTs</li>
+<li>Single well-designed RCT</li>
+<li>Cohort study</li>
+<li>Case-control study</li>
+<li>Cross-sectional / case series</li>
+<li>Case report</li>
+<li>Expert opinion / editorials</li>
+</ol>
+
+<h3>Tools (good to recognize)</h3>
+<ul>
+<li><strong>CONSORT</strong> — reporting standard for RCTs</li>
+<li><strong>PRISMA</strong> — reporting standard for systematic reviews/meta-analyses</li>
+<li><strong>STROBE</strong> — reporting for observational studies</li>
+<li><strong>SPIRIT</strong> — reporting for trial protocols</li>
+<li><strong>COREQ</strong> — reporting for qualitative research</li>
+</ul>
+
+<h3>Diagnostic test stats (high-yield)</h3>
+<ul>
+<li><strong>Sensitivity</strong> = TP / (TP + FN). True positive rate. Sensitive test rules OUT (SnNout).</li>
+<li><strong>Specificity</strong> = TN / (TN + FP). True negative rate. Specific test rules IN (SpPin).</li>
+<li><strong>PPV</strong> = TP / (TP + FP). Positive predictive value. Depends on prevalence.</li>
+<li><strong>NPV</strong> = TN / (TN + FN). Negative predictive value. Depends on prevalence.</li>
+<li><strong>Likelihood ratios</strong> are prevalence-independent. LR+ = sensitivity / (1 − specificity).</li>
+<li><strong>ROC curve</strong> — plots sensitivity vs (1 − specificity) across thresholds. AUC = 0.5 useless, 1.0 perfect.</li>
+</ul>
+
+<h2 id="mcq-traps">16. Common MCQ Traps</h2>
+<ol>
+<li><strong>"p &lt; 0.05 means H₀ is false"</strong> — WRONG. p is conditional on H₀ being true. It does not give the probability of H₀.</li>
+<li><strong>"Statistical significance = clinical importance"</strong> — WRONG. Tiny effects can be significant with huge n.</li>
+<li><strong>"Cohort = retrospective; case-control = prospective"</strong> — REVERSED in many textbooks. Cohort can be either; case-control is always retrospective (start with the outcome and look back).</li>
+<li><strong>Confusing OR and RR</strong> — OR ≈ RR only when outcome is rare (&lt; 10%). For common outcomes, OR overstates RR.</li>
+<li><strong>Sensitivity vs Specificity confusion</strong> — Sensitivity uses people who HAVE disease (column with disease); Specificity uses people who DON'T.</li>
+<li><strong>SD vs SEM</strong> — SD describes data spread; SEM describes precision of the mean. SEM is always smaller. Researchers sometimes use SEM to make data look prettier — be skeptical.</li>
+<li><strong>Type I vs Type II</strong> — α = false positive (reject true H₀). β = false negative (miss real effect). "Sigh, I missed it" = II.</li>
+<li><strong>"Random sampling = random assignment"</strong> — DIFFERENT. Random sampling is about who gets in the study (external validity). Random assignment is about which group they go in (internal validity).</li>
+<li><strong>"r = 0 means no relationship"</strong> — only for <em>linear</em> relationship. A perfect U-shaped curve has r ≈ 0.</li>
+<li><strong>"ANOVA tells you which group differs"</strong> — NO. ANOVA only tells you at least one differs. Use post-hoc (Tukey, Bonferroni) for pairwise.</li>
+<li><strong>Cross-sectional and causation</strong> — cannot establish causation because temporality is unclear.</li>
+<li><strong>"Convenience sample is fine if n is large"</strong> — NO. Bias doesn't reduce with sample size. A large biased sample is precisely biased.</li>
+<li><strong>Fisher's exact vs Chi-square</strong> — Fisher's when expected cell count &lt; 5 in any cell of a 2×2 table.</li>
+<li><strong>Wilcoxon signed-rank vs Mann-Whitney U</strong> — Signed-rank for paired/related; Mann-Whitney for independent groups.</li>
+<li><strong>One-tailed test "for more power"</strong> — only justified if effect direction is theoretically locked in advance. Otherwise it's p-hacking.</li>
+<li><strong>"Random assignment controls for everything"</strong> — only on average and only if n is large. Small RCTs can still have unbalanced groups by chance.</li>
+<li><strong>Kappa cutoffs</strong> — &lt;0 worse than chance, 0-0.20 slight, 0.21-0.40 fair, 0.41-0.60 moderate, 0.61-0.80 substantial, 0.81-1.00 almost perfect (Landis &amp; Koch 1977).</li>
+<li><strong>Mediator vs Moderator</strong> — Mediator explains <em>how</em> (mechanism). Moderator changes <em>when/for whom</em> (conditions).</li>
+<li><strong>Regression to the mean</strong> — extreme scores naturally drift toward the mean on retest. A common confound in pre/post designs without a control group.</li>
+<li><strong>Hawthorne effect</strong> — being observed changes behavior. Threat to internal validity.</li>
+<li><strong>Demand characteristics</strong> — participants guess and conform to the hypothesis.</li>
+<li><strong>Experimenter / Rosenthal effect</strong> — researcher's expectations bias the results. Solved by double-blinding.</li>
+</ol>
+
+<h2 id="memorization-hooks">Memorization Hooks</h2>
+<ul>
+<li><strong>NOIR</strong> levels of measurement: Nominal, Ordinal, Interval, Ratio.</li>
+<li><strong>"Sigh, I missed it"</strong> = Type II error.</li>
+<li><strong>Cohort = "future"</strong>, Case-control = "past".</li>
+<li><strong>SnNout, SpPin</strong> — Sensitive test, Negative result rules OUT; Specific test, Positive result rules IN.</li>
+<li><strong>Mediator = how</strong>; <strong>Moderator = for whom / when</strong>.</li>
+<li><strong>0.2 / 0.5 / 0.8</strong> — Cohen's d small / medium / large.</li>
+<li><strong>0.10 / 0.30 / 0.50</strong> — Pearson r small / medium / large.</li>
+<li><strong>Belmont 3:</strong> Respect, Beneficence, Justice.</li>
+<li><strong>RCT phases I→II→III→IV</strong>: safety → efficacy → confirmation → surveillance.</li>
+<li><strong>Power = 1 − β.</strong> Aim for 0.80 (β = 0.20).</li>
+</ul>
+
+<footer>Sihan MET 2026 + NIMHANS Prep — Section 6: Biostatistics &amp; Research Methodology</footer>
+</div>
+</body>
+</html>
