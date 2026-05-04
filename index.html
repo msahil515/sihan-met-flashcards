@@ -56,6 +56,60 @@
     color: var(--accent);
     margin-top: 4px;
   }
+  .mock-banner {
+    background: linear-gradient(135deg, rgba(31, 111, 235, 0.18), rgba(63, 185, 80, 0.10));
+    border: 1px solid var(--accent-dim);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+  }
+  .mock-banner-title {
+    font-size: 11px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .mock-banner-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .mock-link {
+    display: block;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    text-decoration: none;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.15s ease;
+  }
+  .mock-link:hover {
+    border-color: var(--accent);
+    background: rgba(88, 166, 255, 0.08);
+  }
+  .mock-link small {
+    display: block;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 400;
+    margin-top: 2px;
+  }
+  .mock-link.fresh {
+    border-color: var(--good);
+  }
+  .mock-link.fresh::after {
+    content: " NEW";
+    color: var(--good);
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 1px;
+    margin-left: 6px;
+  }
   .deck-picker {
     background: var(--panel);
     border: 1px solid var(--border);
@@ -235,6 +289,21 @@
     <div class="subtitle">Manipal Entrance Test, MA Clinical Psychology</div>
     <div class="countdown" id="countdown"></div>
   </header>
+
+  <div class="mock-banner">
+    <div class="mock-banner-title">Full-length mock papers</div>
+    <div class="mock-banner-row">
+      <a class="mock-link fresh" href="quiz/met-mock-1/">MET Mock 1 — full length
+        <small>100 Q · 120 min · +4 / −1 · Bio · Dev · Abnormal · Assessment · Therapy · Biostats · Language</small>
+      </a>
+      <a class="mock-link fresh" href="quiz/nimhans-mock-1/">NIMHANS Mock 1 — full length
+        <small>100 Q · 90 min · +1 / −0.25 · Research-heavy · Neuropsych · Social · General · English/Reasoning</small>
+      </a>
+      <a class="mock-link" href="quiz/">Main MCQ quiz (mixed bank, 189 Q)
+        <small>Topic-by-topic practice with the full PYQ-style question pool</small>
+      </a>
+    </div>
+  </div>
 
   <div class="deck-picker">
     <label for="deckSelect">Deck</label>
