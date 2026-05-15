@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d1117">
+<title>Tests — MET 2026 + NIMHANS</title>
+<link rel="stylesheet" href="../site.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-title">Sihan, MET 2026</span>
+      <span class="brand-sub">MA Clinical Psychology, Manipal</span>
+    </div>
+    <nav class="nav">
+      <a href="../">Dashboard</a>
+      <a href="./" class="active">Tests</a>
+      <a href="../notes/">Notes</a>
+      <a href="../flashcards/">Flashcards</a>
+      <a href="../plan/">Plan</a>
+      <a href="../downloads/">Downloads</a>
+    </nav>
+    <span class="countdown-chip" id="countdownChip">—</span>
+  </div>
+</div>
+
+<main>
+
+  <div class="page-hero">
+    <div class="crumbs">Tests</div>
+    <h1>Tests Library</h1>
+    <p>Full-length mocks built to exam pattern, plus a topic-by-topic mixed bank for daily drills. Every answer is logged in your browser so the dashboard can show section-wise scores.</p>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">Full-length mocks</h2>
+      <span class="section-sub">Sit one in a single block, +4/−1 scoring, simulate the real paper</span>
+    </div>
+    <div class="grid cols-2" id="mocksGrid"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">Topic-by-topic drill</h2>
+      <span class="section-sub">Short bursts, filterable by section, confidence-tracked</span>
+    </div>
+    <div class="grid cols-2">
+      <a class="card link" href="../quiz/">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Mixed bank, 189 questions</div>
+            <div class="card-sub">PYQ-style, all 7 sections, confidence + guess flag</div>
+          </div>
+          <span class="badge accent">Drill</span>
+        </div>
+        <div class="card-body">
+          <span class="muted">Pick a section from the dropdown, work in 10-15 question batches. Backup code keeps progress safe if the browser clears.</span>
+        </div>
+        <div class="pill-row">
+          <span class="pill">Filter by section</span>
+          <span class="pill">Confidence tracked</span>
+          <span class="pill">Per-section stats</span>
+        </div>
+        <div class="card-cta" id="mixedScore">Open →</div>
+      </a>
+      <a class="card link" href="../flashcards/">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Flashcard decks, 100 cards</div>
+            <div class="card-sub">5 decks: 3 biopsych, 2 assessment. Knew it / missed it.</div>
+          </div>
+          <span class="badge accent">Cards</span>
+        </div>
+        <div class="card-body">
+          <span class="muted">Tap-fast revision for the highest-density sections. Use as a warm-up before sitting a mock.</span>
+        </div>
+        <div class="pill-row">
+          <span class="pill">Spaced</span>
+          <span class="pill">Daily warm-up</span>
+        </div>
+        <div class="card-cta" id="cardsScore">Open →</div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">How to use these tests</h2>
+      <span class="section-sub">Working agreement, so the data is useful</span>
+    </div>
+    <div class="grid cols-3">
+      <div class="card">
+        <div class="card-title">Mocks, once a week</div>
+        <div class="card-body" style="margin-top:8px;">
+          Sit one full-length on a Sunday morning, 120 min, no breaks, no notes. Then debrief every wrong with the matching cheatsheet on the same day.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Mixed bank, daily</div>
+        <div class="card-body" style="margin-top:8px;">
+          20-30 questions a day, pick the section you're weakest on per the dashboard. Tag your guesses so the bank can show your real, non-fluked accuracy.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Backup before you switch device</div>
+        <div class="card-body" style="margin-top:8px;">
+          Progress is local to this browser. Use the <em>copy backup code</em> button on each quiz before clearing data or switching device.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>Sihan MET 2026 + NIMHANS prep · all answers stored locally in your browser</footer>
+
+<script>
+const MOCKS = [
+  {
+    id: "met-mock-1",
+    title: "MET Mock 1",
+    sub: "100 Q · 120 min · +4 / −1",
+    path: "../quiz/met-mock-1/",
+    total: 100,
+    storageKey: "met-mock-1-results-v1",
+    sections: { biopsych: 15, dev: 15, abnormal: 15, assessment: 15, therapy: 15, biostats: 10, language: 15 },
+    blurb: "Full MET pattern, interleaved sections (bio→abn→dev→ass→the→lang→bst round-robin). Use this to time-pressure check across all seven syllabus areas in one sitting.",
+    fresh: false,
+    tags: ["MET pattern", "interleaved", "+4 / −1"]
+  },
+  {
+    id: "nimhans-mock-1",
+    title: "NIMHANS Mock 1 v2 — PYQs",
+    sub: "100 actual PYQs · 2023, 2024, 2025 · year-tagged",
+    path: "../quiz/nimhans-mock-1/",
+    total: 100,
+    storageKey: "nimhans-mock-1-results-v2",
+    sections: { biopsych: 15, dev: 10, abnormal: 15, assessment: 10, therapy: 10, biostats: 15, social: 10, general: 10, english: 5 },
+    blurb: "Every question is a real NIMHANS PYQ from the 2023, 2024 or 2025 M.Phil entrance papers. Repeats across years flagged green. Companion topic breakdown in Notes.",
+    fresh: true,
+    tags: ["100% PYQ", "year-tagged", "repeats flagged"]
+  }
+];
+
+function readJSON(key, fallback) {
+  try { const r = localStorage.getItem(key); return r ? JSON.parse(r) : fallback; }
+  catch { return fallback; }
+}
+
+function readMock(m) {
+  const raw = readJSON(m.storageKey, null);
+  if (!raw) return { answered: 0, correct: 0, wrong: 0 };
+  let answered = 0, correct = 0, wrong = 0;
+  for (const qid of Object.keys(raw)) {
+    const r = raw[qid];
+    if (!r || r.selected == null) continue;
+    answered++;
+    if (r.correct) correct++; else wrong++;
+  }
+  return { answered, correct, wrong };
+}
+
+function renderMocks() {
+  const root = document.getElementById("mocksGrid");
+  root.innerHTML = "";
+  for (const m of MOCKS) {
+    const r = readMock(m);
+    const pct = r.answered ? Math.round((r.correct / r.answered) * 100) : null;
+    const cardCls = "card link" + (m.fresh ? " fresh" : "");
+    const a = document.createElement("a");
+    a.className = cardCls;
+    a.href = m.path;
+    a.innerHTML = `
+      <div class="card-head">
+        <div>
+          <div class="card-title">${m.title}</div>
+          <div class="card-sub">${m.sub}</div>
+        </div>
+        ${m.fresh ? '<span class="badge good">NEW</span>' : '<span class="badge muted">Mock</span>'}
+      </div>
+      <div class="card-body">${m.blurb}</div>
+      <div style="display:flex;align-items:baseline;gap:10px;margin-top:14px;">
+        <div style="font-size:28px;font-weight:700;line-height:1;">${r.correct}</div>
+        <div style="color:var(--muted);font-size:13px;">correct of ${m.total}</div>
+        ${pct != null ? `<div style="margin-left:auto;color:${pct>=75?'var(--good)':pct>=50?'var(--warn)':'var(--bad)'};font-weight:600;font-size:13px;">${pct}% of ${r.answered} answered</div>` : ''}
+      </div>
+      <div class="bar ${pct==null?'':pct>=75?'good':pct>=50?'warn':'bad'}"><span style="width:${pct==null?0:Math.min(100,pct)}%"></span></div>
+      <div class="pill-row">${m.tags.map(t => `<span class="pill">${t}</span>`).join("")}</div>
+      <div class="card-cta">${r.answered ? "Continue →" : "Open mock →"}</div>
+    `;
+    root.appendChild(a);
+  }
+}
+
+function renderDrillScores() {
+  const mixed = readJSON("sihan-met-quiz-results-v1", null);
+  let mAns = 0, mCorr = 0;
+  if (mixed) {
+    for (const id of Object.keys(mixed)) {
+      const r = mixed[id];
+      if (!r || r.selected == null) continue;
+      mAns++;
+      if (r.correct) mCorr++;
+    }
+  }
+  document.getElementById("mixedScore").textContent =
+    mAns ? `Continue → ${mCorr}/${mAns} so far` : "Open →";
+
+  const decks = ["bio-01","bio-02","bio-03","ass-01","ass-02"];
+  let knew = 0, missed = 0;
+  for (const d of decks) {
+    const p = readJSON("sihan-met-progress-" + d, null);
+    if (!p) continue;
+    knew += (p.knew?.length || 0);
+    missed += (p.missed?.length || 0);
+  }
+  const seen = knew + missed;
+  document.getElementById("cardsScore").textContent =
+    seen ? `Continue → ${knew}/${seen} knew it` : "Open →";
+}
+
+function updateCountdown() {
+  const exam = new Date('2026-05-23T00:00:00+05:30');
+  const ms = exam - new Date();
+  const d = ms > 0 ? Math.floor(ms / 86400000) : 0;
+  document.getElementById("countdownChip").textContent = ms > 0 ? `${d} days to MET` : "Exam day!";
+}
+
+renderMocks();
+renderDrillScores();
+updateCountdown();
+window.addEventListener("focus", () => { renderMocks(); renderDrillScores(); });
+</script>
+
+</body>
+</html>

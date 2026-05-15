@@ -48,9 +48,9 @@
     border-bottom: 1px solid var(--border);
   }
   .topbar-inner {
-    max-width: 1280px;
+    max-width: 1440px;
     margin: 0 auto;
-    padding: 12px 24px;
+    padding: 12px 32px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -105,9 +105,9 @@
   }
 
   main {
-    max-width: 1280px;
+    max-width: 1440px;
     margin: 0 auto;
-    padding: 28px 24px 60px;
+    padding: 28px 32px 60px;
   }
   .hero {
     background: linear-gradient(135deg, rgba(31,111,235,0.18), rgba(63,185,80,0.10));
@@ -499,9 +499,10 @@
     </div>
     <nav class="nav">
       <a href="./" class="active">Dashboard</a>
-      <a href="quiz/">Tests</a>
+      <a href="tests/">Tests</a>
       <a href="notes/">Notes</a>
       <a href="flashcards/">Flashcards</a>
+      <a href="plan/">Plan</a>
       <a href="downloads/">Downloads</a>
     </nav>
     <span class="countdown-chip" id="countdownChip">—</span>
@@ -542,7 +543,7 @@
   <section>
     <div class="section-head">
       <h2 class="section-title">Areas to cover</h2>
-      <span class="section-sub">7 MET syllabus sections, live progress per area</span>
+      <span class="section-sub">7 MET syllabus sections, live progress per area · <a href="plan/" style="color:var(--accent);">weekly plan →</a></span>
     </div>
     <div class="grid cols-4" id="areasGrid"></div>
   </section>
@@ -550,7 +551,7 @@
   <section>
     <div class="section-head">
       <h2 class="section-title">Tests</h2>
-      <span class="section-sub">Full mocks and topic-by-topic banks</span>
+      <span class="section-sub">Full mocks and topic-by-topic banks · <a href="tests/" style="color:var(--accent);">open library →</a></span>
     </div>
     <div class="grid cols-3" id="testsGrid"></div>
   </section>
@@ -566,7 +567,7 @@
   <section>
     <div class="section-head">
       <h2 class="section-title">Study materials</h2>
-      <span class="section-sub">Notes, cheatsheets, downloads</span>
+      <span class="section-sub">Notes, cheatsheets, downloads · <a href="notes/" style="color:var(--accent);">all notes →</a> · <a href="downloads/" style="color:var(--accent);">downloads →</a></span>
     </div>
     <div class="grid cols-3" id="resourcesGrid"></div>
   </section>
@@ -660,6 +661,7 @@ const RESOURCES = [
 ];
 
 const NEWS = [
+  { date: "2026-05-15", title: "Site reorganized + Plan page", desc: "Proper section landings: Tests library, Notes-by-section, Downloads, and a new weekly Plan with checklist + countdown. Wider desktop layout (1440px max), shared styling across pages.", href: "plan/" },
   { date: "2026-05-05", title: "NIMHANS Mock 1 v2 + PYQ Breakdown", desc: "100 real PYQs from 2023-25 papers, year-tagged, repeats flagged green. Companion topic breakdown built from 300 PYQs.", href: "quiz/nimhans-mock-1/" },
   { date: "2026-05-05", title: "MET Mock 1 debrief", desc: "All 28 wrongs walked through with why the right option wins and which adjacent topics the same paper retests.", href: "notes/mock-1-debrief/" },
   { date: "2026-05-05", title: "Section cheatsheets, 5 sections", desc: "Biopsych, biostats, language, dev, abnormal full cheatsheets, each ending with Mock-1 trap recap.", href: "notes/" },
