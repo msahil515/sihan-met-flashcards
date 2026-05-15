@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consolidated Revision Pack — MET 2026</title>
+<link rel="stylesheet" href="../../notes-style.css">
+<style>
+  h2 { color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-top: 36px; }
+  h3 { color: var(--text); margin-top: 22px; }
+  h4 { color: var(--muted); margin-top: 16px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .banner {
+    background: linear-gradient(135deg, rgba(248,81,73,0.14), rgba(240,180,41,0.10));
+    border: 1px solid var(--bad);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 0 0 24px 0;
+    font-size: 14px;
+  }
+  .banner b { color: var(--bad); }
+  .block {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 14px 0;
+  }
+  .block.priority {
+    border-left: 4px solid var(--bad);
+  }
+  .block.note {
+    border-left: 4px solid #f0b429;
+  }
+  .block.lock {
+    border-left: 4px solid var(--good);
+  }
+  .self-note {
+    background: rgba(240,180,41,0.10);
+    border-left: 3px solid #f0b429;
+    padding: 6px 10px;
+    margin: 8px 0 12px 0;
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--text);
+    font-style: italic;
+  }
+  .self-note b { color: #f0b429; font-style: normal; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0 14px 0; font-size: 13px; }
+  th, td { border: 1px solid var(--border); padding: 6px 8px; text-align: left; vertical-align: top; }
+  th { background: var(--panel-2); color: var(--accent); }
+  .tagrow { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 10px 0; font-size: 11px; }
+  .tag {
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .tag.bad { color: var(--bad); border-color: var(--bad); }
+  .tag.warn { color: #f0b429; border-color: #f0b429; }
+  .tag.good { color: var(--good); border-color: var(--good); }
+  .anchor-list a { display: inline-block; margin: 2px 6px 2px 0; font-size: 12px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 999px; text-decoration: none; }
+  .anchor-list a:hover { background: var(--panel-2); }
+  .scorebox {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 8px;
+    margin: 12px 0 18px 0;
+  }
+  .scorebox .cell {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .scorebox .cell .lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .scorebox .cell .val { font-size: 18px; font-weight: 700; color: var(--text); margin-top: 3px; }
+  .scorebox .cell.bad .val { color: var(--bad); }
+  .scorebox .cell.warn .val { color: #f0b429; }
+  .scorebox .cell.ok .val { color: var(--good); }
+  .rule {
+    background: var(--panel-2);
+    border-left: 3px solid var(--accent);
+    padding: 8px 12px;
+    margin: 10px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+  }
+  .rule b { color: var(--accent); }
+  ul.tight li, ol.tight li { margin: 2px 0; }
+  .small { font-size: 12px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <a href="../../">&larr; Dashboard</a>
+  <a href="../">All Notes</a>
+  <a href="../nimhans-mock-1-debrief/">Full NIMHANS Debrief</a>
+  <a href="../../quiz/nimhans-mock-1/">Retake Mock</a>
+</nav>
+
+<h1>Consolidated Revision Pack &mdash; Your Limitations From the Mock</h1>
+
+<div class="banner">
+  <b>What this is.</b> Every topic you flagged in your NIMHANS Mock 1 notes plus every section that bled marks, consolidated into one read. Pre-condensed. Read top-to-bottom once tonight, then only the tables on day 2 onward. Each block is tagged with the actual question ID it came from and the exact note you wrote on it, so you know <i>why</i> it's in here.
+</div>
+
+<h4>Where the gaps came from</h4>
+<div class="scorebox">
+  <div class="cell warn"><div class="lbl">Mock score</div><div class="val">71.25</div></div>
+  <div class="cell"><div class="lbl">Cutoff</div><div class="val">80</div></div>
+  <div class="cell bad"><div class="lbl">Gap</div><div class="val">8.75</div></div>
+  <div class="cell bad"><div class="lbl">Biopsych</div><div class="val">60%</div></div>
+  <div class="cell warn"><div class="lbl">Therapy</div><div class="val">70%</div></div>
+  <div class="cell warn"><div class="lbl">Social</div><div class="val">70%</div></div>
+</div>
+
+<p>Your notes flagged 16 topics with phrases like "don't know this," "wtf is X," "need to learn," and "need more concepts like this." Every one of those is below as a self-contained block. The 14 marks worth of section leakage clusters into the same blocks &mdash; this is not coincidence; <b>your gaps and your self-flagged topics are the same list</b>.</p>
+
+<p class="anchor-list">
+  <a href="#how">How to use</a>
+  <a href="#biopsych">Biopsych (priority)</a>
+  <a href="#assessment">Assessment</a>
+  <a href="#therapy">Therapy</a>
+  <a href="#abnormal">Abnormal / ICD</a>
+  <a href="#social">Social</a>
+  <a href="#biostats">Biostats</a>
+  <a href="#cognitive">Cognitive / Memory</a>
+  <a href="#self">Self-concept bundle</a>
+  <a href="#execution">Exam-day rules</a>
+  <a href="#index">Note &rarr; block index</a>
+</p>
+
+<!-- ============================================================== -->
+<h2 id="how">How to use this pack</h2>
+<div class="rule">
+  <b>Pass 1 (tonight, 60-75 min).</b> Read every block top-to-bottom. Don't try to memorise yet, just register the structure.<br>
+  <b>Pass 2 (tomorrow morning, 30 min).</b> Only the <i>tables</i>. If a row is blank in your head, drop into the surrounding block.<br>
+  <b>Pass 3 (every morning until exam, 10 min).</b> Only the §Execution block plus whichever tables felt slipperiest.
+</div>
+<p>Block tags: <span class="tag bad">priority</span> = lost a mark here. <span class="tag warn">your-note</span> = you wrote a note flagging this. <span class="tag good">lock-in</span> = you got it right but want it locked so it's not a guess next time.</p>
+
+<!-- ============================================================== -->
+<h2 id="biopsych">Biopsych &mdash; the disaster zone</h2>
+<p>Six wrongs out of 15 on the mock. Three of them sit on the same axis: <b>pituitary &harr; hypothalamus &harr; metabolic neurochemistry</b>. Lock these four blocks first.</p>
+
+<!-- BIO 1 -->
+<div class="block priority">
+  <div class="tagrow"><span class="tag bad">priority</span><span class="tag warn">your-note</span><span class="tag">n1_bio01 (PKU)</span></div>
+  <h3>Amino-acid &rarr; neurotransmitter pathway (PKU sits at step 1)</h3>
+  <div class="self-note"><b>Your note:</b> "DOnt know this. need to learn"</div>
+  <ul class="tight">
+    <li><b>Phenylalanine &rarr; Tyrosine</b> via <i>phenylalanine hydroxylase (PAH)</i>. <b>PKU = PAH broken</b>. Phenylalanine piles up (brain-toxic), tyrosine drops, melanin drops (fair hair/skin), classic musty odour. Autosomal recessive. Treat: low-Phe diet for life.</li>
+    <li><b>Tyrosine &rarr; L-DOPA &rarr; Dopamine &rarr; Norepinephrine &rarr; Epinephrine.</b> Whole catecholamine chain. Parkinson's loses DA at step 3 &rarr; treat with <b>L-DOPA</b> (DA itself doesn't cross BBB).</li>
+    <li><b>Tryptophan &rarr; 5-HTP &rarr; Serotonin &rarr; Melatonin.</b> Indolamine chain. SSRIs raise synaptic 5-HT. Tryptophan also &rarr; niacin (B3); pellagra = niacin deficiency.</li>
+    <li><b>Histidine &rarr; Histamine.</b> CNS arousal. Antihistamines that cross BBB sedate.</li>
+    <li><b>Glutamate &rarr; GABA</b> via GAD (B6 cofactor). Glutamate is the main excitatory NT; GABA is the main inhibitory NT. Benzos + alcohol potentiate GABA-A.</li>
+  </ul>
+</div>
+
+<!-- BIO 2 -->
+<div class="block priority">
+  <div class="tagrow"><span class="tag bad">priority</span><span class="tag warn">your-note</span><span class="tag">n1_bio03, n1_bio04</span></div>
+  <h3>Pituitary + hypothalamus (NIMHANS retests this axis every year)</h3>
+  <h4>Anterior pituitary &mdash; FLAT PiG</h4>
+  <ul class="tight">
+    <li><b>F</b>SH, <b>L</b>H, <b>A</b>CTH, <b>T</b>SH, <b>P</b>rolactin, <b>G</b>H. Six hormones, all <b>tropic except prolactin + GH</b>.</li>
+    <li><b>Posterior pituitary</b>: ADH + Oxytocin. Made in <i>supraoptic + paraventricular</i> hypothalamic nuclei, stored + released by posterior pituitary.</li>
+    <li><b>Melatonin = pineal</b>, not pituitary. <b>Calcitonin = thyroid C cells.</b> <b>PTH = parathyroid.</b> Insulin + glucagon + somatostatin = <i>pancreatic islets</i>.</li>
+  </ul>
+  <h4>Hypothalamic nuclei lock-list</h4>
+  <table>
+    <tr><th>Nucleus</th><th>Function</th><th>Lesion sign</th></tr>
+    <tr><td><b>VMH</b> (ventromedial)</td><td>Satiety</td><td>Hyperphagia + obesity (Hetherington-Ranson rat)</td></tr>
+    <tr><td><b>LH</b> (lateral)</td><td>Hunger / arousal</td><td>Aphagia + lethargy</td></tr>
+    <tr><td>Anterior</td><td>Cooling</td><td>Hyperthermia</td></tr>
+    <tr><td>Posterior</td><td>Heating</td><td>Poikilothermia</td></tr>
+    <tr><td>SCN (suprachiasmatic)</td><td>Circadian master clock</td><td>Loss of circadian rhythm</td></tr>
+    <tr><td>Supraoptic + paraventricular</td><td>ADH + oxytocin synthesis</td><td>Diabetes insipidus (ADH ↓)</td></tr>
+    <tr><td>Mammillary bodies</td><td>Memory (Papez circuit)</td><td>Korsakoff's, anterograde amnesia + confabulation</td></tr>
+    <tr><td>Arcuate</td><td>DA to anterior pituitary; appetite (NPY/AgRP, POMC)</td><td>Prolactin dysregulation</td></tr>
+  </table>
+  <div class="rule"><b>Hierarchy trick.</b> <i>Thalamus</i> = sensory relay (everything except smell). <i>Hypothalamus</i> = autonomic + endocrine integration. <i>Brainstem (medulla)</i> = autonomic <i>reflex</i> control (HR, BP, breathing). If the stem says "integrates endocrine, visceral, autonomic," the answer is hypothalamus, not brainstem.</div>
+</div>
+
+<!-- BIO 3 -->
+<div class="block priority">
+  <div class="tagrow"><span class="tag bad">priority</span><span class="tag warn">your-note</span><span class="tag">n1_bio07, n1_bio15</span></div>
+  <h3>Famous case studies (you asked for the list)</h3>
+  <div class="self-note"><b>Your note:</b> "I want a list of cases like HM and other popular cases like it"</div>
+  <table>
+    <tr><th>Patient</th><th>Lesion / context</th><th>What it proved</th></tr>
+    <tr><td><b>H.M.</b> (Henry Molaison)</td><td>Bilateral medial temporal + hippocampus</td><td>Hippocampus = consolidation. Anterograde amnesia; procedural learning intact</td></tr>
+    <tr><td><b>Phineas Gage</b></td><td>Tamping iron, L orbitofrontal</td><td>Frontal lobe = personality, judgement, impulse control</td></tr>
+    <tr><td><b>K.C.</b> (Kent Cochrane)</td><td>Diffuse, incl. hippocampus + frontal</td><td>Episodic vs semantic dissociation; lost episodic only</td></tr>
+    <tr><td><b>Clive Wearing</b></td><td>Herpes encephalitis, bilateral hippocampus</td><td>~30s memory window; procedural (piano) intact</td></tr>
+    <tr><td><b>Tan</b> (Leborgne)</td><td>L inferior frontal (Broca)</td><td>Speech production locus</td></tr>
+    <tr><td><b>S.M.</b></td><td>Urbach-Wiethe, bilateral amygdala</td><td>No fear response. Amygdala = fear conditioning</td></tr>
+    <tr><td><b>D.B.</b></td><td>Occipital V1</td><td>Blindsight; visual processing without conscious awareness</td></tr>
+    <tr><td><b>Solomon Shereshevsky</b></td><td>(Studied by Luria)</td><td>Hypermnesia, synaesthesia-aided memory</td></tr>
+    <tr><td><b>Genie</b></td><td>Severe deprivation 1957-70</td><td>Critical period for language acquisition</td></tr>
+    <tr><td><b>Little Albert</b></td><td>Watson, 1920</td><td>Classical conditioning of phobia</td></tr>
+    <tr><td><b>Little Hans</b></td><td>Freud, 1909</td><td>Oedipus complex, horse phobia (Freud's reading)</td></tr>
+    <tr><td><b>Anna O.</b> (Pappenheim)</td><td>Breuer / Freud</td><td>Birth of psychoanalysis; "talking cure"</td></tr>
+    <tr><td><b>Dora</b></td><td>Freud</td><td>Hysteria, transference</td></tr>
+    <tr><td><b>The Rat Man</b></td><td>Freud</td><td>Obsessional neurosis (OCD)</td></tr>
+    <tr><td><b>The Wolf Man</b> (Pankejeff)</td><td>Freud</td><td>Primal scene, childhood trauma</td></tr>
+  </table>
+</div>
+
+<!-- BIO 4 -->
+<div class="block priority">
+  <div class="tagrow"><span class="tag warn">your-note</span><span class="tag">n1_bio15, n1_abn15</span></div>
+  <h3>Wernicke-Korsakoff &mdash; one disease, two phases</h3>
+  <div class="self-note"><b>Your note:</b> "What is korsakoff, need to learn this"</div>
+  <ul class="tight">
+    <li><b>Cause:</b> <b>thiamine (vit B1) deficiency</b>. Classic context: chronic alcoholism (poor diet + reduced absorption + thiamine demand).</li>
+    <li><b>Wernicke encephalopathy (acute):</b> triad of <b>confusion + ophthalmoplegia + ataxia</b>. <b>Reversible if treated.</b></li>
+    <li><b>Critical rule:</b> <b>IV thiamine BEFORE glucose.</b> Giving glucose first burns the last thiamine and precipitates Wernicke.</li>
+    <li><b>Korsakoff psychosis (chronic):</b> <b>anterograde amnesia + confabulation</b>. Largely irreversible. Lesion = <b>mammillary bodies + dorsomedial thalamus</b>.</li>
+    <li><b>Memory aid:</b> <b>WAR + KAR.</b> Wernicke = (W)hite-eyes + (A)taxia + confusion (R)eversible. Korsakoff = (K)onfabulation + (A)nterograde + (R)etrograde, ir(R)eversible.</li>
+    <li><b>Confabulation</b> = false memories without intent to deceive. Distinguishes Korsakoff from malingering. Also in frontal lobe + ACoA aneurysm rupture.</li>
+  </ul>
+</div>
+
+<!-- BIO 5 -->
+<div class="block">
+  <div class="tagrow"><span class="tag bad">priority</span><span class="tag">n1_bio13</span></div>
+  <h3>Extrapyramidal side effects (EPSEs), in time order</h3>
+  <p class="small">You missed this on the mock by picking acute dystonia for an orofacial chronic case &mdash; flip the time-course around in your head and these stop tripping you.</p>
+  <table>
+    <tr><th>EPSE</th><th>Onset</th><th>Picture</th><th>Treat</th></tr>
+    <tr><td>Acute dystonia</td><td>Hours to days</td><td>Oculogyric crisis, torticollis, tongue protrusion (spasm)</td><td>IM anticholinergic (procyclidine), benzos</td></tr>
+    <tr><td>Akathisia</td><td>Days to weeks</td><td>Subjective restlessness, pacing, can't sit still</td><td>Propranolol, lower dose, benzos</td></tr>
+    <tr><td>Parkinsonism</td><td>Weeks to months</td><td>Bradykinesia, rigidity, pill-rolling tremor, mask face</td><td>Anticholinergic, switch to atypical</td></tr>
+    <tr><td><b>Tardive dyskinesia</b></td><td><b>Months to years</b></td><td><b>Orofacial choreoathetosis</b>, lip-smacking, often <i>irreversible</i></td><td>Reduce/switch; VMAT2 inhibitor (tetrabenazine, valbenazine)</td></tr>
+  </table>
+  <div class="rule"><b>Trigger word.</b> If stem says "long-term antipsychotics" + "lip-smacking / tongue movements," it's <b>tardive dyskinesia</b>, no matter how plausible the other options sound. Monitor with <b>AIMS</b> (Abnormal Involuntary Movement Scale). <b>NMS</b> = idiosyncratic, hyperthermia + rigidity + autonomic instability + raised CK &rarr; stop drug, dantrolene/bromocriptine.</div>
+</div>
+
+<!-- BIO 6 -->
+<div class="block lock">
+  <div class="tagrow"><span class="tag good">lock-in</span><span class="tag warn">your-note</span><span class="tag">n1_bio02</span></div>
+  <h3>Adrenaline vs noradrenaline + adrenal anatomy</h3>
+  <div class="self-note"><b>Your note:</b> "What about norepinephrine?"</div>
+  <ul class="tight">
+    <li><b>Adrenal cortex (GFR = salt, sugar, sex).</b> Outside &rarr; in: <i>Zona Glomerulosa</i> = aldosterone (mineralocorticoid); <i>Zona Fasciculata</i> = cortisol (glucocorticoid); <i>Zona Reticularis</i> = androgens (DHEA).</li>
+    <li><b>Adrenal medulla.</b> Chromaffin cells = epinephrine (~80%) + norepinephrine (~20%). Directly innervated by sympathetic preganglionic fibres (skips the postganglionic step).</li>
+    <li><b>NE/Noradrenaline</b> is also the <i>postganglionic sympathetic NT</i> at most target organs (heart, vessels, sweat except palms). E is the <i>hormonal</i> systemic arm of the same response.</li>
+    <li><b>HPA axis:</b> hypothalamus CRH &rarr; anterior pituitary ACTH &rarr; adrenal cortex cortisol. Cortisol feeds back negatively to both. <b>Dexamethasone suppression test</b> = exogenous steroid that should shut down ACTH; non-suppression suggests Cushing's or pituitary tumour.</li>
+  </ul>
+</div>
+
+<!-- BIO 7 -->
+<div class="block lock">
+  <div class="tagrow"><span class="tag good">lock-in</span><span class="tag">n1_bio11</span></div>
+  <h3>Aphasia table (NIMHANS rotates these every paper)</h3>
+  <table>
+    <tr><th>Type</th><th>Fluency</th><th>Comp</th><th>Repetition</th><th>Lesion</th></tr>
+    <tr><td>Broca (expressive)</td><td>Non-fluent</td><td>Intact</td><td>Impaired</td><td>L inferior frontal (BA 44/45)</td></tr>
+    <tr><td>Wernicke (receptive)</td><td>Fluent (nonsense)</td><td>Impaired</td><td>Impaired</td><td>L superior temporal (BA 22)</td></tr>
+    <tr><td>Conduction</td><td>Fluent</td><td>Intact</td><td><b>Impaired</b></td><td>Arcuate fasciculus</td></tr>
+    <tr><td>Global</td><td>Non-fluent</td><td>Impaired</td><td>Impaired</td><td>Large L MCA, Broca + Wernicke</td></tr>
+    <tr><td>Transcortical motor</td><td>Non-fluent</td><td>Intact</td><td><b>Intact</b></td><td>Above Broca, watershed</td></tr>
+    <tr><td>Transcortical sensory</td><td>Fluent</td><td>Impaired</td><td><b>Intact</b></td><td>Below Wernicke, watershed</td></tr>
+    <tr><td>Transcortical mixed</td><td>Non-fluent</td><td>Impaired</td><td><b>Intact</b></td><td>Both watersheds</td></tr>
+    <tr><td>Anomic</td><td>Fluent</td><td>Intact</td><td>Intact</td><td>Angular gyrus / diffuse</td></tr>
+  </table>
+  <div class="rule"><b>Quick rule.</b> "<i>Transcortical = repetition spared</i>" because the perisylvian language loop (Broca &harr; arcuate &harr; Wernicke) is intact, just disconnected from the rest of cortex.</div>
+</div>
+
+<!-- ============================================================== -->
+<h2 id="assessment">Assessment &mdash; IQ history + WAIS structure</h2>
+<p>Two wrongs on the mock, both pure trivia. You flagged "don't know shit about the scoring" and "need to revise binet, terman, and all those people."</p>
+
+<!-- ASS 1 -->
+<div class="block priority">
+  <div class="tagrow"><span class="tag bad">priority</span><span class="tag warn">your-note</span><span class="tag">n1_ass08</span></div>
+  <h3>IQ history timeline &mdash; one row per name</h3>
+  <div class="self-note"><b>Your note:</b> "Need to revise what binet, terman, and all those people introduced one by one"</div>
+  <table>
+    <tr><th>Year</th><th>Person</th><th>What they introduced</th></tr>
+    <tr><td>1905</td><td><b>Binet + Simon</b> (France)</td><td>First practical intelligence test. Age-graded items. Concept of <b>mental age</b>.</td></tr>
+    <tr><td>1912</td><td><b>William Stern</b></td><td>Coined <b>IQ = (MA / CA) &times; 100</b>. The "ratio IQ."</td></tr>
+    <tr><td>1916</td><td><b>Lewis Terman</b> (Stanford)</td><td>American adaptation = <b>Stanford-Binet</b>. Used ratio IQ.</td></tr>
+    <tr><td>1939</td><td><b>David Wechsler</b></td><td>Wechsler-Bellevue. Introduced <b>Deviation IQ (M=100, SD=15)</b>. Solved the adult problem (ratio IQ flattens with age).</td></tr>
+    <tr><td>1955+</td><td>Wechsler</td><td>WAIS series. Verbal + Performance split.</td></tr>
+    <tr><td>1986</td><td>Stanford-Binet 4th</td><td>Switched from ratio to deviation IQ.</td></tr>
+    <tr><td>2003</td><td>Stanford-Binet 5th</td><td>Current US version, 5 factors aligned with CHC theory.</td></tr>
+  </table>
+  <h4>Theorists of intelligence (not test-builders)</h4>
+  <ul class="tight">
+    <li><b>Spearman (1904):</b> factor analysis &rarr; <b>g (general)</b> + s (specific).</li>
+    <li><b>Thurstone (1938):</b> 7 <b>Primary Mental Abilities</b> (verbal, word fluency, number, spatial, memory, perceptual speed, reasoning). Rejected g.</li>
+    <li><b>Cattell (1963):</b> <b>fluid (Gf) vs crystallised (Gc)</b>.</li>
+    <li><b>Carroll (1993)</b> + Cattell-Horn &rarr; <b>CHC model</b> (current dominant 3-stratum framework).</li>
+    <li><b>Gardner (1983):</b> multiple intelligences (9). Influential, weak empirical support.</li>
+    <li><b>Sternberg (1985):</b> triarchic (analytical / creative / practical) &rarr; later WICS model.</li>
+    <li><b>Goleman (1995):</b> popularised <b>EQ</b> (built on Salovey &amp; Mayer 1990).</li>
+  </ul>
+</div>
+
+<!-- ASS 2 -->
+<div class="block priority">
+  <div class="tagrow"><span class="tag bad">priority</span><span class="tag warn">your-note</span><span class="tag">n1_ass04, n1_ass05</span></div>
+  <h3>WAIS-IV structure + scoring</h3>
+  <div class="self-note"><b>Your note:</b> "Dont know shit about the scoring on this" / "Dont know anything about this" (subtest count)</div>
+  <table>
+    <tr><th>Index</th><th>Core subtests (3+3+2+2 = 10)</th><th>Supplemental</th></tr>
+    <tr><td><b>VCI</b> (Verbal Comprehension)</td><td>Similarities, Vocabulary, Information</td><td>Comprehension</td></tr>
+    <tr><td><b>PRI</b> (Perceptual Reasoning)</td><td>Block Design, Matrix Reasoning, Visual Puzzles</td><td>Picture Completion, Figure Weights</td></tr>
+    <tr><td><b>WMI</b> (Working Memory)</td><td>Digit Span, Arithmetic</td><td>Letter-Number Sequencing</td></tr>
+    <tr><td><b>PSI</b> (Processing Speed)</td><td>Symbol Search, Coding</td><td>Cancellation</td></tr>
+  </table>
+  <h4>The two parallel scoring scales</h4>
+  <ul class="tight">
+    <li><b>Subtest scaled score:</b> Mean = <b>10</b>, SD = <b>3</b>. Range typically 1-19. Scaled 10 = 50th percentile. 13 = +1 SD = 84th. 7 = -1 SD = 16th.</li>
+    <li><b>Index / composite (VCI, PRI, WMI, PSI, FSIQ):</b> Mean = <b>100</b>, SD = <b>15</b>. Same conversion logic.</li>
+  </ul>
+  <h4>IQ classification (WAIS-IV)</h4>
+  <ul class="tight">
+    <li>&ge;130 Very Superior · 120-129 Superior · 110-119 High Average · 90-109 Average · 80-89 Low Average · 70-79 Borderline · &lt;70 ID range.</li>
+    <li><b>DSM-5 ID severity</b> is now based on <b>adaptive functioning</b>, not IQ alone.</li>
+  </ul>
+  <h4>Wechsler family</h4>
+  <ul class="tight">
+    <li><b>WAIS-IV</b>: 16-90. <b>WISC-V</b>: 6-16 (added Fluid Reasoning index). <b>WPPSI-IV</b>: 2;6 - 7;7.</li>
+    <li><b>India:</b> MISIC (Malin's WISC), BKT (Binet-Kamat-Telugu), VSMS (Vineland Social Maturity Scale, Doll/Malin), Seguin Form Board.</li>
+  </ul>
+</div>
+
+<!-- ASS 3 -->
+<div class="block">
+  <div class="tagrow"><span class="tag">standard scores</span></div>
+  <h3>Standard-score family (memorise this one table)</h3>
+  <table>
+    <tr><th>Score</th><th>Mean</th><th>SD</th><th>Use</th></tr>
+    <tr><td><b>Z-score</b></td><td>0</td><td>1</td><td>Generic; how many SDs from mean</td></tr>
+    <tr><td><b>T-score</b></td><td>50</td><td>10</td><td>MMPI, CBCL, BDI</td></tr>
+    <tr><td><b>IQ / Deviation IQ</b></td><td>100</td><td>15</td><td>WAIS, Stanford-Binet</td></tr>
+    <tr><td><b>SAT / GRE</b></td><td>500</td><td>100</td><td>Standardised tests</td></tr>
+    <tr><td><b>Stanine</b></td><td>5</td><td>2</td><td>9-point school testing</td></tr>
+    <tr><td><b>Wechsler subtest scaled</b></td><td>10</td><td>3</td><td>WAIS-IV subtests</td></tr>
+  </table>
+  <div class="rule"><b>Z &harr; percentile shortcuts.</b> Z=0 &rarr; 50th. Z=±1 &rarr; 16th / 84th. Z=±2 &rarr; 2.5th / 97.5th. Z=±3 &rarr; 0.1st / 99.9th.</div>
+  <p class="small"><b>SE (standard error)</b> &ne; SD. SE = SD / √n &mdash; the SD of the sampling distribution of the mean. <b>CV</b> = (SD/mean) × 100 = unitless relative variability.</p>
+</div>
+
+<!-- ============================================================== -->
+<h2 id="therapy">Therapy &mdash; who founded what</h2>
+<p>Three wrongs on the mock, all "school-attribution" failures &mdash; nothing conceptually hard, pure pairing. Plus two of your most explicit notes are here.</p>
+
+<!-- THR 1 -->
+<div class="block priority">
+  <div class="tagrow"><span class="tag bad">priority</span><span class="tag warn">your-note</span><span class="tag">n1_thr09</span></div>
+  <h3>Splitting + BPD defenses + Vaillant hierarchy</h3>
+  <div class="self-note"><b>Your note:</b> "What is splitting?"</div>
+  <p><b>Splitting</b> = inability to hold opposing qualities (good + bad) about the same person at the same time. Person experienced as <b>all-good (idealised)</b> one moment, <b>all-bad (devalued)</b> the next. Targets flip rapidly, often mid-session. <b>Kernberg</b> identified it as core defense in BPD; <b>Klein</b> first described it in early infancy (paranoid-schizoid position).</p>
+  <h4>Vaillant's hierarchy of defenses</h4>
+  <table>
+    <tr><th>Level</th><th>Defenses</th><th>Seen in</th></tr>
+    <tr><td><b>Pathological / Psychotic</b></td><td>Denial (psychotic), Distortion, Delusional projection</td><td>Psychosis, severe states</td></tr>
+    <tr><td><b>Immature</b></td><td>Acting out, Passive aggression, Projection, <b>Splitting</b>, Somatisation, Fantasy, Dissociation</td><td>PDs (esp. cluster B), adolescence</td></tr>
+    <tr><td><b>Neurotic</b></td><td>Repression, Reaction formation, Displacement, Intellectualisation, <b>Rationalisation</b>, Isolation of affect, Undoing</td><td>Anxiety / OCD / neurotic functioning</td></tr>
+    <tr><td><b>Mature</b></td><td>Altruism, Anticipation, Humour, Sublimation, Suppression</td><td>Healthy adult</td></tr>
+  </table>
+  <h4>BPD-specific defenses (Kernberg) + treatments</h4>
+  <ul class="tight">
+    <li><b>Defenses:</b> splitting, projective identification, primitive idealisation, devaluation, omnipotent control, denial.</li>
+    <li><b>Klein's positions:</b> paranoid-schizoid (splitting, projection, idealisation/devaluation, &lt;6 months) &rarr; depressive (integration of good + bad object, ~6 months). BPD = stuck in paranoid-schizoid.</li>
+    <li><b>Treatments:</b> <b>DBT</b> (Linehan), <b>MBT</b> (Bateman &amp; Fonagy, mentalisation-based), <b>TFP</b> (Clarkin &amp; Kernberg, transference-focused), <b>Schema Therapy</b> (Young).</li>
+  </ul>
+</div>
+
+<!-- THR 2 -->
+<div class="block priority">
+  <div class="tagrow"><span class="tag bad">priority</span><span class="tag">n1_thr04</span></div>
+  <h3>Ellis vs Beck &mdash; the dividing line</h3>
+  <p>You picked Beck on a "musterbation" question on the mock. The two are easy to swap. Trigger-words:</p>
+  <ul class="tight">
+    <li><b>Ellis &mdash; REBT (1955).</b> <b>ABC</b> model (Activating event &rarr; Belief &rarr; Consequence) + <b>D</b>ispute + <b>E</b>ffective new philosophy. Targets <b>irrational beliefs</b>, especially <b>"musts / shoulds / oughts" (musterbation)</b>, awfulizing, catastrophising, low-frustration-tolerance, global self-rating. <b>Confrontational</b> style.</li>
+    <li><b>Beck &mdash; Cognitive Therapy (1960s).</b> <b>Cognitive triad</b> in depression: negative view of <i>self / world / future</i>. Targets <b>automatic thoughts, cognitive distortions, schemas</b>. <b>Collaborative empiricism</b>, Socratic.</li>
+    <li><b>Beck's distortions:</b> all-or-nothing, overgeneralisation, mental filter, disqualifying the positive, jumping to conclusions (mind-reading + fortune-telling), magnification / minimisation, emotional reasoning, "should" statements, labelling, personalisation.</li>
+  </ul>
+  <div class="rule"><b>Trigger words.</b> "Musterbation / ABC / irrational belief / disputation" &rarr; <b>Ellis</b>. "Cognitive triad / schema / automatic thought / cognitive distortion" &rarr; <b>Beck</b>.</div>
+  <p class="small"><b>CBT waves.</b> 1st-wave = behaviour therapy (Wolpe, Skinner). 2nd-wave = cognitive (Ellis, Beck, Meichenbaum). 3rd-wave = <b>DBT</b> (Linehan, Zen-rooted), <b>ACT</b> (Hayes), <b>MBCT</b> (Segal/Williams/Teasdale), MBSR (Kabat-Zinn).</p>
+</div>
+
+<!-- THR 3 -->
+<div class="block priority">
+  <div class="tagrow"><span class="tag bad">priority</span><span class="tag">n1_thr01</span></div>
+  <h3>Group-modality founders</h3>
+  <p class="small">You picked "group analysis" for Maxwell Jones. Maxwell Jones = therapeutic community, not group analysis.</p>
+  <table>
+    <tr><th>Modality</th><th>Founder</th><th>Key idea</th></tr>
+    <tr><td>Therapeutic community</td><td><b>Maxwell Jones</b> (Henderson Hospital, 1953)</td><td>Democratic ward; communalism + reality confrontation (Rapoport's 4)</td></tr>
+    <tr><td>Milieu therapy</td><td>Bettelheim; Stanton &amp; Schwartz</td><td>Total environment as treatment. Broader than TC</td></tr>
+    <tr><td>Group analysis</td><td><b>S.H. Foulkes</b></td><td>Psychoanalytic group work, group-as-a-whole, "matrix"</td></tr>
+    <tr><td>T-groups / sensitivity training</td><td>Kurt Lewin (NTL, 1947)</td><td>Here-and-now feedback, organisational application</td></tr>
+    <tr><td>Encounter groups</td><td>Carl Rogers (1960s)</td><td>Humanistic, personal growth</td></tr>
+    <tr><td>Psychodrama</td><td>J.L. Moreno</td><td>Acting out conflicts, role reversal, doubling</td></tr>
+    <tr><td>Self-help (AA)</td><td>Bill W. &amp; Dr. Bob (1935)</td><td>12 steps, peer support</td></tr>
+    <tr><td>Yalom's group therapy</td><td>Irvin Yalom</td><td>11 therapeutic factors (universality, altruism, etc.)</td></tr>
+  </table>
+</div>
+
+<!-- THR 4 -->
+<div class="block">
+  <div class="tagrow"><span class="tag warn">your-note</span><span class="tag">n1_thr03</span></div>
+  <h3>Logotherapy + existential family</h3>
+  <div class="self-note"><b>Your note:</b> "Need more info on this"</div>
+  <ul class="tight">
+    <li><b>Viktor Frankl (1905-1997).</b> Austrian psychiatrist + Holocaust survivor. Built <b>Logotherapy</b> = "third Viennese school" (after Freud + Adler). Book: <i>Man's Search for Meaning</i> (1946).</li>
+    <li><b>Core premise:</b> primary human motivation = <b>will to meaning</b> (vs Freud's will to pleasure, Adler's will to power).</li>
+    <li><b>Three paths to meaning:</b> (1) creative work / deed; (2) experience / love; (3) attitude toward unavoidable suffering.</li>
+    <li><b>Techniques:</b> <b>paradoxical intention</b> (deliberately try the feared thing &mdash; predates ERP), <b>dereflection</b> (shift attention from symptom), Socratic dialogue.</li>
+    <li><b>"Existential vacuum"</b> = meaninglessness, boredom, conformism, "Sunday neurosis."</li>
+  </ul>
+  <h4>Existential / humanistic family tree</h4>
+  <ul class="tight">
+    <li><b>Existential therapy:</b> Rollo May, <b>Yalom (4 ultimate concerns: death, freedom, isolation, meaninglessness)</b>, Binswanger (Daseinsanalysis).</li>
+    <li><b>Person-centred:</b> <b>Rogers</b> &mdash; UPR + empathy + congruence (three "necessary and sufficient conditions").</li>
+    <li><b>Gestalt:</b> <b>Perls</b> &mdash; empty chair, here-and-now, awareness, I-thou.</li>
+    <li><b>Self-actualisation:</b> <b>Maslow</b> &mdash; hierarchy (physiological / safety / love / esteem / self-actualisation [+ self-transcendence late]).</li>
+  </ul>
+</div>
+
+<!-- THR 5 -->
+<div class="block lock">
+  <div class="tagrow"><span class="tag good">lock-in</span><span class="tag">n1_thr08</span></div>
+  <h3>DBT structure (NIMHANS asks this every paper)</h3>
+  <ul class="tight">
+    <li><b>Marsha Linehan (1993),</b> originally for chronically suicidal BPD. Mindfulness component drawn from her <b>Zen Buddhism</b> practice.</li>
+    <li><b>Dialectic:</b> simultaneous truth of <b>acceptance + change</b>. The synthesis is the therapy.</li>
+    <li><b>4 modules:</b> <b>Mindfulness (core)</b> · <b>Distress Tolerance</b> · <b>Emotion Regulation</b> · <b>Interpersonal Effectiveness</b>.</li>
+    <li><b>Delivery:</b> individual therapy + skills group + phone coaching + therapist consultation team.</li>
+    <li><b>"Wise mind"</b> = integration of emotion mind + reasonable mind.</li>
+  </ul>
+</div>
+
+<h3>Family therapy four-by-four (recap)</h3>
+<table>
+  <tr><th>School</th><th>Founder</th><th>Core idea</th></tr>
+  <tr><td>Structural</td><td><b>Minuchin</b></td><td>Subsystems, boundaries, hierarchies. Restructure enmeshment / disengagement.</td></tr>
+  <tr><td>Strategic</td><td><b>Haley</b>, Madanes (MRI: Watzlawick)</td><td>Symptoms maintain power balance. Directives, paradox, reframing.</td></tr>
+  <tr><td>Bowenian / intergenerational</td><td><b>Bowen</b></td><td>Differentiation of self, triangulation, genograms.</td></tr>
+  <tr><td>Experiential</td><td><b>Satir</b>, Whitaker</td><td>Communication patterns (placater, blamer, computer, distractor, leveler), affect.</td></tr>
+  <tr><td>Milan systemic</td><td>Selvini-Palazzoli et al.</td><td>Circular questioning, hypothesising, neutrality, paradox.</td></tr>
+</table>
+
+<!-- ============================================================== -->
+<h2 id="abnormal">Abnormal &mdash; ICD durations, ego-dystonic, delusions</h2>
+
+<!-- ABN 1 -->
+<div class="block priority">
+  <div class="tagrow"><span class="tag bad">priority</span><span class="tag warn">your-note</span><span class="tag">n1_abn13</span></div>
+  <h3>ICD vs DSM duration cheat &mdash; NIMHANS is ICD-leaning</h3>
+  <div class="self-note"><b>Your note:</b> "Need more of these things related to ICD, never read ICD"</div>
+  <table>
+    <tr><th>Disorder</th><th>ICD-10 / 11</th><th>DSM-5</th></tr>
+    <tr><td><b>Schizophrenia</b></td><td><b>&ge;1 month</b></td><td>&ge;6 months total (&ge;1 month active)</td></tr>
+    <tr><td>Brief psychotic disorder</td><td>&lt;1 month (acute polymorphic)</td><td>&ge;1 day to &lt;1 month</td></tr>
+    <tr><td>Schizophreniform</td><td>(not a separate category)</td><td>1-6 months</td></tr>
+    <tr><td>Major depressive episode</td><td>&ge;2 weeks</td><td>&ge;2 weeks</td></tr>
+    <tr><td>Mania</td><td>&ge;1 week (or any if hospitalised)</td><td>&ge;1 week (or any if hospitalised)</td></tr>
+    <tr><td>Hypomania</td><td>&ge;4 days</td><td>&ge;4 days</td></tr>
+    <tr><td>Dysthymia / Persistent depressive</td><td>&ge;2 years</td><td>&ge;2 years adults / 1 year children</td></tr>
+    <tr><td>Cyclothymia</td><td>&ge;2 years</td><td>&ge;2 years adults / 1 year children</td></tr>
+    <tr><td>GAD</td><td>&ge;6 months</td><td>&ge;6 months</td></tr>
+    <tr><td>Panic disorder</td><td>recurrent unexpected attacks</td><td>recurrent + &ge;1 month worry / change</td></tr>
+    <tr><td>PTSD</td><td>&gt;1 month after event</td><td>&gt;1 month after event</td></tr>
+    <tr><td>Acute stress reaction (ICD) / disorder (DSM)</td><td>up to 1 month</td><td>3 days to 1 month</td></tr>
+    <tr><td>Adjustment disorder</td><td>within 1 month, lasts &lt;6 months</td><td>within 3 months, &lt;6 months after stressor ends</td></tr>
+    <tr><td>Anorexia nervosa</td><td>BMI &lt;17.5</td><td>no specific BMI, "significantly low"</td></tr>
+  </table>
+  <div class="rule"><b>Rule.</b> Always check which classification the stem names. <b>NIMHANS leans ICD</b> (Indian), MET often DSM. If unspecified, NIMHANS papers usually accept ICD answers.</div>
+</div>
+
+<!-- ABN 2 -->
+<div class="block priority">
+  <div class="tagrow"><span class="tag bad">priority</span><span class="tag">n1_abn11</span></div>
+  <h3>Ego-dystonic vs ego-syntonic</h3>
+  <ul class="tight">
+    <li><b>Ego-dystonic</b> = experienced as <b>alien / unwanted / not me</b>.</li>
+    <li><b>Ego-syntonic</b> = experienced as <b>consistent with self / "this is who I am"</b>.</li>
+    <li><b>OCD obsessions</b> are <b>ego-dystonic</b> &rarr; insight preserved, patient fights the thought, distressed. Not the same as <i>"poor insight"</i> (DSM-5 specifier).</li>
+    <li><b>Personality disorders</b> are typically <b>ego-syntonic</b> &rarr; patient doesn't see traits as a problem &rarr; poor insight + poor treatment-seeking.</li>
+  </ul>
+  <h4>OCD high-yield (NIMHANS recurring)</h4>
+  <ul class="tight">
+    <li><b>DSM-5:</b> OCD moved out of anxiety into own chapter "Obsessive-Compulsive and Related Disorders" (with BDD, hoarding, trichotillomania, excoriation).</li>
+    <li><b>Treatment:</b> SSRIs (high dose, 10-12 wks trial), clomipramine (TCA, serotonergic), <b>ERP (Exposure and Response Prevention)</b> = gold standard psychotherapy.</li>
+    <li><b>Neurobiology:</b> CSTC loop (cortico-striato-thalamo-cortical), hyperactive OFC + caudate.</li>
+    <li><b>Insight specifiers:</b> good/fair, poor, absent/delusional.</li>
+  </ul>
+</div>
+
+<!-- ABN 3 -->
+<div class="block priority">
+  <div class="tagrow"><span class="tag bad">priority</span><span class="tag">n1_abn02</span></div>
+  <h3>Phobia vocab (NIMHANS rotates 4-5 of these per paper)</h3>
+  <table>
+    <tr><th>Term</th><th>Fear of</th><th>Term</th><th>Fear of</th></tr>
+    <tr><td>Acrophobia</td><td>Heights</td><td>Mysophobia</td><td>Dirt / germs</td></tr>
+    <tr><td>Agoraphobia</td><td>Open / crowded spaces</td><td>Necrophobia</td><td>Death / corpses</td></tr>
+    <tr><td><b>Algophobia</b></td><td><b>Pain</b></td><td>Nosophobia</td><td>Disease</td></tr>
+    <tr><td>Aichmophobia</td><td>Sharp objects, needles</td><td>Nyctophobia</td><td>The dark</td></tr>
+    <tr><td>Arachnophobia</td><td>Spiders</td><td>Ochlophobia</td><td>Crowds</td></tr>
+    <tr><td>Astraphobia</td><td>Thunder / lightning</td><td>Ophidiophobia</td><td>Snakes</td></tr>
+    <tr><td>Claustrophobia</td><td>Enclosed spaces</td><td>Pyrophobia</td><td>Fire</td></tr>
+    <tr><td>Cynophobia</td><td>Dogs</td><td>Taphophobia</td><td>Being buried alive</td></tr>
+    <tr><td>Erythrophobia</td><td>Blushing / red</td><td>Thanatophobia</td><td>Death (existential)</td></tr>
+    <tr><td>Glossophobia</td><td>Public speaking</td><td>Trypanophobia</td><td>Injections</td></tr>
+    <tr><td>Hematophobia</td><td>Blood</td><td>Xenophobia</td><td>Strangers / foreigners</td></tr>
+    <tr><td>Hydrophobia</td><td>Water (rabies symptom too)</td><td>Zoophobia</td><td>Animals (generic)</td></tr>
+  </table>
+</div>
+
+<!-- ABN 4 -->
+<div class="block">
+  <div class="tagrow"><span class="tag">n1_abn05</span></div>
+  <h3>Delusional misidentification four-pack + extras</h3>
+  <ul class="tight">
+    <li><b>Othello syndrome:</b> delusion that <i>spouse is unfaithful</i>. Strong link to alcohol-use disorder + IPV.</li>
+    <li><b>Capgras syndrome:</b> familiar person has been <i>replaced by an identical impostor</i>. Recognition without familiarity. Ventral-visual / limbic disconnection.</li>
+    <li><b>Fregoli syndrome:</b> multiple strangers are <i>the same persecutor in disguise</i>. Familiarity without recognition. Opposite of Capgras.</li>
+    <li><b>De Clérambault (erotomania):</b> belief a high-status person is <i>in love with</i> the patient.</li>
+    <li><b>Cotard delusion:</b> belief one is dead / non-existent / decomposing. Severe psychotic depression.</li>
+    <li><b>Folie à deux:</b> delusion transmitted from a "dominant" inducer to a closely related recipient. Dropped from DSM-5 as separate diagnosis, still used clinically.</li>
+  </ul>
+</div>
+
+<!-- ABN 5 -->
+<div class="block lock">
+  <div class="tagrow"><span class="tag good">lock-in</span><span class="tag">n1_abn12</span></div>
+  <h3>Schizophrenia theorists (this is a 2023 + 2024 NIMHANS repeat)</h3>
+  <ul class="tight">
+    <li><b>Kraepelin (1893):</b> "dementia praecox" = early-onset deteriorating psychosis. Distinguished from "manic-depressive insanity" (now bipolar). The <b>Kraepelinian dichotomy</b> = foundation of modern nosology.</li>
+    <li><b>Bleuler (1908):</b> renamed it <b>schizophrenia</b> ("splitting of mind"). <b>4 As:</b> Association (loose), Affect (flat), Ambivalence, Autism (withdrawal). "Fundamental" vs "accessory" symptoms.</li>
+    <li><b>Schneider (1959):</b> <b>first-rank symptoms</b>: thought insertion / withdrawal / broadcasting, audible thoughts, voices commenting / arguing, somatic passivity, delusional perception. Used in ICD-10; ICD-11 dropped emphasis.</li>
+    <li><b>Crow:</b> Type I (positive sx, drug-responsive) vs Type II (negative sx, treatment-resistant). Outdated.</li>
+    <li><b>Andreasen + Carpenter:</b> positive / negative / disorganised dimensions.</li>
+  </ul>
+</div>
+
+<!-- ============================================================== -->
+<h2 id="social">Social Psych &mdash; named effects + ABCD personalities</h2>
+<p>Three wrongs on the mock, all "named concept" trivia (Genovese, Type D, anomie). Each is one paragraph of reading.</p>
+
+<!-- SOC 1 -->
+<div class="block priority">
+  <div class="tagrow"><span class="tag bad">priority</span><span class="tag warn">your-note</span><span class="tag">n1_soc06</span></div>
+  <h3>The ABCD personality family</h3>
+  <div class="self-note"><b>Your note:</b> "What is type D. I know type a and b"</div>
+  <table>
+    <tr><th>Type</th><th>Profile</th><th>Risk for</th></tr>
+    <tr><td><b>Type A</b> (Friedman &amp; Rosenman, 1959)</td><td>Hostility, time-urgency, competitiveness, achievement-driven, impatient</td><td>CHD &mdash; hostility is the active ingredient; "TABP" alone is a weaker predictor</td></tr>
+    <tr><td><b>Type B</b></td><td>Relaxed, easy-going, low urgency, non-competitive</td><td>Lower CHD risk</td></tr>
+    <tr><td><b>Type C</b> (Temoshok)</td><td>Emotionally inhibited, appeasing, suppresses anger, pleasing</td><td>Cancer progression (controversial)</td></tr>
+    <tr><td><b>Type D</b> (Denollet, 1996)</td><td><b>Negative affectivity + Social inhibition</b></td><td>Cardiac mortality + depression + poor MI outcomes. Measured with <b>DS14</b></td></tr>
+  </table>
+</div>
+
+<!-- SOC 2 -->
+<div class="block priority">
+  <div class="tagrow"><span class="tag bad">priority</span><span class="tag warn">your-note</span><span class="tag">n1_soc10</span></div>
+  <h3>Anomie + the sociologists</h3>
+  <div class="self-note"><b>Your note:</b> "Never heard of this"</div>
+  <ul class="tight">
+    <li><b>Durkheim (1893, 1897):</b> <b>anomie</b> = breakdown / unclear / conflicting social norms during periods of rapid change (industrialisation, economic shock). Individual loses moral guidance &rarr; deviance + despair. Per <i>Suicide</i> (1897): <b>anomic suicide</b>, one of four types (egoistic, altruistic, anomic, fatalistic). Also: mechanical vs organic solidarity, collective consciousness.</li>
+    <li><b>Merton (1938):</b> extended anomie to <b>strain theory</b>. Mismatch between cultural goals (wealth) and legitimate means &rarr; 5 adaptations: <i>conformity, innovation (crime), ritualism, retreatism, rebellion</i>.</li>
+    <li><b>Weber:</b> bureaucracy, "iron cage," Protestant work ethic, rationalisation.</li>
+    <li><b>Marx:</b> alienation (from product, process, species-being, others).</li>
+    <li><b>Mead:</b> symbolic interactionism, "I" vs "Me," generalised other.</li>
+    <li><b>Cooley:</b> looking-glass self, primary vs secondary groups.</li>
+    <li><b>Goffman:</b> dramaturgy, front-stage / back-stage, stigma.</li>
+  </ul>
+</div>
+
+<!-- SOC 3 -->
+<div class="block">
+  <div class="tagrow"><span class="tag warn">your-note</span><span class="tag">n1_soc01</span></div>
+  <h3>Named social-psych effects (you asked for the bigger list)</h3>
+  <div class="self-note"><b>Your note:</b> "Need more topics like this to study"</div>
+  <ul class="tight">
+    <li><b>Bystander effect</b> (Latané + Darley, Kitty Genovese 1964) = <b>diffusion of responsibility</b> + <b>pluralistic ignorance</b>. <b>Latané's 5 steps:</b> notice &rarr; interpret as emergency &rarr; assume responsibility &rarr; know how to help &rarr; decide to help. Any step can break.</li>
+    <li><b>Cognitive dissonance</b> (Festinger 1957) = inconsistency between attitudes / behaviour produces drive to reduce.</li>
+    <li><b>Foot-in-the-door</b> (Freedman &amp; Fraser): small request first, larger later.</li>
+    <li><b>Door-in-the-face</b> (Cialdini): large refused first, smaller after.</li>
+    <li><b>Low-balling</b> (Cialdini): initial offer changed after commitment.</li>
+    <li><b>Cialdini's 6 weapons of influence:</b> reciprocity, scarcity, social proof, liking, authority, commitment + consistency.</li>
+    <li><b>Self-fulfilling prophecy</b> (Merton). <b>Pygmalion effect</b> (Rosenthal &amp; Jacobson teacher-expectancy).</li>
+    <li><b>Stereotype threat</b> (Steele &amp; Aronson): awareness of stereotype impairs performance.</li>
+    <li><b>Group polarisation</b> (Stoner): groups become more extreme than individual averages.</li>
+    <li><b>Groupthink</b> (Janis): 8 symptoms (illusion of invulnerability, etc.). Bay of Pigs example.</li>
+    <li><b>Social loafing</b> (Ringelmann / Latané): individual effort drops in groups.</li>
+    <li><b>Social facilitation</b> (Triplett / Zajonc): easy tasks &uarr;, hard tasks &darr; in presence of others.</li>
+    <li><b>Deindividuation</b> (Zimbardo): loss of self in groups. Stanford prison.</li>
+    <li><b>Conformity / obedience:</b> Asch (lines), Milgram (shocks), Sherif (autokinetic).</li>
+    <li><b>Fundamental attribution error</b> (Ross): overattribute others' behaviour to disposition.</li>
+    <li><b>Actor-observer bias</b> (Jones &amp; Nisbett).</li>
+    <li><b>Self-serving bias:</b> success internal, failure external.</li>
+    <li><b>Just-world hypothesis</b> (Lerner).</li>
+    <li><b>Mere exposure effect</b> (Zajonc).</li>
+    <li><b>Halo effect</b> (Thorndike).</li>
+    <li><b>Spotlight effect, illusion of transparency</b> (Gilovich).</li>
+  </ul>
+</div>
+
+<!-- ============================================================== -->
+<h2 id="biostats">Biostats &mdash; risk ratios, sampling, reliability</h2>
+
+<!-- BST 1 -->
+<div class="block priority">
+  <div class="tagrow"><span class="tag bad">priority</span><span class="tag warn">your-note</span><span class="tag">n1_bst01</span></div>
+  <h3>RR / OR / HR / NNT &mdash; the four-row table that owns biostats MCQs</h3>
+  <div class="self-note"><b>Your note:</b> "wtf is risk ratio?"</div>
+  <table>
+    <tr><th>Measure</th><th>What it is</th><th>When used</th></tr>
+    <tr><td><b>RR (risk ratio / relative risk)</b></td><td>incidence in exposed / incidence in unexposed</td><td>Cohort, RCT</td></tr>
+    <tr><td><b>OR (odds ratio)</b></td><td>odds of exposure in cases / odds in controls</td><td>Case-control (you can't compute incidence)</td></tr>
+    <tr><td><b>HR (hazard ratio)</b></td><td>instantaneous risk ratio over time</td><td>Survival analysis, Cox regression</td></tr>
+    <tr><td><b>ARR (absolute risk reduction)</b></td><td>risk-unexposed − risk-exposed</td><td>RCTs</td></tr>
+    <tr><td><b>NNT</b></td><td>1 / ARR</td><td>How many to treat to prevent 1 outcome</td></tr>
+  </table>
+  <ul class="tight">
+    <li>RR = 1 &rarr; no association. RR &gt; 1 &rarr; exposure raises risk. RR &lt; 1 &rarr; exposure protects.</li>
+    <li>OR &asymp; RR when outcome is rare (&lt;10%). OR exaggerates effect when outcome is common.</li>
+  </ul>
+</div>
+
+<!-- BST 2 -->
+<div class="block priority">
+  <div class="tagrow"><span class="tag bad">priority</span><span class="tag">n1_bst05</span></div>
+  <h3>Sampling: probability vs non-probability</h3>
+  <table>
+    <tr><th>Method</th><th>Probability?</th><th>One-liner</th></tr>
+    <tr><td>Simple random</td><td>Yes</td><td>Pure random from frame</td></tr>
+    <tr><td>Systematic</td><td>Yes</td><td>Every kth person from frame</td></tr>
+    <tr><td><b>Stratified</b></td><td>Yes</td><td>Random <i>within every stratum</i>. Lowest sampling error.</td></tr>
+    <tr><td><b>Cluster</b></td><td>Yes</td><td>Random <i>whole clusters</i>, all units within. Cheap, higher error.</td></tr>
+    <tr><td>Multi-stage cluster</td><td>Yes</td><td>Cluster &rarr; subcluster &rarr; individual</td></tr>
+    <tr><td><b>Quota</b></td><td><b>No</b></td><td>Researcher fills predetermined quotas. Can't compute SE.</td></tr>
+    <tr><td>Purposive / judgmental</td><td>No</td><td>Hand-picked by researcher for a reason</td></tr>
+    <tr><td>Convenience</td><td>No</td><td>Whoever is around</td></tr>
+    <tr><td>Snowball</td><td>No</td><td>Chain referral. Hidden populations.</td></tr>
+  </table>
+  <div class="rule"><b>Lock-in.</b> "Can I compute SE?" &rarr; probability. "Did the researcher hand-pick?" &rarr; non-probability. Stem says "<i>does NOT allow calculation of sampling error</i>" &rarr; non-probability (usually quota).</div>
+  <p class="small"><b>Stratified vs cluster (often swapped):</b> <i>Stratified</i> = split into strata then sample <i>from each</i>. <i>Cluster</i> = pick whole clusters then sample <i>everyone</i> within. Stratified guarantees representation; cluster saves cost.</p>
+</div>
+
+<!-- BST 3 -->
+<div class="block priority">
+  <div class="tagrow"><span class="tag bad">priority</span><span class="tag">n1_bst08</span></div>
+  <h3>Reliability vs validity &mdash; statistic by concept</h3>
+  <table>
+    <tr><th>Concept</th><th>Statistic</th><th>Question asked</th></tr>
+    <tr><td>Test-retest reliability</td><td>Pearson r over time</td><td>Same person, two occasions, same result?</td></tr>
+    <tr><td><b>Inter-rater reliability</b></td><td><b>Cohen's κ</b> (categorical), ICC (continuous), Fleiss' κ (&gt;2 raters)</td><td>Two raters, same person, same score?</td></tr>
+    <tr><td>Internal consistency</td><td><b>Cronbach's α</b>, KR-20 (dichotomous), split-half</td><td>Do items measure the same thing?</td></tr>
+    <tr><td>Parallel forms</td><td>Pearson r between forms</td><td>Two versions, same score?</td></tr>
+    <tr><td>Face validity</td><td>Subjective</td><td>Looks like it measures the thing?</td></tr>
+    <tr><td>Content validity</td><td>Expert review / CVI</td><td>Covers the domain?</td></tr>
+    <tr><td>Criterion validity</td><td>r with criterion</td><td>Concurrent (same time) or predictive (future)</td></tr>
+    <tr><td>Construct validity</td><td>Factor analysis, MTMM</td><td>Measures the latent construct? Convergent + discriminant.</td></tr>
+  </table>
+  <div class="rule"><b>Lock-in.</b> "Agreement between raters" &rarr; <b>κ</b>. "Items hang together / scale consistency" &rarr; <b>α</b>. <b>Landis-Koch for κ:</b> &gt;0.81 almost perfect; 0.61-0.80 substantial; 0.41-0.60 moderate; &lt;0.40 weak.</div>
+</div>
+
+<!-- BST 4 -->
+<div class="block">
+  <div class="tagrow"><span class="tag warn">your-note</span><span class="tag">n1_bst06</span></div>
+  <h3>Factor analysis basics (you flagged this completely)</h3>
+  <div class="self-note"><b>Your note:</b> "Dont know anything about this"</div>
+  <ul class="tight">
+    <li><b>Kaiser-Guttman rule:</b> retain factors with eigenvalue &gt; 1.0. Eigenvalue = variance explained by a factor in standardised units. &gt;1 means the factor explains more variance than a single observed variable would.</li>
+    <li><b>Scree plot (Cattell):</b> plot eigenvalues against factor number. Find the "elbow" where the line flattens. Keep factors above the elbow.</li>
+    <li><b>EFA (exploratory):</b> no a-priori structure, let data tell you. Common in scale development.</li>
+    <li><b>CFA (confirmatory):</b> you have a model, test it. Uses SEM.</li>
+    <li><b>Rotation:</b> <i>orthogonal</i> (varimax) = factors stay uncorrelated. <i>Oblique</i> (promax, oblimin) = factors allowed to correlate. Psych constructs usually correlate.</li>
+    <li><b>Loading:</b> correlation of an item with a factor. &ge;0.30 = weak, &ge;0.40 = moderate, &ge;0.50 = strong.</li>
+    <li><b>PCA vs FA:</b> PCA = data reduction, total variance. FA = latent structure, common variance.</li>
+  </ul>
+</div>
+
+<!-- BST 5 -->
+<div class="block lock">
+  <div class="tagrow"><span class="tag good">lock-in</span></div>
+  <h3>Parametric &harr; non-parametric pairing + reporting guidelines</h3>
+  <table>
+    <tr><th>Parametric</th><th>Non-parametric</th><th>Use</th></tr>
+    <tr><td>Independent t-test</td><td><b>Mann-Whitney U</b> (Wilcoxon rank-sum)</td><td>Compare 2 independent groups</td></tr>
+    <tr><td>Paired t-test</td><td><b>Wilcoxon signed-rank</b></td><td>Compare 2 related/paired scores (pre-post)</td></tr>
+    <tr><td>One-way ANOVA</td><td><b>Kruskal-Wallis H</b></td><td>3+ independent groups</td></tr>
+    <tr><td>Repeated-measures ANOVA</td><td><b>Friedman test</b></td><td>3+ related conditions</td></tr>
+    <tr><td>Pearson r</td><td><b>Spearman ρ</b> (or Kendall τ)</td><td>Correlation</td></tr>
+    <tr><td>(none, categorical)</td><td><b>Chi-square</b> / Fisher's exact</td><td>2 categorical variables</td></tr>
+  </table>
+  <h4>Reporting guidelines</h4>
+  <ul class="tight">
+    <li><b>CONSORT</b> = RCTs. <b>PRISMA</b> = systematic reviews / meta-analyses. <b>STARD</b> = diagnostic accuracy. <b>STROBE</b> = observational. <b>COREQ / SRQR</b> = qualitative. <b>SPIRIT</b> = trial protocols. <b>CARE</b> = case reports. <b>TRIPOD</b> = prediction models.</li>
+    <li><b>Evidence pyramid:</b> 1a SR of RCTs &gt; 1b RCT &gt; 2a Cohort &gt; 2b Case-control &gt; 3 Case series &gt; 4 Expert opinion.</li>
+    <li><b>Type I (α)</b> = false positive. <b>Type II (β)</b> = false negative. <b>Power = 1 − β</b>.</li>
+  </ul>
+</div>
+
+<!-- ============================================================== -->
+<h2 id="cognitive">General / Cognitive &mdash; Baddeley + Wallas + Weber</h2>
+
+<!-- COG 1 -->
+<div class="block priority">
+  <div class="tagrow"><span class="tag bad">priority</span><span class="tag">n1_gen01</span></div>
+  <h3>Baddeley working-memory model</h3>
+  <table>
+    <tr><th>Component</th><th>Role</th><th>Capacity / type</th></tr>
+    <tr><td><b>Central executive</b></td><td>Attentional <i>controller</i>, task-switching (NOT a store)</td><td>Modality-free, limited</td></tr>
+    <tr><td><b>Phonological loop</b></td><td>Verbal + acoustic info</td><td>~2 seconds; phonological store + articulatory rehearsal</td></tr>
+    <tr><td><b>Visuospatial sketchpad</b></td><td>Visual + spatial info</td><td>"Inner eye"; visual cache + inner scribe</td></tr>
+    <tr><td><b>Episodic buffer</b> (2000)</td><td>Binds slave systems + LTM into coherent episode</td><td>Limited multimodal <i>store</i></td></tr>
+  </table>
+  <div class="rule"><b>Trap.</b> Central executive is the <b>controller</b>, episodic buffer is the <b>store that binds across modalities</b>. If the stem says "integrates phonological + visuospatial + LTM," the answer is the <b>episodic buffer</b>.</div>
+  <h4>Memory taxonomy (Squire's model)</h4>
+  <ul class="tight">
+    <li><b>Long-term memory</b> = <b>Declarative / Explicit</b> (conscious; Episodic + Semantic; hippocampus + MTL) <i>plus</i> <b>Non-declarative / Implicit</b> (unconscious; Procedural + Priming + Classical conditioning + Non-associative).</li>
+    <li><b>Short-term / working memory</b> = Baddeley's model.</li>
+    <li><b>Sensory memory:</b> iconic (visual, ~250ms, Sperling), echoic (auditory, ~2-4s).</li>
+    <li><b>Procedural</b> = basal ganglia + cerebellum + motor cortex (none touched in H.M.).</li>
+  </ul>
+</div>
+
+<!-- COG 2 -->
+<div class="block">
+  <div class="tagrow"><span class="tag warn">your-note</span><span class="tag">n1_gen02</span></div>
+  <h3>Wallas creativity stages + theorists</h3>
+  <div class="self-note"><b>Your note:</b> "DOnt know this theory"</div>
+  <ol class="tight">
+    <li><b>Preparation</b> &mdash; gather info, define problem, attempt direct solutions.</li>
+    <li><b>Incubation</b> &mdash; set aside, unconscious processing.</li>
+    <li><b>Illumination</b> &mdash; the "aha" moment.</li>
+    <li><b>Verification</b> &mdash; test and refine.</li>
+  </ol>
+  <p class="small">(Some add "intimation" between incubation and illumination as a 5th stage.)</p>
+  <h4>Creativity bundle</h4>
+  <ul class="tight">
+    <li><b>Guilford:</b> <b>convergent vs divergent thinking</b>. Divergent = many possible solutions, marker of creativity. <i>Alternate Uses Test</i>.</li>
+    <li><b>Torrance Tests of Creative Thinking (TTCT):</b> fluency, flexibility, originality, elaboration.</li>
+    <li><b>Mednick:</b> Remote Associates Test (RAT) &mdash; find 4th word linking three remote ones.</li>
+    <li><b>Csikszentmihalyi:</b> <b>flow</b> (skill = challenge). Systems model (person + domain + field).</li>
+    <li><b>Amabile:</b> componential model = domain skills + creativity-relevant processes + task motivation.</li>
+    <li><b>Sternberg:</b> investment theory ("buy low, sell high").</li>
+  </ul>
+</div>
+
+<!-- COG 3 -->
+<div class="block lock">
+  <div class="tagrow"><span class="tag good">lock-in</span><span class="tag">n1_gen10</span></div>
+  <h3>Weber / Fechner / Stevens + signal detection</h3>
+  <ul class="tight">
+    <li><b>Weber's Law (1834):</b> <b>ΔI / I = k</b>. JND is a <i>constant fraction</i> of original intensity. In a room with 1 candle, adding 1 is obvious; in a room with 100, you need ~10.</li>
+    <li><b>Fechner's Law (1860):</b> Sensation = k × log(intensity). Subjective magnitude grows as the log of physical intensity.</li>
+    <li><b>Stevens' Power Law (1957):</b> Sensation = k × (intensity)<sup>a</sup>. Different exponents per modality (brightness ~0.33, length ~1.0, electric shock ~3.5).</li>
+    <li><b>Psychophysics methods (Fechner):</b> method of limits, method of constant stimuli, method of adjustment.</li>
+    <li><b>Signal detection theory (Green &amp; Swets):</b> <b>d'</b> = sensitivity (separates signal from noise). <b>β / c</b> = response criterion (bias). 4 outcomes: hit, miss, false alarm, correct rejection.</li>
+  </ul>
+</div>
+
+<!-- COG 4 -->
+<div class="block lock">
+  <div class="tagrow"><span class="tag good">lock-in</span><span class="tag warn">your-note</span><span class="tag">n1_gen03</span></div>
+  <h3>Bandura observational learning &mdash; ARRM</h3>
+  <div class="self-note"><b>Your note:</b> "Accidentally marked this wrong"</div>
+  <p>The careless miss. You knew this. <b>Bandura's 4 processes: Attention &rarr; Retention &rarr; Reproduction &rarr; Motivation (ARRM).</b> Reinforcement is <b>not</b> required &mdash; <i>vicarious reinforcement</i> (watching someone else get rewarded) is enough. Bobo Doll study (1961) proved kids imitate aggression they only <i>observed</i>.</p>
+  <ul class="tight">
+    <li><b>Reciprocal determinism:</b> behaviour, person, environment all influence each other.</li>
+    <li><b>Self-efficacy</b> = belief in one's ability to execute the behaviours needed for an outcome. <b>Four sources:</b> mastery experience, vicarious experience, social persuasion, physiological / affective state.</li>
+    <li><b>Modelling:</b> live, symbolic (media), verbal-instructional.</li>
+  </ul>
+</div>
+
+<!-- ============================================================== -->
+<h2 id="self">Self-concept bundle (you asked for "more concepts like looking-glass self")</h2>
+
+<div class="block">
+  <div class="tagrow"><span class="tag warn">your-note</span><span class="tag">n1_soc08</span></div>
+  <div class="self-note"><b>Your note:</b> "Need more concepts like this"</div>
+  <ul class="tight">
+    <li><b>Looking-glass self</b> (Cooley, 1902): 3 steps &rarr; I imagine how I appear, I imagine the other's judgement, I feel a self-feeling. Self is built from <i>imagined</i> reflections, not actual ones.</li>
+    <li><b>Mead's "I" and "Me":</b> I = spontaneous, subjective. Me = internalised social self. <b>Generalised other</b> = internalised perspective of "society."</li>
+    <li><b>Self-perception theory</b> (Bem): we infer our attitudes from our behaviour.</li>
+    <li><b>Self-schema</b> (Markus): cognitive generalisations about the self.</li>
+    <li><b>Possible selves</b> (Markus &amp; Nurius): future-oriented self-representations.</li>
+    <li><b>Self-discrepancy theory</b> (Higgins): actual / ideal / ought selves. <i>Ideal − actual</i> &rarr; depression; <i>ought − actual</i> &rarr; anxiety.</li>
+    <li><b>Social identity theory</b> (Tajfel &amp; Turner): personal vs group identity; in-group favouritism.</li>
+    <li><b>Self-determination theory</b> (Deci &amp; Ryan): autonomy + competence + relatedness.</li>
+  </ul>
+</div>
+
+<!-- ============================================================== -->
+<h2 id="dev-extras">Developmental (you got 10/10, but you flagged 2)</h2>
+
+<div class="block">
+  <div class="tagrow"><span class="tag warn">your-note</span><span class="tag">n1_dev01</span></div>
+  <h3>Thomas &amp; Chess temperament + adjacent</h3>
+  <div class="self-note"><b>Your note:</b> "Dont know this model"</div>
+  <ul class="tight">
+    <li><b>Thomas &amp; Chess (NYLS, 1956+):</b> 9 dimensions clustered into <b>3 types + mixed</b>.
+      <ul>
+        <li><b>Easy</b> (~40%): regular rhythms, positive approach, adapts fast, positive mood.</li>
+        <li><b>Difficult</b> (~10%): irregular rhythms, withdraws, slow adapt, negative + intense.</li>
+        <li><b>Slow-to-warm-up</b> (~15%): low activity, mild reactions, slow but eventual adapt.</li>
+        <li><b>Mixed</b> (~35%): no clean fit.</li>
+      </ul>
+    </li>
+    <li><b>Goodness of fit:</b> developmental outcome depends on the <i>match</i> between temperament + parenting demands.</li>
+    <li><b>Kagan:</b> behavioural <i>inhibition</i> (shy / fearful infants, 15-20% of toddlers). Linked to amygdala reactivity.</li>
+    <li><b>Rothbart:</b> reactivity + self-regulation; adds an effortful-control dimension.</li>
+    <li><b>Buss &amp; Plomin (EAS):</b> Emotionality, Activity, Sociability.</li>
+  </ul>
+</div>
+
+<div class="block">
+  <div class="tagrow"><span class="tag warn">your-note</span><span class="tag">n1_dev02</span></div>
+  <h3>Marshmallow Test + Mischel hot/cool</h3>
+  <div class="self-note"><b>Your note:</b> "Briefly explain this to me"</div>
+  <ul class="tight">
+    <li><b>Mischel (Stanford, 1960s-70s):</b> 3-5 year olds offered 1 marshmallow now or 2 if they waited ~15 min. Outcome = <b>wait time</b>. Follow-ups (Mischel &amp; Shoda): waiting predicted <b>SAT, BMI, social competence, self-regulation</b> in adolescence + adulthood.</li>
+    <li><b>Mechanism:</b> waiters used <i>cognitive strategies</i> (look away, distract, reframe marshmallow as "cloud not food"). Basis of <b>hot/cool system</b>: hot = limbic, impulsive; cool = prefrontal, regulatory.</li>
+    <li><b>Replication caveat:</b> Watts, Duncan &amp; Quan (2018) found effects shrink substantially when family SES is controlled. Paradigm is real, deterministic narrative is overstated.</li>
+    <li><b>Connects to:</b> executive function (Diamond), self-regulation (Rothbart), delay aversion in ADHD (Sonuga-Barke).</li>
+  </ul>
+</div>
+
+<!-- ============================================================== -->
+<h2 id="execution">Exam-day execution rules</h2>
+
+<div class="block">
+  <ol class="tight">
+    <li><b>Underline NOT / EXCEPT / LEAST / ALL in the stem before reading options.</b> Half your "knew it but got it wrong" misses are negation-blindness. Cost the same as not knowing the answer.</li>
+    <li><b>If 3 options agree and 1 disagrees on an antonym / "NOT" question, the outlier is usually the answer.</b> Read the relationship in the stem (synonym? antonym? part-whole? cause-effect?) <i>before</i> scanning options.</li>
+    <li><b>Eliminate options with extreme words on RC main-idea questions:</b> "every, always, never, all, none, only, must." Pick the most general statement the passage actually supports.</li>
+    <li><b>Hedging language ("can," "may," "in some cases," "a range of") &rarr; tone is "supportive but qualified," not absolute.</b></li>
+    <li><b>If the stem names ICD, give ICD durations. If DSM, give DSM. If unspecified on NIMHANS, default to ICD.</b></li>
+    <li><b>For trigger-word school attribution:</b> "musterbation / ABC / irrational" &rarr; Ellis. "Cognitive triad / schema / automatic thought" &rarr; Beck. "Empty chair / here-and-now" &rarr; Perls / Gestalt. "Therapeutic community" &rarr; Maxwell Jones. "Logotherapy / will to meaning" &rarr; Frankl. "Zen + mindfulness for BPD" &rarr; Linehan / DBT.</li>
+    <li><b>Don't guess on biostats unless the four-row table (RR/OR/HR/NNT) is firm.</b> Your mock-1 numbers had you guessing 4-5 of 10 biostats Qs &mdash; that's a coin flip for ~20% of NIMHANS marks.</li>
+    <li><b>Marathon pacing:</b> 100 Qs / 90 min = 54 sec/Q. If a question takes &gt;90 sec, mark + skip. Come back if time allows. <i>Most</i> NIMHANS papers reward speed over deliberation on individual items.</li>
+    <li><b>Last 5 minutes:</b> never leave a blank. Negative marking is for wrong answers, not blanks &mdash; but a blind guess across 4 options still has +25% expected value if there's no -ve mark, and zero if there is. Know your paper's policy.</li>
+  </ol>
+</div>
+
+<!-- ============================================================== -->
+<h2 id="index">Note &rarr; block index (so you can find why a topic is in here)</h2>
+
+<table>
+  <tr><th>Question</th><th>Your note</th><th>Block</th></tr>
+  <tr><td>n1_bio01</td><td>"DOnt know this. need to learn"</td><td>Amino-acid &rarr; NT pathway (Biopsych)</td></tr>
+  <tr><td>n1_bio02</td><td>"What about norepinephrine?"</td><td>Adrenaline / NE / adrenal anatomy (Biopsych)</td></tr>
+  <tr><td>n1_bio03</td><td>(wrong, no note)</td><td>Pituitary FLAT PiG (Biopsych)</td></tr>
+  <tr><td>n1_bio04</td><td>(wrong, no note)</td><td>Hypothalamic nuclei (Biopsych)</td></tr>
+  <tr><td>n1_bio07</td><td>"I want a list of cases like HM"</td><td>Famous case studies (Biopsych)</td></tr>
+  <tr><td>n1_bio13</td><td>(wrong, no note)</td><td>EPSEs (Biopsych)</td></tr>
+  <tr><td>n1_bio15</td><td>"Didnt know this"</td><td>Wernicke-Korsakoff (Biopsych)</td></tr>
+  <tr><td>n1_bst01</td><td>"wtf is risk ratio?"</td><td>RR / OR / HR / NNT (Biostats)</td></tr>
+  <tr><td>n1_bst04</td><td>"Need to understand what makes it the right answer"</td><td>Sampling probability vs non-prob (Biostats)</td></tr>
+  <tr><td>n1_bst05</td><td>(wrong, no note)</td><td>Sampling (Biostats)</td></tr>
+  <tr><td>n1_bst06</td><td>"Dont know anything about this"</td><td>Factor analysis basics (Biostats)</td></tr>
+  <tr><td>n1_bst08</td><td>(wrong, no note)</td><td>Reliability vs validity (Biostats)</td></tr>
+  <tr><td>n1_abn02</td><td>(wrong, no note)</td><td>Phobia vocab (Abnormal)</td></tr>
+  <tr><td>n1_abn11</td><td>(wrong, no note)</td><td>Ego-dystonic vs syntonic (Abnormal)</td></tr>
+  <tr><td>n1_abn13</td><td>"Need more of these things related to ICD, never read ICD"</td><td>ICD vs DSM durations (Abnormal)</td></tr>
+  <tr><td>n1_abn15</td><td>"What is korsakoff, need to learn this"</td><td>Wernicke-Korsakoff (Biopsych)</td></tr>
+  <tr><td>n1_dev01</td><td>"Dont know this model"</td><td>Thomas &amp; Chess (Developmental)</td></tr>
+  <tr><td>n1_dev02</td><td>"Briefly explain this to me"</td><td>Marshmallow Test (Developmental)</td></tr>
+  <tr><td>n1_ass04</td><td>"Dont know shit about the scoring on this"</td><td>WAIS-IV structure (Assessment)</td></tr>
+  <tr><td>n1_ass05</td><td>"Dont know anything about this"</td><td>WAIS-IV structure (Assessment)</td></tr>
+  <tr><td>n1_ass08</td><td>"Need to revise binet, terman one by one"</td><td>IQ history timeline (Assessment)</td></tr>
+  <tr><td>n1_thr01</td><td>(wrong, no note)</td><td>Group-modality founders (Therapy)</td></tr>
+  <tr><td>n1_thr03</td><td>"Need more info on this"</td><td>Logotherapy + existential (Therapy)</td></tr>
+  <tr><td>n1_thr04</td><td>(wrong, no note)</td><td>Ellis vs Beck (Therapy)</td></tr>
+  <tr><td>n1_thr09</td><td>"What is splitting?"</td><td>Splitting + BPD defenses (Therapy)</td></tr>
+  <tr><td>n1_soc01</td><td>"Need more topics like this to study"</td><td>Named social effects (Social)</td></tr>
+  <tr><td>n1_soc06</td><td>"What is type D. I know type a and b"</td><td>ABCD personality (Social)</td></tr>
+  <tr><td>n1_soc08</td><td>"Need more concepts like this"</td><td>Self-concept bundle</td></tr>
+  <tr><td>n1_soc10</td><td>"Never heard of this"</td><td>Anomie + sociologists (Social)</td></tr>
+  <tr><td>n1_gen01</td><td>(wrong, no note)</td><td>Baddeley model (Cognitive)</td></tr>
+  <tr><td>n1_gen02</td><td>"DOnt know this theory"</td><td>Wallas creativity (Cognitive)</td></tr>
+  <tr><td>n1_gen03</td><td>"Accidentally marked this wrong"</td><td>Bandura ARRM (Cognitive)</td></tr>
+</table>
+
+<hr style="margin: 40px 0; border: 0; border-top: 1px solid var(--border);">
+<p class="small" style="text-align:center;">Consolidated revision pack &middot; built from NIMHANS Mock 1 wrongs + your 23 self-notes &middot; updated 2026-05-15 &middot; <a href="../nimhans-mock-1-debrief/">full mock debrief</a> for original Q-by-Q walkthrough</p>
+
+</div>
+</body>
+</html>
