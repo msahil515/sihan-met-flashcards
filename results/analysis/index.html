@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d1117">
+<title>Mock analysis — MET 2026 + NIMHANS</title>
+<link rel="stylesheet" href="../../site.css">
+<style>
+  /* Mock switcher pills */
+  .mock-switch { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+  .mock-switch a {
+    padding: 8px 14px; border-radius: 999px; font-size: 13px; font-weight: 500;
+    border: 1px solid var(--border); background: var(--panel-2); color: var(--text);
+    text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .mock-switch a.active { border-color: var(--accent); color: var(--accent); background: var(--panel); }
+  .mock-switch a:hover { border-color: var(--accent-dim); color: var(--accent); }
+  .mock-switch .pill-score { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  /* Hero score block */
+  .hero-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 18px; margin-top: 18px; align-items: stretch; }
+  .hero-score { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; }
+  .hero-score-row { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .hero-score-num { font-size: 56px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+  .hero-score-num.good { color: var(--good); }
+  .hero-score-num.warn { color: var(--warn); }
+  .hero-score-num.bad  { color: var(--bad); }
+  .hero-score-num.muted { color: var(--muted); }
+  .hero-score-max { font-size: 22px; color: var(--muted); font-weight: 500; }
+  .hero-score-meta { margin-top: 14px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    background: var(--panel-2); border-radius: 8px; padding: 12px; }
+  .hero-meta-item { text-align: center; }
+  .hero-meta-item .n { display: block; font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .hero-meta-item .l { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .hero-meta-item .n.good { color: var(--good); }
+  .hero-meta-item .n.bad  { color: var(--bad); }
+  .hero-meta-item .n.muted { color: var(--muted); }
+
+  .hero-band { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px;
+    display: flex; flex-direction: column; gap: 8px; }
+  .band-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .band-name { font-size: 22px; font-weight: 700; }
+  .band-name.good { color: var(--good); }
+  .band-name.warn { color: var(--warn); }
+  .band-name.bad  { color: var(--bad); }
+  .band-desc { font-size: 13px; color: var(--text); line-height: 1.55; }
+  .band-bar { height: 10px; background: var(--panel-2); border-radius: 5px; position: relative; overflow: hidden;
+    margin-top: 6px; }
+  .band-bar-fill { position: absolute; top: 0; left: 0; bottom: 0; background: linear-gradient(to right, var(--bad), var(--warn), var(--good));
+    border-radius: 5px; }
+  .band-bar-marker { position: absolute; top: -2px; bottom: -2px; width: 3px; background: var(--text); border-radius: 2px; }
+  .band-bar-cutoff { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--muted); }
+  .band-bar-cutoff::after { content: attr(data-l); position: absolute; bottom: -16px; left: -10px; font-size: 9px; color: var(--muted);
+    white-space: nowrap; }
+  .band-disclaimer { font-size: 11px; color: var(--muted); margin-top: 12px; line-height: 1.5; font-style: italic; }
+
+  /* Section breakdown */
+  .sec-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .sec-table th { text-align: left; padding: 10px 12px; font-size: 11px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); font-weight: 600; }
+  .sec-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
+  .sec-table tr:last-child td { border-bottom: none; }
+  .sec-table tr:hover td { background: var(--panel-2); }
+  .sec-table td.sec-name { font-weight: 600; color: var(--text); }
+  .sec-bar-mini { width: 100%; max-width: 220px; height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; display: flex; }
+  .sec-bar-mini > span { display: block; height: 100%; }
+  .sec-bar-mini .b-right { background: var(--good); }
+  .sec-bar-mini .b-wrong { background: var(--bad); }
+  .sec-bar-mini .b-skip  { background: transparent; }
+  .acc-pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+  .acc-pill.good { background: rgba(63,185,80,0.15); color: var(--good); }
+  .acc-pill.warn { background: rgba(240,180,41,0.15); color: var(--warn); }
+  .acc-pill.bad  { background: rgba(248,81,73,0.15); color: var(--bad); }
+  .acc-pill.muted { background: var(--panel-2); color: var(--muted); }
+
+  /* Weak topics */
+  .weak-list { display: flex; flex-direction: column; gap: 10px; }
+  .weak-row { display: grid; grid-template-columns: 150px 1fr 120px; gap: 12px; align-items: center;
+    padding: 10px 14px; background: var(--panel-2); border-radius: 8px; font-size: 13px; }
+  .weak-row .w-name { font-weight: 600; }
+  .weak-row .w-bar { height: 10px; background: rgba(255,255,255,0.04); border-radius: 5px; overflow: hidden; position: relative; }
+  .weak-row .w-bar-fill { height: 100%; background: var(--bad); border-radius: 5px; transition: width 0.3s ease; }
+  .weak-row.warn .w-bar-fill { background: var(--warn); }
+  .weak-row.good .w-bar-fill { background: var(--good); }
+  .weak-row .w-num { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
+  .weak-row .w-num b { color: var(--text); font-size: 15px; }
+
+  /* Revise next */
+  .revise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .revise-card { background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .revise-card .r-rank { font-size: 10px; color: var(--accent); text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; margin-bottom: 4px; }
+  .revise-card .r-name { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .revise-card .r-stat { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .revise-card .r-links { display: flex; flex-direction: column; gap: 6px; }
+  .revise-card .r-links a { font-size: 13px; color: var(--accent); text-decoration: none;
+    padding: 6px 10px; border: 1px solid var(--accent-dim); border-radius: 6px; display: flex; justify-content: space-between; align-items: center; }
+  .revise-card .r-links a:hover { background: rgba(88,166,255,0.08); }
+  .revise-card .r-links a::after { content: "→"; color: var(--accent); margin-left: 8px; }
+  .revise-card .r-coach { font-size: 12px; color: var(--text); line-height: 1.5; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+
+  /* Per-Q review */
+  .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .filter-btn { padding: 7px 14px; font-size: 13px; border-radius: 6px; cursor: pointer;
+    border: 1px solid var(--border); background: var(--panel-2); color: var(--text); font-weight: 500; }
+  .filter-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(88,166,255,0.06); }
+  .filter-btn:hover { border-color: var(--accent-dim); }
+  .filter-count { font-size: 11px; color: var(--muted); margin-left: 4px; }
+
+  .qcard { background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 18px; margin-bottom: 14px; }
+  .qcard-head { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
+  .qnum { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; font-weight: 600; }
+  .qsec-pill { font-size: 10px; padding: 2px 8px; border-radius: 999px; background: var(--panel-2);
+    border: 1px solid var(--border); color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+  .qoutcome { font-size: 10px; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; margin-left: auto; }
+  .qoutcome.wrong   { color: var(--bad);   background: rgba(248,81,73,0.12); border: 1px solid var(--bad); }
+  .qoutcome.guessed { color: var(--warn);  background: rgba(240,180,41,0.12); border: 1px solid var(--warn); }
+  .qoutcome.solid   { color: var(--good);  background: rgba(63,185,80,0.12); border: 1px solid var(--good); }
+  .qoutcome.skip    { color: var(--muted); background: var(--panel-2); border: 1px solid var(--border); }
+
+  .qtext { font-size: 15px; line-height: 1.55; margin-bottom: 12px; white-space: pre-wrap; }
+  .qopts { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+  .qopt { display: grid; grid-template-columns: 24px 1fr auto; gap: 10px; align-items: start;
+    padding: 10px 12px; border-radius: 6px; background: var(--panel-2); border: 1px solid var(--border); font-size: 13px; }
+  .qopt .qopt-letter { font-weight: 700; }
+  .qopt .qopt-text { line-height: 1.45; }
+  .qopt .qopt-flag { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; align-self: center; }
+  .qopt.correct { background: rgba(63,185,80,0.08); border-color: var(--good); }
+  .qopt.correct .qopt-letter, .qopt.correct .qopt-flag { color: var(--good); }
+  .qopt.picked-wrong { background: rgba(248,81,73,0.08); border-color: var(--bad); }
+  .qopt.picked-wrong .qopt-letter, .qopt.picked-wrong .qopt-flag { color: var(--bad); }
+  .qopt.distractor .qopt-letter { color: var(--muted); }
+  .qopt.distractor .qopt-flag   { color: var(--muted); }
+  .qopt.picked-right { background: rgba(63,185,80,0.04); }
+
+  .qexpl { background: var(--panel-2); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0;
+    padding: 12px 14px; font-size: 13px; line-height: 1.6; }
+  .qexpl b { color: var(--accent); }
+  .qnote { margin-top: 10px; font-size: 12px; color: var(--text); padding: 10px 12px; background: rgba(240,180,41,0.06);
+    border: 1px dashed var(--warn); border-radius: 6px; }
+  .qnote .l { font-size: 10px; color: var(--warn); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; display: block; margin-bottom: 4px; }
+
+  .qempty, .empty { padding: 30px; text-align: center; color: var(--muted); font-size: 14px;
+    background: var(--panel-2); border: 1px dashed var(--border); border-radius: 8px; }
+  .empty a { color: var(--accent); }
+  .btn-link { color: var(--accent); border: 1px solid var(--accent-dim); padding: 8px 14px; border-radius: 6px; text-decoration: none; display: inline-block; }
+  .btn-link:hover { background: rgba(88,166,255,0.06); }
+
+  @media (max-width: 720px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-score-num { font-size: 44px; }
+    .weak-row { grid-template-columns: 120px 1fr 90px; gap: 8px; font-size: 12px; }
+    .sec-bar-mini { max-width: 140px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-title">Sihan, MET 2026</span>
+      <span class="brand-sub">MA Clinical Psychology, Manipal</span>
+    </div>
+    <nav class="nav">
+      <a href="../../">Dashboard</a>
+      <a href="../../tests/">Tests</a>
+      <a href="../" class="active">My Results</a>
+      <a href="../../notes/">Notes</a>
+      <a href="../../flashcards/">Flashcards</a>
+      <a href="../../plan/">Plan</a>
+      <a href="../../downloads/">Downloads</a>
+    </nav>
+    <span class="countdown-chip" id="countdownChip">—</span>
+  </div>
+</div>
+
+<main>
+
+  <div class="page-hero">
+    <div class="crumbs"><a href="../">← My Results</a> &nbsp;·&nbsp; Mock analysis</div>
+    <h1 id="pageTitle">Mock analysis</h1>
+    <p id="pageSub">Score band, section breakdown, weak topics ranked by miss rate, and the exact notes to open before your next attempt. Plus every wrong / guessed question with the correct answer and why each distractor is wrong.</p>
+
+    <div class="mock-switch" id="mockSwitch"></div>
+  </div>
+
+  <div id="emptyState" class="empty" style="display:none; margin-top: 20px;">
+    <p style="font-size:15px; margin-bottom: 10px;">No answers saved for this mock yet, on this browser.</p>
+    <p style="font-size:13px; color: var(--muted);">Open the mock, answer some questions, then come back here. Or paste an export blob on the <a href="../">My Results page</a>.</p>
+    <p style="margin-top: 14px;"><a id="emptyOpenLink" href="#" class="btn-link" style="font-size:14px;">Open this mock →</a></p>
+  </div>
+
+  <div id="analysis" style="display:none;">
+
+    <section style="margin-top: 6px;">
+      <div class="hero-grid">
+        <div class="hero-score">
+          <div class="hero-score-row">
+            <div class="hero-score-num" id="heroScore">—</div>
+            <div>
+              <div class="hero-score-max" id="heroMax">/ —</div>
+              <div style="font-size:12px;color:var(--muted);margin-top:2px;" id="heroScheme">—</div>
+            </div>
+          </div>
+          <div class="hero-score-meta">
+            <div class="hero-meta-item"><span class="n good"   id="heroRight">—</span><span class="l">Right</span></div>
+            <div class="hero-meta-item"><span class="n bad"    id="heroWrong">—</span><span class="l">Wrong</span></div>
+            <div class="hero-meta-item"><span class="n muted"  id="heroBlank">—</span><span class="l">Skipped</span></div>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-top:12px;">
+            Accuracy on attempted: <b id="heroAcc" style="color:var(--text);">—</b>
+            · attempted <b id="heroAttempted" style="color:var(--text);">—</b> of <span id="heroTotal">—</span>
+          </div>
+        </div>
+        <div class="hero-band">
+          <div class="band-label">Estimated band</div>
+          <div class="band-name" id="bandName">—</div>
+          <div class="band-desc" id="bandDesc">—</div>
+          <div class="band-bar" id="bandBar">
+            <div class="band-bar-fill" id="bandBarFill" style="width: 0%;"></div>
+            <div class="band-bar-marker" id="bandBarMarker" style="left: 0%;"></div>
+            <div class="band-bar-cutoff" id="bandBarCutoff" data-l="cutoff" style="left: 80%;"></div>
+          </div>
+          <div class="band-disclaimer" id="bandDisclaimer">No published percentile data for this exam. Bands are estimated from MET / NIMHANS cut-offs and toppers' reported scores. Use as direction, not gospel.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 class="section-title">Section-wise breakdown</h2>
+        <span class="section-sub">Solid = picked confidently and got it. Guessed = ticked the guess flag. Acc = right ÷ attempted.</span>
+      </div>
+      <div class="card" style="padding: 4px;">
+        <table class="sec-table" id="secTable"></table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 class="section-title">Weak topics, ranked by miss rate</h2>
+        <span class="section-sub">Miss rate = (wrong + blank) ÷ total. Drill from the top down.</span>
+      </div>
+      <div class="weak-list" id="weakList"></div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 class="section-title">What to revise next</h2>
+        <span class="section-sub">Top-3 weakest sections, each linked to the relevant cheatsheet on this site.</span>
+      </div>
+      <div class="revise-grid" id="reviseGrid"></div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 class="section-title">Per-question review</h2>
+        <span class="section-sub">Correct answer in green, your pick in red if wrong. Click <b>Wrong</b> first, then <b>Guessed</b>.</span>
+      </div>
+      <div class="filter-row" id="filterRow"></div>
+      <div id="qList"></div>
+    </section>
+
+  </div>
+
+</main>
+
+<script src="data.js"></script>
+<script>
+/* ============================================================
+   MOCK CATALOG (mirrors /results/index.html)
+   ============================================================ */
+const MOCKS = [
+  {
+    id: "met-mock-1",
+    title: "MET Mock 1, full length",
+    short: "MET Mock 1",
+    path: "../../quiz/met-mock-1/",
+    storageResults: "met-mock-1-results-v1",
+    storageNotes: "met-mock-1-notes-v1",
+    total: 100,
+    max: 400,
+    scoring: (right, wrong) => right * 4 - wrong * 1,
+    scoringLabel: "+4 right · −1 wrong · 0 blank",
+    sections: { biopsych: 15, dev: 15, abnormal: 15, assessment: 15, therapy: 15, biostats: 10, language: 15 },
+    bands: [
+      { min: 320, max: 400, name: "Top 10%", cls: "good", desc: "Comfortably above the MET target. If you can hit this twice in a row under timed conditions, you're in seat-at-Manipal territory." },
+      { min: 280, max: 319, name: "Top 25%", cls: "good", desc: "Above the typical MET seat-cut estimate. One push (mostly cleaning up Biostats + Abnormal misses) and you're in the top decile." },
+      { min: 240, max: 279, name: "Top 40%", cls: "warn", desc: "Around the median of serious aspirants. Safe-ish, but no margin. Focus on weak sections from the list below, don't chase new topics." },
+      { min: 200, max: 239, name: "Mid pack", cls: "warn", desc: "Right in the bulk. To pull ahead you need to (a) stop the −1 bleed on guesses, and (b) lock down 1-2 weak sections cold." },
+      { min: 160, max: 199, name: "Below median", cls: "bad", desc: "Most full-length attempters score higher than this. Likely a section is genuinely soft — see the 'Revise next' block below and stop attempting new topics until it's patched." },
+      { min: -400, max: 159, name: "Cold start", cls: "bad", desc: "Score will climb fast once you do focused revision on the weakest section. Don't grind more mocks until you've closed it." }
+    ],
+    cutoff: 320, cutoffLabel: "MET target 320"
+  },
+  {
+    id: "nimhans-mock-1",
+    title: "NIMHANS Mock 1 v2, PYQs",
+    short: "NIMHANS Mock 1",
+    path: "../../quiz/nimhans-mock-1/",
+    storageResults: "nimhans-mock-1-results-v2",
+    storageNotes: "nimhans-mock-1-notes-v2",
+    total: 100,
+    max: 100,
+    scoring: (right, wrong) => right - wrong * 0.25,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
+    sections: { biopsych: 15, dev: 10, abnormal: 15, assessment: 10, therapy: 10, biostats: 15, social: 10, general: 10, english: 5 },
+    bands: [
+      { min: 80, max: 100, name: "Cut-off band", cls: "good", desc: "At or past the historical NIMHANS PG cut-off. Aim is to do this twice in a row — once is luck, twice is signal." },
+      { min: 75, max: 79.99, name: "Borderline", cls: "warn", desc: "One bad section away from missing cut-off. Don't add topics; clean the misses listed below and re-attempt." },
+      { min: 70, max: 74.99, name: "Close", cls: "warn", desc: "Within striking distance. The −0.25 penalty is probably costing you 3-5 marks; tighten the 'guessed' column and the rest follows." },
+      { min: 65, max: 69.99, name: "Needs work", cls: "bad", desc: "Section gaps, not exam strategy. The revise-next block below is the playbook." },
+      { min: -100, max: 64.99, name: "Below band", cls: "bad", desc: "Don't move on to a new mock. Drill the weakest 2 sections from cheatsheets + flashcards, then re-attempt the same PYQs in 10 days." }
+    ],
+    cutoff: 80, cutoffLabel: "NIMHANS cut-off 80"
+  },
+  {
+    id: "pyq-mock-2",
+    title: "PYQ Mock 2, pan-India",
+    short: "PYQ Mock 2",
+    path: "../../quiz/pyq-mock-2/",
+    storageResults: "pyq-mock-2-results-v1",
+    storageNotes: "pyq-mock-2-notes-v1",
+    total: 100,
+    max: 100,
+    scoring: (right, wrong) => right - wrong * 0.25,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
+    sections: { therapy: 18, abnormal: 15, biopsych: 13, dev: 12, biostats: 12, assessment: 10, social: 9, general: 8, english: 3 },
+    bands: [
+      { min: 80, max: 100, name: "Cut-off band", cls: "good", desc: "PYQ mock so direction holds for both MET and NIMHANS. At this band you're test-ready; lock the routine." },
+      { min: 75, max: 79.99, name: "Borderline", cls: "warn", desc: "Drop the −0.25 leak by skipping pure-noise questions instead of guessing. That alone usually clears cut-off." },
+      { min: 70, max: 74.99, name: "Close", cls: "warn", desc: "Section gaps showing up — see 'Revise next'. Don't add new topics, patch what's there." },
+      { min: 65, max: 69.99, name: "Needs work", cls: "bad", desc: "Likely 1-2 sections under 50%. Cheatsheets first, then re-attempt." },
+      { min: -100, max: 64.99, name: "Below band", cls: "bad", desc: "Pause new mocks. Do the targeted revision and re-attempt this same paper after a focused week." }
+    ],
+    cutoff: 80, cutoffLabel: "cut-off ~80"
+  }
+];
+
+const SECTION_LABELS = {
+  biopsych: "Biopsychology",
+  dev: "Developmental",
+  abnormal: "Abnormal",
+  assessment: "Psych Assessment",
+  therapy: "Psychotherapy",
+  biostats: "Biostats / Methods",
+  language: "Language",
+  social: "Social Psychology",
+  general: "General",
+  english: "English"
+};
+
+const SECTION_NOTES = {
+  biopsych: [
+    { label: "Biopsych cheatsheet", href: "../../notes/biopsych-cheatsheet/" },
+    { label: "Action potential primer", href: "../../notes/action-potential/" },
+    { label: "HPA axis primer", href: "../../notes/hpa-axis/" },
+    { label: "Sleep primer", href: "../../notes/sleep/" }
+  ],
+  dev: [
+    { label: "Dev psych cheatsheet", href: "../../notes/dev-psych-cheatsheet/" },
+    { label: "Bronfenbrenner deep-dive", href: "../../notes/bronfenbrenner/" },
+    { label: "High-yield abnormal + dev", href: "../../notes/high-yield-abnormal-dev/" }
+  ],
+  abnormal: [
+    { label: "Abnormal psych cheatsheet", href: "../../notes/abnormal-psych-cheatsheet/" },
+    { label: "Abnormal today sprint", href: "../../notes/abnormal-today-sprint/" },
+    { label: "High-yield abnormal + dev", href: "../../notes/high-yield-abnormal-dev/" },
+    { label: "Genetic disorders", href: "../../notes/disorders-genetic/" }
+  ],
+  assessment: [
+    { label: "Assessment notes", href: "../../notes/assessment/" },
+    { label: "Consolidated revision pack", href: "../../notes/revision-pack/" }
+  ],
+  therapy: [
+    { label: "Consolidated revision pack", href: "../../notes/revision-pack/" },
+    { label: "Learning + conditioning primer", href: "../../notes/learning-conditioning/" }
+  ],
+  biostats: [
+    { label: "Biostats cheatsheet", href: "../../notes/biostats-cheatsheet/" },
+    { label: "Research methodology", href: "../../notes/research-methodology/" }
+  ],
+  language: [
+    { label: "Language cheatsheet", href: "../../notes/language-cheatsheet/" }
+  ],
+  english: [
+    { label: "Language cheatsheet", href: "../../notes/language-cheatsheet/" }
+  ],
+  social: [
+    { label: "Consolidated revision pack", href: "../../notes/revision-pack/" },
+    { label: "NIMHANS PYQ breakdown", href: "../../notes/nimhans-pyq-breakdown/" }
+  ],
+  general: [
+    { label: "Consolidated revision pack", href: "../../notes/revision-pack/" },
+    { label: "NIMHANS PYQ breakdown", href: "../../notes/nimhans-pyq-breakdown/" }
+  ]
+};
+
+const SECTION_COACH = {
+  biopsych: "Pure recall. If miss rate > 30% you're losing easy points. Cheatsheet + 1 round of flashcards before next attempt.",
+  dev: "Stage theories and ages. Memorize the ladders cold (Erikson, Piaget, Kohlberg, Ainsworth) — they show up every paper.",
+  abnormal: "DSM-5 criteria are the spine. Use the Abnormal cheatsheet's bullet criteria, don't read prose.",
+  assessment: "Reliability/validity formulas + which test measures what. Make a 1-page table of every test name → what it screens.",
+  therapy: "Schools + their founders + the one signature technique. The revision pack has the table.",
+  biostats: "Type I/II, parametric vs non-parametric, sampling. This is where guessing tax is highest — skip if you don't see it cold.",
+  language: "Punctuation, agreement, prepositions. Cheap marks if you don't rush.",
+  english: "Punctuation, agreement, prepositions. Cheap marks if you don't rush.",
+  social: "Attribution + group processes + classic experiments (Asch / Milgram / Zimbardo) + their twists.",
+  general: "Names + dates + 'who said what'. Pure flashcard territory."
+};
+
+/* ============================================================
+   STATE / HELPERS
+   ============================================================ */
+function readJSON(key, fb) { try { const r = localStorage.getItem(key); return r ? JSON.parse(r) : fb; } catch { return fb; } }
+function pctBucket(p) { if (p == null) return "muted"; if (p >= 75) return "good"; if (p >= 50) return "warn"; return "bad"; }
+function fmtScore(n) { if (n == null || !isFinite(n)) return "—"; if (Number.isInteger(n)) return String(n); return n.toFixed(2).replace(/\.?0+$/, ""); }
+function escapeHtml(s) { const d = document.createElement("div"); d.textContent = s == null ? "" : String(s); return d.innerHTML; }
+
+function getQuestions(mockId) {
+  if (typeof window.QUESTION_BANK === "undefined") return [];
+  return window.QUESTION_BANK[mockId] || [];
+}
+
+function getResults(mock) {
+  return readJSON(mock.storageResults, {}) || {};
+}
+
+function getNotesMap(mock) {
+  return readJSON(mock.storageNotes, {}) || {};
+}
+
+function pickBand(mock, score) {
+  for (const b of mock.bands) if (score >= b.min && score <= b.max) return b;
+  return mock.bands[mock.bands.length - 1];
+}
+
+function selectedMock() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("mock");
+  return MOCKS.find(m => m.id === id) || MOCKS[0];
+}
+
+/* ============================================================
+   STATS
+   ============================================================ */
+function computeStats(mock) {
+  const Q = getQuestions(mock.id);
+  const res = getResults(mock);
+  let right = 0, wrong = 0, blank = 0;
+  let solidRight = 0, guessedRight = 0;
+  const perSec = {};
+  for (const sec of Object.keys(mock.sections)) {
+    perSec[sec] = { right: 0, wrong: 0, blank: 0, total: mock.sections[sec], solid: 0, guessed: 0, guessedRight: 0, guessedWrong: 0 };
+  }
+  for (const q of Q) {
+    const sec = q.section;
+    if (!perSec[sec]) perSec[sec] = { right: 0, wrong: 0, blank: 0, total: 0, solid: 0, guessed: 0, guessedRight: 0, guessedWrong: 0 };
+    perSec[sec].total = mock.sections[sec] || perSec[sec].total || 0;
+    const r = res[q.id];
+    if (!r || r.selected == null) { blank++; perSec[sec].blank++; continue; }
+    if (r.correct) {
+      right++;
+      perSec[sec].right++;
+      if (r.guessed) { guessedRight++; perSec[sec].guessed++; perSec[sec].guessedRight++; }
+      else { solidRight++; perSec[sec].solid++; }
+    } else {
+      wrong++;
+      perSec[sec].wrong++;
+      if (r.guessed) { perSec[sec].guessed++; perSec[sec].guessedWrong++; }
+    }
+  }
+  return {
+    right, wrong, blank, solidRight, guessedRight,
+    answered: right + wrong,
+    perSec,
+    score: mock.scoring(right, wrong)
+  };
+}
+
+/* ============================================================
+   RENDER: mock switcher
+   ============================================================ */
+function renderSwitcher(currentId) {
+  const root = document.getElementById("mockSwitch");
+  root.innerHTML = MOCKS.map(m => {
+    const s = computeStats(m);
+    const has = s.answered > 0;
+    const scoreTxt = has ? `${fmtScore(s.score)}/${m.max}` : "no data";
+    const active = m.id === currentId ? "active" : "";
+    return `<a href="?mock=${m.id}" class="${active}">
+      ${m.short}
+      <span class="pill-score">${scoreTxt}</span>
+    </a>`;
+  }).join("");
+}
+
+/* ============================================================
+   RENDER: hero
+   ============================================================ */
+function renderHero(mock, stats) {
+  const acc = stats.answered ? Math.round(stats.right / stats.answered * 100) : null;
+  const bucket = pctBucket(acc);
+  document.getElementById("heroScore").textContent = fmtScore(stats.score);
+  document.getElementById("heroScore").className = `hero-score-num ${bucket}`;
+  document.getElementById("heroMax").textContent = `/ ${mock.max}`;
+  document.getElementById("heroScheme").textContent = mock.scoringLabel;
+  document.getElementById("heroRight").textContent = stats.right;
+  document.getElementById("heroWrong").textContent = stats.wrong;
+  document.getElementById("heroBlank").textContent = stats.blank;
+  document.getElementById("heroAcc").textContent = acc != null ? acc + "%" : "—";
+  document.getElementById("heroAttempted").textContent = stats.answered;
+  document.getElementById("heroTotal").textContent = mock.total;
+
+  const band = pickBand(mock, stats.score);
+  document.getElementById("bandName").textContent = band.name;
+  document.getElementById("bandName").className = `band-name ${band.cls}`;
+  document.getElementById("bandDesc").textContent = band.desc;
+  const pct = Math.max(0, Math.min(100, (stats.score / mock.max) * 100));
+  document.getElementById("bandBarFill").style.width = pct + "%";
+  document.getElementById("bandBarMarker").style.left = pct + "%";
+  const cutoffPct = Math.max(0, Math.min(100, (mock.cutoff / mock.max) * 100));
+  const cutoffEl = document.getElementById("bandBarCutoff");
+  cutoffEl.style.left = cutoffPct + "%";
+  cutoffEl.dataset.l = mock.cutoffLabel;
+}
+
+/* ============================================================
+   RENDER: section table
+   ============================================================ */
+function renderSecTable(mock, stats) {
+  const root = document.getElementById("secTable");
+  let rows = `<thead><tr>
+    <th>Section</th>
+    <th style="text-align:center;">R / W / Skip</th>
+    <th>Distribution</th>
+    <th style="text-align:right;">Attempted</th>
+    <th style="text-align:right;">Acc</th>
+    <th style="text-align:right;">Miss rate</th>
+  </tr></thead><tbody>`;
+  for (const sec of Object.keys(mock.sections)) {
+    const s = stats.perSec[sec] || { right: 0, wrong: 0, blank: mock.sections[sec], total: mock.sections[sec] };
+    const att = s.right + s.wrong;
+    const acc = att ? Math.round(s.right / att * 100) : null;
+    const missRate = s.total ? Math.round(((s.wrong + s.blank) / s.total) * 100) : 0;
+    const accCls = pctBucket(acc);
+    const missCls = missRate >= 50 ? "bad" : (missRate >= 30 ? "warn" : "good");
+    rows += `<tr>
+      <td class="sec-name">${SECTION_LABELS[sec] || sec}</td>
+      <td style="text-align:center;"><span style="color:var(--good);">${s.right}</span> / <span style="color:var(--bad);">${s.wrong}</span> / <span style="color:var(--muted);">${s.blank}</span></td>
+      <td>
+        <div class="sec-bar-mini">
+          <span class="b-right" style="flex:${s.right};"></span>
+          <span class="b-wrong" style="flex:${s.wrong};"></span>
+          <span class="b-skip"  style="flex:${s.blank};"></span>
+        </div>
+      </td>
+      <td style="text-align:right;">${att}/${s.total}</td>
+      <td style="text-align:right;"><span class="acc-pill ${accCls}">${acc != null ? acc + "%" : "—"}</span></td>
+      <td style="text-align:right;"><span class="acc-pill ${missCls}">${missRate}%</span></td>
+    </tr>`;
+  }
+  rows += "</tbody>";
+  root.innerHTML = rows;
+}
+
+/* ============================================================
+   RENDER: weak topics
+   ============================================================ */
+function weakSort(mock, stats) {
+  const arr = [];
+  for (const sec of Object.keys(mock.sections)) {
+    const s = stats.perSec[sec];
+    if (!s) continue;
+    const total = s.total || 0;
+    if (!total) continue;
+    const missed = s.wrong + s.blank;
+    const miss = total ? missed / total : 0;
+    arr.push({ sec, miss, missed, total, wrong: s.wrong, blank: s.blank, right: s.right });
+  }
+  arr.sort((a, b) => b.miss - a.miss);
+  return arr;
+}
+
+function renderWeak(mock, stats) {
+  const root = document.getElementById("weakList");
+  const arr = weakSort(mock, stats);
+  root.innerHTML = arr.map(w => {
+    const pct = Math.round(w.miss * 100);
+    const cls = w.miss >= 0.5 ? "" : w.miss >= 0.3 ? "warn" : "good";
+    return `<div class="weak-row ${cls}">
+      <div class="w-name">${SECTION_LABELS[w.sec] || w.sec}</div>
+      <div class="w-bar"><div class="w-bar-fill" style="width:${pct}%;"></div></div>
+      <div class="w-num"><b>${pct}%</b> · ${w.missed}/${w.total} missed</div>
+    </div>`;
+  }).join("");
+}
+
+/* ============================================================
+   RENDER: revise next
+   ============================================================ */
+function renderRevise(mock, stats) {
+  const root = document.getElementById("reviseGrid");
+  const top3 = weakSort(mock, stats).filter(w => w.missed > 0).slice(0, 3);
+  if (!top3.length) {
+    root.innerHTML = `<div class="card" style="padding:16px;color:var(--muted);font-size:13px;">Nothing weak yet — you got everything in attempted sections right. Revisit blanks in the section table above if any.</div>`;
+    return;
+  }
+  root.innerHTML = top3.map((w, i) => {
+    const links = SECTION_NOTES[w.sec] || [];
+    const coach = SECTION_COACH[w.sec] || "Open the linked notes and drill the bullets, then re-attempt this mock.";
+    return `<div class="revise-card">
+      <div class="r-rank">#${i + 1} weakest</div>
+      <div class="r-name">${SECTION_LABELS[w.sec] || w.sec}</div>
+      <div class="r-stat">${Math.round(w.miss * 100)}% miss rate · ${w.missed} of ${w.total} missed (${w.wrong} wrong, ${w.blank} blank)</div>
+      <div class="r-links">${links.map(l => `<a href="${l.href}">${escapeHtml(l.label)}</a>`).join("")}</div>
+      <div class="r-coach"><b>How to drill:</b> ${coach}</div>
+    </div>`;
+  }).join("");
+}
+
+/* ============================================================
+   PER-QUESTION REVIEW
+   ============================================================ */
+const FILTERS = [
+  { id: "wrong",   label: "Wrong",   match: (r) => r && r.selected != null && !r.correct },
+  { id: "guessed", label: "Guessed", match: (r) => r && r.selected != null && r.guessed },
+  { id: "skipped", label: "Skipped", match: (r) => !r || r.selected == null },
+  { id: "solid",   label: "Solid",   match: (r) => r && r.correct && !r.guessed },
+  { id: "all",     label: "All",     match: () => true }
+];
+
+let currentFilter = "wrong";
+
+function renderFilters(mock, stats) {
+  const Q = getQuestions(mock.id);
+  const res = getResults(mock);
+  const counts = {};
+  for (const f of FILTERS) counts[f.id] = 0;
+  for (const q of Q) {
+    const r = res[q.id];
+    for (const f of FILTERS) if (f.match(r)) counts[f.id]++;
+  }
+  document.getElementById("filterRow").innerHTML = FILTERS.map(f => {
+    const cls = f.id === currentFilter ? "active" : "";
+    return `<button class="filter-btn ${cls}" data-filter="${f.id}">${f.label}<span class="filter-count">${counts[f.id]}</span></button>`;
+  }).join("");
+  for (const btn of document.querySelectorAll(".filter-btn")) {
+    btn.addEventListener("click", () => {
+      currentFilter = btn.dataset.filter;
+      renderFilters(mock, stats);
+      renderQList(mock);
+    });
+  }
+}
+
+function renderQList(mock) {
+  const root = document.getElementById("qList");
+  const Q = getQuestions(mock.id);
+  const res = getResults(mock);
+  const notes = getNotesMap(mock);
+  const f = FILTERS.find(x => x.id === currentFilter);
+  let shown = 0;
+  const out = [];
+  for (let i = 0; i < Q.length; i++) {
+    const q = Q[i];
+    const r = res[q.id];
+    if (!f.match(r)) continue;
+    shown++;
+    const isSkip   = !r || r.selected == null;
+    const isWrong  = r && r.selected != null && !r.correct;
+    const isGuess  = r && r.guessed;
+    const outcome = isSkip ? { cls: "skip", label: "Skipped" }
+                   : isWrong ? { cls: "wrong", label: r.guessed ? "Wrong · guess" : "Wrong" }
+                   : (r.guessed ? { cls: "guessed", label: "Right · guess" } : { cls: "solid", label: "Solid" });
+    const optsHtml = ["a","b","c","d"].map(letter => {
+      const text = q.options[letter];
+      let cls = "qopt";
+      let flag = "";
+      if (letter === q.correct) {
+        cls += " correct";
+        flag = "Correct answer";
+        if (r && r.selected === letter) flag = "✓ Your pick · correct";
+      } else if (r && r.selected === letter) {
+        cls += " picked-wrong";
+        flag = "✗ Your pick · wrong";
+      } else {
+        cls += " distractor";
+        flag = "Distractor";
+      }
+      return `<div class="${cls}">
+        <div class="qopt-letter">${letter.toUpperCase()}</div>
+        <div class="qopt-text">${escapeHtml(text || "")}</div>
+        <div class="qopt-flag">${flag}</div>
+      </div>`;
+    }).join("");
+
+    const note = notes && notes[q.id] && notes[q.id].trim();
+    const sec = SECTION_LABELS[q.section] || q.section;
+    out.push(`<div class="qcard" data-qid="${q.id}">
+      <div class="qcard-head">
+        <span class="qnum">Q${i + 1}</span>
+        <span class="qsec-pill">${sec}</span>
+        <span class="qoutcome ${outcome.cls}">${outcome.label}</span>
+      </div>
+      <div class="qtext">${escapeHtml(q.q)}</div>
+      <div class="qopts">${optsHtml}</div>
+      <div class="qexpl"><b>Why ${q.correct.toUpperCase()}:</b> ${escapeHtml(q.explanation || "(no explanation on file)")}</div>
+      ${note ? `<div class="qnote"><span class="l">Your note from the attempt</span>${escapeHtml(note)}</div>` : ""}
+    </div>`);
+  }
+  if (shown === 0) {
+    root.innerHTML = `<div class="qempty">No ${currentFilter === "all" ? "" : currentFilter + " "}questions in this filter. Try another tab above.</div>`;
+  } else {
+    root.innerHTML = out.join("");
+  }
+}
+
+/* ============================================================
+   COUNTDOWN
+   ============================================================ */
+function updateCountdown() {
+  const exam = new Date('2026-05-23T00:00:00+05:30');
+  const ms = exam - new Date();
+  const days = ms > 0 ? Math.floor(ms / 86400000) : 0;
+  document.getElementById("countdownChip").textContent = ms > 0 ? `${days} days to MET` : "Exam day!";
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+function init() {
+  updateCountdown();
+  const mock = selectedMock();
+  document.getElementById("pageTitle").textContent = `${mock.short} · full analysis`;
+  document.getElementById("emptyOpenLink").href = mock.path;
+
+  renderSwitcher(mock.id);
+
+  const stats = computeStats(mock);
+  if (stats.answered === 0) {
+    document.getElementById("emptyState").style.display = "block";
+    document.getElementById("analysis").style.display = "none";
+    return;
+  }
+  document.getElementById("emptyState").style.display = "none";
+  document.getElementById("analysis").style.display = "block";
+
+  renderHero(mock, stats);
+  renderSecTable(mock, stats);
+  renderWeak(mock, stats);
+  renderRevise(mock, stats);
+  renderFilters(mock, stats);
+  renderQList(mock);
+}
+
+init();
+window.addEventListener("focus", init);
+window.addEventListener("storage", init);
+</script>
+</body>
+</html>

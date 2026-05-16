@@ -123,7 +123,7 @@
   <div class="page-hero">
     <div class="crumbs">My Results</div>
     <h1>Track every mock, every attempt</h1>
-    <p>Live scores from this browser, history of every snapshot, and a paste box for results from another device. Tap "Snapshot current scores" after each mock so you can see your scores climb week over week.</p>
+    <p>Live scores, history, and the deep <b>per-mock analysis</b> page on each card — score band, weak topics ranked, and the exact notes to revise before re-attempting.</p>
     <div class="grid cols-4" style="margin-top:18px;">
       <div class="bigstat"><div class="bigstat-label">Snapshots saved</div><div class="bigstat-value" id="heroSnaps">—</div><div class="bigstat-sub">across all mocks</div></div>
       <div class="bigstat"><div class="bigstat-label">Mocks attempted</div><div class="bigstat-value" id="heroMocks">—</div><div class="bigstat-sub" id="heroMocksSub">of 3 full-length</div></div>
@@ -135,7 +135,7 @@
   <section>
     <div class="section-head">
       <h2 class="section-title">Live scores, this browser</h2>
-      <span class="section-sub">Reads localStorage every refresh · per-section breakdown · snapshot button on each card</span>
+      <span class="section-sub">Reads localStorage every refresh · per-section breakdown · tap <b>Full analysis</b> for score band, weak topics + revise-next links</span>
     </div>
     <div class="grid cols-3" id="mocksGrid"></div>
   </section>
@@ -349,6 +349,7 @@ function renderMocks() {
       </div>
       <div class="sec-bars">${secBarsHtml}</div>
       <div class="mock-actions">
+        <a href="analysis/?mock=${m.id}" style="background:var(--accent-dim);color:white;border-color:var(--accent);font-weight:600;">Full analysis →</a>
         <a href="${m.path}">Open mock</a>
         <button data-snap="${m.id}">Snapshot current</button>
       </div>
