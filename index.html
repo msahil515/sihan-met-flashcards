@@ -630,6 +630,17 @@ const MOCKS = [
     scoring: { plus: 1, minus: 0.25 },
     sections: { biopsych: 15, dev: 10, abnormal: 15, assessment: 10, therapy: 10, biostats: 15, social: 10, general: 10, english: 5 },
     meta: "100 real PYQs from 2023, 2024, 2025 · year-tagged · repeats flagged",
+    fresh: false
+  },
+  {
+    id: "pyq-mock-2",
+    title: "PYQ Mock 2, pan-India",
+    path: "quiz/pyq-mock-2/",
+    total: 100,
+    storageKey: "pyq-mock-2-results-v1",
+    scoring: { plus: 1, minus: 0.25 },
+    sections: { therapy: 18, abnormal: 15, biopsych: 13, dev: 12, biostats: 12, assessment: 10, social: 9, general: 8, english: 3 },
+    meta: "100 PYQs · RML, IHBAS, JEMAS, NIMHANS, IMHANS, NFSU, AMITY, GMCH 2023-25 · weighted to your weak spots",
     fresh: true
   },
   {
@@ -662,6 +673,7 @@ const RESOURCES = [
 ];
 
 const NEWS = [
+  { date: "2026-05-16", title: "PYQ Mock 2 — pan-India PYQs (NEW)", desc: "100 fresh PYQs from RML, IHBAS, JEMAS, NIMHANS, IMHANS, NFSU, AMITY, GMCH (2023-25). No overlap with Mock 1. Therapy-heavy (18) + bio (13) + biostats (12) + social (9) to remediate your Mock 1 weak spots. Source-tagged on every Q. Daily mocks start from here.", href: "quiz/pyq-mock-2/" },
   { date: "2026-05-15", title: "NIMHANS Mock 1 full debrief", desc: "Section-by-section walkthrough of your 71.25/80 attempt. Every wrong + guess + flagged note explained, biopsych is your leak, 3-day plan to clear cutoff.", href: "notes/nimhans-mock-1-debrief/" },
   { date: "2026-05-15", title: "Site reorganized + Plan page", desc: "Proper section landings: Tests library, Notes-by-section, Downloads, and a new weekly Plan with checklist + countdown. Wider desktop layout (1440px max), shared styling across pages.", href: "plan/" },
   { date: "2026-05-05", title: "NIMHANS Mock 1 v2 + PYQ Breakdown", desc: "100 real PYQs from 2023-25 papers, year-tagged, repeats flagged green. Companion topic breakdown built from 300 PYQs.", href: "quiz/nimhans-mock-1/" },
@@ -994,7 +1006,7 @@ window.addEventListener("storage", refresh);
 
 document.getElementById("resetBtn").addEventListener("click", () => {
   if (!confirm("Wipe all local mock and flashcard progress from this browser? This cannot be undone.")) return;
-  const prefixes = ["sihan-met-progress-", "met-mock-1-", "nimhans-mock-1-", "sihan-met-quiz-"];
+  const prefixes = ["sihan-met-progress-", "met-mock-1-", "nimhans-mock-1-", "pyq-mock-2-", "sihan-met-quiz-"];
   for (let i = localStorage.length - 1; i >= 0; i--) {
     const k = localStorage.key(i);
     if (prefixes.some(p => k.startsWith(p))) localStorage.removeItem(k);
