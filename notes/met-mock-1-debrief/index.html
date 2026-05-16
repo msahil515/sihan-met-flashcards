@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET Mock 1 Debrief — 192/400, your 9 note questions covered — MET 2026</title>
+<link rel="stylesheet" href="../../notes-style.css">
+<style>
+  h2 { color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-top: 36px; }
+  h3 { color: var(--text); margin-top: 22px; }
+  h4 { color: var(--muted); margin-top: 16px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .banner {
+    background: linear-gradient(135deg, rgba(88,166,255,0.12), rgba(63,185,80,0.10));
+    border: 1px solid var(--accent-dim);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 0 0 24px 0;
+    font-size: 14px;
+  }
+  .banner b { color: var(--accent); }
+  .qcard {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 18px 0;
+  }
+  .qcard.wrong { border-left: 4px solid var(--bad); }
+  .qcard.guess { border-left: 4px solid #f0b429; }
+  .qcard.notewin { border-left: 4px solid var(--good); }
+  .qhead {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 6px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .qhead .pill {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .qhead .pill.bad { color: var(--bad); border-color: var(--bad); }
+  .qhead .pill.warn { color: #f0b429; border-color: #f0b429; }
+  .qhead .pill.good { color: var(--good); border-color: var(--good); }
+  .qbody { font-size: 15px; margin-bottom: 10px; line-height: 1.5; }
+  .opt-line { font-size: 13px; color: var(--muted); margin: 2px 0; }
+  .opt-line.right { color: var(--good); font-weight: 600; }
+  .opt-line.wrong { color: var(--bad); text-decoration: line-through; }
+  .verdict {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    margin: 8px 0 12px 0;
+  }
+  .verdict .tag {
+    padding: 3px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+  .verdict .tag.bad { color: var(--bad); border-color: var(--bad); }
+  .verdict .tag.good { color: var(--good); border-color: var(--good); }
+  .verdict .tag.warn { color: #f0b429; border-color: #f0b429; }
+  .why {
+    background: var(--panel-2);
+    border-left: 3px solid var(--accent);
+    padding: 8px 12px;
+    margin: 8px 0;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  .note {
+    background: rgba(240,180,41,0.08);
+    border-left: 3px solid #f0b429;
+    padding: 8px 12px;
+    margin: 8px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--text);
+  }
+  .note b { color: #f0b429; }
+  .adj {
+    background: rgba(63,185,80,0.06);
+    border-left: 3px solid var(--good);
+    padding: 8px 12px;
+    margin: 10px 0 0 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+  }
+  .adj b { color: var(--good); }
+  .adj ul { margin: 6px 0; padding-left: 20px; }
+  .adj li { margin: 3px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 18px 0; font-size: 13px; }
+  th, td { border: 1px solid var(--border); padding: 6px 8px; text-align: left; vertical-align: top; }
+  th { background: var(--panel-2); color: var(--accent); }
+  .scorebox {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
+    margin: 14px 0;
+  }
+  .scorebox .cell {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .scorebox .cell .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .scorebox .cell .val { font-size: 20px; font-weight: 700; color: var(--text); margin-top: 2px; }
+  .scorebox .cell.bad .val { color: var(--bad); }
+  .scorebox .cell.ok .val { color: var(--good); }
+  .scorebox .cell.warn .val { color: #f0b429; }
+  .anchor-list a { display: inline-block; margin: 2px 6px 2px 0; font-size: 12px; padding: 3px 8px; border: 1px solid var(--border); border-radius: 999px; text-decoration: none; }
+  .anchor-list a:hover { background: var(--panel-2); }
+  .gap-cutoff {
+    background: linear-gradient(90deg, rgba(248,81,73,0.18), rgba(240,180,41,0.10));
+    border: 1px solid var(--bad);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 14px;
+  }
+  .gap-cutoff b { color: var(--bad); }
+  .topic-block {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 16px 0;
+  }
+  .topic-block h3 { margin-top: 0; }
+  .mnemonic {
+    background: rgba(163,113,247,0.10);
+    border-left: 3px solid #a371f7;
+    padding: 8px 12px;
+    margin: 8px 0;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  .mnemonic b { color: #a371f7; }
+  .weak-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 4px 0;
+    font-size: 13px;
+  }
+  .weak-bar .name { width: 130px; color: var(--text); }
+  .weak-bar .track { flex: 1; height: 14px; background: var(--panel-2); border-radius: 4px; overflow: hidden; position: relative; border: 1px solid var(--border); }
+  .weak-bar .fill { height: 100%; background: var(--bad); }
+  .weak-bar .fill.mid { background: #f0b429; }
+  .weak-bar .fill.ok { background: var(--good); }
+  .weak-bar .pct { width: 78px; color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <a href="../../">&larr; Dashboard</a>
+  <a href="../">All Notes</a>
+  <a href="../../quiz/met-mock-1/">Retake MET Mock 1</a>
+  <a href="../../results/analysis/?mock=met-mock-1">Open analysis →</a>
+</nav>
+
+<h1>MET Mock 1, Full Debrief</h1>
+
+<div class="banner">
+  <b>What this is.</b> Your 192/400 MET Mock 1 attempt: 4 wrongs, 47 skips, 49 right. Every wrong gets a deep walkthrough, every note you left gets a full answer (cranial nerves, sleep waves, Yalom, theory of mind, Korsakoff vs dissociative, p-values, Ainsworth, trinucleotide list, EMDR). The skip pattern is the bigger story than the wrongs, so the weak-topic ranking below is calibrated off "didn't attempt" and "got it wrong" together.
+</div>
+
+<h4>Headline score</h4>
+<div class="scorebox">
+  <div class="cell warn"><div class="lbl">Score</div><div class="val">192</div></div>
+  <div class="cell ok"><div class="lbl">Right</div><div class="val">49</div></div>
+  <div class="cell bad"><div class="lbl">Wrong</div><div class="val">4</div></div>
+  <div class="cell warn"><div class="lbl">Skipped</div><div class="val">47</div></div>
+  <div class="cell"><div class="lbl">Target</div><div class="val">320</div></div>
+  <div class="cell bad"><div class="lbl">Gap to target</div><div class="val">128</div></div>
+</div>
+
+<div class="gap-cutoff">
+  <b>The story isn't the 4 wrongs, it's the 47 skips.</b> When you attempt, you're 49 right and 4 wrong, a 92% accuracy. That's strong. The 128-mark gap to 320 is built almost entirely from blanks. Convert <b>32 skips into rights</b> at your current accuracy and you cross 320, no extra study needed beyond covering the topics you skipped. The skip distribution below is your priority list.
+</div>
+
+<h4>Section table</h4>
+<table>
+  <tr><th>Section</th><th>Attempted</th><th>Right</th><th>Wrong</th><th>Skip</th><th>Accuracy when attempted</th><th>Skip rate</th></tr>
+  <tr><td>Biopsychology</td><td>9/15</td><td>8</td><td>1</td><td>6</td><td>89%</td><td>40%</td></tr>
+  <tr><td>Developmental</td><td>9/15</td><td>7</td><td>2</td><td>6</td><td>78%</td><td>40%</td></tr>
+  <tr><td>Abnormal</td><td>7/15</td><td>7</td><td>0</td><td>8</td><td>100%</td><td><b style="color:var(--bad);">53%</b></td></tr>
+  <tr><td>Psych Assessment</td><td>7/15</td><td>7</td><td>0</td><td>8</td><td>100%</td><td><b style="color:var(--bad);">53%</b></td></tr>
+  <tr><td>Psychotherapy</td><td>9/15</td><td>8</td><td>1</td><td>6</td><td>89%</td><td>40%</td></tr>
+  <tr><td>Biostats / Research</td><td>4/10</td><td>4</td><td>0</td><td>6</td><td>100%</td><td><b style="color:var(--bad);">60%</b></td></tr>
+  <tr><td>Language Skills</td><td>8/15</td><td>8</td><td>0</td><td>7</td><td>100%</td><td>47%</td></tr>
+</table>
+
+<h4>Weak-topic ranking (by skip + wrong rate, MET scoring +4/−1/0)</h4>
+<p>This is the page-1 of your next study session. Rank is built from <b>(skips + 1.3×wrongs) ÷ section size</b>; skips weighed 1.3 because a wrong costs −1 but a skip costs 0, so on MET scoring a guess is only worth attempting when you've eliminated 2+ options. The blanks themselves aren't penalised, but each blank is a topic you didn't have a hook for.</p>
+<div style="margin: 10px 0;">
+  <div class="weak-bar"><div class="name">Biostats / Research</div><div class="track"><div class="fill" style="width: 60%;"></div></div><div class="pct">60% gap</div></div>
+  <div class="weak-bar"><div class="name">Abnormal</div><div class="track"><div class="fill" style="width: 53%;"></div></div><div class="pct">53% gap</div></div>
+  <div class="weak-bar"><div class="name">Psych Assessment</div><div class="track"><div class="fill" style="width: 53%;"></div></div><div class="pct">53% gap</div></div>
+  <div class="weak-bar"><div class="name">Language Skills</div><div class="track"><div class="fill mid" style="width: 47%;"></div></div><div class="pct">47% gap</div></div>
+  <div class="weak-bar"><div class="name">Developmental</div><div class="track"><div class="fill mid" style="width: 53%;"></div></div><div class="pct">53% gap (incl. 2 wrong)</div></div>
+  <div class="weak-bar"><div class="name">Psychotherapy</div><div class="track"><div class="fill mid" style="width: 47%;"></div></div><div class="pct">47% gap (incl. 1 wrong)</div></div>
+  <div class="weak-bar"><div class="name">Biopsychology</div><div class="track"><div class="fill mid" style="width: 47%;"></div></div><div class="pct">47% gap (incl. 1 wrong)</div></div>
+</div>
+
+<div class="banner">
+  <b>How to read this ranking.</b> Biostats, Abnormal and Assessment are tied at the top because you skipped 50%+ of the section. Three of your top four leaks aren't accuracy problems, they're <i>coverage</i> problems. Open the matching cheatsheet for any section ≥50% gap before re-attempting:
+  &nbsp;<a href="../biostats-cheatsheet/">Biostats</a> ·
+  <a href="../abnormal-psych-cheatsheet/">Abnormal</a> ·
+  <a href="../assessment/">Assessment</a> ·
+  <a href="../language-cheatsheet/">Language</a> ·
+  <a href="../dev-psych-cheatsheet/">Dev</a> ·
+  <a href="../learning-conditioning/">Therapy + L&amp;C</a> ·
+  <a href="../biopsych-cheatsheet/">Biopsych</a>.
+</div>
+
+<p class="anchor-list">
+  <a href="#wrongs">The 4 wrongs</a>
+  <a href="#cn">Cranial nerve list + mnemonic</a>
+  <a href="#sleep">Sleep wave mnemonic</a>
+  <a href="#yalom">Yalom's 11 therapeutic factors</a>
+  <a href="#tom">Theory of mind</a>
+  <a href="#kors">Korsakoff vs dissociative</a>
+  <a href="#pval">p-value refresher</a>
+  <a href="#ains">Ainsworth styles</a>
+  <a href="#tnr">Trinucleotide repeat list</a>
+  <a href="#emdr">EMDR + trauma therapists</a>
+  <a href="#bonus">Bonus quick hits</a>
+  <a href="#plan">What to do next</a>
+</p>
+
+<!-- ============================================================ -->
+<h2 id="wrongs">The 4 wrongs</h2>
+
+<!-- Wrong 1: Gestalt / empty chair -->
+<div class="qcard wrong">
+  <div class="qhead"><span>m1_the01</span><span class="pill">Psychotherapy</span><span class="pill bad">wrong</span></div>
+  <div class="qbody"><b>The 'empty chair' technique is most associated with which approach?</b></div>
+  <div class="opt-line wrong">A) Cognitive Behaviour Therapy</div>
+  <div class="opt-line right">B) Gestalt therapy (Perls) &nbsp;&larr; correct</div>
+  <div class="opt-line wrong">C) Person-Centred Therapy &nbsp;<span style="color:var(--bad);">&larr; you picked</span></div>
+  <div class="opt-line">D) Psychoanalysis</div>
+  <div class="verdict"><span class="tag bad">You: C</span><span class="tag good">Correct: B</span></div>
+  <div class="why"><b>Why B.</b> Fritz Perls' <b>Gestalt therapy</b> built the empty-chair technique: client dialogues with a disowned part of self (top-dog vs underdog) or an absent other (dead parent, ex-partner) by physically switching seats. Goal: integrate split parts of the self into present-moment awareness. Person-Centred (Rogers) is the trap because both are humanistic-existential, but Rogers' tools are <i>reflection, unconditional positive regard, empathic understanding</i>, not staged dialogue.</div>
+  <div class="adj"><b>Therapy → founder cheat row, learn this cold:</b>
+    <ul>
+      <li><b>Gestalt</b> → Fritz Perls. Empty chair, top-dog/underdog, "now and how" not "why."</li>
+      <li><b>Person-Centred / Client-Centred</b> → Carl Rogers. Three core conditions: <i>empathy, genuineness, unconditional positive regard</i>.</li>
+      <li><b>Logotherapy</b> → Viktor Frankl. Meaning-seeking, paradoxical intention, dereflection.</li>
+      <li><b>Existential</b> → Yalom, May, Binswanger. Death, freedom, isolation, meaninglessness.</li>
+      <li><b>Rational Emotive (REBT)</b> → Albert Ellis. ABCDE model.</li>
+      <li><b>Cognitive Therapy</b> → Aaron Beck. Cognitive triad, automatic thoughts, schema.</li>
+      <li><b>Reality Therapy</b> → William Glasser. Choice theory, WDEP.</li>
+      <li><b>Transactional Analysis</b> → Eric Berne. Parent/Adult/Child ego states.</li>
+      <li><b>Psychodrama</b> → J.L. Moreno. Role play, doubling, mirroring. (Empty chair sometimes credited here too; on MET if Perls + Moreno both appear, pick <b>Perls</b>.)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Wrong 2: Corticospinal -->
+<div class="qcard wrong">
+  <div class="qhead"><span>m1_bio03</span><span class="pill">Biopsychology</span><span class="pill bad">wrong</span></div>
+  <div class="qbody"><b>The corticospinal tract decussates primarily at the:</b></div>
+  <div class="opt-line">A) Optic chiasm</div>
+  <div class="opt-line wrong">B) Spinal cord at the level of entry &nbsp;<span style="color:var(--bad);">&larr; you picked</span></div>
+  <div class="opt-line">C) Pons</div>
+  <div class="opt-line right">D) Pyramids of the medulla &nbsp;&larr; correct</div>
+  <div class="verdict"><span class="tag bad">You: B</span><span class="tag good">Correct: D</span></div>
+  <div class="note"><b>Your note:</b> "dont know about this"</div>
+  <div class="why"><b>Why D.</b> The <b>corticospinal tract</b> carries voluntary motor commands from motor cortex → internal capsule → cerebral peduncle (midbrain) → pons → medulla. At the <b>pyramidal decussation</b> in the <i>lower medulla</i>, ~85–90% of fibres cross to form the <b>lateral corticospinal tract</b>, which runs down the contralateral spinal cord and synapses on lower motor neurons. The 10–15% that don't cross become the <b>anterior corticospinal tract</b> (crosses later, at the cord level — that's the trap in option B; only the minor anterior pathway crosses there).</div>
+  <div class="adj"><b>Where major tracts decussate (memorise the level):</b>
+    <table>
+      <tr><th>Tract</th><th>Function</th><th>Decussation site</th></tr>
+      <tr><td>Corticospinal (lateral, 85%)</td><td>Voluntary motor</td><td>Pyramids of medulla</td></tr>
+      <tr><td>Corticospinal (anterior, 15%)</td><td>Voluntary motor</td><td>Spinal cord segmental</td></tr>
+      <tr><td>Spinothalamic (anterolateral)</td><td>Pain, temperature, crude touch</td><td>Spinal cord, 1–2 levels above entry</td></tr>
+      <tr><td>Dorsal column / medial lemniscus</td><td>Fine touch, proprioception, vibration</td><td>Medulla (caudal, internal arcuate fibres)</td></tr>
+      <tr><td>Optic nerve fibres (nasal half)</td><td>Vision</td><td>Optic chiasm</td></tr>
+      <tr><td>Trochlear (CN IV)</td><td>Superior oblique</td><td>Decussates <i>before</i> exit, only cranial nerve to do so + only one to exit dorsally</td></tr>
+    </table>
+  </div>
+  <div class="mnemonic"><b>One-line trick.</b> Motor crosses in the <b>medulla</b>, sensory pain crosses in the <b>cord</b>, sensory touch/proprioception crosses in the <b>medulla</b>. So a unilateral cord lesion gives ipsilateral motor + ipsilateral fine-touch loss + <i>contralateral</i> pain/temperature loss (Brown-Séquard syndrome).</div>
+</div>
+
+<!-- Wrong 3: Ainsworth -->
+<div class="qcard wrong">
+  <div class="qhead"><span>m1_dev03</span><span class="pill">Developmental</span><span class="pill bad">wrong</span></div>
+  <div class="qbody"><b>In Ainsworth's Strange Situation, an infant who shows distress on separation but cannot be comforted on reunion and may resist contact is classified as:</b></div>
+  <div class="opt-line right">A) Insecure-resistant / ambivalent (C) &nbsp;&larr; correct</div>
+  <div class="opt-line wrong">B) Insecure-avoidant (A) &nbsp;<span style="color:var(--bad);">&larr; you picked</span></div>
+  <div class="opt-line">C) Secure (B)</div>
+  <div class="opt-line">D) Disorganised (D)</div>
+  <div class="verdict"><span class="tag bad">You: B</span><span class="tag good">Correct: A</span></div>
+  <div class="note"><b>Your note:</b> "Explain more."</div>
+  <div class="why"><b>Why A.</b> The <b>reunion behaviour</b> is the diagnostic moment. Resistant/ambivalent (C) babies <i>do</i> seek contact when the caregiver returns, but they <i>resist</i> being soothed once they have it — clinging then pushing away, can't settle. Avoidant (A) babies don't bother seeking the caregiver at all on reunion, they keep playing or turn away. Both are distressed during separation, that part doesn't distinguish them. The phrase "cannot be comforted on reunion and may resist contact" is the textbook C signature.</div>
+  <div class="adj">See the full Ainsworth section below in <a href="#ains">Ainsworth styles</a>.</div>
+</div>
+
+<!-- Wrong 4: Thomas & Chess -->
+<div class="qcard wrong">
+  <div class="qhead"><span>m1_dev14</span><span class="pill">Developmental</span><span class="pill bad">wrong</span></div>
+  <div class="qbody"><b>The temperamental category in the New York Longitudinal Study (Thomas &amp; Chess) characterised by withdrawal from new stimuli but gradual adaptation is:</b></div>
+  <div class="opt-line">A) Easy</div>
+  <div class="opt-line right">B) Slow-to-warm-up &nbsp;&larr; correct</div>
+  <div class="opt-line wrong">C) Difficult &nbsp;<span style="color:var(--bad);">&larr; you picked</span></div>
+  <div class="opt-line">D) Inhibited only</div>
+  <div class="verdict"><span class="tag bad">You: C</span><span class="tag good">Correct: B</span></div>
+  <div class="why"><b>Why B.</b> Thomas &amp; Chess (NYLS, 1956→) found three temperament clusters in ~65% of infants. <b>Slow-to-warm-up</b> (~15%) = low activity, mild withdrawal from novelty, slow adaptation but eventual acceptance. The keyword is <i>gradual adaptation</i> — they get there, just slowly. <b>Difficult</b> (~10%) = intense reactions, irregular biological rhythms, withdrawal from novelty <i>without</i> adaptation. The trap is that both withdraw initially; only slow-to-warm-up adjusts over time. <b>Easy</b> (~40%) = positive mood + regular rhythms + quick adaptation. Remaining ~35% are mixed/unclassified.</div>
+  <div class="adj"><b>9 NYLS temperament dimensions (might be asked individually):</b>
+    <ol>
+      <li>Activity level</li>
+      <li>Rhythmicity / regularity</li>
+      <li>Approach / withdrawal to novelty</li>
+      <li>Adaptability</li>
+      <li>Threshold of responsiveness</li>
+      <li>Intensity of reaction</li>
+      <li>Quality of mood</li>
+      <li>Distractibility</li>
+      <li>Attention span / persistence</li>
+    </ol>
+    <b>Goodness of fit</b> (Thomas &amp; Chess's bigger theoretical contribution): outcomes depend less on the temperament itself than on the match between child temperament and parental response style. A high-activity child with low-tolerance parents = poor fit. Same child with structured, energetic parents = good fit.
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="cn">Cranial nerve list + mnemonic</h2>
+<div class="topic-block">
+<p>You got CN III right on Q7 but flagged "List on cranial nerves and functions and a mnemonic." Memorise the whole table + both mnemonics, this is reliable +1 every paper.</p>
+
+<table>
+<tr><th>#</th><th>Name</th><th>Type</th><th>Function (one line)</th><th>Clinical / MCQ hook</th></tr>
+<tr><td>I</td><td>Olfactory</td><td>Sensory</td><td>Smell</td><td>Only nerve that bypasses thalamus; first lost in Parkinson's + Alzheimer's</td></tr>
+<tr><td>II</td><td>Optic</td><td>Sensory</td><td>Vision</td><td>CNS tract, not true peripheral nerve; lesion at chiasm = bitemporal hemianopia</td></tr>
+<tr><td>III</td><td>Oculomotor</td><td>Motor</td><td>Most extraocular muscles + levator palpebrae + parasympathetic pupil constriction</td><td>Lesion = ptosis + "down &amp; out" eye + dilated pupil</td></tr>
+<tr><td>IV</td><td>Trochlear</td><td>Motor</td><td>Superior oblique (down + in)</td><td>Smallest CN; only one that decussates AND exits dorsally; vertical diplopia going down stairs</td></tr>
+<tr><td>V</td><td>Trigeminal</td><td>Both</td><td>Face sensation (V1/V2/V3) + muscles of mastication</td><td>Trigeminal neuralgia; corneal reflex afferent</td></tr>
+<tr><td>VI</td><td>Abducens</td><td>Motor</td><td>Lateral rectus (abduction)</td><td>Long intracranial course = first affected in raised ICP</td></tr>
+<tr><td>VII</td><td>Facial</td><td>Both</td><td>Muscles of facial expression + taste anterior ⅔ tongue + lacrimal/salivary glands</td><td>Bell's palsy (LMN, whole half-face); UMN spares forehead</td></tr>
+<tr><td>VIII</td><td>Vestibulocochlear</td><td>Sensory</td><td>Hearing + balance</td><td>Acoustic neuroma = schwannoma of CN VIII at cerebellopontine angle</td></tr>
+<tr><td>IX</td><td>Glossopharyngeal</td><td>Both</td><td>Posterior ⅓ taste + pharyngeal sensation + stylopharyngeus + parotid</td><td>Gag reflex afferent</td></tr>
+<tr><td>X</td><td>Vagus</td><td>Both</td><td>Parasympathetic to thorax + abdomen, palate, larynx</td><td>Gag reflex efferent; vagal stimulation = ↓ HR</td></tr>
+<tr><td>XI</td><td>Spinal accessory</td><td>Motor</td><td>Sternocleidomastoid + trapezius</td><td>Shoulder shrug + head turn</td></tr>
+<tr><td>XII</td><td>Hypoglossal</td><td>Motor</td><td>Tongue movement</td><td>Lesion: tongue deviates <i>toward</i> the lesion on protrusion</td></tr>
+</table>
+
+<div class="mnemonic"><b>Name mnemonic (the classic):</b> "On Old Olympus' Towering Tops, A Finn And German Viewed Some Hops" → <b>O</b>lfactory, <b>O</b>ptic, <b>O</b>culomotor, <b>T</b>rochlear, <b>T</b>rigeminal, <b>A</b>bducens, <b>F</b>acial, <b>A</b>uditory(vestibulocochlear), <b>G</b>lossopharyngeal, <b>V</b>agus, <b>S</b>pinal accessory, <b>H</b>ypoglossal.</div>
+
+<div class="mnemonic"><b>Type mnemonic (Sensory / Motor / Both):</b> "Some Say Marry Money, But My Brother Says Big Brains Matter More" → <b>S</b>ensory, <b>S</b>ensory, <b>M</b>otor, <b>M</b>otor, <b>B</b>oth, <b>M</b>otor, <b>B</b>oth, <b>S</b>ensory, <b>B</b>oth, <b>B</b>oth, <b>M</b>otor, <b>M</b>otor (I-XII).</div>
+
+<p><b>High-yield MCQ traps:</b></p>
+<ul>
+  <li><b>Purely motor CNs</b> (the "M-only" set): III, IV, VI, XI, XII. Five of them.</li>
+  <li><b>Purely sensory CNs</b>: I, II, VIII.</li>
+  <li><b>Both (mixed)</b>: V, VII, IX, X.</li>
+  <li><b>Parasympathetic carriers</b>: III (pupil), VII (lacrimation/salivation), IX (parotid), X (everything thoraco-abdominal). The "1973" rule, but that's the wrong frame, just memorise the four CNs.</li>
+  <li><b>"Down and out" eye</b> = CN III palsy. <b>Vertical diplopia worse going down stairs</b> = CN IV palsy. <b>Inability to abduct one eye</b> = CN VI palsy.</li>
+  <li><b>UMN vs LMN facial palsy</b>: UMN (stroke) = lower-face only because forehead has bilateral cortical input; LMN (Bell's) = whole half-face.</li>
+</ul>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="sleep">Sleep wave mnemonic</h2>
+<div class="topic-block">
+<p>You used elimination on Q14 ("REM is characterised by all EXCEPT…predominantly delta-wave EEG"). Here's the wave → stage table cold, plus a mnemonic for which wave goes where.</p>
+
+<table>
+<tr><th>Wave</th><th>Frequency</th><th>State</th><th>What's happening</th></tr>
+<tr><td>Beta (β)</td><td>13–30 Hz</td><td>Awake, alert, eyes open</td><td>Active thinking, focused attention</td></tr>
+<tr><td>Alpha (α)</td><td>8–13 Hz</td><td>Awake, eyes closed, relaxed</td><td>Resting wakefulness, occipital dominant</td></tr>
+<tr><td>Theta (θ)</td><td>4–8 Hz</td><td>NREM Stage 1 (N1), drowsy</td><td>Transition into sleep, hypnagogic imagery</td></tr>
+<tr><td>Sleep spindles + K-complexes</td><td>11–16 Hz bursts</td><td>NREM Stage 2 (N2)</td><td>Spindles consolidate memory; K-complexes suppress arousal</td></tr>
+<tr><td>Delta (δ)</td><td>0.5–4 Hz</td><td>NREM Stage 3 / 4 (N3, slow-wave sleep)</td><td>Deepest sleep; growth hormone release; sleepwalking, night terrors, bed-wetting happen here</td></tr>
+<tr><td>Mixed / beta-like, low-voltage</td><td>Fast, desynchronised</td><td>REM</td><td>EEG resembles waking but with atonia + rapid eye movements; vivid dreams</td></tr>
+</table>
+
+<div class="mnemonic"><b>Stages → waves mnemonic: "BATS Drink Blood."</b><br>
+  <b>B</b>eta — awake, alert<br>
+  <b>A</b>lpha — awake, eyes closed<br>
+  <b>T</b>heta — N1<br>
+  <b>S</b>pindles + K-complexes — N2 (sometimes labelled "Sigma" in older books)<br>
+  <b>D</b>elta — N3, slow-wave sleep<br>
+  <b>B</b>eta-like / REM — paradoxical sleep, EEG looks awake</div>
+
+<div class="mnemonic"><b>Alternative (high → low frequency):</b> "<b>BAT-D</b> + REM" — Beta &gt; Alpha &gt; Theta &gt; Delta as you descend through stages, then REM jumps back up to look like awake. Frequency drops as depth increases, then REM rebounds.</div>
+
+<p><b>MCQ traps to lock in:</b></p>
+<ul>
+  <li><b>REM EEG looks like awake</b> (low-voltage, fast, mixed) — the "paradox" of paradoxical sleep. Question often phrased as "REM is characterised by all EXCEPT delta-wave EEG."</li>
+  <li><b>REM has atonia</b> (skeletal muscle paralysis) + REM atonia loss = REM Sleep Behaviour Disorder (RBD), often a prodrome for Parkinson's / Lewy body dementia.</li>
+  <li><b>Sleep cycle = ~90 minutes</b>, 4–6 cycles per night. Slow-wave sleep dominates the <i>first half</i> of the night, REM dominates the <i>second half</i>.</li>
+  <li><b>Growth hormone</b> is released in N3, not REM.</li>
+  <li><b>Memory consolidation</b>: declarative in slow-wave sleep, procedural + emotional in REM.</li>
+  <li><b>Newborns</b> spend ~50% of sleep in REM (called "active sleep"); adults ~20–25%. Drops with age.</li>
+  <li><b>Sleepwalking, night terrors, bed-wetting</b> = N3 (slow-wave) parasomnias. <b>Nightmares</b> = REM parasomnia.</li>
+</ul>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="yalom">Yalom's 11 therapeutic factors</h2>
+<div class="topic-block">
+<p>Irvin Yalom, group psychotherapy and existential psychotherapy. His <b>11 therapeutic factors</b> are the curative mechanisms that operate in any group. Universality (Q16) is one of them — the realisation that you're not alone in your suffering.</p>
+
+<table>
+<tr><th>Factor</th><th>One-line definition</th><th>MCQ trigger phrase</th></tr>
+<tr><td>1. Instillation of hope</td><td>Seeing others improve gives you reason to expect your own improvement</td><td>"hope from observing others recover"</td></tr>
+<tr><td>2. Universality</td><td>Realising others share your problems; you are not uniquely broken</td><td>"not alone in suffering," "I'm not the only one"</td></tr>
+<tr><td>3. Imparting of information</td><td>Didactic instruction by therapist or other members; psychoeducation</td><td>"teaching about the illness"</td></tr>
+<tr><td>4. Altruism</td><td>Helping others in the group restores self-worth; "I have something to give"</td><td>"giving back to others"</td></tr>
+<tr><td>5. Corrective recapitulation of the primary family group</td><td>Group re-creates family dynamics, allowing them to be worked through</td><td>"group as substitute family"</td></tr>
+<tr><td>6. Development of socialising techniques</td><td>Learning basic social skills through feedback and modelling</td><td>"learning to communicate better"</td></tr>
+<tr><td>7. Imitative behaviour</td><td>Modelling on the therapist or successful members; "spectator therapy"</td><td>"imitating peers' coping"</td></tr>
+<tr><td>8. Interpersonal learning</td><td>Insight into one's own interpersonal patterns through group feedback</td><td>"how I come across to others," social microcosm</td></tr>
+<tr><td>9. Group cohesiveness</td><td>The "we-ness," the felt sense of belonging in the group; analogous to therapeutic alliance in individual</td><td>"sense of belonging," "we"</td></tr>
+<tr><td>10. Catharsis</td><td>Emotional release of bottled-up affect within a safe group</td><td>"emotional ventilation," "letting it out"</td></tr>
+<tr><td>11. Existential factors</td><td>Confronting death, freedom, isolation, meaninglessness; accepting life's basic givens</td><td>"facing mortality," "responsibility"</td></tr>
+</table>
+
+<div class="mnemonic"><b>Yalom's "Big 4" existential concerns</b> (separate from the 11 factors, separately testable): <b>D</b>eath, <b>F</b>reedom, <b>I</b>solation, <b>M</b>eaninglessness. Mnemonic: <b>"DFIM"</b> or "Death Frees Isolated Minds."</div>
+
+<p><b>High-yield Yalom traps:</b></p>
+<ul>
+  <li>Yalom's two anchor texts: <i>The Theory and Practice of Group Psychotherapy</i> (group factors) and <i>Existential Psychotherapy</i> (the four givens).</li>
+  <li><b>Universality</b> is often confused with <b>cohesiveness</b>. Universality = "others share my pain"; cohesiveness = "we belong together as a group."</li>
+  <li><b>Corrective emotional experience</b> (Franz Alexander, not Yalom directly) overlaps with corrective recapitulation; Yalom credited the idea.</li>
+  <li>Yalom + Rollo May + Ludwig Binswanger = the existential psychotherapy lineage (Frankl is logotherapy, related but separate).</li>
+</ul>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="tom">Theory of mind</h2>
+<div class="topic-block">
+<p><b>Theory of mind (ToM)</b> = the capacity to attribute mental states — beliefs, desires, intentions, knowledge — to oneself and to others, and to understand that others can hold mental states <i>different from one's own</i>. Term coined by Premack &amp; Woodruff (1978) in a chimpanzee study. Critical milestone in social cognitive development.</p>
+
+<h4>How it's tested</h4>
+<ul>
+  <li><b>Sally-Anne task (false-belief)</b> — Wimmer &amp; Perner (1983), popularised by Baron-Cohen, Leslie &amp; Frith (1985). Sally puts marble in basket, leaves. Anne moves marble to box. Sally returns. "Where will Sally look for her marble?" Correct answer = basket (Sally's false belief). Passed reliably at <b>~4 years</b>.</li>
+  <li><b>Smarties / Maxi task</b> — child is shown a Smarties tube containing pencils. "What will another child think is in here?" Pre-ToM: "pencils" (can't separate own knowledge from other's). Post-ToM: "Smarties."</li>
+  <li><b>Second-order false belief</b> — "What does Mary think John thinks?" Passed ~6–7 years. Tests recursive ToM.</li>
+  <li><b>Reading the Mind in the Eyes</b> — adult ToM test (Baron-Cohen), identify emotion from eye region only. Used in autism research.</li>
+</ul>
+
+<h4>Developmental timeline</h4>
+<ul>
+  <li><b>~18 months</b> — joint attention, pointing to share, pretend play (precursors).</li>
+  <li><b>~2–3 years</b> — understands desires drive behaviour (desire psychology).</li>
+  <li><b>~4 years</b> — first-order false belief, Sally-Anne passed.</li>
+  <li><b>~6–7 years</b> — second-order false belief, recursive mentalising.</li>
+  <li><b>~9–11 years</b> — faux pas detection, irony, sarcasm, white lies.</li>
+</ul>
+
+<h4>Clinical relevance</h4>
+<ul>
+  <li><b>Autism Spectrum Disorder</b> — classic ToM deficit, especially on false-belief tasks. Baron-Cohen's "mindblindness" hypothesis (1995). Note this is one theory, not the whole story; ASD also involves weak central coherence and executive dysfunction.</li>
+  <li><b>Schizophrenia</b> — ToM impairment linked to delusions and social withdrawal (Frith).</li>
+  <li><b>Frontotemporal dementia (bvFTD)</b> — selective ToM loss with preserved IQ early on.</li>
+</ul>
+
+<div class="mnemonic"><b>Trap to avoid.</b> Sally-Anne tests <i>first-order</i> false belief (what Sally thinks). It is NOT a test of empathy, perspective-taking in general, or appearance-reality distinction (that's the Smarties task variant).</div>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="kors">Korsakoff vs dissociative amnesia</h2>
+<div class="topic-block">
+<p>You got Q8 right (dissociative amnesia) but asked "what would it be if it was Korsakoff?" The two get confused because both involve memory loss without a structural mass lesion. Here's the full split.</p>
+
+<table>
+<tr><th>Feature</th><th>Korsakoff syndrome</th><th>Dissociative amnesia</th></tr>
+<tr><td><b>Cause</b></td><td>Thiamine (B1) deficiency, usually chronic alcoholism; also bariatric surgery, hyperemesis, malnutrition</td><td>Psychological trauma; no medical/neurological cause</td></tr>
+<tr><td><b>Pathology</b></td><td>Mammillary body atrophy, mediodorsal thalamic nuclei, hippocampal damage</td><td>Functional disconnection; no structural lesion on imaging</td></tr>
+<tr><td><b>Memory affected</b></td><td>Anterograde amnesia (can't form new memories) + variable retrograde; <b>procedural memory preserved</b></td><td>Retrograde, personal autobiographical, often selective for the traumatic period</td></tr>
+<tr><td><b>Hallmark feature</b></td><td><b>Confabulation</b> — fills gaps with plausible but false stories, no intent to deceive</td><td>Localised or selective amnesia for traumatic events; sense of self may remain intact</td></tr>
+<tr><td><b>Insight</b></td><td>Poor; patient unaware of memory failure</td><td>Variable; often distressed by the gap</td></tr>
+<tr><td><b>Precedes</b></td><td><b>Wernicke encephalopathy</b> — acute triad of <i>confusion + ataxia + ophthalmoplegia</i>. Together: <b>Wernicke-Korsakoff syndrome</b></td><td>Often preceded by an identifiable trauma or major stressor</td></tr>
+<tr><td><b>Other cognition</b></td><td>Often preserved IQ + immediate memory; classic "amnesic syndrome with confabulation"</td><td>Other cognition preserved; not a global cognitive disorder</td></tr>
+<tr><td><b>Treatment</b></td><td>IV/IM thiamine immediately (before glucose, or precipitates Wernicke); supportive long-term</td><td>Psychotherapy, address trauma; sometimes resolves spontaneously</td></tr>
+<tr><td><b>DSM-5 chapter</b></td><td>Neurocognitive disorders (major, due to another medical condition)</td><td>Dissociative disorders</td></tr>
+</table>
+
+<div class="mnemonic"><b>Quick distinguishers in MCQs:</b><br>
+  • "<b>Chronic alcoholic + confabulation</b>" → Korsakoff.<br>
+  • "<b>After a stressful event, can't recall personal info</b>" → dissociative amnesia.<br>
+  • "<b>Confusion + ataxia + eye movement abnormalities</b>" → Wernicke (give thiamine before glucose!).<br>
+  • "<b>Transient global amnesia (TGA)</b>" is the third distractor — middle-aged adult, sudden anterograde amnesia for hours, resolves on its own, repeated questioning, no structural cause. Different beast from both Korsakoff and dissociative.<br>
+  • "<b>Anterograde amnesia after head injury</b>" → post-traumatic amnesia (not Korsakoff, not dissociative).
+</div>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="pval">p-value refresher</h2>
+<div class="topic-block">
+<p>You got Q6 right but flagged "I forgot this concept. Knew it well before but need a detailed revision." Here's the clean version, plus the things examiners weaponise.</p>
+
+<h4>The definition (one sentence, memorise it)</h4>
+<p><b>p-value = the probability of observing the obtained data (or more extreme), assuming the null hypothesis is true.</b></p>
+
+<h4>What it does NOT mean</h4>
+<ul>
+  <li>p is <b>NOT</b> the probability that H₀ is true.</li>
+  <li>p is <b>NOT</b> the probability that H₁ is true.</li>
+  <li>p is <b>NOT</b> the probability you're wrong.</li>
+  <li>p is <b>NOT</b> the effect size — a small p with a tiny effect on a huge sample is statistically significant but clinically meaningless.</li>
+  <li>p &lt; 0.05 does <b>NOT</b> prove H₁; it just lets you reject H₀ at α = 0.05.</li>
+</ul>
+
+<h4>Decision rule</h4>
+<ul>
+  <li><b>p &lt; α</b> (e.g., 0.03 &lt; 0.05) → reject H₀. Result is "statistically significant."</li>
+  <li><b>p ≥ α</b> → fail to reject H₀. (Never "accept H₀" — absence of evidence ≠ evidence of absence.)</li>
+  <li>α is set <i>before</i> the study, not chosen after seeing the data.</li>
+</ul>
+
+<h4>The four-cell decision matrix (the foundation)</h4>
+<table>
+<tr><th></th><th>H₀ actually true</th><th>H₀ actually false</th></tr>
+<tr><td><b>Reject H₀</b></td><td><b>Type I error (α)</b> — false positive, you think there's an effect when there isn't</td><td>Correct rejection (power = 1 − β)</td></tr>
+<tr><td><b>Fail to reject H₀</b></td><td>Correct retention (1 − α)</td><td><b>Type II error (β)</b> — false negative, you miss a real effect</td></tr>
+</table>
+
+<h4>Common asks on MET / NIMHANS</h4>
+<ul>
+  <li><b>α (alpha)</b> = pre-set threshold, usually 0.05. Probability of Type I error.</li>
+  <li><b>β (beta)</b> = probability of Type II error. Usually 0.20.</li>
+  <li><b>Power = 1 − β</b> = probability of detecting a real effect. Aim for ≥ 0.80. Power depends on sample size, effect size, α, and variability.</li>
+  <li><b>Effect size</b> = magnitude of the effect, independent of n. Cohen's d (means), r (correlation), η² (ANOVA), OR/RR (epidemiology).</li>
+  <li><b>Confidence interval</b> at 95% complements p &lt; 0.05: if the 95% CI for a mean difference excludes 0, p &lt; 0.05.</li>
+  <li><b>One-tailed vs two-tailed</b> — directional vs non-directional H₁. One-tailed makes it easier to reject H₀ but you must pre-specify the direction.</li>
+  <li><b>Bonferroni correction</b> — adjust α when running multiple comparisons. α_new = α / k.</li>
+  <li><b>p-hacking / multiple comparisons</b> — running many tests inflates Type I error. Not a "scientific finding," it's a statistics failure.</li>
+</ul>
+
+<div class="mnemonic"><b>One-liner that always works in MCQ:</b> "If p &lt; α, reject H₀." If asked for the meaning of p, the safest answer is always "probability of the observed result (or more extreme) under the assumption that H₀ is true." Anything stronger than this is a distractor.</div>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="ains">Ainsworth's attachment styles</h2>
+<div class="topic-block">
+<p>Mary Ainsworth, <b>Strange Situation Procedure</b> (1969–1978). Lab procedure with 8 episodes: mother + baby alone, stranger enters, mother leaves, stranger interacts, mother returns, etc. Classification is made primarily on <b>reunion behaviour</b>, not separation distress. Original three styles + a fourth added later by Main &amp; Solomon (1986).</p>
+
+<table>
+<tr><th>Style</th><th>Distress on separation?</th><th>Behaviour on reunion (the key)</th><th>Caregiver pattern</th><th>Approx %</th></tr>
+<tr><td><b>Secure (B)</b></td><td>Yes, moderate</td><td>Seeks contact, is comforted, returns to play</td><td>Sensitive, consistent, responsive</td><td>~60–65%</td></tr>
+<tr><td><b>Insecure-Avoidant (A)</b></td><td>Little to none visible</td><td>Avoids or ignores caregiver, continues play, treats stranger and parent similarly</td><td>Emotionally unavailable, rejecting</td><td>~15–20%</td></tr>
+<tr><td><b>Insecure-Resistant / Ambivalent (C)</b></td><td>High</td><td>Seeks contact AND resists it (clings then pushes away); cannot be soothed</td><td>Inconsistent — sometimes responsive, sometimes not</td><td>~10–15%</td></tr>
+<tr><td><b>Disorganised (D)</b><br>(added 1986)</td><td>Chaotic</td><td>Contradictory behaviour: approaches then freezes, stares blankly, walks backward toward parent</td><td>Frightened or frightening caregiver, often trauma/abuse</td><td>~5–10%</td></tr>
+</table>
+
+<h4>How Q4 trapped you</h4>
+<p>"Distress on separation but cannot be comforted on reunion and may resist contact" → this is the <b>C (resistant/ambivalent)</b> signature, not avoidant. Avoidant = doesn't even seek the parent on reunion. The trap was probably the word "resist" pulling you toward "resistant" — that's actually correct labelling, but you went the other way to "avoidant." Memorise:</p>
+<ul>
+  <li><b>Avoidant</b> = doesn't try to make contact.</li>
+  <li><b>Resistant / Ambivalent</b> = tries AND resists.</li>
+  <li><b>Disorganised</b> = no coherent strategy at all.</li>
+  <li><b>Secure</b> = upset on departure, comforted on return.</li>
+</ul>
+
+<h4>Adult attachment (Hazan &amp; Shaver, Bartholomew)</h4>
+<table>
+<tr><th>Infant style</th><th>Adult parallel (Hazan &amp; Shaver, 1987)</th><th>Bartholomew 4-cat (1991)</th></tr>
+<tr><td>Secure</td><td>Secure</td><td>Secure (+self, +other)</td></tr>
+<tr><td>Avoidant</td><td>Avoidant</td><td>Dismissing (+self, −other)</td></tr>
+<tr><td>Resistant / Ambivalent</td><td>Anxious-ambivalent</td><td>Preoccupied (−self, +other)</td></tr>
+<tr><td>Disorganised</td><td>(not in original H&amp;S)</td><td>Fearful (−self, −other)</td></tr>
+</table>
+
+<div class="mnemonic"><b>One-line MCQ trick.</b> If the question describes the <b>reunion</b> behaviour, that's the answer. Separation distress alone doesn't distinguish secure from resistant — both show distress. Calm-on-departure = avoidant.</div>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="tnr">Trinucleotide repeat disorder list</h2>
+<div class="topic-block">
+<p>From Q17 (Huntington's, CAG on chromosome 4). Trinucleotide repeat expansions are the cause of a small but heavily-tested group of disorders. Three things to memorise per disorder: <b>repeat (3 letters)</b>, <b>chromosome</b>, <b>inheritance pattern</b>.</p>
+
+<table>
+<tr><th>Disorder</th><th>Repeat</th><th>Gene / Chromosome</th><th>Inheritance</th><th>Hallmark</th></tr>
+<tr><td><b>Huntington's disease</b></td><td>CAG</td><td>HTT, 4p16.3</td><td>Autosomal dominant</td><td>Adult-onset chorea + cognitive decline + psychiatric sx</td></tr>
+<tr><td><b>Fragile X syndrome</b></td><td>CGG</td><td>FMR1, Xq27.3</td><td>X-linked</td><td>Most common inherited intellectual disability; long face, large ears, macroorchidism</td></tr>
+<tr><td><b>Myotonic dystrophy type 1 (DM1)</b></td><td>CTG</td><td>DMPK, 19q13</td><td>Autosomal dominant</td><td>Myotonia + frontal balding + cataracts + cardiac conduction defects</td></tr>
+<tr><td><b>Friedreich ataxia</b></td><td>GAA</td><td>FXN, 9q21</td><td>Autosomal recessive (the odd one out)</td><td>Gait ataxia + hypertrophic cardiomyopathy + diabetes; onset childhood/adolescence</td></tr>
+<tr><td><b>Spinocerebellar ataxias (SCA 1, 2, 3, 6, 7, 17)</b></td><td>CAG</td><td>Multiple genes</td><td>Autosomal dominant</td><td>Progressive cerebellar ataxia + variable extras</td></tr>
+<tr><td><b>Spinobulbar muscular atrophy (Kennedy disease)</b></td><td>CAG</td><td>AR (androgen receptor), Xq12</td><td>X-linked</td><td>Adult-onset proximal weakness + gynaecomastia + reduced fertility</td></tr>
+<tr><td><b>Dentatorubral-pallidoluysian atrophy (DRPLA)</b></td><td>CAG</td><td>ATN1, 12p13</td><td>Autosomal dominant</td><td>Ataxia + choreoathetosis + dementia + seizures; mostly Japanese populations</td></tr>
+</table>
+
+<div class="mnemonic"><b>Two facts that MET/NIMHANS love:</b>
+  <ol>
+    <li><b>Anticipation</b> — repeat expansions grow across generations, so disease onset is <i>earlier</i> and severity <i>greater</i> in successive generations. Classic in Huntington's (paternal transmission) and DM1 (maternal transmission). This is one of the few real-world examples of non-Mendelian inheritance asked on these exams.</li>
+    <li><b>Polyglutamine (polyQ) diseases</b> — all the CAG repeat disorders code for glutamine (CAG = glutamine codon). So Huntington's, SCAs (most subtypes), Kennedy, DRPLA = polyglutamine diseases. Aggregates of polyQ tracts form neuronal inclusions.</li>
+  </ol>
+</div>
+
+<p><b>MCQ traps:</b></p>
+<ul>
+  <li>"CAG on chromosome 4" = Huntington's. Locked in.</li>
+  <li>"CGG on X" = Fragile X.</li>
+  <li>"CTG on 19" = Myotonic dystrophy.</li>
+  <li>"GAA on 9, only autosomal recessive trinucleotide disorder" = Friedreich ataxia.</li>
+  <li>Huntington's: usually &gt;36 repeats = disease; 27–35 = intermediate (paternal expansion risk); &lt;27 = normal.</li>
+  <li>Fragile X: &gt;200 CGG = full mutation; 55–200 = premutation (can present as Fragile X-associated tremor/ataxia syndrome FXTAS in older males, or premature ovarian failure FXPOI in females).</li>
+</ul>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="emdr">EMDR + trauma therapists</h2>
+<div class="topic-block">
+<p>From Q13. <b>Francine Shapiro</b> developed EMDR in 1987. You asked who Shapiro and Foa were — here's the trauma-therapy lineage.</p>
+
+<h4>EMDR — Eye Movement Desensitisation and Reprocessing</h4>
+<ul>
+  <li><b>Founder</b>: Francine Shapiro, 1987.</li>
+  <li><b>Mechanism (theoretical)</b>: bilateral stimulation (eye movements, taps, tones) while recalling a traumatic memory facilitates reprocessing, hypothesised to mimic REM sleep memory consolidation.</li>
+  <li><b>8 phases</b>: (1) history-taking, (2) preparation, (3) assessment, (4) desensitisation, (5) installation of positive cognition, (6) body scan, (7) closure, (8) re-evaluation.</li>
+  <li><b>Indication</b>: PTSD primary. Endorsed by APA (2017) and WHO (2013) as a first-line PTSD treatment alongside trauma-focused CBT.</li>
+  <li><b>Controversy</b>: whether the eye movements themselves are essential or just the exposure component. Component-dismantling studies are mixed.</li>
+</ul>
+
+<h4>Trauma therapy lineage — who did what</h4>
+<table>
+<tr><th>Therapist</th><th>Approach / contribution</th><th>Trigger phrase in MCQs</th></tr>
+<tr><td><b>Francine Shapiro</b></td><td>EMDR (1987)</td><td>"eye movements + trauma reprocessing"</td></tr>
+<tr><td><b>Edna Foa</b></td><td><b>Prolonged Exposure (PE)</b> therapy for PTSD; also OCD treatment with Exposure &amp; Response Prevention (ERP)</td><td>"prolonged exposure," "imaginal + in vivo exposure for PTSD," "ERP for OCD"</td></tr>
+<tr><td><b>Patricia Resick</b></td><td><b>Cognitive Processing Therapy (CPT)</b> for PTSD, originally developed for sexual assault survivors</td><td>"CPT," "stuck points," "Socratic dialogue PTSD"</td></tr>
+<tr><td><b>Judith Herman</b></td><td>Concept of <b>complex PTSD</b> (1992); 3-stage trauma recovery model (safety → remembrance/mourning → reconnection)</td><td>"complex trauma," "3-stage recovery"</td></tr>
+<tr><td><b>Bessel van der Kolk</b></td><td><b>The Body Keeps the Score</b>; somatic + body-based trauma interventions; trauma-sensitive yoga</td><td>"body-based trauma therapy"</td></tr>
+<tr><td><b>Peter Levine</b></td><td><b>Somatic Experiencing</b>, completing the freeze response</td><td>"somatic experiencing"</td></tr>
+<tr><td><b>Marsha Linehan</b></td><td><b>Dialectical Behaviour Therapy (DBT)</b> — for borderline PD + chronic suicidality; also useful for PTSD with emotion-dysregulation features</td><td>"DBT," "BPD"</td></tr>
+<tr><td><b>Pierre Janet</b></td><td>Late-19th-century French psychiatrist; original theory of dissociation as trauma response; pre-Freud</td><td>"dissociation, historical figure"</td></tr>
+</table>
+
+<div class="mnemonic"><b>One-line trap fixes:</b><br>
+  • Shapiro → <b>E</b>MDR (S<b>e</b>e + <b>e</b>ye movements; mnemonic: Shapiro Sees).<br>
+  • Foa → <b>F</b>locked exposure (Foa = Floods you with exposure to the trauma + OCD ERP).<br>
+  • Resick → CPT (Resick = "rethink," cognitive).<br>
+  • Herman → <b>complex</b> PTSD (Herman labelled the complex form).<br>
+  • Linehan → DBT for BPD (not primary PTSD therapy, but commonly listed as a distractor).
+</div>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="bonus">Bonus quick hits, your other notes</h2>
+<div class="topic-block">
+<p>You also flagged seven smaller items in the dump. One-line fixes each:</p>
+
+<h4>[2] MMPI T-score scoring — "don't know scoring of any test"</h4>
+<p><b>T-scores</b> have <b>mean = 50, SD = 10</b>. T = 60 → +1 SD. T = 65 → conventional "elevated" cut-off on MMPI-2. T = 70 → +2 SD → <b>clinically significant elevation</b>. T = 80 → +3 SD, rare and extreme.</p>
+<p>Other standardised score systems to keep separate:</p>
+<ul>
+  <li><b>Z-score</b>: M = 0, SD = 1.</li>
+  <li><b>Standard score / IQ</b>: M = 100, SD = 15 (Wechsler) or 16 (Stanford-Binet 4th ed, older).</li>
+  <li><b>Subtest scaled scores (WAIS/WISC)</b>: M = 10, SD = 3. So scaled 7 = −1 SD, scaled 13 = +1 SD.</li>
+  <li><b>Stanine</b>: M = 5, SD ~ 2. Range 1–9.</li>
+  <li><b>Percentile</b>: rank 1–99, not a standardised score, NOT normally distributed.</li>
+</ul>
+
+<h4>[5] WAIS IQ ranges — "what is dependent on edition"</h4>
+<p>The IQ range labels shifted between WAIS-III and WAIS-IV. Memorise the WAIS-IV (current) version:</p>
+<ul>
+  <li>130+ — Very Superior / Extremely High</li>
+  <li>120–129 — Superior</li>
+  <li>110–119 — High Average</li>
+  <li>90–109 — Average</li>
+  <li>80–89 — Low Average</li>
+  <li>70–79 — Borderline</li>
+  <li>&lt;70 — Extremely Low (DSM-5 requires concurrent adaptive deficits to call it intellectual disability)</li>
+</ul>
+<p>Older texts (WAIS-III, Wechsler-1955) sometimes used "Borderline" for 70–79 AND "Dull Normal" for 80–89. The WAIS-IV uses "Low Average / Borderline" depending on cut-point. Trap: if a question says "70–84 falls under…" with both "Low Average / Borderline (depending on edition)" and just "Borderline" as options, the more <i>inclusive</i> answer (edition-dependent) is safer.</p>
+
+<h4>[9] Ellis ABC, "I was confused between A and C"</h4>
+<p>REBT's ABC is:</p>
+<ul>
+  <li><b>A</b> — <b>Activating event</b> (not just "Antecedent" — that's Skinnerian).</li>
+  <li><b>B</b> — <b>Beliefs</b> (irrational, in REBT).</li>
+  <li><b>C</b> — <b>Consequences</b> (emotional + behavioural).</li>
+  <li><b>D</b> — Disputing (the irrational belief). Therapist's job.</li>
+  <li><b>E</b> — Effective new belief / Effect.</li>
+</ul>
+<p>The trap option in Q9 (option A: "Activating event, Behaviour, Consequence") looks right because it sounds like the operant ABC. But Ellis is cognitive — the middle term is <b>Belief</b>, not Behaviour. Skinner's three-term contingency is the look-alike: Antecedent → Behaviour → Consequence.</p>
+
+<h4>[10] Basal ganglia, "I thought it was subthalamic first"</h4>
+<p>Basal ganglia = <b>caudate, putamen, globus pallidus (internal + external), subthalamic nucleus, substantia nigra</b>. Sometimes lumped as "striatum" (caudate + putamen) and "lentiform nucleus" (putamen + globus pallidus). <b>Red nucleus is NOT basal ganglia</b> — it's midbrain tegmentum, gives the rubrospinal tract. Subthalamic IS in the basal ganglia (lesion = hemiballismus, contralateral wild flinging movements). Red nucleus lesion = rubral tremor + ataxia.</p>
+
+<h4>[11] Place theory + Bekesy</h4>
+<p>Georg von Békésy, Nobel 1961. <b>Place theory</b>: pitch is encoded by the <i>location</i> of maximum basilar membrane displacement. High frequencies vibrate the <b>basal</b> (narrow, stiff) end of the cochlea; low frequencies vibrate the <b>apical</b> (wide, floppy) end. Best for high frequencies (above ~1 kHz). <b>Frequency / Volley theory</b> (Wever) handles low frequencies: groups of auditory neurons fire in volleys phase-locked to the sound wave. Above ~5 kHz, place theory does all the work.</p>
+
+<h4>[12] LTP and NMDA, "completely forgot"</h4>
+<p><b>Long-term potentiation</b> = persistent strengthening of synapses with repeated stimulation. Bliss &amp; Lomo, 1973, hippocampus. <b>NMDA receptor</b> is the coincidence detector: needs <i>both</i> glutamate binding AND postsynaptic depolarisation (to expel the Mg²⁺ block). Once both happen, Ca²⁺ floods in → triggers cascade → more AMPA receptors inserted into the membrane → synapse permanently stronger. AMPA is the workhorse for fast excitatory transmission; NMDA is the gate-keeper for plasticity. <b>LTP is the cellular substrate of learning/memory.</b> Hippocampus + NMDA + Ca²⁺ + LTP = memorise as a chain.</p>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 id="plan">What to do next</h2>
+<div class="banner">
+  <b>3-step plan.</b>
+  <ol>
+    <li><b>Tonight (45 min)</b>: read the top 4 topic blocks above (cranial nerves, sleep waves, Korsakoff vs dissociative, p-values). These are the highest-frequency items.</li>
+    <li><b>Tomorrow (60 min)</b>: read the remaining 5 (Yalom, ToM, Ainsworth, trinucleotide list, EMDR) + the bonus quick hits. By end of day you've closed every gap surfaced in the dump.</li>
+    <li><b>Day after (90 min)</b>: re-attempt MET Mock 1. Goal: cut the 47 skips to under 15. Even half-guessing on previously-skipped Qs at 33% accuracy nets you ~+30 to ~+45 marks. Target 240+ on this re-attempt.</li>
+  </ol>
+</div>
+
+<p><b>If you only have 20 minutes, read these three blocks in this order:</b> <a href="#sleep">Sleep waves</a> (because Q14 had you eliminating), <a href="#pval">p-value</a> (because you said you knew this and forgot), <a href="#ains">Ainsworth</a> (because it cost you a wrong, not a skip). Everything else is recovery from blanks, not corrections to known knowledge.</p>
+
+<p style="margin-top:24px;"><a href="../../results/analysis/?mock=met-mock-1">Open the auto-analysis dashboard →</a> &nbsp; <a href="../../quiz/met-mock-1/">Retake MET Mock 1 →</a> &nbsp; <a href="../revision-pack/">Consolidated revision pack →</a></p>
+
+</div>
+</body>
+</html>
