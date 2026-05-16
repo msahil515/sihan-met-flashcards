@@ -500,6 +500,7 @@
     <nav class="nav">
       <a href="./" class="active">Dashboard</a>
       <a href="tests/">Tests</a>
+      <a href="results/">My Results</a>
       <a href="notes/">Notes</a>
       <a href="flashcards/">Flashcards</a>
       <a href="plan/">Plan</a>
@@ -559,7 +560,7 @@
   <section>
     <div class="section-head">
       <h2 class="section-title">Latest mock results</h2>
-      <span class="section-sub">Section-wise score breakdown, computed live</span>
+      <span class="section-sub">Section-wise score breakdown, computed live · <a href="results/" style="color:var(--accent);">full history + snapshots →</a></span>
     </div>
     <div id="resultsArea"></div>
   </section>
@@ -673,7 +674,9 @@ const RESOURCES = [
 ];
 
 const NEWS = [
-  { date: "2026-05-16", title: "PYQ Mock 2 — pan-India PYQs (NEW)", desc: "100 fresh PYQs from RML, IHBAS, JEMAS, NIMHANS, IMHANS, NFSU, AMITY, GMCH (2023-25). No overlap with Mock 1. Therapy-heavy (18) + bio (13) + biostats (12) + social (9) to remediate your Mock 1 weak spots. Source-tagged on every Q. Daily mocks start from here.", href: "quiz/pyq-mock-2/" },
+  { date: "2026-05-16", title: "My Results page (NEW)", desc: "One page that pulls live scores from all 3 mocks on this browser, keeps a history of every snapshot you take, and lets you paste a results blob from another device to add it to history. Free-form notes journal per mock. Tap 'Copy results for analysis' on any mock to auto-log a snapshot.", href: "results/" },
+  { date: "2026-05-16", title: "MET Mock 1 — Copy results button", desc: "Same export button as the other mocks. Tap it after attempting to copy a readable blob (score + section breakdown + every wrong/guessed/noted Q + your notes) to clipboard. Also auto-saves a snapshot to My Results.", href: "quiz/met-mock-1/" },
+  { date: "2026-05-16", title: "PYQ Mock 2 — pan-India PYQs", desc: "100 fresh PYQs from RML, IHBAS, JEMAS, NIMHANS, IMHANS, NFSU, AMITY, GMCH (2023-25). No overlap with Mock 1. Therapy-heavy (18) + bio (13) + biostats (12) + social (9) to remediate your Mock 1 weak spots. Source-tagged on every Q. Daily mocks start from here.", href: "quiz/pyq-mock-2/" },
   { date: "2026-05-15", title: "NIMHANS Mock 1 full debrief", desc: "Section-by-section walkthrough of your 71.25/80 attempt. Every wrong + guess + flagged note explained, biopsych is your leak, 3-day plan to clear cutoff.", href: "notes/nimhans-mock-1-debrief/" },
   { date: "2026-05-15", title: "Site reorganized + Plan page", desc: "Proper section landings: Tests library, Notes-by-section, Downloads, and a new weekly Plan with checklist + countdown. Wider desktop layout (1440px max), shared styling across pages.", href: "plan/" },
   { date: "2026-05-05", title: "NIMHANS Mock 1 v2 + PYQ Breakdown", desc: "100 real PYQs from 2023-25 papers, year-tagged, repeats flagged green. Companion topic breakdown built from 300 PYQs.", href: "quiz/nimhans-mock-1/" },

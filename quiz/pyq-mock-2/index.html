@@ -157,7 +157,7 @@
 </head>
 <body>
 <div class="app">
-  <nav><a href="../../">← Dashboard</a> <a href="../../tests/">Tests</a> <a href="../../notes/nimhans-pyq-breakdown/">PYQ breakdown</a> <a href="../../notes/">Notes</a> <a href="../../flashcards/">Flashcards</a> <a href="../../plan/">Plan</a></nav>
+  <nav><a href="../../">← Dashboard</a> <a href="../../tests/">Tests</a> <a href="../../results/">My Results</a> <a href="../../notes/nimhans-pyq-breakdown/">PYQ breakdown</a> <a href="../../notes/">Notes</a> <a href="../../flashcards/">Flashcards</a> <a href="../../plan/">Plan</a></nav>
   <header>
     <h1>PYQ Mock 2 — Pan-India M.Phil Entrance</h1>
     <div class="subtitle">100 PYQs · RML, IHBAS, JEMAS, NIMHANS, IMHANS, NFSU, AMITY, GMCH 2023-2025 · 90 min · +1 / −0.25 / 0 blank</div>
@@ -225,7 +225,6 @@
   <footer>PYQ Mock 2 · pan-India M.Phil Clinical Psych entrance PYQs from RML, IHBAS, JEMAS, NIMHANS, IMHANS, NFSU, AMITY, GMCH (2023-2025) · separate state from other mocks.</footer>
 </div>
 
-<script>
 <script>
 // =====================================================================
 // QUESTION BANK — PYQ Mock 2 (100 actual PYQs, pan-India entrance)
@@ -1367,10 +1366,18 @@ function exportForAnalysis() {
 
   out += `END EXPORT\n`;
 
+  try {
+    const snapKey = "results-history-v1";
+    const raw = localStorage.getItem(snapKey);
+    const history = raw ? JSON.parse(raw) : [];
+    history.push({ mock: "pyq-mock-2", ts, score: parseFloat(score.toFixed(2)), max: 100, right: totalRight, wrong: totalWrong, blank, sections: bySection });
+    localStorage.setItem(snapKey, JSON.stringify(history));
+  } catch {}
+
   const sizeKb = (out.length / 1024).toFixed(1);
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(out).then(
-      () => alert(`Copied ${sizeKb} KB to clipboard.\n\nPaste it to Sahil on WhatsApp.`),
+      () => alert(`Copied ${sizeKb} KB to clipboard.\n\nPaste it to Sahil on WhatsApp, or open the My Results page to see history.`),
       () => prompt("Copy this export and paste to Sahil on WhatsApp:", out));
   } else {
     prompt("Copy this export and paste to Sahil on WhatsApp:", out);

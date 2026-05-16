@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d1117">
+<title>My Results — MET 2026 + NIMHANS</title>
+<link rel="stylesheet" href="../site.css">
+<style>
+  .mock-card { display: flex; flex-direction: column; gap: 12px; padding: 18px 20px; }
+  .mock-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+  .mock-name { font-size: 16px; font-weight: 600; line-height: 1.25; }
+  .mock-sub { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .mock-score-big { font-size: 32px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+  .mock-score-big.good { color: var(--good); }
+  .mock-score-big.warn { color: var(--warn); }
+  .mock-score-big.bad { color: var(--bad); }
+  .mock-score-big.muted { color: var(--muted); }
+  .mock-score-sub { font-size: 11px; color: var(--muted); margin-top: 2px; text-align: right; }
+  .mock-counts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; font-size: 12px; text-align: center;
+    background: var(--panel-2); border-radius: 6px; padding: 8px; }
+  .mock-counts > div { padding: 4px; }
+  .mock-counts .n { display: block; font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .mock-counts .l { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .mock-counts .good { color: var(--good); }
+  .mock-counts .warn { color: var(--warn); }
+  .mock-counts .bad { color: var(--bad); }
+  .mock-counts .muted { color: var(--muted); }
+  .sec-bars { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+  .sec-row { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+  .sec-name { flex: 0 0 130px; color: var(--muted); }
+  .sec-bar { flex: 1; height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; display: flex; }
+  .sec-bar span { height: 100%; }
+  .sec-bar .b-right { background: var(--good); }
+  .sec-bar .b-wrong { background: var(--bad); }
+  .sec-bar .b-skip  { background: transparent; }
+  .sec-num { flex: 0 0 90px; text-align: right; color: var(--text); font-variant-numeric: tabular-nums; }
+  .mock-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .mock-actions button, .mock-actions a { font-size: 12px; padding: 6px 12px; border-radius: 6px;
+    border: 1px solid var(--border); background: var(--panel-2); color: var(--text); cursor: pointer; }
+  .mock-actions a { display: inline-block; line-height: 1.2; }
+  .mock-actions button:hover, .mock-actions a:hover { border-color: var(--accent-dim); color: var(--accent); text-decoration: none; }
+
+  .notes-area textarea {
+    width: 100%; box-sizing: border-box;
+    background: var(--panel-2); color: var(--text);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 10px 12px; font-size: 13px; font-family: inherit; line-height: 1.5;
+    min-height: 88px; resize: vertical;
+  }
+  .notes-area textarea:focus { outline: none; border-color: var(--accent-dim); }
+  .notes-saved { font-size: 10px; color: var(--good); opacity: 0; transition: opacity 0.2s; margin-left: 8px; }
+  .notes-saved.visible { opacity: 1; }
+  .notes-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+
+  .paste-area textarea {
+    width: 100%; box-sizing: border-box;
+    background: var(--panel-2); color: var(--text);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 12px; font-size: 12px; font-family: 'SF Mono', Menlo, Consolas, monospace; line-height: 1.45;
+    min-height: 180px; resize: vertical;
+  }
+  .paste-area textarea:focus { outline: none; border-color: var(--accent-dim); }
+  .paste-controls { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .paste-controls button { font-size: 13px; padding: 8px 16px; border-radius: 6px;
+    border: 1px solid var(--accent-dim); background: var(--accent-dim); color: white; font-weight: 600; cursor: pointer; }
+  .paste-controls button.ghost { background: transparent; color: var(--text); border-color: var(--border); font-weight: 500; }
+  .paste-controls button:hover { background: var(--accent); }
+  .paste-controls button.ghost:hover { background: var(--panel-2); border-color: var(--border-strong); color: var(--accent); }
+  .paste-result { margin-top: 12px; padding: 12px; background: var(--panel-2); border-radius: 6px; font-size: 13px; display: none; }
+  .paste-result.ok { border: 1px solid var(--good); }
+  .paste-result.err { border: 1px solid var(--bad); }
+
+  .hist-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .hist-table th { text-align: left; padding: 8px 10px; font-size: 11px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); font-weight: 600; }
+  .hist-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
+  .hist-table tr:last-child td { border-bottom: none; }
+  .hist-table tr:hover td { background: var(--panel-2); }
+  .hist-mock-pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600;
+    border: 1px solid var(--border); background: var(--panel-2); }
+  .hist-mock-pill.met { color: var(--accent); border-color: var(--accent-dim); }
+  .hist-mock-pill.nimhans { color: var(--purple); border-color: var(--purple); }
+  .hist-mock-pill.pyq { color: var(--good); border-color: var(--good); }
+  .hist-del { color: var(--muted); cursor: pointer; font-size: 11px; }
+  .hist-del:hover { color: var(--bad); }
+
+  .help-text { font-size: 12px; color: var(--muted); margin: 0 0 10px 0; line-height: 1.5; }
+
+  .pulse-strip { display: flex; gap: 6px; align-items: flex-end; min-height: 40px; padding: 8px 0; }
+  .pulse-bar { flex: 1 1 auto; background: var(--accent-soft); border-top: 2px solid var(--accent);
+    min-height: 4px; border-radius: 2px 2px 0 0; transition: opacity 0.2s; cursor: help; }
+  .pulse-bar.good { background: var(--good-soft); border-top-color: var(--good); }
+  .pulse-bar.warn { background: var(--warn-soft); border-top-color: var(--warn); }
+  .pulse-bar.bad  { background: var(--bad-soft);  border-top-color: var(--bad); }
+  .empty { padding: 24px; text-align: center; color: var(--muted); font-size: 13px;
+    background: var(--panel-2); border-radius: 8px; border: 1px dashed var(--border); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-title">Sihan, MET 2026</span>
+      <span class="brand-sub">MA Clinical Psychology, Manipal</span>
+    </div>
+    <nav class="nav">
+      <a href="../">Dashboard</a>
+      <a href="../tests/">Tests</a>
+      <a href="./" class="active">My Results</a>
+      <a href="../notes/">Notes</a>
+      <a href="../flashcards/">Flashcards</a>
+      <a href="../plan/">Plan</a>
+      <a href="../downloads/">Downloads</a>
+    </nav>
+    <span class="countdown-chip" id="countdownChip">—</span>
+  </div>
+</div>
+
+<main>
+
+  <div class="page-hero">
+    <div class="crumbs">My Results</div>
+    <h1>Track every mock, every attempt</h1>
+    <p>Live scores from this browser, history of every snapshot, and a paste box for results from another device. Tap "Snapshot current scores" after each mock so you can see your scores climb week over week.</p>
+    <div class="grid cols-4" style="margin-top:18px;">
+      <div class="bigstat"><div class="bigstat-label">Snapshots saved</div><div class="bigstat-value" id="heroSnaps">—</div><div class="bigstat-sub">across all mocks</div></div>
+      <div class="bigstat"><div class="bigstat-label">Mocks attempted</div><div class="bigstat-value" id="heroMocks">—</div><div class="bigstat-sub" id="heroMocksSub">of 3 full-length</div></div>
+      <div class="bigstat"><div class="bigstat-label">Best NIMHANS</div><div class="bigstat-value" id="heroBestN">—</div><div class="bigstat-sub">cutoff 80 / 100</div></div>
+      <div class="bigstat"><div class="bigstat-label">Best MET</div><div class="bigstat-value" id="heroBestM">—</div><div class="bigstat-sub">target 320 / 400</div></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">Live scores, this browser</h2>
+      <span class="section-sub">Reads localStorage every refresh · per-section breakdown · snapshot button on each card</span>
+    </div>
+    <div class="grid cols-3" id="mocksGrid"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">Score history</h2>
+      <span class="section-sub">Every snapshot you've taken, newest first · delete with the × on the right</span>
+    </div>
+    <div class="card" id="historyCard"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">Paste a results export</h2>
+      <span class="section-sub">From another device, or a backup · pulls the score + section breakdown into history</span>
+    </div>
+    <div class="card paste-area">
+      <p class="help-text">Open any mock, tap <b>"Copy results for analysis"</b>, then paste the whole blob here. It'll be saved as a timestamped snapshot. (You can also paste a raw <code>RESULTS EXPORT</code> from any of the 3 mocks.) This is the same blob you'd paste to Sahil on WhatsApp.</p>
+      <textarea id="pasteBlob" placeholder="Paste the export blob here, e.g.:
+NIMHANS MOCK 1 — RESULTS EXPORT v1
+Generated: ...
+Score: 71.25/100  (74 right, 11 wrong, 15 blank · ...)
+
+SECTION BREAKDOWN
+=================
+Biostats / Research:    14/15 (93%)  solid 12  guessed 2  wrong 1  skip 0
+..."></textarea>
+      <div class="paste-controls">
+        <button id="pasteSaveBtn">Save as snapshot</button>
+        <button class="ghost" id="pasteClearBtn">Clear</button>
+      </div>
+      <div class="paste-result" id="pasteResult"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">Notes journal</h2>
+      <span class="section-sub">Free-form notes per mock · saved per device · what felt hard, what to redo, what tripped you up</span>
+    </div>
+    <div class="grid cols-3" id="notesGrid"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">Backup / restore history</h2>
+      <span class="section-sub">Move snapshots + journal notes between devices</span>
+    </div>
+    <div class="card">
+      <p class="help-text">Snapshots and journal notes are kept in this browser only. Use the buttons below to copy the whole thing as a code, then paste it on another device.</p>
+      <div class="paste-controls">
+        <button id="backupBtn">Copy backup code</button>
+        <button class="ghost" id="restoreBtn">Restore from code</button>
+        <button class="ghost" id="wipeBtn" style="margin-left:auto;color:var(--bad);border-color:var(--bad);">Wipe history</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+/* =====================================================================
+   MOCK CATALOG
+   ===================================================================== */
+const MOCKS = [
+  {
+    id: "met-mock-1",
+    title: "MET Mock 1, full length",
+    path: "../quiz/met-mock-1/",
+    pillClass: "met",
+    storageResults: "met-mock-1-results-v1",
+    storageNotes: "met-mock-1-notes-v1",
+    total: 100,
+    max: 400,
+    scoring: (right, wrong) => right * 4 - wrong * 1,
+    scoringLabel: "+4 / −1 · target 320+",
+    sections: { biopsych: 15, dev: 15, abnormal: 15, assessment: 15, therapy: 15, biostats: 10, language: 15 }
+  },
+  {
+    id: "nimhans-mock-1",
+    title: "NIMHANS Mock 1 v2, PYQs",
+    path: "../quiz/nimhans-mock-1/",
+    pillClass: "nimhans",
+    storageResults: "nimhans-mock-1-results-v2",
+    storageNotes: "nimhans-mock-1-notes-v2",
+    total: 100,
+    max: 100,
+    scoring: (right, wrong) => right - wrong * 0.25,
+    scoringLabel: "+1 / −0.25 · cutoff 80",
+    sections: { biopsych: 15, dev: 10, abnormal: 15, assessment: 10, therapy: 10, biostats: 15, social: 10, general: 10, english: 5 }
+  },
+  {
+    id: "pyq-mock-2",
+    title: "PYQ Mock 2, pan-India",
+    path: "../quiz/pyq-mock-2/",
+    pillClass: "pyq",
+    storageResults: "pyq-mock-2-results-v1",
+    storageNotes: "pyq-mock-2-notes-v1",
+    total: 100,
+    max: 100,
+    scoring: (right, wrong) => right - wrong * 0.25,
+    scoringLabel: "+1 / −0.25 · cutoff 80",
+    sections: { therapy: 18, abnormal: 15, biopsych: 13, dev: 12, biostats: 12, assessment: 10, social: 9, general: 8, english: 3 }
+  }
+];
+
+const SECTION_LABELS = {
+  biopsych: "Biopsychology", dev: "Developmental", abnormal: "Abnormal",
+  assessment: "Psych Assessment", therapy: "Psychotherapy",
+  biostats: "Biostats / Methods", language: "Language",
+  social: "Social Psychology", general: "General Awareness", english: "English"
+};
+
+const HISTORY_KEY = "results-history-v1";
+const JOURNAL_KEY = "results-journal-v1";
+
+/* =====================================================================
+   STATE READERS
+   ===================================================================== */
+function readJSON(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return fallback;
+    return JSON.parse(raw);
+  } catch { return fallback; }
+}
+function writeJSON(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch {}
+}
+
+function liveStats(mock) {
+  const raw = readJSON(mock.storageResults, null);
+  if (!raw) return { answered: 0, right: 0, wrong: 0, blank: mock.total, score: 0, perSection: {} };
+  let right = 0, wrong = 0;
+  const perSection = {};
+  for (const qid of Object.keys(raw)) {
+    const r = raw[qid];
+    if (!r || r.selected == null) continue;
+    const sec = r.section || "unknown";
+    if (!perSection[sec]) perSection[sec] = { right: 0, wrong: 0, total: mock.sections[sec] || 0 };
+    if (r.correct) { right++; perSection[sec].right++; }
+    else { wrong++; perSection[sec].wrong++; }
+  }
+  const answered = right + wrong;
+  const blank = mock.total - answered;
+  return { answered, right, wrong, blank, score: mock.scoring(right, wrong), perSection };
+}
+
+function pctBucket(p) {
+  if (p == null) return "muted";
+  if (p >= 75) return "good";
+  if (p >= 50) return "warn";
+  return "bad";
+}
+
+function bestScore(history, mockId) {
+  const rows = history.filter(h => h.mock === mockId);
+  if (!rows.length) return null;
+  return rows.reduce((m, h) => h.score > m ? h.score : m, -Infinity);
+}
+
+/* =====================================================================
+   RENDER LIVE MOCK CARDS
+   ===================================================================== */
+function renderMocks() {
+  const root = document.getElementById("mocksGrid");
+  root.innerHTML = "";
+
+  for (const m of MOCKS) {
+    const s = liveStats(m);
+    const acc = s.answered ? Math.round((s.right / s.answered) * 100) : null;
+    const bucket = s.answered === 0 ? "muted" : pctBucket(acc);
+    const card = document.createElement("div");
+    card.className = "card mock-card";
+    let secBarsHtml = "";
+    for (const sec of Object.keys(m.sections)) {
+      const total = m.sections[sec];
+      const sd = s.perSection[sec] || { right: 0, wrong: 0 };
+      const att = sd.right + sd.wrong;
+      const skip = total - att;
+      const pct = att ? Math.round((sd.right / att) * 100) : null;
+      const numTxt = att ? `${sd.right}/${att} · ${pct}%` : `0/${total}`;
+      secBarsHtml += `<div class="sec-row">
+        <div class="sec-name">${SECTION_LABELS[sec] || sec}</div>
+        <div class="sec-bar">
+          <span class="b-right" style="flex:${sd.right};"></span>
+          <span class="b-wrong" style="flex:${sd.wrong};"></span>
+          <span class="b-skip"  style="flex:${skip};"></span>
+        </div>
+        <div class="sec-num">${numTxt}</div>
+      </div>`;
+    }
+
+    card.innerHTML = `
+      <div class="mock-head">
+        <div>
+          <div class="mock-name">${m.title}</div>
+          <div class="mock-sub">${m.scoringLabel}</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="mock-score-big ${bucket}">${formatScore(s.score)}<span style="font-size:14px;color:var(--muted);font-weight:500;"> / ${m.max}</span></div>
+          <div class="mock-score-sub">${s.answered}/${m.total} answered${acc != null ? ` · ${acc}%` : ''}</div>
+        </div>
+      </div>
+      <div class="mock-counts">
+        <div><span class="n good">${s.right}</span><span class="l">right</span></div>
+        <div><span class="n bad">${s.wrong}</span><span class="l">wrong</span></div>
+        <div><span class="n muted">${s.blank}</span><span class="l">blank</span></div>
+        <div><span class="n">${m.total}</span><span class="l">total</span></div>
+      </div>
+      <div class="sec-bars">${secBarsHtml}</div>
+      <div class="mock-actions">
+        <a href="${m.path}">Open mock</a>
+        <button data-snap="${m.id}">Snapshot current</button>
+      </div>
+    `;
+    root.appendChild(card);
+  }
+
+  for (const btn of root.querySelectorAll("button[data-snap]")) {
+    btn.addEventListener("click", () => snapshotCurrent(btn.dataset.snap));
+  }
+}
+
+function formatScore(n) {
+  if (n == null) return "—";
+  if (Number.isInteger(n)) return String(n);
+  return n.toFixed(2).replace(/\.?0+$/, "");
+}
+
+/* =====================================================================
+   SNAPSHOT CURRENT
+   ===================================================================== */
+function snapshotCurrent(mockId) {
+  const m = MOCKS.find(x => x.id === mockId);
+  if (!m) return;
+  const s = liveStats(m);
+  if (s.answered === 0) {
+    alert("No answers found in this browser yet. Open the mock and answer some questions first.");
+    return;
+  }
+  const sections = {};
+  for (const sec of Object.keys(m.sections)) {
+    const sd = s.perSection[sec] || { right: 0, wrong: 0 };
+    sections[sec] = { solid: sd.right, guessed: 0, wrong: sd.wrong,
+      skip: m.sections[sec] - sd.right - sd.wrong, total: m.sections[sec] };
+  }
+  const snap = {
+    mock: mockId,
+    ts: new Date().toISOString(),
+    score: s.score,
+    max: m.max,
+    right: s.right,
+    wrong: s.wrong,
+    blank: s.blank,
+    sections
+  };
+  const history = readJSON(HISTORY_KEY, []);
+  history.push(snap);
+  writeJSON(HISTORY_KEY, history);
+  refresh();
+}
+
+/* =====================================================================
+   PASTE EXPORT BLOB
+   ===================================================================== */
+function parseExportBlob(text) {
+  if (!text || !text.trim()) throw new Error("Empty.");
+  const firstLine = text.split("\n", 1)[0].trim();
+  let mockId = null;
+  if (/^MET MOCK 1/i.test(firstLine)) mockId = "met-mock-1";
+  else if (/^NIMHANS MOCK 1/i.test(firstLine)) mockId = "nimhans-mock-1";
+  else if (/^PYQ MOCK 2/i.test(firstLine)) mockId = "pyq-mock-2";
+  if (!mockId) throw new Error("Could not identify which mock this is. Header should start with 'MET MOCK 1', 'NIMHANS MOCK 1', or 'PYQ MOCK 2'.");
+  const m = MOCKS.find(x => x.id === mockId);
+
+  const scoreMatch = text.match(/Score:\s*([\d.]+)\s*\/\s*\d+\s*\(([\d]+)\s+right,\s*([\d]+)\s+wrong,\s*([\d]+)\s+blank/i);
+  if (!scoreMatch) throw new Error("Could not find the 'Score: X/N (R right, W wrong, B blank)' line.");
+  const score = parseFloat(scoreMatch[1]);
+  const right = parseInt(scoreMatch[2], 10);
+  const wrong = parseInt(scoreMatch[3], 10);
+  const blank = parseInt(scoreMatch[4], 10);
+
+  const sections = {};
+  const labelToKey = {
+    "biopsychology": "biopsych", "neuropsych / biopsych": "biopsych", "biopsych": "biopsych",
+    "developmental": "dev", "dev": "dev",
+    "abnormal": "abnormal",
+    "psych assessment": "assessment", "psychological assessment": "assessment", "assessment": "assessment",
+    "psychotherapy": "therapy", "therapy": "therapy",
+    "biostats / research": "biostats", "research / biostats": "biostats", "biostats / methods": "biostats", "biostats": "biostats",
+    "language skills": "language", "language": "language",
+    "social psychology": "social", "social psych": "social", "social": "social",
+    "general / cognitive": "general", "general psychology": "general", "general awareness": "general", "general": "general",
+    "english / reasoning": "english", "english": "english"
+  };
+  const lineRe = /^([A-Za-z][A-Za-z /]+):\s+(\d+)\/(\d+)\s+\((\d+)%\)\s+solid\s+(\d+)\s+guessed\s+(\d+)\s+wrong\s+(\d+)\s+skip\s+(\d+)/gm;
+  let lm;
+  while ((lm = lineRe.exec(text)) !== null) {
+    const label = lm[1].trim().toLowerCase();
+    const key = labelToKey[label];
+    if (!key) continue;
+    sections[key] = {
+      solid: parseInt(lm[5], 10),
+      guessed: parseInt(lm[6], 10),
+      wrong: parseInt(lm[7], 10),
+      skip: parseInt(lm[8], 10),
+      total: parseInt(lm[3], 10)
+    };
+  }
+
+  let ts = new Date().toISOString();
+  const tsMatch = text.match(/Generated:\s*([0-9TZ:.\-+]+)/);
+  if (tsMatch) ts = tsMatch[1].trim();
+
+  return { mock: mockId, ts, score, max: m.max, right, wrong, blank, sections };
+}
+
+function handlePasteSave() {
+  const ta = document.getElementById("pasteBlob");
+  const result = document.getElementById("pasteResult");
+  result.style.display = "none";
+  try {
+    const snap = parseExportBlob(ta.value);
+    const history = readJSON(HISTORY_KEY, []);
+    history.push(snap);
+    writeJSON(HISTORY_KEY, history);
+    const m = MOCKS.find(x => x.id === snap.mock);
+    result.className = "paste-result ok";
+    result.textContent = `Saved snapshot: ${m.title} · ${formatScore(snap.score)}/${snap.max} · ${snap.right} right, ${snap.wrong} wrong, ${snap.blank} blank`;
+    result.style.display = "block";
+    ta.value = "";
+    refresh();
+  } catch (e) {
+    result.className = "paste-result err";
+    result.textContent = "Couldn't parse: " + e.message;
+    result.style.display = "block";
+  }
+}
+
+/* =====================================================================
+   HISTORY TABLE
+   ===================================================================== */
+function renderHistory() {
+  const root = document.getElementById("historyCard");
+  const history = readJSON(HISTORY_KEY, []);
+  if (!history.length) {
+    root.innerHTML = `<div class="empty">No snapshots yet. Hit <b>"Snapshot current"</b> on any mock card above, or paste an export blob below.</div>`;
+    return;
+  }
+  const sorted = [...history].sort((a, b) => b.ts.localeCompare(a.ts));
+  let rows = "";
+  sorted.forEach((h, displayIdx) => {
+    const m = MOCKS.find(x => x.id === h.mock);
+    const title = m ? m.title : h.mock;
+    const pillCls = m ? m.pillClass : "";
+    const acc = (h.right + h.wrong) ? Math.round((h.right / (h.right + h.wrong)) * 100) : null;
+    const bucket = pctBucket(acc);
+    const ts = new Date(h.ts);
+    const tsStr = isNaN(ts.getTime()) ? h.ts : ts.toLocaleString();
+    const origIdx = history.indexOf(h);
+    rows += `<tr>
+      <td><span class="hist-mock-pill ${pillCls}">${title.split(",")[0]}</span></td>
+      <td>${tsStr}</td>
+      <td><b>${formatScore(h.score)}</b> <span style="color:var(--muted);font-size:11px;">/ ${h.max}</span></td>
+      <td><span class="${bucket}">${h.right}</span> / <span class="bad">${h.wrong}</span> / <span style="color:var(--muted);">${h.blank}</span></td>
+      <td>${acc != null ? acc + "%" : "—"}</td>
+      <td style="text-align:right;"><span class="hist-del" data-del="${origIdx}" title="Delete this snapshot">×</span></td>
+    </tr>`;
+  });
+  root.innerHTML = `
+    <table class="hist-table">
+      <thead><tr><th>Mock</th><th>When</th><th>Score</th><th>R/W/Blank</th><th>Accuracy</th><th></th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+  for (const el of root.querySelectorAll(".hist-del")) {
+    el.addEventListener("click", () => {
+      const idx = parseInt(el.dataset.del, 10);
+      const h = readJSON(HISTORY_KEY, []);
+      if (!confirm("Delete this snapshot?")) return;
+      h.splice(idx, 1);
+      writeJSON(HISTORY_KEY, h);
+      refresh();
+    });
+  }
+}
+
+/* =====================================================================
+   JOURNAL (per-mock free-form notes)
+   ===================================================================== */
+function renderJournal() {
+  const root = document.getElementById("notesGrid");
+  const journal = readJSON(JOURNAL_KEY, {});
+  root.innerHTML = "";
+  for (const m of MOCKS) {
+    const text = journal[m.id] || "";
+    const card = document.createElement("div");
+    card.className = "card notes-area";
+    card.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div class="notes-label">${m.title.split(",")[0]}</div>
+        <span class="notes-saved" id="saved-${m.id}">saved</span>
+      </div>
+      <textarea data-journal="${m.id}" placeholder="What felt hard? What to redo? Topics to revisit before next attempt...">${escapeHtml(text)}</textarea>
+    `;
+    root.appendChild(card);
+  }
+  let timer = null;
+  for (const ta of root.querySelectorAll("textarea[data-journal]")) {
+    ta.addEventListener("input", () => {
+      const id = ta.dataset.journal;
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        const j = readJSON(JOURNAL_KEY, {});
+        if (ta.value.trim()) j[id] = ta.value; else delete j[id];
+        writeJSON(JOURNAL_KEY, j);
+        const tag = document.getElementById("saved-" + id);
+        if (tag) { tag.classList.add("visible"); setTimeout(() => tag.classList.remove("visible"), 1100); }
+      }, 350);
+    });
+  }
+}
+
+function escapeHtml(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+
+/* =====================================================================
+   HERO STATS
+   ===================================================================== */
+function renderHero() {
+  const history = readJSON(HISTORY_KEY, []);
+  document.getElementById("heroSnaps").textContent = history.length;
+
+  const mocksAttempted = MOCKS.filter(m => {
+    const s = liveStats(m); return s.answered > 0;
+  }).length;
+  document.getElementById("heroMocks").textContent = mocksAttempted;
+
+  const bestN = bestScore(history, "nimhans-mock-1");
+  const liveN = liveStats(MOCKS.find(x => x.id === "nimhans-mock-1")).score;
+  const showN = Math.max(bestN ?? -Infinity, liveN > 0 ? liveN : -Infinity);
+  document.getElementById("heroBestN").textContent = isFinite(showN) ? formatScore(showN) : "—";
+
+  const bestM = bestScore(history, "met-mock-1");
+  const liveM = liveStats(MOCKS.find(x => x.id === "met-mock-1")).score;
+  const showM = Math.max(bestM ?? -Infinity, liveM > 0 ? liveM : -Infinity);
+  document.getElementById("heroBestM").textContent = isFinite(showM) ? formatScore(showM) : "—";
+}
+
+function updateCountdown() {
+  const exam = new Date('2026-05-23T00:00:00+05:30');
+  const now = new Date();
+  const ms = exam - now;
+  const days = ms > 0 ? Math.floor(ms / (1000 * 60 * 60 * 24)) : 0;
+  document.getElementById("countdownChip").textContent = ms > 0 ? `${days} days to MET` : "Exam day!";
+}
+
+/* =====================================================================
+   BACKUP / RESTORE / WIPE
+   ===================================================================== */
+function backup() {
+  const payload = { v: 1, ts: new Date().toISOString(),
+    history: readJSON(HISTORY_KEY, []), journal: readJSON(JOURNAL_KEY, {}) };
+  const code = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(code).then(
+      () => alert("Backup code copied. Save it somewhere safe (WhatsApp to yourself works)."),
+      () => prompt("Copy this backup code:", code));
+  } else { prompt("Copy this backup code:", code); }
+}
+function restore() {
+  const code = prompt("Paste a backup code. This will REPLACE current snapshots + journal.");
+  if (!code) return;
+  try {
+    const payload = JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
+    if (payload.v !== 1) throw new Error("Unknown version");
+    if (Array.isArray(payload.history)) writeJSON(HISTORY_KEY, payload.history);
+    if (payload.journal && typeof payload.journal === "object") writeJSON(JOURNAL_KEY, payload.journal);
+    refresh();
+    alert(`Restored ${(payload.history || []).length} snapshots + journal notes.`);
+  } catch (e) { alert("Could not restore: that doesn't look like a valid backup code."); }
+}
+function wipe() {
+  if (!confirm("Wipe ALL snapshots and journal notes from this browser? This cannot be undone.")) return;
+  try { localStorage.removeItem(HISTORY_KEY); localStorage.removeItem(JOURNAL_KEY); } catch {}
+  refresh();
+}
+
+/* =====================================================================
+   INIT
+   ===================================================================== */
+function refresh() {
+  updateCountdown();
+  renderHero();
+  renderMocks();
+  renderHistory();
+  renderJournal();
+}
+
+document.getElementById("pasteSaveBtn").addEventListener("click", handlePasteSave);
+document.getElementById("pasteClearBtn").addEventListener("click", () => {
+  document.getElementById("pasteBlob").value = "";
+  document.getElementById("pasteResult").style.display = "none";
+});
+document.getElementById("backupBtn").addEventListener("click", backup);
+document.getElementById("restoreBtn").addEventListener("click", restore);
+document.getElementById("wipeBtn").addEventListener("click", wipe);
+
+refresh();
+setInterval(updateCountdown, 60 * 60 * 1000);
+window.addEventListener("focus", refresh);
+window.addEventListener("storage", refresh);
+</script>
+</body>
+</html>
