@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPA Axis — Stress, Cortisol, Dysregulation — MET 2026 + NIMHANS</title>
+<link rel="stylesheet" href="../../notes-style.css">
+<style>
+  .hy-banner {
+    background: linear-gradient(135deg, rgba(88,166,255,0.12), rgba(63,185,80,0.10));
+    border: 1px solid var(--accent-dim);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 0 0 24px 0;
+    font-size: 14px;
+    color: var(--text);
+  }
+  .hy-banner b { color: var(--accent); }
+  .trap { background: rgba(248,81,73,0.08); border-left: 3px solid var(--bad); padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .trap b { color: var(--bad); }
+  .rule { background: rgba(63,185,80,0.08); border-left: 3px solid var(--good); padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .rule b { color: var(--good); }
+  .flow {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin: 12px 0;
+    font-family: 'SF Mono', Menlo, monospace;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: auto;
+  }
+  .flow b { color: var(--accent); }
+  .flow span.bad { color: var(--bad); }
+  .flow span.good { color: var(--good); }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <a href="../../">← Dashboard</a>
+  <a href="../">All Notes</a>
+  <a href="../biopsych-cheatsheet/">Biopsych</a>
+  <a href="../disorders-genetic/">Disorders</a>
+</nav>
+
+<h1>HPA Axis — Stress Endocrinology</h1>
+<p style="color: var(--muted); font-size: 13px;">Hypothalamic-Pituitary-Adrenal axis · Built 2026-05-16</p>
+
+<div class="hy-banner">
+<b>Why this matters.</b> HPA shows up in MET + NIMHANS papers under at least four hats: (1) biopsych "draw the axis," (2) abnormal psych "HPA in MDD/PTSD/Cushing's," (3) stress/health psych "Selye + allostatic load," (4) assessment "dexamethasone suppression test." One page, all four.
+<br><br>
+<b>Three things to know cold:</b> CRH → ACTH → cortisol, the negative feedback loop, and which psychiatric disorder shows what kind of HPA dysregulation.
+</div>
+
+<!-- ============== 1. ANATOMY ============== -->
+
+<h2>1. The axis in one diagram</h2>
+<div class="flow">
+<b>STRESSOR</b> (physical, psychological, immune)<br>
+&nbsp;&nbsp;↓<br>
+<b>HYPOTHALAMUS</b> (paraventricular nucleus, PVN)<br>
+&nbsp;&nbsp;→ releases <b>CRH</b> (Corticotropin-Releasing Hormone) + AVP (vasopressin, synergistic)<br>
+&nbsp;&nbsp;↓ (via portal blood, infundibular stalk)<br>
+<b>ANTERIOR PITUITARY</b> (corticotroph cells)<br>
+&nbsp;&nbsp;→ releases <b>ACTH</b> (Adrenocorticotropic Hormone) from POMC precursor<br>
+&nbsp;&nbsp;↓ (via systemic circulation)<br>
+<b>ADRENAL CORTEX</b> — zona fasciculata<br>
+&nbsp;&nbsp;→ releases <b>CORTISOL</b> (glucocorticoid) + small DHEA, weak aldosterone<br>
+&nbsp;&nbsp;↓<br>
+<b>TARGET TISSUES</b>: liver, muscle, fat, immune, brain<br>
+<br>
+<span class="good">NEGATIVE FEEDBACK</span>: cortisol inhibits both <b>hypothalamus</b> (↓CRH) and <b>pituitary</b> (↓ACTH).<br>
+This loop shuts the response off when the stressor ends. In MDD and PTSD it breaks.
+</div>
+
+<h3>1.1 Anatomy details to memorise</h3>
+<ul>
+  <li><b>Paraventricular nucleus (PVN)</b> of hypothalamus — the brain origin of stress.</li>
+  <li>CRH = 41-amino-acid peptide, half-life ~60 min. Co-secreted with AVP (potentiates).</li>
+  <li>Anterior pituitary corticotrophs make POMC → cleaved to ACTH + β-endorphin + MSH.</li>
+  <li>Adrenal cortex layers (outside in): <b>G</b>lomerulosa (aldosterone), <b>F</b>asciculata (cortisol), <b>R</b>eticularis (androgens — DHEA). Memory: "<b>GFR</b>, salt-sugar-sex deeper you go".</li>
+  <li>Adrenal medulla (inner) makes <b>adrenaline / noradrenaline</b> via SAM axis — fast, "fight-or-flight". HPA is the slower, sustained arm.</li>
+</ul>
+
+<h2>2. The two stress systems (compare and contrast)</h2>
+<table>
+<tr><th></th><th>SAM (Sympatho-Adrenal Medullary)</th><th>HPA</th></tr>
+<tr><td>Onset</td><td>Seconds</td><td>Minutes</td></tr>
+<tr><td>Hormones</td><td>Adrenaline, noradrenaline</td><td>Cortisol (with CRH, ACTH)</td></tr>
+<tr><td>Source</td><td>Adrenal medulla, sympathetic neurons</td><td>Adrenal cortex, via hypothalamus + pituitary</td></tr>
+<tr><td>Effect</td><td>↑HR, ↑BP, pupil dilation, bronchodilation, blood to muscle</td><td>↑glucose, ↑BP sustained, ↓immune, ↑gluconeogenesis, ↑lipolysis</td></tr>
+<tr><td>Role</td><td>Immediate fight-or-flight</td><td>Sustained mobilisation + recovery</td></tr>
+<tr><td>Cannon vs Selye</td><td>Cannon's "fight or flight"</td><td>Selye's GAS, "stress" coined</td></tr>
+</table>
+
+<!-- ============== 2. CORTISOL ACTIONS ============== -->
+
+<h2>3. Cortisol — what it actually does</h2>
+<ul>
+  <li><b>Metabolic</b>: ↑gluconeogenesis, ↑glycogenolysis, ↑lipolysis, ↑proteolysis (catabolic). Raises blood glucose.</li>
+  <li><b>Immune</b>: suppresses inflammation, decreases lymphocytes, neutrophilia. That's why glucocorticoids are anti-inflammatory drugs.</li>
+  <li><b>Cardiovascular</b>: maintains vascular tone, permissive for catecholamines.</li>
+  <li><b>CNS</b>: alertness, attention. At chronic high levels: hippocampal atrophy, memory deficits, mood changes.</li>
+  <li><b>GI</b>: ↑gastric acid (chronic stress → ulcers).</li>
+  <li><b>Bone</b>: ↑resorption, ↓formation → osteoporosis with chronic excess.</li>
+</ul>
+
+<h3>3.1 Cortisol's diurnal rhythm</h3>
+<ul>
+  <li><b>Peak</b>: ~30 min after waking ("cortisol awakening response", CAR).</li>
+  <li><b>Trough</b>: around midnight.</li>
+  <li>Tightly tied to SCN (suprachiasmatic nucleus) circadian rhythm via the hypothalamus.</li>
+  <li>Disrupted in shift workers, depression, chronic insomnia, jet lag.</li>
+</ul>
+
+<!-- ============== 3. DYSREGULATION ============== -->
+
+<h2>4. HPA dysregulation in psychiatric disorders</h2>
+
+<h3>4.1 Major Depressive Disorder (MDD)</h3>
+<ul>
+  <li><b>Hyperactive HPA axis</b> is one of the most replicated biological findings in MDD.</li>
+  <li>Elevated baseline cortisol; <b>blunted</b> diurnal variation; flattened cortisol awakening response.</li>
+  <li>Enlarged adrenal glands on imaging.</li>
+  <li><b>Dexamethasone Suppression Test (DST)</b>: give 1 mg dex at 11 pm, measure cortisol next morning. In healthy subjects → cortisol suppressed. In ~50% of melancholic / psychotic depression → <b>non-suppression</b>. Sensitivity ~40-50%, specificity ~80-90%, not used diagnostically but historically big in NIMHANS papers (Carroll DST).</li>
+  <li>Mechanism: <b>impaired glucocorticoid receptor feedback</b> → cortisol cannot turn the axis off → sustained CRH drive. Reduces hippocampal BDNF, contributes to volume loss.</li>
+  <li>SSRIs and CBT both <b>normalise HPA</b> over weeks of treatment.</li>
+</ul>
+
+<h3>4.2 PTSD — paradox</h3>
+<ul>
+  <li>PTSD shows <b>low</b> basal cortisol (often) but <b>enhanced</b> negative feedback (super-suppression on low-dose DST).</li>
+  <li>Elevated CRH in CSF.</li>
+  <li>Theory: hypersensitive glucocorticoid receptors → over-suppression of cortisol after stressor.</li>
+  <li>Contrast with MDD: depressed = hypercortisolaemic with failed feedback; PTSD = hypocortisolaemic with exaggerated feedback. <b>Frequent MCQ trap.</b></li>
+</ul>
+
+<h3>4.3 Cushing's syndrome / disease</h3>
+<ul>
+  <li><b>Excess cortisol</b> from any cause.</li>
+  <li>Cushing's <b>disease</b> = pituitary ACTH-secreting adenoma (most common endogenous cause).</li>
+  <li>Cushing's <b>syndrome</b> = the broader phenotype, often iatrogenic (exogenous steroids).</li>
+  <li>Physical: central obesity, moon face, buffalo hump, purple striae, hirsutism, hypertension, hyperglycaemia, thin skin, easy bruising.</li>
+  <li>Psychiatric: <b>depression in 50-80%</b>, irritability, anxiety, insomnia, occasional psychosis or mania. Treating the Cushing's often resolves the depression — pure example of endocrine psychiatry.</li>
+</ul>
+
+<h3>4.4 Addison's disease</h3>
+<ul>
+  <li><b>Primary adrenal insufficiency</b> — cortisol and aldosterone deficient.</li>
+  <li>Fatigue, weight loss, hyperpigmentation (high ACTH stimulates MSH), hypotension, hyponatraemia, hyperkalaemia.</li>
+  <li>Psychiatric: apathy, depression, occasional psychosis. Reverses with hydrocortisone replacement.</li>
+</ul>
+
+<h3>4.5 Anxiety disorders, panic, OCD</h3>
+<ul>
+  <li>Findings are mixed. Panic disorder shows mild HPA activation during attacks but normal baselines.</li>
+  <li>GAD: subtle blunting of CAR, elevated evening cortisol.</li>
+  <li>OCD: no clear HPA signature — less examinable than mood / PTSD.</li>
+</ul>
+
+<h3>4.6 Schizophrenia</h3>
+<ul>
+  <li>HPA hyperactivity at first episode, especially with poor outcome.</li>
+  <li>Cortisol rises before psychotic relapse in some prospective studies.</li>
+  <li>Linked to dopamine sensitisation theory ("threat → cortisol → mesolimbic DA").</li>
+</ul>
+
+<h3>4.7 Eating disorders</h3>
+<ul>
+  <li>Anorexia nervosa: hypercortisolaemia, loss of diurnal variation, often DST non-suppression even without depression.</li>
+  <li>Restoration of weight partly normalises HPA.</li>
+</ul>
+
+<h3>4.8 Early life stress / abuse</h3>
+<ul>
+  <li>Childhood maltreatment → durable HPA dysregulation in adulthood (often blunted reactivity + altered glucocorticoid receptor methylation).</li>
+  <li>Mediator for later depression, PTSD, addiction risk.</li>
+  <li><b>McGowan / Meaney</b> rat studies — maternal licking ↑ glucocorticoid receptor in hippocampus → calmer adult. Classic epigenetics MCQ.</li>
+</ul>
+
+<!-- ============== 4. SELYE + ALLOSTASIS ============== -->
+
+<h2>5. Stress theory — Selye and beyond</h2>
+
+<h3>5.1 Selye's General Adaptation Syndrome (GAS)</h3>
+<table>
+<tr><th>Stage</th><th>What happens</th><th>HPA state</th></tr>
+<tr><td><b>Alarm</b></td><td>"Fight or flight": SAM activation first, then HPA kicks in</td><td>Cortisol rises sharply</td></tr>
+<tr><td><b>Resistance</b></td><td>Body adapts, mobilises resources, performance can rise</td><td>Cortisol elevated and sustained</td></tr>
+<tr><td><b>Exhaustion</b></td><td>Resources depleted, disease onset (ulcers, infection, depression)</td><td>HPA dysregulation — high or low</td></tr>
+</table>
+<div class="rule"><b>Memory:</b> A-R-E (Alarm, Resistance, Exhaustion). Selye called the non-specific response to demand "stress" and the trigger "stressor". His rat experiments (1936) launched the field.</div>
+
+<h3>5.2 Cannon — "fight or flight" (1915)</h3>
+<ul>
+  <li>Walter Cannon coined "fight or flight" — the immediate SAM response.</li>
+  <li>Predates Selye; describes the acute phase only.</li>
+  <li>"<b>Homeostasis</b>" is also Cannon's term — keeping internal milieu constant.</li>
+</ul>
+
+<h3>5.3 Allostasis and allostatic load (McEwen, 1993+)</h3>
+<ul>
+  <li><b>Allostasis</b> = achieving stability through change (active adaptation, not just returning to a setpoint).</li>
+  <li><b>Allostatic load</b> = the wear-and-tear from chronic activation of adaptive systems (HPA, SAM, immune).</li>
+  <li><b>Allostatic overload</b> = the load becomes pathology: cardiovascular disease, depression, metabolic syndrome, immune dysfunction.</li>
+  <li>Updates Selye's "exhaustion" with a cumulative, multi-system model.</li>
+  <li>Bruce McEwen — high-yield name for any "modern stress theory" MCQ.</li>
+</ul>
+
+<h3>5.4 Lazarus & Folkman — cognitive appraisal (1984)</h3>
+<ul>
+  <li>Stress is the relationship between person and environment <b>appraised as exceeding resources</b>.</li>
+  <li><b>Primary appraisal</b>: is this event harmful/threatening/challenging?</li>
+  <li><b>Secondary appraisal</b>: can I cope with it?</li>
+  <li>Coping styles: <b>problem-focused</b> vs <b>emotion-focused</b>.</li>
+  <li>Transactional model — bridges biology with cognition; what activates HPA depends on appraisal, not the event alone.</li>
+</ul>
+
+<!-- ============== 5. ASSESSMENT / NEURO ============== -->
+
+<h2>6. Measuring the HPA axis</h2>
+<ul>
+  <li><b>Salivary cortisol</b> — non-invasive, captures diurnal rhythm and CAR. Used in research.</li>
+  <li><b>24-hour urinary free cortisol</b> — best for Cushing's screening.</li>
+  <li><b>Midnight serum cortisol</b> — should be low; non-suppression suggests Cushing's.</li>
+  <li><b>Dexamethasone Suppression Test (DST)</b>:
+    <ul>
+      <li>Low-dose (1 mg overnight) — screen for Cushing's; non-suppression abnormal.</li>
+      <li>High-dose (8 mg) — distinguishes pituitary Cushing's (suppresses) from ectopic ACTH (no suppression).</li>
+      <li>In psychiatry: Carroll DST in depression — non-suppression suggests melancholic depression.</li>
+    </ul>
+  </li>
+  <li><b>CRH stimulation test</b> — distinguishes hypothalamic vs pituitary defects.</li>
+  <li><b>Trier Social Stress Test (TSST)</b> — laboratory stressor (mock interview + arithmetic). Reliably activates HPA in healthy controls; blunted in many psychiatric groups. Highly cited.</li>
+</ul>
+
+<h2>7. HPA + neuroplasticity — why chronic cortisol matters</h2>
+<ul>
+  <li><b>Hippocampus</b> is densely packed with glucocorticoid receptors. Chronic cortisol → dendritic atrophy in CA3, suppression of neurogenesis in dentate gyrus, hippocampal volume loss (MRI in MDD, PTSD, Cushing's).</li>
+  <li>Cortisol ↓ <b>BDNF</b> (brain-derived neurotrophic factor) → less synaptic plasticity. Antidepressants reverse this over weeks.</li>
+  <li><b>Prefrontal cortex</b> also atrophies; <b>amygdala</b> often hypertrophies or hyperreacts → fear bias.</li>
+  <li>This biology underpins the <b>"neurotrophic hypothesis of depression"</b>: stress → ↑cortisol → ↓BDNF → ↓hippocampal plasticity → depressive phenotype. Reversed by antidepressants and exercise.</li>
+</ul>
+
+<!-- ============== 6. ONE-PAGE SUMMARY ============== -->
+
+<h2>8. One-page exam summary</h2>
+<table>
+<tr><th>Element</th><th>Answer in 1 line</th></tr>
+<tr><td>Source of CRH</td><td>Paraventricular nucleus of hypothalamus</td></tr>
+<tr><td>Source of ACTH</td><td>Anterior pituitary corticotrophs (from POMC)</td></tr>
+<tr><td>Source of cortisol</td><td>Adrenal cortex, zona fasciculata</td></tr>
+<tr><td>Feedback target</td><td>Hypothalamus + pituitary (negative)</td></tr>
+<tr><td>Cortisol peak / trough</td><td>Peak 30 min post-waking (CAR), trough ~midnight</td></tr>
+<tr><td>Fast vs slow stress</td><td>SAM (seconds, adrenaline) vs HPA (minutes, cortisol)</td></tr>
+<tr><td>Selye's stages</td><td>Alarm → Resistance → Exhaustion</td></tr>
+<tr><td>Allostatic load</td><td>McEwen — wear and tear of chronic adaptation</td></tr>
+<tr><td>MDD HPA</td><td>Hyper-cortisol, blunted rhythm, DST non-suppression</td></tr>
+<tr><td>PTSD HPA</td><td>Hypo-cortisol, exaggerated feedback (paradox)</td></tr>
+<tr><td>Cushing's</td><td>↑cortisol, depression in 50-80%, central obesity, striae</td></tr>
+<tr><td>Addison's</td><td>↓cortisol, hyperpigmentation, apathy/depression</td></tr>
+<tr><td>Hippocampal effect</td><td>Chronic cortisol → atrophy, ↓BDNF, ↓neurogenesis</td></tr>
+<tr><td>Test for HPA in research</td><td>Salivary CAR, TSST, low-dose DST</td></tr>
+</table>
+
+<h2>9. Top 10 MCQ traps</h2>
+<ol>
+  <li>"Releasing hormone for cortisol" → <b>CRH</b>, not ACTH. ACTH is the pituitary hormone <b>downstream</b> of CRH.</li>
+  <li>Adrenal cortex layers: <b>GFR</b> → glomerulosa (aldosterone) / fasciculata (cortisol) / reticularis (androgens). Medulla = adrenaline.</li>
+  <li>MDD = <b>hyper</b>-cortisol with failed suppression. PTSD = <b>hypo</b>-cortisol with super-suppression. Don't mix these up.</li>
+  <li>DST non-suppression has <b>poor sensitivity</b> — not diagnostic, only suggestive of melancholic depression.</li>
+  <li>Cushing's <b>disease</b> = pituitary adenoma. Cushing's <b>syndrome</b> = any cause of hypercortisolism (often iatrogenic steroids).</li>
+  <li>Addison's hyperpigmentation is from <b>MSH</b> (made from same POMC precursor as ACTH).</li>
+  <li>"Stress" was coined by <b>Selye</b>, "fight or flight" by <b>Cannon</b>, "allostatic load" by <b>McEwen</b>, "cognitive appraisal" by <b>Lazarus & Folkman</b>.</li>
+  <li>Cortisol awakening response peaks <b>~30 minutes after waking</b>, not at waking.</li>
+  <li>Chronic cortisol → <b>hippocampal atrophy</b> (memory complaints in depression, Cushing's).</li>
+  <li>Glucocorticoid receptor methylation (Meaney) is the headline <b>epigenetics</b> finding linking early life care to adult stress reactivity.</li>
+</ol>
+
+<div class="hy-banner" style="margin-top: 28px;">
+<b>Companion notes</b>: <a href="../disorders-genetic/">Genetic & metabolic disorders</a>, <a href="../biopsych-cheatsheet/">Biopsych cheatsheet (full endocrine table)</a>, <a href="../revision-pack/">Consolidated revision pack</a>.
+</div>
+
+<footer>Sihan MET 2026 + NIMHANS prep · /notes/hpa-axis/</footer>
+</div>
+</body>
+</html>
