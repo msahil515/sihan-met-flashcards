@@ -6,6 +6,28 @@
 <meta name="theme-color" content="#0d1117">
 <title>Tests — MET 2026 + NIMHANS</title>
 <link rel="stylesheet" href="../site.css">
+<style>
+  .backup-card { display: flex; flex-direction: column; gap: 14px; }
+  .backup-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .backup-btn { font-size: 13px; padding: 9px 16px; border-radius: 6px; cursor: pointer;
+    border: 1px solid var(--accent-dim); background: var(--accent-dim); color: white; font-weight: 600; }
+  .backup-btn:hover { background: var(--accent); }
+  .backup-btn.ghost { background: transparent; color: var(--text); border-color: var(--border); font-weight: 500; }
+  .backup-btn.ghost:hover { background: var(--panel-2); border-color: var(--accent-dim); color: var(--accent); }
+  .backup-file-label { font-size: 13px; padding: 9px 16px; border-radius: 6px; cursor: pointer;
+    border: 1px solid var(--border); background: var(--panel-2); color: var(--text); font-weight: 500;
+    display: inline-flex; align-items: center; gap: 6px; }
+  .backup-file-label:hover { border-color: var(--accent-dim); color: var(--accent); }
+  .backup-file-label input[type=file] { display: none; }
+  .backup-status { font-size: 12px; color: var(--muted); min-height: 16px; }
+  .backup-status.ok { color: var(--good); }
+  .backup-status.err { color: var(--bad); }
+  .backup-counts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+    background: var(--panel-2); border-radius: 6px; padding: 10px; font-size: 12px; text-align: center; }
+  .backup-counts > div { padding: 4px; }
+  .backup-counts .n { display: block; font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .backup-counts .l { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+</style>
 </head>
 <body>
 
@@ -85,6 +107,31 @@
         </div>
         <div class="card-cta" id="cardsScore">Open →</div>
       </a>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">Backup all progress to a file</h2>
+      <span class="section-sub">One file covers every mock, the mixed bank, flashcards, snapshots and journal · switch device or wipe browser safely</span>
+    </div>
+    <div class="card backup-card">
+      <div class="backup-counts" id="backupCounts">
+        <div><span class="n" id="bcMocks">—</span><span class="l">mocks with answers</span></div>
+        <div><span class="n" id="bcDecks">—</span><span class="l">flashcard decks</span></div>
+        <div><span class="n" id="bcSnaps">—</span><span class="l">snapshots</span></div>
+        <div><span class="n" id="bcSize">—</span><span class="l">file size</span></div>
+      </div>
+      <div class="backup-row">
+        <button class="backup-btn" id="downloadBackupBtn">Download backup .json</button>
+        <label class="backup-file-label">
+          Restore from file
+          <input type="file" accept="application/json,.json" id="restoreFileInput">
+        </label>
+        <button class="backup-btn ghost" id="copyBackupBtn">Copy as code</button>
+      </div>
+      <div class="backup-status" id="backupStatus"></div>
+      <p class="muted" style="font-size:12px;margin:0;">Restoring overwrites whatever's in this browser. The download is named with today's date so you can keep multiple. The "code" button copies a base64 blob if you'd rather paste it somewhere instead of saving a file.</p>
     </div>
   </section>
 
@@ -243,10 +290,150 @@ function updateCountdown() {
   document.getElementById("countdownChip").textContent = ms > 0 ? `${d} days to MET` : "Exam day!";
 }
 
+/* =====================================================================
+   BACKUP / RESTORE (covers everything the site stores in this browser)
+   ===================================================================== */
+const BACKUP_KEYS = [
+  "met-mock-1-results-v1",      "met-mock-1-notes-v1",      "met-mock-1-progress-v1",
+  "nimhans-mock-1-results-v2",  "nimhans-mock-1-notes-v2",  "nimhans-mock-1-progress-v2",
+  "pyq-mock-2-results-v1",      "pyq-mock-2-notes-v1",      "pyq-mock-2-progress-v1",
+  "sihan-met-quiz-results-v1",  "sihan-met-quiz-notes-v1",  "sihan-met-quiz-progress-v1",
+  "sihan-met-progress-bio-01",  "sihan-met-progress-bio-02", "sihan-met-progress-bio-03",
+  "sihan-met-progress-ass-01",  "sihan-met-progress-ass-02",
+  "results-history-v1",         "results-journal-v1"
+];
+const FLASHCARD_DECKS = ["bio-01","bio-02","bio-03","ass-01","ass-02"];
+
+function collectBackup() {
+  const data = {};
+  for (const k of BACKUP_KEYS) {
+    const raw = localStorage.getItem(k);
+    if (raw != null) data[k] = raw;
+  }
+  return { v: 1, app: "sihan-met-prep", ts: new Date().toISOString(), data };
+}
+
+function applyBackup(payload) {
+  if (!payload || typeof payload !== "object") throw new Error("not a valid backup file");
+  if (payload.app && payload.app !== "sihan-met-prep") throw new Error("backup is from a different app");
+  if (!payload.data || typeof payload.data !== "object") throw new Error("missing data block");
+  let restored = 0;
+  for (const k of Object.keys(payload.data)) {
+    if (!BACKUP_KEYS.includes(k)) continue;
+    const v = payload.data[k];
+    if (typeof v !== "string") continue;
+    try { JSON.parse(v); } catch { continue; }
+    localStorage.setItem(k, v);
+    restored++;
+  }
+  return restored;
+}
+
+function backupCounts() {
+  let mocks = 0;
+  for (const m of MOCKS) {
+    const r = readJSON(m.storageKey, null);
+    if (r && Object.values(r).some(v => v && v.selected != null)) mocks++;
+  }
+  let decks = 0;
+  for (const d of FLASHCARD_DECKS) {
+    const p = readJSON("sihan-met-progress-" + d, null);
+    if (p && ((p.knew?.length || 0) + (p.missed?.length || 0)) > 0) decks++;
+  }
+  const snaps = (readJSON("results-history-v1", []) || []).length;
+  let bytes = 0;
+  for (const k of BACKUP_KEYS) {
+    const raw = localStorage.getItem(k);
+    if (raw) bytes += raw.length + k.length;
+  }
+  return { mocks, decks, snaps, bytes };
+}
+
+function fmtBytes(b) {
+  if (b < 1024) return b + " B";
+  if (b < 1024 * 1024) return (b / 1024).toFixed(1) + " KB";
+  return (b / 1024 / 1024).toFixed(2) + " MB";
+}
+
+function renderBackupCounts() {
+  const c = backupCounts();
+  document.getElementById("bcMocks").textContent = c.mocks;
+  document.getElementById("bcDecks").textContent = c.decks;
+  document.getElementById("bcSnaps").textContent = c.snaps;
+  document.getElementById("bcSize").textContent = c.bytes ? fmtBytes(c.bytes) : "—";
+}
+
+function setStatus(msg, cls) {
+  const el = document.getElementById("backupStatus");
+  el.textContent = msg || "";
+  el.className = "backup-status" + (cls ? " " + cls : "");
+}
+
+function downloadBackup() {
+  const payload = collectBackup();
+  const keys = Object.keys(payload.data).length;
+  if (!keys) { setStatus("Nothing to back up yet, this browser is empty.", "err"); return; }
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const today = new Date().toISOString().slice(0, 10);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `sihan-met-prep-backup-${today}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  setStatus(`Downloaded ${keys} keys, ${fmtBytes(blob.size)}.`, "ok");
+}
+
+function copyBackupCode() {
+  const payload = collectBackup();
+  const keys = Object.keys(payload.data).length;
+  if (!keys) { setStatus("Nothing to back up yet, this browser is empty.", "err"); return; }
+  const code = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+  const done = () => setStatus(`Copied a ${fmtBytes(code.length)} code for ${keys} keys, paste it into "Restore from code" elsewhere.`, "ok");
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(code).then(done, () => prompt("Copy this backup code:", code));
+  } else { prompt("Copy this backup code:", code); done(); }
+}
+
+function restoreFromFile(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onerror = () => setStatus("Could not read that file.", "err");
+  reader.onload = () => {
+    let payload;
+    try { payload = JSON.parse(reader.result); }
+    catch {
+      try { payload = JSON.parse(decodeURIComponent(escape(atob(String(reader.result).trim())))); }
+      catch { setStatus("That file is not a valid backup, neither JSON nor a backup code.", "err"); return; }
+    }
+    if (!confirm("Restoring will OVERWRITE current progress in this browser. Continue?")) { setStatus("Restore cancelled.", ""); return; }
+    try {
+      const n = applyBackup(payload);
+      if (!n) { setStatus("Backup file had no matching keys, nothing restored.", "err"); return; }
+      setStatus(`Restored ${n} keys from ${file.name}. Refreshing scores...`, "ok");
+      refresh();
+    } catch (e) { setStatus("Restore failed: " + e.message, "err"); }
+  };
+  reader.readAsText(file);
+}
+
+function refresh() { renderMocks(); renderDrillScores(); renderBackupCounts(); }
+
 renderMocks();
 renderDrillScores();
+renderBackupCounts();
 updateCountdown();
-window.addEventListener("focus", () => { renderMocks(); renderDrillScores(); });
+
+document.getElementById("downloadBackupBtn").addEventListener("click", downloadBackup);
+document.getElementById("copyBackupBtn").addEventListener("click", copyBackupCode);
+document.getElementById("restoreFileInput").addEventListener("change", (e) => {
+  const f = e.target.files && e.target.files[0];
+  restoreFromFile(f);
+  e.target.value = "";
+});
+
+window.addEventListener("focus", refresh);
+window.addEventListener("storage", refresh);
 </script>
 
 </body>
