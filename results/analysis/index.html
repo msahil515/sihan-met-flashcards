@@ -147,6 +147,21 @@
   .btn-link { color: var(--accent); border: 1px solid var(--accent-dim); padding: 8px 14px; border-radius: 6px; text-decoration: none; display: inline-block; }
   .btn-link:hover { background: rgba(88,166,255,0.06); }
 
+  /* Companion debrief callout (NIMHANS) */
+  .companion-card { background: linear-gradient(135deg, rgba(88,166,255,0.10), rgba(88,166,255,0.03));
+    border: 1px solid var(--accent-dim); border-radius: 12px; padding: 18px 22px; margin: 8px 0 24px 0;
+    display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; }
+  .companion-card .c-label { font-size: 10px; color: var(--accent); text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; margin-bottom: 4px; }
+  .companion-card .c-title { font-size: 17px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+  .companion-card .c-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
+  .companion-card a.c-btn { background: rgba(88,166,255,0.18); color: var(--accent); border: 1px solid var(--accent);
+    padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+  .companion-card a.c-btn:hover { background: rgba(88,166,255,0.32); }
+  @media (max-width: 720px) {
+    .companion-card { grid-template-columns: 1fr; }
+    .companion-card a.c-btn { text-align: center; }
+  }
+
   @media (max-width: 720px) {
     .hero-grid { grid-template-columns: 1fr; }
     .hero-score-num { font-size: 44px; }
@@ -254,6 +269,8 @@
       <div class="revise-grid" id="reviseGrid"></div>
     </section>
 
+    <div id="companionCallout" style="display:none;"></div>
+
     <section>
       <div class="section-head">
         <h2 class="section-title">Per-question review</h2>
@@ -293,7 +310,8 @@ const MOCKS = [
       { min: 160, max: 199, name: "Below median", cls: "bad", desc: "Most full-length attempters score higher than this. Likely a section is genuinely soft — see the 'Revise next' block below and stop attempting new topics until it's patched." },
       { min: -400, max: 159, name: "Cold start", cls: "bad", desc: "Score will climb fast once you do focused revision on the weakest section. Don't grind more mocks until you've closed it." }
     ],
-    cutoff: 320, cutoffLabel: "MET target 320"
+    cutoff: 320, cutoffLabel: "MET target 320",
+    companion: null
   },
   {
     id: "nimhans-mock-1",
@@ -314,7 +332,12 @@ const MOCKS = [
       { min: 65, max: 69.99, name: "Needs work", cls: "bad", desc: "Section gaps, not exam strategy. The revise-next block below is the playbook." },
       { min: -100, max: 64.99, name: "Below band", cls: "bad", desc: "Don't move on to a new mock. Drill the weakest 2 sections from cheatsheets + flashcards, then re-attempt the same PYQs in 10 days." }
     ],
-    cutoff: 80, cutoffLabel: "NIMHANS cut-off 80"
+    cutoff: 80, cutoffLabel: "NIMHANS cut-off 80",
+    companion: {
+      title: "Hand-written section-by-section debrief",
+      desc: "Sahil's per-question walkthrough of your 71.25/80 attempt: every wrong / guessed / flagged note explained, biopsych called out as the leak (60% accuracy), and the 3-day fix plan to clear cut-off. Read this alongside the per-question review below.",
+      href: "../../notes/nimhans-mock-1-debrief/"
+    }
   },
   {
     id: "pyq-mock-2",
@@ -335,7 +358,8 @@ const MOCKS = [
       { min: 65, max: 69.99, name: "Needs work", cls: "bad", desc: "Likely 1-2 sections under 50%. Cheatsheets first, then re-attempt." },
       { min: -100, max: 64.99, name: "Below band", cls: "bad", desc: "Pause new mocks. Do the targeted revision and re-attempt this same paper after a focused week." }
     ],
-    cutoff: 80, cutoffLabel: "cut-off ~80"
+    cutoff: 80, cutoffLabel: "cut-off ~80",
+    companion: null
   }
 ];
 
@@ -752,8 +776,24 @@ function init() {
   renderSecTable(mock, stats);
   renderWeak(mock, stats);
   renderRevise(mock, stats);
+  renderCompanion(mock);
   renderFilters(mock, stats);
   renderQList(mock);
+}
+
+function renderCompanion(mock) {
+  const root = document.getElementById("companionCallout");
+  if (!mock.companion) { root.style.display = "none"; root.innerHTML = ""; return; }
+  const c = mock.companion;
+  root.style.display = "block";
+  root.innerHTML = `<div class="companion-card">
+    <div>
+      <div class="c-label">Companion read</div>
+      <div class="c-title">${escapeHtml(c.title)}</div>
+      <div class="c-desc">${escapeHtml(c.desc)}</div>
+    </div>
+    <a class="c-btn" href="${c.href}">Open debrief →</a>
+  </div>`;
 }
 
 init();
