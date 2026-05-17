@@ -42,7 +42,6 @@
       <a href="./" class="active">Tests</a>
       <a href="../results/">My Results</a>
       <a href="../notes/">Notes</a>
-      <a href="../flashcards/">Flashcards</a>
       <a href="../plan/">Plan</a>
       <a href="../downloads/">Downloads</a>
     </nav>
@@ -90,35 +89,17 @@
         </div>
         <div class="card-cta" id="mixedScore">Open →</div>
       </a>
-      <a class="card link" href="../flashcards/">
-        <div class="card-head">
-          <div>
-            <div class="card-title">Flashcard decks, 100 cards</div>
-            <div class="card-sub">5 decks: 3 biopsych, 2 assessment. Knew it / missed it.</div>
-          </div>
-          <span class="badge accent">Cards</span>
-        </div>
-        <div class="card-body">
-          <span class="muted">Tap-fast revision for the highest-density sections. Use as a warm-up before sitting a mock.</span>
-        </div>
-        <div class="pill-row">
-          <span class="pill">Spaced</span>
-          <span class="pill">Daily warm-up</span>
-        </div>
-        <div class="card-cta" id="cardsScore">Open →</div>
-      </a>
     </div>
   </section>
 
   <section>
     <div class="section-head">
       <h2 class="section-title">Backup all progress to a file</h2>
-      <span class="section-sub">One file covers every mock, the mixed bank, flashcards, snapshots and journal · switch device or wipe browser safely</span>
+      <span class="section-sub">One file covers every mock, the mixed bank, snapshots and journal · switch device or wipe browser safely</span>
     </div>
     <div class="card backup-card">
       <div class="backup-counts" id="backupCounts">
         <div><span class="n" id="bcMocks">—</span><span class="l">mocks with answers</span></div>
-        <div><span class="n" id="bcDecks">—</span><span class="l">flashcard decks</span></div>
         <div><span class="n" id="bcSnaps">—</span><span class="l">snapshots</span></div>
         <div><span class="n" id="bcSize">—</span><span class="l">file size</span></div>
       </div>
@@ -317,18 +298,6 @@ function renderDrillScores() {
   }
   document.getElementById("mixedScore").textContent =
     mAns ? `Continue → ${mCorr}/${mAns} so far` : "Open →";
-
-  const decks = ["bio-01","bio-02","bio-03","ass-01","ass-02"];
-  let knew = 0, missed = 0;
-  for (const d of decks) {
-    const p = readJSON("sihan-met-progress-" + d, null);
-    if (!p) continue;
-    knew += (p.knew?.length || 0);
-    missed += (p.missed?.length || 0);
-  }
-  const seen = knew + missed;
-  document.getElementById("cardsScore").textContent =
-    seen ? `Continue → ${knew}/${seen} knew it` : "Open →";
 }
 
 function updateCountdown() {
@@ -350,11 +319,8 @@ const BACKUP_KEYS = [
   "nimhans-mock-1-results-v2",  "nimhans-mock-1-notes-v2",  "nimhans-mock-1-progress-v2",
   "pyq-mock-2-results-v1",      "pyq-mock-2-notes-v1",      "pyq-mock-2-progress-v1",
   "sihan-met-quiz-results-v1",  "sihan-met-quiz-notes-v1",  "sihan-met-quiz-progress-v1",
-  "sihan-met-progress-bio-01",  "sihan-met-progress-bio-02", "sihan-met-progress-bio-03",
-  "sihan-met-progress-ass-01",  "sihan-met-progress-ass-02",
   "results-history-v1",         "results-journal-v1"
 ];
-const FLASHCARD_DECKS = ["bio-01","bio-02","bio-03","ass-01","ass-02"];
 
 function collectBackup() {
   const data = {};
@@ -387,18 +353,13 @@ function backupCounts() {
     const r = readJSON(m.storageKey, null);
     if (r && Object.values(r).some(v => v && v.selected != null)) mocks++;
   }
-  let decks = 0;
-  for (const d of FLASHCARD_DECKS) {
-    const p = readJSON("sihan-met-progress-" + d, null);
-    if (p && ((p.knew?.length || 0) + (p.missed?.length || 0)) > 0) decks++;
-  }
   const snaps = (readJSON("results-history-v1", []) || []).length;
   let bytes = 0;
   for (const k of BACKUP_KEYS) {
     const raw = localStorage.getItem(k);
     if (raw) bytes += raw.length + k.length;
   }
-  return { mocks, decks, snaps, bytes };
+  return { mocks, snaps, bytes };
 }
 
 function fmtBytes(b) {
@@ -410,7 +371,6 @@ function fmtBytes(b) {
 function renderBackupCounts() {
   const c = backupCounts();
   document.getElementById("bcMocks").textContent = c.mocks;
-  document.getElementById("bcDecks").textContent = c.decks;
   document.getElementById("bcSnaps").textContent = c.snaps;
   document.getElementById("bcSize").textContent = c.bytes ? fmtBytes(c.bytes) : "—";
 }

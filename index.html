@@ -502,7 +502,6 @@
       <a href="tests/">Tests</a>
       <a href="results/">My Results</a>
       <a href="notes/">Notes</a>
-      <a href="flashcards/">Flashcards</a>
       <a href="plan/">Plan</a>
       <a href="downloads/">Downloads</a>
     </nav>
@@ -515,7 +514,7 @@
   <div class="hero">
     <div class="hero-left">
       <h1>MET 2026 Dashboard</h1>
-      <p>Areas to cover, mock results, flashcard progress, everything in one place. Open this every day, drill the weakest area first.</p>
+      <p>Areas to cover and mock results in one place. Open this every day, drill the weakest area first.</p>
     </div>
     <div class="hero-stats">
       <div class="stat">
@@ -526,17 +525,7 @@
       <div class="stat">
         <div class="stat-label">Mocks taken</div>
         <div class="stat-value" id="heroMocks">—</div>
-        <div class="stat-sub" id="heroMocksSub">of 2 full-length</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Flashcards seen</div>
-        <div class="stat-value" id="heroCards">—</div>
-        <div class="stat-sub" id="heroCardsSub">of 100 total</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Knew it %</div>
-        <div class="stat-value" id="heroKnew">—</div>
-        <div class="stat-sub">across all decks</div>
+        <div class="stat-sub" id="heroMocksSub">of full-length attempted</div>
       </div>
     </div>
   </div>
@@ -596,18 +585,14 @@
 
 // MET 2026 syllabus areas
 const AREAS = [
-  { key: "biopsych",   name: "Biopsychology",      met: 15, nimhans: 15, decks: ["bio-01","bio-02","bio-03"], notes: ["biopsych-cheatsheet","action-potential","sleep"] },
-  { key: "dev",        name: "Developmental",      met: 15, nimhans: 10, decks: [], notes: ["dev-psych-cheatsheet","bronfenbrenner"] },
-  { key: "abnormal",   name: "Abnormal",           met: 15, nimhans: 15, decks: [], notes: ["abnormal-psych-cheatsheet","abnormal-today-sprint","high-yield-abnormal-dev"] },
-  { key: "assessment", name: "Psych Assessment",   met: 15, nimhans: 10, decks: ["ass-01","ass-02"], notes: ["assessment"] },
-  { key: "therapy",    name: "Psychotherapy",      met: 15, nimhans: 10, decks: [], notes: ["psychotherapy-cheatsheet","learning-conditioning"] },
-  { key: "biostats",   name: "Biostats / Methods", met: 10, nimhans: 15, decks: [], notes: ["biostats-cheatsheet","research-methodology"] },
-  { key: "language",   name: "Language",           met: 15, nimhans:  5, decks: [], notes: ["language-cheatsheet"] }
+  { key: "biopsych",   name: "Biopsychology",      met: 15, nimhans: 15, notes: ["biopsych-cheatsheet","action-potential","sleep"] },
+  { key: "dev",        name: "Developmental",      met: 15, nimhans: 10, notes: ["dev-psych-cheatsheet","bronfenbrenner"] },
+  { key: "abnormal",   name: "Abnormal",           met: 15, nimhans: 15, notes: ["abnormal-psych-cheatsheet","abnormal-today-sprint","high-yield-abnormal-dev"] },
+  { key: "assessment", name: "Psych Assessment",   met: 15, nimhans: 10, notes: ["assessment"] },
+  { key: "therapy",    name: "Psychotherapy",      met: 15, nimhans: 10, notes: ["psychotherapy-cheatsheet","learning-conditioning"] },
+  { key: "biostats",   name: "Biostats / Methods", met: 10, nimhans: 15, notes: ["biostats-cheatsheet","research-methodology"] },
+  { key: "language",   name: "Language",           met: 15, nimhans:  5, notes: ["language-cheatsheet"] }
 ];
-
-// Flashcard deck sizes
-const DECK_SIZES = { "bio-01": 20, "bio-02": 20, "bio-03": 20, "ass-01": 20, "ass-02": 20 };
-const TOTAL_CARDS = Object.values(DECK_SIZES).reduce((a,b) => a+b, 0);
 
 // Mock metadata
 const MOCKS = [
@@ -747,23 +732,6 @@ function readJSON(key, fallback) {
   } catch { return fallback; }
 }
 
-function readFlashcardProgress() {
-  const out = {};
-  for (const deckId of Object.keys(DECK_SIZES)) {
-    const p = readJSON("sihan-met-progress-" + deckId, null);
-    if (p) {
-      out[deckId] = {
-        knew: Array.isArray(p.knew) ? p.knew.length : 0,
-        missed: Array.isArray(p.missed) ? p.missed.length : 0,
-        total: DECK_SIZES[deckId]
-      };
-    } else {
-      out[deckId] = { knew: 0, missed: 0, total: DECK_SIZES[deckId] };
-    }
-  }
-  return out;
-}
-
 function readMockResults(mock) {
   const raw = readJSON(mock.storageKey, null);
   if (!raw) return { answered: 0, correct: 0, wrong: 0, perSection: {} };
@@ -786,26 +754,6 @@ function readMockResults(mock) {
    COMPUTED METRICS
    ===================================================================== */
 
-function flashcardTotals(fp) {
-  let knew = 0, missed = 0, seen = 0;
-  for (const id of Object.keys(fp)) {
-    knew += fp[id].knew;
-    missed += fp[id].missed;
-    seen += fp[id].knew + fp[id].missed;
-  }
-  return { knew, missed, seen };
-}
-
-function areaFlashcardStats(area, fp) {
-  if (!area.decks.length) return null;
-  let knew = 0, missed = 0, total = 0;
-  for (const id of area.decks) {
-    if (fp[id]) { knew += fp[id].knew; missed += fp[id].missed; total += fp[id].total; }
-  }
-  const seen = knew + missed;
-  return { knew, missed, total, seen, pctSeen: total ? (seen/total)*100 : 0, pctKnew: seen ? (knew/seen)*100 : 0 };
-}
-
 function areaMockStats(area, mockResults) {
   let answered = 0, correct = 0, total = 0;
   for (const m of MOCKS) {
@@ -819,11 +767,9 @@ function areaMockStats(area, mockResults) {
   return { answered, correct, total, pctCorrect: answered ? (correct/answered)*100 : null };
 }
 
-function areaStatus(fcStats, mockStats) {
-  const fcWeight = fcStats && fcStats.seen >= 5 ? fcStats.pctKnew : null;
-  const mockWeight = mockStats.answered >= 3 ? mockStats.pctCorrect : null;
-  if (fcWeight == null && mockWeight == null) return { badge: "muted", label: "Not started" };
-  const score = [fcWeight, mockWeight].filter(v => v != null).reduce((a,b,_,arr) => a + b/arr.length, 0);
+function areaStatus(mockStats) {
+  if (mockStats.answered < 3) return { badge: "muted", label: "Not started" };
+  const score = mockStats.pctCorrect;
   if (score >= 75) return { badge: "good", label: "Strong" };
   if (score >= 55) return { badge: "warn", label: "On track" };
   return { badge: "bad", label: "Needs work" };
@@ -842,26 +788,21 @@ function updateCountdown() {
   document.getElementById("heroDays").textContent = ms > 0 ? days : "0";
 }
 
-function renderHero(fcTotals, mockResults) {
-  document.getElementById("heroCards").textContent = fcTotals.seen;
-  document.getElementById("heroCardsSub").textContent = `of ${TOTAL_CARDS} total, ${fcTotals.knew} knew, ${fcTotals.missed} missed`;
-  const pct = fcTotals.seen ? Math.round((fcTotals.knew / fcTotals.seen) * 100) : 0;
-  document.getElementById("heroKnew").textContent = fcTotals.seen ? pct + "%" : "—";
+function renderHero(mockResults) {
   const mocksTaken = MOCKS.filter(m => mockResults[m.id] && mockResults[m.id].answered > 0).length;
   document.getElementById("heroMocks").textContent = mocksTaken;
 }
 
-function renderAreas(fp, mockResults) {
+function renderAreas(mockResults) {
   const root = document.getElementById("areasGrid");
   root.innerHTML = "";
   for (const area of AREAS) {
-    const fc = areaFlashcardStats(area, fp);
     const mk = areaMockStats(area, mockResults);
-    const status = areaStatus(fc, mk);
+    const status = areaStatus(mk);
 
     const card = document.createElement("a");
     card.className = "card link";
-    card.href = area.decks.length ? "flashcards/" : (area.notes[0] ? "notes/" + area.notes[0] + "/" : "notes/");
+    card.href = area.notes[0] ? "notes/" + area.notes[0] + "/" : "notes/";
 
     let html = "";
     html += `<div class="area-head">
@@ -869,27 +810,26 @@ function renderAreas(fp, mockResults) {
       <span class="badge ${status.badge}">${status.label}</span>
     </div>`;
 
-    const fcText = fc ? `${fc.seen}/${fc.total} <span style="color:var(--muted);font-size:11px;">(${Math.round(fc.pctKnew)}%)</span>` : `<span class="metric-value muted">none yet</span>`;
     const mkText = mk.total ? `${mk.correct}/${mk.answered || 0}<span style="color:var(--muted);font-size:11px;"> of ${mk.total}</span>` : `<span class="metric-value muted">—</span>`;
+    const mkPct = mk.pctCorrect;
 
     html += `<div class="metric-row">
-      <div class="metric">
-        <div class="metric-label">Flashcards</div>
-        <div class="metric-value">${fcText}</div>
-      </div>
       <div class="metric">
         <div class="metric-label">Mock correct</div>
         <div class="metric-value">${mkText}</div>
       </div>
+      <div class="metric">
+        <div class="metric-label">% correct</div>
+        <div class="metric-value">${mkPct != null ? Math.round(mkPct) + "%" : `<span class="muted">—</span>`}</div>
+      </div>
     </div>`;
 
-    if (fc) {
-      const cls = fc.pctKnew >= 75 ? "good" : fc.pctKnew >= 50 ? "warn" : "bad";
-      html += `<div class="bar ${cls}"><span style="width:${Math.min(100, fc.pctKnew)}%"></span></div>`;
+    if (mkPct != null) {
+      const cls = mkPct >= 75 ? "good" : mkPct >= 50 ? "warn" : "bad";
+      html += `<div class="bar ${cls}"><span style="width:${Math.min(100, mkPct)}%"></span></div>`;
     }
 
     html += `<div class="area-links">`;
-    if (area.decks.length) html += `<a class="pill" href="flashcards/">Flashcards</a>`;
     for (const n of area.notes.slice(0, 2)) html += `<a class="pill" href="notes/${n}/">Notes</a>`;
     html += `</div>`;
 
@@ -1040,12 +980,10 @@ function renderNews() {
 
 function refresh() {
   updateCountdown();
-  const fp = readFlashcardProgress();
   const mockResults = {};
   for (const m of MOCKS) mockResults[m.id] = readMockResults(m);
-  const fcTotals = flashcardTotals(fp);
-  renderHero(fcTotals, mockResults);
-  renderAreas(fp, mockResults);
+  renderHero(mockResults);
+  renderAreas(mockResults);
   renderTests(mockResults);
   renderResults(mockResults);
 }
@@ -1058,8 +996,8 @@ window.addEventListener("focus", refresh);
 window.addEventListener("storage", refresh);
 
 document.getElementById("resetBtn").addEventListener("click", () => {
-  if (!confirm("Wipe all local mock and flashcard progress from this browser? This cannot be undone.")) return;
-  const prefixes = ["sihan-met-progress-", "met-mock-1-", "met-mock-2-", "met-mock-3-", "met-mock-4-", "bio-testing-paper-", "nimhans-mock-1-", "pyq-mock-2-", "sihan-met-quiz-"];
+  if (!confirm("Wipe all local mock progress from this browser? This cannot be undone.")) return;
+  const prefixes = ["met-mock-1-", "met-mock-2-", "met-mock-3-", "met-mock-4-", "bio-testing-paper-", "nimhans-mock-1-", "pyq-mock-2-", "sihan-met-quiz-"];
   for (let i = localStorage.length - 1; i >= 0; i--) {
     const k = localStorage.key(i);
     if (prefixes.some(p => k.startsWith(p))) localStorage.removeItem(k);

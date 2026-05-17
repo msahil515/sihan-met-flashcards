@@ -183,7 +183,6 @@
       <a href="../../tests/">Tests</a>
       <a href="../" class="active">My Results</a>
       <a href="../../notes/">Notes</a>
-      <a href="../../flashcards/">Flashcards</a>
       <a href="../../plan/">Plan</a>
       <a href="../../downloads/">Downloads</a>
     </nav>
@@ -330,7 +329,7 @@ const MOCKS = [
       { min: 75, max: 79.99, name: "Borderline", cls: "warn", desc: "One bad section away from missing cut-off. Don't add topics; clean the misses listed below and re-attempt." },
       { min: 70, max: 74.99, name: "Close", cls: "warn", desc: "Within striking distance. The −0.25 penalty is probably costing you 3-5 marks; tighten the 'guessed' column and the rest follows." },
       { min: 65, max: 69.99, name: "Needs work", cls: "bad", desc: "Section gaps, not exam strategy. The revise-next block below is the playbook." },
-      { min: -100, max: 64.99, name: "Below band", cls: "bad", desc: "Don't move on to a new mock. Drill the weakest 2 sections from cheatsheets + flashcards, then re-attempt the same PYQs in 10 days." }
+      { min: -100, max: 64.99, name: "Below band", cls: "bad", desc: "Don't move on to a new mock. Drill the weakest 2 sections from cheatsheets, then re-attempt the same PYQs in 10 days." }
     ],
     cutoff: 80, cutoffLabel: "NIMHANS cut-off 80",
     companion: {
@@ -402,7 +401,7 @@ const MOCKS = [
       { min: 165, max: 191, name: "Target hit", cls: "good", desc: "At the rough MET-equivalent for these two sections (165/240 ≈ 270/400 pace). Good launchpad into a full mock." },
       { min: 132, max: 164, name: "Mid", cls: "warn", desc: "55-70% — split usually skewed to one section. Re-read the cheatsheet for the weaker of the two and re-attempt." },
       { min: 96, max: 131, name: "Patch needed", cls: "bad", desc: "Cheatsheet for the weak section first. Don't redo this paper until you've read it cover to cover." },
-      { min: -240, max: 95, name: "Foundation gap", cls: "bad", desc: "Below 40%. Both biopsych and assessment have heavy memorisation loads — the section cheatsheet + flashcards must come before another timed attempt." }
+      { min: -240, max: 95, name: "Foundation gap", cls: "bad", desc: "Below 40%. Both biopsych and assessment have heavy memorisation loads — the section cheatsheet must come before another timed attempt." }
     ],
     cutoff: 165, cutoffLabel: "target 165 (MET-equivalent pace)",
     companion: null
@@ -515,7 +514,7 @@ const SECTION_NOTES = {
 };
 
 const SECTION_COACH = {
-  biopsych: "Pure recall. If miss rate > 30% you're losing easy points. Cheatsheet + 1 round of flashcards before next attempt.",
+  biopsych: "Pure recall. If miss rate > 30% you're losing easy points. Cheatsheet end-to-end before next attempt.",
   dev: "Stage theories and ages. Memorize the ladders cold (Erikson, Piaget, Kohlberg, Ainsworth) — they show up every paper.",
   abnormal: "DSM-5 criteria are the spine. Use the Abnormal cheatsheet's bullet criteria, don't read prose.",
   assessment: "Reliability/validity formulas + which test measures what. Make a 1-page table of every test name → what it screens.",
@@ -524,7 +523,7 @@ const SECTION_COACH = {
   language: "Punctuation, agreement, prepositions. Cheap marks if you don't rush.",
   english: "Punctuation, agreement, prepositions. Cheap marks if you don't rush.",
   social: "Attribution + group processes + classic experiments (Asch / Milgram / Zimbardo) + their twists.",
-  general: "Names + dates + 'who said what'. Pure flashcard territory."
+  general: "Names + dates + 'who said what'. Cheap memorisation marks if you make a list."
 };
 
 /* ============================================================
