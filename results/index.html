@@ -242,6 +242,32 @@ const MOCKS = [
     sections: { biopsych: 30, dev: 25, abnormal: 30, assessment: 25, therapy: 25, biostats: 20, language: 25 }
   },
   {
+    id: "met-mock-4",
+    title: "MET Mock 4, 100 Q fresh full-spectrum",
+    path: "../quiz/met-mock-4/",
+    pillClass: "met",
+    storageResults: "met-mock-4-results-v1",
+    storageNotes: "met-mock-4-notes-v1",
+    total: 100,
+    max: 400,
+    scoring: (right, wrong) => right * 4 - wrong * 1,
+    scoringLabel: "+4 / −1 · target 270+",
+    sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 }
+  },
+  {
+    id: "bio-testing-paper",
+    title: "Biopsych + Testing paper (60 Q targeted)",
+    path: "../quiz/bio-testing-paper/",
+    pillClass: "met",
+    storageResults: "bio-testing-paper-results-v1",
+    storageNotes: "bio-testing-paper-notes-v1",
+    total: 60,
+    max: 240,
+    scoring: (right, wrong) => right * 4 - wrong * 1,
+    scoringLabel: "+4 / −1 · target 165+/240",
+    sections: { biopsych: 30, assessment: 30 }
+  },
+  {
     id: "met-mock-3",
     title: "MET Mock 3, 100 Q tight pace",
     path: "../quiz/met-mock-3/",
@@ -434,12 +460,14 @@ function parseExportBlob(text) {
   if (!text || !text.trim()) throw new Error("Empty.");
   const firstLine = text.split("\n", 1)[0].trim();
   let mockId = null;
-  if (/^MET MOCK 3/i.test(firstLine)) mockId = "met-mock-3";
+  if (/^BIOPSYCH \+ TESTING PAPER/i.test(firstLine)) mockId = "bio-testing-paper";
+  else if (/^MET MOCK 4/i.test(firstLine)) mockId = "met-mock-4";
+  else if (/^MET MOCK 3/i.test(firstLine)) mockId = "met-mock-3";
   else if (/^MET MOCK 2/i.test(firstLine)) mockId = "met-mock-2";
   else if (/^MET MOCK 1/i.test(firstLine)) mockId = "met-mock-1";
   else if (/^NIMHANS MOCK 1/i.test(firstLine)) mockId = "nimhans-mock-1";
   else if (/^PYQ MOCK 2/i.test(firstLine)) mockId = "pyq-mock-2";
-  if (!mockId) throw new Error("Could not identify which mock this is. Header should start with 'MET MOCK 1', 'MET MOCK 2', 'NIMHANS MOCK 1', or 'PYQ MOCK 2'.");
+  if (!mockId) throw new Error("Could not identify which mock this is. Header should start with 'MET MOCK 1/2/3/4', 'BIOPSYCH + TESTING PAPER', 'NIMHANS MOCK 1', or 'PYQ MOCK 2'.");
   const m = MOCKS.find(x => x.id === mockId);
 
   const scoreMatch = text.match(/Score:\s*([\d.]+)\s*\/\s*\d+\s*\(([\d]+)\s+right,\s*([\d]+)\s+wrong,\s*([\d]+)\s+blank/i);

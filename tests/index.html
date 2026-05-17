@@ -205,6 +205,30 @@ const MOCKS = [
     tags: ["Full length", "MET +4 / −1", "180 Q", "harder distractors"]
   },
   {
+    id: "met-mock-4",
+    title: "MET Mock 4 — 100 Q Fresh Full-Spectrum",
+    sub: "100 Q · 100 min · +4 / −1 · all 7 MET sections · fresh stems vs Mocks 1-3",
+    path: "../quiz/met-mock-4/",
+    total: 100,
+    storageKey: "met-mock-4-results-v1",
+    sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 },
+    blurb: "Newest 100-question MET-pattern mock. Fresh stems vs Mocks 1-3 so it's a clean attempt. +4/−1, target 270+/400. Same blueprint as Mock 3 (Bio 18, Dev 14, Abnormal 18, Assessment 15, Therapy 14, Biostats 11, Language 10). Balanced answer key (a/b/c/d each exactly 25). Independent storage so previous mocks stay untouched.",
+    fresh: true,
+    tags: ["Full length", "MET +4 / −1", "100 Q", "fresh stems"]
+  },
+  {
+    id: "bio-testing-paper",
+    title: "Biopsych + Testing Paper (60 Q targeted)",
+    sub: "60 Q · ~60 min · +4 / −1 · 30 Bio + 30 Assessment",
+    path: "../quiz/bio-testing-paper/",
+    total: 60,
+    storageKey: "bio-testing-paper-results-v1",
+    sections: { biopsych: 30, assessment: 30 },
+    blurb: "Two-section targeted drill: 30 Biopsychology + 30 Psychological Assessment. Fresh stems, +4/−1, target 165+/240. Use this when you want hard reps on the two MET sections with the biggest depth-of-knowledge load (neuroanatomy, NTs, psychopharm + test names, MMPI scales, IRT/CTT, reliability/validity types). Independent storage, full analysis page, copy-to-WhatsApp export.",
+    fresh: true,
+    tags: ["Targeted", "Bio 30 + Assessment 30", "fresh stems", "+4 / −1"]
+  },
+  {
     id: "met-mock-3",
     title: "MET Mock 3 — 100 Q Tight Pace",
     sub: "100 Q · 100 min · +4 / −1 · all 7 MET sections",
@@ -212,8 +236,8 @@ const MOCKS = [
     total: 100,
     storageKey: "met-mock-3-results-v1",
     sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 },
-    blurb: "100-question MET-pattern mock at 1 minute per question, +4/−1, target 270+/400. Zero stem overlap with Mock 1 or Mock 2 so it counts as a clean attempt. Blueprint: Bio 18, Dev 14, Abnormal 18, Assessment 15, Therapy 14, Biostats 11, Language 10. Answer letters shuffled to balanced ~25 each so the pattern can't be gamed.",
-    fresh: true,
+    blurb: "100-question MET-pattern mock at 1 minute per question, +4/−1, target 270+/400. Zero stem overlap with Mock 1 or Mock 2. Blueprint: Bio 18, Dev 14, Abnormal 18, Assessment 15, Therapy 14, Biostats 11, Language 10. Answer letters shuffled to balanced ~25 each so the pattern can't be gamed.",
+    fresh: false,
     tags: ["Full length", "MET +4 / −1", "100 Q", "fresh stems", "tight pace"]
   },
   {
@@ -321,6 +345,8 @@ const BACKUP_KEYS = [
   "met-mock-1-results-v1",      "met-mock-1-notes-v1",      "met-mock-1-progress-v1",
   "met-mock-2-results-v1",      "met-mock-2-notes-v1",      "met-mock-2-progress-v1",
   "met-mock-3-results-v1",      "met-mock-3-notes-v1",      "met-mock-3-progress-v1",
+  "met-mock-4-results-v1",      "met-mock-4-notes-v1",      "met-mock-4-progress-v1",
+  "bio-testing-paper-results-v1", "bio-testing-paper-notes-v1", "bio-testing-paper-progress-v1",
   "nimhans-mock-1-results-v2",  "nimhans-mock-1-notes-v2",  "nimhans-mock-1-progress-v2",
   "pyq-mock-2-results-v1",      "pyq-mock-2-notes-v1",      "pyq-mock-2-progress-v1",
   "sihan-met-quiz-results-v1",  "sihan-met-quiz-notes-v1",  "sihan-met-quiz-progress-v1",

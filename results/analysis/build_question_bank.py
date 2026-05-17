@@ -16,6 +16,8 @@ MOCKS = [
     ("met-mock-1", "quiz/met-mock-1/index.html"),
     ("met-mock-2", "quiz/met-mock-2/index.html"),
     ("met-mock-3", "quiz/met-mock-3/index.html"),
+    ("met-mock-4", "quiz/met-mock-4/index.html"),
+    ("bio-testing-paper", "quiz/bio-testing-paper/index.html"),
     ("nimhans-mock-1", "quiz/nimhans-mock-1/index.html"),
     ("pyq-mock-2", "quiz/pyq-mock-2/index.html"),
 ]
