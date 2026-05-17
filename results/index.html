@@ -229,6 +229,19 @@ const MOCKS = [
     sections: { biopsych: 15, dev: 10, abnormal: 15, assessment: 10, therapy: 10, biostats: 15, social: 10, general: 10, english: 5 }
   },
   {
+    id: "met-mock-2",
+    title: "MET Mock 2, full length (180 Q)",
+    path: "../quiz/met-mock-2/",
+    pillClass: "met",
+    storageResults: "met-mock-2-results-v1",
+    storageNotes: "met-mock-2-notes-v1",
+    total: 180,
+    max: 720,
+    scoring: (right, wrong) => right * 4 - wrong * 1,
+    scoringLabel: "+4 / −1 · target 480+",
+    sections: { biopsych: 30, dev: 25, abnormal: 30, assessment: 25, therapy: 25, biostats: 20, language: 25 }
+  },
+  {
     id: "pyq-mock-2",
     title: "PYQ Mock 2, pan-India",
     path: "../quiz/pyq-mock-2/",
@@ -408,10 +421,11 @@ function parseExportBlob(text) {
   if (!text || !text.trim()) throw new Error("Empty.");
   const firstLine = text.split("\n", 1)[0].trim();
   let mockId = null;
-  if (/^MET MOCK 1/i.test(firstLine)) mockId = "met-mock-1";
+  if (/^MET MOCK 2/i.test(firstLine)) mockId = "met-mock-2";
+  else if (/^MET MOCK 1/i.test(firstLine)) mockId = "met-mock-1";
   else if (/^NIMHANS MOCK 1/i.test(firstLine)) mockId = "nimhans-mock-1";
   else if (/^PYQ MOCK 2/i.test(firstLine)) mockId = "pyq-mock-2";
-  if (!mockId) throw new Error("Could not identify which mock this is. Header should start with 'MET MOCK 1', 'NIMHANS MOCK 1', or 'PYQ MOCK 2'.");
+  if (!mockId) throw new Error("Could not identify which mock this is. Header should start with 'MET MOCK 1', 'MET MOCK 2', 'NIMHANS MOCK 1', or 'PYQ MOCK 2'.");
   const m = MOCKS.find(x => x.id === mockId);
 
   const scoreMatch = text.match(/Score:\s*([\d.]+)\s*\/\s*\d+\s*\(([\d]+)\s+right,\s*([\d]+)\s+wrong,\s*([\d]+)\s+blank/i);

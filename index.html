@@ -634,6 +634,17 @@ const MOCKS = [
     fresh: false
   },
   {
+    id: "met-mock-2",
+    title: "MET Mock 2, full length (180 Q)",
+    path: "quiz/met-mock-2/",
+    total: 180,
+    storageKey: "met-mock-2-results-v1",
+    scoring: { plus: 4, minus: 1 },
+    sections: { biopsych: 30, dev: 25, abnormal: 30, assessment: 25, therapy: 25, biostats: 20, language: 25 },
+    meta: "180 Q · 180 min · +4 / −1 · full MET syllabus · harder distractors than Mock 1",
+    fresh: true
+  },
+  {
     id: "pyq-mock-2",
     title: "PYQ Mock 2, pan-India",
     path: "quiz/pyq-mock-2/",
@@ -642,7 +653,7 @@ const MOCKS = [
     scoring: { plus: 1, minus: 0.25 },
     sections: { therapy: 18, abnormal: 15, biopsych: 13, dev: 12, biostats: 12, assessment: 10, social: 9, general: 8, english: 3 },
     meta: "100 PYQs · RML, IHBAS, JEMAS, NIMHANS, IMHANS, NFSU, AMITY, GMCH 2023-25 · weighted to your weak spots",
-    fresh: true
+    fresh: false
   },
   {
     id: "mcq-bank",
@@ -674,6 +685,7 @@ const RESOURCES = [
 ];
 
 const NEWS = [
+  { date: "2026-05-17", title: "MET Mock 2 — full 180 Q syllabus mock (NEW)", desc: "Full-length MET-format mock: 180 Q across all 7 sections (Bio 30, Dev 25, Abnormal 30, Assessment 25, Therapy 25, Biostats 20, Language 25). MET scoring +4/−1, target 480/720. Harder distractors than Mock 1 — fewer giveaways, more two-options-look-right traps. Independent storage so Mock 1 progress is preserved. Same engine: section filter, per-Q notes, backup code, full analysis page, copy-to-WhatsApp export.", href: "quiz/met-mock-2/" },
   { date: "2026-05-16", title: "MET Mock 1 Debrief (192/400)", desc: "Your latest attempt: 4 wrongs + 47 skips. Page covers all 4 wrongs with deep walkthroughs (Gestalt/empty chair, corticospinal decussation, Ainsworth resistant, Thomas & Chess slow-to-warm-up) and every note question you left: cranial nerve list + mnemonic (On Old Olympus...), sleep wave mnemonic (BATS Drink Blood), Yalom's 11 therapeutic factors, theory of mind, Korsakoff vs dissociative amnesia, p-value refresher, Ainsworth's 4 attachment styles, trinucleotide repeat disorder list (Huntington/Fragile X/DM1/Friedreich), EMDR + trauma therapist lineage. Plus bonus quick hits on MMPI T-scores, WAIS ranges, Ellis ABC, basal ganglia, place theory, NMDA/LTP.", href: "notes/met-mock-1-debrief/" },
   { date: "2026-05-16", title: "Full per-mock analysis page (NEW)", desc: "On My Results, every mock card now has a 'Full analysis' button. Opens a deep view: score + estimated band on a target-vs-cutoff bar, section-wise R/W/Skip with miss-rate, top-3 weakest topics with the exact cheatsheet links to open before re-attempting, and every wrong/guessed/skipped question with full options, correct answer in green, your pick in red, and the explanation. Filter pills for Wrong / Guessed / Skipped / Solid / All.", href: "results/analysis/" },
   { date: "2026-05-16", title: "My Results page", desc: "One page that pulls live scores from all 3 mocks on this browser, keeps a history of every snapshot you take, and lets you paste a results blob from another device to add it to history. Free-form notes journal per mock. Tap 'Copy results for analysis' on any mock to auto-log a snapshot.", href: "results/" },
@@ -1011,7 +1023,7 @@ window.addEventListener("storage", refresh);
 
 document.getElementById("resetBtn").addEventListener("click", () => {
   if (!confirm("Wipe all local mock and flashcard progress from this browser? This cannot be undone.")) return;
-  const prefixes = ["sihan-met-progress-", "met-mock-1-", "nimhans-mock-1-", "pyq-mock-2-", "sihan-met-quiz-"];
+  const prefixes = ["sihan-met-progress-", "met-mock-1-", "met-mock-2-", "nimhans-mock-1-", "pyq-mock-2-", "sihan-met-quiz-"];
   for (let i = localStorage.length - 1; i >= 0; i--) {
     const k = localStorage.key(i);
     if (prefixes.some(p => k.startsWith(p))) localStorage.removeItem(k);

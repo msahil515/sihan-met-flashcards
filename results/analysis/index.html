@@ -340,6 +340,29 @@ const MOCKS = [
     }
   },
   {
+    id: "met-mock-2",
+    title: "MET Mock 2, full length (180 Q)",
+    short: "MET Mock 2",
+    path: "../../quiz/met-mock-2/",
+    storageResults: "met-mock-2-results-v1",
+    storageNotes: "met-mock-2-notes-v1",
+    total: 180,
+    max: 720,
+    scoring: (right, wrong) => right * 4 - wrong * 1,
+    scoringLabel: "+4 right · −1 wrong · 0 blank",
+    sections: { biopsych: 30, dev: 25, abnormal: 30, assessment: 25, therapy: 25, biostats: 20, language: 25 },
+    bands: [
+      { min: 576, max: 720, name: "Top 10%", cls: "good", desc: "Comfortably above target on a 720-max paper. If you hit this twice in a row under timed conditions, you're in seat-at-Manipal territory." },
+      { min: 504, max: 575, name: "Top 25%", cls: "good", desc: "Above the typical MET seat-cut estimate. One push (mostly cleaning up Biostats + Abnormal misses) and you're in the top decile." },
+      { min: 432, max: 503, name: "Top 40%", cls: "warn", desc: "Around the median of serious aspirants. Safe-ish, no margin. Patch your two weakest sections instead of chasing new topics." },
+      { min: 360, max: 431, name: "Mid pack", cls: "warn", desc: "Right in the bulk. To pull ahead: (a) stop the −1 bleed on guesses, (b) lock down 1-2 weak sections cold." },
+      { min: 288, max: 359, name: "Below median", cls: "bad", desc: "Most full-length attempters score higher. Likely a section is genuinely soft — see 'Revise next' below before any more mocks." },
+      { min: -720, max: 287, name: "Cold start", cls: "bad", desc: "Score will climb fast once you do focused revision on the weakest section. Don't grind more mocks until you've closed it." }
+    ],
+    cutoff: 480, cutoffLabel: "MET target 480",
+    companion: null
+  },
+  {
     id: "pyq-mock-2",
     title: "PYQ Mock 2, pan-India",
     short: "PYQ Mock 2",

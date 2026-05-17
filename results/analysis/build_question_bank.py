@@ -14,6 +14,7 @@ REPO = os.path.normpath(os.path.join(ROOT, "..", ".."))
 
 MOCKS = [
     ("met-mock-1", "quiz/met-mock-1/index.html"),
+    ("met-mock-2", "quiz/met-mock-2/index.html"),
     ("nimhans-mock-1", "quiz/nimhans-mock-1/index.html"),
     ("pyq-mock-2", "quiz/pyq-mock-2/index.html"),
 ]
