@@ -33,8 +33,60 @@
     <div class="crumbs">Notes</div>
     <h1>Study Notes &amp; Cheatsheets</h1>
     <p>Every section of the MET syllabus, written as exam-grade reference. Read the cheatsheet for an area before drilling that area in the bank or sitting a mock. Mock debriefs and the NIMHANS PYQ breakdown sit at the top because they tell you exactly what to study next.</p>
-    <p style="margin-top: 8px; color: var(--muted); font-size: 14px;"><strong>Reorg pass · 2026-05-17:</strong> all 7 syllabus sections now have a full cheatsheet (added psychotherapy). Strategy block below tells you the order to read them in for revision week.</p>
+    <p style="margin-top: 8px; color: var(--muted); font-size: 14px;"><strong>Reorg pass · 2026-05-17:</strong> all 7 syllabus sections now have a full cheatsheet (added psychotherapy) + new cranial-nerves note spun out of biopsych. Search box below filters every card on this page in real time.</p>
+    <div class="notes-search">
+      <input id="notes-search-input" type="search" placeholder="Search notes — e.g. cranial, ainsworth, p-value, broca, BATS…" autocomplete="off" spellcheck="false">
+      <span class="notes-search-count" id="notes-search-count"></span>
+    </div>
   </div>
+
+  <style>
+    .notes-search {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .notes-search input {
+      flex: 1;
+      min-width: 220px;
+      background: var(--panel);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      color: var(--text);
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .notes-search input:focus {
+      border-color: var(--accent);
+      background: var(--panel-2);
+    }
+    .notes-search input::placeholder {
+      color: var(--muted);
+    }
+    .notes-search-count {
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .search-hit {
+      box-shadow: 0 0 0 2px var(--accent-soft);
+    }
+    .search-hidden {
+      display: none !important;
+    }
+    .search-empty-msg {
+      grid-column: 1 / -1;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 14px 0;
+      font-style: italic;
+    }
+  </style>
 
   <section>
     <div class="section-head">
@@ -144,6 +196,17 @@
         <div class="card-body">Every high-frequency operant/classical term: definition, classic example, MCQ trap. All 4 reinforcement schedules, extinction vs spontaneous recovery, generalization vs discrimination, latent/insight/observational learning, habituation vs sensitization, plus a confusable-pairs cheat-table.</div>
         <div class="card-cta">Read →</div>
       </a>
+      <a class="card link fresh" href="cranial-nerves/">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Cranial Nerves I–XII</div>
+            <div class="card-sub">Full table, both mnemonics, deficits + MCQ traps</div>
+          </div>
+          <span class="badge good">New</span>
+        </div>
+        <div class="card-body">Spun out of the brain-anatomy note. Full I–XII table (name, type, function, common deficits), both mnemonics ("On Old Olympus" + "Some Say Marry Money"), brainstem nuclei map, parasympathetic carriers (III/VII/IX/X), high-yield deficits (Bell's palsy, CN III/IV/VI palsies, bulbar vs pseudobulbar, jugular foramen syndrome), 15 MCQ traps, bedside testing for NIMHANS viva.</div>
+        <div class="card-cta">Read →</div>
+      </a>
     </div>
   </section>
 
@@ -165,7 +228,8 @@
         <div class="card-body">Neurons, glia, action potential, neurotransmitters, brain anatomy, sensory + motor systems, sleep, hormones, memory, psychopharmacology.</div>
         <div class="pill-row">
           <a class="pill accent" href="biopsych-cheatsheet/">Full cheatsheet</a>
-          <a class="pill" href="hpa-axis/">HPA axis (new)</a>
+          <a class="pill" href="cranial-nerves/">Cranial nerves I–XII (new)</a>
+          <a class="pill" href="hpa-axis/">HPA axis</a>
           <a class="pill" href="action-potential/">Action potential primer</a>
           <a class="pill" href="sleep/">Sleep primer</a>
         </div>
@@ -312,6 +376,99 @@ function updateCountdown() {
   document.getElementById("countdownChip").textContent = ms > 0 ? `${d} days to MET` : "Exam day!";
 }
 updateCountdown();
+
+(function () {
+  const input = document.getElementById('notes-search-input');
+  const counter = document.getElementById('notes-search-count');
+  if (!input) return;
+
+  const cards = Array.from(document.querySelectorAll('main .card'));
+  const sections = Array.from(document.querySelectorAll('main section'));
+
+  function normalise(s) {
+    return (s || '').toLowerCase();
+  }
+
+  cards.forEach(card => {
+    card.dataset.searchText = normalise(card.textContent);
+  });
+
+  function clearEmptyMsgs() {
+    document.querySelectorAll('.search-empty-msg').forEach(n => n.remove());
+  }
+
+  function run(q) {
+    q = normalise(q.trim());
+    clearEmptyMsgs();
+
+    if (!q) {
+      cards.forEach(c => {
+        c.classList.remove('search-hidden', 'search-hit');
+      });
+      sections.forEach(s => s.classList.remove('search-hidden'));
+      counter.textContent = '';
+      return;
+    }
+
+    const terms = q.split(/\s+/).filter(Boolean);
+    let total = 0;
+
+    cards.forEach(c => {
+      const text = c.dataset.searchText;
+      const hit = terms.every(t => text.includes(t));
+      if (hit) {
+        c.classList.remove('search-hidden');
+        c.classList.add('search-hit');
+        total++;
+      } else {
+        c.classList.add('search-hidden');
+        c.classList.remove('search-hit');
+      }
+    });
+
+    sections.forEach(s => {
+      const anyVisible = s.querySelectorAll('.card:not(.search-hidden)').length > 0;
+      if (anyVisible) {
+        s.classList.remove('search-hidden');
+      } else {
+        s.classList.add('search-hidden');
+      }
+    });
+
+    counter.textContent = total === 0
+      ? 'no matches'
+      : (total === 1 ? '1 match' : total + ' matches');
+
+    if (total === 0) {
+      const main = document.querySelector('main');
+      const msg = document.createElement('div');
+      msg.className = 'search-empty-msg';
+      msg.textContent = 'No notes match "' + q + '". Try a shorter term, or clear the box.';
+      main.appendChild(msg);
+    }
+  }
+
+  let debounce;
+  input.addEventListener('input', e => {
+    clearTimeout(debounce);
+    debounce = setTimeout(() => run(e.target.value), 80);
+  });
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      input.value = '';
+      run('');
+      input.blur();
+    }
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === '/' && document.activeElement !== input && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      e.preventDefault();
+      input.focus();
+      input.select();
+    }
+  });
+})();
 </script>
 
 </body>
