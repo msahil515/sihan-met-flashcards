@@ -242,6 +242,19 @@ const MOCKS = [
     sections: { biopsych: 30, dev: 25, abnormal: 30, assessment: 25, therapy: 25, biostats: 20, language: 25 }
   },
   {
+    id: "met-mock-3",
+    title: "MET Mock 3, 100 Q tight pace",
+    path: "../quiz/met-mock-3/",
+    pillClass: "met",
+    storageResults: "met-mock-3-results-v1",
+    storageNotes: "met-mock-3-notes-v1",
+    total: 100,
+    max: 400,
+    scoring: (right, wrong) => right * 4 - wrong * 1,
+    scoringLabel: "+4 / −1 · target 270+",
+    sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 }
+  },
+  {
     id: "pyq-mock-2",
     title: "PYQ Mock 2, pan-India",
     path: "../quiz/pyq-mock-2/",
@@ -421,7 +434,8 @@ function parseExportBlob(text) {
   if (!text || !text.trim()) throw new Error("Empty.");
   const firstLine = text.split("\n", 1)[0].trim();
   let mockId = null;
-  if (/^MET MOCK 2/i.test(firstLine)) mockId = "met-mock-2";
+  if (/^MET MOCK 3/i.test(firstLine)) mockId = "met-mock-3";
+  else if (/^MET MOCK 2/i.test(firstLine)) mockId = "met-mock-2";
   else if (/^MET MOCK 1/i.test(firstLine)) mockId = "met-mock-1";
   else if (/^NIMHANS MOCK 1/i.test(firstLine)) mockId = "nimhans-mock-1";
   else if (/^PYQ MOCK 2/i.test(firstLine)) mockId = "pyq-mock-2";

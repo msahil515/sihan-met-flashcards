@@ -642,6 +642,17 @@ const MOCKS = [
     scoring: { plus: 4, minus: 1 },
     sections: { biopsych: 30, dev: 25, abnormal: 30, assessment: 25, therapy: 25, biostats: 20, language: 25 },
     meta: "180 Q · 180 min · +4 / −1 · full MET syllabus · harder distractors than Mock 1",
+    fresh: false
+  },
+  {
+    id: "met-mock-3",
+    title: "MET Mock 3, 100 Q tight pace",
+    path: "quiz/met-mock-3/",
+    total: 100,
+    storageKey: "met-mock-3-results-v1",
+    scoring: { plus: 4, minus: 1 },
+    sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 },
+    meta: "100 Q · 100 min · +4 / −1 · all 7 MET sections · zero stem overlap with Mock 1 / Mock 2",
     fresh: true
   },
   {
@@ -685,7 +696,8 @@ const RESOURCES = [
 ];
 
 const NEWS = [
-  { date: "2026-05-17", title: "MET Mock 2 — full 180 Q syllabus mock (NEW)", desc: "Full-length MET-format mock: 180 Q across all 7 sections (Bio 30, Dev 25, Abnormal 30, Assessment 25, Therapy 25, Biostats 20, Language 25). MET scoring +4/−1, target 480/720. Harder distractors than Mock 1 — fewer giveaways, more two-options-look-right traps. Independent storage so Mock 1 progress is preserved. Same engine: section filter, per-Q notes, backup code, full analysis page, copy-to-WhatsApp export.", href: "quiz/met-mock-2/" },
+  { date: "2026-05-17", title: "MET Mock 3 — 100 Q tight-pace mock (NEW)", desc: "100-question MET-pattern mock, 1 minute per question, +4/−1 scoring, target 270+/400. Zero stem overlap with Mock 1 or Mock 2 so it counts as a clean attempt. Blueprint: Bio 18, Dev 14, Abnormal 18, Assessment 15, Therapy 14, Biostats 11, Language 10. Answer letters shuffled to balanced a/b/c/d (~25 each) so the pattern can't be gamed. Independent storage so Mock 1 / Mock 2 progress is preserved. Same engine: section filter, per-Q notes, backup code, full analysis page, copy-to-WhatsApp export.", href: "quiz/met-mock-3/" },
+  { date: "2026-05-17", title: "MET Mock 2 — full 180 Q syllabus mock", desc: "Full-length MET-format mock: 180 Q across all 7 sections (Bio 30, Dev 25, Abnormal 30, Assessment 25, Therapy 25, Biostats 20, Language 25). MET scoring +4/−1, target 480/720. Harder distractors than Mock 1 — fewer giveaways, more two-options-look-right traps. Independent storage so Mock 1 progress is preserved. Same engine: section filter, per-Q notes, backup code, full analysis page, copy-to-WhatsApp export.", href: "quiz/met-mock-2/" },
   { date: "2026-05-16", title: "MET Mock 1 Debrief (192/400)", desc: "Your latest attempt: 4 wrongs + 47 skips. Page covers all 4 wrongs with deep walkthroughs (Gestalt/empty chair, corticospinal decussation, Ainsworth resistant, Thomas & Chess slow-to-warm-up) and every note question you left: cranial nerve list + mnemonic (On Old Olympus...), sleep wave mnemonic (BATS Drink Blood), Yalom's 11 therapeutic factors, theory of mind, Korsakoff vs dissociative amnesia, p-value refresher, Ainsworth's 4 attachment styles, trinucleotide repeat disorder list (Huntington/Fragile X/DM1/Friedreich), EMDR + trauma therapist lineage. Plus bonus quick hits on MMPI T-scores, WAIS ranges, Ellis ABC, basal ganglia, place theory, NMDA/LTP.", href: "notes/met-mock-1-debrief/" },
   { date: "2026-05-16", title: "Full per-mock analysis page (NEW)", desc: "On My Results, every mock card now has a 'Full analysis' button. Opens a deep view: score + estimated band on a target-vs-cutoff bar, section-wise R/W/Skip with miss-rate, top-3 weakest topics with the exact cheatsheet links to open before re-attempting, and every wrong/guessed/skipped question with full options, correct answer in green, your pick in red, and the explanation. Filter pills for Wrong / Guessed / Skipped / Solid / All.", href: "results/analysis/" },
   { date: "2026-05-16", title: "My Results page", desc: "One page that pulls live scores from all 3 mocks on this browser, keeps a history of every snapshot you take, and lets you paste a results blob from another device to add it to history. Free-form notes journal per mock. Tap 'Copy results for analysis' on any mock to auto-log a snapshot.", href: "results/" },

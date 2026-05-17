@@ -201,8 +201,20 @@ const MOCKS = [
     storageKey: "met-mock-2-results-v1",
     sections: { biopsych: 30, dev: 25, abnormal: 30, assessment: 25, therapy: 25, biostats: 20, language: 25 },
     blurb: "Full-length MET-pattern paper. 180 Q across all 7 sections in MET-style weighting (Bio 30, Dev 25, Abnormal 30, Assessment 25, Therapy 25, Biostats 20, Language 25). Harder distractors than Mock 1 — fewer giveaways, more two-options-look-right traps. Same engine: section filter, per-Q notes, backup code, full analysis page.",
-    fresh: true,
+    fresh: false,
     tags: ["Full length", "MET +4 / −1", "180 Q", "harder distractors"]
+  },
+  {
+    id: "met-mock-3",
+    title: "MET Mock 3 — 100 Q Tight Pace",
+    sub: "100 Q · 100 min · +4 / −1 · all 7 MET sections",
+    path: "../quiz/met-mock-3/",
+    total: 100,
+    storageKey: "met-mock-3-results-v1",
+    sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 },
+    blurb: "100-question MET-pattern mock at 1 minute per question, +4/−1, target 270+/400. Zero stem overlap with Mock 1 or Mock 2 so it counts as a clean attempt. Blueprint: Bio 18, Dev 14, Abnormal 18, Assessment 15, Therapy 14, Biostats 11, Language 10. Answer letters shuffled to balanced ~25 each so the pattern can't be gamed.",
+    fresh: true,
+    tags: ["Full length", "MET +4 / −1", "100 Q", "fresh stems", "tight pace"]
   },
   {
     id: "pyq-mock-2",
@@ -308,6 +320,7 @@ function updateCountdown() {
 const BACKUP_KEYS = [
   "met-mock-1-results-v1",      "met-mock-1-notes-v1",      "met-mock-1-progress-v1",
   "met-mock-2-results-v1",      "met-mock-2-notes-v1",      "met-mock-2-progress-v1",
+  "met-mock-3-results-v1",      "met-mock-3-notes-v1",      "met-mock-3-progress-v1",
   "nimhans-mock-1-results-v2",  "nimhans-mock-1-notes-v2",  "nimhans-mock-1-progress-v2",
   "pyq-mock-2-results-v1",      "pyq-mock-2-notes-v1",      "pyq-mock-2-progress-v1",
   "sihan-met-quiz-results-v1",  "sihan-met-quiz-notes-v1",  "sihan-met-quiz-progress-v1",

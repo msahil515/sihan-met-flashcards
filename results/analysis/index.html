@@ -363,6 +363,29 @@ const MOCKS = [
     companion: null
   },
   {
+    id: "met-mock-3",
+    title: "MET Mock 3, 100 Q tight pace",
+    short: "MET Mock 3",
+    path: "../../quiz/met-mock-3/",
+    storageResults: "met-mock-3-results-v1",
+    storageNotes: "met-mock-3-notes-v1",
+    total: 100,
+    max: 400,
+    scoring: (right, wrong) => right * 4 - wrong * 1,
+    scoringLabel: "+4 right · −1 wrong · 0 blank",
+    sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 },
+    bands: [
+      { min: 320, max: 400, name: "Top 10%", cls: "good", desc: "Above the 320 line on a tight-paced 100 Q. Two of these in a row under timed conditions = comfortable MET seat zone." },
+      { min: 280, max: 319, name: "Top 25%", cls: "good", desc: "Above the typical MET cutoff estimate. Clean up the −1 leak on guesses and you're in the top decile." },
+      { min: 240, max: 279, name: "Top 40%", cls: "warn", desc: "Around the serious-aspirant median. Patch your two weakest sections — don't chase new topics." },
+      { min: 200, max: 239, name: "Mid pack", cls: "warn", desc: "Right in the bulk. Pull ahead by stopping the −1 bleed and locking 1-2 weak sections cold." },
+      { min: 160, max: 199, name: "Below median", cls: "bad", desc: "Most attempters score higher. Likely a section is genuinely soft — revise before another full attempt." },
+      { min: -400, max: 159, name: "Cold start", cls: "bad", desc: "Score will climb fast with focused revision on the weakest section. Don't grind more mocks until you've closed it." }
+    ],
+    cutoff: 270, cutoffLabel: "MET target 270",
+    companion: null
+  },
+  {
     id: "pyq-mock-2",
     title: "PYQ Mock 2, pan-India",
     short: "PYQ Mock 2",
