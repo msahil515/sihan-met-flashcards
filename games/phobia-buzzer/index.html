@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0d1117">
-<title>Phobia Buzzer — 2-Player · Sihan, MET 2026</title>
+<title>Phobia Buzzer · 4-option MCQ · Sihan, MET 2026</title>
 <style>
   :root {
     --bg: #0d1117; --panel: #161b22; --panel-2: #1f252d; --panel-3: #262d36;
@@ -70,34 +70,28 @@
 
   /* Definition card */
   .def-card { background: var(--panel); border: 1px solid var(--border-strong);
-    border-radius: 14px; padding: 28px 24px; margin-bottom: 18px;
-    text-align: center; min-height: 140px;
+    border-radius: 14px; padding: 24px 22px; margin-bottom: 14px;
+    text-align: center; min-height: 110px;
     display: flex; flex-direction: column; align-items: center; justify-content: center; }
   .def-prompt { font-size: 11px; color: var(--muted); text-transform: uppercase;
-    letter-spacing: 2px; margin-bottom: 12px; }
-  .def-text { font-size: 26px; font-weight: 700; line-height: 1.35; }
-  .def-text small { display: block; font-size: 13px; font-weight: 400;
-    color: var(--muted); margin-top: 8px; }
-  .reveal-row { margin-top: 14px; font-size: 13px; }
+    letter-spacing: 2px; margin-bottom: 10px; }
+  .def-text { font-size: 24px; font-weight: 700; line-height: 1.35; }
+  .reveal-row { margin-top: 12px; font-size: 13px; }
   .reveal-row .answer { font-weight: 700; color: var(--good); }
   .reveal-row .answer.bad { color: var(--bad); }
-  .reveal-row .aliases { color: var(--muted); font-size: 12px; margin-top: 4px; }
 
   /* Player panels */
-  .players { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+  .players { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
   .pcard { background: var(--panel); border: 2px solid var(--border); border-radius: 12px;
     padding: 14px; transition: border-color 0.15s ease, background 0.15s ease; }
   .pcard.p1 { border-left: 4px solid var(--p1); }
   .pcard.p2 { border-left: 4px solid var(--p2); }
-  .pcard.focus { border-color: var(--accent); background: rgba(88,166,255,0.04); }
-  .pcard.p1.focus { border-color: var(--p1); }
-  .pcard.p2.focus { border-color: var(--p2); }
-  .pcard.locked { opacity: 0.55; }
+  .pcard.locked { opacity: 0.7; }
   .pcard.correct { border-color: var(--good); background: var(--good-soft); }
   .pcard.wrong { border-color: var(--bad); background: var(--bad-soft); }
 
   .pcard-head { display: flex; align-items: baseline; justify-content: space-between;
-    margin-bottom: 8px; gap: 8px; }
+    margin-bottom: 10px; gap: 8px; }
   .pcard-name { font-weight: 700; font-size: 14px; }
   .pcard.p1 .pcard-name { color: var(--p1); }
   .pcard.p2 .pcard-name { color: var(--p2); }
@@ -107,16 +101,31 @@
   .pcard-status.bad { color: var(--bad); }
   .pcard-status.warn { color: var(--warn); }
 
-  .pinput { width: 100%; background: var(--panel-2); color: var(--text);
+  /* Option buttons */
+  .opts { display: grid; grid-template-columns: 1fr; gap: 8px; }
+  .opt { display: flex; align-items: center; gap: 10px;
+    background: var(--panel-2); color: var(--text);
     border: 1px solid var(--border-strong); border-radius: 8px;
-    padding: 12px 14px; font-size: 17px; font-family: inherit;
-    font-weight: 500; outline: none; transition: border-color 0.15s ease; }
-  .pinput:focus { border-color: var(--accent); }
-  .pcard.p1 .pinput:focus { border-color: var(--p1); }
-  .pcard.p2 .pinput:focus { border-color: var(--p2); }
-  .pinput:disabled { cursor: not-allowed; opacity: 0.55; }
-  .pinput-hint { font-size: 11px; color: var(--muted); margin-top: 6px;
-    text-align: center; letter-spacing: 0.3px; }
+    padding: 11px 12px; font-size: 14px; font-family: inherit; font-weight: 600;
+    cursor: pointer; text-align: left; width: 100%;
+    transition: background 0.12s ease, border-color 0.12s ease, transform 0.08s ease;
+    user-select: none; -webkit-user-select: none; }
+  .opt:hover:not(:disabled) { background: var(--panel-3); border-color: var(--accent-dim); }
+  .opt:active:not(:disabled) { transform: scale(0.98); }
+  .opt:disabled { cursor: not-allowed; }
+  .opt .letter { display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border-radius: 5px; font-size: 11px; font-weight: 800;
+    background: var(--panel-3); color: var(--muted); flex-shrink: 0; letter-spacing: 0; }
+  .pcard.p1 .opt .letter { color: var(--p1); }
+  .pcard.p2 .opt .letter { color: var(--p2); }
+  .opt .label { flex: 1; min-width: 0; line-height: 1.25; }
+  .opt.correct { background: var(--good-soft); border-color: var(--good); color: var(--good); }
+  .opt.correct .letter { background: var(--good); color: #0d1117; }
+  .opt.wrong { background: var(--bad-soft); border-color: var(--bad); color: var(--bad); }
+  .opt.wrong .letter { background: var(--bad); color: #0d1117; }
+  .opt.dimmed { opacity: 0.45; }
+  .opt.reveal-correct { background: var(--good-soft); border-color: var(--good); }
+  .opt.reveal-correct .letter { background: var(--good); color: #0d1117; }
 
   /* Controls */
   .controls { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
@@ -199,16 +208,18 @@
     padding: 18px 0 8px 0; border-top: 1px solid var(--border); margin-top: 32px; }
 
   @media (max-width: 700px) {
-    main { padding: 16px; }
+    main { padding: 14px; }
     .scoreboard { grid-template-columns: 1fr; gap: 8px; text-align: center; }
     .scoreboard .side, .scoreboard .side.p2 { justify-content: center; }
     .scoreboard .middle { order: -1; }
-    .def-text { font-size: 20px; }
-    .def-card { padding: 20px 16px; min-height: 110px; }
-    .players { grid-template-columns: 1fr; }
+    .def-text { font-size: 19px; }
+    .def-card { padding: 18px 14px; min-height: 90px; }
+    .players { grid-template-columns: 1fr; gap: 10px; }
     .settings-body { grid-template-columns: 1fr; }
     .end-pane .winner-name { font-size: 26px; }
     .hero h1 { font-size: 18px; }
+    .opt { padding: 14px 12px; font-size: 15px; } /* bigger tap target on phone */
+    .opt .letter { width: 26px; height: 26px; font-size: 12px; }
   }
 </style>
 </head>
@@ -217,7 +228,7 @@
 <div class="topbar">
   <div class="topbar-inner">
     <div>
-      <div class="brand-title">Phobia Buzzer · 2-Player</div>
+      <div class="brand-title">Phobia Buzzer · 4-option MCQ</div>
       <div class="brand-sub">Sihan, MET 2026 · games</div>
     </div>
     <nav class="topnav">
@@ -231,19 +242,19 @@
 <main>
 
   <div class="hero">
-    <h1>Phobia buzzer · best of 10</h1>
-    <p>Definition drops on screen. First player to type the phobia name and hit Enter scores the round. Wrong guess locks you out for that round, the other player can still grab it. 10 rounds, highest score wins. Tie goes to sudden death.</p>
+    <h1>Phobia buzzer · 4-option MCQ · best of 10</h1>
+    <p>Definition drops. Both players see the same 4 options A/B/C/D. First to tap the right one scores the round. Tap a wrong option and you're locked out for the round. 10 rounds, highest score wins. Tie = sudden death.</p>
   </div>
 
   <!-- START PANE -->
   <div class="start-pane" id="startPane">
     <h2>Get ready</h2>
-    <p>One device, two players, two text boxes. Sit side by side, claim a panel, tap your box when the round opens, type the phobia, hit Enter.</p>
+    <p>One device, two players, two button grids. Sit side by side, claim a panel, tap your answer when the round opens.</p>
     <ol>
-      <li>Tap your box first. <b>P1 is left, P2 is right</b> (top / bottom on phone).</li>
-      <li>Read the definition. Type the phobia name (e.g. <b>arachnophobia</b>).</li>
-      <li>Press <b>Enter</b> to lock in. First correct lock-in wins the round.</li>
-      <li>Wrong guess? Your box greys out for the round. Opponent still has a shot.</li>
+      <li><b>P1 panel left, P2 right</b> (top / bottom on phone). Each panel has its own 4 buttons.</li>
+      <li>Read the definition. Same 4 options A–D show on both sides, same order.</li>
+      <li>Tap to lock in. <b>First correct tap wins the round.</b></li>
+      <li>Wrong tap? Your panel greys out for the round. Opponent still has a shot.</li>
       <li>10 rounds. Highest score wins. Tie = single sudden death round.</li>
     </ol>
     <details class="settings">
@@ -261,7 +272,7 @@
           <label>Rounds</label>
           <input id="roundsInput" type="number" min="3" max="40" value="10">
         </div>
-        <div class="full">Names + round count save in this browser. Phobia order is fresh-shuffled every new game.</div>
+        <div class="full">Names + round count save in this browser. Phobia order and distractors are fresh-shuffled every new game.</div>
       </div>
     </details>
     <div class="controls" style="margin-top:14px;">
@@ -278,7 +289,7 @@
       </div>
       <div class="middle">
         <div class="round">Round <b id="sbRound">1</b> / <b id="sbTotal">10</b></div>
-        <div class="vs" id="sbStatus">Type the phobia · hit Enter</div>
+        <div class="vs" id="sbStatus">Tap the right option · first wins</div>
       </div>
       <div class="side p2">
         <div class="pscore p2" id="sbP2Score">0</div>
@@ -296,18 +307,16 @@
       <div class="pcard p1" id="p1Card">
         <div class="pcard-head">
           <div class="pcard-name" id="p1Label">P1</div>
-          <div class="pcard-status" id="p1Status">Waiting</div>
+          <div class="pcard-status" id="p1Status">Ready</div>
         </div>
-        <input class="pinput" id="p1Input" type="text" placeholder="…phobia" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
-        <div class="pinput-hint">Type → press Enter to lock in</div>
+        <div class="opts" id="p1Opts"></div>
       </div>
       <div class="pcard p2" id="p2Card">
         <div class="pcard-head">
           <div class="pcard-name" id="p2Label">P2</div>
-          <div class="pcard-status" id="p2Status">Waiting</div>
+          <div class="pcard-status" id="p2Status">Ready</div>
         </div>
-        <input class="pinput" id="p2Input" type="text" placeholder="…phobia" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
-        <div class="pinput-hint">Type → press Enter to lock in</div>
+        <div class="opts" id="p2Opts"></div>
       </div>
     </div>
 
@@ -349,109 +358,103 @@
 <script>
 /* =====================================================================
    PHOBIA BANK
-   Each entry: { def, name (canonical), aliases (accepted spellings) }
-   Match is case-insensitive, ignores whitespace, hyphens, and accents.
+   Each entry: { def, name (canonical answer to show as the option) }
    ===================================================================== */
 const PHOBIAS = [
-  { def: "Fear of spiders", name: "arachnophobia", aliases: [] },
-  { def: "Fear of confined or enclosed spaces", name: "claustrophobia", aliases: [] },
-  { def: "Fear of heights", name: "acrophobia", aliases: [] },
-  { def: "Fear of open or public places where escape feels difficult", name: "agoraphobia", aliases: [] },
-  { def: "Fear of flying", name: "aerophobia", aliases: ["aviophobia", "pteromerhanophobia", "aviatophobia"] },
-  { def: "Fear of blood", name: "hemophobia", aliases: ["haemophobia", "hematophobia", "haematophobia"] },
-  { def: "Fear of snakes", name: "ophidiophobia", aliases: ["herpetophobia"] },
-  { def: "Fear of dogs", name: "cynophobia", aliases: [] },
-  { def: "Fear of thunder and lightning", name: "astraphobia", aliases: ["brontophobia", "astrapophobia", "ceraunophobia", "keraunophobia"] },
-  { def: "Fear of needles or injections", name: "trypanophobia", aliases: ["aichmophobia", "belonephobia"] },
-  { def: "Fear of death or dying", name: "thanatophobia", aliases: [] },
-  { def: "Fear of the dark", name: "nyctophobia", aliases: ["achluophobia", "scotophobia", "lygophobia"] },
-  { def: "Fear of strangers or foreigners", name: "xenophobia", aliases: [] },
-  { def: "Fear of the number 13", name: "triskaidekaphobia", aliases: [] },
-  { def: "Fear of germs, dirt, or contamination", name: "mysophobia", aliases: ["germophobia", "germaphobia", "misophobia", "verminophobia"] },
-  { def: "Fear of public speaking", name: "glossophobia", aliases: [] },
-  { def: "Fear of clowns", name: "coulrophobia", aliases: [] },
-  { def: "Fear of fire", name: "pyrophobia", aliases: [] },
-  { def: "Fear of water", name: "hydrophobia", aliases: ["aquaphobia"] },
-  { def: "Fear of cats", name: "ailurophobia", aliases: ["gatophobia", "felinophobia", "elurophobia"] },
-  { def: "Fear of pain", name: "algophobia", aliases: ["odynophobia"] },
-  { def: "Fear of being alone", name: "autophobia", aliases: ["monophobia", "isolophobia", "eremophobia"] },
-  { def: "Fear of dentists or dental procedures", name: "dentophobia", aliases: ["odontophobia"] },
-  { def: "Fear of vomiting", name: "emetophobia", aliases: [] },
-  { def: "Fear of blushing", name: "erythrophobia", aliases: ["ereuthrophobia"] },
-  { def: "Fear of growing old or aging", name: "gerascophobia", aliases: ["gerontophobia"] },
-  { def: "Fear of dead bodies or things associated with death", name: "necrophobia", aliases: [] },
-  { def: "Fear of crowds", name: "ochlophobia", aliases: ["enochlophobia", "demophobia"] },
-  { def: "Fear of dolls", name: "pediophobia", aliases: [] },
-  { def: "Fear of beards", name: "pogonophobia", aliases: [] },
-  { def: "Fear of being stared at or watched", name: "scopophobia", aliases: ["scoptophobia", "ophthalmophobia"] },
-  { def: "Fear of being buried alive", name: "taphephobia", aliases: ["taphophobia"] },
-  { def: "Fear of irregular clusters of small holes or bumps", name: "trypophobia", aliases: [] },
-  { def: "Fear of long words (ironically named)", name: "hippopotomonstrosesquippedaliophobia", aliases: ["sesquipedalophobia", "hippopotomonstrosesquipedaliophobia"] },
-  { def: "Fear of being without your mobile phone or signal", name: "nomophobia", aliases: [] },
-  { def: "Fear of falling in love or emotional attachment", name: "philophobia", aliases: [] },
-  { def: "Fear of sleep", name: "somniphobia", aliases: ["hypnophobia"] },
-  { def: "Fear of mirrors or one's own reflection", name: "spectrophobia", aliases: ["catoptrophobia", "eisoptrophobia"] },
-  { def: "Fear of doctors or medical procedures", name: "iatrophobia", aliases: [] },
-  { def: "Fear of work", name: "ergophobia", aliases: [] },
-  { def: "Fear of stairs or climbing", name: "climacophobia", aliases: ["bathmophobia"] },
-  { def: "Fear of cancer", name: "carcinophobia", aliases: ["cancerophobia"] },
-  { def: "Fear of contracting a disease", name: "nosophobia", aliases: ["pathophobia"] },
-  { def: "Fear of bees", name: "apiphobia", aliases: ["melissophobia"] },
-  { def: "Fear of birds", name: "ornithophobia", aliases: [] },
-  { def: "Fear of insects", name: "entomophobia", aliases: ["insectophobia"] },
-  { def: "Fear of the moon", name: "selenophobia", aliases: [] },
-  { def: "Fear of the sun or strong sunlight", name: "heliophobia", aliases: [] },
-  { def: "Fear of failure", name: "atychiphobia", aliases: ["kakorrhaphiophobia"] },
-  { def: "Fear of being touched", name: "haphephobia", aliases: ["aphephobia", "aphenphosmphobia", "chiraptophobia", "thixophobia"] },
-  { def: "Fear of school or going to school", name: "didaskaleinophobia", aliases: ["scholionophobia"] },
-  { def: "Fear of choking or swallowing", name: "phagophobia", aliases: ["pseudodysphagia"] },
-  { def: "Fear of mice or rats", name: "musophobia", aliases: ["murophobia", "suriphobia"] },
-  { def: "Fear of bridges or crossing bridges", name: "gephyrophobia", aliases: [] },
-  { def: "Fear of writing or writing in public", name: "graphophobia", aliases: [] },
-  { def: "Fear of money", name: "chrometophobia", aliases: ["chrematophobia"] },
-  { def: "Fear of vehicles or being in a vehicle", name: "amaxophobia", aliases: ["ochophobia", "motorphobia"] },
-  { def: "Fear of storms", name: "lilapsophobia", aliases: [] },
-  { def: "Fear of being far from home", name: "apodemophobia", aliases: [] }
+  { def: "Fear of spiders", name: "arachnophobia" },
+  { def: "Fear of confined or enclosed spaces", name: "claustrophobia" },
+  { def: "Fear of heights", name: "acrophobia" },
+  { def: "Fear of open or public places where escape feels difficult", name: "agoraphobia" },
+  { def: "Fear of flying", name: "aerophobia" },
+  { def: "Fear of blood", name: "hemophobia" },
+  { def: "Fear of snakes", name: "ophidiophobia" },
+  { def: "Fear of dogs", name: "cynophobia" },
+  { def: "Fear of thunder and lightning", name: "astraphobia" },
+  { def: "Fear of needles or injections", name: "trypanophobia" },
+  { def: "Fear of death or dying", name: "thanatophobia" },
+  { def: "Fear of the dark", name: "nyctophobia" },
+  { def: "Fear of strangers or foreigners", name: "xenophobia" },
+  { def: "Fear of the number 13", name: "triskaidekaphobia" },
+  { def: "Fear of germs, dirt, or contamination", name: "mysophobia" },
+  { def: "Fear of public speaking", name: "glossophobia" },
+  { def: "Fear of clowns", name: "coulrophobia" },
+  { def: "Fear of fire", name: "pyrophobia" },
+  { def: "Fear of water", name: "hydrophobia" },
+  { def: "Fear of cats", name: "ailurophobia" },
+  { def: "Fear of pain", name: "algophobia" },
+  { def: "Fear of being alone", name: "autophobia" },
+  { def: "Fear of dentists or dental procedures", name: "dentophobia" },
+  { def: "Fear of vomiting", name: "emetophobia" },
+  { def: "Fear of blushing", name: "erythrophobia" },
+  { def: "Fear of growing old or aging", name: "gerascophobia" },
+  { def: "Fear of dead bodies or things associated with death", name: "necrophobia" },
+  { def: "Fear of crowds", name: "ochlophobia" },
+  { def: "Fear of dolls", name: "pediophobia" },
+  { def: "Fear of beards", name: "pogonophobia" },
+  { def: "Fear of being stared at or watched", name: "scopophobia" },
+  { def: "Fear of being buried alive", name: "taphephobia" },
+  { def: "Fear of irregular clusters of small holes or bumps", name: "trypophobia" },
+  { def: "Fear of long words (ironically named)", name: "hippopotomonstrosesquippedaliophobia" },
+  { def: "Fear of being without your mobile phone or signal", name: "nomophobia" },
+  { def: "Fear of falling in love or emotional attachment", name: "philophobia" },
+  { def: "Fear of sleep", name: "somniphobia" },
+  { def: "Fear of mirrors or one's own reflection", name: "spectrophobia" },
+  { def: "Fear of doctors or medical procedures", name: "iatrophobia" },
+  { def: "Fear of work", name: "ergophobia" },
+  { def: "Fear of stairs or climbing", name: "climacophobia" },
+  { def: "Fear of cancer", name: "carcinophobia" },
+  { def: "Fear of contracting a disease", name: "nosophobia" },
+  { def: "Fear of bees", name: "apiphobia" },
+  { def: "Fear of birds", name: "ornithophobia" },
+  { def: "Fear of insects", name: "entomophobia" },
+  { def: "Fear of the moon", name: "selenophobia" },
+  { def: "Fear of the sun or strong sunlight", name: "heliophobia" },
+  { def: "Fear of failure", name: "atychiphobia" },
+  { def: "Fear of being touched", name: "haphephobia" },
+  { def: "Fear of school or going to school", name: "didaskaleinophobia" },
+  { def: "Fear of choking or swallowing", name: "phagophobia" },
+  { def: "Fear of mice or rats", name: "musophobia" },
+  { def: "Fear of bridges or crossing bridges", name: "gephyrophobia" },
+  { def: "Fear of writing or writing in public", name: "graphophobia" },
+  { def: "Fear of money", name: "chrometophobia" },
+  { def: "Fear of vehicles or being in a vehicle", name: "amaxophobia" },
+  { def: "Fear of storms", name: "lilapsophobia" },
+  { def: "Fear of being far from home", name: "apodemophobia" }
 ];
 
-/* Dedupe so the same answer can't appear twice in one game */
-const PHOBIAS_DEDUP = (() => {
-  const seen = new Set();
-  const out = [];
-  for (const p of PHOBIAS) {
-    const key = normalize(p.name);
-    if (seen.has(key)) continue;
-    seen.add(key);
-    out.push(p);
+/* Distractor topic groups — distractors are pulled preferentially from the same
+   group as the correct answer so options stay thematically plausible (animals
+   vs. social-fears vs. nature etc.), not just random nonsense. Each phobia
+   should appear in exactly one group; ungrouped ones fall through to "misc". */
+const TOPIC_GROUPS = {
+  animals: ["arachnophobia","ophidiophobia","cynophobia","ailurophobia","apiphobia","ornithophobia",
+            "entomophobia","musophobia","pediophobia"],
+  nature:  ["acrophobia","aerophobia","astraphobia","pyrophobia","hydrophobia","selenophobia",
+            "heliophobia","lilapsophobia","climacophobia"],
+  spaces:  ["claustrophobia","agoraphobia","gephyrophobia","amaxophobia","apodemophobia","nyctophobia"],
+  body:    ["hemophobia","trypanophobia","emetophobia","erythrophobia","phagophobia","algophobia",
+            "haphephobia","dentophobia","iatrophobia"],
+  disease: ["mysophobia","carcinophobia","nosophobia","necrophobia","thanatophobia","gerascophobia"],
+  social:  ["xenophobia","glossophobia","coulrophobia","autophobia","scopophobia","philophobia",
+            "ochlophobia","ergophobia","didaskaleinophobia","graphophobia","pogonophobia"],
+  misc:    ["triskaidekaphobia","trypophobia","hippopotomonstrosesquippedaliophobia","nomophobia",
+            "somniphobia","spectrophobia","chrometophobia","taphephobia","atychiphobia"]
+};
+const NAME_TO_GROUP = (() => {
+  const m = {};
+  for (const [g, names] of Object.entries(TOPIC_GROUPS)) {
+    for (const n of names) m[n] = g;
   }
-  return out;
+  return m;
 })();
-
-/* =====================================================================
-   MATCHING
-   ===================================================================== */
-function normalize(s) {
-  return (s || "")
-    .toLowerCase()
-    .normalize("NFD").replace(/[̀-ͯ]/g, "") // strip accents
-    .replace(/[^a-z]/g, ""); // keep letters only
-}
-
-function isAnswerCorrect(input, phobia) {
-  const n = normalize(input);
-  if (!n) return false;
-  if (n === normalize(phobia.name)) return true;
-  return phobia.aliases.some(a => normalize(a) === n);
-}
 
 /* =====================================================================
    STATE + STORAGE
    ===================================================================== */
-const STORAGE_KEY = "phobia-buzzer-prefs-v1";
+const STORAGE_KEY = "phobia-buzzer-prefs-v2"; // bumped from v1 (text-input version)
 function loadPrefs() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-  } catch { return {}; }
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); }
+  catch { return {}; }
 }
 function savePrefs(p) {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); } catch {}
@@ -459,15 +462,15 @@ function savePrefs(p) {
 
 const game = {
   status: "menu", // menu | playing | resolved | over
-  rounds: [],
+  rounds: [],   // [{ def, name, options: [4 names], correctIdx }]
   currentRound: 0,
   totalRounds: 10,
   players: [
-    { name: "P1", score: 0, locked: false },
-    { name: "P2", score: 0, locked: false }
+    { name: "P1", score: 0, locked: false, pickedIdx: null },
+    { name: "P2", score: 0, locked: false, pickedIdx: null }
   ],
   roundWinner: null, // 0 | 1 | -1 (no one) | null (ongoing)
-  log: [], // [{ def, name, winner: 0|1|-1 }]
+  log: [],
   suddenDeath: false
 };
 
@@ -478,6 +481,34 @@ function shuffled(arr) {
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
+}
+
+/* Build a 4-option set for a given correct phobia. Pulls 3 distractors,
+   preferring same-group phobias for thematic plausibility, then random
+   fill if the group is too small. Always returns 4 distinct names. */
+function buildOptions(correct) {
+  const group = NAME_TO_GROUP[correct.name] || "misc";
+  const sameGroup = (TOPIC_GROUPS[group] || []).filter(n => n !== correct.name);
+  const others    = PHOBIAS.map(p => p.name).filter(n => n !== correct.name && !sameGroup.includes(n));
+
+  const distractors = [];
+  for (const n of shuffled(sameGroup)) {
+    if (distractors.length >= 3) break;
+    distractors.push(n);
+  }
+  for (const n of shuffled(others)) {
+    if (distractors.length >= 3) break;
+    distractors.push(n);
+  }
+
+  const options = shuffled([correct.name, ...distractors]);
+  const correctIdx = options.indexOf(correct.name);
+  return { options, correctIdx };
+}
+
+function buildRound(phobia) {
+  const { options, correctIdx } = buildOptions(phobia);
+  return { def: phobia.def, name: phobia.name, options, correctIdx };
 }
 
 /* =====================================================================
@@ -506,8 +537,8 @@ const els = {
   p2Label: document.getElementById("p2Label"),
   p1Status: document.getElementById("p1Status"),
   p2Status: document.getElementById("p2Status"),
-  p1Input: document.getElementById("p1Input"),
-  p2Input: document.getElementById("p2Input"),
+  p1Opts: document.getElementById("p1Opts"),
+  p2Opts: document.getElementById("p2Opts"),
   revealBtn: document.getElementById("revealBtn"),
   nextBtn: document.getElementById("nextBtn"),
   quitBtn: document.getElementById("quitBtn"),
@@ -531,23 +562,23 @@ if (prefs.rounds) els.roundsInput.value = prefs.rounds;
 /* =====================================================================
    GAME FLOW
    ===================================================================== */
-function startGame(rematch = false) {
+function startGame() {
   const p1Name = (els.p1NameInput.value || "P1").trim().slice(0, 14) || "P1";
   const p2Name = (els.p2NameInput.value || "P2").trim().slice(0, 14) || "P2";
   let n = parseInt(els.roundsInput.value, 10);
   if (!Number.isFinite(n) || n < 3) n = 3;
   if (n > 40) n = 40;
-  if (n > PHOBIAS_DEDUP.length) n = PHOBIAS_DEDUP.length;
+  if (n > PHOBIAS.length) n = PHOBIAS.length;
 
   savePrefs({ p1Name, p2Name, rounds: n });
 
   game.status = "playing";
-  game.rounds = shuffled(PHOBIAS_DEDUP).slice(0, n);
+  game.rounds = shuffled(PHOBIAS).slice(0, n).map(buildRound);
   game.currentRound = 0;
   game.totalRounds = n;
   game.players = [
-    { name: p1Name, score: 0, locked: false },
-    { name: p2Name, score: 0, locked: false }
+    { name: p1Name, score: 0, locked: false, pickedIdx: null },
+    { name: p2Name, score: 0, locked: false, pickedIdx: null }
   ];
   game.roundWinner = null;
   game.log = [];
@@ -570,7 +601,9 @@ function startGame(rematch = false) {
 function renderRound() {
   const r = game.rounds[game.currentRound];
   game.players[0].locked = false;
+  game.players[0].pickedIdx = null;
   game.players[1].locked = false;
+  game.players[1].pickedIdx = null;
   game.roundWinner = null;
 
   els.sbRound.textContent = game.currentRound + 1;
@@ -578,81 +611,142 @@ function renderRound() {
   els.sbP1Score.textContent = game.players[0].score;
   els.sbP2Score.textContent = game.players[1].score;
   els.sbStatus.textContent = game.suddenDeath
-    ? "Sudden death · first correct wins"
-    : "Type the phobia · hit Enter";
+    ? "Sudden death · first correct tap wins"
+    : "Tap the right option · first wins";
 
-  els.defText.innerHTML = escapeHTML(r.def);
+  els.defText.textContent = r.def;
   els.revealRow.style.display = "none";
   els.revealRow.innerHTML = "";
 
-  resetPanel(0);
-  resetPanel(1);
+  resetPanel(0, r.options);
+  resetPanel(1, r.options);
 
   els.nextBtn.style.display = "none";
   els.revealBtn.style.display = "";
   els.revealBtn.disabled = false;
 
-  // Focus P1 by default for round 1 (gives both players visual cue)
-  // Subsequent rounds: focus alternates so neither side gets a permanent edge
-  const focusIdx = (game.currentRound % 2 === 0) ? 0 : 1;
-  setTimeout(() => {
-    if (focusIdx === 0) els.p1Input.focus();
-    else els.p2Input.focus();
-  }, 50);
-
   updateLog();
 }
 
-function resetPanel(i) {
-  const card = i === 0 ? els.p1Card : els.p2Card;
-  const input = i === 0 ? els.p1Input : els.p2Input;
-  const status = i === 0 ? els.p1Status : els.p2Status;
-  card.classList.remove("locked", "correct", "wrong", "focus");
-  input.disabled = false;
-  input.value = "";
+const LETTERS = ["A", "B", "C", "D"];
+
+function resetPanel(idx, options) {
+  const card = idx === 0 ? els.p1Card : els.p2Card;
+  const status = idx === 0 ? els.p1Status : els.p2Status;
+  const optsHost = idx === 0 ? els.p1Opts : els.p2Opts;
+
+  card.classList.remove("locked", "correct", "wrong");
   status.classList.remove("good", "bad", "warn");
   status.textContent = "Ready";
+
+  optsHost.innerHTML = "";
+  options.forEach((name, i) => {
+    const btn = document.createElement("button");
+    btn.className = "opt";
+    btn.type = "button";
+    btn.dataset.optIdx = String(i);
+    btn.innerHTML =
+      `<span class="letter">${LETTERS[i]}</span>` +
+      `<span class="label">${escapeHTML(name)}</span>`;
+    btn.addEventListener("click", () => handlePick(idx, i));
+    optsHost.appendChild(btn);
+  });
 }
 
-function lockPanel(i, reason) {
-  game.players[i].locked = true;
-  const card = i === 0 ? els.p1Card : els.p2Card;
-  const input = i === 0 ? els.p1Input : els.p2Input;
-  const status = i === 0 ? els.p1Status : els.p2Status;
+function buttonsFor(idx) {
+  const host = idx === 0 ? els.p1Opts : els.p2Opts;
+  return Array.from(host.querySelectorAll(".opt"));
+}
+
+function disablePanelButtons(idx) {
+  buttonsFor(idx).forEach(b => { b.disabled = true; });
+}
+
+function handlePick(playerIdx, optIdx) {
+  if (game.status !== "playing" || game.roundWinner !== null) return;
+  if (game.players[playerIdx].locked) return;
+
+  const r = game.rounds[game.currentRound];
+  const btns = buttonsFor(playerIdx);
+  const chosenBtn = btns[optIdx];
+
+  game.players[playerIdx].pickedIdx = optIdx;
+
+  if (optIdx === r.correctIdx) {
+    // Win the round
+    chosenBtn.classList.add("correct");
+    awardRound(playerIdx);
+  } else {
+    // Wrong: lock this panel, mark wrong on chosen, dim others
+    chosenBtn.classList.add("wrong");
+    btns.forEach((b, i) => {
+      if (i !== optIdx) b.classList.add("dimmed");
+      b.disabled = true;
+    });
+    lockPanel(playerIdx, "Wrong · locked out");
+
+    // If both locked, end the round with no score
+    if (game.players[0].locked && game.players[1].locked) {
+      game.roundWinner = -1;
+      revealCorrectOnBothPanels();
+      showReveal(false);
+      finishRound();
+    }
+  }
+}
+
+function lockPanel(idx, reason) {
+  game.players[idx].locked = true;
+  const card = idx === 0 ? els.p1Card : els.p2Card;
+  const status = idx === 0 ? els.p1Status : els.p2Status;
   card.classList.add("locked", "wrong");
-  input.disabled = true;
   status.classList.add("bad");
   status.textContent = reason || "Out for round";
 }
 
-function awardRound(i) {
-  game.players[i].score += 1;
-  game.roundWinner = i;
-  const card = i === 0 ? els.p1Card : els.p2Card;
-  const status = i === 0 ? els.p1Status : els.p2Status;
+function awardRound(idx) {
+  game.players[idx].score += 1;
+  game.roundWinner = idx;
+  const card = idx === 0 ? els.p1Card : els.p2Card;
+  const status = idx === 0 ? els.p1Status : els.p2Status;
   card.classList.remove("wrong");
   card.classList.add("correct");
   status.classList.remove("bad");
   status.classList.add("good");
   status.textContent = "+1 · scored";
 
-  // lock both so no further input
-  els.p1Input.disabled = true;
-  els.p2Input.disabled = true;
+  // Lock everything
+  disablePanelButtons(0);
+  disablePanelButtons(1);
+
+  // On the opponent's panel, reveal correct so they can see what they missed
+  const other = idx === 0 ? 1 : 0;
+  const otherBtns = buttonsFor(other);
+  const r = game.rounds[game.currentRound];
+  otherBtns.forEach((b, i) => {
+    if (i === r.correctIdx) b.classList.add("reveal-correct");
+    else b.classList.add("dimmed");
+  });
 
   showReveal(true);
   finishRound();
 }
 
+function revealCorrectOnBothPanels() {
+  const r = game.rounds[game.currentRound];
+  [0, 1].forEach(idx => {
+    buttonsFor(idx).forEach((b, i) => {
+      if (i === r.correctIdx) b.classList.add("reveal-correct");
+    });
+    disablePanelButtons(idx);
+  });
+}
+
 function showReveal(scored) {
   const r = game.rounds[game.currentRound];
-  const aliases = r.aliases.filter(a => normalize(a) !== normalize(r.name));
   els.revealRow.style.display = "";
   els.revealRow.innerHTML =
-    `<div>Answer: <span class="answer ${scored ? "" : "bad"}">${escapeHTML(r.name)}</span></div>` +
-    (aliases.length
-      ? `<div class="aliases">Also accepted: ${aliases.map(escapeHTML).join(", ")}</div>`
-      : "");
+    `<div>Answer: <span class="answer ${scored ? "" : "bad"}">${escapeHTML(r.name)}</span></div>`;
 }
 
 function finishRound() {
@@ -672,7 +766,6 @@ function finishRound() {
 }
 
 function nextRound() {
-  // Sudden death victory check
   if (game.suddenDeath && game.roundWinner !== null && game.roundWinner !== -1) {
     endGame();
     return;
@@ -680,9 +773,7 @@ function nextRound() {
 
   game.currentRound += 1;
 
-  // Out of regular rounds?
   if (!game.suddenDeath && game.currentRound >= game.totalRounds) {
-    // Check for tie -> sudden death
     if (game.players[0].score === game.players[1].score) {
       enterSuddenDeath();
       return;
@@ -691,13 +782,14 @@ function nextRound() {
     return;
   }
 
-  // Out of phobia pool while in sudden death? rebuild
+  // If we ran out of pre-built rounds (sudden death extension), build another
   if (game.currentRound >= game.rounds.length) {
-    const usedNames = new Set(game.rounds.map(r => normalize(r.name)));
-    const remaining = PHOBIAS_DEDUP.filter(p => !usedNames.has(normalize(p.name)));
-    const more = shuffled(remaining.length ? remaining : PHOBIAS_DEDUP);
-    if (!more.length) { endGame(); return; }
-    game.rounds.push(more[0]);
+    const usedNames = new Set(game.rounds.map(r => r.name));
+    const remaining = PHOBIAS.filter(p => !usedNames.has(p.name));
+    const pool = remaining.length ? remaining : PHOBIAS;
+    const pick = shuffled(pool)[0];
+    if (!pick) { endGame(); return; }
+    game.rounds.push(buildRound(pick));
   }
 
   renderRound();
@@ -705,11 +797,10 @@ function nextRound() {
 
 function enterSuddenDeath() {
   game.suddenDeath = true;
-  // pick a fresh phobia not used
-  const usedNames = new Set(game.rounds.map(r => normalize(r.name)));
-  const remaining = PHOBIAS_DEDUP.filter(p => !usedNames.has(normalize(p.name)));
-  const pool = remaining.length ? remaining : PHOBIAS_DEDUP;
-  game.rounds.push(shuffled(pool)[0]);
+  const usedNames = new Set(game.rounds.map(r => r.name));
+  const remaining = PHOBIAS.filter(p => !usedNames.has(p.name));
+  const pool = remaining.length ? remaining : PHOBIAS;
+  game.rounds.push(buildRound(shuffled(pool)[0]));
   renderRound();
 }
 
@@ -774,53 +865,15 @@ function escapeHTML(s) {
 }
 
 /* =====================================================================
-   INPUT HANDLERS
+   CONTROLS
    ===================================================================== */
-function handleSubmit(idx) {
-  if (game.status !== "playing" || game.roundWinner !== null) return;
-  if (game.players[idx].locked) return;
-
-  const input = idx === 0 ? els.p1Input : els.p2Input;
-  const val = input.value.trim();
-  if (!val) return;
-
-  const r = game.rounds[game.currentRound];
-  if (isAnswerCorrect(val, r)) {
-    awardRound(idx);
-    return;
-  }
-
-  // Wrong: lock this panel for this round
-  lockPanel(idx, "Wrong · locked out");
-
-  // If both locked, end the round with no score
-  if (game.players[0].locked && game.players[1].locked) {
-    game.roundWinner = -1;
-    showReveal(false);
-    finishRound();
-    return;
-  }
-
-  // Move focus to the other player if they're still in
-  const otherInput = idx === 0 ? els.p2Input : els.p1Input;
-  if (!game.players[idx === 0 ? 1 : 0].locked) {
-    otherInput.focus();
-  }
-}
-
-els.p1Input.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); handleSubmit(0); } });
-els.p2Input.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); handleSubmit(1); } });
-
-els.p1Input.addEventListener("focus", () => { els.p1Card.classList.add("focus"); });
-els.p1Input.addEventListener("blur", () => { els.p1Card.classList.remove("focus"); });
-els.p2Input.addEventListener("focus", () => { els.p2Card.classList.add("focus"); });
-els.p2Input.addEventListener("blur", () => { els.p2Card.classList.remove("focus"); });
-
 els.revealBtn.addEventListener("click", () => {
   if (game.status !== "playing" || game.roundWinner !== null) return;
-  // No-score reveal: lock everyone, show answer
   lockPanel(0, "Revealed");
   lockPanel(1, "Revealed");
+  disablePanelButtons(0);
+  disablePanelButtons(1);
+  revealCorrectOnBothPanels();
   game.roundWinner = -1;
   showReveal(false);
   finishRound();
@@ -836,18 +889,42 @@ els.quitBtn.addEventListener("click", () => {
   els.startPane.style.display = "";
 });
 
-els.startBtn.addEventListener("click", () => startGame(false));
-els.rematchBtn.addEventListener("click", () => startGame(true));
+els.startBtn.addEventListener("click", startGame);
+els.rematchBtn.addEventListener("click", startGame);
 els.endBackBtn.addEventListener("click", () => {
   els.endPane.style.display = "none";
   els.startPane.style.display = "";
 });
 
-/* Keyboard shortcut on end screen: R for rematch */
+/* Keyboard shortcuts:
+     P1 picks: Q W E R  (= options A B C D)
+     P2 picks: U I O P  (= options A B C D)
+     Space / Enter: Next round when available
+     R on end screen: rematch */
+const P1_KEYS = { q: 0, w: 1, e: 2, r: 3 };
+const P2_KEYS = { u: 0, i: 1, o: 2, p: 3 };
 document.addEventListener("keydown", e => {
+  // Don't hijack typing in name/round inputs
+  const tag = (e.target && e.target.tagName) || "";
+  if (tag === "INPUT" || tag === "TEXTAREA") return;
+
   if (els.endPane.style.display !== "none" && e.key.toLowerCase() === "r") {
-    startGame(true);
+    startGame();
+    return;
   }
+  if (game.status !== "playing") return;
+
+  const k = e.key.toLowerCase();
+  if (k === " " || k === "enter") {
+    if (els.nextBtn.style.display !== "none") {
+      e.preventDefault();
+      nextRound();
+    }
+    return;
+  }
+  if (game.roundWinner !== null) return;
+  if (k in P1_KEYS && !game.players[0].locked) { e.preventDefault(); handlePick(0, P1_KEYS[k]); }
+  else if (k in P2_KEYS && !game.players[1].locked) { e.preventDefault(); handlePick(1, P2_KEYS[k]); }
 });
 </script>
 
