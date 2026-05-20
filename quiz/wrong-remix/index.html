@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0d1117">
+<title>Wrong Answers Remix — Sihan, MET 2026</title>
+<style>
+  :root {
+    --bg: #0d1117; --panel: #161b22; --panel-2: #1f252d; --border: #30363d; --border-strong: #444c56;
+    --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff; --accent-dim: #1f6feb;
+    --good: #3fb950; --bad: #f85149; --warn: #f0b429; --purple: #a371f7;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Text', sans-serif; line-height: 1.5; }
+  .app { max-width: 640px; margin: 0 auto; padding: 16px; min-height: 100vh; }
+  nav { display: flex; gap: 8px; margin-bottom: 16px; font-size: 13px; flex-wrap: wrap; }
+  nav a { color: var(--accent); text-decoration: none; padding: 6px 10px;
+    border: 1px solid var(--accent-dim); border-radius: 6px; }
+  header { text-align: center; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  h1 { font-size: 20px; margin: 0 0 4px 0; font-weight: 700; letter-spacing: 0.2px; }
+  .subtitle { font-size: 12px; color: var(--muted); }
+  .badge-strip { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+  .badge-strip .b { font-size: 10px; padding: 2px 8px; border-radius: 999px;
+    background: var(--panel-2); border: 1px solid var(--border); color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+  .badge-strip .b.has { color: var(--bad); border-color: var(--bad); background: rgba(248,81,73,0.08); }
+
+  .filters { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; margin-bottom: 16px; display: grid; gap: 10px; }
+  .filters .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .filters label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-right: 4px; }
+  select { background: var(--panel-2); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 10px; font-size: 14px; font-family: inherit; flex: 1; min-width: 140px;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%238b949e' d='M2 4l4 4 4-4z'/></svg>");
+    background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+  .filters .meta { font-size: 12px; color: var(--muted); }
+  .filters .meta b { color: var(--text); }
+
+  .progress { font-size: 12px; color: var(--muted); text-align: center; margin-bottom: 10px; }
+  .progress-bar { height: 4px; background: var(--panel); border-radius: 2px; overflow: hidden; margin-bottom: 16px; }
+  .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s ease; }
+
+  .question-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px; margin-bottom: 12px; }
+  .qhead { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+  .qhead .num { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; font-weight: 600; }
+  .qhead .pill { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.5px; }
+  .pill.sec { color: var(--accent); background: rgba(88,166,255,0.10); }
+  .pill.src-met { color: var(--accent); border: 1px solid var(--accent-dim); }
+  .pill.src-nimhans { color: var(--purple); border: 1px solid var(--purple); }
+  .pill.src-pyq { color: var(--good); border: 1px solid var(--good); }
+  .pill.bad-flag { color: var(--bad); background: rgba(248,81,73,0.10); margin-left: auto; }
+
+  .question-text { font-size: 16px; line-height: 1.5; margin-bottom: 14px; white-space: pre-wrap; }
+  .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+  .option { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; font-size: 15px; cursor: pointer; transition: all 0.15s ease; display: flex; gap: 10px; align-items: flex-start; }
+  .option:hover:not(.disabled) { border-color: var(--accent-dim); background: rgba(31, 111, 235, 0.05); }
+  .option.selected { border-color: var(--accent); background: rgba(88, 166, 255, 0.08); }
+  .option.correct { border-color: var(--good); background: rgba(63, 185, 80, 0.10); }
+  .option.incorrect { border-color: var(--bad); background: rgba(248, 81, 73, 0.10); }
+  .option.disabled { cursor: default; }
+  .option-letter { font-weight: 700; color: var(--accent); flex-shrink: 0; width: 20px; }
+  .option.correct .option-letter { color: var(--good); }
+  .option.incorrect .option-letter { color: var(--bad); }
+
+  .controls { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  button { background: var(--panel); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px; font-size: 14px; font-family: inherit; cursor: pointer;
+    transition: all 0.15s ease; font-weight: 500; }
+  button:hover:not(:disabled) { background: var(--panel-2); border-color: var(--accent-dim); }
+  button:active:not(:disabled) { transform: scale(0.98); }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-primary { border-color: var(--accent-dim); color: var(--accent); }
+  .btn-primary:hover:not(:disabled) { background: rgba(88, 166, 255, 0.08); }
+
+  .explanation { background: var(--panel-2); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0;
+    padding: 12px 14px; margin-top: 14px; font-size: 14px; color: var(--text); display: none; }
+  .explanation.visible { display: block; }
+  .explanation strong { color: var(--accent); }
+  .firsttime { margin-top: 10px; padding: 8px 10px; border-radius: 6px; font-size: 12px;
+    background: rgba(248,81,73,0.06); border: 1px dashed var(--bad); color: var(--text); }
+  .firsttime b { color: var(--bad); }
+
+  .scoreboard { background: var(--panel); border: 1px solid var(--accent-dim); border-radius: 8px;
+    padding: 14px; margin-top: 16px; text-align: center; font-size: 14px; }
+  .scoreboard .big { font-size: 30px; font-weight: 700; color: var(--accent); display: block; line-height: 1.1; }
+  .scoreboard .big.good { color: var(--good); }
+  .scoreboard .big.warn { color: var(--warn); }
+  .scoreboard .big.bad { color: var(--bad); }
+  .scoreboard small { color: var(--muted); display: block; margin-top: 4px; }
+
+  .stats { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; margin-top: 16px; font-size: 13px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; }
+  .stat-item { padding: 4px; }
+  .stat-num { font-size: 20px; font-weight: 600; display: block; margin-bottom: 2px; }
+  .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-num.good { color: var(--good); }
+  .stat-num.warn { color: var(--warn); }
+  .stat-num.bad { color: var(--bad); }
+  .stat-num.muted { color: var(--muted); }
+
+  .empty { padding: 24px; text-align: center; color: var(--text); font-size: 14px;
+    background: var(--panel); border: 1px dashed var(--border); border-radius: 12px; margin-top: 16px; }
+  .empty h2 { margin: 0 0 8px 0; font-size: 18px; }
+  .empty p { margin: 8px 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+  .empty .btn-row { margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .empty a.btn-link { color: var(--accent); border: 1px solid var(--accent-dim); padding: 8px 14px; border-radius: 6px; text-decoration: none; font-size: 13px; }
+  .empty a.btn-link:hover { background: rgba(88,166,255,0.06); }
+
+  .top-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .top-actions button { padding: 6px 10px; font-size: 11px; border-radius: 6px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.5px; }
+  .top-actions button.danger { color: var(--bad); border-color: var(--bad); }
+  .top-actions button.danger:hover { background: rgba(248,81,73,0.06); }
+
+  .source-breakdown { margin-top: 16px; background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px; }
+  .source-breakdown h3 { font-size: 12px; margin: 0 0 10px 0; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .src-row { display: flex; align-items: center; gap: 10px; padding: 6px 0; font-size: 13px; border-bottom: 1px solid var(--border); }
+  .src-row:last-child { border-bottom: none; }
+  .src-row .name { flex: 0 0 130px; color: var(--muted); font-size: 12px; }
+  .src-row .bar { flex: 1; height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; display: flex; }
+  .src-row .bar span { height: 100%; }
+  .src-row .bar .b-right { background: var(--good); }
+  .src-row .bar .b-wrong { background: var(--bad); }
+  .src-row .bar .b-skip { background: transparent; }
+  .src-row .num { flex: 0 0 96px; text-align: right; color: var(--text); font-size: 12px; font-variant-numeric: tabular-nums; }
+
+  footer { text-align: center; font-size: 10px; color: var(--muted); padding: 24px 0 8px 0; }
+
+  @media (max-width: 400px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .controls { grid-template-columns: 1fr 1fr; }
+    .question-text { font-size: 15px; }
+    .option { font-size: 14px; padding: 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <nav>
+    <a href="../../">← Dashboard</a>
+    <a href="../../tests/">Tests</a>
+    <a href="../../results/">My Results</a>
+    <a href="../../notes/">Notes</a>
+  </nav>
+
+  <header>
+    <h1>Wrong Answers Remix</h1>
+    <div class="subtitle">Every Q you marked wrong across Mock 1, 2, 3, NIMHANS + PYQ Mock 2 — reshuffled into a fresh pass.</div>
+    <div class="badge-strip" id="badgeStrip"></div>
+  </header>
+
+  <div id="emptyState" class="empty" style="display:none;">
+    <h2>Nothing remixed yet</h2>
+    <p>This page pulls from <b>your saved attempts on this browser</b>. Once you've answered some questions wrong in any of the source mocks below, they'll show up here as a fresh shuffled mock.</p>
+    <p style="font-size:12px;">If you've attempted on another device, paste the export blob on My Results first, then come back.</p>
+    <div class="btn-row">
+      <a class="btn-link" href="../met-mock-1/">MET Mock 1</a>
+      <a class="btn-link" href="../met-mock-2/">MET Mock 2</a>
+      <a class="btn-link" href="../met-mock-3/">MET Mock 3</a>
+      <a class="btn-link" href="../nimhans-mock-1/">NIMHANS Mock 1</a>
+      <a class="btn-link" href="../pyq-mock-2/">PYQ Mock 2</a>
+    </div>
+  </div>
+
+  <div id="quizWrap" style="display:none;">
+
+    <div class="filters">
+      <div class="row">
+        <label for="sourceSelect">Source</label>
+        <select id="sourceSelect">
+          <option value="all">All 5 source mocks</option>
+          <option value="met-mock-1">MET Mock 1</option>
+          <option value="met-mock-2">MET Mock 2</option>
+          <option value="met-mock-3">MET Mock 3</option>
+          <option value="nimhans-mock-1">NIMHANS Mock 1</option>
+          <option value="pyq-mock-2">PYQ Mock 2</option>
+        </select>
+        <label for="sectionSelect">Section</label>
+        <select id="sectionSelect">
+          <option value="all">All sections</option>
+        </select>
+      </div>
+      <div class="meta" id="filterMeta">—</div>
+    </div>
+
+    <div class="top-actions">
+      <button id="reshuffleBtn" class="btn-primary" title="New shuffle order">↻ Re-shuffle</button>
+      <button id="resetBtn" class="danger" title="Clear remix progress (does NOT touch source mocks)">Reset remix</button>
+    </div>
+
+    <div class="progress" id="progress">0 / 0</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+    <div id="quizArea"></div>
+
+    <div class="scoreboard" id="scoreboard"></div>
+
+    <div class="stats" id="stats">
+      <div class="stat-item"><span class="stat-num good" id="statRight">0</span><span class="stat-label">Right this pass</span></div>
+      <div class="stat-item"><span class="stat-num bad" id="statWrong">0</span><span class="stat-label">Wrong again</span></div>
+      <div class="stat-item"><span class="stat-num muted" id="statSkipped">0</span><span class="stat-label">Skipped</span></div>
+      <div class="stat-item"><span class="stat-num" id="statTotal">0</span><span class="stat-label">In pool</span></div>
+    </div>
+
+    <div class="source-breakdown" id="srcBreakdown" style="display:none;">
+      <h3>Right this pass, by source mock</h3>
+      <div id="srcBreakdownBody"></div>
+    </div>
+
+  </div>
+
+  <footer>Wrong-only pool · own storage so source mocks stay clean · last shuffled <span id="lastShuffled">—</span></footer>
+</div>
+
+<script src="../../results/analysis/data.js"></script>
+<script>
+/* =====================================================================
+   SOURCE MOCK CATALOG (only the 5 the bot promised in the remix)
+   ===================================================================== */
+const SOURCES = [
+  { id: "met-mock-1",     short: "MET Mock 1",     pill: "src-met",     storageResults: "met-mock-1-results-v1" },
+  { id: "met-mock-2",     short: "MET Mock 2",     pill: "src-met",     storageResults: "met-mock-2-results-v1" },
+  { id: "met-mock-3",     short: "MET Mock 3",     pill: "src-met",     storageResults: "met-mock-3-results-v1" },
+  { id: "nimhans-mock-1", short: "NIMHANS Mock 1", pill: "src-nimhans", storageResults: "nimhans-mock-1-results-v2" },
+  { id: "pyq-mock-2",     short: "PYQ Mock 2",     pill: "src-pyq",     storageResults: "pyq-mock-2-results-v1" }
+];
+
+const SECTION_LABELS = {
+  biopsych: "Biopsychology", dev: "Developmental", abnormal: "Abnormal",
+  assessment: "Psych Assessment", therapy: "Psychotherapy",
+  biostats: "Biostats / Methods", language: "Language",
+  social: "Social Psychology", general: "General", english: "English"
+};
+
+const REMIX_KEY = "wrong-remix-results-v1";
+const SEED_KEY = "wrong-remix-seed-v1";
+
+/* =====================================================================
+   STORAGE
+   ===================================================================== */
+function readJSON(key, fb) {
+  try { const r = localStorage.getItem(key); return r ? JSON.parse(r) : fb; } catch { return fb; }
+}
+function writeJSON(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch {}
+}
+
+/* =====================================================================
+   BUILD POOL OF WRONG QUESTIONS FROM ALL 5 SOURCES
+   ===================================================================== */
+function buildPool() {
+  const bank = window.QUESTION_BANK || {};
+  const pool = [];
+  for (const src of SOURCES) {
+    const Q = bank[src.id] || [];
+    const res = readJSON(src.storageResults, {}) || {};
+    const byId = {};
+    for (const q of Q) byId[q.id] = q;
+    for (const qid of Object.keys(res)) {
+      const r = res[qid];
+      if (!r || r.selected == null || r.correct) continue; // only "wrong" (answered + incorrect)
+      const q = byId[qid];
+      if (!q) continue;
+      pool.push({
+        srcId: src.id, srcShort: src.short, srcPill: src.pill,
+        firstPick: r.selected, wasGuessed: !!r.guessed,
+        ...q
+      });
+    }
+  }
+  return pool;
+}
+
+/* =====================================================================
+   SEEDED SHUFFLE (Mulberry32)
+   ===================================================================== */
+function mulberry32(seed) {
+  return function() {
+    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+    let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+function shuffled(arr, seed) {
+  const a = arr.slice();
+  const rnd = mulberry32(seed);
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rnd() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* =====================================================================
+   STATE
+   ===================================================================== */
+const state = {
+  pool: [],           // raw pool (every wrong Q across the 5 sources)
+  filtered: [],       // after source/section filter
+  ordered: [],        // shuffled view that the user attempts
+  filterSrc: "all",
+  filterSec: "all",
+  seed: 0,
+  attempt: {},        // { remixQid: { selected, correct } } - keyed by source qid
+  attemptShuffled: {} // map qid -> shuffled option order
+};
+
+function loadSeed() {
+  const s = readJSON(SEED_KEY, null);
+  if (s != null) return s;
+  const fresh = Math.floor(Math.random() * 4294967295);
+  writeJSON(SEED_KEY, fresh);
+  return fresh;
+}
+
+function saveAttempt() { writeJSON(REMIX_KEY, state.attempt); }
+
+/* =====================================================================
+   FILTER + SHUFFLE
+   ===================================================================== */
+function applyFilters() {
+  state.filtered = state.pool.filter(q => {
+    if (state.filterSrc !== "all" && q.srcId !== state.filterSrc) return false;
+    if (state.filterSec !== "all" && q.section !== state.filterSec) return false;
+    return true;
+  });
+  state.ordered = shuffled(state.filtered, state.seed);
+}
+
+/* =====================================================================
+   RENDER: badge strip (count per source)
+   ===================================================================== */
+function renderBadgeStrip() {
+  const root = document.getElementById("badgeStrip");
+  const counts = {};
+  for (const s of SOURCES) counts[s.id] = 0;
+  for (const q of state.pool) counts[q.srcId]++;
+  root.innerHTML = SOURCES.map(s => {
+    const n = counts[s.id];
+    const cls = n > 0 ? "b has" : "b";
+    return `<span class="${cls}">${s.short}: ${n}</span>`;
+  }).join("");
+}
+
+/* =====================================================================
+   RENDER: section dropdown
+   ===================================================================== */
+function renderSectionOptions() {
+  const sel = document.getElementById("sectionSelect");
+  const secs = new Set();
+  for (const q of state.pool) secs.add(q.section);
+  const cur = sel.value;
+  sel.innerHTML = `<option value="all">All sections</option>` +
+    [...secs].sort().map(s => `<option value="${s}">${SECTION_LABELS[s] || s}</option>`).join("");
+  if ([...sel.options].some(o => o.value === cur)) sel.value = cur;
+}
+
+/* =====================================================================
+   RENDER: filter meta + scoreboard + stats
+   ===================================================================== */
+function escapeHtml(s) { const d = document.createElement("div"); d.textContent = s == null ? "" : String(s); return d.innerHTML; }
+
+function renderFilterMeta() {
+  const meta = document.getElementById("filterMeta");
+  const total = state.pool.length;
+  const inView = state.filtered.length;
+  if (total === 0) {
+    meta.textContent = "No wrong answers saved yet on this browser.";
+    return;
+  }
+  meta.innerHTML = `Pool: <b>${total}</b> wrong across 5 mocks · this view: <b>${inView}</b>`;
+}
+
+function renderProgress() {
+  const root = document.getElementById("progress");
+  const fill = document.getElementById("progressFill");
+  const total = state.ordered.length;
+  let answered = 0;
+  for (const q of state.ordered) {
+    if (state.attempt[q.id] && state.attempt[q.id].selected != null) answered++;
+  }
+  root.textContent = `${answered} / ${total} attempted`;
+  fill.style.width = total ? (answered / total * 100) + "%" : "0%";
+}
+
+function renderStats() {
+  let right = 0, wrong = 0, answered = 0;
+  for (const q of state.ordered) {
+    const a = state.attempt[q.id];
+    if (!a || a.selected == null) continue;
+    answered++;
+    if (a.correct) right++; else wrong++;
+  }
+  const total = state.ordered.length;
+  const skipped = total - answered;
+  document.getElementById("statRight").textContent = right;
+  document.getElementById("statWrong").textContent = wrong;
+  document.getElementById("statSkipped").textContent = skipped;
+  document.getElementById("statTotal").textContent = total;
+
+  const sb = document.getElementById("scoreboard");
+  if (total === 0) { sb.innerHTML = ""; return; }
+  const acc = answered ? Math.round(right / answered * 100) : null;
+  const accCls = acc == null ? "" : (acc >= 75 ? "good" : acc >= 50 ? "warn" : "bad");
+  sb.innerHTML = `
+    <span class="big ${accCls}">${right}<span style="font-size:18px;color:var(--muted);font-weight:500;"> / ${answered || "—"}</span></span>
+    <small>${acc != null ? acc + "% accuracy on remix" : "answer some to see accuracy"} · ${skipped} of ${total} still to attempt</small>
+  `;
+
+  // source breakdown only when there's something to show
+  const sbBreak = document.getElementById("srcBreakdown");
+  const sbBody  = document.getElementById("srcBreakdownBody");
+  if (answered === 0) { sbBreak.style.display = "none"; sbBody.innerHTML = ""; return; }
+  sbBreak.style.display = "block";
+  const bySrc = {};
+  for (const s of SOURCES) bySrc[s.id] = { right: 0, wrong: 0, total: 0, short: s.short };
+  for (const q of state.ordered) {
+    if (!bySrc[q.srcId]) continue;
+    bySrc[q.srcId].total++;
+    const a = state.attempt[q.id];
+    if (!a || a.selected == null) continue;
+    if (a.correct) bySrc[q.srcId].right++; else bySrc[q.srcId].wrong++;
+  }
+  sbBody.innerHTML = SOURCES.map(s => {
+    const b = bySrc[s.id];
+    if (b.total === 0) return "";
+    const skip = b.total - b.right - b.wrong;
+    const acc = (b.right + b.wrong) ? Math.round(b.right / (b.right + b.wrong) * 100) : null;
+    return `<div class="src-row">
+      <div class="name">${b.short}</div>
+      <div class="bar">
+        <span class="b-right" style="flex:${b.right};"></span>
+        <span class="b-wrong" style="flex:${b.wrong};"></span>
+        <span class="b-skip"  style="flex:${skip};"></span>
+      </div>
+      <div class="num">${b.right}/${b.total}${acc != null ? ` · ${acc}%` : ""}</div>
+    </div>`;
+  }).join("");
+}
+
+/* =====================================================================
+   RENDER: questions
+   ===================================================================== */
+function renderQuiz() {
+  const root = document.getElementById("quizArea");
+  if (state.ordered.length === 0) {
+    root.innerHTML = `<div class="empty" style="margin-top:0;">
+      <h2>Nothing in this view</h2>
+      <p>Loosen the source / section filter, or hit <b>Re-shuffle</b> after attempting more questions in the source mocks.</p>
+    </div>`;
+    return;
+  }
+  const html = state.ordered.map((q, idx) => {
+    const a = state.attempt[q.id];
+    const answered = a && a.selected != null;
+    const secLabel = SECTION_LABELS[q.section] || q.section;
+    const opts = ["a","b","c","d"].map(letter => {
+      let cls = "option";
+      if (!answered) {
+        // not answered yet
+      } else {
+        cls += " disabled";
+        if (letter === q.correct) cls += " correct";
+        else if (letter === a.selected) cls += " incorrect";
+      }
+      return `<div class="${cls}" data-q="${q.id}" data-pick="${letter}">
+        <div class="option-letter">${letter.toUpperCase()}</div>
+        <div>${escapeHtml(q.options[letter] || "")}</div>
+      </div>`;
+    }).join("");
+
+    const explCls = answered ? "explanation visible" : "explanation";
+    const firstHint = q.firstPick && q.firstPick !== q.correct
+      ? `<div class="firsttime">Last time you picked <b>${q.firstPick.toUpperCase()}</b>${q.wasGuessed ? " (flagged guess)" : ""}. Correct is <b>${q.correct.toUpperCase()}</b>.</div>`
+      : "";
+
+    return `<div class="question-card" data-qid="${q.id}">
+      <div class="qhead">
+        <span class="num">Q${idx + 1}</span>
+        <span class="pill sec">${secLabel}</span>
+        <span class="pill ${q.srcPill}">${q.srcShort}</span>
+        <span class="pill bad-flag">Missed first time</span>
+      </div>
+      <div class="question-text">${escapeHtml(q.q)}</div>
+      <div class="options">${opts}</div>
+      <div class="${explCls}"><strong>Why ${q.correct.toUpperCase()}:</strong> ${escapeHtml(q.explanation || "(no explanation on file)")}${firstHint ? "" : ""}</div>
+      ${answered && firstHint ? firstHint : ""}
+    </div>`;
+  }).join("");
+  root.innerHTML = html;
+
+  // wire option clicks
+  for (const el of root.querySelectorAll(".option:not(.disabled)")) {
+    el.addEventListener("click", () => {
+      const qid = el.dataset.q;
+      const pick = el.dataset.pick;
+      const q = state.ordered.find(x => x.id === qid);
+      if (!q) return;
+      const correct = pick === q.correct;
+      state.attempt[qid] = { selected: pick, correct, section: q.section, srcId: q.srcId, ts: Date.now() };
+      saveAttempt();
+      renderQuiz();
+      renderProgress();
+      renderStats();
+    });
+  }
+}
+
+/* =====================================================================
+   ACTIONS
+   ===================================================================== */
+function reshuffle() {
+  state.seed = Math.floor(Math.random() * 4294967295);
+  writeJSON(SEED_KEY, state.seed);
+  document.getElementById("lastShuffled").textContent = new Date().toLocaleTimeString();
+  applyFilters();
+  renderAll();
+}
+
+function resetRemix() {
+  if (!confirm("Clear your attempts on the remix? (Your original mock attempts stay untouched.)")) return;
+  state.attempt = {};
+  saveAttempt();
+  renderAll();
+}
+
+/* =====================================================================
+   INIT
+   ===================================================================== */
+function renderAll() {
+  renderBadgeStrip();
+  renderSectionOptions();
+  renderFilterMeta();
+  renderProgress();
+  renderQuiz();
+  renderStats();
+}
+
+function init() {
+  state.seed = loadSeed();
+  state.attempt = readJSON(REMIX_KEY, {}) || {};
+  state.pool = buildPool();
+  applyFilters();
+
+  if (state.pool.length === 0) {
+    document.getElementById("emptyState").style.display = "block";
+    document.getElementById("quizWrap").style.display = "none";
+    renderBadgeStrip();
+    return;
+  }
+  document.getElementById("emptyState").style.display = "none";
+  document.getElementById("quizWrap").style.display = "block";
+
+  document.getElementById("sourceSelect").addEventListener("change", e => {
+    state.filterSrc = e.target.value;
+    applyFilters();
+    renderFilterMeta();
+    renderProgress();
+    renderQuiz();
+    renderStats();
+  });
+  document.getElementById("sectionSelect").addEventListener("change", e => {
+    state.filterSec = e.target.value;
+    applyFilters();
+    renderFilterMeta();
+    renderProgress();
+    renderQuiz();
+    renderStats();
+  });
+  document.getElementById("reshuffleBtn").addEventListener("click", reshuffle);
+  document.getElementById("resetBtn").addEventListener("click", resetRemix);
+
+  renderAll();
+}
+
+window.addEventListener("focus", () => {
+  // refresh pool if user attempted more questions in source mocks in another tab
+  state.pool = buildPool();
+  applyFilters();
+  renderAll();
+});
+
+init();
+</script>
+</body>
+</html>

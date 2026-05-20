@@ -141,6 +141,21 @@
 
   <section>
     <div class="section-head">
+      <h2 class="section-title">Wrong Answers Remix</h2>
+      <span class="section-sub">Pure remediation pool · every Q you missed across the 5 source mocks, reshuffled into a fresh pass · separate storage so source mocks stay clean</span>
+    </div>
+    <div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:15px;font-weight:600;margin-bottom:4px;">All your wrongs, reshuffled</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.55;">Pulls from MET Mock 1, 2, 3, NIMHANS Mock 1 + PYQ Mock 2. Filter by source or section. Re-shuffle anytime for a fresh order. Live count below.</div>
+        <div id="remixSummary" style="font-size:12px;color:var(--muted);margin-top:6px;">—</div>
+      </div>
+      <a href="../quiz/wrong-remix/" class="btn-link" style="background:var(--accent-dim);color:white;border:1px solid var(--accent);padding:10px 16px;border-radius:8px;font-weight:600;text-decoration:none;font-size:14px;white-space:nowrap;">Open remix →</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
       <h2 class="section-title">Score history</h2>
       <span class="section-sub">Every snapshot you've taken, newest first · delete with the × on the right</span>
     </div>
@@ -683,12 +698,46 @@ function wipe() {
 /* =====================================================================
    INIT
    ===================================================================== */
+function renderRemixSummary() {
+  const el = document.getElementById("remixSummary");
+  if (!el) return;
+  const remixSources = ["met-mock-1", "met-mock-2", "met-mock-3", "nimhans-mock-1", "pyq-mock-2"];
+  const counts = {};
+  let total = 0;
+  for (const id of remixSources) {
+    const m = MOCKS.find(x => x.id === id);
+    if (!m) continue;
+    const raw = readJSON(m.storageResults, null);
+    let wrong = 0;
+    if (raw) {
+      for (const qid of Object.keys(raw)) {
+        const r = raw[qid];
+        if (r && r.selected != null && !r.correct) wrong++;
+      }
+    }
+    counts[id] = wrong;
+    total += wrong;
+  }
+  if (total === 0) {
+    el.textContent = "No wrong answers saved yet on this browser. Attempt some Qs in the source mocks first.";
+    return;
+  }
+  const parts = remixSources
+    .map(id => {
+      const m = MOCKS.find(x => x.id === id);
+      const short = m ? m.title.split(",")[0] : id;
+      return `${short}: <b style="color:var(--text);">${counts[id]}</b>`;
+    });
+  el.innerHTML = `<b style="color:var(--text);">${total}</b> wrong in pool · ${parts.join(" · ")}`;
+}
+
 function refresh() {
   updateCountdown();
   renderHero();
   renderMocks();
   renderHistory();
   renderJournal();
+  renderRemixSummary();
 }
 
 document.getElementById("pasteSaveBtn").addEventListener("click", handlePasteSave);
