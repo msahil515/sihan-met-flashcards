@@ -119,6 +119,12 @@
   .stat-guessed-right { color: var(--warn); }
   .stat-wrong { color: var(--bad); }
   .stat-skipped { color: var(--muted); }
+  .longest-check { background: var(--panel); border: 1px solid var(--border); border-left: 3px solid #d29922;
+    border-radius: 8px; padding: 12px 14px; margin-top: 12px; font-size: 13px; line-height: 1.5; }
+  .longest-check h3 { font-size: 12px; margin: 0 0 8px 0; color: #d29922; text-transform: uppercase; letter-spacing: 0.5px; }
+  .longest-check .lc-row { display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; color: var(--muted); }
+  .longest-check .lc-row b { color: var(--text); font-weight: 600; }
+  .longest-check .lc-verdict { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); color: var(--text); }
   .scoreboard { background: var(--panel); border: 1px solid var(--accent-dim); border-radius: 8px;
     padding: 12px; margin-top: 16px; text-align: center; font-size: 14px; }
   .scoreboard .big { font-size: 28px; font-weight: 700; color: var(--accent); display: block; }
@@ -190,6 +196,7 @@
   <div id="quizArea"></div>
 
   <div class="scoreboard" id="scoreboard"></div>
+  <div class="longest-check" id="longestCheck" style="display:none;"></div>
 
   <div class="stats" id="stats">
     <div class="stat-item"><span class="stat-num stat-confident-right" id="statRight">0</span><span class="stat-label">Right (Solid)</span></div>
@@ -2037,6 +2044,45 @@ function renderStats() {
   if (sb) {
     sb.innerHTML = `<span class="big">${score} / ${maxScore}</span>
       <small>+4 right · −1 wrong · ${totalRight} right, ${totalWrong} wrong, ${QUESTIONS.length - totalRight - totalWrong} blank · target 480+</small>`;
+  }
+
+  // Longest-option reality check — answers the "score me only on the ones I knew cold AND didn't pick longest"
+  // ask, computed automatically off your saved answers. No manual export-parsing needed.
+  const longestKey = q => {
+    let best = null, bestLen = -1;
+    for (const k of ["a", "b", "c", "d"]) {
+      const L = (q.options[k] || "").length;
+      if (L > bestLen) { bestLen = L; best = k; }
+    }
+    return best;
+  };
+  const N = QUESTIONS.length;
+  let blindRight = 0;
+  for (const q of QUESTIONS) if (longestKey(q) === q.correct) blindRight++;
+  const blindScore = blindRight * 4 - (N - blindRight) * 1;
+  let yourRightLongest = 0, yourRightNotLongest = 0, yourAttempted = 0;
+  for (const q of QUESTIONS) {
+    const r = state.results[q.id];
+    if (!r) continue;
+    yourAttempted++;
+    if (r.correct) { if (r.selected === longestKey(q)) yourRightLongest++; else yourRightNotLongest++; }
+  }
+  const lc = document.getElementById("longestCheck");
+  if (lc) {
+    if (yourAttempted === 0) { lc.style.display = "none"; }
+    else {
+      lc.style.display = "block";
+      lc.innerHTML = `<h3>Longest-option reality check</h3>
+        <div class="lc-row"><span>Blind "always pick the longest option" on this paper</span>
+          <b>${blindRight}/${N} right → ${blindScore} after −1/wrong</b></div>
+        <div class="lc-row"><span>Your correct answers that <em>were</em> the longest option</span>
+          <b>${yourRightLongest}</b></div>
+        <div class="lc-row"><span>Your correct answers where you did <em>not</em> pick longest</span>
+          <b>${yourRightNotLongest}</b></div>
+        <div class="lc-verdict">${yourRightLongest > 0
+          ? `Strip the ${yourRightLongest} you got by picking the longest option and you knew <b>${yourRightNotLongest}</b> cold. That's the honest number you keep asking for. But blind-longest alone already scores ${blindScore} on this paper, so only the gap above that is really you.`
+          : `You didn't lean on the longest-option crutch on what you attempted. Good. Blind-longest only scores ${blindScore} here anyway.`}</div>`;
+    }
   }
 
   const bySection = {};
