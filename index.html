@@ -598,6 +598,17 @@ const AREAS = [
 // Mock metadata
 const MOCKS = [
   {
+    id: "pyq-real-2024",
+    title: "Real PYQ Mock — NIMHANS 2024",
+    path: "quiz/pyq-real-2024/",
+    total: 100,
+    storageKey: "pyq-real-2024-results-v1",
+    scoring: { plus: 1, minus: 0.25 },
+    sections: { therapy: 19, biostats: 17, assessment: 17, biopsych: 16, dev: 11, abnormal: 8, general: 6, social: 6 },
+    meta: "100 actual recalled Qs from the NIMHANS M.Phil 2024 paper · real options + official answer key · no synthesised distractors",
+    fresh: true
+  },
+  {
     id: "met-mock-1",
     title: "MET Mock 1, full length",
     path: "quiz/met-mock-1/",
@@ -639,7 +650,7 @@ const MOCKS = [
     scoring: { plus: 4, minus: 1 },
     sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 },
     meta: "100 Q · 100 min · +4 / −1 · all 7 MET sections · fresh stems vs Mocks 1-3",
-    fresh: true
+    fresh: false
   },
   {
     id: "bio-testing-paper",
@@ -650,7 +661,7 @@ const MOCKS = [
     scoring: { plus: 4, minus: 1 },
     sections: { biopsych: 30, assessment: 30 },
     meta: "60 Q · ~60 min · +4 / −1 · 30 Bio + 30 Assessment · targeted drill",
-    fresh: true
+    fresh: false
   },
   {
     id: "met-mock-3",
@@ -704,6 +715,7 @@ const RESOURCES = [
 ];
 
 const NEWS = [
+  { date: "2026-05-21", title: "Real PYQ Mock — NIMHANS 2024 (NEW)", desc: "You asked for actual PYQs, not my distractors. This is the full NIMHANS M.Phil Clinical Psychology 2024 paper, 100 questions reconstructed from memory by candidates, with the real four options and the official answer key. Nothing synthesised. Scored +1 / −0.25 like the real thing. Heavy on therapy (19), biostats (17), assessment (17) and biopsych (16), which is exactly the NIMHANS flavour. Every question is source-tagged NIMHANS 2024 and carries a one-line rationale. Separate storage so your other mocks stay clean.", href: "quiz/pyq-real-2024/" },
   { date: "2026-05-21", title: "Final Coverage Checklist (NEW)", desc: "One page to answer 'have I covered everything?' the day before the exam. Every named topic, theory, test, disorder, structure and theorist across all 7 syllabus sections, 1136 tickable items pulled straight from your own notes. Each section has its own progress bar and turns green when fully covered; a sticky overall bar tracks the whole syllabus. Ticks save on this browser. 'Next gap' jumps you to the first unchecked item, Check/Uncheck all per section, full reset. Anything still unticked tomorrow morning is your last-mile list. Phobia game removed.", href: "checklist/" },
   { date: "2026-05-20", title: "Wrong Answers Remix (NEW)", desc: "Pulls every Q you marked wrong across MET Mock 1, 2, 3, NIMHANS Mock 1 + PYQ Mock 2 and serves them as a fresh shuffled mock. Source-tagged per question, reads your saved attempts on this browser, separate storage so source mocks stay clean. Filter by source mock or section, re-shuffle anytime, per-source breakdown on the score panel. Open from Tests → Targeted retry, or jump in directly.", href: "quiz/wrong-remix/" },
   { date: "2026-05-20", title: "Intelligence Tests — Deep Reference (NEW)", desc: "Companion to the personality + projective deep ref. Every individual + group + infant intelligence scale in the MET/NIMHANS pool with item/subtest count, scales/indices, scoring, author + year, age range. Covers Stanford-Binet (all 5 editions, IQ formula history Binet 1905 → Stern 1912 → Terman 1916 → SD 16 in 1960 → SD 15 in SB-5 2003), full Wechsler family (WAIS-IV 4 indices, WISC-V 5 indices with PRI → VSI+FRI split, WPPSI-IV split battery), Raven's (SPM 60 / CPM 36 / APM 36 + 12 practice), Bhatia 5 subtests, MISIC, Binet-Kamat, Kaufman family (K-ABC Luria → KABC-II MPI/FCI), Cattell CFIT 3 scales, Army Alpha 8 / Beta 7 + Wonderlic 50/12, Bayley + Gesell + Cattell Infant + Mullen + Denver, Leiter + Goodenough-Harris + DAS-II + WJ-IV. Plus theory rundown (Spearman g, Thurstone 7 PMAs, Cattell-Horn Gf-Gc, Vernon hierarchical, Guilford SOI 150/180, Gardner MI 7→8, Sternberg triarchic, CHC, Salovey & Mayer + Goleman EI), IQ classification, DSM-5 ID severity, cross-comparison master table, numbers-only cheatsheet, author-year speedround, 15 MCQ traps, 20 likely stems, 3-pass revision plan.", href: "notes/intelligence-tests-deep/" },
@@ -1002,7 +1014,7 @@ window.addEventListener("storage", refresh);
 
 document.getElementById("resetBtn").addEventListener("click", () => {
   if (!confirm("Wipe all local mock progress from this browser? This cannot be undone.")) return;
-  const prefixes = ["met-mock-1-", "met-mock-2-", "met-mock-3-", "met-mock-4-", "bio-testing-paper-", "nimhans-mock-1-", "pyq-mock-2-", "sihan-met-quiz-"];
+  const prefixes = ["met-mock-1-", "met-mock-2-", "met-mock-3-", "met-mock-4-", "bio-testing-paper-", "nimhans-mock-1-", "pyq-mock-2-", "pyq-real-2024-", "sihan-met-quiz-"];
   for (let i = localStorage.length - 1; i >= 0; i--) {
     const k = localStorage.key(i);
     if (prefixes.some(p => k.startsWith(p))) localStorage.removeItem(k);
