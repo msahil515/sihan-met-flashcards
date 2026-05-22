@@ -26,9 +26,21 @@
   .rule { background: rgba(63,185,80,0.08); border-left: 3px solid var(--good); padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
   .rule b { color: var(--good); }
   .toc { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 18px 0 26px 0; position: sticky; top: 0; z-index: 5; }
-  .toc h3 { margin: 0 0 8px 0; font-size: 14px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; }
+  .toc > summary { list-style: none; cursor: pointer; margin: 0; font-size: 14px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 8px; }
+  .toc > summary::-webkit-details-marker { display: none; }
+  .toc > summary::after { content: "▾"; margin-left: auto; transition: transform 0.15s; }
+  .toc[open] > summary::after { transform: rotate(180deg); }
+  .toc-links { margin-top: 8px; }
   .toc a { display: inline-block; margin: 3px 8px 3px 0; font-size: 13px; padding: 5px 11px; border: 1px solid var(--border); border-radius: 999px; text-decoration: none; }
   .toc a:hover { background: var(--panel-2); }
+  /* On wide screens (tablet/desktop) the list always shows and the toggle is hidden;
+     it only collapses to a compact sticky bar on phones, where the wrapped chips
+     were eating half the viewport. */
+  @media (min-width: 1081px) {
+    .toc > summary::after { display: none; }
+    .toc > summary { cursor: default; }
+    .toc .toc-links { display: block !important; }
+  }
   .sec { scroll-margin-top: 80px; }
   h3.sec, h4.sec { scroll-margin-top: 80px; }
   table { font-size: 13.5px; }
@@ -54,8 +66,9 @@
 <b>This is the one page. Read it top to bottom and you have read everything.</b> Every list, definition, table, trap box and concept you have ever been given is inlined here, organised by your 8 exam sections, plus a <b>§9 rapid-recall sweep</b> (the easily-forgotten names/durations and the general-psych foundations) at the end, so it reads like your own textbook. There are no links out to other pages, nothing to chase, all the content lives right here. Study from <i>this page only</i> tonight.
 </div>
 
-<div class="toc">
-  <h3>Jump to</h3>
+<details class="toc">
+  <summary>Jump to</summary>
+  <div class="toc-links">
   <a href="#misses">★ Your mock misses, fixed</a>
   <a href="#biopsych">1. Biopsychology / Neuro</a>
   <a href="#dev">2. Developmental</a>
@@ -67,7 +80,8 @@
   <a href="#social">8. Social / Memory / Acts / Founders</a>
   <a href="#forgot">9. Rapid Recall (easily forgotten + general psych)</a>
   <a href="#examday">Exam-day rules</a>
-</div>
+  </div>
+</details>
 
 <!-- ======================= MOCK MISSES ======================= -->
 <h2 id="misses" class="sec">★ Your mock misses, fixed here</h2>
