@@ -6,6 +6,11 @@
 <title>The Textbook — Everything in One Page — MET 2026 + NIMHANS</title>
 <link rel="stylesheet" href="../../notes-style.css">
 <style>
+  /* This page is dense + table-heavy and gets read on a big tablet, so use the
+     screen width instead of the shared 720px prose cap (kills the huge side
+     margins on a Tab S11 Ultra in portrait). Caps at 1040px on desktop. */
+  .wrap { max-width: 1040px; }
+  @media (max-width: 1080px) { .wrap { max-width: 100%; padding-left: 22px; padding-right: 22px; } }
   .hy-banner {
     background: linear-gradient(135deg, rgba(88,166,255,0.12), rgba(63,185,80,0.10));
     border: 1px solid var(--accent-dim);
