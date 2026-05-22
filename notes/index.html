@@ -6,6 +6,131 @@
 <meta name="theme-color" content="#0d1117">
 <title>Notes — MET 2026 + NIMHANS</title>
 <link rel="stylesheet" href="../site.css">
+<style>
+  /* ---- Notes page revamp (scoped to this page) ---- */
+  .nx-hero {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(900px 320px at 12% -10%, rgba(88,166,255,0.22), transparent 60%),
+      radial-gradient(700px 300px at 95% 120%, rgba(63,185,80,0.16), transparent 60%),
+      linear-gradient(135deg, #11233f, #0f1b2e 55%, #101a16);
+    border: 1px solid var(--accent-dim);
+    border-radius: 18px;
+    padding: 26px 28px 24px;
+    margin-bottom: 22px;
+  }
+  .nx-hero .crumbs {
+    font-size: 11px; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;
+  }
+  .nx-hero h1 {
+    margin: 0 0 8px; font-size: 30px; font-weight: 800; letter-spacing: 0.2px;
+    line-height: 1.12;
+  }
+  .nx-hero p { margin: 0; color: #c4d2e3; font-size: 14px; max-width: 760px; line-height: 1.55; }
+  .nx-countline {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    margin: 14px 0 4px;
+  }
+  .nx-bigcount {
+    display: inline-flex; align-items: baseline; gap: 8px;
+    background: rgba(13,17,23,0.42);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px; padding: 7px 16px;
+    backdrop-filter: blur(6px);
+  }
+  .nx-bigcount b { font-size: 18px; font-weight: 800; color: var(--text); }
+  .nx-bigcount span { font-size: 12px; color: var(--muted); }
+  .nx-bigcount.live b { color: var(--good); }
+
+  /* Search */
+  .nx-search { margin-top: 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .nx-search input {
+    flex: 1; min-width: 220px;
+    background: rgba(13,17,23,0.55);
+    border: 1px solid var(--border-strong);
+    border-radius: 10px; color: var(--text);
+    padding: 12px 16px; font-size: 14px; font-family: inherit; outline: none;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .nx-search input:focus { border-color: var(--accent); background: rgba(13,17,23,0.8); }
+  .nx-search input::placeholder { color: var(--muted); }
+  .nx-search-count { font-size: 12px; color: var(--muted); white-space: nowrap; }
+
+  /* Jump chips */
+  .nx-jump { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 30px; }
+  .nx-jump a {
+    font-size: 12.5px; font-weight: 600; color: var(--text);
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 999px; padding: 7px 14px; transition: all 0.15s ease;
+  }
+  .nx-jump a:hover { border-color: var(--accent-dim); color: var(--accent); text-decoration: none; transform: translateY(-1px); }
+
+  /* Feature (core) tiles */
+  .nx-core { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .nx-tile {
+    position: relative; display: flex; flex-direction: column;
+    border: 1px solid var(--border); border-radius: 16px;
+    padding: 20px 22px; text-decoration: none; color: inherit;
+    background: var(--panel); overflow: hidden;
+    transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .nx-tile::before {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(88,166,255,0.12), rgba(63,185,80,0.07));
+    opacity: 0; transition: opacity 0.15s ease;
+  }
+  .nx-tile:hover { border-color: var(--accent-dim); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.35); text-decoration: none; }
+  .nx-tile:hover::before { opacity: 1; }
+  .nx-tile > * { position: relative; }
+  .nx-tile .nx-ico { font-size: 26px; line-height: 1; margin-bottom: 12px; }
+  .nx-tile .nx-tt { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 700; }
+  .nx-tile .nx-ds { font-size: 12.5px; color: var(--muted); margin-top: 7px; line-height: 1.5; }
+  .nx-tile .nx-go { margin-top: auto; padding-top: 14px; color: var(--accent); font-size: 13px; font-weight: 600; }
+  .nx-tile.start { border-color: var(--good); }
+  .nx-tile.start::before { background: linear-gradient(135deg, rgba(63,185,80,0.16), rgba(88,166,255,0.06)); opacity: 1; }
+
+  /* How-to strip */
+  .nx-howto {
+    background: var(--panel); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 12px;
+    padding: 16px 20px; font-size: 13px; line-height: 1.6;
+  }
+  .nx-howto b { color: var(--text); }
+
+  /* Section accents on the row marker */
+  .nx-secmark {
+    width: 22px; height: 3px; border-radius: 3px; display: inline-block; margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  /* Accordion polish */
+  .note-collapse { margin-top: 2px; }
+  .note-collapse > summary {
+    cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 8px;
+    color: var(--accent); font-size: 14px; font-weight: 600; padding: 8px 0; user-select: none;
+  }
+  .note-collapse > summary::-webkit-details-marker { display: none; }
+  .note-collapse > summary::before {
+    content: "▸"; font-size: 12px; transition: transform 0.15s ease;
+  }
+  .note-collapse[open] > summary::before { transform: rotate(90deg); }
+  .note-collapse > summary:hover { color: var(--text); }
+  .note-collapse > .grid { margin-top: 12px; }
+
+  /* Search helpers */
+  .search-hit { box-shadow: 0 0 0 2px var(--accent-soft); }
+  .search-hidden { display: none !important; }
+  .search-empty-msg { grid-column: 1 / -1; color: var(--muted); font-size: 13px; padding: 14px 0; font-style: italic; }
+
+  @media (max-width: 720px) {
+    .nx-hero { padding: 22px 18px; border-radius: 14px; }
+    .nx-hero h1 { font-size: 24px; }
+    .nx-core { grid-template-columns: 1fr; gap: 12px; }
+    .nx-tile { padding: 18px; border-radius: 14px; }
+  }
+</style>
 </head>
 <body>
 
@@ -30,159 +155,77 @@
 
 <main>
 
-  <div class="page-hero">
-    <div class="crumbs">Notes</div>
-    <h1>Study Notes &amp; Cheatsheets</h1>
-    <p>Pick a core page below and read it top to bottom. Everything else (syllabus sections, deep-dives, sprints) is tucked into the collapsed groups lower down, open one only when you need it. Search filters every card in real time.</p>
-    <div class="notes-search">
-      <input id="notes-search-input" type="search" placeholder="Search notes — e.g. cranial, ainsworth, p-value, broca, BATS…" autocomplete="off" spellcheck="false">
-      <span class="notes-search-count" id="notes-search-count"></span>
+  <div class="nx-hero">
+    <div class="crumbs">Study Notes</div>
+    <h1>Everything you need, one tap away</h1>
+    <p>Start with a core page and read it top to bottom. Sections, deep-dives and sprints sit in the groups below, open one only when you want it. Type to filter every card live.</p>
+    <div class="nx-countline">
+      <span class="nx-bigcount" id="heroCount"><b>—</b><span>to MET 2026</span></span>
+    </div>
+    <div class="nx-search">
+      <input id="notes-search-input" type="search" placeholder="Search — cranial, ainsworth, p-value, broca, BATS…" autocomplete="off" spellcheck="false">
+      <span class="nx-search-count" id="notes-search-count"></span>
     </div>
   </div>
 
-  <style>
-    .notes-search {
-      margin-top: 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .notes-search input {
-      flex: 1;
-      min-width: 220px;
-      background: var(--panel);
-      border: 1px solid var(--border-strong);
-      border-radius: 8px;
-      color: var(--text);
-      padding: 10px 14px;
-      font-size: 14px;
-      font-family: inherit;
-      outline: none;
-      transition: border-color 0.15s ease, background 0.15s ease;
-    }
-    .notes-search input:focus {
-      border-color: var(--accent);
-      background: var(--panel-2);
-    }
-    .notes-search input::placeholder {
-      color: var(--muted);
-    }
-    .notes-search-count {
-      font-size: 12px;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-    .search-hit {
-      box-shadow: 0 0 0 2px var(--accent-soft);
-    }
-    .search-hidden {
-      display: none !important;
-    }
-    .search-empty-msg {
-      grid-column: 1 / -1;
-      color: var(--muted);
-      font-size: 13px;
-      padding: 14px 0;
-      font-style: italic;
-    }
-    .note-collapse {
-      margin-top: 4px;
-    }
-    .note-collapse > summary {
-      cursor: pointer;
-      list-style: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--accent);
-      font-size: 14px;
-      font-weight: 600;
-      padding: 8px 0;
-      user-select: none;
-    }
-    .note-collapse > summary::-webkit-details-marker { display: none; }
-    .note-collapse > summary::before {
-      content: "▸";
-      font-size: 12px;
-      transition: transform 0.15s ease;
-    }
-    .note-collapse[open] > summary::before { transform: rotate(90deg); }
-    .note-collapse > summary:hover { color: var(--text); }
-    .note-collapse > .grid { margin-top: 10px; }
-  </style>
+  <div class="nx-jump">
+    <a href="#core">Study from these</a>
+    <a href="#debriefs">Debriefs &amp; PYQ</a>
+    <a href="#exam">Exam logistics</a>
+    <a href="#sections">By section</a>
+    <a href="#deep">Deep-dives</a>
+    <a href="#sprints">Sprints</a>
+  </div>
+
+  <section id="core">
+    <div class="section-head">
+      <h2 class="section-title">Study from these</h2>
+      <span class="section-sub">Your core pages · pick one, read it top to bottom</span>
+    </div>
+    <div class="nx-core">
+      <a class="card nx-tile start" href="textbook/">
+        <div class="nx-ico">📖</div>
+        <div class="nx-tt">The Textbook <span class="badge good">Start here</span></div>
+        <div class="nx-ds">Every concept inlined on one page, organised by your 8 sections. Nothing links out for substance. If you read one thing tonight, read this.</div>
+        <div class="nx-go">Open the textbook →</div>
+      </a>
+      <a class="card nx-tile start" href="master/">
+        <div class="nx-ico">★</div>
+        <div class="nx-tt">Master Revision <span class="badge good">Start here</span></div>
+        <div class="nx-ds">Every mock miss plus all your lists: the Acts, tests and what they measure, therapy→school, social-psych, memory taxonomy, founders, BPD vs NPD. Top to bottom once.</div>
+        <div class="nx-go">Read the master page →</div>
+      </a>
+      <a class="card nx-tile" href="general-psych/">
+        <div class="nx-ico">🧠</div>
+        <div class="nx-tt">General Psychology</div>
+        <div class="nx-ds">Perception, the four attention models, memory, learning, emotion, motivation, intelligence, cognition, plus 11 landmark experiments (Milgram, Asch, Zimbardo, Bandura, Harlow…).</div>
+        <div class="nx-go">Open the general psych notes →</div>
+      </a>
+      <a class="card nx-tile" href="personality/">
+        <div class="nx-ico">🎭</div>
+        <div class="nx-tt">Personality Theories</div>
+        <div class="nx-ds">All of personality on one page: Freud, neo-Freudians, traits, Big Five, humanistic, social-cognitive, type theories, test→author pairings, compare table, full trap list.</div>
+        <div class="nx-go">Open the personality notes →</div>
+      </a>
+    </div>
+  </section>
 
   <section>
     <div class="section-head">
       <h2 class="section-title">How to use this page</h2>
       <span class="section-sub">3-pass revision strategy</span>
     </div>
-    <div class="card" style="grid-column: 1 / -1;">
-      <div class="card-body">
-        <strong>Pass 1 (this week, 1 day per section).</strong> Open the section cheatsheet → read top to bottom once → drill that section in the mixed bank or a recent mock → return to the cheatsheet and re-read only the bits you missed.<br>
-        <strong>Pass 2 (penultimate week, 2 days total).</strong> Use the <a href="revision-pack/">consolidated revision pack</a> as the spine. Read every section cheatsheet again, tables only, skipping bullets you already know. Re-attempt one fresh full-length mock.<br>
-        <strong>Pass 3 (exam week).</strong> The two debriefs (<a href="met-mock-1-debrief/">MET Mock 1</a>, <a href="nimhans-mock-1-debrief/">NIMHANS Mock 1</a>), plus the <a href="../downloads/Sihan-MET-2026-Prep.epub">EPUB bundle</a> for the bus. Re-read only the red TRAP boxes and tables. Do not start new topics.
-      </div>
+    <div class="nx-howto">
+      <b>Pass 1 (this week, 1 day per section).</b> Open the section cheatsheet → read top to bottom once → drill that section in a recent mock → re-read only the bits you missed.<br>
+      <b>Pass 2 (penultimate week).</b> Use the <a href="revision-pack/">consolidated revision pack</a> as the spine. Re-read every cheatsheet, tables only, skip what you know. Re-attempt one fresh mock.<br>
+      <b>Pass 3 (exam week).</b> The two debriefs (<a href="met-mock-1-debrief/">MET Mock 1</a>, <a href="nimhans-mock-1-debrief/">NIMHANS Mock 1</a>) plus the <a href="../downloads/Sihan-MET-2026-Prep.epub">EPUB</a> for the bus. Re-read only the red TRAP boxes and tables. No new topics.
     </div>
   </section>
 
-  <section>
-    <div class="section-head">
-      <h2 class="section-title">Study from these</h2>
-      <span class="section-sub">Your core pages — pick one and read it top to bottom</span>
-    </div>
-    <div class="grid cols-3">
-      <a class="card link fresh" href="textbook/" style="grid-column: 1 / -1; border: 1px solid var(--accent-dim); background: linear-gradient(135deg, rgba(88,166,255,0.10), rgba(63,185,80,0.08));">
-        <div class="card-head">
-          <div>
-            <div class="card-title">📖 The Textbook — Everything in One Page</div>
-            <div class="card-sub">The complete self-contained source · every concept inlined, organised by your 8 sections · study only from this tonight</div>
-          </div>
-          <span class="badge good">Start here</span>
-        </div>
-        <div class="card-body">Every concept you've been given, inlined on one page across all 8 sections: biopsych, developmental, abnormal, assessment, psychotherapy + learning + ethics, research/biostats, language, social/memory/Acts/founders. Nothing links out for substance. Read it top to bottom.</div>
-        <div class="card-cta">Open the textbook →</div>
-      </a>
-      <a class="card link fresh" href="general-psych/" style="grid-column: 1 / -1; border: 1px solid var(--accent-dim); background: linear-gradient(135deg, rgba(88,166,255,0.10), rgba(63,185,80,0.08));">
-        <div class="card-head">
-          <div>
-            <div class="card-title">General Psychology — detailed notes</div>
-            <div class="card-sub">The standalone deep notes you asked for · perception, attention, memory, learning, emotion, motivation, intelligence, cognition + landmark experiments</div>
-          </div>
-          <span class="badge good">New</span>
-        </div>
-        <div class="card-body">One detailed section per area with the named theories, the people, and the traps: perception, the four attention models, memory, learning, emotion, motivation, intelligence, cognition, plus 11 landmark experiments (Milgram, Asch, Zimbardo, Bandura, Harlow, Seligman, Rosenhan and more). The one-line testable version is the textbook's Rapid Recall block.</div>
-        <div class="card-cta">Open the general psych notes →</div>
-      </a>
-      <a class="card link fresh" href="personality/" style="grid-column: 1 / -1; border: 1px solid var(--accent-dim); background: linear-gradient(135deg, rgba(88,166,255,0.10), rgba(63,185,80,0.08));">
-        <div class="card-head">
-          <div>
-            <div class="card-title">Personality Theories — detailed notes</div>
-            <div class="card-sub">The dedicated personality page you asked for · every theorist on one page, no scrolling to find them</div>
-          </div>
-          <span class="badge good">New</span>
-        </div>
-        <div class="card-body">All of personality on its own page: Freud, the neo-Freudians (Jung, Adler, Horney, Erikson, Klein), trait theory (Allport, Cattell, Eysenck), the Big Five, humanistic (Rogers, Maslow), social-cognitive (Bandura, Rotter, Mischel), type theories, test→author pairings, a compare table, and the full MCQ-trap list. Read it once.</div>
-        <div class="card-cta">Open the personality notes →</div>
-      </a>
-      <a class="card link fresh" href="master/" style="grid-column: 1 / -1; border: 1px solid var(--accent-dim); background: linear-gradient(135deg, rgba(88,166,255,0.10), rgba(63,185,80,0.08));">
-        <div class="card-head">
-          <div>
-            <div class="card-title">★ Master Revision — Everything, One Page</div>
-            <div class="card-sub">The single place to study from · all your mock misses + every list, organised by your 8 sections</div>
-          </div>
-          <span class="badge good">Start here</span>
-        </div>
-        <div class="card-body">Every concept you flagged in the mocks plus all the lists you asked for: the Acts, tests and what each measures, therapy technique→school, social-psych concepts, the memory taxonomy, founder pairings, the A-deficits, BPD vs NPD, Type D. Read top to bottom once.</div>
-        <div class="card-cta">Read the master page →</div>
-      </a>
-    </div>
-  </section>
-
-  <section>
+  <section id="debriefs">
     <div class="section-head">
       <h2 class="section-title">Mock debriefs &amp; PYQ analysis</h2>
-      <span class="section-sub">What to study next — driven by what you actually got wrong</span>
+      <span class="section-sub">What to study next, driven by what you actually got wrong</span>
     </div>
     <div class="grid cols-3">
       <a class="card link fresh" href="met-mock-1-debrief/">
@@ -193,7 +236,7 @@
           </div>
           <span class="badge good">New</span>
         </div>
-        <div class="card-body">Your latest attempt: 4 wrongs, 47 skips. The skips are the story, not the wrongs. Weak-topic ranking + every note question covered: cranial nerves + mnemonic, sleep wave mnemonic (BATS Drink Blood), Yalom's 11 factors, theory of mind, Korsakoff vs dissociative, p-value refresher, Ainsworth styles, trinucleotide repeat list, EMDR + trauma therapists.</div>
+        <div class="card-body">4 wrongs, 47 skips, the skips are the story. Weak-topic ranking + every note question: cranial nerves, sleep waves (BATS Drink Blood), Yalom's 11, theory of mind, Korsakoff vs dissociative, p-values, Ainsworth styles, trinucleotide repeats, EMDR.</div>
         <div class="card-cta">Read →</div>
       </a>
       <a class="card link fresh" href="nimhans-pyq-breakdown/">
@@ -204,7 +247,7 @@
           </div>
           <span class="badge good">PYQ</span>
         </div>
-        <div class="card-body">Three years of actual NIMHANS M.Phil PYQs analysed and tagged Tier 1/2/3 by repeat frequency. Section weights, 4-week revision plan, NIMHANS-specific watch-outs (NOT-stems, DSM vs ICD criteria, distractor pairs).</div>
+        <div class="card-body">Three years of actual NIMHANS M.Phil PYQs tagged Tier 1/2/3 by repeat frequency. Section weights, 4-week plan, NIMHANS watch-outs (NOT-stems, DSM vs ICD, distractor pairs).</div>
         <div class="card-cta">Read →</div>
       </a>
       <a class="card link fresh" href="mock-1-debrief/">
@@ -215,7 +258,7 @@
           </div>
           <span class="badge good">Debrief</span>
         </div>
-        <div class="card-body">Every wrong answer from MET Mock 1 walked through with the right pick, why the right option wins, and the adjacent concepts the same paper retests. Biopsych 6, Language 6, Assessment 4, Therapy 4, Biostats 3, Dev 3, Abnormal 2.</div>
+        <div class="card-body">Every MET Mock 1 wrong walked through: the right pick, why it wins, the adjacent concepts that get retested. Biopsych 6, Language 6, Assessment 4, Therapy 4, Biostats 3, Dev 3, Abnormal 2.</div>
         <div class="card-cta">Read →</div>
       </a>
       <a class="card link fresh" href="revision-pack/">
@@ -226,18 +269,18 @@
           </div>
           <span class="badge good">New</span>
         </div>
-        <div class="card-body">Every topic you flagged in the NIMHANS Mock 1 ("don't know this," "wtf is X," "need to learn") plus every section that bled marks, consolidated into one read. Pre-condensed, tables-only on re-reads. Pass 1 = 60 min tonight.</div>
+        <div class="card-body">Every topic you flagged in NIMHANS Mock 1 plus every section that bled marks, consolidated into one read. Pre-condensed, tables-only on re-reads. Pass 1 = 60 min.</div>
         <div class="card-cta">Read →</div>
       </a>
     </div>
   </section>
 
-  <section>
+  <section id="exam">
     <div class="section-head">
       <h2 class="section-title">Exam logistics</h2>
-      <span class="section-sub">The last 24 hours — read once, run on autopilot</span>
+      <span class="section-sub">The last 24 hours · read once, run on autopilot</span>
     </div>
-    <div class="grid cols-3">
+    <div class="grid cols-2">
       <a class="card link fresh" href="last-day-plan/">
         <div class="card-head">
           <div>
@@ -246,7 +289,7 @@
           </div>
           <span class="badge good">New</span>
         </div>
-        <div class="card-body">The day-before schedule, hour by hour. 2–3:30 redo only your wrong ones from the real PYQ mock (the three biostats traps: OR of 1 = no association, NNT = 1/ARR, data is plural). 3:30 break + walk. 4–5:30 slow pass of therapy components, cover the cue table and say it out loud. 5:30–7 skim the revision pack, no testing. After 7 stop, pack the bag, bed by 10:30. No new full mock tonight.</div>
+        <div class="card-body">The day-before schedule hour by hour. Redo only your wrong ones (the three biostats traps: OR of 1 = no association, NNT = 1/ARR, data is plural), slow pass of therapy components, skim the revision pack, stop at 7, bed by 10:30. No new full mock.</div>
         <div class="card-cta">Read →</div>
       </a>
       <a class="card link fresh" href="exam-day-plan/">
@@ -257,13 +300,13 @@
           </div>
           <span class="badge good">New</span>
         </div>
-        <div class="card-body">The night-before logistics page. Fixed two things in your plan: leave at 7:15 not 7:45 (BTM → Peenya at 8am is across the city in peak traffic, 7:45 was too tight), and it's the cab not the metro card (BTM has no nearby metro). Full timeline from wake to exam, what to carry, and the in-hall rules (skip, guess, longest-option). Read it once tonight, run it on autopilot tomorrow.</div>
+        <div class="card-body">The night-before logistics. Leave 7:15 (BTM → Peenya at 8am is across the city in peak traffic), cab not metro. Full timeline from wake to exam, what to carry, in-hall rules (skip, guess, longest-option).</div>
         <div class="card-cta">Read →</div>
       </a>
     </div>
   </section>
 
-  <section>
+  <section id="sections">
     <div class="section-head">
       <h2 class="section-title">By syllabus section</h2>
       <span class="section-sub">7 sections of the MET paper, mapped to notes</span>
@@ -280,13 +323,13 @@
           </div>
           <span class="badge accent">Section 1</span>
         </div>
-        <div class="card-body">Neurons, glia, action potential, neurotransmitters, brain anatomy, sensory + motor systems, sleep, hormones, memory, psychopharmacology.</div>
+        <div class="card-body">Neurons, action potential, neurotransmitters, brain anatomy, sensory + motor, sleep, hormones, memory, psychopharmacology.</div>
         <div class="pill-row">
           <a class="pill accent" href="biopsych-cheatsheet/">Full cheatsheet</a>
-          <a class="pill" href="cranial-nerves/">Cranial nerves I–XII (new)</a>
+          <a class="pill" href="cranial-nerves/">Cranial nerves I–XII</a>
           <a class="pill" href="hpa-axis/">HPA axis</a>
-          <a class="pill" href="action-potential/">Action potential primer</a>
-          <a class="pill" href="sleep/">Sleep primer</a>
+          <a class="pill" href="action-potential/">Action potential</a>
+          <a class="pill" href="sleep/">Sleep</a>
         </div>
       </div>
 
@@ -301,7 +344,7 @@
         <div class="card-body">4 Ds, DSM-5 vs ICD-11, MSE, anxiety/OCD/trauma, mood, psychosis, dissociative, somatic, eating, personality, SUD, neurodev, treatment quick-map.</div>
         <div class="pill-row">
           <a class="pill accent" href="abnormal-psych-cheatsheet/">Full cheatsheet</a>
-          <a class="pill" href="abnormal-today-sprint/">One-day sprint plan</a>
+          <a class="pill" href="abnormal-today-sprint/">One-day sprint</a>
           <a class="pill" href="high-yield-abnormal-dev/">High-yield sheet</a>
         </div>
       </div>
@@ -317,7 +360,7 @@
         <div class="card-body">Piaget, Vygotsky, Bronfenbrenner (+PPCT), Erikson, Marcia, Freud, Kohlberg, attachment (Bowlby/Ainsworth/Main), Baumrind, Thomas &amp; Chess, adolescence, aging.</div>
         <div class="pill-row">
           <a class="pill accent" href="dev-psych-cheatsheet/">Full cheatsheet</a>
-          <a class="pill" href="disorders-genetic/">Genetic disorders (new)</a>
+          <a class="pill" href="disorders-genetic/">Genetic disorders</a>
           <a class="pill" href="bronfenbrenner/">Bronfenbrenner deep-dive</a>
           <a class="pill" href="high-yield-abnormal-dev/">High-yield sheet</a>
         </div>
@@ -334,8 +377,8 @@
         <div class="card-body">Reliability, validity, norms; intelligence (Wechsler, Stanford-Binet, Raven); personality (MMPI, 16PF, projective); rating scales; SEM calculations.</div>
         <div class="pill-row">
           <a class="pill accent" href="assessment/">Read-first primer</a>
-          <a class="pill accent" href="psych-tests-deep/">Personality + projective tests deep</a>
-          <a class="pill accent" href="intelligence-tests-deep/">Intelligence tests deep (new)</a>
+          <a class="pill accent" href="psych-tests-deep/">Personality + projective deep</a>
+          <a class="pill accent" href="intelligence-tests-deep/">Intelligence tests deep</a>
           <a class="pill" href="../quiz/bio-testing-paper/">Bio + Testing 60Q drill</a>
         </div>
       </div>
@@ -350,9 +393,9 @@
         </div>
         <div class="card-body">Psychoanalysis (Freud, Klein, Winnicott), Adler, Jung; CBT (Beck), REBT (Ellis), behaviour therapy (Wolpe, Skinner); Rogers, Gestalt (Perls), Frankl, Glasser; DBT, ACT, MI, IPT, family/systemic.</div>
         <div class="pill-row">
-          <a class="pill accent" href="psychotherapy-cheatsheet/">Full cheatsheet (new)</a>
-          <a class="pill accent" href="therapy-components/">Therapy components drill (new)</a>
-          <a class="pill" href="learning-conditioning/">Learning &amp; conditioning terms</a>
+          <a class="pill accent" href="psychotherapy-cheatsheet/">Full cheatsheet</a>
+          <a class="pill accent" href="therapy-components/">Therapy components drill</a>
+          <a class="pill" href="learning-conditioning/">Learning &amp; conditioning</a>
           <a class="pill" href="../quiz/met-mock-4/">Mock 4, therapy items</a>
         </div>
       </div>
@@ -365,7 +408,7 @@
           </div>
           <span class="badge accent">Section 6</span>
         </div>
-        <div class="card-body">Variables, descriptive stats, sampling, hypothesis testing, Type I/II, p-values, effect size, parametric/non-parametric, correlation/regression, reliability, validity, research designs, RCT phases, ethics.</div>
+        <div class="card-body">Variables, descriptive stats, sampling, hypothesis testing, Type I/II, p-values, effect size, parametric/non-parametric, correlation/regression, reliability, validity, designs, RCT phases, ethics.</div>
         <div class="pill-row">
           <a class="pill accent" href="biostats-cheatsheet/">Full cheatsheet</a>
           <a class="pill" href="research-methodology/">Full primer</a>
@@ -390,7 +433,7 @@
     </details>
   </section>
 
-  <section>
+  <section id="deep">
     <div class="section-head">
       <h2 class="section-title">Deep-dive references</h2>
       <span class="section-sub">Single-topic pages · open when a section needs more than the cheatsheet</span>
@@ -403,7 +446,7 @@
           <div class="card-title">Ethics Terms in Practice</div>
           <span class="badge good">New</span>
         </div>
-        <div class="card-body">The 4 big ones (autonomy, beneficence, non-maleficence, justice) with what each looks like in the room, plus confidentiality and its limits, duty to warn (Tarasoff), fidelity, veracity, competence, dual relationships. Two traps locked: beneficence is "do good" vs non-maleficence is "avoid harm" (they pair them to confuse you), and confidentiality is NOT absolute — threat to self or others breaks it. Scenario→principle table at the bottom, the format they actually test.</div>
+        <div class="card-body">The 4 big ones (autonomy, beneficence, non-maleficence, justice) with what each looks like in the room, plus confidentiality and its limits, duty to warn (Tarasoff), fidelity, veracity, competence, dual relationships. Two traps locked: beneficence "do good" vs non-maleficence "avoid harm", and confidentiality is NOT absolute. Scenario→principle table at the bottom.</div>
         <div class="card-cta">Read →</div>
       </a>
       <a class="card link" href="high-yield-abnormal-dev/">
@@ -411,7 +454,7 @@
           <div class="card-title">High-Yield Sheet</div>
           <span class="badge accent">Compact</span>
         </div>
-        <div class="card-body">One-pager: 4 Ds, DSM-5 vs ICD-11, mood/psychosis/PD criteria, Piaget/Erikson/Bowlby/Bronfenbrenner, top 20 MCQ traps. Print or screen-read in 15 minutes.</div>
+        <div class="card-body">One-pager: 4 Ds, DSM-5 vs ICD-11, mood/psychosis/PD criteria, Piaget/Erikson/Bowlby/Bronfenbrenner, top 20 MCQ traps. 15-minute read.</div>
         <div class="card-cta">Read →</div>
       </a>
       <a class="card link fresh" href="disorders-genetic/">
@@ -419,7 +462,7 @@
           <div class="card-title">Genetic &amp; Metabolic Disorders</div>
           <span class="badge good">New</span>
         </div>
-        <div class="card-body">Every disorder MET/NIMHANS asks about: mechanism, one-line physical sign, one-line behavioural sign. Master table + inheritance patterns + 20 MCQ traps. Cross-cuts biopsych + dev psych + abnormal.</div>
+        <div class="card-body">Every disorder MET/NIMHANS asks about: mechanism, one-line physical sign, one-line behavioural sign. Master table + inheritance patterns + 20 MCQ traps.</div>
         <div class="card-cta">Read →</div>
       </a>
       <a class="card link fresh" href="hpa-axis/">
@@ -427,7 +470,7 @@
           <div class="card-title">HPA Axis — Stress Endocrinology</div>
           <span class="badge good">New</span>
         </div>
-        <div class="card-body">Full axis diagram, dysregulation in MDD/PTSD/Cushing's/Addison's, dexamethasone suppression test, Selye GAS, Lazarus appraisal, McEwen allostatic load, hippocampal effects, top 10 MCQ traps.</div>
+        <div class="card-body">Full axis diagram, dysregulation in MDD/PTSD/Cushing's/Addison's, dexamethasone suppression test, Selye GAS, Lazarus appraisal, McEwen allostatic load, top 10 traps.</div>
         <div class="card-cta">Read →</div>
       </a>
       <a class="card link fresh" href="learning-conditioning/">
@@ -435,7 +478,7 @@
           <div class="card-title">Learning &amp; Conditioning Terms</div>
           <span class="badge good">New</span>
         </div>
-        <div class="card-body">Every high-frequency operant/classical term: definition, classic example, MCQ trap. All 4 reinforcement schedules, extinction vs spontaneous recovery, generalization vs discrimination, latent/insight/observational learning, habituation vs sensitization, plus a confusable-pairs cheat-table.</div>
+        <div class="card-body">Every operant/classical term: definition, example, trap. All 4 reinforcement schedules, extinction vs spontaneous recovery, generalization vs discrimination, latent/insight/observational, habituation vs sensitization, confusable-pairs table.</div>
         <div class="card-cta">Read →</div>
       </a>
       <a class="card link fresh" href="cranial-nerves/">
@@ -443,7 +486,7 @@
           <div class="card-title">Cranial Nerves I–XII</div>
           <span class="badge good">New</span>
         </div>
-        <div class="card-body">Full I–XII table (name, type, function, common deficits), both mnemonics ("On Old Olympus" + "Some Say Marry Money"), brainstem nuclei map, parasympathetic carriers (III/VII/IX/X), high-yield deficits (Bell's palsy, CN III/IV/VI palsies, bulbar vs pseudobulbar, jugular foramen syndrome), 15 MCQ traps, bedside testing for NIMHANS viva.</div>
+        <div class="card-body">Full I–XII table, both mnemonics, brainstem nuclei map, parasympathetic carriers (III/VII/IX/X), high-yield deficits (Bell's palsy, CN III/IV/VI palsies, bulbar vs pseudobulbar), 15 traps, bedside testing.</div>
         <div class="card-cta">Read →</div>
       </a>
       <a class="card link fresh" href="intelligence-tests-deep/">
@@ -451,7 +494,7 @@
           <div class="card-title">Intelligence Tests, Deep Reference</div>
           <span class="badge good">New</span>
         </div>
-        <div class="card-body">Every individual + group + infant intelligence scale on the MET/NIMHANS pool: item/subtest count, scales/indices, scoring, author + year, age range. Plus IQ formula history, theorists (Spearman, Thurstone, Cattell-Horn, Guilford, Gardner, Sternberg, CHC), Wechsler classification, ID severity, 15 MCQ traps, 20 likely exam stems.</div>
+        <div class="card-body">Every individual + group + infant scale: item count, indices, scoring, author + year, age range. IQ formula history, theorists (Spearman → CHC), Wechsler classification, ID severity, 15 traps, 20 likely stems.</div>
         <div class="card-cta">Read →</div>
       </a>
       <a class="card link" href="psych-tests-deep/">
@@ -459,14 +502,14 @@
           <div class="card-title">Personality &amp; Projective Tests, Deep</div>
           <span class="badge accent">Reference</span>
         </div>
-        <div class="card-body">The companion to the new Personality page on the assessment side: MMPI-2 (and its validity scales), 16PF, NEO-PI-R, EPQ, Rorschach, TAT, sentence-completion and the rest — what each measures, how it's scored, and the author pairings the paper tests.</div>
+        <div class="card-body">Companion to the Personality page: MMPI-2 (and validity scales), 16PF, NEO-PI-R, EPQ, Rorschach, TAT, sentence-completion — what each measures, scoring, the author pairings tested.</div>
         <div class="card-cta">Read →</div>
       </a>
     </div>
     </details>
   </section>
 
-  <section>
+  <section id="sprints">
     <div class="section-head">
       <h2 class="section-title">Sprints &amp; targeted notes</h2>
       <span class="section-sub">One-day plans and targeted patches</span>
@@ -487,7 +530,7 @@
           <div class="card-title">Targeted remediation, 22 Apr</div>
           <span class="badge muted">Patch</span>
         </div>
-        <div class="card-body">Focused fix for the diagnostic gaps from the 22 Apr drill. Use as a worked-example list, not as primary revision.</div>
+        <div class="card-body">Focused fix for the diagnostic gaps from the 22 Apr drill. Use as a worked-example list, not primary revision.</div>
         <div class="card-cta">Open →</div>
       </a>
       <a class="card link" href="../downloads/Sihan-MET-2026-Prep.epub">
@@ -511,7 +554,17 @@ function updateCountdown() {
   const exam = new Date('2026-05-23T00:00:00+05:30');
   const ms = exam - new Date();
   const d = ms > 0 ? Math.floor(ms / 86400000) : 0;
-  document.getElementById("countdownChip").textContent = ms > 0 ? `${d} days to MET` : "Exam day!";
+  const chip = document.getElementById("countdownChip");
+  const hero = document.getElementById("heroCount");
+  if (ms > 0) {
+    const label = d === 0 ? "Tomorrow" : d + (d === 1 ? " day" : " days");
+    chip.textContent = d === 0 ? "MET tomorrow" : `${d} days to MET`;
+    hero.innerHTML = `<b>${label}</b><span>${d === 0 ? "MET 2026 · sleep tonight" : "to MET 2026"}</span>`;
+  } else {
+    chip.textContent = "Exam day!";
+    hero.classList.add("live");
+    hero.innerHTML = `<b>Exam day</b><span>go get it</span>`;
+  }
 }
 updateCountdown();
 
@@ -523,13 +576,9 @@ updateCountdown();
   const cards = Array.from(document.querySelectorAll('main .card'));
   const sections = Array.from(document.querySelectorAll('main section'));
 
-  function normalise(s) {
-    return (s || '').toLowerCase();
-  }
+  function normalise(s) { return (s || '').toLowerCase(); }
 
-  cards.forEach(card => {
-    card.dataset.searchText = normalise(card.textContent);
-  });
+  cards.forEach(card => { card.dataset.searchText = normalise(card.textContent); });
 
   function clearEmptyMsgs() {
     document.querySelectorAll('.search-empty-msg').forEach(n => n.remove());
@@ -540,9 +589,7 @@ updateCountdown();
     clearEmptyMsgs();
 
     if (!q) {
-      cards.forEach(c => {
-        c.classList.remove('search-hidden', 'search-hit');
-      });
+      cards.forEach(c => { c.classList.remove('search-hidden', 'search-hit'); });
       sections.forEach(s => s.classList.remove('search-hidden'));
       document.querySelectorAll('.note-collapse').forEach(d => d.open = false);
       counter.textContent = '';
@@ -567,11 +614,8 @@ updateCountdown();
 
     sections.forEach(s => {
       const anyVisible = s.querySelectorAll('.card:not(.search-hidden)').length > 0;
-      if (anyVisible) {
-        s.classList.remove('search-hidden');
-      } else {
-        s.classList.add('search-hidden');
-      }
+      if (anyVisible) { s.classList.remove('search-hidden'); }
+      else { s.classList.add('search-hidden'); }
     });
 
     document.querySelectorAll('.note-collapse').forEach(d => {
@@ -597,11 +641,7 @@ updateCountdown();
     debounce = setTimeout(() => run(e.target.value), 80);
   });
   input.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      input.value = '';
-      run('');
-      input.blur();
-    }
+    if (e.key === 'Escape') { input.value = ''; run(''); input.blur(); }
   });
 
   document.addEventListener('keydown', e => {
@@ -616,4 +656,3 @@ updateCountdown();
 
 </body>
 </html>
-
