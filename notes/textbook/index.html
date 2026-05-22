@@ -50,6 +50,58 @@
   .pill { font-size: 11px; padding: 2px 8px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); }
   .small { font-size: 12px; color: var(--muted); }
   pre { font-size: 12.5px; }
+
+  /* ---- Accordion rebuild (collapsible sections, way less on screen) ---- */
+  .acc {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin: 0 0 12px;
+    background: var(--panel);
+    scroll-margin-top: 86px;
+    overflow: hidden;
+  }
+  .acc > summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 18px;
+    user-select: none;
+  }
+  .acc > summary::-webkit-details-marker { display: none; }
+  .acc > summary::before {
+    content: "\25B8";
+    color: var(--accent);
+    font-size: 13px;
+    line-height: 1;
+    flex: none;
+    transition: transform 0.15s ease;
+  }
+  .acc[open] > summary::before { transform: rotate(90deg); }
+  .acc > summary:hover { background: var(--panel-2); }
+  .acc[open] > summary { border-bottom: 1px solid var(--border); background: var(--panel-2); }
+  .acc-tt { font-size: 17px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .acc-tt .pill { font-weight: 500; }
+  .acc-body { padding: 4px 18px 16px; }
+  .acc-body > h3.sec:first-child { margin-top: 10px; }
+  /* Sticky toolbar with expand/collapse + the jump index */
+  .acc-bar {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    margin: 0 0 14px;
+  }
+  .acc-bar button {
+    font: inherit; font-size: 13px; font-weight: 600;
+    color: var(--text); background: var(--panel); cursor: pointer;
+    border: 1px solid var(--border); border-radius: 999px; padding: 7px 14px;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .acc-bar button:hover { border-color: var(--accent); color: var(--accent); }
+  @media (max-width: 720px) {
+    .acc-tt { font-size: 15.5px; }
+    .acc > summary { padding: 13px 14px; }
+    .acc-body { padding: 4px 14px 14px; }
+  }
 </style>
 </head>
 <body>
@@ -63,7 +115,7 @@
 <p style="color: var(--muted); font-size: 13px;">Your single self-contained source. Built 2026-05-22, the night before MET.</p>
 
 <div class="hy-banner">
-<b>This is the one page. Read it top to bottom and you have read everything.</b> Every list, definition, table, trap box and concept you have ever been given is inlined here, organised by your 8 exam sections, plus a <b>§9 rapid-recall sweep</b> (the easily-forgotten names/durations and the general-psych foundations) at the end, so it reads like your own textbook. There are no links out to other pages, nothing to chase, all the content lives right here. Study from <i>this page only</i> tonight.
+<b>This is the one page. Read it top to bottom and you have read everything.</b> Every list, definition, table, trap box and concept you have ever been given is inlined here, organised by your 8 exam sections, plus a <b>§9 rapid-recall sweep</b> (the easily-forgotten names/durations and the general-psych foundations) at the end, so it reads like your own textbook. There are no links out to other pages, nothing to chase, all the content lives right here. Study from <i>this page only</i> tonight. Sections are folded so it isn't a wall of text: tap any one to open it, or hit <b>Expand all</b> to read straight through.
 </div>
 
 <details class="toc">
@@ -83,8 +135,16 @@
   </div>
 </details>
 
+<div class="acc-bar">
+  <button type="button" id="accExpand">Expand all</button>
+  <button type="button" id="accCollapse">Collapse all</button>
+  <span class="small" style="margin-left:auto;">Tap a section to open it. Everything is still here, just folded away.</span>
+</div>
+
 <!-- ======================= MOCK MISSES ======================= -->
-<h2 id="misses" class="sec">★ Your mock misses, fixed here</h2>
+<details class="acc" id="misses" open>
+<summary><span class="acc-tt">★ Your mock misses, fixed here</span></summary>
+<div class="acc-body">
 <p>Every question you got wrong, guessed, or flagged on the real NIMHANS 2024 PYQ mock (91.25/100) maps to a block below. If you only have an hour, read these rows, then read the red trap boxes.</p>
 <table>
 <tr><th>What tripped you</th><th>The fix</th><th>Section</th></tr>
@@ -112,7 +172,12 @@
 <!-- ======================================================================= -->
 <!-- SECTION 1: BIOPSYCHOLOGY / NEURO -->
 <!-- ======================================================================= -->
-<h2 id="biopsych" class="sec">1. Biopsychology &amp; Neuropsychology <span class="pill">MET 15 Q · NIMHANS 15 Q</span></h2>
+</div>
+</details>
+
+<details class="acc" id="biopsych">
+<summary><span class="acc-tt">1. Biopsychology &amp; Neuropsychology <span class="pill">MET 15 Q · NIMHANS 15 Q</span></span></summary>
+<div class="acc-body">
 
 <h3 class="sec">1.1 The neuron and glia</h3>
 <ul>
@@ -383,7 +448,12 @@
 <!-- ======================================================================= -->
 <!-- SECTION 2: DEVELOPMENTAL -->
 <!-- ======================================================================= -->
-<h2 id="dev" class="sec">2. Developmental Psychology <span class="pill">MET 15 Q · NIMHANS 10 Q</span></h2>
+</div>
+</details>
+
+<details class="acc" id="dev">
+<summary><span class="acc-tt">2. Developmental Psychology <span class="pill">MET 15 Q · NIMHANS 10 Q</span></span></summary>
+<div class="acc-body">
 
 <h3 class="sec">2.1 Foundational principles</h3>
 <ul>
@@ -499,7 +569,12 @@
 <!-- ======================================================================= -->
 <!-- SECTION 3: ABNORMAL -->
 <!-- ======================================================================= -->
-<h2 id="abnormal" class="sec">3. Abnormal Psychology <span class="pill">MET 15 Q · NIMHANS 15 Q · DSM-heavy</span></h2>
+</div>
+</details>
+
+<details class="acc" id="abnormal">
+<summary><span class="acc-tt">3. Abnormal Psychology <span class="pill">MET 15 Q · NIMHANS 15 Q · DSM-heavy</span></span></summary>
+<div class="acc-body">
 
 <h3 class="sec">3.1 Defining abnormality &amp; classification</h3>
 <p><b>The 4 Ds:</b> Deviance, Distress, Dysfunction, Danger (some add Duration). Deviance alone ≠ abnormal (a genius IQ is deviant, not pathological).</p>
@@ -606,7 +681,12 @@
 <!-- ======================================================================= -->
 <!-- SECTION 4: ASSESSMENT -->
 <!-- ======================================================================= -->
-<h2 id="assessment" class="sec">4. Psychological Assessment &amp; Tests <span class="pill">MET 15 Q · NIMHANS 10 Q</span></h2>
+</div>
+</details>
+
+<details class="acc" id="assessment">
+<summary><span class="acc-tt">4. Psychological Assessment &amp; Tests <span class="pill">MET 15 Q · NIMHANS 10 Q</span></span></summary>
+<div class="acc-body">
 
 <div class="rule"><b>The whole map:</b> a psychological test is a measuring instrument that must be (a) consistent = <b>reliability</b> and (b) accurate = <b>validity</b>. Everything else is a way to estimate one of those, interpret scores against norms, or an example of a real test.</div>
 
@@ -710,7 +790,12 @@
 <!-- ======================================================================= -->
 <!-- SECTION 5: PSYCHOTHERAPY / LEARNING / ETHICS -->
 <!-- ======================================================================= -->
-<h2 id="therapy" class="sec">5. Psychotherapy, Counselling, Learning &amp; Ethics <span class="pill">MET 15 Q · NIMHANS 10 Q</span></h2>
+</div>
+</details>
+
+<details class="acc" id="therapy">
+<summary><span class="acc-tt">5. Psychotherapy, Counselling, Learning &amp; Ethics <span class="pill">MET 15 Q · NIMHANS 10 Q</span></span></summary>
+<div class="acc-body">
 
 <h3 class="sec">5.1 Psychoanalytic / psychodynamic</h3>
 <ul>
@@ -854,7 +939,12 @@
 <!-- ======================================================================= -->
 <!-- SECTION 6: RESEARCH / BIOSTATS -->
 <!-- ======================================================================= -->
-<h2 id="biostats" class="sec">6. Research Methods &amp; Biostatistics <span class="pill">MET 10 Q · NIMHANS 15 Q · biggest NIMHANS gap</span></h2>
+</div>
+</details>
+
+<details class="acc" id="biostats">
+<summary><span class="acc-tt">6. Research Methods &amp; Biostatistics <span class="pill">MET 10 Q · NIMHANS 15 Q · biggest NIMHANS gap</span></span></summary>
+<div class="acc-body">
 
 <h3 class="sec">6.1 Levels of measurement &amp; descriptive stats</h3>
 <table>
@@ -950,7 +1040,12 @@
 <!-- ======================================================================= -->
 <!-- SECTION 7: LANGUAGE -->
 <!-- ======================================================================= -->
-<h2 id="language" class="sec">7. Language &amp; Communication Skills <span class="pill">MET 15 Q · NIMHANS 5 Q · highest fast-marks ratio</span></h2>
+</div>
+</details>
+
+<details class="acc" id="language">
+<summary><span class="acc-tt">7. Language &amp; Communication Skills <span class="pill">MET 15 Q · NIMHANS 5 Q · highest fast-marks ratio</span></span></summary>
+<div class="acc-body">
 
 <h3 class="sec">7.1 Subject-verb agreement</h3>
 <p>The verb agrees with the subject in number, not the nearest noun.</p>
@@ -1022,7 +1117,12 @@
 <!-- ======================================================================= -->
 <!-- SECTION 8: SOCIAL / MEMORY / ACTS / FOUNDERS -->
 <!-- ======================================================================= -->
-<h2 id="social" class="sec">8. Social Psychology, Memory, The Acts &amp; Founders</h2>
+</div>
+</details>
+
+<details class="acc" id="social">
+<summary><span class="acc-tt">8. Social Psychology, Memory, The Acts &amp; Founders</span></summary>
+<div class="acc-body">
 
 <h3 class="sec">8.1 Social psychology</h3>
 <table>
@@ -1098,7 +1198,12 @@
 <div class="rule"><b>Your mock miss:</b> Spearman → factor analysis, as Wundt → <b>introspection</b> (structuralism's method).</div>
 
 <!-- ======================= EASILY FORGOTTEN ======================= -->
-<h2 id="forgot" class="sec">9. Easily Forgotten: Rapid Recall <span class="pill">the full parallel set · every section · cover &amp; test</span></h2>
+</div>
+</details>
+
+<details class="acc" id="forgot">
+<summary><span class="acc-tt">9. Easily Forgotten: Rapid Recall <span class="pill">the full parallel set · every section · cover &amp; test</span></span></summary>
+<div class="acc-body">
 <p>The stuff that slips under exam pressure, now spanning all 8 sections (incl. biostats, assessment scores, abnormal first-line, neuro, the Acts, language). Cover the right column and recall it. This is the parallel set: if you can run §9 clean, you're ready.</p>
 
 <h3 class="sec">9.1 Theorist &rarr; concept</h3>
@@ -1526,7 +1631,12 @@
 
 
 <!-- ======================= EXAM DAY ======================= -->
-<h2 id="examday" class="sec">Exam-day rules</h2>
+</div>
+</details>
+
+<details class="acc" id="examday">
+<summary><span class="acc-tt">Exam-day rules</span></summary>
+<div class="acc-body">
 <ul>
 <li><b>Longest option is often correct</b> on these papers, but only as a tiebreaker, never over knowledge.</li>
 <li><b>"NOT" / "EXCEPT" questions</b> — circle the NOT, you're hunting the odd one out. This is where tired people lose marks.</li>
@@ -1534,11 +1644,39 @@
 <li><b>Don't change a first instinct</b> unless you find a concrete reason to.</li>
 </ul>
 
+</div>
+</details>
+
 <div class="hy-banner" style="margin-top: 28px;">
 <b>That's the whole syllabus on one page.</b> Read it through once tonight, then on a second pass just the tables and the red trap boxes. Everything you flagged in the mocks is inlined here. You already scored 91.25 — tonight is about <b>locking what you know</b>, not learning new things. Stop early, sleep, trust yourself tomorrow.
 </div>
 
 <footer>Sihan MET 2026 + NIMHANS prep · /notes/textbook/ · the one self-contained source · built 2026-05-22</footer>
 </div>
+<script>
+(function () {
+  var accs = Array.prototype.slice.call(document.querySelectorAll('.acc'));
+  function setAll(open) { accs.forEach(function (d) { d.open = open; }); }
+  var be = document.getElementById('accExpand');
+  var bc = document.getElementById('accCollapse');
+  if (be) be.addEventListener('click', function () { setAll(true); });
+  if (bc) bc.addEventListener('click', function () { setAll(false); });
+
+  // TOC / in-page links open the target accordion before scrolling
+  function openTarget(id) {
+    var t = document.getElementById(id);
+    if (!t) return;
+    var acc = t.closest ? t.closest('.acc') : null;
+    if (acc) acc.open = true;
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      openTarget(a.getAttribute('href').slice(1));
+    });
+  });
+  // If the page is opened with a #hash, reveal that section
+  if (location.hash.length > 1) openTarget(location.hash.slice(1));
+})();
+</script>
 </body>
 </html>

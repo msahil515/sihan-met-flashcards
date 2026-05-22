@@ -30,6 +30,22 @@
   .miss { background: rgba(240,180,41,0.10); border-left: 3px solid #f0b429; padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 13.5px; }
   .miss b { color: #f0b429; }
   .pill { font-size: 11px; padding: 2px 8px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); }
+
+  .acc { border: 1px solid var(--border); border-radius: 12px; margin: 0 0 12px; background: var(--panel); scroll-margin-top: 14px; overflow: hidden; }
+  .acc > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 15px 18px; user-select: none; }
+  .acc > summary::-webkit-details-marker { display: none; }
+  .acc > summary::before { content: "\25B8"; color: var(--accent); font-size: 13px; line-height: 1; flex: none; transition: transform 0.15s ease; }
+  .acc[open] > summary::before { transform: rotate(90deg); }
+  .acc > summary:hover { background: var(--panel-2); }
+  .acc[open] > summary { border-bottom: 1px solid var(--border); background: var(--panel-2); }
+  .acc-tt { font-size: 17px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .acc-tt .pill { font-weight: 500; }
+  .acc-body { padding: 4px 18px 16px; }
+  .acc-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 0 0 14px; }
+  .acc-bar button { font: inherit; font-size: 13px; font-weight: 600; color: var(--text); background: var(--panel); cursor: pointer; border: 1px solid var(--border); border-radius: 999px; padding: 7px 14px; transition: border-color 0.15s ease, color 0.15s ease; }
+  .acc-bar button:hover { border-color: var(--accent); color: var(--accent); }
+  .small { font-size: 12px; color: var(--muted); }
+  @media (max-width: 720px) { .acc-tt { font-size: 15.5px; } .acc > summary { padding: 13px 14px; } .acc-body { padding: 4px 14px 14px; } }
 </style>
 </head>
 <body>
@@ -45,7 +61,7 @@
 <p style="color: var(--muted); font-size: 13px;">The single place to study from. Built 2026-05-22 to declutter the scattered notes.</p>
 
 <div class="hy-banner">
-<b>Read this top to bottom and you have covered everything.</b> You said the notes were scattered and you didn't know what to study where. Fixed. This one page pulls together every concept you flagged in the mocks plus all the lists you asked for (Acts, tests, therapy components, social-psych concepts, memory types, founder pairings), organised by your 8 exam sections. The older deep-dive pages still exist if you want more on one topic, and each section links to them, but you do not need them. Study from <i>here</i>.
+<b>Read this top to bottom and you have covered everything.</b> You said the notes were scattered and you didn't know what to study where. Fixed. This one page pulls together every concept you flagged in the mocks plus all the lists you asked for (Acts, tests, therapy components, social-psych concepts, memory types, founder pairings), organised by your 8 exam sections. The older deep-dive pages still exist if you want more on one topic, and each section links to them, but you do not need them. Study from <i>here</i>. Sections are folded so it isn't a wall of text: tap any one to open it, or hit <b>Expand all</b> to read straight through.
 </div>
 
 <div class="toc">
@@ -63,8 +79,16 @@
   <a href="#examday">Exam-day rules</a>
 </div>
 
+<div class="acc-bar">
+  <button type="button" id="accExpand">Expand all</button>
+  <button type="button" id="accCollapse">Collapse all</button>
+  <span class="small" style="margin-left:auto;">Tap a section to open it. Everything is still here, just folded away.</span>
+</div>
+
 <!-- ======================= MOCK MISSES ======================= -->
-<h2 id="misses" class="sec">★ Your mock misses, fixed here</h2>
+<details class="acc" id="misses" open>
+<summary><span class="acc-tt">★ Your mock misses, fixed here</span></summary>
+<div class="acc-body">
 <p>Every question you got wrong, guessed, or flagged on the real NIMHANS 2024 PYQ mock (91.25/100) maps to a block below. If you only have an hour, read these rows.</p>
 <table>
 <tr><th>What tripped you</th><th>The fix</th><th>Section</th></tr>
@@ -87,7 +111,12 @@
 </table>
 
 <!-- ======================= FOUNDERS ======================= -->
-<h2 id="founders" class="sec">1. Founders & "X is to Y" pairings</h2>
+</div>
+</details>
+
+<details class="acc" id="founders">
+<summary><span class="acc-tt">1. Founders & "X is to Y" pairings</span></summary>
+<div class="acc-body">
 <p>NIMHANS loves "Person A is to Concept A as Person B is to ___". Learn the contribution, not just the name.</p>
 <table>
 <tr><th>Name</th><th>Tied to</th></tr>
@@ -116,7 +145,12 @@
 </table>
 
 <!-- ======================= ACTS ======================= -->
-<h2 id="acts" class="sec">2. The Acts & laws you can be asked <span class="pill">you asked for this list</span></h2>
+</div>
+</details>
+
+<details class="acc" id="acts">
+<summary><span class="acc-tt">2. The Acts & laws you can be asked <span class="pill">you asked for this list</span></span></summary>
+<div class="acc-body">
 <table>
 <tr><th>Act</th><th>Year</th><th>The one thing they test</th></tr>
 <tr><td><b>Mental Healthcare Act (MHCA)</b></td><td>2017</td><td>Decriminalised suicide; right to <b>Advance Directive</b> + <b>Nominated Representative</b>; Mental Health Review Boards; capacity-based consent. <b>Minors</b> can appoint a nominated representative and their views are considered in an age-appropriate way.</td></tr>
@@ -131,7 +165,12 @@
 </table>
 
 <!-- ======================= BIOSTATS ======================= -->
-<h2 id="biostats" class="sec">3. Research / Biostats</h2>
+</div>
+</details>
+
+<details class="acc" id="biostats">
+<summary><span class="acc-tt">3. Research / Biostats</span></summary>
+<div class="acc-body">
 
 <h3>Standard scores & percentiles <span class="pill">you missed the scaled-score one</span></h3>
 <table>
@@ -162,7 +201,12 @@
 <p class="small">More: <a href="../biostats-cheatsheet/">Biostats cheatsheet</a> · <a href="../research-methodology/">Research methodology</a></p>
 
 <!-- ======================= ASSESSMENT ======================= -->
-<h2 id="assessment" class="sec">4. Psychological Assessment & Tests</h2>
+</div>
+</details>
+
+<details class="acc" id="assessment">
+<summary><span class="acc-tt">4. Psychological Assessment & Tests</span></summary>
+<div class="acc-body">
 
 <h3>Test classification <span class="pill">you missed "ability test"</span></h3>
 <table>
@@ -206,7 +250,12 @@
 <p class="small">Deep dives: <a href="../intelligence-tests-deep/">Intelligence tests</a> · <a href="../psych-tests-deep/">Personality tests (MMPI/16PF/NEO/EPQ)</a> · <a href="../assessment/">Reliability/validity/item analysis</a></p>
 
 <!-- ======================= THERAPY ======================= -->
-<h2 id="therapy" class="sec">5. Psychotherapy</h2>
+</div>
+</details>
+
+<details class="acc" id="therapy">
+<summary><span class="acc-tt">5. Psychotherapy</span></summary>
+<div class="acc-body">
 <div class="rule">The full "which component belongs to which therapy" recognition drill is its own page: <b><a href="../therapy-components/">Therapy Components</a></b>. Read it once. Below are the bits you specifically missed.</div>
 
 <h3>Therapy technique → which school <span class="pill">"more terms like Socratic"</span></h3>
@@ -235,7 +284,12 @@
 <p class="small">More: <a href="../psychotherapy-cheatsheet/">Psychotherapy cheatsheet</a> · <a href="../learning-conditioning/">Learning & conditioning</a></p>
 
 <!-- ======================= NEURO ======================= -->
-<h2 id="neuro" class="sec">6. Neuropsych / Biopsych</h2>
+</div>
+</details>
+
+<details class="acc" id="neuro">
+<summary><span class="acc-tt">6. Neuropsych / Biopsych</span></summary>
+<div class="acc-body">
 
 <h3>The "A" deficits <span class="pill">"what's ataxia"</span></h3>
 <table>
@@ -255,7 +309,12 @@
 <p class="small">More: <a href="../biopsych-cheatsheet/">Biopsych cheatsheet</a> · <a href="../cranial-nerves/">Cranial nerves</a> · <a href="../hpa-axis/">HPA axis</a> · <a href="../action-potential/">Action potential</a></p>
 
 <!-- ======================= ABNORMAL ======================= -->
-<h2 id="abnormal" class="sec">7. Abnormal Psychology</h2>
+</div>
+</details>
+
+<details class="acc" id="abnormal">
+<summary><span class="acc-tt">7. Abnormal Psychology</span></summary>
+<div class="acc-body">
 
 <h3>BPD vs NPD <span class="pill">you missed this</span></h3>
 <table>
@@ -269,7 +328,12 @@
 <p class="small">More: <a href="../abnormal-psych-cheatsheet/">Abnormal cheatsheet</a> · <a href="../high-yield-abnormal-dev/">High-yield abnormal + dev</a> · <a href="../disorders-genetic/">Genetic & metabolic disorders</a></p>
 
 <!-- ======================= SOCIAL ======================= -->
-<h2 id="social" class="sec">8. Social Psychology <span class="pill">"more concepts like bystander"</span></h2>
+</div>
+</details>
+
+<details class="acc" id="social">
+<summary><span class="acc-tt">8. Social Psychology <span class="pill">"more concepts like bystander"</span></span></summary>
+<div class="acc-body">
 <table>
 <tr><th>Concept</th><th>What it is</th></tr>
 <tr><td><b>Bystander effect</b></td><td>Presence of others <b>inhibits helping</b>. Two drivers: <b>diffusion of responsibility</b> + <b>pluralistic ignorance</b>. (Latané & Darley, after <b>Kitty Genovese</b>, 1964)</td></tr>
@@ -289,7 +353,12 @@
 </table>
 
 <!-- ======================= MEMORY ======================= -->
-<h2 id="memory" class="sec">9. Memory & Cognitive <span class="pill">"summary of all memory types"</span></h2>
+</div>
+</details>
+
+<details class="acc" id="memory">
+<summary><span class="acc-tt">9. Memory & Cognitive <span class="pill">"summary of all memory types"</span></span></summary>
+<div class="acc-body">
 <table>
 <tr><th>System</th><th>What it holds</th></tr>
 <tr><td><b>Sensory memory</b></td><td>&lt;1 sec raw input. Iconic (visual), echoic (auditory)</td></tr>
@@ -306,7 +375,12 @@
 <div class="rule"><b>Quick map:</b> Explicit = episodic + semantic (conscious). Implicit = procedural + priming (unconscious). "What/where/when of an event" → <b>episodic</b>.</div>
 
 <!-- ======================= EXAM DAY ======================= -->
-<h2 id="examday" class="sec">Exam-day rules</h2>
+</div>
+</details>
+
+<details class="acc" id="examday">
+<summary><span class="acc-tt">Exam-day rules</span></summary>
+<div class="acc-body">
 <ul>
 <li><b>Longest option is often correct</b> on these papers, but only as a tiebreaker, never over knowledge.</li>
 <li><b>"NOT" / "EXCEPT" questions</b> — circle the NOT, you're hunting the odd one out. This is where tired people lose marks.</li>
@@ -315,11 +389,27 @@
 <li>Read the full plan: <a href="../exam-day-plan/">Exam-Day Game Plan</a> · <a href="../last-day-plan/">Last-Day Plan</a>.</li>
 </ul>
 
+</div>
+</details>
+
 <div class="hy-banner" style="margin-top: 28px;">
 <b>That's the whole syllabus on one page.</b> Read it through once, then on a second pass just the tables and the red trap boxes. Everything you flagged in the mocks is here. You scored 91.25 already — this is about locking it, not learning new things.
 </div>
 
 <footer>Sihan MET 2026 + NIMHANS prep · /notes/master/ · the single source · built 2026-05-22</footer>
 </div>
+<script>
+(function () {
+  var accs = Array.prototype.slice.call(document.querySelectorAll('.acc'));
+  function setAll(open) { accs.forEach(function (d) { d.open = open; }); }
+  var be = document.getElementById('accExpand');
+  var bc = document.getElementById('accCollapse');
+  if (be) be.addEventListener('click', function () { setAll(true); });
+  if (bc) bc.addEventListener('click', function () { setAll(false); });
+  function openTarget(id) { var t = document.getElementById(id); if (!t) return; var acc = t.closest ? t.closest('.acc') : null; if (acc) acc.open = true; }
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) { a.addEventListener('click', function () { openTarget(a.getAttribute('href').slice(1)); }); });
+  if (location.hash.length > 1) openTarget(location.hash.slice(1));
+})();
+</script>
 </body>
 </html>
