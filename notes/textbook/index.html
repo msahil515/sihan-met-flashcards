@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Textbook — Everything in One Page — MET 2026 + NIMHANS</title>
+<link rel="stylesheet" href="../../notes-style.css">
+<style>
+  .hy-banner {
+    background: linear-gradient(135deg, rgba(88,166,255,0.12), rgba(63,185,80,0.10));
+    border: 1px solid var(--accent-dim);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 0 0 22px 0;
+    font-size: 14px;
+    color: var(--text);
+  }
+  .hy-banner b { color: var(--accent); }
+  .trap { background: rgba(248,81,73,0.08); border-left: 3px solid var(--bad); padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .trap b { color: var(--bad); }
+  .rule { background: rgba(63,185,80,0.08); border-left: 3px solid var(--good); padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .rule b { color: var(--good); }
+  .toc { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 18px 0 26px 0; position: sticky; top: 0; z-index: 5; }
+  .toc h3 { margin: 0 0 8px 0; font-size: 14px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; }
+  .toc a { display: inline-block; margin: 3px 8px 3px 0; font-size: 13px; padding: 5px 11px; border: 1px solid var(--border); border-radius: 999px; text-decoration: none; }
+  .toc a:hover { background: var(--panel-2); }
+  .sec { scroll-margin-top: 80px; }
+  h3.sec, h4.sec { scroll-margin-top: 80px; }
+  table { font-size: 13.5px; }
+  th, td { vertical-align: top; }
+  .miss { background: rgba(240,180,41,0.10); border-left: 3px solid #f0b429; padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 13.5px; }
+  .miss b { color: #f0b429; }
+  .pill { font-size: 11px; padding: 2px 8px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); }
+  .small { font-size: 12px; color: var(--muted); }
+  pre { font-size: 12.5px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <a href="../../">← Dashboard</a>
+  <a href="../">All Notes</a>
+  <a href="../master/">Master Revision</a>
+  <a href="../therapy-components/">Therapy Components</a>
+</nav>
+
+<h1>The Textbook — Everything in One Page</h1>
+<p style="color: var(--muted); font-size: 13px;">Your single self-contained source. Built 2026-05-22, the night before MET.</p>
+
+<div class="hy-banner">
+<b>This is the one page. Read it top to bottom and you have read everything.</b> Every list, definition, table, trap box and concept you have ever been given is inlined here, organised by your 8 exam sections, so it reads like your own textbook. No links-out for substance: the content lives on this page. The older deep-dive pages still exist if you want even more on one topic, but you do not need to open a single one of them. Study from <i>here</i> tonight.
+</div>
+
+<div class="toc">
+  <h3>Jump to</h3>
+  <a href="#misses">★ Your mock misses, fixed</a>
+  <a href="#biopsych">1. Biopsychology / Neuro</a>
+  <a href="#dev">2. Developmental</a>
+  <a href="#abnormal">3. Abnormal</a>
+  <a href="#assessment">4. Assessment / Tests</a>
+  <a href="#therapy">5. Psychotherapy / Learning / Ethics</a>
+  <a href="#biostats">6. Research / Biostats</a>
+  <a href="#language">7. Language</a>
+  <a href="#social">8. Social / Memory / Acts / Founders</a>
+  <a href="#examday">Exam-day rules</a>
+</div>
+
+<!-- ======================= MOCK MISSES ======================= -->
+<h2 id="misses" class="sec">★ Your mock misses, fixed here</h2>
+<p>Every question you got wrong, guessed, or flagged on the real NIMHANS 2024 PYQ mock (91.25/100) maps to a block below. If you only have an hour, read these rows, then read the red trap boxes.</p>
+<table>
+<tr><th>What tripped you</th><th>The fix</th><th>Section</th></tr>
+<tr><td>WAIS scaled score of 10 = ?</td><td><b>Exactly average, 50th percentile</b> (subtest mean 10, SD 3)</td><td><a href="#biostats">Biostats</a></td></tr>
+<tr><td>WAIS-IV core subtest NOT in WISC-V</td><td><b>Letter-Number Sequencing</b> (WAIS-IV WMI core; WISC-V uses Picture Span instead)</td><td><a href="#assessment">Assessment</a></td></tr>
+<tr><td>IQ test = which kind of test?</td><td><b>Ability test</b> (maximum performance). Not power, not speed.</td><td><a href="#assessment">Assessment</a></td></tr>
+<tr><td>Bystander effect explained by…</td><td><b>Diffusion of responsibility + pluralistic ignorance</b></td><td><a href="#social">Social</a></td></tr>
+<tr><td>Mania NOT first-line drug</td><td><b>Fluoxetine</b> (an SSRI; can trigger a manic switch)</td><td><a href="#biopsych">Neuro</a></td></tr>
+<tr><td>BPD feature NOT in NPD</td><td><b>Pervasive instability of relationships + self-image</b></td><td><a href="#abnormal">Abnormal</a></td></tr>
+<tr><td>"Real relationship" + UPR over "alliance"</td><td><b>Person-centred (Rogers)</b></td><td><a href="#therapy">Therapy</a></td></tr>
+<tr><td>Kohut / self-psychology / "mirroring"</td><td>Failure of parental <b>mirroring</b> → grandiosity; mirroring + idealizing failure → fragmented self</td><td><a href="#therapy">Therapy</a></td></tr>
+<tr><td>What is ataxia vs apraxia?</td><td>Ataxia = loss of <b>coordination/balance</b>; apraxia = can't <b>sequence</b> learned movements</td><td><a href="#biopsych">Neuro</a></td></tr>
+<tr><td>Who is Kitty Genovese?</td><td>1964 NYC murder, allegedly many witnesses, none helped → launched bystander research</td><td><a href="#social">Social</a></td></tr>
+<tr><td>Type D personality?</td><td><b>Negative affectivity + social inhibition</b>; poor cardiac prognosis</td><td><a href="#abnormal">Abnormal</a></td></tr>
+<tr><td>Escape vs avoidance learning</td><td>Escape <b>terminates</b> an aversive stimulus already on; avoidance <b>prevents</b> its onset</td><td><a href="#therapy">Therapy</a></td></tr>
+<tr><td>Object relations meaning</td><td>Internalised mental <b>representations of self and others</b></td><td><a href="#therapy">Therapy</a></td></tr>
+<tr><td>Memory: what/where/when of an event</td><td><b>Episodic</b> memory</td><td><a href="#social">Memory</a></td></tr>
+<tr><td>Spearman → factor analysis, Wundt → ?</td><td><b>Introspection</b> (structuralism's method)</td><td><a href="#social">Founders</a></td></tr>
+<tr><td>MHCA 2017 + minors</td><td>Minor can appoint a nominated representative; views considered age-appropriately</td><td><a href="#social">Acts</a></td></tr>
+<tr><td>OR / RR of 1</td><td><b>No association.</b> &gt;1 increased risk, &lt;1 protective</td><td><a href="#biostats">Biostats</a></td></tr>
+<tr><td>NNT</td><td><b>1 / ARR.</b> Lower NNT = better drug</td><td><a href="#biostats">Biostats</a></td></tr>
+<tr><td>"Data" singular or plural?</td><td><b>Plural</b> in formal use ("data are…"); datum is singular</td><td><a href="#language">Language</a></td></tr>
+</table>
+
+<!-- ======================================================================= -->
+<!-- SECTION 1: BIOPSYCHOLOGY / NEURO -->
+<!-- ======================================================================= -->
+<h2 id="biopsych" class="sec">1. Biopsychology &amp; Neuropsychology <span class="pill">MET 15 Q · NIMHANS 15 Q</span></h2>
+
+<h3 class="sec">1.1 The neuron and glia</h3>
+<ul>
+  <li><b>Dendrites</b> receive input (spines multiply surface area). <b>Soma</b> integrates input. <b>Axon hillock</b> = trigger zone, decides if threshold is reached. <b>Axon</b> conducts the AP. <b>Axon terminals</b> release neurotransmitter.</li>
+  <li><b>Neuron types:</b> Sensory (afferent, periphery → CNS, pseudounipolar); Motor (efferent, CNS → muscle/gland, multipolar); Interneurons (local CNS processing, most common).</li>
+</ul>
+<table>
+<tr><th>Glial cell</th><th>Location</th><th>Function</th></tr>
+<tr><td>Oligodendrocyte</td><td>CNS</td><td>Myelinates many axons (one cell, many segments)</td></tr>
+<tr><td>Schwann cell</td><td>PNS</td><td>Myelinates one axon segment per cell</td></tr>
+<tr><td>Astrocyte</td><td>CNS</td><td>Blood-brain barrier, K+ buffering, NT recycling</td></tr>
+<tr><td>Microglia</td><td>CNS</td><td>Immune defence, phagocytosis</td></tr>
+<tr><td>Ependymal cell</td><td>Ventricles</td><td>Produces and circulates CSF</td></tr>
+<tr><td>Satellite cell</td><td>PNS ganglia</td><td>Supports cell bodies in PNS</td></tr>
+</table>
+<div class="trap"><b>TRAP:</b> CNS myelination = oligodendrocyte. PNS myelination = Schwann cell.</div>
+
+<h3 class="sec">1.2 The action potential (the single most testable neurophysiology topic)</h3>
+<p>An AP is a ~1 ms electrical pulse travelling down the axon. The whole story is "<b>Na+ in, K+ out</b>": Na+ rushing in depolarises; K+ leaving repolarises.</p>
+<ul>
+  <li><b>Resting membrane potential ~ −70 mV.</b> Set by <b>K+ leak channels</b> (membrane ~50× more permeable to K+), NOT by the Na/K pump. Threshold ~ −55 mV.</li>
+  <li><b>Na/K pump:</b> 3 Na+ out, 2 K+ in per ATP. Electrogenic. Maintains the gradient but does not set RMP.</li>
+  <li><b>Phase 1 Depolarisation:</b> voltage-gated Na+ channels open → Na+ in → spike to ~ +30 mV.</li>
+  <li><b>Phase 2 Repolarisation:</b> Na+ channels inactivate, voltage-gated K+ channels open (slower) → K+ out.</li>
+  <li><b>Phase 3 Hyperpolarisation:</b> K+ channels stay open briefly → undershoot below −70 mV.</li>
+  <li><b>Phase 4 Return:</b> K+ channels close, Na/K pump restores ions.</li>
+</ul>
+<div class="rule"><b>Ion concentrations:</b> "K is in, Na is out, Cl is out, Ca is way out." Equilibrium potentials: K+ −90 mV, Na+ +60 mV, Cl− −65 mV, Ca²⁺ +120 mV.</div>
+<p><b>All-or-none law:</b> once threshold is reached the AP fires at constant amplitude; stimulus intensity is coded by <b>frequency</b>, not amplitude.</p>
+<p><b>Refractory periods:</b> <b>Absolute</b> = Na+ channels inactivated, no stimulus however strong can fire another AP (ensures one-way propagation). <b>Relative</b> = membrane hyperpolarised (K+ still open), a stronger stimulus can fire one.</p>
+<div class="trap"><b>TRAP:</b> Inactivated ≠ closed. The Na+ channel has 3 states: closed (resting), open (during AP), inactivated (after, "ball and chain" blocks the pore). Resets only after repolarisation.</div>
+<p><b>Propagation:</b> continuous (unmyelinated C fibres, 0.5–2 m/s) vs <b>saltatory</b> (myelinated, AP jumps between Nodes of Ranvier, up to 120 m/s in A-alpha). Conduction velocity rises with myelination &gt; axon diameter &gt; temperature. Demyelination (MS, Guillain-Barré) slows/blocks conduction.</p>
+<p><b>Synaptic transmission:</b> AP arrives → voltage-gated <b>Ca²⁺</b> channels open, Ca²⁺ enters → vesicles fuse (SNARE proteins, synaptotagmin = Ca²⁺ sensor) → NT released → binds postsynaptic receptors → EPSP (Na+/Ca²⁺ in, depolarising) or IPSP (Cl− in or K+ out, hyperpolarising) → cleared by reuptake, enzymatic breakdown, or diffusion. <b>Summation</b> (spatial + temporal) at the axon hillock decides if a new AP fires.</p>
+<div class="trap"><b>TRAP:</b> Ca²⁺ is the trigger ion for NT release at the terminal. Without Ca²⁺ entry, no transmitter is released.</div>
+
+<h3 class="sec">1.3 Neurotransmitters (the 7 families)</h3>
+<table>
+<tr><th>NT</th><th>Class / made from</th><th>Cleared by</th><th>Clinical link</th></tr>
+<tr><td>Acetylcholine (ACh)</td><td>Choline + acetyl-CoA</td><td>Acetylcholinesterase</td><td>Low in Alzheimer's; myasthenia gravis (anti-AChR); NMJ</td></tr>
+<tr><td>Dopamine</td><td>Catecholamine (Tyrosine → DOPA → DA)</td><td>Reuptake, MAO, COMT</td><td>↑ mesolimbic = +ve schizophrenia. Low nigrostriatal = Parkinson's. Reward/addiction.</td></tr>
+<tr><td>Norepinephrine</td><td>Catecholamine (DA + β-hydroxylase)</td><td>Reuptake, MAO</td><td>Arousal, sympathetic. Locus coeruleus. Low in depression.</td></tr>
+<tr><td>Serotonin (5-HT)</td><td>Indolamine (Tryptophan)</td><td>Reuptake (SERT), MAO</td><td>Mood, sleep, appetite. Low → depression, OCD. Raphe nuclei.</td></tr>
+<tr><td>Glutamate</td><td>Amino acid (Glutamine)</td><td>Astrocyte reuptake</td><td>Main excitatory NT. NMDA/AMPA/kainate. LTP, learning. Excess = excitotoxicity.</td></tr>
+<tr><td>GABA</td><td>Amino acid (from Glutamate via GAD)</td><td>Reuptake</td><td>Main inhibitory NT. GABA-A ionotropic = target of benzos, alcohol, barbiturates.</td></tr>
+<tr><td>Endorphins</td><td>Peptide (POMC)</td><td>Peptidases</td><td>Pain modulation, runner's high. μ, κ, δ receptors.</td></tr>
+</table>
+<div class="trap"><b>TRAP:</b> Hippocampal LTP depends on the <b>NMDA</b> receptor (coincidence detector — needs glutamate AND postsynaptic depolarisation to displace the Mg²⁺ block; Ca²⁺ entry triggers LTP). AMPA carries the fast EPSP. Hebb: "neurons that fire together wire together."</div>
+
+<h3 class="sec">1.4 Nervous system organisation</h3>
+<pre><code>Nervous System
+├── CNS (brain + spinal cord)
+└── PNS
+    ├── Somatic NS (voluntary, skeletal muscle)
+    └── Autonomic NS
+        ├── Sympathetic ("fight/flight") — thoracolumbar T1–L2, NE
+        ├── Parasympathetic ("rest/digest") — craniosacral (CN III,VII,IX,X + S2–S4), ACh
+        └── Enteric ("gut brain")</code></pre>
+<p><b>ANS contrasts:</b> Sympathetic ↑ heart rate, dilates pupil, ↓ GI; pre/post-ganglionic NT = ACh/NE (sweat glands are the ACh exception). Parasympathetic ↓ heart rate (vagus), constricts pupil, ↑ GI; ACh/ACh.</p>
+
+<h3 class="sec">1.5 Brain anatomy &amp; lobes</h3>
+<table>
+<tr><th>Region</th><th>Structures</th><th>Function</th></tr>
+<tr><td>Forebrain</td><td>Cortex, basal ganglia, limbic system, thalamus, hypothalamus</td><td>Higher cognition, emotion, motor planning, autonomic control</td></tr>
+<tr><td>Midbrain</td><td>Tectum (sup/inf colliculi), tegmentum, substantia nigra, red nucleus, PAG</td><td>Visual/auditory reflexes, motor control, pain modulation</td></tr>
+<tr><td>Hindbrain</td><td>Pons, medulla, cerebellum</td><td>Vital functions, balance, fine motor coordination</td></tr>
+</table>
+<table>
+<tr><th>Lobe</th><th>Key areas</th><th>Lesion produces</th></tr>
+<tr><td>Frontal</td><td>Motor cortex (precentral), prefrontal, Broca's (L)</td><td>Paralysis, executive deficits, Broca's aphasia, personality change (Phineas Gage)</td></tr>
+<tr><td>Parietal</td><td>Somatosensory (postcentral), association cortex</td><td><b>Left hemispatial neglect</b> if right lesion; Gerstmann's if left; agnosia</td></tr>
+<tr><td>Temporal</td><td>Primary auditory, Wernicke's (L), hippocampus, amygdala</td><td>Wernicke's aphasia, anterograde amnesia, Klüver-Bucy</td></tr>
+<tr><td>Occipital</td><td>Primary visual (V1), visual association</td><td>Cortical blindness, visual agnosia, prosopagnosia (fusiform)</td></tr>
+</table>
+<ul>
+  <li><b>Thalamus</b> — sensory relay for all senses except smell. LGN (vision), MGN (hearing), VPL (touch), VPM (face).</li>
+  <li><b>Hypothalamus</b> — homeostasis, hormones, the 4 Fs. <b>VMH lesion = hyperphagia + obesity</b>; <b>LH lesion = aphagia</b>. SCN = circadian. Supraoptic → ADH. Paraventricular → oxytocin + CRH.</li>
+  <li><b>Basal ganglia</b> — caudate, putamen, globus pallidus, subthalamic nucleus, substantia nigra. <b>Red nucleus is NOT basal ganglia</b> (it's midbrain tegmentum). Lesions: Parkinson's (SN), Huntington's (caudate/putamen), hemiballismus (subthalamic).</li>
+  <li><b>Limbic system</b> — hippocampus (memory), amygdala (fear), cingulate, fornix, mammillary bodies, septum.</li>
+  <li><b>Cerebellum</b> — coordination, timing, motor learning. Lesion: ataxia, dysmetria, intention tremor.</li>
+  <li><b>Hemispheres:</b> Left = language, logic, sequential, math. Right = spatial, music, faces, emotion, holistic. Corpus callosum severance = split-brain (Sperry, Gazzaniga).</li>
+</ul>
+
+<h3 class="sec">1.6 Cranial nerves I–XII</h3>
+<table>
+<tr><th>#</th><th>Name</th><th>Type</th><th>Function</th></tr>
+<tr><td>I</td><td>Olfactory</td><td>S</td><td>Smell. Only CN that does NOT relay through thalamus.</td></tr>
+<tr><td>II</td><td>Optic</td><td>S</td><td>Vision. Decussates at optic chiasm.</td></tr>
+<tr><td>III</td><td>Oculomotor</td><td>M</td><td>Most extraocular muscles, levator palpebrae, pupillary constriction.</td></tr>
+<tr><td>IV</td><td>Trochlear</td><td>M</td><td>Superior oblique only. Smallest CN.</td></tr>
+<tr><td>V</td><td>Trigeminal</td><td>B</td><td>Face sensation, mastication.</td></tr>
+<tr><td>VI</td><td>Abducens</td><td>M</td><td>Lateral rectus only.</td></tr>
+<tr><td>VII</td><td>Facial</td><td>B</td><td>Facial expression, taste (anterior 2/3), salivation, lacrimation.</td></tr>
+<tr><td>VIII</td><td>Vestibulocochlear</td><td>S</td><td>Hearing + balance.</td></tr>
+<tr><td>IX</td><td>Glossopharyngeal</td><td>B</td><td>Taste (posterior 1/3), pharynx, parotid.</td></tr>
+<tr><td>X</td><td>Vagus</td><td>B</td><td>Parasympathetic to thorax/abdomen, larynx, pharynx.</td></tr>
+<tr><td>XI</td><td>Spinal accessory</td><td>M</td><td>SCM and trapezius.</td></tr>
+<tr><td>XII</td><td>Hypoglossal</td><td>M</td><td>Tongue movement.</td></tr>
+</table>
+<div class="rule"><b>Mnemonics:</b> names — "<b>On Old Olympus' Towering Tops A Finn And German Viewed Some Hops</b>." Type — "<b>Some Say Marry Money But My Brother Says Big Brains Matter Most</b>" (S=sensory, M=motor, B=both, I→XII). Parasympathetic carriers: III, VII, IX, X.</div>
+
+<h3 class="sec">1.7 Sensory systems</h3>
+<ul>
+  <li><b>Vision:</b> rods (peripheral, low light, no colour) + cones (foveal, colour, acuity). <b>Cones densest at the fovea centralis.</b> Optic disc = blind spot. Pathway: retina → optic nerve → chiasm (nasal fibres cross) → optic tract → LGN → V1. Theories: trichromatic (Young-Helmholtz, retinal) + opponent-process (Hering, post-retinal). <b>Dorsal stream</b> "where/how" (parietal); <b>ventral stream</b> "what" (temporal).</li>
+  <li><b>Audition:</b> outer → middle (malleus, incus, stapes) → cochlea → hair cells on basilar membrane → CN VIII → cochlear nuclei → MGN → Heschl's gyrus. <b>Place theory (Békésy):</b> base = high frequencies, apex = low; best for high. <b>Frequency theory:</b> firing rate = frequency, works &lt;500 Hz. Volley principle bridges mid-range.</li>
+  <li><b>Somatosensation:</b> dorsal column-medial lemniscus (touch, vibration, proprioception, decussates at medulla) vs spinothalamic (pain, temp, decussates at spinal level of entry).</li>
+  <li><b>Taste:</b> sweet, salty, sour, bitter, umami. CN VII / IX / X. Insula = primary gustatory cortex.</li>
+  <li><b>Smell:</b> olfactory epithelium → bulb → piriform cortex (no thalamus relay), closest to limbic system.</li>
+</ul>
+
+<h3 class="sec">1.8 Motor systems</h3>
+<ul>
+  <li><b>Pyramidal (corticospinal):</b> M1 (Brodmann 4) → internal capsule → peduncle → pons → medullary pyramids. <b>Decussates at the pyramids of the medulla</b> (~85–90% → lateral corticospinal tract).</li>
+  <li><b>Extrapyramidal:</b> rubrospinal (flexor bias), vestibulospinal (postural extensor), reticulospinal (locomotion), tectospinal (head/neck orienting).</li>
+</ul>
+<table>
+<tr><th></th><th>UMN lesion</th><th>LMN lesion</th></tr>
+<tr><td>Tone</td><td>Spasticity (↑)</td><td>Flaccidity (↓)</td></tr>
+<tr><td>Reflexes</td><td>Hyperreflexia, clonus, +Babinski</td><td>Hyporeflexia/areflexia</td></tr>
+<tr><td>Atrophy</td><td>Mild, late</td><td>Severe, early</td></tr>
+<tr><td>Fasciculations</td><td>Absent</td><td>Present</td></tr>
+</table>
+
+<h3 class="sec">1.9 The "A" deficits, aphasias &amp; lesion syndromes</h3>
+<table>
+<tr><th>Term</th><th>Deficit</th></tr>
+<tr><td><b>Apraxia</b></td><td>Can't <b>sequence learned, purposeful movements</b> despite intact motor/sensory function (can't mime brushing hair)</td></tr>
+<tr><td><b>Ataxia</b></td><td>Loss of <b>coordination and balance</b> (cerebellar) — clumsy, unsteady gait, dysmetria. A motor-control problem, not planning</td></tr>
+<tr><td><b>Agnosia</b></td><td>Can't <b>recognise</b> objects/faces/sounds despite intact senses (e.g. prosopagnosia)</td></tr>
+<tr><td><b>Aphasia</b></td><td>Language deficit — Broca's (non-fluent, comprehension intact), Wernicke's (fluent, poor comprehension)</td></tr>
+<tr><td><b>Alexia</b> / <b>Agraphia</b> / <b>Anomia</b></td><td>Can't read / can't write / can't name (word-finding)</td></tr>
+</table>
+<table>
+<tr><th>Lesion</th><th>Syndrome</th></tr>
+<tr><td>Broca's area (L inferior frontal)</td><td>Non-fluent aphasia, comprehension intact</td></tr>
+<tr><td>Wernicke's area (L superior temporal)</td><td>Fluent but meaningless speech, poor comprehension</td></tr>
+<tr><td>Arcuate fasciculus</td><td>Conduction aphasia (poor repetition)</td></tr>
+<tr><td>Bilateral hippocampus</td><td>Anterograde amnesia (case HM)</td></tr>
+<tr><td>Mammillary bodies + thalamus (thiamine)</td><td>Korsakoff's, confabulation</td></tr>
+<tr><td>Right inferior parietal</td><td>Left hemispatial neglect</td></tr>
+<tr><td>Left parietal (angular gyrus)</td><td>Gerstmann's: agraphia, acalculia, finger agnosia, L-R disorientation</td></tr>
+<tr><td>Bilateral amygdala</td><td>Klüver-Bucy: hyperoral, hypersexual, placid, visual agnosia</td></tr>
+<tr><td>Substantia nigra</td><td>Parkinson's: bradykinesia, rigidity, resting tremor</td></tr>
+<tr><td>Subthalamic nucleus</td><td>Hemiballismus</td></tr>
+<tr><td>Fusiform face area</td><td>Prosopagnosia (face blindness)</td></tr>
+</table>
+
+<h3 class="sec">1.10 Endocrine &amp; the HPA axis</h3>
+<table>
+<tr><th>Gland</th><th>Hormone</th><th>Action</th></tr>
+<tr><td>Hypothalamus</td><td>CRH, TRH, GHRH, GnRH, somatostatin, dopamine</td><td>Releasing/inhibiting factors to anterior pituitary</td></tr>
+<tr><td>Anterior pituitary</td><td>ACTH, TSH, GH, FSH/LH, prolactin</td><td>Trophic hormones</td></tr>
+<tr><td>Posterior pituitary</td><td><b>ADH (vasopressin), oxytocin</b></td><td>Made in hypothalamus, stored here. ADH → water reabsorption. Oxytocin → labour, milk ejection, bonding.</td></tr>
+<tr><td>Adrenal cortex</td><td>Cortisol, aldosterone, DHEA (GFR: glomerulosa/fasciculata/reticularis)</td><td>Stress, salt/water, sex precursor</td></tr>
+<tr><td>Adrenal medulla</td><td>Epinephrine, NE</td><td>Sympathetic surge</td></tr>
+<tr><td>Thyroid / Pineal / Pancreas</td><td>T3/T4/calcitonin · Melatonin · Insulin/glucagon</td><td>Metabolism · circadian · glucose</td></tr>
+</table>
+<div class="rule"><b>HPA axis:</b> stress → hypothalamus releases <b>CRH</b> → anterior pituitary releases <b>ACTH</b> → adrenal cortex (zona fasciculata) releases <b>cortisol</b>. Negative feedback to hypothalamus + pituitary. Cortisol awakening response peaks ~30 min after waking; trough ~midnight.</div>
+<table>
+<tr><th>Condition</th><th>HPA pattern</th></tr>
+<tr><td>MDD</td><td><b>Hyper</b>-cortisol, blunted rhythm, DST non-suppression</td></tr>
+<tr><td>PTSD</td><td><b>Hypo</b>-cortisol, exaggerated negative feedback (the paradox)</td></tr>
+<tr><td>Cushing's</td><td>↑ cortisol, central obesity, striae, depression in 50–80%</td></tr>
+<tr><td>Addison's</td><td>↓ cortisol, hyperpigmentation (MSH from POMC), apathy</td></tr>
+</table>
+<p><b>Stress theory:</b> Selye's <b>General Adaptation Syndrome</b> = <b>A</b>larm → <b>R</b>esistance → <b>E</b>xhaustion (he coined "stress"). Cannon coined "fight or flight" and "homeostasis." McEwen — <b>allostatic load</b> (wear and tear of chronic adaptation). Lazarus &amp; Folkman — <b>cognitive appraisal</b> (primary: is it a threat? secondary: can I cope?); problem-focused vs emotion-focused coping. Chronic cortisol → hippocampal atrophy + ↓ BDNF (neurotrophic hypothesis of depression). Meaney/McGowan epigenetics: maternal licking ↑ glucocorticoid receptors → calmer adult.</p>
+
+<h3 class="sec">1.11 Sleep (full primer)</h3>
+<p>Sleep = NREM (3 stages) + REM. One cycle ~ <b>90 min</b>; 4–6 cycles/night. N3 dominates the first half; REM dominates the second half and lengthens through the night.</p>
+<table>
+<tr><th>Stage</th><th>EEG / signature</th><th>Notes</th></tr>
+<tr><td>NREM 1 (~5%)</td><td><b>Theta</b> (4–8 Hz)</td><td>Light, hypnic jerks, hypnagogic images</td></tr>
+<tr><td>NREM 2 (~45–55%)</td><td><b>Sleep spindles + K-complexes</b></td><td>Most of the night; spindles gate sensory input</td></tr>
+<tr><td>NREM 3 (~15–20%)</td><td><b>Delta</b> (0.5–4 Hz, high amplitude)</td><td>Deep/slow-wave. <b>Growth hormone.</b> Parasomnias (sleepwalking, night terrors, enuresis) come OUT of N3</td></tr>
+<tr><td>REM (~20–25%)</td><td>Mixed, low-voltage (looks awake)</td><td><b>Paradoxical</b>: brain active, body in <b>atonia</b>. Vivid dreams, eye bursts, autonomic instability, thermoregulation fails. <b>NOT delta-dominant.</b></td></tr>
+</table>
+<ul>
+  <li><b>Neural control:</b> sleep pressure from <b>adenosine</b> (caffeine blocks adenosine receptors); <b>VLPO</b> = GABAergic "sleep switch"; wake driven by the ARAS (histamine, orexin, NE, 5-HT, ACh). <b>SCN</b> = master circadian clock, entrained by light via the retinohypothalamic tract → pineal → <b>melatonin</b> in darkness. REM-ON = cholinergic (PPT/LDT); REM-OFF = aminergic (NE, 5-HT).</li>
+  <li><b>Memory:</b> declarative consolidated in NREM (delta replay); procedural in REM + spindles; emotional in REM.</li>
+  <li><b>Disorders:</b> <b>Narcolepsy</b> = orexin/hypocretin deficiency; cataplexy is pathognomonic. <b>RBD</b> = loss of atonia in REM, older men, α-synucleinopathy warning (Parkinson/Lewy body). <b>RLS</b> = urge to move legs at rest (dopamine/iron). <b>Kleine-Levin</b> = the 3 H's (hypersomnia + hyperphagia + hypersexuality), young males. Insomnia DSM-5: 3 nights/wk × 3 months.</li>
+</ul>
+
+<h3 class="sec">1.12 Emotion, arousal, learning &amp; LTP</h3>
+<ul>
+  <li><b>Theories of emotion:</b> James-Lange (body first, "we feel sad because we cry"); Cannon-Bard (body + emotion simultaneously, thalamic); Schachter-Singer (two-factor: arousal + cognitive label); Lazarus (appraisal precedes emotion).</li>
+  <li><b>Yerkes-Dodson law:</b> inverted-U of arousal vs performance. Optimum is <b>lower for complex</b> tasks, higher for simple/well-learned tasks.</li>
+  <li><b>Memory substrates:</b> hippocampus (declarative consolidation), amygdala (emotional/fear), striatum (procedural/habit), cerebellum (motor conditioning). <b>LTP</b> strengthens synapses (NMDA receptor critical, Ca²⁺ entry, AMPA insertion); LTD weakens them.</li>
+  <li><b>Papez circuit:</b> hippocampus → fornix → mammillary → anterior thalamus → cingulate → entorhinal → hippocampus.</li>
+</ul>
+
+<h3 class="sec">1.13 Mania first-line drugs &amp; psychopharmacology</h3>
+<div class="rule"><b>First-line for acute mania:</b> Lithium · Valproate (Divalproex) · atypical antipsychotics (Olanzapine, Risperidone, Quetiapine, Aripiprazole). Carbamazepine is second-line.</div>
+<div class="trap"><b>NOT first-line (your mock miss):</b> <b>Fluoxetine</b> and any SSRI/antidepressant — they can trigger a <b>manic switch</b>. Antidepressants are avoided in acute mania.</div>
+<table>
+<tr><th>Drug class</th><th>Mechanism</th><th>Used in</th></tr>
+<tr><td>SSRI (fluoxetine, sertraline)</td><td>Block 5-HT reuptake</td><td>Depression, OCD, anxiety</td></tr>
+<tr><td>SNRI (venlafaxine, duloxetine)</td><td>Block 5-HT + NE reuptake</td><td>Depression, GAD, neuropathic pain</td></tr>
+<tr><td>TCA</td><td>Block 5-HT + NE reuptake; many side effects</td><td>Depression (older), pain</td></tr>
+<tr><td>MAOI</td><td>Block monoamine breakdown; tyramine diet</td><td>Atypical/refractory depression</td></tr>
+<tr><td>Typical antipsychotic (haloperidol)</td><td>D2 antagonist</td><td>+ve schizophrenia. SE: EPS, tardive dyskinesia</td></tr>
+<tr><td>Atypical (clozapine, risperidone, olanzapine)</td><td>D2 + 5-HT2A antagonist</td><td>Schizophrenia (+ some −ve). Clozapine = agranulocytosis risk</td></tr>
+<tr><td>Benzodiazepines</td><td>GABA-A positive modulator</td><td>Anxiety, insomnia, status epilepticus</td></tr>
+<tr><td>Lithium</td><td>Unclear (inositol depletion)</td><td>Bipolar mania prophylaxis</td></tr>
+<tr><td>Stimulants (methylphenidate)</td><td>↑ DA + NE</td><td>ADHD, narcolepsy</td></tr>
+</table>
+
+<h3 class="sec">1.14 Genetic, chromosomal &amp; metabolic disorders</h3>
+<p>Three things per disorder: (1) genetic mechanism, (2) one physical/biochemical sign, (3) one behavioural/cognitive sign.</p>
+<table>
+<tr><th>Disorder</th><th>Mechanism</th><th>One-line ID + behaviour</th></tr>
+<tr><td><b>Down</b></td><td>Trisomy 21 (95% non-disjunction/maternal age; 5% translocation = inheritable)</td><td>Flat face, single palmar crease; IQ 30–70, sociable; early Alzheimer's after 40 (extra APP). <b>Most common chromosomal cause of ID.</b></td></tr>
+<tr><td><b>Edwards / Patau</b></td><td>Trisomy 18 / Trisomy 13</td><td>Clenched fists, rocker-bottom feet / cleft lip, polydactyly. Severe ID, &lt;10% survive 1 yr</td></tr>
+<tr><td><b>Klinefelter</b></td><td>47,XXY</td><td>Tall, gynecomastia, small testes, infertile; verbal IQ &lt; performance</td></tr>
+<tr><td><b>Turner</b></td><td>45,X0 (only viable monosomy)</td><td>Short, webbed neck, amenorrhoea; normal verbal, poor visuospatial</td></tr>
+<tr><td><b>Fragile X</b></td><td>CGG repeat on FMR1, X-linked</td><td>Long face, large ears, macroorchidism; <b>most common inherited cause of ID</b>, hand-flapping, ASD overlap</td></tr>
+<tr><td><b>Williams</b></td><td>7q11.23 microdeletion (elastin)</td><td>Elfin face, supravalvular aortic stenosis; <b>hypersocial</b> "cocktail party" speech, musical</td></tr>
+<tr><td><b>Prader-Willi</b></td><td><b>Paternal</b> 15q11-13 deletion</td><td>Hypotonic infant → hyperphagia, obesity; skin-picking, food obsessions</td></tr>
+<tr><td><b>Angelman</b></td><td><b>Maternal</b> 15q11-13 deletion</td><td>Ataxic gait, seizures; severe ID, no speech, <b>inappropriate laughter</b> "happy puppet"</td></tr>
+<tr><td><b>Cri-du-chat</b></td><td>5p deletion</td><td><b>Cat-like cry</b>, microcephaly; severe ID</td></tr>
+<tr><td><b>DiGeorge / VCFS</b></td><td>22q11.2 deletion (CATCH-22)</td><td>Cardiac, cleft palate, hypocalcaemia; <b>highest single-gene schizophrenia risk (~25×)</b></td></tr>
+<tr><td><b>Rett</b></td><td>MECP2, X-linked dominant (girls)</td><td>Normal 6–18 mo then regression; <b>stereotyped hand-wringing</b>. Removed from DSM-5 ASD</td></tr>
+<tr><td><b>Huntington's</b></td><td>CAG repeat, chr 4 (HTT), autosomal dominant, anticipation</td><td>Chorea, caudate atrophy, onset 30–50; <b>subcortical dementia</b>, high suicide risk</td></tr>
+<tr><td><b>Wilson's</b></td><td>ATP7B, autosomal recessive (copper)</td><td>Kayser-Fleischer rings, hepatic + neuro; psychosis (reversible with chelation)</td></tr>
+<tr><td><b>PKU</b></td><td>PAH deficiency, autosomal recessive, chr 12</td><td>Phe → Tyr block; <b>musty odour</b>, fair skin; preventable ID (Guthrie test, Phe-free diet). Maternal PKU damages heterozygote fetus</td></tr>
+<tr><td><b>Tay-Sachs</b></td><td>Hexosaminidase A deficiency (Ashkenazi)</td><td><b>Cherry-red macula</b>, exaggerated startle; regression by 6 mo, death by 4 yr</td></tr>
+<tr><td><b>Lesch-Nyhan</b></td><td>HGPRT deficiency, X-linked recessive (purines)</td><td>Hyperuricaemia, gout; <b>compulsive self-mutilation</b> (lip/finger biting)</td></tr>
+<tr><td><b>Galactosaemia / MSUD</b></td><td>GALT / BCKD deficiency, autosomal recessive</td><td>Vomiting + cataracts after milk / sweet maple-syrup urine; ID if untreated</td></tr>
+<tr><td><b>NF1 / Tuberous Sclerosis</b></td><td>NF1 chr 17 / TSC1-2, autosomal dominant</td><td>Café-au-lait ≥6, Lisch nodules / ash-leaf macules, seizures; LD/ASD ~50%</td></tr>
+</table>
+<div class="rule"><b>Imprinting hook:</b> P<b>aternal</b> = P<b>rader</b>-Willi, M<b>aternal</b> = a<b>M</b>elman (Angelman). Same 15q locus, opposite parent of origin, opposite phenotype.</div>
+<div class="trap"><b>TRAP:</b> "Most common chromosomal cause of ID" = <b>Down</b>. "Most common <b>inherited</b> cause of ID" = <b>Fragile X</b>. Don't swap.</div>
+<table>
+<tr><th>Inheritance pattern</th><th>Examples</th><th>Giveaway</th></tr>
+<tr><td>Autosomal dominant</td><td>Huntington's, NF1, TSC, Marfan</td><td>Every generation; ~50% offspring</td></tr>
+<tr><td>Autosomal recessive</td><td>PKU, Tay-Sachs, Wilson's, Galactosaemia, MSUD, Hurler</td><td>Carrier parents, consanguinity</td></tr>
+<tr><td>X-linked recessive</td><td>Lesch-Nyhan, Hunter, DMD, Hemophilia</td><td>Males affected, female carriers</td></tr>
+<tr><td>Trinucleotide repeat</td><td>Huntington (CAG), Fragile X (CGG), Friedreich (GAA), Myotonic (CTG)</td><td>Anticipation</td></tr>
+<tr><td>Imprinting</td><td>Prader-Willi (paternal), Angelman (maternal)</td><td>Same locus, opposite parent</td></tr>
+</table>
+
+<!-- ======================================================================= -->
+<!-- SECTION 2: DEVELOPMENTAL -->
+<!-- ======================================================================= -->
+<h2 id="dev" class="sec">2. Developmental Psychology <span class="pill">MET 15 Q · NIMHANS 10 Q</span></h2>
+
+<h3 class="sec">2.1 Foundational principles</h3>
+<ul>
+  <li><b>Cephalocaudal</b> (head → toe) · <b>Proximodistal</b> (centre → periphery).</li>
+  <li><b>Critical period</b> = rigid biological window, lost if missed (Lorenz imprinting). <b>Sensitive period</b> = optimal but flexible (language acquisition).</li>
+  <li>Continuity vs discontinuity; nature vs nurture (interactionist consensus); active vs passive child (bidirectionality).</li>
+</ul>
+<p><b>Prenatal stages:</b> Germinal (0–2 wk), <b>Embryonic (2–8 wk, most vulnerable to teratogens, organogenesis)</b>, Fetal (8 wk–birth, growth). Teratogens: alcohol (FAS, most common preventable ID), tobacco, thalidomide (limbs), rubella (1st trimester), lead/mercury, Zika (microcephaly).</p>
+
+<h3 class="sec">2.2 Piaget — cognitive development</h3>
+<table>
+<tr><th>Stage</th><th>Age</th><th>Achievements / limits</th></tr>
+<tr><td>Sensorimotor</td><td>0–2</td><td>Object permanence (~8 mo), goal-directed action, A-not-B error</td></tr>
+<tr><td>Preoperational</td><td>2–7</td><td>Symbolic thought, language, pretend play; <b>egocentrism, animism, centration, no conservation</b></td></tr>
+<tr><td>Concrete Operational</td><td>7–11</td><td>Conservation, reversibility, classification, seriation, decentration</td></tr>
+<tr><td>Formal Operational</td><td>11+</td><td>Abstract, hypothetico-deductive logic; adolescent egocentrism (imaginary audience, personal fable)</td></tr>
+</table>
+<p><b>Key concepts:</b> Schema; Assimilation (fit new info into schema); Accommodation (modify schema); Equilibration (the engine of change). Sensorimotor 6 substages: reflexes → primary CR (on body) → secondary CR (on objects) → coordination (8–12 mo, object permanence) → tertiary CR (experimentation) → mental representation (deferred imitation).</p>
+<div class="trap"><b>TRAP:</b> Object permanence (sensorimotor, ~8 mo) ≠ Conservation (concrete operational, ~7 yr). And Piagetian "egocentrism" = a cognitive limit, NOT narcissism.</div>
+
+<h3 class="sec">2.3 Vygotsky — sociocultural</h3>
+<ul>
+  <li><b>ZPD</b> = gap between what a child can do alone vs with help from a more knowledgeable other (MKO).</li>
+  <li><b>Scaffolding</b> = temporary tailored support, withdrawn as competence grows.</li>
+  <li><b>Private speech</b> → inner speech, guides cognition. Language is the master tool, internalised from social interaction.</li>
+</ul>
+<div class="trap"><b>TRAP:</b> "Scaffolding" is <b>Bruner's</b> term, applied to Vygotsky's ZPD. Vygotsky's own terms are ZPD and MKO.</div>
+<div class="rule"><b>One line:</b> Piaget = child as lone scientist (development → learning). Vygotsky = child as apprentice (learning → development, mediated by culture).</div>
+
+<h3 class="sec">2.4 Bronfenbrenner — ecological / bioecological systems</h3>
+<table>
+<tr><th>System</th><th>What it is</th><th>Examples</th></tr>
+<tr><td><b>Microsystem</b></td><td>Direct, face-to-face settings; <b>bidirectional</b></td><td>Family, school, peers, daycare</td></tr>
+<tr><td><b>Mesosystem</b></td><td>Interactions <i>between</i> microsystems (a system of microsystems, not a setting)</td><td>Parent-teacher meeting, home-school link</td></tr>
+<tr><td><b>Exosystem</b></td><td>Settings the child is not in but which still affect them</td><td>Parent's workplace, school board, mass media</td></tr>
+<tr><td><b>Macrosystem</b></td><td>Cultural blueprint</td><td>Ideology, customs, laws, religion, SES</td></tr>
+<tr><td><b>Chronosystem</b></td><td>Time dimension. <b>Added later</b> (originally 4 systems)</td><td>Divorce, pandemic, sociohistorical era</td></tr>
+</table>
+<p><b>PPCT (1994 Bioecological refinement):</b> <b>P</b>rocess = proximal processes, the <b>engine</b> (regular reciprocal interactions over time). <b>P</b>erson = Demand (visible: age/gender), Resource (skills, intelligence), Force (temperament, motivation). <b>C</b>ontext = the 5 systems. <b>T</b>ime = micro/meso/macro time.</p>
+<div class="trap"><b>TRAPS:</b> Exosystem ≠ no influence (acts via the microsystem, e.g. dad loses job). Mesosystem is NOT a setting, it's the link between two. Mass media = exosystem, not macrosystem. Chronosystem was added later (originally 4 systems).</div>
+<div class="rule"><b>If the stem mentions:</b> nested environments, cultural context, parent's workplace, indirect influence → answer is <b>Bronfenbrenner</b>. He co-founded Head Start (1965).</div>
+
+<h3 class="sec">2.5 Erikson — 8 psychosocial stages</h3>
+<table>
+<tr><th>Age</th><th>Conflict</th><th>Virtue</th></tr>
+<tr><td>0–1.5</td><td>Trust vs Mistrust</td><td>Hope</td></tr>
+<tr><td>1.5–3</td><td>Autonomy vs Shame/Doubt</td><td>Will</td></tr>
+<tr><td>3–6</td><td>Initiative vs Guilt</td><td>Purpose</td></tr>
+<tr><td>6–12</td><td>Industry vs Inferiority</td><td>Competence</td></tr>
+<tr><td>12–18</td><td>Identity vs Role Confusion</td><td>Fidelity</td></tr>
+<tr><td>18–40</td><td>Intimacy vs Isolation</td><td>Love</td></tr>
+<tr><td>40–65</td><td>Generativity vs Stagnation</td><td>Care</td></tr>
+<tr><td>65+</td><td>Integrity vs Despair</td><td>Wisdom</td></tr>
+</table>
+<p><b>Marcia's identity statuses</b> (expansion of stage 5, by crisis × commitment): Diffusion (no/no), Foreclosure (no/yes, handed down), Moratorium (yes-in-progress/no), Achievement (yes/yes).</p>
+
+<h3 class="sec">2.6 Freud — psychosexual stages</h3>
+<table>
+<tr><th>Age</th><th>Stage</th><th>Theme / fixation</th></tr>
+<tr><td>0–1</td><td>Oral</td><td>Mouth; smoking, overeating, dependency</td></tr>
+<tr><td>1–3</td><td>Anal</td><td>Bowel control; anal-retentive (orderly) or expulsive (messy)</td></tr>
+<tr><td>3–6</td><td>Phallic</td><td>Genitals; Oedipus/Electra; superego forms</td></tr>
+<tr><td>6–12</td><td>Latency</td><td>Urges dormant, same-sex friends</td></tr>
+<tr><td>12+</td><td>Genital</td><td>Mature sexuality</td></tr>
+</table>
+
+<h3 class="sec">2.7 Kohlberg — moral development</h3>
+<table>
+<tr><th>Level</th><th>Stages</th><th>Driver</th></tr>
+<tr><td>Preconventional</td><td>1. Punishment-obedience · 2. Instrumental exchange</td><td>Self-interest</td></tr>
+<tr><td>Conventional</td><td>3. Good boy/girl · 4. Law and order</td><td>Approval, social order</td></tr>
+<tr><td>Postconventional</td><td>5. Social contract · 6. Universal ethical principles</td><td>Abstract principles</td></tr>
+</table>
+<p>Method = <b>Heinz dilemma</b> (steal drug to save wife?); the stage is the <i>reasoning</i>, not the choice.</p>
+<div class="trap"><b>TRAP:</b> <b>Gilligan's critique</b> = Kohlberg's stages reflect a male "justice" orientation; women often reason via an "ethics of care." She <b>added</b> a parallel orientation, did not replace him.</div>
+
+<h3 class="sec">2.8 Attachment — Bowlby, Ainsworth, Main</h3>
+<p><b>Bowlby's 4 phases:</b> Pre-attachment (0–6 wk) → Attachment-in-the-making (6 wk–8 mo) → Clear-cut attachment (8–18 mo, <b>separation + stranger anxiety peak</b>) → Reciprocal relationships (18–24 mo+, internal working model).</p>
+<table>
+<tr><th>Style</th><th>Separation</th><th>Reunion</th><th>Caregiver</th></tr>
+<tr><td>Secure (B, ~60%)</td><td>Distressed</td><td>Easily comforted, returns to play</td><td>Sensitive, responsive</td></tr>
+<tr><td>Avoidant (A, ~20%)</td><td>Little distress</td><td>Avoids/ignores caregiver</td><td>Rejecting</td></tr>
+<tr><td>Resistant/Ambivalent (C, ~10%)</td><td>Very distressed</td><td>Seeks + resists, can't be soothed</td><td>Inconsistent</td></tr>
+<tr><td>Disorganized (D)</td><td>Confused, freezing</td><td>Approach + avoid, dazed</td><td>Frightening / trauma</td></tr>
+</table>
+<div class="trap"><b>TRAP:</b> Disorganized (D) was added by <b>Main &amp; Solomon</b>, not Ainsworth (her original 3 = A/B/C). Adult AAI: Secure-Autonomous (B), Dismissing (A), Preoccupied (C), Unresolved (D).</div>
+<p><b>Foundational experiments:</b> Harlow (wire vs cloth mother, contact comfort &gt; food); Lorenz (imprinting, critical period); Bowlby's WHO report (1951, maternal deprivation).</p>
+
+<h3 class="sec">2.9 Parenting (Baumrind) &amp; temperament (Thomas &amp; Chess)</h3>
+<table>
+<tr><th></th><th>High demand</th><th>Low demand</th></tr>
+<tr><td><b>High warmth</b></td><td><b>Authoritative</b> (best outcomes)</td><td>Permissive / Indulgent</td></tr>
+<tr><td><b>Low warmth</b></td><td>Authoritarian</td><td>Neglectful (Maccoby &amp; Martin's 4th, worst)</td></tr>
+</table>
+<div class="trap"><b>TRAP:</b> Authoritative (warm + firm, good) ≠ Authoritarian (cold + harsh, bad).</div>
+<p><b>Thomas &amp; Chess temperament:</b> Easy (~40%), Difficult (~10%), Slow-to-warm-up (~15%). <b>Goodness of fit</b> = match between temperament and environmental demands predicts adjustment.</p>
+
+<h3 class="sec">2.10 Language development &amp; milestones</h3>
+<table>
+<tr><th>Age</th><th>Milestone</th></tr>
+<tr><td>0–2 mo</td><td>Crying, reflexive sounds</td></tr>
+<tr><td>2–4 mo</td><td>Cooing (vowels)</td></tr>
+<tr><td>6 mo</td><td>Babbling (consonants + vowels)</td></tr>
+<tr><td>10–14 mo</td><td>First word; <b>holophrastic</b> (one word = whole thought)</td></tr>
+<tr><td>18–24 mo</td><td>Two-word / <b>telegraphic</b> ("more milk")</td></tr>
+<tr><td>2–3 yr</td><td>Vocab burst, <b>overregularization</b> ("goed", "foots")</td></tr>
+<tr><td>3–5 yr</td><td>Complex grammar, ~2000 words by 5</td></tr>
+</table>
+<p><b>Theories:</b> Skinner (behaviourist, operant/imitation); <b>Chomsky</b> (nativist, LAD + Universal Grammar + poverty of stimulus); Vygotsky/Bruner (social-interactionist, LASS); Piaget (cognitive, thought before language).</p>
+<div class="trap"><b>TRAP:</b> Overregularization ("goed", "mouses") is a sign of <b>rule learning</b>, not regression.</div>
+<p><b>Aging:</b> crystallized intelligence (vocab, knowledge) preserved/rises; fluid intelligence (processing speed, novel problems) declines. Socioemotional selectivity (Carstensen). Kübler-Ross 5 stages of dying: denial, anger, bargaining, depression, acceptance (not claimed to be universal/linear).</p>
+
+<!-- ======================================================================= -->
+<!-- SECTION 3: ABNORMAL -->
+<!-- ======================================================================= -->
+<h2 id="abnormal" class="sec">3. Abnormal Psychology <span class="pill">MET 15 Q · NIMHANS 15 Q · DSM-heavy</span></h2>
+
+<h3 class="sec">3.1 Defining abnormality &amp; classification</h3>
+<p><b>The 4 Ds:</b> Deviance, Distress, Dysfunction, Danger (some add Duration). Deviance alone ≠ abnormal (a genius IQ is deviant, not pathological).</p>
+<table>
+<tr><th></th><th>DSM-5 (2013) / DSM-5-TR (2022)</th><th>ICD-11 (2019)</th></tr>
+<tr><td>Publisher</td><td>APA, US-centric</td><td>WHO, global</td></tr>
+<tr><td>Axes</td><td><b>No axes</b> (dropped from DSM-IV)</td><td>Chapter 6 = mental/behavioural/neurodev</td></tr>
+<tr><td>OCD / PTSD</td><td>Own chapters (out of anxiety)</td><td>Own chapters; ICD-11 adds <b>Complex PTSD</b></td></tr>
+<tr><td>Schizophrenia subtypes</td><td>Removed</td><td>Removed</td></tr>
+<tr><td>Asperger's</td><td>Folded into ASD</td><td>Folded into ASD</td></tr>
+<tr><td>Bereavement exclusion (MDD)</td><td><b>Removed</b></td><td>More cautious</td></tr>
+<tr><td>New in DSM-5</td><td>Hoarding, Excoriation</td><td>Also recognized</td></tr>
+</table>
+<div class="trap"><b>TRAP:</b> Multi-axial system = DSM-IV. DSM-5 dropped it. "Axis I disorder" is pre-DSM-5 vocabulary.</div>
+<p><b>MSE order (ABS-MTPCIJ):</b> Appearance, Behaviour, Speech, Mood/affect, Thought (form + content), Perception, Cognition, Insight, Judgment. Mood = subjective; affect = observed. Insight = awareness of illness; judgment = real-world decisions.</p>
+<p><b>Approaches:</b> Biological · Psychodynamic · Behavioural · Cognitive (Beck/Ellis) · Humanistic (Rogers/Perls) · Sociocultural · Biopsychosocial (Engel 1977) · Diathesis-stress. Historical: Hippocrates (humors), Pinel/Tuke (moral treatment), Kraepelin (dementia praecox), Bleuler (renamed schizophrenia).</p>
+
+<h3 class="sec">3.2 Anxiety, OCD &amp; trauma</h3>
+<table>
+<tr><th>Disorder</th><th>Core feature</th><th>Duration</th></tr>
+<tr><td>GAD</td><td>Excessive worry, multiple domains, hard to control</td><td>≥ 6 months</td></tr>
+<tr><td>Panic Disorder</td><td>Recurrent unexpected attacks + worry/behaviour change</td><td>Attack peaks ≤ 10 min</td></tr>
+<tr><td>Specific Phobia / Social Anxiety / Agoraphobia</td><td>Single object / scrutiny / escape-is-hard (≥2 of 5 situations)</td><td>≥ 6 months</td></tr>
+<tr><td>Separation Anxiety</td><td>Fear of separation from attachment figure</td><td>≥ 4 wk kids / 6 mo adults</td></tr>
+</table>
+<div class="trap"><b>TRAP:</b> <b>OCD is NOT in the anxiety chapter</b> in DSM-5 (own chapter), and neither is PTSD (Trauma- and stressor-related chapter).</div>
+<ul>
+  <li><b>OCD &amp; related:</b> OCD (obsessions + compulsions, ego-dystonic), BDD, <b>Hoarding (new)</b>, Trichotillomania, <b>Excoriation (new)</b>.</li>
+  <li><b>Trauma:</b> PTSD (&gt; 1 month: intrusion + avoidance + negative cognition/mood + arousal), Acute Stress Disorder (3 days–1 month), Adjustment Disorders, Reactive Attachment, Disinhibited Social Engagement. ICD-11 adds <b>Complex PTSD</b> (PTSD + disturbances in self-organization).</li>
+</ul>
+<div class="trap"><b>TRAP:</b> <b>OCPD ≠ OCD.</b> OCPD = ego-syntonic perfectionist personality style (Cluster C). OCD = ego-dystonic obsessions/compulsions (own chapter).</div>
+
+<h3 class="sec">3.3 Mood disorders</h3>
+<table>
+<tr><th>Disorder</th><th>Required</th><th>Duration</th></tr>
+<tr><td>MDD</td><td>≥ 5 of 9 SIG-E-CAPS, must include depressed mood OR anhedonia</td><td>≥ 2 weeks</td></tr>
+<tr><td>Persistent Depressive (Dysthymia)</td><td>Chronic low-grade depression</td><td>≥ 2 yrs (1 yr kids)</td></tr>
+<tr><td>Bipolar I</td><td>≥ 1 manic episode (depression not required)</td><td>Mania ≥ 1 week (or any if hospitalised)</td></tr>
+<tr><td>Bipolar II</td><td>Hypomania + ≥1 MDE; <b>never</b> full mania</td><td>Hypomania ≥ 4 days</td></tr>
+<tr><td>Cyclothymia</td><td>Hypomanic + depressive symptoms, never full episode</td><td>≥ 2 yrs</td></tr>
+<tr><td>PMDD / DMDD</td><td>Premenstrual mood / severe temper outbursts in kids</td><td>Most cycles / onset before 10</td></tr>
+</table>
+<div class="rule"><b>SIG-E-CAPS</b> (MDD): Sleep, Interest, Guilt, Energy, Concentration, Appetite, Psychomotor, Suicidal ideation + depressed mood = 9. <b>DIG-FAST</b> (mania): Distractibility, Indiscretion, Grandiosity, Flight of ideas, Activity, Sleep ↓, Talkativeness.</div>
+<div class="trap"><b>TRAP:</b> Bipolar I needs <b>mania ≥ 1 week</b>. Bipolar II = hypomania + MDE, never full mania. Suicide: strongest single predictor = <b>previous attempt</b>; highest-risk dx = MDD + substance use. SAD PERSONS scale.</div>
+
+<h3 class="sec">3.4 Schizophrenia &amp; psychotic disorders</h3>
+<ul>
+  <li><b>Kraepelin</b> coined <b>dementia praecox</b>; <b>Bleuler</b> renamed it <b>schizophrenia</b> ("split mind" = fragmented thought, NOT split personality). Bleuler's <b>4 As</b>: Associations (loose), Affect (flat), Ambivalence, Autism (withdrawal).</li>
+  <li><b>Schneider's First-Rank Symptoms</b> (thought insertion/withdrawal/broadcasting, audible thoughts, voices commenting, made impulses, somatic passivity, delusional perception): suggestive, NOT diagnostic alone in DSM-5.</li>
+  <li><b>Positive</b> (added): hallucinations, delusions, disorganized speech/behaviour. <b>Negative</b> (taken away): flat affect, alogia, avolition, anhedonia, asociality.</li>
+  <li><b>DSM-5:</b> ≥ 2 of 5 symptoms (at least one from delusions/hallucinations/disorganized speech), active ≥ 1 month, total disturbance <b>≥ 6 months</b>.</li>
+</ul>
+<table>
+<tr><th>Disorder</th><th>Duration</th></tr>
+<tr><td>Brief Psychotic Disorder</td><td>1 day to &lt; 1 month</td></tr>
+<tr><td>Schizophreniform</td><td>1 to &lt; 6 months</td></tr>
+<tr><td>Schizophrenia</td><td>≥ 6 months</td></tr>
+<tr><td>Schizoaffective</td><td>Mood episode + psychosis, but ≥ 2 wks psychosis without mood symptoms</td></tr>
+<tr><td>Delusional Disorder</td><td>≥ 1 month delusions only</td></tr>
+</table>
+<div class="trap"><b>TRAP:</b> Schizophrenia ≠ DID (split mind ≠ split personality). DSM-5 removed schizophrenia subtypes (paranoid/catatonic).</div>
+
+<h3 class="sec">3.5 Dissociative &amp; somatic symptom disorders</h3>
+<ul>
+  <li><b>Dissociative:</b> Amnesia (± fugue), DID (≥ 2 identities, severe early trauma), Depersonalization/Derealization (<b>reality testing intact</b>).</li>
+  <li><b>Somatic Symptom Disorder</b> (distress + excessive thoughts about symptoms); <b>Illness Anxiety</b> (replaces hypochondriasis); <b>Conversion</b> (neuro symptoms, no medical cause, <b>la belle indifférence</b>); <b>Factitious</b> (intentional, sick-role gain — Munchausen self, by-proxy on another); <b>Malingering</b> (conscious, <b>external</b> gain; a V-code, not a disorder).</li>
+</ul>
+<div class="trap"><b>TRAP:</b> Conversion = unconscious, no gain. Factitious = conscious, internal (sick role). Malingering = conscious, external (money, court).</div>
+
+<h3 class="sec">3.6 Eating, sleep, SUD &amp; neurodevelopmental</h3>
+<ul>
+  <li><b>Anorexia</b> (requires significantly low weight) · <b>Bulimia</b> (binge + compensation, normal/above weight) · <b>BED</b> (binge, no compensation) · ARFID · Pica · Rumination.</li>
+  <li><b>Substance Use Disorder:</b> DSM-5 merged abuse + dependence; ≥ 2 of 11 criteria/12 mo; 2–3 mild, 4–5 moderate, ≥ 6 severe. Tolerance/withdrawal from prescribed meds taken as directed don't count.</li>
+  <li><b>Neurodevelopmental:</b> IDD (severity by adaptive function, not just IQ); ASD (DSM-5 merged Asperger's/PDD-NOS); <b>ADHD onset before 12</b> (was 7 in DSM-IV), ≥ 2 settings; Specific Learning Disorder (dyslexia/dysgraphia/dyscalculia); Tourette's (motor + vocal tics ≥ 1 yr, onset &lt; 18).</li>
+</ul>
+
+<h3 class="sec">3.7 Personality disorders (incl. BPD vs NPD, Type A–D)</h3>
+<table>
+<tr><th>Cluster</th><th>Theme</th><th>Disorders</th></tr>
+<tr><td>A</td><td>Odd / eccentric</td><td>Paranoid, Schizoid, Schizotypal</td></tr>
+<tr><td>B</td><td>Dramatic / emotional / erratic</td><td>Antisocial, Borderline, Histrionic, Narcissistic</td></tr>
+<tr><td>C</td><td>Anxious / fearful</td><td>Avoidant, Dependent, Obsessive-Compulsive PD</td></tr>
+</table>
+<table>
+<tr><th>Borderline (BPD)</th><th>Narcissistic (NPD)</th></tr>
+<tr><td><b>Pervasive instability</b> of relationships, self-image, affect; fear of abandonment; impulsivity; self-harm; chronic emptiness. Higher in females.</td><td>Grandiosity; need for <b>excessive admiration</b>; lack of empathy; sense of being special/entitled.</td></tr>
+</table>
+<div class="rule"><b>The discriminator (your mock miss):</b> pervasive instability of relationships and self-image is the BPD feature NOT defining of NPD. Both can show emptiness, but instability + abandonment terror = BPD. (Antisocial: disregard for rights, age ≥18 + Conduct Disorder before 15.)</div>
+<div class="trap"><b>TRAP:</b> Schizoid (detached, no odd beliefs) ≠ Schizotypal (detached + magical thinking/perceptual oddities, on the schizophrenia spectrum).</div>
+<div class="rule"><b>Type A–D:</b> Type A = hostility/competitiveness/time-urgency (CHD risk). Type B = relaxed. Type C = suppressed emotion (cancer-linked, weaker evidence). <b>Type D ("distressed") = negative affectivity + social inhibition; predicts poor cardiac prognosis</b> (your mock miss).</div>
+
+<h3 class="sec">3.8 Treatment quick-map</h3>
+<table>
+<tr><th>Disorder</th><th>First-line psychotherapy</th><th>Common pharmacology</th></tr>
+<tr><td>MDD</td><td>CBT, IPT, behavioural activation</td><td>SSRIs</td></tr>
+<tr><td>OCD</td><td><b>ERP</b></td><td>SSRIs (high dose), clomipramine</td></tr>
+<tr><td>PTSD</td><td>TF-CBT, EMDR, Prolonged Exposure</td><td>SSRIs (sertraline, paroxetine FDA-approved)</td></tr>
+<tr><td>Schizophrenia</td><td>CBTp, family psychoeducation</td><td>Atypical antipsychotics</td></tr>
+<tr><td>Bipolar</td><td>Psychoeducation, IPSRT</td><td>Lithium, valproate, lamotrigine, atypicals</td></tr>
+<tr><td>BPD</td><td><b>DBT</b> (Linehan), MBT, schema therapy</td><td>Symptom-targeted</td></tr>
+<tr><td>Anorexia / Bulimia</td><td>FBT (Maudsley) for teens; CBT-E</td><td>Fluoxetine (only SSRI FDA-approved for bulimia)</td></tr>
+</table>
+
+<!-- ======================================================================= -->
+<!-- SECTION 4: ASSESSMENT -->
+<!-- ======================================================================= -->
+<h2 id="assessment" class="sec">4. Psychological Assessment &amp; Tests <span class="pill">MET 15 Q · NIMHANS 10 Q</span></h2>
+
+<div class="rule"><b>The whole map:</b> a psychological test is a measuring instrument that must be (a) consistent = <b>reliability</b> and (b) accurate = <b>validity</b>. Everything else is a way to estimate one of those, interpret scores against norms, or an example of a real test.</div>
+
+<h3 class="sec">4.1 Item analysis</h3>
+<ul>
+  <li><b>Difficulty index p</b> = proportion who got the item right (0–1). Sweet spot 0.50 for free-response, ~0.625 for a 4-option MCQ (halfway between guessing 0.25 and ceiling). p &gt; 0.80 too easy, &lt; 0.20 too hard.</li>
+  <li><b>Discrimination index D</b> = p(top 27%) − p(bottom 27%), range −1 to +1. D &gt; 0.40 good. <b>Negative D = mis-keyed/ambiguous item, discard immediately.</b></li>
+</ul>
+
+<h3 class="sec">4.2 Reliability (consistency)</h3>
+<p>Classical test theory: <b>Observed = True + Error.</b> Reliability = proportion of variance that is true.</p>
+<ul>
+  <li><b>Test-retest</b> (across time; standard window 2–4 wks).</li>
+  <li><b>Parallel forms</b> (across forms).</li>
+  <li><b>Split-half</b> + <b>Spearman-Brown</b> correction (r_full = 2·r_half / (1 + r_half)); <b>Cronbach α</b> (≥0.7 acceptable, ≥0.8 good) = mean of all possible split-halves; <b>KR-20</b> for dichotomous (0/1) items.</li>
+  <li><b>Inter-rater:</b> Cohen κ (categorical, Landis &amp; Koch: 0.61–0.80 substantial, 0.81+ almost perfect), ICC (continuous).</li>
+  <li><b>SEM</b> = SD·√(1 − r_xx). Higher reliability → smaller SEM → tighter confidence band around a score.</li>
+</ul>
+<div class="trap"><b>TRAP:</b> Cronbach α is NOT a measure of unidimensionality — a test can have high α and still measure two constructs. And κ is NOT internal consistency.</div>
+
+<h3 class="sec">4.3 Validity (accuracy)</h3>
+<ul>
+  <li><b>Content:</b> covers the domain (expert panels, Lawshe's CVR). <b>Face validity</b> = looks valid to a layperson, the weakest form.</li>
+  <li><b>Criterion:</b> <b>Concurrent</b> (criterion now) vs <b>Predictive = Postponed</b> (criterion later).</li>
+  <li><b>Construct:</b> convergent (correlates with similar) + discriminant (not with unrelated) + nomological network. Campbell &amp; Fiske's multitrait-multimethod matrix (MTMM, 1959).</li>
+</ul>
+<div class="rule"><b>Validity ceiling:</b> max validity = √(reliability). Unreliable tests cannot be strongly valid. Reliability is necessary but not sufficient for validity.</div>
+
+<h3 class="sec">4.4 Test classification</h3>
+<table>
+<tr><th>Type</th><th>Means</th></tr>
+<tr><td><b>Maximum performance</b> (ability/aptitude/achievement, e.g. IQ)</td><td>Do your <b>best</b>. There is a right answer</td></tr>
+<tr><td><b>Typical performance</b> (personality, interest, attitude)</td><td>What you usually do. No right answer</td></tr>
+<tr><td>Power test</td><td>Hard items, generous time — measures ceiling of ability</td></tr>
+<tr><td>Speed test</td><td>Easy items, tight time — measures how fast</td></tr>
+</table>
+<div class="trap"><b>The exact trap you missed:</b> an IQ test is an <b>ability test</b> (maximum performance), not a power or speed test.</div>
+<p><b>Achievement</b> = what you learned (past, WIAT). <b>Aptitude</b> = what you can learn (future, DAT/SAT). <b>Intelligence</b> = general capacity. Norm-referenced (vs peers) vs criterion-referenced (vs absolute standard). Formative (during) vs summative (end).</p>
+
+<h3 class="sec">4.5 Standard scores &amp; norms</h3>
+<p>Standard score = M + (SD × z). Percentile rank = % of norm group at or below the score (ordinal, gaps unequal).</p>
+<table>
+<tr><th>Scale</th><th>Mean</th><th>SD</th><th>Use</th></tr>
+<tr><td>z</td><td>0</td><td>1</td><td>Universal</td></tr>
+<tr><td>T (MMPI, neuropsych)</td><td>50</td><td>10</td><td>Clinical cutoff T ≥ 65</td></tr>
+<tr><td><b>Wechsler FSIQ / Index</b></td><td><b>100</b></td><td><b>15</b></td><td>WAIS, WISC, WPPSI; "average" 90–109</td></tr>
+<tr><td>Old Stanford-Binet (1960–86)</td><td>100</td><td><b>16</b></td><td>Classic Wechsler-vs-Binet trap</td></tr>
+<tr><td><b>Wechsler subtest scaled</b></td><td><b>10</b></td><td><b>3</b></td><td>Range 1–19. <b>Scaled 10 = 50th percentile</b> (your mock miss)</td></tr>
+<tr><td>Stanine</td><td>5</td><td>2</td><td>Range 1–9</td></tr>
+<tr><td>Sten (16PF)</td><td>5.5</td><td>2</td><td>Range 1–10</td></tr>
+</table>
+<div class="rule"><b>Normal curve / 68-95-99.7:</b> ±1 SD = 68% (so +1 SD ≈ 84th pct, −1 SD ≈ 16th); ±2 SD = 95% (+2 SD ≈ 98th); ±3 SD = 99.7%. Mean = 50th percentile. Memorise <b>68-95-99.7</b>.</div>
+
+<h3 class="sec">4.6 Intelligence tests</h3>
+<p><b>IQ formula history:</b> Mental Age (Binet 1908) → <b>Ratio IQ = (MA/CA)×100</b> (Stern 1912, applied by Terman in Stanford-Binet 1916) → <b>Deviation IQ</b> (Wechsler 1939); SB switched to deviation IQ in 1960 (SD 16); SB-5 (2003) dropped to SD 15. <b>Binet rejected a single global IQ score himself.</b></p>
+<table>
+<tr><th>Index</th><th>WAIS-IV (16–90, 4 indices)</th><th>WISC-V (6–16, 5 indices)</th></tr>
+<tr><td>Verbal Comprehension</td><td>Similarities, Vocabulary, Information</td><td>Similarities, Vocabulary</td></tr>
+<tr><td>Perceptual / Visual-Spatial</td><td>Block Design, Matrix Reasoning, Visual Puzzles <i>(PRI)</i></td><td>Block Design, Visual Puzzles <i>(VSI)</i></td></tr>
+<tr><td>Fluid Reasoning</td><td><i>(folded into PRI)</i></td><td>Matrix Reasoning, Figure Weights <i>(FRI)</i></td></tr>
+<tr><td>Working Memory</td><td>Digit Span, Arithmetic, <b>Letter-Number Sequencing</b></td><td>Digit Span, <b>Picture Span</b></td></tr>
+<tr><td>Processing Speed</td><td>Symbol Search, Coding</td><td>Coding, Symbol Search</td></tr>
+</table>
+<div class="trap"><b>The exact trap you missed:</b> <b>Letter-Number Sequencing</b> is WAIS-IV core but NOT a WISC-V core subtest (WISC-V uses Picture Span). The WISC-IV→V change: old PRI split into <b>VSI + FRI</b> → 5 indices, not 4. WAIS-IV = 15 subtests total (10 core); WISC-V = 21 total (10 primary).</div>
+<ul>
+  <li><b>Raven's Progressive Matrices</b> (Raven): nonverbal, culture-reduced g. <b>SPM = 60 items</b> (5 sets), <b>CPM = 36</b> (children/elderly/ID), <b>APM scored = 36</b> (+ 12 practice). Lock CPM = APM = 36.</li>
+  <li><b>Bhatia's Battery</b> (C.M. Bhatia, 1955): performance IQ for Indian/low-literacy, ages 11–16. <b>5 subtests:</b> Koh's Block Design, Alexander's Pass-Along, Pattern Drawing, Immediate Memory, Picture Construction.</li>
+  <li><b>Other Indian:</b> MISIC (Malin 1969, WISC adaptation, 11 subtests); Binet-Kamat (Kamat 1934); Seguin Form Board (nonverbal, 3–7); Vineland Indian adaptation (Malin).</li>
+  <li><b>CFIT</b> (R.B. Cattell 1949): fluid intelligence Gf, 3 scales. <b>Kaufman</b> (K-ABC/KABC-II, Luria + CHC). <b>Army Alpha = 8 subtests (literate), Army Beta = 7 (illiterate)</b>, both Yerkes-led 1917. Bayley (1–42 months), Gesell (DQ = DA/CA×100).</li>
+</ul>
+<table>
+<tr><th>Theorist</th><th>Model</th></tr>
+<tr><td>Spearman (1904)</td><td>Two-factor <b>g</b> + s; invented factor analysis</td></tr>
+<tr><td>Thurstone (1938)</td><td>7 Primary Mental Abilities</td></tr>
+<tr><td>Cattell &amp; Horn (1966)</td><td>Gf-Gc (fluid vs crystallized)</td></tr>
+<tr><td>Guilford (1967)</td><td>Structure of Intellect (150→180 cells); divergent/convergent</td></tr>
+<tr><td>Gardner (1983)</td><td>Multiple Intelligences (7, +Naturalist 1995 = 8)</td></tr>
+<tr><td>Sternberg (1985)</td><td>Triarchic: analytical, creative, practical</td></tr>
+<tr><td>Carroll / CHC</td><td>3-stratum hierarchical (g → broad → narrow)</td></tr>
+<tr><td>Salovey &amp; Mayer (1990) / Goleman (1995)</td><td>Emotional Intelligence (4-branch / popular 5-domain)</td></tr>
+</table>
+
+<h3 class="sec">4.7 Personality tests — objective &amp; projective</h3>
+<table>
+<tr><th>Test</th><th>What it is</th></tr>
+<tr><td><b>MMPI-2</b> (Hathaway &amp; McKinley)</td><td><b>567 items</b>, empirical criterion-keyed. <b>10 clinical scales</b> (Hs, D, Hy, Pd, Mf, Pa, Pt, Sc, Ma, Si) + validity scales (L = Lie, F = Infrequency, K = Correction, + VRIN/TRIN). T-scores; clinical ≥ 65. Read code types, not single scales.</td></tr>
+<tr><td><b>16PF</b> (Cattell)</td><td>16 source traits + 5 globals, Sten scores. <b>NOT Big Five</b>.</td></tr>
+<tr><td><b>NEO-PI-R/3</b> (Costa &amp; McCrae)</td><td>Big Five (OCEAN), 5 domains × 6 facets, 240 items.</td></tr>
+<tr><td><b>EPQ</b> (Eysenck)</td><td>PEN — Psychoticism, Extraversion, Neuroticism + Lie.</td></tr>
+<tr><td><b>Rorschach</b></td><td>Projective. <b>10 inkblots</b> (5 chromatic, 5 achromatic), 1921. Exner / R-PAS scoring.</td></tr>
+<tr><td><b>TAT</b> (Murray &amp; Morgan)</td><td>Projective, needs-press. <b>31 cards total</b>, 20 administered. CAT (Bellak) = animal cards for children.</td></tr>
+<tr><td><b>SCT (RISB)</b></td><td>Projective, semi-structured sentence completion (Rotter).</td></tr>
+<tr><td><b>Draw-A-Person (Goodenough-Harris)</b></td><td>Visual-motor integration + rough cognitive estimate; usable when verbal testing fails; also a projective screen.</td></tr>
+<tr><td><b>Bender-Gestalt</b></td><td>Visual-motor integration; screen for organicity.</td></tr>
+<tr><td><b>Vineland (VABS)</b></td><td>Adaptive behaviour (ID assessment).</td></tr>
+<tr><td><b>WCST / Stroop</b></td><td>Executive function/set-shifting (frontal) / selective attention + response inhibition.</td></tr>
+</table>
+<div class="trap"><b>Card-count traps:</b> Rorschach = <b>10</b> inkblots. TAT = <b>31</b> total cards. MMPI-2 = <b>10</b> clinical scales (not 8) and 567 items.</div>
+<p><b>Attitude scales:</b> Thurstone (equal-appearing intervals), Likert (summated 5-point), Guttman (cumulative), Bogardus (social distance), Osgood (semantic differential). <b>Interest:</b> Strong/Holland RIASEC. <b>Psychiatric rating scales:</b> BDI (self) vs HAM-D (clinician) for depression; <b>Y-BOCS = OCD gold standard</b>; <b>PANSS = schizophrenia</b>; YMRS = mania; <b>MMSE = 30 points, cutoff 23–24</b>; MoCA more sensitive for MCI.</p>
+
+<!-- ======================================================================= -->
+<!-- SECTION 5: PSYCHOTHERAPY / LEARNING / ETHICS -->
+<!-- ======================================================================= -->
+<h2 id="therapy" class="sec">5. Psychotherapy, Counselling, Learning &amp; Ethics <span class="pill">MET 15 Q · NIMHANS 10 Q</span></h2>
+
+<h3 class="sec">5.1 Psychoanalytic / psychodynamic</h3>
+<ul>
+  <li><b>Freud structure:</b> id (pleasure principle), ego (reality principle), superego (conscience + ego ideal). Topographic: conscious/preconscious/unconscious.</li>
+  <li><b>Technique:</b> free association (the fundamental rule), interpretation of resistance + transference, dream analysis (manifest vs latent), <b>working through</b>.</li>
+  <li><b>Defenses (Vaillant):</b> psychotic (denial) → immature (projection, acting out, regression) → neurotic (intellectualisation, displacement, reaction formation, repression) → mature (humour, sublimation, suppression, altruism).</li>
+</ul>
+<table>
+<tr><th>Theorist</th><th>Core contribution</th></tr>
+<tr><td>Adler</td><td>Individual Psychology; inferiority → striving for superiority; social interest; birth order</td></tr>
+<tr><td>Jung</td><td>Analytical Psychology; collective unconscious; archetypes; individuation</td></tr>
+<tr><td>Klein / Winnicott</td><td>Object relations; splitting, projective identification / "good-enough mother," transitional object</td></tr>
+<tr><td><b>Kohut</b></td><td>Self psychology; mirroring, idealizing, twinship selfobjects</td></tr>
+<tr><td>Kernberg</td><td>TFP for BPD; borderline personality organisation; splitting + identity diffusion</td></tr>
+</table>
+<div class="trap"><b>Kohut's self psychology (your flagged gap):</b> the self develops through 3 <b>selfobject needs</b> — <b>Mirroring</b> (being admired → healthy ambition), <b>Idealizing</b> (merging with a calm strong other → ideals), <b>Twinship</b> (feeling alike). <b>Failure of mirroring → grandiosity + craving admiration (narcissistic pathology).</b> Failure of mirroring + idealizing → a <b>fragmented, empty self</b>.</div>
+<div class="rule"><b>Object relations (your mock miss)</b> = the internalised mental <b>representations of self and others</b> and the relationship between them (Klein, Winnicott, Fairbairn, Mahler). NOT id/ego/superego, NOT defence mechanisms. <b>Working through</b> = repeated re-encounter with a conflict across contexts until integrated, NOT free association or a single interpretation.</div>
+
+<h3 class="sec">5.2 Behaviour therapy</h3>
+<table>
+<tr><th>Technique</th><th>Mechanism / indication</th></tr>
+<tr><td>Systematic desensitisation (Wolpe)</td><td>Reciprocal inhibition: relaxation + graded imagined exposure up a fear hierarchy. Phobias</td></tr>
+<tr><td>In-vivo exposure / Flooding</td><td>Real-world graded / full-intensity exposure; habituation + extinction</td></tr>
+<tr><td><b>ERP</b> (Foa)</td><td>Exposure + response prevention. <b>First-line behavioural Tx for OCD</b></td></tr>
+<tr><td>Token economy / Contingency management</td><td>Operant secondary reinforcers; institutional, SUD</td></tr>
+<tr><td>Behavioural activation (Lewinsohn/Jacobson)</td><td>Scheduled rewarding activity; depression</td></tr>
+<tr><td>Modeling (Bandura) / Shaping / Chaining</td><td>Observational learning / new behaviour / linking existing behaviours</td></tr>
+<tr><td>Biofeedback</td><td>Physiological readouts shape autonomic control; tension headache, anxiety</td></tr>
+</table>
+
+<h3 class="sec">5.3 Cognitive &amp; CBT</h3>
+<ul>
+  <li><b>Beck's Cognitive Therapy:</b> cognitive <b>triad</b> (negative self/world/future), schemas → automatic thoughts, distortions (all-or-nothing, overgeneralisation, catastrophising). Techniques: Socratic questioning/guided discovery, thought records, behavioural experiments.</li>
+  <li><b>Ellis's REBT:</b> <b>ABC model</b> (Activating event → Belief → Consequence, then D dispute, E new effect); 3 irrational demands ("musturbation"). More directly confrontational than Beck.</li>
+</ul>
+
+<h3 class="sec">5.4 Humanistic / existential</h3>
+<ul>
+  <li><b>Rogers (person-centred):</b> 3 core conditions — <b>empathy, unconditional positive regard, congruence</b> (necessary + sufficient). Non-directive; engine = actualizing tendency.</li>
+  <li><b>Gestalt (Perls):</b> here-and-now, <b>empty chair</b>, top-dog/underdog, figure-ground.</li>
+  <li><b>Frankl (Logotherapy):</b> search for meaning; paradoxical intention, dereflection. <b>Yalom:</b> 4 ultimate concerns (death, freedom, isolation, meaninglessness). <b>Glasser (Reality):</b> WDEP.</li>
+</ul>
+<div class="trap"><b>Your mock miss:</b> the approach that prefers "real relationship" + UPR over the term "therapeutic alliance" is <b>Person-centred (Rogers)</b>. The "alliance" (bond/goals/tasks) is <b>Bordin's</b> construct.</div>
+
+<h3 class="sec">5.5 Third-wave, group &amp; family</h3>
+<ul>
+  <li><b>DBT</b> (Linehan, for BPD): 4 modules — mindfulness, distress tolerance, emotion regulation, interpersonal effectiveness. <b>ACT</b> (Hayes): hexaflex 6 processes — acceptance, defusion, self-as-context, present moment, values, committed action. <b>MBCT</b> = relapse prevention in recurrent depression. <b>MI</b> (Miller &amp; Rollnick): spirit PACE, skills OARS. <b>IPT</b>: 4 problem areas — grief, role disputes, role transitions, interpersonal deficits. <b>EMDR</b> (Shapiro): 8 phases, bilateral stimulation, for PTSD.</li>
+  <li><b>Yalom's group factors</b> (11): universality, interpersonal learning (the engine), group cohesiveness, catharsis, instillation of hope, altruism, existential factors… "social microcosm + here-and-now" = Yalom.</li>
+  <li><b>Family:</b> Structural (Minuchin: family map, enmeshed/disengaged, joining); Strategic (Haley/Watzlawick: directives, paradox); Bowenian (differentiation, genogram); Satir (communication stances); Milan (circular questioning); Narrative (White/Epston: externalising); SFBT (de Shazer/Berg: miracle question, scaling).</li>
+</ul>
+
+<h3 class="sec">5.6 Therapy components recognition drill (match the cue → school)</h3>
+<table>
+<tr><th>If you see this cue word…</th><th>…the therapy is</th></tr>
+<tr><td>Mindfulness, distress tolerance, emotion regulation, interpersonal effectiveness</td><td><b>DBT</b></td></tr>
+<tr><td>Hexaflex, cognitive defusion, self-as-context, values</td><td><b>ACT</b></td></tr>
+<tr><td>Cognitive triad, automatic thoughts, Socratic questioning</td><td><b>CBT (Beck)</b></td></tr>
+<tr><td>ABC model, irrational belief, dispute, musturbation</td><td><b>REBT (Ellis)</b></td></tr>
+<tr><td>Empathy, unconditional positive regard, congruence</td><td><b>Person-centred (Rogers)</b></td></tr>
+<tr><td>PACE, OARS, change talk, DARN-CAT</td><td><b>Motivational Interviewing</b></td></tr>
+<tr><td>Grief, role dispute, role transition, interpersonal deficit</td><td><b>IPT</b></td></tr>
+<tr><td>Universality, cohesiveness, interpersonal learning, catharsis</td><td><b>Group therapy (Yalom)</b></td></tr>
+<tr><td>Empty chair, top-dog/underdog, figure-ground</td><td><b>Gestalt (Perls)</b></td></tr>
+<tr><td>Free association, transference, working through, dream analysis</td><td><b>Psychoanalysis (Freud)</b></td></tr>
+<tr><td>WDEP (wants, doing, evaluation, planning)</td><td><b>Reality therapy (Glasser)</b></td></tr>
+<tr><td>8-phase protocol, bilateral eye movements, trauma</td><td><b>EMDR (Shapiro)</b></td></tr>
+<tr><td>Miracle question, scaling, exceptions</td><td><b>SFBT</b></td></tr>
+<tr><td>Externalising the problem, re-authoring</td><td><b>Narrative therapy</b></td></tr>
+<tr><td>Differentiation of self, triangles, genogram</td><td><b>Bowenian family</b></td></tr>
+<tr><td>Family map, enmeshment, joining, enactment</td><td><b>Structural family (Minuchin)</b></td></tr>
+<tr><td>Reciprocal inhibition, fear hierarchy, relaxation pairing</td><td><b>Systematic desensitisation (Wolpe)</b></td></tr>
+<tr><td>Exposure + response prevention</td><td><b>ERP for OCD (Foa)</b></td></tr>
+<tr><td>Paradoxical intention, dereflection</td><td><b>Logotherapy (Frankl)</b></td></tr>
+</table>
+<div class="trap"><b>The 6 traps that catch everyone:</b> (1) cognitive <b>triad</b> = Beck, <b>ABC</b> = Ellis. (2) 4 DBT modules vs 6 ACT hexaflex processes (both use "mindfulness"). (3) Working through = repeated re-examination. (4) Empty chair = Gestalt, NOT Freud. (5) ERP = OCD vs EMDR = trauma. (6) Paradoxical intention appears in both Frankl and strategic family therapy.</div>
+<p class="small"><b>Common-factors:</b> ~40% client/extra-therapeutic, ~30% relationship/alliance, ~15% expectancy, ~15% specific technique (Lambert, Wampold). Bordin's working alliance = goals + tasks + bond.</p>
+
+<h3 class="sec">5.7 Learning &amp; conditioning</h3>
+<table>
+<tr><th>Family</th><th>Terms</th></tr>
+<tr><td>Classical (Pavlovian)</td><td>Extinction, spontaneous recovery, generalization, discrimination</td></tr>
+<tr><td>Operant shaping tools</td><td>Shaping, chaining, fading, prompting</td></tr>
+<tr><td>Operant schedules</td><td>FR, VR, FI, VI</td></tr>
+<tr><td>Cognitive / social</td><td>Latent (Tolman), insight (Köhler), observational (Bandura)</td></tr>
+<tr><td>Non-associative</td><td>Habituation, sensitization</td></tr>
+</table>
+<ul>
+  <li><b>Shaping</b> = reinforce successive approximations of a <b>new</b> behaviour. <b>Chaining</b> = link <b>existing</b> behaviours (each is the S<sup>D</sup> for the next; backward chaining preferred clinically). <b>Fading</b> = remove the <b>prompt</b> (extinction removes the <b>reinforcer</b>). <b>Prompting</b> hierarchy: physical → modelling → gestural → verbal → visual.</li>
+  <li><b>Extinction:</b> watch for the <b>extinction burst</b>; extinction suppresses, doesn't erase. <b>Spontaneous recovery</b> proves the memory is intact. <b>Generalization</b> is the default; <b>discrimination</b> is trained by differential reinforcement.</li>
+  <li><b>Schedules:</b> <b>VR</b> = highest, steadiest rate, most resistant to extinction (gambling). <b>VI</b> = steady moderate (checking phone). <b>FR</b> = post-reinforcement pause then burst (piece-work). <b>FI</b> = scallop (studying before a weekly quiz). Resistance: VR &gt; VI &gt; FR &gt; FI &gt; continuous.</li>
+  <li><b>Latent learning</b> (Tolman, cognitive map — learning without reinforcement, shown later). <b>Insight learning</b> (Köhler's Sultan, sudden "aha"). <b>Observational learning</b> (Bandura Bobo doll; 4 processes ARRM: Attention → Retention → Reproduction → Motivation; vicarious reinforcement). <b>Habituation vs sensitization</b> (Kandel, Aplysia, non-associative).</li>
+</ul>
+<div class="rule"><b>Escape vs avoidance (your mock guess):</b> <b>Escape</b> = behaviour <b>terminates</b> an aversive stimulus that is already present (turn off a loud alarm). <b>Avoidance</b> = behaviour <b>prevents</b> the aversive stimulus from starting (leave before the alarm). Both are negative reinforcement.</div>
+
+<h3 class="sec">5.8 Ethics in practice</h3>
+<table>
+<tr><th>Principle (Beauchamp &amp; Childress)</th><th>One line / in practice</th></tr>
+<tr><td><b>Autonomy</b></td><td>Respect the client's right to decide — informed consent, right to refuse</td></tr>
+<tr><td><b>Beneficence</b></td><td>Act for the client's good — choose the treatment most likely to help</td></tr>
+<tr><td><b>Non-maleficence</b></td><td>"First, do no harm" — withhold harmful/unproven methods, stay within competence</td></tr>
+<tr><td><b>Justice</b></td><td>Fairness — no discrimination, equitable access</td></tr>
+</table>
+<ul>
+  <li><b>Informed consent</b> = disclosure + capacity + voluntariness. <b>Assent</b> = a minor's agreement alongside a parent's consent. <b>Paternalism</b> = overriding a competent person's choice (violates autonomy).</li>
+  <li><b>Confidentiality</b> = your duty; <b>privacy</b> = the client's right; <b>privileged communication</b> = legal protection in court.</li>
+  <li><b>Other terms:</b> Fidelity (loyalty), Veracity (truth-telling), Competence, Dual/multiple relationship (boundary violation), Negligence (below standard of care).</li>
+</ul>
+<div class="trap"><b>Confidentiality is NOT absolute</b> — it breaks for risk of serious harm to self/others, suspected child/elder abuse (mandatory reporting), or court order. <b>Tarasoff duty to warn/protect:</b> a credible threat against an identifiable person obliges the therapist to act — non-maleficence/beneficence to a third party overrides confidentiality. The classic swap: beneficence = <i>do good</i> vs non-maleficence = <i>avoid harm</i>.</div>
+
+<!-- ======================================================================= -->
+<!-- SECTION 6: RESEARCH / BIOSTATS -->
+<!-- ======================================================================= -->
+<h2 id="biostats" class="sec">6. Research Methods &amp; Biostatistics <span class="pill">MET 10 Q · NIMHANS 15 Q · biggest NIMHANS gap</span></h2>
+
+<h3 class="sec">6.1 Levels of measurement &amp; descriptive stats</h3>
+<table>
+<tr><th>Level (NOIR)</th><th>Property</th><th>Allowed stats</th></tr>
+<tr><td>Nominal</td><td>Categories, no order</td><td>Mode, frequency, chi-square</td></tr>
+<tr><td>Ordinal</td><td>Ordered, unequal intervals (Likert, ranks)</td><td>Median, percentile, Spearman, Mann-Whitney</td></tr>
+<tr><td>Interval</td><td>Equal intervals, no true zero (°C, IQ)</td><td>Mean, SD, t-test, ANOVA, Pearson r</td></tr>
+<tr><td>Ratio</td><td>Equal intervals + true zero (weight, RT)</td><td>All of the above + ratios</td></tr>
+</table>
+<p><b>Central tendency:</b> mean (pulled by outliers), median (robust, best for skew), mode (only nominal). <b>Dispersion:</b> range, IQR, variance, SD; <b>SEM = SD/√n</b> (precision of the mean, always smaller than SD). <b>Skew:</b> positive = right tail (mean &gt; median &gt; mode). <b>Kurtosis:</b> leptokurtic (peaked), platykurtic (flat).</p>
+
+<h3 class="sec">6.2 Standard scores, percentiles &amp; the normal curve</h3>
+<table>
+<tr><th>Scale</th><th>Mean</th><th>SD</th><th>"Average" range</th></tr>
+<tr><td>Wechsler <b>subtest</b> scaled</td><td>10</td><td>3</td><td>8–12. <b>Scaled 10 = 50th percentile</b></td></tr>
+<tr><td>Wechsler <b>FSIQ / Index</b></td><td>100</td><td>15</td><td>90–109</td></tr>
+<tr><td>z-score</td><td>0</td><td>1</td><td>−1 to +1</td></tr>
+<tr><td>T-score (MMPI)</td><td>50</td><td>10</td><td>40–60; clinical ≥ 65</td></tr>
+<tr><td>Sten (16PF)</td><td>5.5</td><td>2</td><td>4–7</td></tr>
+<tr><td>Stanine</td><td>5</td><td>2</td><td>4–6</td></tr>
+</table>
+<div class="rule"><b>68-95-99.7:</b> ±1 SD = 68% (+1 SD ≈ 84th pct, −1 SD ≈ 16th), ±2 SD = 95% (+2 SD ≈ 98th), ±3 SD = 99.7%. Mean = 50th. <b>Central Limit Theorem:</b> the sampling distribution of the mean → normal as n grows (rule of thumb n ≥ 30).</div>
+
+<h3 class="sec">6.3 Hypothesis testing, errors &amp; p-values</h3>
+<table>
+<tr><th></th><th>H0 true</th><th>H0 false</th></tr>
+<tr><td>Reject H0</td><td><b>Type I (α, false +)</b></td><td>Correct (power)</td></tr>
+<tr><td>Retain H0</td><td>Correct</td><td><b>Type II (β, false −)</b> — "Sigh, I missed it"</td></tr>
+</table>
+<ul>
+  <li><b>α</b> = type I rate (false positive, conventionally 0.05). <b>β</b> = type II rate (false negative). <b>Power = 1 − β</b> (aim ≥ 0.80; rises with larger n, larger effect, larger α, lower variability, one-tailed).</li>
+  <li><b>p-value</b> = probability of the observed result <i>or more extreme</i> if H0 were true. <b>NOT</b> the probability that H0 is true. p &lt; α → reject H0.</li>
+  <li><b>95% CI:</b> if repeated, 95% of intervals would contain the true parameter. Excludes 0 (difference) or 1 (OR/RR) → significant at p &lt; 0.05.</li>
+</ul>
+
+<h3 class="sec">6.4 Effect size &amp; stats one-liners</h3>
+<table>
+<tr><th>Statistic</th><th>Benchmarks / lock this</th></tr>
+<tr><td><b>Cohen's d</b></td><td><b>0.2 small, 0.5 medium, 0.8 large</b></td></tr>
+<tr><td>Pearson r</td><td>0.10 / 0.30 / 0.50. r² = variance explained (r=0.90 → r²=0.81 = 81%). Correlation ≠ causation</td></tr>
+<tr><td><b>Odds ratio / RR = 1</b></td><td><b>No association.</b> &gt;1 increased risk, &lt;1 protective (your mock miss)</td></tr>
+<tr><td><b>NNT</b></td><td><b>1 / ARR.</b> Lower NNT = better drug (your mock miss)</td></tr>
+<tr><td>"Data"</td><td><b>Plural</b> ("data are…"); datum is singular</td></tr>
+</table>
+<div class="trap"><b>TRAP:</b> OR ≈ RR only when the outcome is rare (&lt; 10%); for common outcomes OR overstates RR.</div>
+
+<h3 class="sec">6.5 Choosing the test</h3>
+<table>
+<tr><th>Parametric</th><th>Non-parametric equivalent</th></tr>
+<tr><td>One-sample / paired t-test</td><td>Wilcoxon signed-rank</td></tr>
+<tr><td>Independent t-test</td><td><b>Mann-Whitney U</b></td></tr>
+<tr><td>One-way ANOVA</td><td>Kruskal-Wallis</td></tr>
+<tr><td>Repeated-measures ANOVA</td><td>Friedman</td></tr>
+<tr><td>Pearson r</td><td>Spearman ρ</td></tr>
+<tr><td>Categorical proportions</td><td>Chi-square (Fisher's exact if expected cell &lt; 5); McNemar (paired)</td></tr>
+</table>
+<p>Parametric assumptions (4): normality, homogeneity of variance, independence, interval/ratio data. <b>Post-hoc</b> after significant ANOVA: Tukey HSD (equal n), Bonferroni (α/k, conservative), Scheffé (most conservative). Regression: linear (Y=a+bX), logistic (binary → odds ratios), mediation (X→M→Y, "how"), moderation (X×M interaction, "for whom").</p>
+
+<h3 class="sec">6.6 Research designs &amp; diagnostic stats</h3>
+<table>
+<tr><th>Design</th><th>Direction / measure</th></tr>
+<tr><td>True experiment (RCT)</td><td>Random assignment + control; highest internal validity</td></tr>
+<tr><td><b>Cohort</b></td><td>Forward (exposure → outcome); <b>Relative Risk</b></td></tr>
+<tr><td><b>Case-control</b></td><td>Backward (outcome → exposure); <b>Odds Ratio</b>; rare outcomes</td></tr>
+<tr><td>Cross-sectional</td><td>Single time point; prevalence; no causation</td></tr>
+<tr><td><b>Solomon four-group</b></td><td>Detects + separates pretest sensitisation from the treatment effect</td></tr>
+</table>
+<div class="rule"><b>Diagnostic stats:</b> <b>Sensitivity</b> = TP/(TP+FN), high-sensitivity test rules a condition OUT when negative (<b>SnNout</b>). <b>Specificity</b> = TN/(TN+FP), rules a condition IN when positive (<b>SpPin</b>). PPV/NPV depend on prevalence; likelihood ratios don't. ROC plots sensitivity vs (1−specificity).</div>
+<p><b>Threats to internal validity:</b> history, maturation, testing, instrumentation, regression to the mean, selection, attrition, Hawthorne effect, demand characteristics, experimenter (Rosenthal) effect. <b>RCT phases:</b> I (safety, 20–100) → II (efficacy, 100–300) → III (confirmatory, 1000+) → IV (surveillance). Blinding: single/double/triple. ITT vs per-protocol. <b>Reporting:</b> CONSORT (RCTs), PRISMA (systematic reviews/meta), STROBE (observational), COREQ (qualitative). Ethics: Belmont 3 (respect, beneficence, justice), Nuremberg Code, Declaration of Helsinki.</p>
+<div class="trap"><b>TRAPS:</b> Cohort can be prospective or retrospective; case-control is always retrospective. Random sampling (external validity) ≠ random assignment (internal validity). r = 0 means no <i>linear</i> relationship (a U-shape has r ≈ 0). A large biased sample is precisely biased.</div>
+
+<!-- ======================================================================= -->
+<!-- SECTION 7: LANGUAGE -->
+<!-- ======================================================================= -->
+<h2 id="language" class="sec">7. Language &amp; Communication Skills <span class="pill">MET 15 Q · NIMHANS 5 Q · highest fast-marks ratio</span></h2>
+
+<h3 class="sec">7.1 Subject-verb agreement</h3>
+<p>The verb agrees with the subject in number, not the nearest noun.</p>
+<ul>
+  <li><b>Each, every, either, neither, one, anyone, everyone, nobody</b> → singular ("Each of the participants <b>was</b> given…").</li>
+  <li><b>Either/or, neither/nor</b> → verb agrees with the <b>nearer</b> subject ("Neither the patient nor the family members <b>were</b> informed").</li>
+  <li><b>"A number of"</b> = plural; <b>"the number of"</b> = singular. None defaults singular in formal writing.</li>
+  <li><b>"Data are"</b> — data is technically plural (datum singular); treat as plural in exam contexts.</li>
+  <li>Singular-looking: news, mathematics, physics, politics, statistics. Plural-only: scissors, trousers, glasses.</li>
+</ul>
+
+<h3 class="sec">7.2 Voice &amp; conditionals</h3>
+<p><b>Active → passive:</b> object becomes subject; verb → "be" + past participle. "The committee will announce the results" → "The results <b>will be announced</b> by the committee."</p>
+<table>
+<tr><th>Conditional</th><th>If-clause</th><th>Main clause</th></tr>
+<tr><td>Zero (general truths)</td><td>present</td><td>present</td></tr>
+<tr><td>First (real future)</td><td>present</td><td>will + base</td></tr>
+<tr><td>Second (hypothetical)</td><td>past</td><td>would + base</td></tr>
+<tr><td><b>Third (counterfactual past)</b></td><td><b>past perfect ("Had she taken")</b></td><td><b>would have + past participle</b></td></tr>
+<tr><td>Mixed</td><td>past perfect</td><td>would + base</td></tr>
+</table>
+<p>"<b>Had she taken</b> the medication, she <b>would have recovered</b> sooner" = third conditional (inversion is formal).</p>
+
+<h3 class="sec">7.3 Punctuation &amp; prepositions</h3>
+<ul>
+  <li><b>Restrictive vs non-restrictive clauses:</b> non-restrictive (extra info, removable) → commas + "who"; restrictive (defines which) → no commas, "that". "The patient, who was anxious, refused" (one patient) vs "The patient who was anxious refused" (picks out one of several).</li>
+  <li>Semicolon joins two independent clauses; colon introduces a list/explanation. <b>It's</b> = it is; <b>its</b> = possessive.</li>
+  <li><b>Prepositions:</b> insist <b>on</b>, depend on, comply with, consist of, refer to, suffer from, object to, accuse of, married <b>to</b> (not with), prefer X <b>to</b> Y, superior/inferior <b>to</b> (not than), discuss (no preposition). "Between you and <b>me</b>."</li>
+</ul>
+
+<h3 class="sec">7.4 Modifiers, parallelism &amp; common corrections</h3>
+<ul>
+  <li><b>Dangling modifier:</b> "Walking down the street, the building looked tall" (the building isn't walking). <b>Parallelism:</b> "reading, writing, and swimming" (not "to swim").</li>
+  <li><b>Like</b> (before a noun) vs <b>as</b> (before a clause). <b>Who</b> (subject) vs <b>whom</b> (object). <b>Less</b> (uncountable) vs <b>fewer</b> (countable). <b>Between</b> (two) vs <b>among</b> (3+). "The reason is <b>that</b>" (not "because"). Predicate adjective follows a linking verb ("The data were <b>inconclusive</b>").</li>
+</ul>
+
+<h3 class="sec">7.5 Vocabulary, one-word substitutions &amp; idioms</h3>
+<table>
+<tr><th>Word</th><th>Meaning / pairing</th></tr>
+<tr><td>Gregarious</td><td>Sociable (antonym: reclusive)</td></tr>
+<tr><td>Ephemeral</td><td>Lasting briefly (synonym: transient)</td></tr>
+<tr><td><b>Ambivalent</b></td><td>Mixed feelings (NOT indifferent = no feeling)</td></tr>
+<tr><td>Garrulous / loquacious / verbose</td><td>Talkative / wordy</td></tr>
+<tr><td>Laconic / taciturn / reticent</td><td>Few words / reserved</td></tr>
+<tr><td>Sagacious / cogent / pragmatic</td><td>Wise / convincing / practical</td></tr>
+<tr><td>Frugal / abstemious</td><td>Sparing with money / with food &amp; drink</td></tr>
+<tr><td>Capricious / whimsical / vacillate</td><td>Unpredictable / playful / waver</td></tr>
+<tr><td>Egregious / belligerent / obstinate</td><td>Outstandingly bad / hostile / stubborn</td></tr>
+</table>
+<table>
+<tr><th>Definition</th><th>Word</th></tr>
+<tr><td>Fluent in many languages</td><td>Polyglot</td></tr>
+<tr><td>Fear of confined / open spaces</td><td>Claustrophobia / Agoraphobia</td></tr>
+<tr><td>Hates / loves humanity</td><td>Misanthrope / Philanthropist</td></tr>
+<tr><td>Walker in sleep</td><td>Somnambulist</td></tr>
+<tr><td>Cure-all medicine</td><td>Panacea</td></tr>
+<tr><td>Speech without preparation</td><td>Extempore</td></tr>
+<tr><td>Never drinks alcohol</td><td>Teetotaller</td></tr>
+</table>
+<p><b>Idioms:</b> bury the hatchet (make peace), hit the nail on the head (be right), beat around the bush (avoid the point), bite the bullet (endure), a blessing in disguise, cut corners, burn the midnight oil.</p>
+<p><b>Spelling confusables:</b> affect (verb) / effect (noun); principal / principle; stationary (still) / stationery (paper); discreet / discrete; complement / compliment; conscientious. <b>Doubling rule:</b> double the consonant in stressed CVC verbs (refer → referring) but not unstressed (open → opening).</p>
+
+<h3 class="sec">7.6 Reading comprehension strategy</h3>
+<ul>
+  <li><b>Main idea:</b> re-read first/last sentences; eliminate options that are too narrow or too broad (overreach). RC tone: read qualifiers/hedges ("a range of", "can alleviate") → often "supportive but qualified."</li>
+  <li><b>Inference</b> = implied, stay close to the text. <b>Vocab in context</b> = substitute and check meaning. <b>Specific detail</b> = go back and find it.</li>
+</ul>
+
+<!-- ======================================================================= -->
+<!-- SECTION 8: SOCIAL / MEMORY / ACTS / FOUNDERS -->
+<!-- ======================================================================= -->
+<h2 id="social" class="sec">8. Social Psychology, Memory, The Acts &amp; Founders</h2>
+
+<h3 class="sec">8.1 Social psychology</h3>
+<table>
+<tr><th>Concept</th><th>What it is</th></tr>
+<tr><td><b>Bystander effect</b></td><td>Presence of others <b>inhibits helping</b>. Two drivers: <b>diffusion of responsibility</b> + <b>pluralistic ignorance</b>. (Latané &amp; Darley, after <b>Kitty Genovese</b>, 1964)</td></tr>
+<tr><td>Diffusion of responsibility</td><td>"Someone else will do it" — responsibility splits across the group</td></tr>
+<tr><td>Pluralistic ignorance</td><td>Everyone privately unsure, reads others' calm as "no emergency"</td></tr>
+<tr><td>Social loafing</td><td>Less effort in a group than alone (Ringelmann)</td></tr>
+<tr><td>Social facilitation</td><td>Others <b>improve</b> easy/well-learned tasks, <b>impair</b> hard ones</td></tr>
+<tr><td>Deindividuation</td><td>Loss of self-awareness/restraint in a group/anonymity (mobs)</td></tr>
+<tr><td>Groupthink / Group polarization</td><td>Harmony → bad decisions (Janis) / discussion amplifies initial leanings</td></tr>
+<tr><td>Conformity / Obedience</td><td>Group pressure (Asch) / authority (Milgram). Normative vs informational influence</td></tr>
+<tr><td>Cognitive dissonance</td><td>Discomfort from conflicting attitudes/behaviour → attitude change (Festinger)</td></tr>
+<tr><td>Fundamental attribution error</td><td>Over-attribute others' behaviour to disposition, under-weigh situation</td></tr>
+<tr><td>Self-serving bias / Just-world hypothesis</td><td>Credit self, blame situation / people get what they deserve (victim blaming)</td></tr>
+</table>
+
+<h3 class="sec">8.2 Memory &amp; cognitive</h3>
+<table>
+<tr><th>System</th><th>What it holds</th></tr>
+<tr><td>Sensory memory</td><td>&lt;1 sec raw input. Iconic (visual), echoic (auditory)</td></tr>
+<tr><td>Short-term / Working memory</td><td>~15–30 sec, 7±2 items. Baddeley: central executive + phonological loop + visuospatial sketchpad + episodic buffer</td></tr>
+<tr><td>LTM — Explicit (declarative)</td><td>Conscious recall. Splits into ↓</td></tr>
+<tr><td>&nbsp;&nbsp;• <b>Episodic</b></td><td>Events with <b>what / where / when</b> context (your first day of college)</td></tr>
+<tr><td>&nbsp;&nbsp;• Semantic</td><td>Facts, general knowledge, meanings (capital of France)</td></tr>
+<tr><td>LTM — Implicit (non-declarative)</td><td>No conscious recall. Includes ↓</td></tr>
+<tr><td>&nbsp;&nbsp;• Procedural / Priming / Conditioning</td><td>Skills "how to" / exposure speeds processing / classically conditioned</td></tr>
+<tr><td>Prospective memory</td><td>Remembering to do something later</td></tr>
+</table>
+<div class="rule"><b>Quick map:</b> Explicit = episodic + semantic (conscious). Implicit = procedural + priming (unconscious). "What/where/when of an event" → <b>episodic</b> (your mock miss).</div>
+
+<h3 class="sec">8.3 The Acts &amp; laws</h3>
+<table>
+<tr><th>Act</th><th>Year</th><th>The one thing they test</th></tr>
+<tr><td><b>Mental Healthcare Act (MHCA)</b></td><td>2017</td><td>Decriminalised suicide; <b>Advance Directive</b> + <b>Nominated Representative</b>; Mental Health Review Boards; capacity-based consent. <b>Minors</b> can appoint a nominated representative; views considered age-appropriately.</td></tr>
+<tr><td><b>RPwD Act</b></td><td>2016</td><td>Replaced 1995 Act; recognises <b>21 disabilities</b>; ≥40% = "benchmark disability"</td></tr>
+<tr><td><b>Mental Health Act</b></td><td>1987</td><td>The old act MHCA 2017 replaced (admission/licensing focused)</td></tr>
+<tr><td><b>National Trust Act</b></td><td>1999</td><td>Welfare of autism, CP, ID, multiple disabilities; legal guardianship</td></tr>
+<tr><td><b>RCI Act</b></td><td>1992</td><td>Regulates training/registration of rehab professionals incl. clinical psychologists; the RCI licence (CRR)</td></tr>
+<tr><td><b>POCSO / POSH</b></td><td>2012 / 2013</td><td>Children from sexual offences (mandatory reporting) / sexual harassment of women at workplace</td></tr>
+<tr><td><b>Juvenile Justice Act</b></td><td>2015</td><td>Care &amp; protection of children; children in conflict with law</td></tr>
+</table>
+
+<h3 class="sec">8.4 Founders &amp; "X is to Y" pairings</h3>
+<table>
+<tr><th>Name</th><th>Tied to</th></tr>
+<tr><td><b>Wilhelm Wundt</b></td><td>First psychology lab (Leipzig, 1879); <b>introspection</b>; structuralism's method</td></tr>
+<tr><td>Edward Titchener</td><td>Structuralism (brought Wundt's ideas to the US)</td></tr>
+<tr><td>William James</td><td>Functionalism; <i>Principles of Psychology</i></td></tr>
+<tr><td><b>Charles Spearman</b></td><td><b>Factor analysis</b>; two-factor theory (g + s)</td></tr>
+<tr><td>Alfred Binet / David Wechsler</td><td>First practical intelligence test (mental age) / deviation IQ</td></tr>
+<tr><td>Francis Galton</td><td>Individual differences; correlation; mental testing roots</td></tr>
+<tr><td>Freud / Jung</td><td>Psychoanalysis (id/ego/superego) / analytical psychology, collective unconscious</td></tr>
+<tr><td>Rogers / Maslow</td><td>Person-centred, 3 core conditions / hierarchy of needs</td></tr>
+<tr><td>Skinner / Pavlov / Bandura</td><td>Operant / classical conditioning / social learning, Bobo doll, self-efficacy</td></tr>
+<tr><td>Piaget / Vygotsky / Erikson</td><td>Cognitive stages / ZPD, scaffolding / 8 psychosocial stages</td></tr>
+<tr><td>Bowlby / Ainsworth</td><td>Attachment theory / Strange Situation</td></tr>
+<tr><td>Beck / Ellis</td><td>Cognitive therapy, cognitive triad / REBT, ABC model</td></tr>
+<tr><td><b>Heinz Kohut</b></td><td>Self psychology; mirroring/idealizing/twinship</td></tr>
+<tr><td>Edward Bordin</td><td>The working/therapeutic alliance (bond, goals, tasks)</td></tr>
+</table>
+<div class="rule"><b>Your mock miss:</b> Spearman → factor analysis, as Wundt → <b>introspection</b> (structuralism's method).</div>
+
+<!-- ======================= EXAM DAY ======================= -->
+<h2 id="examday" class="sec">Exam-day rules</h2>
+<ul>
+<li><b>Longest option is often correct</b> on these papers, but only as a tiebreaker, never over knowledge.</li>
+<li><b>"NOT" / "EXCEPT" questions</b> — circle the NOT, you're hunting the odd one out. This is where tired people lose marks.</li>
+<li><b>Negative marking −0.25:</b> answer if you can eliminate 2 options; skip a pure blind guess.</li>
+<li><b>Don't change a first instinct</b> unless you find a concrete reason to.</li>
+</ul>
+
+<div class="hy-banner" style="margin-top: 28px;">
+<b>That's the whole syllabus on one page.</b> Read it through once tonight, then on a second pass just the tables and the red trap boxes. Everything you flagged in the mocks is inlined here. You already scored 91.25 — tonight is about <b>locking what you know</b>, not learning new things. Stop early, sleep, trust yourself tomorrow.
+</div>
+
+<footer>Sihan MET 2026 + NIMHANS prep · /notes/textbook/ · the one self-contained source · built 2026-05-22</footer>
+</div>
+</body>
+</html>
