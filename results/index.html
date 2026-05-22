@@ -668,26 +668,46 @@ function updateCountdown() {
 /* =====================================================================
    BACKUP / RESTORE / WIPE
    ===================================================================== */
+// Any localStorage key that holds actual mock attempts / notes / progress.
+// This is what was missing from v1 backups: the live per-mock answers
+// (e.g. pyq-real-2024-results-v1) never got carried across devices.
+function mockDataKeys() {
+  const keys = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (!k) continue;
+    if (/-(results|notes|progress)-v\d+$/.test(k) || /-snapshots-v\d+$/.test(k)) keys.push(k);
+  }
+  return keys;
+}
 function backup() {
-  const payload = { v: 1, ts: new Date().toISOString(),
-    history: readJSON(HISTORY_KEY, []), journal: readJSON(JOURNAL_KEY, {}) };
+  const store = {};
+  for (const k of mockDataKeys()) { const raw = localStorage.getItem(k); if (raw != null) store[k] = raw; }
+  const payload = { v: 2, ts: new Date().toISOString(),
+    history: readJSON(HISTORY_KEY, []), journal: readJSON(JOURNAL_KEY, {}), store };
   const code = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+  const n = Object.keys(store).length;
+  const ok = () => alert(`Backup code copied (${n} mock(s) + snapshots + journal). Save it somewhere safe (WhatsApp to yourself works).`);
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(code).then(
-      () => alert("Backup code copied. Save it somewhere safe (WhatsApp to yourself works)."),
-      () => prompt("Copy this backup code:", code));
+    navigator.clipboard.writeText(code).then(ok, () => prompt("Copy this backup code:", code));
   } else { prompt("Copy this backup code:", code); }
 }
 function restore() {
-  const code = prompt("Paste a backup code. This will REPLACE current snapshots + journal.");
+  const code = prompt("Paste a backup code. This will REPLACE current mock attempts, snapshots + journal.");
   if (!code) return;
   try {
     const payload = JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
-    if (payload.v !== 1) throw new Error("Unknown version");
+    if (payload.v !== 1 && payload.v !== 2) throw new Error("Unknown version");
     if (Array.isArray(payload.history)) writeJSON(HISTORY_KEY, payload.history);
     if (payload.journal && typeof payload.journal === "object") writeJSON(JOURNAL_KEY, payload.journal);
+    let mocks = 0;
+    if (payload.store && typeof payload.store === "object") {
+      for (const k of Object.keys(payload.store)) {
+        try { localStorage.setItem(k, payload.store[k]); mocks++; } catch {}
+      }
+    }
     refresh();
-    alert(`Restored ${(payload.history || []).length} snapshots + journal notes.`);
+    alert(`Restored ${mocks} mock(s), ${(payload.history || []).length} snapshots + journal notes.`);
   } catch (e) { alert("Could not restore: that doesn't look like a valid backup code."); }
 }
 function wipe() {
