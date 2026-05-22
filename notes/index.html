@@ -33,8 +33,7 @@
   <div class="page-hero">
     <div class="crumbs">Notes</div>
     <h1>Study Notes &amp; Cheatsheets</h1>
-    <p>Every section of the MET syllabus, written as exam-grade reference. Read the cheatsheet for an area before drilling that area in the bank or sitting a mock. Mock debriefs and the NIMHANS PYQ breakdown sit at the top because they tell you exactly what to study next.</p>
-    <p style="margin-top: 8px; color: var(--muted); font-size: 14px;"><strong>Reorganised · 2026-05-22:</strong> the page is now in five clear blocks — <strong>Study from these</strong> (your core pages), <strong>Mock debriefs &amp; PYQ</strong>, <strong>Exam logistics</strong>, <strong>By syllabus section</strong>, and <strong>Deep-dive references</strong>. Nothing was deleted; everything just has one obvious home now. Search box filters every card in real time.</p>
+    <p>Pick a core page below and read it top to bottom. Everything else (syllabus sections, deep-dives, sprints) is tucked into the collapsed groups lower down, open one only when you need it. Search filters every card in real time.</p>
     <div class="notes-search">
       <input id="notes-search-input" type="search" placeholder="Search notes — e.g. cranial, ainsworth, p-value, broca, BATS…" autocomplete="off" spellcheck="false">
       <span class="notes-search-count" id="notes-search-count"></span>
@@ -87,6 +86,30 @@
       padding: 14px 0;
       font-style: italic;
     }
+    .note-collapse {
+      margin-top: 4px;
+    }
+    .note-collapse > summary {
+      cursor: pointer;
+      list-style: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 0;
+      user-select: none;
+    }
+    .note-collapse > summary::-webkit-details-marker { display: none; }
+    .note-collapse > summary::before {
+      content: "▸";
+      font-size: 12px;
+      transition: transform 0.15s ease;
+    }
+    .note-collapse[open] > summary::before { transform: rotate(90deg); }
+    .note-collapse > summary:hover { color: var(--text); }
+    .note-collapse > .grid { margin-top: 10px; }
   </style>
 
   <section>
@@ -117,7 +140,7 @@
           </div>
           <span class="badge good">Start here</span>
         </div>
-        <div class="card-body">Built tonight because the Master page was a summary and you wanted the whole thing as one textbook. This page inlines EVERY piece of content you've ever been given — biopsych (neurons, action potential, NTs, lobes, cranial nerves, HPA, the A-deficits, genetic/metabolic disorders, sleep), developmental (Piaget, Erikson, Vygotsky, Bronfenbrenner PPCT, attachment, Kohlberg, milestones), abnormal (DSM-5/ICD-11, mood, anxiety, psychosis, personality incl BPD vs NPD, Type A–D), assessment (reliability/validity, item analysis, WAIS-IV vs WISC-V, Bhatia/Raven, MMPI/16PF/NEO/EPQ, projectives), psychotherapy + learning + ethics (every school, technique→school drill, Kohut/object relations, escape vs avoidance, Tarasoff), research/biostats (designs, standard scores, OR/RR/NNT, sensitivity/specificity, Type I/II), language, and social/memory/Acts/founders. No links-out for substance — it all lives on the page. Read it top to bottom.</div>
+        <div class="card-body">Every concept you've been given, inlined on one page across all 8 sections: biopsych, developmental, abnormal, assessment, psychotherapy + learning + ethics, research/biostats, language, social/memory/Acts/founders. Nothing links out for substance. Read it top to bottom.</div>
         <div class="card-cta">Open the textbook →</div>
       </a>
       <a class="card link fresh" href="general-psych/" style="grid-column: 1 / -1; border: 1px solid var(--accent-dim); background: linear-gradient(135deg, rgba(88,166,255,0.10), rgba(63,185,80,0.08));">
@@ -128,7 +151,7 @@
           </div>
           <span class="badge good">New</span>
         </div>
-        <div class="card-body">One detailed section per area, with the named theories, the people behind them, and the traps: psychophysics (Weber/Fechner) + signal detection + Gibson vs Gregory + Gestalt + feature integration; the four attention models (Broadbent → Treisman → Deutsch-Norman → Kahneman); multi-store + Baddeley working memory + LTM types + forgetting + reconstructive memory; classical + operant (schedules) + observational + cognitive learning; the six emotion theories; motivation; intelligence theorists; cognition/heuristics/language; and 11 landmark experiments in detail (Milgram, Asch, Zimbardo, Festinger, Darley-Latané, Sherif, Tajfel, Bandura, Harlow, Seligman, Rosenhan). The one-line testable version is the textbook's Rapid Recall block.</div>
+        <div class="card-body">One detailed section per area with the named theories, the people, and the traps: perception, the four attention models, memory, learning, emotion, motivation, intelligence, cognition, plus 11 landmark experiments (Milgram, Asch, Zimbardo, Bandura, Harlow, Seligman, Rosenhan and more). The one-line testable version is the textbook's Rapid Recall block.</div>
         <div class="card-cta">Open the general psych notes →</div>
       </a>
       <a class="card link fresh" href="personality/" style="grid-column: 1 / -1; border: 1px solid var(--accent-dim); background: linear-gradient(135deg, rgba(88,166,255,0.10), rgba(63,185,80,0.08));">
@@ -139,7 +162,7 @@
           </div>
           <span class="badge good">New</span>
         </div>
-        <div class="card-body">All of personality pulled onto its own page so you don't have to dig through general psych. Freud (id/ego/superego, the iceberg, the 5 psychosexual stages, all 10 defence mechanisms); the neo-Freudians (Jung's collective unconscious, Adler's inferiority complex + birth order, Horney's basic anxiety + womb envy, Erikson, Anna Freud, Klein, Fromm, Sullivan); trait theory (Allport's cardinal/central/secondary, Cattell's 16PF, Eysenck's PEN); the Big Five / OCEAN (Costa &amp; McCrae); humanistic (Rogers's real-vs-ideal self + congruence + UPR, Maslow's hierarchy); social-cognitive (Bandura self-efficacy, Rotter locus of control, Mischel, Kelly); type theories (humours, Sheldon's somatotypes, Kretschmer, Type A–D); assessment (projective vs objective, every test→author pairing); an at-a-glance compare table; and the full collected MCQ-trap list. Read it once.</div>
+        <div class="card-body">All of personality on its own page: Freud, the neo-Freudians (Jung, Adler, Horney, Erikson, Klein), trait theory (Allport, Cattell, Eysenck), the Big Five, humanistic (Rogers, Maslow), social-cognitive (Bandura, Rotter, Mischel), type theories, test→author pairings, a compare table, and the full MCQ-trap list. Read it once.</div>
         <div class="card-cta">Open the personality notes →</div>
       </a>
       <a class="card link fresh" href="master/" style="grid-column: 1 / -1; border: 1px solid var(--accent-dim); background: linear-gradient(135deg, rgba(88,166,255,0.10), rgba(63,185,80,0.08));">
@@ -150,7 +173,7 @@
           </div>
           <span class="badge good">Start here</span>
         </div>
-        <div class="card-body">Built because the notes were scattered and you didn't know what to study where. This one page pulls together every concept you flagged in the mocks, plus all the lists you asked for: the Acts (MHCA 2017, RPwD, etc.), psychological tests and what each measures (incl. Draw-A-Person), test core components (WAIS-IV vs WISC-V subtests), therapy technique→school, social-psych concepts (bystander, diffusion, pluralistic ignorance…), the full memory taxonomy, founder pairings (Spearman, Wundt, Kohut), the A-deficits (apraxia/ataxia/agnosia), mania first-line meds, BPD vs NPD, Type D. Read top to bottom once. The deep-dive pages below still exist if you want more, but you don't need them.</div>
+        <div class="card-body">Every concept you flagged in the mocks plus all the lists you asked for: the Acts, tests and what each measures, therapy technique→school, social-psych concepts, the memory taxonomy, founder pairings, the A-deficits, BPD vs NPD, Type D. Read top to bottom once.</div>
         <div class="card-cta">Read the master page →</div>
       </a>
     </div>
@@ -245,6 +268,8 @@
       <h2 class="section-title">By syllabus section</h2>
       <span class="section-sub">7 sections of the MET paper, mapped to notes</span>
     </div>
+    <details class="note-collapse">
+      <summary>Open the 7 syllabus-section pages</summary>
     <div class="grid cols-2">
 
       <div class="card accent-bio">
@@ -362,6 +387,7 @@
       </div>
 
     </div>
+    </details>
   </section>
 
   <section>
@@ -369,6 +395,8 @@
       <h2 class="section-title">Deep-dive references</h2>
       <span class="section-sub">Single-topic pages · open when a section needs more than the cheatsheet</span>
     </div>
+    <details class="note-collapse">
+      <summary>Open the 8 single-topic reference pages</summary>
     <div class="grid cols-3">
       <a class="card link fresh" href="ethics-terms/">
         <div class="card-head">
@@ -435,6 +463,7 @@
         <div class="card-cta">Read →</div>
       </a>
     </div>
+    </details>
   </section>
 
   <section>
@@ -442,6 +471,8 @@
       <h2 class="section-title">Sprints &amp; targeted notes</h2>
       <span class="section-sub">One-day plans and targeted patches</span>
     </div>
+    <details class="note-collapse">
+      <summary>Open the sprint plans, the 22 Apr patch, and the EPUB</summary>
     <div class="grid cols-3">
       <a class="card link" href="abnormal-today-sprint/">
         <div class="card-head">
@@ -468,6 +499,7 @@
         <div class="card-cta">Download →</div>
       </a>
     </div>
+    </details>
   </section>
 
 </main>
@@ -512,6 +544,7 @@ updateCountdown();
         c.classList.remove('search-hidden', 'search-hit');
       });
       sections.forEach(s => s.classList.remove('search-hidden'));
+      document.querySelectorAll('.note-collapse').forEach(d => d.open = false);
       counter.textContent = '';
       return;
     }
@@ -539,6 +572,10 @@ updateCountdown();
       } else {
         s.classList.add('search-hidden');
       }
+    });
+
+    document.querySelectorAll('.note-collapse').forEach(d => {
+      d.open = d.querySelectorAll('.card:not(.search-hidden)').length > 0;
     });
 
     counter.textContent = total === 0
