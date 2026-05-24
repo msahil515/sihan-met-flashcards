@@ -299,6 +299,29 @@
    ============================================================ */
 const MOCKS = [
   {
+    id: "pep-mock-1",
+    title: "Psych Entrance Mock 1, UGC-NET + MPhil Clinical (120 Q)",
+    short: "Psych Entrance Mock 1",
+    path: "../../quiz/pep-mock-1/",
+    storageResults: "pep-mock-1-results-v1",
+    storageNotes: "pep-mock-1-notes-v1",
+    total: 120,
+    max: 120,
+    scoring: (right, wrong) => Math.round((right * 1 - wrong * 0.25) * 100) / 100,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
+    sections: { mphil: 20, ugcnet: 20, common: 80 },
+    bands: [
+      { min: 96, max: 120, name: "Top 10%", cls: "good", desc: "Above 96 on a 120 Q NET/MPhil paper. This is comfortable qualifying territory for both UGC-NET and clinical MPhil entrances." },
+      { min: 84, max: 95.99, name: "Top 25%", cls: "good", desc: "Above the typical NET/MPhil cut estimate. Clean up the −0.25 leak on guesses and you're in the top decile." },
+      { min: 72, max: 83.99, name: "Top 40%", cls: "warn", desc: "Around the serious-aspirant median. Patch your two weakest of the three sections rather than chasing new topics." },
+      { min: 60, max: 71.99, name: "Mid pack", cls: "warn", desc: "Right in the bulk. Pull ahead by stopping the negative-marking bleed and locking the common section cold (it's 80 of 120 marks)." },
+      { min: 42, max: 59.99, name: "Below median", cls: "bad", desc: "Most attempters score higher. A section is genuinely soft, almost always the common (cognition/perception/stats) block. Revise before another full attempt." },
+      { min: -30, max: 41.99, name: "Cold start", cls: "bad", desc: "Score will climb fast with focused revision. The common section is 80 marks, so start there." }
+    ],
+    cutoff: 90, cutoffLabel: "Target 90",
+    companion: null
+  },
+  {
     id: "pep-mock-2",
     title: "Psych Entrance Mock 2, UGC-NET + MPhil Clinical (120 Q)",
     short: "Psych Entrance Mock 2",

@@ -705,6 +705,18 @@ const AREAS = [
 // Mock metadata — NIMHANS-pattern papers (+1 / −0.25) first.
 const MOCKS = [
   {
+    id: "pep-mock-1",
+    title: "Psych Entrance Mock 1 — UGC-NET + MPhil Clinical",
+    path: "quiz/pep-mock-1/",
+    total: 120,
+    storageKey: "pep-mock-1-results-v1",
+    scoring: { plus: 1, minus: 0.25 },
+    sections: { mphil: 20, ugcnet: 20, common: 80 },
+    meta: "120 Q · the full Mock Test 1 from psychologyentranceprep.com, rebuilt to run offline · MPhil-specific + UGC-NET + common · worked explanations · +1 / −0.25",
+    fresh: true,
+    nimhans: true
+  },
+  {
     id: "pep-mock-2",
     title: "Psych Entrance Mock 2 — UGC-NET + MPhil Clinical",
     path: "quiz/pep-mock-2/",
@@ -825,6 +837,7 @@ const RESOURCES = [
 ];
 
 const NEWS = [
+  { date: "2026-05-24", title: "Psych Entrance Mock 1 — UGC-NET + MPhil (NEW)", desc: "Pulled the full 120-question Mock Test 1 straight off psychologyentranceprep.com and rebuilt it natively so it runs offline (the original is a locked-in embedded Google form with no shareable link, but the questions were extractable, no screenshots needed). Three sections: 20 MPhil-specific, 20 UGC-NET specific (Indian psychology, philosophy, Buddhism/Vedanta, gunas, Upanishads), 80 common to both NET and MPhil clinical. Every Q has a worked explanation. Scored +1 / −0.25, target 90+/120. Both real mocks (1 and 2) are now in the app.", href: "quiz/pep-mock-1/" },
   { date: "2026-05-24", title: "Practice by area (NEW)", desc: "A proper untimed drill mode, the one thing the mocks didn't give you. Pick one of the 9 syllabus areas, then narrow to a single topic (e.g. just Reliability, or just Attachment), and work through it question by question. Answer and you see right away whether you're right plus the rule behind it, no marks lost. Progress per area saves on this browser, and the dashboard area cards now have a 'drill this area' shortcut. Open it from Practice in the top nav. ~100 questions across all 9 areas to start, more to come.", href: "quiz/practice/" },
   { date: "2026-05-24", title: "Psych Entrance Mock 2 — UGC-NET + MPhil (NEW)", desc: "The full 120-question Mock Test 2 from psychologyentranceprep.com, rebuilt natively so it runs offline in the app (the original is a locked-in embedded Google form with no shareable link). Three sections: 20 MPhil-specific (ethics, law, psychopathology), 20 UGC-NET specific (Indian psychology, philosophy of science, positive psych), 80 common to both NET and MPhil clinical (learning, cognition, perception, biopsych, assessment, stats, social). Every Q has a worked explanation. Scored +1 / −0.25, target 90+/120.", href: "quiz/pep-mock-2/" },
   { date: "2026-05-24", title: "Repointed for NIMHANS", desc: "MET is done, so the dashboard is now built around the NIMHANS M.A. Clinical Psychology (RCI, formerly M.Phil) entrance. Real pattern up top: 100 MCQ in 90 min, +1 / −0.25, online CBT in Bengaluru, selection on the written test alone (no interview for the MA, unlike the PhD). Syllabus regrouped into 9 NIMHANS-weighted areas with the four heavy baskets (Research & Stats, Psychotherapy, Assessment, Biopsych) up front, each with what NIMHANS actually asks. Language/English section dropped. MET mocks demoted but kept as content drills; the old MET dashboard is archived at met.html. Weights are estimated from 2023-25 PYQs, not an official blueprint.", href: "./" },
