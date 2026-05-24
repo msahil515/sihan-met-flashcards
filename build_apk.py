@@ -8,7 +8,7 @@ re-zip, and sign with jarsigner (v1 / JAR signing, same scheme as the original).
 
 Outputs:
   downloads/MET-Prep.apk   -> whole site  (pkg com.sihan.metprep, label "MET Prep")
-  downloads/MET-Notes.apk  -> notes only  (pkg com.sihan.metnote, label "MET Note")
+  downloads/MET-Notes.apk  -> notes only  (pkg com.sihan.notes26, label "MET Note")
 """
 import hashlib
 import os
@@ -271,7 +271,7 @@ lives in the <a href="notes/">notes index</a> and as an
 def patch_manifest(path: Path):
     data = path.read_bytes()
     old = "com.sihan.metprep".encode("utf-16-le")
-    new = "com.sihan.metnote".encode("utf-16-le")
+    new = "com.sihan.notes26".encode("utf-16-le")
     assert len(old) == len(new)
     n = data.count(old)
     data = data.replace(old, new)
@@ -281,8 +281,8 @@ def patch_manifest(path: Path):
 
 def patch_dex(path: Path):
     data = bytearray(path.read_bytes())
-    for o, n in ((b"com/sihan/metprep", b"com/sihan/metnote"),
-                 (b"com.sihan.metprep", b"com.sihan.metnote")):
+    for o, n in ((b"com/sihan/metprep", b"com/sihan/notes26"),
+                 (b"com.sihan.metprep", b"com.sihan.notes26")):
         assert len(o) == len(n)
         data[:] = data.replace(o, n)
     # Recompute SHA-1 signature over bytes[32:], then adler32 over bytes[12:].
@@ -298,7 +298,7 @@ def patch_arsc(path: Path):
     data = bytearray(path.read_bytes())
     # package name (UTF-16, fixed-width null-padded field)
     o16 = "com.sihan.metprep".encode("utf-16-le")
-    n16 = "com.sihan.metnote".encode("utf-16-le")
+    n16 = "com.sihan.notes26".encode("utf-16-le")
     assert len(o16) == len(n16)
     data[:] = data.replace(o16, n16)
     # app label (UTF-8 string pool)
