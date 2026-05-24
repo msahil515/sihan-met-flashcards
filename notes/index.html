@@ -57,6 +57,12 @@
   .nx-search input:focus { border-color: var(--accent); background: rgba(13,17,23,0.8); }
   .nx-search input::placeholder { color: var(--muted); }
   .nx-search-count { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .nx-search-all {
+    font-size: 12.5px; font-weight: 600; color: var(--accent);
+    background: var(--accent-soft); border: 1px solid var(--accent-dim);
+    border-radius: 999px; padding: 8px 14px; white-space: nowrap; text-decoration: none;
+  }
+  .nx-search-all:hover { background: var(--accent-dim); color: #fff; text-decoration: none; }
 
   /* Jump chips */
   .nx-jump { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 30px; }
@@ -174,6 +180,7 @@
     <div class="nx-search">
       <input id="notes-search-input" type="search" placeholder="Search — cranial, ainsworth, p-value, broca, BATS…" autocomplete="off" spellcheck="false">
       <span class="nx-search-count" id="notes-search-count"></span>
+      <a class="nx-search-all" id="notes-search-all" href="search.html">Search full text →</a>
     </div>
   </div>
 
@@ -537,7 +544,12 @@ updateCountdown();
 (function () {
   const input = document.getElementById('notes-search-input');
   const counter = document.getElementById('notes-search-count');
+  const allLink = document.getElementById('notes-search-all');
   if (!input) return;
+
+  function fullTextUrl(q) {
+    return 'search.html' + (q ? '?q=' + encodeURIComponent(q) : '');
+  }
 
   const cards = Array.from(document.querySelectorAll('main .card'));
   const sections = Array.from(document.querySelectorAll('main section'));
@@ -552,6 +564,7 @@ updateCountdown();
 
   function run(q) {
     q = normalise(q.trim());
+    if (allLink) allLink.href = fullTextUrl(q);
     clearEmptyMsgs();
 
     if (!q) {
@@ -608,6 +621,9 @@ updateCountdown();
   });
   input.addEventListener('keydown', e => {
     if (e.key === 'Escape') { input.value = ''; run(''); input.blur(); }
+    // Enter opens the full-text results page — searches inside every note, not
+    // just the card titles, and links straight to the matched line.
+    if (e.key === 'Enter') { e.preventDefault(); window.location.href = fullTextUrl(input.value.trim()); }
   });
 
   document.addEventListener('keydown', e => {

@@ -1,41 +1,119 @@
 #!/usr/bin/env python3
-"""Bake full-text search into the notes index.
+"""Build full-text search for the notes section.
 
-The notes landing page (notes/index.html) has a search box that only filtered
-cards by their visible text. So a term that lives *inside* a note page (e.g.
-"icarus", which is on the theorists / originators pages) never matched.
+Two jobs:
 
-This script walks every card, follows the links it points at, reads the text of
-those note pages, and stores it in a `data-fulltext` attribute on the card. The
-search JS then matches against card text + the text of everything it links to,
-so any term on any reachable note page surfaces the card that leads to it.
+1. Walk EVERY note page (notes/<slug>/index.html plus standalone .html notes),
+   split each page into chunks at its headings, and write `search-index.json`.
+   The dedicated results page (notes/search.html) loads this and matches against
+   the full text of every page, so a term that lives deep inside any note page
+   surfaces, with a link straight to the chunk it lives in. This is what fixes
+   "search isn't looking through everything": before, only one hop of links off
+   the landing page was indexed, so anything not directly linked was invisible.
 
-Re-run this whenever note pages change:  python3 notes/build_search_index.py
+2. Re-bake `data-fulltext` onto the landing-page cards (keeps the quick inline
+   filter on notes/index.html honest) and make sure every note page pulls in
+   note-highlight.js so a `?q=` deep link highlights + scrolls to the match.
+
+Re-run after any note page changes:  python3 notes/build_search_index.py
 """
+import glob
 import html
+import json
 import os
 import re
 import sys
 
 NOTES_DIR = os.path.dirname(os.path.abspath(__file__))
 INDEX = os.path.join(NOTES_DIR, "index.html")
+JSON_OUT = os.path.join(NOTES_DIR, "search-index.json")
+HIGHLIGHT_TAG = '<script src="/sihan-met-flashcards/notes/note-highlight.js"></script>'
 
 TAG_RE = re.compile(r"<[^>]+>")
 SCRIPT_STYLE_RE = re.compile(r"<(script|style)\b[^>]*>.*?</\1>", re.IGNORECASE | re.DOTALL)
 WS_RE = re.compile(r"\s+")
 CARD_RE = re.compile(r'<(a|div)\b([^>]*\bclass="[^"]*\bcard\b[^"]*"[^>]*)>', re.IGNORECASE)
 HREF_RE = re.compile(r'href="([^"]+)"')
+TITLE_RE = re.compile(r"<title>(.*?)</title>", re.IGNORECASE | re.DOTALL)
+BODY_RE = re.compile(r"<body\b[^>]*>(.*?)</body>", re.IGNORECASE | re.DOTALL)
+# A heading, capturing its attributes (for the id) and inner text.
+HEADING_RE = re.compile(r'<h([1-4])\b([^>]*)>(.*?)</h\1>', re.IGNORECASE | re.DOTALL)
+ID_RE = re.compile(r'\bid="([^"]+)"')
+
+CHUNK_TEXT_CAP = 1400          # per-chunk text stored in the index
+PAGE_NOTE_GLOBS = ["*/index.html", "*.html"]
+SKIP_FILES = {"index.html", "search.html"}
 
 
 def strip_text(markup):
     markup = SCRIPT_STYLE_RE.sub(" ", markup)
     markup = TAG_RE.sub(" ", markup)
     markup = html.unescape(markup)
-    return WS_RE.sub(" ", markup).strip().lower()
+    return WS_RE.sub(" ", markup).strip()
+
+
+def clean_title(raw):
+    t = strip_text(raw)
+    # Titles run long ("Personality — the full book ... — NIMHANS + MET 2026").
+    # Keep the lead clause; it reads as the page name.
+    t = re.split(r"\s+[—–|:]\s+", t)[0]
+    return t.strip() or "Notes"
+
+
+def page_records():
+    """Yield {url, title, chunks:[{heading, anchor, text}]} for every note page."""
+    files = set()
+    for pat in PAGE_NOTE_GLOBS:
+        files.update(glob.glob(os.path.join(NOTES_DIR, pat)))
+
+    for fpath in sorted(files):
+        rel = os.path.relpath(fpath, NOTES_DIR)
+        base = os.path.basename(fpath)
+        if base in SKIP_FILES and os.path.dirname(rel) == "":
+            continue
+
+        with open(fpath, encoding="utf-8") as f:
+            doc = f.read()
+
+        title_m = TITLE_RE.search(doc)
+        title = clean_title(title_m.group(1)) if title_m else (os.path.dirname(rel) or base)
+
+        body_m = BODY_RE.search(doc)
+        body = body_m.group(1) if body_m else doc
+        body = SCRIPT_STYLE_RE.sub(" ", body)
+
+        # URL relative to notes/ (search.html lives in notes/).
+        url = os.path.dirname(rel) + "/" if rel.endswith("index.html") else rel
+
+        chunks = []
+        headings = list(HEADING_RE.finditer(body))
+        if not headings:
+            text = strip_text(body)
+            if text:
+                chunks.append({"heading": title, "anchor": "", "text": text[:CHUNK_TEXT_CAP]})
+        else:
+            intro = strip_text(body[: headings[0].start()])
+            if intro:
+                chunks.append({"heading": "(intro)", "anchor": "", "text": intro[:CHUNK_TEXT_CAP]})
+            for i, hm in enumerate(headings):
+                end = headings[i + 1].start() if i + 1 < len(headings) else len(body)
+                heading_text = strip_text(hm.group(3)) or "(section)"
+                id_m = ID_RE.search(hm.group(2))
+                anchor = id_m.group(1) if id_m else ""
+                text = strip_text(body[hm.start():end])
+                if text:
+                    chunks.append({
+                        "heading": heading_text[:160],
+                        "anchor": anchor,
+                        "text": text[:CHUNK_TEXT_CAP],
+                    })
+
+        if chunks:
+            yield {"url": url, "title": title, "chunks": chunks}
 
 
 def resolve(href):
-    """Map an href on the notes page to a local html file, or None."""
+    """Map an href on the notes landing page to a local html file, or None."""
     if not href or href[0] in "#?":
         return None
     if re.match(r"^(https?:|mailto:|tel:|javascript:)", href, re.IGNORECASE):
@@ -44,7 +122,6 @@ def resolve(href):
     if not path:
         return None
     candidate = os.path.normpath(os.path.join(NOTES_DIR, path))
-    # keep it inside the repo
     repo_root = os.path.dirname(NOTES_DIR)
     if not candidate.startswith(repo_root):
         return None
@@ -55,51 +132,28 @@ def resolve(href):
     return None
 
 
-def find_card_spans(doc):
-    """Return (start, end_of_open_tag, open_tag_text) for each top-level card.
-
-    Cards can nest (a wrapper .card containing pill links), but we only annotate
-    the outermost element of each card by tracking tag depth from each match.
-    """
-    spans = []
-    for m in CARD_RE.finditer(doc):
-        spans.append(m)
-    return spans
-
-
-def main():
+def rebake_cards():
+    """Refresh data-fulltext on landing-page cards for the quick inline filter."""
     with open(INDEX, encoding="utf-8") as f:
         doc = f.read()
 
-    # Cache page text so repeated links are cheap.
     page_cache = {}
 
     def page_text(fpath):
         if fpath not in page_cache:
             with open(fpath, encoding="utf-8") as f:
-                page_cache[fpath] = strip_text(f.read())
+                page_cache[fpath] = strip_text(f.read()).lower()
         return page_cache[fpath]
 
-    out = []
-    pos = 0
-    annotated = 0
-    for m in find_card_spans(doc):
-        open_tag = m.group(0)
-        attrs = m.group(2)
-        # Drop any stale data-fulltext from a previous run.
-        attrs = re.sub(r'\s*data-fulltext="[^"]*"', "", attrs)
+    out, pos, annotated = [], 0, 0
+    matches = list(CARD_RE.finditer(doc))
+    for i, m in enumerate(matches):
+        attrs = re.sub(r'\s*data-fulltext="[^"]*"', "", m.group(2))
+        hrefs = HREF_RE.findall(m.group(0))
+        body_end = matches[i + 1].start() if i + 1 < len(matches) else len(doc)
+        hrefs += HREF_RE.findall(doc[m.end():body_end])
 
-        # Gather hrefs declared on the card's own open tag (covers `<a class=card href=...>`).
-        hrefs = HREF_RE.findall(open_tag)
-        # Plus hrefs nested inside the card body (pill rows etc.). Grab the slice
-        # from this card's open tag to the next card or end of doc.
-        body_start = m.end()
-        next_match = CARD_RE.search(doc, m.end())
-        body_end = next_match.start() if next_match else len(doc)
-        hrefs += HREF_RE.findall(doc[body_start:body_end])
-
-        texts = []
-        seen = set()
+        texts, seen = [], set()
         for href in hrefs:
             fpath = resolve(href)
             if fpath and fpath not in seen:
@@ -108,12 +162,8 @@ def main():
 
         out.append(doc[pos:m.start()])
         if texts:
-            blob = WS_RE.sub(" ", " ".join(texts))
-            # keep attribute size sane (note pages are tens of KB; this is plenty)
-            blob = html.escape(blob[:120000], quote=True)
-            tag_name = m.group(1)
-            new_open = f"<{tag_name}{attrs} data-fulltext=\"{blob}\">"
-            out.append(new_open)
+            blob = html.escape(WS_RE.sub(" ", " ".join(texts))[:120000], quote=True)
+            out.append(f'<{m.group(1)}{attrs} data-fulltext="{blob}">')
             annotated += 1
         else:
             out.append(f"<{m.group(1)}{attrs}>")
@@ -122,8 +172,41 @@ def main():
 
     with open(INDEX, "w", encoding="utf-8") as f:
         f.write("".join(out))
+    return annotated, len(page_cache)
 
-    print(f"Annotated {annotated} cards with full-text from {len(page_cache)} note pages.")
+
+def inject_highlight_script():
+    """Ensure every note page loads note-highlight.js (idempotent)."""
+    injected = 0
+    for fpath in glob.glob(os.path.join(NOTES_DIR, "**", "*.html"), recursive=True):
+        if os.path.basename(fpath) == "search.html":
+            continue
+        if os.path.relpath(fpath, NOTES_DIR) == "index.html":
+            continue
+        with open(fpath, encoding="utf-8") as f:
+            doc = f.read()
+        if "note-highlight.js" in doc or "</body>" not in doc:
+            continue
+        doc = doc.replace("</body>", f"{HIGHLIGHT_TAG}\n</body>", 1)
+        with open(fpath, "w", encoding="utf-8") as f:
+            f.write(doc)
+        injected += 1
+    return injected
+
+
+def main():
+    records = list(page_records())
+    with open(JSON_OUT, "w", encoding="utf-8") as f:
+        json.dump({"pages": records}, f, ensure_ascii=False, separators=(",", ":"))
+    chunk_total = sum(len(r["chunks"]) for r in records)
+    print(f"search-index.json: {len(records)} pages, {chunk_total} chunks "
+          f"({os.path.getsize(JSON_OUT) // 1024} KB).")
+
+    annotated, n_pages = rebake_cards()
+    print(f"Re-baked data-fulltext on {annotated} cards from {n_pages} pages.")
+
+    injected = inject_highlight_script()
+    print(f"Injected note-highlight.js into {injected} note pages.")
     return 0
 
 

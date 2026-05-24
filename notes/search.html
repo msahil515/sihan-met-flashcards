@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d1117">
+<title>Search the notes — MET 2026 + NIMHANS</title>
+<link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="../notes-style.css">
+<style>
+  main { max-width: min(820px, 94vw); }
+  .sx-hero { margin: 8px 0 18px; }
+  .sx-hero .crumbs { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+  .sx-hero .crumbs a { color: var(--accent); }
+  .sx-hero h1 { margin: 0 0 6px; font-size: 26px; font-weight: 800; }
+  .sx-hero p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+
+  .sx-box { position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 12px 0 14px; }
+  .sx-box input {
+    width: 100%; box-sizing: border-box;
+    background: var(--panel); border: 1px solid var(--border-strong);
+    border-radius: 12px; color: var(--text);
+    padding: 14px 18px; font-size: 16px; font-family: inherit; outline: none;
+    transition: border-color 0.15s ease;
+  }
+  .sx-box input:focus { border-color: var(--accent); }
+  .sx-count { font-size: 12px; color: var(--muted); margin: 2px 2px 0; min-height: 16px; }
+
+  .sx-results { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+  .sx-hit {
+    display: block; text-decoration: none; color: inherit;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px 16px;
+    transition: border-color 0.15s ease, transform 0.12s ease;
+  }
+  .sx-hit:hover { border-color: var(--accent-dim); transform: translateY(-1px); text-decoration: none; }
+  .sx-crumb { font-size: 12px; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+  .sx-crumb .sep { color: var(--muted); font-weight: 400; margin: 0 6px; }
+  .sx-crumb .sec { color: var(--text); }
+  .sx-snip { font-size: 13.5px; color: var(--muted); line-height: 1.55; }
+  .sx-snip mark { background: #ffd33d; color: #000; border-radius: 2px; padding: 0 2px; }
+  .sx-go { font-size: 12px; color: var(--accent); margin-top: 8px; }
+
+  .sx-empty { color: var(--muted); font-size: 14px; padding: 30px 4px; text-align: center; line-height: 1.6; }
+  .sx-more { color: var(--muted); font-size: 12.5px; text-align: center; padding: 14px 0 4px; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../"><b>MET 2026</b><span class="brand-sub">+ NIMHANS prep</span></a>
+  <nav class="nav">
+    <a href="../">Dashboard</a>
+    <a href="./" class="active">Notes</a>
+    <a href="../quiz/">Mocks</a>
+  </nav>
+</header>
+
+<main>
+  <div class="sx-hero">
+    <div class="crumbs"><a href="./">← All notes</a></div>
+    <h1>Search the notes</h1>
+    <p>Searches the full text of every note page, not just the titles. Tap a result to jump straight to that line with the word highlighted.</p>
+  </div>
+
+  <div class="sx-box">
+    <input id="sx-input" type="search" placeholder="Search everything — cranial, ainsworth, p-value, broca…" autocomplete="off" spellcheck="false" autofocus>
+    <div class="sx-count" id="sx-count"></div>
+  </div>
+
+  <div class="sx-results" id="sx-results"></div>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var BASE = "/sihan-met-flashcards/notes/";
+  var MAX_RESULTS = 80;
+  var SNIPPET_PAD = 90;   // chars of context on each side of the match
+
+  var input = document.getElementById("sx-input");
+  var countEl = document.getElementById("sx-count");
+  var resultsEl = document.getElementById("sx-results");
+
+  var PAGES = [];   // {url, title, chunks:[{heading, anchor, text, lc}]}
+  var loaded = false;
+
+  function escHtml(s) {
+    return s.replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+  function escReg(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+
+  function setStatus(msg) { countEl.textContent = msg; }
+
+  fetch("search-index.json")
+    .then(function (r) {
+      if (!r.ok) throw new Error("index " + r.status);
+      return r.json();
+    })
+    .then(function (data) {
+      PAGES = (data.pages || []).map(function (p) {
+        p.chunks = (p.chunks || []).map(function (c) {
+          c.lc = (c.heading + " " + c.text).toLowerCase();
+          return c;
+        });
+        p.titleLc = (p.title || "").toLowerCase();
+        return p;
+      });
+      loaded = true;
+      var q = new URLSearchParams(location.search).get("q") || "";
+      if (q) { input.value = q; }
+      run(input.value);
+    })
+    .catch(function (e) {
+      setStatus("Couldn't load the search index. Pull to refresh and try again.");
+    });
+
+  function snippet(text, terms, re) {
+    re.lastIndex = 0;
+    var m = re.exec(text);
+    var start = 0, end = Math.min(text.length, SNIPPET_PAD * 2);
+    if (m) {
+      start = Math.max(0, m.index - SNIPPET_PAD);
+      end = Math.min(text.length, m.index + m[0].length + SNIPPET_PAD);
+    }
+    var slice = text.slice(start, end);
+    var out = escHtml(slice).replace(re, function (mm) { return "<mark>" + escHtml(mm) + "</mark>"; });
+    return (start > 0 ? "… " : "") + out + (end < text.length ? " …" : "");
+  }
+
+  function score(chunk, page, terms) {
+    // All terms must appear somewhere in this chunk (or the page title).
+    var hay = chunk.lc + " " + page.titleLc;
+    for (var i = 0; i < terms.length; i++) {
+      if (hay.indexOf(terms[i]) === -1) return 0;
+    }
+    var s = 0;
+    terms.forEach(function (t) {
+      if (chunk.heading.toLowerCase().indexOf(t) !== -1) s += 6;
+      if (page.titleLc.indexOf(t) !== -1) s += 3;
+      var idx = 0, n = 0;
+      while ((idx = chunk.lc.indexOf(t, idx)) !== -1) { n++; idx += t.length; }
+      s += n;
+    });
+    return s;
+  }
+
+  function run(q) {
+    q = (q || "").trim();
+    var query = new URLSearchParams(location.search);
+    if (q) { query.set("q", q); } else { query.delete("q"); }
+    history.replaceState(null, "", location.pathname + (q ? "?" + query.toString() : ""));
+
+    resultsEl.innerHTML = "";
+    if (!loaded) { setStatus("Loading…"); return; }
+    if (!q) { setStatus("Type to search every note page."); return; }
+
+    var terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+    var re = new RegExp("(" + terms.map(escReg).join("|") + ")", "gi");
+
+    var hits = [];
+    PAGES.forEach(function (page) {
+      page.chunks.forEach(function (chunk) {
+        var s = score(chunk, page, terms);
+        if (s > 0) hits.push({ page: page, chunk: chunk, s: s });
+      });
+    });
+
+    if (!hits.length) {
+      setStatus("");
+      resultsEl.innerHTML = '<div class="sx-empty">No notes match <b>"' + escHtml(q) +
+        '"</b>.<br>Try a shorter word, or just one keyword.</div>';
+      return;
+    }
+
+    hits.sort(function (a, b) { return b.s - a.s; });
+    var pageCount = {};
+    hits.forEach(function (h) { pageCount[h.page.url] = 1; });
+    setStatus(hits.length + (hits.length === 1 ? " match" : " matches") +
+      " across " + Object.keys(pageCount).length + " note" +
+      (Object.keys(pageCount).length === 1 ? "" : "s"));
+
+    var shown = hits.slice(0, MAX_RESULTS);
+    var frag = document.createDocumentFragment();
+    shown.forEach(function (h) {
+      var a = document.createElement("a");
+      a.className = "sx-hit";
+      var href = BASE + h.page.url + "?q=" + encodeURIComponent(q);
+      if (h.chunk.anchor) href += "#" + h.chunk.anchor;
+      a.href = href;
+      var sec = h.chunk.heading && h.chunk.heading !== "(intro)"
+        ? '<span class="sep">›</span><span class="sec">' + escHtml(h.chunk.heading) + "</span>"
+        : "";
+      a.innerHTML =
+        '<div class="sx-crumb">' + escHtml(h.page.title) + sec + "</div>" +
+        '<div class="sx-snip">' + snippet(h.chunk.text, terms, re) + "</div>" +
+        '<div class="sx-go">Open and jump to it →</div>';
+      frag.appendChild(a);
+    });
+    resultsEl.appendChild(frag);
+
+    if (hits.length > MAX_RESULTS) {
+      var more = document.createElement("div");
+      more.className = "sx-more";
+      more.textContent = "Showing the top " + MAX_RESULTS + " of " + hits.length +
+        ". Add another word to narrow it down.";
+      resultsEl.appendChild(more);
+    }
+  }
+
+  var debounce;
+  input.addEventListener("input", function (e) {
+    clearTimeout(debounce);
+    debounce = setTimeout(function () { run(e.target.value); }, 90);
+  });
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { input.value = ""; run(""); }
+  });
+})();
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("/sihan-met-flashcards/sw.js").catch(function () {});
+  });
+}
+</script>
+</body>
+</html>
