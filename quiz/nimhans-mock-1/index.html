@@ -180,15 +180,14 @@
     <label for="sectionSelect">Section</label>
     <select id="sectionSelect">
       <option value="all">All 100 questions</option>
-      <option value="biostats">Research / Biostatistics (15)</option>
-      <option value="biopsych">Neuropsych / Biopsych (15)</option>
-      <option value="abnormal">Abnormal / Psychopathology (15)</option>
+      <option value="biostats">Research / Biostatistics (16)</option>
+      <option value="biopsych">Neuropsych / Biopsych (16)</option>
+      <option value="abnormal">Abnormal / Psychopathology (16)</option>
       <option value="dev">Developmental (10)</option>
-      <option value="assessment">Psychological Assessment (10)</option>
-      <option value="therapy">Psychotherapy (10)</option>
+      <option value="assessment">Psychological Assessment (11)</option>
+      <option value="therapy">Psychotherapy (11)</option>
       <option value="social">Social Psychology (10)</option>
       <option value="general">General / Cognitive (10)</option>
-      <option value="english">English / Reasoning (5)</option>
     </select>
   </div>
 
@@ -250,8 +249,8 @@
 // Source: NIMHANS M.Phil Clinical Psych entrance papers, memory-based
 // transcriptions for 2023, 2024, 2025. Every question carries a `year`
 // tag; questions repeated across years are flagged as repeated.
-// Blueprint: Biostats 15, Biopsych 15, Abnormal 15, Dev 10, Assessment 10,
-// Therapy 10, Social 10, General/Cognitive 10, English/Reasoning 5
+// Blueprint: Biostats 16, Biopsych 16, Abnormal 16, Dev 10, Assessment 11,
+// Therapy 11, Social 10, General/Cognitive 10 (no English/reasoning — NIMHANS has none)
 // =====================================================================
 const QUESTIONS = [
   // ---------- BIOSTATS / RESEARCH (15) ----------
@@ -1030,47 +1029,47 @@ const QUESTIONS = [
     correct: "b",
     explanation: "Weber: ΔI/I = k (constant). JND scales proportionally with stimulus magnitude. Fechner extended this to log relationship between sensation and intensity (Fechner's law)." },
 
-  // ---------- ENGLISH / REASONING (5) ----------
-  { id: "n1_eng01", section: "english", year: "pattern", pyq: false,
-    q: "Choose the word that best completes the analogy: GREGARIOUS : RECLUSIVE :: GARRULOUS : ?",
-    options: { a: "Loquacious",
-               b: "Articulate",
-               c: "Verbose",
-               d: "Taciturn" },
+  // ---------- EXTRA HIGH-YIELD (5) — replaced the old English/reasoning block; NIMHANS has no language section ----------
+  { id: "n1_thr11", section: "therapy", year: "pattern", pyq: false,
+    q: "Wolpe's systematic desensitisation pairs graded exposure to a feared stimulus with deep muscle relaxation. It is based on the principle of:",
+    options: { a: "Operant extinction",
+               b: "Reciprocal inhibition",
+               c: "Aversive conditioning",
+               d: "Flooding" },
+    correct: "b",
+    explanation: "Wolpe's reciprocal inhibition: a relaxation response incompatible with anxiety is paired with the feared stimulus, so the two cannot co-occur and the anxiety is inhibited. Flooding uses ungraded full exposure without relaxation." },
+  { id: "n1_abn16", section: "abnormal", year: "pattern", pyq: false,
+    q: "The presence of two or more distinct personality states together with recurrent gaps in autobiographical recall is the core feature of:",
+    options: { a: "Depersonalisation / derealisation disorder",
+               b: "Dissociative amnesia",
+               c: "Dissociative identity disorder",
+               d: "Schizophrenia" },
+    correct: "c",
+    explanation: "DID = two or more distinct identity states plus dissociative amnesia (gaps in recall beyond ordinary forgetting). Dissociative amnesia lacks the distinct identity states; schizophrenia is a psychotic, not dissociative, disorder." },
+  { id: "n1_bio16", section: "biopsych", year: "pattern", pyq: false,
+    q: "The extrapyramidal side effects (dystonia, parkinsonism) of typical antipsychotics arise mainly from dopamine D2 blockade in which pathway?",
+    options: { a: "Mesolimbic",
+               b: "Mesocortical",
+               c: "Tuberoinfundibular",
+               d: "Nigrostriatal" },
     correct: "d",
-    explanation: "Gregarious (sociable) ↔ reclusive (withdrawn). Garrulous (excessively talkative) ↔ taciturn (uncommunicative). Loquacious and verbose are synonyms of garrulous." },
-  { id: "n1_eng02", section: "english", year: "pattern", pyq: false,
-    q: "Find the odd one out: ANXIETY, FEAR, APPREHENSION, EUPHORIA",
-    options: { a: "Euphoria",
-               b: "Fear",
-               c: "Apprehension",
-               d: "Anxiety" },
-    correct: "a",
-    explanation: "Anxiety, fear, and apprehension are all negative-valence threat-related emotions. Euphoria is a positive-valence high-arousal state." },
-  { id: "n1_eng03", section: "english", year: "pattern", pyq: false,
-    q: "If 'BRAIN' is coded as 'CSBJO', then 'MIND' is coded as:",
-    options: { a: "NJOE",
-               b: "LHMC",
-               c: "NJOD",
-               d: "OKPF" },
-    correct: "a",
-    explanation: "Each letter shifts forward by one (Caesar +1): M→N, I→J, N→O, D→E → NJOE." },
-  { id: "n1_eng04", section: "english", year: "pattern", pyq: false,
-    q: "A is the brother of B. C is the daughter of A. D is the sister of A. E is the brother of D. How is C related to E?",
-    options: { a: "Cousin",
-               b: "Daughter",
-               c: "Sister",
-               d: "Niece" },
-    correct: "d",
-    explanation: "D is A's sister; E is D's brother → E is also A's brother. C, being A's daughter, is E's niece." },
-  { id: "n1_eng05", section: "english", year: "pattern", pyq: false,
-    q: "Choose the sentence that is grammatically correct:",
-    options: { a: "Neither of the two patients have shown improvement.",
-               b: "Neither of the two patients were shown improvement.",
-               c: "Neither of the two patients are showing improvement.",
-               d: "Neither of the two patients has shown improvement." },
-    correct: "d",
-    explanation: "'Neither' takes a singular verb regardless of the plural prepositional phrase; standard prescriptive grammar." }
+    explanation: "Nigrostriatal D2 blockade produces EPS. Mesolimbic blockade reduces positive symptoms; mesocortical blockade worsens negative/cognitive symptoms; tuberoinfundibular blockade raises prolactin." },
+  { id: "n1_ass11", section: "assessment", year: "pattern", pyq: false,
+    q: "The Vineland Adaptive Behaviour Scales are primarily used to assess:",
+    options: { a: "Intelligence quotient",
+               b: "Adaptive functioning in daily living",
+               c: "Personality structure",
+               d: "Neuropsychological memory deficits" },
+    correct: "b",
+    explanation: "The Vineland measures adaptive behaviour (communication, daily living skills, socialisation, motor skills) and is central to diagnosing intellectual disability alongside IQ. It is not an intelligence test itself." },
+  { id: "n1_bst16", section: "biostats", year: "pattern", pyq: false,
+    q: "Which sampling method gives every member of the population a known, non-zero probability of being selected?",
+    options: { a: "Quota sampling",
+               b: "Snowball sampling",
+               c: "Probability (random) sampling",
+               d: "Purposive sampling" },
+    correct: "c",
+    explanation: "Probability sampling (simple random, stratified, cluster, systematic) assigns every unit a known non-zero selection chance, allowing sampling-error estimation. Quota, snowball, and purposive are non-probability methods." }
 ];
 
 // =====================================================================
@@ -1079,7 +1078,7 @@ const QUESTIONS = [
 const SECTION_LABELS = {
   biostats: "Research / Biostats", biopsych: "Neuropsych / Biopsych", abnormal: "Abnormal",
   dev: "Developmental", assessment: "Psych Assessment", therapy: "Psychotherapy",
-  social: "Social Psych", general: "General / Cognitive", english: "English / Reasoning"
+  social: "Social Psych", general: "General / Cognitive"
 };
 
 const STORAGE_KEY = "nimhans-mock-1-results-v2";
