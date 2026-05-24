@@ -50,6 +50,7 @@
 <a href="#influence">3b. Influence &amp; freedom (reactance)</a>
 <a href="#motivation">4. Motivation &amp; emotion</a>
 <a href="#psychometrics">5. Psychometrics &amp; measurement</a>
+<a href="#stattests">5b. Statistical tests &amp; who gave them (Student's t)</a>
 <a href="#scores">6. The standard-score family</a>
 </div>
 
@@ -220,6 +221,28 @@
 <tr><td><b>Ratio IQ</b> (MA/CA×100)</td><td>William Stern (popularised by Terman, Stanford-Binet)</td></tr>
 <tr><td><b>Deviation IQ</b> (mean 100, SD 15)</td><td>David Wechsler</td></tr>
 </table>
+
+<!-- ============ 5b. STAT TESTS ============ -->
+<h2 id="stattests" class="sec">5b. Statistical tests &amp; who gave them (Student's t, widened)</h2>
+<div class="flag">
+<b>Student's t = William Sealy Gosset.</b> "Student" is a <b>pseudonym</b>, not a person. Gosset worked at the <b>Guinness brewery</b> in Dublin and published the t-test in <b>1908</b> under the pen name "Student" because Guinness barred staff from publishing. So if the Q asks "who gave the t-test / who was Student," the answer is <b>Gosset</b>. That pseudonym fact is exactly the curveball NIMHANS loves.
+</div>
+<p style="color:var(--muted);font-size:13px;">What the t-test does: compares <b>means</b> when the sample is <b>small</b> and the population SD is <b>unknown</b> (you estimate it from the sample). That's the whole reason it exists separate from the z-test.</p>
+<table>
+<tr><th>Test</th><th>Who gave it</th><th>What it's for</th></tr>
+<tr><td><b>Student's t-test / t-distribution</b></td><td><b>W. S. Gosset</b> ("Student", 1908)</td><td>Compare means, <b>small n</b>, σ unknown. Flavours: <b>one-sample</b> (df = n−1), <b>independent two-sample</b> (df = n₁+n₂−2), <b>paired</b> (before/after, same people).</td></tr>
+<tr><td><b>ANOVA / F-test</b></td><td><b>Ronald Fisher</b> (the <b>F</b> was named for Fisher by <b>Snedecor</b>)</td><td>Compare <b>3+</b> group means at once. F = between-group var ÷ within-group var.</td></tr>
+<tr><td><b>Chi-square (χ²)</b></td><td><b>Karl Pearson</b></td><td>Association/goodness-of-fit for <b>categorical</b> data.</td></tr>
+<tr><td><b>Pearson r</b></td><td>Karl Pearson</td><td>Linear correlation, interval data.</td></tr>
+<tr><td><b>Spearman rho (ρ)</b></td><td>Charles Spearman</td><td>Rank correlation (ordinal / non-normal).</td></tr>
+<tr><td><b>Mann–Whitney U</b></td><td>Mann &amp; Whitney</td><td>Nonparametric twin of the <b>independent t</b> (two unrelated groups).</td></tr>
+<tr><td><b>Wilcoxon signed-rank</b></td><td>Frank Wilcoxon</td><td>Nonparametric twin of the <b>paired t</b>.</td></tr>
+<tr><td><b>Kruskal–Wallis H</b></td><td>Kruskal &amp; Wallis</td><td>Nonparametric twin of <b>one-way ANOVA</b>.</td></tr>
+<tr><td><b>Friedman test</b></td><td>Milton Friedman</td><td>Nonparametric <b>repeated-measures</b> ANOVA.</td></tr>
+<tr><td><b>McNemar test</b></td><td>Quinn McNemar</td><td>Paired <b>nominal</b> data (before/after yes-no).</td></tr>
+</table>
+<div class="rule"><b>t vs z:</b> use <b>z</b> when the population SD is known and/or n is large; use <b>t</b> when SD is estimated from a small sample. As df → ∞ the t-distribution <b>becomes the normal (z)</b> curve. t is shorter and fatter-tailed than z.</div>
+<div class="trap"><b>Swap-traps:</b> "Student" is <b>Gosset</b>, not a real student. <b>2 groups → t-test; 3+ groups → ANOVA</b> (don't run repeated t-tests). Parametric → nonparametric pairs: independent t → <b>Mann–Whitney</b>, paired t → <b>Wilcoxon</b>, one-way ANOVA → <b>Kruskal–Wallis</b>. F-test/ANOVA = <b>Fisher</b>; chi-square = <b>Pearson</b>.</div>
 
 <!-- ============ 6. SCORES ============ -->
 <h2 id="scores" class="sec">6. The standard-score family (so McCall's T sits in context)</h2>
