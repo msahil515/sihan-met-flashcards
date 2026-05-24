@@ -188,7 +188,34 @@ def write_notes_home(path: Path):
         "nimhans-mock-1-debrief": "NIMHANS Mock 1 debrief",
         "nimhans-pyq-breakdown": "NIMHANS PYQ breakdown",
     }
+    # The three core textbooks get their own featured row, segregated from the
+    # cheatsheets/sprints/debriefs so they don't get lost in the flat grid.
+    textbooks = {
+        "personality": ("Personality", "Schultz &amp; Schultz",
+                        "Freud, neo-Freudians, traits, Big Five, humanistic, "
+                        "social-cognitive, type theories, test→author pairings."),
+        "social-psych": ("Social Psychology", "Baron &amp; Byrne",
+                         "Attitudes, attribution, conformity, obedience, group "
+                         "processes, prejudice, aggression, attraction."),
+        "cognitive": ("Cognitive Psychology", "Eysenck &amp; Keane",
+                      "Perception, attention, STM/working memory, LTM, language, "
+                      "problem solving, judgement &amp; reasoning."),
+    }
+    tb_cards = []
+    for d, (title, author, blurb) in textbooks.items():
+        if not (notes / d / "index.html").exists():
+            continue
+        tb_cards.append(
+            f'<a class="card link" href="notes/{d}/">'
+            f'<div class="card-head"><div class="card-title">{title}</div>'
+            f'<div class="card-sub">{author}</div></div>'
+            f'<div class="card-body">{blurb}</div>'
+            f'<div class="card-cta">Open full notes →</div></a>')
+    tb_grid = "\n".join(tb_cards)
+
     for d in sorted(p.name for p in notes.iterdir() if p.is_dir() and (p / "index.html").exists()):
+        if d in textbooks:
+            continue
         title = label.get(d, d.replace("-", " ").title())
         cards.append(
             f'<a class="card link" href="notes/{d}/">'
@@ -202,14 +229,34 @@ def write_notes_home(path: Path):
 <link rel="stylesheet" href="/sihan-met-flashcards/site.css">
 <link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
-<style>.card-title{{font-weight:700}}main{{max-width:1100px}}</style></head>
+<style>
+  .card-title{{font-weight:700}}
+  main{{max-width:1100px}}
+  /* Featured textbook row: visually distinct from the cheatsheet grid. */
+  .tb-grid .card{{
+    border:1px solid var(--accent-dim);
+    background:linear-gradient(135deg,#13233d,#0f1b2e 60%,#101a16);
+  }}
+  .tb-grid .card-sub{{
+    color:var(--accent); font-weight:600; font-size:12px;
+    text-transform:uppercase; letter-spacing:1px; margin-top:2px;
+  }}
+  .tb-grid .card-body{{color:#c4d2e3; font-size:13px; line-height:1.5; margin-top:8px}}
+  .tb-grid .card-cta{{color:var(--accent); font-size:13px; font-weight:600; margin-top:10px}}
+</style></head>
 <body><main>
 <div class="page-hero"><div class="crumbs">Offline notes app</div>
 <h1>MET Notes</h1>
-<p>Every study note for the MET / NIMHANS 2026 prep, bundled offline. Tap any
-card. The full set also lives in the <a href="notes/">notes index</a> and as an
+<p>Every study note for the MET / NIMHANS 2026 prep, bundled offline. Start with
+the three core textbooks below, then drill the cheatsheets. The full set also
+lives in the <a href="notes/">notes index</a> and as an
 <a href="downloads/">offline EPUB/PDF</a>.</p></div>
-<section><div class="section-head"><h2 class="section-title">All notes</h2>
+<section><div class="section-head"><h2 class="section-title">The three textbooks</h2>
+<span class="section-sub">core source texts</span></div>
+<div class="grid cols-3 tb-grid">
+{tb_grid}
+</div></section>
+<section><div class="section-head"><h2 class="section-title">Cheatsheets &amp; notes</h2>
 <span class="section-sub">{len(cards)} pages</span></div>
 <div class="grid cols-3">
 {grid}
