@@ -3,95 +3,174 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Biopsychology, Full Cheatsheet — MET 2026</title>
+<title>Biopsychology — learn from scratch (neuron, conduction, anatomy, methods, vision, audition, sensorimotor, development, plasticity, memory, hunger, hormones, sleep, addiction, lateralisation, emotion, psychiatric disorders) — NIMHANS + MET 2026</title>
 <link rel="stylesheet" href="../../notes-style.css">
+<style>
+  .hy-banner { background: linear-gradient(135deg, rgba(88,166,255,0.12), rgba(63,185,80,0.10)); border: 1px solid var(--accent-dim); border-radius: 10px; padding: 14px 16px; margin: 0 0 24px 0; font-size: 14px; color: var(--text); }
+  .hy-banner b { color: var(--accent); }
+  .trap { background: rgba(248,81,73,0.08); border-left: 3px solid var(--bad); padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .trap b { color: var(--bad); }
+  .rule { background: rgba(63,185,80,0.08); border-left: 3px solid var(--good); padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .rule b { color: var(--good); }
+  .nimhans { background: rgba(163,113,247,0.10); border-left: 3px solid #a371f7; padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .nimhans b { color: #a371f7; }
+  .why { background: rgba(210,153,34,0.10); border-left: 3px solid #d29922; padding: 10px 13px; margin: 12px 0; border-radius: 4px; font-size: 14px; }
+  .why b { color: #d29922; }
+  .eg { font-style: italic; color: var(--muted); }
+  .jump { font-size: 13px; line-height: 1.9; }
+  .jump a { margin-right: 14px; white-space: nowrap; }
+  h2.sec { border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-top: 40px; }
+  h3 { color: var(--accent); margin-top: 26px; }
+  h4 { color: var(--text); font-size: 15px; }
+  table { font-size: 14px; }
+  .recap { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin: 16px 0 8px; font-size: 14px; }
+  .recap b { color: var(--accent); }
+</style>
 </head>
 <body>
 <div class="wrap">
-<nav><a href="../">← Notes</a> <a href="../../">Home</a></nav>
-<h1>Biopsychology, Full Section Cheatsheet</h1>
-<p style="color: var(--muted); font-size: 14px;">Section 1 of MET. 15 questions. Covers your <b>Pinel, <i>Biopsychology</i></b> in full. Built 2026-05-05 to cover the full biopsych syllabus and every mock-1 wrong-answer cluster (action potential, refractory periods, motor pathways, hypothalamus, basal ganglia, retina, audition, neurotransmitters, LTP, posterior pituitary, REM, parietal lesions, Huntington, Yerkes-Dodson). Read top-to-bottom, then drill the mock again.</p>
+<nav>
+  <a href="../../">← Dashboard</a>
+  <a href="../">All Notes</a>
+  <a href="../general-psych/">General Psych</a>
+  <a href="../textbook/#forgot">Rapid Recall</a>
+</nav>
 
-<h2>1. The Neuron and Glia</h2>
-<h3>Neuron parts</h3>
+<h1>Biopsychology — the full chapter, from scratch</h1>
+<p style="color: var(--muted); font-size: 13px;">Read this like a textbook, not a cheatsheet. Every system explained from first principles, then the names, numbers and traps. Anchored to your <b>Pinel &amp; Barnes, <i>Biopsychology</i> (11th ed.)</b>, walked through chapter by chapter in book order, prioritised for NIMHANS clinical neuropsychology. Divisions of biopsychology · evolution &amp; genetics · neuroanatomy · neural conduction &amp; synapses · research methods · vision · audition &amp; other senses · sensorimotor · development · brain damage &amp; plasticity · memory &amp; amnesia · hunger · hormones &amp; sex · sleep · addiction &amp; reward · lateralisation &amp; language · emotion &amp; stress · psychiatric disorders · Built 2026-05-05 · Rewritten as a full teaching chapter 2026-05-24</p>
+
+<div class="hy-banner">
+<b>How to use this page.</b> It is built to <i>learn from</i>, not just revise. Each system has: (1) the problem it solves / what it is for, (2) the core mechanism in plain language with an everyday example, (3) the parts unpacked one by one, then the tables, and (4) a coloured box recapping the exam-testable fact and the trap. <span style="color:#d29922;">Amber boxes</span> = the intuition / why it matters. <span style="color:var(--good);">Green</span> = the line to lock. <span style="color:var(--bad);">Red</span> = the MCQ trap. <span style="color:#a371f7;">Purple</span> = NIMHANS-specific (clinical neuropsychology, syndromes, batteries, dementias, weighted heavily here). Once a section clicks, the one-line version lives in <a href="../textbook/#forgot">Rapid Recall</a>. Deeper primers exist for the <a href="../action-potential/">action potential</a> and <a href="../sleep/">sleep</a>.
+</div>
+
+<div class="jump">
+<b>Jump to:</b>
+<a href="#field">1. Biopsychology as a neuroscience</a>
+<a href="#evolution">2. Evolution, genetics &amp; experience</a>
+<a href="#anatomy">3. Anatomy of the nervous system</a>
+<a href="#conduction">4. Neural conduction &amp; synapses</a>
+<a href="#methods">5. Research methods</a>
+<a href="#vision">6. Visual system</a>
+<a href="#perception">7. Audition &amp; other senses</a>
+<a href="#sensorimotor">8. Sensorimotor system</a>
+<a href="#development">9. Development of the NS</a>
+<a href="#plasticity">10. Brain damage &amp; plasticity</a>
+<a href="#memory">11. Learning, memory &amp; amnesia</a>
+<a href="#hunger">12. Hunger, eating &amp; health</a>
+<a href="#hormones">13. Hormones &amp; sex</a>
+<a href="#sleep">14. Sleep &amp; circadian rhythms</a>
+<a href="#addiction">15. Drug use, addiction &amp; reward</a>
+<a href="#lateralisation">16. Lateralisation, language &amp; split brain</a>
+<a href="#emotion">17. Emotion, stress &amp; health</a>
+<a href="#psychiatric">18. Biopsychology of psychiatric disorders</a>
+<a href="#neuropsych">19. Clinical neuropsych syndromes &amp; batteries</a>
+<a href="#traps">20. MCQ traps, collected</a>
+</div>
+
+<!-- ============ 1. FIELD ============ -->
+<h2 id="field" class="sec">1. Biopsychology as a neuroscience (Pinel ch. 1)</h2>
+<p><b>The one idea behind the whole book.</b> Biopsychology is the scientific study of the <b>biology of behaviour</b>: it asks how the nervous system produces what we think, feel and do. It is one branch of <b>neuroscience</b> (the larger study of the nervous system), the branch that keeps behaviour at the centre. Pinel's recurring lesson is that mind and brain are not two things: every thought is a physical event in tissue.</p>
+
+<h3>The six divisions of biopsychology</h3>
+<p>Pinel splits the field by <i>what you study and how</i>. Learn each by its defining method, because the paper tests "which division does X?".</p>
+<table>
+<tr><th>Division</th><th>What it studies</th><th>Typical method</th></tr>
+<tr><td><b>Physiological psychology</b></td><td>Neural mechanisms of behaviour</td><td>Direct manipulation of the brain in controlled experiments (lesions, stimulation), usually in lab animals</td></tr>
+<tr><td><b>Psychopharmacology</b></td><td>Effects of <i>drugs</i> on behaviour and the brain</td><td>Manipulate behaviour with drugs; develop therapeutic drugs</td></tr>
+<tr><td><b>Neuropsychology</b></td><td>Psychological effects of <i>brain damage</i> in <b>human patients</b></td><td>Case studies + standardised tests; the most applied division (NIMHANS leans here)</td></tr>
+<tr><td><b>Psychophysiology</b></td><td>Relation between physiology and behaviour using <b>non-invasive</b> body measures in healthy humans</td><td>EEG, heart rate, skin conductance (GSR), pupil size</td></tr>
+<tr><td><b>Cognitive neuroscience</b></td><td>Neural bases of cognition (thought, memory, attention)</td><td>Mainly <b>functional brain imaging</b> (fMRI, PET) in humans</td></tr>
+<tr><td><b>Comparative psychology</b></td><td>Behaviour across species, evolution, genetics, ethology</td><td>Cross-species comparison, naturalistic + lab study</td></tr>
+</table>
+<div class="trap"><b>TRAP — psychophysiology vs physiological psychology.</b> Both have "physiolog" in the name. <b>Physiological psychology</b> = invasive manipulation of the brain, usually in <i>animals</i>. <b>Psychophysiology</b> = <i>non-invasive</i> recording from the surface of <i>healthy humans</i>. And <b>neuropsychology</b> = the study of human <i>brain-damaged</i> patients.</div>
+
+<h3>Kinds of research, kinds of inference</h3>
 <ul>
-  <li><strong>Dendrites</strong> — receive input. Surface area is multiplied by spines.</li>
-  <li><strong>Soma (cell body)</strong> — integrates input. Contains nucleus, ribosomes, mitochondria.</li>
-  <li><strong>Axon hillock</strong> — trigger zone. Decides if threshold is reached.</li>
-  <li><strong>Axon</strong> — conducts AP. May be myelinated.</li>
-  <li><strong>Axon terminals</strong> — release neurotransmitter at the synapse.</li>
+<li><b>Pure vs applied.</b> Pure = curiosity-driven knowledge; applied = solving a practical problem. Most real work is a blend.</li>
+<li><b>Experiments vs non-experiments.</b> Only a true <b>experiment</b> (the researcher manipulates an independent variable and randomly assigns) can support a causal claim. <b>Quasi-experiments</b> and <b>case studies</b> cannot fully rule out confounds.</li>
+<li><b>Converging operations.</b> Because every single method is flawed, biopsychology trusts a conclusion only when <i>several different methods point the same way</i>. This is Pinel's signature methodological value.</li>
+<li><b>The Morgan's Canon / law of parsimony</b> spirit: prefer the simplest explanation that fits, and do not attribute a higher mental process when a lower one will do.</li>
 </ul>
-<h3>Neuron types by function</h3>
+<div class="rule"><b>Lock it:</b> human brain-damaged patients = <b>neuropsychology</b>; drugs = <b>psychopharmacology</b>; non-invasive measures in healthy humans = <b>psychophysiology</b>; imaging of cognition = <b>cognitive neuroscience</b>; animal brain manipulation = <b>physiological psychology</b>; across species = <b>comparative</b>.</div>
+<div class="recap"><b>Recap §1.</b> Biopsychology = biology of behaviour, six divisions sorted by method. Causation needs a true experiment. Converging operations: trust the conclusion many methods agree on.</div>
+
+<!-- ============ 2. EVOLUTION ============ -->
+<h2 id="evolution" class="sec">2. Evolution, genetics &amp; experience (Pinel ch. 2)</h2>
+<p><b>The problem this chapter fixes.</b> The old "nature versus nurture" question is a false dichotomy. Pinel's "nature-nurture done right" is that genes and experience are not rival causes adding up to 100%; they <i>interact</i> continuously. A trait is the product of a genetic program <i>read out in</i> an environment. You cannot say a behaviour is "60% genetic" for an individual, only how much variation in a <i>population</i> is associated with genetic variation (heritability).</p>
+
+<h3>Evolution of the brain</h3>
 <ul>
-  <li><strong>Sensory (afferent)</strong> — periphery → CNS. Pseudounipolar.</li>
-  <li><strong>Motor (efferent)</strong> — CNS → muscles/glands. Multipolar.</li>
-  <li><strong>Interneurons</strong> — local processing inside CNS. Most common.</li>
+<li><b>Natural selection</b> (Darwin): heritable traits that improve <b>fitness</b> (reproductive success) spread. Behaviour evolves too.</li>
+<li>Larger brains are not automatically "better"; what matters is brain size <i>relative to body size</i> and the expansion of specific regions, especially the <b>cerebral cortex</b> in primates.</li>
+<li><b>Convergent evolution</b> = similar traits arise independently (analogous structures). <b>Homologous</b> structures share a common ancestor. Do not read similarity as shared ancestry.</li>
+<li><b>Spandrels &amp; exaptations:</b> not every trait is a direct adaptation; some are by-products later co-opted for new uses.</li>
 </ul>
-<h3>Glia (the 6 you must know)</h3>
+
+<h3>Mendelian genetics &amp; the molecular layer</h3>
+<ul>
+<li><b>Gene</b> = a stretch of DNA on a chromosome. We have 23 pairs; the 23rd is the sex pair (XX female, XY male).</li>
+<li><b>Dominant vs recessive</b> alleles; <b>homozygous vs heterozygous</b>; <b>genotype</b> (the genes) vs <b>phenotype</b> (the expressed trait).</li>
+<li><b>Dizygotic (fraternal) twins</b> share ~50% of genes (like ordinary siblings); <b>monozygotic (identical) twins</b> share ~100%. Comparing them is the classic heritability tool.</li>
+<li><b>Central dogma:</b> DNA → (transcription) → mRNA → (translation) → protein.</li>
+</ul>
+
+<h3>Epigenetics: experience changes which genes are read</h3>
+<div class="why"><b>Why this matters.</b> Epigenetics is the mechanism that finally dissolves nature-vs-nurture. The DNA sequence does not change, but <i>experience</i> can switch genes on or off via chemical tags, especially <b>DNA methylation</b> (silences genes) and <b>histone modification</b>. These marks can persist and even be inherited. So early experience literally edits gene expression: that is how environment becomes biology.</p>
+</div>
+
+<h3>Ontogeny vs phylogeny</h3>
+<table>
+<tr><th>Term</th><th>Meaning</th><th>Everyday handle</th></tr>
+<tr><td><b>Ontogeny</b></td><td>Development of the <i>individual</i> across its own lifespan</td><td>One person growing up</td></tr>
+<tr><td><b>Phylogeny</b></td><td>Evolutionary history of the <i>species/lineage</i></td><td>The family tree of life</td></tr>
+</table>
+<div class="trap"><b>TRAP:</b> <b>Ontogeny = individual development; phylogeny = species evolution.</b> The mnemonic "ontogeny recapitulates phylogeny" (Haeckel) is largely discredited, but examiners still test which word means which. Also: <b>heritability is a population statistic, not a personal percentage.</b></div>
+<div class="recap"><b>Recap §2.</b> Genes × experience interact (epigenetics is the bridge: methylation silences genes). Natural selection acts on fitness. Ontogeny = the individual; phylogeny = the species. MZ twins ~100%, DZ ~50%.</div>
+
+<!-- ============ 3. ANATOMY ============ -->
+<h2 id="anatomy" class="sec">3. Anatomy of the nervous system (Pinel ch. 3)</h2>
+<p>Before any function makes sense you need the map and the cells that build it. We start with the cells, then the divisions, then the protective wrappings, the directions, and finally the brain regions.</p>
+
+<h3>The neuron, part by part</h3>
+<ul>
+  <li><b>Dendrites</b> receive input; surface area is multiplied by <b>spines</b>.</li>
+  <li><b>Soma (cell body)</b> integrates input; holds nucleus, ribosomes, mitochondria.</li>
+  <li><b>Axon hillock</b> is the trigger zone; it decides whether threshold is reached.</li>
+  <li><b>Axon</b> conducts the action potential; may be myelinated.</li>
+  <li><b>Axon terminals (buttons)</b> release neurotransmitter at the synapse.</li>
+</ul>
+<h4>Neuron types by function</h4>
+<ul>
+  <li><b>Sensory (afferent)</b> — periphery → CNS. Often pseudounipolar.</li>
+  <li><b>Motor (efferent)</b> — CNS → muscles/glands. Multipolar.</li>
+  <li><b>Interneurons</b> — local processing inside the CNS; the most numerous.</li>
+</ul>
+
+<h3>Glia — the six you must know</h3>
 <table>
 <tr><th>Cell</th><th>Location</th><th>Function</th></tr>
 <tr><td>Oligodendrocyte</td><td>CNS</td><td>Myelinates many axons (one cell, many segments)</td></tr>
-<tr><td>Schwann cell</td><td>PNS</td><td>Myelinates one axon segment per cell</td></tr>
-<tr><td>Astrocyte</td><td>CNS</td><td>Blood-brain barrier, K+ buffering, NT recycling</td></tr>
+<tr><td>Schwann cell</td><td>PNS</td><td>Myelinates one axon segment per cell; aids PNS regeneration</td></tr>
+<tr><td>Astrocyte</td><td>CNS</td><td>Blood-brain barrier, K⁺ buffering, NT recycling, structural support</td></tr>
 <tr><td>Microglia</td><td>CNS</td><td>Immune defence, phagocytosis</td></tr>
 <tr><td>Ependymal cell</td><td>Ventricles</td><td>Produces and circulates CSF</td></tr>
-<tr><td>Satellite cell</td><td>PNS ganglia</td><td>Supports cell bodies in PNS</td></tr>
+<tr><td>Satellite cell</td><td>PNS ganglia</td><td>Supports cell bodies in the PNS</td></tr>
 </table>
-<p><strong>MCQ trap:</strong> CNS myelination = oligodendrocyte. PNS myelination = Schwann.</p>
+<div class="trap"><b>TRAP:</b> CNS myelination = <b>oligodendrocyte</b>; PNS myelination = <b>Schwann cell</b>. And Schwann cells, not oligodendrocytes, support axonal <i>regeneration</i> (see §10).</div>
 
-<h2>2. Action Potential, Quick Recap</h2>
-<p>Full primer: <a href="../action-potential/">action potential page</a>.</p>
-<ul>
-  <li><strong>Resting membrane potential:</strong> ~ −70 mV. Maintained by Na/K pump (3 Na+ out, 2 K+ in) plus leaky K+ channels.</li>
-  <li><strong>Threshold:</strong> ~ −55 mV.</li>
-  <li><strong>Depolarisation:</strong> voltage-gated Na+ channels open → Na+ in → spike to ~ +30 mV.</li>
-  <li><strong>Repolarisation:</strong> Na+ channels inactivate, voltage-gated K+ channels open → K+ out.</li>
-  <li><strong>Hyperpolarisation:</strong> K+ channels close slowly → undershoot below −70 mV.</li>
-</ul>
-<p><strong>All-or-none law (mock-1 Q1):</strong> once threshold is reached the AP fires at constant amplitude. Stimulus intensity is coded by <em>frequency</em>, not amplitude.</p>
-<p><strong>Refractory periods (mock-1 Q2):</strong></p>
-<ul>
-  <li><strong>Absolute</strong> — Na+ channels inactivated. <em>No</em> stimulus, however strong, can fire another AP.</li>
-  <li><strong>Relative</strong> — membrane is hyperpolarised. A <em>stronger</em> stimulus can fire one.</li>
-</ul>
-<p><strong>Saltatory conduction:</strong> AP jumps between Nodes of Ranvier. Faster + energy efficient.</p>
-
-<h2>3. Synapse + Neurotransmitters</h2>
-<h3>Synaptic transmission</h3>
-<ol>
-  <li>AP arrives at terminal.</li>
-  <li>Voltage-gated <strong>Ca²⁺</strong> channels open. Ca²⁺ enters.</li>
-  <li>Vesicles fuse with presynaptic membrane (SNARE proteins).</li>
-  <li>NT released into cleft, binds postsynaptic receptors.</li>
-  <li>EPSP (depolarising) or IPSP (hyperpolarising) — summation at axon hillock decides if a new AP fires.</li>
-  <li>NT cleared by reuptake, enzymatic breakdown, or diffusion.</li>
-</ol>
-<h3>The 7 NT families (high-yield)</h3>
-<table>
-<tr><th>NT</th><th>Class</th><th>Made from</th><th>Cleared by</th><th>Clinical link</th></tr>
-<tr><td>Acetylcholine (ACh)</td><td>Quaternary amine</td><td>Choline + acetyl-CoA</td><td>Acetylcholinesterase</td><td>Alzheimer's (low ACh), myasthenia gravis (anti-AChR), NMJ</td></tr>
-<tr><td>Dopamine</td><td>Catecholamine</td><td>Tyrosine → DOPA → DA</td><td>Reuptake, MAO, COMT</td><td>↑mesolimbic = +ve schizophrenia (mock-1 Q9). Low nigrostriatal = Parkinson's. Reward / addiction.</td></tr>
-<tr><td>Norepinephrine</td><td>Catecholamine</td><td>DA + β-hydroxylase</td><td>Reuptake, MAO</td><td>Arousal, sympathetic. Locus coeruleus. Low in depression.</td></tr>
-<tr><td>Serotonin (5-HT)</td><td>Indolamine</td><td>Tryptophan</td><td>Reuptake (SERT), MAO</td><td>Mood, sleep, appetite. Low → depression, OCD. Raphe nuclei.</td></tr>
-<tr><td>Glutamate</td><td>Amino acid</td><td>Glutamine</td><td>Reuptake by astrocytes</td><td>Main excitatory NT. NMDA, AMPA, kainate. LTP, learning. Excess = excitotoxicity.</td></tr>
-<tr><td>GABA</td><td>Amino acid</td><td>Glutamate (via GAD)</td><td>Reuptake</td><td>Main inhibitory NT. GABA-A = ionotropic, target of benzos, alcohol, barbiturates.</td></tr>
-<tr><td>Endorphins</td><td>Peptide</td><td>POMC</td><td>Peptidases</td><td>Pain modulation, runner's high. μ, κ, δ receptors.</td></tr>
-</table>
-<p><strong>MCQ trap (mock-1 Q10):</strong> LTP in hippocampus depends on <strong>NMDA</strong> receptors. NMDA = coincidence detector — needs glutamate AND postsynaptic depolarisation to displace Mg²⁺ block. Ca²⁺ entry triggers LTP. AMPA carries the fast EPSP.</p>
-
-<h2>4. Nervous System Organisation</h2>
+<h3>The divisions: CNS and PNS</h3>
 <pre><code>Nervous System
 ├── CNS (brain + spinal cord)
 └── PNS
-    ├── Somatic NS (voluntary, skeletal muscle)
+    ├── Somatic NS (voluntary, skeletal muscle; afferent + efferent)
     └── Autonomic NS
         ├── Sympathetic ("fight/flight") — thoracolumbar, NE
         ├── Parasympathetic ("rest/digest") — craniosacral, ACh
         └── Enteric ("gut brain")</code></pre>
-<h3>ANS quick contrasts</h3>
+<h4>Autonomic contrasts</h4>
 <table>
 <tr><th></th><th>Sympathetic</th><th>Parasympathetic</th></tr>
-<tr><td>Origin</td><td>T1–L2</td><td>CN III, VII, IX, X + S2–S4</td></tr>
+<tr><td>Origin</td><td>T1–L2 (thoracolumbar)</td><td>CN III, VII, IX, X + S2–S4 (craniosacral)</td></tr>
 <tr><td>Pre/post-ganglionic NT</td><td>ACh / NE</td><td>ACh / ACh</td></tr>
 <tr><td>Heart</td><td>↑ rate</td><td>↓ rate (vagus)</td></tr>
 <tr><td>Pupil</td><td>Dilate</td><td>Constrict</td></tr>
@@ -99,43 +178,66 @@
 <tr><td>Sweat glands</td><td>ACh (exception)</td><td>—</td></tr>
 </table>
 
-<h2>5. Brain Anatomy</h2>
-<h3>Forebrain → midbrain → hindbrain</h3>
+<h3>Meninges, CSF and ventricles</h3>
+<p>The CNS is protected by three membranes, the <b>meninges</b>, from outside in: <b>dura mater</b> (tough outer), <b>arachnoid mater</b> (web-like middle), <b>pia mater</b> (delicate, hugs the brain). Between arachnoid and pia is the <b>subarachnoid space</b>, filled with <b>cerebrospinal fluid (CSF)</b>.</p>
+<ul>
+<li><b>CSF</b> cushions the brain, removes waste, and lets it float (reducing effective weight). It is produced by the <b>choroid plexus</b> in the ventricles.</li>
+<li><b>Ventricles:</b> two lateral → third → cerebral aqueduct → fourth → central canal / subarachnoid space. Blockage causes <b>hydrocephalus</b>.</li>
+</ul>
+
+<h3>Directional terms (orient yourself before lesions)</h3>
+<table>
+<tr><th>Term</th><th>Means</th></tr>
+<tr><td>Anterior / rostral</td><td>Toward the front (nose)</td></tr>
+<tr><td>Posterior / caudal</td><td>Toward the back (tail)</td></tr>
+<tr><td>Dorsal</td><td>Toward the back/top (in the brain, top)</td></tr>
+<tr><td>Ventral</td><td>Toward the belly/bottom</td></tr>
+<tr><td>Medial / lateral</td><td>Toward / away from the midline</td></tr>
+<tr><td>Ipsilateral / contralateral</td><td>Same side / opposite side</td></tr>
+</table>
+
+<h3>Forebrain, midbrain, hindbrain</h3>
 <table>
 <tr><th>Region</th><th>Structures</th><th>Function</th></tr>
 <tr><td>Forebrain (prosencephalon)</td><td>Cerebral cortex, basal ganglia, limbic system, thalamus, hypothalamus</td><td>Higher cognition, emotion, motor planning, autonomic control</td></tr>
-<tr><td>Midbrain (mesencephalon)</td><td>Tectum (sup/inf colliculi), tegmentum, substantia nigra, red nucleus, PAG</td><td>Visual/auditory reflexes, motor control, pain modulation</td></tr>
-<tr><td>Hindbrain (rhombencephalon)</td><td>Pons, medulla, cerebellum</td><td>Vital functions, balance, fine motor coordination</td></tr>
+<tr><td>Midbrain (mesencephalon)</td><td>Tectum (superior + inferior colliculi), tegmentum, substantia nigra, red nucleus, PAG</td><td>Visual/auditory reflexes, motor control, pain modulation</td></tr>
+<tr><td>Hindbrain (rhombencephalon)</td><td>Pons, medulla, cerebellum</td><td>Vital functions (breathing, heart rate), balance, fine motor coordination</td></tr>
 </table>
-<h3>Cortex — the 4 lobes</h3>
+<div class="why"><b>Quick handle for the colliculi:</b> <b>S</b>uperior colliculus = <b>S</b>ight (visual reflexes/orienting); <b>I</b>nferior colliculus = "<b>I</b> hear" (auditory). The brainstem = midbrain + pons + medulla, the part keeping you alive.</p>
+</div>
+
+<h3>Cortex — the four lobes</h3>
 <table>
 <tr><th>Lobe</th><th>Key areas</th><th>Lesion produces</th></tr>
-<tr><td>Frontal</td><td>Motor cortex (precentral), prefrontal, Broca's (L)</td><td>Paralysis, executive deficits, Broca's aphasia, personality change (Phineas Gage)</td></tr>
-<tr><td>Parietal</td><td>Somatosensory cortex (postcentral), association cortex</td><td><strong>Hemispatial neglect</strong> if right (mock-1 Q13), Gerstmann's syndrome if left, agnosia</td></tr>
+<tr><td>Frontal</td><td>Motor cortex (precentral gyrus), prefrontal, Broca's (L)</td><td>Paralysis, executive deficits, Broca's aphasia, personality change (Phineas Gage)</td></tr>
+<tr><td>Parietal</td><td>Somatosensory cortex (postcentral gyrus), association cortex</td><td><b>Hemispatial neglect</b> if right, Gerstmann's syndrome if left, agnosia</td></tr>
 <tr><td>Temporal</td><td>Primary auditory, Wernicke's (L), hippocampus, amygdala</td><td>Wernicke's aphasia, anterograde amnesia, Klüver-Bucy</td></tr>
 <tr><td>Occipital</td><td>Primary visual (V1), visual association</td><td>Cortical blindness, visual agnosia, prosopagnosia (fusiform)</td></tr>
 </table>
+<p>The cortex is mostly six-layered <b>neocortex</b>. The deep grey matter and limbic structures sit below it.</p>
+
 <h3>Subcortical structures</h3>
 <ul>
-  <li><strong>Thalamus</strong> — sensory relay (all senses except smell). LGN (vision), MGN (hearing), VPL (touch), VPM (face).</li>
-  <li><strong>Hypothalamus</strong> — homeostasis, hormones, "4 Fs" (feeding, fighting, fleeing, mating). Lesion of <strong>VMH = hyperphagia + obesity</strong> (mock-1 Q5). Lesion of <strong>LH = aphagia</strong>. Suprachiasmatic nucleus = circadian. Supraoptic nucleus → ADH (mock-1 Q11). Paraventricular → oxytocin + CRH.</li>
-  <li><strong>Basal ganglia</strong> — caudate, putamen, globus pallidus, subthalamic nucleus, substantia nigra. <strong>Red nucleus is NOT basal ganglia</strong> (mock-1 Q6) — it's midbrain tegmentum. Function: motor initiation/inhibition. Lesions: Parkinson's (SN), Huntington's (caudate/putamen), hemiballismus (subthalamic).</li>
-  <li><strong>Limbic system</strong> — hippocampus (memory), amygdala (fear), cingulate (emotion/attention), fornix, mammillary bodies, septum.</li>
-  <li><strong>Cerebellum</strong> — coordination, timing, motor learning. Lesions: ataxia, dysmetria, intention tremor.</li>
-</ul>
-<h3>Hemisphere specialisation</h3>
-<ul>
-  <li><strong>Left:</strong> language (Broca, Wernicke), logic, sequential, math.</li>
-  <li><strong>Right:</strong> spatial, music, faces, emotion processing, holistic.</li>
-  <li><strong>Corpus callosum</strong> — major commissure. Severance = split-brain (Sperry, Gazzaniga).</li>
+  <li><b>Thalamus</b> — sensory relay for all senses <i>except smell</i>. LGN (vision), MGN (hearing), VPL (body touch), VPM (face).</li>
+  <li><b>Hypothalamus</b> — homeostasis, hormones, the "4 Fs" (feeding, fighting, fleeing, mating). VMH lesion = hyperphagia + obesity; LH lesion = aphagia; suprachiasmatic nucleus = circadian clock; supraoptic → ADH; paraventricular → oxytocin + CRH.</li>
+  <li><b>Basal ganglia</b> — caudate, putamen, globus pallidus, subthalamic nucleus, substantia nigra. <b>Red nucleus is NOT basal ganglia</b> (it is midbrain tegmentum). Function: motor initiation/selection. Lesions: Parkinson's (SN), Huntington's (caudate/putamen), hemiballismus (subthalamic).</li>
+  <li><b>Limbic system</b> — hippocampus (memory), amygdala (fear), cingulate (emotion/attention), fornix, mammillary bodies, septum.</li>
+  <li><b>Cerebellum</b> — coordination, timing, motor learning. Lesions: ataxia, dysmetria, intention tremor.</li>
 </ul>
 
-<h2>6. Cranial Nerves (12)</h2>
+<h3>Hemisphere specialisation (overview; full treatment in §16)</h3>
+<ul>
+  <li><b>Left:</b> language (Broca, Wernicke), logic, sequential processing, calculation.</li>
+  <li><b>Right:</b> spatial, music, faces, holistic, emotional prosody.</li>
+  <li><b>Corpus callosum</b> — the major commissure; severance produces the split-brain (Sperry, Gazzaniga).</li>
+</ul>
+
+<h3>The 12 cranial nerves</h3>
 <table>
 <tr><th>#</th><th>Name</th><th>Type</th><th>Function</th></tr>
-<tr><td>I</td><td>Olfactory</td><td>S</td><td>Smell. Only CN that does NOT relay through thalamus.</td></tr>
-<tr><td>II</td><td>Optic</td><td>S</td><td>Vision. Decussates at <strong>optic chiasm</strong>.</td></tr>
-<tr><td>III</td><td>Oculomotor</td><td>M</td><td>Most extraocular muscles, levator palpebrae, pupillary constriction (mock-1 Q4).</td></tr>
+<tr><td>I</td><td>Olfactory</td><td>S</td><td>Smell. Only CN that does NOT relay through the thalamus.</td></tr>
+<tr><td>II</td><td>Optic</td><td>S</td><td>Vision. Decussates at the <b>optic chiasm</b>.</td></tr>
+<tr><td>III</td><td>Oculomotor</td><td>M</td><td>Most extraocular muscles, levator palpebrae, pupillary constriction.</td></tr>
 <tr><td>IV</td><td>Trochlear</td><td>M</td><td>Superior oblique only. Smallest CN.</td></tr>
 <tr><td>V</td><td>Trigeminal</td><td>B</td><td>Face sensation, mastication.</td></tr>
 <tr><td>VI</td><td>Abducens</td><td>M</td><td>Lateral rectus only.</td></tr>
@@ -146,186 +248,613 @@
 <tr><td>XI</td><td>Spinal accessory</td><td>M</td><td>SCM and trapezius.</td></tr>
 <tr><td>XII</td><td>Hypoglossal</td><td>M</td><td>Tongue movement.</td></tr>
 </table>
-<p><strong>Mnemonic:</strong> "Some Say Marry Money But My Brother Says Big Brains Matter Most" → S=sensory, M=motor, B=both, in order I-XII.</p>
+<div class="rule"><b>Mnemonic:</b> "Some Say Marry Money But My Brother Says Big Brains Matter Most" → S = sensory, M = motor, B = both, in order I–XII.</div>
+<div class="recap"><b>Recap §3.</b> CNS + PNS (somatic + autonomic). Meninges DAP (dura-arachnoid-pia), CSF from choroid plexus through ventricles. Forebrain/midbrain/hindbrain. Thalamus relays all but smell; hypothalamus runs homeostasis. Glia: oligo (CNS) vs Schwann (PNS).</div>
 
-<h2>7. Sensory Systems</h2>
-<h3>Vision</h3>
+<!-- ============ 4. CONDUCTION ============ -->
+<h2 id="conduction" class="sec">4. Neural conduction &amp; synaptic transmission (Pinel ch. 4)</h2>
+<p>Full primer: <a href="../action-potential/">action potential page</a>. Here is the teaching version.</p>
+
+<h3>The resting potential: why a neuron sits charged</h3>
+<p>An unstimulated neuron holds its inside about <b>−70 mV</b> negative to the outside. Three forces set this up: the <b>Na⁺/K⁺ pump</b> (pushes 3 Na⁺ out, 2 K⁺ in, using ATP), <b>leaky K⁺ channels</b> (K⁺ drifts out down its gradient), and large negative proteins trapped inside. The membrane is a charged battery waiting to discharge.</p>
+
+<h3>The action potential, step by step</h3>
 <ul>
-  <li><strong>Retina:</strong> rods (peripheral, low light, no colour) and cones (foveal, colour, acuity). <strong>Cones are densest at the fovea centralis</strong> (mock-1 Q7). Optic disc = blind spot (no photoreceptors).</li>
-  <li><strong>Pathway:</strong> retina → optic nerve → optic chiasm (nasal fibres cross) → optic tract → LGN of thalamus → V1 (occipital).</li>
-  <li><strong>Theories of colour vision:</strong> trichromatic (Young-Helmholtz, retinal level) + opponent-process (Hering, post-retinal).</li>
-  <li><strong>Dorsal stream</strong> "where/how" (parietal). <strong>Ventral stream</strong> "what" (temporal, object/face recognition).</li>
+  <li><b>Threshold</b> ~ −55 mV must be reached at the axon hillock.</li>
+  <li><b>Depolarisation:</b> voltage-gated Na⁺ channels open → Na⁺ rushes in → spike to ~ +30 mV.</li>
+  <li><b>Repolarisation:</b> Na⁺ channels inactivate; voltage-gated K⁺ channels open → K⁺ flows out.</li>
+  <li><b>Hyperpolarisation (undershoot):</b> K⁺ channels close slowly → dips below −70 mV briefly.</li>
 </ul>
+<div class="rule"><b>All-or-none law:</b> once threshold is reached the AP fires at <i>constant amplitude</i>. Stimulus intensity is coded by <b>frequency</b> of firing, never by spike size.</div>
+
+<h3>Refractory periods</h3>
+<ul>
+  <li><b>Absolute refractory period</b> — Na⁺ channels inactivated; <i>no</i> stimulus, however strong, can fire another AP. This sets the maximum firing rate and forces the AP to travel one way.</li>
+  <li><b>Relative refractory period</b> — membrane is hyperpolarised; a <i>stronger-than-usual</i> stimulus can fire one.</li>
+</ul>
+
+<h3>Saltatory conduction</h3>
+<p>In myelinated axons the AP regenerates only at the <b>Nodes of Ranvier</b> and "jumps" between them. This is faster and far more energy-efficient than continuous conduction. Demyelination (as in <b>MS</b>) destroys this and slows or blocks conduction.</p>
+
+<h3>The synapse: step by step</h3>
+<ol>
+  <li>AP arrives at the terminal.</li>
+  <li>Voltage-gated <b>Ca²⁺</b> channels open; Ca²⁺ enters.</li>
+  <li>Vesicles fuse with the presynaptic membrane (SNARE proteins) and release NT.</li>
+  <li>NT crosses the cleft and binds postsynaptic receptors.</li>
+  <li><b>EPSP</b> (depolarising) or <b>IPSP</b> (hyperpolarising); <b>spatial + temporal summation</b> at the axon hillock decides if a new AP fires.</li>
+  <li>NT is cleared by <b>reuptake</b>, <b>enzymatic breakdown</b>, or <b>diffusion</b>.</li>
+</ol>
+<p><b>Receptors come in two styles:</b> <b>ionotropic</b> (ligand-gated ion channels, fast, e.g. nicotinic ACh, GABA-A, AMPA/NMDA) and <b>metabotropic</b> (G-protein-coupled, slower, longer-lasting, e.g. muscarinic ACh, most dopamine receptors). <b>Autoreceptors</b> on the presynaptic terminal sense the cell's own NT and provide feedback.</p>
+
+<h3>The seven neurotransmitter families (high-yield)</h3>
+<table>
+<tr><th>NT</th><th>Class</th><th>Made from</th><th>Cleared by</th><th>Clinical link</th></tr>
+<tr><td>Acetylcholine (ACh)</td><td>Quaternary amine</td><td>Choline + acetyl-CoA</td><td>Acetylcholinesterase</td><td>Alzheimer's (low ACh), myasthenia gravis (anti-AChR), NMJ</td></tr>
+<tr><td>Dopamine</td><td>Catecholamine</td><td>Tyrosine → DOPA → DA</td><td>Reuptake, MAO, COMT</td><td>↑ mesolimbic = +ve schizophrenia. Low nigrostriatal = Parkinson's. Reward / addiction.</td></tr>
+<tr><td>Norepinephrine</td><td>Catecholamine</td><td>DA + β-hydroxylase</td><td>Reuptake, MAO</td><td>Arousal, sympathetic. Locus coeruleus. Low in depression.</td></tr>
+<tr><td>Serotonin (5-HT)</td><td>Indolamine</td><td>Tryptophan</td><td>Reuptake (SERT), MAO</td><td>Mood, sleep, appetite. Low → depression, OCD. Raphe nuclei.</td></tr>
+<tr><td>Glutamate</td><td>Amino acid</td><td>Glutamine</td><td>Reuptake by astrocytes</td><td>Main excitatory NT. NMDA, AMPA, kainate. LTP, learning. Excess = excitotoxicity.</td></tr>
+<tr><td>GABA</td><td>Amino acid</td><td>Glutamate (via GAD)</td><td>Reuptake</td><td>Main inhibitory NT. GABA-A = ionotropic, target of benzos, alcohol, barbiturates.</td></tr>
+<tr><td>Endorphins</td><td>Peptide</td><td>POMC</td><td>Peptidases</td><td>Pain modulation, runner's high. μ, κ, δ receptors.</td></tr>
+</table>
+<div class="trap"><b>TRAP:</b> LTP in hippocampus depends on <b>NMDA</b> receptors. NMDA = a <i>coincidence detector</i>: it needs glutamate AND postsynaptic depolarisation to displace its Mg²⁺ block. Ca²⁺ entry through NMDA triggers LTP; <b>AMPA</b> carries the fast EPSP. Dopamine is built from <b>tyrosine</b>, serotonin from <b>tryptophan</b>, do not swap the precursors.</div>
+<div class="recap"><b>Recap §4.</b> Rest −70 mV (Na/K pump + leaky K⁺) → threshold −55 → Na⁺ in (depolarise) → K⁺ out (repolarise). All-or-none, frequency codes intensity. Absolute vs relative refractory. Ca²⁺ triggers vesicle release. Ionotropic (fast) vs metabotropic (slow) receptors.</div>
+
+<!-- ============ 5. METHODS ============ -->
+<h2 id="methods" class="sec">5. Research methods of biopsychology (Pinel ch. 5)</h2>
+<p>Every claim about brain and behaviour rests on a method, and every method answers a different question. Pinel groups them into lesion, recording, imaging, and stimulation.</p>
+
+<h3>Lesion / ablation methods</h3>
+<ul>
+<li><b>Ablation / lesion:</b> remove or destroy tissue and observe the behavioural deficit (the oldest approach). <b>Aspiration</b> (suction), <b>radio-frequency / electrolytic</b> lesions, <b>knife cuts</b>, and chemical <b>excitotoxic</b> lesions (kainic acid spares fibres of passage, killing only cell bodies).</li>
+<li><b>Reversible lesions:</b> cooling or local anaesthetic (lidocaine) temporarily knock out a region, then it recovers, a cleaner causal test.</li>
+<li><b>Stereotaxic surgery:</b> the <b>stereotaxic atlas + instrument</b> lets you reach a deep target by 3-D coordinates from the <b>bregma</b> landmark on the skull. This is how electrodes and cannulae are placed.</li>
+</ul>
+
+<h3>Recording methods</h3>
+<table>
+<tr><th>Method</th><th>What it records</th><th>Strength</th></tr>
+<tr><td><b>Single-unit recording</b></td><td>Firing of one neuron via a microelectrode</td><td>Best spatial + temporal resolution (one cell)</td></tr>
+<tr><td><b>EEG</b></td><td>Summed cortical electrical activity from scalp electrodes</td><td>Excellent <i>temporal</i> resolution; poor spatial. Used for sleep stages, seizures, ERPs</td></tr>
+<tr><td><b>Event-related potential (ERP)</b></td><td>EEG time-locked and averaged to a stimulus</td><td>Tracks the timing of cognitive processing (e.g. P300, N400)</td></tr>
+</table>
+
+<h3>Imaging methods</h3>
+<table>
+<tr><th>Method</th><th>What it shows</th><th>Note</th></tr>
+<tr><td><b>CT (CAT)</b></td><td>X-ray structural image</td><td>Fast, good for bleeds/fractures; uses radiation</td></tr>
+<tr><td><b>MRI</b></td><td>Structural image from magnetic fields</td><td>Higher resolution than CT, no radiation</td></tr>
+<tr><td><b>fMRI</b></td><td><i>Function:</i> the BOLD signal (blood oxygenation)</td><td>Good spatial resolution, slower temporal; the workhorse of cognitive neuroscience</td></tr>
+<tr><td><b>PET</b></td><td><i>Function:</i> metabolism/blood flow via radioactive tracer (e.g. 2-DG, or ligands for receptors)</td><td>Can map neurotransmitter receptors; uses radiation</td></tr>
+<tr><td><b>DTI</b></td><td>White-matter tracts (diffusion of water)</td><td>Maps connectivity</td></tr>
+</table>
+<div class="trap"><b>TRAP — structure vs function and resolution.</b> CT/MRI = <i>structure</i>; fMRI/PET = <i>function</i>. <b>EEG = great timing, poor location;</b> <b>fMRI = great location, poorer timing.</b> Examiners pair these opposites. <b>BOLD</b> is the fMRI signal.</div>
+
+<h3>Stimulation methods</h3>
+<ul>
+<li><b>Electrical brain stimulation (ESB):</b> drive a region and see the evoked behaviour (Penfield's cortical mapping; Olds &amp; Milner's reward stimulation).</li>
+<li><b>Transcranial magnetic stimulation (TMS):</b> a magnetic pulse non-invasively excites or transiently disrupts a cortical area, a "virtual lesion" in healthy humans, and a treatment for depression.</li>
+<li><b>Optogenetics</b> (newer): light switches genetically modified neurons on/off with millisecond precision.</li>
+</ul>
+
+<h3>Psychophysiological measures (non-invasive, on the body)</h3>
+<ul>
+<li><b>Skin conductance (SCR/GSR)</b> — sympathetic arousal via sweat; used in lie detection and emotion research.</li>
+<li><b>ECG / heart rate</b>, <b>EMG</b> (muscle), <b>EOG</b> (eye movement), <b>pupillometry</b>.</li>
+</ul>
+<div class="rule"><b>Lock the pairings:</b> deep target by coordinates = <b>stereotaxic</b>; one neuron = <b>single-unit</b>; timing of cognition = <b>ERP/EEG</b>; non-invasive virtual lesion = <b>TMS</b>; receptor mapping = <b>PET</b>; structure = CT/MRI; function = fMRI/PET.</div>
+<div class="recap"><b>Recap §5.</b> Lesion (incl. reversible) + stereotaxic placement; recording (single-unit, EEG, ERP); imaging (CT/MRI structure, fMRI/PET function); stimulation (ESB, TMS, optogenetics); psychophysiology (SCR, HR, EMG, EOG).</div>
+
+<!-- ============ 6. VISION ============ -->
+<h2 id="vision" class="sec">6. The visual system (Pinel ch. 6)</h2>
+<p>Vision is the model sensory system in Pinel because we know its wiring best. The job: turn patterns of light into a neural representation of the world.</p>
+
+<h3>The retina: where light becomes neural signal</h3>
+<ul>
+<li>Light passes through the retina's layers to reach the photoreceptors at the back, so the retina is "inside out".</li>
+<li><b>Rods</b> — peripheral, very light-sensitive, no colour, low acuity (night/scotopic vision). <b>Cones</b> — concentrated at the <b>fovea</b>, colour, high acuity (day/photopic vision).</li>
+<li><b>Cones are densest at the fovea centralis.</b> The <b>optic disc</b> (where the optic nerve leaves) has no photoreceptors = the <b>blind spot</b>.</li>
+<li>Signal flow within the retina: photoreceptors → <b>bipolar cells</b> → <b>retinal ganglion cells</b> (whose axons form the optic nerve), with <b>horizontal</b> and <b>amacrine</b> cells doing lateral interaction. <b>Lateral inhibition</b> sharpens edges (Mach bands).</li>
+</ul>
+
+<h3>The retina-geniculate-striate pathway</h3>
+<p>Retina → optic nerve → <b>optic chiasm</b> (nasal fibres cross, so the left visual field of both eyes goes right) → optic tract → <b>LGN of the thalamus</b> → optic radiations → <b>primary visual cortex (V1 / striate cortex)</b> in the occipital lobe. The map is <b>retinotopic</b> (neighbouring retina → neighbouring cortex). Hubel &amp; Wiesel found V1 cells are <b>feature detectors</b> (simple, complex, hypercomplex cells tuned to edges and orientation).</p>
+
+<h3>Two cortical streams: what vs where</h3>
+<table>
+<tr><th>Stream</th><th>Route</th><th>Job</th><th>Lesion</th></tr>
+<tr><td><b>Ventral</b> ("what")</td><td>V1 → temporal lobe</td><td>Object and face recognition</td><td>Visual agnosia, prosopagnosia</td></tr>
+<tr><td><b>Dorsal</b> ("where / how")</td><td>V1 → parietal lobe</td><td>Spatial location, visually guided action</td><td>Optic ataxia, neglect</td></tr>
+</table>
+
+<h3>Theories of colour vision (these are complementary, not rivals)</h3>
+<ul>
+<li><b>Trichromatic (Young-Helmholtz)</b> — three cone types (S/M/L, "blue/green/red"); colour = ratio of their activity. Operates at the <b>receptor (retinal) level</b>.</li>
+<li><b>Opponent-process (Hering)</b> — colour coded in opposing pairs: red-green, blue-yellow, black-white. Operates <b>after the retina</b> (ganglion cells, LGN). Explains <b>negative afterimages</b> and why we never see "reddish-green".</li>
+</ul>
+<div class="trap"><b>TRAP:</b> the two colour theories are <i>both right at different stages</i>: trichromatic at the cones, opponent-process downstream. Negative afterimages = opponent-process evidence. Rods do not code colour. Dorsal = where/how (parietal), Ventral = what (temporal): "dorsal is up and points to where".</div>
+<div class="recap"><b>Recap §6.</b> Rods (dim, no colour) vs cones (fovea, colour). Pathway: retina → chiasm → LGN → V1. Dorsal = where (parietal), ventral = what (temporal). Colour = trichromatic at cones + opponent-process after.</div>
+
+<!-- ============ 7. PERCEPTION ============ -->
+<h2 id="perception" class="sec">7. Mechanisms of perception: audition &amp; the other senses (Pinel ch. 7)</h2>
+
 <h3>Audition</h3>
 <ul>
-  <li><strong>Outer → middle (ossicles: malleus, incus, stapes) → inner ear (cochlea)</strong>.</li>
-  <li>Hair cells on basilar membrane → CN VIII → cochlear nuclei → MGN → primary auditory cortex (Heschl's gyrus, temporal).</li>
-  <li><strong>Place theory (Békésy)</strong> — high frequencies stimulate the base of basilar membrane, low frequencies stimulate the apex. Best for high frequencies (mock-1 Q8).</li>
-  <li><strong>Frequency theory</strong> — firing rate matches frequency. Works for low frequencies (&lt;500 Hz).</li>
-  <li><strong>Volley principle</strong> bridges the two for mid-range.</li>
+  <li>Path: outer ear → middle ear ossicles (<b>malleus, incus, stapes</b>) → inner ear <b>cochlea</b>.</li>
+  <li>Hair cells on the <b>basilar membrane</b> → CN VIII → cochlear nuclei → superior olive → inferior colliculus → <b>MGN</b> of thalamus → primary auditory cortex (<b>Heschl's gyrus</b>, temporal lobe).</li>
 </ul>
-<h3>Somatosensation, taste, smell</h3>
+<h4>How is pitch coded? Three theories</h4>
+<table>
+<tr><th>Theory</th><th>Mechanism</th><th>Best for</th></tr>
+<tr><td><b>Place theory</b> (von Békésy)</td><td>Different frequencies peak at different places on the basilar membrane: high at the <b>base</b>, low at the <b>apex</b></td><td><b>High</b> frequencies</td></tr>
+<tr><td><b>Frequency (temporal) theory</b></td><td>The whole membrane fires at the rate of the sound's frequency</td><td><b>Low</b> frequencies (&lt; ~500 Hz)</td></tr>
+<tr><td><b>Volley principle</b></td><td>Groups of neurons fire in rotating "volleys" to track frequencies above any single neuron's limit</td><td><b>Mid-range</b> (bridges the two)</td></tr>
+</table>
+<div class="trap"><b>TRAP:</b> <b>Place = high</b> frequency (base of cochlea), <b>frequency theory = low</b>, <b>volley = middle</b>. Loudness is coded by firing rate + number of hair cells, not by place.</div>
+
+<h3>Somatosensation: two ascending highways</h3>
+<table>
+<tr><th></th><th>Dorsal column–medial lemniscus (DCML)</th><th>Anterolateral / spinothalamic</th></tr>
+<tr><td>Carries</td><td>Fine touch, vibration, proprioception</td><td>Pain, temperature, crude touch</td></tr>
+<tr><td>Decussates</td><td>In the <b>medulla</b> (high up)</td><td>At the <b>spinal level of entry</b> (immediately)</td></tr>
+<tr><td>Speed/fibres</td><td>Fast, large myelinated</td><td>Slower, small fibres</td></tr>
+</table>
+<div class="why"><b>Why the decussation level matters clinically.</b> Because the two systems cross at different levels, a one-sided spinal cord lesion (<b>Brown-Séquard</b>) loses <i>fine touch/proprioception on the same side</i> (DCML crosses later, up in the medulla) but <i>pain/temperature on the opposite side</i> (spinothalamic crossed immediately). That dissociation is a favourite exam item.</p>
+</div>
+<p><b>Pain &amp; gate control (Melzack &amp; Wall):</b> non-painful input (rubbing) can "close a gate" in the dorsal horn and reduce pain; descending signals from the <b>PAG</b> (periaqueductal grey), via endorphins, also dampen pain.</p>
+
+<h3>Chemical senses</h3>
 <ul>
-  <li><strong>Somatosensory:</strong> dorsal column-medial lemniscus (touch, vibration, proprioception) vs spinothalamic (pain, temp). Both decussate but at different levels (DCML at medulla, spinothalamic at the spinal level of entry).</li>
-  <li><strong>Taste:</strong> 5 basic — sweet, salty, sour, bitter, umami. CN VII (anterior 2/3), IX (posterior 1/3), X (epiglottis). Insula = primary gustatory cortex.</li>
-  <li><strong>Smell:</strong> olfactory epithelium → bulb → piriform cortex (no thalamus relay). Closest to limbic system, hence emotional memory ties.</li>
+  <li><b>Taste (gustation):</b> five basics, sweet, salty, sour, bitter, umami. CN VII (anterior 2/3 tongue), IX (posterior 1/3), X (epiglottis). <b>Insula</b> = primary gustatory cortex.</li>
+  <li><b>Smell (olfaction):</b> olfactory epithelium → olfactory bulb → <b>piriform cortex</b>, with <i>no thalamic relay</i> (the exception). Direct limbic ties explain odour-evoked emotional memory.</li>
 </ul>
 
-<h2>8. Motor Systems</h2>
+<h3>Attention</h3>
+<p>Perception is selective. <b>Cocktail-party effect</b>: you track one voice in a crowd, yet your own name still breaks through (so unattended channels are partly processed). The <b>posterior parietal cortex</b> and frontal eye fields shift spatial attention; damage to the right parietal causes <b>hemispatial neglect</b> (§19). Pinel distinguishes <b>endogenous</b> (goal-driven, top-down) from <b>exogenous</b> (stimulus-driven, bottom-up) attention.</p>
+<div class="recap"><b>Recap §7.</b> Audition: ossicles → cochlea → basilar membrane → MGN → Heschl's gyrus; place=high, frequency=low, volley=mid. Touch: DCML (fine touch, crosses in medulla) vs spinothalamic (pain/temp, crosses at entry). Smell skips the thalamus. Attention: endogenous vs exogenous.</div>
+
+<!-- ============ 8. SENSORIMOTOR ============ -->
+<h2 id="sensorimotor" class="sec">8. The sensorimotor system (Pinel ch. 8)</h2>
+<p><b>The organising idea: a hierarchy.</b> Movement is planned top-down and executed bottom-up. High levels set goals; low levels handle the muscle detail; sensory feedback flows back up. The chain runs: <b>association cortex (intention) → secondary motor cortex (SMA + premotor, the plan) → primary motor cortex M1 (the command) → brainstem &amp; spinal circuits → muscle</b>, with the <b>basal ganglia</b> and <b>cerebellum</b> tuning it from the side.</p>
+
 <h3>Pyramidal tract (corticospinal)</h3>
 <ul>
-  <li>Origin: primary motor cortex (M1, Brodmann 4) and premotor.</li>
+  <li>Origin: primary motor cortex (M1, Brodmann area 4) and premotor.</li>
   <li>Path: internal capsule → cerebral peduncle → pons → medullary pyramids.</li>
-  <li><strong>Decussates at the pyramids of the medulla</strong> (~85–90%) → lateral corticospinal tract (mock-1 Q3). Remaining 10–15% become anterior corticospinal, decussate at level of the spinal segment.</li>
+  <li><b>Decussates at the pyramids of the medulla</b> (~85–90%) → lateral corticospinal tract (fine, distal, voluntary movement). The remaining 10–15% form the anterior corticospinal tract and decussate at the spinal segment.</li>
 </ul>
+
 <h3>Extrapyramidal pathways</h3>
 <ul>
-  <li><strong>Rubrospinal</strong> — from red nucleus. Flexor bias.</li>
-  <li><strong>Vestibulospinal</strong> — postural extensor.</li>
-  <li><strong>Reticulospinal</strong> — locomotion, posture.</li>
-  <li><strong>Tectospinal</strong> — head/neck orienting.</li>
+  <li><b>Rubrospinal</b> — from the red nucleus; flexor bias.</li>
+  <li><b>Vestibulospinal</b> — postural extensors, balance.</li>
+  <li><b>Reticulospinal</b> — locomotion, posture, gross movements.</li>
+  <li><b>Tectospinal</b> — head/neck orienting to stimuli.</li>
 </ul>
-<h3 id="motor">Motor planning hierarchy — who does what (NIMHANS swap-traps)</h3>
+
+<h3 id="motor">Who does what in the hierarchy (NIMHANS swap-traps)</h3>
 <table>
 <tr><th>Structure</th><th>Job</th><th>Lock the trap</th></tr>
-<tr><td><strong>Premotor cortex</strong></td><td>Plans <strong>externally / sensory-cued</strong> movement — you see something and reach for it. Preps posture and muscle groups before M1 fires.</td><td>Premotor = <strong>external / cue-driven</strong>.</td></tr>
-<tr><td><strong>SMA (supplementary motor area)</strong></td><td>Plans <strong>internally generated, self-initiated</strong> movement. Sequencing complex moves from memory + bimanual coordination.</td><td>SMA = <strong>internal / from within</strong>. (premotor vs SMA = external vs internal — that one distinction is half the Q)</td></tr>
-<tr><td><strong>Basal ganglia</strong></td><td>Initiate / select movement and <strong>gate</strong> it (move or not). Set the <strong>vigour</strong> — scale <strong>force and amplitude</strong> (how big, how strong). Bradykinesia in Parkinson's is this failing.</td><td>"Scales force / amplitude / vigour" → <strong>basal ganglia</strong>. Lesions go two ways: Parkinson's (hypokinetic, <strong>resting</strong> tremor) and Huntington's / chorea (hyperkinetic).</td></tr>
-<tr><td><strong>Cerebellum</strong></td><td>Coordination, timing, balance, error correction, motor learning. Compares <strong>intended vs actual</strong> and smooths speed/accuracy <em>while the movement is happening</em>.</td><td>"Timing / smoothing / coordination" → <strong>cerebellum</strong>. Lesions = ataxia, <strong>intention</strong> tremor, dysmetria, dysdiadochokinesia.</td></tr>
+<tr><td><b>Posterior parietal association cortex</b></td><td>Integrates body position + external space to form the <b>intention</b> to move and guide reaching.</td><td>Lesion → apraxia, neglect.</td></tr>
+<tr><td><b>Premotor cortex</b></td><td>Plans <b>externally / sensory-cued</b> movement: you see something and reach for it. Preps posture and muscle groups before M1 fires.</td><td>Premotor = <b>external / cue-driven</b>.</td></tr>
+<tr><td><b>SMA (supplementary motor area)</b></td><td>Plans <b>internally generated, self-initiated</b> movement; sequencing complex moves from memory + bimanual coordination.</td><td>SMA = <b>internal / from within</b>. (premotor vs SMA = external vs internal, that one distinction is half the question)</td></tr>
+<tr><td><b>Primary motor cortex (M1)</b></td><td>Issues the movement command; somatotopically organised (the <b>motor homunculus</b>).</td><td>Lesion → contralateral weakness/paralysis.</td></tr>
+<tr><td><b>Basal ganglia</b></td><td>Initiate / select movement and <b>gate</b> it (move or not). Set the <b>vigour</b>: scale <b>force and amplitude</b>. Bradykinesia in Parkinson's is this failing.</td><td>"Scales force / amplitude / vigour" → <b>basal ganglia</b>. Lesions go two ways: Parkinson's (hypokinetic, <b>resting</b> tremor) and Huntington's / chorea (hyperkinetic).</td></tr>
+<tr><td><b>Cerebellum</b></td><td>Coordination, timing, balance, error correction, motor learning. Compares <b>intended vs actual</b> and smooths speed/accuracy <i>while the movement is happening</i>.</td><td>"Timing / smoothing / coordination" → <b>cerebellum</b>. Lesions = ataxia, <b>intention</b> tremor, dysmetria, dysdiadochokinesia.</td></tr>
 </table>
-<p><strong>Tremor trap:</strong> <strong>resting</strong> tremor = basal ganglia (Parkinson's). <strong>Intention</strong> tremor = cerebellum. Don't mix those.</p>
-<p><strong>Force vs timing trap:</strong> if the Q says "scales force / amplitude / vigour" it's <strong>basal ganglia</strong>; if it says "timing / smoothing / coordination on the fly" it's <strong>cerebellum</strong>. Go with the exact wording in the question.</p>
+<div class="trap"><b>Tremor trap:</b> <b>resting</b> tremor = basal ganglia (Parkinson's); <b>intention</b> tremor = cerebellum. <b>Force vs timing trap:</b> "scales force / amplitude / vigour" = <b>basal ganglia</b>; "timing / smoothing / coordination on the fly" = <b>cerebellum</b>. Go with the exact wording in the stem.</div>
 
-<h3>UMN vs LMN signs</h3>
+<h3>Upper vs lower motor neuron signs</h3>
 <table>
 <tr><th></th><th>UMN lesion</th><th>LMN lesion</th></tr>
 <tr><td>Tone</td><td>Spasticity (↑)</td><td>Flaccidity (↓)</td></tr>
-<tr><td>Reflexes</td><td>Hyperreflexia, clonus, +Babinski</td><td>Hyporeflexia / areflexia</td></tr>
-<tr><td>Atrophy</td><td>Mild, late</td><td>Severe, early</td></tr>
+<tr><td>Reflexes</td><td>Hyperreflexia, clonus, + Babinski</td><td>Hyporeflexia / areflexia</td></tr>
+<tr><td>Atrophy</td><td>Mild, late (disuse)</td><td>Severe, early</td></tr>
 <tr><td>Fasciculations</td><td>Absent</td><td>Present</td></tr>
 </table>
+<div class="rule"><b>Lock it:</b> UMN = spastic, hyperreflexic, Babinski up, no fasciculations. LMN = flaccid, areflexic, atrophy + fasciculations. (ALS strikes both.)</div>
+<div class="recap"><b>Recap §8.</b> Hierarchy: association cortex → SMA (internal) / premotor (external) → M1 → brainstem/spinal → muscle. Pyramidal crosses at the medullary pyramids. Basal ganglia = force/gating (resting tremor); cerebellum = timing/coordination (intention tremor). UMN spastic vs LMN flaccid.</div>
 
-<h2>9. Sleep, Quick Recap</h2>
-<p>Full primer: <a href="../sleep/">sleep page</a>.</p>
+<!-- ============ 9. DEVELOPMENT ============ -->
+<h2 id="development" class="sec">9. Development of the nervous system (Pinel ch. 9)</h2>
+<p><b>The question:</b> how does a single fertilised cell become a brain with ~86 billion neurons wired into the right circuits? Pinel walks five phases, then myelination and pruning.</p>
+<ol>
+<li><b>Neural tube formation (neurulation):</b> the ectoderm folds into the <b>neural tube</b> (~week 3–4); its hollow centre becomes the ventricles, the anterior end becomes the brain. Failure = <b>spina bifida / anencephaly</b> (folic acid protects).</li>
+<li><b>Proliferation:</b> cells in the <b>ventricular zone</b> divide to produce neurons and glia.</li>
+<li><b>Migration:</b> new neurons travel to their destinations, many guided along <b>radial glia</b>; the cortex is built <b>inside-out</b> (deep layers first).</li>
+<li><b>Differentiation &amp; axon growth:</b> neurons take on their type; the <b>growth cone</b> navigates by chemical cues (chemoaffinity, Sperry).</li>
+<li><b>Synaptogenesis:</b> synapses form, in huge excess at first.</li>
+</ol>
+<p>Then two sculpting processes refine the over-built brain:</p>
 <ul>
-  <li><strong>NREM 1</strong> — theta, easy to wake, hypnic jerks.</li>
-  <li><strong>NREM 2</strong> — sleep spindles + K-complexes. ~50% of total sleep.</li>
-  <li><strong>NREM 3</strong> — delta (slow-wave). Deep sleep, growth hormone, somnambulism.</li>
-  <li><strong>REM</strong> — desynchronised low-voltage EEG (similar to wake), rapid eye movements, atonia, vivid dreams, penile/clitoral tumescence. <strong>NOT delta-dominant</strong> (mock-1 Q12). Delta = NREM 3.</li>
-  <li><strong>Cycle</strong> — ~90 min. REM gets longer through the night, NREM 3 dominates early.</li>
+<li><b>Neural death (apoptosis) &amp; synaptic pruning:</b> ~50% of neurons die, and unused synapses are eliminated. <b>Neurotrophins</b> (e.g. NGF) keep useful connections alive: "use it or lose it".</li>
+<li><b>Myelination:</b> continues for years after birth (the prefrontal cortex finishes myelinating in the early–mid 20s, which is why mature judgement comes late).</li>
 </ul>
-<p><strong>Sleep disorders trap:</strong> narcolepsy = orexin/hypocretin deficiency. Sleep paralysis = REM atonia spilling into wake.</p>
+<div class="why"><b>Critical / sensitive periods.</b> Some circuits must get the right experience within a time window or they wire abnormally for life. Hubel &amp; Wiesel's monocular-deprivation kittens lost cortical responses to the closed eye (<b>amblyopia</b>). Language and binocular vision have sensitive periods. The lesson: experience is not a finishing touch, it is part of construction.</p>
+</div>
+<div class="trap"><b>TRAP — order &amp; direction.</b> Sequence is <b>proliferation → migration → differentiation → synaptogenesis → cell death/pruning → myelination</b>. The cortex develops <b>inside-out</b>. Pruning <i>reduces</i> synapses (it does not add them). Do not confuse <b>apoptosis</b> (programmed, normal death) with necrosis (injury death).</div>
+<div class="recap"><b>Recap §9.</b> Neural tube → proliferate → migrate (on radial glia, inside-out) → differentiate → synaptogenesis → prune + apoptosis → myelinate (into the 20s). Critical periods: experience wires the brain within windows.</div>
 
-<h2>10. Hunger, Thirst, Temperature</h2>
+<!-- ============ 10. PLASTICITY ============ -->
+<h2 id="plasticity" class="sec">10. Brain damage &amp; neuroplasticity (Pinel ch. 10)</h2>
+<h3>Causes of brain damage</h3>
+<table>
+<tr><th>Cause</th><th>Key facts</th></tr>
+<tr><td><b>Tumours (neoplasms)</b></td><td>Encapsulated/benign (meningioma) vs infiltrating/malignant (glioma); metastatic from elsewhere.</td></tr>
+<tr><td><b>Cerebrovascular (stroke)</b></td><td><b>Ischaemic</b> (clot: thrombosis/embolism) vs <b>haemorrhagic</b> (bleed). Penumbra = salvageable tissue. Excitotoxic glutamate cascade kills neurons.</td></tr>
+<tr><td><b>Traumatic brain injury (TBI)</b></td><td><b>Closed-head:</b> contusions, <b>contrecoup</b> injury, concussion. Repeated TBI → <b>chronic traumatic encephalopathy (CTE)</b>.</td></tr>
+<tr><td><b>Infections</b></td><td>Encephalitis, meningitis, abscess; neurosyphilis.</td></tr>
+<tr><td><b>Neurotoxins</b></td><td>Heavy metals (lead, mercury), MPTP (causes Parkinsonism), alcohol.</td></tr>
+<tr><td><b>Genetic / programmed</b></td><td>See the genetic-disorders table below and the dementias.</td></tr>
+</table>
+
+<h3>Degeneration &amp; regeneration</h3>
 <ul>
-  <li><strong>Hunger:</strong> lateral hypothalamus (LH) = "go". VMH = satiety = "stop". Leptin (adipose) suppresses appetite via arcuate nucleus. Ghrelin (stomach) increases it. Insulin → ↑satiety. Hypothalamic dual-centre theory of feeding.</li>
-  <li><strong>Thirst:</strong> osmotic (hypertonic blood, OVLT detects) vs hypovolemic (low BP, kidneys → renin → angiotensin II). ADH from supraoptic nucleus → posterior pituitary → renal water reabsorption (mock-1 Q11).</li>
-  <li><strong>Temperature:</strong> preoptic area of hypothalamus is the thermostat. Cold defence: shivering, vasoconstriction. Heat defence: sweating, vasodilation.</li>
+<li><b>Anterograde degeneration</b> = the cut axon segment <i>away</i> from the cell body dies. <b>Retrograde</b> = the segment <i>toward</i> the cell body (and sometimes the cell) degenerates.</li>
+<li><b>Regeneration is much better in the PNS than the CNS,</b> largely because <b>Schwann cells</b> (PNS) guide and support regrowth, whereas CNS <b>oligodendrocytes</b>/glial scarring inhibit it.</li>
 </ul>
 
-<h2>11. Endocrine + HPA Axis</h2>
+<h3>Plasticity &amp; recovery of function</h3>
+<div class="why"><b>The brain rewires.</b> "Plasticity" means the brain changes its structure and connections with experience and after injury. Mechanisms of recovery: <b>cortical reorganisation</b> (neighbouring areas take over), <b>collateral sprouting</b>, redundant circuits, and behaviourally driven relearning (the basis of rehabilitation). <b>Adult neurogenesis</b> occurs in the <b>hippocampal dentate gyrus</b> and the olfactory bulb/SVZ, but is limited.</p>
+</div>
+
+<h3>The major neurological disorders &amp; dementias (NIMHANS-weighted)</h3>
+<table>
+<tr><th>Disorder</th><th>Pathology</th><th>Hallmark</th></tr>
+<tr><td><b>Alzheimer's disease</b></td><td><b>Amyloid-β plaques + tau neurofibrillary tangles</b>; loss of cholinergic neurons (nucleus basalis of Meynert)</td><td>Progressive <i>anterograde</i> memory loss first; treated with cholinesterase inhibitors + memantine (NMDA)</td></tr>
+<tr><td><b>Parkinson's disease</b></td><td>Loss of dopamine neurons in <b>substantia nigra (pars compacta)</b>; <b>Lewy bodies</b> (α-synuclein)</td><td>Resting tremor, rigidity, bradykinesia, postural instability; L-DOPA</td></tr>
+<tr><td><b>Huntington's disease</b></td><td>Caudate/putamen atrophy; CAG expansion (HTT, chr 4), autosomal dominant</td><td>Chorea + cognitive decline + psychiatric change; anticipation across generations</td></tr>
+<tr><td><b>Multiple sclerosis (MS)</b></td><td>Autoimmune <b>demyelination</b> of CNS white matter</td><td>Relapsing-remitting deficits; slowed conduction (loss of saltatory conduction)</td></tr>
+<tr><td><b>Epilepsy</b></td><td>Hypersynchronous neuronal discharge</td><td>Generalised (e.g. tonic-clonic, absence) vs focal/partial; aura, ictal, post-ictal</td></tr>
+</table>
+
+<h3>Genetic disorders (retained, high-yield)</h3>
+<table>
+<tr><th>Disorder</th><th>Genetics</th><th>Notes</th></tr>
+<tr><td><b>Huntington's disease</b></td><td><b>Autosomal dominant; CAG trinucleotide expansion on chromosome 4 (HTT gene)</b></td><td>Anticipation across generations. Caudate atrophy, chorea, dementia, onset age 30–50.</td></tr>
+<tr><td>Down syndrome</td><td>Trisomy 21</td><td>Intellectual disability, characteristic features, ↑ Alzheimer's risk.</td></tr>
+<tr><td>Fragile X</td><td>X-linked CGG expansion (FMR1)</td><td>Most common <i>inherited</i> cause of intellectual disability.</td></tr>
+<tr><td>PKU</td><td>Autosomal recessive</td><td>Phenylalanine hydroxylase deficiency. Diet treatable; untreated → intellectual disability.</td></tr>
+<tr><td>Klinefelter</td><td>XXY</td><td>Male, hypogonadism, mild learning issues.</td></tr>
+<tr><td>Turner</td><td>XO</td><td>Female, short stature, gonadal dysgenesis.</td></tr>
+</table>
+<div class="trap"><b>TRAP:</b> Alzheimer's = <b>plaques (amyloid) + tangles (tau)</b>, memory-first. Parkinson's = <b>substantia nigra dopamine loss + Lewy bodies</b>, movement-first. Huntington's = <b>caudate, CAG, dominant</b>. Adult neurogenesis happens mainly in the <b>hippocampal dentate gyrus</b>. PNS (Schwann) regenerates better than CNS.</div>
+<div class="recap"><b>Recap §10.</b> Damage from tumour/stroke (ischaemic vs haemorrhagic)/TBI/infection/toxin. PNS regenerates better (Schwann). Plasticity drives recovery; neurogenesis in dentate gyrus. Dementias: Alzheimer's (plaques+tangles), Parkinson's (SN/Lewy), Huntington's (caudate/CAG), MS (demyelination).</div>
+
+<!-- ============ 11. MEMORY ============ -->
+<h2 id="memory" class="sec">11. Learning, memory &amp; amnesia (Pinel ch. 11)</h2>
+<p><b>The landmark case that built the field.</b> Patient <b>H.M.</b> had both medial temporal lobes (including the hippocampus) removed in 1953 to stop seizures. He could no longer form new long-term explicit memories (severe <b>anterograde amnesia</b>) yet kept old memories, normal IQ, and could still <i>learn new motor skills</i> (mirror drawing) without remembering having practised. This single dissociation proved (1) the hippocampus is needed to <b>form</b> new declarative memories but is not the storehouse, and (2) declarative and procedural memory are separate systems.</p>
+
+<h3>The taxonomy of memory</h3>
+<table>
+<tr><th>Type</th><th>Subtype</th><th>Brain region</th></tr>
+<tr><td rowspan="2"><b>Declarative (explicit)</b></td><td>Episodic (events)</td><td>Hippocampus + medial temporal lobe</td></tr>
+<tr><td>Semantic (facts)</td><td>Temporal neocortex</td></tr>
+<tr><td rowspan="3"><b>Non-declarative (implicit)</b></td><td>Procedural (skills, habits)</td><td>Striatum / basal ganglia</td></tr>
+<tr><td>Classical conditioning (motor)</td><td>Cerebellum</td></tr>
+<tr><td>Emotional conditioning</td><td>Amygdala</td></tr>
+</table>
+<ul>
+<li><b>Patient K.C.</b> lost episodic memory (could not re-experience events) but kept semantic knowledge, dissociating the two.</li>
+<li><b>Amygdala</b> = emotional memory and fear conditioning; <b>cerebellum</b> = conditioned motor responses (eyeblink); <b>striatum</b> = habit/procedural learning.</li>
+</ul>
+
+<h3>Long-term potentiation (LTP): the synaptic mechanism</h3>
+<ul>
+<li><b>LTP</b> = a long-lasting strengthening of a synapse after high-frequency stimulation, the leading cellular model of learning, first shown in the hippocampus.</li>
+<li>It depends on the <b>NMDA receptor</b>, a coincidence detector: it opens only when glutamate binds <i>and</i> the postsynaptic cell is already depolarised (relieving its Mg²⁺ block). Ca²⁺ then floods in and drives <b>AMPA receptor insertion</b>, making the synapse stronger.</li>
+<li>This is the molecular face of <b>Hebb's rule:</b> "neurons that fire together wire together." <b>LTD</b> (long-term depression) is the opposite, weakening unused synapses; both enable plasticity.</li>
+</ul>
+
+<h3>Amnesias</h3>
+<ul>
+<li><b>Anterograde</b> = cannot form <i>new</i> memories after the event (H.M.). <b>Retrograde</b> = lost memories from <i>before</i> the event. <b>Ribot's law:</b> recent memories are more vulnerable than remote ones.</li>
+<li><b>Korsakoff's syndrome</b> = <b>thiamine (B1) deficiency</b>, usually from chronic alcoholism; damages the <b>mammillary bodies + dorsomedial thalamus</b>. Hallmark: dense anterograde amnesia + <b>confabulation</b>. The acute precursor is <b>Wernicke's encephalopathy</b> (confusion, ataxia, ophthalmoplegia), together <b>Wernicke-Korsakoff syndrome</b> (see §19).</li>
+<li>The <b>engram</b> = the physical memory trace; Lashley searched for it (mass action / equipotentiality), Richard Semon coined the term, and modern work locates engram cells in the hippocampus.</li>
+</ul>
+<div class="trap"><b>TRAP:</b> H.M. = bilateral <b>medial temporal/hippocampus</b> → anterograde amnesia, intact procedural learning. Korsakoff = <b>thiamine</b>, mammillary bodies + thalamus, <b>confabulation</b>. Hippocampus <i>forms</i> declarative memory but is not the permanent store. LTP needs <b>NMDA</b>; AMPA carries the fast current.</div>
+<div class="recap"><b>Recap §11.</b> H.M. → hippocampus forms new declarative memory; procedural is separate (striatum/cerebellum/amygdala). LTP via NMDA + Ca²⁺ → AMPA insertion = Hebbian learning. Korsakoff = thiamine + mammillary bodies + confabulation.</div>
+
+<!-- ============ 12. HUNGER ============ -->
+<h2 id="hunger" class="sec">12. Hunger, eating &amp; health (Pinel ch. 12)</h2>
+<p><b>The classic theory and its limits.</b> The old <b>dual-centre hypothalamic hypothesis</b> said the <b>lateral hypothalamus (LH)</b> is the "hunger/go" centre and the <b>ventromedial hypothalamus (VMH)</b> is the "satiety/stop" centre. Lesion evidence: <b>VMH lesion → hyperphagia + obesity</b> (the rat overeats); <b>LH lesion → aphagia</b> (the rat stops eating). True but oversimplified, eating is regulated by a network and many peptides, not two switches.</p>
+
+<h3>The hormonal signals</h3>
+<table>
+<tr><th>Signal</th><th>Source</th><th>Effect on appetite</th></tr>
+<tr><td><b>Leptin</b></td><td>Adipose (fat) tissue</td><td>↓ appetite (long-term adiposity signal); acts via the <b>arcuate nucleus</b></td></tr>
+<tr><td><b>Ghrelin</b></td><td>Stomach (empty)</td><td>↑ appetite (the "hunger hormone")</td></tr>
+<tr><td><b>Insulin</b></td><td>Pancreas</td><td>↑ satiety; glucose uptake</td></tr>
+<tr><td><b>CCK</b></td><td>Duodenum</td><td>↑ short-term satiety (meal termination)</td></tr>
+<tr><td><b>PYY</b></td><td>Intestine</td><td>↓ appetite after eating</td></tr>
+</table>
+
+<h3>Two competing frameworks for regulation</h3>
+<ul>
+<li><b>Set-point theory:</b> the body defends a fixed weight/energy level like a thermostat; you eat to correct a deficit. Explains homeostasis but <i>not</i> why we eat when full or why obesity is rising.</li>
+<li><b>Positive-incentive theory</b> (Pinel favours this): we eat largely because of the anticipated <i>pleasure</i> of food (its incentive value), shaped by taste, learning, and availability, not just internal depletion. Explains overeating in a food-rich world.</li>
+</ul>
+
+<h3>Disorders of eating</h3>
+<ul>
+<li><b>Obesity:</b> mismatch between an evolved drive to store energy and an environment of cheap palatable food; <b>leptin resistance</b> in many cases.</li>
+<li><b>Anorexia nervosa</b> (restriction, low weight, body-image disturbance) and <b>bulimia nervosa</b> (binge-purge); high mortality for anorexia.</li>
+</ul>
+<div class="trap"><b>TRAP:</b> <b>VMH = satiety</b> (lesion → obese); <b>LH = feeding</b> (lesion → aphagia). <b>Leptin from fat lowers appetite; ghrelin from the stomach raises it</b> (do not swap). Pinel argues <i>positive-incentive</i> beats pure set-point.</div>
+<div class="recap"><b>Recap §12.</b> VMH satiety / LH hunger. Leptin (fat) ↓ appetite via arcuate; ghrelin (stomach) ↑; insulin/CCK/PYY ↑ satiety. Set-point vs positive-incentive (Pinel prefers incentive).</div>
+
+<!-- ============ 13. HORMONES & SEX ============ -->
+<h2 id="hormones" class="sec">13. Hormones &amp; sex (Pinel ch. 13)</h2>
+<p>The endocrine system is the body's slow, broadcast signalling system: glands release <b>hormones</b> into the blood to act on distant targets. The brain commands it through the <b>hypothalamus → pituitary</b> link.</p>
+
+<h3>The endocrine map</h3>
 <table>
 <tr><th>Gland</th><th>Hormone</th><th>Action</th></tr>
-<tr><td>Hypothalamus</td><td>CRH, TRH, GHRH, GnRH, somatostatin, dopamine</td><td>Releasing/inhibiting factors to anterior pituitary</td></tr>
+<tr><td>Hypothalamus</td><td>CRH, TRH, GHRH, GnRH, somatostatin, dopamine</td><td>Releasing/inhibiting factors to the anterior pituitary</td></tr>
 <tr><td>Anterior pituitary</td><td>ACTH, TSH, GH, FSH/LH, prolactin</td><td>Trophic hormones</td></tr>
-<tr><td>Posterior pituitary</td><td><strong>ADH (vasopressin), oxytocin</strong></td><td>Made in hypothalamus, stored in posterior pit. ADH → water reabsorption (mock-1 Q11). Oxytocin → labour, milk ejection, bonding.</td></tr>
+<tr><td>Posterior pituitary</td><td><b>ADH (vasopressin), oxytocin</b></td><td>Made in hypothalamus, stored/released by posterior pituitary. ADH → water reabsorption. Oxytocin → labour, milk ejection, bonding.</td></tr>
 <tr><td>Adrenal cortex</td><td>Cortisol, aldosterone, DHEA</td><td>Stress, salt/water, sex precursor</td></tr>
 <tr><td>Adrenal medulla</td><td>Epinephrine, NE</td><td>Sympathetic surge</td></tr>
 <tr><td>Thyroid</td><td>T3, T4, calcitonin</td><td>Metabolism, Ca regulation</td></tr>
 <tr><td>Pineal</td><td>Melatonin</td><td>Circadian rhythm</td></tr>
 <tr><td>Pancreas</td><td>Insulin, glucagon</td><td>Glucose regulation</td></tr>
+<tr><td>Gonads</td><td>Testosterone (testes), estradiol + progesterone (ovaries)</td><td>Reproduction, sexual differentiation</td></tr>
 </table>
-<p><strong>HPA axis:</strong> stress → hypothalamus releases CRH → anterior pituitary releases ACTH → adrenal cortex releases cortisol. Negative feedback to hypothalamus + pituitary. Chronically elevated in MDD, PTSD, Cushing's.</p>
+<div class="trap"><b>TRAP:</b> ADH and oxytocin are <b>made in the hypothalamus</b> (supraoptic + paraventricular nuclei) and merely <b>released by the posterior pituitary</b>, which makes no hormones of its own. ADH = water reabsorption.</div>
 
-<h2>12. Memory, Learning, LTP</h2>
+<h3>The HPG axis &amp; sexual differentiation</h3>
+<p>The <b>hypothalamic-pituitary-gonadal (HPG)</b> axis: hypothalamus → <b>GnRH</b> → pituitary → <b>FSH/LH</b> → gonads → sex steroids. Development of sex:</p>
 <ul>
-  <li><strong>Hippocampus</strong> — declarative (explicit) memory consolidation. Bilateral lesion = anterograde amnesia (HM case).</li>
-  <li><strong>Amygdala</strong> — emotional memory, fear conditioning.</li>
-  <li><strong>Striatum</strong> — procedural / habit memory.</li>
-  <li><strong>Cerebellum</strong> — motor learning, classical conditioning of motor responses.</li>
-  <li><strong>LTP</strong> (mock-1 Q10) — long-term potentiation. Strengthens synapse after repeated firing. NMDA receptor is critical (Ca²⁺ entry, AMPA insertion). Hebb: "neurons that fire together wire together".</li>
-  <li><strong>LTD</strong> — long-term depression. Weakens synapses. Both LTP and LTD enable plasticity.</li>
+<li><b>Genetic sex</b> set at fertilisation (XX/XY). The <b>SRY gene</b> on the Y triggers the gonads to become testes; without it they become ovaries.</li>
+<li>Testes secrete <b>testosterone</b> (masculinises the Wolffian ducts) and <b>anti-Müllerian hormone</b> (regresses the female ducts). Pinel's principle: development defaults toward <b>female</b> unless androgens intervene ("add testosterone to masculinise").</li>
 </ul>
 
-<h2>13. Emotion + Arousal</h2>
-<ul>
-  <li><strong>Limbic loop</strong> — Papez circuit: hippocampus → fornix → mammillary → anterior thalamus → cingulate → entorhinal → hippocampus.</li>
-  <li><strong>Amygdala</strong> — fear, threat detection. Klüver-Bucy syndrome (bilateral lesion) = hyperorality, hypersexuality, placidity.</li>
-  <li><strong>Theories of emotion:</strong>
-    <ul>
-      <li><em>James-Lange</em> — body first, then emotion ("we feel sad because we cry").</li>
-      <li><em>Cannon-Bard</em> — body and emotion simultaneously (thalamic theory).</li>
-      <li><em>Schachter-Singer</em> — two-factor: arousal + cognitive label.</li>
-      <li><em>Lazarus</em> — appraisal precedes emotion.</li>
-    </ul>
-  </li>
-  <li><strong>Yerkes-Dodson law</strong> (mock-1 Q15) — inverted-U relationship between arousal and performance. Optimum is <strong>lower</strong> for complex tasks, <strong>higher</strong> for simple/well-learned tasks.</li>
-</ul>
-
-<h2>14. Genetics + Disorders</h2>
+<h3>Organizational vs activational effects (the key distinction)</h3>
 <table>
-<tr><th>Disorder</th><th>Genetics</th><th>Notes</th></tr>
-<tr><td><strong>Huntington's disease</strong></td><td><strong>Autosomal dominant; CAG trinucleotide expansion on chromosome 4 (HTT gene)</strong> (mock-1 Q14)</td><td>Anticipation across generations. Caudate atrophy, chorea, dementia, age 30–50 onset.</td></tr>
-<tr><td>Down syndrome</td><td>Trisomy 21</td><td>Intellectual disability, characteristic features, ↑ Alzheimer's risk.</td></tr>
-<tr><td>Fragile X</td><td>X-linked CGG expansion (FMR1)</td><td>Most common inherited cause of intellectual disability.</td></tr>
-<tr><td>PKU</td><td>Autosomal recessive</td><td>Phenylalanine hydroxylase deficiency. Diet treatable. Untreated → intellectual disability.</td></tr>
-<tr><td>Klinefelter</td><td>XXY</td><td>Male, hypogonadism, mild learning issues.</td></tr>
-<tr><td>Turner</td><td>XO</td><td>Female, short stature, gonadal dysgenesis.</td></tr>
+<tr><th></th><th>Organizational</th><th>Activational</th></tr>
+<tr><td>When</td><td>Early (perinatal) critical period</td><td>Later (puberty onward), reversible</td></tr>
+<tr><td>What it does</td><td><b>Permanently wires</b> the brain/body along male or female lines</td><td><b>Switches on</b> behaviours in already-organised tissue (e.g. testosterone boosting libido in an adult)</td></tr>
 </table>
+<div class="rule"><b>Lock it:</b> <b>organizational = early + permanent structuring; activational = later + reversible switching.</b> SRY → testes → testosterone; the default body plan is female.</div>
+<div class="recap"><b>Recap §13.</b> Hypothalamus → pituitary → targets. Posterior pituitary only stores ADH/oxytocin. HPG: GnRH → FSH/LH → gonads. SRY makes testes; default is female. Organizational (early, permanent) vs activational (later, reversible) hormone effects.</div>
 
-<h2>15. Psychopharmacology Quick Map</h2>
+<!-- ============ 14. SLEEP ============ -->
+<h2 id="sleep" class="sec">14. Sleep, dreaming &amp; circadian rhythms (Pinel ch. 14)</h2>
+<p>Full primer: <a href="../sleep/">sleep page</a>.</p>
+
+<h3>The stages of sleep (read off the EEG)</h3>
+<ul>
+  <li><b>NREM 1</b> — theta waves, easy to wake, hypnic jerks.</li>
+  <li><b>NREM 2</b> — <b>sleep spindles + K-complexes</b>; ~50% of total sleep.</li>
+  <li><b>NREM 3</b> — <b>delta</b> (slow-wave) sleep. Deep, restorative, growth hormone, sleepwalking/night terrors arise here.</li>
+  <li><b>REM</b> — desynchronised low-voltage EEG resembling waking, rapid eye movements, muscle <b>atonia</b>, vivid dreams, genital arousal. This is the "paradoxical" stage. <b>NOT delta-dominant.</b></li>
+</ul>
+<p><b>The cycle:</b> ~90 minutes; NREM 3 dominates the first third of the night, REM periods lengthen toward morning.</p>
+
+<h3>Circadian rhythms &amp; the clock</h3>
+<ul>
+<li>The master clock is the <b>suprachiasmatic nucleus (SCN)</b> of the hypothalamus, entrained ("set") by light via the retinohypothalamic tract.</li>
+<li>The SCN drives the <b>pineal gland</b> to release <b>melatonin</b> in darkness, signalling night. Circadian rhythms are <b>free-running</b> (~24.x h) without light cues.</li>
+</ul>
+
+<h3>Neural mechanisms of sleep/wake</h3>
+<ul>
+<li><b>Reticular activating system (ARAS)</b> in the brainstem maintains wakefulness/arousal.</li>
+<li>The <b>VLPO (ventrolateral preoptic nucleus)</b> promotes sleep (GABAergic "off switch"). <b>Orexin/hypocretin</b> neurons (lateral hypothalamus) stabilise wakefulness; their loss causes narcolepsy.</li>
+<li>REM is generated by pontine circuits (REM-on/REM-off cells); the <b>flip-flop</b> switch model explains rapid state transitions.</li>
+</ul>
+
+<h3>Sleep disorders</h3>
+<table>
+<tr><th>Disorder</th><th>Core feature</th></tr>
+<tr><td><b>Narcolepsy</b></td><td>Sleep attacks + cataplexy; loss of <b>orexin/hypocretin</b></td></tr>
+<tr><td><b>Insomnia</b></td><td>Difficulty initiating/maintaining sleep</td></tr>
+<tr><td><b>Sleep apnea</b></td><td>Breathing stops repeatedly; fragmented sleep</td></tr>
+<tr><td><b>REM sleep behaviour disorder</b></td><td>Atonia fails → acting out dreams; linked to Parkinson's/Lewy pathology</td></tr>
+<tr><td><b>Sleep paralysis</b></td><td>REM atonia spills into wakefulness</td></tr>
+</table>
+<div class="trap"><b>TRAP:</b> REM = mixed/low-voltage EEG (like waking), <b>not</b> delta; <b>delta = NREM 3</b>. Sleep spindles/K-complexes = NREM 2. <b>SCN = the clock</b>; melatonin from the <b>pineal</b>. Narcolepsy = orexin loss. Sleepwalking is a <b>NREM</b> (deep sleep) event, not a REM one.</div>
+<div class="recap"><b>Recap §14.</b> NREM1 theta, NREM2 spindles/K, NREM3 delta, REM paradoxical + atonia. ~90-min cycles, REM grows toward morning. SCN clock + pineal melatonin; orexin loss = narcolepsy.</div>
+
+<!-- ============ 15. ADDICTION ============ -->
+<h2 id="addiction" class="sec">15. Drug use, addiction &amp; reward circuits (Pinel ch. 15)</h2>
+<h3>Core concepts</h3>
+<ul>
+<li><b>Tolerance</b> = needing more drug for the same effect (the dose-response curve shifts). <b>Withdrawal</b> = the opposite, aversive symptoms when the drug stops (often the mirror image of the drug's effects). Together they define <b>physical dependence</b>.</li>
+<li><b>Sensitisation</b> = the <i>reverse</i> of tolerance: <i>increased</i> response to a drug with repetition (often for its incentive/wanting component).</li>
+<li><b>Conditioned tolerance / drug environment:</b> tolerance is partly learned, cued by the setting, which is why a usual dose in a novel environment can become an overdose (Siegel).</li>
+</ul>
+
+<h3>The mesolimbic dopamine reward pathway</h3>
+<div class="why"><b>The final common path of reward.</b> Nearly all addictive drugs converge on one circuit: dopamine neurons in the <b>ventral tegmental area (VTA)</b> projecting to the <b>nucleus accumbens</b> (with the prefrontal cortex). Olds &amp; Milner's rats pressed a lever endlessly for electrical stimulation here. Drugs hijack this "wanting" system. Incentive-sensitisation theory (Robinson &amp; Berridge) splits <b>"wanting"</b> (dopamine, craving) from <b>"liking"</b> (opioid pleasure), explaining why addicts crave drugs they no longer enjoy.</p>
+</div>
+
+<h3>The classic drugs</h3>
+<table>
+<tr><th>Drug</th><th>Mechanism</th><th>Class</th></tr>
+<tr><td>Cocaine / amphetamine</td><td>↑ dopamine (block reuptake / force release)</td><td>Stimulant</td></tr>
+<tr><td>Nicotine</td><td>Nicotinic ACh agonist → ↑ dopamine</td><td>Stimulant</td></tr>
+<tr><td>Alcohol</td><td>↑ GABA-A, ↓ glutamate (NMDA)</td><td>Depressant</td></tr>
+<tr><td>Opioids (heroin, morphine)</td><td>μ-opioid receptor agonist; ↑ dopamine indirectly</td><td>Narcotic / depressant</td></tr>
+<tr><td>Cannabis (THC)</td><td>CB1 cannabinoid receptor agonist</td><td>—</td></tr>
+<tr><td>Caffeine</td><td>Adenosine antagonist</td><td>Stimulant</td></tr>
+</table>
+<div class="trap"><b>TRAP:</b> the reward pathway is <b>VTA → nucleus accumbens (mesolimbic dopamine)</b>. <b>Tolerance and sensitisation are opposites</b> (less vs more response). "Wanting" (dopamine) is dissociable from "liking" (opioids). Withdrawal symptoms typically mirror the drug's acute effects.</div>
+<div class="recap"><b>Recap §15.</b> Tolerance ↓ effect, withdrawal opposite, sensitisation ↑ effect. Reward = mesolimbic dopamine (VTA → nucleus accumbens). Wanting vs liking. Stimulants raise DA; alcohol/opioids depress.</div>
+
+<!-- ============ 16. LATERALISATION ============ -->
+<h2 id="lateralisation" class="sec">16. Lateralisation, language &amp; the split brain (Pinel ch. 16)</h2>
+<p><b>Two hemispheres, different jobs.</b> Most functions are bilateral, but some are <b>lateralised</b>. In ~90% of people language sits in the <b>left</b> hemisphere; the right is biased toward spatial processing, faces, music and emotional prosody.</p>
+
+<h3>The split-brain studies (Sperry &amp; Gazzaniga)</h3>
+<p>Cutting the <b>corpus callosum</b> (to stop severe epilepsy) leaves two hemispheres that cannot talk to each other. Because each visual field projects to the <i>opposite</i> hemisphere, an object flashed to the <b>left visual field → right hemisphere</b> cannot be <i>named</i> (language is on the left), yet the left hand (right hemisphere) can pick it out by touch. Sperry won the Nobel for this; it proved functional lateralisation directly.</p>
+<p><b>Dichotic listening</b> (Kimura): different sounds to each ear; the <b>right-ear advantage</b> for words reflects left-hemisphere language dominance. The <b>Wada test</b> (inject sodium amobarbital into one carotid to anaesthetise one hemisphere) clinically establishes the language-dominant hemisphere before surgery.</p>
+
+<h3>The aphasias</h3>
+<table>
+<tr><th>Aphasia</th><th>Lesion</th><th>Fluency</th><th>Comprehension</th><th>Repetition</th></tr>
+<tr><td><b>Broca's (expressive)</b></td><td>Left inferior frontal (Broca's area)</td><td>Non-fluent, effortful</td><td><b>Intact</b></td><td>Impaired</td></tr>
+<tr><td><b>Wernicke's (receptive)</b></td><td>Left superior temporal (Wernicke's area)</td><td>Fluent but meaningless</td><td><b>Impaired</b></td><td>Impaired</td></tr>
+<tr><td><b>Conduction</b></td><td>Arcuate fasciculus</td><td>Fluent</td><td>Intact</td><td><b>Impaired (the hallmark)</b></td></tr>
+<tr><td><b>Global</b></td><td>Large left perisylvian</td><td>Non-fluent</td><td>Impaired</td><td>Impaired</td></tr>
+<tr><td><b>Transcortical</b></td><td>Around (sparing) the language zones</td><td>Varies</td><td>Varies</td><td><b>Intact (preserved)</b></td></tr>
+</table>
+<div class="trap"><b>TRAP:</b> <b>Broca = non-fluent but comprehends</b> ("broken" speech); <b>Wernicke = fluent but does not comprehend</b> (word salad). <b>Conduction aphasia</b> = the one with intact fluency and comprehension but <i>poor repetition</i> (arcuate fasciculus). Transcortical aphasias <i>spare</i> repetition. Language is left in ~90%, even in most left-handers.</div>
+<div class="recap"><b>Recap §16.</b> Left = language, right = spatial/faces/prosody. Split-brain (Sperry/Gazzaniga): right hemisphere can't name. Dichotic listening = right-ear advantage. Wada test localises language. Broca non-fluent (comprehends), Wernicke fluent (no comprehension), conduction = bad repetition.</div>
+
+<!-- ============ 17. EMOTION ============ -->
+<h2 id="emotion" class="sec">17. Emotion, stress &amp; health (Pinel ch. 17)</h2>
+<h3>The neural circuitry of emotion</h3>
+<ul>
+<li><b>Papez circuit</b> (the early "emotion loop"): hippocampus → fornix → mammillary bodies → anterior thalamus → cingulate → entorhinal → back to hippocampus. The <b>limbic system</b> (MacLean) extended this.</li>
+<li><b>Amygdala</b> = the hub of fear and threat detection; central to fear conditioning. <b>Klüver-Bucy syndrome</b> (bilateral amygdala/temporal lesion) = hyperorality, hypersexuality, placidity (tameness), visual agnosia.</li>
+<li>LeDoux's <b>two roads to fear:</b> a fast "low road" (thalamus → amygdala, crude but quick) and a slower "high road" (thalamus → cortex → amygdala, accurate).</li>
+</ul>
+
+<h3>Theories of emotion (the must-know set)</h3>
+<table>
+<tr><th>Theory</th><th>Claim</th><th>One-liner</th></tr>
+<tr><td><b>James-Lange</b></td><td>Body response comes <i>first</i>; emotion is the perception of it</td><td>"We feel afraid because we tremble"</td></tr>
+<tr><td><b>Cannon-Bard</b></td><td>Bodily arousal and emotion occur <i>simultaneously</i> (thalamic theory)</td><td>Body + feeling fire together</td></tr>
+<tr><td><b>Schachter-Singer</b></td><td>Two-factor: arousal + a <i>cognitive label</i> for it</td><td>Arousal + interpretation = emotion</td></tr>
+<tr><td><b>Lazarus</b></td><td>Cognitive <b>appraisal</b> precedes and causes emotion</td><td>Think first, then feel</td></tr>
+</table>
+<div class="rule"><b>Lock the order:</b> James-Lange = body → emotion. Cannon-Bard = body &amp; emotion at once. Schachter-Singer = arousal + label. Lazarus = appraisal first.</div>
+
+<h3>Stress, the HPA axis &amp; immunity</h3>
+<ul>
+<li><b>HPA axis:</b> stress → hypothalamus releases <b>CRH</b> → anterior pituitary releases <b>ACTH</b> → adrenal cortex releases <b>cortisol</b>; negative feedback to the hypothalamus + pituitary. Chronically elevated in MDD, PTSD, Cushing's.</li>
+<li>The fast arm is the <b>SAM axis</b> (sympathetic-adrenal-medullary): epinephrine/NE for immediate fight-or-flight.</li>
+<li><b>Selye's General Adaptation Syndrome (GAS):</b> <b>alarm → resistance → exhaustion</b>. Prolonged cortisol suppresses immune function and can damage the hippocampus; this is the basis of <b>psychoneuroimmunology</b>.</li>
+</ul>
+<div class="trap"><b>TRAP:</b> <b>GAS = alarm, resistance, exhaustion (Selye).</b> HPA endpoint = <b>cortisol</b>; the fast sympathetic surge is epinephrine (SAM). James-Lange (body first) vs Cannon-Bard (simultaneous) is the most-swapped pair. Amygdala = fear; bilateral amygdala lesion = Klüver-Bucy.</div>
+<div class="recap"><b>Recap §17.</b> Papez/limbic loop; amygdala = fear (Klüver-Bucy if bilateral). Emotion theories: James-Lange (body first), Cannon-Bard (simultaneous), Schachter-Singer (arousal+label), Lazarus (appraisal). Stress: HPA → cortisol; Selye GAS = alarm/resistance/exhaustion.</div>
+
+<!-- ============ 18. PSYCHIATRIC ============ -->
+<h2 id="psychiatric" class="sec">18. Biopsychology of psychiatric disorders (Pinel ch. 18)</h2>
+<p>The chapter that ties neurotransmitters to clinical conditions and their treatments. Learn each disorder by its leading <i>biological hypothesis</i> plus the drug that follows from it.</p>
+
+<h3>Schizophrenia</h3>
+<ul>
+<li><b>Dopamine hypothesis:</b> positive symptoms (hallucinations, delusions) arise from <b>excess dopamine activity in the mesolimbic pathway</b>; supported because antipsychotics are <b>D2 antagonists</b> and amphetamine (a DA agonist) can mimic psychosis.</li>
+<li>Refinement: negative/cognitive symptoms link to <b>low</b> dopamine in the mesocortical (prefrontal) pathway, plus <b>glutamate/NMDA hypofunction</b> (PCP/ketamine, NMDA blockers, mimic the full syndrome).</li>
+</ul>
+
+<h3>Depression &amp; bipolar</h3>
+<ul>
+<li><b>Monoamine hypothesis:</b> depression reflects a deficit of <b>serotonin and/or norepinephrine</b> (the basis of SSRIs, SNRIs, TCAs, MAOIs). Limitations: drugs raise monoamines in hours but lift mood in weeks, so neuroplasticity/BDNF and HPA dysregulation matter too.</li>
+<li><b>Bipolar disorder:</b> mood cycles between mania and depression; first-line mood stabiliser is <b>lithium</b>.</li>
+</ul>
+
+<h3>Anxiety disorders</h3>
+<p>Linked to <b>GABA</b> (benzodiazepines enhance GABA-A) and serotonin (SSRIs are first-line for chronic anxiety/OCD); the amygdala is overactive in fear circuits.</p>
+
+<h3>The treatment / psychopharmacology map (retained)</h3>
 <table>
 <tr><th>Drug class</th><th>Mechanism</th><th>Used in</th></tr>
 <tr><td>SSRI (fluoxetine, sertraline)</td><td>Block 5-HT reuptake</td><td>Depression, OCD, anxiety</td></tr>
 <tr><td>SNRI (venlafaxine, duloxetine)</td><td>Block 5-HT + NE reuptake</td><td>Depression, GAD, neuropathic pain</td></tr>
 <tr><td>Tricyclic (TCA)</td><td>Block 5-HT + NE reuptake; many side effects</td><td>Depression (older), pain</td></tr>
 <tr><td>MAOI</td><td>Block monoamine breakdown; tyramine diet</td><td>Atypical/refractory depression</td></tr>
-<tr><td>Typical antipsychotic (haloperidol, chlorpromazine)</td><td>D2 antagonist</td><td>Positive sx of schizophrenia (mock-1 Q9 link). Side effect: EPS, tardive dyskinesia.</td></tr>
+<tr><td>Typical antipsychotic (haloperidol, chlorpromazine)</td><td>D2 antagonist</td><td>Positive symptoms of schizophrenia. Side effects: EPS, tardive dyskinesia.</td></tr>
 <tr><td>Atypical antipsychotic (clozapine, risperidone, olanzapine)</td><td>D2 + 5-HT2A antagonist</td><td>Schizophrenia (positive + some negative). Clozapine = agranulocytosis risk.</td></tr>
 <tr><td>Benzodiazepines</td><td>GABA-A positive modulator</td><td>Anxiety, insomnia, status epilepticus</td></tr>
 <tr><td>Lithium</td><td>Unclear (inositol depletion)</td><td>Bipolar mania prophylaxis</td></tr>
 <tr><td>Stimulants (methylphenidate, amphetamine)</td><td>↑ DA + NE</td><td>ADHD, narcolepsy</td></tr>
 </table>
+<div class="trap"><b>TRAP:</b> schizophrenia <b>positive</b> symptoms = <b>too much mesolimbic dopamine</b> (treated by D2 <i>antagonists</i>); depression = <b>too little</b> serotonin/NE. Typical antipsychotics block D2 → EPS/tardive dyskinesia; clozapine → agranulocytosis. Lithium = bipolar, not depression alone.</div>
+<div class="recap"><b>Recap §18.</b> Schizophrenia = ↑ mesolimbic dopamine (+ glutamate/NMDA hypofunction); D2 antagonists treat positive symptoms. Depression = ↓ monoamines (SSRI/SNRI/TCA/MAOI). Anxiety = GABA/5-HT. Bipolar = lithium.</div>
 
-<h2>16. Lesion Syndromes (high-yield)</h2>
+<!-- ============ 19. CLINICAL NEUROPSYCH ============ -->
+<h2 id="neuropsych" class="sec">19. Clinical neuropsychology: syndromes &amp; assessment (NIMHANS focus)</h2>
+<div class="nimhans"><b>NIMHANS-heavy.</b> Neuropsychology is weighted far more here than in MET. They test named clinical syndromes, the lesion behind each, and the assessment batteries by name. Slow down and over-learn this section.</div>
+
+<h3>Lesion syndromes (high-yield, retained + expanded)</h3>
 <table>
 <tr><th>Lesion</th><th>Syndrome</th></tr>
 <tr><td>Broca's area (L inferior frontal)</td><td>Non-fluent aphasia, comprehension intact</td></tr>
-<tr><td>Wernicke's area (L sup. temporal)</td><td>Fluent but meaningless speech, poor comprehension</td></tr>
+<tr><td>Wernicke's area (L superior temporal)</td><td>Fluent but meaningless speech, poor comprehension</td></tr>
 <tr><td>Arcuate fasciculus</td><td>Conduction aphasia (poor repetition)</td></tr>
-<tr><td>Bilateral hippocampus</td><td>Anterograde amnesia (HM)</td></tr>
-<tr><td>Mammillary bodies + thalamus (thiamine)</td><td>Korsakoff's, confabulation</td></tr>
-<tr><td>Right inferior parietal</td><td><strong>Left hemispatial neglect</strong> (mock-1 Q13)</td></tr>
-<tr><td>Left parietal (angular gyrus)</td><td>Gerstmann's: agraphia, acalculia, finger agnosia, L-R disorientation</td></tr>
-<tr><td>Bilateral amygdala</td><td>Klüver-Bucy: hyperoral, hypersexual, placid, visual agnosia</td></tr>
+<tr><td>Bilateral hippocampus / medial temporal</td><td>Anterograde amnesia (H.M.)</td></tr>
+<tr><td>Mammillary bodies + dorsomedial thalamus (thiamine)</td><td>Wernicke-Korsakoff: confabulation, amnesia</td></tr>
+<tr><td><b>Right</b> inferior parietal</td><td><b>Left hemispatial neglect</b> (ignores the left side of space)</td></tr>
+<tr><td><b>Left</b> parietal (angular gyrus)</td><td><b>Gerstmann's syndrome:</b> agraphia, acalculia, finger agnosia, left-right disorientation</td></tr>
+<tr><td>Bilateral amygdala / anterior temporal</td><td><b>Klüver-Bucy:</b> hyperoral, hypersexual, placid, visual agnosia</td></tr>
 <tr><td>Substantia nigra</td><td>Parkinson's: bradykinesia, rigidity, resting tremor</td></tr>
-<tr><td>Caudate/putamen</td><td>Huntington's: chorea, dementia</td></tr>
-<tr><td>Subthalamic nucleus</td><td>Hemiballismus</td></tr>
+<tr><td>Caudate / putamen</td><td>Huntington's: chorea, dementia</td></tr>
+<tr><td>Subthalamic nucleus</td><td>Hemiballismus (violent flinging of one side)</td></tr>
 <tr><td>Cerebellum</td><td>Ataxia, dysmetria, intention tremor, dysdiadochokinesia</td></tr>
 <tr><td>Frontal lobe (orbitofrontal)</td><td>Disinhibition, personality change (Phineas Gage)</td></tr>
-<tr><td>Fusiform face area</td><td>Prosopagnosia (face blindness)</td></tr>
+<tr><td>Fusiform face area (ventral occipitotemporal)</td><td><b>Prosopagnosia</b> (cannot recognise familiar faces)</td></tr>
 </table>
 
-<h2>17. Mock-1 Trap Recap (15 questions)</h2>
-<ol>
-  <li>All-or-none = constant amplitude, frequency codes intensity.</li>
-  <li>Absolute refractory = Na+ inactivated, no spike possible.</li>
-  <li>Corticospinal decussation = pyramids of medulla.</li>
-  <li>CN III = oculomotor → most extraocular muscles + pupil.</li>
-  <li>VMH lesion → hyperphagia + obesity.</li>
-  <li>Red nucleus is NOT basal ganglia (it's midbrain tegmentum).</li>
-  <li>Cones densest at fovea centralis.</li>
-  <li>Place theory (Békésy) explains high-frequency hearing.</li>
-  <li>Mesolimbic dopamine → positive symptoms of schizophrenia.</li>
-  <li>NMDA receptor critical for hippocampal LTP.</li>
-  <li>ADH (vasopressin) = posterior pituitary → water reabsorption.</li>
-  <li>REM = mixed/low-voltage EEG (NOT delta).</li>
-  <li>Right parietal lesion → left hemispatial neglect.</li>
-  <li>Huntington's = AD, CAG repeat, chromosome 4.</li>
-  <li>Yerkes-Dodson = inverted U; optimum lower for complex tasks.</li>
-</ol>
+<h3>The named clinical syndromes (learn each by its one defining symptom)</h3>
+<table>
+<tr><th>Syndrome</th><th>Defining feature</th><th>Locus</th></tr>
+<tr><td><b>Prosopagnosia</b></td><td>Cannot recognise faces (objects ok)</td><td>Fusiform face area (bilateral/right occipitotemporal)</td></tr>
+<tr><td><b>Capgras delusion</b></td><td>Belief a loved one is replaced by an identical <b>impostor</b></td><td>Disconnect: face recognition intact but emotional/limbic response lost</td></tr>
+<tr><td><b>Hemispatial neglect</b></td><td>Ignores one side of space (usually left)</td><td><b>Right</b> parietal</td></tr>
+<tr><td><b>Gerstmann's syndrome</b></td><td>Agraphia + acalculia + finger agnosia + L-R disorientation (the tetrad)</td><td><b>Left</b> angular gyrus</td></tr>
+<tr><td><b>Klüver-Bucy</b></td><td>Hyperorality, hypersexuality, placidity, visual agnosia</td><td>Bilateral amygdala / temporal</td></tr>
+<tr><td><b>Anosognosia</b></td><td><b>Denial / unawareness</b> of one's own deficit (e.g. of a paralysed limb)</td><td>Right parietal often</td></tr>
+<tr><td><b>Wernicke-Korsakoff</b></td><td>Wernicke (confusion, ataxia, ophthalmoplegia) → Korsakoff (amnesia + confabulation)</td><td>Thiamine deficiency; mammillary bodies + thalamus</td></tr>
+</table>
 
-<footer>Sihan MET 2026 Prep · Biopsych full cheatsheet · Built 2026-05-05</footer>
+<h3>The "A" deficits: agnosia, apraxia, aphasia</h3>
+<table>
+<tr><th>Family</th><th>Definition</th><th>Examples</th></tr>
+<tr><td><b>Agnosia</b></td><td>Failure to <b>recognise</b> despite intact basic sensation</td><td>Visual object agnosia, prosopagnosia (faces), associative vs apperceptive agnosia, astereognosis (touch)</td></tr>
+<tr><td><b>Apraxia</b></td><td>Inability to <b>perform learned skilled movements</b> despite intact strength/comprehension</td><td>Ideomotor, ideational, constructional, dressing apraxia (often left parietal)</td></tr>
+<tr><td><b>Aphasia</b></td><td>Impaired <b>language</b> (production/comprehension)</td><td>Broca, Wernicke, conduction, global, transcortical (see §16)</td></tr>
+</table>
+<div class="trap"><b>TRAP — the three "A"s:</b> <b>agnosia</b> = can't <i>recognise</i> (a perceptual-knowledge failure), <b>apraxia</b> = can't <i>do</i> a learned movement (a motor-planning failure), <b>aphasia</b> = can't <i>language</i>. And <b>anosognosia</b> (denial of deficit) is different again. Capgras = "replaced by impostor"; prosopagnosia = "can't recognise the face at all".</div>
+
+<h3>Neuropsychological assessment batteries</h3>
+<table>
+<tr><th>Battery</th><th>What it is</th></tr>
+<tr><td><b>Halstead-Reitan Battery</b></td><td>Fixed, comprehensive battery (Category Test, Tactual Performance, Trail Making, etc.); yields an impairment index for brain damage</td></tr>
+<tr><td><b>Luria-Nebraska Battery</b></td><td>Standardised battery based on Luria's qualitative approach; scales for motor, rhythm, tactile, language, memory, etc.</td></tr>
+<tr><td><b>NIMHANS Neuropsychological Battery</b></td><td>India-developed, normed for the Indian population; assesses attention, executive function, memory, language, visuospatial domains (must-know for this exam)</td></tr>
+<tr><td><b>Bender-Gestalt Test</b></td><td>Copying geometric designs; screens visuomotor integration and organic impairment</td></tr>
+<tr><td>Wisconsin Card Sorting Test</td><td>Frontal/executive function, set-shifting (perseveration = frontal damage)</td></tr>
+<tr><td>Wechsler Memory Scale</td><td>Standardised memory assessment</td></tr>
+</table>
+<div class="nimhans"><b>NIMHANS extra.</b> Know that the <b>NIMHANS Neuropsychological Battery</b> exists and is normed for Indians; pair <b>Halstead-Reitan</b> = fixed quantitative battery and <b>Luria-Nebraska</b> = standardised version of Luria's qualitative method. <b>Bender-Gestalt</b> = visuomotor screen. Perseveration on the <b>WCST</b> = frontal lobe.</div>
+<div class="recap"><b>Recap §19.</b> Right parietal → left neglect + anosognosia; left angular gyrus → Gerstmann; fusiform → prosopagnosia; bilateral amygdala → Klüver-Bucy; Capgras = "impostor". Three A's: agnosia (recognise) / apraxia (do) / aphasia (language). Batteries: Halstead-Reitan, Luria-Nebraska, NIMHANS battery, Bender-Gestalt.</div>
+
+<!-- ============ 20. TRAPS ============ -->
+<h2 id="traps" class="sec">20. The MCQ traps, collected</h2>
+<ul>
+<li><b>Divisions:</b> human brain-damage = neuropsychology; non-invasive healthy-human measures = psychophysiology; animal brain manipulation = physiological psychology; imaging of cognition = cognitive neuroscience; drugs = psychopharmacology.</li>
+<li><b>Genetics:</b> ontogeny = the individual, phylogeny = the species. Heritability is a population statistic. Epigenetics (methylation) silences genes. MZ ~100%, DZ ~50%.</li>
+<li><b>Glia:</b> CNS myelin = oligodendrocyte; PNS myelin = Schwann (and Schwann aids regeneration).</li>
+<li><b>Action potential:</b> all-or-none, frequency codes intensity. Absolute refractory = Na⁺ inactivated (no spike possible); relative = needs a stronger stimulus.</li>
+<li><b>NT precursors:</b> dopamine from tyrosine, serotonin from tryptophan. LTP needs NMDA (coincidence detector); AMPA carries the fast EPSP.</li>
+<li><b>Methods:</b> CT/MRI = structure, fMRI/PET = function. EEG = good timing/poor location; fMRI = good location/poorer timing. Stereotaxic = deep coordinates. TMS = non-invasive virtual lesion.</li>
+<li><b>Vision:</b> cones densest at fovea; pathway retina → chiasm → LGN → V1. Dorsal = where (parietal), ventral = what (temporal). Trichromatic (cones) + opponent-process (after retina, afterimages).</li>
+<li><b>Audition:</b> place theory = high frequency (base), frequency theory = low, volley = mid. Smell skips the thalamus.</li>
+<li><b>Somatosensation:</b> DCML (fine touch/proprioception, crosses in medulla) vs spinothalamic (pain/temp, crosses at entry) → Brown-Séquard dissociation.</li>
+<li><b>Motor:</b> pyramidal decussates at the medullary pyramids. SMA = internal, premotor = external. Basal ganglia = force/vigour (resting tremor); cerebellum = timing/coordination (intention tremor). UMN spastic / LMN flaccid.</li>
+<li><b>Development:</b> proliferate → migrate (inside-out) → differentiate → synaptogenesis → prune/apoptosis → myelinate. Critical periods; pruning reduces synapses.</li>
+<li><b>Plasticity:</b> PNS regenerates better than CNS; adult neurogenesis in the dentate gyrus. Alzheimer's = plaques + tangles; Parkinson's = SN dopamine + Lewy bodies; Huntington's = caudate/CAG/AD; MS = demyelination.</li>
+<li><b>Memory:</b> H.M. = hippocampus → anterograde amnesia, intact procedural. Korsakoff = thiamine + mammillary bodies + confabulation. LTP via NMDA + Ca²⁺ (Hebb).</li>
+<li><b>Hunger:</b> VMH satiety (lesion → obese), LH feeding (lesion → aphagia). Leptin (fat) ↓ appetite, ghrelin (stomach) ↑. Positive-incentive over set-point.</li>
+<li><b>Hormones:</b> posterior pituitary only stores ADH/oxytocin (made in hypothalamus). SRY → testes; default is female. Organizational = early/permanent, activational = later/reversible.</li>
+<li><b>Sleep:</b> REM = low-voltage EEG + atonia (NOT delta); delta = NREM 3; spindles/K = NREM 2. SCN clock, pineal melatonin. Narcolepsy = orexin loss. Sleepwalking = NREM.</li>
+<li><b>Addiction:</b> reward = VTA → nucleus accumbens (mesolimbic dopamine). Tolerance vs sensitisation = opposites. Wanting (DA) vs liking (opioid).</li>
+<li><b>Lateralisation:</b> language left in ~90%. Split-brain right hemisphere can't name. Broca non-fluent (comprehends), Wernicke fluent (no comprehension), conduction = bad repetition. Wada test localises language; dichotic = right-ear advantage.</li>
+<li><b>Emotion/stress:</b> James-Lange (body first) vs Cannon-Bard (simultaneous) vs Schachter-Singer (arousal+label) vs Lazarus (appraisal). HPA → cortisol; Selye GAS = alarm/resistance/exhaustion. Amygdala = fear; bilateral lesion = Klüver-Bucy.</li>
+<li><b>Psychiatric:</b> schizophrenia positive symptoms = ↑ mesolimbic dopamine (D2 antagonists); depression = ↓ monoamines; bipolar = lithium; anxiety = GABA/benzos.</li>
+<li><b>Clinical syndromes:</b> right parietal → left neglect + anosognosia; left angular gyrus → Gerstmann; fusiform → prosopagnosia; Capgras = "impostor"; three A's = agnosia (recognise)/apraxia (do)/aphasia (language). Batteries: Halstead-Reitan, Luria-Nebraska, NIMHANS battery, Bender-Gestalt.</li>
+<li><b>Yerkes-Dodson:</b> inverted U; optimal arousal is <i>lower</i> for complex tasks, <i>higher</i> for simple/well-learned ones.</li>
+</ul>
+
+<div class="hy-banner" style="margin-top: 28px;">
+<b>Companion pages:</b> deeper primers on the <a href="../action-potential/">action potential</a> and <a href="../sleep/">sleep</a>; the compact cross-topic version sits in the <a href="../general-psych/">general-psych notes</a>; the one-line testable list is in the textbook's <a href="../textbook/#forgot">Rapid Recall</a>.
+</div>
+
+<footer>Sihan NIMHANS + MET 2026 prep · /notes/biopsych-cheatsheet/ · teaching chapter</footer>
 </div>
 </body>
 </html>

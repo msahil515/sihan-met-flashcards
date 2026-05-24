@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Social Psychology sweep — every named effect/theory/technique + who gave it + the hook — MET 2026 + NIMHANS</title>
+<title>Social Psychology: learn from scratch (science &amp; methods, social cognition, perception &amp; attribution, the self, attitudes &amp; persuasion, prejudice, attraction &amp; love, social influence, prosocial, aggression, groups) · NIMHANS + MET 2026</title>
 <link rel="stylesheet" href="../../notes-style.css">
 <style>
   .hy-banner { background: linear-gradient(135deg, rgba(88,166,255,0.12), rgba(63,185,80,0.10)); border: 1px solid var(--accent-dim); border-radius: 10px; padding: 14px 16px; margin: 0 0 24px 0; font-size: 14px; color: var(--text); }
@@ -14,14 +14,21 @@
   .rule b { color: var(--good); }
   .nimhans { background: rgba(163,113,247,0.10); border-left: 3px solid #a371f7; padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
   .nimhans b { color: #a371f7; }
+  .why { background: rgba(210,153,34,0.10); border-left: 3px solid #d29922; padding: 10px 13px; margin: 12px 0; border-radius: 4px; font-size: 14px; }
+  .why b { color: #d29922; }
+  .eg { font-style: italic; color: var(--muted); }
   .swp { display:flex; gap:8px; flex-wrap:wrap; margin: 0 0 22px; }
   .swp a { font-size:12.5px; font-weight:600; border:1px solid var(--border); border-radius:999px; padding:6px 13px; white-space:nowrap; }
   .swp a.here { border-color: var(--accent); color: var(--accent); }
   .jump { font-size: 13px; line-height: 1.9; }
   .jump a { margin-right: 14px; white-space: nowrap; }
   h2.sec { border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-top: 40px; }
+  h3 { color: var(--accent); margin-top: 26px; }
+  h4 { color: var(--text); font-size: 15px; }
   table { font-size: 14px; }
   td:first-child { white-space: nowrap; }
+  .recap { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin: 16px 0 8px; font-size: 14px; }
+  .recap b { color: var(--accent); }
 </style>
 </head>
 <body>
@@ -29,13 +36,12 @@
 <nav>
   <a href="../../">← Dashboard</a>
   <a href="../">All Notes</a>
-  <a href="../theories/">Theories</a>
-  <a href="../effects/">Effects</a>
-  <a href="../phenomena/">Phenomena</a>
+  <a href="../general-psych/">General Psych</a>
+  <a href="../textbook/#forgot">Rapid Recall</a>
 </nav>
 
-<h1>Social Psychology — the whole domain, named, in book order</h1>
-<p style="color: var(--muted); font-size: 13px;">Built from the Baron &amp; Branscombe <i>Social Psychology</i> (13th ed.) you sent. Social psych spans all four buckets (effects, phenomena, theories, theorists), so instead of hunting across pages this is the <b>one social-psych page</b>, laid out the way the book is — chapter by chapter. Every major named thing with <b>name → who → the one-line hook</b>. Built 2026-05-24.</p>
+<h1>Social Psychology: the full chapter, from scratch</h1>
+<p style="color: var(--muted); font-size: 13px;">Read this like a textbook, not a cheatsheet. Every chapter explained from first principles, then the named effects, the theorists and the traps. Anchored to your <b>Baron &amp; Branscombe, <i>Social Psychology</i> (13th ed.)</b>, walked through in book order: the science &amp; its methods · social cognition · perception &amp; attribution · the self · attitudes &amp; persuasion · prejudice · attraction &amp; love · social influence · prosocial behaviour · aggression · groups. NIMHANS weights this domain heavily (heavier than MET), and the dominant question type is <b>which name goes with which effect</b>, so the attribution-style pairs are flagged throughout. Built 2026-05-24 · Rewritten as a full teaching chapter 2026-05-24.</p>
 
 <div class="swp">
   <a href="../effects/">Effects</a>
@@ -46,10 +52,13 @@
   <a href="../cognitive/">Cognitive</a>
 </div>
 
-<div class="hy-banner"><b>How social psych is tested.</b> (1) Describe a scene → name the effect/technique ("the more people watched, the less anyone helped" = bystander). (2) Name a theory → who proposed it (dissonance = Festinger). (3) Tell the rival theories apart (FAE vs actor-observer, foot-in-the-door vs door-in-the-face). Learn each in its contrast pair, that's where the distractor lives.</div>
+<div class="hy-banner">
+<b>How to use this page.</b> It is built to <i>learn from</i>, not just revise. Each topic has: (1) the problem it was trying to solve, (2) the core idea in plain language with an everyday example, (3) the named concepts unpacked one by one in tables, and (4) coloured boxes recapping the exam-testable fact and the trap. <span style="color:#d29922;">Amber boxes</span> = the intuition / why it matters. <span style="color:var(--good);">Green</span> = the line to lock. <span style="color:var(--bad);">Red</span> = the MCQ trap. <span style="color:#a371f7;">Purple</span> = NIMHANS-specific (clinical / Indian context, rival-theory swaps). <span style="color:var(--accent);">Grey recap</span> = the section in one breath. The one-line testable list lives in <a href="../textbook/#forgot">Rapid Recall</a>; the four type sweeps are the chips above.
+</div>
 
 <div class="jump">
 <b>Jump to:</b>
+<a href="#science">0. Social psych as a science</a>
 <a href="#cognition">1. Social cognition</a>
 <a href="#perception">2. Perception &amp; attribution</a>
 <a href="#self">3. The self</a>
@@ -60,15 +69,54 @@
 <a href="#prosocial">8. Prosocial</a>
 <a href="#aggression">9. Aggression</a>
 <a href="#groups">10. Groups</a>
+<a href="#traps">11. MCQ traps, collected</a>
 </div>
 
-<!-- 1. SOCIAL COGNITION -->
+<!-- ============ 0. SCIENCE & METHODS ============ -->
+<h2 id="science" class="sec">0. Social psychology as a science</h2>
+<p><b>What the field actually claims.</b> Social psychology is the <b>scientific study of how the thoughts, feelings and behaviour of individuals are influenced by the actual, imagined or implied presence of others</b> (Allport's classic definition). The key word is <i>scientific</i>: it does not settle questions by intuition or anecdote, it runs studies. And the key insight, repeated throughout Baron, is the <b>power of the situation</b>: ordinary people do extraordinary things (help, conform, obey, aggress) far more because of where they are and who is around than because of fixed traits. That theme, situation over disposition, returns in obedience (Milgram), bystander apathy (Latané &amp; Darley) and the attribution chapter (the FAE is precisely our failure to see it).</p>
+<p><b>The role of theory.</b> A <b>theory</b> is an integrated set of principles that explains and predicts observed events. Good social psychology runs a loop: a theory generates a specific, falsifiable <b>hypothesis</b>; a study tests it; results refine or refute the theory. A theory is never "proven", only supported or disconfirmed, and it earns its keep by making predictions that could have failed but did not.</p>
+
+<h3>The three core research methods</h3>
+<p>Baron's methods chapter contrasts three ways to gather evidence, each with a trade-off between control and realism.</p>
+<table>
+<tr><th>Method</th><th>What you do</th><th>Strength / limit</th></tr>
+<tr><td><b>Experimental</b></td><td>Manipulate one factor (the <b>independent variable, IV</b>), hold everything else constant, measure the effect on the <b>dependent variable, DV</b>. Use <b>random assignment</b> to conditions.</td><td>The only method that establishes <b>cause and effect</b>. Limit: artificiality, low external validity if over-controlled.</td></tr>
+<tr><td><b>Correlational</b></td><td>Measure two or more variables as they naturally occur and see if they covary (correlation coefficient, −1 to +1).</td><td>Good for real-world variables you cannot ethically manipulate. Limit: <b>correlation ≠ causation</b> (direction problem + third-variable problem).</td></tr>
+<tr><td><b>Survey</b></td><td>Ask a representative <b>sample</b> questions to describe a population's attitudes/behaviour.</td><td>Cheap, broad. Limit: sampling bias, wording effects, social-desirability responding.</td></tr>
+</table>
+<div class="why"><b>The IV/DV intuition.</b> The IV is the cause you <i>dial</i> (the dose), the DV is the effect you <i>read off</i> (the symptom). Picture the experimenter's hand on a knob (IV) and an eye on a dial (DV). Random assignment is what lets you claim the knob, not some pre-existing difference between people, moved the dial. Correlational work has no knob, you only watch two dials move together, which is why it cannot tell you which one is driving.</div>
+
+<h3>Mediators, moderators and meta-analysis</h3>
+<p>A <b>mediator</b> is the <i>mechanism</i>, the variable that comes <i>between</i> cause and effect and explains <i>why</i> the IV affects the DV (frustration → <b>anger</b> → aggression: anger mediates). A <b>moderator</b> is a variable that changes the <i>strength or direction</i> of the relationship, telling you <i>when</i> or <i>for whom</i> it holds (heat increases aggression more <i>for</i> provoked people). A <b>meta-analysis</b> statistically combines many studies to estimate the true overall effect size, the gold standard for asking "does this effect really hold?"</p>
+
+<h3>Deception, ethics and replication</h3>
+<p>Because telling participants the true purpose would change their behaviour, social psychology often uses <b>deception</b> (a cover story). This is allowed only under strict ethical safeguards: <b>informed consent</b>, the right to withdraw, minimising harm, and a thorough <b>debriefing</b> afterwards that reveals the true purpose and removes any deception's after-effects. An <b>Institutional Review Board / ethics committee</b> must approve the study first. The discipline has also taken its <b>replication crisis</b> seriously: a finding is trusted only when independent labs <b>replicate</b> it, which is why classic single studies (Milgram, the marshmallow studies) are now discussed alongside their replications and failures.</p>
+<div class="nimhans"><b>NIMHANS angle.</b> NIMHANS, being a clinical and research institute, asks methods crisply: define IV vs DV, name the only method that proves causation (experimental), state why correlation cannot (third-variable + directionality), and distinguish mediator (the <i>why</i>, the mechanism in between) from moderator (the <i>when/for whom</i>, changes the strength). Also expect: the purpose of debriefing after deception, and what an ethics board protects.</div>
+<div class="rule"><b>Lock these lines.</b> Allport's definition = "actual, imagined or implied presence of others." Cause and effect = experiment only. IV = manipulated, DV = measured. Mediator = mechanism (why), moderator = condition (when/for whom). A theory is supported or disconfirmed, never proven.</div>
+<div class="recap"><b>Recap §0.</b> Social psych studies how others' real/imagined presence shapes the individual, scientifically. Three methods: experimental (causation, via IV manipulation + random assignment), correlational (covariation only), survey (description). Mediator = why, moderator = when. Deception is balanced by consent, debriefing and ethics review; findings must replicate.</div>
+
+<!-- ============ 1. SOCIAL COGNITION ============ -->
 <h2 id="cognition" class="sec">1. Social cognition (how we think about the social world)</h2>
+<p><b>The problem.</b> The social world throws more information at us than we could ever fully process. So the mind takes shortcuts. Social cognition is the study of <i>how we notice, store, recall and use information about people and situations</i>, and especially of the predictable errors those shortcuts produce. The governing idea is that we are <b>"cognitive misers"</b>: we spend mental effort sparingly, defaulting to fast, cheap strategies that are usually good enough but sometimes badly wrong.</p>
+
+<h3>Dual-process thinking: automatic vs controlled</h3>
+<p>Underlying everything here is the <b>dual-process</b> view (popularised as System 1 vs System 2). <b>Automatic processing</b> is fast, effortless, unconscious and emotional; <b>controlled processing</b> is slow, effortful, deliberate and logical. Most social judgement runs on autopilot (System 1), and the biases below are largely automatic processing's blind spots. This same automatic/controlled split reappears in persuasion (peripheral vs central route, §4) and prejudice (implicit vs explicit attitudes, §5).</p>
+
+<h3>Heuristics: the mental shortcuts</h3>
+<p>A <b>heuristic</b> is a rule of thumb that gives a quick answer without full analysis. Three dominate the syllabus.</p>
 <table>
 <tr><th>Term</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Heuristics (availability, representativeness, anchoring)</b></td><td>Tversky &amp; Kahneman</td><td>Mental shortcuts: judge by ease of recall / by resemblance to a prototype / by clinging to a first value. Fuller list on the <a href="../phenomena/#biases">Phenomena</a> page.</td></tr>
+<tr><td><b>Heuristics (availability, representativeness, anchoring)</b></td><td>Tversky &amp; Kahneman</td><td>Mental shortcuts: judge by ease of recall (availability) / by resemblance to a prototype (representativeness) / by clinging to a first value then adjusting too little (anchoring &amp; adjustment). Fuller list on the <a href="../phenomena/#biases">Phenomena</a> page.</td></tr>
 <tr><td><b>Schema</b></td><td>Bartlett (social use: Fiske &amp; Taylor)</td><td>Mental framework that guides what we notice, encode and recall about people/situations.</td></tr>
 <tr><td><b>Priming</b></td><td>—</td><td>A recently activated schema shapes the next interpretation, even unconsciously.</td></tr>
+</table>
+<div class="why"><b>Feel each heuristic.</b> <b>Availability</b>: you fear plane crashes more than car crashes because crashes make the news and spring to mind easily, even though driving is deadlier. <b>Representativeness</b>: told someone is quiet and loves poetry, you guess "librarian" over "salesperson" because they <i>fit the prototype</i>, ignoring that salespeople vastly outnumber librarians (base-rate neglect). <b>Anchoring</b>: the first price you hear drags your estimate toward it. A <b>schema</b> is the bigger structure these run on, a packaged expectation ("restaurant" schema tells you to wait for a menu); <b>priming</b> is switching a schema on so it colours what comes next.</div>
+
+<h3>The biases of social thought</h3>
+<p>When heuristics misfire systematically, we get <b>biases</b>, errors that lean reliably in one direction. Baron groups several together.</p>
+<table>
+<tr><th>Term</th><th>Who</th><th>What it is</th></tr>
 <tr><td><b>Self-fulfilling prophecy</b></td><td>Robert Merton</td><td>An expectation makes itself come true by changing behaviour (basis of the Pygmalion effect).</td></tr>
 <tr><td><b>Counterfactual thinking</b></td><td>Kahneman &amp; Tversky</td><td>Imagining "what might have been"; near-misses sting most (the bronze medallist is happier than the silver).</td></tr>
 <tr><td><b>Optimistic / unrealistic-optimism bias</b></td><td>Neil Weinstein</td><td>We think bad things are less likely to happen to us than to others.</td></tr>
@@ -76,14 +124,31 @@
 <tr><td><b>Planning fallacy</b></td><td>Kahneman &amp; Tversky</td><td>We chronically underestimate how long our own tasks will take.</td></tr>
 <tr><td><b>Magical thinking</b></td><td>—</td><td>Assumptions that defy causality (law of contagion / similarity; won't eat fudge shaped like dog faeces).</td></tr>
 </table>
+<p><b>Affect and cognition cut both ways.</b> Mood shapes thought (positive mood broadens thinking and increases heuristic use; we recall <b>mood-congruent</b> material), and thought shapes mood (how you appraise an event determines how you feel about it). This two-way street is why a good mood makes you a lazier, more shortcut-prone thinker.</p>
+<div class="trap"><b>Two near-twins:</b> <b>availability</b> = judged by <i>how easily examples come to mind</i> (recent, vivid, emotional). <b>Representativeness</b> = judged by <i>how well it matches a prototype</i> (and so neglects base rates). If the stem stresses "easy to recall / vivid", it's availability; if it stresses "fits the stereotype/category", it's representativeness.</div>
+<div class="nimhans"><b>NIMHANS angle.</b> These biases map straight onto clinical cognition. <b>Negativity bias + counterfactual thinking</b> underlie depressive rumination ("if only I had..."); the <b>opposite</b> of optimistic bias, depressive realism / pessimistic explanatory style, links to depression; <b>magical thinking</b> is a named symptom in OCD and schizotypal personality. Cognitive therapy is essentially retraining these automatic biases.</div>
+<div class="recap"><b>Recap §1.</b> We are cognitive misers running mostly automatic (System 1) thinking. Heuristics (availability, representativeness, anchoring = Tversky &amp; Kahneman) and schemas/priming speed judgement but bias it: self-fulfilling prophecy (Merton), counterfactuals, optimistic bias (Weinstein), negativity bias, planning fallacy, magical thinking. Affect and cognition feed each other.</div>
 
-<!-- 2. SOCIAL PERCEPTION / ATTRIBUTION -->
+<!-- ============ 2. SOCIAL PERCEPTION / ATTRIBUTION ============ -->
 <h2 id="perception" class="sec">2. Social perception &amp; attribution</h2>
+<p><b>The problem.</b> To navigate other people we must answer two questions about them: <i>what are they feeling right now</i> (read from nonverbal cues) and <i>why did they do that</i> (attribution). Social perception is how we form impressions and infer causes from limited information.</p>
+
+<h3>Nonverbal communication</h3>
+<p>Before a word is spoken we read <b>nonverbal channels</b>: facial expressions (Ekman's six basic emotions are largely universal), eye contact (gaze), body language and posture, touch, and paralanguage (tone, pace). These leak information the person may not mean to send, which is why we often trust the nonverbal over the verbal.</p>
+
+<h3>Attribution: explaining behaviour</h3>
+<p><b>Attribution theory</b> asks how we decide whether an action springs from the person (an <b>internal/dispositional</b> cause) or the circumstance (an <b>external/situational</b> cause). Three classic models built the field.</p>
 <table>
 <tr><th>Theory / term</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Attribution theory</b></td><td>Fritz Heider</td><td>We explain behaviour as internal (disposition) or external (situation); "naïve psychologist."</td></tr>
+<tr><td><b>Attribution theory</b></td><td>Fritz Heider</td><td>We explain behaviour as internal (disposition) or external (situation); the person as "naïve psychologist."</td></tr>
 <tr><td><b>Correspondent inference theory</b></td><td>Jones &amp; Davis</td><td>We infer a trait from acts that are freely chosen, unexpected and low in social desirability.</td></tr>
-<tr><td><b>Covariation model</b></td><td>Harold Kelley</td><td>Attribution uses consensus, consistency &amp; distinctiveness (high all three → situation).</td></tr>
+<tr><td><b>Covariation model</b></td><td>Harold Kelley</td><td>Attribution uses consensus, consistency &amp; distinctiveness (high all three → situation/stimulus; low consensus + low distinctiveness + high consistency → the person).</td></tr>
+</table>
+<div class="why"><b>Walk Kelley's three Cs.</b> Your friend laughs at a comedian. <b>Consensus</b>: does everyone laugh? <b>Distinctiveness</b>: does she laugh only at <i>this</i> comedian? <b>Consistency</b>: does she laugh every time? High on all three (everyone laughs, only at him, every time) → it's the comedian (external). Low consensus + low distinctiveness (no one else laughs, she laughs at everything) + high consistency → it's her (internal). Heider gave the basic internal/external split; Jones &amp; Davis asked when an act reveals a true trait; Kelley added the data-driven rule.</div>
+
+<h3>The attributional biases</h3>
+<table>
+<tr><th>Theory / term</th><th>Who</th><th>What it is</th></tr>
 <tr><td><b>Fundamental attribution error (correspondence bias)</b></td><td>coined by Lee Ross</td><td>Over-blaming others' character, under-weighting their situation.</td></tr>
 <tr><td><b>Actor–observer effect</b></td><td>Jones &amp; Nisbett</td><td>My acts = situation; your acts = your character.</td></tr>
 <tr><td><b>Self-serving bias</b></td><td>—</td><td>My success = me; my failure = bad luck/situation.</td></tr>
@@ -91,145 +156,270 @@
 <tr><td><b>Facial-feedback hypothesis</b></td><td>Tomkins; Ekman</td><td>Your facial expression feeds back to intensify/trigger the felt emotion.</td></tr>
 <tr><td><b>Thin slices</b></td><td>Ambady &amp; Rosenthal</td><td>Surprisingly accurate judgements from very brief (seconds) exposure to behaviour.</td></tr>
 </table>
-<div class="trap"><b>The attribution swap:</b> <b>FAE</b> = judging <i>others</i> (blame the person). <b>Actor–observer</b> = the gap between how you explain <i>your own</i> vs others' acts. <b>Self-serving</b> = how you explain your own <i>outcomes</i> (take credit, dodge blame). All three look alike on a stem — read whose behaviour and whose outcome it's about.</div>
 
-<!-- 3. THE SELF -->
+<h3>Impression formation &amp; management</h3>
+<p><b>Solomon Asch</b> showed first impressions form fast and that some traits are <b>central</b> (swapping "warm" for "cold" in a trait list transforms the whole impression, while "polite/blunt" barely moves it). The <b>primacy effect</b> means early information weighs most. On the flip side, <b>impression management (self-presentation)</b> is our effort to control the impression others form of us, a theme Goffman framed dramaturgically (life as theatre, front-stage vs back-stage).</p>
+<div class="trap"><b>The attribution swap:</b> <b>FAE</b> = judging <i>others</i> (blame the person, ignore their situation). <b>Actor–observer</b> = the gap between how you explain <i>your own</i> acts (situation) vs others' acts (character). <b>Self-serving</b> = how you explain your own <i>outcomes</i> (take credit for success, dodge blame for failure). All three look alike on a stem, read whose behaviour and whose outcome it is about.</div>
+<div class="nimhans"><b>NIMHANS angle.</b> Attribution style is core to clinical models. Depression's <b>negative (pessimistic) attributional style</b> (internal, stable, global for failures) is the mirror image of the self-serving bias, which depressed people <i>lose</i>. The <b>just-world belief</b> explains victim-blaming in trauma work. And the FAE is exactly why we pathologise individuals while underrating their situations, the bias clinical formulation tries to correct.</div>
+<div class="recap"><b>Recap §2.</b> We read others nonverbally, then attribute causes. Heider (naïve psychologist) → Jones &amp; Davis (correspondent inference) → Kelley (covariation, three Cs). Biases: FAE (Ross), actor–observer (Jones &amp; Nisbett), self-serving, just-world (Lerner). Impressions form fast (Asch, primacy, central traits) and we manage our own (self-presentation).</div>
+
+<!-- ============ 3. THE SELF ============ -->
 <h2 id="self" class="sec">3. The self</h2>
+<p><b>The problem.</b> The self is both the thinker and the thing thought about. Social psychology asks: how do we build a <b>self-concept</b> (the content, "who am I"), how do we set our <b>self-esteem</b> (the evaluation, "how do I feel about who I am"), and what lengths do we go to to protect that esteem? The recurring finding is that the self is fundamentally <i>social</i>: we know ourselves largely by comparison to, and reflection in, other people.</p>
+
 <table>
 <tr><th>Theory / term</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Social comparison theory</b></td><td>Leon Festinger</td><td>We evaluate ourselves by comparison to others (upward vs downward comparison).</td></tr>
-<tr><td><b>Self-perception theory</b></td><td>Daryl Bem</td><td>When attitudes are weak, we infer them by watching our own behaviour.</td></tr>
-<tr><td><b>Self-discrepancy theory</b></td><td>E. Tory Higgins</td><td>Actual vs <i>ideal</i> self → dejection (sadness); actual vs <i>ought</i> self → agitation (anxiety).</td></tr>
+<tr><td><b>Social comparison theory</b></td><td>Leon Festinger</td><td>We evaluate ourselves by comparison to others (upward comparison to better-off = motivating but deflating; downward to worse-off = self-enhancing).</td></tr>
+<tr><td><b>Self-perception theory</b></td><td>Daryl Bem</td><td>When attitudes are weak or ambiguous, we infer them by observing our own behaviour ("I'm eating salad, I guess I like salad").</td></tr>
+<tr><td><b>Self-discrepancy theory</b></td><td>E. Tory Higgins</td><td>Actual vs <i>ideal</i> self → dejection (sadness, disappointment); actual vs <i>ought</i> self → agitation (anxiety, guilt).</td></tr>
 <tr><td><b>Self-monitoring</b></td><td>Mark Snyder</td><td>High self-monitors tailor behaviour to the situation; low ones act from inner attitudes.</td></tr>
-<tr><td><b>Self-efficacy</b></td><td>Albert Bandura</td><td>Belief in your capacity to carry out the actions a task needs.</td></tr>
-<tr><td><b>Self-handicapping</b></td><td>Berglas &amp; Jones</td><td>Setting up an excuse in advance (not studying) to protect self-esteem from failure.</td></tr>
-<tr><td><b>Self-verification</b></td><td>William Swann</td><td>We seek feedback that confirms our existing self-view, even if negative.</td></tr>
-<tr><td><b>Self-affirmation theory</b></td><td>Claude Steele</td><td>Affirming a valued part of the self buffers threats to self-integrity.</td></tr>
-<tr><td><b>Spotlight effect</b></td><td>Thomas Gilovich</td><td>Overestimating how much others notice/judge us.</td></tr>
-<tr><td><b>BIRGing (basking in reflected glory)</b></td><td>Robert Cialdini</td><td>"We won" — claiming a winning group to boost self-image (CORFing = distancing from losers).</td></tr>
-<tr><td><b>Terror management theory</b></td><td>Greenberg, Pyszczynski &amp; Solomon</td><td>Awareness of mortality drives us to defend our cultural worldview and self-esteem.</td></tr>
+<tr><td><b>Self-efficacy</b></td><td>Albert Bandura</td><td>Belief in your capacity to carry out the actions a specific task needs.</td></tr>
+<tr><td><b>Self-handicapping</b></td><td>Berglas &amp; Jones</td><td>Setting up an excuse in advance (not studying, drinking before a test) to protect self-esteem from possible failure.</td></tr>
+<tr><td><b>Self-verification</b></td><td>William Swann</td><td>We seek feedback that confirms our existing self-view, even when it is negative.</td></tr>
+<tr><td><b>Self-affirmation theory</b></td><td>Claude Steele</td><td>Affirming a valued part of the self (in a different domain) buffers threats to self-integrity.</td></tr>
+<tr><td><b>Spotlight effect</b></td><td>Thomas Gilovich</td><td>Overestimating how much others notice and judge us (the stain on your shirt).</td></tr>
+<tr><td><b>BIRGing (basking in reflected glory)</b></td><td>Robert Cialdini</td><td>"We won" (claiming a winning group to boost self-image); CORFing = cutting off reflected failure, distancing from losers.</td></tr>
+<tr><td><b>Terror management theory</b></td><td>Greenberg, Pyszczynski &amp; Solomon</td><td>Awareness of our own mortality drives us to defend our cultural worldview and bolster self-esteem.</td></tr>
 </table>
+<div class="why"><b>The thread.</b> Notice how many of these are <i>defences</i> of self-esteem, not neutral descriptions: self-handicapping pre-loads an excuse, self-affirmation patches a wound in one domain by celebrating another, BIRGing borrows glory, terror management props up the whole worldview against death anxiety. The self is not a calm observer, it is a press secretary working to keep esteem intact. The exceptions are the cooler cognitive ones: social comparison (Festinger, how we measure ourselves) and self-perception (Bem, how we infer attitudes from behaviour).</div>
+<div class="trap"><b>Two self-discrepancy directions (Higgins):</b> falling short of your <b>ideal</b> self (hopes, what you <i>want</i> to be) → <b>dejection</b> (sad, depressed). Falling short of your <b>ought</b> self (duties, what you <i>should</i> be) → <b>agitation</b> (anxious, guilty). Ideal→sad, ought→anxious.</div>
+<div class="nimhans"><b>NIMHANS angle.</b> <b>Self-efficacy (Bandura)</b> and <b>self-esteem</b> are workhorses of clinical assessment and CBT. <b>Self-discrepancy theory (Higgins)</b> directly models depression (ideal-self gap) vs anxiety (ought-self gap). <b>Self-verification (Swann)</b> explains why people with low self-esteem resist positive feedback and stay in confirming (even abusive) relationships, a real treatment obstacle. <b>Terror management</b> connects to existential anxiety.</div>
+<div class="recap"><b>Recap §3.</b> The self is social. We measure it by comparison (Festinger) and infer attitudes from behaviour (Bem). Higgins splits ideal-self gaps (sad) from ought-self gaps (anxious). Snyder = self-monitoring, Bandura = self-efficacy, Steele = self-affirmation, Swann = self-verification, Gilovich = spotlight effect, Cialdini = BIRGing, and TMT = mortality defends the worldview. Most of these are esteem-protecting manoeuvres.</div>
 
-<!-- 4. ATTITUDES -->
+<!-- ============ 4. ATTITUDES ============ -->
 <h2 id="attitudes" class="sec">4. Attitudes &amp; persuasion</h2>
+<p><b>The problem.</b> An <b>attitude</b> is an evaluation of an object (person, issue, thing) along a like–dislike dimension. The classic <b>ABC</b> structure has three components: <b>A</b>ffective (feelings), <b>B</b>ehavioural (action tendencies) and <b>C</b>ognitive (beliefs). Attitudes serve <b>functions</b> (knowledge, ego-defence, value-expression, utilitarian). The two big questions in this chapter are: <i>do attitudes actually predict behaviour?</i> and <i>how do you change them (persuasion)?</i></p>
+
+<h3>The attitude–behaviour link</h3>
+<p>For decades the embarrassing answer was "barely". The famous demonstration is the <b>LaPiere study</b>: a researcher toured 1930s America with a Chinese couple and was served almost everywhere, yet when later asked by mail, most of those same establishments said they would <i>refuse</i> Chinese guests. Stated attitude did not match actual behaviour. The resolution came from <b>Fishbein &amp; Ajzen</b>: attitudes predict behaviour best through <b>intentions</b>, and intentions are shaped by attitudes <i>plus</i> subjective norms <i>plus</i> (in the planned-behaviour update) perceived behavioural control. Attitudes also predict better when they are strong, specific, accessible, and based on direct experience.</p>
+
+<h3>Persuasion: how attitudes change</h3>
+<table>
+<tr><th>Theory / term</th><th>Who</th><th>What it is</th></tr>
+<tr><td><b>Yale attitude-change approach</b></td><td>Carl Hovland</td><td>Who says what to whom: source (credibility, attractiveness), message, and audience factors in persuasion.</td></tr>
+<tr><td><b>Elaboration Likelihood Model (ELM)</b></td><td>Petty &amp; Cacioppo</td><td>Persuasion via the <b>central route</b> (thoughtful scrutiny of arguments, when motivated &amp; able) vs the <b>peripheral route</b> (surface cues: attractiveness, length, expert badge).</td></tr>
+<tr><td><b>Heuristic-Systematic Model (HSM)</b></td><td>Shelly Chaiken</td><td>Same dual-route idea: systematic (effortful argument analysis) vs heuristic (rules of thumb, "experts are right").</td></tr>
+<tr><td><b>Theory of reasoned action / planned behaviour</b></td><td>Fishbein &amp; Ajzen</td><td>Intention (from attitudes + subjective norms + perceived behavioural control) predicts behaviour.</td></tr>
+<tr><td><b>Inoculation theory</b></td><td>William McGuire</td><td>A weak counter-argument first "vaccinates" an attitude against later strong attacks.</td></tr>
+<tr><td><b>Psychological reactance</b></td><td>Jack Brehm</td><td>Threaten a freedom → people want the forbidden thing more (boomerang effect).</td></tr>
+<tr><td><b>LaPiere study</b></td><td>Richard LaPiere</td><td>The classic attitude–behaviour gap: stated prejudice did not match actual service to a Chinese couple.</td></tr>
+</table>
+<div class="why"><b>The dual route, intuitively.</b> When you care and can concentrate (buying a house), you take the <b>central</b> route, weighing real arguments, and the resulting attitude is durable. When you do not care or are distracted (a soft-drink jingle), you take the <b>peripheral</b> route, swayed by who is pretty or how many points were listed, and the attitude is flimsy. ELM (Petty &amp; Cacioppo) and HSM (Chaiken) are the <i>same</i> insight under different labels: central = systematic, peripheral = heuristic. This is §1's automatic/controlled split applied to persuasion.</div>
+
+<h3>Cognitive dissonance &amp; consistency theories</h3>
+<p>The most-tested idea in the whole chapter. When two cognitions clash, or behaviour contradicts an attitude, we feel an unpleasant tension (<b>dissonance</b>) and are driven to reduce it, usually by <i>changing the attitude to fit the behaviour</i>.</p>
 <table>
 <tr><th>Theory / term</th><th>Who</th><th>What it is</th></tr>
 <tr><td><b>Cognitive dissonance</b></td><td>Leon Festinger</td><td>Tension from clashing cognitions drives attitude change to reduce it.</td></tr>
-<tr><td><b>Insufficient justification / induced compliance</b></td><td>Festinger &amp; Carlsmith</td><td>The $1 group changed their attitude more than the $20 group (less reward = more dissonance).</td></tr>
-<tr><td><b>Effort justification</b></td><td>Aronson &amp; Mills</td><td>The harder the initiation, the more we value the group we joined.</td></tr>
-<tr><td><b>Balance theory</b></td><td>Fritz Heider</td><td>We seek consistency among our liking relationships (P-O-X triangles).</td></tr>
-<tr><td><b>Elaboration Likelihood Model</b></td><td>Petty &amp; Cacioppo</td><td>Persuasion via the central route (thoughtful, when motivated/able) vs peripheral route (cues).</td></tr>
-<tr><td><b>Heuristic-Systematic Model</b></td><td>Shelly Chaiken</td><td>Same dual-route idea: systematic (effortful) vs heuristic (rules-of-thumb) processing.</td></tr>
-<tr><td><b>Theory of reasoned action / planned behaviour</b></td><td>Fishbein &amp; Ajzen</td><td>Intention (from attitudes + norms + perceived control) predicts behaviour.</td></tr>
-<tr><td><b>Yale attitude-change approach</b></td><td>Carl Hovland</td><td>Who says what to whom: source, message, audience factors in persuasion.</td></tr>
-<tr><td><b>Inoculation theory</b></td><td>William McGuire</td><td>A weak counter-argument first "vaccinates" an attitude against later strong attacks.</td></tr>
-<tr><td><b>Psychological reactance</b></td><td>Jack Brehm</td><td>Threaten a freedom → people want the forbidden thing more (boomerang).</td></tr>
-<tr><td><b>LaPiere study</b></td><td>Richard LaPiere</td><td>The classic attitude–behaviour gap: stated prejudice didn't match actual service to a Chinese couple.</td></tr>
+<tr><td><b>Insufficient justification / induced compliance</b></td><td>Festinger &amp; Carlsmith</td><td>The $1 group changed their attitude more than the $20 group (less external reward = more dissonance = more internal attitude change).</td></tr>
+<tr><td><b>Effort justification</b></td><td>Aronson &amp; Mills</td><td>The harder/more embarrassing the initiation, the more we value the group we joined.</td></tr>
+<tr><td><b>Balance theory</b></td><td>Fritz Heider</td><td>We seek consistency among our liking relationships (P-O-X triangles; an imbalanced triangle pressures change).</td></tr>
 </table>
-<div class="trap"><b>Dissonance vs self-perception:</b> both predict attitude follows behaviour. <b>Festinger</b> (dissonance) = there's <i>arousal/discomfort</i> when the attitude is strong. <b>Bem</b> (self-perception) = no arousal, you just <i>infer</i> the attitude — applies when the attitude was weak/unclear.</div>
+<div class="why"><b>Why $1 beat $20.</b> Participants did a boring task then were paid to tell the next person it was fun. Those paid <b>$20</b> had a big external reason to lie ("I did it for the money"), so no dissonance, attitude unchanged. Those paid <b>$1</b> had no good external reason, so the only way to resolve "I said it was fun but I had no reason to lie" was to decide it <i>actually was</i> fun. Less reward, more attitude change. Same logic in effort justification: "I suffered to get in, so this must be worth it."</div>
+<div class="trap"><b>Dissonance vs self-perception:</b> both predict attitude follows behaviour. <b>Festinger</b> (dissonance) = there is <i>arousal/discomfort</i>, and it applies when the attitude was <i>strong/clear</i> and the behaviour contradicts it. <b>Bem</b> (self-perception, §3) = <i>no arousal</i>, you simply <i>infer</i> the attitude by watching yourself, and it applies when the attitude was <i>weak or unclear</i>. The deciding clue is whether the stem mentions tension/discomfort (Festinger) or a calm inference (Bem).</div>
+<div class="nimhans"><b>NIMHANS angle.</b> Dissonance and reactance have direct clinical use. <b>Effort justification</b> is one reason expensive/effortful therapy can be valued more (and underlies hazing/cult commitment). <b>Reactance (Brehm)</b> explains why heavy-handed advice backfires and is the rationale for <b>motivational interviewing</b>, which deliberately avoids triggering it. <b>Dissonance</b> is harnessed in attitude-change health interventions.</div>
+<div class="recap"><b>Recap §4.</b> Attitudes (ABC, with functions) predict behaviour weakly except via intentions (Fishbein &amp; Ajzen); LaPiere showed the gap. Persuasion runs two routes, central/systematic vs peripheral/heuristic (ELM = Petty &amp; Cacioppo, HSM = Chaiken; Yale = Hovland). McGuire = inoculation, Brehm = reactance. Dissonance (Festinger) drives attitude-to-behaviour alignment; the $1>$20 result = insufficient justification (Festinger &amp; Carlsmith); effort justification = Aronson &amp; Mills; balance = Heider.</div>
 
-<!-- 5. PREJUDICE -->
+<!-- ============ 5. PREJUDICE ============ -->
 <h2 id="prejudice" class="sec">5. Stereotyping, prejudice &amp; discrimination</h2>
+<p><b>The problem, and the three words kept straight.</b> A <b>stereotype</b> is the <i>cognitive</i> component (a belief about a group's traits). <b>Prejudice</b> is the <i>affective</i> component (a negative feeling toward a group). <b>Discrimination</b> is the <i>behavioural</i> component (unequal treatment). They are the ABC of intergroup bias. The chapter asks where this bias comes from (identity, competition, personality, cognition) and what reduces it (contact).</p>
+
+<h3>Sources of prejudice</h3>
 <table>
 <tr><th>Theory / term</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Social identity theory</b></td><td>Tajfel &amp; Turner</td><td>Group membership feeds self-esteem → in-group favouritism, out-group bias.</td></tr>
-<tr><td><b>Minimal group paradigm</b></td><td>Henri Tajfel</td><td>Even arbitrary, meaningless group splits produce in-group favouritism.</td></tr>
-<tr><td><b>Realistic conflict theory</b></td><td>Muzafer Sherif</td><td>Competition over scarce resources breeds intergroup hostility (Robbers Cave); superordinate goals reduce it.</td></tr>
-<tr><td><b>Authoritarian personality</b></td><td>Theodor Adorno</td><td>A rigid, submissive-to-authority personality (F-scale) prone to prejudice.</td></tr>
+<tr><td><b>Social identity theory</b></td><td>Tajfel &amp; Turner</td><td>Part of our self-esteem comes from group membership → we favour the in-group and derogate the out-group to feel good.</td></tr>
+<tr><td><b>Minimal group paradigm</b></td><td>Henri Tajfel</td><td>Even arbitrary, meaningless group splits (coin toss, dot-estimation) produce in-group favouritism.</td></tr>
+<tr><td><b>Realistic conflict theory</b></td><td>Muzafer Sherif</td><td>Competition over scarce resources breeds intergroup hostility (Robbers Cave study); superordinate (shared) goals reduce it.</td></tr>
+<tr><td><b>Authoritarian personality</b></td><td>Theodor Adorno</td><td>A rigid, conventional, submissive-to-authority personality (measured by the F-scale) prone to prejudice.</td></tr>
 <tr><td><b>Scapegoat theory</b></td><td>(frustration–aggression roots)</td><td>Frustration is displaced onto a weaker out-group blamed for problems.</td></tr>
-<tr><td><b>Contact hypothesis</b></td><td>Gordon Allport</td><td>Contact reduces prejudice if there's equal status, common goals, cooperation &amp; institutional support.</td></tr>
-<tr><td><b>Jigsaw classroom</b></td><td>Elliot Aronson</td><td>Cooperative learning where each pupil holds one piece → forces interdependence, cuts prejudice.</td></tr>
-<tr><td><b>Stereotype threat</b></td><td>Steele &amp; Aronson</td><td>Fear of confirming a negative stereotype about your group depresses your performance.</td></tr>
-<tr><td><b>Illusory correlation</b></td><td>Hamilton &amp; Gifford</td><td>Seeing a link between minority membership and rare (negative) behaviour that isn't really there.</td></tr>
-<tr><td><b>Out-group homogeneity effect</b></td><td>—</td><td>"They're all alike"; we see less variability in out-groups than our own.</td></tr>
-<tr><td><b>Stereotype content model</b></td><td>Susan Fiske</td><td>Groups judged on warmth × competence → four emotions (pride, envy, pity, contempt).</td></tr>
+</table>
+<div class="why"><b>Identity vs competition vs personality.</b> Three different engines. <b>Social identity (Tajfel &amp; Turner)</b>: bias arises just from <i>categorising</i> people into us/them, no real conflict needed, the minimal group studies prove arbitrary groups suffice. <b>Realistic conflict (Sherif)</b>: bias arises from <i>real competition</i> over resources, and Robbers Cave showed shared goals (a broken-down truck both camps must pull) dissolve it. <b>Authoritarian personality (Adorno)</b>: bias sits inside a particular <i>personality type</i>. NIMHANS loves to swap these three.</div>
+
+<h3>The cognitive machinery of stereotypes</h3>
+<table>
+<tr><th>Theory / term</th><th>Who</th><th>What it is</th></tr>
+<tr><td><b>Illusory correlation</b></td><td>Hamilton &amp; Gifford</td><td>Perceiving a link between minority-group membership and rare (negative) behaviour that is not really there (two distinctive things co-occur and stick).</td></tr>
+<tr><td><b>Out-group homogeneity effect</b></td><td>—</td><td>"They're all alike"; we see less variability in out-groups than in our own group.</td></tr>
+<tr><td><b>Stereotype threat</b></td><td>Steele &amp; Aronson</td><td>Fear of confirming a negative stereotype about your group depresses your performance on the stereotyped task.</td></tr>
+<tr><td><b>Stereotype content model</b></td><td>Susan Fiske</td><td>Groups are judged on two dimensions, warmth × competence → four emotions: admiration (warm+competent), envy (cold+competent), pity (warm+incompetent), contempt (cold+incompetent).</td></tr>
 </table>
 
-<!-- 6. ATTRACTION & LOVE -->
-<h2 id="attraction" class="sec">6. Interpersonal attraction, relationships &amp; love</h2>
+<h3>Reducing prejudice</h3>
 <table>
 <tr><th>Theory / term</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Propinquity (proximity) effect</b></td><td>Festinger, Schachter &amp; Back</td><td>The closer people live/sit, the more likely they form friendships (Westgate housing study).</td></tr>
-<tr><td><b>Mere-exposure effect</b></td><td>Robert Zajonc</td><td>Repeated exposure alone increases liking.</td></tr>
-<tr><td><b>Similarity–attraction</b></td><td>Donn Byrne</td><td>We like those with similar attitudes (not "opposites attract"); the law of attraction.</td></tr>
-<tr><td><b>Matching hypothesis</b></td><td>Walster &amp; Berscheid</td><td>We pair with partners of roughly our own level of physical attractiveness.</td></tr>
-<tr><td><b>"What is beautiful is good"</b></td><td>Dion, Berscheid &amp; Walster</td><td>Physical-attractiveness stereotype: we assume good-looking people have better traits.</td></tr>
-<tr><td><b>Triangular theory of love</b></td><td>Robert Sternberg</td><td>Intimacy + passion + commitment combine into 7 love types (consummate = all three).</td></tr>
-<tr><td><b>Passionate vs companionate love</b></td><td>Hatfield &amp; Berscheid</td><td>Intense arousal/longing vs deep affection &amp; trust that lasts.</td></tr>
-<tr><td><b>Two-factor theory of love (misattribution of arousal)</b></td><td>Dutton &amp; Aron</td><td>Arousal from a scary suspension bridge gets relabelled as attraction.</td></tr>
-<tr><td><b>Adult attachment styles</b></td><td>Hazan &amp; Shaver</td><td>Secure / anxious-ambivalent / avoidant carried from infancy into romantic love.</td></tr>
-<tr><td><b>Social exchange theory</b></td><td>Thibaut &amp; Kelley</td><td>Relationships weighed as rewards minus costs vs a comparison level (and CL-alt).</td></tr>
-<tr><td><b>Equity theory</b></td><td>Walster / Adams</td><td>We're happiest when our ratio of inputs to outcomes matches the partner's.</td></tr>
+<tr><td><b>Contact hypothesis</b></td><td>Gordon Allport</td><td>Contact reduces prejudice <i>only if</i> four conditions hold: equal status, common goals, intergroup cooperation, and institutional support.</td></tr>
+<tr><td><b>Jigsaw classroom</b></td><td>Elliot Aronson</td><td>Cooperative learning where each pupil holds one essential piece of the lesson → forces interdependence, cuts prejudice. A practical application of the contact hypothesis.</td></tr>
+</table>
+<div class="trap"><b>Stereotype threat vs self-fulfilling prophecy:</b> <b>stereotype threat (Steele &amp; Aronson)</b> = the <i>target's own</i> anxiety about confirming the stereotype hurts <i>their</i> performance. <b>Self-fulfilling prophecy (Merton, §1)</b> = the <i>perceiver's</i> expectation changes how they treat the target, eliciting the expected behaviour. One is driven from inside the target, the other from the outside perceiver.</div>
+<div class="nimhans"><b>NIMHANS angle.</b> Indian-context applications are fair game: caste, religion and language as in-group/out-group lines fit social identity and realistic conflict; the <b>contact hypothesis (Allport)</b> and <b>jigsaw classroom (Aronson)</b> underpin intergroup interventions. Stereotype threat is cited in education and gender-gap research. Note Steele appears <i>twice</i> across the syllabus: stereotype threat here and self-affirmation in §3.</div>
+<div class="recap"><b>Recap §5.</b> Stereotype (belief) / prejudice (feeling) / discrimination (action). Sources: social identity + minimal group (Tajfel &amp; Turner / Tajfel), realistic conflict + Robbers Cave (Sherif), authoritarian personality (Adorno), scapegoating. Cognition: illusory correlation (Hamilton &amp; Gifford), out-group homogeneity, stereotype threat (Steele &amp; Aronson), stereotype content model (Fiske). Reduction: contact hypothesis (Allport, four conditions), jigsaw classroom (Aronson).</div>
+
+<!-- ============ 6. ATTRACTION & LOVE ============ -->
+<h2 id="attraction" class="sec">6. Interpersonal attraction, relationships &amp; love</h2>
+<p><b>The problem.</b> Why do we like and love some people and not others, and what holds relationships together? Baron moves from the cold, almost mechanical predictors of <i>initial attraction</i> (who do you even end up near and noticing) to theories of <i>love</i> and finally to the economic models of <i>why relationships last or end</i>.</p>
+
+<h3>Predictors of initial attraction</h3>
+<table>
+<tr><th>Theory / term</th><th>Who</th><th>What it is</th></tr>
+<tr><td><b>Propinquity (proximity) effect</b></td><td>Festinger, Schachter &amp; Back</td><td>The closer people live or sit, the more likely they form friendships (the Westgate housing study).</td></tr>
+<tr><td><b>Mere-exposure effect</b></td><td>Robert Zajonc</td><td>Repeated exposure to a stimulus, by itself, increases liking for it.</td></tr>
+<tr><td><b>Similarity–attraction</b></td><td>Donn Byrne</td><td>We like those with similar attitudes (not "opposites attract"); the "law of attraction".</td></tr>
+<tr><td><b>Matching hypothesis</b></td><td>Walster &amp; Berscheid</td><td>We tend to pair with partners of roughly our own level of physical attractiveness.</td></tr>
+<tr><td><b>"What is beautiful is good"</b></td><td>Dion, Berscheid &amp; Walster</td><td>The physical-attractiveness stereotype: we assume good-looking people also have better personalities.</td></tr>
+</table>
+<div class="why"><b>Why proximity and exposure come first.</b> You cannot like someone you never encounter, so <b>propinquity</b> (Festinger's housing study: friendships clustered by who lived nearest the stairs and mailboxes) sets the pool. <b>Mere exposure</b> (Zajonc) then does its quiet work, familiarity breeds liking, not contempt. Only then do <b>similarity</b> (Byrne, the real rule, not "opposites attract") and <b>looks</b> filter further.</p></div>
+
+<h3>Theories of love</h3>
+<table>
+<tr><th>Theory / term</th><th>Who</th><th>What it is</th></tr>
+<tr><td><b>Triangular theory of love</b></td><td>Robert Sternberg</td><td>Intimacy + passion + commitment combine into 7 love types (all three = consummate love).</td></tr>
+<tr><td><b>Passionate vs companionate love</b></td><td>Hatfield &amp; Berscheid</td><td>Intense arousal and longing (passionate) vs deep affection, trust and care that lasts (companionate).</td></tr>
+<tr><td><b>Two-factor theory of love (misattribution of arousal)</b></td><td>Dutton &amp; Aron</td><td>Arousal from a scary suspension bridge gets relabelled as romantic attraction to the person you meet there.</td></tr>
+<tr><td><b>Adult attachment styles</b></td><td>Hazan &amp; Shaver</td><td>Secure / anxious-ambivalent / avoidant styles carried from infant attachment into romantic love.</td></tr>
+</table>
+
+<h3>Why relationships last or end</h3>
+<table>
+<tr><th>Theory / term</th><th>Who</th><th>What it is</th></tr>
+<tr><td><b>Social exchange theory</b></td><td>Thibaut &amp; Kelley</td><td>Relationships are weighed as rewards minus costs, compared against a comparison level (CL) and the comparison level for alternatives (CL-alt).</td></tr>
+<tr><td><b>Equity theory</b></td><td>Walster / Adams</td><td>We are happiest when our ratio of inputs to outcomes matches the partner's (over- and under-benefit both cause distress).</td></tr>
 <tr><td><b>Investment model</b></td><td>Caryl Rusbult</td><td>Commitment = satisfaction + investment size − quality of alternatives.</td></tr>
 </table>
-<div class="trap"><b>The "who studied liking" cluster:</b> <b>Byrne</b> = similarity, <b>Zajonc</b> = mere exposure, <b>Festinger</b> = propinquity, <b>Sternberg</b> = triangular love, <b>Rusbult</b> = investment model, <b>Dutton &amp; Aron</b> = misattributed arousal (bridge). These names rotate as each other's distractors.</div>
+<div class="why"><b>The two-factor love trick.</b> Dutton &amp; Aron's bridge study is misattribution of arousal in action: men who crossed a high, swaying bridge (physiological arousal from fear) were more attracted to the woman who met them there than men on a safe low bridge. They felt arousal, looked around for a cause, and pinned it on her. This is Schachter–Singer's two-factor theory of emotion applied to love: arousal + a label = the felt emotion.</div>
+<div class="trap"><b>The "who studied liking" cluster:</b> <b>Byrne</b> = similarity, <b>Zajonc</b> = mere exposure, <b>Festinger</b> = propinquity, <b>Sternberg</b> = triangular love, <b>Rusbult</b> = investment model, <b>Dutton &amp; Aron</b> = misattributed arousal (the bridge). These names rotate as each other's distractors, fix one hook per name.</div>
+<div class="nimhans"><b>NIMHANS angle.</b> <b>Adult attachment (Hazan &amp; Shaver)</b> bridges straight to Bowlby/Ainsworth in the developmental and object-relations syllabus, and insecure attachment is heavily used in couple and trauma therapy. <b>Investment model (Rusbult)</b> is the standard frame for why people stay in unsatisfying or abusive relationships (high investment + low alternatives = high commitment despite low satisfaction), a key clinical insight.</div>
+<div class="recap"><b>Recap §6.</b> Attraction order: propinquity (Festinger et al.) → mere exposure (Zajonc) → similarity (Byrne) → matching &amp; beauty stereotype. Love: Sternberg's triangle, Hatfield &amp; Berscheid (passionate vs companionate), Dutton &amp; Aron (misattributed arousal), Hazan &amp; Shaver (attachment). Endurance: social exchange (Thibaut &amp; Kelley), equity (Walster/Adams), investment model (Rusbult).</div>
 
-<!-- 7. SOCIAL INFLUENCE -->
+<!-- ============ 7. SOCIAL INFLUENCE ============ -->
 <h2 id="influence" class="sec">7. Social influence (conformity, compliance, obedience)</h2>
+<p><b>The problem, and the three levels.</b> Social influence is changing because of others, and it comes in three intensities. <b>Conformity</b> = changing to match a group with no direct request (you just go along). <b>Compliance</b> = changing in response to a direct request (the sales techniques). <b>Obedience</b> = changing in response to a direct order from an authority. The levels rise from implicit group pressure to explicit command.</p>
+
+<h3>Conformity &amp; obedience</h3>
 <table>
 <tr><th>Term</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Conformity</b></td><td>Solomon Asch</td><td>Going along with a unanimous group's wrong answer (line-judging task).</td></tr>
-<tr><td><b>Norm formation</b></td><td>Muzafer Sherif</td><td>Used the autokinetic illusion to show groups converge on a shared norm.</td></tr>
-<tr><td><b>Informational vs normative influence</b></td><td>Deutsch &amp; Gerard</td><td>Conform to be <i>right</i> (info) vs to be <i>liked/accepted</i> (normative).</td></tr>
-<tr><td><b>Obedience to authority</b></td><td>Stanley Milgram</td><td>65% delivered "lethal" shocks when an authority ordered it.</td></tr>
+<tr><td><b>Conformity</b></td><td>Solomon Asch</td><td>Going along with a unanimous group's obviously wrong answer (the line-judging task); ~33% conformity rate.</td></tr>
+<tr><td><b>Norm formation</b></td><td>Muzafer Sherif</td><td>Used the autokinetic illusion (a still dot of light appears to move) to show groups converge on a shared norm.</td></tr>
+<tr><td><b>Informational vs normative influence</b></td><td>Deutsch &amp; Gerard</td><td>We conform to be <i>right</i> (informational, especially when uncertain) vs to be <i>liked/accepted</i> (normative).</td></tr>
+<tr><td><b>Obedience to authority</b></td><td>Stanley Milgram</td><td>65% of ordinary people delivered "lethal" 450V shocks when an authority calmly ordered them to continue.</td></tr>
+<tr><td><b>Minority influence</b></td><td>Serge Moscovici</td><td>A <i>consistent</i> minority can shift the majority, via genuine private conversion rather than mere public compliance.</td></tr>
+</table>
+<div class="why"><b>Sherif vs Asch, the two faces of conformity.</b> <b>Sherif</b> used an <i>ambiguous</i> task (how far did the dot move? nobody knows), so people genuinely looked to others for the right answer, this is <b>informational</b> influence and it produces real, internalised norm change. <b>Asch</b> used an <i>unambiguous</i> task (which line is longer? obvious), so people who caved did so to avoid standing out, this is <b>normative</b> influence and it is often just public compliance. Deutsch &amp; Gerard named the two motives.</div>
+
+<h3>Compliance techniques</h3>
+<table>
+<tr><th>Term</th><th>Who</th><th>What it is</th></tr>
 <tr><td><b>Six principles of influence</b></td><td>Robert Cialdini</td><td>Reciprocity, commitment/consistency, social proof, authority, liking, scarcity.</td></tr>
-<tr><td><b>Foot-in-the-door</b></td><td>Freedman &amp; Fraser</td><td>Small request first → bigger one later gets agreed to (consistency).</td></tr>
-<tr><td><b>Door-in-the-face</b></td><td>Robert Cialdini</td><td>Big request refused first → the smaller real one looks reasonable (reciprocal concession).</td></tr>
-<tr><td><b>Lowballing</b></td><td>Robert Cialdini</td><td>Get a commitment, then raise the cost; people stick to the deal.</td></tr>
-<tr><td><b>That's-not-all technique</b></td><td>Jerry Burger</td><td>Add a bonus/drop the price before the person decides → boosts compliance.</td></tr>
-<tr><td><b>Norm of reciprocity</b></td><td>Alvin Gouldner</td><td>We feel obliged to return favours (engine behind door-in-the-face).</td></tr>
-<tr><td><b>Minority influence</b></td><td>Serge Moscovici</td><td>A consistent minority can shift the majority (via genuine conversion, not just compliance).</td></tr>
+<tr><td><b>Foot-in-the-door</b></td><td>Freedman &amp; Fraser</td><td>Get agreement to a small request first → a bigger one later gets agreed to (works via commitment/consistency).</td></tr>
+<tr><td><b>Door-in-the-face</b></td><td>Robert Cialdini</td><td>Make a big request that is refused first → the smaller real request now looks reasonable (reciprocal concession).</td></tr>
+<tr><td><b>Lowballing</b></td><td>Robert Cialdini</td><td>Get a commitment at a good price, then raise the cost; people stick to the deal anyway.</td></tr>
+<tr><td><b>That's-not-all technique</b></td><td>Jerry Burger</td><td>Add a bonus or drop the price <i>before</i> the person decides → boosts compliance.</td></tr>
+<tr><td><b>Norm of reciprocity</b></td><td>Alvin Gouldner</td><td>We feel obliged to return favours (the engine behind door-in-the-face and free samples).</td></tr>
 </table>
-<div class="trap"><b>Foot-in-the-door vs door-in-the-face:</b> FITD = <b>small → big</b> (Freedman &amp; Fraser, consistency). DITF = <b>big → small</b> (Cialdini, reciprocal concession). Lowballing = change the deal after you've agreed. Examiners love swapping the direction.</div>
+<div class="trap"><b>Foot-in-the-door vs door-in-the-face:</b> FITD = <b>small → big</b> (Freedman &amp; Fraser, via consistency). DITF = <b>big → small</b> (Cialdini, via reciprocal concession). Lowballing = get the yes, <i>then</i> change the deal. That's-not-all = sweeten the offer <i>before</i> the yes. Examiners love swapping the direction (small-then-big vs big-then-small).</div>
+<div class="nimhans"><b>NIMHANS angle.</b> Milgram and Asch are perennial favourites: lock the headline numbers (Milgram ~65% to maximum voltage; Asch ~33% conformity) and the situational factors that <i>reduce</i> obedience (authority less close/legitimate, peers who rebel, victim more present). <b>Minority influence (Moscovici)</b> via consistency is the standard contrast to majority conformity. Clinically, these explain compliance pressures in institutions and the value of even one dissenting ally.</div>
+<div class="recap"><b>Recap §7.</b> Conformity (Asch, line task; Sherif, autokinetic norm) runs on informational vs normative motives (Deutsch &amp; Gerard). Obedience = Milgram (~65%). Minority influence via consistency = Moscovici. Compliance: Cialdini's six principles, FITD (Freedman &amp; Fraser, small→big), DITF/lowballing/that's-not-all, reciprocity norm (Gouldner).</div>
 
-<!-- 8. PROSOCIAL -->
+<!-- ============ 8. PROSOCIAL ============ -->
 <h2 id="prosocial" class="sec">8. Prosocial behaviour (helping)</h2>
+<p><b>The problem.</b> Why do we help, when do we fail to, and is helping ever truly selfless? The chapter splits into <i>situational</i> work (the bystander effect: why help fails) and <i>motivational</i> work (the egoism vs altruism debate: why we help at all).</p>
+
+<h3>When help fails: the bystander effect</h3>
 <table>
 <tr><th>Term</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Bystander effect &amp; 5-step decision model</b></td><td>Latané &amp; Darley</td><td>More witnesses → less help. Steps: notice → interpret as emergency → take responsibility → know how → decide to act. (After Kitty Genovese.)</td></tr>
-<tr><td><b>Diffusion of responsibility</b></td><td>Darley &amp; Latané</td><td>"Someone else will do it" — responsibility spreads thin in a crowd.</td></tr>
-<tr><td><b>Pluralistic ignorance</b></td><td>—</td><td>Everyone stays calm because no one else looks worried, so no one reads it as an emergency.</td></tr>
-<tr><td><b>Empathy–altruism hypothesis</b></td><td>C. Daniel Batson</td><td>Feeling empathy produces genuinely selfless helping (not just self-relief).</td></tr>
-<tr><td><b>Negative-state relief model</b></td><td>Robert Cialdini</td><td>We help to relieve our <i>own</i> bad mood — helping is egoistic.</td></tr>
-<tr><td><b>Arousal: cost–reward model</b></td><td>Piliavin et al.</td><td>A bystander's unpleasant arousal motivates help when costs of helping are low.</td></tr>
-<tr><td><b>Kin selection / reciprocal altruism</b></td><td>Hamilton; Trivers</td><td>Evolutionary: help relatives (shared genes) or those likely to return the favour.</td></tr>
-<tr><td><b>Norm of social responsibility</b></td><td>—</td><td>We should help those who depend on us, regardless of return.</td></tr>
+<tr><td><b>Bystander effect &amp; 5-step decision model</b></td><td>Latané &amp; Darley</td><td>More witnesses → less help. The five steps: notice the event → interpret it as an emergency → take responsibility → know how to help → decide to act. (Sparked by the Kitty Genovese case.)</td></tr>
+<tr><td><b>Diffusion of responsibility</b></td><td>Darley &amp; Latané</td><td>"Someone else will do it"; responsibility spreads thin in a crowd (fails step 3).</td></tr>
+<tr><td><b>Pluralistic ignorance</b></td><td>—</td><td>Everyone stays calm because no one else looks worried, so no one reads it as an emergency (fails step 2).</td></tr>
 </table>
-<div class="trap"><b>Why we help — the egoism vs altruism split:</b> <b>Batson</b> = true altruism (empathy). <b>Cialdini</b> (negative-state relief) and <b>Piliavin</b> (arousal:cost-reward) = we ultimately help to fix our <i>own</i> discomfort. That contrast is the question.</div>
+<div class="why"><b>Why a crowd freezes you.</b> Latané &amp; Darley's five-step model is a chain, and the crowd snaps it at two links. At <b>step 2 (interpret)</b>, you look around, see other calm faces, and conclude it must not be an emergency, that is <b>pluralistic ignorance</b>. At <b>step 3 (take responsibility)</b>, with many present, each person assumes someone else will act, that is <b>diffusion of responsibility</b>. More witnesses make both failures more likely, so paradoxically you are <i>less</i> likely to be helped in a big crowd.</div>
 
-<!-- 9. AGGRESSION -->
+<h3>Why we help: egoism vs altruism</h3>
+<table>
+<tr><th>Term</th><th>Who</th><th>What it is</th></tr>
+<tr><td><b>Empathy–altruism hypothesis</b></td><td>C. Daniel Batson</td><td>Feeling empathy for the victim produces genuinely selfless helping, aimed at their welfare, not our own relief.</td></tr>
+<tr><td><b>Negative-state relief model</b></td><td>Robert Cialdini</td><td>We help to relieve our <i>own</i> bad mood; helping is ultimately egoistic.</td></tr>
+<tr><td><b>Arousal: cost–reward model</b></td><td>Piliavin et al.</td><td>A bystander's unpleasant arousal at seeing distress motivates help, and we help when the costs of helping are low and costs of not helping are high.</td></tr>
+<tr><td><b>Kin selection / reciprocal altruism</b></td><td>Hamilton; Trivers</td><td>Evolutionary: help relatives (shared genes, kin selection) or those likely to return the favour (reciprocal altruism).</td></tr>
+<tr><td><b>Norm of social responsibility</b></td><td>—</td><td>A social norm that we should help those who depend on us, regardless of any return.</td></tr>
+</table>
+<div class="trap"><b>Why we help, the egoism vs altruism split:</b> <b>Batson</b> (empathy–altruism) = there <i>is</i> true altruism, born of empathy and aimed at the other's welfare. <b>Cialdini</b> (negative-state relief) and <b>Piliavin</b> (arousal:cost-reward) = we ultimately help to fix our <i>own</i> discomfort, so helping is egoistic. That contrast (selfless vs self-serving motive) is the question.</div>
+<div class="nimhans"><b>NIMHANS angle.</b> The bystander 5-step model and its two crowd failures (pluralistic ignorance at "interpret", diffusion of responsibility at "take responsibility") are textbook MCQ material, expect a scene and a "which step failed" stem. The empathy–altruism vs egoism debate is a favourite "which theorist argued helping is/ isn't truly selfless" item.</div>
+<div class="recap"><b>Recap §8.</b> Bystander effect &amp; 5-step model = Latané &amp; Darley; crowds break it via pluralistic ignorance (interpret) and diffusion of responsibility (take responsibility). Motive debate: Batson (true altruism from empathy) vs Cialdini (negative-state relief) and Piliavin (arousal:cost-reward), both egoistic; plus evolutionary kin selection (Hamilton) / reciprocal altruism (Trivers).</div>
+
+<!-- ============ 9. AGGRESSION ============ -->
 <h2 id="aggression" class="sec">9. Aggression</h2>
+<p><b>The problem.</b> Aggression is behaviour intended to harm another who does not want to be harmed. The chapter traces a historical arc: from a simple drive theory (frustration always causes aggression), through its cognitive reformulation (frustration only <i>readies</i> aggression, cues pull the trigger), to social learning (aggression is imitated) and integrative models.</p>
+
 <table>
 <tr><th>Theory / term</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Frustration–aggression hypothesis</b></td><td>Dollard, Doob, Miller et al.</td><td>Frustration (blocked goal) always breeds aggression; aggression always traces to frustration.</td></tr>
-<tr><td><b>Reformulated frustration–aggression</b></td><td>Leonard Berkowitz</td><td>Frustration creates a <i>readiness</i>; aggression needs aggressive cues + negative affect.</td></tr>
-<tr><td><b>Weapons effect</b></td><td>Berkowitz &amp; LePage</td><td>Mere presence of a weapon increases aggression (an aggressive cue).</td></tr>
-<tr><td><b>Social learning of aggression</b></td><td>Albert Bandura</td><td>Aggression is learned by observing &amp; imitating models (Bobo doll).</td></tr>
-<tr><td><b>General Aggression Model (GAM)</b></td><td>Anderson &amp; Bushman</td><td>Person + situation inputs → arousal/affect/cognition → appraisal → aggressive act.</td></tr>
-<tr><td><b>Excitation-transfer theory</b></td><td>Dolf Zillmann</td><td>Left-over arousal from one source intensifies aggression in a later, unrelated situation.</td></tr>
-<tr><td><b>Cognitive-neoassociation</b></td><td>Leonard Berkowitz</td><td>Aversive events trigger negative affect that primes a network of anger/escape responses.</td></tr>
-<tr><td><b>Catharsis hypothesis</b></td><td>(Freud / Lorenz roots)</td><td>The idea that venting reduces aggression — largely <i>unsupported</i>; venting often raises it.</td></tr>
+<tr><td><b>Frustration–aggression hypothesis</b></td><td>Dollard, Doob, Miller et al.</td><td>Original strong form: frustration (a blocked goal) always breeds aggression, and aggression always traces back to frustration.</td></tr>
+<tr><td><b>Reformulated frustration–aggression</b></td><td>Leonard Berkowitz</td><td>Frustration creates only a <i>readiness</i> (negative affect); aggression follows when aggressive cues are present.</td></tr>
+<tr><td><b>Weapons effect</b></td><td>Berkowitz &amp; LePage</td><td>The mere presence of a weapon increases aggression, because the weapon is an aggressive cue.</td></tr>
+<tr><td><b>Social learning of aggression</b></td><td>Albert Bandura</td><td>Aggression is learned by observing and imitating models (the Bobo doll studies).</td></tr>
+<tr><td><b>General Aggression Model (GAM)</b></td><td>Anderson &amp; Bushman</td><td>Integrative: person + situation inputs → present internal state (arousal, affect, cognition) → appraisal → aggressive (or not) act.</td></tr>
+<tr><td><b>Excitation-transfer theory</b></td><td>Dolf Zillmann</td><td>Left-over physiological arousal from one source (exercise, a prior fright) intensifies aggression in a later, unrelated provoking situation.</td></tr>
+<tr><td><b>Cognitive-neoassociation</b></td><td>Leonard Berkowitz</td><td>Aversive events (heat, pain, frustration) trigger negative affect that automatically primes a network of anger and fight/flight responses.</td></tr>
+<tr><td><b>Catharsis hypothesis</b></td><td>(Freud / Lorenz roots)</td><td>The idea that venting "drains" aggression. Largely <i>unsupported</i>; venting (hitting a pillow, aggressive sport) tends to <i>raise</i> later aggression.</td></tr>
 </table>
+<div class="why"><b>The arc in one breath.</b> Dollard et al. said frustration → aggression, full stop, too rigid. <b>Berkowitz</b> rescued it: frustration only builds a charge of negative affect (<b>readiness</b>); whether it discharges as aggression depends on <b>aggressive cues</b> in the environment, hence the <b>weapons effect</b> (a gun on the table makes you more aggressive). <b>Bandura's Bobo doll</b> added that we also just <i>copy</i> aggressive models. And the popular belief in <b>catharsis</b> (let it out and you'll feel calmer) is a <i>myth</i>: research shows venting fuels rather than drains aggression, a high-yield "which of these is false" item.</div>
+<div class="trap"><b>Two Berkowitz ideas, kept apart:</b> the <b>reformulated frustration–aggression</b> (frustration → readiness, cue → act) and <b>cognitive-neoassociation</b> (aversive events prime an anger network) are both his. And do not confuse <b>excitation-transfer (Zillmann)</b>, where <i>arousal carries over</i> from a prior unrelated event, with the weapons effect, where an external <i>cue</i> triggers aggression. Also remember the <b>catharsis hypothesis is largely disproven</b>, examiners frame it as the false option.</div>
+<div class="nimhans"><b>NIMHANS angle.</b> Determinants of aggression are testable as a list: <b>biological</b> (low serotonin, high testosterone, amygdala/prefrontal function, the role of alcohol disinhibition) and <b>situational</b> (heat, provocation, crowding, frustration, media/violent models). The <b>catharsis myth</b> and the <b>weapons effect</b> are classic single-best-answer traps. Bandura's Bobo doll connects to the social-learning theory you know from the personality and learning chapters.</div>
+<div class="recap"><b>Recap §9.</b> Frustration–aggression (Dollard et al., strong original) → reformulated (Berkowitz: frustration = readiness, cues fire it; weapons effect = Berkowitz &amp; LePage) → social learning/Bobo (Bandura) → GAM (Anderson &amp; Bushman). Excitation-transfer = Zillmann; cognitive-neoassociation = Berkowitz; catharsis = a largely unsupported myth.</div>
 
-<!-- 10. GROUPS -->
+<!-- ============ 10. GROUPS ============ -->
 <h2 id="groups" class="sec">10. Groups &amp; individuals</h2>
+<p><b>The problem.</b> What does the mere presence of, or membership in, a group do to the individual, to effort, to self-restraint, and to the quality of decisions? The chapter pairs opposing effects (presence can boost <i>or</i> sap effort; groups can decide better <i>or</i> worse) and the deciding variable is usually whether you are individually identifiable.</p>
+
+<h3>Presence of others: facilitation vs loafing</h3>
 <table>
 <tr><th>Term</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Social facilitation</b></td><td>Triplett; Zajonc</td><td>An audience boosts performance on easy/well-learned tasks, hurts hard ones (Zajonc: arousal strengthens the dominant response).</td></tr>
-<tr><td><b>Evaluation apprehension</b></td><td>Nickolas Cottrell</td><td>It's the fear of being <i>judged</i>, not mere presence, that drives social facilitation.</td></tr>
-<tr><td><b>Social loafing</b></td><td>Latané, Williams &amp; Harkins</td><td>People exert less effort in a group when their output isn't individually identifiable (Ringelmann roots).</td></tr>
-<tr><td><b>Deindividuation</b></td><td>Festinger; Zimbardo</td><td>Anonymity in a crowd → loss of self-awareness and restraint (Stanford prison).</td></tr>
-<tr><td><b>Group polarisation</b></td><td>Moscovici &amp; Zavalloni</td><td>Discussion pushes a group to a more extreme version of its initial leaning.</td></tr>
-<tr><td><b>Risky shift</b></td><td>James Stoner</td><td>Early name for polarisation: groups often decide riskier than individuals.</td></tr>
-<tr><td><b>Groupthink</b></td><td>Irving Janis</td><td>A cohesive group suppresses dissent for consensus → poor decisions (Bay of Pigs).</td></tr>
-<tr><td><b>Tragedy of the commons / social dilemma</b></td><td>Garrett Hardin</td><td>Individually rational self-interest depletes a shared resource everyone needs.</td></tr>
-<tr><td><b>GRIT</b></td><td>Charles Osgood</td><td>Graduated Reciprocated Initiatives in Tension-reduction: small unilateral concessions de-escalate conflict.</td></tr>
+<tr><td><b>Social facilitation</b></td><td>Triplett; Zajonc</td><td>An audience or co-actor boosts performance on easy/well-learned tasks but hurts hard/novel ones (Zajonc: arousal strengthens the <i>dominant</i> response).</td></tr>
+<tr><td><b>Evaluation apprehension</b></td><td>Nickolas Cottrell</td><td>It is the fear of being <i>judged</i>, not mere physical presence, that creates the facilitation arousal.</td></tr>
+<tr><td><b>Social loafing</b></td><td>Latané, Williams &amp; Harkins</td><td>People exert less effort in a group when their individual output cannot be identified (the Ringelmann rope-pull roots).</td></tr>
+<tr><td><b>Deindividuation</b></td><td>Festinger; Zimbardo</td><td>Anonymity and arousal in a crowd → loss of self-awareness and personal restraint (the Stanford prison study).</td></tr>
 </table>
-<div class="trap"><b>Facilitation vs loafing:</b> <b>Social facilitation</b> = others present make you try <i>harder</i> (you're being watched/evaluated individually). <b>Social loafing</b> = others present make you try <i>less</i> (your effort is pooled and hidden). The deciding variable is whether your individual output is identifiable.</div>
+<div class="why"><b>The first historical experiment.</b> Triplett (1898) noticed cyclists rode faster racing others than alone, arguably social psychology's first experiment. <b>Zajonc</b> explained it: an audience raises arousal, and arousal strengthens whatever response is <i>dominant</i>, the right one on an easy task (so you do better) but the wrong one on a hard task (so you do worse). <b>Cottrell</b> refined it: the arousal comes from <b>evaluation apprehension</b>, fear of being judged, not bare presence.</div>
 
-<div class="hy-banner" style="margin-top:28px;"><b>That's the whole social-psych syllabus on one page.</b> Cover the middle column → name the person; cover the right column → name the concept from the scene; and for every trap box, learn both sides of the pair. The type sweeps: <a href="../effects/">Effects</a>, <a href="../phenomena/">Phenomena</a>, <a href="../theories/">Theories</a>, <a href="../theorists/">Theorists</a>.</div>
+<h3>Group decision-making &amp; conflict</h3>
+<table>
+<tr><th>Term</th><th>Who</th><th>What it is</th></tr>
+<tr><td><b>Group polarisation</b></td><td>Moscovici &amp; Zavalloni</td><td>Group discussion pushes members toward a more <i>extreme</i> version of their initial average leaning.</td></tr>
+<tr><td><b>Risky shift</b></td><td>James Stoner</td><td>The earlier-discovered special case: groups often reach <i>riskier</i> decisions than the individuals would alone.</td></tr>
+<tr><td><b>Groupthink</b></td><td>Irving Janis</td><td>A highly cohesive group suppresses dissent to preserve consensus → defective decisions (Bay of Pigs).</td></tr>
+<tr><td><b>Tragedy of the commons / social dilemma</b></td><td>Garrett Hardin</td><td>Individually rational self-interest collectively depletes a shared resource everyone needs.</td></tr>
+<tr><td><b>GRIT</b></td><td>Charles Osgood</td><td>Graduated and Reciprocated Initiatives in Tension-reduction: small, announced, unilateral concessions invite reciprocation and de-escalate conflict.</td></tr>
+</table>
+<div class="why"><b>Risky shift was the clue to polarisation.</b> Stoner first found groups decide <i>riskier</i> than individuals. Later work showed that was only half the story: groups can also shift <i>more cautious</i> if members started cautious. The general law is <b>group polarisation</b> (Moscovici &amp; Zavalloni), discussion amplifies the pre-existing tilt in either direction. <b>Groupthink</b> (Janis) is the pathological extreme of cohesion, where the drive for agreement crushes realistic appraisal, with classic symptoms (illusion of invulnerability, self-censorship, mindguards, illusion of unanimity).</div>
+<div class="trap"><b>Facilitation vs loafing:</b> <b>social facilitation</b> = others present make you try <i>harder</i> (you are watched and evaluated <i>individually</i>). <b>Social loafing</b> = others present make you try <i>less</i> (your effort is pooled and your individual output is <i>hidden</i>). The deciding variable is whether your individual output is identifiable. Bonus: <b>risky shift</b> is the special case, <b>group polarisation</b> is the general rule.</div>
+<div class="nimhans"><b>NIMHANS angle.</b> Watch the deindividuation attribution: <b>Festinger</b> coined the term, but the dramatic demonstration (and the one usually cited) is <b>Zimbardo's Stanford prison experiment</b>. Groupthink (Janis) with its named symptoms is a reliable MCQ. Social dilemmas / tragedy of the commons (Hardin) and GRIT (Osgood) connect social psych to public-health and conflict-resolution applications relevant to an Indian clinical-research context.</div>
+<div class="recap"><b>Recap §10.</b> Presence effects: social facilitation (Triplett/Zajonc, arousal strengthens dominant response; Cottrell = evaluation apprehension) vs social loafing (Latané/Ringelmann, hidden individual effort); deindividuation (Festinger coined, Zimbardo demonstrated). Decisions: group polarisation (Moscovici &amp; Zavalloni) generalises risky shift (Stoner); groupthink (Janis). Conflict: social dilemma (Hardin), GRIT (Osgood).</div>
 
-<footer>Sihan MET 2026 + NIMHANS prep · /notes/social-psych/ · from Baron &amp; Branscombe 13e · built 2026-05-24</footer>
+<!-- ============ 11. TRAPS ============ -->
+<h2 id="traps" class="sec">11. The MCQ traps, collected</h2>
+<ul>
+<li><b>Method core:</b> experiment = the only design proving <i>causation</i> (manipulate IV, measure DV, random assignment). Correlation ≠ causation (third-variable + directionality). Mediator = the <i>why</i> (mechanism in between); moderator = the <i>when/for whom</i> (changes strength).</li>
+<li><b>Availability</b> = ease of recall · <b>representativeness</b> = fit to a prototype (neglects base rates) · <b>anchoring</b> = stuck on a first value. All three = Tversky &amp; Kahneman.</li>
+<li><b>The attribution swap:</b> <b>FAE</b> (Ross) = over-blame <i>others'</i> character · <b>actor–observer</b> (Jones &amp; Nisbett) = my acts = situation, your acts = character · <b>self-serving</b> = my success = me, my failure = the situation.</li>
+<li><b>Attribution models in order:</b> Heider (naïve psychologist, internal/external) → Jones &amp; Davis (correspondent inference) → Kelley (covariation: consensus, consistency, distinctiveness).</li>
+<li><b>Self-discrepancy (Higgins):</b> ideal-self gap → <b>dejection (sad)</b>; ought-self gap → <b>agitation (anxious)</b>.</li>
+<li><b>Self cluster:</b> social comparison = Festinger · self-perception = Bem · self-monitoring = Snyder · self-efficacy = Bandura · self-handicapping = Berglas &amp; Jones · self-verification = Swann · self-affirmation = Steele · spotlight = Gilovich · BIRGing = Cialdini · TMT = Greenberg, Pyszczynski &amp; Solomon.</li>
+<li><b>Dissonance vs self-perception:</b> Festinger = <i>arousal/discomfort</i>, applies when the attitude was strong; Bem = <i>no arousal, just inference</i>, applies when the attitude was weak.</li>
+<li><b>$1 &gt; $20</b> (insufficient justification, Festinger &amp; Carlsmith): less reward = more attitude change. Effort justification = Aronson &amp; Mills. Balance theory = Heider.</li>
+<li><b>Persuasion routes:</b> central/systematic vs peripheral/heuristic. ELM = Petty &amp; Cacioppo; HSM = Chaiken; Yale "who-what-whom" = Hovland; inoculation = McGuire; reactance = Brehm; attitude–behaviour gap = LaPiere; intention model = Fishbein &amp; Ajzen.</li>
+<li><b>Prejudice sources:</b> social identity / minimal group = Tajfel (&amp; Turner) · realistic conflict / Robbers Cave = Sherif · authoritarian personality (F-scale) = Adorno. Reduction: contact hypothesis (four conditions) = Allport; jigsaw classroom = Aronson.</li>
+<li><b>Stereotype cognition:</b> illusory correlation = Hamilton &amp; Gifford · out-group homogeneity · stereotype threat = Steele &amp; Aronson · stereotype content model (warmth × competence) = Fiske. Note <b>stereotype threat ≠ self-fulfilling prophecy</b> (target's own fear vs perceiver's expectation).</li>
+<li><b>The "who studied liking" cluster:</b> Byrne = similarity · Zajonc = mere exposure · Festinger = propinquity · Sternberg = triangular love · Rusbult = investment model · Dutton &amp; Aron = misattributed arousal (bridge).</li>
+<li><b>Conformity:</b> Asch = unambiguous line task (normative) · Sherif = autokinetic, ambiguous (informational) · Deutsch &amp; Gerard named informational vs normative · Milgram = obedience (~65%) · Moscovici = minority influence via consistency.</li>
+<li><b>Foot-in-the-door vs door-in-the-face:</b> FITD = small→big (Freedman &amp; Fraser, consistency); DITF = big→small (Cialdini, reciprocal concession); lowballing = change the deal after the yes; that's-not-all = sweeten before the yes; reciprocity norm = Gouldner.</li>
+<li><b>Helping:</b> bystander effect &amp; 5-step model = Latané &amp; Darley; crowd failures = pluralistic ignorance (interpret) + diffusion of responsibility (take responsibility). Egoism vs altruism: Batson = true altruism (empathy); Cialdini (negative-state relief) and Piliavin (arousal:cost-reward) = egoistic. Evolutionary: kin selection (Hamilton), reciprocal altruism (Trivers).</li>
+<li><b>Aggression:</b> frustration–aggression = Dollard et al.; reformulation + weapons effect = Berkowitz (&amp; LePage); social learning/Bobo = Bandura; GAM = Anderson &amp; Bushman; excitation-transfer = Zillmann; cognitive-neoassociation = Berkowitz; <b>catharsis is a myth</b> (venting raises aggression).</li>
+<li><b>Groups:</b> facilitation (Triplett/Zajonc, dominant-response) vs loafing (Latané/Ringelmann, hidden effort); evaluation apprehension = Cottrell; deindividuation = Festinger coined / Zimbardo demonstrated; group polarisation (Moscovici &amp; Zavalloni) generalises risky shift (Stoner); groupthink = Janis; tragedy of the commons = Hardin; GRIT = Osgood.</li>
+</ul>
+
+<div class="hy-banner" style="margin-top: 28px;">
+<b>Companion pages:</b> the four type sweeps (one named thing per row) are the chips at the top: <a href="../effects/">Effects</a>, <a href="../phenomena/">Phenomena</a>, <a href="../theories/">Theories</a>, <a href="../theorists/">Theorists</a>. The one-line testable list is in the textbook's <a href="../textbook/#forgot">Rapid Recall</a>. For the cognitive-psychology side of heuristics and dual-process thinking see the <a href="../cognitive/">Cognitive</a> sweep.
+</div>
+
+<footer>Sihan NIMHANS + MET 2026 prep · /notes/social-psych/ · teaching chapter</footer>
 </div>
 </body>
 </html>
