@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0d1117">
+<title>Practice by Area — NIMHANS 2026</title>
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --panel-2: #1f252d;
+    --panel-3: #262d36;
+    --border: #30363d;
+    --border-strong: #444c56;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --accent-dim: #1f6feb;
+    --accent-soft: rgba(88, 166, 255, 0.12);
+    --good: #3fb950;
+    --good-soft: rgba(63, 185, 80, 0.14);
+    --warn: #f0b429;
+    --warn-soft: rgba(240, 180, 41, 0.14);
+    --bad: #f85149;
+    --bad-soft: rgba(248, 81, 73, 0.14);
+    --purple: #a371f7;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Text', sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .topbar {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(13, 17, 23, 0.92);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .topbar-inner {
+    max-width: min(1100px, 94vw); margin: 0 auto;
+    padding: 12px 24px; display: flex; align-items: center;
+    justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+  .brand { display: flex; flex-direction: column; }
+  .brand-title { font-size: 15px; font-weight: 700; letter-spacing: 0.3px; }
+  .brand-sub { font-size: 11px; color: var(--muted); }
+  .nav { display: flex; gap: 4px; flex-wrap: wrap; }
+  .nav a {
+    color: var(--text); padding: 6px 12px; border-radius: 6px;
+    font-size: 13px; font-weight: 500; border: 1px solid transparent;
+  }
+  .nav a:hover { background: var(--panel); border-color: var(--border); text-decoration: none; }
+  .nav a.active { background: var(--accent-soft); color: var(--accent); border-color: var(--accent-dim); }
+  .nav a.ghost { color: var(--muted); }
+
+  main { max-width: min(1100px, 94vw); margin: 0 auto; padding: 20px 24px 60px; }
+
+  .hero { margin-bottom: 18px; }
+  .hero h1 { font-size: 22px; margin: 0 0 4px; font-weight: 700; }
+  .hero p { margin: 0; color: var(--muted); font-size: 13px; }
+
+  /* Area picker grid */
+  .areas { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin-bottom: 22px; }
+  .area-card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 13px 14px; cursor: pointer; text-align: left; color: inherit;
+    font-family: inherit; transition: border-color .15s, background .15s; position: relative;
+  }
+  .area-card:hover { border-color: var(--accent-dim); background: var(--panel-2); }
+  .area-card.sel { border-color: var(--accent); background: var(--accent-soft); }
+  .area-card .ac-name { font-size: 14px; font-weight: 650; margin-bottom: 3px; }
+  .area-card .ac-meta { font-size: 11px; color: var(--muted); }
+  .area-card .ac-prog { font-size: 11px; color: var(--good); margin-top: 6px; min-height: 14px; }
+  .area-card .ac-bar { height: 3px; background: var(--panel-3); border-radius: 2px; margin-top: 6px; overflow: hidden; }
+  .area-card .ac-fill { height: 100%; width: 0; background: var(--good); transition: width .3s; }
+
+  /* Topic chips */
+  .topics { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+  .chip {
+    background: var(--panel); border: 1px solid var(--border); color: var(--text);
+    border-radius: 999px; padding: 5px 13px; font-size: 12.5px; cursor: pointer;
+    font-family: inherit; transition: all .12s;
+  }
+  .chip:hover { border-color: var(--accent-dim); }
+  .chip.sel { background: var(--accent); color: #08111f; border-color: var(--accent); font-weight: 650; }
+
+  .toolbar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+  .toolbar .count { font-size: 12px; color: var(--muted); }
+  .btn {
+    background: var(--panel-2); border: 1px solid var(--border); color: var(--text);
+    border-radius: 7px; padding: 7px 14px; font-size: 13px; cursor: pointer;
+    font-family: inherit; font-weight: 550;
+  }
+  .btn:hover { border-color: var(--accent-dim); color: var(--accent); }
+  .btn.ghost { background: transparent; }
+
+  .card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px 18px 16px; margin-bottom: 14px;
+  }
+  .q-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .q-num { font-size: 12px; color: var(--muted); }
+  .q-topic { font-size: 11px; color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent-dim); border-radius: 999px; padding: 2px 9px; white-space: nowrap; }
+  .q-text { font-size: 15.5px; font-weight: 550; margin-bottom: 14px; white-space: pre-wrap; }
+  .opts { display: flex; flex-direction: column; gap: 9px; }
+  .opt {
+    display: flex; gap: 11px; align-items: flex-start; text-align: left; width: 100%;
+    background: var(--panel-2); border: 1px solid var(--border); color: var(--text);
+    border-radius: 9px; padding: 12px 14px; font-size: 14.5px; cursor: pointer;
+    font-family: inherit; line-height: 1.45; transition: border-color .12s, background .12s;
+  }
+  .opt:hover:not([disabled]) { border-color: var(--accent-dim); }
+  .opt .key {
+    flex: none; width: 22px; height: 22px; border-radius: 6px; background: var(--panel-3);
+    display: inline-flex; align-items: center; justify-content: center; font-size: 12px;
+    font-weight: 700; color: var(--muted); margin-top: 1px;
+  }
+  .opt.correct { border-color: var(--good); background: var(--good-soft); }
+  .opt.correct .key { background: var(--good); color: #08130a; }
+  .opt.wrong { border-color: var(--bad); background: var(--bad-soft); }
+  .opt.wrong .key { background: var(--bad); color: #1a0606; }
+  .opt[disabled] { cursor: default; }
+
+  .explain {
+    margin-top: 13px; padding: 12px 14px; border-radius: 9px; font-size: 13.5px;
+    background: var(--panel-2); border: 1px solid var(--border); border-left: 3px solid var(--accent);
+    display: none;
+  }
+  .explain.show { display: block; }
+  .explain .verdict { font-weight: 700; margin-right: 6px; }
+  .explain .verdict.right { color: var(--good); }
+  .explain .verdict.wrong { color: var(--bad); }
+
+  .nextbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 16px; }
+  .nextbar .progress-mini { font-size: 12px; color: var(--muted); }
+
+  .empty { color: var(--muted); text-align: center; padding: 40px 0; font-size: 14px; }
+
+  .done-card { text-align: center; padding: 28px 18px; }
+  .done-card h2 { margin: 0 0 8px; font-size: 19px; }
+  .done-card .big { font-size: 34px; font-weight: 800; margin: 6px 0; }
+  .done-card .big.good { color: var(--good); }
+  .done-card .big.warn { color: var(--warn); }
+  .done-card .big.bad { color: var(--bad); }
+  .done-card p { color: var(--muted); font-size: 13px; margin: 4px 0; }
+  .done-card .actions { display: flex; gap: 10px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
+
+  footer { max-width: min(1100px, 94vw); margin: 0 auto; padding: 24px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--border); }
+
+  @media (max-width: 600px) {
+    .topbar-inner { padding: 10px 14px; }
+    .nav a { padding: 5px 9px; font-size: 12px; }
+    main { padding: 16px 14px 50px; }
+    .areas { grid-template-columns: 1fr 1fr; }
+    .area-card { padding: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-title">Sihan, NIMHANS 2026</span>
+      <span class="brand-sub">Practice by area · untimed drill, instant feedback</span>
+    </div>
+    <nav class="nav">
+      <a href="../../">Dashboard</a>
+      <a href="../../tests/">Tests</a>
+      <a href="./" class="active">Practice</a>
+      <a href="../../results/">My Results</a>
+      <a href="../../notes/">Notes</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+  <div class="hero">
+    <h1>Practice by area</h1>
+    <p>Pick an area, drill it topic by topic. No timer, no marks lost — answer and you see right away why, with the rule behind it. Progress saves in this browser.</p>
+  </div>
+
+  <div class="areas" id="areaGrid"></div>
+
+  <div id="practiceWrap" style="display:none;">
+    <div class="topics" id="topicChips"></div>
+    <div class="toolbar">
+      <span class="count" id="countLabel"></span>
+      <button class="btn ghost" id="shuffleBtn" type="button">↻ Shuffle</button>
+      <button class="btn ghost" id="restartBtn" type="button">Restart area</button>
+    </div>
+    <div id="qArea"></div>
+  </div>
+</main>
+
+<footer>
+  Practice mode is for learning, not testing — drill an area until the rule sticks, then prove it on a timed <a href="../../tests/">mock</a>. Progress saved locally in this browser. <a href="../../">Back to dashboard</a>
+</footer>
+
+<script src="../../nav-toggle.js"></script>
+<script>
+/* =====================================================================
+   Practice-by-area question bank.
+   Areas mirror the dashboard's 9 NIMHANS-weighted syllabus areas so
+   per-area progress reads the same buckets the mocks score against.
+   Each question: { area, topic, q, options{a..d}, correct, explanation }.
+   ===================================================================== */
+const AREAS = [
+  { key: "biostats",    name: "Research & Statistics", note: "NIMHANS's heaviest basket" },
+  { key: "therapy",     name: "Psychotherapy",          note: "school-to-founder recall" },
+  { key: "assessment",  name: "Assessment / Tests",     note: "test → subtest → author" },
+  { key: "biopsych",    name: "Biopsychology / Neuro",  note: "anatomy, NTs, action potential" },
+  { key: "abnormal",    name: "Abnormal / Clinical",    note: "DSM-5 / ICD-11 criteria" },
+  { key: "general",     name: "Cognitive — Learning, Memory, Perception", note: "theorist → concept" },
+  { key: "dev",         name: "Developmental",          note: "stage theories, attachment" },
+  { key: "social",      name: "Social Psychology",      note: "conformity, attribution" },
+  { key: "personality", name: "Personality",            note: "trait & approach recall" }
+];
+
+const BANK = [
+/* ---------------- RESEARCH & STATISTICS ---------------- */
+{ area:"biostats", topic:"Descriptive stats", q:"For a markedly positively skewed income distribution, the measure of central tendency least distorted by the skew is the:", options:{a:"Mean",b:"Median",c:"Mode",d:"Range"}, correct:"b", explanation:"The median is resistant to outliers and skew because it depends on rank, not magnitude. The mean is pulled toward the long tail; in a positive skew, mean > median > mode." },
+{ area:"biostats", topic:"Descriptive stats", q:"In a perfectly normal distribution, the relationship between the three measures of central tendency is:", options:{a:"Mean > Median > Mode",b:"Mode > Median > Mean",c:"Mean = Median = Mode",d:"Median > Mean > Mode"}, correct:"c", explanation:"A normal curve is symmetric and unimodal, so mean, median and mode coincide at the centre. Inequalities between them signal skew." },
+{ area:"biostats", topic:"Reliability", q:"Cronbach's alpha is a measure of:", options:{a:"Test-retest reliability",b:"Internal consistency reliability",c:"Inter-rater reliability",d:"Criterion validity"}, correct:"b", explanation:"Alpha estimates internal consistency — how well items on a scale measure the same construct. Test-retest uses two occasions; inter-rater uses two scorers (e.g. kappa)." },
+{ area:"biostats", topic:"Validity", q:"A new depression scale correlates highly with the already-validated BDI administered at the same time. This evidences:", options:{a:"Predictive validity",b:"Concurrent validity",c:"Face validity",d:"Construct validity"}, correct:"b", explanation:"Concurrent validity = agreement with an established criterion measured at the same time. Predictive validity correlates with a future criterion." },
+{ area:"biostats", topic:"Hypothesis testing", q:"Rejecting a true null hypothesis is a:", options:{a:"Type I error",b:"Type II error",c:"Type III error",d:"Power"}, correct:"a", explanation:"Type I (alpha, false positive) = rejecting H0 when it is true. Type II (beta, false negative) = failing to reject a false H0. Power = 1 − beta." },
+{ area:"biostats", topic:"Hypothesis testing", q:"Statistical power is defined as the probability of:", options:{a:"Accepting a true null",b:"Rejecting a false null hypothesis",c:"Committing a Type I error",d:"Obtaining a large effect size"}, correct:"b", explanation:"Power = 1 − beta: the probability of correctly detecting a real effect. It rises with larger samples, larger effect sizes and a higher alpha." },
+{ area:"biostats", topic:"Inferential tests", q:"To compare mean reaction times across three teaching methods on one group, the appropriate test is:", options:{a:"Independent-samples t-test",b:"One-way ANOVA",c:"Chi-square test",d:"Pearson correlation"}, correct:"b", explanation:"Three or more group means on a continuous DV calls for ANOVA. A t-test handles only two groups; chi-square is for categorical frequencies." },
+{ area:"biostats", topic:"Inferential tests", q:"A study tests whether gender (M/F) is associated with preference for one of three therapy types. The correct test is:", options:{a:"Chi-square test of independence",b:"Paired t-test",c:"Pearson r",d:"Repeated-measures ANOVA"}, correct:"a", explanation:"Two categorical variables and a contingency table of frequencies = chi-square test of independence. t-tests and ANOVA need a continuous DV." },
+{ area:"biostats", topic:"Correlation", q:"A correlation of r = −0.85 indicates:", options:{a:"A weak relationship",b:"A strong negative linear relationship",c:"That one variable causes the other to fall",d:"No relationship"}, correct:"b", explanation:"The sign gives direction (negative) and magnitude gives strength; |0.85| is strong. Correlation never establishes causation." },
+{ area:"biostats", topic:"Designs", q:"Random ALLOCATION of participants to conditions primarily controls for:", options:{a:"Demand characteristics",b:"Confounding participant variables",c:"Experimenter bias",d:"Regression to the mean"}, correct:"b", explanation:"Randomisation distributes participant differences evenly across groups, neutralising confounds. (Note: random sampling concerns generalisability; random allocation concerns internal validity.)" },
+{ area:"biostats", topic:"Sampling", q:"Dividing a population into strata and sampling proportionately from each is:", options:{a:"Cluster sampling",b:"Stratified random sampling",c:"Snowball sampling",d:"Systematic sampling"}, correct:"b", explanation:"Stratified sampling samples within defined subgroups to guarantee representation. Cluster sampling selects whole groups; snowball relies on referrals." },
+{ area:"biostats", topic:"Data / scales", q:"Temperature in degrees Celsius is measured on which scale?", options:{a:"Nominal",b:"Ordinal",c:"Interval",d:"Ratio"}, correct:"c", explanation:"Equal intervals but no true zero (0°C is not 'no temperature'), so ratios are meaningless. Kelvin, with an absolute zero, is a ratio scale." },
+{ area:"biostats", topic:"Effect size / p", q:"A p-value of 0.04 with alpha set at 0.05 means:", options:{a:"The effect is large",b:"The result is statistically significant; reject H0",c:"There is a 4% chance the hypothesis is true",d:"H0 is proven false"}, correct:"b", explanation:"p < alpha so we reject H0; the result is significant. p is the probability of data this extreme IF H0 were true — not the probability that H0 is true, and it says nothing about effect size." },
+{ area:"biostats", topic:"Ethics", q:"The Belmont Report's three core principles are:", options:{a:"Beneficence, Justice, Respect for persons",b:"Confidentiality, Consent, Competence",c:"Autonomy, Fidelity, Veracity",d:"Non-maleficence, Equality, Liberty"}, correct:"a", explanation:"Belmont (1979): Respect for persons (autonomy + informed consent), Beneficence (do good / minimise harm), and Justice (fair distribution of risks and benefits)." },
+
+/* ---------------- PSYCHOTHERAPY ---------------- */
+{ area:"therapy", topic:"Founders", q:"Rational Emotive Behaviour Therapy (REBT) and the ABC model were developed by:", options:{a:"Aaron Beck",b:"Albert Ellis",c:"Joseph Wolpe",d:"Carl Rogers"}, correct:"b", explanation:"Ellis founded REBT with the ABC framework (Activating event → Beliefs → Consequences). Beck developed Cognitive Therapy with the cognitive triad — a classic NIMHANS distractor pair." },
+{ area:"therapy", topic:"Founders", q:"The 'cognitive triad' of negative views of self, world and future belongs to:", options:{a:"Albert Ellis",b:"Aaron Beck",c:"Donald Meichenbaum",d:"Albert Bandura"}, correct:"b", explanation:"Beck's cognitive triad underlies his model of depression. Ellis is paired with irrational beliefs/ABC; Meichenbaum with self-instructional training." },
+{ area:"therapy", topic:"Behaviour therapy", q:"Systematic desensitisation, which pairs relaxation with a graded fear hierarchy, was developed by:", options:{a:"B.F. Skinner",b:"Joseph Wolpe",c:"Mary Cover Jones",d:"Hans Eysenck"}, correct:"b", explanation:"Wolpe built systematic desensitisation on reciprocal inhibition. Mary Cover Jones did the early counter-conditioning of 'Little Peter', a precursor." },
+{ area:"therapy", topic:"Behaviour therapy", q:"Sudden, full exposure to a maximally feared stimulus without gradual build-up is:", options:{a:"Systematic desensitisation",b:"Flooding",c:"Shaping",d:"Aversion therapy"}, correct:"b", explanation:"Flooding presents the most feared stimulus at full intensity until anxiety extinguishes. Systematic desensitisation is the graded, relaxation-paired opposite." },
+{ area:"therapy", topic:"Third wave", q:"Dialectical Behaviour Therapy (DBT), developed for borderline personality disorder, was created by:", options:{a:"Marsha Linehan",b:"Steven Hayes",c:"Jon Kabat-Zinn",d:"Francine Shapiro"}, correct:"a", explanation:"Linehan developed DBT, balancing acceptance and change with skills in mindfulness, distress tolerance, emotion regulation and interpersonal effectiveness. Hayes = ACT; Shapiro = EMDR." },
+{ area:"therapy", topic:"Third wave", q:"Acceptance and Commitment Therapy (ACT) centres on:", options:{a:"Disputing irrational beliefs",b:"Psychological flexibility through acceptance and values-based action",c:"Free association and transference",d:"Token economies"}, correct:"b", explanation:"ACT (Hayes) targets psychological flexibility via acceptance, defusion, present-moment contact, self-as-context, values and committed action — not disputing thoughts as REBT does." },
+{ area:"therapy", topic:"Humanistic", q:"The three 'core conditions' for therapeutic change in Person-Centred Therapy are congruence, unconditional positive regard and:", options:{a:"Interpretation",b:"Empathic understanding",c:"Reinforcement",d:"Confrontation"}, correct:"b", explanation:"Rogers' necessary and sufficient conditions: genuineness (congruence), unconditional positive regard, and accurate empathic understanding." },
+{ area:"therapy", topic:"Psychodynamic", q:"In psychoanalysis, the client's transfer of feelings about significant others onto the therapist is called:", options:{a:"Countertransference",b:"Transference",c:"Resistance",d:"Sublimation"}, correct:"b", explanation:"Transference = the client projecting past relational feelings onto the analyst. Countertransference is the therapist's reciprocal reaction." },
+{ area:"therapy", topic:"MI", q:"Motivational Interviewing's OARS skills are Open questions, Affirmations, Reflective listening and:", options:{a:"Summaries",b:"Suggestions",c:"Solutions",d:"Sanctions"}, correct:"a", explanation:"OARS = Open questions, Affirmations, Reflective listening, Summaries — the core micro-skills used to elicit change talk (Miller & Rollnick)." },
+{ area:"therapy", topic:"CBT techniques", q:"Self-Instructional Training, teaching clients to guide behaviour with internal speech, was developed by:", options:{a:"Donald Meichenbaum",b:"Aaron Beck",c:"Arnold Lazarus",d:"Albert Ellis"}, correct:"a", explanation:"Meichenbaum's Self-Instructional Training (and Stress Inoculation Training) trains adaptive internal dialogue. Lazarus developed multimodal therapy (BASIC ID)." },
+{ area:"therapy", topic:"Behaviour therapy", q:"A token economy operates primarily on the principle of:", options:{a:"Classical conditioning",b:"Operant conditioning via secondary reinforcers",c:"Modelling",d:"Systematic desensitisation"}, correct:"b", explanation:"Tokens are conditioned (secondary) reinforcers exchanged for backup reinforcers — pure operant conditioning applied to behaviour management." },
+{ area:"therapy", topic:"Family / systemic", q:"'Differentiation of self' and the 'family genogram' are central to the family therapy of:", options:{a:"Salvador Minuchin",b:"Murray Bowen",c:"Virginia Satir",d:"Jay Haley"}, correct:"b", explanation:"Bowen's intergenerational family systems theory emphasises differentiation of self and uses genograms. Minuchin = structural; Satir = experiential; Haley = strategic." },
+
+/* ---------------- ASSESSMENT / TESTS ---------------- */
+{ area:"assessment", topic:"Intelligence tests", q:"The Wechsler Adult Intelligence Scale yields a Full Scale IQ derived from index scores including Verbal Comprehension, Perceptual Reasoning, Working Memory and:", options:{a:"Processing Speed",b:"Emotional Quotient",c:"Motor Coordination",d:"Adaptive Behaviour"}, correct:"a", explanation:"WAIS-IV has four indices: VCI, PRI, WMI and Processing Speed (PSI). Adaptive behaviour belongs to scales like Vineland." },
+{ area:"assessment", topic:"Intelligence tests", q:"Raven's Progressive Matrices is a measure of:", options:{a:"Crystallised verbal intelligence",b:"Non-verbal / fluid reasoning (g)",c:"Academic achievement",d:"Personality type"}, correct:"b", explanation:"Raven's is a culture-reduced non-verbal test of fluid reasoning, a strong marker of Spearman's g." },
+{ area:"assessment", topic:"Intelligence tests", q:"Malin's Intelligence Scale for Indian Children (MISIC) is an Indian adaptation of the:", options:{a:"Stanford-Binet",b:"WISC",c:"Raven's matrices",d:"Bhatia battery"}, correct:"b", explanation:"MISIC is the Indian adaptation of the Wechsler Intelligence Scale for Children (WISC). Binet-Kamat is the Indian adaptation of the Stanford-Binet." },
+{ area:"assessment", topic:"Projective tests", q:"The Rorschach inkblot test is most commonly scored today using the system of:", options:{a:"Henry Murray",b:"John Exner",c:"Hermann Rorschach alone",d:"Samuel Beck only"}, correct:"b", explanation:"Exner's Comprehensive System integrated earlier approaches into the standard scoring. Murray is tied to the TAT, not the Rorschach." },
+{ area:"assessment", topic:"Projective tests", q:"The Thematic Apperception Test (TAT), based on the need for achievement and ambiguous pictures, was developed by Morgan and:", options:{a:"Henry Murray",b:"David McClelland",c:"Hermann Rorschach",d:"Starke Hathaway"}, correct:"a", explanation:"Morgan & Murray created the TAT; Murray's need-press theory underlies it. McClelland later used it to study achievement motivation." },
+{ area:"assessment", topic:"Personality inventories", q:"The MMPI is best described as a:", options:{a:"Projective test",b:"Empirically-keyed objective personality inventory",c:"Intelligence test",d:"Neuropsychological battery"}, correct:"b", explanation:"The MMPI is an objective, true/false self-report inventory developed by empirical (criterion) keying, with validity scales (L, F, K) to detect response distortion." },
+{ area:"assessment", topic:"Personality inventories", q:"Cattell's 16PF measures personality using:", options:{a:"16 source traits",b:"5 broad domains",c:"3 Eysenckian dimensions",d:"4 Jungian functions"}, correct:"a", explanation:"Cattell derived 16 source traits via factor analysis. The Big Five (NEO-PI-R) uses 5 domains; Eysenck used 3 (E, N, P)." },
+{ area:"assessment", topic:"Psychometrics", q:"In test construction, item difficulty index (p) of 0.50 generally indicates an item that:", options:{a:"Is too easy",b:"Maximally discriminates between high and low scorers",c:"Should be discarded",d:"Has poor reliability"}, correct:"b", explanation:"An item passed by ~50% of examinees provides maximum variance and discrimination. Very high or very low p-values discriminate poorly." },
+{ area:"assessment", topic:"Neuropsych / Indian", q:"The Bhatia Battery of Performance Tests of Intelligence was designed primarily for:", options:{a:"Western literate adults",b:"Illiterate and rural Indian populations",c:"Infants under 2 years",d:"Patients with aphasia only"}, correct:"b", explanation:"Bhatia (1955) developed a performance battery suitable for illiterate and rural Indian testees, reducing dependence on language/literacy." },
+{ area:"assessment", topic:"Scaling", q:"A 'standard score' (z-score) of 0 corresponds to a percentile rank of approximately:", options:{a:"0",b:"25",c:"50",d:"100"}, correct:"c", explanation:"z = 0 is the mean of a normal distribution, the 50th percentile. z = +1 ≈ 84th percentile, z = −1 ≈ 16th." },
+{ area:"assessment", topic:"Projective tests", q:"The Sentence Completion Test is classified as which type of projective technique?", options:{a:"Constructive",b:"Associative",c:"Completion",d:"Expressive"}, correct:"c", explanation:"Lindzey's projective classification: Sentence/story completion tasks are 'completion' techniques. Rorschach = associative, TAT = constructive, Draw-a-Person = expressive." },
+
+/* ---------------- BIOPSYCHOLOGY / NEURO ---------------- */
+{ area:"biopsych", topic:"Neurotransmitters", q:"The neurotransmitter most directly implicated in the positive symptoms of schizophrenia (mesolimbic pathway) is:", options:{a:"Serotonin",b:"GABA",c:"Dopamine",d:"Acetylcholine"}, correct:"c", explanation:"The dopamine hypothesis: mesolimbic dopamine hyperactivity drives positive symptoms; mesocortical hypoactivity relates to negative symptoms." },
+{ area:"biopsych", topic:"Neurotransmitters", q:"The chief inhibitory neurotransmitter in the adult mammalian CNS is:", options:{a:"Glutamate",b:"GABA",c:"Dopamine",d:"Norepinephrine"}, correct:"b", explanation:"GABA is the main inhibitory transmitter; glutamate is the main excitatory one. Benzodiazepines potentiate GABA-A action." },
+{ area:"biopsych", topic:"Action potential", q:"The rising (depolarisation) phase of the action potential is caused by:", options:{a:"K+ efflux",b:"Na+ influx",c:"Cl- influx",d:"Ca2+ efflux"}, correct:"b", explanation:"Voltage-gated Na+ channels open and Na+ rushes in, depolarising the membrane. Repolarisation follows from K+ efflux." },
+{ area:"biopsych", topic:"Action potential", q:"The all-or-none law of the neuron states that:", options:{a:"Stronger stimuli produce larger action potentials",b:"An action potential fires fully or not at all once threshold is reached",c:"Neurons fire continuously",d:"Only sensory neurons fire"}, correct:"b", explanation:"Above threshold the action potential is of fixed amplitude; stimulus intensity is coded by firing FREQUENCY, not spike size." },
+{ area:"biopsych", topic:"Neuroanatomy", q:"The brain structure most critical for the formation of new explicit (declarative) long-term memories is the:", options:{a:"Amygdala",b:"Hippocampus",c:"Cerebellum",d:"Hypothalamus"}, correct:"b", explanation:"The hippocampus consolidates new declarative memories (cf. patient H.M.). The amygdala handles emotional memory; the cerebellum supports procedural learning." },
+{ area:"biopsych", topic:"Neuroanatomy", q:"Damage to Broca's area typically produces:", options:{a:"Fluent speech with poor comprehension",b:"Non-fluent, effortful speech with relatively preserved comprehension",c:"Total deafness",d:"Loss of vision"}, correct:"b", explanation:"Broca's (expressive) aphasia = halting, agrammatic output, comprehension largely intact. Wernicke's aphasia is the fluent-but-meaningless, poor-comprehension type." },
+{ area:"biopsych", topic:"Endocrine", q:"The 'master gland' that regulates other endocrine glands is the:", options:{a:"Thyroid",b:"Adrenal medulla",c:"Pituitary",d:"Pineal"}, correct:"c", explanation:"The pituitary (under hypothalamic control) secretes tropic hormones directing other glands. The pineal secretes melatonin for circadian rhythm." },
+{ area:"biopsych", topic:"HPA axis", q:"The primary stress hormone released by the adrenal cortex via the HPA axis is:", options:{a:"Adrenaline (epinephrine)",b:"Cortisol",c:"Insulin",d:"Melatonin"}, correct:"b", explanation:"HPA axis: hypothalamus (CRH) → pituitary (ACTH) → adrenal cortex (cortisol). Adrenaline comes fast from the adrenal MEDULLA via the sympathetic route." },
+{ area:"biopsych", topic:"Autonomic NS", q:"Activation of the sympathetic nervous system would most likely cause:", options:{a:"Pupil constriction",b:"Increased salivation",c:"Increased heart rate and pupil dilation",d:"Stimulated digestion"}, correct:"c", explanation:"Sympathetic 'fight or flight': heart rate up, pupils dilate, digestion inhibited. The parasympathetic system does the opposite 'rest and digest'." },
+{ area:"biopsych", topic:"Sleep", q:"Dreaming and the strongest muscle atonia are most associated with which sleep stage?", options:{a:"Stage 1 NREM",b:"Stage 3 NREM (slow-wave)",c:"REM sleep",d:"Stage 2 NREM"}, correct:"c", explanation:"REM features vivid dreaming, EEG resembling wakefulness, and skeletal muscle atonia. Slow-wave (stage 3) is deep, restorative, delta-dominant sleep." },
+{ area:"biopsych", topic:"Synaptic plasticity", q:"Long-term potentiation (LTP) in the hippocampus is critically dependent on which receptor?", options:{a:"AMPA receptor",b:"NMDA receptor",c:"GABA-A receptor",d:"Muscarinic M1 receptor"}, correct:"b", explanation:"NMDA receptors act as coincidence detectors (needing both glutamate and depolarisation), triggering Ca2+ entry that induces LTP — a cellular basis of learning." },
+{ area:"biopsych", topic:"Cranial nerves", q:"The vagus nerve is which cranial nerve, and is primarily:", options:{a:"CN V, sensory only",b:"CN X, a major parasympathetic nerve",c:"CN II, purely sensory",d:"CN VII, purely motor"}, correct:"b", explanation:"The vagus is cranial nerve X, the principal parasympathetic nerve to the heart, lungs and gut. CN II (optic) is sensory; CN VII is facial." },
+
+/* ---------------- ABNORMAL / CLINICAL ---------------- */
+{ area:"abnormal", topic:"Schizophrenia", q:"Negative symptoms of schizophrenia include all EXCEPT:", options:{a:"Avolition",b:"Auditory hallucinations",c:"Affective flattening",d:"Alogia"}, correct:"b", explanation:"Hallucinations and delusions are POSITIVE symptoms. Negative symptoms (the 5 As): avolition, alogia, anhedonia, asociality, affective flattening." },
+{ area:"abnormal", topic:"Classification", q:"The current edition of the WHO classification used widely in India is:", options:{a:"DSM-IV-TR",b:"ICD-11",c:"ICD-9",d:"RDoC"}, correct:"b", explanation:"ICD-11 (WHO) came into effect in 2022 and is the official classification in India. DSM-5-TR is the APA's parallel system." },
+{ area:"abnormal", topic:"Diagnostic criteria", q:"A persistent depressed mood lasting most of the day, more days than not, for at least 2 years in adults best fits:", options:{a:"Major depressive episode",b:"Persistent depressive disorder (dysthymia)",c:"Cyclothymia",d:"Bipolar II"}, correct:"b", explanation:"Persistent depressive disorder (dysthymia) requires ≥2 years of low-grade depressed mood (≥1 year in children/adolescents). A major depressive episode needs only 2 weeks but more symptoms." },
+{ area:"abnormal", topic:"Anxiety disorders", q:"Recurrent unexpected panic attacks plus persistent worry about further attacks defines:", options:{a:"Generalised anxiety disorder",b:"Panic disorder",c:"Specific phobia",d:"OCD"}, correct:"b", explanation:"Panic disorder = recurrent unexpected panic attacks with ≥1 month of anticipatory worry or maladaptive behaviour change. GAD is chronic free-floating worry without discrete attacks." },
+{ area:"abnormal", topic:"OCD", q:"In OCD, compulsions are best understood as:", options:{a:"Pleasurable impulses",b:"Repetitive behaviours performed to reduce anxiety from obsessions",c:"Hallucinated commands",d:"Involuntary tics with no purpose"}, correct:"b", explanation:"Compulsions are repetitive acts/mental rituals aimed at neutralising the anxiety generated by obsessions. ERP (exposure + response prevention) is first-line." },
+{ area:"abnormal", topic:"Definition", q:"The 'four Ds' used to define abnormality are Deviance, Distress, Dysfunction and:", options:{a:"Disease",b:"Danger",c:"Delusion",d:"Dependence"}, correct:"b", explanation:"The four Ds: Deviance (from norms), Distress, Dysfunction (impaired functioning) and Danger (to self or others)." },
+{ area:"abnormal", topic:"Personality disorders", q:"Pervasive instability of relationships, self-image and affect with marked impulsivity characterises which personality disorder?", options:{a:"Schizoid",b:"Borderline",c:"Obsessive-compulsive",d:"Avoidant"}, correct:"b", explanation:"Borderline PD (Cluster B): instability of relationships, identity and emotion, impulsivity, fear of abandonment and recurrent self-harm. DBT is the evidence-based treatment." },
+{ area:"abnormal", topic:"Mood disorders", q:"At least one manic episode (regardless of depressive episodes) is required to diagnose:", options:{a:"Bipolar I disorder",b:"Bipolar II disorder",c:"Cyclothymia",d:"Major depressive disorder"}, correct:"a", explanation:"Bipolar I requires ≥1 full manic episode. Bipolar II needs a hypomanic episode plus a major depressive episode, with no full mania." },
+{ area:"abnormal", topic:"Trauma", q:"Re-experiencing, avoidance, negative cognitions/mood and hyperarousal lasting over a month after a trauma indicate:", options:{a:"Acute stress disorder",b:"Post-traumatic stress disorder",c:"Adjustment disorder",d:"Generalised anxiety disorder"}, correct:"b", explanation:"PTSD requires symptoms >1 month across the four clusters. Acute stress disorder covers 3 days to 1 month post-trauma." },
+{ area:"abnormal", topic:"Neurodevelopmental", q:"Deficits in social communication plus restricted, repetitive behaviours, with onset in early development, define:", options:{a:"ADHD",b:"Autism spectrum disorder",c:"Specific learning disorder",d:"Intellectual disability"}, correct:"b", explanation:"ASD = persistent social-communication deficits + restricted/repetitive behaviours from early childhood. ADHD centres on inattention/hyperactivity-impulsivity." },
+
+/* ---------------- COGNITIVE: LEARNING, MEMORY, PERCEPTION ---------------- */
+{ area:"general", topic:"Classical conditioning", q:"In Pavlov's experiment, after conditioning, the bell is the:", options:{a:"Unconditioned stimulus",b:"Conditioned stimulus",c:"Unconditioned response",d:"Neutral stimulus"}, correct:"b", explanation:"After pairing, the previously neutral bell becomes the conditioned stimulus (CS) eliciting a conditioned response (salivation). The food is the UCS." },
+{ area:"general", topic:"Operant conditioning", q:"Removing an aversive stimulus to INCREASE a behaviour is:", options:{a:"Positive reinforcement",b:"Negative reinforcement",c:"Positive punishment",d:"Negative punishment"}, correct:"b", explanation:"Negative reinforcement strengthens behaviour by removing something aversive (e.g. taking a painkiller stops pain). Punishment, by contrast, reduces behaviour." },
+{ area:"general", topic:"Operant conditioning", q:"The schedule of reinforcement producing behaviour most resistant to extinction is:", options:{a:"Fixed-ratio",b:"Fixed-interval",c:"Variable-ratio",d:"Continuous"}, correct:"c", explanation:"Variable-ratio schedules (e.g. gambling) yield high, steady response rates highly resistant to extinction because reinforcement timing is unpredictable." },
+{ area:"general", topic:"Social learning", q:"Bandura's Bobo doll studies primarily demonstrated:", options:{a:"Latent learning",b:"Observational learning / modelling",c:"Insight learning",d:"Classical conditioning"}, correct:"b", explanation:"Children imitated aggressive models, showing learning by observation without direct reinforcement — central to Bandura's social learning theory." },
+{ area:"general", topic:"Memory models", q:"In the Atkinson-Shiffrin multi-store model, information moves from sensory memory to short-term store primarily via:", options:{a:"Rehearsal",b:"Attention",c:"Retrieval",d:"Chunking"}, correct:"b", explanation:"Attention selects sensory input for entry into short-term store; rehearsal then transfers it to long-term memory. (Chunking expands STM capacity.)" },
+{ area:"general", topic:"Working memory", q:"In Baddeley's working memory model, the component that integrates information into episodes and links to long-term memory is the:", options:{a:"Phonological loop",b:"Visuospatial sketchpad",c:"Central executive",d:"Episodic buffer"}, correct:"d", explanation:"Baddeley added the episodic buffer (2000) to bind multimodal information and interface with LTM. The central executive allocates attention but stores nothing." },
+{ area:"general", topic:"Memory capacity", q:"Miller's classic estimate of short-term memory capacity is:", options:{a:"3 ± 1 items",b:"7 ± 2 items",c:"12 ± 2 items",d:"Unlimited"}, correct:"b", explanation:"Miller's 'magical number seven, plus or minus two' describes STM span, expandable through chunking." },
+{ area:"general", topic:"Attention", q:"Failing to notice an unexpected object (e.g. a gorilla) while attention is engaged elsewhere is:", options:{a:"Change blindness",b:"Inattentional blindness",c:"The cocktail-party effect",d:"Priming"}, correct:"b", explanation:"Inattentional blindness (Simons & Chabris) = missing a fully visible but unattended stimulus. Change blindness is failing to detect a change across views." },
+{ area:"general", topic:"Forgetting", q:"The tendency for earlier learning to interfere with the recall of later learning is:", options:{a:"Retroactive interference",b:"Proactive interference",c:"Decay",d:"Encoding failure"}, correct:"b", explanation:"Proactive interference: old memories disrupt new ones. Retroactive interference is the reverse — new learning disrupts recall of old material." },
+{ area:"general", topic:"Perception", q:"The Gestalt principle by which we group elements that are close together is:", options:{a:"Similarity",b:"Proximity",c:"Closure",d:"Continuity"}, correct:"b", explanation:"Proximity: nearby elements are perceived as a group. Similarity groups like elements; closure fills gaps to see whole figures." },
+{ area:"general", topic:"Perception", q:"Perceiving an object as unchanged in size despite changes in retinal image with distance is:", options:{a:"Shape constancy",b:"Size constancy",c:"Brightness constancy",d:"Perceptual set"}, correct:"b", explanation:"Size constancy keeps perceived size stable as distance (and retinal image size) changes, using depth cues to correct the raw image." },
+{ area:"general", topic:"Learning theory", q:"Tolman's rats running a maze without reward, then improving sharply once reward appeared, demonstrated:", options:{a:"Insight learning",b:"Latent learning",c:"Shaping",d:"Spontaneous recovery"}, correct:"b", explanation:"Latent learning: learning occurs without reinforcement and stays hidden until there is a reason to perform it — evidence for cognitive maps." },
+
+/* ---------------- DEVELOPMENTAL ---------------- */
+{ area:"dev", topic:"Piaget", q:"Object permanence, in Piaget's theory, is acquired during the:", options:{a:"Preoperational stage",b:"Sensorimotor stage",c:"Concrete operational stage",d:"Formal operational stage"}, correct:"b", explanation:"Object permanence — knowing objects exist when out of sight — develops across the sensorimotor stage (0–2 yrs), with the A-not-B error resolving by ~12 months." },
+{ area:"dev", topic:"Piaget", q:"The ability to understand that quantity stays the same despite changes in shape (conservation) marks the:", options:{a:"Sensorimotor stage",b:"Preoperational stage",c:"Concrete operational stage",d:"Formal operational stage"}, correct:"c", explanation:"Conservation appears in the concrete operational stage (~7–11 yrs). Preoperational children fail it due to centration and irreversibility." },
+{ area:"dev", topic:"Erikson", q:"According to Erikson, the central psychosocial crisis of adolescence is:", options:{a:"Trust vs Mistrust",b:"Identity vs Role confusion",c:"Intimacy vs Isolation",d:"Generativity vs Stagnation"}, correct:"b", explanation:"Adolescence = Identity vs Role confusion. Intimacy vs Isolation is young adulthood; Generativity vs Stagnation is middle adulthood." },
+{ area:"dev", topic:"Kohlberg", q:"A person who obeys laws because society needs order is reasoning at Kohlberg's:", options:{a:"Preconventional level",b:"Conventional level",c:"Postconventional level",d:"Premoral level"}, correct:"b", explanation:"Law-and-order maintenance is stage 4, within the conventional level. Postconventional reasoning appeals to universal ethical principles above the law." },
+{ area:"dev", topic:"Attachment", q:"In Ainsworth's Strange Situation, an infant who shows little distress at separation and ignores the returning caregiver is classified as:", options:{a:"Secure",b:"Insecure-avoidant",c:"Insecure-resistant/ambivalent",d:"Disorganised"}, correct:"b", explanation:"Avoidant infants minimise distress and avoid the caregiver on reunion. Resistant infants are highly distressed and hard to soothe; secure infants seek and take comfort." },
+{ area:"dev", topic:"Vygotsky", q:"The gap between what a child can do alone and what they can do with guidance is Vygotsky's:", options:{a:"Object permanence",b:"Zone of proximal development",c:"Conservation",d:"Equilibration"}, correct:"b", explanation:"The ZPD is the range of tasks achievable with scaffolding from a more knowledgeable other — central to Vygotsky's sociocultural theory." },
+{ area:"dev", topic:"Bronfenbrenner", q:"In Bronfenbrenner's ecological systems theory, the interaction between two microsystems (e.g. home and school) is the:", options:{a:"Mesosystem",b:"Exosystem",c:"Macrosystem",d:"Chronosystem"}, correct:"a", explanation:"Mesosystem = links between microsystems. Exosystem = settings affecting the child indirectly; macrosystem = culture; chronosystem = change over time." },
+{ area:"dev", topic:"Parenting", q:"Baumrind's parenting style high in both warmth and control, linked to the best child outcomes, is:", options:{a:"Authoritarian",b:"Authoritative",c:"Permissive",d:"Neglectful"}, correct:"b", explanation:"Authoritative = high warmth + high (reasoned) control, associated with competence and self-regulation. Authoritarian is high control but low warmth." },
+{ area:"dev", topic:"Temperament", q:"Thomas and Chess's New York Longitudinal Study classified temperament into easy, slow-to-warm-up and:", options:{a:"Anxious",b:"Difficult",c:"Secure",d:"Resilient"}, correct:"b", explanation:"Their three temperament types were easy, difficult, and slow-to-warm-up, with outcomes shaped by 'goodness of fit' with the environment." },
+{ area:"dev", topic:"Attachment", q:"Harlow's monkey studies with wire and cloth surrogates demonstrated that attachment is driven mainly by:", options:{a:"Feeding (cupboard love)",b:"Contact comfort",c:"Imprinting",d:"Operant reward"}, correct:"b", explanation:"Monkeys preferred the cloth mother for comfort even when fed by the wire one, showing contact comfort, not feeding, underlies attachment." },
+
+/* ---------------- SOCIAL PSYCHOLOGY ---------------- */
+{ area:"social", topic:"Conformity", q:"Asch's line-judgement experiments primarily studied:", options:{a:"Obedience to authority",b:"Conformity to group pressure",c:"Bystander apathy",d:"Cognitive dissonance"}, correct:"b", explanation:"Asch showed people conform to a unanimous majority's wrong answer, demonstrating normative social influence. Milgram studied obedience." },
+{ area:"social", topic:"Obedience", q:"Milgram's shock experiments are best known for demonstrating:", options:{a:"Conformity",b:"Obedience to authority",c:"Group polarisation",d:"Social facilitation"}, correct:"b", explanation:"Milgram showed ordinary people would administer apparently dangerous shocks when instructed by an authority figure." },
+{ area:"social", topic:"Attribution", q:"Overestimating dispositional and underestimating situational causes of others' behaviour is the:", options:{a:"Self-serving bias",b:"Fundamental attribution error",c:"Actor-observer effect",d:"Halo effect"}, correct:"b", explanation:"The fundamental attribution error (Ross) over-attributes others' behaviour to personality over situation. The self-serving bias concerns explaining one's OWN outcomes." },
+{ area:"social", topic:"Cognitive dissonance", q:"Festinger's theory of cognitive dissonance predicts that holding two conflicting cognitions produces:", options:{a:"Comfort",b:"Psychological discomfort motivating attitude change",c:"Improved memory",d:"Social facilitation"}, correct:"b", explanation:"Dissonance creates discomfort that people reduce by changing attitudes/behaviour or adding consonant cognitions (e.g. the $1/$20 study)." },
+{ area:"social", topic:"Helping behaviour", q:"The finding that individuals are less likely to help as the number of bystanders increases is the:", options:{a:"Bystander effect (diffusion of responsibility)",b:"Just-world hypothesis",c:"Social loafing",d:"Deindividuation"}, correct:"a", explanation:"The bystander effect (Latané & Darley) attributes reduced helping to diffusion of responsibility and pluralistic ignorance among many witnesses." },
+{ area:"social", topic:"Group processes", q:"Reduced individual effort when working in a group compared with working alone is:", options:{a:"Social facilitation",b:"Social loafing",c:"Group polarisation",d:"Groupthink"}, correct:"b", explanation:"Social loafing (Ringelmann effect) = effort drops as accountability diffuses in groups. Social facilitation is the opposite — improved performance on simple tasks when observed." },
+{ area:"social", topic:"Attitudes", q:"The three components of an attitude in the ABC (tripartite) model are Affective, Behavioural and:", options:{a:"Cognitive",b:"Conative",c:"Conscious",d:"Cultural"}, correct:"a", explanation:"The tripartite model: Affective (feelings), Behavioural (action tendencies), Cognitive (beliefs)." },
+{ area:"social", topic:"Group decisions", q:"A group's tendency to adopt more extreme positions than its members' initial average is:", options:{a:"Groupthink",b:"Group polarisation",c:"Social loafing",d:"Conformity"}, correct:"b", explanation:"Group polarisation strengthens the group's dominant leaning after discussion. Groupthink is the drive for consensus that suppresses dissent and realistic appraisal." },
+{ area:"social", topic:"Prejudice", q:"Sherif's Robbers Cave study showed prejudice between groups was best reduced by:", options:{a:"Mere contact",b:"Superordinate goals requiring cooperation",c:"Competition",d:"Authority instruction"}, correct:"b", explanation:"Cooperation toward superordinate goals (shared problems neither group could solve alone) reduced hostility; mere contact alone did not." },
+
+/* ---------------- PERSONALITY ---------------- */
+{ area:"personality", topic:"Trait theory", q:"The 'Big Five' personality factors are Openness, Conscientiousness, Extraversion, Agreeableness and:", options:{a:"Neuroticism",b:"Psychoticism",c:"Narcissism",d:"Dominance"}, correct:"a", explanation:"OCEAN: Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism (the Five-Factor Model, Costa & McCrae). Psychoticism belongs to Eysenck's model." },
+{ area:"personality", topic:"Eysenck", q:"Eysenck's original dimensions of personality were Extraversion–Introversion and:", options:{a:"Openness",b:"Neuroticism (later adding Psychoticism)",c:"Agreeableness",d:"Conscientiousness"}, correct:"b", explanation:"Eysenck began with Extraversion and Neuroticism, later adding Psychoticism (the PEN model), each tied to a biological basis (e.g. cortical arousal)." },
+{ area:"personality", topic:"Psychodynamic", q:"In Freud's structural model, the component operating on the 'reality principle' is the:", options:{a:"Id",b:"Ego",c:"Superego",d:"Libido"}, correct:"b", explanation:"The ego mediates between id and superego using the reality principle. The id follows the pleasure principle; the superego embodies moral standards." },
+{ area:"personality", topic:"Defence mechanisms", q:"Attributing one's own unacceptable impulses to another person is the defence mechanism of:", options:{a:"Reaction formation",b:"Projection",c:"Displacement",d:"Sublimation"}, correct:"b", explanation:"Projection externalises one's own unacceptable feelings onto others. Reaction formation converts an impulse into its opposite; sublimation channels it into acceptable activity." },
+{ area:"personality", topic:"Humanistic", q:"Maslow placed which need at the apex of his hierarchy?", options:{a:"Esteem",b:"Belonging",c:"Self-actualisation",d:"Safety"}, correct:"c", explanation:"Self-actualisation tops Maslow's hierarchy (later, self-transcendence). The lower deficiency needs are physiological, safety, belonging and esteem." },
+{ area:"personality", topic:"Social-cognitive", q:"Rotter's concept distinguishing whether people attribute outcomes to their own actions versus outside forces is:", options:{a:"Self-efficacy",b:"Locus of control",c:"Reciprocal determinism",d:"Learned helplessness"}, correct:"b", explanation:"Locus of control (Rotter) ranges from internal (own actions) to external (luck/fate/others). Self-efficacy is Bandura's belief in one's capability." },
+{ area:"personality", topic:"Social-cognitive", q:"Bandura's idea that behaviour, personal factors and environment all influence each other is:", options:{a:"Reciprocal determinism",b:"Locus of control",c:"Functional autonomy",d:"Fixation"}, correct:"a", explanation:"Reciprocal determinism: person, behaviour and environment interact bidirectionally. Self-efficacy is a key personal factor within this triad." },
+{ area:"personality", topic:"Trait theory", q:"Allport distinguished traits that dominate a person's whole life as:", options:{a:"Central traits",b:"Secondary traits",c:"Cardinal traits",d:"Source traits"}, correct:"c", explanation:"Allport's cardinal traits pervade and define a life (rare). Central traits are general characteristics; secondary traits are situational. 'Source traits' is Cattell's term." },
+{ area:"personality", topic:"Projective basis", q:"Jung's analytical psychology introduced the concept of the:", options:{a:"Collective unconscious and archetypes",b:"Inferiority complex",c:"Operant conditioning",d:"Hierarchy of needs"}, correct:"a", explanation:"Jung proposed the collective unconscious populated by archetypes (shadow, anima/animus, self). The inferiority complex is Adler's contribution." }
+];
+
+/* ===================================================================== */
+const STORE_KEY = "nimhans-practice-progress-v1";
+function loadProgress() {
+  try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch (e) { return {}; }
+}
+function saveProgress(p) {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(p)); } catch (e) {}
+}
+let progress = loadProgress(); // { areaKey: { seen:{qid:true}, right:{qid:true} } }
+
+function qid(q) { return q.area + "::" + BANK.indexOf(q); }
+function areaCount(key) { return BANK.filter(q => q.area === key).length; }
+function areaTopics(key) {
+  const seen = [];
+  BANK.forEach(q => { if (q.area === key && seen.indexOf(q.topic) === -1) seen.push(q.topic); });
+  return seen;
+}
+
+let state = { area: null, topic: "all", queue: [], idx: 0 };
+
+const areaGrid = document.getElementById("areaGrid");
+const practiceWrap = document.getElementById("practiceWrap");
+const topicChips = document.getElementById("topicChips");
+const qAreaEl = document.getElementById("qArea");
+const countLabel = document.getElementById("countLabel");
+
+function renderAreas() {
+  areaGrid.innerHTML = "";
+  AREAS.forEach(a => {
+    const total = areaCount(a.key);
+    const ap = progress[a.key] || { seen:{}, right:{} };
+    const seen = Object.keys(ap.seen || {}).length;
+    const right = Object.keys(ap.right || {}).length;
+    const pct = total ? Math.round((seen / total) * 100) : 0;
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "area-card" + (state.area === a.key ? " sel" : "");
+    card.innerHTML =
+      '<div class="ac-name">' + a.name + '</div>' +
+      '<div class="ac-meta">' + total + ' Q · ' + a.note + '</div>' +
+      '<div class="ac-prog">' + (seen ? (seen + '/' + total + ' done · ' + right + ' right') : 'not started') + '</div>' +
+      '<div class="ac-bar"><div class="ac-fill" style="width:' + pct + '%"></div></div>';
+    card.addEventListener("click", () => selectArea(a.key));
+    areaGrid.appendChild(card);
+  });
+}
+
+function selectArea(key) {
+  state.area = key;
+  state.topic = "all";
+  buildQueue();
+  renderAreas();
+  renderTopics();
+  practiceWrap.style.display = "block";
+  state.idx = 0;
+  renderQuestion();
+  practiceWrap.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function renderTopics() {
+  const topics = areaTopics(state.area);
+  topicChips.innerHTML = "";
+  const mk = (label, val) => {
+    const c = document.createElement("button");
+    c.type = "button";
+    c.className = "chip" + (state.topic === val ? " sel" : "");
+    c.textContent = label;
+    c.addEventListener("click", () => { state.topic = val; buildQueue(); state.idx = 0; renderTopics(); renderQuestion(); });
+    topicChips.appendChild(c);
+  };
+  mk("All topics", "all");
+  topics.forEach(t => mk(t, t));
+}
+
+function buildQueue() {
+  let qs = BANK.filter(q => q.area === state.area && (state.topic === "all" || q.topic === state.topic));
+  // shuffle
+  for (let i = qs.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [qs[i], qs[j]] = [qs[j], qs[i]];
+  }
+  state.queue = qs;
+}
+
+function renderQuestion() {
+  const q = state.queue[state.idx];
+  countLabel.textContent = state.queue.length + (state.queue.length === 1 ? " question" : " questions") +
+    (state.topic === "all" ? "" : " · " + state.topic);
+  if (!q) {
+    qAreaEl.innerHTML = '<div class="empty">No questions here yet.</div>';
+    return;
+  }
+  const id = qid(q);
+  const card = document.createElement("div");
+  card.className = "card";
+  let optsHtml = "";
+  ["a","b","c","d"].forEach(k => {
+    optsHtml += '<button class="opt" data-k="' + k + '"><span class="key">' + k.toUpperCase() + '</span><span>' + q.options[k] + '</span></button>';
+  });
+  card.innerHTML =
+    '<div class="q-top"><span class="q-num">Q' + (state.idx + 1) + ' of ' + state.queue.length + '</span>' +
+    '<span class="q-topic">' + q.topic + '</span></div>' +
+    '<div class="q-text">' + q.q + '</div>' +
+    '<div class="opts">' + optsHtml + '</div>' +
+    '<div class="explain" id="explain"></div>' +
+    '<div class="nextbar"><span class="progress-mini" id="pmini"></span>' +
+    '<button class="btn" id="nextBtn" type="button" style="display:none;">Next →</button></div>';
+  qAreaEl.innerHTML = "";
+  qAreaEl.appendChild(card);
+
+  const explainEl = card.querySelector("#explain");
+  const nextBtn = card.querySelector("#nextBtn");
+  const opts = card.querySelectorAll(".opt");
+  let answered = false;
+
+  opts.forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (answered) return;
+      answered = true;
+      const chosen = btn.getAttribute("data-k");
+      const isRight = chosen === q.correct;
+      opts.forEach(o => {
+        o.setAttribute("disabled", "true");
+        const k = o.getAttribute("data-k");
+        if (k === q.correct) o.classList.add("correct");
+        else if (k === chosen) o.classList.add("wrong");
+      });
+      explainEl.innerHTML = '<span class="verdict ' + (isRight ? "right" : "wrong") + '">' +
+        (isRight ? "Correct." : "Not quite.") + '</span>' + q.explanation;
+      explainEl.classList.add("show");
+      nextBtn.style.display = "inline-block";
+      // record progress
+      const ap = progress[state.area] || { seen:{}, right:{} };
+      ap.seen = ap.seen || {}; ap.right = ap.right || {};
+      ap.seen[id] = true;
+      if (isRight) ap.right[id] = true; else delete ap.right[id];
+      progress[state.area] = ap;
+      saveProgress(progress);
+      renderAreas();
+      const ans = Object.keys(ap.seen).length, rt = Object.keys(ap.right).length;
+      card.querySelector("#pmini").textContent = "This area: " + rt + "/" + ans + " right";
+    });
+  });
+
+  nextBtn.addEventListener("click", () => {
+    if (state.idx < state.queue.length - 1) {
+      state.idx++;
+      renderQuestion();
+      qAreaEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      renderDone();
+    }
+  });
+}
+
+function renderDone() {
+  const ap = progress[state.area] || { seen:{}, right:{} };
+  // score this run's queue
+  let right = 0;
+  state.queue.forEach(q => { if (ap.right && ap.right[qid(q)]) right++; });
+  const tot = state.queue.length;
+  const pct = tot ? Math.round((right / tot) * 100) : 0;
+  const cls = pct >= 75 ? "good" : pct >= 50 ? "warn" : "bad";
+  const areaName = (AREAS.find(a => a.key === state.area) || {}).name || "";
+  qAreaEl.innerHTML =
+    '<div class="card done-card">' +
+    '<h2>' + areaName + ' — set complete</h2>' +
+    '<div class="big ' + cls + '">' + right + ' / ' + tot + '</div>' +
+    '<p>' + pct + '% correct on this pass.</p>' +
+    '<p>' + (pct >= 75 ? "Solid. Lock it in on a timed mock." : pct >= 50 ? "Getting there — run it again and the explanations will stick." : "Re-drill this area, then check the linked cheatsheet.") + '</p>' +
+    '<div class="actions">' +
+    '<button class="btn" id="againBtn" type="button">↻ Drill again</button>' +
+    '<a class="btn ghost" href="../../notes/">Open notes</a>' +
+    '<a class="btn ghost" href="../../tests/">Timed mocks</a>' +
+    '</div></div>';
+  document.getElementById("againBtn").addEventListener("click", () => {
+    buildQueue(); state.idx = 0; renderQuestion();
+    qAreaEl.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+}
+
+document.getElementById("shuffleBtn").addEventListener("click", () => {
+  if (!state.area) return;
+  buildQueue(); state.idx = 0; renderQuestion();
+});
+document.getElementById("restartBtn").addEventListener("click", () => {
+  if (!state.area) return;
+  if (!confirm("Clear your saved progress for this area and start fresh?")) return;
+  delete progress[state.area];
+  saveProgress(progress);
+  buildQueue(); state.idx = 0; renderAreas(); renderQuestion();
+});
+
+renderAreas();
+
+// Deep-link: #biopsych etc. auto-opens that area (used by dashboard pills).
+function openFromHash() {
+  const key = (location.hash || "").replace(/^#/, "");
+  if (key && AREAS.some(a => a.key === key)) selectArea(key);
+}
+window.addEventListener("hashchange", openFromHash);
+openFromHash();
+</script>
+</body>
+</html>

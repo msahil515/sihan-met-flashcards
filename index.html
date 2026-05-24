@@ -544,6 +544,7 @@
     <nav class="nav">
       <a href="./" class="active">Dashboard</a>
       <a href="tests/">Tests</a>
+      <a href="quiz/practice/">Practice</a>
       <a href="results/">My Results</a>
       <a href="notes/">Notes</a>
       <a href="checklist/">Checklist</a>
@@ -617,7 +618,7 @@
   <section>
     <div class="section-head">
       <h2 class="section-title">Syllabus areas</h2>
-      <span class="section-sub">9 areas, NIMHANS-weighted · live progress from your mocks · <a href="notes/" style="color:var(--accent);">all notes →</a></span>
+      <span class="section-sub">9 areas, NIMHANS-weighted · live progress from your mocks · <a href="quiz/practice/" style="color:var(--accent);">drill by area →</a></span>
     </div>
     <div class="grid cols-3" id="areasGrid"></div>
   </section>
@@ -812,7 +813,8 @@ const RESOURCES = [
 ];
 
 const NEWS = [
-  { date: "2026-05-24", title: "Repointed for NIMHANS (NEW)", desc: "MET is done, so the dashboard is now built around the NIMHANS M.A. Clinical Psychology (RCI, formerly M.Phil) entrance. Real pattern up top: 100 MCQ in 90 min, +1 / −0.25, online CBT in Bengaluru, selection on the written test alone (no interview for the MA, unlike the PhD). Syllabus regrouped into 9 NIMHANS-weighted areas with the four heavy baskets (Research & Stats, Psychotherapy, Assessment, Biopsych) up front, each with what NIMHANS actually asks. Language/English section dropped. MET mocks demoted but kept as content drills; the old MET dashboard is archived at met.html. Weights are estimated from 2023-25 PYQs, not an official blueprint.", href: "./" },
+  { date: "2026-05-24", title: "Practice by area (NEW)", desc: "A proper untimed drill mode, the one thing the mocks didn't give you. Pick one of the 9 syllabus areas, then narrow to a single topic (e.g. just Reliability, or just Attachment), and work through it question by question. Answer and you see right away whether you're right plus the rule behind it, no marks lost. Progress per area saves on this browser, and the dashboard area cards now have a 'drill this area' shortcut. Open it from Practice in the top nav. ~100 questions across all 9 areas to start, more to come.", href: "quiz/practice/" },
+  { date: "2026-05-24", title: "Repointed for NIMHANS", desc: "MET is done, so the dashboard is now built around the NIMHANS M.A. Clinical Psychology (RCI, formerly M.Phil) entrance. Real pattern up top: 100 MCQ in 90 min, +1 / −0.25, online CBT in Bengaluru, selection on the written test alone (no interview for the MA, unlike the PhD). Syllabus regrouped into 9 NIMHANS-weighted areas with the four heavy baskets (Research & Stats, Psychotherapy, Assessment, Biopsych) up front, each with what NIMHANS actually asks. Language/English section dropped. MET mocks demoted but kept as content drills; the old MET dashboard is archived at met.html. Weights are estimated from 2023-25 PYQs, not an official blueprint.", href: "./" },
   { date: "2026-05-21", title: "Real PYQ Mock — NIMHANS 2024", desc: "The full NIMHANS M.Phil Clinical Psychology 2024 paper, 100 questions reconstructed from candidate recall, real four options + official answer key, nothing synthesised. Scored +1 / −0.25 like the real thing. Heavy on therapy (19), biostats (17), assessment (17), biopsych (16) — exactly the NIMHANS flavour. Every Q source-tagged with a one-line rationale.", href: "quiz/pyq-real-2024/" },
   { date: "2026-05-21", title: "Final Coverage Checklist", desc: "One page to answer 'have I covered everything?'. Every named topic, theory, test, disorder, structure and theorist across the syllabus, tickable, with per-section progress bars and a 'next gap' jump. Ticks save on this browser.", href: "checklist/" },
   { date: "2026-05-20", title: "Wrong Answers Remix", desc: "Pulls every Q you marked wrong across all mocks and serves them as a fresh shuffled paper. Source-tagged, filter by mock or section, re-shuffle anytime. Open from Tests → Targeted retry.", href: "quiz/wrong-remix/" },
@@ -925,6 +927,7 @@ function renderAreas(mockResults) {
     }
 
     html += `<div class="area-links">`;
+    html += `<a class="pill" href="quiz/practice/#${area.key}" style="border-color:var(--accent-dim);color:var(--accent);">▸ drill this area</a>`;
     for (const n of area.notes.slice(0, 3)) html += `<a class="pill" href="notes/${n}/">${n.replace(/-/g,' ')}</a>`;
     html += `</div>`;
 
