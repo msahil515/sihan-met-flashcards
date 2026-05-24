@@ -667,11 +667,11 @@ function renderHero() {
 }
 
 function updateCountdown() {
-  const exam = new Date('2026-05-23T00:00:00+05:30');
+  const exam = new Date('2026-05-31T00:00:00+05:30');
   const now = new Date();
   const ms = exam - now;
   const days = ms > 0 ? Math.floor(ms / (1000 * 60 * 60 * 24)) : 0;
-  document.getElementById("countdownChip").textContent = ms > 0 ? `${days} days to MET` : "Exam day!";
+  document.getElementById("countdownChip").textContent = ms > 0 ? `${days} days to exam` : "Exam day!";
 }
 
 /* =====================================================================

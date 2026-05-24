@@ -182,13 +182,13 @@
 <footer>Sihan MET 2026 + NIMHANS prep · plan is a contract with yourself, dashboard is the scoreboard</footer>
 
 <script>
-const examDate = new Date('2026-05-23T00:00:00+05:30');
+const examDate = new Date('2026-05-31T00:00:00+05:30');
 
 function updateCountdown() {
   const ms = examDate - new Date();
   const d = ms > 0 ? Math.floor(ms / 86400000) : 0;
   const w = Math.ceil(d / 7);
-  document.getElementById("countdownChip").textContent = ms > 0 ? `${d} days to MET` : "Exam day!";
+  document.getElementById("countdownChip").textContent = ms > 0 ? `${d} days to exam` : "Exam day!";
   document.getElementById("heroDays").textContent = d;
   document.getElementById("heroWeeks").textContent = w;
 }

@@ -169,7 +169,7 @@
     <h1>Everything you need, one tap away</h1>
     <p>Start with one of the two pages below and read it top to bottom. Everything else, your mocks, the 7 syllabus sections, the sprints, sits folded in the groups under it. Tap a group open only when you want it, or type to filter every card live.</p>
     <div class="nx-countline">
-      <span class="nx-bigcount" id="heroCount"><b>—</b><span>to MET 2026</span></span>
+      <span class="nx-bigcount" id="heroCount"><b>—</b><span>to exam day</span></span>
     </div>
     <div class="nx-search">
       <input id="notes-search-input" type="search" placeholder="Search — cranial, ainsworth, p-value, broca, BATS…" autocomplete="off" spellcheck="false">
@@ -517,15 +517,15 @@
 
 <script>
 function updateCountdown() {
-  const exam = new Date('2026-05-23T00:00:00+05:30');
+  const exam = new Date('2026-05-31T00:00:00+05:30');
   const ms = exam - new Date();
   const d = ms > 0 ? Math.floor(ms / 86400000) : 0;
   const chip = document.getElementById("countdownChip");
   const hero = document.getElementById("heroCount");
   if (ms > 0) {
     const label = d === 0 ? "Tomorrow" : d + (d === 1 ? " day" : " days");
-    chip.textContent = d === 0 ? "MET tomorrow" : `${d} days to MET`;
-    hero.innerHTML = `<b>${label}</b><span>${d === 0 ? "MET 2026 · sleep tonight" : "to MET 2026"}</span>`;
+    chip.textContent = d === 0 ? "Exam tomorrow" : `${d} days to exam`;
+    hero.innerHTML = `<b>${label}</b><span>${d === 0 ? "exam day · sleep tonight" : "to exam day"}</span>`;
   } else {
     chip.textContent = "Exam day!";
     hero.classList.add("live");

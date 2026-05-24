@@ -377,10 +377,10 @@ function renderDrillScores() {
 }
 
 function updateCountdown() {
-  const exam = new Date('2026-05-23T00:00:00+05:30');
+  const exam = new Date('2026-05-31T00:00:00+05:30');
   const ms = exam - new Date();
   const d = ms > 0 ? Math.floor(ms / 86400000) : 0;
-  document.getElementById("countdownChip").textContent = ms > 0 ? `${d} days to MET` : "Exam day!";
+  document.getElementById("countdownChip").textContent = ms > 0 ? `${d} days to exam` : "Exam day!";
 }
 
 /* =====================================================================

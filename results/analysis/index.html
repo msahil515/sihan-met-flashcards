@@ -846,10 +846,10 @@ function renderQList(mock) {
    COUNTDOWN
    ============================================================ */
 function updateCountdown() {
-  const exam = new Date('2026-05-23T00:00:00+05:30');
+  const exam = new Date('2026-05-31T00:00:00+05:30');
   const ms = exam - new Date();
   const days = ms > 0 ? Math.floor(ms / 86400000) : 0;
-  document.getElementById("countdownChip").textContent = ms > 0 ? `${days} days to MET` : "Exam day!";
+  document.getElementById("countdownChip").textContent = ms > 0 ? `${days} days to exam` : "Exam day!";
 }
 
 /* ============================================================

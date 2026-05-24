@@ -2092,10 +2092,10 @@ document.getElementById('jumpUnchecked').addEventListener('click', () => {
 });
 
 (function countdown() {
-  const exam = new Date('2026-05-23T00:00:00+05:30');
+  const exam = new Date('2026-05-31T00:00:00+05:30');
   const ms = exam - new Date();
   const days = Math.ceil(ms / 86400000);
-  document.getElementById('countdownChip').textContent = ms > 0 ? (days + " days to MET") : "Exam day!";
+  document.getElementById('countdownChip').textContent = ms > 0 ? (days + " days to exam") : "Exam day!";
 })();
 
 applyState();
