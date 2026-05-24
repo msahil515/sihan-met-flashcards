@@ -133,6 +133,14 @@
     margin-right: 6px; font-weight: 600; }
   .review-tag.guessed { background: rgba(240, 180, 41, 0.15); color: var(--warn); }
   .review-tag.wrong { background: rgba(248, 81, 73, 0.15); color: var(--bad); }
+  .review-tag.flagged { background: rgba(240, 180, 41, 0.15); color: var(--warn); }
+  .review-list li.review-clickable { cursor: pointer; }
+  .review-list li.review-clickable:hover { background: rgba(88,166,255,0.05); }
+  .review-q { color: var(--text); display: block; margin: 3px 0; }
+  .review-ans { font-size: 12px; color: var(--muted); display: block; }
+  .review-ans .rv-picked { color: var(--bad); font-weight: 600; }
+  .review-ans .rv-correct { color: var(--good); font-weight: 600; }
+  .review-rule { font-size: 12px; color: var(--muted); display: block; margin-top: 2px; font-style: italic; }
   .reset-btn { margin-top: 12px; width: 100%; color: var(--muted); font-size: 12px; }
   .section-scores { margin-top: 16px; background: var(--panel); border: 1px solid var(--border);
     border-radius: 8px; padding: 12px; }
@@ -220,6 +228,17 @@
   .ah-delta { font-size: 11px; margin-left: 6px; }
   .ah-delta.up { color: var(--good); } .ah-delta.down { color: var(--bad); }
   .ah-empty { font-size: 12px; color: var(--muted); }
+  /* Shuffle toggle */
+  .shuffle-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: -4px 0 14px 0; }
+  .shuffle-chip { display: inline-flex; align-items: center; gap: 8px; background: var(--panel);
+    border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 13px;
+    color: var(--text); cursor: pointer; user-select: none; flex: 0 0 auto; }
+  .shuffle-chip.on { border-color: var(--accent); color: var(--accent); background: rgba(88,166,255,0.08); }
+  .shuffle-chip .sc-box { width: 16px; height: 16px; border: 2px solid var(--border); border-radius: 4px;
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .shuffle-chip.on .sc-box { border-color: var(--accent); background: var(--accent); }
+  .shuffle-chip.on .sc-box::after { content: "✓"; color: var(--bg); font-weight: 800; font-size: 12px; }
+  .shuffle-note { font-size: 11px; color: var(--muted); flex: 1; min-width: 160px; }
   footer { text-align: center; font-size: 10px; color: var(--muted); padding: 24px 0 8px 0; }
 </style>
 <!-- PWA:met-prep -->
@@ -260,6 +279,13 @@
     <button class="mode-btn" data-action="setMode" data-mode="exam">⏱️ Exam mode</button>
   </div>
   <div class="mode-hint" id="modeHint"></div>
+
+  <div class="shuffle-row">
+    <div class="shuffle-chip" id="shuffleChip" data-action="toggleShuffle">
+      <span class="sc-box"></span><span>🔀 Shuffle questions &amp; options</span>
+    </div>
+    <span class="shuffle-note">Randomises the order each pass so you learn the rule, not the position.</span>
+  </div>
 
   <div id="examIntro" class="exam-intro" style="display:none;"></div>
   <div id="examBar" class="exam-bar" style="display:none;"></div>
@@ -1811,9 +1837,9 @@ const MIN_PER_Q = 1;
 const state = {
   filtered: [], index: 0, selected: null, guessed: false, submitted: false,
   results: {}, notes: {}, flags: {}, redo: "none",
-  mode: "practice",
+  mode: "practice", optOrder: {},
   exam: { running: false, finished: false, endTs: 0, durationSec: 0 },
-  progress: { lastIndex: 0, lastSection: "all", drafts: {} }
+  progress: { lastIndex: 0, lastSection: "all", drafts: {}, shuffle: false }
 };
 let examTick = null;
 
@@ -1848,22 +1874,48 @@ function handleNotesInput(qid, text) {
 function escapeHtml(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
 function currentQ() { return state.filtered[state.index]; }
 
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+// Stable-per-render display order for a question's options. Reshuffled only when
+// shuffle is toggled (state.optOrder is cleared then). Underlying letters and
+// scoring are unchanged — only the on-screen order differs.
+function optionOrderFor(qid) {
+  if (!state.progress.shuffle) return ["a", "b", "c", "d"];
+  if (!state.optOrder[qid]) state.optOrder[qid] = shuffleArray(["a", "b", "c", "d"]);
+  return state.optOrder[qid];
+}
+
 function applyFilter(opts) {
   opts = opts || {};
   const sel = document.getElementById("sectionSelect").value;
-  let pool = sel === "all" ? QUESTIONS : QUESTIONS.filter(q => q.section === sel);
+  let pool = sel === "all" ? QUESTIONS.slice() : QUESTIONS.filter(q => q.section === sel);
   if (state.redo === "wrong") {
     pool = pool.filter(q => { const r = state.results[q.id]; return r && !r.correct; });
   } else if (state.redo === "flagged") {
     pool = pool.filter(q => state.flags[q.id]);
   }
+  if (state.progress.shuffle) shuffleArray(pool);
   state.filtered = pool;
-  if (opts.preservePosition && sel === state.progress.lastSection && state.redo === "none") {
+  if (opts.preservePosition && sel === state.progress.lastSection && state.redo === "none" && !state.progress.shuffle) {
     state.index = Math.min(state.progress.lastIndex || 0, state.filtered.length - 1);
     if (state.index < 0) state.index = 0;
   } else { state.index = 0; }
   renderModeUI();
   renderQuestion();
+}
+
+function toggleShuffle() {
+  state.progress.shuffle = !state.progress.shuffle;
+  state.optOrder = {}; // fresh option orders on next render
+  saveProgress();
+  const chip = document.getElementById("shuffleChip");
+  if (chip) chip.classList.toggle("on", state.progress.shuffle);
+  applyFilter({ preservePosition: false });
 }
 
 function renderQuestion() {
@@ -1899,15 +1951,17 @@ function renderQuestion() {
   const hasNote = !!(noteText && noteText.trim());
   const hasFlag = !!state.flags[q.id];
 
-  const optionsHtml = ["a","b","c","d"].map(letter => {
+  const optionsHtml = optionOrderFor(q.id).map((letter, i) => {
     let cls = "option";
     if (reveal) {
       cls += " disabled";
       if (letter === q.correct) cls += " correct";
       else if (letter === state.selected) cls += " incorrect";
     } else if (state.selected === letter) cls += " selected";
+    // Display letter follows position so shuffled options still read A/B/C/D.
+    const displayLetter = String.fromCharCode(65 + i);
     return `<div class="${cls}" data-letter="${letter}" data-action="select">
-      <span class="option-letter">${letter.toUpperCase()}.</span>
+      <span class="option-letter">${displayLetter}.</span>
       <span>${escapeHtml(q.options[letter])}</span></div>`;
   }).join("");
 
@@ -1945,7 +1999,7 @@ function renderQuestion() {
       </div>`;
   const explanationHtml = `<div class="explanation ${reveal ? "visible" : ""}">
         <strong>${reveal && state.selected === q.correct ? "✓ Correct" : (reveal ? "✗ Wrong" : "")}</strong>
-        ${reveal ? ` — Answer: ${q.correct.toUpperCase()}. ` : ""}${reveal ? escapeHtml(q.explanation) : ""}
+        ${reveal ? ` — Answer: ${escapeHtml(q.options[q.correct])}. ` : ""}${reveal ? escapeHtml(q.explanation) : ""}
       </div>`;
 
   document.getElementById("quizArea").innerHTML = `
@@ -2041,11 +2095,13 @@ document.querySelector(".app").addEventListener("click", function(ev) {
   else if (a === "redoWrong") setRedo("wrong");
   else if (a === "redoFlagged") setRedo("flagged");
   else if (a === "redoClear") setRedo("none");
+  else if (a === "toggleShuffle") toggleShuffle();
   else if (a === "reset") {
     if (confirm("Reset MET Mock 2 answers, notes and flags? (Attempt history is kept.)")) {
-      state.results = {}; state.notes = {}; state.flags = {};
-      state.progress = { lastIndex: 0, lastSection: "all", drafts: {} };
+      state.results = {}; state.notes = {}; state.flags = {}; state.optOrder = {};
+      state.progress = { lastIndex: 0, lastSection: "all", drafts: {}, shuffle: false };
       state.redo = "none";
+      const sc = document.getElementById("shuffleChip"); if (sc) sc.classList.remove("on");
       stopExamTimer(); state.exam = { running: false, finished: false, endTs: 0, durationSec: 0 };
       saveResults(); saveNotes(); saveFlags(); saveProgress(); saveExam();
       const sel = document.getElementById("sectionSelect"); if (sel) sel.value = "all";
@@ -2186,10 +2242,12 @@ function importProgress() {
     if (payload.v !== 1) throw new Error("unknown version");
     if (payload.results) state.results = payload.results;
     if (payload.notes) state.notes = payload.notes;
-    if (payload.progress) state.progress = Object.assign({ lastIndex: 0, lastSection: "all", drafts: {} }, payload.progress);
+    if (payload.progress) state.progress = Object.assign({ lastIndex: 0, lastSection: "all", drafts: {}, shuffle: false }, payload.progress);
+    state.optOrder = {};
     saveResults(); saveNotes(); saveProgress();
     const sel = document.getElementById("sectionSelect");
-    if (sel && state.progress.lastSection) sel.value = state.progress.lastSection;
+    if (sel && state.progress.lastSection && [...sel.options].some(o => o.value === state.progress.lastSection)) sel.value = state.progress.lastSection;
+    const chip = document.getElementById("shuffleChip"); if (chip) chip.classList.toggle("on", !!state.progress.shuffle);
     applyFilter({ preservePosition: true }); showResumeBanner();
     alert(`Restored ${Object.keys(state.results).length} answered, ${Object.keys(state.notes).length} notes, ${Object.keys(state.progress.drafts).length} drafts.`);
   } catch (e) { alert("Could not restore: that does not look like a valid MET Mock 2 backup code."); }
@@ -2213,12 +2271,15 @@ function renderStats() {
   }
   let confidentRight = 0, guessedRight = 0, wrong = 0, skipped = 0;
   const reviewItems = [];
-  state.filtered.forEach(q => {
+  state.filtered.forEach((q, idx) => {
     const r = state.results[q.id];
+    const flagged = !!state.flags[q.id];
     if (!r) skipped++;
     else if (r.correct && !r.guessed) confidentRight++;
-    else if (r.correct && r.guessed) { guessedRight++; reviewItems.push({ q, tag: "guessed", label: "right but guessed" }); }
-    else if (!r.correct) { wrong++; reviewItems.push({ q, tag: "wrong", label: "wrong" }); }
+    else if (r.correct && r.guessed) { guessedRight++; reviewItems.push({ q, r, idx, tag: "guessed", label: "right but guessed" }); }
+    else if (!r.correct) { wrong++; reviewItems.push({ q, r, idx, tag: "wrong", label: "wrong" }); }
+    // Flagged questions not already captured as wrong/guessed still deserve a row.
+    if (flagged && (!r || (r.correct && !r.guessed))) reviewItems.push({ q, r, idx, tag: "flagged", label: "flagged" });
   });
   document.getElementById("statRight").textContent = confidentRight;
   document.getElementById("statGuessed").textContent = guessedRight;
@@ -2272,9 +2333,24 @@ function renderStats() {
   if (reviewItems.length === 0) reviewArea.style.display = "none";
   else {
     reviewArea.style.display = "block";
-    reviewList.innerHTML = reviewItems.map(item => `<li>
-      <span class="review-tag ${item.tag}">${item.label}</span>
-      ${escapeHtml(item.q.q.substring(0, 80))}${item.q.q.length > 80 ? "..." : ""}</li>`).join("");
+    reviewList.innerHTML = reviewItems.map(item => {
+      const q = item.q, r = item.r;
+      const qText = escapeHtml(q.q.substring(0, 110)) + (q.q.length > 110 ? "…" : "");
+      let ansLine;
+      if (r && !r.correct) {
+        ansLine = `<span class="review-ans">you picked <span class="rv-picked">${escapeHtml(q.options[r.selected] || "—")}</span> · answer <span class="rv-correct">${escapeHtml(q.options[q.correct])}</span></span>`;
+      } else if (r && r.correct) {
+        ansLine = `<span class="review-ans">answer <span class="rv-correct">${escapeHtml(q.options[q.correct])}</span></span>`;
+      } else {
+        ansLine = `<span class="review-ans">not answered · answer <span class="rv-correct">${escapeHtml(q.options[q.correct])}</span></span>`;
+      }
+      const rule = q.explanation ? `<span class="review-rule">${escapeHtml(q.explanation.substring(0, 160))}${q.explanation.length > 160 ? "…" : ""}</span>` : "";
+      return `<li class="review-clickable" data-action="navJump" data-idx="${item.idx}">
+        <span class="review-tag ${item.tag}">${item.label}</span>
+        <span class="review-q">${qText}</span>
+        ${ansLine}
+        ${rule}</li>`;
+    }).join("");
   }
 }
 
@@ -2503,6 +2579,10 @@ loadResults();
 if (state.progress.lastSection) {
   const sel = document.getElementById("sectionSelect");
   if ([...sel.options].some(o => o.value === state.progress.lastSection)) sel.value = state.progress.lastSection;
+}
+{
+  const chip = document.getElementById("shuffleChip");
+  if (chip) chip.classList.toggle("on", !!state.progress.shuffle);
 }
 // resume a live exam timer if one was running and time remains
 if (state.mode === "exam" && state.exam.running && !state.exam.finished) {
