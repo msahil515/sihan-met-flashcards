@@ -1,0 +1,127 @@
+/* MET 2026 prep - offline service worker
+   Precaches the whole site so it works with no signal after one install.
+   Bump CACHE on each deploy to refresh. */
+const CACHE = "met-prep-20260524-1555";
+const BASE = "/sihan-met-flashcards/";
+const PRECACHE = [
+  "/sihan-met-flashcards/",
+  "/sihan-met-flashcards/checklist/",
+  "/sihan-met-flashcards/downloads/",
+  "/sihan-met-flashcards/icons/apple-touch-icon.png",
+  "/sihan-met-flashcards/icons/favicon-16.png",
+  "/sihan-met-flashcards/icons/favicon-32.png",
+  "/sihan-met-flashcards/icons/icon-192-maskable.png",
+  "/sihan-met-flashcards/icons/icon-192.png",
+  "/sihan-met-flashcards/icons/icon-512-maskable.png",
+  "/sihan-met-flashcards/icons/icon-512.png",
+  "/sihan-met-flashcards/manifest.webmanifest",
+  "/sihan-met-flashcards/met.html",
+  "/sihan-met-flashcards/notes-style.css",
+  "/sihan-met-flashcards/notes/",
+  "/sihan-met-flashcards/notes/abnormal-psych-cheatsheet/",
+  "/sihan-met-flashcards/notes/abnormal-today-sprint/",
+  "/sihan-met-flashcards/notes/action-potential/",
+  "/sihan-met-flashcards/notes/assessment/",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/",
+  "/sihan-met-flashcards/notes/biostats-cheatsheet/",
+  "/sihan-met-flashcards/notes/bronfenbrenner/",
+  "/sihan-met-flashcards/notes/cognitive/",
+  "/sihan-met-flashcards/notes/cranial-nerves/",
+  "/sihan-met-flashcards/notes/dev-psych-cheatsheet/",
+  "/sihan-met-flashcards/notes/disorders-genetic/",
+  "/sihan-met-flashcards/notes/effects/",
+  "/sihan-met-flashcards/notes/ethics-terms/",
+  "/sihan-met-flashcards/notes/general-psych/",
+  "/sihan-met-flashcards/notes/high-yield-abnormal-dev/",
+  "/sihan-met-flashcards/notes/hpa-axis/",
+  "/sihan-met-flashcards/notes/icd/",
+  "/sihan-met-flashcards/notes/intelligence-tests-deep/",
+  "/sihan-met-flashcards/notes/learning-conditioning/",
+  "/sihan-met-flashcards/notes/master/",
+  "/sihan-met-flashcards/notes/met-mock-1-debrief/",
+  "/sihan-met-flashcards/notes/mock-1-debrief/",
+  "/sihan-met-flashcards/notes/nimhans-mock-1-debrief/",
+  "/sihan-met-flashcards/notes/nimhans-pyq-breakdown/",
+  "/sihan-met-flashcards/notes/originators/",
+  "/sihan-met-flashcards/notes/personality/",
+  "/sihan-met-flashcards/notes/phenomena/",
+  "/sihan-met-flashcards/notes/psych-tests-deep/",
+  "/sihan-met-flashcards/notes/psychotherapy-cheatsheet/",
+  "/sihan-met-flashcards/notes/research-methodology/",
+  "/sihan-met-flashcards/notes/revision-pack/",
+  "/sihan-met-flashcards/notes/sleep/",
+  "/sihan-met-flashcards/notes/social-psych/",
+  "/sihan-met-flashcards/notes/targeted-remediation-2026-04-22.html",
+  "/sihan-met-flashcards/notes/textbook/",
+  "/sihan-met-flashcards/notes/theories/",
+  "/sihan-met-flashcards/notes/theorists/",
+  "/sihan-met-flashcards/notes/therapy-components/",
+  "/sihan-met-flashcards/plan/",
+  "/sihan-met-flashcards/quiz/",
+  "/sihan-met-flashcards/quiz/bio-testing-paper/",
+  "/sihan-met-flashcards/quiz/met-mock-1/",
+  "/sihan-met-flashcards/quiz/met-mock-2/",
+  "/sihan-met-flashcards/quiz/met-mock-3/",
+  "/sihan-met-flashcards/quiz/met-mock-4/",
+  "/sihan-met-flashcards/quiz/nimhans-mock-1/",
+  "/sihan-met-flashcards/quiz/pyq-mock-2/",
+  "/sihan-met-flashcards/quiz/pyq-real-2024/",
+  "/sihan-met-flashcards/quiz/wrong-remix/",
+  "/sihan-met-flashcards/results/",
+  "/sihan-met-flashcards/results/analysis/",
+  "/sihan-met-flashcards/results/analysis/data.js",
+  "/sihan-met-flashcards/site.css",
+  "/sihan-met-flashcards/tests/"
+];
+
+self.addEventListener("install", (e) => {
+  e.waitUntil(
+    caches.open(CACHE).then((c) => c.addAll(PRECACHE.map((u) => new Request(u, {cache: "reload"}))))
+      .catch(() => {/* tolerate a few misses, runtime cache fills the rest */})
+      .then(() => self.skipWaiting())
+  );
+});
+
+self.addEventListener("activate", (e) => {
+  e.waitUntil(
+    caches.keys()
+      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      .then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener("fetch", (e) => {
+  const req = e.request;
+  if (req.method !== "GET") return;
+  const url = new URL(req.url);
+  if (url.origin !== self.location.origin) return;
+
+  // Navigations: serve cache first (offline-friendly), refresh in background.
+  if (req.mode === "navigate") {
+    e.respondWith(
+      caches.match(req).then((cached) => {
+        const net = fetch(req).then((res) => {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put(req, copy));
+          return res;
+        }).catch(() => cached || caches.match(BASE));
+        return cached || net;
+      })
+    );
+    return;
+  }
+
+  // Assets (css/js/png/etc): stale-while-revalidate.
+  e.respondWith(
+    caches.match(req).then((cached) => {
+      const net = fetch(req).then((res) => {
+        if (res && res.status === 200) {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put(req, copy));
+        }
+        return res;
+      }).catch(() => cached);
+      return cached || net;
+    })
+  );
+});
