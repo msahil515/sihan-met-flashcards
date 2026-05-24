@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICD — full breakdown (ICD-10 vs ICD-11, the F-codes, vs DSM) — NIMHANS + MET 2026</title>
+<link rel="stylesheet" href="../../notes-style.css">
+<style>
+  .hy-banner { background: linear-gradient(135deg, rgba(88,166,255,0.12), rgba(63,185,80,0.10)); border: 1px solid var(--accent-dim); border-radius: 10px; padding: 14px 16px; margin: 0 0 24px 0; font-size: 14px; color: var(--text); }
+  .hy-banner b { color: var(--accent); }
+  .trap { background: rgba(248,81,73,0.08); border-left: 3px solid var(--bad); padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .trap b { color: var(--bad); }
+  .rule { background: rgba(63,185,80,0.08); border-left: 3px solid var(--good); padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .rule b { color: var(--good); }
+  .nimhans { background: rgba(163,113,247,0.10); border-left: 3px solid #a371f7; padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .nimhans b { color: #a371f7; }
+  .jump { font-size: 13px; line-height: 1.9; }
+  .jump a { margin-right: 14px; white-space: nowrap; }
+  h2.sec { border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-top: 40px; }
+  table { font-size: 14px; }
+  td:first-child { white-space: nowrap; }
+  .flag { background: rgba(210,153,34,0.12); border: 1px solid #d29922; border-radius: 10px; padding: 14px 16px; margin: 0 0 24px 0; font-size: 14px; }
+  .flag b { color: #d29922; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <a href="../../">← Dashboard</a>
+  <a href="../">All Notes</a>
+  <a href="../abnormal-psych-cheatsheet/">Abnormal cheatsheet</a>
+  <a href="../master/">Master Revision</a>
+  <a href="../textbook/#forgot">Rapid Recall</a>
+</nav>
+
+<h1>ICD — the full breakdown</h1>
+<p style="color: var(--muted); font-size: 13px;">International Classification of Diseases: who owns it, how it's built, ICD-10 vs ICD-11, the F-codes for mental disorders, and every place it differs from DSM. Built 2026-05-24. Read the boxes and tables; the prose is just glue.</p>
+
+<div class="flag">
+<b>One-line frame.</b> The <b>ICD</b> is the <b>WHO's</b> global classification of <i>all</i> diseases, not just mental ones. Mental disorders sit in one chapter of it. <b>DSM</b> (American Psychiatric Association) only does mental disorders. So: ICD = whole-body, global, free, used for official health stats; DSM = mental-only, US, paywalled, used heavily in research. NIMHANS/India officially uses <b>ICD</b>.
+</div>
+
+<div class="jump">
+<b>Jump to:</b>
+<a href="#what">1. What ICD is &amp; who owns it</a>
+<a href="#history">2. Version history</a>
+<a href="#chapter">3. Where mental disorders live</a>
+<a href="#fcodes">4. ICD-10 F-codes (F00–F99)</a>
+<a href="#icd11">5. ICD-11 &amp; what changed</a>
+<a href="#vsdsm">6. ICD vs DSM</a>
+<a href="#traps">7. Exam traps</a>
+</div>
+
+<!-- ============ 1. WHAT ============ -->
+<h2 id="what" class="sec">1. What ICD is &amp; who owns it</h2>
+<table>
+<tr><th>Question</th><th>Answer</th></tr>
+<tr><td><b>Full name</b></td><td>International Statistical Classification of Diseases and Related Health Problems</td></tr>
+<tr><td><b>Who publishes it</b></td><td><b>WHO</b> (World Health Organization). DSM is APA, the contrast they love.</td></tr>
+<tr><td><b>Scope</b></td><td><b>All</b> diseases and health conditions, every body system. Mental &amp; behavioural disorders are just <b>one chapter</b>.</td></tr>
+<tr><td><b>Purpose</b></td><td>Global standard for <b>mortality &amp; morbidity statistics</b>, billing, epidemiology. It's the official tool for cause-of-death and disease reporting worldwide.</td></tr>
+<tr><td><b>Cost</b></td><td><b>Free</b>, multilingual. DSM is copyrighted and sold by APA.</td></tr>
+<tr><td><b>Used where</b></td><td>~194 WHO member states, including <b>India</b>. DSM dominates US clinical research.</td></tr>
+</table>
+
+<!-- ============ 2. HISTORY ============ -->
+<h2 id="history" class="sec">2. Version history (the dates they ask)</h2>
+<table>
+<tr><th>Version</th><th>Year</th><th>Note</th></tr>
+<tr><td><b>ICD-6</b></td><td>1949</td><td><b>First edition to include a section on mental disorders.</b> Common MCQ.</td></tr>
+<tr><td><b>ICD-8</b></td><td>1965</td><td></td></tr>
+<tr><td><b>ICD-9</b></td><td>1975</td><td>US used a clinical modification, <b>ICD-9-CM</b>, for decades.</td></tr>
+<tr><td><b>ICD-10</b></td><td><b>1990 endorsed, 1992 in use</b></td><td>The one still tested. Mental disorders = <b>Chapter V (F-codes)</b>. Alphanumeric coding introduced here.</td></tr>
+<tr><td><b>ICD-11</b></td><td><b>Adopted 2019, in force 1 Jan 2022</b></td><td>Fully digital, "foundation" architecture. Mental disorders = <b>Chapter 06</b>.</td></tr>
+</table>
+<div class="rule"><b>Lock:</b> ICD-6 (1949) = first mental-disorder section · ICD-10 (1992) = F-codes · ICD-11 (in force 2022) = current.</div>
+
+<!-- ============ 3. CHAPTER ============ -->
+<h2 id="chapter" class="sec">3. Where mental disorders live</h2>
+<table>
+<tr><th></th><th>ICD-10</th><th>ICD-11</th></tr>
+<tr><td><b>Chapter</b></td><td><b>Chapter V</b></td><td><b>Chapter 06</b></td></tr>
+<tr><td><b>Title</b></td><td>Mental and Behavioural Disorders</td><td>Mental, Behavioural or Neurodevelopmental Disorders</td></tr>
+<tr><td><b>Code prefix</b></td><td><b>F</b> (F00–F99)</td><td>Alphanumeric <b>6</b>-codes (e.g. 6A20 for schizophrenia)</td></tr>
+<tr><td><b>Companion text</b></td><td>"Blue Book" (Clinical Descriptions &amp; Diagnostic Guidelines) + "Green Book" (research criteria)</td><td>CDDR (Clinical Descriptions and Diagnostic Requirements)</td></tr>
+</table>
+<div class="nimhans"><b>Why "F"?</b> No mnemonic meaning, it's just the letter assigned to the mental-disorders chapter (Chapter V) in ICD-10's alphanumeric scheme. If asked "F-codes refer to," answer <b>mental and behavioural disorders</b>.</div>
+
+<!-- ============ 4. F-CODES ============ -->
+<h2 id="fcodes" class="sec">4. ICD-10 F-codes — the F00–F99 blocks (memorise the ranges)</h2>
+<table>
+<tr><th>Range</th><th>Block</th><th>Examples</th></tr>
+<tr><td><b>F00–F09</b></td><td>Organic, incl. symptomatic, mental disorders</td><td>Dementia (Alzheimer's, vascular), delirium</td></tr>
+<tr><td><b>F10–F19</b></td><td>Mental/behavioural due to <b>psychoactive substance use</b></td><td>Alcohol, opioids, cannabis dependence</td></tr>
+<tr><td><b>F20–F29</b></td><td><b>Schizophrenia</b>, schizotypal &amp; delusional disorders</td><td>Schizophrenia (F20), delusional disorder</td></tr>
+<tr><td><b>F30–F39</b></td><td><b>Mood (affective) disorders</b></td><td>Mania, bipolar, depression, recurrent depressive</td></tr>
+<tr><td><b>F40–F48</b></td><td><b>Neurotic, stress-related &amp; somatoform</b></td><td>Phobias, panic, GAD, OCD, PTSD, dissociative, somatoform</td></tr>
+<tr><td><b>F50–F59</b></td><td>Behavioural syndromes + physiological/physical factors</td><td>Eating disorders, sleep disorders, sexual dysfunction</td></tr>
+<tr><td><b>F60–F69</b></td><td>Disorders of <b>adult personality &amp; behaviour</b></td><td>Personality disorders, gender identity, habit/impulse</td></tr>
+<tr><td><b>F70–F79</b></td><td><b>Mental retardation</b> (ICD-10 term; "intellectual disability" in ICD-11)</td><td>Mild → profound</td></tr>
+<tr><td><b>F80–F89</b></td><td>Disorders of <b>psychological development</b></td><td>Speech/language, scholastic, autism (F84)</td></tr>
+<tr><td><b>F90–F98</b></td><td>Behavioural/emotional onset usually in <b>childhood/adolescence</b></td><td>ADHD/hyperkinetic (F90), conduct, tic disorders</td></tr>
+<tr><td><b>F99</b></td><td>Unspecified mental disorder</td><td></td></tr>
+</table>
+<div class="trap"><b>Trap they set:</b> In ICD-10, <b>OCD and PTSD sit inside F40–F48</b> (neurotic/stress-related), NOT as standalone chapters. That's the opposite of DSM-5, which pulled OCD and trauma out into their own chapters. Know which manual the question is about.</div>
+<div class="rule"><b>Fast recall:</b> 0 organic · 1 substances · 2 schizophrenia · 3 mood · 4 neurotic/anxiety · 5 physiological (eat/sleep/sex) · 6 personality · 7 retardation · 8 development · 9 childhood-onset.</div>
+
+<!-- ============ 5. ICD-11 ============ -->
+<h2 id="icd11" class="sec">5. ICD-11 — what actually changed</h2>
+<ul>
+  <li><b>Coding format changed.</b> Mental disorders moved from F-codes to alphanumeric <b>6-codes</b> (chapter 06). E.g. schizophrenia = <b>6A20</b>, bipolar type I = 6A60.</li>
+  <li><b>Complex PTSD added.</b> ICD-11 has <b>PTSD</b> AND <b>Complex PTSD</b> (PTSD core + the three "disturbances in self-organization": affect dysregulation, negative self-concept, relationship disturbance). <b>DSM-5 does not have Complex PTSD.</b> High-yield difference.</li>
+  <li><b>Gaming disorder added</b> as a formal diagnosis.</li>
+  <li><b>"Mental retardation" → "Disorders of intellectual development."</b></li>
+  <li><b>Gender incongruence</b> moved <b>out</b> of the mental disorders chapter into a new sexual-health chapter (depathologised).</li>
+  <li><b>Schizophrenia subtypes removed</b> (paranoid, catatonic, etc. dropped), matching DSM-5. Rated by symptom dimensions instead.</li>
+  <li><b>Bereavement → Prolonged grief disorder</b> recognised.</li>
+  <li><b>Neurodevelopmental</b> added to the chapter title; autism + ADHD grouped here.</li>
+  <li><b>Dimensional personality model:</b> ICD-11 scrapped the categorical PD types and uses <b>severity + five trait domains</b> (negative affectivity, detachment, dissociality, disinhibition, anankastia) with one retained pattern, <b>borderline</b>.</li>
+</ul>
+
+<!-- ============ 6. VS DSM ============ -->
+<h2 id="vsdsm" class="sec">6. ICD vs DSM — the side-by-side they ask</h2>
+<table>
+<tr><th></th><th>ICD (ICD-11)</th><th>DSM (DSM-5/5-TR)</th></tr>
+<tr><td><b>Body</b></td><td><b>WHO</b></td><td><b>APA</b> (American Psychiatric Association)</td></tr>
+<tr><td><b>Scope</b></td><td>All diseases; mental = 1 chapter</td><td>Mental disorders only</td></tr>
+<tr><td><b>Reach</b></td><td>Global, ~194 countries</td><td>US-centric (heavy in research)</td></tr>
+<tr><td><b>Cost</b></td><td>Free</td><td>Sold/copyrighted</td></tr>
+<tr><td><b>Style</b></td><td>Clinical <b>guidelines</b> (flexible, prototype-based)</td><td>Explicit operational <b>criteria</b> (count symptoms, thresholds)</td></tr>
+<tr><td><b>Latest</b></td><td>ICD-11, in force 2022</td><td>DSM-5 (2013), DSM-5-TR (2022)</td></tr>
+<tr><td><b>Complex PTSD</b></td><td><b>Yes</b></td><td>No</td></tr>
+<tr><td><b>Multiaxial?</b></td><td>Never multiaxial</td><td>DSM-IV had 5 axes; <b>DSM-5 dropped axes</b></td></tr>
+</table>
+<div class="nimhans"><b>NIMHANS angle:</b> India officially codes on <b>ICD</b>. Expect "which body publishes ICD" (WHO), "ICD chapter for mental disorders" (V / F-codes in ICD-10), and an ICD-vs-DSM difference (Complex PTSD, free-vs-paid, global-vs-US, guidelines-vs-criteria).</div>
+
+<!-- ============ 7. TRAPS ============ -->
+<h2 id="traps" class="sec">7. Exam traps, fast</h2>
+<div class="trap"><b>WHO vs APA.</b> ICD = WHO. DSM = APA. Swapping these is the #1 setup.</div>
+<div class="trap"><b>F = mental.</b> "F-codes" → mental &amp; behavioural disorders (ICD-10 Chapter V). Don't overthink the letter.</div>
+<div class="trap"><b>OCD/PTSD placement.</b> ICD-10 buries them in F40–F48 (neurotic/stress). DSM-5 gave each its own chapter. ICD-11 also broke them out more.</div>
+<div class="trap"><b>Complex PTSD is ICD-11 only.</b> Not in DSM-5.</div>
+<div class="trap"><b>First mental-disorders edition = ICD-6 (1949).</b></div>
+<div class="trap"><b>Multiaxial was DSM-IV, not ICD.</b> ICD has never been multiaxial; DSM-5 abolished its 5 axes.</div>
+
+<div class="hy-banner" style="margin-top:28px;">
+<b>That's ICD end to end.</b> If you remember nothing else: WHO owns it, it covers all disease, mental disorders are Chapter V/F-codes in ICD-10 and Chapter 06/6-codes in ICD-11, ICD-11 added Complex PTSD + gaming disorder and depathologised gender incongruence, and India codes on ICD.
+</div>
+
+<footer>Sihan MET 2026 + NIMHANS prep · /notes/icd/ · built 2026-05-24</footer>
+</div>
+</body>
+</html>
