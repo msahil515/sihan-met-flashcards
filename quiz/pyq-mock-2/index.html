@@ -180,13 +180,12 @@
       <option value="all">All 100 questions</option>
       <option value="therapy">Psychotherapy (18)</option>
       <option value="abnormal">Abnormal / Psychopathology (15)</option>
-      <option value="biopsych">Neuropsych / Biopsych (13)</option>
+      <option value="biopsych">Neuropsych / Biopsych (14)</option>
       <option value="dev">Developmental (12)</option>
-      <option value="biostats">Research / Biostatistics (12)</option>
-      <option value="assessment">Psychological Assessment (10)</option>
+      <option value="biostats">Research / Biostatistics (13)</option>
+      <option value="assessment">Psychological Assessment (11)</option>
       <option value="social">Social Psychology (9)</option>
       <option value="general">General / Cognitive (8)</option>
-      <option value="english">English / Reasoning (3)</option>
     </select>
   </div>
 
@@ -1044,31 +1043,31 @@ const QUESTIONS = [
     correct: "d",
     explanation: "Vaillant 4 levels: Mature (sublimation, humour, altruism, suppression), Neurotic (repression, reaction formation, displacement, intellectualisation), Immature (projection, acting out, passive aggression, splitting), Psychotic (denial of external reality, distortion, delusional projection)." },
 
-  // ---------- ENGLISH / REASONING (3) ----------
-  { id: "p2_eng01", section: "english", source: "RML", year: "2024", pyq: true,
-    q: "Choose the word MOST OPPOSITE in meaning to LACONIC:",
-    options: { a: "Terse",
-               b: "Verbose",
-               c: "Concise",
-               d: "Brief" },
+  // ---------- SWAPPED IN (English stripped, NIMHANS has none) (3) ----------
+  { id: "p2_bio16", section: "biopsych", source: "IHBAS", year: "2024", pyq: true,
+    q: "A lesion confined to the arcuate fasciculus, with intact comprehension and fluent speech, produces:",
+    options: { a: "Broca's aphasia",
+               b: "Wernicke's aphasia",
+               c: "Conduction aphasia",
+               d: "Global aphasia" },
+    correct: "c",
+    explanation: "The arcuate fasciculus connects Wernicke's and Broca's areas. A lesion gives conduction aphasia: fluent speech, intact comprehension, but impaired repetition with frequent phonemic paraphasias. Broca's = non-fluent; Wernicke's = poor comprehension; global = both." },
+  { id: "p2_assess11", section: "assessment", source: "RML", year: "2025", pyq: true,
+    q: "Cronbach's alpha is an index of:",
+    options: { a: "Test-retest reliability",
+               b: "Internal consistency reliability",
+               c: "Criterion validity",
+               d: "Inter-rater reliability" },
     correct: "b",
-    explanation: "Laconic = using few words, terse. Antonym = verbose (using many words). (a), (c), (d) are all near-synonyms of laconic." },
-  { id: "p2_eng02", section: "english", source: "NIMHANS", year: "2024", pyq: true,
-    q: "Choose the word that BEST completes the analogy. THERAPIST : EMPATHY :: SURGEON : ___",
-    options: { a: "Compassion",
-               b: "Precision",
-               c: "Speed",
-               d: "Strength" },
-    correct: "b",
-    explanation: "The relation is profession → its defining clinical skill. A therapist's core skill is empathy; a surgeon's is precision. Compassion is desirable but not the defining technical skill." },
-  { id: "p2_eng03", section: "english", source: "JEMAS", year: "2023", pyq: true,
-    q: "Identify the grammatically correct sentence:",
-    options: { a: "Neither of the patients have responded to treatment.",
-               b: "Neither of the patients has responded to treatment.",
-               c: "Neither of the patient has responded to treatment.",
-               d: "Neither of the patients have responding to treatment." },
-    correct: "b",
-    explanation: "'Neither' is singular → singular verb 'has'. 'Patients' is correct plural after 'of the'. Option (a) is a common informal error. (c) wrong noun number; (d) wrong verb form." },
+    explanation: "Cronbach's alpha estimates internal consistency, i.e. how well the items on a scale measure the same construct. Test-retest uses repeated administration; inter-rater agreement uses Cohen's kappa; criterion validity correlates the test with an external standard." },
+  { id: "p2_bst13", section: "biostats", source: "JEMAS", year: "2023", pyq: true,
+    q: "Which test compares the means of three or more independent groups?",
+    options: { a: "Independent samples t-test",
+               b: "Paired samples t-test",
+               c: "One-way ANOVA",
+               d: "Chi-square test" },
+    correct: "c",
+    explanation: "One-way ANOVA compares means across three or more independent groups. The t-test handles only two groups; the chi-square test is for categorical frequency data, not means." },
 ];
 
 
