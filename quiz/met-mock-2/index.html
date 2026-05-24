@@ -156,47 +156,70 @@
     .option { font-size: 14px; padding: 10px; }
     .controls { grid-template-columns: 1fr 1fr; }
   }
-  /* Exam Mode */
-  .exam-setup { background: linear-gradient(135deg, rgba(88,166,255,0.10), rgba(88,166,255,0.03));
-    border: 1px solid var(--accent); border-radius: 8px; padding: 12px; margin-bottom: 16px; }
-  .exam-setup h3 { font-size: 13px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 6px 0; }
-  .exam-setup p { font-size: 12px; color: var(--muted); margin: 0 0 10px 0; }
+  /* ---- mode toggle ---- */
+  .mode-toggle { display: flex; gap: 0; background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 4px; margin-bottom: 12px; }
+  .mode-btn { flex: 1; background: transparent; border: 0; border-radius: 6px; padding: 10px;
+    font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; }
+  .mode-btn.active { background: var(--accent-dim); color: #fff; }
+  .mode-hint { font-size: 11px; color: var(--muted); text-align: center; margin: -4px 0 14px 0; }
+  /* ---- exam bar / timer ---- */
+  .exam-bar { position: sticky; top: 0; z-index: 50; background: var(--panel);
+    border: 1px solid var(--accent-dim); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35); }
+  .exam-timer { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--accent); letter-spacing: 1px; }
+  .exam-timer.warn { color: var(--warn); }
+  .exam-timer.danger { color: var(--bad); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
+  .exam-meta { font-size: 11px; color: var(--muted); }
+  .exam-finish-btn { flex: 0 0 auto; background: rgba(63,185,80,0.18); color: var(--good);
+    border: 1px solid var(--good); border-radius: 8px; padding: 9px 14px; font-size: 13px; font-weight: 600; }
+  .exam-finish-btn:hover { background: rgba(63,185,80,0.32); }
+  .exam-intro { background: var(--panel); border: 1px solid var(--accent-dim); border-radius: 10px;
+    padding: 16px; margin-bottom: 14px; }
+  .exam-intro h3 { margin: 0 0 6px 0; font-size: 14px; color: var(--accent); }
+  .exam-intro p { margin: 0 0 12px 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
   .exam-start-btn { width: 100%; background: var(--accent-dim); color: #fff; border: 1px solid var(--accent);
-    font-weight: 600; padding: 12px; border-radius: 8px; }
-  .exam-start-btn:hover:not(:disabled) { background: var(--accent); }
-  .exam-bar { position: sticky; top: 0; z-index: 50; display: none; align-items: center; gap: 12px;
-    background: var(--panel); border: 1px solid var(--accent); border-radius: 8px; padding: 10px 14px;
-    margin-bottom: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.4); }
-  .exam-bar.warn { border-color: var(--warn); }
-  .exam-bar.danger { border-color: var(--bad); animation: examPulse 1s infinite; }
-  @keyframes examPulse { 0%,100% { box-shadow: 0 0 0 rgba(248,81,73,0); } 50% { box-shadow: 0 0 12px rgba(248,81,73,0.5); } }
-  .exam-clock { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--accent); letter-spacing: 1px; }
-  .exam-bar.warn .exam-clock { color: var(--warn); }
-  .exam-bar.danger .exam-clock { color: var(--bad); }
-  .exam-meta { flex: 1; font-size: 11px; color: var(--muted); line-height: 1.35; }
-  .exam-meta strong { color: var(--text); }
-  .exam-finish-btn { flex: 0 0 auto; padding: 8px 12px; font-size: 12px; border-color: var(--bad); color: var(--bad); }
-  .exam-finish-btn:hover { background: rgba(248,81,73,0.08); }
-  .exam-done { display:none; background: rgba(63,185,80,0.08); border: 1px solid var(--good);
-    border-radius: 8px; padding: 14px; margin-bottom: 16px; }
-  .exam-done h3 { font-size: 14px; color: var(--good); margin: 0 0 6px 0; }
-  .exam-done .ed-score { font-size: 26px; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
-  .exam-done p { font-size: 12px; color: var(--muted); margin: 6px 0 0 0; }
-  /* Attempt history */
-  .attempts-area { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-top: 16px; }
-  .attempts-area h3 { font-size: 13px; color: var(--text); text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 10px 0; }
-  .attempt-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
-  .attempt-row:last-child { border-bottom: none; }
-  .attempt-when { flex: 0 0 110px; color: var(--muted); font-size: 11px; }
-  .attempt-bar { flex: 1; height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; }
-  .attempt-bar > span { display: block; height: 100%; background: var(--accent); }
-  .attempt-score { flex: 0 0 96px; text-align: right; font-variant-numeric: tabular-nums; color: var(--text); }
-  .attempt-score small { color: var(--muted); font-size: 11px; }
-  .attempt-delta { flex: 0 0 54px; text-align: right; font-size: 11px; font-variant-numeric: tabular-nums; }
-  .attempt-delta.up { color: var(--good); }
-  .attempt-delta.down { color: var(--bad); }
-  .attempt-mode { flex: 0 0 auto; font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px;
-    padding: 1px 5px; border-radius: 3px; background: rgba(88,166,255,0.12); color: var(--accent); }
+    border-radius: 8px; padding: 13px; font-size: 15px; font-weight: 600; }
+  /* ---- flag + secondary controls ---- */
+  .secondary-controls { display: flex; gap: 8px; margin-top: 8px; }
+  .flag-btn { flex: 1; font-size: 13px; }
+  .flag-btn.flagged { border-color: var(--warn); color: var(--warn); background: rgba(240,180,41,0.08); }
+  .has-flag .section-tag::before { content: "🚩 "; }
+  /* ---- redo bar ---- */
+  .redo-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .redo-btn { flex: 1; min-width: 130px; font-size: 13px; }
+  .redo-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(88,166,255,0.08); }
+  .redo-clear { flex: 0 0 auto; color: var(--muted); font-size: 12px; }
+  /* ---- exam question navigator ---- */
+  .nav-grid-wrap { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; margin-bottom: 14px; }
+  .nav-grid-wrap h3 { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .nav-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(30px, 1fr)); gap: 5px; }
+  .nav-cell { aspect-ratio: 1; border: 1px solid var(--border); border-radius: 5px; background: var(--panel-2);
+    color: var(--muted); font-size: 11px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .nav-cell.answered { background: rgba(88,166,255,0.18); color: var(--accent); border-color: var(--accent-dim); }
+  .nav-cell.flagged { border-color: var(--warn); box-shadow: inset 0 0 0 1px var(--warn); }
+  .nav-cell.current { outline: 2px solid var(--accent); outline-offset: 1px; color: #fff; }
+  .nav-cell.correct { background: rgba(63,185,80,0.2); color: var(--good); border-color: var(--good); }
+  .nav-cell.wrong { background: rgba(248,81,73,0.2); color: var(--bad); border-color: var(--bad); }
+  /* ---- attempt history ---- */
+  .attempt-history { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px; margin-top: 16px; }
+  .attempt-history h3 { font-size: 13px; margin: 0 0 4px 0; color: var(--text); text-transform: uppercase; letter-spacing: 0.5px; }
+  .attempt-history .ah-note { font-size: 12px; color: var(--muted); margin: 0 0 12px 0; }
+  .ah-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .ah-row:last-child { border-bottom: none; }
+  .ah-when { flex: 0 0 92px; color: var(--muted); font-size: 11px; }
+  .ah-track { flex: 1; height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; }
+  .ah-fill { height: 100%; background: var(--accent); }
+  .ah-fill.up { background: var(--good); }
+  .ah-fill.down { background: var(--bad); }
+  .ah-score { flex: 0 0 96px; text-align: right; font-variant-numeric: tabular-nums; }
+  .ah-delta { font-size: 11px; margin-left: 6px; }
+  .ah-delta.up { color: var(--good); } .ah-delta.down { color: var(--bad); }
+  .ah-empty { font-size: 12px; color: var(--muted); }
   footer { text-align: center; font-size: 10px; color: var(--muted); padding: 24px 0 8px 0; }
 </style>
 <!-- PWA:met-prep -->
@@ -218,24 +241,6 @@
     <div class="blueprint">Bio 30 · Dev 25 · Abnormal 30 · Assessment 25 · Therapy 25 · Biostats 20 · Language 25 · harder distractors than Mock 1</div>
   </header>
 
-  <div class="exam-bar" id="examBar">
-    <span class="exam-clock" id="examClock">180:00</span>
-    <span class="exam-meta" id="examMeta"></span>
-    <button class="exam-finish-btn" data-action="finishExam">Finish now</button>
-  </div>
-
-  <div class="exam-setup" id="examSetup">
-    <h3>⏱ Exam mode</h3>
-    <p>Sit it like the real MET: a live countdown across all 180 questions, with the same +4 / −1 / 0 marking. Timer keeps running even if you close the tab. When time's up it locks and logs your score to attempt history.</p>
-    <button class="exam-start-btn" data-action="startExam">Start timed exam (180 min)</button>
-  </div>
-
-  <div class="exam-done" id="examDone">
-    <h3>⏱ Exam finished</h3>
-    <span class="ed-score" id="examDoneScore"></span>
-    <p id="examDoneMeta"></p>
-  </div>
-
   <div class="filters">
     <label for="sectionSelect">Section</label>
     <select id="sectionSelect">
@@ -250,12 +255,28 @@
     </select>
   </div>
 
+  <div class="mode-toggle">
+    <button class="mode-btn" data-action="setMode" data-mode="practice">📚 Practice</button>
+    <button class="mode-btn" data-action="setMode" data-mode="exam">⏱️ Exam mode</button>
+  </div>
+  <div class="mode-hint" id="modeHint"></div>
+
+  <div id="examIntro" class="exam-intro" style="display:none;"></div>
+  <div id="examBar" class="exam-bar" style="display:none;"></div>
+
+  <div id="redoBar" class="redo-bar" style="display:none;"></div>
+
   <div id="resumeBanner" class="resume-banner" style="display:none;"></div>
 
   <div class="progress" id="progress">0 / 0</div>
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
 
   <div id="quizArea"></div>
+
+  <div id="navGridWrap" class="nav-grid-wrap" style="display:none;">
+    <h3>Jump to question <span id="navGridLegend" style="text-transform:none;letter-spacing:0;"></span></h3>
+    <div class="nav-grid" id="navGrid"></div>
+  </div>
 
   <div class="scoreboard" id="scoreboard"></div>
 
@@ -271,9 +292,10 @@
     <div id="sectionScores"></div>
   </div>
 
-  <div class="attempts-area" id="attemptsArea" style="display:none;">
-    <h3>Attempt history</h3>
-    <div id="attemptsList"></div>
+  <div class="attempt-history" id="attemptHistory">
+    <h3>📈 Attempt history</h3>
+    <p class="ah-note">Every time you finish an exam-mode run, the score lands here so you can watch it climb.</p>
+    <div id="attemptHistoryList"></div>
   </div>
 
   <div class="review-area" id="reviewArea" style="display:none;">
@@ -1779,20 +1801,35 @@ const SECTION_LABELS = {
 const STORAGE_KEY = "met-mock-2-results-v1";
 const STORAGE_KEY_NOTES = "met-mock-2-notes-v1";
 const STORAGE_KEY_PROGRESS = "met-mock-2-progress-v1";
+const STORAGE_KEY_FLAGS = "met-mock-2-flags-v1";
+const STORAGE_KEY_EXAM = "met-mock-2-exam-v1";
+const HISTORY_KEY = "results-history-v1";
+
+// Minutes allowed per question in exam mode (180 Q / 180 min on the real paper)
+const MIN_PER_Q = 1;
 
 const state = {
   filtered: [], index: 0, selected: null, guessed: false, submitted: false,
-  results: {}, notes: {}, progress: { lastIndex: 0, lastSection: "all", drafts: {}, exam: { endTs: null, durationMin: 180, finished: false }, attempts: [] }
+  results: {}, notes: {}, flags: {}, redo: "none",
+  mode: "practice",
+  exam: { running: false, finished: false, endTs: 0, durationSec: 0 },
+  progress: { lastIndex: 0, lastSection: "all", drafts: {} }
 };
+let examTick = null;
 
 function loadResults() {
   try { const raw = localStorage.getItem(STORAGE_KEY); if (raw) state.results = JSON.parse(raw); } catch {}
   try { const raw = localStorage.getItem(STORAGE_KEY_NOTES); if (raw) state.notes = JSON.parse(raw); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_FLAGS); if (raw) state.flags = JSON.parse(raw); } catch {}
   try { const raw = localStorage.getItem(STORAGE_KEY_PROGRESS); if (raw) state.progress = Object.assign(state.progress, JSON.parse(raw)); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_EXAM); if (raw) state.exam = Object.assign(state.exam, JSON.parse(raw)); } catch {}
+  if (state.progress.mode === "exam" || state.progress.mode === "practice") state.mode = state.progress.mode;
 }
 function saveResults()  { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.results)); } catch {} }
 function saveNotes()    { try { localStorage.setItem(STORAGE_KEY_NOTES, JSON.stringify(state.notes)); } catch {} }
-function saveProgress() { try { localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(state.progress)); } catch {} }
+function saveFlags()    { try { localStorage.setItem(STORAGE_KEY_FLAGS, JSON.stringify(state.flags)); } catch {} }
+function saveExam()     { try { localStorage.setItem(STORAGE_KEY_EXAM, JSON.stringify(state.exam)); } catch {} }
+function saveProgress() { state.progress.mode = state.mode; try { localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(state.progress)); } catch {} }
 function saveDraft(qid) { if (!qid) return; state.progress.drafts[qid] = { selected: state.selected, guessed: state.guessed }; saveProgress(); }
 
 let notesSaveTimer = null;
@@ -1814,11 +1851,18 @@ function currentQ() { return state.filtered[state.index]; }
 function applyFilter(opts) {
   opts = opts || {};
   const sel = document.getElementById("sectionSelect").value;
-  state.filtered = sel === "all" ? QUESTIONS : QUESTIONS.filter(q => q.section === sel);
-  if (opts.preservePosition && sel === state.progress.lastSection) {
+  let pool = sel === "all" ? QUESTIONS : QUESTIONS.filter(q => q.section === sel);
+  if (state.redo === "wrong") {
+    pool = pool.filter(q => { const r = state.results[q.id]; return r && !r.correct; });
+  } else if (state.redo === "flagged") {
+    pool = pool.filter(q => state.flags[q.id]);
+  }
+  state.filtered = pool;
+  if (opts.preservePosition && sel === state.progress.lastSection && state.redo === "none") {
     state.index = Math.min(state.progress.lastIndex || 0, state.filtered.length - 1);
     if (state.index < 0) state.index = 0;
   } else { state.index = 0; }
+  renderModeUI();
   renderQuestion();
 }
 
@@ -1835,59 +1879,92 @@ function renderQuestion() {
   state.progress.lastSection = document.getElementById("sectionSelect").value;
   saveProgress();
 
+  const examActive = state.mode === "exam" && state.exam.running && !state.exam.finished;
+  const reveal = (state.mode === "practice" && !!state.results[q.id]) ||
+                 (state.mode === "exam" && state.exam.finished && !!state.results[q.id]);
+
   const result = state.results[q.id];
-  if (result) { state.selected = result.selected; state.guessed = !!result.guessed; state.submitted = true; }
+  if (result) { state.selected = result.selected; state.guessed = !!result.guessed; }
   else {
     const draft = state.progress.drafts[q.id];
     state.selected = draft ? draft.selected : null;
     state.guessed = draft ? !!draft.guessed : false;
-    state.submitted = false;
   }
+  state.submitted = reveal; // "submitted" now means locked/revealed
+
   document.getElementById("progress").textContent = `${state.index + 1} / ${state.filtered.length}`;
   document.getElementById("progressFill").style.width = `${((state.index + 1) / state.filtered.length) * 100}%`;
 
   const noteText = state.notes[q.id] || "";
   const hasNote = !!(noteText && noteText.trim());
-  document.getElementById("quizArea").innerHTML = `
-    <div class="question-card${hasNote ? " has-note" : ""}">
-      <div class="section-tag">${SECTION_LABELS[q.section]}</div>
-      <div class="question-text">${escapeHtml(q.q)}</div>
-      <div class="options" id="options">
-        ${["a","b","c","d"].map(letter => {
-          let cls = "option";
-          if (state.submitted) {
-            cls += " disabled";
-            if (letter === q.correct) cls += " correct";
-            else if (letter === state.selected) cls += " incorrect";
-          } else if (state.selected === letter) cls += " selected";
-          return `<div class="${cls}" data-letter="${letter}" data-action="select">
-            <span class="option-letter">${letter.toUpperCase()}.</span>
-            <span>${escapeHtml(q.options[letter])}</span></div>`;
-        }).join("")}
-      </div>
-      <div class="guess-row ${state.guessed ? "checked" : ""}" data-action="toggleGuess">
+  const hasFlag = !!state.flags[q.id];
+
+  const optionsHtml = ["a","b","c","d"].map(letter => {
+    let cls = "option";
+    if (reveal) {
+      cls += " disabled";
+      if (letter === q.correct) cls += " correct";
+      else if (letter === state.selected) cls += " incorrect";
+    } else if (state.selected === letter) cls += " selected";
+    return `<div class="${cls}" data-letter="${letter}" data-action="select">
+      <span class="option-letter">${letter.toUpperCase()}.</span>
+      <span>${escapeHtml(q.options[letter])}</span></div>`;
+  }).join("");
+
+  // Controls vary by mode
+  let controlsHtml;
+  if (examActive) {
+    controlsHtml = `<div class="controls" style="grid-template-columns:1fr 1fr;">
+        <button data-action="prev" ${state.index === 0 ? "disabled" : ""}>← Prev</button>
+        <button data-action="next" ${state.index === state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+      </div>`;
+  } else if (state.mode === "exam") { // exam finished review
+    controlsHtml = `<div class="controls" style="grid-template-columns:1fr 1fr;">
+        <button data-action="prev" ${state.index === 0 ? "disabled" : ""}>← Prev</button>
+        <button data-action="next" ${state.index === state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+      </div>`;
+  } else { // practice
+    controlsHtml = `<div class="controls">
+        <button data-action="prev" ${state.index === 0 ? "disabled" : ""}>← Prev</button>
+        <button class="btn-primary" data-action="submit" ${reveal || !state.selected ? "disabled" : ""}>
+          ${reveal ? "✓ Submitted" : "Submit"}</button>
+        <button data-action="next" ${state.index === state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+      </div>`;
+  }
+
+  // Guess row + notes only outside an active exam
+  const guessHtml = examActive ? "" : `<div class="guess-row ${state.guessed ? "checked" : ""}" data-action="toggleGuess">
         <div class="guess-checkbox"></div>
         <div class="guess-label">I'm guessing this one
           <small>Helps you track which "rights" were lucky vs solid.</small></div>
-      </div>
-      <div class="controls">
-        <button data-action="prev" ${state.index === 0 ? "disabled" : ""}>← Prev</button>
-        <button class="btn-primary" data-action="submit" ${state.submitted || !state.selected ? "disabled" : ""}>
-          ${state.submitted ? "✓ Submitted" : "Submit"}</button>
-        <button data-action="next" ${state.index === state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
-      </div>
-      <div class="explanation ${state.submitted ? "visible" : ""}">
-        <strong>${state.submitted && state.selected === q.correct ? "✓ Correct" : (state.submitted ? "✗ Wrong" : "")}</strong>
-        ${state.submitted ? ` — Answer: ${q.correct.toUpperCase()}. ` : ""}${state.submitted ? escapeHtml(q.explanation) : ""}
-      </div>
-      <div class="notes-area">
+      </div>`;
+  const notesHtml = examActive ? "" : `<div class="notes-area">
         <div class="notes-label"><span>Your notes</span><span class="notes-saved">saved</span></div>
         <textarea class="notes-textarea" id="notesInput" data-qid="${q.id}"
           placeholder="Anything you want to remember about this question — mnemonic, where it came from, why you missed it...">${escapeHtml(noteText)}</textarea>
+      </div>`;
+  const explanationHtml = `<div class="explanation ${reveal ? "visible" : ""}">
+        <strong>${reveal && state.selected === q.correct ? "✓ Correct" : (reveal ? "✗ Wrong" : "")}</strong>
+        ${reveal ? ` — Answer: ${q.correct.toUpperCase()}. ` : ""}${reveal ? escapeHtml(q.explanation) : ""}
+      </div>`;
+
+  document.getElementById("quizArea").innerHTML = `
+    <div class="question-card${hasNote ? " has-note" : ""}${hasFlag ? " has-flag" : ""}">
+      <div class="section-tag">${SECTION_LABELS[q.section]}</div>
+      <div class="question-text">${escapeHtml(q.q)}</div>
+      <div class="options" id="options">${optionsHtml}</div>
+      ${guessHtml}
+      ${controlsHtml}
+      <div class="secondary-controls">
+        <button class="flag-btn ${hasFlag ? "flagged" : ""}" data-action="toggleFlag">
+          ${hasFlag ? "🚩 Flagged — come back to this" : "🚩 Flag for review"}</button>
       </div>
+      ${explanationHtml}
+      ${notesHtml}
     </div>`;
   const notesEl = document.getElementById("notesInput");
   if (notesEl) notesEl.addEventListener("input", e => handleNotesInput(e.target.dataset.qid, e.target.value));
+  renderNavGrid();
   renderStats();
 }
 
@@ -1904,14 +1981,40 @@ function updateGuessVisual() {
 }
 
 function selectOption(letter) {
+  if (state.mode === "exam" && state.exam.finished) return; // locked after exam ends
   if (state.submitted) return;
-  state.selected = letter; updateSelectionVisual();
-  const q = currentQ(); if (q) saveDraft(q.id);
+  const q = currentQ(); if (!q) return;
+  state.selected = letter;
+  if (state.mode === "exam" && state.exam.running) {
+    // exam: record answer immediately, still editable until you finish
+    state.results[q.id] = { selected: letter, correct: letter === q.correct, guessed: false, section: q.section };
+    saveResults();
+    updateSelectionVisual();
+    renderNavGrid();
+  } else {
+    updateSelectionVisual();
+    saveDraft(q.id);
+  }
 }
 function toggleGuess() {
   if (state.submitted) return;
   state.guessed = !state.guessed; updateGuessVisual();
   const q = currentQ(); if (q) saveDraft(q.id);
+}
+function toggleFlag() {
+  const q = currentQ(); if (!q) return;
+  if (state.flags[q.id]) delete state.flags[q.id]; else state.flags[q.id] = true;
+  saveFlags();
+  const btn = document.querySelector('[data-action="toggleFlag"]');
+  const card = document.querySelector(".question-card");
+  if (btn) {
+    const on = !!state.flags[q.id];
+    btn.classList.toggle("flagged", on);
+    btn.textContent = on ? "🚩 Flagged — come back to this" : "🚩 Flag for review";
+  }
+  if (card) card.classList.toggle("has-flag", !!state.flags[q.id]);
+  renderNavGrid();
+  renderModeUI();
 }
 function submitAnswer() {
   if (state.submitted || !state.selected) return;
@@ -1922,155 +2025,29 @@ function submitAnswer() {
 function nextQuestion() { if (state.index < state.filtered.length - 1) { state.index++; renderQuestion(); } }
 function prevQuestion() { if (state.index > 0) { state.index--; renderQuestion(); } }
 
-// =====================================================================
-// EXAM MODE — live countdown + attempt history
-// =====================================================================
-let examTimer = null;
-
-function normalizeExamState() {
-  const p = state.progress;
-  if (!p.exam || typeof p.exam !== "object") p.exam = { endTs: null, durationMin: 180, finished: false };
-  if (!Array.isArray(p.attempts)) p.attempts = [];
-}
-
-function tallyScore() {
-  let right = 0, wrong = 0;
-  for (const q of QUESTIONS) {
-    const r = state.results[q.id];
-    if (!r) continue;
-    if (r.correct) right++; else wrong++;
-  }
-  const blank = QUESTIONS.length - right - wrong;
-  return { right, wrong, blank, score: right * 4 - wrong * 1, max: QUESTIONS.length * 4 };
-}
-
-function fmtClock(ms) {
-  if (ms < 0) ms = 0;
-  const totalSec = Math.floor(ms / 1000);
-  const m = Math.floor(totalSec / 60), s = totalSec % 60;
-  return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
-}
-
-function updateExamUI() {
-  const ex = state.progress.exam;
-  const bar = document.getElementById("examBar");
-  const setup = document.getElementById("examSetup");
-  const done = document.getElementById("examDone");
-  const active = ex.endTs && Date.now() < ex.endTs;
-  setup.style.display = active ? "none" : "block";
-  bar.style.display = active ? "flex" : "none";
-  done.style.display = (!active && ex.finished) ? "block" : "none";
-  if (active) {
-    const remaining = ex.endTs - Date.now();
-    document.getElementById("examClock").textContent = fmtClock(remaining);
-    const t = tallyScore();
-    document.getElementById("examMeta").innerHTML =
-      `<strong>Timed exam</strong> · ${t.right + t.wrong} of ${QUESTIONS.length} answered · running score ${t.score}`;
-    bar.classList.toggle("warn", remaining <= 10 * 60000 && remaining > 2 * 60000);
-    bar.classList.toggle("danger", remaining <= 2 * 60000);
-  }
-  if (!active && ex.finished && ex.lastResult) {
-    document.getElementById("examDoneScore").textContent = `${ex.lastResult.score} / ${ex.lastResult.max}`;
-    document.getElementById("examDoneMeta").textContent =
-      `${ex.lastResult.right} right · ${ex.lastResult.wrong} wrong · ${ex.lastResult.blank} blank · logged to attempt history below.`;
-  }
-}
-
-function examTick() {
-  const ex = state.progress.exam;
-  if (!ex.endTs) { stopExamTimer(); return; }
-  if (Date.now() >= ex.endTs) { finishExam(true); return; }
-  updateExamUI();
-}
-
-function startExamTimer() {
-  stopExamTimer();
-  examTimer = setInterval(examTick, 1000);
-}
-function stopExamTimer() { if (examTimer) { clearInterval(examTimer); examTimer = null; } }
-
-function startExam() {
-  const ex = state.progress.exam;
-  if (ex.endTs && Date.now() < ex.endTs) return; // already running
-  const dur = ex.durationMin || 180;
-  if (!confirm(`Start a ${dur}-minute timed exam? The clock keeps running even if you close the tab. Your existing answers are kept; finish or time-out logs your score to attempt history.`)) return;
-  ex.endTs = Date.now() + dur * 60000;
-  ex.durationMin = dur;
-  ex.finished = false;
-  ex.startedTs = Date.now();
-  saveProgress();
-  startExamTimer();
-  updateExamUI();
-  document.getElementById("examBar").scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
-function finishExam(timedOut) {
-  const ex = state.progress.exam;
-  if (!ex.endTs) return;
-  if (!timedOut && !confirm("Finish the exam now and log this score?")) return;
-  stopExamTimer();
-  const t = tallyScore();
-  const attempt = {
-    ts: new Date().toISOString(),
-    score: t.score, max: t.max, right: t.right, wrong: t.wrong, blank: t.blank,
-    durationMin: ex.durationMin, timedOut: !!timedOut, mode: "exam"
-  };
-  state.progress.attempts.push(attempt);
-  if (state.progress.attempts.length > 25) state.progress.attempts = state.progress.attempts.slice(-25);
-  ex.endTs = null;
-  ex.finished = true;
-  ex.lastResult = t;
-  saveProgress();
-  updateExamUI();
-  renderAttempts();
-  document.getElementById("examDone").scrollIntoView({ behavior: "smooth", block: "start" });
-  alert(`${timedOut ? "Time's up!" : "Exam finished."}\n\nScore: ${t.score} / ${t.max}\n${t.right} right · ${t.wrong} wrong · ${t.blank} blank\n\nLogged to attempt history.`);
-}
-
-function renderAttempts() {
-  const area = document.getElementById("attemptsArea");
-  const list = document.getElementById("attemptsList");
-  const attempts = state.progress.attempts || [];
-  if (!attempts.length) { area.style.display = "none"; return; }
-  area.style.display = "block";
-  const maxScore = attempts[0].max || (QUESTIONS.length * 4);
-  let prev = null;
-  list.innerHTML = attempts.map((a, i) => {
-    const d = new Date(a.ts);
-    const when = d.toLocaleDateString(undefined, { month: "short", day: "numeric" }) + " " +
-      d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
-    const pct = Math.max(0, Math.min(100, Math.round((a.score / (a.max || maxScore)) * 100)));
-    let delta = "";
-    if (prev !== null) {
-      const diff = a.score - prev;
-      const cls = diff > 0 ? "up" : (diff < 0 ? "down" : "");
-      delta = `<span class="attempt-delta ${cls}">${diff > 0 ? "+" : ""}${diff}</span>`;
-    } else { delta = `<span class="attempt-delta"></span>`; }
-    prev = a.score;
-    return `<div class="attempt-row">
-      <span class="attempt-when">#${i + 1} · ${when}</span>
-      <span class="attempt-mode">${a.timedOut ? "timed-out" : (a.mode || "exam")}</span>
-      <span class="attempt-bar"><span style="width:${pct}%;"></span></span>
-      <span class="attempt-score">${a.score}<small>/${a.max || maxScore}</small></span>
-      ${delta}
-    </div>`;
-  }).join("");
-}
-
 document.querySelector(".app").addEventListener("click", function(ev) {
   const t = ev.target.closest("[data-action]"); if (!t) return;
   const a = t.dataset.action;
   if (a === "select") selectOption(t.dataset.letter);
-  else if (a === "startExam") return startExam();
-  else if (a === "finishExam") return finishExam(false);
   else if (a === "toggleGuess") toggleGuess();
+  else if (a === "toggleFlag") toggleFlag();
   else if (a === "submit") submitAnswer();
   else if (a === "next") nextQuestion();
   else if (a === "prev") prevQuestion();
+  else if (a === "setMode") setMode(t.dataset.mode);
+  else if (a === "startExam") startExam();
+  else if (a === "finishExam") finishExam(false);
+  else if (a === "navJump") { state.index = parseInt(t.dataset.idx, 10) || 0; renderQuestion(); window.scrollTo({ top: 0, behavior: "smooth" }); }
+  else if (a === "redoWrong") setRedo("wrong");
+  else if (a === "redoFlagged") setRedo("flagged");
+  else if (a === "redoClear") setRedo("none");
   else if (a === "reset") {
-    if (confirm("Reset MET Mock 2 progress?")) {
-      state.results = {}; state.notes = {}; state.progress = { lastIndex: 0, lastSection: "all", drafts: {} };
-      saveResults(); saveNotes(); saveProgress();
+    if (confirm("Reset MET Mock 2 answers, notes and flags? (Attempt history is kept.)")) {
+      state.results = {}; state.notes = {}; state.flags = {};
+      state.progress = { lastIndex: 0, lastSection: "all", drafts: {} };
+      state.redo = "none";
+      stopExamTimer(); state.exam = { running: false, finished: false, endTs: 0, durationSec: 0 };
+      saveResults(); saveNotes(); saveFlags(); saveProgress(); saveExam();
       const sel = document.getElementById("sectionSelect"); if (sel) sel.value = "all";
       applyFilter({ preservePosition: false });
     }
@@ -2221,6 +2198,19 @@ function importProgress() {
 document.getElementById("sectionSelect").addEventListener("change", () => applyFilter({ preservePosition: false }));
 
 function renderStats() {
+  // During a live exam, keep the score and breakdown hidden (just like the real thing).
+  if (state.mode === "exam" && state.exam.running && !state.exam.finished) {
+    const answered = state.filtered.filter(q => state.results[q.id]).length;
+    ["statRight","statGuessed","statWrong","statSkipped"].forEach(id => {
+      const el = document.getElementById(id); if (el) el.textContent = "–";
+    });
+    const sb = document.getElementById("scoreboard");
+    if (sb) sb.innerHTML = `<span class="big">🔒</span><small>Score hidden — ${answered}/${state.filtered.length} answered. Finish the exam to reveal.</small>`;
+    const ss = document.getElementById("sectionScores");
+    if (ss) ss.innerHTML = `<div style="font-size:12px;color:var(--muted);">Per-area breakdown unlocks when you finish.</div>`;
+    const ra = document.getElementById("reviewArea"); if (ra) ra.style.display = "none";
+    return;
+  }
   let confidentRight = 0, guessedRight = 0, wrong = 0, skipped = 0;
   const reviewItems = [];
   state.filtered.forEach(q => {
@@ -2288,23 +2278,240 @@ function renderStats() {
   }
 }
 
+// =====================================================================
+// MODE / EXAM TIMER / FLAG-REDO / ATTEMPT HISTORY
+// =====================================================================
+function pad(n) { return n < 10 ? "0" + n : "" + n; }
+function formatTime(totalSec) {
+  if (totalSec < 0) totalSec = 0;
+  const h = Math.floor(totalSec / 3600);
+  const m = Math.floor((totalSec % 3600) / 60);
+  const s = totalSec % 60;
+  return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`;
+}
+
+function setMode(mode) {
+  if (mode !== "practice" && mode !== "exam") return;
+  if (mode === state.mode) return;
+  state.mode = mode;
+  state.redo = "none";
+  saveProgress();
+  if (mode === "practice") stopExamTimer();
+  else if (state.exam.running && state.exam.endTs > Date.now()) resumeExamTimer();
+  applyFilter({ preservePosition: true });
+}
+
+function setRedo(kind) {
+  state.redo = (state.redo === kind) ? "none" : kind;
+  applyFilter({ preservePosition: false });
+}
+
+function countScope() {
+  const sel = document.getElementById("sectionSelect").value;
+  const pool = sel === "all" ? QUESTIONS : QUESTIONS.filter(q => q.section === sel);
+  let wrong = 0, flagged = 0;
+  pool.forEach(q => {
+    const r = state.results[q.id];
+    if (r && !r.correct) wrong++;
+    if (state.flags[q.id]) flagged++;
+  });
+  return { total: pool.length, wrong, flagged };
+}
+
+function renderModeUI() {
+  document.querySelectorAll(".mode-btn").forEach(b => b.classList.toggle("active", b.dataset.mode === state.mode));
+  const hint = document.getElementById("modeHint");
+  const intro = document.getElementById("examIntro");
+  const bar = document.getElementById("examBar");
+  const navWrap = document.getElementById("navGridWrap");
+  const redoBar = document.getElementById("redoBar");
+  const examActive = state.mode === "exam" && state.exam.running && !state.exam.finished;
+  const examFinished = state.mode === "exam" && state.exam.finished;
+
+  if (state.mode === "practice") {
+    hint.textContent = "Answer one at a time, see the rule the moment you submit. No clock.";
+    intro.style.display = "none"; bar.style.display = "none"; navWrap.style.display = "none";
+  } else {
+    if (examActive) {
+      hint.textContent = "Timed run · MET scoring · no answers shown until you finish. Flag and skip freely.";
+      intro.style.display = "none"; bar.style.display = "flex"; navWrap.style.display = "block";
+    } else if (examFinished) {
+      hint.textContent = "Exam finished — reviewing answers with the rule under each. Start a fresh run any time.";
+      intro.style.display = "block"; bar.style.display = "none"; navWrap.style.display = "block";
+      intro.innerHTML = `<h3>Exam finished</h3>
+        <p>Score and per-area breakdown are below. Tap a number in the grid to jump to any question, or use <b>Redo only wrong</b> to retry the misses.</p>
+        <button class="exam-start-btn" data-action="startExam">Start a fresh timed run</button>`;
+    } else {
+      const n = state.filtered.length;
+      const mins = Math.max(1, Math.round(n * MIN_PER_Q));
+      hint.textContent = "Timed run · MET scoring · no answers shown until you finish.";
+      intro.style.display = "block"; bar.style.display = "none"; navWrap.style.display = "none";
+      intro.innerHTML = `<h3>⏱️ Exam mode — like the real thing</h3>
+        <p>${n} questions · ${mins} min on the clock · +4 right, −1 wrong, 0 blank. No feedback until you finish, just like MET. You can flag questions and jump around with the grid.</p>
+        <button class="exam-start-btn" data-action="startExam">Start ${mins}-minute timed run</button>`;
+    }
+  }
+
+  // Redo bar (both modes, when there's something to redo)
+  const c = countScope();
+  if (c.wrong === 0 && c.flagged === 0 && state.redo === "none") {
+    redoBar.style.display = "none";
+  } else {
+    redoBar.style.display = "flex";
+    redoBar.innerHTML =
+      `<button class="redo-btn ${state.redo === "wrong" ? "active" : ""}" data-action="redoWrong" ${c.wrong ? "" : "disabled"}>↻ Redo only wrong (${c.wrong})</button>
+       <button class="redo-btn ${state.redo === "flagged" ? "active" : ""}" data-action="redoFlagged" ${c.flagged ? "" : "disabled"}>🚩 Flagged only (${c.flagged})</button>
+       ${state.redo !== "none" ? `<button class="redo-btn redo-clear" data-action="redoClear">Show all again</button>` : ""}`;
+  }
+}
+
+function renderNavGrid() {
+  const navWrap = document.getElementById("navGridWrap");
+  if (navWrap.style.display === "none") return;
+  const grid = document.getElementById("navGrid");
+  const finished = state.mode === "exam" && state.exam.finished;
+  grid.innerHTML = state.filtered.map((q, i) => {
+    let cls = "nav-cell";
+    const r = state.results[q.id];
+    if (finished && r) cls += r.correct ? " correct" : " wrong";
+    else if (r) cls += " answered";
+    if (state.flags[q.id]) cls += " flagged";
+    if (i === state.index) cls += " current";
+    return `<div class="${cls}" data-action="navJump" data-idx="${i}">${i + 1}</div>`;
+  }).join("");
+  const legend = document.getElementById("navGridLegend");
+  if (legend) {
+    const answered = state.filtered.filter(q => state.results[q.id]).length;
+    legend.textContent = ` — ${answered}/${state.filtered.length} answered`;
+  }
+}
+
+function resumeExamTimer() { stopExamTimer(); examTick = setInterval(tickExam, 1000); tickExam(); }
+function stopExamTimer() { if (examTick) { clearInterval(examTick); examTick = null; } }
+
+function startExam() {
+  const n = state.filtered.length;
+  if (n === 0) { alert("No questions in this filter."); return; }
+  const mins = Math.max(1, Math.round(n * MIN_PER_Q));
+  if (!confirm(`Start a fresh ${mins}-minute run over these ${n} questions?\n\nThis clears your current answers for them (attempt history is kept).`)) return;
+  // fresh slate for the in-scope questions
+  state.filtered.forEach(q => { delete state.results[q.id]; delete state.progress.drafts[q.id]; });
+  saveResults(); saveProgress();
+  state.redo = "none";
+  state.exam = { running: true, finished: false, endTs: Date.now() + mins * 60 * 1000, durationSec: mins * 60 };
+  saveExam();
+  state.index = 0;
+  resumeExamTimer();
+  applyFilter({ preservePosition: false });
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function tickExam() {
+  const bar = document.getElementById("examBar");
+  const remaining = Math.round((state.exam.endTs - Date.now()) / 1000);
+  if (remaining <= 0) { finishExam(true); return; }
+  const answered = state.filtered.filter(q => state.results[q.id]).length;
+  let tcls = "exam-timer";
+  if (remaining <= 30) tcls += " danger"; else if (remaining <= 120) tcls += " warn";
+  bar.innerHTML = `<div>
+      <div class="${tcls}">${formatTime(remaining)}</div>
+      <div class="exam-meta">${answered}/${state.filtered.length} answered · +4 / −1 / 0</div>
+    </div>
+    <button class="exam-finish-btn" data-action="finishExam">Finish & score</button>`;
+}
+
+function finishExam(auto) {
+  if (!state.exam.running && state.exam.finished) return;
+  if (!auto && !confirm("Finish the exam and see your score?")) return;
+  stopExamTimer();
+  state.exam.running = false;
+  state.exam.finished = true;
+  saveExam();
+  const attempt = recordAttempt();
+  renderModeUI();
+  state.index = 0;
+  renderQuestion();
+  renderAttemptHistory();
+  const sb = document.getElementById("scoreboard");
+  if (sb) sb.scrollIntoView({ behavior: "smooth", block: "center" });
+  if (attempt) {
+    setTimeout(() => alert(`${auto ? "Time's up!\n\n" : ""}Score: ${attempt.score}/${attempt.max}\n${attempt.right} right · ${attempt.wrong} wrong · ${attempt.blank} blank\n\nThe rule is now under every question, and this attempt is saved in your history.`), 50);
+  }
+}
+
+function recordAttempt() {
+  let right = 0, wrong = 0;
+  const sections = {};
+  state.filtered.forEach(q => {
+    if (!sections[q.section]) sections[q.section] = { total: 0, solid: 0, guessed: 0, wrong: 0, skip: 0 };
+    sections[q.section].total++;
+    const r = state.results[q.id];
+    if (!r) { sections[q.section].skip++; }
+    else if (r.correct) { right++; sections[q.section].solid++; }
+    else { wrong++; sections[q.section].wrong++; }
+  });
+  const blank = state.filtered.length - right - wrong;
+  const score = right * 4 - wrong * 1;
+  const max = state.filtered.length * 4;
+  const sel = document.getElementById("sectionSelect").value;
+  const scope = sel === "all" ? "Full mock" : (SECTION_LABELS[sel] || sel);
+  const attempt = { mock: "met-mock-2", mode: "exam", scope, ts: new Date().toISOString(),
+    score, max, right, wrong, blank, sections };
+  try {
+    const raw = localStorage.getItem(HISTORY_KEY);
+    const history = raw ? JSON.parse(raw) : [];
+    history.push(attempt);
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+  } catch {}
+  return attempt;
+}
+
+function renderAttemptHistory() {
+  const wrap = document.getElementById("attemptHistoryList");
+  if (!wrap) return;
+  let history = [];
+  try { const raw = localStorage.getItem(HISTORY_KEY); if (raw) history = JSON.parse(raw); } catch {}
+  const mine = history.filter(h => h.mock === "met-mock-2");
+  if (mine.length === 0) {
+    wrap.innerHTML = `<div class="ah-empty">No timed runs yet. Switch to ⏱️ Exam mode and finish a run to start tracking your score over time.</div>`;
+    return;
+  }
+  const rows = mine.map((h, i) => {
+    const pct = h.max ? Math.round((h.score / h.max) * 100) : 0;
+    const fillPct = Math.max(0, Math.min(100, pct));
+    const prev = i > 0 ? mine[i - 1] : null;
+    let deltaHtml = "", dir = "";
+    if (prev) {
+      const d = h.score - prev.score;
+      if (d > 0) { dir = "up"; deltaHtml = `<span class="ah-delta up">▲ +${d}</span>`; }
+      else if (d < 0) { dir = "down"; deltaHtml = `<span class="ah-delta down">▼ ${d}</span>`; }
+      else deltaHtml = `<span class="ah-delta">±0</span>`;
+    }
+    const d = new Date(h.ts);
+    const when = `${d.getDate()}/${d.getMonth() + 1} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    const scope = h.scope && h.scope !== "Full mock" ? ` · ${h.scope}` : "";
+    return `<div class="ah-row">
+      <div class="ah-when">${when}${scope}</div>
+      <div class="ah-track"><div class="ah-fill ${dir}" style="width:${fillPct}%;"></div></div>
+      <div class="ah-score">${h.score}/${h.max}${deltaHtml}</div>
+    </div>`;
+  }).join("");
+  wrap.innerHTML = rows;
+}
+
 loadResults();
-normalizeExamState();
 if (state.progress.lastSection) {
   const sel = document.getElementById("sectionSelect");
   if ([...sel.options].some(o => o.value === state.progress.lastSection)) sel.value = state.progress.lastSection;
 }
+// resume a live exam timer if one was running and time remains
+if (state.mode === "exam" && state.exam.running && !state.exam.finished) {
+  if (state.exam.endTs > Date.now()) resumeExamTimer();
+  else { state.exam.running = false; state.exam.finished = true; saveExam(); }
+}
 applyFilter({ preservePosition: true });
 showResumeBanner();
-
-// Resume / settle exam mode after reload
-(function initExam() {
-  const ex = state.progress.exam;
-  if (ex.endTs && Date.now() < ex.endTs) { startExamTimer(); }
-  else if (ex.endTs && Date.now() >= ex.endTs) { finishExam(true); }
-  updateExamUI();
-  renderAttempts();
-})();
+renderAttemptHistory();
 </script>
 <script>
 /* PWA:met-prep */
