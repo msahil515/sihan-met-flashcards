@@ -705,6 +705,18 @@ const AREAS = [
 // Mock metadata — NIMHANS-pattern papers (+1 / −0.25) first.
 const MOCKS = [
   {
+    id: "pep-mock-2",
+    title: "Psych Entrance Mock 2 — UGC-NET + MPhil Clinical",
+    path: "quiz/pep-mock-2/",
+    total: 120,
+    storageKey: "pep-mock-2-results-v1",
+    scoring: { plus: 1, minus: 0.25 },
+    sections: { mphil: 20, ugcnet: 20, common: 80 },
+    meta: "120 Q · the full Mock Test 2 from psychologyentranceprep.com, rebuilt to run offline · MPhil-specific + UGC-NET + common · worked explanations · +1 / −0.25",
+    fresh: true,
+    nimhans: true
+  },
+  {
     id: "pyq-real-2024",
     title: "Real PYQ Mock — NIMHANS 2024",
     path: "quiz/pyq-real-2024/",
@@ -814,6 +826,7 @@ const RESOURCES = [
 
 const NEWS = [
   { date: "2026-05-24", title: "Practice by area (NEW)", desc: "A proper untimed drill mode, the one thing the mocks didn't give you. Pick one of the 9 syllabus areas, then narrow to a single topic (e.g. just Reliability, or just Attachment), and work through it question by question. Answer and you see right away whether you're right plus the rule behind it, no marks lost. Progress per area saves on this browser, and the dashboard area cards now have a 'drill this area' shortcut. Open it from Practice in the top nav. ~100 questions across all 9 areas to start, more to come.", href: "quiz/practice/" },
+  { date: "2026-05-24", title: "Psych Entrance Mock 2 — UGC-NET + MPhil (NEW)", desc: "The full 120-question Mock Test 2 from psychologyentranceprep.com, rebuilt natively so it runs offline in the app (the original is a locked-in embedded Google form with no shareable link). Three sections: 20 MPhil-specific (ethics, law, psychopathology), 20 UGC-NET specific (Indian psychology, philosophy of science, positive psych), 80 common to both NET and MPhil clinical (learning, cognition, perception, biopsych, assessment, stats, social). Every Q has a worked explanation. Scored +1 / −0.25, target 90+/120.", href: "quiz/pep-mock-2/" },
   { date: "2026-05-24", title: "Repointed for NIMHANS", desc: "MET is done, so the dashboard is now built around the NIMHANS M.A. Clinical Psychology (RCI, formerly M.Phil) entrance. Real pattern up top: 100 MCQ in 90 min, +1 / −0.25, online CBT in Bengaluru, selection on the written test alone (no interview for the MA, unlike the PhD). Syllabus regrouped into 9 NIMHANS-weighted areas with the four heavy baskets (Research & Stats, Psychotherapy, Assessment, Biopsych) up front, each with what NIMHANS actually asks. Language/English section dropped. MET mocks demoted but kept as content drills; the old MET dashboard is archived at met.html. Weights are estimated from 2023-25 PYQs, not an official blueprint.", href: "./" },
   { date: "2026-05-21", title: "Real PYQ Mock — NIMHANS 2024", desc: "The full NIMHANS M.Phil Clinical Psychology 2024 paper, 100 questions reconstructed from candidate recall, real four options + official answer key, nothing synthesised. Scored +1 / −0.25 like the real thing. Heavy on therapy (19), biostats (17), assessment (17), biopsych (16) — exactly the NIMHANS flavour. Every Q source-tagged with a one-line rationale.", href: "quiz/pyq-real-2024/" },
   { date: "2026-05-21", title: "Final Coverage Checklist", desc: "One page to answer 'have I covered everything?'. Every named topic, theory, test, disorder, structure and theorist across the syllabus, tickable, with per-section progress bars and a 'next gap' jump. Ticks save on this browser.", href: "checklist/" },
@@ -1031,7 +1044,8 @@ function SECTION_LABEL(key) {
     assessment: "Assessment / Psychometrics", therapy: "Psychotherapy",
     biostats: "Research & Statistics", language: "Language (MET only)",
     social: "Social Psychology", general: "Cognitive (Learn/Mem/Attn)", english: "English (MET only)",
-    personality: "Personality"
+    personality: "Personality",
+    mphil: "MPhil-Specific", ugcnet: "UGC-NET Specific", common: "Common (NET + MPhil)"
   };
   return labels[key] || key;
 }
