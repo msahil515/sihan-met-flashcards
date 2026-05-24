@@ -1,7 +1,7 @@
 /* MET 2026 prep - offline service worker
    Precaches the whole site so it works with no signal after one install.
    Bump CACHE on each deploy to refresh. */
-const CACHE = "met-prep-20260524-1700";
+const CACHE = "met-prep-20260524-1700-navmin";
 const BASE = "/sihan-met-flashcards/";
 const PRECACHE = [
   "/sihan-met-flashcards/",
@@ -16,6 +16,7 @@ const PRECACHE = [
   "/sihan-met-flashcards/icons/icon-512.png",
   "/sihan-met-flashcards/manifest.webmanifest",
   "/sihan-met-flashcards/met.html",
+  "/sihan-met-flashcards/nav-toggle.js",
   "/sihan-met-flashcards/notes-style.css",
   "/sihan-met-flashcards/notes/",
   "/sihan-met-flashcards/notes/abnormal-psych-cheatsheet/",
