@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Personality — learn from scratch (psychodynamic, object relations, trait, Big Five/HEXACO, humanistic, existential, social-cognitive, type, Indian/Triguna, assessment) — NIMHANS + MET 2026</title>
+<title>Personality — the full book, chapter by chapter (Schultz &amp; Schultz, Theories of Personality): Freud · Jung · Adler · Horney · Erikson · Allport · Maslow · Rogers · Kelly · Skinner · Bandura · the trait approach &amp; Five-Factor Model · facets (Rotter, Zuckerman, Seligman) · personality in perspective · plus NIMHANS supplements (object relations, existential, type, Indian/Triguna, assessment) — NIMHANS + MET 2026</title>
 <link rel="stylesheet" href="../../notes-style.css">
 <style>
   .hy-banner { background: linear-gradient(135deg, rgba(88,166,255,0.12), rgba(63,185,80,0.10)); border: 1px solid var(--accent-dim); border-radius: 10px; padding: 14px 16px; margin: 0 0 24px 0; font-size: 14px; color: var(--text); }
@@ -16,13 +16,20 @@
   .nimhans b { color: #a371f7; }
   .why { background: rgba(210,153,34,0.10); border-left: 3px solid #d29922; padding: 10px 13px; margin: 12px 0; border-radius: 4px; font-size: 14px; }
   .why b { color: #d29922; }
+  .bio { background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--muted); border-radius: 4px; padding: 9px 13px; margin: 10px 0; font-size: 13.5px; color: var(--muted); }
+  .bio b { color: var(--text); }
   .eg { font-style: italic; color: var(--muted); }
   .jump { font-size: 13px; line-height: 1.9; }
   .jump a { margin-right: 14px; white-space: nowrap; }
-  h2.sec { border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-top: 40px; }
+  .part { color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-size: 12px; font-weight: 700; margin: 46px 0 0; padding-top: 18px; border-top: 1px solid var(--border); }
+  h2.sec { border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-top: 14px; }
+  h2.sec .cn { color: var(--muted); font-weight: 400; font-size: 16px; }
   h3 { color: var(--accent); margin-top: 26px; }
-  h4 { color: var(--text); font-size: 15px; }
+  h4 { color: var(--text); font-size: 15px; margin-top: 20px; }
+  h4.hn { color: #d29922; }
+  h4.asm { color: var(--accent); }
   table { font-size: 14px; }
+  td:first-child { white-space: nowrap; }
   .recap { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin: 16px 0 8px; font-size: 14px; }
   .recap b { color: var(--accent); }
 </style>
@@ -36,214 +43,295 @@
   <a href="../textbook/#forgot">Rapid Recall</a>
 </nav>
 
-<h1>Personality — the full chapter, from scratch</h1>
-<p style="color: var(--muted); font-size: 13px;">Read this like a textbook, not a cheatsheet. Every approach explained from first principles, then the names and traps. Anchored to your <b>Schulz &amp; Schulz, <i>Theories of Personality</i></b> — every approach the book covers is here. Psychodynamic · object relations &amp; self · neo-Freudians · trait · Big Five / HEXACO · humanistic · existential · social-cognitive &amp; learning · type · Indian psychology · assessment · Built 2026-05-22 · Rewritten as a teaching chapter 2026-05-24</p>
+<h1>Personality — the full book, chapter by chapter</h1>
+<p style="color: var(--muted); font-size: 13px;">Not a summary. This is your <b>Schultz &amp; Schultz, <i>Theories of Personality</i></b> walked through in the book's own order, one chapter per theorist, with the book's signature recurring frame kept intact for each: <b>the life</b> (how the theorist's own biography shaped the theory), the theory unpacked in full, the book's <b>Questions About Human Nature</b> scorecard, <b>Assessment</b>, <b>Research</b>, and <b>Reflections</b> (the criticisms). After the book's chapters come the four domains the book underweights but NIMHANS tests hard, flagged in purple: <b>object relations &amp; self · existential · type theories · Indian / Triguna · assessment in depth</b>. Built 2026-05-22 · Rewritten as a teaching chapter 2026-05-24 · <b>Poured out to full-book, chapter-by-chapter depth 2026-05-24</b>.</p>
 
 <div class="hy-banner">
-<b>How to use this page.</b> It is built to <i>learn from</i>, not just revise. Each theory has: (1) the problem it was trying to solve, (2) the core idea in plain language with an everyday example, (3) the concepts unpacked one by one, and (4) a coloured box recapping the exam-testable fact and the trap. <span style="color:#d29922;">Amber boxes</span> = the intuition / why it matters. <span style="color:var(--good);">Green</span> = the line to lock. <span style="color:var(--bad);">Red</span> = the MCQ trap. <span style="color:#a371f7;">Purple</span> = NIMHANS-specific. Once this clicks, the one-line version lives in <a href="../textbook/#forgot">Rapid Recall</a>.
+<b>How to read this page.</b> Read it like the textbook, top to bottom, once; then revise off the coloured boxes. Each chapter follows the book: <span style="color:#d29922;">amber</span> = the intuition / why it matters, <span style="color:#d29922;">amber "Human nature"</span> = where the theorist lands on the book's six recurring issues. <span style="color:var(--good);">Green</span> = the line to lock. <span style="color:var(--bad);">Red</span> = the MCQ trap. <span style="color:#a371f7;">Purple</span> = NIMHANS-specific (clinical / Indian / rival-theory swaps). <span style="color:var(--accent);">Grey recap</span> = the chapter in one breath. The one-line testable list lives in <a href="../textbook/#forgot">Rapid Recall</a>; the personality <i>tests</i> in depth (MMPI/16PF/NEO/projectives, scoring) are on the <a href="../psych-tests-deep/">tests deep-dive</a>.
 </div>
 
 <div class="jump">
 <b>Jump to:</b>
-<a href="#orientation">0. What "personality theory" even means</a>
-<a href="#psychodynamic">1. Freud / psychodynamic</a>
-<a href="#neofreud">2. Neo-Freudians</a>
-<a href="#objectrel">3. Object relations &amp; self</a>
-<a href="#trait">4. Trait theories</a>
-<a href="#bigfive">5. Big Five &amp; HEXACO</a>
-<a href="#humanistic">6. Humanistic</a>
-<a href="#existential">7. Existential</a>
-<a href="#socialcog">8. Social-cognitive &amp; learning</a>
-<a href="#type">9. Type theories</a>
-<a href="#indian">10. Indian psychology / Triguna</a>
-<a href="#assessment">11. Assessment</a>
-<a href="#compare">12. At-a-glance compare</a>
-<a href="#traps">13. MCQ traps, collected</a>
+<a href="#intro">1. What personality theory is</a>
+<a href="#freud">2. Freud</a>
+<a href="#jung">3. Jung</a>
+<a href="#adler">4. Adler</a>
+<a href="#horney">5. Horney</a>
+<a href="#erikson">6. Erikson</a>
+<a href="#allport">7. Allport</a>
+<a href="#maslow">8. Maslow</a>
+<a href="#rogers">9. Rogers</a>
+<a href="#kelly">10. Kelly</a>
+<a href="#skinner">11. Skinner</a>
+<a href="#bandura">12. Bandura</a>
+<a href="#trait">13. The trait approach &amp; Five-Factor Model</a>
+<a href="#facets">14. Facets of personality</a>
+<a href="#perspective">15. Personality in perspective</a>
+<a href="#objectrel">S1. Object relations &amp; self</a>
+<a href="#neofreud">S2. The other neo-Freudians</a>
+<a href="#existential">S3. Existential</a>
+<a href="#type">S4. Type theories</a>
+<a href="#indian">S5. Indian psychology / Triguna</a>
+<a href="#assessment">S6. Assessment in depth</a>
+<a href="#compare">At-a-glance compare</a>
+<a href="#traps">All the MCQ traps</a>
 </div>
 
-<!-- ============ 0. ORIENTATION ============ -->
-<h2 id="orientation" class="sec">0. First, what is a "personality theory" trying to do?</h2>
-<p>Personality is the <b>characteristic, relatively stable pattern</b> of how a particular person thinks, feels and behaves across situations and over time. It is what makes you recognisably <i>you</i> next week, and what lets us predict that your shy friend will probably hang back at a party again.</p>
-<p>Every theory in this chapter is one answer to four questions: <b>What is personality made of? Where does it come from? Why do people differ? And how does it change (or not)?</b> The theories disagree violently, and that disagreement is the whole point. They cluster into a few big "camps":</p>
+<div class="why"><b>The one frame that organises the whole book.</b> The book ends every chapter by scoring the theorist on six recurring <b>Questions About Human Nature</b>. Hold these six and you can predict any theorist's "view of the person" answer: <b>(1) free will vs determinism</b> · <b>(2) nature vs nurture</b> (heredity vs environment) · <b>(3) past vs present</b> (does childhood fix us, or does the here-and-now/future drive us) · <b>(4) uniqueness vs universality</b> · <b>(5) equilibrium vs growth</b> (is the basic motive to <i>reduce</i> tension and stay balanced, or to <i>grow</i>) · <b>(6) optimism vs pessimism</b>. Freud is the dark end of all six; the humanists are the bright end. Everyone else sits between.</div>
+
+<!-- ===================== PART 1: INTRODUCTION ===================== -->
+<p class="part">Part One · The study of personality</p>
+<h2 id="intro" class="sec"><span class="cn">Ch 1.</span> Personality: what it is, and how the book studies it</h2>
+<p>Personality is the <b>relatively enduring, distinctive pattern of thoughts, feelings and behaviours</b> that characterises a person and how they adapt to the world. The word comes from the Latin <i>persona</i>, the mask the Roman actor wore, which already hides the book's central tension: is personality the mask we show, or the real face behind it? Every theory in the book is one answer to four questions: what is personality <i>made of</i>, where does it <i>come from</i>, why do people <i>differ</i>, and can it <i>change</i>.</p>
+<p>The book groups the theorists into <b>approaches</b>, and that grouping is the spine of the table of contents: the <b>psychoanalytic</b> (Freud); the <b>neopsychoanalytic</b> (Jung, Adler, Horney); the <b>life-span</b> (Erikson); the <b>genetics/trait pioneer</b> (Allport); the <b>humanistic</b> (Maslow, Rogers); the <b>cognitive</b> (Kelly); the <b>behavioural</b> (Skinner); the <b>social-learning</b> (Bandura); the <b>trait approach</b> (Cattell, Eysenck, the Five-Factor Model); and the <b>facet / limited-domain</b> theories (Rotter, Zuckerman, Seligman).</p>
+
+<h4 class="asm">How the book assesses and researches personality</h4>
+<p>The book insists every theory must answer two practical questions, and the recurring "Assessment" and "Research" sections grade each theorist on them:</p>
 <ul>
-<li><b>Psychodynamic</b> — personality is driven by <i>unconscious</i> conflict laid down in early childhood. (Freud and his successors.)</li>
-<li><b>Trait / type</b> — skip the hidden causes; just <i>describe and measure</i> the stable dispositions a person has. (Allport, Cattell, Eysenck, the Big Five.)</li>
-<li><b>Humanistic</b> — people are basically good and are pulled <i>forward</i> by a drive to grow and self-actualise. (Rogers, Maslow.)</li>
-<li><b>Existential</b> — we are defined by how we face meaning, freedom, isolation and death.</li>
-<li><b>Behavioural / social-cognitive</b> — personality is <i>learned</i>: it is the sum of your conditioning, your expectations and your sense of what you can control. (Skinner, Bandura, Rotter, Mischel.)</li>
-<li><b>Indian / indigenous</b> — personality as a balance of innate qualities (the three gunas).</li>
+<li><b>Assessment</b> = how do you <i>measure</i> this theory's constructs? The methods recur: <b>self-report inventories</b> (objective, scored against norms, e.g. MMPI, 16PF, NEO), <b>projective techniques</b> (ambiguous stimuli, e.g. Rorschach, TAT), <b>clinical interviews</b>, <b>behavioural assessment</b>, and idiographic <b>personal documents</b> (diaries, letters). A good test must clear three bars: <b>reliability</b> (consistency), <b>validity</b> (measures what it claims), and standardised <b>norms</b>.</li>
+<li><b>Research</b> = how was the theory <i>tested</i>? Three designs recur: the <b>clinical method</b> (case studies, the dominant psychoanalytic tool, rich but unreliable and unrepresentative), the <b>experimental method</b> (manipulate a variable, the only route to cause and effect), and the <b>correlational method</b> (relate two measured variables, covariation only, never causation).</li>
 </ul>
-<div class="why"><b>The intuition that ties the chapter together:</b> read each theory by asking "is this person looking <i>backward</i> (childhood causes), <i>inward</i> (stable structure), or <i>forward</i> (growth and choice)?" Freud looks back. Trait theorists look in. Humanists and existentialists look forward. That single axis already organises 80% of the names.</p>
-</div>
-<p>Two recurring distinctions worth fixing before we start, because the paper leans on them:</p>
+<div class="trap"><b>TRAP — method by camp.</b> Case study / clinical method = the psychoanalysts (Freud, Jung, Adler). Correlational + factor analysis = the trait theorists (Cattell, Eysenck, FFM). Controlled experiment = the behaviourists and social-learning theorists (Skinner, Bandura) and Rogers, who pioneered <i>experimental</i> psychotherapy research. The method usually tells you the camp.</div>
+<div class="recap"><b>Recap Ch 1.</b> Personality = the enduring, distinctive pattern of how a person thinks, feels and behaves. The book is organised by approach and grades every theorist on six human-nature issues plus Assessment and Research. Nomothetic (general laws, trait research) vs idiographic (the unique individual, case studies) is the master methodological split.</div>
+
+<!-- ===================== PART 2: PSYCHOANALYTIC ===================== -->
+<p class="part">Part Two · The psychoanalytic approach</p>
+<h2 id="freud" class="sec"><span class="cn">Ch 2.</span> Sigmund Freud — psychoanalysis</h2>
+<div class="bio"><b>The life (1856–1939).</b> Born in Moravia, raised in Vienna, the adored eldest son of a young mother (the book notes this shaped his Oedipal theory). Trained as a neurologist; studied hysteria under <b>Charcot</b> in Paris and worked with <b>Josef Breuer</b>, whose patient <b>Anna O.</b> coined the "talking cure". A flirtation with cocaine, a long self-analysis after his father's death (the engine of <i>The Interpretation of Dreams</i>, 1900), decades of jaw cancer, and finally flight from the Nazis to London in 1938, where he died. The theory is, in part, Freud analysing Freud.</div>
+<p><b>The problem he was solving.</b> Patients had real symptoms (paralysis, blindness, fits) with no physical cause. Freud concluded the cause was mental and <i>hidden</i>: a painful idea pushed out of awareness, leaking out as a symptom. The whole edifice grows from that one move, that an <b>unconscious</b> drives behaviour we cannot explain.</p>
+
+<h4>Instincts: the engine</h4>
+<p>Behaviour is powered by <b>instincts</b> (drives), psychological representations of bodily needs. Two classes: <b>Eros</b>, the life instinct, whose energy is <b>libido</b>; and <b>Thanatos</b>, the death instinct, source of aggression. An instinct has a source, aim, object and impetus; <b>cathexis</b> is libido invested in an object.</p>
+
+<h4>The two maps of the mind</h4>
+<p><b>Topographic model</b> (the iceberg): <b>conscious</b> (current awareness, the tip), <b>preconscious</b> (retrievable, just below), <b>unconscious</b> (repressed, inaccessible, the vast mass below the waterline that steers slips, symptoms and dreams).</p>
+<p><b>Structural model</b> (three agencies in constant negotiation):</p>
 <ul>
-<li><b>Nomothetic vs idiographic.</b> Nomothetic = study general laws across many people (trait research). Idiographic = study the unique individual in depth (case studies, Allport's later work). Most trait psychology is nomothetic; psychodynamic and humanistic work is more idiographic.</li>
-<li><b>Type vs trait.</b> A <b>type</b> is a discrete category you either are or aren't (you ARE an introvert). A <b>trait</b> is a continuous dimension you have <i>more or less of</i> (you score 7/10 on introversion). Modern psychology overwhelmingly favours traits; types survive mostly in older, body-based theories.</li>
+<li><b>Id</b> — present at birth, wholly unconscious, runs on the <b>pleasure principle</b> (gratification now), thinks in illogical <b>primary process</b>. The screaming toddler.</li>
+<li><b>Ego</b> — runs on the <b>reality principle</b>, finds realistic ways to satisfy the id, delays gratification, uses rational <b>secondary process</b> thinking, and deploys the defences. The negotiator.</li>
+<li><b>Superego</b> — the internalised moral code, formed ~age 5 when the Oedipus complex resolves. <b>Conscience</b> (punishes with guilt) + <b>ego-ideal</b> (rewards with pride). The strict parent's voice.</li>
 </ul>
+<div class="why"><b>Rider on a horse.</b> Id = the horse's raw power; superego = the rulebook of where it may go; ego = the rider trying to get somewhere real without being thrown or paralysed. <b>Anxiety</b> is the ego's alarm that it is losing the negotiation; defences buy relief.</div>
 
-<!-- ============ 1. PSYCHODYNAMIC ============ -->
-<h2 id="psychodynamic" class="sec">1. Freud &amp; the psychodynamic core</h2>
-<p><b>The problem Freud was solving.</b> As a neurologist in 1890s Vienna he kept seeing patients with real symptoms (paralysis, blindness, fits) that had no physical cause. He concluded the cause was <i>mental and hidden</i>: a painful idea pushed out of awareness was leaking out as a bodily symptom. That single move, that the mind has a powerful <b>unconscious</b> that drives behaviour we can't explain, is the seed of everything below.</p>
-
-<h3>The topographic model: the iceberg</h3>
-<p>Freud's first map of the mind had three layers:</p>
-<ul>
-<li><b>Conscious</b> — what you are aware of right now (the tip of the iceberg).</li>
-<li><b>Preconscious</b> — not in awareness but easily retrievable (your phone number until you need it).</li>
-<li><b>Unconscious</b> — repressed material you <i>cannot</i> access at will, yet which steers your feelings, slips of the tongue, and dreams. The huge mass below the waterline.</li>
-</ul>
-<p>Driving the whole system are two instinctual forces: <b>Eros</b>, the life instinct, whose energy is <b>libido</b>; and <b>Thanatos</b>, the death/aggression instinct. Behaviour is the compromise these drives strike with reality.</p>
-
-<h3>The structural model: id, ego, superego</h3>
-<p>Later Freud added a second, more famous map of three <i>agencies</i> that are constantly negotiating:</p>
-<ul>
-<li><b>Id</b> — present at birth, totally unconscious. Runs on the <b>pleasure principle</b>: it wants gratification <i>now</i> and doesn't care about consequences or logic (that illogical, timeless style is <b>primary process</b> thinking). The id is the toddler screaming for the sweet.</li>
-<li><b>Ego</b> — develops to deal with the real world. Runs on the <b>reality principle</b>: it finds <i>realistic</i> ways to satisfy the id, delaying gratification when needed (<b>secondary process</b> thinking, i.e. rational planning). The ego is the negotiator in the middle, and it is the ego that deploys the defence mechanisms. Mostly conscious/preconscious.</li>
-<li><b>Superego</b> — the internalised moral code, formed around age 5 once the Oedipus complex resolves. Two parts: the <b>conscience</b> (punishes wrongdoing with guilt) and the <b>ego-ideal</b> (rewards living up to standards with pride). The superego is the strict parent's voice in your head.</li>
-</ul>
-<div class="why"><b>Picture it as a rider on a horse.</b> The id is the horse's raw power and appetite; the superego is the rulebook of where it's allowed to go; the ego is the rider trying to get somewhere real without being thrown off or paralysed. <b>Anxiety</b> is the ego's alarm signal that it is losing the negotiation. Defence mechanisms are how the ego buys relief from that anxiety.</p>
-</div>
-
-<h3>Psychosexual stages: how personality gets built in childhood</h3>
-<p>Freud argued libido settles on a different body zone at each age. How a child resolves the conflict at each stage shapes adult personality. Getting stuck, through over- or under-gratification, is called <b>fixation</b>, and it leaves a lasting mark.</p>
-<table>
-<tr><th>Stage</th><th>Age</th><th>Focus / conflict</th><th>Fixation looks like in an adult</th></tr>
-<tr><td>Oral</td><td>0–1</td><td>Mouth: sucking, biting; weaning is the conflict</td><td>Smoking, overeating, nail-biting, dependency, sarcasm ("biting" remarks)</td></tr>
-<tr><td>Anal</td><td>1–3</td><td>Bowel control; toilet training is the power struggle</td><td>Anal-<i>retentive</i> (over-controlled: orderly, stingy, stubborn) vs anal-<i>expulsive</i> (under-controlled: messy, reckless)</td></tr>
-<tr><td>Phallic</td><td>3–6</td><td><b>Oedipus / Electra complex</b>; castration anxiety / penis envy; the superego forms here</td><td>Vanity, recklessness, difficulties with sexual identity and authority</td></tr>
-<tr><td>Latency</td><td>6–puberty</td><td>Sexuality goes dormant; energy into school, skills, same-sex friendships</td><td>(No fixation; a consolidation phase)</td></tr>
-<tr><td>Genital</td><td>puberty+</td><td>Mature adult sexuality and intimacy</td><td>Healthy, balanced love and work <i>if</i> earlier stages were resolved</td></tr>
-</table>
-<p>The <b>Oedipus complex</b> (phallic stage) is the centrepiece: the boy unconsciously desires his mother and sees his father as a rival, then fears punishment (<b>castration anxiety</b>), and resolves the conflict by <i>identifying</i> with the father, which is how he absorbs the father's morality (the superego). The female parallel Freud called the <b>Electra complex</b>, involving <b>penis envy</b>; this part of the theory is the most criticised and was rejected outright by Horney (see §2).</p>
-<div class="rule"><b>Memory hook for stage order:</b> <b>O</b>ld (oral) <b>A</b>ge <b>P</b>ensioners (phallic) <b>L</b>ove (latency) <b>G</b>uinness (genital). And: the superego forms in the <b>phallic</b> stage, not at birth.</div>
-
-<h3>Defence mechanisms: how the ego copes</h3>
-<p>When anxiety threatens to overwhelm the ego, it distorts reality unconsciously to feel safer. These are the <b>defence mechanisms</b>. <b>Anna Freud</b> (Freud's daughter) systematised and catalogued them. Learn them by the everyday example, not the definition.</p>
+<h4>Anxiety and the defence mechanisms</h4>
+<p>Freud named three anxieties: <b>reality anxiety</b> (a real external threat), <b>neurotic anxiety</b> (fear the id will break loose), and <b>moral anxiety</b> (fear of the superego, i.e. guilt/shame). When anxiety threatens the ego, it distorts reality unconsciously: the <b>defence mechanisms</b>, catalogued by <b>Anna Freud</b>.</p>
 <table>
 <tr><th>Defence</th><th>What it does</th><th>Everyday example</th></tr>
-<tr><td>Repression</td><td>The master defence: shove threatening material out of awareness entirely.</td><td>No memory of a childhood trauma.</td></tr>
+<tr><td>Repression</td><td>The master defence: shove threatening material out of awareness.</td><td>No memory of a childhood trauma.</td></tr>
 <tr><td>Denial</td><td>Refuse to accept an external reality.</td><td>"The biopsy was wrong, I'm fine."</td></tr>
-<tr><td>Projection</td><td>Attribute your own unacceptable impulse to someone else.</td><td>You're attracted to a colleague, so you accuse <i>them</i> of flirting.</td></tr>
-<tr><td>Displacement</td><td>Redirect the impulse onto a <i>safer substitute target</i>.</td><td>Boss yells at you → you snap at your dog.</td></tr>
+<tr><td>Projection</td><td>Attribute your own unacceptable impulse to someone else.</td><td>Attracted to a colleague, so you accuse <i>them</i> of flirting.</td></tr>
+<tr><td>Displacement</td><td>Redirect the impulse onto a safer substitute <i>target</i>.</td><td>Boss yells at you → you snap at the dog.</td></tr>
 <tr><td>Reaction formation</td><td>Behave as the <i>opposite</i> of the true impulse.</td><td>Hating someone but being sickly-sweet to them.</td></tr>
-<tr><td>Rationalisation</td><td>Invent a logical-sounding excuse for the real, unacceptable reason.</td><td>"I didn't want that job anyway."</td></tr>
-<tr><td>Sublimation</td><td>Channel the impulse into a socially valued outlet. The <i>healthiest, most mature</i> defence.</td><td>Aggression → becoming a surgeon or boxer.</td></tr>
+<tr><td>Rationalisation</td><td>Invent a logical-sounding excuse for the real reason.</td><td>"I didn't want that job anyway."</td></tr>
+<tr><td>Sublimation</td><td>Channel the impulse into a socially valued outlet (the healthiest).</td><td>Aggression → becoming a surgeon or boxer.</td></tr>
 <tr><td>Regression</td><td>Retreat to an earlier developmental stage under stress.</td><td>A stressed adult sulking or throwing a tantrum.</td></tr>
-<tr><td>Intellectualisation</td><td>Strip out the emotion, deal only with the abstract facts.</td><td>Discussing your own cancer purely in statistics.</td></tr>
+<tr><td>Intellectualisation</td><td>Strip out the emotion, deal only with abstract facts.</td><td>Discussing your own cancer purely in statistics.</td></tr>
 <tr><td>Identification</td><td>Take on the qualities of an admired or feared other.</td><td>Bullied kid starts bullying (identification with the aggressor).</td></tr>
-<tr><td>Undoing</td><td>A ritual act to magically "cancel out" a bad thought or deed.</td><td>Compulsive hand-washing after an aggressive thought (OCD-linked).</td></tr>
-<tr><td>Isolation of affect</td><td>Keep the memory but sever the feeling attached to it.</td><td>Recounting an assault flatly, with no emotion.</td></tr>
-<tr><td>Splitting</td><td>See self/others as all-good or all-bad; can't hold both at once.</td><td>"My doctor is perfect / my doctor is a monster" within a week (borderline-linked).</td></tr>
+<tr><td>Undoing</td><td>A ritual act to magically "cancel" a bad thought/deed.</td><td>Compulsive hand-washing after an aggressive thought.</td></tr>
+<tr><td>Isolation of affect</td><td>Keep the memory, sever the feeling.</td><td>Recounting an assault flatly, with no emotion.</td></tr>
+<tr><td>Splitting</td><td>See self/others as all-good or all-bad.</td><td>"My doctor is perfect / a monster" within a week (borderline).</td></tr>
 </table>
-<div class="trap"><b>TRAP — the three "redirect" defences they love to swap:</b> <b>Displacement</b> = redirect to a substitute <i>target</i> (yell at the dog). <b>Sublimation</b> = redirect into a socially <i>acceptable activity</i> (aggression → surgery). <b>Projection</b> = put your impulse <i>onto another person</i> (you accuse them of what you feel). Read the stem for "target" vs "activity" vs "another person".</div>
-<div class="nimhans"><b>NIMHANS extra — Vaillant's hierarchy of defences.</b> George Vaillant ranked defences by maturity, and NIMHANS asks which tier a defence sits in:
-<ul style="margin:6px 0;">
-<li><b>Psychotic</b> (most primitive): denial of external reality, delusional projection, distortion.</li>
-<li><b>Immature:</b> projection, acting out, passive aggression, fantasy, splitting, somatisation.</li>
-<li><b>Neurotic:</b> repression, displacement, reaction formation, intellectualisation, rationalisation, undoing.</li>
-<li><b>Mature:</b> sublimation, humour, altruism, <b>suppression</b> (the only <i>conscious</i> one), anticipation.</li>
-</ul>
-Note the trap: <i>repression</i> is unconscious and neurotic; <i>suppression</i> is the deliberate, conscious choice to set a worry aside, and is mature.</div>
+<div class="trap"><b>TRAP — the three "redirect" defences they swap:</b> <b>Displacement</b> = redirect to a substitute <i>target</i> (yell at the dog). <b>Sublimation</b> = redirect into a socially <i>acceptable activity</i> (aggression → surgery). <b>Projection</b> = put your impulse <i>onto another person</i>. Read the stem for "target" vs "activity" vs "another person".</div>
+<div class="nimhans"><b>NIMHANS — Vaillant's hierarchy of defences.</b> George Vaillant ranked defences by maturity: <b>psychotic</b> (denial of external reality, delusional projection, distortion) → <b>immature</b> (projection, acting out, passive aggression, fantasy, splitting, somatisation) → <b>neurotic</b> (repression, displacement, reaction formation, intellectualisation, rationalisation, undoing) → <b>mature</b> (sublimation, humour, altruism, <b>suppression</b>, anticipation). Trap: <i>repression</i> is unconscious + neurotic; <i>suppression</i> is the deliberate, conscious set-aside, and is mature, the only conscious defence.</div>
 
-<h3>Carl Jung's break (analytical psychology)</h3>
-<p>Jung was Freud's heir-apparent until they split over Freud's insistence that everything traces to sex. Jung kept the unconscious but enriched it. His big additions:</p>
+<h4>Psychosexual stages</h4>
+<p>Libido settles on a different body zone at each age; how the conflict resolves shapes the adult, and getting stuck (over- or under-gratified) is <b>fixation</b>.</p>
+<table>
+<tr><th>Stage</th><th>Age</th><th>Focus / conflict</th><th>Fixation in an adult</th></tr>
+<tr><td>Oral</td><td>0–1</td><td>Mouth; weaning</td><td>Smoking, overeating, dependency, sarcasm ("biting" remarks)</td></tr>
+<tr><td>Anal</td><td>1–3</td><td>Bowel control; toilet training</td><td>Anal-<i>retentive</i> (orderly, stingy, stubborn) vs anal-<i>expulsive</i> (messy, reckless)</td></tr>
+<tr><td>Phallic</td><td>3–6</td><td><b>Oedipus/Electra</b>; castration anxiety / penis envy; superego forms</td><td>Vanity, recklessness, problems with authority &amp; sexual identity</td></tr>
+<tr><td>Latency</td><td>6–puberty</td><td>Sexuality dormant; school, skills, same-sex friends</td><td>(Consolidation phase, no fixation)</td></tr>
+<tr><td>Genital</td><td>puberty+</td><td>Mature adult sexuality and intimacy</td><td>Healthy love and work <i>if</i> earlier stages resolved</td></tr>
+</table>
+<p>The <b>Oedipus complex</b> is the centrepiece: the boy desires his mother, sees his father as rival, fears <b>castration anxiety</b>, and resolves it by <b>identifying</b> with the father, thereby absorbing his morality (the superego). The female parallel, the <b>Electra complex</b> with <b>penis envy</b>, is the most criticised piece and was rejected outright by Horney.</p>
+<div class="rule"><b>Stage order mnemonic:</b> <b>O</b>ld (oral) <b>A</b>ge <b>P</b>ensioners (phallic) <b>L</b>ove (latency) <b>G</b>uinness (genital). And: the superego forms in the <b>phallic</b> stage, not at birth.</div>
+
+<h4 class="asm">Assessment in Freud's theory</h4>
+<p>Three windows onto the unconscious: <b>free association</b> (say whatever comes, censorship off; blocks reveal resistance), <b>dream analysis</b> ("the royal road to the unconscious", separating the remembered <b>manifest content</b> from the disguised <b>latent content</b>, undoing the <b>dream-work</b> of condensation, displacement and symbolism), and <b>Freudian slips</b> / parapraxes (the tongue betraying the wish). Projective tests later operationalised the same logic.</p>
+<h4 class="asm">Research on the theory</h4>
+<p>Built almost entirely on <b>case studies</b> (Anna O., Little Hans, Dora, the Rat Man, the Wolf Man), the clinical method at its richest and least controllable. Later controlled research gives a split verdict: the existence of <b>unconscious processing</b> and of some defences (especially <b>displacement</b> and <b>projection</b>) finds support; the <b>psychosexual stages</b>, the Oedipus complex and dream symbolism do not.</p>
+<h4 class="hn">Questions about human nature (Freud's answers)</h4>
+<p>Strong <b>determinism</b> (we are run by instincts and childhood); <b>nature</b> and nurture, but biological instincts lead; the <b>past</b> rules (the first five years fix us); <b>universality</b> (the same stages and structures in everyone); <b>equilibrium</b> (the goal is to discharge tension, the pleasure principle); and deeply <b>pessimistic</b> about human nature. The dark end of all six issues.</p>
+<h4>Reflections (the criticisms)</h4>
+<p>Unscientific and largely <b>unfalsifiable</b>; built on a small, biased sample (neurotic, wealthy Viennese women); reliant on patients' fallible retrospective memory; overweighted on sex; and rigidly deterministic. Yet it is the foundation the entire book is reacting to: every later theorist defines themselves partly against Freud.</p>
+<div class="recap"><b>Recap Ch 2.</b> Unconscious conflict → id/ego/superego → three anxieties → defences (Anna Freud) → five psychosexual stages → assessed by free association, dreams, slips → tested by case study → human nature: determinist, past-bound, pessimistic.</div>
+
+<!-- ===================== PART 3: NEOPSYCHOANALYTIC ===================== -->
+<p class="part">Part Three · The neopsychoanalytic approach</p>
+<h2 id="jung" class="sec"><span class="cn">Ch 3.</span> Carl Jung — analytical psychology</h2>
+<div class="bio"><b>The life (1875–1961).</b> Swiss pastor's son, solitary, drawn to dreams, myth and the occult. Freud's anointed "crown prince" after their famous 13-hour first conversation (1907); president of the psychoanalytic association; then the bitter <b>break in 1913</b> over Freud's insistence that libido is sexual. The split triggered Jung's own years-long "confrontation with the unconscious" (the <i>Red Book</i>), which became the raw material of his theory.</div>
+<p>Jung kept the unconscious but <i>enlarged</i> it and de-sexualised <b>libido</b> into general psychic energy. His map of the psyche:</p>
 <ul>
-<li><b>Personal unconscious</b> — your own repressed/forgotten material (like Freud's), organised into emotionally charged <b>complexes</b>.</li>
-<li><b>Collective unconscious</b> — a <i>deeper, inherited</i> layer shared by all humans, containing universal patterns called <b>archetypes</b>: the <b>persona</b> (the mask you show the world), the <b>shadow</b> (your dark, denied side), the <b>anima/animus</b> (the inner feminine/masculine), and the <b>self</b> (the unifying centre). This is Jung's single most testable idea.</li>
-<li><b>Introversion vs extraversion</b> — Jung coined this attitude pair (energy turned inward vs outward), later borrowed by trait theory and the MBTI.</li>
-<li><b>Individuation</b> — the lifelong process of integrating all these parts into a whole self.</li>
+<li><b>Ego</b> — the conscious mind.</li>
+<li><b>Personal unconscious</b> — your own repressed/forgotten material, organised into emotionally charged <b>complexes</b> (a "mother complex").</li>
+<li><b>Collective unconscious</b> — a <i>deeper, inherited</i> layer shared by all humanity, his single most testable idea, containing the <b>archetypes</b>: universal images. The key ones: <b>persona</b> (the social mask), <b>shadow</b> (the dark, denied side), <b>anima/animus</b> (the inner feminine/masculine), and the <b>self</b> (the unifying centre, symbolised by the mandala).</li>
 </ul>
-<div class="recap"><b>Recap §1.</b> Freud: unconscious conflict → id/ego/superego → psychosexual stages → defences. Jung: added the <b>collective unconscious</b> and <b>archetypes</b>, coined introversion/extraversion. <b>Anna Freud</b> catalogued the defences.</div>
+<p><b>Attitudes &amp; functions.</b> Jung coined <b>introversion vs extraversion</b> (energy turned inward vs outward). He added four <b>functions</b>: the rational pair <b>thinking</b> and <b>feeling</b>, and the irrational pair <b>sensing</b> and <b>intuiting</b>. Two attitudes × four functions = his <b>eight psychological types</b> (later the seed of the MBTI). <b>Individuation</b> is the lifelong integration of all parts into the self, and Jung uniquely stressed <b>midlife</b> as its turning point.</p>
+<h4 class="asm">Assessment &amp; research</h4>
+<p>The <b>word-association test</b> (delays and odd responses expose complexes), <b>symptom analysis</b>, <b>dream analysis</b> (read in series, with <b>amplification</b> rather than free association), and comparative study of myth and symbol across cultures. The <b>MBTI</b> descends from his types but has weak psychometrics.</p>
+<h4 class="hn">Questions about human nature</h4>
+<p>A balance of free will and determinism; past, present <i>and</i> <b>future</b> (uniquely <b>teleological</b>, we are pulled by aspirations and the self-to-be); nature and nurture; both unique <i>and</i> universal (archetypes are shared); strongly <b>growth</b>-oriented (individuation); cautiously optimistic.</p>
+<h4>Reflections</h4>
+<p>Criticised for mysticism, obscurity and untestable occult elements, but introversion/extraversion and the idea of complexes are permanent contributions.</p>
+<div class="recap"><b>Recap Ch 3.</b> Jung: collective unconscious + archetypes (persona, shadow, anima/animus, self), introversion/extraversion + 4 functions → 8 types, individuation, midlife. De-sexualised libido. Teleological, growth-oriented.</div>
 
-<!-- ============ 2. NEO-FREUDIANS ============ -->
-<h2 id="neofreud" class="sec">2. The Neo-Freudians &amp; ego psychology</h2>
-<p>The neo-Freudians accepted that an unconscious shapes us, but rejected Freud's heavy focus on sex and biology. Their shared move: <b>personality is driven more by social and cultural relationships than by libido.</b> Learn each one by the single phrase nobody else owns.</p>
-
-<h4>Alfred Adler — individual psychology</h4>
-<p>Adler said the central human motive is not pleasure but <b>overcoming feelings of inferiority</b>. Every child starts small, weak and dependent, and so feels inferior; healthy development means compensating for this by <b>striving for superiority</b> (really, striving for competence and mastery). When it goes wrong you get an <b>inferiority complex</b> (paralysing self-doubt) or an over-compensating <b>superiority complex</b>. Adler also stressed <b>birth order</b> (first-born, middle, youngest each develop differently), the unique <b>style of life</b> each person builds, and <b>social interest</b> (gemeinschaftsgefühl), the feeling of connection to humanity that marks mental health.</p>
-
-<h4>Carl Jung</h4>
-<p>(Covered in §1 because his theory is large; for the neo-Freudian lineup just hold <b>collective unconscious + archetypes</b>.)</p>
-
-<h4>Karen Horney</h4>
-<p>Horney directly challenged Freud's view of women. Where Freud said women suffer <b>penis envy</b>, Horney countered that men may feel <b>"womb envy"</b> (envy of women's ability to bear life), and that what looks like penis envy is really envy of men's <i>social power</i>. Her core concept is <b>basic anxiety</b>: the feeling of being isolated and helpless in a potentially hostile world, rooted in childhood. To cope, people adopt one of three <b>neurotic trends</b>: <b>moving toward people</b> (compliance, needing approval), <b>moving against people</b> (aggression, needing to dominate), or <b>moving away from people</b> (detachment, needing independence). She also described the <b>"tyranny of the should"</b>, the tyranny of an idealised self we punish ourselves for not matching.</p>
-
-<h4>Erich Fromm</h4>
-<p>Fromm fused psychoanalysis with social philosophy. His famous idea is <b>"escape from freedom"</b>: modern freedom is so isolating and burdensome that people flee from it into conformity, submission to authority, or destructiveness (his explanation for the rise of fascism). He described <b>character orientations</b> (receptive, exploitative, hoarding, marketing, and the healthy <b>productive</b> orientation).</p>
-
-<h4>Harry Stack Sullivan</h4>
-<p>Sullivan's <b>interpersonal theory</b> says personality only exists <i>in relationships</i>, never in isolation. The <b>self-system</b> is built out of anxiety-reducing interactions with others, organised into <b>good-me</b> (approved experiences), <b>bad-me</b> (disapproved, anxiety-laden), and <b>not-me</b> (so threatening it's dissociated).</p>
-
-<h4>Erik Erikson — ego psychology</h4>
-<p>Erikson extended Freud in two ways: he made development <i>lifelong</i> (8 stages, not 5, running birth to death) and <i>psychosocial</i> rather than psychosexual (each stage is a social crisis, e.g. identity vs role confusion in adolescence). He coined the term <b>"identity crisis."</b> The full stage table lives under Development; for personality just hold that he is the bridge from drives to the social ego.</p>
-
-<h4>Anna Freud &amp; Heinz Hartmann</h4>
-<p><b>Anna Freud</b> founded child psychoanalysis and catalogued the defence mechanisms. <b>Heinz Hartmann</b> is the "father of ego psychology", known for the <b>"conflict-free ego sphere"</b> (parts of the ego, like perception and memory, that develop independently of conflict) and the idea of <b>adaptation</b>.</p>
-
-<div class="trap"><b>TRAP — rotate these as distractors constantly:</b> <b>Collective unconscious</b> = Jung. <b>Inferiority complex / birth order</b> = Adler. <b>Basic anxiety / womb envy / three neurotic trends</b> = Horney. <b>Escape from freedom</b> = Fromm. <b>Interpersonal / self-system / good-me-bad-me</b> = Sullivan. <b>Conflict-free ego sphere</b> = Hartmann.</div>
-<div class="rule"><b>Freud vs Adler vs Jung in one line each:</b> Freud → sex/libido. Adler → power/overcoming inferiority. Jung → meaning/the collective unconscious. This trio plus their "wills" (will to pleasure / will to power / will to meaning, see §7) is the single most-tested cluster in personality.</div>
-
-<!-- ============ 3. OBJECT RELATIONS & SELF PSYCHOLOGY ============ -->
-<h2 id="objectrel" class="sec">3. Object relations &amp; self psychology</h2>
-<div class="nimhans"><b>NIMHANS-heavy.</b> MET barely touched this; NIMHANS (clinical) asks these by name constantly. Slow down here.</div>
-<p><b>The shift in one sentence:</b> Freud thought the baby seeks <i>pleasure</i>; the object-relations school says the baby seeks <i>relationship</i>. An <b>"object"</b> is the psychoanalytic word for the internal mental image of a person, almost always the mother first. Personality, in this view, is built out of the <b>internalised templates of our earliest relationships</b>, which we then re-enact for life. This is also where <b>borderline personality</b> gets explained, which is why clinical exams love it.</p>
-
-<h4>Melanie Klein</h4>
-<p>The founder of object relations and of child play therapy. She argued the infant doesn't experience whole people at first, only <b>part-objects</b> (the "good breast" that feeds, the "bad breast" that's absent). The infant moves through two <b>positions</b> (not stages, because we can slip back into them all our lives):</p>
+<h2 id="adler" class="sec"><span class="cn">Ch 4.</span> Alfred Adler — individual psychology</h2>
+<div class="bio"><b>The life (1870–1937).</b> A sickly Viennese child (rickets, near-fatal pneumonia, run over twice in the street) who lived in the shadow of a healthy older brother, the autobiography behind <b>inferiority</b> and <b>birth order</b>. An ophthalmologist turned GP turned psychiatrist; an early member of Freud's circle who <b>broke in 1911</b>, rejecting the sexual emphasis for a social one. Coined "inferiority complex"; a huge influence on humanistic and cognitive therapy.</div>
+<p>Adler said the one dynamic force in life is not pleasure but <b>striving for superiority</b> (really, striving for completion, competence and perfection). Every child begins small, weak and dependent and so feels <b>inferiority</b>; healthy growth means <b>compensating</b> for it. When it derails you get an <b>inferiority complex</b> (paralysing self-doubt, from organ inferiority, pampering, or neglect) or an over-compensating <b>superiority complex</b>. Other core ideas:</p>
 <ul>
-<li><b>Paranoid-schizoid position</b> (~first 6 months): the world is <i>split</i> into all-good and all-bad; the infant uses <b>projective identification</b> (projecting feelings into the other and then treating them as if they hold those feelings).</li>
-<li><b>Depressive position</b> (later): the infant realises the good and bad mother are the <i>same person</i>, integrates them, and feels guilt and a wish to make reparation. Reaching this position is a developmental achievement.</li>
+<li><b>Style of life</b> — the unique pattern each person builds by ~age 5 to pursue their goals.</li>
+<li><b>Creative power of the self</b> — we are not passive products of heredity and environment; we actively shape our own personality. (This is why Adler is a forerunner of humanism.)</li>
+<li><b>Fictional finalism</b> — we are pulled by future <b>fictional goals</b> (ideals like "honesty pays") and live "<i>as if</i>" they were true.</li>
+<li><b>Social interest</b> (Gemeinschaftsgefühl) — an innate, developable feeling of kinship with humanity; its presence is the mark of mental health.</li>
+<li><b>Birth order</b> — first-born (dethroned, conservative), second/middle (competitive, ambitious), youngest (pampered), only child (precocious, rivalrous with adults).</li>
 </ul>
+<h4 class="asm">Assessment &amp; research</h4>
+<p><b>Early recollections</b> (your earliest memory reveals your style of life), <b>dream analysis</b> (about future problem-solving, not the past), and <b>birth-order</b> position. Research on social interest and early recollections is modest; birth-order findings are mixed.</p>
+<h4 class="hn">Questions about human nature</h4>
+<p>Strong <b>free will</b> (the creative self); present and <b>future</b> over past (fictional goals pull us); nature and nurture but what you <i>do</i> with them matters most; <b>uniqueness</b>; <b>growth</b>; and firmly <b>optimistic</b>, the brightest of the psychoanalysts.</p>
+<h4>Reflections</h4>
+<p>Enormously influential (humanistic and cognitive therapy owe him a great deal) but the theory is loose, sometimes commonsensical, and hard to test.</p>
+<div class="rule"><b>Lock the trio:</b> Freud → will to <b>pleasure</b> (sex); Adler → will to <b>power</b> (overcome inferiority); Jung → will to <b>meaning</b>/the collective unconscious. (Frankl later literally named the "will to meaning", see S3.) The single most-tested cluster in personality.</div>
 
-<h4>Donald Winnicott</h4>
-<p>A paediatrician, so his ideas are warm and practical. The <b>"good-enough mother"</b>: a baby doesn't need a perfect mother, just one who is reliably <i>good enough</i>, meeting needs well enough that the child can tolerate small failures and grow. The <b>transitional object</b> (the blanket or teddy) sits in the <b>transitional space</b> between "me" and "not-me", helping the child separate from the mother. And the <b>true self vs false self</b>: when a child must constantly comply with others' demands, it builds a compliant <b>false self</b> as a shell over the spontaneous <b>true self</b>.</p>
+<h2 id="horney" class="sec"><span class="cn">Ch 5.</span> Karen Horney — neurotic needs and trends</h2>
+<div class="bio"><b>The life (1885–1952).</b> German; an unhappy childhood (felt unloved by a harsh father, clung to her mother) fed bouts of depression and her lifelong interest in how parenting breeds anxiety. Trained in psychoanalysis, emigrated to the US in 1932, and broke with orthodoxy to found her own institute, the first major theorist to challenge Freud's account of women from the inside.</div>
+<p>Horney's foundation is <b>basic anxiety</b>: the feeling of being <i>isolated and helpless in a potentially hostile world</i>, rooted in a childhood lacking warmth and security. To cope, the child develops one of three <b>neurotic trends</b> (overuse of an otherwise-normal strategy), distilled from a longer list of <b>10 neurotic needs</b>:</p>
+<table>
+<tr><th>Trend</th><th>The move</th><th>The neurotic version</th></tr>
+<tr><td><b>Moving toward</b> people</td><td>Compliance, seeking affection &amp; approval</td><td>The "self-effacing" type, needs a partner to run their life</td></tr>
+<tr><td><b>Moving against</b> people</td><td>Aggression, seeking power, control, prestige</td><td>The "expansive" type, must dominate and win</td></tr>
+<tr><td><b>Moving away from</b> people</td><td>Detachment, seeking self-sufficiency &amp; privacy</td><td>The "resigned" type, withdraws to avoid needing anyone</td></tr>
+</table>
+<p>She also described the <b>idealised self-image</b> and the <b>"tyranny of the should"</b> (we tyrannise ourselves trying to match an impossible ideal self), and contrasted the <b>real self</b> with the <b>idealised self</b>. On gender she rejected <b>penis envy</b>, countering that men may feel <b>"womb envy"</b> (envy of women's capacity to bear life) and that apparent penis envy is really envy of men's social <i>power</i>.</p>
+<h4 class="hn">Questions about human nature</h4>
+<p>Free will; the <b>present</b> (current character, though rooted in childhood); heavily <b>nurture</b> and <b>culture</b> over biology; growth/self-realisation; and <b>optimistic</b> (neurosis is learned, so it can be unlearned).</p>
+<h4>Reflections</h4>
+<p>Anticipated feminist psychology and the cultural turn; criticised because her data are clinical observations from a now-dated era.</p>
+<div class="recap"><b>Recap Chs 3–5.</b> Jung = collective unconscious + archetypes. Adler = inferiority/superiority, birth order, social interest, creative self. Horney = basic anxiety → three trends (toward/against/away), womb envy. All three traded Freud's sex drive for, respectively, meaning, power, and social safety.</div>
 
-<h4>W.R.D. Fairbairn</h4>
-<p>Took the school to its logical end: libido is fundamentally <b>object-seeking, not pleasure-seeking</b>. We want connection first; pleasure is just a route to it. This is the cleanest statement of the whole object-relations break from Freud.</p>
+<!-- ===================== PART 4: LIFE-SPAN ===================== -->
+<p class="part">Part Four · The life-span approach</p>
+<h2 id="erikson" class="sec"><span class="cn">Ch 6.</span> Erik Erikson — identity theory</h2>
+<div class="bio"><b>The life (1902–1994).</b> The theorist of identity who never knew his biological father and never took a degree, a Dane raised in Germany who felt an outsider everywhere (Jewish at school, Nordic-looking at temple). An artist who drifted into teaching at a Montessori-style school, was analysed by <b>Anna Freud</b>, emigrated to the US, and ended up a Harvard professor. His own "identity crisis" is the theory.</div>
+<p>Erikson extended Freud in two decisive ways: development is <b>lifelong</b> (eight stages, birth to death, not five) and <b>psychosocial</b> rather than psychosexual (each stage is a <i>social</i> crisis). Growth follows the <b>epigenetic principle</b> (an inborn plan unfolding in fixed order). Each stage poses a tension between a healthy pole and an unhealthy one; resolving it yields a <b>basic strength / virtue</b>.</p>
+<table>
+<tr><th>Stage (age)</th><th>Crisis</th><th>Virtue</th></tr>
+<tr><td>Infancy (0–1)</td><td>Trust vs mistrust</td><td>Hope</td></tr>
+<tr><td>Early childhood (1–3)</td><td>Autonomy vs shame/doubt</td><td>Will</td></tr>
+<tr><td>Play age (3–5)</td><td>Initiative vs guilt</td><td>Purpose</td></tr>
+<tr><td>School age (6–11)</td><td>Industry vs inferiority</td><td>Competence</td></tr>
+<tr><td>Adolescence (12–18)</td><td><b>Identity vs role confusion</b></td><td>Fidelity</td></tr>
+<tr><td>Young adult</td><td>Intimacy vs isolation</td><td>Love</td></tr>
+<tr><td>Adulthood</td><td>Generativity vs stagnation</td><td>Care</td></tr>
+<tr><td>Old age</td><td>Ego integrity vs despair</td><td>Wisdom</td></tr>
+</table>
+<p>Erikson coined the term <b>"identity crisis"</b> and studied identity in culture (the Sioux and Yurok) and in history (his psychobiographies of <b>Luther</b> and <b>Gandhi</b>).</p>
+<h4 class="asm">Assessment &amp; research</h4>
+<p>Play therapy and <b>play constructions</b>, psychohistory, and dream analysis. The big research spin-off is <b>James Marcia's identity statuses</b>, which cross "crisis explored?" with "commitment made?": <b>diffusion</b> (neither), <b>foreclosure</b> (commitment without exploration), <b>moratorium</b> (exploring, not yet committed), <b>achievement</b> (committed after exploring).</p>
+<h4 class="hn">Questions about human nature</h4>
+<p>A genuine <b>balance</b> of free will and determinism; past, present and future; nature <i>and</i> nurture (biology + society); universal stages but unique resolutions; <b>growth</b>; and <b>optimistic</b> (each crisis can be re-worked later).</p>
+<div class="trap"><b>TRAP — Freud vs Erikson stage pairing.</b> Erikson's first four stages map onto Freud's (trust↔oral, autonomy↔anal, initiative↔phallic, industry↔latency), but Erikson's are <i>psychosocial</i> and run to <b>eight</b> across the whole lifespan; Freud's are <i>psychosexual</i> and stop at <b>five</b> by puberty. "Identity vs role confusion" and "intimacy vs isolation" are pure Erikson.</div>
 
-<h4>Margaret Mahler</h4>
-<p>Mapped how the infant psychologically separates from the mother, called <b>separation-individuation</b>: normal autism → symbiosis (fused with mother) → differentiation → practising (exploring) → <b>rapprochement</b> (darting back to mother for reassurance) → <b>object constancy</b> (holding a stable inner image of mother even when she's absent).</p>
-
-<h4>Otto Kernberg</h4>
-<p>Integrated object relations with Freud's drive theory and built the modern understanding of <b>borderline personality organisation</b>, where <b>splitting</b> persists into adulthood. He developed <b>Transference-Focused Psychotherapy (TFP)</b> to treat it.</p>
-
-<h4>Heinz Kohut — self psychology</h4>
-<p>Kohut focused on <b>narcissism</b> and the development of a cohesive <b>self</b>. The child needs <b>selfobjects</b>, people who perform self-functions for it, above all <b>empathic mirroring</b> ("I see you, you're wonderful"). When mirroring fails, the grandiose self doesn't mature and you get pathological narcissism. Key terms: selfobject, mirroring, idealising vs grandiose self.</p>
-
-<h4>John Bowlby — attachment theory</h4>
-<p>Bowlby argued the infant has an innate, evolved need to attach to a caregiver as a <b>secure base</b>. From repeated interactions the child builds an <b>internal working model</b>, a template of "are others reliable, am I worthy of care?" that shapes relationships for life. <b>Maternal deprivation</b> damages it. <b>Mary Ainsworth</b> later operationalised attachment with the <b>Strange Situation</b> experiment (secure / anxious-ambivalent / avoidant; Main added disorganised).</p>
-
-<div class="trap"><b>TRAP — the pairings the paper swaps:</b> <b>Good-enough mother / transitional object / true-false self</b> = Winnicott. <b>Separation-individuation / rapprochement</b> = Mahler. <b>Self / selfobject / narcissism / mirroring</b> = Kohut. <b>Borderline organisation / TFP</b> = Kernberg. <b>Paranoid-schizoid &amp; depressive POSITIONS</b> = Klein (positions, not stages). <b>Object-seeking libido</b> = Fairbairn. <b>Internal working model / secure base</b> = Bowlby.</div>
-<div class="recap"><b>Recap §3.</b> One internal-relationship template, six owners. Klein = positions + splitting. Winnicott = good-enough mother. Mahler = separation-individuation. Kernberg = borderline. Kohut = narcissism/self. Bowlby = attachment.</div>
-
-<!-- ============ 4. TRAIT ============ -->
-<h2 id="trait" class="sec">4. Trait theories</h2>
-<p><b>The big change of approach.</b> Trait theorists got impatient with unprovable unconscious forces and asked a simpler question: <i>what stable characteristics do people actually have, and can we measure them?</i> A <b>trait</b> is a stable disposition to behave a certain way across situations (a "shy" person is shy at most parties). The method that powers most of this work is <b>factor analysis</b>: a statistical technique that takes thousands of trait words or test answers and finds the small number of underlying dimensions ("factors") that explain the correlations among them.</p>
-
-<h4>Gordon Allport</h4>
-<p>The pioneer. He counted ~18,000 trait words in the dictionary (the <b>lexical hypothesis</b>: if a trait matters, language will have a word for it) and organised individual traits into three levels:</p>
+<!-- ===================== PART 5: GENETICS/TRAIT PIONEER ===================== -->
+<p class="part">Part Five · The trait pioneer</p>
+<h2 id="allport" class="sec"><span class="cn">Ch 7.</span> Gordon Allport — motivation and personality</h2>
+<div class="bio"><b>The life (1897–1967).</b> A dutiful, orderly American academic whose most famous story is his one meeting with <b>Freud</b>: the 22-year-old Allport, to break the ice, described a boy on his train with a dirt phobia; Freud studied him and asked, "And was that little boy you?" Allport left convinced psychoanalysis digs for hidden meaning where none exists, and built a theory of the <b>conscious, present, normal adult</b> instead.</div>
+<p>Allport defined <b>traits</b> as real neuropsychic structures that make many stimuli functionally equivalent and guide consistent behaviour. He organised them at three levels:</p>
 <ul>
-<li><b>Cardinal traits</b> — so dominant they define a person's whole life (rare; e.g. someone so generous we call them "a Mother Teresa").</li>
-<li><b>Central traits</b> — the 5–10 core descriptors you'd use in a reference letter (honest, anxious, sociable).</li>
-<li><b>Secondary traits</b> — situational preferences that show up only sometimes (gets impatient in queues).</li>
+<li><b>Cardinal traits</b> — so dominant they define a whole life (rare; a "Scrooge", a "Machiavellian").</li>
+<li><b>Central traits</b> — the 5–10 core descriptors you'd put in a reference letter (honest, anxious, sociable).</li>
+<li><b>Secondary traits / dispositions</b> — situational preferences shown only sometimes.</li>
 </ul>
-<p>Two extra Allport terms: <b>functional autonomy</b> (a motive can become independent of its origin: you started running to lose weight but now run because you love it) and the <b>proprium</b> (his word for the self). Crucially, Allport favoured the <b>idiographic</b> study of the individual and <i>did NOT</i> use factor analysis, which is a common trap.</p>
+<p>His distinctive concepts: the <b>proprium</b> (his word for the self, developing through seven aspects from bodily self to propriate striving); <b>functional autonomy</b> (a motive can become independent of its origin, you ran to lose weight, now you run because you love it, so adult motives are <i>not</i> chained to childhood); and the <b>lexical hypothesis</b> (with Odbert he counted ~18,000 trait words: if a trait matters, language coins a word for it). Allport championed the <b>idiographic</b> (he called it <b>morphogenic</b>) study of the unique individual and, crucially, <i>did not</i> use factor analysis.</p>
+<h4 class="asm">Assessment &amp; research</h4>
+<p><b>Personal documents</b> — most famously the case study <b>Letters from Jenny</b> (300+ letters analysed for her central traits) — plus the <b>Study of Values</b> (Allport-Vernon-Lindzey: theoretical, economic, aesthetic, social, political, religious) and expressive behaviour. He largely rejected the lab.</p>
+<h4 class="hn">Questions about human nature</h4>
+<p>Strong <b>free will</b>; the <b>present</b>, not the past (functional autonomy frees us); the great champion of <b>uniqueness</b> (idiographic); nature and nurture; growth; and <b>optimistic</b>. There is even a discontinuity between the child (driven, Freudian) and the adult (autonomous, future-oriented).</p>
+<h4>Reflections</h4>
+<p>Made personality a respectable field and bridged academic and applied work, but functional autonomy's <i>mechanism</i> is left vague, and idiographic methods are hard to generalise from, so the theory generated little research.</p>
+<div class="trap"><b>TRAP — the "3" and the factor-analysis swap.</b> <b>Allport</b> = 3 trait <i>levels</i> (cardinal/central/secondary), idiographic, NO factor analysis. <b>Eysenck</b> = 3 <i>dimensions</i> (PEN). <b>Cattell</b> = 16 factors and IS the factor-analysis man. Don't pin factor analysis on Allport.</div>
 
-<h4>Raymond Cattell</h4>
-<p>The factor-analysis champion. He distinguished <b>surface traits</b> (clusters of behaviour you can see) from <b>source traits</b> (the deeper factors that cause them), and reduced personality to <b>16 source traits</b>, which he turned into the <b>16PF</b> questionnaire. (Fluid vs crystallised intelligence is also his.)</p>
+<!-- ===================== PART 6: HUMANISTIC ===================== -->
+<p class="part">Part Six · The humanistic approach (the "third force")</p>
+<p>Humanism arose in the 1950s–60s as a revolt against the two ruling forces, psychoanalysis (which made us slaves of the unconscious) and behaviourism (which made us puppets of conditioning). Its creed: people have <b>free will</b>, are basically <b>good</b>, and are pulled forward by an innate drive toward <b>growth and self-actualisation</b>.</p>
+<h2 id="maslow" class="sec"><span class="cn">Ch 8.</span> Abraham Maslow — needs-hierarchy theory</h2>
+<div class="bio"><b>The life (1908–1970).</b> A lonely, unhappy child of immigrant Jewish parents in Brooklyn (he openly loathed his mother). Began studying dominance and sexuality in monkeys with <b>Harlow</b>; after WWII and the birth of his children he turned to the healthy end of human nature and became the acknowledged "father of humanistic psychology" and the third force.</div>
+<p>Maslow proposed that human needs stack in a <b>hierarchy</b>: lower needs must be reasonably satisfied before higher ones can motivate us. Bottom to top: <b>physiological → safety → belongingness/love → esteem → self-actualisation</b>. The lower four are <b>deficiency needs (D-needs)</b>, felt as a lack you scramble to fill; the top is a <b>being need (B-need)</b> or growth need, felt as a pull. Late in life he added <b>self-transcendence</b> above self-actualisation.</p>
+<p>He studied unusually healthy, accomplished people (Lincoln, Einstein, Eleanor Roosevelt) and described the <b>self-actualiser</b>: realistic, accepting, spontaneous, problem-centred, autonomous, with deep but few relationships, a fresh appreciation of life, and <b>peak experiences</b> (moments of ecstasy and wholeness). The <b>Jonah complex</b> is the fear of one's own greatness that keeps people from self-actualising.</p>
+<h4 class="asm">Assessment &amp; research</h4>
+<p>Biographical analysis of his self-actualisers (the sample is the chief criticism, hand-picked and small) and the <b>Personal Orientation Inventory (POI, Shostrom)</b>, which operationalised self-actualisation as a measurable trait.</p>
+<h4 class="hn">Questions about human nature</h4>
+<p><b>Free will</b>; present and future; needs are <b>innate</b> ("instinctoid", so nature) but expressed through nurture; uniqueness blooms at the top of the hierarchy; pure <b>growth</b>; and strongly <b>optimistic</b>.</p>
 
-<h4>Hans Eysenck</h4>
-<p>Argued for a <i>few</i> biologically-based super-dimensions. His <b>PEN</b> model has three: <b>P</b>sychoticism, <b>E</b>xtraversion, <b>N</b>euroticism. He started with just E and N (the EPI), then added P (the EPQ). His biological theory is testable and elegant: extraverts have <i>chronically low cortical arousal</i> (their reticular activating system under-stimulates them), so they seek excitement to top it up; neuroticism reflects an over-reactive limbic/autonomic system that's easily upset.</p>
+<h2 id="rogers" class="sec"><span class="cn">Ch 9.</span> Carl Rogers — person-centred theory</h2>
+<div class="bio"><b>The life (1902–1987).</b> Raised on a strict religious Illinois farm; left agriculture and then the ministry for psychology after a trip to China loosened his faith. Years of clinical work with troubled children convinced him that the client, not the expert, holds the key, hence <b>client-centred therapy</b>. The most research-minded of the humanists.</div>
+<p>Rogers built everything on one motive, the <b>actualising tendency</b> (an innate push of every organism to maintain and enhance itself), and on the <b>self / self-concept</b> (your picture of who you are). He contrasted the <b>real self</b> with the <b>ideal self</b>: a rough match is <b>congruence</b> and well-being; a large gap is <b>incongruence</b> and distress. Why does incongruence develop? Because others love us conditionally, imposing <b>conditions of worth</b> ("I'll value you <i>if</i> you become a doctor"), which makes us betray our own <b>organismic valuing process</b> (the gut sense of what is right for us). The cure is <b>unconditional positive regard (UPR)</b>. The goal of growth is the <b>fully functioning person</b> (open to experience, living existentially in the present, trusting the organism, free, creative). In therapy this distils to three <b>core conditions</b>: <b>empathy, congruence/genuineness, and unconditional positive regard</b>.</p>
+<h4 class="asm">Assessment &amp; research</h4>
+<p>Rogers <i>pioneered psychotherapy research</i>: he was the first to <b>tape-record and transcribe</b> sessions for analysis, and he used the <b>Q-sort technique</b> (sort cards describing the self, then the ideal self; the correlation between the two sorts is an objective measure of self-ideal congruence that should rise over successful therapy).</p>
+<h4 class="hn">Questions about human nature</h4>
+<p><b>Free will</b>; present and future; the actualising tendency is innate (nature) but conditions of worth are learned (nurture); uniqueness; <b>growth</b>; and <b>optimistic</b>.</p>
+<div class="trap"><b>TRAP — the two humanists they pair.</b> <b>Rogers</b> = self-concept, real vs ideal self, congruence, conditions of worth, UPR, Q-sort, the three core conditions. <b>Maslow</b> = the hierarchy of needs, D- vs B-needs, self-actualisers, peak experiences, the POI. Both believe in growth; only Rogers gives you the therapy triad and the Q-sort.</div>
+<div class="recap"><b>Recap Chs 8–9.</b> Maslow: needs hierarchy, self-actualisation, peak experiences, POI. Rogers: actualising tendency, self vs ideal self, conditions of worth → UPR, fully functioning person, Q-sort + recorded sessions. Third force = free will + innate goodness + growth.</div>
 
-<h4>Jeffrey Gray — Reinforcement Sensitivity Theory</h4>
-<p>Gray reframed Eysenck biologically. Personality, he said, comes from two brain systems: the <b>BIS</b> (Behavioural Inhibition System), sensitive to <i>punishment</i> and non-reward, which produces anxiety and makes you stop and check; and the <b>BAS</b> (Behavioural Activation System), sensitive to <i>reward</i>, which produces impulsivity and approach. (Plus a fight-flight-freeze system.) If a stem mentions sensitivity to reward vs punishment, it's Gray, not Eysenck.</p>
+<!-- ===================== PART 7: COGNITIVE ===================== -->
+<p class="part">Part Seven · The cognitive approach</p>
+<h2 id="kelly" class="sec"><span class="cn">Ch 10.</span> George Kelly — personal construct theory</h2>
+<div class="bio"><b>The life (1905–1967).</b> A Kansas farm boy with an engineering and education background who ran travelling psychology clinics across Depression-era rural Kansas. The practical, no-dogma setting (no Freudian couch to be had) led him to a theory in which there is no fixed human nature to uncover, only the way each person construes the world.</div>
+<p>Kelly's image is <b>man-the-scientist</b>: every person constantly forms hypotheses (<b>personal constructs</b>) about the world, tests them against events, and revises them. A construct is <b>bipolar</b> (kind–cruel, safe–dangerous). The philosophy behind it is <b>constructive alternativism</b>: there is always more than one way to construe any situation, so we are never prisoners of our biography, we can always re-construe. The theory is one <b>fundamental postulate</b> ("a person's processes are psychologically channelised by the ways in which they anticipate events") plus <b>11 corollaries</b> (construction, individuality, organisation, dichotomy, choice, range, experience, modulation, fragmentation, commonality, sociality). Kelly even re-defined emotions cognitively: <b>anxiety</b> = events lie outside your constructs; <b>threat</b> = awareness of imminent comprehensive change to your constructs; <b>guilt</b> = acting against your core role construct; <b>hostility</b> = forcing reality to fit a failed construct.</p>
+<h4 class="asm">Assessment &amp; research</h4>
+<p>The <b>Role Construct Repertory Test (Rep Test)</b> and its grid form (the <b>rep grid</b>) elicit a person's own constructs; the <b>self-characterisation sketch</b> (write about yourself in the third person) feeds <b>fixed-role therapy</b>, where the client rehearses being a deliberately different character.</p>
+<h4 class="hn">Questions about human nature</h4>
+<p><b>Free will</b> (we choose our constructs); present and <b>future</b> (we are run by <b>anticipation</b>, so Kelly needs no separate "motivation", anticipation <i>is</i> the motive); both unique and common (the commonality corollary); growth-leaning; and <b>optimistic</b>. The environment matters only as we construe it.</p>
+<h4>Reflections</h4>
+<p>The pioneering <b>cognitive</b> theory of personality, decades ahead of its time, but criticised as cold and over-rational (it slights emotion, the unconscious, and development) and it spawned relatively little research outside the rep grid.</p>
 
-<div class="trap"><b>TRAP — the numbers give it away:</b> <b>Allport</b> = 3 trait <i>levels</i> (cardinal/central/secondary), idiographic, NO factor analysis. <b>Cattell</b> = <b>16</b> factors (16PF), via factor analysis. <b>Eysenck</b> = <b>3</b> <i>dimensions</i> (PEN). Watch the swap: Allport's "3" is levels, Eysenck's "3" is dimensions, and Cattell is the factor-analysis man, not Allport.</div>
-<div class="nimhans"><b>NIMHANS extra:</b> <b>BIS/BAS = Gray.</b> Reward/punishment sensitivity, or a biological basis for anxiety vs impulsivity, points to Gray's RST, not Eysenck's arousal model.</div>
+<!-- ===================== PART 8: BEHAVIORAL ===================== -->
+<p class="part">Part Eight · The behavioural approach</p>
+<h2 id="skinner" class="sec"><span class="cn">Ch 11.</span> B. F. Skinner — reinforcement theory</h2>
+<div class="bio"><b>The life (1904–1990).</b> An American who wanted to be a novelist, failed ("the dark year"), and turned to psychology. The most influential, and most provocative, behaviourist: in <i>Walden Two</i> (a utopia engineered by reinforcement) and <i>Beyond Freedom and Dignity</i> he argued that "autonomous inner man" is an illusion we should discard.</div>
+<p>Skinner's radical move: there is <b>no inner "personality" to study at all</b>. What we call personality is just a learned bundle of <b>operant response patterns</b> maintained by a history of reinforcement, so look at the environment, not inside the "black box". His machinery:</p>
+<ul>
+<li><b>Operant conditioning</b> — behaviour is shaped by its <i>consequences</i>. <b>Reinforcement</b> (positive = add something pleasant; negative = remove something aversive) <i>increases</i> a behaviour; <b>punishment</b> <i>decreases</i> it (and Skinner argued punishment is unreliable, it suppresses without teaching).</li>
+<li><b>Schedules of reinforcement</b> — <b>fixed/variable × ratio/interval</b>. <b>Variable-ratio</b> (the slot machine) produces the highest, most extinction-resistant responding.</li>
+<li><b>Shaping</b> — reinforcing <b>successive approximations</b> to build a complex behaviour.</li>
+<li><b>Extinction</b> — stop reinforcing and the behaviour fades; the <b>superstition</b> experiment showed accidental reinforcement can create "superstitious" behaviour in pigeons.</li>
+</ul>
+<h4 class="asm">Assessment &amp; research</h4>
+<p><b>Functional analysis</b> (the <b>A-B-C</b>: Antecedent → Behaviour → Consequence) and direct observation, never a personality "test" of inner traits. The empirical base is strong: rat and pigeon labs, plus applied successes in <b>behaviour modification</b> and <b>token economies</b>.</p>
+<h4 class="hn">Questions about human nature</h4>
+<p>Extreme <b>determinism</b> (the environment controls us absolutely); the <b>present</b> (current contingencies plus reinforcement history); pure <b>nurture</b>; <b>universality</b> (the laws of learning are the same for all species); neither equilibrium nor growth (behaviour is shaped from outside); pessimistic about free will but optimistic that we can <i>engineer</i> better behaviour.</p>
+<h4>Reflections</h4>
+<p>Rigorous, testable and hugely applicable, but criticised for extrapolating from animals to humans and for ignoring genetics, cognition and the inner life that Bandura would put back.</p>
 
-<!-- ============ 5. BIG FIVE ============ -->
-<h2 id="bigfive" class="sec">5. The Big Five (OCEAN) &amp; HEXACO</h2>
-<p><b>Why it won.</b> For decades trait theorists argued over how many factors there are (Cattell's 16, Eysenck's 3). When researchers re-analysed the data again and again, <i>five</i> factors kept reappearing across languages and cultures. That convergence is why the <b>Five-Factor Model</b> (championed by <b>Costa &amp; McCrae</b>, measured by the <b>NEO-PI-R</b>) is today's dominant model. It grew out of the lexical hypothesis (Galton → Allport &amp; Odbert → Goldberg, who coined "Big Five"). Each factor is a <i>continuum</i>, not a box.</p>
+<!-- ===================== PART 9: SOCIAL-LEARNING ===================== -->
+<p class="part">Part Nine · The social-learning approach</p>
+<h2 id="bandura" class="sec"><span class="cn">Ch 12.</span> Albert Bandura — modeling / social-cognitive theory</h2>
+<div class="bio"><b>The life (1925–2021).</b> Canadian, from a tiny prairie town with a two-teacher school that taught him self-directed learning, a lived rehearsal of his later theme of <b>human agency</b>. Spent his career at Stanford; the most-cited living psychologist for years; renamed his approach "social-cognitive" to stress thought.</div>
+<p>Bandura's correction to Skinner: we learn far more by <b>watching</b> than by being reinforced, and <i>thought</i> sits in the middle. His pillars:</p>
+<ul>
+<li><b>Observational learning / modeling</b> — we learn by watching models, no personal reinforcement needed (the <b>Bobo doll</b> studies: children who watched an adult hit the doll imitated the aggression). It runs through four processes: <b>attention → retention → production (reproduction) → motivation</b>. <b>Vicarious reinforcement</b> (seeing the model rewarded) raises imitation.</li>
+<li><b>Reciprocal determinism</b> — behaviour, <b>personal/cognitive factors</b>, and the <b>environment</b> all influence one another in a three-way loop; you are neither a free agent nor a passive product.</li>
+<li><b>Self-efficacy</b> — your belief in your ability to succeed at a <i>specific task</i>, which predicts whether you'll even try, persist, and recover. Its four sources: <b>mastery experiences</b> (the strongest), <b>vicarious experience</b> (seeing similar others succeed), <b>verbal persuasion</b>, and <b>physiological/emotional state</b>.</li>
+<li><b>Self-regulation</b> and the <b>self-system</b> (we set internal standards and judge ourselves against them); later, <b>moral disengagement</b> and <b>collective efficacy</b>.</li>
+</ul>
+<h4 class="asm">Assessment &amp; research</h4>
+<p>Direct <b>behavioural observation</b> and <b>microanalytic self-efficacy scales</b>. Strong experimental base: the Bobo doll series, and the demonstration that <b>modeling</b> (guided mastery) treats phobias better than insight.</p>
+<h4 class="hn">Questions about human nature</h4>
+<p><b>Human agency</b> within reciprocal limits (a middle position on free will); the present; nurture-leaning, but cognition is central; uniqueness possible; growth via agency; and <b>optimistic</b> (efficacy can be built).</p>
+<div class="trap"><b>TRAP — self-efficacy vs locus of control.</b> <b>Self-efficacy = Bandura</b> = "can I do <i>this task</i>?" (task-specific competence belief). <b>Locus of control = Rotter</b> = "do I or outside forces control <i>outcomes</i>?" (source of control). Both sound like "belief about control"; the split is task-ability vs outcome-source.</div>
+<div class="recap"><b>Recap Chs 11–12.</b> Skinner: no inner self, behaviour = operant patterns shaped by reinforcement schedules; functional analysis (A-B-C); determinist. Bandura: observational learning (Bobo doll, 4 processes), reciprocal determinism, self-efficacy (4 sources); agency + cognition put back in.</div>
+
+<!-- ===================== PART 10: TRAIT + FACETS ===================== -->
+<p class="part">Part Ten · Advances in personality theory</p>
+<h2 id="trait" class="sec"><span class="cn">Ch 13.</span> The trait approach &amp; the Five-Factor Model</h2>
+<p>Trait theorists got impatient with unprovable unconscious forces and asked a measurable question: <i>what stable dispositions do people have, and how many basic ones are there?</i> Their engine is <b>factor analysis</b>, a statistic that scans thousands of trait ratings and finds the few underlying dimensions ("factors") that explain the correlations.</p>
+<h4>Raymond Cattell (1905–1998)</h4>
+<p>The factor-analysis champion. He split <b>surface traits</b> (visible clusters of behaviour) from <b>source traits</b> (the deeper factors that cause them) and reduced personality to <b>16 source traits</b>, which became the <b>16PF</b> questionnaire. He drew on three data sources, <b>L-data</b> (life records), <b>Q-data</b> (questionnaires) and <b>T-data</b> (objective tests), and added <b>dynamic traits</b> (ergs = innate drives, sentiments = learned, attitudes), plus the famous distinction of <b>fluid</b> vs <b>crystallised intelligence</b>.</p>
+<h4>Hans Eysenck (1916–1997)</h4>
+<p>Argued for a <i>few</i> biologically based super-dimensions, the <b>PEN</b> model: <b>P</b>sychoticism, <b>E</b>xtraversion, <b>N</b>euroticism (he began with E and N on the EPI, then added P on the EPQ). His biological theory is elegant and testable: extraverts have <i>chronically low cortical arousal</i> (an under-active reticular activating system), so they seek stimulation to top up; neuroticism reflects an over-reactive limbic/autonomic system. Eysenck stressed strong <b>heritability</b>.</p>
+<h4>McCrae &amp; Costa — the Five-Factor Model (OCEAN)</h4>
+<p>When researchers re-ran the trait data across languages and decades, <i>five</i> factors kept reappearing, the convergence that made the <b>Five-Factor Model</b> (championed by <b>Costa &amp; McCrae</b>, measured by the <b>NEO-PI-R</b>) today's dominant model. (The lexical lineage: Galton → Allport &amp; Odbert → <b>Goldberg</b>, who coined "Big Five".)</p>
 <table>
 <tr><th>Factor</th><th>High scorer</th><th>Low scorer</th></tr>
 <tr><td><b>O</b>penness</td><td>Curious, imaginative, novelty-seeking</td><td>Conventional, practical, routine-preferring</td></tr>
@@ -252,138 +340,154 @@ Note the trap: <i>repression</i> is unconscious and neurotic; <i>suppression</i>
 <tr><td><b>A</b>greeableness</td><td>Trusting, cooperative, warm</td><td>Competitive, sceptical, antagonistic</td></tr>
 <tr><td><b>N</b>euroticism</td><td>Anxious, moody, emotionally reactive</td><td>Calm, secure (= "emotional stability")</td></tr>
 </table>
-<div class="rule"><b>Mnemonic:</b> <b>OCEAN</b> (or CANOE). Neuroticism's healthy pole is sometimes called <i>emotional stability</i>; same axis, flipped.</div>
-<div class="nimhans"><b>NIMHANS extra — HEXACO.</b> A 6-factor model (Ashton &amp; Lee) that adds <b>H = Honesty-Humility</b> (sincerity, fairness, modesty, greed-avoidance) to a reworked Big Five. The "dark triad" (narcissism, Machiavellianism, psychopathy) maps onto <i>low</i> Honesty-Humility. Hold: HEXACO = <b>6</b> factors, H is the new one.</div>
-<div class="trap"><b>TRAP:</b> The Big Five is <i>descriptive and atheoretical</i> (it says <i>what</i> traits exist, not <i>why</i>). Eysenck's PEN is <i>causal/biological</i> (it says why). Both contain Extraversion and Neuroticism, which is exactly why the paper pairs them to trip you.</div>
+<p>McCrae &amp; Costa later built the FFM into a full <b>Five-Factor Theory</b>: genetically based <b>basic tendencies</b> (the five traits) express as <b>characteristic adaptations</b> (habits, roles, goals) shaped by culture; the five traits are strongly heritable, cross-culturally universal, and largely <b>stable after about age 30</b>.</p>
+<div class="rule"><b>Mnemonic:</b> <b>OCEAN</b> (or CANOE). Neuroticism's healthy pole = <i>emotional stability</i>, same axis flipped.</div>
+<div class="nimhans"><b>NIMHANS — HEXACO &amp; Gray.</b> <b>HEXACO</b> (Ashton &amp; Lee) = <b>6</b> factors, adding <b>H = Honesty-Humility</b> (sincerity, fairness, modesty); the "dark triad" (narcissism, Machiavellianism, psychopathy) maps onto <i>low</i> Honesty-Humility. And <b>Gray's Reinforcement Sensitivity Theory</b> reframes Eysenck biologically into the <b>BIS</b> (punishment-sensitive → anxiety, stop-and-check) and <b>BAS</b> (reward-sensitive → impulsivity, approach). Reward/punishment sensitivity in a stem = Gray, not Eysenck.</div>
+<h4 class="hn">Questions about human nature (the trait camp)</h4>
+<p>More <b>deterministic</b> and <b>biological</b> than the humanists (especially Eysenck and McCrae-Costa, who stress genes); <b>nature</b>-heavy; the <b>present</b> (stable dispositions); <b>universality</b> (the same factors everywhere); neither growth nor equilibrium is the focus, traits simply <i>are</i>; relatively neutral on optimism.</p>
+<div class="trap"><b>TRAP — the trait numbers &amp; theory-vs-description.</b> Cattell = <b>16</b> (16PF, factor analysis). Eysenck = <b>3</b> (PEN, biological). FFM = <b>5</b> (OCEAN, NEO-PI-R). HEXACO = <b>6</b> (adds H). And: the Big Five is <i>descriptive/atheoretical</i> (says <i>what</i> traits exist); Eysenck's PEN is <i>causal/biological</i> (says <i>why</i>). Both contain Extraversion and Neuroticism, which is exactly why they get paired to trip you.</div>
 
-<!-- ============ 6. HUMANISTIC ============ -->
-<h2 id="humanistic" class="sec">6. Humanistic theories (the "third force")</h2>
-<p>Humanism arose in the 1950s–60s as a revolt against the two dominant "forces": psychoanalysis (which made us slaves to the unconscious) and behaviourism (which made us puppets of conditioning). The humanists insisted people have <b>free will</b>, are basically <b>good</b>, and are pulled forward by an innate drive toward <b>growth and self-actualisation</b>. Hence "third force."</p>
+<h2 id="facets" class="sec"><span class="cn">Ch 14.</span> Facets of personality (the limited-domain theories)</h2>
+<p>The book's penultimate chapter collects theorists who illuminate <i>one slice</i> of personality rather than the whole person. Each is a high-yield "who studied X" item.</p>
+<h4>Julian Rotter — locus of control</h4>
+<p>From his social-learning theory, behaviour potential = <b>expectancy × reinforcement value</b> (how likely you think a reward is, times how much you want it). His famous slice is <b>locus of control</b> (measured by the <b>I-E Scale</b>): do you believe outcomes flow from your <i>own</i> actions (<b>internal</b>) or from luck, fate and powerful others (<b>external</b>)? Internals generally cope and achieve better.</p>
+<h4>Marvin Zuckerman — sensation seeking</h4>
+<p>A biologically based trait, the need for "varied, novel, complex and intense sensations and experiences", measured by the <b>Sensation Seeking Scale (SSS)</b> with four facets: <b>thrill &amp; adventure seeking, experience seeking, disinhibition, boredom susceptibility</b>. Linked to dopamine and to risk-taking.</p>
+<h4>Martin Seligman — helplessness, optimism, positive psychology</h4>
+<p>The clearest example of a theorist who turned one finding into a whole programme. <b>Learned helplessness</b> (dogs that couldn't escape shock stopped trying even when escape became possible) became a model of depression; reformulated as <b>explanatory / attributional style</b> along three axes, <b>internal–external, stable–unstable, global–specific</b> (the pessimist explains bad events as internal-stable-global). That flipped into <b>learned optimism</b>, and Seligman went on to found <b>positive psychology</b> (the study of well-being: the <b>PERMA</b> model, signature character strengths).</p>
+<h4>Mihaly Csikszentmihalyi — flow</h4>
+<p><b>Flow</b>: the absorbed, timeless state of total engagement when a task's challenge exactly matches your skill, a cornerstone of positive psychology alongside Seligman.</p>
+<div class="trap"><b>TRAP — the facet owners.</b> Locus of control = <b>Rotter</b>. Sensation seeking = <b>Zuckerman</b>. Learned helplessness / learned optimism / positive psychology = <b>Seligman</b>. Flow = <b>Csikszentmihalyi</b>. Self-efficacy is <b>Bandura</b>, not a facet theorist.</div>
 
-<h4>Carl Rogers — person-centred theory</h4>
-<p>Rogers built everything around the <b>self-concept</b>: your picture of who you are. He contrasted the <b>real self</b> (who you actually are) with the <b>ideal self</b> (who you wish to be). When they roughly match, you have <b>congruence</b> and feel well-adjusted; a big gap is <b>incongruence</b> and breeds distress. Why does incongruence develop? Because others give us love conditionally, imposing <b>conditions of worth</b> ("I'll approve of you <i>if</i> you become a doctor"), so we betray our own <b>organismic valuing process</b> (our gut sense of what's right for us). The antidote is <b>unconditional positive regard</b> (UPR): being valued no matter what. The goal of growth is the <b>fully functioning person</b>. In therapy this becomes the three core conditions: <b>empathy, congruence/genuineness, and UPR</b>.</p>
+<!-- ===================== PART 11: PERSPECTIVE ===================== -->
+<p class="part">Part Eleven · Personality in perspective</p>
+<h2 id="perspective" class="sec"><span class="cn">Ch 15.</span> Personality in perspective</h2>
+<p>The book's closing chapter steps back and asks what, after all the theories, we actually know. Its main threads, all examinable:</p>
+<ul>
+<li><b>The person–situation debate, resolved by interactionism.</b> Mischel (see Bandura's neighbours) showed behaviour is less cross-situationally consistent than pure trait theory assumed. The settled view is <b>interactionism</b>: stable traits <i>and</i> situations jointly produce behaviour, and people also <i>select and shape</i> the situations they enter.</li>
+<li><b>Biological foundations.</b> Twin and adoption studies put the <b>heritability</b> of major traits around 40–60%. <b>Temperament</b> appears early: <b>Buss &amp; Plomin</b> (emotionality, activity, sociability, the EAS model) and <b>Jerome Kagan</b> (the <b>inhibited vs uninhibited</b> infant, a precursor of introversion). Thomas &amp; Chess's easy/difficult/slow-to-warm-up temperaments belong here too.</li>
+<li><b>Gender and culture.</b> Personality expression and even which traits matter differ across <b>individualist vs collectivist</b> cultures; the FFM replicates broadly but not perfectly, and "indigenous" dimensions (e.g. the Indian Triguna, see S5) capture variance Western models miss.</li>
+<li><b>The image of human nature.</b> The book's parting note: the theories disagree most on the six human-nature questions, and which theory you find convincing says as much about your own assumptions as about the evidence.</li>
+</ul>
+<div class="recap"><b>Recap Chs 13–15.</b> Trait approach (Cattell 16 / Eysenck 3 PEN / FFM 5 OCEAN / HEXACO 6) + facets (Rotter locus of control, Zuckerman sensation seeking, Seligman helplessness→optimism→positive psych, Csikszentmihalyi flow). Perspective: interactionism settles person vs situation; heritability ~40–60%; temperament (Buss-Plomin, Kagan); culture &amp; gender matter.</div>
 
-<h4>Abraham Maslow — self-actualisation</h4>
-<p>Maslow proposed that human needs stack in a <b>hierarchy</b>, and lower needs must be reasonably met before higher ones motivate us: physiological → safety → love/belonging → esteem → <b>self-actualisation</b> (realising your full potential). The bottom four are <b>deficiency needs (D-needs)</b>, felt as a lack; the top is a <b>being need (B-need)</b>, felt as a pull toward growth. Late in life he added <b>self-transcendence</b> above self-actualisation. He studied unusually healthy, accomplished people and described their <b>peak experiences</b> (moments of intense joy and wholeness).</p>
-<div class="trap"><b>TRAP:</b> Both are humanistic, so the paper pairs them. <b>Rogers</b> = self-concept, real/ideal self, congruence, UPR. <b>Maslow</b> = the hierarchy of needs, self-actualisation, peak experiences.</div>
+<!-- ===================== SUPPLEMENTS ===================== -->
+<p class="part" style="color:#a371f7;">NIMHANS supplements · what Schultz &amp; Schultz underweights but the exam tests</p>
+<div class="nimhans"><b>Why these are here.</b> Schultz &amp; Schultz is an American survey that gives little or no chapter space to object relations, existential therapy as a personality school, the old type theories, or Indian psychology. NIMHANS (clinical, Indian, research-heavy) asks all four by name constantly. Treat S1–S5 as required, not optional.</div>
 
-<!-- ============ 7. EXISTENTIAL ============ -->
-<h2 id="existential" class="sec">7. Existential theories</h2>
-<div class="nimhans"><b>NIMHANS extra.</b> Existentialism overlaps with humanism (both value freedom and meaning) but its mood is darker: it asks how we cope with the unavoidable "givens" of existence, death, freedom, isolation and meaninglessness. Asked by name at NIMHANS.</div>
+<h2 id="objectrel" class="sec"><span class="cn">S1.</span> Object relations &amp; self psychology</h2>
+<p><b>The shift in one sentence:</b> Freud thought the baby seeks <i>pleasure</i>; the object-relations school says the baby seeks <i>relationship</i>. An <b>"object"</b> is the internal mental image of a person (the mother first). Personality is built from the <b>internalised templates of our earliest relationships</b>, which we re-enact for life. This is also where <b>borderline personality</b> is explained, so clinical exams love it.</p>
+<table>
+<tr><th>Theorist</th><th>Own it by</th></tr>
+<tr><td><b>Melanie Klein</b></td><td>Founder; <b>part-objects</b> (good/bad breast); two <b>positions</b> (not stages): <b>paranoid-schizoid</b> (split into all-good/all-bad, uses <b>projective identification</b>) → <b>depressive</b> (realises good &amp; bad mother are one, feels guilt, makes reparation). Child play therapy.</td></tr>
+<tr><td><b>Donald Winnicott</b></td><td>The <b>"good-enough mother"</b>; the <b>transitional object</b> (blanket/teddy) in the <b>transitional space</b>; <b>true self vs false self</b> (a compliant shell over the spontaneous self).</td></tr>
+<tr><td><b>W. R. D. Fairbairn</b></td><td>The cleanest break: libido is <b>object-seeking, not pleasure-seeking</b>.</td></tr>
+<tr><td><b>Margaret Mahler</b></td><td><b>Separation-individuation</b>: normal autism → symbiosis → differentiation → practising → <b>rapprochement</b> → <b>object constancy</b> (stable inner image of mother when absent).</td></tr>
+<tr><td><b>Otto Kernberg</b></td><td><b>Borderline personality organisation</b> (splitting persists into adulthood); developed <b>Transference-Focused Psychotherapy (TFP)</b>.</td></tr>
+<tr><td><b>Heinz Kohut</b></td><td><b>Self psychology</b>: <b>narcissism</b>, the cohesive <b>self</b>, <b>selfobjects</b>, empathic <b>mirroring</b>; failed mirroring → pathological narcissism.</td></tr>
+<tr><td><b>John Bowlby</b></td><td><b>Attachment</b>: innate need for a <b>secure base</b>; the <b>internal working model</b> ("are others reliable, am I worthy?"); maternal deprivation. <b>Mary Ainsworth</b> operationalised it with the <b>Strange Situation</b> (secure / anxious-ambivalent / avoidant; Main added disorganised).</td></tr>
+</table>
+<div class="trap"><b>TRAP — the pairings:</b> good-enough mother / transitional object = <b>Winnicott</b> · separation-individuation / rapprochement = <b>Mahler</b> · self / narcissism / mirroring = <b>Kohut</b> · borderline organisation / TFP = <b>Kernberg</b> · paranoid-schizoid &amp; depressive <b>positions</b> = <b>Klein</b> (positions, not stages) · object-seeking libido = <b>Fairbairn</b> · internal working model / secure base = <b>Bowlby</b>.</div>
 
-<h4>Viktor Frankl — logotherapy</h4>
-<p>A psychiatrist who survived Nazi concentration camps and concluded that the people who endured were those who held onto a <b>meaning</b> to live for. His <b>logotherapy</b> ("logos" = meaning) says the primary human motive is the <b>"will to meaning"</b>. When that is frustrated you fall into an <b>existential vacuum</b> (emptiness, boredom). His book is <i>Man's Search for Meaning</i>; his techniques include <b>paradoxical intention</b> and <b>dereflection</b>.</p>
-<div class="rule"><b>Lock the three "wills":</b> <b>will to pleasure</b> = Freud · <b>will to power</b> = Adler · <b>will to meaning</b> = Frankl. This is a guaranteed single-best-answer item.</div>
+<h2 id="neofreud" class="sec"><span class="cn">S2.</span> The other neo-Freudians (no chapter in the book)</h2>
+<p>Beyond Jung, Adler and Horney (who get full chapters above), the exam tests three more neo-Freudians by their single signature phrase:</p>
+<table>
+<tr><th>Theorist</th><th>Own it by</th></tr>
+<tr><td><b>Erich Fromm</b></td><td><b>"Escape from freedom"</b> (modern freedom is so isolating that people flee it into conformity, submission or destructiveness, his account of fascism); <b>character orientations</b> (receptive, exploitative, hoarding, marketing, and the healthy <b>productive</b>).</td></tr>
+<tr><td><b>Harry Stack Sullivan</b></td><td><b>Interpersonal theory</b>: personality exists only <i>in relationships</i>; the <b>self-system</b> built from anxiety-reducing interactions, organised into <b>good-me / bad-me / not-me</b>.</td></tr>
+<tr><td><b>Anna Freud &amp; Heinz Hartmann</b></td><td><b>Anna Freud</b> = founded child psychoanalysis, catalogued the defences. <b>Hartmann</b> = "father of ego psychology", the <b>conflict-free ego sphere</b> and <b>adaptation</b>.</td></tr>
+</table>
+<div class="trap"><b>TRAP:</b> escape from freedom = <b>Fromm</b> · interpersonal / self-system / good-me-bad-me = <b>Sullivan</b> · conflict-free ego sphere = <b>Hartmann</b> · catalogued the defences = <b>Anna Freud</b>.</div>
 
-<h4>Rollo May</h4>
-<p>Brought existential thought into American psychology. Known for <i>The Meaning of Anxiety</i>, the <b>daimonic</b> (any natural urge that can take over the whole person), and the tension between <b>freedom and destiny</b>.</p>
+<h2 id="existential" class="sec"><span class="cn">S3.</span> Existential theories</h2>
+<p>Existentialism overlaps with humanism (both prize freedom and meaning) but its mood is darker: it asks how we face the unavoidable "givens" of existence, death, freedom, isolation, meaninglessness.</p>
+<table>
+<tr><th>Theorist</th><th>Own it by</th></tr>
+<tr><td><b>Viktor Frankl</b></td><td><b>Logotherapy</b> ("logos" = meaning); the primary motive is the <b>"will to meaning"</b>; its frustration = <b>existential vacuum</b>; book <i>Man's Search for Meaning</i>; techniques <b>paradoxical intention</b> &amp; <b>dereflection</b>.</td></tr>
+<tr><td><b>Rollo May</b></td><td>Brought existential thought to US psychology; <i>The Meaning of Anxiety</i>; the <b>daimonic</b>; <b>freedom vs destiny</b>.</td></tr>
+<tr><td><b>Irvin Yalom</b></td><td>Existential <i>psychotherapy</i>; the four <b>ultimate concerns</b>: <b>death, freedom, isolation, meaninglessness</b>.</td></tr>
+<tr><td><b>Ludwig Binswanger</b></td><td><b>Daseinsanalysis</b> ("being-in-the-world"); applied Heidegger to psychiatry.</td></tr>
+</table>
+<div class="rule"><b>Lock the three "wills":</b> will to <b>pleasure</b> = Freud · will to <b>power</b> = Adler · will to <b>meaning</b> = Frankl.</div>
 
-<h4>Irvin Yalom</h4>
-<p>The major figure in existential <i>psychotherapy</i>. He named four <b>"ultimate concerns"</b> every person must face: <b>death, freedom, isolation, and meaninglessness</b>.</p>
-
-<h4>Ludwig Binswanger</h4>
-<p><b>Daseinsanalysis</b> ("being-in-the-world"): applied Heidegger's philosophy to psychiatry.</p>
-
-<!-- ============ 8. SOCIAL-COGNITIVE & LEARNING ============ -->
-<h2 id="socialcog" class="sec">8. Social-cognitive &amp; learning approaches</h2>
-<p>This camp says personality is <b>learned</b>, but, unlike strict behaviourism, it puts <i>thought</i> back in the middle. We are shaped by conditioning <i>plus</i> our beliefs, expectations and sense of control. Pure behaviourism (Skinner) sits at one end; cognition-rich theories (Bandura, Rotter, Mischel, Kelly) build outward from there.</p>
-
-<h4>Albert Bandura</h4>
-<p>Two flagship ideas. <b>Reciprocal determinism</b>: behaviour, personal/cognitive factors, and the environment all <i>influence each other</i> in a three-way loop, rather than environment simply controlling you. And <b>self-efficacy</b>: your belief in your own ability to succeed at a specific task, which strongly predicts whether you'll even attempt it. His <b>Bobo doll</b> studies demonstrated <b>observational learning</b> (we learn by watching models, no reinforcement needed).</p>
-
-<h4>Julian Rotter</h4>
-<p>Best known for <b>locus of control</b>: do you believe outcomes flow from your <i>own</i> actions (internal locus) or from luck, fate and powerful others (external locus)? He framed behaviour as <b>expectancy × reinforcement value</b> (how likely you think a reward is, times how much you want it).</p>
-
-<h4>Walter Mischel</h4>
-<p>Lit the fuse of the <b>person–situation debate</b>: he showed behaviour is far <i>less consistent</i> across situations than trait theory assumes (you might be honest with friends but not on taxes). His resolution is the <b>CAPS model</b> (Cognitive-Affective Processing System): stable <i>if-then</i> signatures ("if criticised, then she withdraws"). He also ran the famous <b>marshmallow</b> delay-of-gratification studies.</p>
-
-<h4>George Kelly</h4>
-<p><b>Personal construct theory</b>: each person is like a <b>"scientist"</b> who builds and tests personal <b>constructs</b> (bipolar dimensions like "kind–cruel") to predict their world. He measured them with the <b>Rep Grid</b> (Role Construct Repertory Test).</p>
-
-<h4>Henry Murray — personology</h4>
-<p>Murray coined <b>"personology"</b> and built a system of <b>needs and press</b>: internal <b>needs</b> (need for achievement, affiliation, power, etc.) interacting with environmental <b>press</b> (the pressures a situation applies). He built the <b>TAT</b> (Thematic Apperception Test) with Christiana Morgan to measure these needs.</p>
-
-<h4>Dollard &amp; Miller</h4>
-<p>Translated Freud into <b>learning theory</b>, recasting psychodynamics as <b>drive–cue–response–reinforcement</b>. They are famous for the <b>approach-avoidance conflict</b> (being drawn to and repelled by the same goal) and the <b>frustration-aggression hypothesis</b>.</p>
-
-<h4>B. F. Skinner</h4>
-<p>The radical behaviourist: there is no inner "personality" to study; what we call personality is just a learned bundle of <b>operant response patterns</b> maintained by reinforcement history. Don't peek inside the black box.</p>
-
-<div class="trap"><b>TRAP:</b> <b>Self-efficacy = Bandura</b> ("can I do <i>this task</i>?") vs <b>locus of control = Rotter</b> ("do I or outside forces control <i>outcomes</i>?"). Both sound like "belief about control"; the difference is task-ability vs outcome-source.</div>
-<div class="nimhans"><b>NIMHANS extra — the lesser names that appear as distractors:</b> <b>Needs &amp; press + TAT</b> = Murray. <b>Personal constructs + Rep Grid</b> = Kelly. <b>Approach-avoidance conflict</b> = Dollard &amp; Miller.</div>
-
-<!-- ============ 9. TYPE ============ -->
-<h2 id="type" class="sec">9. Type theories (the older, body-based ones)</h2>
-<p>Before traits, people sorted personality into <b>discrete types</b>, often tied to the body. These are largely discredited but still examined because of who proposed them.</p>
+<h2 id="type" class="sec"><span class="cn">S4.</span> Type theories (the older, body-based ones)</h2>
+<p>Before traits, people sorted personality into <b>discrete types</b>, often tied to the body. Largely discredited, still examined because of who proposed them.</p>
 <table>
 <tr><th>Theorist</th><th>Typology</th></tr>
 <tr><td><b>Hippocrates / Galen</b></td><td>Four bodily <b>humours</b> → temperaments: sanguine (blood, cheerful), choleric (yellow bile, irritable), melancholic (black bile, sad), phlegmatic (phlegm, calm).</td></tr>
-<tr><td><b>William Sheldon</b></td><td><b>Somatotypes</b>: <b>endomorph</b> (round → viscerotonic: sociable, relaxed), <b>mesomorph</b> (muscular → somatotonic: assertive, energetic), <b>ectomorph</b> (thin → cerebrotonic: restrained, introverted).</td></tr>
-<tr><td><b>Ernst Kretschmer</b></td><td>Body build → psychiatric tendency: pyknic (round → manic-depressive/cyclothymic), asthenic/leptosomic (thin → schizophrenic/schizothymic), athletic, dysplastic.</td></tr>
+<tr><td><b>William Sheldon</b></td><td><b>Somatotypes</b>: <b>endomorph</b> (round → viscerotonic: sociable), <b>mesomorph</b> (muscular → somatotonic: assertive), <b>ectomorph</b> (thin → cerebrotonic: restrained, introverted).</td></tr>
+<tr><td><b>Ernst Kretschmer</b></td><td>Body build → psychiatric tendency: pyknic (round → manic-depressive), asthenic/leptosomic (thin → schizophrenic), athletic, dysplastic.</td></tr>
 <tr><td><b>Friedman &amp; Rosenman</b></td><td><b>Type A</b> (competitive, hostile, time-urgent → heart disease) vs <b>Type B</b> (relaxed). Later <b>Type C</b> (cancer-prone, emotion-suppressing) and <b>Type D</b> (distressed: negative affect + social inhibition).</td></tr>
-<tr><td><b>Jung → Myers &amp; Briggs</b></td><td>Jung's introversion/extraversion + functions (thinking/feeling, sensing/intuiting) became the basis the <b>MBTI</b> was later built on.</td></tr>
 </table>
-<div class="trap"><b>TRAP — type vs trait:</b> <b>Types</b> = discrete categories (you ARE an endomorph). <b>Traits</b> = continuous dimensions (you score 7/10 on extraversion). And keep the two body theorists apart: <b>Sheldon</b> = somatotypes (endo/meso/ecto); <b>Kretschmer</b> = body build linked to <i>psychosis</i> type.</div>
+<div class="trap"><b>TRAP — type vs trait, and the two body theorists.</b> <b>Type</b> = discrete category (you ARE an endomorph); <b>trait</b> = continuous dimension (you score 7/10 on extraversion). <b>Sheldon</b> = somatotypes (endo/meso/ecto); <b>Kretschmer</b> = body build linked to <i>psychosis</i> type.</div>
 
-<!-- ============ 10. INDIAN PSYCHOLOGY ============ -->
-<h2 id="indian" class="sec">10. Indian psychology — Triguna &amp; allied concepts</h2>
-<div class="nimhans"><b>NIMHANS-specific.</b> Being India-rooted, NIMHANS periodically asks indigenous personality concepts that MET never touched. The Triguna model is the must-know.</div>
-<p>Indian thought locates personality in the balance of three fundamental qualities (<b>gunas</b>) of nature (<i>prakriti</i>). Everyone contains all three; the <i>dominant</i> one defines temperament, and the balance can shift.</p>
+<h2 id="indian" class="sec"><span class="cn">S5.</span> Indian psychology — Triguna &amp; allied concepts</h2>
+<p>Indian thought locates personality in the balance of three fundamental qualities (<b>gunas</b>) of nature (<i>prakriti</i>). Everyone has all three; the dominant one defines temperament, and the balance can shift.</p>
 <table>
 <tr><th>Concept</th><th>What it is</th></tr>
-<tr><td><b>Triguna</b> (Samkhya philosophy / Bhagavad Gita)</td><td><b>Sattva</b> (purity, clarity, balance, wisdom, calm), <b>Rajas</b> (activity, passion, restlessness, ambition, drive), <b>Tamas</b> (inertia, dullness, ignorance, lethargy). Measured by the <b>Vedic Personality Inventory (VPI)</b>.</td></tr>
+<tr><td><b>Triguna</b> (Samkhya / Bhagavad Gita)</td><td><b>Sattva</b> (purity, clarity, balance, wisdom), <b>Rajas</b> (activity, passion, restlessness, ambition), <b>Tamas</b> (inertia, dullness, lethargy). Measured by the <b>Vedic Personality Inventory (VPI)</b>.</td></tr>
 <tr><td><b>Ayurvedic Tridosha</b></td><td>Mind-body constitution: <b>Vata</b> (air/movement), <b>Pitta</b> (fire/metabolism), <b>Kapha</b> (earth-water/structure). A body-typology parallel to Sheldon.</td></tr>
-<tr><td><b>Panchakosha</b></td><td>Five "sheaths" of the self (Taittiriya Upanishad): annamaya (food/body) → pranamaya (vital energy) → manomaya (mind) → vijnanamaya (intellect) → anandamaya (bliss). A layered model of the person.</td></tr>
+<tr><td><b>Panchakosha</b></td><td>Five "sheaths" of the self (Taittiriya Upanishad): annamaya (body) → pranamaya (vital energy) → manomaya (mind) → vijnanamaya (intellect) → anandamaya (bliss).</td></tr>
 </table>
-<div class="rule"><b>Lock this line:</b> <b>Sattva</b> = goodness/balance, <b>Rajas</b> = activity/passion, <b>Tamas</b> = inertia/darkness. Three "gunas" in a stem = Triguna, measured by the VPI.</div>
+<div class="rule"><b>Lock this line:</b> <b>Sattva</b> = goodness/balance · <b>Rajas</b> = activity/passion · <b>Tamas</b> = inertia/darkness. Three "gunas" in a stem = Triguna, measured by the VPI.</div>
 
-<!-- ============ 11. ASSESSMENT ============ -->
-<h2 id="assessment" class="sec">11. How personality is measured</h2>
-<p>Two philosophies of testing, with a built-in trade-off. <b>Projective tests</b> show an <i>ambiguous</i> stimulus and assume you'll unconsciously <b>project</b> hidden material onto it; they're rich but score poorly on reliability and validity. <b>Objective (self-report) tests</b> use fixed items scored against norms; they're far more reliable but vulnerable to faking and social desirability (people answer how they'd like to look).</p>
+<h2 id="assessment" class="sec"><span class="cn">S6.</span> How personality is measured (assessment in depth)</h2>
+<p>Two philosophies of testing with a built-in trade-off. <b>Projective tests</b> show an <i>ambiguous</i> stimulus and assume you'll unconsciously <b>project</b> hidden material onto it: rich, hard to fake, but <i>low</i> reliability/validity. <b>Objective (self-report) tests</b> use fixed items scored against norms: far more reliable, but vulnerable to faking and social desirability.</p>
 <table>
 <tr><th>Type</th><th>Tests</th><th>Logic &amp; trade-off</th></tr>
-<tr><td><b>Projective</b></td><td>Rorschach (inkblots, Exner scoring), TAT (Murray, ambiguous-picture stories), CAT (children), Sentence Completion (RISB), Draw-A-Person, Rosenzweig P-F, Word Association (Jung)</td><td>Ambiguous stimulus → person projects unconscious content. Rich, hard to fake, but <i>low</i> reliability/validity.</td></tr>
+<tr><td><b>Projective</b></td><td>Rorschach (inkblots, Exner scoring), TAT (Murray), CAT (children), Sentence Completion (RISB), Draw-A-Person, Rosenzweig P-F, Word Association (Jung)</td><td>Ambiguous stimulus → person projects unconscious content. Rich, hard to fake, <i>low</i> reliability/validity.</td></tr>
 <tr><td><b>Objective / self-report</b></td><td>MMPI-2 (clinical; validity scales L, F, K), 16PF (Cattell), NEO-PI-R (Big Five), EPQ (Eysenck), CPI, MCMI (Millon)</td><td>Standardised, norm-referenced, objectively scored. <i>High</i> reliability, but fakeable / socially-desirable responding.</td></tr>
 </table>
-<div class="rule"><b>Test → author pairings to lock:</b> 16PF → Cattell · NEO-PI-R → Costa &amp; McCrae · EPQ → Eysenck · TAT → Murray · Rorschach → Hermann Rorschach (Exner scoring) · MMPI → Hathaway &amp; McKinley · MCMI → Millon · Rep Grid → Kelly · VPI → Triguna.</div>
+<div class="rule"><b>Test → author pairings to lock:</b> 16PF → Cattell · NEO-PI-R → Costa &amp; McCrae · EPQ → Eysenck · TAT → Murray (&amp; Morgan) · Rorschach → Hermann Rorschach (Exner scoring) · MMPI → Hathaway &amp; McKinley · MCMI → Millon · Rep Grid → Kelly · Q-sort → Rogers (Stephenson devised it) · POI → Shostrom (Maslow's construct) · I-E Scale → Rotter · SSS → Zuckerman · VPI → Triguna.</div>
+<div class="nimhans"><b>NIMHANS — Henry Murray.</b> Murray (<b>personology</b>) built a system of <b>needs and press</b> (internal needs like achievement/affiliation/power meeting environmental <b>press</b>) and, with <b>Christiana Morgan</b>, created the <b>TAT</b>. <b>Need for achievement</b> was then run hard by <b>McClelland</b>. Constructs + Rep Grid = <b>Kelly</b>; approach-avoidance conflict + drive-cue-response-reinforcement (Freud recast as learning) = <b>Dollard &amp; Miller</b>.</div>
 
-<!-- ============ 12. COMPARE ============ -->
-<h2 id="compare" class="sec">12. At-a-glance: how each camp explains personality</h2>
+<!-- ===================== COMPARE ===================== -->
+<h2 id="compare" class="sec">At-a-glance: how each approach explains personality</h2>
 <table>
 <tr><th>Approach</th><th>Core driver</th><th>Key names</th><th>View of the person</th></tr>
-<tr><td>Psychodynamic</td><td>Unconscious conflict, early childhood</td><td>Freud, Jung, Adler, Horney, Erikson</td><td>Determined by hidden forces</td></tr>
+<tr><td>Psychoanalytic</td><td>Unconscious conflict, early childhood</td><td>Freud</td><td>Determined by hidden forces (pessimistic)</td></tr>
+<tr><td>Neopsychoanalytic</td><td>Social/cultural forces over libido</td><td>Jung, Adler, Horney (+ Fromm, Sullivan)</td><td>Shaped by relationships &amp; goals</td></tr>
+<tr><td>Life-span</td><td>Lifelong psychosocial crises</td><td>Erikson</td><td>Develops across eight stages</td></tr>
 <tr><td>Object relations / self</td><td>Internalised early relationships</td><td>Klein, Winnicott, Mahler, Kernberg, Kohut, Bowlby</td><td>Built from relationship templates</td></tr>
-<tr><td>Trait / type</td><td>Stable, measurable dispositions</td><td>Allport, Cattell, Eysenck, Gray, Costa &amp; McCrae</td><td>A profile of scores</td></tr>
-<tr><td>Humanistic</td><td>Drive toward growth &amp; self-actualisation</td><td>Rogers, Maslow</td><td>Free, growth-oriented</td></tr>
+<tr><td>Trait / type</td><td>Stable, measurable dispositions</td><td>Allport, Cattell, Eysenck, McCrae &amp; Costa, Gray</td><td>A profile of scores</td></tr>
+<tr><td>Humanistic</td><td>Drive toward growth &amp; self-actualisation</td><td>Maslow, Rogers</td><td>Free, growth-oriented (optimistic)</td></tr>
 <tr><td>Existential</td><td>Meaning, freedom, death, anxiety</td><td>Frankl, May, Yalom</td><td>Author of own meaning</td></tr>
-<tr><td>Social-cognitive</td><td>Learning × cognition × environment</td><td>Bandura, Rotter, Mischel, Kelly</td><td>Shaped by reciprocal interaction</td></tr>
-<tr><td>Behavioural / learning</td><td>Conditioning &amp; reinforcement history</td><td>Skinner, Dollard &amp; Miller</td><td>Learned response patterns</td></tr>
+<tr><td>Cognitive</td><td>Construing &amp; anticipating events</td><td>Kelly</td><td>A scientist testing constructs</td></tr>
+<tr><td>Behavioural</td><td>Conditioning &amp; reinforcement history</td><td>Skinner</td><td>Learned response patterns (no inner self)</td></tr>
+<tr><td>Social-learning</td><td>Learning × cognition × environment</td><td>Bandura, Rotter, Mischel</td><td>An agent in reciprocal interaction</td></tr>
+<tr><td>Facets</td><td>One slice of personality</td><td>Rotter, Zuckerman, Seligman, Csikszentmihalyi</td><td>A studied dimension</td></tr>
 <tr><td>Indian</td><td>Gunas / innate constitution</td><td>Triguna, Tridosha</td><td>Balance of innate qualities</td></tr>
 </table>
 
-<!-- ============ 13. TRAPS ============ -->
-<h2 id="traps" class="sec">13. The MCQ traps, collected</h2>
+<!-- ===================== TRAPS ===================== -->
+<h2 id="traps" class="sec">All the MCQ traps, collected</h2>
 <ul>
 <li><b>Collective unconscious</b> = Jung, NOT Freud (Freud = personal unconscious only).</li>
-<li><b>Inferiority complex / birth order</b> = Adler · <b>basic anxiety / womb envy</b> = Horney · <b>escape from freedom</b> = Fromm · <b>self-system / interpersonal</b> = Sullivan.</li>
-<li><b>16 factors</b> = Cattell · <b>3 dimensions (PEN)</b> = Eysenck · <b>cardinal/central/secondary levels</b> = Allport (no factor analysis) · <b>BIS/BAS</b> = Gray · <b>6 factors incl. Honesty-Humility</b> = HEXACO.</li>
-<li><b>Self-efficacy</b> = Bandura · <b>locus of control</b> = Rotter · <b>personal constructs / Rep Grid</b> = Kelly · <b>needs &amp; press / TAT</b> = Murray · <b>approach-avoidance</b> = Dollard &amp; Miller.</li>
-<li><b>Will to meaning</b> = Frankl · <b>will to power</b> = Adler · <b>will to pleasure</b> = Freud.</li>
-<li><b>Good-enough mother / transitional object</b> = Winnicott · <b>separation-individuation</b> = Mahler · <b>self / narcissism</b> = Kohut · <b>borderline organisation</b> = Kernberg · <b>positions (paranoid-schizoid / depressive)</b> = Klein · <b>object-seeking libido</b> = Fairbairn · <b>internal working model</b> = Bowlby.</li>
-<li><b>Sublimation</b> = most mature defence · <b>repression</b> = master/neurotic, unconscious · <b>suppression</b> = the only <i>conscious</i> one (Vaillant, mature).</li>
+<li><b>Will to pleasure</b> = Freud · <b>will to power</b> = Adler · <b>will to meaning</b> = Frankl.</li>
+<li><b>Inferiority complex / birth order / social interest / creative self</b> = Adler · <b>basic anxiety / three trends / womb envy</b> = Horney · <b>escape from freedom</b> = Fromm · <b>self-system / good-me-bad-me</b> = Sullivan.</li>
+<li><b>Eight psychosocial stages / identity crisis / epigenetic</b> = Erikson; <b>identity statuses</b> (diffusion/foreclosure/moratorium/achievement) = Marcia. Freud's are five, psychosexual; Erikson's are eight, psychosocial.</li>
+<li><b>3 trait levels (cardinal/central/secondary), proprium, functional autonomy, idiographic, NO factor analysis</b> = Allport.</li>
+<li><b>16 source traits (16PF)</b> = Cattell · <b>3 dimensions (PEN)</b> = Eysenck (biological) · <b>5 (OCEAN, NEO-PI-R)</b> = McCrae &amp; Costa · <b>6 incl. Honesty-Humility</b> = HEXACO · <b>BIS/BAS</b> = Gray.</li>
+<li><b>Hierarchy of needs / self-actualisation / peak experiences / POI</b> = Maslow · <b>self vs ideal self / congruence / conditions of worth / UPR / Q-sort / fully functioning person</b> = Rogers.</li>
+<li><b>Man-the-scientist / personal constructs / Rep Grid / constructive alternativism / fixed-role therapy</b> = Kelly.</li>
+<li><b>Operant patterns / functional analysis (A-B-C) / no inner self / schedules of reinforcement</b> = Skinner.</li>
+<li><b>Observational learning / Bobo doll / reciprocal determinism / self-efficacy</b> = Bandura. <b>Self-efficacy</b> = Bandura ("can I do this task?") vs <b>locus of control</b> = Rotter ("who controls outcomes?").</li>
+<li><b>Locus of control / I-E Scale</b> = Rotter · <b>sensation seeking / SSS</b> = Zuckerman · <b>learned helplessness → optimism → positive psychology</b> = Seligman · <b>flow</b> = Csikszentmihalyi.</li>
+<li><b>Good-enough mother / transitional object</b> = Winnicott · <b>separation-individuation</b> = Mahler · <b>self / narcissism / mirroring</b> = Kohut · <b>borderline organisation / TFP</b> = Kernberg · <b>positions (paranoid-schizoid / depressive)</b> = Klein · <b>object-seeking libido</b> = Fairbairn · <b>internal working model / secure base</b> = Bowlby (Ainsworth = Strange Situation).</li>
+<li><b>Needs &amp; press / TAT / personology</b> = Murray · <b>n-Achievement</b> = McClelland · <b>approach-avoidance / drive-cue-response</b> = Dollard &amp; Miller.</li>
+<li><b>Sublimation</b> = most mature defence · <b>repression</b> = master/neurotic, unconscious · <b>suppression</b> = the only <i>conscious</i> defence (Vaillant, mature).</li>
 <li>Superego forms in the <b>phallic</b> stage (after the Oedipus complex), not at birth.</li>
-<li><b>Real vs ideal self / congruence / UPR</b> = Rogers · <b>hierarchy of needs / self-actualisation</b> = Maslow.</li>
 <li><b>Type</b> = category; <b>trait</b> = continuum. Sheldon = somatotypes; Kretschmer = body build → psychosis.</li>
-<li><b>Big Five</b> describes (atheoretical); <b>Eysenck's PEN</b> explains via biology — both share E and N.</li>
 <li><b>Sattva / Rajas / Tamas</b> = Triguna (Indian psychology), measured by the VPI.</li>
 <li>Projective tests (Rorschach, TAT) tap the unconscious but are low-reliability; objective inventories (MMPI, 16PF, NEO) are reliable but fakeable.</li>
+<li><b>Heritability of personality ~40–60%</b>; temperament early (Buss &amp; Plomin EAS; Kagan inhibited/uninhibited; Thomas &amp; Chess easy/difficult/slow-to-warm-up). Person-situation debate settled by <b>interactionism</b>.</li>
 </ul>
 
 <div class="hy-banner" style="margin-top: 28px;">
-<b>Companion pages:</b> the compact version of this is in the <a href="../general-psych/#personality">general-psych notes (§10)</a>; the one-line testable list is in the textbook's <a href="../textbook/#forgot">Rapid Recall</a>; the personality <i>tests</i> in depth (MMPI/16PF/NEO/projectives, scoring) are on the <a href="../psych-tests-deep/">tests deep-dive</a>.
+<b>Companion pages:</b> the compact version is in the <a href="../general-psych/#personality">general-psych notes (§10)</a>; the one-line testable list is in the textbook's <a href="../textbook/#forgot">Rapid Recall</a>; the personality <i>tests</i> in depth (MMPI/16PF/NEO/projectives, scoring) are on the <a href="../psych-tests-deep/">tests deep-dive</a>. Sibling full-book chapters: <a href="../biopsych-cheatsheet/">Biopsychology (Pinel)</a> · <a href="../social-psych/">Social psychology (Baron)</a> · <a href="../cognitive/">Cognitive (Eysenck &amp; Keane)</a>.
 </div>
 
-<footer>Sihan NIMHANS + MET 2026 prep · /notes/personality/ · teaching chapter</footer>
+<footer>Sihan NIMHANS + MET 2026 prep · /notes/personality/ · the full Schultz &amp; Schultz book, chapter by chapter</footer>
 </div>
 </body>
 </html>
