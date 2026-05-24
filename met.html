@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0d1117">
-<title>Sihan, NIMHANS 2026 Dashboard</title>
+<title>Sihan, MET 2026 Dashboard</title>
 <style>
   :root {
     --bg: #0d1117;
@@ -93,7 +93,6 @@
     color: var(--accent);
     border-color: var(--accent-dim);
   }
-  .nav a.ghost { color: var(--muted); }
   .countdown-chip {
     background: var(--accent-soft);
     color: var(--accent);
@@ -111,11 +110,11 @@
     padding: 28px 32px 60px;
   }
   .hero {
-    background: linear-gradient(135deg, rgba(31,111,235,0.18), rgba(163,113,247,0.10));
+    background: linear-gradient(135deg, rgba(31,111,235,0.18), rgba(63,185,80,0.10));
     border: 1px solid var(--accent-dim);
     border-radius: 14px;
     padding: 22px 26px;
-    margin-bottom: 20px;
+    margin-bottom: 28px;
     display: grid;
     grid-template-columns: 1.5fr 1fr;
     gap: 24px;
@@ -161,22 +160,6 @@
     color: var(--muted);
     margin-top: 2px;
   }
-
-  .pattern-strip {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin-bottom: 28px;
-  }
-  .pattern-item {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 14px;
-  }
-  .pattern-item .stat-label { margin-bottom: 4px; }
-  .pattern-item .pv { font-size: 16px; font-weight: 700; }
-  .pattern-item .ps { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
   section { margin-bottom: 32px; }
   .section-head {
@@ -250,7 +233,6 @@
   .badge.warn  { background: var(--warn-soft);  color: var(--warn);  border-color: var(--warn); }
   .badge.bad   { background: var(--bad-soft);   color: var(--bad);   border-color: var(--bad); }
   .badge.muted { background: var(--panel-2);    color: var(--muted); border-color: var(--border); }
-  .badge.weight { background: var(--accent-soft); color: var(--accent); border-color: var(--accent-dim); }
 
   .metric-row {
     display: grid;
@@ -275,8 +257,6 @@
     margin-top: 2px;
   }
   .metric-value.muted { color: var(--muted); font-weight: 500; }
-
-  .area-desc { font-size: 12px; color: var(--muted); margin: 2px 0 10px; line-height: 1.45; }
 
   .bar {
     height: 6px;
@@ -341,7 +321,6 @@
     border-color: var(--good);
     background: linear-gradient(135deg, rgba(63,185,80,0.10), rgba(88,166,255,0.06));
   }
-  .test-card.nimhans { border-color: var(--accent-dim); }
   .test-title-row {
     display: flex;
     align-items: center;
@@ -467,18 +446,6 @@
     font-weight: 600;
   }
 
-  .callout {
-    background: var(--warn-soft);
-    border: 1px solid var(--warn);
-    border-radius: 12px;
-    padding: 14px 18px;
-    font-size: 13px;
-    color: var(--text);
-    margin-bottom: 28px;
-    line-height: 1.5;
-  }
-  .callout b { color: var(--warn); }
-
   footer {
     margin-top: 40px;
     padding: 20px 24px;
@@ -501,7 +468,6 @@
   /* Tablet */
   @media (max-width: 1024px) {
     .hero { grid-template-columns: 1fr; }
-    .pattern-strip { grid-template-columns: repeat(2, 1fr); }
     .grid.cols-4 { grid-template-columns: repeat(3, 1fr); }
     .grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
   }
@@ -519,7 +485,6 @@
   }
   @media (max-width: 420px) {
     .hero-stats { grid-template-columns: 1fr; }
-    .pattern-strip { grid-template-columns: 1fr; }
     .grid.cols-4 { grid-template-columns: 1fr; }
   }
 </style>
@@ -529,8 +494,8 @@
 <div class="topbar">
   <div class="topbar-inner">
     <div class="brand">
-      <span class="brand-title">Sihan, NIMHANS 2026</span>
-      <span class="brand-sub">M.A. Clinical Psychology (RCI), formerly M.Phil · NIMHANS Bengaluru</span>
+      <span class="brand-title">Sihan, MET 2026</span>
+      <span class="brand-sub">MA Clinical Psychology, Manipal</span>
     </div>
     <nav class="nav">
       <a href="./" class="active">Dashboard</a>
@@ -539,9 +504,9 @@
       <a href="notes/">Notes</a>
       <a href="checklist/">Checklist</a>
       <a href="plan/">Plan</a>
-      <a href="met.html" class="ghost">MET archive</a>
+      <a href="downloads/">Downloads</a>
     </nav>
-    <span class="countdown-chip" id="countdownChip">NIMHANS prep</span>
+    <span class="countdown-chip" id="countdownChip">—</span>
   </div>
 </div>
 
@@ -549,62 +514,35 @@
 
   <div class="hero">
     <div class="hero-left">
-      <h1>NIMHANS 2026 Dashboard</h1>
-      <p>The whole site, repointed at NIMHANS. Breadth over everything: NIMHANS rewards knowing a little about a lot, then going deep on therapies, tests and research. Open this daily, drill the heaviest area you are weakest in.</p>
+      <h1>MET 2026 Dashboard</h1>
+      <p>Areas to cover and mock results in one place. Open this every day, drill the weakest area first.</p>
     </div>
     <div class="hero-stats">
       <div class="stat">
-        <div class="stat-label">Syllabus areas</div>
-        <div class="stat-value">9</div>
-        <div class="stat-sub">whole-of-psychology coverage</div>
+        <div class="stat-label">Days to MET</div>
+        <div class="stat-value" id="heroDays">—</div>
+        <div class="stat-sub">23 May 2026, Asia/Kolkata</div>
       </div>
       <div class="stat">
         <div class="stat-label">Mocks taken</div>
         <div class="stat-value" id="heroMocks">—</div>
-        <div class="stat-sub">NIMHANS-pattern attempts logged</div>
+        <div class="stat-sub" id="heroMocksSub">of full-length attempted</div>
       </div>
     </div>
   </div>
 
-  <div class="pattern-strip">
-    <div class="pattern-item">
-      <div class="stat-label">Format</div>
-      <div class="pv">100 MCQ · 90 min</div>
-      <div class="ps">online CBT, Bengaluru centre</div>
-    </div>
-    <div class="pattern-item">
-      <div class="stat-label">Marking</div>
-      <div class="pv">+1 / −0.25</div>
-      <div class="ps">negative marking, so guess carefully</div>
-    </div>
-    <div class="pattern-item">
-      <div class="stat-label">Selection (MA Clin Psy)</div>
-      <div class="pv">Entrance only</div>
-      <div class="ps">written test + document check, no interview</div>
-    </div>
-    <div class="pattern-item">
-      <div class="stat-label">Cycle</div>
-      <div class="pv">July 2026 session</div>
-      <div class="ps">applications closed 11 May · confirm slot</div>
-    </div>
-  </div>
-
-  <div class="callout">
-    <b>How NIMHANS differs from MET.</b> Same psychology base, very different exam. No language/English section, no +4/−1 high-stakes scoring. It is broader and more factual: theorist-to-concept, test-to-subtest, therapy-to-founder, brain-area-to-function, DSM/ICD detail, and research-design recall. The four heaviest baskets historically are Research &amp; Statistics, Psychotherapy, Assessment/Psychometrics and Biopsychology. Weights below are estimated from 2023-25 papers, not an official blueprint.
-  </div>
-
   <section>
     <div class="section-head">
-      <h2 class="section-title">Syllabus areas</h2>
-      <span class="section-sub">9 areas, NIMHANS-weighted · live progress from your mocks · <a href="notes/" style="color:var(--accent);">all notes →</a></span>
+      <h2 class="section-title">Areas to cover</h2>
+      <span class="section-sub">7 MET syllabus sections, live progress per area · <a href="plan/" style="color:var(--accent);">weekly plan →</a></span>
     </div>
-    <div class="grid cols-3" id="areasGrid"></div>
+    <div class="grid cols-4" id="areasGrid"></div>
   </section>
 
   <section>
     <div class="section-head">
-      <h2 class="section-title">Mocks &amp; tests</h2>
-      <span class="section-sub">NIMHANS-pattern papers first (+1 / −0.25) · <a href="tests/" style="color:var(--accent);">open library →</a></span>
+      <h2 class="section-title">Tests</h2>
+      <span class="section-sub">Full mocks and topic-by-topic banks · <a href="tests/" style="color:var(--accent);">open library →</a></span>
     </div>
     <div class="grid cols-3" id="testsGrid"></div>
   </section>
@@ -612,7 +550,7 @@
   <section>
     <div class="section-head">
       <h2 class="section-title">Latest mock results</h2>
-      <span class="section-sub">Section-wise score breakdown, computed live · <a href="results/" style="color:var(--accent);">full history →</a></span>
+      <span class="section-sub">Section-wise score breakdown, computed live · <a href="results/" style="color:var(--accent);">full history + snapshots →</a></span>
     </div>
     <div id="resultsArea"></div>
   </section>
@@ -620,7 +558,7 @@
   <section>
     <div class="section-head">
       <h2 class="section-title">Study materials</h2>
-      <span class="section-sub">Cheatsheets, deep references, primers · <a href="notes/" style="color:var(--accent);">all notes →</a></span>
+      <span class="section-sub">Notes, cheatsheets, downloads · <a href="notes/" style="color:var(--accent);">all notes →</a> · <a href="downloads/" style="color:var(--accent);">downloads →</a></span>
     </div>
     <div class="grid cols-3" id="resourcesGrid"></div>
   </section>
@@ -636,51 +574,28 @@
 </main>
 
 <footer>
-  Sihan NIMHANS 2026 prep · built for desktop and mobile · progress saved locally in your browser · <a href="met.html">MET 2026 archive</a>
+  Sihan MET 2026 + NIMHANS prep · built for desktop and mobile · progress saved locally in your browser
   <br>
   <button class="reset" id="resetBtn">Reset all local progress</button>
 </footer>
 
 <script>
 /* =====================================================================
-   STATIC METADATA — repointed for NIMHANS
+   STATIC METADATA (mirrors the content already in the site)
    ===================================================================== */
 
-// NIMHANS syllabus areas. `key` matches mock section keys so live mock
-// progress flows in. `weight` = estimated share of a 100-Q NIMHANS paper
-// (from 2023-25 PYQ analysis, not an official blueprint). `desc` = what
-// NIMHANS actually asks in that area.
+// MET 2026 syllabus areas
 const AREAS = [
-  { key: "biostats",   name: "Research & Statistics", weight: 16,
-    desc: "Experimental & quasi-experimental designs, sampling, reliability & validity types, central tendency, parametric vs non-parametric tests, chi-square, factor analysis, research ethics & informed consent.",
-    notes: ["biostats-cheatsheet","research-methodology","ethics-terms"] },
-  { key: "therapy",    name: "Psychotherapy", weight: 15,
-    desc: "School-by-school: psychoanalytic & post-Freudians, behaviour therapy techniques, CBT (Beck vs Ellis), humanistic/existential, family/systemic, third-wave (DBT, ACT, MI, EMDR). Heavy on therapy-to-founder factual recall.",
-    notes: ["psychotherapy-cheatsheet","therapy-components","learning-conditioning"] },
-  { key: "assessment", name: "Assessment / Psychometrics", weight: 14,
-    desc: "Tests and their subtests/scales: Wechsler family, Stanford-Binet, Raven's, Bhatia; MMPI, 16PF, NEO, Rorschach, TAT; reliability/validity as used in tests, scoring and age ranges.",
-    notes: ["assessment","psych-tests-deep","intelligence-tests-deep"] },
-  { key: "biopsych",   name: "Biopsychology / Neuro", weight: 14,
-    desc: "Brain anatomy & function, motor control, afferent/efferent & autonomic nervous system, neurotransmitters, hormones & the HPA axis, action potential, sleep, cranial nerves, genetic disorders.",
-    notes: ["biopsych-cheatsheet","action-potential","cranial-nerves","hpa-axis","sleep","disorders-genetic"] },
-  { key: "abnormal",   name: "Abnormal / Clinical", weight: 12,
-    desc: "DSM-5 & ICD-11 history and criteria, schizophrenia & psychotic disorders, mood & anxiety, personality and sexual disorders, NSSI. Factual diagnostic detail.",
-    notes: ["abnormal-psych-cheatsheet","high-yield-abnormal-dev"] },
-  { key: "general",    name: "Cognitive — Learning, Memory, Attention", weight: 10,
-    desc: "Learning theories (classical/operant, Tolman, Bandura), memory models & working memory / central executive, attention phenomena (inattentional blindness), perception.",
-    notes: ["general-psych","learning-conditioning"] },
-  { key: "dev",        name: "Developmental", weight: 8,
-    desc: "Stage theories: Piaget, Erikson, Kohlberg; attachment (Bowlby, Ainsworth), Vygotsky, Bronfenbrenner; temperament & effortful control.",
-    notes: ["dev-psych-cheatsheet","bronfenbrenner"] },
-  { key: "social",     name: "Social Psychology", weight: 6,
-    desc: "Social cognition, attitudes, compliance & conformity, attribution, group processes, prosocial behaviour.",
-    notes: ["general-psych"] },
-  { key: "personality",name: "Personality", weight: 5,
-    desc: "Trait theories (Allport, Cattell, Eysenck, Big Five), psychodynamic, humanistic, social-cognitive (Bandura, Rotter, Mischel) approaches.",
-    notes: ["personality"] }
+  { key: "biopsych",   name: "Biopsychology",      met: 15, nimhans: 15, notes: ["biopsych-cheatsheet","action-potential","sleep"] },
+  { key: "dev",        name: "Developmental",      met: 15, nimhans: 10, notes: ["dev-psych-cheatsheet","bronfenbrenner"] },
+  { key: "abnormal",   name: "Abnormal",           met: 15, nimhans: 15, notes: ["abnormal-psych-cheatsheet","abnormal-today-sprint","high-yield-abnormal-dev"] },
+  { key: "assessment", name: "Psych Assessment",   met: 15, nimhans: 10, notes: ["assessment"] },
+  { key: "therapy",    name: "Psychotherapy",      met: 15, nimhans: 10, notes: ["psychotherapy-cheatsheet","learning-conditioning"] },
+  { key: "biostats",   name: "Biostats / Methods", met: 10, nimhans: 15, notes: ["biostats-cheatsheet","research-methodology"] },
+  { key: "language",   name: "Language",           met: 15, nimhans:  5, notes: ["language-cheatsheet"] }
 ];
 
-// Mock metadata — NIMHANS-pattern papers (+1 / −0.25) first.
+// Mock metadata
 const MOCKS = [
   {
     id: "pyq-real-2024",
@@ -691,8 +606,18 @@ const MOCKS = [
     scoring: { plus: 1, minus: 0.25 },
     sections: { therapy: 19, biostats: 17, assessment: 17, biopsych: 16, dev: 11, abnormal: 8, general: 6, social: 6 },
     meta: "100 actual recalled Qs from the NIMHANS M.Phil 2024 paper · real options + official answer key · no synthesised distractors",
-    fresh: true,
-    nimhans: true
+    fresh: true
+  },
+  {
+    id: "met-mock-1",
+    title: "MET Mock 1, full length",
+    path: "quiz/met-mock-1/",
+    total: 100,
+    storageKey: "met-mock-1-results-v1",
+    scoring: { plus: 4, minus: 1 },
+    sections: { biopsych: 15, dev: 15, abnormal: 15, assessment: 15, therapy: 15, biostats: 10, language: 15 },
+    meta: "100 Q · 120 min · +4 / −1 · all 7 MET sections",
+    fresh: false
   },
   {
     id: "nimhans-mock-1",
@@ -703,8 +628,51 @@ const MOCKS = [
     scoring: { plus: 1, minus: 0.25 },
     sections: { biopsych: 15, dev: 10, abnormal: 15, assessment: 10, therapy: 10, biostats: 15, social: 10, general: 10, english: 5 },
     meta: "100 real PYQs from 2023, 2024, 2025 · year-tagged · repeats flagged",
-    fresh: false,
-    nimhans: true
+    fresh: false
+  },
+  {
+    id: "met-mock-2",
+    title: "MET Mock 2, full length (180 Q)",
+    path: "quiz/met-mock-2/",
+    total: 180,
+    storageKey: "met-mock-2-results-v1",
+    scoring: { plus: 4, minus: 1 },
+    sections: { biopsych: 30, dev: 25, abnormal: 30, assessment: 25, therapy: 25, biostats: 20, language: 25 },
+    meta: "180 Q · 180 min · +4 / −1 · full MET syllabus · harder distractors than Mock 1",
+    fresh: false
+  },
+  {
+    id: "met-mock-4",
+    title: "MET Mock 4, 100 Q fresh full-spectrum",
+    path: "quiz/met-mock-4/",
+    total: 100,
+    storageKey: "met-mock-4-results-v1",
+    scoring: { plus: 4, minus: 1 },
+    sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 },
+    meta: "100 Q · 100 min · +4 / −1 · all 7 MET sections · fresh stems vs Mocks 1-3",
+    fresh: false
+  },
+  {
+    id: "bio-testing-paper",
+    title: "Biopsych + Testing paper (60 Q targeted)",
+    path: "quiz/bio-testing-paper/",
+    total: 60,
+    storageKey: "bio-testing-paper-results-v1",
+    scoring: { plus: 4, minus: 1 },
+    sections: { biopsych: 30, assessment: 30 },
+    meta: "60 Q · ~60 min · +4 / −1 · 30 Bio + 30 Assessment · targeted drill",
+    fresh: false
+  },
+  {
+    id: "met-mock-3",
+    title: "MET Mock 3, 100 Q tight pace",
+    path: "quiz/met-mock-3/",
+    total: 100,
+    storageKey: "met-mock-3-results-v1",
+    scoring: { plus: 4, minus: 1 },
+    sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 },
+    meta: "100 Q · 100 min · +4 / −1 · all 7 MET sections · zero stem overlap with Mock 1 / Mock 2",
+    fresh: false
   },
   {
     id: "pyq-mock-2",
@@ -715,18 +683,6 @@ const MOCKS = [
     scoring: { plus: 1, minus: 0.25 },
     sections: { therapy: 18, abnormal: 15, biopsych: 13, dev: 12, biostats: 12, assessment: 10, social: 9, general: 8, english: 3 },
     meta: "100 PYQs · RML, IHBAS, JEMAS, NIMHANS, IMHANS, NFSU, AMITY, GMCH 2023-25 · weighted to your weak spots",
-    fresh: false,
-    nimhans: true
-  },
-  {
-    id: "bio-testing-paper",
-    title: "Biopsych + Testing paper (60 Q targeted)",
-    path: "quiz/bio-testing-paper/",
-    total: 60,
-    storageKey: "bio-testing-paper-results-v1",
-    scoring: { plus: 4, minus: 1 },
-    sections: { biopsych: 30, assessment: 30 },
-    meta: "60 Q · ~60 min · 30 Bio + 30 Assessment · targeted drill on NIMHANS's two heaviest factual baskets",
     fresh: false
   },
   {
@@ -739,55 +695,46 @@ const MOCKS = [
     sections: null,
     meta: "189 Q · topic-by-topic · PYQ-style mixed bank",
     fresh: false
-  },
-  {
-    id: "met-mock-1",
-    title: "MET Mock 1, full length",
-    path: "quiz/met-mock-1/",
-    total: 100,
-    storageKey: "met-mock-1-results-v1",
-    scoring: { plus: 4, minus: 1 },
-    sections: { biopsych: 15, dev: 15, abnormal: 15, assessment: 15, therapy: 15, biostats: 10, language: 15 },
-    meta: "MET-pattern · still useful as a content drill (skip the Language block for NIMHANS)",
-    fresh: false
-  },
-  {
-    id: "met-mock-4",
-    title: "MET Mock 4, full-spectrum",
-    path: "quiz/met-mock-4/",
-    total: 100,
-    storageKey: "met-mock-4-results-v1",
-    scoring: { plus: 4, minus: 1 },
-    sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 },
-    meta: "MET-pattern · fresh stems · content carries over to NIMHANS minus Language",
-    fresh: false
   }
 ];
 
 const RESOURCES = [
-  { tag: "Reference",   title: "NIMHANS PYQ Topic Breakdown", desc: "300 PYQs across 2023-25, Tier 1/2/3 priority, 4-week revision plan, NIMHANS watch-outs. The map for what actually repeats.", href: "notes/nimhans-pyq-breakdown/" },
-  { tag: "Debrief",     title: "NIMHANS Mock 1 Debrief, Section-by-Section", desc: "Every wrong + every guessed + every flagged note explained. Biopsych is the leak. Targeted fix plan to clear cutoff.", href: "notes/nimhans-mock-1-debrief/" },
-  { tag: "Deep ref",    title: "Intelligence Tests — Deep Reference", desc: "Every individual/group/infant scale with subtest count, scoring, author + year. Stanford-Binet, full Wechsler family, Raven's, Bhatia, Kaufman, CFIT + all the intelligence theories. NIMHANS loves test-to-subtest.", href: "notes/intelligence-tests-deep/" },
-  { tag: "Deep ref",    title: "Personality + Projective Tests — Deep Reference", desc: "MMPI scales + cutoffs, 16PF, NEO-PI-R facets, TAT, Rorschach + Exner codes, EPQ, MBTI, Beck family. Per-test deep dive for the assessment basket.", href: "notes/psych-tests-deep/" },
-  { tag: "Cheatsheet",  title: "Biostats + Research Methods", desc: "Variables, sampling, hypothesis testing, effect size, parametric/non-parametric, reliability, validity. NIMHANS's heaviest basket.", href: "notes/biostats-cheatsheet/" },
-  { tag: "Cheatsheet",  title: "Psychotherapy, School-by-School", desc: "Psychoanalytic + post-Freudians, behaviour therapy, Beck vs Ellis, humanistic/existential, family/systemic, third-wave (DBT, ACT, MI, EMDR), founder pairs, 12 MCQ traps.", href: "notes/psychotherapy-cheatsheet/" },
+  { tag: "Notes",       title: "NIMHANS Mock 1 Debrief, Section-by-Section", desc: "Score 71.25/80 cutoff. Every wrong + every guessed + every flagged note explained. Biopsych is the leak. 3-day fix plan to clear cutoff.", href: "notes/nimhans-mock-1-debrief/" },
+  { tag: "Notes",       title: "NIMHANS PYQ Topic Breakdown", desc: "300 PYQs across 2023-25, Tier 1/2/3 priority, 4-week revision plan, NIMHANS watch-outs.", href: "notes/nimhans-pyq-breakdown/" },
+  { tag: "Notes",       title: "MET Mock 1 Wrong Answers + Adjacent Topics", desc: "All 28 wrongs from MET Mock 1, why the right option wins, related concepts the same paper retests.", href: "notes/mock-1-debrief/" },
   { tag: "Cheatsheet",  title: "Biopsychology, Full Cheatsheet", desc: "Neuron + glia, action potential, NTs, anatomy, sensory + motor, sleep, HPA, memory, psychopharm.", href: "notes/biopsych-cheatsheet/" },
   { tag: "Cheatsheet",  title: "Abnormal Psychology, Cheatsheet", desc: "4 Ds, DSM-5 vs ICD-11, anxiety, mood, psychosis, PD, SUD, ERP/DBT, 25 traps.", href: "notes/abnormal-psych-cheatsheet/" },
   { tag: "Cheatsheet",  title: "Developmental Psych, Cheatsheet", desc: "Piaget, Vygotsky, Bronfenbrenner + PPCT, Erikson, attachment, Baumrind, 15 traps.", href: "notes/dev-psych-cheatsheet/" },
-  { tag: "Reference",   title: "General Psychology — Learning, Memory, Attention", desc: "Theorist-to-concept tables, cognitive models, attention phenomena. The breadth section NIMHANS mines for factual one-liners.", href: "notes/general-psych/" },
-  { tag: "Reference",   title: "Personality theories", desc: "Trait (Allport, Cattell, Eysenck, Big Five), psychodynamic, humanistic, social-cognitive. Theorist-to-approach recall.", href: "notes/personality/" },
-  { tag: "Index",       title: "All notes & cheatsheets", desc: "Full notes index with the 3-pass revision strategy. Every primer, cheatsheet and deep reference in one place.", href: "notes/" }
+  { tag: "Cheatsheet",  title: "Biostats + Research Methods", desc: "Variables, sampling, hypothesis testing, effect size, parametric/non-parametric, reliability, validity.", href: "notes/biostats-cheatsheet/" },
+  { tag: "Cheatsheet",  title: "Language Skills, Cheatsheet", desc: "Tenses, conditionals, punctuation, vocab, RC strategy, sentence-correction patterns.", href: "notes/language-cheatsheet/" },
+  { tag: "Sprint",      title: "Abnormal Psych, One-Day Sprint", desc: "3 timed blocks, 22 DSM chapters, 7 disorder clusters, 5-Q mini mock.", href: "notes/abnormal-today-sprint/" },
+  { tag: "Primer",      title: "Action Potential, Full Primer", desc: "RMP, four phases, ion movement, refractory, saltatory conduction, EPSP/IPSP, traps.", href: "notes/action-potential/" },
+  { tag: "Primer",      title: "Sleep, Full Primer", desc: "4 stages, cycle, neural control, disorders, memory consolidation, MCQ traps.", href: "notes/sleep/" },
+  { tag: "Primer",      title: "Bronfenbrenner Ecological Systems", desc: "5 systems, PPCT model, applications, critique, exam-grade dev psych note.", href: "notes/bronfenbrenner/" },
+  { tag: "Download",    title: "EPUB / PDF book", desc: "Full prep book in one file: debrief, all cheatsheets, primers, high-yield sheet. ~120 KB, 20 chapters.", href: "downloads/Sihan-MET-2026-Prep.epub" }
 ];
 
 const NEWS = [
-  { date: "2026-05-24", title: "Repointed for NIMHANS (NEW)", desc: "MET is done, so the dashboard is now built around the NIMHANS M.A. Clinical Psychology (RCI, formerly M.Phil) entrance. Real pattern up top: 100 MCQ in 90 min, +1 / −0.25, online CBT in Bengaluru, selection on the written test alone (no interview for the MA, unlike the PhD). Syllabus regrouped into 9 NIMHANS-weighted areas with the four heavy baskets (Research & Stats, Psychotherapy, Assessment, Biopsych) up front, each with what NIMHANS actually asks. Language/English section dropped. MET mocks demoted but kept as content drills; the old MET dashboard is archived at met.html. Weights are estimated from 2023-25 PYQs, not an official blueprint.", href: "./" },
-  { date: "2026-05-21", title: "Real PYQ Mock — NIMHANS 2024", desc: "The full NIMHANS M.Phil Clinical Psychology 2024 paper, 100 questions reconstructed from candidate recall, real four options + official answer key, nothing synthesised. Scored +1 / −0.25 like the real thing. Heavy on therapy (19), biostats (17), assessment (17), biopsych (16) — exactly the NIMHANS flavour. Every Q source-tagged with a one-line rationale.", href: "quiz/pyq-real-2024/" },
-  { date: "2026-05-21", title: "Final Coverage Checklist", desc: "One page to answer 'have I covered everything?'. Every named topic, theory, test, disorder, structure and theorist across the syllabus, tickable, with per-section progress bars and a 'next gap' jump. Ticks save on this browser.", href: "checklist/" },
-  { date: "2026-05-20", title: "Wrong Answers Remix", desc: "Pulls every Q you marked wrong across all mocks and serves them as a fresh shuffled paper. Source-tagged, filter by mock or section, re-shuffle anytime. Open from Tests → Targeted retry.", href: "quiz/wrong-remix/" },
-  { date: "2026-05-20", title: "Intelligence Tests — Deep Reference", desc: "Every intelligence scale with subtest count, scoring, author + year, plus all the intelligence theories. Built for NIMHANS's test-to-subtest factual style.", href: "notes/intelligence-tests-deep/" },
-  { date: "2026-05-19", title: "Personality + Projective Tests — Deep Reference", desc: "MMPI scales + cutoffs, 16PF, NEO-PI-R, TAT, Rorschach + Exner codes, EPQ, MBTI, Beck family — per-test deep dive.", href: "notes/psych-tests-deep/" },
-  { date: "2026-05-17", title: "Psychotherapy cheatsheet — full school-by-school", desc: "Psychoanalytic + post-Freudians, behaviour therapy + 12 techniques, Beck vs Ellis, humanistic/existential, family/systemic, third-wave, trauma lineage, indications map, 12 high-priority MCQ traps.", href: "notes/psychotherapy-cheatsheet/" },
-  { date: "2026-05-15", title: "NIMHANS PYQ Topic Breakdown", desc: "300 PYQs across 2023-25, tiered by priority, 4-week revision plan, NIMHANS watch-outs.", href: "notes/nimhans-pyq-breakdown/" }
+  { date: "2026-05-21", title: "Real PYQ Mock — NIMHANS 2024 (NEW)", desc: "You asked for actual PYQs, not my distractors. This is the full NIMHANS M.Phil Clinical Psychology 2024 paper, 100 questions reconstructed from memory by candidates, with the real four options and the official answer key. Nothing synthesised. Scored +1 / −0.25 like the real thing. Heavy on therapy (19), biostats (17), assessment (17) and biopsych (16), which is exactly the NIMHANS flavour. Every question is source-tagged NIMHANS 2024 and carries a one-line rationale. Separate storage so your other mocks stay clean.", href: "quiz/pyq-real-2024/" },
+  { date: "2026-05-21", title: "Final Coverage Checklist (NEW)", desc: "One page to answer 'have I covered everything?' the day before the exam. Every named topic, theory, test, disorder, structure and theorist across all 7 syllabus sections, 1136 tickable items pulled straight from your own notes. Each section has its own progress bar and turns green when fully covered; a sticky overall bar tracks the whole syllabus. Ticks save on this browser. 'Next gap' jumps you to the first unchecked item, Check/Uncheck all per section, full reset. Anything still unticked tomorrow morning is your last-mile list. Phobia game removed.", href: "checklist/" },
+  { date: "2026-05-20", title: "Wrong Answers Remix (NEW)", desc: "Pulls every Q you marked wrong across MET Mock 1, 2, 3, NIMHANS Mock 1 + PYQ Mock 2 and serves them as a fresh shuffled mock. Source-tagged per question, reads your saved attempts on this browser, separate storage so source mocks stay clean. Filter by source mock or section, re-shuffle anytime, per-source breakdown on the score panel. Open from Tests → Targeted retry, or jump in directly.", href: "quiz/wrong-remix/" },
+  { date: "2026-05-20", title: "Intelligence Tests — Deep Reference (NEW)", desc: "Companion to the personality + projective deep ref. Every individual + group + infant intelligence scale in the MET/NIMHANS pool with item/subtest count, scales/indices, scoring, author + year, age range. Covers Stanford-Binet (all 5 editions, IQ formula history Binet 1905 → Stern 1912 → Terman 1916 → SD 16 in 1960 → SD 15 in SB-5 2003), full Wechsler family (WAIS-IV 4 indices, WISC-V 5 indices with PRI → VSI+FRI split, WPPSI-IV split battery), Raven's (SPM 60 / CPM 36 / APM 36 + 12 practice), Bhatia 5 subtests, MISIC, Binet-Kamat, Kaufman family (K-ABC Luria → KABC-II MPI/FCI), Cattell CFIT 3 scales, Army Alpha 8 / Beta 7 + Wonderlic 50/12, Bayley + Gesell + Cattell Infant + Mullen + Denver, Leiter + Goodenough-Harris + DAS-II + WJ-IV. Plus theory rundown (Spearman g, Thurstone 7 PMAs, Cattell-Horn Gf-Gc, Vernon hierarchical, Guilford SOI 150/180, Gardner MI 7→8, Sternberg triarchic, CHC, Salovey & Mayer + Goleman EI), IQ classification, DSM-5 ID severity, cross-comparison master table, numbers-only cheatsheet, author-year speedround, 15 MCQ traps, 20 likely stems, 3-pass revision plan.", href: "notes/intelligence-tests-deep/" },
+  { date: "2026-05-19", title: "Personality + Projective Tests — Deep Reference", desc: "Per-test deep dive across the assessment pool: MMPI all 4 versions + 10 clinical + 9 validity scales + T-score cutoffs; 16PF 185 items + all 16 factors + Sten; NEO-PI-R 240 + 30 facets; TAT 31 cards + Murray scoring; Rorschach 10 inkblots + full Exner code dictionary + all 6 constellations; EPQ lineage MMQ→EPQ-R; MBTI 93 + 16 types; Bell 160/140; full Beck family BDI-II/BAI/BHS/BSSI/BYI with cutoffs.", href: "notes/psych-tests-deep/" },
+  { date: "2026-05-17", title: "Tonight's bundle: notes org pass + Biopsych+Testing 60Q + MET Mock 4 (NEW)", desc: "Three deliverables shipped together. (1) Notes index reorganised with a 3-pass revision strategy block, missing Psychotherapy cheatsheet now live (school-by-school, founder pairs, indication map, 12 MCQ traps). (2) Biopsych + Testing 60 Q targeted paper — fresh stems hitting the two sections that bleed marks on MET / NIMHANS, +4/−1 scoring out of 240, balanced answer key. (3) MET Mock 4 — 100 Q, full MET pattern (Bio 18, Dev 14, Abnormal 18, Assessment 15, Therapy 14, Biostats 11, Language 10), fresh stems vs Mocks 1-3, balanced a/b/c/d. Both quizzes wired into /tests/, /results/, and the full analysis page with their own bands and storage keys.", href: "quiz/met-mock-4/" },
+  { date: "2026-05-17", title: "Psychotherapy cheatsheet — full school-by-school", desc: "Section 5's cheatsheet was the last gap on the notes index; now shipped. Covers psychoanalytic + post-Freudians, behaviour therapy + 12 techniques, Beck vs Ellis trigger words, humanistic/existential (Rogers, Perls, Frankl, Yalom), group therapy + Yalom's 11 factors, family/systemic (Minuchin, Bowen, Satir, narrative, SFBT), third-wave (DBT, ACT, MBCT, IPT, MI, EMDR, CPT, PE, TFP, MBT), trauma therapist lineage, common-factors framework, indications quick-map, ethics, and 12 high-priority MCQ traps.", href: "notes/psychotherapy-cheatsheet/" },
+  { date: "2026-05-17", title: "MET Mock 3 — 100 Q tight-pace mock (yesterday)", desc: "100-question MET-pattern mock, 1 minute per question, +4/−1 scoring, target 270+/400. Zero stem overlap with Mock 1 or Mock 2 so it counts as a clean attempt. Blueprint: Bio 18, Dev 14, Abnormal 18, Assessment 15, Therapy 14, Biostats 11, Language 10. Answer letters shuffled to balanced a/b/c/d (~25 each) so the pattern can't be gamed. Independent storage so Mock 1 / Mock 2 progress is preserved. Same engine: section filter, per-Q notes, backup code, full analysis page, copy-to-WhatsApp export.", href: "quiz/met-mock-3/" },
+  { date: "2026-05-17", title: "MET Mock 2 — full 180 Q syllabus mock", desc: "Full-length MET-format mock: 180 Q across all 7 sections (Bio 30, Dev 25, Abnormal 30, Assessment 25, Therapy 25, Biostats 20, Language 25). MET scoring +4/−1, target 480/720. Harder distractors than Mock 1 — fewer giveaways, more two-options-look-right traps. Independent storage so Mock 1 progress is preserved. Same engine: section filter, per-Q notes, backup code, full analysis page, copy-to-WhatsApp export.", href: "quiz/met-mock-2/" },
+  { date: "2026-05-16", title: "MET Mock 1 Debrief (192/400)", desc: "Your latest attempt: 4 wrongs + 47 skips. Page covers all 4 wrongs with deep walkthroughs (Gestalt/empty chair, corticospinal decussation, Ainsworth resistant, Thomas & Chess slow-to-warm-up) and every note question you left: cranial nerve list + mnemonic (On Old Olympus...), sleep wave mnemonic (BATS Drink Blood), Yalom's 11 therapeutic factors, theory of mind, Korsakoff vs dissociative amnesia, p-value refresher, Ainsworth's 4 attachment styles, trinucleotide repeat disorder list (Huntington/Fragile X/DM1/Friedreich), EMDR + trauma therapist lineage. Plus bonus quick hits on MMPI T-scores, WAIS ranges, Ellis ABC, basal ganglia, place theory, NMDA/LTP.", href: "notes/met-mock-1-debrief/" },
+  { date: "2026-05-16", title: "Full per-mock analysis page (NEW)", desc: "On My Results, every mock card now has a 'Full analysis' button. Opens a deep view: score + estimated band on a target-vs-cutoff bar, section-wise R/W/Skip with miss-rate, top-3 weakest topics with the exact cheatsheet links to open before re-attempting, and every wrong/guessed/skipped question with full options, correct answer in green, your pick in red, and the explanation. Filter pills for Wrong / Guessed / Skipped / Solid / All.", href: "results/analysis/" },
+  { date: "2026-05-16", title: "My Results page", desc: "One page that pulls live scores from all 3 mocks on this browser, keeps a history of every snapshot you take, and lets you paste a results blob from another device to add it to history. Free-form notes journal per mock. Tap 'Copy results for analysis' on any mock to auto-log a snapshot.", href: "results/" },
+  { date: "2026-05-16", title: "MET Mock 1 — Copy results button", desc: "Same export button as the other mocks. Tap it after attempting to copy a readable blob (score + section breakdown + every wrong/guessed/noted Q + your notes) to clipboard. Also auto-saves a snapshot to My Results.", href: "quiz/met-mock-1/" },
+  { date: "2026-05-16", title: "PYQ Mock 2 — pan-India PYQs", desc: "100 fresh PYQs from RML, IHBAS, JEMAS, NIMHANS, IMHANS, NFSU, AMITY, GMCH (2023-25). No overlap with Mock 1. Therapy-heavy (18) + bio (13) + biostats (12) + social (9) to remediate your Mock 1 weak spots. Source-tagged on every Q. Daily mocks start from here.", href: "quiz/pyq-mock-2/" },
+  { date: "2026-05-15", title: "NIMHANS Mock 1 full debrief", desc: "Section-by-section walkthrough of your 71.25/80 attempt. Every wrong + guess + flagged note explained, biopsych is your leak, 3-day plan to clear cutoff.", href: "notes/nimhans-mock-1-debrief/" },
+  { date: "2026-05-15", title: "Site reorganized + Plan page", desc: "Proper section landings: Tests library, Notes-by-section, Downloads, and a new weekly Plan with checklist + countdown. Wider desktop layout (1440px max), shared styling across pages.", href: "plan/" },
+  { date: "2026-05-05", title: "NIMHANS Mock 1 v2 + PYQ Breakdown", desc: "100 real PYQs from 2023-25 papers, year-tagged, repeats flagged green. Companion topic breakdown built from 300 PYQs.", href: "quiz/nimhans-mock-1/" },
+  { date: "2026-05-05", title: "MET Mock 1 debrief", desc: "All 28 wrongs walked through with why the right option wins and which adjacent topics the same paper retests.", href: "notes/mock-1-debrief/" },
+  { date: "2026-05-05", title: "Section cheatsheets, 5 sections", desc: "Biopsych, biostats, language, dev, abnormal full cheatsheets, each ending with Mock-1 trap recap.", href: "notes/" },
+  { date: "2026-05-07", title: "Abnormal one-day sprint", desc: "3 timed blocks of 45 / 75 / 30 min, DSM 22 chapters, 5-Q mini mock at the end.", href: "notes/abnormal-today-sprint/" }
 ];
 
 /* =====================================================================
@@ -849,6 +796,15 @@ function areaStatus(mockStats) {
    RENDER
    ===================================================================== */
 
+function updateCountdown() {
+  const exam = new Date('2026-05-23T00:00:00+05:30');
+  const now = new Date();
+  const ms = exam - now;
+  const days = ms > 0 ? Math.floor(ms / (1000 * 60 * 60 * 24)) : 0;
+  document.getElementById("countdownChip").textContent = ms > 0 ? `${days} days to MET` : "Exam day!";
+  document.getElementById("heroDays").textContent = ms > 0 ? days : "0";
+}
+
 function renderHero(mockResults) {
   const mocksTaken = MOCKS.filter(m => mockResults[m.id] && mockResults[m.id].answered > 0).length;
   document.getElementById("heroMocks").textContent = mocksTaken;
@@ -868,10 +824,8 @@ function renderAreas(mockResults) {
     let html = "";
     html += `<div class="area-head">
       <div class="area-name">${area.name}</div>
-      <span class="badge weight">~${area.weight}%</span>
+      <span class="badge ${status.badge}">${status.label}</span>
     </div>`;
-
-    html += `<div class="area-desc">${area.desc}</div>`;
 
     const mkText = mk.total ? `${mk.correct}/${mk.answered || 0}<span style="color:var(--muted);font-size:11px;"> of ${mk.total}</span>` : `<span class="metric-value muted">—</span>`;
     const mkPct = mk.pctCorrect;
@@ -882,7 +836,7 @@ function renderAreas(mockResults) {
         <div class="metric-value">${mkText}</div>
       </div>
       <div class="metric">
-        <div class="metric-label">% correct · ${status.label}</div>
+        <div class="metric-label">% correct</div>
         <div class="metric-value">${mkPct != null ? Math.round(mkPct) + "%" : `<span class="muted">—</span>`}</div>
       </div>
     </div>`;
@@ -893,7 +847,7 @@ function renderAreas(mockResults) {
     }
 
     html += `<div class="area-links">`;
-    for (const n of area.notes.slice(0, 3)) html += `<a class="pill" href="notes/${n}/">${n.replace(/-/g,' ')}</a>`;
+    for (const n of area.notes.slice(0, 2)) html += `<a class="pill" href="notes/${n}/">Notes</a>`;
     html += `</div>`;
 
     card.innerHTML = html;
@@ -907,13 +861,16 @@ function renderTests(mockResults) {
   for (const m of MOCKS) {
     const r = mockResults[m.id] || { answered: 0, correct: 0, wrong: 0 };
     const a = document.createElement("a");
-    a.className = "test-card" + (m.fresh ? " fresh" : (m.nimhans ? " nimhans" : ""));
+    a.className = "test-card" + (m.fresh ? " fresh" : "");
     a.href = m.path;
     const pct = r.answered ? Math.round((r.correct / r.answered) * 100) : null;
+    const scoreLine = m.scoring
+      ? `+${m.scoring.plus} / −${m.scoring.minus} per Q`
+      : `practice scoring`;
     a.innerHTML = `
       <div class="test-title-row">
         <div class="test-title">${m.title}</div>
-        ${m.fresh ? '<span class="badge good">NEW</span>' : (m.nimhans ? '<span class="badge weight">NIMHANS</span>' : '')}
+        ${m.fresh ? '<span class="badge good">NEW</span>' : ''}
       </div>
       <div class="test-meta">${m.meta}</div>
       <div class="test-score">
@@ -938,12 +895,13 @@ function renderResults(mockResults) {
 
   const attempted = MOCKS.filter(m => m.sections && (mockResults[m.id]?.answered > 0));
   if (!attempted.length) {
-    root.innerHTML = `<div class="empty">No mock results yet on this browser. Open a NIMHANS-pattern mock above to start logging answers — section-wise scores will show here.</div>`;
+    root.innerHTML = `<div class="empty">No mock results yet on this browser. Open a mock above to start logging answers — section-wise scores will show here.</div>`;
     return;
   }
 
   for (const m of attempted) {
     const r = mockResults[m.id];
+    const total = m.total;
     const pct = r.answered ? Math.round((r.correct / r.answered) * 100) : 0;
     const wrap = document.createElement("div");
     wrap.className = "card";
@@ -992,11 +950,10 @@ function renderResults(mockResults) {
 
 function SECTION_LABEL(key) {
   const labels = {
-    biopsych: "Biopsychology / Neuro", dev: "Developmental", abnormal: "Abnormal / Clinical",
-    assessment: "Assessment / Psychometrics", therapy: "Psychotherapy",
-    biostats: "Research & Statistics", language: "Language (MET only)",
-    social: "Social Psychology", general: "Cognitive (Learn/Mem/Attn)", english: "English (MET only)",
-    personality: "Personality"
+    biopsych: "Biopsychology", dev: "Developmental", abnormal: "Abnormal",
+    assessment: "Psych Assessment", therapy: "Psychotherapy",
+    biostats: "Biostats / Methods", language: "Language",
+    social: "Social Psychology", general: "General Awareness", english: "English"
   };
   return labels[key] || key;
 }
@@ -1039,6 +996,7 @@ function renderNews() {
    ===================================================================== */
 
 function refresh() {
+  updateCountdown();
   const mockResults = {};
   for (const m of MOCKS) mockResults[m.id] = readMockResults(m);
   renderHero(mockResults);
@@ -1050,6 +1008,7 @@ function refresh() {
 renderResources();
 renderNews();
 refresh();
+setInterval(updateCountdown, 60 * 60 * 1000);
 window.addEventListener("focus", refresh);
 window.addEventListener("storage", refresh);
 
