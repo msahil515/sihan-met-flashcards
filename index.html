@@ -782,6 +782,17 @@ const MOCKS = [
     sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 },
     meta: "MET-pattern · fresh stems · content carries over to NIMHANS minus Language",
     fresh: false
+  },
+  {
+    id: "met-mock-5",
+    title: "MET Mock 5, full-spectrum",
+    path: "quiz/met-mock-5/",
+    total: 100,
+    storageKey: "met-mock-5-results-v1",
+    scoring: { plus: 4, minus: 1 },
+    sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 },
+    meta: "MET-pattern · all-new stems vs Mocks 1-4 · content carries over to NIMHANS minus Language",
+    fresh: true
   }
 ];
 
@@ -1076,7 +1087,7 @@ window.addEventListener("storage", refresh);
 
 document.getElementById("resetBtn").addEventListener("click", () => {
   if (!confirm("Wipe all local mock progress from this browser? This cannot be undone.")) return;
-  const prefixes = ["met-mock-1-", "met-mock-2-", "met-mock-3-", "met-mock-4-", "bio-testing-paper-", "nimhans-mock-1-", "pyq-mock-2-", "pyq-real-2024-", "sihan-met-quiz-"];
+  const prefixes = ["met-mock-1-", "met-mock-2-", "met-mock-3-", "met-mock-4-", "met-mock-5-", "bio-testing-paper-", "nimhans-mock-1-", "pyq-mock-2-", "pyq-real-2024-", "sihan-met-quiz-"];
   for (let i = localStorage.length - 1; i >= 0; i--) {
     const k = localStorage.key(i);
     if (prefixes.some(p => k.startsWith(p))) localStorage.removeItem(k);
