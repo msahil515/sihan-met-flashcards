@@ -27,6 +27,12 @@ KEYSTORE = Path.home() / ".sihan-met-keystore" / "sihan-met.jks"
 KS_PASS = "sihanmet2026"
 KS_ALIAS = "sihanmet"
 
+# Android build-tools (installed via `brew install --cask android-commandlinetools`
+# then `sdkmanager "build-tools;34.0.0"`). Needed for v2/v3 signing.
+_BT = Path("/opt/homebrew/share/android-commandlinetools/build-tools/34.0.0")
+ZIPALIGN = str(_BT / "zipalign")
+APKSIGNER = str(_BT / "apksigner")
+
 # Sections to drop from the notes-only build (everything that isn't "the notes").
 NOTES_EXCLUDE_TOP = {"quiz", "tests", "results", "plan", "checklist", "games"}
 
@@ -332,12 +338,30 @@ def assemble(workdir: Path, out_apk: Path):
             z.write(p, rel)
     if out_apk.exists():
         out_apk.unlink()
-    run(["jarsigner", "-keystore", str(KEYSTORE),
-         "-storepass", KS_PASS, "-keypass", KS_PASS,
-         "-digestalg", "SHA-256", "-sigalg", "SHA256withRSA",
-         "-signedjar", str(out_apk), str(unsigned), KS_ALIAS])
+    # zipalign (4-byte, -p aligns uncompressed .so pages) then sign with
+    # apksigner so the APK gets v1 + v2 + v3 signatures. Android 11+ rejects
+    # v1-only (jarsigner) APKs that target a recent SDK with "App not installed",
+    # which is why the original template ships a v2/v3 block. Match it.
+    aligned = out_apk.with_suffix(".aligned.apk")
+    if aligned.exists():
+        aligned.unlink()
+    run([ZIPALIGN, "-p", "-f", "4", str(unsigned), str(aligned)])
+    run([APKSIGNER, "sign",
+         "--ks", str(KEYSTORE),
+         "--ks-pass", f"pass:{KS_PASS}",
+         "--key-pass", f"pass:{KS_PASS}",
+         "--ks-key-alias", KS_ALIAS,
+         "--v1-signing-enabled", "true",
+         "--v2-signing-enabled", "true",
+         "--v3-signing-enabled", "true",
+         "--out", str(out_apk), str(aligned)])
     unsigned.unlink()
-    print(f"  signed -> {out_apk}  ({out_apk.stat().st_size:,} bytes)")
+    aligned.unlink()
+    idsig = out_apk.with_suffix(".apk.idsig")
+    if idsig.exists():
+        idsig.unlink()
+    run([APKSIGNER, "verify", "--print-certs", str(out_apk)])
+    print(f"  signed (v1+v2+v3) -> {out_apk}  ({out_apk.stat().st_size:,} bytes)")
 
 
 def build(kind: str):
