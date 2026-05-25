@@ -187,6 +187,7 @@ def write_notes_home(path: Path):
         "met-mock-1-debrief": "MET Mock 1 debrief",
         "nimhans-mock-1-debrief": "NIMHANS Mock 1 debrief",
         "nimhans-pyq-breakdown": "NIMHANS PYQ breakdown",
+        "pep-lite-notes": "PEP Lite Notes index (88 PDFs)",
     }
     # The three core textbooks get their own featured row, segregated from the
     # cheatsheets/sprints/debriefs so they don't get lost in the flat grid.
