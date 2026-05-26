@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MPhil Mock Review + Your Coverage Gaps — PsychEntrancePrep, NIMHANS 2026</title>
+<link rel="stylesheet" href="../../notes-style.css">
+<style>
+  h2 { color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-top: 34px; }
+  h3 { color: var(--text); margin-top: 24px; }
+  .hy-banner {
+    background: linear-gradient(135deg, rgba(88,166,255,0.12), rgba(63,185,80,0.10));
+    border: 1px solid var(--accent-dim); border-radius: 10px;
+    padding: 14px 16px; margin: 0 0 24px 0; font-size: 14px; color: var(--text);
+  }
+  .hy-banner b { color: var(--accent); }
+  .verdict { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 14px 0; }
+  .verdict h3 { margin-top: 0; }
+  .pros { border-left: 3px solid var(--good); padding: 8px 12px; margin: 10px 0; background: rgba(63,185,80,0.07); border-radius: 4px; }
+  .cons { border-left: 3px solid var(--bad); padding: 8px 12px; margin: 10px 0; background: rgba(248,81,73,0.07); border-radius: 4px; }
+  .pros b { color: var(--good); } .cons b { color: var(--bad); }
+  .trap { background: rgba(248,81,73,0.08); border-left: 3px solid var(--bad); padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .trap b { color: var(--bad); }
+  .rule { background: rgba(63,185,80,0.08); border-left: 3px solid var(--good); padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .rule b { color: var(--good); }
+  .gap-block { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; margin: 16px 0; }
+  .gap-block h3 { margin-top: 0; }
+  table { width: 100%; font-size: 13px; border-collapse: collapse; }
+  table th { font-size: 12px; text-align: left; }
+  td, th { vertical-align: top; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  .tag { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; padding: 2px 7px; border-radius: 4px; font-weight: 700; white-space: nowrap; }
+  .t-gap { background: rgba(248,81,73,0.15); color: #ff9b94; border: 1px solid rgba(248,81,73,0.4); }
+  .t-part { background: rgba(240,180,41,0.15); color: #ffd97a; border: 1px solid rgba(240,180,41,0.4); }
+  .t-ok { background: rgba(63,185,80,0.15); color: #8de29c; border: 1px solid rgba(63,185,80,0.4); }
+  .mnem { font-family: 'SF Mono', Menlo, monospace; font-size: 13px; color: var(--accent); }
+  .summary-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 14px 0; }
+  .stat-box { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 10px; text-align: center; }
+  .stat-box .num { font-size: 24px; font-weight: 700; color: var(--accent); display: block; }
+  .stat-box .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+</style>
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<meta name="theme-color" content="#0d1117">
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <a href="../../">← Dashboard</a>
+  <a href="../">All Notes</a>
+  <a href="../../quiz/pep-mock-1/">PEP Mock 1</a>
+  <a href="../../quiz/pep-mock-2/">PEP Mock 2</a>
+  <a href="../ethics-terms/">Ethics terms</a>
+</nav>
+
+<h1>MPhil Mock Review + Your Coverage Gaps</h1>
+<p style="color: var(--muted); font-size: 13px;">An honest read on the PsychEntrancePrep mocks I pulled, what the MPhil layer actually tests, and the topics that aren't in your notes yet · Built 2026-05-26</p>
+
+<div class="hy-banner">
+<b>The short version.</b> The PEP site is a decent <i>supplementary</i> drill for the MPhil-specific layer (ethics, professional regulation, MSE, trauma therapy) that NET-style material skips. It is <b>not</b> a clean answer key, so treat its themes as a checklist, not gospel. I went through all 40 MPhil-specific questions across the two mocks, mapped them to your notes, and found <b>8 clusters you have zero or thin coverage on</b>. Those are filled in below, exam-ready.
+</div>
+
+<h2>1. Verdict on PsychEntrancePrep (the site I pulled the mocks from)</h2>
+
+<div class="verdict">
+<h3>What it actually is</h3>
+<p>A Google Sites page hosting mock tests as <b>Google Forms</b> and notes as <b>Google Drive PDFs</b>. The 120-question mocks split into <b>80 common (NET + MPhil) + 20 MPhil-specific + 20 UGC-NET-specific</b>. I extracted both mocks' questions straight from the form data, but the forms are ungraded surveys with <b>no official answer key</b> — every correct answer and explanation on our quiz pages was authored by me with reasoning, not lifted from the site.</p>
+
+<div class="pros"><b>Where it's good.</b> Genuinely India-flavoured MPhil content (RCI, Indian Acts, MSE, ethics codes) that you won't get from generic NET PDFs. Free till the 31st. Wide topical spread. The MPhil-specific 20 per mock is the most useful slice for you because it targets the clinical-psych entrance layer specifically.</div>
+
+<div class="cons"><b>Where to be careful.</b> (1) No real answer key — a handful of items have defensible alternative answers, so if an explanation feels wrong, trust your reasoning and flag it. (2) Sloppy phrasing — stray "Q)" prefixes, typos, occasionally two arguable options. (3) The actual study notes are login-gated Drive PDFs scoped to one Workspace account, so I could only map their titles, not rip the text. (4) It's a coaching aggregator, not a primary source — for anything load-bearing, your NIMHANS PYQs and standard texts win.</div>
+
+<div class="rule"><b>How to use it.</b> Run the two MPhil sections as a themes checklist. The point isn't the score, it's surfacing the topics below that NET-style prep never made you study.</div>
+</div>
+
+<h2>2. What the MPhil side actually tests</h2>
+<p>Across the 40 MPhil-specific questions (20 in each mock), the weighting is heavily toward the <b>professional / ethical / legal scaffolding of clinical practice</b> — the stuff that separates an MPhil Clinical entrance from a general psych exam. Breakdown:</p>
+
+<div class="summary-stats">
+  <div class="stat-box"><span class="num">11</span><span class="lbl">Ethics &amp; professional</span></div>
+  <div class="stat-box"><span class="num">8</span><span class="lbl">MSE &amp; clinical assessment</span></div>
+  <div class="stat-box"><span class="num">6</span><span class="lbl">Diagnosis &amp; classification</span></div>
+</div>
+<div class="summary-stats">
+  <div class="stat-box"><span class="num">6</span><span class="lbl">Trauma / therapy modalities</span></div>
+  <div class="stat-box"><span class="num">5</span><span class="lbl">LGBTQ / culture / minority</span></div>
+  <div class="stat-box"><span class="num">4</span><span class="lbl">History &amp; legal framework</span></div>
+</div>
+
+<p style="font-size:13px;color:var(--muted);">Question style is roughly half straight definitional recall ("who coined X", "what is Y") and half short applied vignette ("which principle is violated", "what is the correct sequence"). Difficulty is moderate — no trick stats, no deep neuroscience, but it assumes you've read the professional-practice and ethics chapters that NET prep tends to skip.</p>
+
+<h2>3. Coverage map — what's in your notes vs. what isn't</h2>
+<table>
+<tr><th>Topic the MPhil Qs hit</th><th>Status</th><th>Where / note</th></tr>
+<tr><td>Beauchamp &amp; Childress 4 principles, confidentiality, Tarasoff</td><td><span class="tag t-ok">Covered</span></td><td><a href="../ethics-terms/">Ethics terms</a></td></tr>
+<tr><td>EMDR (8 phases, bilateral stim), TF-CBT, PTSD therapy</td><td><span class="tag t-ok">Covered</span></td><td><a href="../therapy-components/">Therapy components</a>, <a href="../psychotherapy-cheatsheet/">Psychotherapy cheatsheet</a></td></tr>
+<tr><td>Flight of ideas, conversion disorder, BPD, dysthymia, Kraepelin</td><td><span class="tag t-ok">Covered</span></td><td><a href="../abnormal-psych-cheatsheet/">Abnormal cheatsheet</a></td></tr>
+<tr><td>MSE structure (full domains: consciousness, insight, GCS)</td><td><span class="tag t-part">Thin</span></td><td>Listed in abnormal cheatsheet but flagged incomplete — §G below</td></tr>
+<tr><td>Countertransference, primary defense (repression)</td><td><span class="tag t-part">Thin</span></td><td>Touched in psychotherapy notes — §F below</td></tr>
+<tr><td><b>APA Ethics Code — the 5 General Principles</b></td><td><span class="tag t-gap">Gap</span></td><td>§A below</td></tr>
+<tr><td><b>Deontology vs Utilitarianism / Kant</b></td><td><span class="tag t-gap">Gap</span></td><td>§A below</td></tr>
+<tr><td><b>Ethical competency, gifts, boundaries</b></td><td><span class="tag t-gap">Gap</span></td><td>§B below</td></tr>
+<tr><td><b>History &amp; training models (Witmer, Cattell, Derner, Boulder/Vail)</b></td><td><span class="tag t-gap">Gap</span></td><td>§C below</td></tr>
+<tr><td><b>RCI + Indian Acts (RCI 1992, MHCA 2017, RPwD 2016, Criminal Law Amdt, POCSO, UN&nbsp;CRC)</b></td><td><span class="tag t-gap">Gap</span></td><td>§D below</td></tr>
+<tr><td><b>Minority stress (Meyer) + LGBTQ affirmative therapy + depathologization</b></td><td><span class="tag t-gap">Gap</span></td><td>§E below</td></tr>
+<tr><td><b>Culture-bound syndromes (Koro, Dhat, Amok…)</b></td><td><span class="tag t-gap">Gap</span></td><td>§H below</td></tr>
+<tr><td><b>Assessment data as samples / signs / correlates</b></td><td><span class="tag t-gap">Gap</span></td><td>§G below</td></tr>
+</table>
+
+<h2>4. Filling the gaps (study these)</h2>
+
+<div class="gap-block">
+<h3>§A — APA Ethics Code + ethical theory (deontology vs utilitarianism)</h3>
+<p><b>Don't confuse the two ethics frameworks they both test:</b></p>
+<table>
+<tr><th></th><th>APA General Principles (5)</th><th>Beauchamp &amp; Childress (4)</th></tr>
+<tr><td>What</td><td>Aspirational principles of the APA Ethics Code</td><td>Four principles of biomedical ethics</td></tr>
+<tr><td>List</td><td>A) Beneficence &amp; Nonmaleficence · B) Fidelity &amp; Responsibility · C) Integrity · D) Justice · E) Respect for People's Rights &amp; Dignity</td><td>Autonomy · Beneficence · Non-maleficence · Justice</td></tr>
+</table>
+<div class="rule"><b>APA = 5, "BFIJR".</b> Integrity (C) = the one about <b>accuracy, honesty, truthfulness</b> in science/teaching/practice. Fidelity &amp; Responsibility (B) = trust + professional obligations. <b>"Equity" is NOT an APA principle</b> — the relevant one is Justice (a classic distractor).</div>
+<p><b>Ethical theory (meta-ethics):</b></p>
+<table>
+<tr><th>Deontology (Kant)</th><th>Utilitarianism (Bentham, Mill)</th></tr>
+<tr><td>Judges actions by their <b>intrinsic</b> rightness/wrongness and adherence to <b>duty</b>. "Categorical imperative." Consequences don't change whether the act is right.</td><td>Judges actions by their <b>consequences</b> — a <b>cost-benefit</b> calculus for the greatest good of the greatest number.</td></tr>
+</table>
+<div class="trap"><b>The swap they bait:</b> deontology = duty/intrinsic, utilitarian = consequences/cost-benefit. If an option says "deontology = cost-benefit," it's the reversed (wrong) one.</div>
+</div>
+
+<div class="gap-block">
+<h3>§B — Ethical competency, gifts &amp; boundaries</h3>
+<ul>
+<li><b>Competence:</b> practising only within the boundaries of your training, supervised experience, and credentials. Taking on a case outside your competence (without supervision/referral) is the violation.</li>
+<li><b>Ethical competency</b> = the clinician's ability to recognise and reason through ethical dilemmas and apply the code in practice — not just knowing the rules, but applying them.</li>
+<li><b>Accepting gifts:</b> generally discouraged because of boundary/dual-relationship risk. Acceptable only when the gift is of <b>nominal/token value</b> and refusing would harm the therapeutic relationship or be culturally insulting. Large or quid-pro-quo gifts = never.</li>
+<li><b>Multiple/dual relationships:</b> avoid roles that could impair objectivity or exploit the client (e.g., therapist + business partner). <b>Boundary crossing</b> (minor, sometimes benign) vs <b>boundary violation</b> (harmful, exploitative — e.g., sexual contact, always prohibited).</li>
+</ul>
+</div>
+
+<div class="gap-block">
+<h3>§C — History &amp; training models of clinical psychology</h3>
+<table>
+<tr><th>Name</th><th>Owns</th></tr>
+<tr><td><b>Lightner Witmer</b></td><td>Coined <b>"clinical psychology"</b>; founded the <b>first psychological clinic</b> (1896, Univ. of Pennsylvania).</td></tr>
+<tr><td><b>James McKeen Cattell</b></td><td>Coined the term <b>"mental tests"</b> (1890 paper). Student of Wundt; pioneer of psychometrics in the US.</td></tr>
+<tr><td><b>Gordon Derner</b></td><td>Champion of the <b>scholar-professional / professional model</b>; founded the first university-based professional school of psychology (Adelphi).</td></tr>
+</table>
+<p><b>Training models (high-yield):</b></p>
+<table>
+<tr><th>Model</th><th>Year / conference</th><th>Emphasis · degree</th></tr>
+<tr><td><b>Scientist-practitioner</b> (Boulder)</td><td>1949, Boulder CO</td><td>Equal research + practice · <b>Ph.D.</b></td></tr>
+<tr><td><b>Scholar/Practitioner-scholar</b> (Vail)</td><td>1973, Vail CO</td><td>Practice-first, applied · <b>Psy.D.</b></td></tr>
+<tr><td><b>Clinical scientist</b></td><td>1990s (McFall)</td><td>Research/empirical primacy</td></tr>
+</table>
+<div class="rule"><b>Boulder = scientist-practitioner = Ph.D.; Vail = practitioner-scholar = Psy.D.</b> That pairing is the whole question.</div>
+</div>
+
+<div class="gap-block">
+<h3>§D — RCI + the Indian Acts that show up</h3>
+<table>
+<tr><th>Act / body</th><th>What to remember</th></tr>
+<tr><td><b>Rehabilitation Council of India (RCI)</b></td><td>Statutory body under the <b>Ministry of Social Justice &amp; Empowerment</b> (Dept. of Empowerment of Persons with Disabilities). <b>Not</b> Health, not Education. Regulates training + maintains the register of rehab professionals (incl. clinical psychologists).</td></tr>
+<tr><td><b>RCI Act, 1992</b></td><td>Created the RCI; mandates that all rehabilitation professionals be <b>registered with the RCI</b>. Practising without registration is an <b>offence</b>. This is why an MPhil Clinical Psychology must be RCI-recognised.</td></tr>
+<tr><td><b>Mental Healthcare Act, 2017</b></td><td>Rights-based; <b>decriminalised suicide</b>; introduced <b>advance directive</b> + <b>nominated representative</b>; right to access mental healthcare. Replaced the Mental Health Act 1987.</td></tr>
+<tr><td><b>RPwD Act, 2016</b></td><td>Rights of Persons with Disabilities; expanded disabilities from 7 to 21; replaced the PwD Act 1995.</td></tr>
+<tr><td><b>Criminal Law (Amendment) Act, 2013</b></td><td>Raised the <b>age of consent / statutory rape to 18</b> (post-Nirbhaya). Sex with anyone under 18 = rape regardless of consent.</td></tr>
+<tr><td><b>POCSO Act, 2012</b></td><td>Protection of Children from Sexual Offences; child = <b>under 18</b>; mandatory reporting.</td></tr>
+<tr><td><b>UN Convention on the Rights of the Child (UNCRC)</b></td><td>Child = under 18. Core idea: children are <b>capable of forming and expressing their own views</b>, with <b>evolving capacities</b>; decisions guided by the <b>best interests of the child</b>.</td></tr>
+</table>
+</div>
+
+<div class="gap-block">
+<h3>§E — Minority stress + LGBTQ affirmative practice</h3>
+<ul>
+<li><b>Minority stress model (Ilan Meyer, 2003):</b> the excess stress that stigmatised minority groups face explains their higher rates of mental-health problems. Defining features: it is <b>unique</b> (added on top of general stressors), <b>chronic</b> (tied to stable social structures), and <b>socially based</b> (not individual pathology).</li>
+<li><b>Distal stressors</b> = external events: discrimination, prejudice, violence, rejection. <b>Proximal stressors</b> = internal: <b>internalised stigma/homophobia</b>, <b>concealment</b>, and <b>expectation of rejection</b> (vigilance).</li>
+<li><b>Depathologization:</b> homosexuality removed from the <b>DSM in 1973</b> (DSM-II); ICD-10 still had "ego-dystonic sexual orientation"; <b>ICD-11 removed it entirely</b>. "Pathologization" = treating it as a disorder; "depathologization" = the shift to seeing it as a normal variant.</li>
+<li><b>Affirmative therapy self-acceptance sequence (rough order):</b> awareness/acknowledging same-sex feelings → exploring &amp; reducing internalised stigma → disclosure/coming out to safe others → building community/connectedness → integrating identity into a positive self-concept.</li>
+</ul>
+</div>
+
+<div class="gap-block">
+<h3>§F — Psychodynamic process terms (the thin ones)</h3>
+<ul>
+<li><b>Transference:</b> client redirects feelings about a past figure onto the therapist. <b>Countertransference:</b> the therapist's own emotional reactions (conscious or unconscious) toward the client — to be monitored and used, not acted on.</li>
+<li><b>Primary defense against anxiety (psychodynamic):</b> <b>repression</b> — pushing unacceptable thoughts/impulses out of awareness. It's the foundational defense the others build on.</li>
+</ul>
+</div>
+
+<div class="gap-block">
+<h3>§G — MSE depth + how clinicians read assessment data</h3>
+<p><b>Assessment data is conceived as:</b> <b>samples</b> (a direct sample of behaviour), <b>signs</b> (an indirect indicator of an underlying trait/state), or <b>correlates</b> (statistically linked to a criterion). Sample = behaviour for its own sake; sign = behaviour points to something hidden.</p>
+<p><b>MSE domains often under-studied:</b></p>
+<ul>
+<li><b>Consciousness</b> — level of alertness. The <b>Glasgow Coma Scale (GCS)</b> grades it via <b>Eye (4) + Verbal (5) + Motor (6)</b>, score 3–15. GCS measures consciousness, NOT attention/memory/intelligence.</li>
+<li><b>Insight</b> — the patient's <b>degree of awareness of their own illness</b> (distinct from orientation, consciousness, recall).</li>
+<li><b>Affect vs mood:</b> <b>affect</b> = the immediate, outward, observable emotional expression — described by <b>quality, range, and reactivity</b>. <b>Mood</b> = the sustained, pervasive internal emotional climate — described by its <b>persistence</b>. So "persistence" belongs to mood, not affect (a NOT-question trap).</li>
+<li><b>Thought form:</b> flight of ideas (rapid shifting, loose links) ≠ perseveration (repeating one idea) ≠ circumstantiality (over-detail, eventually gets there) ≠ tangentiality (never gets there).</li>
+</ul>
+</div>
+
+<div class="gap-block">
+<h3>§H — Culture-bound syndromes</h3>
+<table>
+<tr><th>Syndrome</th><th>Region</th><th>Core feature</th></tr>
+<tr><td><b>Koro</b></td><td>SE Asia, China</td><td>Intense fear that the genitals are <b>retracting into the body</b>, fear of death.</td></tr>
+<tr><td><b>Dhat</b></td><td>India</td><td>Anxiety over <b>semen loss</b> (in urine), fatigue, weakness.</td></tr>
+<tr><td><b>Amok</b></td><td>Malaysia</td><td>Sudden <b>violent outburst</b> after a brooding period ("running amok").</td></tr>
+<tr><td><b>Latah</b></td><td>SE Asia</td><td>Exaggerated startle → echolalia, echopraxia, automatic obedience.</td></tr>
+<tr><td><b>Pibloktoq</b></td><td>Arctic / Inuit</td><td>Sudden dissociative excitement, then amnesia.</td></tr>
+<tr><td><b>Susto</b></td><td>Latin America</td><td>"Soul loss" from a frightening event.</td></tr>
+<tr><td><b>Taijin kyofusho</b></td><td>Japan</td><td>Fear of <b>offending/embarrassing others</b> with one's body (vs Western social phobia = fear of being judged).</td></tr>
+</table>
+</div>
+
+<div class="hy-banner" style="margin-top:28px;">
+<b>5 days out, do this:</b> the three covered rows you can skip. Spend the time on §A (ethics — 11 of 40 Qs), §D (RCI + Acts), and §C (history/models) — those are pure recall, high frequency, and zero-prep right now. Then drill both <a href="../../quiz/pep-mock-1/">PEP Mock 1</a> and <a href="../../quiz/pep-mock-2/">PEP Mock 2</a> in the MPhil-Specific section to lock it.
+</div>
+
+</div>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("/sihan-met-flashcards/sw.js").catch(function () {});
+  });
+}
+(function () {
+  var dp = null;
+  window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); dp = e; showBtn(); });
+  function showBtn() {
+    if (document.getElementById("pwaInstallBtn")) return;
+    var b = document.createElement("button");
+    b.id = "pwaInstallBtn"; b.textContent = "Install app";
+    b.style.cssText = "position:fixed;right:14px;bottom:14px;z-index:9999;background:#1f6feb;color:#fff;border:0;border-radius:8px;padding:10px 14px;font:600 14px system-ui,sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.4);cursor:pointer";
+    b.onclick = function () { if (!dp) return; dp.prompt(); dp.userChoice.finally(function(){ dp = null; b.remove(); }); };
+    (document.body || document.documentElement).appendChild(b);
+  }
+  window.addEventListener("appinstalled", function () { var b = document.getElementById("pwaInstallBtn"); if (b) b.remove(); });
+})();
+</script>
+<script src="/sihan-met-flashcards/notes/note-highlight.js"></script>
+</body>
+</html>
