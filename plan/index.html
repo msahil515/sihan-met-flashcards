@@ -7,29 +7,28 @@
 <script src="/sihan-met-flashcards/gate.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0d1117">
-<title>Plan — MET 2026 + NIMHANS</title>
+<title>Plan — NIMHANS sprint</title>
 <link rel="stylesheet" href="../site.css">
 <style>
-  .week-card { display: flex; flex-direction: column; gap: 10px; }
-  .week-card h3 { margin: 0; font-size: 15px; font-weight: 600; }
-  .week-card .week-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 2px; }
-  .day-row {
+  .day-card { display: flex; flex-direction: column; gap: 10px; }
+  .day-card h3 { margin: 0; font-size: 15px; font-weight: 600; }
+  .day-card .day-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 2px; }
+  .task-row {
     display: grid;
-    grid-template-columns: 50px 1fr;
+    grid-template-columns: 70px 1fr;
     gap: 10px;
     padding: 8px 10px;
     background: var(--panel-2);
     border-radius: 6px;
     font-size: 13px;
   }
-  .day-row .day { color: var(--accent); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
-  .day-row .task { color: var(--text); }
-  .week-card.this-week { border-color: var(--good); background: linear-gradient(135deg, rgba(63,185,80,0.08), rgba(88,166,255,0.04)); }
-  .checklist {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+  .task-row .slot { color: var(--accent); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+  .task-row .task { color: var(--text); }
+  .task-row .task a { color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--accent); }
+  .day-card.this-day { border-color: var(--good); background: linear-gradient(135deg, rgba(63,185,80,0.08), rgba(88,166,255,0.04)); }
+  .day-card.exam-day { border-color: var(--bad); background: linear-gradient(135deg, rgba(248,81,73,0.10), rgba(88,166,255,0.04)); }
+  .day-card.half-day { border-color: var(--warn, #d29922); }
+  .checklist { list-style: none; padding: 0; margin: 0; }
   .checklist li {
     padding: 8px 0;
     border-bottom: 1px solid var(--border);
@@ -62,8 +61,8 @@
 <div class="topbar">
   <div class="topbar-inner">
     <div class="brand">
-      <span class="brand-title">Sihan, MET 2026</span>
-      <span class="brand-sub">MA Clinical Psychology, Manipal</span>
+      <span class="brand-title">Sihan, NIMHANS 2026</span>
+      <span class="brand-sub">MA Clinical Psychology entrance</span>
     </div>
     <nav class="nav">
       <a href="../">Dashboard</a>
@@ -82,23 +81,23 @@
 
   <div class="page-hero">
     <div class="crumbs">Plan</div>
-    <h1>Revision Plan to MET</h1>
-    <p>One week per section block, ending on a full mock. Adjust the order, never the cadence. Check items off as you go, the boxes save in your browser.</p>
+    <h1>Sprint to NIMHANS</h1>
+    <p>Five days, not five weeks. The heavy baskets first (Stats, Therapy, Assessment, Biopsych), then a sweep of the lighter areas, then a full timed mock the day before. Thursday the 28th is a half day so it stays light. Check items off as you go, the boxes save on this device.</p>
     <div class="grid cols-4" style="margin-top:18px;">
       <div class="bigstat">
-        <div class="bigstat-label">Days to MET</div>
+        <div class="bigstat-label">Days to exam</div>
         <div class="bigstat-value" id="heroDays">—</div>
-        <div class="bigstat-sub">23 May 2026, IST</div>
+        <div class="bigstat-sub">31 May 2026, IST</div>
       </div>
       <div class="bigstat">
-        <div class="bigstat-label">Weeks left</div>
-        <div class="bigstat-value" id="heroWeeks">—</div>
-        <div class="bigstat-sub">full revision cycles</div>
+        <div class="bigstat-label">Pattern</div>
+        <div class="bigstat-value">100 / 90</div>
+        <div class="bigstat-sub">MCQ in minutes, +1 / −0.25</div>
       </div>
       <div class="bigstat">
-        <div class="bigstat-label">Mocks planned</div>
-        <div class="bigstat-value">4</div>
-        <div class="bigstat-sub">1 / week minimum</div>
+        <div class="bigstat-label">Full mock</div>
+        <div class="bigstat-value">1</div>
+        <div class="bigstat-sub">timed, Sat the 30th</div>
       </div>
       <div class="bigstat">
         <div class="bigstat-label">Plan tasks done</div>
@@ -110,26 +109,26 @@
 
   <section>
     <div class="section-head">
-      <h2 class="section-title">Daily, every day</h2>
-      <span class="section-sub">Non-negotiable, sub-2 hour</span>
+      <h2 class="section-title">Daily rhythm</h2>
+      <span class="section-sub">Same shape every day, the topic changes</span>
     </div>
     <div class="grid cols-3">
       <div class="card">
         <div class="card-title">Warm-up (15 min)</div>
         <div class="card-body" style="margin-top:6px;">
-          Re-read 1 page of yesterday's weakest cheatsheet, tables only. Stop the moment something looks new, that's where today's drill starts.
+          Re-read yesterday's weakest tables only. Stop the moment something looks new, that's where today's drill starts.
         </div>
       </div>
       <div class="card">
-        <div class="card-title">Focus block (60 min)</div>
+        <div class="card-title">Focus blocks</div>
         <div class="card-body" style="margin-top:6px;">
-          Read this week's cheatsheet section, then 20 mixed-bank questions filtered to that section. Tag every guess.
+          Read the day's notes, then drill the matching area in <a href="../quiz/practice/">Practice by area</a>. Tag every guess so the wrong-remix catches it.
         </div>
       </div>
       <div class="card">
         <div class="card-title">Cool-down (15 min)</div>
         <div class="card-body" style="margin-top:6px;">
-          Log wrongs into the mock-1 debrief format: <em>what I picked, what's right, what's the trap.</em>
+          Log every wrong as: <em>what I picked, what's right, what's the trap.</em> That log is your real revision sheet.
         </div>
       </div>
     </div>
@@ -137,10 +136,10 @@
 
   <section>
     <div class="section-head">
-      <h2 class="section-title">Weekly schedule</h2>
-      <span class="section-sub">4 weeks to MET, one section emphasis per week</span>
+      <h2 class="section-title">Day by day</h2>
+      <span class="section-sub">26 May → exam morning, 31 May</span>
     </div>
-    <div class="grid cols-2" id="weeksGrid"></div>
+    <div class="grid cols-2" id="daysGrid"></div>
   </section>
 
   <section>
@@ -156,25 +155,25 @@
   <section>
     <div class="section-head">
       <h2 class="section-title">Exam-day rules</h2>
-      <span class="section-sub">Decided in advance, not on the day</span>
+      <span class="section-sub">Decided now, not on the day</span>
     </div>
     <div class="grid cols-3">
       <div class="card">
         <div class="card-title">Skip rule</div>
         <div class="card-body" style="margin-top:6px;">
-          If a Q takes &gt;90 sec on first pass, flag and move on. Come back at the end. Time, not knowledge, kills your score.
+          90 min for 100 Q is under a minute each. If a Q runs past ~50 sec on first pass, flag it and move on. Time kills the score, not the hard question.
         </div>
       </div>
       <div class="card">
-        <div class="card-title">Guess rule (MET +4 / −1)</div>
+        <div class="card-title">Guess rule (+1 / −0.25)</div>
         <div class="card-body" style="margin-top:6px;">
-          Guess only when you can eliminate at least 2 of 4. Blind guess = −1 expectancy. Eliminated-2 guess = +0.5 expectancy.
+          Negative marking is gentle. Guess if you can knock out even one of four (+0.5 expectancy). Only leave blank if all four look equally alive.
         </div>
       </div>
       <div class="card">
-        <div class="card-title">NIMHANS +1 / −0.25</div>
+        <div class="card-title">Two passes</div>
         <div class="card-body" style="margin-top:6px;">
-          Negative marking is gentler. Guess if you can eliminate even one option (+0.5 expectancy). Don't leave Q blank if you have any signal.
+          Pass one: answer everything you know cold, flag the rest. Pass two: spend the leftover time only on flagged ones. Never read all 100 in order once.
         </div>
       </div>
     </div>
@@ -182,7 +181,7 @@
 
 </main>
 
-<footer>Sihan MET 2026 + NIMHANS prep · plan is a contract with yourself, dashboard is the scoreboard</footer>
+<footer>Sihan NIMHANS 2026 prep · plan is a contract with yourself, dashboard is the scoreboard</footer>
 
 <script>
 const examDate = new Date('2026-05-31T00:00:00+05:30');
@@ -190,109 +189,107 @@ const examDate = new Date('2026-05-31T00:00:00+05:30');
 function updateCountdown() {
   const ms = examDate - new Date();
   const d = ms > 0 ? Math.floor(ms / 86400000) : 0;
-  const w = Math.ceil(d / 7);
   document.getElementById("countdownChip").textContent = ms > 0 ? `${d} days to exam` : "Exam day!";
   document.getElementById("heroDays").textContent = d;
-  document.getElementById("heroWeeks").textContent = w;
 }
 
-const WEEKS = [
+const DAYS = [
   {
-    label: "Week of 6 May → 12 May",
-    title: "Biopsych week + diagnostic mock",
-    thisWeek: false,
-    days: [
-      { d: "Mon", t: "Read biopsych cheatsheet end-to-end, no skipping" },
-      { d: "Tue", t: "Action potential primer + 20 bank Q (biopsych filter)" },
-      { d: "Wed", t: "Sleep + endocrine primer + 20 bank Q (biopsych filter)" },
-      { d: "Thu", t: "Anatomy & lobes drill + 20 bank Q (biopsych filter)" },
-      { d: "Fri", t: "Psychopharm + NTs + 20 bank Q (biopsych filter)" },
-      { d: "Sat", t: "MET Mock 1, full 120 min, no notes" },
-      { d: "Sun", t: "Debrief Mock 1 wrongs with the debrief notebook" }
+    label: "Tue 26 May · Day 1",
+    title: "Heavy basket: Stats + Therapy",
+    cls: "this-day",
+    tasks: [
+      { s: "AM", t: 'Read <a href="../notes/research-methodology/">Research methodology</a> + <a href="../notes/biostats-cheatsheet/">Biostats cheatsheet</a> end to end' },
+      { s: "Midday", t: 'Drill Research &amp; Stats in <a href="../quiz/practice/">Practice by area</a>, 20 Q, tag guesses' },
+      { s: "PM", t: 'Read <a href="../notes/psychotherapy-cheatsheet/">Psychotherapy cheatsheet</a> school by school, then drill the Therapy area, 20 Q' }
     ]
   },
   {
-    label: "Week of 13 May → 19 May",
-    title: "Abnormal + Dev week",
-    thisWeek: true,
-    days: [
-      { d: "Mon", t: "Abnormal sprint plan, 3 timed blocks, end with mini-mock" },
-      { d: "Tue", t: "DSM-5 vs ICD-11 traps + 20 bank Q (abnormal filter)" },
-      { d: "Wed", t: "Dev cheatsheet (Piaget/Erikson/Bowlby) + 15 bank Q" },
-      { d: "Thu", t: "Bronfenbrenner deep-dive + PPCT MCQ traps" },
-      { d: "Fri", t: "High-yield abn+dev revision sheet, full" },
-      { d: "Sat", t: "NIMHANS Mock 1 v2 (PYQs), full 120 min" },
-      { d: "Sun", t: "PYQ topic breakdown read, mark Tier 1 priorities" }
+    label: "Wed 27 May · Day 2",
+    title: "Heavy basket: Assessment + Biopsych",
+    cls: "",
+    tasks: [
+      { s: "AM", t: 'Read <a href="../notes/assessment/">Assessment master</a> + <a href="../notes/intelligence-tests-deep/">Intelligence</a> + <a href="../notes/psych-tests-deep/">Personality/projective</a> refs' },
+      { s: "Midday", t: 'Drill Assessment in <a href="../quiz/practice/">Practice by area</a>, 20 Q' },
+      { s: "PM", t: 'Sweep <a href="../notes/biopsych-cheatsheet/">Biopsych cheatsheet</a> (anatomy, NTs, sleep, HPA) + <a href="../notes/action-potential/">action potential</a>, then drill Biopsych, 20 Q' }
     ]
   },
   {
-    label: "Week of 20 May → 26 May",
-    title: "Assessment + Therapy week",
-    thisWeek: false,
-    days: [
-      { d: "Mon", t: "Assessment primer end-to-end + 20 bank Q (assessment filter)" },
-      { d: "Tue", t: "SEM, reliability, validity drills (15 calc-style Q)" },
-      { d: "Wed", t: "Therapy founders chart (Wolpe/Ellis/Beck/Rogers/Linehan)" },
-      { d: "Thu", t: "CBT vs REBT vs DBT vs ACT distinctions, 15 bank Q" },
-      { d: "Fri", t: "Mixed bank, 30 Q from assessment + therapy interleaved" },
-      { d: "Sat", t: "Re-sit MET Mock 1, target +15 from first attempt" },
-      { d: "Sun", t: "Compare both attempts side-by-side, list residual gaps" }
+    label: "Thu 28 May · Day 3 · half day",
+    title: "Light: PYQ priorities + retry",
+    cls: "half-day",
+    tasks: [
+      { s: "PM only", t: 'You’re tied up till afternoon, so keep it light' },
+      { s: "Block 1", t: 'Read the <a href="../notes/nimhans-pyq-breakdown/">NIMHANS PYQ breakdown</a>, mark the Tier 1 topics' },
+      { s: "Block 2", t: 'Run the <a href="../quiz/wrong-remix/">Wrong-answers remix</a> on everything you’ve missed so far, no new material' }
     ]
   },
   {
-    label: "Week of 27 May → 2 Jun (post-MET buffer / NIMHANS prep)",
-    title: "Biostats + Language sprint",
-    thisWeek: false,
-    days: [
-      { d: "Mon", t: "Biostats cheatsheet + research methodology primer" },
-      { d: "Tue", t: "Parametric vs non-parametric drill, 20 Q" },
-      { d: "Wed", t: "Sampling, validity threats, RCT phases, 20 Q" },
-      { d: "Thu", t: "Language cheatsheet end-to-end" },
-      { d: "Fri", t: "RC strategy + sentence correction patterns, 25 Q" },
-      { d: "Sat", t: "Full NIMHANS Mock 1 v2 re-sit" },
-      { d: "Sun", t: "Final residual-gap fix list, lock revision sheet" }
+    label: "Fri 29 May · Day 4",
+    title: "Lighter areas sweep",
+    cls: "",
+    tasks: [
+      { s: "AM", t: 'Read <a href="../notes/high-yield-abnormal-dev/">High-yield abnormal + dev</a> + <a href="../notes/dev-psych-cheatsheet/">Dev cheatsheet</a>' },
+      { s: "Midday", t: '<a href="../notes/icd/">DSM-5 vs ICD-11</a> traps + <a href="../notes/differentiators/">differentiators</a> pass' },
+      { s: "PM", t: 'Mixed drill across Abnormal, Dev, Cognitive, Learning, Social in <a href="../quiz/practice/">Practice by area</a>, ~30 Q' }
+    ]
+  },
+  {
+    label: "Sat 30 May · Day 5",
+    title: "Full timed mock + debrief",
+    cls: "",
+    tasks: [
+      { s: "AM", t: 'Sit the <a href="../quiz/nimhans-mock-1/">NIMHANS PYQ mock</a>, 100 Q, strict 90 min, no notes' },
+      { s: "Midday", t: 'Debrief every wrong into the trap log. Then a last pass on the <a href="../notes/revision-pack/">consolidated revision pack</a>' },
+      { s: "PM", t: 'Lay out ID, admit card, clothes. Confirm the centre and travel time. Early night, no new topics' }
+    ]
+  },
+  {
+    label: "Sun 31 May · Exam",
+    title: "Exam morning",
+    cls: "exam-day",
+    tasks: [
+      { s: "Wake", t: 'Skim the <a href="../notes/revision-pack/">revision pack</a> tables + <a href="../notes/differentiators/">differentiators</a> only. Nothing new goes in today' },
+      { s: "Go", t: '100 MCQ in 90 min, +1 / −0.25. Two passes, skip rule, guess when you can kill one option' },
+      { s: "Done", t: 'Walk out, don’t post-mortem it with anyone. It’s done' }
     ]
   }
 ];
 
 const CHECKLIST = [
-  { id: "ck-biocheat", t: "Biopsych cheatsheet read end-to-end" },
-  { id: "ck-ap", t: "Action potential primer + 20 bank Q" },
-  { id: "ck-sleep", t: "Sleep primer + 20 bank Q (biopsych filter)" },
-  { id: "ck-bio02", t: "Anatomy + lobes drill (biopsych cheatsheet)" },
-  { id: "ck-bio03", t: "NTs + psychopharm drill (biopsych cheatsheet)" },
-  { id: "ck-metmock1", t: "MET Mock 1, full sit" },
-  { id: "ck-metdebrief", t: "Mock 1 debrief logged" },
-  { id: "ck-abnsprint", t: "Abnormal one-day sprint completed" },
-  { id: "ck-dsmtraps", t: "DSM-5 vs ICD-11 traps drilled" },
-  { id: "ck-devcheat", t: "Dev cheatsheet read end-to-end" },
-  { id: "ck-bronfen", t: "Bronfenbrenner deep-dive + traps" },
-  { id: "ck-hysheet", t: "High-yield abn+dev sheet, full pass" },
-  { id: "ck-nimhansmock1", t: "NIMHANS Mock 1 v2, full sit" },
-  { id: "ck-pyqbreak", t: "PYQ topic breakdown, Tier 1 marked" },
-  { id: "ck-assprimer", t: "Assessment primer + 20 bank Q (assessment filter)" },
-  { id: "ck-sem", t: "SEM/reliability/validity drill" },
-  { id: "ck-therapy", t: "Therapy founders chart + 15 bank Q" },
-  { id: "ck-metrep", t: "MET Mock 1 re-sit (target +15)" },
-  { id: "ck-biostat", t: "Biostats cheatsheet + research primer" },
-  { id: "ck-lang", t: "Language cheatsheet + RC drill" },
-  { id: "ck-nimhansrep", t: "NIMHANS Mock 1 v2 re-sit" }
+  { id: "ck-rm", t: "Research methodology read" },
+  { id: "ck-biostat", t: "Biostats cheatsheet read" },
+  { id: "ck-statdrill", t: "Research & Stats drill, 20 Q" },
+  { id: "ck-therapy", t: "Psychotherapy cheatsheet read" },
+  { id: "ck-therapydrill", t: "Therapy drill, 20 Q" },
+  { id: "ck-assess", t: "Assessment + intelligence + personality refs read" },
+  { id: "ck-assessdrill", t: "Assessment drill, 20 Q" },
+  { id: "ck-bio", t: "Biopsych cheatsheet + action potential swept" },
+  { id: "ck-biodrill", t: "Biopsych drill, 20 Q" },
+  { id: "ck-pyq", t: "NIMHANS PYQ breakdown, Tier 1 marked" },
+  { id: "ck-remix", t: "Wrong-answers remix cleared" },
+  { id: "ck-abndev", t: "High-yield abnormal + dev read" },
+  { id: "ck-icd", t: "DSM vs ICD traps + differentiators pass" },
+  { id: "ck-mixed", t: "Mixed lighter-area drill, ~30 Q" },
+  { id: "ck-mock", t: "Full NIMHANS mock, timed 90 min" },
+  { id: "ck-debrief", t: "Mock debrief logged, revision pack pass" },
+  { id: "ck-logistics", t: "ID / admit card / centre + travel sorted" }
 ];
 
-function renderWeeks() {
-  const root = document.getElementById("weeksGrid");
+function renderDays() {
+  const root = document.getElementById("daysGrid");
   root.innerHTML = "";
-  for (const w of WEEKS) {
+  for (const day of DAYS) {
     const card = document.createElement("div");
-    card.className = "card week-card" + (w.thisWeek ? " this-week" : "");
+    card.className = "card day-card" + (day.cls ? " " + day.cls : "");
     let html = `
       <div>
-        <div class="week-label">${w.label}${w.thisWeek ? " · This week" : ""}</div>
-        <h3>${w.title}</h3>
+        <div class="day-label">${day.label}</div>
+        <h3>${day.title}</h3>
       </div>
     `;
-    for (const day of w.days) {
-      html += `<div class="day-row"><div class="day">${day.d}</div><div class="task">${day.t}</div></div>`;
+    for (const row of day.tasks) {
+      html += `<div class="task-row"><div class="slot">${row.s}</div><div class="task">${row.t}</div></div>`;
     }
     card.innerHTML = html;
     root.appendChild(card);
@@ -302,17 +299,16 @@ function renderWeeks() {
 function renderChecklist() {
   const root = document.getElementById("checklist");
   root.innerHTML = "";
-  const saved = JSON.parse(localStorage.getItem("sihan-plan-checklist-v1") || "{}");
-  let done = 0;
+  const saved = JSON.parse(localStorage.getItem("sihan-plan-checklist-v2") || "{}");
   for (const item of CHECKLIST) {
     const li = document.createElement("li");
     const cb = document.createElement("input");
     cb.type = "checkbox";
     cb.checked = !!saved[item.id];
-    if (saved[item.id]) { li.classList.add("done"); done++; }
+    if (saved[item.id]) li.classList.add("done");
     cb.addEventListener("change", () => {
       saved[item.id] = cb.checked;
-      localStorage.setItem("sihan-plan-checklist-v1", JSON.stringify(saved));
+      localStorage.setItem("sihan-plan-checklist-v2", JSON.stringify(saved));
       li.classList.toggle("done", cb.checked);
       renderHero();
     });
@@ -325,7 +321,7 @@ function renderChecklist() {
 }
 
 function renderHero() {
-  const saved = JSON.parse(localStorage.getItem("sihan-plan-checklist-v1") || "{}");
+  const saved = JSON.parse(localStorage.getItem("sihan-plan-checklist-v2") || "{}");
   let done = 0;
   for (const item of CHECKLIST) if (saved[item.id]) done++;
   document.getElementById("heroDone").textContent = done;
@@ -333,7 +329,7 @@ function renderHero() {
 }
 
 updateCountdown();
-renderWeeks();
+renderDays();
 renderChecklist();
 renderHero();
 </script>
