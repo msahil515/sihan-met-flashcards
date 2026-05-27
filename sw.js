@@ -1,7 +1,7 @@
 /* MET 2026 prep - offline service worker
    Precaches the whole site so it works with no signal after one install.
    Bump CACHE on each deploy to refresh. */
-const CACHE = "met-prep-20260526-mphilreview";
+const CACHE = "met-prep-20260527-biopsychfigs";
 const BASE = "/sihan-met-flashcards/";
 const PRECACHE = [
   "/sihan-met-flashcards/",
@@ -29,6 +29,28 @@ const PRECACHE = [
   "/sihan-met-flashcards/notes/action-potential/",
   "/sihan-met-flashcards/notes/assessment/",
   "/sihan-met-flashcards/notes/biopsych-cheatsheet/",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_11_4.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_11_5.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_3_16.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_3_19.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_3_2.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_3_25.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_3_27.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_3_28.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_3_5.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_3_6.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_3_8.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_3_9.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_4_16.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_4_5.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_4_7.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_6_13.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_6_5.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_7_10.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_7_11.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_7_4.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_8_1.jpg",
+  "/sihan-met-flashcards/notes/biopsych-cheatsheet/figs/f_8_6.jpg",
   "/sihan-met-flashcards/notes/biostats-cheatsheet/",
   "/sihan-met-flashcards/notes/bronfenbrenner/",
   "/sihan-met-flashcards/notes/cognitive/",
