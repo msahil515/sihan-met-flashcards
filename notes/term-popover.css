@@ -1,0 +1,136 @@
+/* term-popover.css — tap a bolded term or abbreviation to see its definition */
+
+.tp-term {
+  cursor: pointer;
+  border-bottom: 1px dotted rgba(88, 166, 255, 0.55);
+  text-decoration: none;
+  position: relative;
+}
+.tp-term:hover {
+  background: rgba(88, 166, 255, 0.08);
+  border-radius: 2px;
+}
+.tp-term.tp-active {
+  background: rgba(88, 166, 255, 0.18);
+  border-radius: 2px;
+}
+/* keep the original bold weight if it was inside <b>/<strong> */
+b > .tp-term, strong > .tp-term {
+  font-weight: inherit;
+}
+/* Abbreviation tappables (outside <b>) get a slightly different feel */
+.tp-term.tp-abbr {
+  border-bottom-style: dashed;
+}
+
+#tp-popover-backdrop {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  z-index: 9998;
+  display: none;
+}
+#tp-popover-backdrop.tp-show {
+  display: block;
+}
+
+#tp-popover {
+  position: fixed;
+  z-index: 9999;
+  max-width: min(380px, calc(100vw - 24px));
+  background: var(--panel, #161b22);
+  color: var(--text, #e6edf3);
+  border: 1px solid var(--accent-dim, #1f6feb);
+  border-radius: 10px;
+  padding: 12px 14px 13px;
+  box-shadow: 0 10px 32px rgba(0,0,0,0.55);
+  font-size: 14px;
+  line-height: 1.55;
+  display: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+#tp-popover.tp-show {
+  display: block;
+}
+#tp-popover .tp-pop-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+#tp-popover .tp-pop-term {
+  font-weight: 700;
+  color: var(--accent, #58a6ff);
+  font-size: 15px;
+  flex: 1;
+  word-break: break-word;
+}
+#tp-popover .tp-pop-close {
+  background: transparent;
+  color: var(--muted, #8b949e);
+  border: none;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+  margin-top: -2px;
+}
+#tp-popover .tp-pop-close:hover {
+  color: var(--text, #e6edf3);
+}
+#tp-popover .tp-pop-body {
+  color: var(--text, #e6edf3);
+}
+#tp-popover .tp-pop-body em {
+  color: var(--muted, #8b949e);
+  font-style: normal;
+  font-size: 12.5px;
+  display: block;
+  margin-top: 6px;
+}
+#tp-popover .tp-pop-source {
+  font-size: 11.5px;
+  color: var(--muted, #8b949e);
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--border, #30363d);
+}
+
+/* Tiny floating help pill, top-right, telling Sihan the feature is live */
+#tp-hint {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  background: var(--panel, #161b22);
+  color: var(--muted, #8b949e);
+  border: 1px solid var(--border, #30363d);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  z-index: 9997;
+  cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  opacity: 0.85;
+}
+#tp-hint:hover {
+  opacity: 1;
+  color: var(--text, #e6edf3);
+}
+#tp-hint.tp-hide {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  #tp-popover {
+    left: 12px !important;
+    right: 12px !important;
+    max-width: none;
+    width: auto;
+  }
+  #tp-hint {
+    font-size: 11px;
+    right: 8px;
+    bottom: 8px;
+  }
+}
