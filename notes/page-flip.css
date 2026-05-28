@@ -1,0 +1,229 @@
+/* page-flip.css — book-style page-turn animation for the long notes pages.
+   A small "📖 Book mode" toggle in the corner switches the page from one long
+   scroll into a paged reader where every <h2> section is its own page, with
+   prev/next buttons, arrow keys, swipe, and a 3D page-fold transition.
+   Built 2026-05-28. */
+
+/* ---- toggle button ---- */
+#bf-toggle {
+  position: fixed;
+  right: 14px;
+  bottom: 56px;
+  background: var(--panel, #161b22);
+  color: var(--text, #e6edf3);
+  border: 1px solid var(--accent-dim, #1f6feb);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  z-index: 9996;
+  cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  line-height: 1;
+}
+#bf-toggle:hover {
+  border-color: var(--accent, #58a6ff);
+  color: var(--accent, #58a6ff);
+}
+#bf-toggle.bf-on {
+  background: var(--accent, #58a6ff);
+  color: #0d1117;
+  border-color: var(--accent, #58a6ff);
+}
+@media (max-width: 640px) {
+  #bf-toggle { right: 8px; bottom: 64px; font-size: 12px; padding: 7px 12px; }
+}
+
+/* ---- when book mode is on, the page becomes a paged reader ---- */
+.bf-mode .bf-hidden-section { display: none !important; }
+.bf-mode #tp-hint { display: none !important; } /* hide the popover hint pill — overlapping the nav looked bad */
+
+/* The stage is anchored to whatever element wrapped the original section
+   content. Perspective gives the fold a real 3D feel. */
+.bf-stage {
+  position: relative;
+  perspective: 2200px;
+  perspective-origin: 50% 50%;
+  margin-top: 8px;
+}
+.bf-page {
+  position: relative;
+  background: var(--bg, #0d1117);
+  /* Subtle paper-edge feel without going skeuomorphic */
+  border: 1px solid var(--border, #30363d);
+  border-radius: 10px;
+  padding: 18px 22px 24px;
+  min-height: 60vh;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset,
+              0 -1px 0 rgba(0,0,0,0.35) inset,
+              0 10px 30px rgba(0,0,0,0.25);
+}
+.bf-page h2 { margin-top: 0; }
+
+/* Page indicator + dot rail */
+.bf-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 16px 0 6px;
+  flex-wrap: wrap;
+}
+.bf-progress .bf-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--border, #30363d);
+  transition: background 0.15s ease, transform 0.15s ease;
+  cursor: pointer;
+}
+.bf-progress .bf-dot.bf-d-on {
+  background: var(--accent, #58a6ff);
+  transform: scale(1.3);
+}
+.bf-progress .bf-dot:hover { background: var(--accent-dim, #1f6feb); }
+
+/* Floating bottom nav bar with prev/next + page counter + section title */
+.bf-nav {
+  position: fixed;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--panel, #161b22);
+  border: 1px solid var(--border-strong, #424a53);
+  border-radius: 999px;
+  padding: 6px 8px;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.5);
+  z-index: 9995;
+  max-width: calc(100vw - 24px);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.bf-nav button {
+  background: transparent;
+  color: var(--text, #e6edf3);
+  border: 1px solid var(--border, #30363d);
+  border-radius: 999px;
+  width: 36px; height: 36px;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-flex; align-items: center; justify-content: center;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.bf-nav button:hover { border-color: var(--accent, #58a6ff); color: var(--accent, #58a6ff); }
+.bf-nav button:disabled { opacity: 0.35; cursor: default; }
+.bf-nav button:disabled:hover { border-color: var(--border, #30363d); color: var(--text, #e6edf3); }
+.bf-nav .bf-meta {
+  color: var(--muted, #8b949e);
+  font-size: 12px;
+  padding: 0 8px;
+  white-space: nowrap;
+  max-width: 38vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bf-nav .bf-meta b {
+  color: var(--text, #e6edf3);
+  font-weight: 600;
+}
+.bf-nav .bf-exit {
+  background: rgba(248,81,73,0.12);
+  border-color: rgba(248,81,73,0.4);
+  color: #ff7b72;
+  font-size: 12px;
+  font-weight: 600;
+  width: auto;
+  padding: 0 12px;
+}
+.bf-nav .bf-exit:hover { color: #ff7b72; border-color: #ff7b72; }
+@media (max-width: 540px) {
+  .bf-nav .bf-meta { display: none; }
+  .bf-nav button { width: 38px; height: 38px; }
+}
+
+/* Click hot-zones on left/right edges to flip with a tap (real book feel).
+   They're invisible but show a subtle gradient + arrow on hover. */
+.bf-edge {
+  position: fixed;
+  top: 0; bottom: 0;
+  width: 14vw;
+  max-width: 120px;
+  z-index: 9994;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: transparent;
+  transition: background 0.18s ease, color 0.18s ease;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.bf-edge.bf-left  { left: 0;  background: linear-gradient(to right, transparent, transparent); }
+.bf-edge.bf-right { right: 0; background: linear-gradient(to left,  transparent, transparent); }
+.bf-edge:hover.bf-left  { background: linear-gradient(to right, rgba(88,166,255,0.10), transparent); color: rgba(88,166,255,0.7); }
+.bf-edge:hover.bf-right { background: linear-gradient(to left,  rgba(88,166,255,0.10), transparent); color: rgba(88,166,255,0.7); }
+.bf-edge.bf-dis { display: none; }
+@media (max-width: 740px) { .bf-edge { display: none; } } /* phones use swipe instead */
+
+/* ---- the flip animation ---- */
+/* When advancing, a clone of the current page rotates around its LEFT edge
+   (the "spine"), peeling toward the camera and away to the left, exposing the
+   next page underneath. Going back is the same in reverse. */
+.bf-flipper {
+  position: absolute;
+  top: 0; left: 0;
+  right: 0;
+  height: 100%;
+  background: var(--bg, #0d1117);
+  border: 1px solid var(--border, #30363d);
+  border-radius: 10px;
+  padding: 18px 22px 24px;
+  z-index: 5;
+  transform-origin: left center;
+  transform: rotateY(0deg);
+  transition: transform 0.78s cubic-bezier(0.32, 0.04, 0.32, 1.0),
+              box-shadow 0.78s cubic-bezier(0.32, 0.04, 0.32, 1.0);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.55);
+  backface-visibility: hidden;
+  will-change: transform;
+  overflow: hidden;
+}
+.bf-flipper.bf-anim-next { transform: rotateY(-180deg); box-shadow: 0 24px 48px rgba(0,0,0,0.65); }
+.bf-flipper.bf-prev-start { transform: rotateY(-180deg); }
+.bf-flipper.bf-anim-prev  { transform: rotateY(0deg);    box-shadow: 0 24px 48px rgba(0,0,0,0.65); }
+
+/* Gradient fold on the spine side, for depth */
+.bf-flipper::before {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0;
+  width: 28px;
+  background: linear-gradient(to right, rgba(0,0,0,0.45), transparent);
+  pointer-events: none;
+}
+
+/* Mobile: shrink padding so content actually fits */
+@media (max-width: 640px) {
+  .bf-page, .bf-flipper { padding: 14px 14px 18px; min-height: 50vh; }
+}
+
+/* Reduced-motion accommodation */
+@media (prefers-reduced-motion: reduce) {
+  .bf-flipper {
+    transition: opacity 0.25s ease;
+    transform: rotateY(0deg) !important;
+  }
+  .bf-flipper.bf-anim-next, .bf-flipper.bf-anim-prev { opacity: 0; }
+}
