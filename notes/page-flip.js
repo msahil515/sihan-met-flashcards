@@ -82,16 +82,35 @@
   var stage = null;
   var stagePlaceholder = null;
   var nav = null;
+  var toc = null;
   var edgeL = null, edgeR = null;
+  var hiddenChrome = []; /* pre/post-section chrome (H1, intro, jump list, footer) hidden in book mode */
   var allSectionNodes = pages.reduce(function (acc, p) { return acc.concat(p.nodes); }, []);
   var origPosition = (function () {
     var first = allSectionNodes[0];
     return { parent: first.parentNode, before: first };
   })();
+  /* The page's own <h1> title, shown as a slim header inside the reader so you
+     always know which note you're in once the original header is hidden. */
+  var bookTitle = (function () {
+    var h1 = (root.querySelector && root.querySelector("h1")) ||
+             document.querySelector("h1");
+    return h1 ? (h1.textContent || "").trim().replace(/\s+/g, " ") : "";
+  })();
 
   function buildStage() {
     stage = document.createElement("div");
     stage.className = "bf-stage";
+
+    /* Slim book header: title of the note + a contents button on the right.
+       Replaces the long pre-section header we hide below. */
+    if (bookTitle) {
+      var head = document.createElement("div");
+      head.className = "bf-booktitle";
+      head.innerHTML = '<span class="bf-booktitle-text"></span>';
+      head.querySelector(".bf-booktitle-text").textContent = bookTitle;
+      stage.appendChild(head);
+    }
 
     var pageEl = document.createElement("div");
     pageEl.className = "bf-page bf-current";
@@ -102,7 +121,7 @@
     pages.forEach(function (_, i) {
       var d = document.createElement("span");
       d.className = "bf-dot";
-      d.title = "Page " + (i + 1);
+      d.title = "Page " + (i + 1) + ": " + pages[i].title;
       d.addEventListener("click", function () { jumpTo(i); });
       prog.appendChild(d);
     });
@@ -116,19 +135,39 @@
       if (n.classList) n.classList.add("bf-hidden-section");
     });
 
+    /* Hide the rest of the reading-root chrome that isn't part of a page —
+       the H1, intro paragraphs, the hero/"high-yield" banner, the long
+       "Jump to" list, any footer. Without this the book gets shoved hundreds
+       of pixels down the screen under a wall of nav links (the old breakage).
+       We keep the site <nav> bar so you can still leave the page. */
+    hiddenChrome = [];
+    var SKIP_TAGS = { SCRIPT: 1, STYLE: 1, LINK: 1, TEMPLATE: 1, NAV: 1 };
+    Array.prototype.slice.call(origPosition.parent.children).forEach(function (el) {
+      if (el === stage) return;
+      if (SKIP_TAGS[el.tagName]) return;
+      if (el.id === "bf-toggle") return; /* our own injected UI (matters if root === body) */
+      if (el.classList && el.classList.contains("bf-hidden-section")) return; /* already hidden */
+      el.classList.add("bf-chrome-hidden");
+      hiddenChrome.push(el);
+    });
+
     /* Nav bar */
     nav = document.createElement("div");
     nav.className = "bf-nav";
     nav.innerHTML =
+      '<button class="bf-toc" aria-label="Contents" title="Contents" type="button">&#9776;</button>' +
       '<button class="bf-prev" aria-label="Previous page" type="button">&#9664;</button>' +
       '<span class="bf-meta"><b class="bf-meta-num"></b> <span class="bf-meta-sep">·</span> <span class="bf-meta-title"></span></span>' +
       '<button class="bf-next" aria-label="Next page" type="button">&#9654;</button>' +
       '<button class="bf-exit" type="button">Exit</button>';
     document.body.appendChild(nav);
 
+    nav.querySelector(".bf-toc").addEventListener("click", function () { toggleToc(); });
     nav.querySelector(".bf-prev").addEventListener("click", function () { flip(-1); });
     nav.querySelector(".bf-next").addEventListener("click", function () { flip(1); });
     nav.querySelector(".bf-exit").addEventListener("click", function () { setMode(false); });
+
+    buildToc();
 
     /* Edge hot-zones (desktop/tablet only — phones get swipe) */
     edgeL = document.createElement("div");
@@ -151,10 +190,71 @@
     allSectionNodes.forEach(function (n) {
       if (n.classList) n.classList.remove("bf-hidden-section");
     });
+    hiddenChrome.forEach(function (el) {
+      if (el.classList) el.classList.remove("bf-chrome-hidden");
+    });
+    hiddenChrome = [];
     stage.remove(); stage = null;
     if (nav)   { nav.remove();   nav = null; }
+    if (toc)   { toc.remove();   toc = null; }
     if (edgeL) { edgeL.remove(); edgeL = null; }
     if (edgeR) { edgeR.remove(); edgeR = null; }
+  }
+
+  /* -------------------- 3b. CONTENTS OVERLAY -------------------- */
+
+  /* A tap-to-jump table of contents, since the long in-page "Jump to" list is
+     hidden in book mode. Lists every page by title; the current page is marked. */
+  function buildToc() {
+    toc = document.createElement("div");
+    toc.className = "bf-toc-overlay";
+    var panel = document.createElement("div");
+    panel.className = "bf-toc-panel";
+
+    var h = document.createElement("div");
+    h.className = "bf-toc-head";
+    h.innerHTML = '<span>Contents</span><button class="bf-toc-close" type="button" aria-label="Close">&#10005;</button>';
+    panel.appendChild(h);
+
+    var list = document.createElement("ol");
+    list.className = "bf-toc-list";
+    pages.forEach(function (p, i) {
+      var li = document.createElement("li");
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "bf-toc-item";
+      b.textContent = p.title;
+      b.addEventListener("click", function () {
+        closeToc();
+        jumpTo(i);
+      });
+      li.appendChild(b);
+      list.appendChild(li);
+    });
+    panel.appendChild(list);
+    toc.appendChild(panel);
+
+    /* tap outside the panel (on the dim backdrop) closes */
+    toc.addEventListener("click", function (e) { if (e.target === toc) closeToc(); });
+    h.querySelector(".bf-toc-close").addEventListener("click", closeToc);
+    document.body.appendChild(toc);
+  }
+
+  function openToc() {
+    if (!toc) return;
+    /* mark the active item + scroll it into view */
+    var items = toc.querySelectorAll(".bf-toc-item");
+    for (var i = 0; i < items.length; i++) {
+      items[i].classList.toggle("bf-toc-cur", i === state.idx);
+    }
+    document.body.classList.add("bf-toc-open");
+    var cur = toc.querySelector(".bf-toc-cur");
+    if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: "center" });
+  }
+  function closeToc() { document.body.classList.remove("bf-toc-open"); }
+  function toggleToc() {
+    if (document.body.classList.contains("bf-toc-open")) closeToc();
+    else openToc();
   }
 
   /* -------------------- 4. RENDER + FLIP -------------------- */
@@ -162,8 +262,19 @@
   function buildPageContent(idx) {
     var frag = document.createDocumentFragment();
     pages[idx].nodes.forEach(function (n) {
-      /* Clone so we can keep the original DOM intact and toggle without losing it */
-      frag.appendChild(n.cloneNode(true));
+      /* Clone so we can keep the original DOM intact and toggle without losing it.
+         The originals are tagged bf-hidden-section (display:none in book mode);
+         the clone inherits that class, so strip our own bookkeeping classes off
+         the clone and its descendants or the page renders blank. */
+      var c = n.cloneNode(true);
+      if (c.classList) c.classList.remove("bf-hidden-section", "bf-chrome-hidden");
+      if (c.querySelectorAll) {
+        var inner = c.querySelectorAll(".bf-hidden-section, .bf-chrome-hidden");
+        for (var i = 0; i < inner.length; i++) {
+          inner[i].classList.remove("bf-hidden-section", "bf-chrome-hidden");
+        }
+      }
+      frag.appendChild(c);
     });
     return frag;
   }
@@ -298,11 +409,13 @@
     /* don't hijack typing in inputs */
     var t = e.target;
     if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
+    var tocOpen = document.body.classList.contains("bf-toc-open");
+    if (e.key === "Escape") { if (tocOpen) closeToc(); else setMode(false); return; }
+    if (tocOpen) return; /* let the contents list scroll normally while open */
     if (e.key === "ArrowRight" || e.key === "PageDown") { e.preventDefault(); flip(1); }
     else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); flip(-1); }
     else if (e.key === "Home") { e.preventDefault(); jumpTo(0); }
     else if (e.key === "End")  { e.preventDefault(); jumpTo(pages.length - 1); }
-    else if (e.key === "Escape") { setMode(false); }
   });
 
   /* Touch swipe (left = next, right = prev) — phones only */

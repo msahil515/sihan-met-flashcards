@@ -42,7 +42,30 @@
 
 /* ---- when book mode is on, the page becomes a paged reader ---- */
 .bf-mode .bf-hidden-section { display: none !important; }
+/* The pre/post-section chrome (H1, intro, hero banner, the long "Jump to"
+   list, footer) is hidden so the reader fills the screen instead of being
+   pushed down under it. The site nav bar is intentionally NOT hidden. */
+.bf-mode .bf-chrome-hidden { display: none !important; }
 .bf-mode #tp-hint { display: none !important; } /* hide the popover hint pill — overlapping the nav looked bad */
+
+/* Slim title bar at the top of the reader so you know which note you're in
+   now that the original page header is hidden. */
+.bf-booktitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border, #30363d);
+}
+.bf-booktitle-text {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: var(--muted, #8b949e);
+  text-transform: none;
+  line-height: 1.3;
+}
 
 /* The stage is anchored to whatever element wrapped the original section
    content. Perspective gives the fold a real 3D feel. */
@@ -227,3 +250,99 @@
   }
   .bf-flipper.bf-anim-next, .bf-flipper.bf-anim-prev { opacity: 0; }
 }
+
+/* ---- Contents (table-of-contents) overlay ---- */
+/* The contents (☰) button sits at the left of the floating nav bar. */
+.bf-nav .bf-toc { font-size: 15px; }
+
+.bf-toc-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9997; /* above nav + edges, below the popover (which is higher) */
+  display: none;
+  background: rgba(1, 4, 9, 0.62);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+.bf-toc-open .bf-toc-overlay { display: block; }
+.bf-toc-panel {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(520px, calc(100vw - 32px));
+  max-height: min(74vh, 720px);
+  display: flex;
+  flex-direction: column;
+  background: var(--panel, #161b22);
+  border: 1px solid var(--border-strong, #424a53);
+  border-radius: 14px;
+  box-shadow: 0 18px 60px rgba(0,0,0,0.6);
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.bf-toc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent, #58a6ff);
+  border-bottom: 1px solid var(--border, #30363d);
+}
+.bf-toc-close {
+  background: transparent;
+  border: none;
+  color: var(--muted, #8b949e);
+  font-size: 16px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 2px 4px;
+}
+.bf-toc-close:hover { color: var(--text, #e6edf3); }
+.bf-toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  counter-reset: bftoc;
+}
+.bf-toc-list li { margin: 0; }
+.bf-toc-item {
+  counter-increment: bftoc;
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: var(--text, #e6edf3);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  padding: 10px 12px 10px 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+}
+.bf-toc-item::before {
+  content: counter(bftoc);
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  min-width: 20px;
+  text-align: right;
+  font-size: 11px;
+  color: var(--muted, #8b949e);
+}
+.bf-toc-item:hover { background: rgba(88,166,255,0.10); }
+.bf-toc-item.bf-toc-cur {
+  background: rgba(88,166,255,0.16);
+  color: var(--accent, #58a6ff);
+  font-weight: 600;
+}
+.bf-toc-item.bf-toc-cur::before { color: var(--accent, #58a6ff); }
