@@ -343,8 +343,12 @@
      "BDNF", "5-HT", "KF rings" when they appear in plain text (not inside
      <b>/<strong>, links, headings or code). We exclude single-letter All-caps
      starts of sentences via word-boundary + minimum length. */
+  /* Non-capturing group: this regex's .source gets nested inside another
+     capturing group when building `combined` for String.split() below. A
+     capturing group here would make split() emit each match twice (outer +
+     inner capture), doubling abbreviations into "EEGEEG"/"ANOVAANOVA". */
   var ABBR_REGEX = new RegExp(
-    "\\b(" +
+    "\\b(?:" +
       "preSMA|fMRI|SMA|M1|S1|V1|A1|IFG|IPL|STS|DLPFC|VMPFC|OFC|ACC|PCC|MFG|" +
       "DMN|VTA|SNc|NAcc|PAG|LC|DRN|SCN|PVN|ARC|LH|VMH|MTL|CA1|CA3|DG|EC|" +
       "NMDA|AMPA|GABA|GLU|5-HT|DA|NE|ACh|BDNF|CREB|LTP|LTD|EPSP|IPSP|AP|" +
