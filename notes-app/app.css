@@ -288,68 +288,134 @@ button { font-family: inherit; cursor: pointer; }
 .reader .appbar .crumb .sec { font-family: var(--sans); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); font-weight: 700; }
 .reader .appbar .crumb .tt { font-family: var(--serif); font-weight: 700; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
 
-/* the desk: dark walnut + grain + vignette, holds the stage + rails */
-.deskwrap {
+/* the desk: dark walnut + grain + vignette, holds the open book */
+.desk {
   flex: 1; min-height: 0; position: relative;
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex; align-items: stretch; justify-content: center;
+  gap: 8px;
+  padding: 26px 20px 22px;
   background:
-    radial-gradient(120% 90% at 50% -10%, rgba(120,84,40,0.22), transparent 60%),
+    radial-gradient(130% 95% at 50% -12%, rgba(120,84,40,0.24), transparent 60%),
     repeating-linear-gradient(91deg, rgba(0,0,0,0.10) 0 3px, transparent 3px 7px),
     linear-gradient(180deg, var(--desk), var(--desk-2));
   overflow: hidden;
 }
-.deskwrap::before { /* edge vignette so the leaf reads as lit */
+.desk::before { /* edge vignette so the book reads as lit on the desk */
   content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
-  box-shadow: inset 0 0 160px rgba(0,0,0,0.55);
+  box-shadow: inset 0 0 180px rgba(0,0,0,0.6);
 }
 
-/* the centre stage where the leaf floats */
-.stage {
-  position: relative; z-index: 2; min-height: 0; overflow: hidden;
-  display: flex; justify-content: center;
-  padding: 26px 26px 0;
-}
-.sheet {
-  position: relative; width: 100%; max-width: 760px; height: 100%;
-  border-radius: 8px 8px 0 0; overflow: hidden;
-  box-shadow: var(--leaf-shadow);
+/* ----- the open book: a wide spread that fills the desk width ----- */
+.openbook {
+  position: relative; z-index: 2;
+  flex: 1; min-width: 0; max-width: 1380px; height: 100%;
+  border-radius: 5px;
   background: var(--vellum);
+  box-shadow: var(--leaf-shadow);
 }
-.sheet::before { /* binding shadow down the left = a bound book */
-  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 26px; z-index: 4;
+/* fore-edges: a stack of pages down each outer side */
+.openbook::before,
+.openbook::after {
+  content: ""; position: absolute; top: 6px; bottom: 6px; width: 9px; z-index: 5;
   pointer-events: none;
-  background: linear-gradient(90deg, rgba(60,40,12,0.16), transparent);
+  background:
+    repeating-linear-gradient(180deg, rgba(247,241,225,0.95) 0 1.5px, rgba(150,124,74,0.35) 1.5px 3px);
 }
-.sheet::after { /* faint top fore-edge highlight */
-  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; z-index: 4;
-  pointer-events: none; background: linear-gradient(180deg, rgba(255,255,255,0.7), transparent);
-}
-.sheet iframe { display: block; width: 100%; height: 100%; border: 0; background: var(--vellum); }
+.openbook::before { left: -9px; border-radius: 4px 0 0 4px;
+  box-shadow: inset -1px 0 2px rgba(0,0,0,0.28), -2px 0 6px rgba(0,0,0,0.4); }
+.openbook::after  { right: -9px; border-radius: 0 4px 4px 0;
+  box-shadow: inset 1px 0 2px rgba(0,0,0,0.28), 2px 0 6px rgba(0,0,0,0.4); }
 
-/* ----- side rails (wide screens only) ----- */
+.openbook iframe {
+  display: block; width: 100%; height: 100%; border: 0;
+  background: transparent; border-radius: 5px; position: relative; z-index: 2;
+}
+
+/* the spine: a soft valley down the centre with a crisp seam */
+.openbook .spine {
+  position: absolute; top: 0; bottom: 0; left: 50%; width: 12%;
+  transform: translateX(-50%); z-index: 4; pointer-events: none;
+  background:
+    linear-gradient(90deg,
+      transparent 0,
+      rgba(60,40,12,0.05) 32%,
+      rgba(60,40,12,0.16) 47%,
+      rgba(40,26,8,0.26) 50%,
+      rgba(60,40,12,0.16) 53%,
+      transparent 68%);
+}
+.openbook .spine::after { /* the centre seam line + a thread of light */
+  content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(255,255,255,0.45), rgba(70,48,16,0.5) 14%, rgba(70,48,16,0.5) 86%, rgba(255,255,255,0.4));
+}
+/* gutter shadows hugging the spine on each inner page edge */
+.openbook .gutter-l,
+.openbook .gutter-r {
+  position: absolute; top: 0; bottom: 0; width: 46px; z-index: 3; pointer-events: none;
+}
+.openbook .gutter-l { left: calc(50% - 46px); background: linear-gradient(90deg, transparent, rgba(50,33,10,0.10)); }
+.openbook .gutter-r { left: 50%; background: linear-gradient(270deg, transparent, rgba(50,33,10,0.10)); }
+/* top + bottom fore-edge highlight on the leaf */
+.openbook .leaf-hi {
+  position: absolute; left: 0; right: 0; top: 0; height: 3px; z-index: 4; pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.7), transparent); border-radius: 5px 5px 0 0;
+}
+
+/* ----- page-turn handles flanking the book ----- */
+.turn {
+  position: relative; z-index: 3; flex: none; align-self: center;
+  width: 52px; height: 96px; border: 1px solid rgba(200,176,112,0.28);
+  background: linear-gradient(180deg, rgba(255,248,228,0.07), rgba(255,248,228,0.02));
+  color: var(--gold-soft); border-radius: 14px;
+  font-size: 30px; line-height: 1; display: grid; place-items: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  transition: background .14s ease, color .14s ease, transform .12s ease, opacity .14s ease;
+}
+.turn:hover:not(:disabled) { background: rgba(255,248,228,0.13); color: #fdf3da; }
+.turn:active:not(:disabled) { transform: scale(0.94); }
+.turn:disabled { opacity: 0.22; cursor: default; }
+
+/* ----- reader footer: page position + progress + chapter nav ----- */
+.readerfoot {
+  display: flex; align-items: center; gap: 14px;
+  padding: 8px 18px calc(8px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--rule);
+  background: rgba(244,236,216,0.96);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.foot-nav {
+  flex: none; border: 1px solid var(--rule); background: rgba(255,255,255,0.8); color: var(--ink);
+  padding: 9px 14px; border-radius: 10px; font-weight: 700; font-size: 13px;
+  font-family: var(--sans); box-shadow: var(--shadow-sm);
+  max-width: 38vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.foot-nav:disabled { opacity: 0.38; }
+.foot-mid { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.pagelabel { font-family: var(--sans); font-size: 12px; letter-spacing: 0.04em; color: var(--ink-2); font-weight: 600; }
+.booklabel { font-family: var(--serif); font-size: 12.5px; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; font-style: italic; }
+.progbar { width: min(420px, 70%); height: 4px; border-radius: 3px; background: rgba(120,95,55,0.18); overflow: hidden; }
+.progbar span { display: block; height: 100%; width: 0; border-radius: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-2)); transition: width .28s ease; }
+
+/* ----- contents drawer (works in both modes) ----- */
 .rail {
   position: relative; z-index: 2; min-height: 0;
-  display: none;            /* shown by the wide-screen media query */
-  flex-direction: column;
-  padding: 28px 18px 18px;
-  color: var(--desk-ink);
+  display: flex; flex-direction: column;
+  padding: 22px 18px 18px; color: var(--desk-ink);
 }
 .rail .rail-h {
   font-family: var(--sans); font-size: 10.5px; font-weight: 700;
   letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-soft);
   margin: 0 0 14px; padding-bottom: 10px; border-bottom: 1px solid var(--desk-rule);
 }
-
-/* left rail: live contents with scroll-spy */
-.rail-left { }
 .toclist { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1;
   -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
 .toclist::-webkit-scrollbar { width: 6px; }
 .toclist::-webkit-scrollbar-thumb { background: rgba(200,176,112,0.3); border-radius: 3px; }
 .toclist li { margin: 0; }
 .toclist a {
-  display: block; position: relative;
+  display: block; position: relative; cursor: pointer;
   font-family: var(--serif); font-size: 14px; line-height: 1.4;
   color: var(--desk-soft); padding: 8px 6px 8px 18px;
   border-radius: 7px; transition: color .12s ease, background .12s ease;
@@ -363,64 +429,29 @@ button { font-family: inherit; cursor: pointer; }
 .toclist a.active { color: #fdf3da; }
 .toclist a.active::before { height: 18px; }
 
-/* right rail: progress + up next */
-.rail-right { }
-.progwrap { display: flex; align-items: center; gap: 14px; margin-bottom: 4px; }
-.progring { flex: none; }
-.progring .track { fill: none; stroke: rgba(200,176,112,0.18); stroke-width: 5; }
-.progring .fill  { fill: none; stroke: var(--gold-2); stroke-width: 5; stroke-linecap: round;
-  transition: stroke-dashoffset .2s ease; transform: rotate(-90deg); transform-origin: 50% 50%; }
-.progring .pct { font-family: var(--serif); font-size: 15px; font-weight: 700; fill: #fdf3da; }
-.progmeta .ch { font-family: var(--sans); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-soft); font-weight: 700; }
-.progmeta .nm { font-family: var(--serif); font-size: 16px; color: var(--desk-ink); margin-top: 2px; line-height: 1.25; }
-
-.upnext { margin-top: 22px; display: flex; flex-direction: column; gap: 10px; }
-.navcard {
-  display: block; border: 1px solid var(--desk-rule); border-radius: 11px;
-  padding: 12px 14px; background: rgba(255,255,255,0.035);
-  transition: background .12s ease, transform .12s ease, border-color .12s ease;
+/* the contents rail is an off-canvas drawer in BOTH layouts now */
+.reader .rail-left {
+  position: fixed; top: var(--topbar); bottom: 0; left: 0; z-index: 50;
+  width: min(86vw, 340px);
+  background: linear-gradient(180deg, var(--desk), var(--desk-2));
+  box-shadow: 18px 0 50px rgba(0,0,0,0.5);
+  transform: translateX(-104%); transition: transform .24s cubic-bezier(.2,.7,.3,1);
 }
-.navcard:hover { background: rgba(255,255,255,0.08); border-color: rgba(200,176,112,0.32); transform: translateY(-1px); }
-.navcard .dir { font-family: var(--sans); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-soft); font-weight: 700; }
-.navcard .ttl { font-family: var(--serif); font-size: 15px; color: var(--desk-ink); margin-top: 3px; line-height: 1.25; }
-.navcard.disabled { opacity: 0.4; pointer-events: none; }
-
-.morein { margin-top: 24px; }
-.morein .rail-h { margin-bottom: 11px; }
-.moreitem {
-  display: flex; align-items: center; gap: 10px; padding: 7px 4px;
-  font-family: var(--serif); font-size: 13.5px; color: var(--desk-soft);
-  border-radius: 7px; transition: color .12s ease, background .12s ease;
-}
-.moreitem:hover { color: var(--desk-ink); background: rgba(255,255,255,0.04); }
-.moreitem.cur { color: var(--gold-2); }
-.moreitem .sp { width: 5px; height: 22px; border-radius: 2px; flex: none; opacity: 0.85; }
-
-/* ----- bottom nav (narrow screens) ----- */
-.readernav {
-  display: flex; align-items: center; gap: 10px;
-  padding: 9px 14px calc(9px + env(safe-area-inset-bottom));
-  border-top: 1px solid var(--rule);
-  background: rgba(244,236,216,0.96); backdrop-filter: blur(8px);
-}
-.readernav button {
-  flex: 1; border: 1px solid var(--rule); background: rgba(255,255,255,0.8); color: var(--ink);
-  padding: 11px 12px; border-radius: 11px; font-weight: 700; font-size: 13.5px;
-  display: flex; align-items: center; justify-content: center; gap: 7px;
-  box-shadow: var(--shadow-sm); min-width: 0; font-family: var(--sans);
-}
-.readernav button:disabled { opacity: 0.4; }
-.readernav button .lbl { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.readernav .pos { flex: none; font-family: var(--sans); font-size: 12px; color: var(--ink-soft); padding: 0 6px; text-align: center; white-space: nowrap; }
+body.toc-open .reader .rail-left { transform: translateX(0); }
 
 .fontctl { display: flex; align-items: center; gap: 2px; border: 1px solid var(--rule); border-radius: 11px; background: rgba(255,255,255,0.7); box-shadow: var(--shadow-sm); }
 .fontctl button { border: 0; background: transparent; width: 38px; height: 40px; font-size: 16px; color: var(--ink); border-radius: 11px; }
 .fontctl button:first-child { font-size: 13px; }
 .fontctl button:active { background: rgba(0,0,0,0.05); }
 
-/* contents drawer toggle (narrow only) */
-.tocbtn { display: none; }
-.tocscrim { display: none; }
+/* contents drawer toggle (always shown in the reader) + its scrim */
+.tocbtn { display: grid; }
+.tocscrim {
+  display: block;
+  position: fixed; inset: var(--topbar) 0 0 0; z-index: 49; background: rgba(20,12,6,0.45);
+  opacity: 0; pointer-events: none; transition: opacity .24s ease;
+}
+body.toc-open .tocscrim { opacity: 1; pointer-events: auto; }
 
 /* ---------- Search overlay ---------- */
 .searchpane {
@@ -451,47 +482,16 @@ button { font-family: inherit; cursor: pointer; }
    Responsive
    ============================================================ */
 
-/* Wide tablet / desktop: bring the rails in, drop the bottom nav. */
-@media (min-width: 1000px) {
-  .deskwrap { grid-template-columns: minmax(220px, 270px) minmax(0, 1fr) minmax(240px, 300px); }
-  .rail { display: flex; }
-  .stage { padding: 34px 30px 0; }
-  .sheet { max-width: 720px; }
-  .reader > .readernav { display: none; }
-}
-
-/* extra-wide: a touch more room for the leaf */
-@media (min-width: 1500px) {
-  .deskwrap { grid-template-columns: minmax(240px, 300px) minmax(0, 1fr) minmax(260px, 320px); }
-  .sheet { max-width: 780px; }
-}
-
-/* Narrow: single column, bottom nav, contents as a slide-in drawer. */
+/* Narrow / portrait: a single full-bleed page that scrolls; the open-book
+   spread + page-turn handles are for landscape. JS drops paged mode here. */
 @media (max-width: 999px) {
-  .stage { padding: 0; }
-  .sheet { max-width: none; border-radius: 0; box-shadow: none; }
-  .sheet::before, .sheet::after { display: none; }
-  .deskwrap { background: var(--vellum); }
-  .deskwrap::before { display: none; }
-
-  .tocbtn { display: grid; }
-  .rail-right { display: none; }
-  /* left rail becomes an off-canvas drawer */
-  .reader .rail-left {
-    display: flex; position: fixed; top: var(--topbar); bottom: 0; left: 0; z-index: 50;
-    width: min(82vw, 330px);
-    background: linear-gradient(180deg, var(--desk), var(--desk-2));
-    box-shadow: 18px 0 50px rgba(0,0,0,0.5);
-    transform: translateX(-104%); transition: transform .24s cubic-bezier(.2,.7,.3,1);
-    padding-top: 22px;
-  }
-  body.toc-open .reader .rail-left { transform: translateX(0); }
-  .tocscrim {
-    display: block;
-    position: fixed; inset: var(--topbar) 0 0 0; z-index: 49; background: rgba(20,12,6,0.45);
-    opacity: 0; pointer-events: none; transition: opacity .24s ease;
-  }
-  body.toc-open .tocscrim { opacity: 1; pointer-events: auto; }
+  .desk { padding: 0; background: var(--vellum); gap: 0; }
+  .desk::before { display: none; }
+  .turn { display: none; }
+  .openbook { max-width: none; height: 100%; border-radius: 0; box-shadow: none; }
+  .openbook::before, .openbook::after,
+  .openbook .spine, .openbook .gutter-l, .openbook .gutter-r, .openbook .leaf-hi { display: none; }
+  .readerfoot .progbar { width: 40%; }
 }
 
 @media (max-width: 600px) {
@@ -501,4 +501,6 @@ button { font-family: inherit; cursor: pointer; }
   .book .b-title { font-size: 17px; }
   .continue { margin-top: 22px; }
   .appbar .brand { font-size: 18px; }
+  .foot-nav { max-width: 32vw; font-size: 12px; padding: 9px 10px; }
+  .booklabel { display: none; }
 }

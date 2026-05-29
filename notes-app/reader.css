@@ -120,3 +120,77 @@ body.nfe-reader {
   .nfe-article.wrap { padding: 2rem 1.15rem 7rem; }
   .nfe-article h1 { font-size: 1.8em; }
 }
+
+/* ============================================================
+   TWO-PAGE SPREAD (paginated) mode
+   The shell turns this leaf into an open book: the article becomes a
+   multi-column flow whose columns ARE the printed pages, two visible at a
+   time, paged by a horizontal slide. The shell measures the frame and sets
+   --pg-col / --pg-gap / --pg-pv / --pg-ph and drives --pg-x to turn pages.
+   ============================================================ */
+html.nfe-paged { height: 100%; overflow: hidden; }
+body.nfe-reader.nfe-paged {
+  height: 100%; margin: 0; overflow: hidden;
+  /* the spread sits flat; the desk + spine are drawn by the shell around it */
+  background:
+    repeating-linear-gradient(180deg, rgba(120,96,40,0.020) 0 2px, transparent 2px 26px),
+    linear-gradient(180deg, #fbf6e9 0%, var(--leaf) 60%, var(--leaf-2) 100%)
+    !important;
+  background-attachment: scroll !important;
+}
+.nfe-article.nfe-paged-article {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: var(--pg-pv, 3rem) var(--pg-ph, 2.4rem);
+  column-count: 2;
+  -webkit-column-count: 2;
+  column-gap: var(--pg-gap, 5rem);
+  -webkit-column-gap: var(--pg-gap, 5rem);
+  column-fill: auto;
+  -webkit-column-fill: auto;
+  overflow: visible;
+  transform: translateX(calc(-1 * var(--pg-x, 0px)));
+  transition: transform .36s cubic-bezier(.22,.61,.36,1);
+  will-change: transform;
+}
+.nfe-paged-article > h1:first-child { margin-top: 0; }
+
+/* a chapter opens on the FIRST page: don't let the title strand alone */
+.nfe-paged-article h1,
+.nfe-paged-article h2,
+.nfe-paged-article h3,
+.nfe-paged-article h4 {
+  break-after: avoid-column;
+  -webkit-column-break-after: avoid;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+}
+/* Keep SHORT self-contained blocks whole across a page break. Tall blocks
+   (the frontispiece contents, big tables, figures) are deliberately allowed
+   to flow across the page break: forcing them whole strands a half-empty
+   page, which reads worse than a clean continuation. */
+.nfe-paged-article .callout,
+.nfe-paged-article blockquote,
+.nfe-paged-article pre,
+.nfe-paged-article .trap,
+.nfe-paged-article .recap,
+.nfe-paged-article .nimhans,
+.nfe-paged-article .why {
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+}
+.nfe-paged-article p { orphans: 2; widows: 2; }
+/* tables split across pages rather than clip; keep them readable */
+.nfe-paged-article table { font-size: 0.8em; }
+.nfe-paged-article thead { display: table-header-group; }
+
+/* accordion cram pages are forced fully open + linear when printed as a book:
+   drop the clipping, the sticky TOC, and the expand/collapse controls */
+.nfe-paged-article details { overflow: visible !important; }
+.nfe-paged-article details.toc,
+.nfe-paged-article .toc { position: static !important; }
+.nfe-paged-article .acc-bar { display: none !important; }
+.nfe-paged-article details > summary { cursor: default; }

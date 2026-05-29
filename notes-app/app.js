@@ -12,7 +12,6 @@
   var BYSLUG = {};          // slug -> flat entry
   var SEARCH = null;        // lazy search index
   var FS_KEY = "nfe:fs", LAST_KEY = "nfe:last", SCROLL_KEY = "nfe:scroll";
-  var RING_C = 2 * Math.PI * 20;   // progress-ring circumference (r=20)
 
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
@@ -130,16 +129,27 @@
     window.scrollTo(0, 0);
   }
 
-  /* ---------- reader ---------- */
+  /* ---------- reader (the open book) ----------
+     On landscape/wide screens the chapter is laid out as a true two-page
+     spread: the in-frame article becomes a multi-column flow whose columns
+     ARE the printed pages (two visible), and a page turn slides the flow by
+     one spread. On narrow/portrait it falls back to a single page that
+     scrolls. State below is shared with the keyboard handler. */
+  var FRAME = null, RSLUG = null, PREV = null, NEXT = null, RIDX = 0;
+  var PAGED = false, SPREAD_W = 0, NSPREADS = 1, CUR = 0;
+  var SECS = [];                                   // [{id,label,el,spread}]
+  var SPREAD_KEY = "nfe:spread";
+  var PAGED_MQ = window.matchMedia("(min-width: 1000px)");
+  var pendingOpenLast = false;                     // arrive at a chapter's last page
+  var relayoutTimer = null;
+
   function renderReader(slug) {
     document.body.classList.add("reading");
     var e = BYSLUG[slug];
-    var idx = FLAT.indexOf(e);
-    var prev = FLAT[idx - 1], next = FLAT[idx + 1];
+    RSLUG = slug; RIDX = FLAT.indexOf(e);
+    PREV = FLAT[RIDX - 1]; NEXT = FLAT[RIDX + 1];
+    SECS = []; PAGED = false; NSPREADS = 1; CUR = 0;
     localStorage.setItem(LAST_KEY, slug);
-
-    // "More in this section"
-    var fam = FLAT.filter(function (f) { return f.section === e.section; });
 
     var html = '<div class="reader">';
 
@@ -155,150 +165,229 @@
       '<button class="iconbtn" id="readerSearch" aria-label="Search">&#128269;</button>' +
       '</div>';
 
-    // desk: [contents rail] [stage] [meta rail]
-    html += '<div class="deskwrap">';
+    // the desk: a page-turn handle, the open book, a page-turn handle
+    html += '<div class="desk">' +
+      '<button class="turn turn-prev" id="turnPrev" aria-label="Previous page">&#8249;</button>' +
+      '<div class="openbook" id="openbook">' +
+        '<div class="leaf-hi"></div>' +
+        '<iframe id="reader" title="' + esc(e.title) + '" src="content/' + esc(slug) + '.html"></iframe>' +
+        '<div class="gutter-l"></div><div class="gutter-r"></div>' +
+        '<div class="spine"></div>' +
+      '</div>' +
+      '<button class="turn turn-next" id="turnNext" aria-label="Next page">&#8250;</button>' +
+      '</div>';
 
-    // left rail — live contents (filled after iframe loads)
+    // footer: chapter nav + page position + progress
+    html += '<div class="readerfoot">' +
+      '<button class="foot-nav" id="prevBtn" ' + (PREV ? '' : 'disabled') + '>&#8249; ' + (PREV ? esc(PREV.short) : 'Start') + '</button>' +
+      '<div class="foot-mid">' +
+        '<div class="pagelabel" id="pageLabel">&nbsp;</div>' +
+        '<div class="progbar"><span id="progBar"></span></div>' +
+        '<div class="booklabel">Book ' + (RIDX + 1) + ' of ' + FLAT.length + ' &middot; ' + esc(e.short) + '</div>' +
+      '</div>' +
+      '<button class="foot-nav" id="nextBtn" ' + (NEXT ? '' : 'disabled') + '>' + (NEXT ? esc(NEXT.short) : 'End') + ' &#8250;</button>' +
+      '</div>';
+
+    // contents drawer + scrim
     html += '<aside class="rail rail-left">' +
       '<div class="rail-h">Contents</div>' +
       '<ul class="toclist" id="tocList"><li><a style="opacity:.5">Loading…</a></li></ul>' +
       '</aside>';
-
-    // centre stage
-    html += '<div class="stage"><div class="sheet">' +
-      '<iframe id="reader" title="' + esc(e.title) + '" src="content/' + esc(slug) + '.html"></iframe>' +
-      '</div></div>';
-
-    // right rail — progress + up next + more in section
-    html += '<aside class="rail rail-right">' +
-      '<div class="rail-h">Your place</div>' +
-      '<div class="progwrap">' +
-        '<svg class="progring" width="48" height="48" viewBox="0 0 48 48">' +
-          '<circle class="track" cx="24" cy="24" r="20"></circle>' +
-          '<circle class="fill" id="progFill" cx="24" cy="24" r="20" ' +
-            'stroke-dasharray="' + RING_C.toFixed(1) + '" stroke-dashoffset="' + RING_C.toFixed(1) + '"></circle>' +
-          '<text class="pct" id="progPct" x="24" y="28" text-anchor="middle">0%</text>' +
-        '</svg>' +
-        '<div class="progmeta"><div class="ch">Book ' + (idx + 1) + ' of ' + FLAT.length + '</div>' +
-        '<div class="nm">' + esc(e.short) + '</div></div>' +
-      '</div>' +
-      '<div class="upnext">' +
-        navCard("Previous", prev) +
-        navCard("Up next", next) +
-      '</div>' +
-      '<div class="morein"><div class="rail-h">More in ' + esc(e.sectionName) + '</div>' +
-        fam.map(function (f) {
-          return '<a class="moreitem' + (f.slug === slug ? ' cur' : '') + '" data-go="' + esc(f.slug) + '" href="#/read/' + esc(f.slug) + '">' +
-            '<span class="sp" style="background:linear-gradient(180deg,' + f.grad[0] + ',' + f.grad[1] + ')"></span>' +
-            '<span>' + esc(f.short) + '</span></a>';
-        }).join("") +
-      '</div>' +
-      '</aside>';
-
-    html += '</div>'; // deskwrap
-
-    // bottom nav (narrow only) + scrim for contents drawer
-    html += '<div class="readernav">' +
-      '<button id="prevBtn" ' + (prev ? '' : 'disabled') + '><span>&#8592;</span><span class="lbl">' + (prev ? esc(prev.short) : 'Start') + '</span></button>' +
-      '<span class="pos">' + (idx + 1) + ' / ' + FLAT.length + '</span>' +
-      '<button id="nextBtn" ' + (next ? '' : 'disabled') + '><span class="lbl">' + (next ? esc(next.short) : 'End') + '</span><span>&#8594;</span></button>' +
-      '</div>';
     html += '<div class="tocscrim" id="tocScrim"></div>';
     html += '</div>'; // reader
     app.innerHTML = html;
 
-    var frame = document.getElementById("reader");
-    frame.addEventListener("load", function () {
-      applyFontSize(frame);
-      buildContents(frame, slug);
-      restoreScroll(frame, slug);
-      wireScrollTracking(frame, slug);
+    FRAME = document.getElementById("reader");
+    FRAME.addEventListener("load", function () {
+      applyFontSize(FRAME);
+      buildContents(FRAME);
+      wireFrameAnchors(FRAME);
+      layoutReader();
     });
 
     document.getElementById("backBtn").addEventListener("click", function () { location.hash = ""; });
     document.getElementById("readerSearch").addEventListener("click", openSearch);
-    if (prev) document.getElementById("prevBtn").addEventListener("click", function () { go(prev.slug); });
-    if (next) document.getElementById("nextBtn").addEventListener("click", function () { go(next.slug); });
-    document.getElementById("fsUp").addEventListener("click", function () { bumpFont(1, frame); });
-    document.getElementById("fsDown").addEventListener("click", function () { bumpFont(-1, frame); });
+    document.getElementById("turnPrev").addEventListener("click", function () { turnPage(-1); });
+    document.getElementById("turnNext").addEventListener("click", function () { turnPage(1); });
+    if (PREV) document.getElementById("prevBtn").addEventListener("click", function () { go(PREV.slug); });
+    if (NEXT) document.getElementById("nextBtn").addEventListener("click", function () { go(NEXT.slug); });
+    document.getElementById("fsUp").addEventListener("click", function () { bumpFont(1); });
+    document.getElementById("fsDown").addEventListener("click", function () { bumpFont(-1); });
 
-    // contents drawer (narrow)
     var tocBtn = document.getElementById("tocBtn");
     var tocScrim = document.getElementById("tocScrim");
     if (tocBtn) tocBtn.addEventListener("click", function () { document.body.classList.toggle("toc-open"); });
     if (tocScrim) tocScrim.addEventListener("click", function () { document.body.classList.remove("toc-open"); });
 
-    wireCommon();   // wires [data-go] incl. the rail nav cards + more-in items
+    wireCommon();
     window.scrollTo(0, 0);
   }
 
-  function navCard(dir, e) {
-    if (!e) return '<div class="navcard disabled"><div class="dir">' + dir + '</div><div class="ttl">—</div></div>';
-    return '<a class="navcard" data-go="' + esc(e.slug) + '" href="#/read/' + esc(e.slug) + '">' +
-      '<div class="dir">' + dir + '</div><div class="ttl">' + esc(e.short) + '</div></a>';
+  /* decide + apply the layout mode for the current frame */
+  function layoutReader() {
+    var doc; try { doc = FRAME.contentDocument; } catch (e) { return; }
+    if (!doc) return;
+    if (PAGED_MQ.matches) paginate();
+    else scrollSetup();
   }
 
-  /* ---------- reader: live contents + scroll-spy ---------- */
-  var SECS = [];      // [{id, el}]
-  function buildContents(frame, slug) {
-    SECS = [];
-    var list = document.getElementById("tocList");
-    if (!list) return;
-    var doc;
-    try { doc = frame.contentDocument; } catch (err) { doc = null; }
-    if (!doc) { list.innerHTML = ""; return; }
-
-    var items = [];   // {id, label}
-    var tocLinks = doc.querySelectorAll(".booktoc a[href^='#']");
-    if (tocLinks.length) {
-      Array.prototype.forEach.call(tocLinks, function (a) {
-        var id = (a.getAttribute("href") || "").slice(1);
-        if (id && doc.getElementById(id)) items.push({ id: id, label: a.textContent.trim() });
-      });
-    }
-    if (!items.length) {   // fall back to headings (pass-through notes)
-      var heads = doc.querySelectorAll("h2");
-      Array.prototype.forEach.call(heads, function (h, i) {
-        if (!h.id) h.id = "nfe-sec-" + i;
-        var label = h.textContent.trim();
-        if (label) items.push({ id: h.id, label: label });
-      });
-    }
-    if (!items.length) { list.innerHTML = '<li><a style="opacity:.45">No sections</a></li>'; return; }
-
-    var html = "";
-    items.forEach(function (it) {
-      html += '<li><a data-sec="' + esc(it.id) + '">' + esc(it.label) + '</a></li>';
-      SECS.push({ id: it.id, el: doc.getElementById(it.id) });
-    });
-    list.innerHTML = html;
-    Array.prototype.forEach.call(list.querySelectorAll("a[data-sec]"), function (a) {
-      a.addEventListener("click", function (ev) {
-        ev.preventDefault();
-        jumpTo(frame, a.getAttribute("data-sec"));
-        document.body.classList.remove("toc-open");
-      });
-    });
-  }
-
-  function jumpTo(frame, id) {
+  function clearPaged(doc) {
     try {
-      var win = frame.contentWindow, doc = frame.contentDocument;
-      var el = doc.getElementById(id);
-      if (!el) return;
-      var y = el.getBoundingClientRect().top + win.scrollY - 14;
-      win.scrollTo({ top: y, behavior: "smooth" });
-    } catch (err) {}
+      doc.documentElement.classList.remove("nfe-paged");
+      doc.body.classList.remove("nfe-paged");
+      var a = doc.querySelector(".nfe-article");
+      if (a) { a.classList.remove("nfe-paged-article"); a.style.transition = ""; a.style.removeProperty("--pg-x"); }
+    } catch (e) {}
   }
 
-  function wireScrollTracking(frame, slug) {
-    var win, doc;
-    try { win = frame.contentWindow; doc = frame.contentDocument; } catch (e) { return; }
-    var fill = document.getElementById("progFill");
-    var pct = document.getElementById("progPct");
-    var list = document.getElementById("tocList");
-    var ticking = false;
+  /* ----- paged (two-page spread) ----- */
+  function paginate() {
+    var doc, art; try { doc = FRAME.contentDocument; } catch (e) { return; }
+    art = doc.querySelector(".nfe-article");
+    if (!art) return;
+    var W = FRAME.clientWidth, H = FRAME.clientHeight;
+    if (W < 4 || H < 4) { return; }
 
+    var gap = Math.round(Math.min(110, Math.max(58, W * 0.072)));   // the spine gutter
+    var ph  = Math.round(Math.min(70,  Math.max(30, W * 0.038)));   // outer page margins
+    var pv  = Math.round(Math.min(70,  Math.max(28, H * 0.072)));   // top/bottom margins
+
+    var de = doc.documentElement;
+    de.style.setProperty("--pg-gap", gap + "px");
+    de.style.setProperty("--pg-ph", ph + "px");
+    de.style.setProperty("--pg-pv", pv + "px");
+    de.classList.add("nfe-paged");
+    doc.body.classList.add("nfe-paged");
+    art.classList.add("nfe-paged-article");
+
+    // Some passthrough pages (the one-page cram reference) hide their bulk in
+    // collapsible <details> accordions. A printed book has no folds, so open
+    // them all and keep them open, then the whole text paginates linearly.
+    var dets = doc.querySelectorAll("details");
+    if (dets.length && !FRAME._accWired) {
+      Array.prototype.forEach.call(dets, function (d) { d.open = true; });
+      doc.addEventListener("toggle", function (e) {
+        if (e.target && e.target.tagName === "DETAILS" && !e.target.open) {
+          e.target.open = true; scheduleRemeasure();
+        }
+      }, true);
+      FRAME._accWired = true;
+    } else if (dets.length) {
+      Array.prototype.forEach.call(dets, function (d) { d.open = true; });
+    }
+
+    art.style.transition = "none";
+    art.style.setProperty("--pg-x", "0px");
+    void art.offsetWidth;                          // force layout at offset 0
+
+    SPREAD_W = W;
+    measureSpreads();
+    PAGED = true;
+
+    var want = pendingOpenLast ? (NSPREADS - 1) : restoredSpread(RSLUG);
+    pendingOpenLast = false;
+    CUR = Math.min(NSPREADS - 1, Math.max(0, want));
+
+    requestAnimationFrame(function () { try { art.style.transition = ""; } catch (e) {} });
+    applySpread();
+    // late layout (web fonts, term-popover) can shift boundaries; re-measure once
+    scheduleRemeasure();
+  }
+
+  /* (re)compute spread count + each section's spread from current layout */
+  function measureSpreads() {
+    var doc, art; try { doc = FRAME.contentDocument; } catch (e) { return; }
+    art = doc && doc.querySelector(".nfe-paged-article");
+    if (!art || !SPREAD_W) return;
+    // child rects and the article rect carry the same translateX, so the
+    // offset cancels in (child.left - art.left); no need to un-translate.
+    var base = art.getBoundingClientRect().left;
+    var total = SPREAD_W;
+    var kids = art.children;
+    for (var i = 0; i < kids.length; i++) {
+      var r = kids[i].getBoundingClientRect();
+      var right = (r.left - base) + r.width;
+      if (right > total) total = right;
+    }
+    NSPREADS = Math.max(1, Math.ceil((total - 2) / SPREAD_W));
+    SECS.forEach(function (s) {
+      if (s.el) {
+        var x = s.el.getBoundingClientRect().left - base;
+        s.spread = Math.min(NSPREADS - 1, Math.max(0, Math.floor((x + 2) / SPREAD_W)));
+      } else s.spread = 0;
+    });
+  }
+
+  function scheduleRemeasure() {
+    clearTimeout(FRAME && FRAME._remTimer);
+    if (!FRAME) return;
+    FRAME._remTimer = setTimeout(function () {
+      if (!PAGED) return;
+      var beforeN = NSPREADS;
+      measureSpreads();
+      CUR = Math.min(NSPREADS - 1, Math.max(0, CUR));
+      if (NSPREADS !== beforeN) applySpread(); else { setTurnState(); spyActive(CUR); }
+    }, 420);
+  }
+
+  function applySpread() {
+    var doc, art; try { doc = FRAME.contentDocument; } catch (e) { return; }
+    art = doc && doc.querySelector(".nfe-paged-article");
+    if (art) art.style.setProperty("--pg-x", (CUR * SPREAD_W) + "px");
+
+    var leftPg = CUR * 2 + 1, total = NSPREADS * 2;
+    var lab = document.getElementById("pageLabel");
+    if (lab) lab.textContent = NSPREADS > 1
+      ? "Pages " + leftPg + "–" + (leftPg + 1) + " of " + total
+      : " ";
+    setProgress((CUR + 1) / NSPREADS);
+    setTurnState();
+    spyActive(CUR);
+    persistSpread();
+  }
+
+  function turnPage(dir) {
+    if (!PAGED) return;
+    if (dir > 0) {
+      if (CUR < NSPREADS - 1) { CUR++; applySpread(); }
+      else if (NEXT) { go(NEXT.slug); }
+    } else {
+      if (CUR > 0) { CUR--; applySpread(); }
+      else if (PREV) { pendingOpenLast = true; go(PREV.slug); }
+    }
+  }
+
+  function goToSpread(i) {
+    if (!PAGED) return;
+    CUR = Math.min(NSPREADS - 1, Math.max(0, i));
+    applySpread();
+  }
+
+  function setTurnState() {
+    var p = document.getElementById("turnPrev"), n = document.getElementById("turnNext");
+    if (p) p.disabled = (CUR === 0 && !PREV);
+    if (n) n.disabled = (CUR >= NSPREADS - 1 && !NEXT);
+  }
+
+  function setProgress(frac) {
+    var bar = document.getElementById("progBar");
+    if (bar) bar.style.width = Math.round(Math.min(1, Math.max(0, frac)) * 100) + "%";
+  }
+
+  /* ----- scroll (single page, narrow) ----- */
+  function scrollSetup() {
+    var win, doc; try { win = FRAME.contentWindow; doc = FRAME.contentDocument; } catch (e) { return; }
+    clearPaged(doc);
+    PAGED = false;
+    var lab = document.getElementById("pageLabel");
+    if (lab) lab.textContent = " ";
+
+    try {
+      var sc = JSON.parse(localStorage.getItem(SCROLL_KEY) || "{}");
+      if (sc[RSLUG]) win.scrollTo(0, sc[RSLUG]);
+    } catch (e2) {}
+
+    var ticking = false;
     function update() {
       ticking = false;
       var de = doc.documentElement, b = doc.body;
@@ -306,46 +395,129 @@
       var ch = win.innerHeight || de.clientHeight;
       var st = win.scrollY || de.scrollTop || 0;
       var frac = sh > ch ? Math.min(1, Math.max(0, st / (sh - ch))) : 1;
-      if (fill) fill.setAttribute("stroke-dashoffset", (RING_C * (1 - frac)).toFixed(1));
-      if (pct) pct.textContent = Math.round(frac * 100) + "%";
-
-      // persist scroll
+      setProgress(frac);
+      var lab2 = document.getElementById("pageLabel");
+      if (lab2) lab2.textContent = Math.round(frac * 100) + "% read";
       try {
-        var sc = JSON.parse(localStorage.getItem(SCROLL_KEY) || "{}");
-        sc[slug] = st; localStorage.setItem(SCROLL_KEY, JSON.stringify(sc));
-      } catch (e2) {}
-
-      // scroll-spy: last section whose top is above the fold line
-      if (SECS.length && list) {
+        var s = JSON.parse(localStorage.getItem(SCROLL_KEY) || "{}");
+        s[RSLUG] = st; localStorage.setItem(SCROLL_KEY, JSON.stringify(s));
+      } catch (e3) {}
+      // scroll-spy
+      if (SECS.length) {
         var line = st + 130, activeId = SECS[0].id;
         for (var i = 0; i < SECS.length; i++) {
           var el = SECS[i].el; if (!el) continue;
           var top = el.getBoundingClientRect().top + st;
           if (top <= line) activeId = SECS[i].id; else break;
         }
-        var links = list.querySelectorAll("a[data-sec]"), cur = null;
-        Array.prototype.forEach.call(links, function (a) {
-          var on = a.getAttribute("data-sec") === activeId;
-          a.classList.toggle("active", on);
-          if (on) cur = a;
-        });
-        if (cur && document.body.classList.contains("toc-open") === false) {
-          // keep active item in view within the rail (no page jump)
-          var r = cur.getBoundingClientRect(), pr = list.getBoundingClientRect();
-          if (r.top < pr.top || r.bottom > pr.bottom) cur.scrollIntoView({ block: "nearest" });
-        }
+        spyActiveId(activeId);
       }
     }
     function onScroll() { if (!ticking) { ticking = true; (win.requestAnimationFrame || setTimeout)(update); } }
-    try { win.addEventListener("scroll", onScroll, { passive: true }); } catch (e3) {}
+    try { win.addEventListener("scroll", onScroll, { passive: true }); } catch (e4) {}
     update();
   }
 
-  function restoreScroll(frame, slug) {
+  /* ----- live contents (built once per chapter) ----- */
+  function buildContents(frame) {
+    SECS = [];
+    var list = document.getElementById("tocList");
+    if (!list) return;
+    var doc; try { doc = frame.contentDocument; } catch (err) { doc = null; }
+    if (!doc) { list.innerHTML = ""; return; }
+
+    var items = [];
+    var tocLinks = doc.querySelectorAll(".booktoc a[href^='#']");
+    if (tocLinks.length) {
+      Array.prototype.forEach.call(tocLinks, function (a) {
+        var id = (a.getAttribute("href") || "").slice(1);
+        if (id && doc.getElementById(id)) items.push({ id: id, label: a.textContent.trim() });
+      });
+    }
+    if (!items.length) {
+      // prose pages expose <h2>; accordion cram pages expose <summary>
+      var seen = {};
+      Array.prototype.forEach.call(doc.querySelectorAll("h2, details.acc > summary"), function (h, i) {
+        if (!h.id) h.id = "nfe-sec-" + i;
+        var label = h.textContent.trim();
+        if (label && !seen[label]) { seen[label] = 1; items.push({ id: h.id, label: label }); }
+      });
+    }
+    if (!items.length) { list.innerHTML = '<li><a style="opacity:.45">No sections</a></li>'; return; }
+
+    var html = "";
+    items.forEach(function (it) {
+      html += '<li><a data-sec="' + esc(it.id) + '">' + esc(it.label) + '</a></li>';
+      SECS.push({ id: it.id, label: it.label, el: doc.getElementById(it.id), spread: 0 });
+    });
+    list.innerHTML = html;
+    Array.prototype.forEach.call(list.querySelectorAll("a[data-sec]"), function (a) {
+      a.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        jumpTo(a.getAttribute("data-sec"));
+        document.body.classList.remove("toc-open");
+      });
+    });
+  }
+
+  function jumpTo(id) {
+    var sec = null;
+    for (var i = 0; i < SECS.length; i++) if (SECS[i].id === id) { sec = SECS[i]; break; }
+    if (!sec) return;
+    if (PAGED) { goToSpread(sec.spread); return; }
     try {
-      var sc = JSON.parse(localStorage.getItem(SCROLL_KEY) || "{}");
-      if (sc[slug]) frame.contentWindow.scrollTo(0, sc[slug]);
+      var win = FRAME.contentWindow, doc = FRAME.contentDocument;
+      var el = doc.getElementById(id);
+      if (!el) return;
+      var y = el.getBoundingClientRect().top + win.scrollY - 14;
+      win.scrollTo({ top: y, behavior: "smooth" });
+    } catch (err) {}
+  }
+
+  function spyActive(spread) {
+    var activeId = SECS.length ? SECS[0].id : null;
+    for (var i = 0; i < SECS.length; i++) { if (SECS[i].spread <= spread) activeId = SECS[i].id; else break; }
+    spyActiveId(activeId);
+  }
+  function spyActiveId(activeId) {
+    var list = document.getElementById("tocList"); if (!list) return;
+    var links = list.querySelectorAll("a[data-sec]"), cur = null;
+    Array.prototype.forEach.call(links, function (a) {
+      var on = a.getAttribute("data-sec") === activeId;
+      a.classList.toggle("active", on);
+      if (on) cur = a;
+    });
+    if (cur && !document.body.classList.contains("toc-open")) {
+      var r = cur.getBoundingClientRect(), pr = list.getBoundingClientRect();
+      if (r.top < pr.top || r.bottom > pr.bottom) cur.scrollIntoView({ block: "nearest" });
+    }
+  }
+
+  /* in-frame anchors (booktoc / cross-links) jump within the spread */
+  function wireFrameAnchors(frame) {
+    var doc; try { doc = frame.contentDocument; } catch (e) { return; }
+    if (!doc) return;
+    doc.addEventListener("click", function (ev) {
+      var a = ev.target;
+      while (a && a.tagName !== "A") a = a.parentNode;
+      if (!a) return;
+      var href = a.getAttribute("href") || "";
+      if (href.charAt(0) !== "#" || href.length < 2) return;
+      ev.preventDefault();
+      jumpTo(href.slice(1));
+    }, true);
+  }
+
+  /* per-chapter spread memory */
+  function persistSpread() {
+    try {
+      var sp = JSON.parse(localStorage.getItem(SPREAD_KEY) || "{}");
+      sp[RSLUG] = CUR; localStorage.setItem(SPREAD_KEY, JSON.stringify(sp));
     } catch (e) {}
+  }
+  function restoredSpread(slug) {
+    try { var sp = JSON.parse(localStorage.getItem(SPREAD_KEY) || "{}"); return sp[slug] || 0; }
+    catch (e) { return 0; }
   }
 
   function applyFontSize(frame) {
@@ -354,11 +526,26 @@
       if (doc && doc.documentElement) doc.documentElement.style.setProperty("--nfe-fs", fontSize() + "px");
     } catch (e) {}
   }
-  function bumpFont(dir, frame) {
+  function bumpFont(dir) {
     var v = Math.max(14, Math.min(26, fontSize() + dir * 2));
     localStorage.setItem(FS_KEY, v);
-    applyFontSize(frame);
+    applyFontSize(FRAME);
+    // re-flow: font change moves every page boundary
+    var doc; try { doc = FRAME.contentDocument; } catch (e) { return; }
+    if (doc) { clearPaged(doc); layoutReader(); }
   }
+
+  /* re-paginate on resize / orientation change (debounced) */
+  window.addEventListener("resize", function () {
+    if (!document.body.classList.contains("reading") || !FRAME) return;
+    clearTimeout(relayoutTimer);
+    relayoutTimer = setTimeout(function () {
+      var doc; try { doc = FRAME.contentDocument; } catch (e) { return; }
+      if (!doc) return;
+      clearPaged(doc);
+      layoutReader();
+    }, 180);
+  });
 
   /* ---------- search ---------- */
   var pane = document.getElementById("searchPane");
@@ -441,9 +628,16 @@
     var m = (location.hash || "").match(/^#\/read\/([a-z0-9\-.]+)/i);
     if (m && BYSLUG[m[1]]) {
       var idx = FLAT.indexOf(BYSLUG[m[1]]);
-      if (e.key === "ArrowRight" && FLAT[idx + 1]) go(FLAT[idx + 1].slug);
-      if (e.key === "ArrowLeft" && FLAT[idx - 1]) go(FLAT[idx - 1].slug);
-      if (e.key === "Escape") { if (document.body.classList.contains("toc-open")) document.body.classList.remove("toc-open"); else location.hash = ""; }
+      if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
+        // turn a page in the spread; falls through to the next chapter at the end
+        if (PAGED) { e.preventDefault(); turnPage(1); }
+        else if (FLAT[idx + 1]) go(FLAT[idx + 1].slug);
+      } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+        if (PAGED) { e.preventDefault(); turnPage(-1); }
+        else if (FLAT[idx - 1]) go(FLAT[idx - 1].slug);
+      } else if (e.key === "Home" && PAGED) { e.preventDefault(); goToSpread(0); }
+      else if (e.key === "End" && PAGED) { e.preventDefault(); goToSpread(NSPREADS - 1); }
+      else if (e.key === "Escape") { if (document.body.classList.contains("toc-open")) document.body.classList.remove("toc-open"); else location.hash = ""; }
     }
   });
 })();
