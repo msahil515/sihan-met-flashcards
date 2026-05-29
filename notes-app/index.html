@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Notes for Exam</title>
+<meta name="description" content="Sihan's MET 2026 + NIMHANS study notes as one beautiful offline reading library.">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#15110d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Notes for Exam">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div id="app"></div>
+
+<!-- Search overlay -->
+<div class="searchpane" id="searchPane">
+  <div class="sheet">
+    <div class="sbar">
+      <span class="sicon">&#128269;</span>
+      <input id="searchInput" type="search" placeholder="Search all notes..." autocomplete="off" autocapitalize="off" spellcheck="false">
+      <button class="close" id="searchClose" aria-label="Close search">&#10005;</button>
+    </div>
+    <div class="searchresults" id="searchResults"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("sw.js").catch(function () {});
+  });
+}
+</script>
+</body>
+</html>

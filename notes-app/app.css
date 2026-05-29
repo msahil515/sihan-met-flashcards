@@ -1,0 +1,228 @@
+/* ============================================================
+   Notes for Exam — standalone study library
+   Library home (book-cover shelves) + full-screen book reader.
+   ============================================================ */
+
+:root {
+  --paper:   #f7f3ea;
+  --paper-2: #efe8da;
+  --ink:     #20242b;
+  --ink-soft:#55524b;
+  --line:    #ddd3c1;
+  --gold:    #b08436;
+  --shadow:  0 10px 30px rgba(40, 30, 12, 0.16);
+  --shadow-sm: 0 3px 10px rgba(40, 30, 12, 0.12);
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, 'Times New Roman', serif;
+  --topbar: 56px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; }
+body {
+  background:
+    radial-gradient(1200px 480px at 50% -8%, #fffdf8, transparent 70%),
+    linear-gradient(180deg, var(--paper), var(--paper-2));
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 100%;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ---------- App-wide top bar ---------- */
+.appbar {
+  position: sticky; top: 0; z-index: 40;
+  height: var(--topbar);
+  display: flex; align-items: center; gap: 12px;
+  padding: 0 16px;
+  background: rgba(247, 243, 234, 0.92);
+  backdrop-filter: saturate(150%) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.appbar .brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--serif); font-weight: 700; font-size: 19px;
+  letter-spacing: 0.2px;
+}
+.appbar .brand .mark {
+  width: 26px; height: 26px; border-radius: 7px;
+  background: linear-gradient(135deg, var(--gold), #8a5a17);
+  display: grid; place-items: center; color: #fff; font-size: 15px;
+  box-shadow: var(--shadow-sm);
+}
+.appbar .spacer { flex: 1; }
+.iconbtn {
+  border: 1px solid var(--line); background: #fff;
+  width: 38px; height: 38px; border-radius: 10px;
+  display: grid; place-items: center; font-size: 17px; color: var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+.iconbtn:active { transform: scale(0.96); }
+.backbtn {
+  border: 1px solid var(--line); background: #fff;
+  height: 38px; padding: 0 14px; border-radius: 10px;
+  display: inline-flex; align-items: center; gap: 7px; font-weight: 600;
+  font-size: 14px; box-shadow: var(--shadow-sm);
+}
+
+/* ---------- Library ---------- */
+.library { max-width: 1180px; margin: 0 auto; padding: 8px 20px 80px; }
+
+.hero {
+  margin: 18px 0 6px;
+  padding: 26px 26px 24px;
+  border-radius: 18px;
+  background:
+    radial-gradient(700px 220px at 100% 0%, rgba(176,132,54,0.18), transparent 60%),
+    linear-gradient(135deg, #2c2620, #1c1813);
+  color: #f3ead7; box-shadow: var(--shadow);
+  position: relative; overflow: hidden;
+}
+.hero h1 {
+  font-family: var(--serif); font-size: 30px; font-weight: 800;
+  margin: 0 0 6px; letter-spacing: 0.3px;
+}
+.hero p { margin: 0; color: #cdbf9f; font-size: 14px; max-width: 640px; line-height: 1.55; }
+.hero .stats { margin-top: 16px; display: flex; gap: 22px; flex-wrap: wrap; font-size: 13px; color: #e7d9b8; }
+.hero .stats b { font-size: 19px; font-weight: 800; color: #fff; display: block; font-family: var(--serif); }
+
+.searchbar {
+  margin: 18px 0 4px; display: flex; align-items: center; gap: 10px;
+  background: #fff; border: 1px solid var(--line); border-radius: 13px;
+  padding: 12px 16px; box-shadow: var(--shadow-sm);
+}
+.searchbar input {
+  flex: 1; border: 0; outline: 0; background: transparent;
+  font-size: 16px; color: var(--ink); font-family: inherit;
+}
+.searchbar .sicon { color: var(--ink-soft); font-size: 17px; }
+
+/* Continue reading */
+.continue {
+  margin: 20px 0 6px; display: flex; align-items: center; gap: 16px;
+  padding: 16px 18px; border-radius: 14px; background: #fff;
+  border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+}
+.continue .cv {
+  width: 46px; height: 62px; border-radius: 6px 9px 9px 6px; flex: none;
+  box-shadow: var(--shadow-sm); border-left: 4px solid rgba(0,0,0,0.25);
+}
+.continue .meta { flex: 1; min-width: 0; }
+.continue .kicker { font-size: 11px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--gold); font-weight: 700; }
+.continue .ttl { font-family: var(--serif); font-size: 18px; font-weight: 700; margin: 2px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.continue .sub { font-size: 12.5px; color: var(--ink-soft); }
+.continue .go {
+  flex: none; background: var(--ink); color: #fff; border: 0;
+  padding: 11px 18px; border-radius: 10px; font-weight: 700; font-size: 14px;
+}
+
+/* Shelves */
+.shelf { margin-top: 34px; }
+.shelf-head { display: flex; align-items: baseline; gap: 12px; margin: 0 2px 14px; }
+.shelf-head h2 { font-family: var(--serif); font-size: 21px; font-weight: 800; margin: 0; }
+.shelf-head .st { font-size: 12.5px; color: var(--ink-soft); }
+.shelf-head .ct { margin-left: auto; font-size: 12px; color: var(--ink-soft); white-space: nowrap; }
+
+.shelf-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  gap: 18px 16px;
+}
+
+/* a book cover */
+.book {
+  position: relative; display: flex; flex-direction: column;
+  min-height: 196px; border-radius: 6px 11px 11px 6px;
+  padding: 16px 15px 14px 18px; color: #fff;
+  box-shadow: var(--shadow);
+  border-left: 6px solid rgba(0,0,0,0.28);
+  overflow: hidden; transition: transform 0.16s ease, box-shadow 0.16s ease;
+  isolation: isolate;
+}
+.book::before { /* page edges on the right */
+  content: ""; position: absolute; top: 6px; right: 0; bottom: 6px; width: 7px;
+  background: repeating-linear-gradient(90deg, rgba(255,255,255,0.5) 0 1px, rgba(255,255,255,0.15) 1px 2px);
+  border-radius: 0 4px 4px 0; opacity: 0.5; z-index: 2;
+}
+.book::after { /* sheen */
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(115deg, rgba(255,255,255,0.16), transparent 42%);
+  z-index: 1;
+}
+.book:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(40,30,12,0.26); }
+.book:active { transform: translateY(-1px) scale(0.995); }
+.book > * { position: relative; z-index: 3; }
+.book .b-kicker { font-size: 10px; letter-spacing: 1.4px; text-transform: uppercase; opacity: 0.82; font-weight: 700; }
+.book .b-title {
+  font-family: var(--serif); font-size: 18px; font-weight: 800; line-height: 1.2;
+  margin: 7px 0 8px; text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+}
+.book .b-blurb {
+  font-size: 12px; line-height: 1.45; opacity: 0.9; flex: 1;
+  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+}
+.book .b-foot { margin-top: 10px; font-size: 11px; opacity: 0.85; display: flex; align-items: center; gap: 6px; }
+.book .b-foot .dot { width: 3px; height: 3px; border-radius: 50%; background: currentColor; opacity: 0.7; }
+
+/* ---------- Reader ---------- */
+.reader { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
+.reader .appbar .crumb {
+  display: flex; flex-direction: column; line-height: 1.15; min-width: 0;
+}
+.reader .appbar .crumb .sec { font-size: 10.5px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gold); font-weight: 700; }
+.reader .appbar .crumb .tt { font-family: var(--serif); font-weight: 700; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.reader iframe { flex: 1; width: 100%; border: 0; background: #f5f1e8; }
+
+.fontctl { display: flex; align-items: center; gap: 2px; border: 1px solid var(--line); border-radius: 10px; background: #fff; box-shadow: var(--shadow-sm); }
+.fontctl button { border: 0; background: transparent; width: 36px; height: 38px; font-size: 16px; color: var(--ink); }
+.fontctl button:first-child { font-size: 13px; }
+
+.readernav {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 14px; border-top: 1px solid var(--line);
+  background: rgba(247,243,234,0.96); backdrop-filter: blur(8px);
+}
+.readernav button {
+  flex: 1; border: 1px solid var(--line); background: #fff; color: var(--ink);
+  padding: 11px 12px; border-radius: 11px; font-weight: 700; font-size: 13.5px;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  box-shadow: var(--shadow-sm); min-width: 0;
+}
+.readernav button:disabled { opacity: 0.4; }
+.readernav button .lbl { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.readernav .pos { flex: none; font-size: 12px; color: var(--ink-soft); padding: 0 6px; text-align: center; white-space: nowrap; }
+
+/* ---------- Search overlay ---------- */
+.searchpane {
+  position: fixed; inset: 0; z-index: 60; display: none;
+  background: rgba(28, 24, 19, 0.42); backdrop-filter: blur(3px);
+}
+.searchpane.open { display: block; }
+.searchpane .sheet {
+  max-width: 720px; margin: 24px auto; background: var(--paper);
+  border-radius: 16px; box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+  max-height: calc(100vh - 48px); display: flex; flex-direction: column; overflow: hidden;
+}
+.searchpane .sbar { display: flex; align-items: center; gap: 10px; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+.searchpane .sbar input { flex: 1; border: 0; outline: 0; background: transparent; font-size: 18px; color: var(--ink); font-family: inherit; }
+.searchpane .sbar .close { border: 0; background: transparent; font-size: 18px; color: var(--ink-soft); padding: 4px 8px; }
+.searchresults { overflow-y: auto; padding: 8px; }
+.sres {
+  display: block; padding: 12px 14px; border-radius: 11px; margin: 2px 0;
+}
+.sres:hover { background: #fff; }
+.sres .sec { font-size: 10.5px; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); font-weight: 700; }
+.sres .tt { font-family: var(--serif); font-size: 16px; font-weight: 700; margin: 2px 0; }
+.sres .snip { font-size: 12.5px; color: var(--ink-soft); line-height: 1.45; }
+.sres .snip mark { background: rgba(176,132,54,0.28); color: inherit; padding: 0 1px; border-radius: 2px; }
+.searchempty { padding: 30px; text-align: center; color: var(--ink-soft); font-size: 14px; }
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 25px; }
+  .shelf-row { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px 12px; }
+  .book { min-height: 180px; }
+  .appbar .brand { font-size: 17px; }
+}

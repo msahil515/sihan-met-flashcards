@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Methodology &amp; Statistics — learn it cold — Notes for Exam</title>
+<link rel="stylesheet" href="../../notes-style.css">
+<link rel="stylesheet" href="/sihan-met-flashcards/notes/term-popover.css">
+<link rel="stylesheet" href="../reader.css">
+<style>
+
+  .hy-banner { background: linear-gradient(135deg, rgba(88,166,255,0.12), rgba(63,185,80,0.10)); border: 1px solid var(--accent-dim); border-radius: 10px; padding: 14px 16px; margin: 0 0 24px 0; font-size: 14px; color: var(--text); }
+  .hy-banner b { color: var(--accent); }
+  .trap { background: rgba(248,81,73,0.08); border-left: 3px solid var(--bad); padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .trap b { color: var(--bad); }
+  .rule { background: rgba(63,185,80,0.08); border-left: 3px solid var(--good); padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .rule b { color: var(--good); }
+  .nimhans { background: rgba(163,113,247,0.10); border-left: 3px solid #a371f7; padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .nimhans b { color: #a371f7; }
+  .why { background: rgba(88,166,255,.06); border-left: 3px solid var(--accent-dim); padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .recap { background: rgba(63,185,80,.06); border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; margin: 14px 0; font-size: 13.5px; }
+  .jump { font-size: 13px; line-height: 1.9; }
+  .jump a { margin-right: 14px; white-space: nowrap; }
+  h2.sec { border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-top: 40px; }
+  h3 { margin-top: 26px; }
+  h4 { margin-top: 18px; color: var(--accent); }
+  table { font-size: 14px; }
+  td:first-child { white-space: nowrap; }
+
+</style>
+</head>
+<body class="nfe-reader">
+<article class="wrap nfe-article">
+<h1>Research Methodology &amp; Statistics — learn it cold</h1>
+
+<div class="hy-banner">
+Built from <b>A. K. Singh, <i>Tests, Measurements and Research Methods in Behavioural Sciences</i></b> (the Indian standard, strong on measurement, test construction and item analysis) paired with <b>Coolican, <i>Research Methods and Statistics in Psychology</i></b> (clear on design, logic of inference and which test to run). Don't memorise tables blind — read the prose, understand <i>why</i> each statistic does what it does, then the tables are just reminders. Formulas are given in plain text where one exists. Trap boxes flag the exact confusions MCQs are built to exploit; <b>NIMHANS</b> boxes flag where the clinical-psych entrance pushes deeper than MET.
+</div>
+
+<p class="jump">
+<a href="#measurement">1 Measurement</a>
+<a href="#descriptive">2 Descriptive</a>
+<a href="#distributions">3 Distributions</a>
+<a href="#inferential">4 Inferential logic</a>
+<a href="#parametric">5 Parametric tests</a>
+<a href="#nonparametric">6 Non-parametric</a>
+<a href="#correlation">7 Correlation &amp; regression</a>
+<a href="#reliability">8 Reliability &amp; validity</a>
+<a href="#sampling">9 Sampling</a>
+<a href="#designs">10 Designs</a>
+<a href="#variables">11 Variables</a>
+<a href="#study-validity">12 Study validity</a>
+<a href="#qualitative">13 Qualitative</a>
+<a href="#item-analysis">14 Item analysis</a>
+<a href="#ethics">15 Ethics</a>
+<a href="#scaling">16 Scaling</a>
+<a href="#decision">Decision table</a>
+<a href="#traps">MCQ traps</a>
+<a href="#walkthrough">Worked intuition</a>
+<a href="#glossary">Glossary</a>
+<a href="#selftest">Self-test</a>
+</p>
+
+
+<h2 class="sec" id="measurement">1. Levels of Measurement</h2>
+<p>Before any statistic, ask: <b>what kind of numbers am I holding?</b> Stevens (1946) showed that a number can carry four different amounts of information, and the amount of information you have <i>dictates which statistics are even meaningful</i>. Running a mean on jersey numbers is nonsense not because the arithmetic fails but because the numbers were never on a scale where "average" means anything. This is the single most important idea in the whole section: <b>the scale chooses the test.</b></p>
+
+<h3>The four levels, from least to most information (NOIR)</h3>
+<h4>Nominal — labels only</h4>
+<p>Numbers are just <b>names for categories</b> with no order: 1 = male, 2 = female, or blood groups, religion, diagnosis. You can count how many fall in each box and find the <b>mode</b> (most frequent category), but "2 &gt; 1" is meaningless. Permissible stats: frequencies, proportions, mode, and <b>chi-square</b> on the counts.</p>
+
+<h4>Ordinal — rank order, unequal gaps</h4>
+<p>Numbers now carry <b>order</b> but the distance between ranks is not equal or known. Finishing 1st, 2nd, 3rd tells you who beat whom, not by how much. Likert agreement, pain 0–10, socio-economic class. Because gaps are unequal you should not really add or average them, so the centre is the <b>median</b> and the spread is described with percentiles. Permissible: median, percentile, <b>Spearman's rho</b>, <b>Mann-Whitney U</b>, and rank-based (non-parametric) tests generally.</p>
+
+<h4>Interval — equal gaps, no true zero</h4>
+<p>Equal distances mean a degree is a degree everywhere on the scale, so you can finally <b>add, subtract, and take a mean</b>. But zero is arbitrary (0°C is not "no temperature"), so <b>ratios are meaningless</b>: 20°C is not "twice as hot" as 10°C. IQ and calendar years sit here. Permissible: mean, SD, <b>t-tests, ANOVA, Pearson's r</b>.</p>
+
+<h4>Ratio — equal gaps and an absolute zero</h4>
+<p>Zero means <i>none of the thing</i> (0 kg = no weight, 0 ms reaction time = no time). Now <b>ratios are valid</b>: 40 kg really is twice 20 kg. Height, weight, reaction time, income, age. All arithmetic plus the geometric mean. For test-choice purposes interval and ratio behave identically, which is why people lump them as "scale" or "continuous" data.</p>
+
+<table>
+<thead><tr><th>Level</th><th>Property added</th><th>Example</th><th>Centre</th><th>Permissible stats</th></tr></thead>
+<tbody>
+<tr><td><b>Nominal</b></td><td>Categories, no order</td><td>Sex, blood group, diagnosis</td><td>Mode</td><td>Frequency, proportion, chi-square</td></tr>
+<tr><td><b>Ordinal</b></td><td>+ Order (unequal gaps)</td><td>Likert, pain 0–10, SES class</td><td>Median</td><td>Median, percentile, Spearman, Mann-Whitney</td></tr>
+<tr><td><b>Interval</b></td><td>+ Equal gaps (no true 0)</td><td>°C, IQ, calendar year</td><td>Mean</td><td>Mean, SD, t, ANOVA, Pearson r</td></tr>
+<tr><td><b>Ratio</b></td><td>+ True zero (ratios valid)</td><td>Height, weight, RT, age</td><td>Mean</td><td>All of the above + geometric mean, CV</td></tr>
+</tbody>
+</table>
+<p><b>Memory hook:</b> <i>NOIR</i> — Nominal, Ordinal, Interval, Ratio, in increasing order of information.</p>
+
+<div class="trap"><b>They swap these:</b> a scale "having numbers" does not make it interval. A 1–5 Likert <i>item</i> is strictly ordinal (the gap from "disagree" to "neutral" need not equal "neutral" to "agree"); only a <i>summed multi-item</i> Likert scale is commonly treated as interval. MCQs love "temperature in Celsius is ratio" — false, no true zero; <b>Kelvin</b> is ratio.</p>
+<div class="trap"><b>They swap these:</b> "ordinal data can use the mean." It has no defensible mean because the gaps are unequal — use the median.</div>
+
+<div class="recap"><b>Recap.</b> Four levels, NOIR. Nominal = labels (mode, chi-square). Ordinal = ranks (median, rank tests). Interval = equal gaps, arbitrary zero (mean, parametric tests, but no ratios). Ratio = true zero (everything). The level you have is the gatekeeper for every test that follows.</div>
+
+
+<h2 class="sec" id="descriptive">2. Descriptive Statistics</h2>
+<p>Descriptive statistics <b>summarise the sample in front of you</b>; they make no claim about a wider population (that's inference, section 4). You describe three things about any batch of numbers: where the centre sits (<b>central tendency</b>), how spread out it is (<b>dispersion</b>), and what shape it has (<b>skewness, kurtosis</b>).</p>
+
+<h3>Central tendency — where the middle is</h3>
+<h4>Mean</h4>
+<p>The arithmetic average: add all scores, divide by n. In symbols <b>x̄ = Σx / n</b>. It uses every value, which is its strength and its weakness — every value includes the outliers. One billionaire walking into a room sends the <i>mean</i> income soaring while the <i>median</i> barely moves. Use the mean for roughly symmetric / normal interval-ratio data.</p>
+
+<h4>Median</h4>
+<p>The middle value when scores are ordered (the 50th percentile). With an even n it's the average of the two middle scores. It ignores the actual magnitude of extreme scores, so it is <b>robust to outliers and skew</b>. Use it for skewed data (income, reaction times, length of hospital stay) and for ordinal data.</p>
+
+<h4>Mode</h4>
+<p>The most frequent value. It's the <b>only</b> central-tendency measure usable on nominal data, and a distribution can be bimodal or multimodal (two humps often hints two subgroups are mixed together).</p>
+
+<div class="why"><b>Why skew moves them apart:</b> in a <b>symmetric</b> distribution mean = median = mode. In a <b>positive (right) skew</b> (long tail of high values, e.g. income) the tail drags the mean up the most, the median less, the mode least, so <b>mode &lt; median &lt; mean</b>. In a <b>negative (left) skew</b> it reverses: <b>mean &lt; median &lt; mode</b>. The mean always chases the tail. Hook: <i>the mean follows the tail.</i></div>
+
+<div class="trap"><b>They swap these:</b> the order under skew. Positive skew → mean is the <i>largest</i> (mean &gt; median &gt; mode). If asked "which average is most affected by an outlier?" the answer is the <b>mean</b>; "which is best for skewed/income data?" the <b>median</b>.</div>
+
+<h3>Dispersion — how spread out</h3>
+<h4>Range and IQR</h4>
+<p><b>Range = max − min.</b> One number, crude, fully at the mercy of the two most extreme scores. The <b>Interquartile Range (IQR) = Q3 − Q1</b> spans the middle 50% of the data, throwing away the outer quarters, so it is robust; it's the box in a box-plot.</p>
+
+<h4>Variance and SD — the real workhorses</h4>
+<p>To capture spread we measure how far each score sits from the mean. Deviations (x − x̄) sum to zero, so we <b>square</b> them first. The average squared deviation is the <b>variance</b>. Taking the square root undoes the squaring and returns to the original units — that's the <b>standard deviation (SD)</b>.</p>
+<ul>
+<li><b>Population variance:</b> σ² = Σ(x − μ)² / N</li>
+<li><b>Sample variance:</b> s² = Σ(x − x̄)² / (n − 1)</li>
+<li><b>SD = √variance.</b> Population σ = √σ²; sample s = √s².</li>
+</ul>
+<p><b>What SD actually means:</b> the typical (root-mean-square) distance of a score from the mean, in the same units as the data. SD = 0 means every score is identical; a larger SD means scores fan out further. In a normal distribution about two-thirds of scores fall within ±1 SD of the mean (section 3). It's <i>the</i> default measure of spread because it feeds straight into z-scores, SE, and every parametric test.</p>
+
+<div class="why"><b>Why divide by n − 1 (Bessel's correction)?</b> A sample's own mean sits in the middle of the sample, so deviations from it are a touch too small and would <i>under-estimate</i> the population spread. Dividing by n − 1 (the degrees of freedom) inflates the estimate just enough to make it unbiased. Population formulas use N because μ is fixed and known.</p>
+
+<h4>Coefficient of variation</h4>
+<p><b>CV = (SD / mean) × 100%.</b> A unitless relative spread, so you can compare variability across different scales (is weight more variable than height?). Only meaningful on ratio data with a true zero.</p>
+
+<h3>Shape</h3>
+<h4>Skewness</h4>
+<p>Asymmetry. <b>Positive skew</b> = long tail to the right (high values), <b>negative skew</b> = long tail to the left. Zero skew = symmetric. Skew is what breaks the normality assumption and pushes you toward the median or a non-parametric test.</p>
+<h4>Kurtosis</h4>
+<p>Tailedness / peakedness relative to the normal curve. <b>Leptokurtic</b> = sharp peak, fat tails (more extreme scores than normal). <b>Platykurtic</b> = flat, thin tails. <b>Mesokurtic</b> = like the normal curve. Hook: <i>platy</i> = plateau = flat; <i>lepto</i> = leaping peak.</p>
+
+<div class="recap"><b>Recap.</b> Describe a batch by centre (mean for symmetric, median for skewed, mode for nominal), spread (SD = typical distance from the mean = √variance; sample variance divides by n − 1; IQR/range are robust/crude), and shape (skew = lean, kurtosis = peakedness). The mean follows the tail.</div>
+
+
+<h2 class="sec" id="distributions">3. Distributions, z-scores &amp; the Central Limit Theorem</h2>
+
+<h3>The normal (Gaussian) curve</h3>
+<p>A symmetric bell, fully defined by just two numbers: its mean (μ) and SD (σ). Mean = median = mode all sit at the peak. It matters because (a) many natural and psychological variables are roughly normal, and (b) the <b>sampling distribution of the mean</b> becomes normal even when the raw data isn't (CLT, below), which is what lets parametric tests work.</p>
+
+<div class="rule"><b>Rule of thumb — the 68–95–99.7 (empirical) rule.</b> In any normal distribution: ≈ <b>68%</b> of scores fall within ±1 SD of the mean, ≈ <b>95%</b> within ±2 SD (more precisely ±1.96 SD), ≈ <b>99.7%</b> within ±3 SD. So a score 2 SD above the mean beats about 97.5% of the distribution.</div>
+
+<h3>z-scores — putting everything on one ruler</h3>
+<p>A <b>z-score</b> says how many SDs a value sits from its mean: <b>z = (x − μ) / σ</b>. It standardises any value onto the <b>standard normal</b> distribution (μ = 0, σ = 1), so scores from different scales become comparable and you can read off percentiles from a z-table. A z of +1.5 means "1.5 SDs above average."</p>
+
+<h3>Standard scores built on z</h3>
+<p>Test-makers rescale z so there are no negatives or decimals, but the information is identical:</p>
+<ul>
+<li><b>T-score:</b> mean = 50, SD = 10. Formula <b>T = 50 + 10z</b>. (MMPI uses T-scores.)</li>
+<li><b>Stanine</b> ("standard nine"): 1–9, mean = 5, SD ≈ 2.</li>
+<li><b>Sten</b> ("standard ten"): 1–10, mean = 5.5, SD = 2. (16PF uses stens.)</li>
+<li><b>Wechsler/deviation IQ:</b> mean = 100, SD = 15. <b>Percentile rank:</b> the % of people scoring at or below you (not a z-score, and not equal-interval — percentiles bunch up near the middle of a normal curve).</li>
+</ul>
+
+<div class="trap"><b>They swap these:</b> T-score (mean 50, SD 10) vs Wechsler IQ (mean 100, SD 15) vs sten (mean 5.5, SD 2) vs stanine (mean 5, SD 2). Also: a <b>percentile</b> is a rank, not a raw score, and the gaps between percentiles are <i>not</i> equal — moving from the 50th to 55th percentile is a tiny score change, but 90th to 95th is a big one.</div>
+
+<h3>Sampling distribution &amp; the standard error</h3>
+<p>Here's the conceptual leap that powers inference. Imagine drawing many samples of size n and writing down each sample's mean. Those means form their own distribution: the <b>sampling distribution of the mean</b>. Its spread is the <b>standard error of the mean (SEM)</b>:</p>
+<p style="text-align:center;font-size:16px;"><b>SE = SD / √n</b></p>
+<p>SE is the typical distance between a sample mean and the true population mean — it's how <i>wrong</i> your sample mean is likely to be as an estimate. Because of the √n, SE shrinks as the sample grows, but with diminishing returns (to halve the SE you must quadruple n).</p>
+
+<div class="trap"><b>They swap these:</b> <b>SD vs SE.</b> SD describes the spread of <i>individual scores</i>; SE (= SD/√n) describes the spread of <i>sample means</i> and is always smaller. Reporting SE instead of SD makes data look tidier than it is — be sceptical.</div>
+
+<h3>The Central Limit Theorem (CLT)</h3>
+<p>The CLT states that as sample size n grows, the <b>sampling distribution of the mean approaches a normal distribution regardless of the shape of the underlying population</b>, with mean = μ and SD = σ/√n. This is the foundation of inferential statistics: even on skewed raw data you can use normal-theory (parametric) tests on the <i>mean</i>, provided n is reasonable. Common rule of thumb: <b>n ≥ 30</b>.</p>
+
+<h3>Other distributions to recognise</h3>
+<ul>
+<li><b>t distribution:</b> like the normal but with fatter tails to account for estimating σ from a small sample; shaped by degrees of freedom; → normal as df → ∞.</li>
+<li><b>Chi-square (χ²):</b> right-skewed, only positive, for categorical/count data.</li>
+<li><b>F distribution:</b> a ratio of two variances; right-skewed; used in ANOVA and regression.</li>
+<li><b>Binomial:</b> discrete, counts of successes in n independent trials.</li>
+<li><b>Poisson:</b> counts of rare events per fixed interval of time or space.</li>
+</ul>
+
+<div class="recap"><b>Recap.</b> Normal curve = bell set by μ and σ; 68/95/99.7 within 1/2/3 SD. z = (x − μ)/σ puts any value on a common ruler; T, stanine, sten, IQ are rescaled z's. The CLT makes the distribution of sample means normal as n grows; its spread is the standard error, SE = SD/√n. SE ≠ SD.</div>
+
+
+<h2 class="sec" id="inferential">4. The Logic of Inference</h2>
+<p>Inference is reasoning from a <b>sample</b> to a <b>population</b>. We can never be certain, so we frame the question as a bet against a default assumption and quantify how surprised we'd be by our data if that default were true.</p>
+
+<h3>Null vs alternative hypotheses</h3>
+<ul>
+<li><b>Null hypothesis (H₀):</b> the boring default — no effect, no difference, no relationship (e.g. μ₁ = μ₂, or r = 0). This is what we actually test.</li>
+<li><b>Alternative hypothesis (H₁):</b> there <i>is</i> an effect/difference/relationship. This is usually what the researcher believes.</li>
+</ul>
+<p>We <b>never "accept" H₀</b>; we either <i>reject</i> it or <i>fail to reject</i> it. Failing to reject is "not enough evidence," not "proof of no effect." Absence of evidence ≠ evidence of absence.</p>
+
+<h3>Two ways to be wrong</h3>
+<table>
+<thead><tr><th></th><th>H₀ is true (no real effect)</th><th>H₀ is false (real effect)</th></tr></thead>
+<tbody>
+<tr><td><b>Reject H₀</b></td><td><b>Type I error (α)</b> — false positive</td><td>Correct — power (1 − β)</td></tr>
+<tr><td><b>Fail to reject H₀</b></td><td>Correct (1 − α)</td><td><b>Type II error (β)</b> — false negative</td></tr>
+</tbody>
+</table>
+<ul>
+<li><b>Type I (α):</b> claiming an effect that isn't real. You <i>set</i> this in advance, conventionally α = 0.05.</li>
+<li><b>Type II (β):</b> missing an effect that is real. Conventionally kept ≤ 0.20.</li>
+<li><b>Power = 1 − β:</b> the probability of detecting a real effect when it exists. Convention: aim for 0.80.</li>
+</ul>
+<p><b>Power increases when:</b> sample size n ↑, true effect size ↑, variability (SD) ↓, α made more lenient ↑, and (slightly) using a one-tailed test. There's a tension: lowering α (fewer false positives) <i>raises</i> β (more misses) unless you also raise n.</p>
+
+<div class="trap"><b>They swap these:</b> Type I vs Type II. α = false <b>positive</b> = convicting an innocent (rejecting a true H₀). β = false <b>negative</b> = letting the guilty go (missing a real effect). Hook: <i>"Sigh, I missed it"</i> = type II.</div>
+
+<h3>The p-value — what it is and isn't</h3>
+<p><b>What it IS:</b> the probability of obtaining data <i>at least as extreme</i> as what you observed, <b>assuming H₀ is true</b>. Small p = "my data would be surprising if there were really no effect," which casts doubt on H₀.</p>
+<div class="trap"><b>They swap these — the classic p-value trap.</b> p is <b>NOT</b> the probability that H₀ is true, NOT the probability your result happened "by chance," and NOT the probability you've made an error. It is conditional <i>on</i> H₀. Also: p &lt; 0.05 is a convention, not a law of nature, and <b>statistical significance ≠ clinical/practical importance</b> (a trivial effect turns significant with a huge n).</div>
+
+<h3>One-tailed vs two-tailed</h3>
+<p>A <b>two-tailed</b> test asks "is there a difference in <i>either</i> direction?" and splits α into both tails (0.025 each) — the safe default. A <b>one-tailed</b> test asks about a difference in <i>one</i> pre-specified direction, putting all 0.05 in one tail; it has more power <i>but only if</i> you committed to the direction in advance for theoretical reasons. Choosing one-tailed after seeing the data to scrape under 0.05 is p-hacking.</p>
+
+<h3>Confidence intervals</h3>
+<p>A <b>95% CI</b> is a range of plausible values for the true parameter. Interpretation: if we repeated the study endlessly, 95% of the intervals built this way would contain the true value. Practical links: if a 95% CI for a <i>difference</i> excludes 0, then p &lt; 0.05; if a 95% CI for a <i>ratio</i> (OR/RR) excludes 1, then p &lt; 0.05. A <b>wider</b> CI means a less precise estimate (small n or high variability). CIs are often more informative than a bare p because they show effect size and precision together.</p>
+
+<h3>Effect size</h3>
+<p>The p-value tells you <i>whether</i> there's an effect; the <b>effect size</b> tells you <i>how big</i> it is, independent of n. This is why two studies can both be "significant" yet matter very differently.</p>
+<ul>
+<li><b>Cohen's d</b> (standardised mean difference): 0.2 small, 0.5 medium, 0.8 large.</li>
+<li><b>Pearson r</b> (and r² = proportion of variance shared): 0.10 small, 0.30 medium, 0.50 large.</li>
+<li><b>Eta squared (η²) / partial η²</b> for ANOVA: 0.01 small, 0.06 medium, 0.14 large.</li>
+</ul>
+
+<div class="nimhans"><b>NIMHANS pushes harder — effect size &amp; power analysis.</b> Clinical psychology now expects you to report effect sizes, not just p, and to run an <i>a priori</i> power analysis (e.g. G*Power) before collecting data: fix α (.05), desired power (.80) and the smallest effect worth detecting, and solve for n. After a null result, examine the CI / effect size before concluding "no effect" — you may simply have been underpowered. Cohen's benchmarks are conventions, not laws; in clinical work a "small" effect on suicidality can be hugely important.</div>
+
+<h3>Degrees of freedom</h3>
+<p><b>Degrees of freedom (df)</b> = the number of values free to vary once you've imposed constraints (like using the sample mean). With n scores and one estimated mean, only n − 1 deviations are free — the last is fixed because deviations must sum to zero. df sets the shape of the t, χ² and F reference distributions, so the same test statistic gives a different p at different df.</p>
+
+<div class="recap"><b>Recap.</b> Test H₀ (no effect), not H₁. Type I (α) = false alarm you set; Type II (β) = miss; power = 1 − β, raised mainly by n and effect size. p = P(data this extreme | H₀ true), not P(H₀). CI excluding 0 (difference) or 1 (ratio) ↔ p &lt; .05. Effect size = magnitude regardless of n. df = values free to vary.</div>
+
+
+<h2 class="sec" id="parametric">5. Parametric Tests</h2>
+<p><b>Parametric</b> tests make assumptions about the population's distribution (chiefly normality) and operate on its parameters (means, variances). When the assumptions hold they are <b>more powerful</b> than their non-parametric cousins — they squeeze more information from the same data.</p>
+
+<h3>The four parametric assumptions</h3>
+<ol>
+<li><b>Normality</b> of the DV / of the residuals (CLT rescues this at large n).</li>
+<li><b>Homogeneity of variance</b> — groups have similar spread (checked with Levene's test; Welch's correction if violated).</li>
+<li><b>Independence</b> of observations (except where the design pairs them, as in paired/repeated designs).</li>
+<li><b>Interval or ratio</b> measurement of the DV.</li>
+</ol>
+
+<h3>z-test</h3>
+<p>Compares a sample mean to a known population mean <b>when the population SD (σ) is known</b> (rare) or n is very large. Test statistic z = (x̄ − μ) / (σ/√n). In practice we usually don't know σ, which is exactly why the t-test exists.</p>
+
+<h3>t-tests — comparing one or two means</h3>
+<p>A t-test asks whether a mean difference is big <i>relative to the noise</i>. The general shape is <b>t = (difference in means) / (standard error of that difference)</b>. A big t means the signal dwarfs the noise. We use t rather than z because we estimate the SD from the sample, adding uncertainty (hence the fatter-tailed t distribution, indexed by df).</p>
+<ul>
+<li><b>One-sample t:</b> sample mean vs a known/hypothesised value. df = n − 1.</li>
+<li><b>Independent-samples t:</b> two <i>separate</i> groups' means (treatment vs control). df = n₁ + n₂ − 2. Assumes equal variances (use Welch's if not).</li>
+<li><b>Paired (related) t:</b> two scores from the <i>same or matched</i> subjects (pre vs post, twins). It works on the <i>differences</i> within each pair; df = (number of pairs) − 1. By using each subject as their own control it removes between-person variability, making it more powerful when pairing is sensible.</li>
+</ul>
+
+<div class="trap"><b>They swap these:</b> independent vs paired t. Two different groups → <b>independent</b>. Same people measured twice (or matched pairs) → <b>paired</b>. Using an independent t on paired data throws away the pairing and loses power.</div>
+
+<h3>ANOVA — comparing three or more means</h3>
+<p>Why not just run many t-tests? Because each test carries a 5% false-positive risk and they pile up (<b>inflated family-wise Type I error</b>). ANOVA (Analysis of Variance) tests all means at once with a single test.</p>
+<p>It works by <b>partitioning variance</b>. Total variability in the scores splits into <b>between-groups variance</b> (differences among the group means — the signal, driven by the IV) and <b>within-groups variance</b> (scatter of individuals inside each group — the noise, "error"). The test statistic is the <b>F-ratio</b>:</p>
+<p style="text-align:center;font-size:16px;"><b>F = between-groups variance / within-groups variance</b> (= MS<sub>between</sub> / MS<sub>within</sub>)</p>
+<p>If H₀ is true (all means equal), both estimate the same error variance and F ≈ 1. A real effect inflates the numerator, pushing F &gt; 1. A significant F says "<b>at least one</b> mean differs" — it does <i>not</i> say which, so you follow with <b>post-hoc tests</b> (Tukey HSD, Bonferroni, Scheffé) to find the specific pairs.</p>
+<ul>
+<li><b>One-way ANOVA:</b> one factor with ≥ 3 levels.</li>
+<li><b>Factorial (e.g. two-way) ANOVA:</b> two or more factors at once (drug × dose). It tests each factor's <b>main effect</b> plus their <b>interaction</b>.</li>
+<li><b>Repeated-measures ANOVA:</b> the within-subjects version (same people across ≥ 3 conditions/times). Adds the <b>sphericity</b> assumption (equal variances of the differences; corrected with Greenhouse-Geisser).</li>
+<li><b>ANCOVA:</b> ANOVA with a continuous <b>covariate</b> statistically removed first (e.g. comparing post-test scores while adjusting for pre-test), which reduces error variance and controls a confound.</li>
+</ul>
+
+<div class="why"><b>Main effect vs interaction.</b> A <b>main effect</b> is the effect of one factor averaged over the other ("the drug lowered anxiety overall"). An <b>interaction</b> means one factor's effect <i>depends on</i> the level of the other ("the drug helped young patients but not the old") — on a graph, non-parallel lines. Interactions are usually the interesting finding and override simple talk of main effects.</p>
+
+<h3>Pearson r &amp; linear regression</h3>
+<p><b>Pearson's r</b> measures the strength and direction of a <i>linear</i> association between two continuous variables, from −1 (perfect negative) through 0 (none) to +1 (perfect positive). <b>r² (coefficient of determination)</b> = the proportion of variance in one variable shared with (explained by) the other; r = .50 → r² = .25 = 25% of variance shared.</p>
+<p><b>Linear regression</b> goes one step further: it fits a line to <i>predict</i> Y from X, <b>Ŷ = a + bX</b>, where b (slope) is the predicted change in Y per unit X and a is the intercept. <b>Multiple regression</b> uses several predictors (Ŷ = a + b₁X₁ + b₂X₂ + …). <b>Logistic regression</b> handles a binary outcome, modelling the log-odds and yielding odds ratios.</p>
+
+<table>
+<thead><tr><th>Question</th><th>Parametric test</th><th>df / note</th></tr></thead>
+<tbody>
+<tr><td>One mean vs a known value</td><td><b>One-sample t</b></td><td>n − 1</td></tr>
+<tr><td>Two related means (pre/post, matched)</td><td><b>Paired t</b></td><td>pairs − 1</td></tr>
+<tr><td>Two independent group means</td><td><b>Independent t</b></td><td>n₁ + n₂ − 2</td></tr>
+<tr><td>≥ 3 independent group means</td><td><b>One-way ANOVA</b></td><td>F; post-hoc if sig.</td></tr>
+<tr><td>≥ 3 related means (within subjects)</td><td><b>Repeated-measures ANOVA</b></td><td>sphericity</td></tr>
+<tr><td>Two factors at once</td><td><b>Factorial ANOVA</b></td><td>main effects + interaction</td></tr>
+<tr><td>Compare groups adjusting a covariate</td><td><b>ANCOVA</b></td><td>covariate removed first</td></tr>
+<tr><td>Linear association, two continuous</td><td><b>Pearson r</b></td><td>−1 to +1; r² = variance shared</td></tr>
+<tr><td>Predict continuous Y from X</td><td><b>Linear regression</b></td><td>Ŷ = a + bX</td></tr>
+</tbody>
+</table>
+
+<div class="recap"><b>Recap.</b> Parametric = assume normality, equal variance, independence, interval/ratio; more powerful when met. t = mean difference / SE of that difference (one-sample, independent, paired). ANOVA partitions variance and tests F = between/within; significant F = "some mean differs," then post-hoc. Factorial adds interactions; repeated-measures is within-subjects; ANCOVA removes a covariate. r measures linear association, r² = shared variance, regression predicts.</div>
+
+
+<h2 class="sec" id="nonparametric">6. Non-parametric Tests</h2>
+<p>Non-parametric ("distribution-free") tests make <b>no assumption of normality</b> and mostly work on <b>ranks</b> rather than raw values, so they suit ordinal data and small or skewed samples.</p>
+<div class="rule"><b>Rule of thumb — use a non-parametric test when:</b> the DV is <b>ordinal</b> (ranks); the data are clearly <b>non-normal</b> and can't be fixed; there are <b>extreme outliers</b>; the <b>sample is small</b> so you can't lean on the CLT; or variances are badly unequal. Cost: less power than the parametric test when the parametric assumptions <i>would</i> have held.</div>
+
+<table>
+<thead><tr><th>Parametric counterpart</th><th>Non-parametric test</th><th>Use</th></tr></thead>
+<tbody>
+<tr><td>One-sample / paired t</td><td><b>Wilcoxon signed-rank</b></td><td>One sample vs a value, or paired/related scores — ranks the signed differences</td></tr>
+<tr><td>(simpler paired)</td><td><b>Sign test</b></td><td>Only uses the direction (+/−) of each pair's difference; weaker than signed-rank</td></tr>
+<tr><td>Independent t</td><td><b>Mann-Whitney U</b> (= Wilcoxon rank-sum)</td><td>Two independent groups</td></tr>
+<tr><td>One-way ANOVA</td><td><b>Kruskal-Wallis H</b></td><td>≥ 3 independent groups</td></tr>
+<tr><td>Repeated-measures ANOVA</td><td><b>Friedman test</b></td><td>≥ 3 related conditions</td></tr>
+<tr><td>Pearson r</td><td><b>Spearman's rho</b> (or Kendall's tau)</td><td>Monotonic association on ranks</td></tr>
+<tr><td>—</td><td><b>Chi-square (χ²)</b></td><td>Categorical counts (below)</td></tr>
+</tbody>
+</table>
+
+<h3>Chi-square (χ²) — for categorical data</h3>
+<p>Chi-square compares the <b>frequencies you observed</b> with the <b>frequencies expected</b> under H₀: <b>χ² = Σ (O − E)² / E</b>. A big χ² means observed counts depart a lot from expectation.</p>
+<ul>
+<li><b>Goodness-of-fit:</b> does one categorical variable's distribution match an expected one (e.g. are births evenly spread across months)?</li>
+<li><b>Test of independence:</b> are two categorical variables associated (e.g. smoking × diagnosis in a contingency table)?</li>
+</ul>
+<p><b>Assumptions:</b> independent observations and <b>expected count ≥ 5</b> in (almost) every cell. If a 2×2 table has any expected cell &lt; 5, use <b>Fisher's exact test</b>. For <i>paired</i> categorical data (same people, before/after yes-no) use <b>McNemar's test</b>.</p>
+
+<div class="trap"><b>They swap these:</b> Wilcoxon signed-rank (paired/related) vs Mann-Whitney U (independent groups). Same pairing logic as paired-vs-independent t. Also Kruskal-Wallis (independent, ≥ 3) vs Friedman (related, ≥ 3).</div>
+
+<div class="recap"><b>Recap.</b> Non-parametric = rank-based, no normality needed; use for ordinal data, small samples, outliers, gross non-normality. Map each to its parametric twin (Mann-Whitney↔independent t, Wilcoxon↔paired t, Kruskal-Wallis↔one-way ANOVA, Friedman↔RM-ANOVA, Spearman↔Pearson). Chi-square for category counts; Fisher's exact when expected cell &lt; 5; McNemar for paired categories.</div>
+
+
+<h2 class="sec" id="correlation">7. Correlation, Regression &amp; Special Coefficients</h2>
+
+<h3>Correlation is not causation</h3>
+<p>A correlation only says two variables move together. It cannot tell you that X caused Y because of two perennial alternatives: <b>reverse causation</b> (Y → X) and the <b>third-variable (confound)</b> problem (Z drives both). Ice-cream sales correlate with drownings because summer heat drives both. Only a controlled experiment with randomisation licenses a causal claim.</p>
+
+<h3>Partial correlation</h3>
+<p><b>Partial correlation</b> measures the association between X and Y <i>after statistically removing</i> the influence of a third variable Z from both. If the X–Y correlation collapses once you partial out Z, Z was likely the confound doing the work.</p>
+
+<h3>Regression vs correlation</h3>
+<p>They share machinery but answer different questions. <b>Correlation</b> is symmetric and unitless — it quantifies <i>how tightly</i> two variables relate (r), with no direction of prediction. <b>Regression</b> is directional — it builds an equation to <i>predict</i> Y from X (Ŷ = a + bX) and its slope b is in real units. r tells you the strength; regression lets you forecast and gives the line.</p>
+
+<div class="trap"><b>They swap these:</b> correlation vs regression. r = strength of association, no units, symmetric (r of X with Y = r of Y with X). Regression = prediction equation with a slope in units, and X→Y is not the same line as Y→X. "r = 0" only rules out a <i>linear</i> relationship — a perfect U-shape has r ≈ 0.</div>
+
+<h3>Special correlation coefficients — match the coefficient to the data</h3>
+<p>Pearson r assumes both variables are continuous. When one or both are categorical you switch coefficient:</p>
+<table>
+<thead><tr><th>Coefficient</th><th>Variable 1</th><th>Variable 2</th></tr></thead>
+<tbody>
+<tr><td><b>Pearson r</b></td><td>Continuous</td><td>Continuous</td></tr>
+<tr><td><b>Spearman rho</b></td><td>Ordinal (ranks)</td><td>Ordinal (ranks)</td></tr>
+<tr><td><b>Point-biserial</b></td><td>True dichotomy (e.g. sex)</td><td>Continuous</td></tr>
+<tr><td><b>Biserial</b></td><td>Artificial dichotomy (continuous split into 2)</td><td>Continuous</td></tr>
+<tr><td><b>Phi (φ)</b></td><td>True dichotomy</td><td>True dichotomy (2×2)</td></tr>
+<tr><td><b>Tetrachoric</b></td><td>Artificial dichotomy</td><td>Artificial dichotomy</td></tr>
+</tbody>
+</table>
+<p>Memory aid: <b>"bi-serial" pairs a continuous variable with a dichotomy</b>; <i>point-</i>biserial for a <i>genuine</i> two-category split, plain biserial when a continuous variable was forced into two. <b>Phi vs tetrachoric</b> are the two-dichotomy versions — phi for <i>true</i> categories, tetrachoric when both dichotomies are really continuous underneath.</p>
+
+<div class="recap"><b>Recap.</b> Correlation ≠ causation (reverse causation + confound). Partial correlation removes a third variable. Correlation = symmetric strength (r); regression = directional prediction (Ŷ = a + bX). Pick the coefficient by data type: point-biserial (true dichotomy × continuous), biserial (artificial dichotomy × continuous), phi (2 true dichotomies), tetrachoric (2 artificial dichotomies).</div>
+
+
+<h2 class="sec" id="reliability">8. Reliability &amp; Validity</h2>
+<p>This is A. K. Singh's home turf. A test score is only as good as its <b>reliability</b> (consistency) and <b>validity</b> (does it measure the intended construct).</p>
+
+<h3>Reliability — consistency of measurement</h3>
+<p>Reliability asks: if I measured again, would I get the same score? It's expressed as a coefficient from 0 to 1 (≥ .70 acceptable for research, ≥ .80–.90 for clinical decisions). Conceptually a score = true score + error; reliability = the proportion of <b>true-score variance</b> in observed scores.</p>
+<ul>
+<li><b>Test-retest:</b> same test, same people, two occasions; correlate. Indexes <b>stability over time</b>. Threat: practice/memory effects, real change.</li>
+<li><b>Parallel-form (alternate-form):</b> two equivalent versions; correlate. Controls memory effects but you must prove the forms are truly equivalent.</li>
+<li><b>Split-half:</b> split the items in two (e.g. odd vs even), correlate the halves. Because you've halved the test, correct upward with the <b>Spearman-Brown prophecy formula</b> (longer tests are more reliable).</li>
+<li><b>Cronbach's alpha (α):</b> the average of all possible split-halves — the standard index of <b>internal consistency</b> (do the items hang together / measure one thing?). Rises with more items and with higher inter-item correlations. Acceptable ≈ .70–.95.</li>
+<li><b>Inter-rater reliability:</b> agreement between observers. <b>Cohen's kappa (κ)</b> for categorical ratings <i>corrects for chance agreement</i> (raw % agreement overstates it); a weighted/intraclass version is used for continuous ratings.</li>
+</ul>
+
+<div class="nimhans"><b>NIMHANS pushes harder — interpreting Cronbach's alpha.</b> Alpha is <i>not</i> a measure of unidimensionality and a high alpha can simply mean you have many items. Above ~.95 suggests <b>redundancy</b> (items are near-duplicates), not excellence. Alpha also assumes tau-equivalence; modern psychometrics often prefers <b>McDonald's omega</b>. Know that alpha depends on test length and inter-item correlation, and report it with the construct it indexes.</div>
+
+<h3>Validity — are you measuring the right thing?</h3>
+<ul>
+<li><b>Face validity:</b> does it <i>look</i> like it measures the construct, to a layperson? Weakest, most superficial.</li>
+<li><b>Content validity:</b> do the items cover the full domain of the construct (e.g. a maths test sampling all topics)? Judged by experts / blueprint.</li>
+<li><b>Criterion validity:</b> does the test correlate with an external criterion? Two flavours by timing: <b>concurrent</b> (criterion measured <i>now</i>, e.g. new depression scale vs an established one today) and <b>predictive</b> (criterion measured <i>later</i>, e.g. entrance exam predicting future grades).</li>
+<li><b>Construct validity:</b> does it truly tap the theoretical construct? Built from <b>convergent</b> evidence (correlates with measures it <i>should</i>) and <b>discriminant/divergent</b> evidence (does <i>not</i> correlate with unrelated measures).</li>
+</ul>
+
+<div class="why"><b>Reliability sets a ceiling on validity.</b> A test can't correlate with anything (be valid) more than it correlates with itself (is reliable). So unreliability caps validity, but the reverse fails: a test can be perfectly <b>reliable yet not valid</b> — a bathroom scale that always reads 5 kg heavy is perfectly consistent (reliable) but wrong (invalid). Reliability is necessary but not sufficient for validity.</p>
+
+<div class="trap"><b>They swap these:</b> reliable ≠ valid. Reliability = consistency; validity = accuracy/measuring the intended thing. A test can be reliable but not valid; it cannot be valid without being reliable. Also <b>concurrent</b> (criterion measured now) vs <b>predictive</b> (criterion in the future) — both are criterion validity.</div>
+
+<div class="recap"><b>Recap.</b> Reliability = consistency (test-retest = stability, parallel-form, split-half → Spearman-Brown, Cronbach's α = internal consistency, Cohen's κ = chance-corrected inter-rater). Validity = measuring the right construct (face &lt; content &lt; criterion {concurrent/predictive} &lt; construct {convergent/discriminant}). Reliability caps validity; reliable-but-invalid is possible, valid-but-unreliable is not.</div>
+
+
+<h2 class="sec" id="sampling">9. Sampling</h2>
+<p>A sample stands in for a population. Whether you can generalise depends entirely on <i>how</i> it was drawn.</p>
+
+<h3>Probability sampling — everyone has a known, non-zero chance</h3>
+<p>Only probability methods let you calculate sampling error and generalise with confidence.</p>
+<ul>
+<li><b>Simple random:</b> every individual has an equal chance (lottery / random-number table). The benchmark.</li>
+<li><b>Systematic:</b> pick every k-th person from a list (k = N/n) after a random start. Easy, but dangerous if the list has a hidden periodicity matching k.</li>
+<li><b>Stratified:</b> divide the population into strata (e.g. age bands, sex), then sample randomly <i>within</i> each. Guarantees representation of each stratum and usually <i>reduces</i> sampling error. Proportionate or disproportionate.</li>
+<li><b>Cluster:</b> divide into naturally occurring clusters (schools, villages), randomly select whole <i>clusters</i>, study everyone inside. Cheaper over wide areas but higher sampling error.</li>
+<li><b>Multistage:</b> nest the above (random districts → random schools within them → random pupils).</li>
+</ul>
+
+<div class="trap"><b>They swap these:</b> stratified vs cluster. <b>Stratified</b> samples randomly <i>within every</i> subgroup (you want all strata in) and lowers error; <b>cluster</b> randomly picks <i>some whole</i> subgroups and skips the rest (you sample groups, for cost) and raises error.</div>
+
+<h3>Non-probability sampling — selection chance unknown</h3>
+<ul>
+<li><b>Convenience:</b> whoever is to hand (the classic undergrad subject pool). Most prone to bias.</li>
+<li><b>Purposive (judgmental):</b> the researcher hand-picks information-rich cases on set criteria.</li>
+<li><b>Quota:</b> fill fixed counts per category (50 men, 50 women) but non-randomly within — the non-probability cousin of stratified.</li>
+<li><b>Snowball:</b> participants recruit further participants; for hidden/stigmatised populations (e.g. drug users).</li>
+</ul>
+
+<h3>Sampling error vs sampling bias</h3>
+<div class="trap"><b>They swap these — error vs bias.</b> <b>Sampling error</b> is the <i>random</i>, unavoidable difference between a sample statistic and the true population value just from chance; it <b>shrinks as n grows</b> and centres on the truth. <b>Sampling bias</b> is a <i>systematic</i> skew from a flawed method (e.g. convenience sampling); it does <b>not</b> shrink with n — <i>a bigger biased sample is just more precisely wrong.</i></div>
+
+<div class="recap"><b>Recap.</b> Probability sampling (simple random, systematic, stratified, cluster, multistage) = known chance, generalisable, lets you quantify error. Non-probability (convenience, purposive, quota, snowball) = unknown chance, bias risk. Error = random, falls with n; bias = systematic, immune to n.</div>
+
+
+<h2 class="sec" id="designs">10. Research Designs</h2>
+
+<h3>Experimental designs — by degree of control</h3>
+<p>Only an experiment (manipulate the IV + randomly assign) can establish causation, because randomisation balances out unknown confounds.</p>
+<table>
+<thead><tr><th>Design</th><th>Manipulate IV?</th><th>Random assignment?</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td><b>True experimental (RCT)</b></td><td>Yes</td><td>Yes</td><td>Highest internal validity; gold standard for causation</td></tr>
+<tr><td><b>Quasi-experimental</b></td><td>Yes</td><td>No</td><td>Pre-existing groups (classes, wards); confounds remain</td></tr>
+<tr><td><b>Pre-experimental</b></td><td>Loosely</td><td>No</td><td>e.g. one-group pretest-posttest; very weak, many threats</td></tr>
+</tbody>
+</table>
+
+<h3>Between- vs within-subjects (and factorial)</h3>
+<ul>
+<li><b>Between-subjects (independent groups):</b> different people in each condition. No carry-over, but between-person variability is noise, and groups may differ to start.</li>
+<li><b>Within-subjects (repeated measures):</b> the same people in every condition. Each is their own control, so it's powerful and economical, but risks <b>order/carry-over effects</b> (practice, fatigue) — fixed by <b>counterbalancing</b>.</li>
+<li><b>Factorial:</b> two or more IVs crossed, so you can test their interaction (a 2×2 has 4 cells).</li>
+</ul>
+
+<h3>Non-experimental designs</h3>
+<ul>
+<li><b>Correlational:</b> measure variables as they are and relate them; no manipulation, so no causal claim.</li>
+<li><b>Cross-sectional:</b> one snapshot in time (cheap, but can't show temporality / change).</li>
+<li><b>Longitudinal:</b> the same people followed over time (can show change/causal order, but slow, costly, and bleeds participants through <b>attrition</b>).</li>
+<li><b>Case study:</b> deep dive into one person/unit (rich, hypothesis-generating, not generalisable).</li>
+<li><b>Observational:</b> watch behaviour in situ (naturalistic vs structured; participant vs non-participant; covert vs overt).</li>
+</ul>
+
+<h3>Controlling confounds</h3>
+<ul>
+<li><b>Randomisation</b> — random assignment spreads unknown confounds evenly across groups (the most powerful control).</li>
+<li><b>Counterbalancing</b> — vary the order of conditions across subjects to cancel order effects in within-subjects designs.</li>
+<li><b>Matching</b> — pair subjects on a key variable (e.g. IQ) before assigning, removing that variable as a confound.</li>
+<li><b>Single-blind</b> (participant unaware of condition) and <b>double-blind</b> (participant <i>and</i> experimenter/assessor unaware) — control expectancy and experimenter effects.</li>
+</ul>
+
+<div class="trap"><b>They swap these:</b> random <b>sampling</b> vs random <b>assignment</b>. Random sampling = who gets <i>into</i> the study (drives external validity/generalisability). Random assignment = which <i>condition</i> they go to (drives internal validity/causation). A study can have one without the other.</div>
+<div class="trap"><b>They swap these:</b> counterbalancing (fixes <i>order</i> effects in within-subjects) vs matching (controls a specific <i>confound</i> variable in between-subjects).</div>
+
+<div class="recap"><b>Recap.</b> True experiment = manipulate + randomise = causation; quasi (no randomisation) and pre-experimental are weaker. Between vs within (within is powerful but needs counterbalancing). Correlational/cross-sectional/longitudinal/case/observational don't manipulate. Confounds controlled by randomisation, counterbalancing, matching, blinding.</div>
+
+
+<h2 class="sec" id="variables">11. Variables</h2>
+<ul>
+<li><b>Independent variable (IV):</b> what the experimenter manipulates or groups by — the presumed cause.</li>
+<li><b>Dependent variable (DV):</b> the measured outcome — the presumed effect.</li>
+<li><b>Confound:</b> a variable tied to <i>both</i> the IV and the DV, creating a spurious link and offering a rival explanation. Controlled by randomisation, matching, or statistical adjustment.</li>
+<li><b>Extraneous variable:</b> any variable other than the IV that could affect the DV; becomes a confound only if it also correlates with the IV.</li>
+<li><b>Operationalisation:</b> defining a fuzzy construct in concrete, measurable terms (e.g. "anxiety" = score on the GAD-7). Bad operationalisation sinks construct validity.</li>
+</ul>
+
+<h3>Mediator vs moderator — the high-frequency trap</h3>
+<p>Both are "third variables," but they do opposite jobs:</p>
+<ul>
+<li><b>Mediator</b> explains <b>HOW / WHY</b> the IV affects the DV — it's the mechanism in the causal chain: <b>IV → Mediator → DV</b>. Stress → cortisol → poorer immunity: cortisol mediates. If you control the mediator, the IV–DV link weakens or vanishes.</li>
+<li><b>Moderator</b> changes <b>WHEN / FOR WHOM / HOW STRONGLY</b> the IV affects the DV — it alters the strength or direction of the relationship, but isn't on the causal path. Therapy works better for women than men: sex moderates therapy → outcome. Statistically, a moderator shows up as an <b>interaction</b>.</li>
+</ul>
+<div class="trap"><b>They swap these:</b> mediator vs moderator. Mediator = mechanism (<i>how</i>, sits <i>between</i> IV and DV). Moderator = condition (<i>for whom / when</i>, an interaction). Hook: <b>me</b>diator = <b>me</b>chanism; mo<b>der</b>ator = depends.</div>
+
+<div class="recap"><b>Recap.</b> IV = manipulated cause, DV = measured effect. Confound = linked to both (rival explanation); extraneous = could matter, confound if it correlates with IV. Operationalise constructs concretely. Mediator = how/mechanism (IV→M→DV); moderator = when/for whom (interaction).</div>
+
+
+<h2 class="sec" id="study-validity">12. Validity of a Study (Internal vs External)</h2>
+<p>Distinct from <i>test</i> validity (section 8). Here we judge the <b>study's conclusions</b>.</p>
+<ul>
+<li><b>Internal validity:</b> did the IV <i>really</i> cause the change in the DV, with no confound responsible? Maximised by experimental control and randomisation.</li>
+<li><b>External validity:</b> do the findings <i>generalise</i> to other people, settings, and times? <b>Ecological validity</b> is a subtype — do they hold in real-world, everyday conditions rather than the lab?</li>
+</ul>
+<p>There's usually a <b>trade-off</b>: tight lab control boosts internal validity but the artificial setting can hurt external/ecological validity.</p>
+
+<h3>Threats to internal validity (Campbell &amp; Stanley)</h3>
+<ul>
+<li><b>History:</b> an outside event happens during the study and affects the DV.</li>
+<li><b>Maturation:</b> participants naturally change over time (grow, tire, heal) regardless of the IV.</li>
+<li><b>Testing:</b> taking the pre-test itself changes the post-test (practice, sensitisation).</li>
+<li><b>Instrumentation:</b> the measuring tool or observer drifts over time.</li>
+<li><b>Regression to the mean:</b> people selected for <i>extreme</i> scores drift back toward average on retest, faking an "effect" in pre/post designs without a control.</li>
+<li><b>Selection:</b> groups differ <i>before</i> the study (the core flaw of non-randomised designs).</li>
+<li><b>Attrition (mortality):</b> participants drop out non-randomly, leaving an unrepresentative remainder.</li>
+</ul>
+<div class="trap"><b>They swap these:</b> maturation (internal, natural change <i>within</i> people) vs history (an external <i>event</i>). And regression to the mean is mistaken for a treatment effect whenever extreme groups are retested without a control group.</div>
+
+<div class="recap"><b>Recap.</b> Internal = did IV cause DV (control/randomise); external = does it generalise; ecological = holds in real life; the two trade off. Internal threats: History, Maturation, Testing, Instrumentation, Regression to mean, Selection, Attrition.</div>
+
+
+<h2 class="sec" id="qualitative">13. Qualitative &amp; Mixed Methods</h2>
+<p>Qualitative research studies <b>meaning and experience in words</b>, not numbers. It is <b>inductive</b> (builds theory from data), <b>naturalistic</b>, and treats the researcher as the main instrument. Use it when the question is "<b>how / what is it like / why</b>" rather than "how much"; when the topic is new, sensitive, or poorly understood; or when you want lived experience and context.</p>
+
+<table>
+<thead><tr><th>Approach</th><th>Aim</th><th>Hallmark</th></tr></thead>
+<tbody>
+<tr><td><b>Thematic analysis</b> (Braun &amp; Clarke)</td><td>Identify patterned <b>themes</b> of meaning</td><td>6 phases; flexible, paradigm-free</td></tr>
+<tr><td><b>Grounded theory</b> (Glaser &amp; Strauss)</td><td>Build a <b>theory</b> from the data</td><td>Constant comparison, theoretical sampling, open→axial→selective coding, saturation</td></tr>
+<tr><td><b>IPA</b> (Smith)</td><td>How individuals make sense of <b>lived experience</b></td><td>Small homogeneous sample, double hermeneutic</td></tr>
+<tr><td><b>Content analysis</b></td><td>Systematically categorise text</td><td>Can be qualitative <i>or</i> quantitative (counts codes)</td></tr>
+<tr><td><b>Discourse analysis</b></td><td>How <b>language constructs</b> reality</td><td>Examines power, rhetoric in talk/text</td></tr>
+</tbody>
+</table>
+<p><b>Thematic analysis (Braun &amp; Clarke) — 6 phases:</b> familiarisation → generating initial codes → searching for themes → reviewing themes → defining &amp; naming themes → writing up. <b>Grounded theory</b> aims to generate theory via constant comparison and stops at <b>saturation</b> (no new categories). <b>IPA</b> is the phenomenology workhorse in clinical psych. <b>Rigour</b> is judged by <b>trustworthiness</b> (Lincoln &amp; Guba): credibility, transferability, dependability, confirmability — paralleling internal validity, external validity, reliability, objectivity.</p>
+
+<h3>Mixed methods</h3>
+<ul>
+<li><b>Sequential explanatory:</b> quant first, then qual to explain the numbers.</li>
+<li><b>Sequential exploratory:</b> qual first to generate hypotheses, then quant to test.</li>
+<li><b>Convergent (parallel):</b> both at once, results compared/triangulated.</li>
+<li><b>Embedded:</b> one nested inside the other (e.g. qual interviews within an RCT).</li>
+</ul>
+
+<div class="trap"><b>They swap these:</b> bracketing belongs to <b>phenomenology/IPA</b>; constant comparison to <b>grounded theory</b>; thick description to <b>ethnography</b>. Grounded theory <i>generates</i> theory, not "describes lived experience" (that's phenomenology). Qualitative sample size is set by <b>saturation</b>, never by power analysis.</div>
+
+<div class="recap"><b>Recap.</b> Qualitative = words, inductive, meaning; use for how/why and new/sensitive topics. Thematic analysis (6 phases), grounded theory (build theory, saturation), IPA (lived experience), content &amp; discourse analysis. Rigour = trustworthiness (credibility/transferability/dependability/confirmability). Mixed methods sequence or combine quant + qual.</div>
+
+
+<h2 class="sec" id="item-analysis">14. Item Analysis &amp; Test Construction</h2>
+<p>A. K. Singh's strength: how individual items are evaluated when building a test. After piloting a test you examine each item on three indices and keep, revise, or drop it.</p>
+<ul>
+<li><b>Item difficulty (p):</b> the <b>proportion of examinees who got the item right</b>. p = 1.0 means everyone passed (too easy); p = 0 means nobody did (too hard). Counter-intuitively, a <i>higher</i> p = an <i>easier</i> item. For maximum discrimination, p ≈ <b>0.50</b> is ideal (adjusted upward for guessing on MCQs); you keep a spread of difficulties.</li>
+<li><b>Discrimination index (D):</b> does the item separate high scorers from low scorers? Split into the top and bottom groups (often 27%); <b>D = (proportion correct in upper group) − (proportion correct in lower group)</b>. D ranges −1 to +1; ≥ 0.40 is excellent, 0.20–0.39 acceptable, &lt; 0.20 poor. A <b>negative D</b> (low scorers beat high scorers) flags a flawed or mis-keyed item — drop it.</li>
+<li><b>Item-total correlation:</b> the correlation between the item score and the total test score (for dichotomous items, a point-biserial). High = the item pulls in the same direction as the test as a whole (good internal consistency); near zero or negative = the item doesn't belong.</li>
+</ul>
+<div class="trap"><b>They swap these:</b> item difficulty is a <i>proportion correct</i>, so a <b>high p = an easy item</b>, not a hard one. And discrimination, not difficulty, is what tells you whether an item separates strong from weak examinees.</div>
+<div class="nimhans"><b>NIMHANS pushes harder — IRT basics.</b> Classical test theory (difficulty p, discrimination D) is sample-dependent — the same item looks "harder" in a weaker group. <b>Item Response Theory (IRT)</b> models the probability of a correct response as a function of the person's latent ability (θ) via an <b>item characteristic curve (ICC)</b>, with item parameters: <i>a</i> = discrimination (slope), <i>b</i> = difficulty (location along θ), <i>c</i> = guessing (lower asymptote) — the 1PL/Rasch, 2PL, 3PL models. IRT parameters are (ideally) sample-independent, which is why modern adaptive tests (CAT) are built on it.</div>
+
+<div class="recap"><b>Recap.</b> Evaluate each item by difficulty (p = proportion correct; ~.50 most discriminating; high p = easy), discrimination (D = upper − lower group proportion correct; want ≥ .30, drop negatives), and item-total correlation (item agrees with the whole test). IRT models ability vs item parameters (a/b/c) sample-independently.</div>
+
+
+<h2 class="sec" id="ethics">15. Research Ethics</h2>
+<p>Born from abuses (Nazi experiments → Nuremberg Code 1947; Tuskegee → the Belmont Report 1979). Core principles: respect for persons (autonomy), beneficence (do good, minimise harm), and justice (fair distribution of risk/benefit).</p>
+<ul>
+<li><b>Informed consent:</b> participants get the purpose, procedures, risks, benefits, and their rights in understandable terms, and agree voluntarily. Special protection for vulnerable groups (children, those with impaired capacity).</li>
+<li><b>Deception &amp; debriefing:</b> deception is permitted only when unavoidable and low-risk, and <b>must be followed by a full debrief</b> explaining the true purpose and undoing any distress.</li>
+<li><b>Confidentiality &amp; anonymity:</b> protect identities and store data securely; report in aggregate.</li>
+<li><b>Right to withdraw:</b> participants may quit at any time, without penalty, and withdraw their data.</li>
+<li><b>Ethics committee / IRB:</b> an independent board reviews and approves the protocol <i>before</i> data collection; risk tiers run exempt → expedited → full board.</li>
+</ul>
+<div class="trap"><b>They swap these:</b> anonymity (the researcher <i>cannot</i> link data to a person at all) vs confidentiality (the researcher <i>can</i> identify but <i>won't</i> disclose). Deception without a debrief is unethical — the debrief is what (partly) justifies the deception.</div>
+
+<div class="recap"><b>Recap.</b> Respect, beneficence, justice. Informed consent, voluntary participation with right to withdraw, confidentiality, deception only with debrief, prior approval by an ethics committee/IRB.</div>
+
+
+<h2 class="sec" id="scaling">16. Scaling (Attitude Measurement)</h2>
+<p>Scaling turns attitudes into numbers. Know the logic that distinguishes the four classic methods:</p>
+<ul>
+<li><b>Likert (summated rating):</b> respondents rate agreement on a symmetric scale (Strongly disagree … Strongly agree, usually 5 or 7 points); item scores are <b>summed</b>. Easiest to build; individual items are ordinal.</li>
+<li><b>Thurstone (equal-appearing intervals):</b> judges first scale many statements for favourability; respondents simply <b>endorse the ones they agree with</b>, and their score is the average scale value of those statements. Aims for interval-level measurement; labour-intensive to construct.</li>
+<li><b>Guttman (cumulative / scalogram):</b> items form a <b>hierarchy</b> so that agreeing with a strong item implies agreement with all weaker ones (endorsing the top item predicts the whole pattern). Unidimensional and reproducible.</li>
+<li><b>Semantic differential (Osgood):</b> rate a concept on a series of <b>bipolar adjective</b> pairs (good–bad, weak–strong, fast–slow) on a 7-point line; classically loads onto three dimensions: <b>evaluation, potency, activity</b>.</li>
+</ul>
+<div class="trap"><b>They swap these:</b> Thurstone (judges pre-scale statements; you endorse/reject) vs Likert (you rate degree of agreement and items are summed) vs Guttman (cumulative hierarchy) vs semantic differential (bipolar adjective pairs). Osgood = semantic differential = evaluation/potency/activity.</div>
+
+<div class="recap"><b>Recap.</b> Likert = summed agreement ratings; Thurstone = endorse pre-scaled statements (interval aim); Guttman = cumulative hierarchy; semantic differential = bipolar adjectives (Osgood, E-P-A).</div>
+
+
+<h2 class="sec" id="decision">Which Test Do I Use? — decision table</h2>
+<p>Read it as: <b>what's my DV's data type</b> × <b>how many groups / what design</b> → test.</p>
+<table>
+<thead><tr><th>Goal / design</th><th>Categorical (nominal) DV</th><th>Ordinal DV / non-normal</th><th>Interval-ratio DV (normal)</th></tr></thead>
+<tbody>
+<tr><td><b>One sample vs a known value</b></td><td>χ² goodness-of-fit</td><td>Wilcoxon signed-rank / sign test</td><td>One-sample t (z if σ known)</td></tr>
+<tr><td><b>2 independent groups</b></td><td>χ² independence (Fisher if cell &lt; 5)</td><td>Mann-Whitney U</td><td>Independent t</td></tr>
+<tr><td><b>2 related/paired measures</b></td><td>McNemar</td><td>Wilcoxon signed-rank</td><td>Paired t</td></tr>
+<tr><td><b>≥ 3 independent groups</b></td><td>χ² (r × c)</td><td>Kruskal-Wallis H</td><td>One-way ANOVA → post-hoc</td></tr>
+<tr><td><b>≥ 3 related measures</b></td><td>Cochran's Q</td><td>Friedman</td><td>Repeated-measures ANOVA</td></tr>
+<tr><td><b>2 IVs at once</b></td><td>log-linear / logistic</td><td>—</td><td>Factorial ANOVA (main + interaction)</td></tr>
+<tr><td><b>Association between 2 variables</b></td><td>φ / Cramér's V (χ²)</td><td>Spearman rho / Kendall tau</td><td>Pearson r</td></tr>
+<tr><td><b>Predict an outcome</b></td><td>Logistic regression</td><td>Ordinal regression</td><td>Linear regression</td></tr>
+</tbody>
+</table>
+
+
+<h2 class="sec" id="traps">Collected MCQ Traps</h2>
+<div class="trap"><b>Parametric vs non-parametric.</b> Parametric (t, ANOVA, Pearson) needs normality + interval/ratio data and is more powerful when met; non-parametric (Mann-Whitney, Wilcoxon, Kruskal-Wallis, Friedman, Spearman, χ²) is rank/count-based for ordinal, small, or non-normal data. Don't pick non-parametric "to be safe" if assumptions hold — you lose power.</div>
+<div class="trap"><b>Type I vs Type II.</b> Type I (α) = false positive = reject a true H₀ (set, usually .05). Type II (β) = false negative = miss a real effect. Power = 1 − β. "Sigh, I missed it" = II.</div>
+<div class="trap"><b>Reliability vs validity.</b> Reliability = consistency; validity = measures the right construct. Reliable-but-invalid is possible (a scale always 5 kg off); valid-but-unreliable is not (reliability caps validity).</div>
+<div class="trap"><b>Mediator vs moderator.</b> Mediator = mechanism, the <i>how</i>, sits between IV and DV (IV→M→DV). Moderator = condition, the <i>for whom/when</i>, shows up as an interaction. Me-diator = me-chanism.</div>
+<div class="trap"><b>Sampling error vs bias.</b> Error = random, shrinks with n, centres on the truth. Bias = systematic, immune to n — a bigger biased sample is just more precisely wrong.</div>
+<div class="trap"><b>Correlation vs regression.</b> r = strength of linear association, symmetric, unitless. Regression = directional prediction equation (Ŷ = a + bX) with a slope in units. r = 0 only rules out a <i>linear</i> relation (a U-curve has r ≈ 0). And correlation ≠ causation.</div>
+<div class="trap"><b>Mean vs median under skew.</b> The mean chases the tail. Positive skew → mean &gt; median &gt; mode; use the median for skewed data. The mean is the most outlier-sensitive average.</div>
+<div class="trap"><b>p-value.</b> P(data this extreme | H₀ true), not P(H₀ true) and not "probability it was chance." Significance ≠ importance.</div>
+<div class="trap"><b>SD vs SE.</b> SD = spread of individual scores; SE = SD/√n = spread of sample means, always smaller.</div>
+<div class="trap"><b>Random sampling vs random assignment.</b> Sampling = who gets in (external validity); assignment = which condition (internal validity).</div>
+<div class="trap"><b>Stratified vs cluster sampling.</b> Stratified = random <i>within every</i> subgroup (lowers error); cluster = pick <i>whole</i> subgroups at random (raises error, saves cost).</div>
+<div class="trap"><b>ANOVA aftermath.</b> A significant F says "at least one mean differs," not which — run post-hoc (Tukey/Bonferroni/Scheffé) for the pairs.</div>
+
+
+<h2 class="sec" id="walkthrough">Worked Intuition Walkthrough</h2>
+<h3>What a t actually compares</h3>
+<p>t is a <b>signal-to-noise ratio</b>: the difference between means (the signal) divided by the standard error of that difference (the noise). If two group means differ by 6 points and the SE of the difference is 2, t = 3 — the gap is three times the size of the typical sampling wobble, so it's hard to dismiss as chance. If the same 6-point gap came with an SE of 6, t = 1 — the gap is no bigger than the noise, so it's unconvincing. Bigger samples shrink the SE (SE = SD/√n), which is why the <i>same</i> mean difference becomes significant as n grows.</p>
+
+<h3>How ANOVA partitions variance</h3>
+<p>Picture three groups. Total variability in everyone's scores has two sources: scores differ because the <b>group means differ</b> (between-groups, the effect of the IV) and because <b>individuals differ within their own group</b> (within-groups, random error). ANOVA estimates a variance from each source. If the IV does nothing, both estimate the same error variance and their ratio F ≈ 1. If the IV matters, the between-groups estimate balloons and F climbs above 1.</p>
+
+<h3>Reading F and p</h3>
+<p>You compare your F to the F-distribution at the right df (between, within). A large F lands far in the right tail, giving a small p. p &lt; .05 means: "if all the group means were truly equal, an F this large would happen less than 5% of the time" — surprising enough to reject H₀. But F only flags <i>that</i> something differs; the <b>post-hoc</b> tests and the <b>effect size (η²)</b> tell you which groups and how much.</p>
+
+<h3>What r² means</h3>
+<p>Square the correlation and you get the <b>proportion of variance shared</b>. r = .60 → r² = .36, so 36% of the variation in Y is accounted for by its linear relationship with X (and 64% is left to other factors). This is why a "moderate" r of .30 looks less impressive once squared (r² = .09 — only 9% of variance), a useful reality check against over-reading correlations.</p>
+
+
+<h2 class="sec" id="glossary">Fast Glossary (A–Z)</h2>
+<ul>
+<li><b>Alpha (α):</b> the Type I error rate you set (usually .05); also Cronbach's α for internal consistency.</li>
+<li><b>ANCOVA:</b> ANOVA adjusting for a continuous covariate.</li>
+<li><b>ANOVA:</b> compares ≥ 3 means via F = between/within variance.</li>
+<li><b>Attrition:</b> non-random dropout, a threat to internal validity.</li>
+<li><b>Beta (β):</b> Type II error rate; power = 1 − β.</li>
+<li><b>Bias (sampling):</b> systematic error from method; not fixed by larger n.</li>
+<li><b>Central Limit Theorem:</b> sampling distribution of the mean → normal as n grows.</li>
+<li><b>Chi-square (χ²):</b> Σ(O − E)²/E; test on category counts.</li>
+<li><b>Cohen's d:</b> standardised mean-difference effect size (.2/.5/.8).</li>
+<li><b>Confidence interval:</b> plausible range for a parameter; 95% CI excluding 0 ↔ p &lt; .05.</li>
+<li><b>Confound:</b> third variable tied to both IV and DV.</li>
+<li><b>Construct validity:</b> does the test tap the intended construct (convergent + discriminant).</li>
+<li><b>Counterbalancing:</b> varying condition order to cancel order effects.</li>
+<li><b>Degrees of freedom:</b> values free to vary; shapes t/χ²/F.</li>
+<li><b>Discrimination index (D):</b> upper − lower group proportion correct on an item.</li>
+<li><b>Effect size:</b> magnitude of an effect, independent of n.</li>
+<li><b>Eta squared (η²):</b> proportion of variance explained in ANOVA.</li>
+<li><b>External validity:</b> generalisability of findings.</li>
+<li><b>F-ratio:</b> between-groups variance / within-groups variance.</li>
+<li><b>Internal validity:</b> did the IV really cause the DV.</li>
+<li><b>IQR:</b> Q3 − Q1, robust spread.</li>
+<li><b>Item difficulty (p):</b> proportion answering an item correctly (high p = easy).</li>
+<li><b>Kappa (κ):</b> chance-corrected inter-rater agreement.</li>
+<li><b>Kurtosis:</b> peakedness/tailedness (lepto/meso/platy).</li>
+<li><b>Likert:</b> summated agreement-rating scale.</li>
+<li><b>Mean:</b> arithmetic average; outlier-sensitive.</li>
+<li><b>Median:</b> middle value; robust to skew.</li>
+<li><b>Mediator:</b> mechanism between IV and DV.</li>
+<li><b>Mode:</b> most frequent value; only centre for nominal.</li>
+<li><b>Moderator:</b> variable that changes the IV–DV relationship (interaction).</li>
+<li><b>Nominal/Ordinal/Interval/Ratio:</b> the four measurement levels (NOIR).</li>
+<li><b>Null hypothesis (H₀):</b> no effect/difference — what is tested.</li>
+<li><b>p-value:</b> P(data this extreme | H₀ true).</li>
+<li><b>Power:</b> 1 − β; chance of detecting a real effect.</li>
+<li><b>Reliability:</b> consistency of measurement.</li>
+<li><b>r² :</b> proportion of variance shared by two variables.</li>
+<li><b>Standard deviation:</b> typical distance from the mean (√variance).</li>
+<li><b>Standard error:</b> SD/√n; spread of sample means.</li>
+<li><b>Skewness:</b> asymmetry of a distribution.</li>
+<li><b>Spearman-Brown:</b> corrects split-half reliability for test length.</li>
+<li><b>Type I / Type II error:</b> false positive / false negative.</li>
+<li><b>Validity:</b> measuring the intended construct (test) or correctness of conclusions (study).</li>
+<li><b>Variance:</b> mean squared deviation from the mean.</li>
+<li><b>z-score:</b> (x − μ)/σ; SDs from the mean.</li>
+</ul>
+
+
+<h2 class="sec" id="selftest">Self-Test</h2>
+<p>Cover the answers. Say each aloud before checking.</p>
+<ol>
+<li>Which measurement level has order but unequal gaps, and what's its centre? <i>(Ordinal; median.)</i></li>
+<li>Write the SD relationship and the SE formula. <i>(SD = √variance; SE = SD/√n.)</i></li>
+<li>Under positive skew, order mean, median, mode. <i>(mode &lt; median &lt; mean.)</i></li>
+<li>State the 68-95-99.7 rule and the z-score formula. <i>(±1/±2/±3 SD; z = (x−μ)/σ.)</i></li>
+<li>What does the CLT promise, and from what n is it usually invoked? <i>(Sampling distribution of the mean → normal; n ≥ 30.)</i></li>
+<li>Define a p-value in one sentence; then state what it is NOT. <i>(P(data this extreme | H₀ true); not P(H₀ true).)</i></li>
+<li>Type I vs Type II, and which is α? <i>(I = false positive = α; II = false negative = β.)</i></li>
+<li>Power formula and conventional target. <i>(1 − β; .80.)</i></li>
+<li>Independent t vs paired t — when each? <i>(Different groups vs same/matched people.)</i></li>
+<li>What is the F-ratio in ANOVA? <i>(Between-groups variance / within-groups variance.)</i></li>
+<li>Main effect vs interaction in words. <i>(Average effect of one factor vs one factor's effect depending on the other.)</i></li>
+<li>Name the non-parametric partner of one-way ANOVA and of the paired t. <i>(Kruskal-Wallis; Wilcoxon signed-rank.)</i></li>
+<li>When do you use Fisher's exact instead of χ²? <i>(Any expected cell &lt; 5 in a 2×2.)</i></li>
+<li>Mediator vs moderator. <i>(Mechanism/how vs condition/for-whom = interaction.)</i></li>
+<li>Why doesn't a bigger sample fix sampling bias? <i>(Bias is systematic; only random error shrinks with n.)</i></li>
+<li>Can a test be reliable but not valid? Explain. <i>(Yes — consistently wrong, e.g. a scale 5 kg off; reliability caps but doesn't guarantee validity.)</i></li>
+<li>Concurrent vs predictive validity. <i>(Criterion measured now vs in the future; both are criterion validity.)</i></li>
+<li>What does r = .40 explain? <i>(r² = .16 = 16% of variance.)</i></li>
+<li>Item difficulty p = 0.90 — easy or hard? <i>(Easy; 90% got it right.)</i></li>
+<li>Which coefficient relates a true dichotomy to a continuous variable? <i>(Point-biserial.)</i></li>
+<li>Stratified vs cluster sampling — which lowers error? <i>(Stratified.)</i></li>
+<li>Random sampling vs random assignment — which protects internal validity? <i>(Random assignment.)</i></li>
+<li>Name the 6 phases of thematic analysis. <i>(Familiarise, code, search themes, review, define/name, write up.)</i></li>
+<li>What sets qualitative sample size? <i>(Saturation, not power analysis.)</i></li>
+<li>Name three threats to internal validity. <i>(Any of: history, maturation, testing, instrumentation, regression to mean, selection, attrition.)</i></li>
+</ol>
+
+<footer>Sihan MET 2026 + NIMHANS prep · /notes/research-methodology/ · from A. K. Singh + Coolican · rebuilt to full depth 2026-05-29</footer>
+</article>
+<script src="/sihan-met-flashcards/notes/term-popover.js" defer></script>
+</body>
+</html>

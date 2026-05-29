@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Action Potential — Complete MET Reference — Notes for Exam</title>
+<link rel="stylesheet" href="../../notes-style.css">
+<link rel="stylesheet" href="/sihan-met-flashcards/notes/term-popover.css">
+<link rel="stylesheet" href="../reader.css">
+<style>
+
+</style>
+</head>
+<body class="nfe-reader">
+<article class="wrap nfe-article">
+<h1 id="action-potential-complete-met-reference">Action Potential —
+Complete MET Reference</h1>
+<p>The single most testable neurophysiology topic across MET, NIMHANS,
+AIIMS. Built around ion movement (Na+, K+, Ca2+, Cl-), the four phases,
+and the rules that make MCQs predictable.</p>
+<h2 id="what-an-action-potential-actually-is-start-here">0. What an
+Action Potential Actually Is (start here)</h2>
+<p><strong>An action potential is the basic signal a neuron uses to
+talk.</strong> It is a short (~1 millisecond) electrical pulse that
+travels down the axon from the cell body to the axon terminal. When it
+reaches the terminal, it causes neurotransmitter release, which then
+signals the next neuron. Every thought, sensation, movement, and emotion
+you have is built out of millions of these pulses firing in patterns. So
+the question “how does a neuron fire?” = “how does an action potential
+happen?”</p>
+<h3 id="the-one-sentence-story">The one-sentence story</h3>
+<p>When a neuron is at rest, the inside of its membrane is
+<strong>negative</strong> relative to the outside (about -70
+millivolts). When the neuron is stimulated enough, ion channels open in
+a precise sequence — first sodium (Na+) rushes IN making the inside
+briefly <strong>positive</strong>, then potassium (K+) rushes OUT
+bringing it back to <strong>negative</strong> — and that pulse of
+voltage change propagates down the axon at up to 120 m/s. That’s it.
+Everything else in this primer is the mechanics of how that pulse is
+generated, shaped, and propagated.</p>
+<h3 id="five-things-you-must-know-before-the-mechanics-make-sense">Five
+things you must know before the mechanics make sense</h3>
+<ol type="1">
+<li><p><strong>Neurons have a charged membrane at rest.</strong> Inside
+is at -70 mV, outside is the reference (0 mV). This charge difference is
+called the <strong>resting membrane potential (RMP)</strong>. It exists
+because the membrane lets some ions cross more easily than others
+(mostly K+ leaks out a little, leaving the inside negative).</p></li>
+<li><p><strong>The membrane is studded with ion channels.</strong> Some
+are always open (“leak channels”), some open only when voltage changes
+(“voltage-gated”), some open only when a chemical binds
+(“ligand-gated”). The action potential is driven by
+<strong>voltage-gated</strong> channels for Na+ and K+.</p></li>
+<li><p><strong>Ions flow because of two forces: concentration and
+charge.</strong> Na+ wants to enter (lots outside, little inside,
+attracted to negative interior). K+ wants to leave (lots inside, little
+outside, but pulled back by negative interior). When a channel opens,
+the relevant ion moves whichever way its forces dictate. Knowing which
+ion goes which way at each phase is the whole game.</p></li>
+<li><p><strong>An action potential is “all or none.”</strong> If the
+stimulus is strong enough to push the membrane to about -55 mV (the
+<strong>threshold</strong>), a full action potential fires. If the
+stimulus is weaker, nothing happens. Bigger stimuli do not produce
+bigger APs — they produce more APs per second (frequency coding). One AP
+looks identical to every other AP in that neuron.</p></li>
+<li><p><strong>The signal travels because each segment of axon triggers
+the next segment.</strong> Na+ entering at one spot depolarizes the next
+bit of membrane to threshold, which opens its Na+ channels, and so on.
+In myelinated axons, the AP “skips” between exposed gaps (Nodes of
+Ranvier), which is way faster than continuous conduction.</p></li>
+</ol>
+<h3 id="what-an-action-potential-looks-like-on-a-graph">What an action
+potential looks like on a graph</h3>
+<p>Voltage on Y-axis (in mV), time on X-axis (in milliseconds). The
+whole thing takes about 2 ms.</p>
+<pre><code>   +30 ─────────────●─── PEAK (Na+ channels inactivate)
+                   ╱│╲
+                  ╱ │ ╲
+                 ╱  │  ╲ ← REPOLARIZATION (K+ flowing OUT)
+                ╱   │   ╲
+               ╱    │    ╲
+   -55 ────●─╱─────│─────●──── THRESHOLD (-55 mV)
+          ╱        │      ╲
+         ╱   ↑     │       ╲___
+   -70 ─●  DEPOL   │            \____ ← AFTERHYPERPOLARIZATION
+        |  (Na+ IN)│                  (K+ channels still open
+   RMP                                 briefly, overshoots RMP)</code></pre>
+<h3 id="why-exams-hammer-this-topic">Why exams hammer this topic</h3>
+<p>Action potential MCQs test precise, factual recall of: -
+<strong>Which ion moves at which phase</strong> (Na+ in for
+depolarization, K+ out for repolarization, Ca2+ in at the terminal for
+NT release, Cl- in for IPSP) - <strong>Which channels open and
+when</strong> (voltage-gated Na+ at threshold, voltage-gated K+ slightly
+later, voltage-gated Ca2+ at the axon terminal) - <strong>Refractory
+periods</strong> (absolute = Na+ inactivated, relative = K+ still open)
+- <strong>Conduction speed and myelin</strong> (saltatory in myelinated
+fibers, fastest in A-alpha) - <strong>Synaptic transmission
+cascade</strong> (AP arrives → Ca2+ in → vesicles fuse → NT released →
+binds postsynaptic receptors → EPSP or IPSP)</p>
+<p>If you know the story below cold, you will get every single one
+right. If you confuse Na+ and K+, mix up depolarization and
+repolarization, or don’t know that Ca2+ triggers NT release, you will
+bleed marks. The 6 questions you got wrong on the diagnostic were all in
+this cluster.</p>
+<p>Now that the big picture is set, here is the mechanics in detail.</p>
+<h2 id="resting-membrane-potential-rmp">1. Resting Membrane Potential
+(RMP)</h2>
+<p>The neuron at rest sits at about <strong>-70 mV</strong> (range -60
+to -90 depending on neuron type). Inside is negative relative to
+outside.</p>
+<h3 id="why--70-mv-three-forces.">Why -70 mV? Three forces.</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Force</th>
+<th>What it does</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Concentration gradient</strong></td>
+<td>K+ wants to leave (high inside), Na+ wants to enter (high
+outside)</td>
+<td>Sets up the chemistry</td>
+</tr>
+<tr>
+<td><strong>Electrical gradient</strong></td>
+<td>Inside is negative, attracts cations</td>
+<td>Opposes K+ leaving</td>
+</tr>
+<tr>
+<td><strong>Selective permeability at rest</strong></td>
+<td>Membrane is ~50x more permeable to K+ than Na+ (leak channels)</td>
+<td>K+ dominates</td>
+</tr>
+</tbody>
+</table>
+<p>The membrane settles where K+ efflux balances the electrical pull
+keeping K+ in. That equilibrium = ~-70 mV (close to K+’s equilibrium
+potential of -90 mV, dragged up by small Na+ leak).</p>
+<h3 id="ion-concentrations-meql-memorize-this-table">Ion concentrations
+(mEq/L), memorize this table</h3>
+<table>
+<thead>
+<tr>
+<th>Ion</th>
+<th>Inside</th>
+<th>Outside</th>
+<th>Equilibrium potential (Eion)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>K+</strong></td>
+<td>140 (high)</td>
+<td>5 (low)</td>
+<td>-90 mV</td>
+</tr>
+<tr>
+<td><strong>Na+</strong></td>
+<td>15 (low)</td>
+<td>145 (high)</td>
+<td>+60 mV</td>
+</tr>
+<tr>
+<td><strong>Cl-</strong></td>
+<td>10 (low)</td>
+<td>110 (high)</td>
+<td>-65 mV</td>
+</tr>
+<tr>
+<td><strong>Ca2+</strong></td>
+<td>0.0001 (very low)</td>
+<td>2 (high)</td>
+<td>+120 mV</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Memory hook:</strong> “K is in, Na is out, Cl is out, Ca is
+way out.”</p>
+<h3 id="nak-pump-nak-atpase">Na+/K+ pump (Na+/K+ ATPase)</h3>
+<ul>
+<li>Pumps <strong>3 Na+ out</strong> for every <strong>2 K+ in</strong>,
+using 1 ATP.</li>
+<li><strong>Electrogenic</strong>: net export of +1 charge per cycle,
+contributes ~-4 mV to RMP.</li>
+<li>Maintains the gradients but does NOT directly cause RMP. RMP is
+caused by K+ leak channels following the K+ gradient. The pump just
+keeps the gradient charged up.</li>
+</ul>
+<p><strong>Common MCQ trap:</strong> “What sets resting potential?”
+Answer: K+ permeability via leak channels. NOT the Na+/K+ pump (it’s the
+gradient-maintainer, not the voltage-setter).</p>
+<h2 id="the-four-phases-of-an-action-potential">2. The Four Phases of an
+Action Potential</h2>
+<pre><code>       +30 mV ─┐    ┌─ Peak (Na+ inactivation)
+              │    │
+              │   /│
+              │  / │ ← REPOLARIZATION (K+ out)
+              │ /  │
+              │/   │
+   Threshold ─┼────┼──────────── -55 mV
+   ----------/│    │\
+            / │    │ \
+   RMP ────/──┘    │  \____      ← AFTERHYPERPOLARIZATION (K+ still open)
+   -70 mV         │       \
+                  │        \____ back to RMP
+                  └─ DEPOLARIZATION (Na+ in)
+
+   Phase 1: Depolarization     →  Na+ channels open, Na+ rushes IN
+   Phase 2: Repolarization     →  Na+ inactivates, K+ channels open, K+ rushes OUT
+   Phase 3: Hyperpolarization  →  K+ channels still open, briefly overshoots RMP
+   Phase 4: Return to RMP      →  K+ channels close, Na+/K+ pump restores ions</code></pre>
+<h3 id="phase-by-phase-ion-movement">Phase-by-phase ion movement</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>What opens</th>
+<th>Ion movement</th>
+<th>Voltage change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Threshold reached (-55 mV)</strong></td>
+<td>Voltage-gated Na+ channels</td>
+<td>Na+ starts in</td>
+<td>Trigger</td>
+</tr>
+<tr>
+<td><strong>1. Depolarization</strong></td>
+<td>Na+ channels fully open</td>
+<td>Massive Na+ in</td>
+<td>-55 → +30 mV</td>
+</tr>
+<tr>
+<td><strong>Peak (+30 mV)</strong></td>
+<td>Na+ channels inactivate</td>
+<td>Na+ stops</td>
+<td>Plateau briefly</td>
+</tr>
+<tr>
+<td><strong>2. Repolarization</strong></td>
+<td>Voltage-gated K+ channels open (slower)</td>
+<td>Massive K+ out</td>
+<td>+30 → -70 mV</td>
+</tr>
+<tr>
+<td><strong>3. Hyperpolarization (afterhyperpolarization)</strong></td>
+<td>K+ channels still open</td>
+<td>More K+ out</td>
+<td>-70 → -80 mV</td>
+</tr>
+<tr>
+<td><strong>4. Return to RMP</strong></td>
+<td>K+ channels close, pump works</td>
+<td>Pump restores Na+/K+</td>
+<td>-80 → -70 mV</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Memory hook:</strong> “<strong>Na+ in, K+ out</strong>” —
+that’s the whole story. Na+ rises = depolarization. K+ exits =
+repolarization.</p>
+<h2 id="the-all-or-none-principle">3. The All-or-None Principle</h2>
+<ul>
+<li>If stimulus reaches threshold (-55 mV typical), an AP fires at full
+amplitude.</li>
+<li>If stimulus is below threshold, <strong>nothing happens</strong>. No
+partial AP.</li>
+<li>Stronger stimulus = more frequent APs (rate coding), NOT bigger
+APs.</li>
+</ul>
+<p><strong>MCQ trap:</strong> “How does the brain encode stimulus
+intensity?” Answer: <strong>frequency of action potentials</strong>, not
+amplitude. Amplitude is fixed.</p>
+<h2 id="refractory-periods">4. Refractory Periods</h2>
+<p>Two types, both critical MCQ topics.</p>
+<h3 id="absolute-refractory-period">Absolute refractory period</h3>
+<ul>
+<li>Duration: about <strong>1-2 ms</strong>.</li>
+<li>Cause: <strong>Na+ channels are inactivated</strong> (not just
+closed; they have an inactivation gate).</li>
+<li>Effect: <strong>No new AP can fire</strong>, no matter how strong
+the stimulus.</li>
+<li>Function: ensures one-way propagation of AP down axon.</li>
+</ul>
+<h3 id="relative-refractory-period">Relative refractory period</h3>
+<ul>
+<li>Duration: about <strong>2-4 ms</strong> after absolute.</li>
+<li>Cause: <strong>K+ channels still open</strong> (membrane is
+hyperpolarized).</li>
+<li>Effect: A new AP CAN fire, but requires a
+<strong>stronger-than-normal stimulus</strong>.</li>
+<li>Function: limits maximum firing rate (~1000 Hz max).</li>
+</ul>
+<p><strong>MCQ trap:</strong> Inactivated ≠ closed. Na+ channel has 3
+states: closed (resting), open (during AP), inactivated (after AP, “ball
+and chain” blocking pore). Resets only after repolarization.</p>
+<h2 id="propagation-down-the-axon">5. Propagation Down the Axon</h2>
+<h3 id="continuous-unmyelinated">Continuous (unmyelinated)</h3>
+<ul>
+<li>AP regenerates point-by-point along the membrane.</li>
+<li>Slow: <strong>0.5 - 2 m/s</strong>.</li>
+<li>Found in: C fibers (slow pain, temperature, postganglionic
+autonomic).</li>
+</ul>
+<h3 id="saltatory-myelinated">Saltatory (myelinated)</h3>
+<ul>
+<li>AP “jumps” between <strong>Nodes of Ranvier</strong> (gaps in
+myelin).</li>
+<li>Voltage-gated Na+ channels concentrated only at nodes.</li>
+<li>Fast: <strong>up to 120 m/s</strong> in large myelinated A-alpha
+fibers.</li>
+<li>Found in: A fibers (motor, proprioception, fast pain, touch).</li>
+</ul>
+<p><strong>Memory hook:</strong> “Saltatory” = Latin <em>saltare</em>,
+“to leap.”</p>
+<h3 id="factors-that-increase-conduction-velocity">Factors that increase
+conduction velocity</h3>
+<ol type="1">
+<li><strong>Myelination</strong> (biggest factor).</li>
+<li><strong>Axon diameter</strong> (bigger = faster, less
+resistance).</li>
+<li><strong>Temperature</strong> (warmer = faster, up to a limit).</li>
+</ol>
+<p><strong>Demyelinating diseases</strong> (multiple sclerosis,
+Guillain-Barre): slow or block conduction → numbness, weakness, vision
+loss.</p>
+<h2 id="synaptic-transmission-the-post-ap-step">6. Synaptic Transmission
+(the post-AP step)</h2>
+<p>When the AP reaches the axon terminal:</p>
+<ol type="1">
+<li><strong>Ca2+ channels open</strong> (voltage-gated). Ca2+ rushes
+IN.</li>
+<li><strong>Ca2+ triggers vesicle fusion</strong> with presynaptic
+membrane (SNARE proteins, synaptotagmin = Ca2+ sensor).</li>
+<li><strong>Neurotransmitter released</strong> into synaptic cleft.</li>
+<li><strong>Binds postsynaptic receptors</strong> → ion flow → EPSP or
+IPSP.</li>
+<li><strong>Cleared</strong> by reuptake, enzymatic breakdown, or
+diffusion.</li>
+</ol>
+<p><strong>Why Ca2+?</strong> It’s the trigger ion at the axon terminal.
+Without Ca2+ entry, no transmitter release.</p>
+<h3 id="epsp-vs-ipsp">EPSP vs IPSP</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Type</th>
+<th>Ion movement</th>
+<th>Effect on postsynaptic neuron</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EPSP (excitatory postsynaptic potential)</strong></td>
+<td>Na+ in (or Ca2+ in)</td>
+<td>Depolarizes, brings closer to threshold</td>
+</tr>
+<tr>
+<td><strong>IPSP (inhibitory postsynaptic potential)</strong></td>
+<td>Cl- in (or K+ out)</td>
+<td>Hyperpolarizes, moves away from threshold</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Summation rules:</strong> - <strong>Spatial:</strong>
+multiple synapses fire at the same time, signals add. -
+<strong>Temporal:</strong> one synapse fires repeatedly, signals add
+over time. - AP fires only if summed depolarization reaches threshold at
+the <strong>axon hillock</strong> (the AP initiation site).</p>
+<h2 id="the-top-10-mcq-traps-on-action-potentials">7. The Top 10 MCQ
+Traps on Action Potentials</h2>
+<ol type="1">
+<li><strong>What sets RMP?</strong> K+ permeability (leak channels), not
+the Na+/K+ pump.</li>
+<li><strong>What ion triggers neurotransmitter release?</strong> Ca2+ at
+the axon terminal.</li>
+<li><strong>All-or-none refers to what?</strong> Amplitude is fixed.
+Intensity is coded by frequency.</li>
+<li><strong>Why can’t you fire during absolute refractory?</strong> Na+
+channels are inactivated, not just closed.</li>
+<li><strong>What causes hyperpolarization?</strong> K+ channels stay
+open after Na+ has stopped.</li>
+<li><strong>Saltatory conduction needs what?</strong> Myelin + Nodes of
+Ranvier with Na+ channels.</li>
+<li><strong>Fastest fiber type?</strong> A-alpha (large, myelinated,
+motor + proprioception).</li>
+<li><strong>Slowest fiber type?</strong> C (small, unmyelinated, slow
+pain, postganglionic autonomic).</li>
+<li><strong>Where does the AP start?</strong> Axon hillock (lowest
+threshold, most Na+ channels).</li>
+<li><strong>Na+/K+ pump ratio?</strong> 3 Na+ out, 2 K+ in, per 1 ATP.
+Electrogenic.</li>
+</ol>
+<h2 id="quick-recall-summary">8. Quick-recall summary</h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RMP value</td>
+<td>-70 mV</td>
+</tr>
+<tr>
+<td>Threshold</td>
+<td>-55 mV</td>
+</tr>
+<tr>
+<td>Peak voltage</td>
+<td>+30 mV</td>
+</tr>
+<tr>
+<td>Hyperpolarized to</td>
+<td>-80 mV</td>
+</tr>
+<tr>
+<td>Set by</td>
+<td>K+ leak channels</td>
+</tr>
+<tr>
+<td>Depolarization caused by</td>
+<td>Na+ in (voltage-gated)</td>
+</tr>
+<tr>
+<td>Repolarization caused by</td>
+<td>K+ out (voltage-gated)</td>
+</tr>
+<tr>
+<td>Hyperpolarization caused by</td>
+<td>K+ still open</td>
+</tr>
+<tr>
+<td>Returns to RMP via</td>
+<td>Na+/K+ pump (3 Na+ out, 2 K+ in)</td>
+</tr>
+<tr>
+<td>AP triggered at</td>
+<td>Axon hillock</td>
+</tr>
+<tr>
+<td>Transmitter release triggered by</td>
+<td>Ca2+ entry at terminal</td>
+</tr>
+<tr>
+<td>Absolute refractory caused by</td>
+<td>Na+ channel inactivation</td>
+</tr>
+<tr>
+<td>Relative refractory caused by</td>
+<td>K+ still open (hyperpolarized)</td>
+</tr>
+<tr>
+<td>Fastest conduction</td>
+<td>Saltatory in myelinated A-alpha (up to 120 m/s)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="met-style-mcqs">9. 10 MET-style MCQs</h2>
+<strong>Q1.</strong> The resting membrane potential of a typical neuron
+is closest to: A. -30 mV B. -55 mV C. -70 mV D. -90 mV
+<details>
+<summary>
+Answer
+</summary>
+<strong>C. -70 mV.</strong> A is too depolarized, B is threshold, D is
+K+ equilibrium potential.
+</details>
+<strong>Q2.</strong> Resting membrane potential is primarily determined
+by: A. Na+/K+ ATPase B. K+ leak channels C. Voltage-gated Na+ channels
+D. Cl- channels
+<details>
+<summary>
+Answer
+</summary>
+<strong>B. K+ leak channels.</strong> The pump maintains gradients but
+is not the direct voltage-setter. Common trap.
+</details>
+<strong>Q3.</strong> During depolarization phase of an AP, the dominant
+ion movement is: A. K+ out B. Na+ in C. Ca2+ in D. Cl- in
+<details>
+<summary>
+Answer
+</summary>
+<strong>B. Na+ in.</strong> Voltage-gated Na+ channels open at
+threshold.
+</details>
+<strong>Q4.</strong> Repolarization of a neuron is caused mainly by: A.
+Closing of K+ channels B. Opening of voltage-gated K+ channels C. Na+/K+
+pump activity D. Ca2+ entry
+<details>
+<summary>
+Answer
+</summary>
+<strong>B.</strong> K+ rushes out down its gradient.
+</details>
+<strong>Q5.</strong> The Na+/K+ ATPase moves: A. 2 Na+ out, 3 K+ in B. 3
+Na+ out, 2 K+ in C. 3 Na+ in, 2 K+ out D. 1 Na+ out, 1 K+ in
+<details>
+<summary>
+Answer
+</summary>
+<strong>B. 3 Na+ out, 2 K+ in.</strong> Electrogenic (net +1 export).
+</details>
+<strong>Q6.</strong> During the absolute refractory period: A. A
+stronger stimulus can elicit AP B. Only Cl- channels are open C. Na+
+channels are inactivated D. K+ channels are closed
+<details>
+<summary>
+Answer
+</summary>
+<strong>C.</strong> Inactivated, not just closed. No AP possible.
+</details>
+<strong>Q7.</strong> Saltatory conduction requires: A. Unmyelinated
+axons B. Continuous Na+ channels along the axon C. Nodes of Ranvier D. C
+fibers
+<details>
+<summary>
+Answer
+</summary>
+<strong>C. Nodes of Ranvier</strong> with concentrated Na+ channels.
+</details>
+<strong>Q8.</strong> The all-or-none principle states that: A. AP
+amplitude varies with stimulus strength B. AP amplitude is fixed once
+threshold is reached C. APs do not propagate D. APs are graded
+<details>
+<summary>
+Answer
+</summary>
+<strong>B.</strong> Stimulus intensity is encoded as frequency, not
+amplitude.
+</details>
+<strong>Q9.</strong> Neurotransmitter release at the axon terminal is
+triggered by: A. Na+ entry B. K+ exit C. Ca2+ entry D. Cl- entry
+<details>
+<summary>
+Answer
+</summary>
+<strong>C. Ca2+ entry</strong> through voltage-gated Ca2+ channels at
+the terminal.
+</details>
+<strong>Q10.</strong> An IPSP typically involves: A. Na+ influx B. Cl-
+influx or K+ efflux C. Ca2+ influx D. Closing of K+ channels
+<details>
+<summary>
+Answer
+</summary>
+<strong>B.</strong> Cl- in or K+ out hyperpolarizes the cell, moves it
+away from threshold.
+</details>
+<h2 id="memorization-aids">10. Memorization aids</h2>
+<ul>
+<li><strong>“Na+ in, K+ out”</strong> — the AP in 4 words.</li>
+<li><strong>“3 out, 2 in, 1 ATP”</strong> — the pump.</li>
+<li><strong>“Ca for Communication”</strong> — Ca2+ at the terminal
+triggers transmitter release.</li>
+<li><strong>“Inactivated, not closed”</strong> — why absolute refractory
+exists.</li>
+<li><strong>“Salt jumps Nodes”</strong> — saltatory = jumps between
+Nodes of Ranvier.</li>
+<li><strong>“K sets the rest”</strong> — RMP is a K+ phenomenon.</li>
+</ul>
+<footer>Sihan MET 2026 + NIMHANS Prep · Built 2026-04-26 after diagnostic, intro section added 2026-04-26 after Sihan flagged "not enough intro about what it is".</footer>
+</article>
+<script src="/sihan-met-flashcards/notes/term-popover.js" defer></script>
+</body>
+</html>

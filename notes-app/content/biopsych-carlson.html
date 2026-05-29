@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biopsychology — Carlson depth pass — Notes for Exam</title>
+<link rel="stylesheet" href="../../notes-style.css">
+<link rel="stylesheet" href="/sihan-met-flashcards/notes/term-popover.css">
+<link rel="stylesheet" href="../reader.css">
+<style>
+
+  .hy-banner { background: linear-gradient(135deg, rgba(88,166,255,0.12), rgba(63,185,80,0.10)); border: 1px solid var(--accent-dim); border-radius: 10px; padding: 14px 16px; margin: 0 0 24px 0; font-size: 14px; color: var(--text); }
+  .hy-banner b { color: var(--accent); }
+  .trap { background: rgba(248,81,73,0.08); border-left: 3px solid var(--bad); padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .trap b { color: var(--bad); }
+  .rule { background: rgba(63,185,80,0.08); border-left: 3px solid var(--good); padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .rule b { color: var(--good); }
+  .nimhans { background: rgba(163,113,247,0.10); border-left: 3px solid #a371f7; padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .nimhans b { color: #a371f7; }
+  .why { background: rgba(210,153,34,0.10); border-left: 3px solid #d29922; padding: 10px 13px; margin: 12px 0; border-radius: 4px; font-size: 14px; }
+  .why b { color: #d29922; }
+  .eg { font-style: italic; color: var(--muted); }
+  .jump { font-size: 13px; line-height: 1.9; }
+  .jump a { margin-right: 14px; white-space: nowrap; }
+  h2.sec { border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-top: 40px; }
+  h3 { color: var(--accent); margin-top: 26px; }
+  h4 { color: var(--text); font-size: 15px; }
+  table { font-size: 14px; }
+  .recap { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin: 16px 0 8px; font-size: 14px; }
+  .recap b { color: var(--accent); }
+  .delta { background: rgba(56,139,253,0.10); border-left: 3px solid #58a6ff; padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .delta b { color: #58a6ff; }
+
+</style>
+</head>
+<body class="nfe-reader">
+<article class="wrap nfe-article">
+<h1>Biopsychology — Carlson depth pass</h1>
+<p style="color: var(--muted); font-size: 13px;">Source: <b>Carlson &amp; Birkett, <i>Physiology of Behavior</i></b> (the book Sihan named on 2026-05-28). This page is the <b>delta on top of the Pinel chapter</b>: it walks the systems Carlson goes deeper on than Pinel does, in Carlson's order, and locks the parts NIMHANS / MET love to test. Built 2026-05-28 — first section of the per-section depth pass rollout. Use this <i>after</i> reading the <a href="../biopsych-cheatsheet/">Pinel chapter</a>; together they cover the section in full.</p>
+
+<div class="hy-banner">
+<b>Why a Carlson pass on top of Pinel?</b> The two books overlap on the basics (neurons, anatomy, vision/audition, sensorimotor, plasticity, lateralisation) but diverge on the <i>mechanism-heavy</i> systems. Carlson goes much deeper on (1) the <b>mesolimbic reward circuit and drug-of-abuse mechanisms</b>, (2) <b>sleep neurochemistry and the flip-flop switch</b>, (3) <b>hunger as an arcuate-nucleus loop</b>, (4) <b>HPA axis + glucocorticoid feedback + hippocampal atrophy</b>, (5) <b>organising vs activating effects of gonadal hormones</b>, (6) the <b>molecular cascade for LTP</b>, and (7) <b>neurobiology of the major psychiatric disorders</b> as a single mechanism-first chapter. That is what is unpacked below. Anything Pinel already nails (cranial nerves, visual receptive fields, split brain, Korsakoff) is <i>not</i> repeated here — read those on the Pinel page.
+</div>
+
+<div class="jump">
+<b>Jump to:</b>
+<a href="#orient">1. How Carlson is organised</a>
+<a href="#nt">2. Neurotransmitter systems, by system</a>
+<a href="#reward">3. Reward circuit &amp; mesolimbic DA</a>
+<a href="#drugs">4. Drugs of abuse — mechanism by class</a>
+<a href="#sleep">5. Sleep neurochemistry &amp; the flip-flop switch</a>
+<a href="#hunger">6. Hunger — arcuate POMC/AgRP loop</a>
+<a href="#stress">7. HPA axis, glucocorticoids &amp; the hippocampus</a>
+<a href="#sex">8. Sex hormones — organising vs activating</a>
+<a href="#memory">9. LTP — the molecular cascade</a>
+<a href="#psychiatry">10. Neurobiology of the major disorders</a>
+<a href="#sensorimotor">11. Sensorimotor — what Carlson adds</a>
+<a href="#emotion">12. Emotion — amygdala in detail</a>
+<a href="#nimhans">13. NIMHANS-tilt: clinical hooks</a>
+<a href="#deltas">14. Carlson vs Pinel — every divergence</a>
+<a href="#traps">15. MCQ traps Carlson sets that Pinel does not</a>
+<a href="#selftest">16. Self-test</a>
+</div>
+
+
+<h2 id="orient" class="sec">1. How Carlson is organised (and why that matters)</h2>
+<p>Carlson is a <b>mechanism-first physiology book</b>, not a "tour of the field" book. Pinel writes around <i>case studies and divisions</i>; Carlson writes around <i>systems</i>: neurotransmitter system → behavior it produces → drug that hits that system → disorder when it fails. If a question asks "which transmitter / which circuit / which receptor / which drug", Carlson is the book it was written from.</p>
+<p>His chapters (in his order, condensed): structure of the nervous system → neurons &amp; conduction → synaptic transmission → drugs &amp; receptors → methods → vision → audition &amp; somatosenses → control of movement → sleep → reproductive behavior → emotion → ingestive behavior → learning &amp; memory → communication → neurological disorders → schizophrenia, mood disorders, anxiety → autism, ADHD, stress, addiction.</p>
+<div class="rule"><b>Lock it:</b> when an MCQ stem names a <i>receptor subtype</i> (D2, 5-HT2A, NMDA, GABA-A α1, μ-opioid), a <i>circuit</i> (mesolimbic, nigrostriatal, mesocortical, tuberoinfundibular, locus coeruleus, dorsal raphe), or a <i>drug class with its mechanism</i> (NSRI, MAO-B inhibitor, atypical antipsychotic), reach for Carlson, not Pinel.</div>
+
+
+<h2 id="nt" class="sec">2. Neurotransmitter systems, system by system</h2>
+<p>Carlson's signature move: don't memorise transmitters in a list, learn each one as a <b>system</b> (cell-body cluster → projection pathway → receptors → behavior → drug). NIMHANS leans on these.</p>
+
+<h3>Dopamine — three pathways, one transmitter</h3>
+<table>
+<tr><th>Pathway</th><th>From → To</th><th>Function</th><th>What happens when it fails</th></tr>
+<tr><td><b>Nigrostriatal</b></td><td>Substantia nigra (pars compacta) → dorsal striatum (caudate + putamen)</td><td>Motor initiation, habit learning</td><td>Loss = Parkinson's disease</td></tr>
+<tr><td><b>Mesolimbic</b></td><td>Ventral tegmental area (VTA) → nucleus accumbens (NAc, ventral striatum), amygdala, hippocampus</td><td>Reward, motivation, "wanting"</td><td>Hyperactivity = positive symptoms of schizophrenia; addiction hijacks it</td></tr>
+<tr><td><b>Mesocortical</b></td><td>VTA → prefrontal cortex</td><td>Working memory, executive control, motivation</td><td>Hypoactivity = negative symptoms of schizophrenia</td></tr>
+<tr><td><b>Tuberoinfundibular</b></td><td>Arcuate nucleus (hypothalamus) → median eminence</td><td>Inhibits prolactin release</td><td>D2-blocking antipsychotics → hyperprolactinaemia → amenorrhoea, gynaecomastia</td></tr>
+</table>
+<p><b>Receptors:</b> 5 subtypes, two families. <b>D1-like</b> (D1, D5) are G<sub>s</sub>-coupled → ↑ cAMP. <b>D2-like</b> (D2, D3, D4) are G<sub>i</sub>-coupled → ↓ cAMP. Classical antipsychotics block <b>D2</b>. Atypicals add 5-HT2A blockade.</p>
+<div class="trap"><b>TRAP — DA pathway naming.</b> "Mesolimbic" and "mesocortical" share the VTA origin; the difference is the target. <b>Mesolimbic → NAc (reward)</b>; <b>mesocortical → PFC (cognition)</b>. "Nigrostriatal" is a separate origin (substantia nigra, not VTA).</div>
+
+<h3>Norepinephrine — one nucleus, the whole brain</h3>
+<p>Cell bodies live in the <b>locus coeruleus</b> (pons). One small cluster projects diffusely across cortex, thalamus, hypothalamus, cerebellum, spinal cord. Function: <b>arousal, vigilance, attention to novelty</b>. NE firing rises during alertness, falls during sleep, peaks during stress. <b>α1, α2, β1, β2, β3</b> receptors. β-blockers cross the blood-brain barrier (propranolol) → reduce somatic anxiety.</p>
+
+<h3>Serotonin (5-HT) — raphe nuclei, fourteen receptors</h3>
+<p>Cell bodies: <b>raphe nuclei</b> (midline brainstem). <b>Dorsal raphe → forebrain, midbrain</b>; median raphe → limbic system; caudal raphe → spinal cord. ≥14 receptor subtypes; the exam-relevant ones:</p>
+<ul>
+<li><b>5-HT1A</b> — autoreceptor on raphe neurons; postsynaptic in hippocampus. Buspirone is a 5-HT1A partial agonist (anxiolytic).</li>
+<li><b>5-HT2A</b> — psychedelic site (LSD, psilocybin agonists); atypical antipsychotics antagonise it.</li>
+<li><b>5-HT3</b> — the only ionotropic 5-HT receptor; ondansetron antagonist (antiemetic).</li>
+</ul>
+<p>SSRIs (fluoxetine, sertraline, escitalopram) raise synaptic 5-HT by blocking the reuptake transporter SERT.</p>
+
+<h3>Acetylcholine — two systems</h3>
+<ul>
+<li><b>Basal forebrain (nucleus basalis of Meynert + medial septum)</b> → cortex + hippocampus. Drives attention &amp; learning. <b>Lost first in Alzheimer's</b> — basis for donepezil / rivastigmine / galantamine.</li>
+<li><b>Pontine cholinergic (PPT + LDT)</b> → thalamus + basal forebrain. Drives <b>cortical arousal in waking and REM sleep</b>.</li>
+</ul>
+<p>Receptors: <b>nicotinic</b> (ionotropic, fast, at NMJ + brain) and <b>muscarinic M1–M5</b> (metabotropic). Anticholinergic drugs (atropine, benztropine, scopolamine) cause confusion + memory loss + dry mouth + mydriasis — classic in old-age psychiatry.</p>
+
+<h3>GABA &amp; glutamate — the workhorses</h3>
+<p><b>Glutamate</b> is the main excitatory transmitter (≈ 80% of cortical synapses). Receptors:</p>
+<ul>
+<li><b>AMPA</b> — fast Na+ ionotropic; "the everyday excitation".</li>
+<li><b>NMDA</b> — Na+/Ca2+ ionotropic, voltage-and-glutamate-gated, blocked at rest by Mg2+. Carrier of LTP. Blocked by ketamine, PCP, MK-801 → schizophrenia-like state.</li>
+<li><b>mGluR</b> — metabotropic, modulatory.</li>
+</ul>
+<p><b>GABA</b> is the main inhibitory transmitter. <b>GABA-A</b> is an ionotropic Cl⁻ channel; benzodiazepines + barbiturates + alcohol + neurosteroids all bind allosterically to it. <b>GABA-B</b> is metabotropic (G<sub>i</sub>) → K⁺ efflux; baclofen agonist.</p>
+<div class="trap"><b>TRAP — benzo vs barbiturate site.</b> Both are GABA-A positive allosteric modulators but at <i>different sites</i>. Benzos increase the <i>frequency</i> of Cl⁻ channel opening; barbiturates increase the <i>duration</i>. That is why barbiturates kill at overdose (open the channel all the way) and benzos do not, on their own.</div>
+
+<h3>Neuropeptides — the slow channel</h3>
+<p>Peptides act on G-protein receptors with slow, modulatory effects. The exam-rated set: <b>endorphin / enkephalin / dynorphin</b> (opioids — μ, δ, κ receptors), <b>substance P</b> (pain), <b>oxytocin / vasopressin</b> (bonding, fluid balance), <b>NPY / AgRP</b> (hunger), <b>orexin / hypocretin</b> (wakefulness; loss = narcolepsy).</p>
+<div class="recap"><b>Recap §2.</b> Each NT system has a cell-body cluster, a projection, a receptor family, a behavior, and a drug. Lock the table: DA = VTA/SN, NE = locus coeruleus, 5-HT = raphe, ACh = basal forebrain + pontine, Glu/GABA = everywhere. Pathway naming + receptor subtypes are the MCQ engine.</div>
+
+
+<h2 id="reward" class="sec">3. Reward circuit &amp; mesolimbic dopamine</h2>
+<p>This is Carlson's signature chapter. Pinel covers it; Carlson lives in it.</p>
+<h3>The core circuit, end-to-end</h3>
+<ol>
+<li><b>VTA</b> (ventral tegmental area, midbrain) is the origin of mesolimbic DA neurons.</li>
+<li>They project up the <b>medial forebrain bundle (MFB)</b> — the very bundle Olds &amp; Milner (1954) stuck electrodes into and got self-stimulation.</li>
+<li>The main target is the <b>nucleus accumbens (NAc)</b> in the ventral striatum.</li>
+<li>From NAc, output goes to the <b>ventral pallidum</b>, then back via mediodorsal thalamus → <b>prefrontal cortex</b>.</li>
+<li>PFC sends glutamatergic feedback to NAc + VTA; <b>amygdala &amp; hippocampus</b> also feed NAc with affective + contextual signal.</li>
+</ol>
+
+<h3>What dopamine actually signals</h3>
+<p>Not "pleasure" — Carlson is firm on this. Dopamine signals <b>reward prediction error</b> (Schultz's work, after Wolfram Schultz): when an outcome is <i>better than expected</i>, DA fires; when expected, DA doesn't change; when worse than expected, DA dips below baseline. This is the substrate Carlson uses to explain learning, craving and addiction.</p>
+<div class="why"><b>Why it matters.</b> "Wanting" (incentive salience, mesolimbic DA) is dissociable from "liking" (the hedonic hotspot, opioid + cannabinoid signalling in NAc shell + ventral pallidum). Addiction is mostly wanting without liking — the addict still craves long after the drug stops being fun. Berridge &amp; Robinson's incentive-sensitisation theory is the model Carlson hangs the chapter on.</div>
+
+<h3>Self-stimulation, place preference, self-administration — the three behavioural assays</h3>
+<table>
+<tr><th>Assay</th><th>What it shows</th><th>Key result</th></tr>
+<tr><td><b>Intracranial self-stimulation (Olds &amp; Milner, 1954)</b></td><td>Brain sites where electrical stimulation is rewarding</td><td>MFB &amp; VTA give the highest rates of lever-pressing</td></tr>
+<tr><td><b>Conditioned place preference</b></td><td>Drug-paired environment becomes attractive</td><td>Cocaine, opiates, food all produce CPP via NAc DA</td></tr>
+<tr><td><b>Drug self-administration</b></td><td>Animal will work to inject a drug</td><td>Lesion NAc DA → self-admin of cocaine drops; lesion DA terminals selectively in NAc &gt; in dorsal striatum</td></tr>
+</table>
+<div class="rule"><b>Lock it:</b> reward = VTA → MFB → NAc; Olds &amp; Milner = the experiment that founded the field; DA codes <i>reward prediction error</i>, not pleasure; "wanting" ≠ "liking".</div>
+
+
+<h2 id="drugs" class="sec">4. Drugs of abuse — mechanism by class</h2>
+<p>The unifying claim Carlson makes: <b>every drug of abuse, by some route, raises dopamine in NAc</b>. Different drugs do it at different points in the circuit; that is what makes their effects (and treatments) differ.</p>
+<table>
+<tr><th>Class</th><th>Example</th><th>Primary molecular action</th><th>How it raises NAc DA</th><th>Antagonist / treatment</th></tr>
+<tr><td><b>Psychostimulants</b></td><td>Cocaine</td><td>Blocks DAT (dopamine reuptake)</td><td>DA released by VTA is not cleared from NAc synapse</td><td>Cognitive-behavioural; no good pharm</td></tr>
+<tr><td>&nbsp;</td><td>Amphetamine / methamphetamine</td><td>Reverses DAT — pumps DA <i>out</i> of terminal; also empties vesicles via VMAT2</td><td>Floods NAc with cytoplasmic DA</td><td>Same — behavioural</td></tr>
+<tr><td><b>Opioids</b></td><td>Morphine, heroin, fentanyl</td><td>μ-opioid receptor agonist on GABA interneurons in VTA</td><td>Disinhibits VTA DA neurons → ↑ NAc DA. Direct μ action in NAc shell + ventral pallidum = "liking"</td><td>Naloxone (acute), naltrexone (relapse prevention), methadone / buprenorphine (substitution)</td></tr>
+<tr><td><b>Nicotine</b></td><td>Tobacco</td><td>Nicotinic ACh receptor agonist (α4β2) on VTA DA neurons</td><td>Direct excitation of VTA DA cells</td><td>Varenicline (partial agonist), bupropion, NRT</td></tr>
+<tr><td><b>Alcohol</b></td><td>Ethanol</td><td>Positive allosteric modulator at GABA-A; NMDA antagonist; releases endogenous opioids</td><td>Endogenous opioids → disinhibit VTA DA</td><td>Naltrexone (anti-craving), acamprosate (NMDA-glutamate stabiliser), disulfiram (aversive — blocks ALDH)</td></tr>
+<tr><td><b>Cannabinoids</b></td><td>THC</td><td>CB1 partial agonist (Gi-coupled)</td><td>CB1 on GABA interneurons in VTA → disinhibits DA cells</td><td>Behavioural; rimonabant pulled</td></tr>
+<tr><td><b>Hallucinogens</b></td><td>LSD, psilocybin, DMT</td><td>5-HT2A agonist on cortical pyramidal cells</td><td>Not classically addictive (no strong DA effect)</td><td>—</td></tr>
+<tr><td><b>Dissociatives</b></td><td>Ketamine, PCP</td><td>NMDA receptor antagonist (open-channel blocker)</td><td>Disinhibits cortical glutamate → indirect DA rise</td><td>—</td></tr>
+</table>
+<div class="trap"><b>TRAP — cocaine vs amphetamine.</b> Both raise synaptic DA but by different mechanisms. <b>Cocaine</b> blocks the reuptake transporter (DAT). <b>Amphetamine</b> <i>reverses</i> the transporter, pumping DA <i>out</i> of the terminal. That is why amphetamine's effect outlasts the drug being in the cleft and why it depletes vesicles more.</div>
+<div class="trap"><b>TRAP — what alcohol "does".</b> Alcohol is not a single-receptor drug. Pick the answer that says "<b>GABA-A positive modulator + NMDA antagonist + endogenous opioid release</b>", not "GABA agonist" alone. The opioid component is why <b>naltrexone</b> cuts alcohol craving.</div>
+<div class="nimhans"><b>NIMHANS angle.</b> Substance-use disorders sit in clinical psychology + psychiatry. Likely stems: (a) which receptor mediates the "high" of opioids? <i>μ</i>. (b) Disulfiram mechanism? <i>blocks aldehyde dehydrogenase → acetaldehyde build-up</i>. (c) NMDA-stabilising anti-craving drug for alcohol? <i>acamprosate</i>. (d) Partial agonist at α4β2 nicotinic receptor? <i>varenicline</i>.</div>
+
+
+<h2 id="sleep" class="sec">5. Sleep neurochemistry &amp; the flip-flop switch</h2>
+<p>Pinel walks through the stages and the EEG. Carlson explains the <b>switch</b>: how the brain stays in one state and not another.</p>
+
+<h3>The wake-promoting system</h3>
+<ul>
+<li><b>Pontine cholinergic neurons (PPT, LDT)</b> → thalamus → cortical desynchronisation.</li>
+<li><b>Locus coeruleus (NE)</b> → cortex.</li>
+<li><b>Dorsal raphe (5-HT)</b> → cortex.</li>
+<li><b>Tuberomammillary nucleus (histamine)</b> → cortex. (This is why old-generation H1 antihistamines sedate.)</li>
+<li><b>Lateral hypothalamus orexin/hypocretin neurons</b> → all the above. Orexin is the "supervisor" that holds the wake system on. Lose it → <b>narcolepsy with cataplexy</b>.</li>
+</ul>
+
+<h3>The sleep-promoting system</h3>
+<ul>
+<li><b>Ventrolateral preoptic nucleus (VLPO)</b> of the anterior hypothalamus → GABA + galanin → inhibits every wake-promoter above.</li>
+</ul>
+
+<h3>The flip-flop switch</h3>
+<p>VLPO inhibits the wake nuclei; the wake nuclei inhibit VLPO. <b>Mutual inhibition makes the system bistable</b>: one side wins fast, transitions are sharp, intermediate states are unstable. <b>Orexin</b> from the lateral hypothalamus biases the switch toward "wake" by exciting the wake nuclei. Lose orexin → switch flips erratically → sleep attacks in daytime, fragmented sleep at night = narcolepsy.</p>
+
+<h3>REM atonia</h3>
+<p>During REM, descending glycine + GABA inhibition from the <b>sublaterodorsal nucleus (subLDT) → medulla (gigantocellular nucleus) → spinal motor neurons</b> paralyses skeletal muscle (sparing diaphragm + eye muscles). Lesion this in cats (Jouvet's classic experiment) → "REM without atonia" → cats act out their dreams. The human analogue is <b>REM sleep behaviour disorder</b>, which strongly predicts Parkinson's / Lewy body dementia within 10–15 years.</p>
+<div class="rule"><b>Lock it:</b> sleep = VLPO; wake = ARAS (cholinergic + NE + 5-HT + histamine) supervised by orexin; REM atonia = subLDT → medulla → spinal cord. Loss of orexin = narcolepsy. REM-without-atonia in humans = REM sleep behaviour disorder = prodromal Parkinson's.</div>
+<div class="trap"><b>TRAP — "which transmitter is highest in REM?"</b> ACh. NE + 5-HT both <i>drop</i> in REM (the "aminergic-cholinergic" model — REM is when ACh wins). Histamine drops too.</div>
+<div class="nimhans"><b>NIMHANS angle.</b> "Cataplexy on emotional triggers + sleep paralysis + hypnagogic hallucinations + sleep attacks" = narcolepsy type 1 (with cataplexy) = loss of orexin neurons. CSF orexin low. HLA-DQB1*06:02 association.</div>
+
+
+<h2 id="hunger" class="sec">6. Hunger — arcuate POMC/AgRP loop</h2>
+<p>Pinel teaches the old dual-centre hypothesis (LH = hunger, VMH = satiety). Carlson teaches the <b>modern arcuate-nucleus model</b>, which the syllabus increasingly tests.</p>
+
+<h3>The two arcuate populations</h3>
+<table>
+<tr><th>Neurons</th><th>Co-release</th><th>What they do</th></tr>
+<tr><td><b>POMC / CART neurons</b></td><td>α-MSH (a POMC product) + CART</td><td>Promote satiety — project to paraventricular nucleus, activate MC4R receptor → ↓ food intake</td></tr>
+<tr><td><b>NPY / AgRP neurons</b></td><td>NPY + AgRP + GABA</td><td>Promote hunger — same target, AgRP <i>blocks</i> MC4R, NPY excites feeding directly. Inhibits POMC neurons too.</td></tr>
+</table>
+
+<h3>The peripheral signals that drive the loop</h3>
+<ul>
+<li><b>Leptin</b> — from adipose tissue, proportional to fat stores. <b>Excites POMC, inhibits NPY/AgRP</b> → satiety. Leptin <i>deficiency</i> or receptor mutation → obesity. Most obese humans have <i>high</i> leptin = leptin resistance.</li>
+<li><b>Insulin</b> — from pancreas (β-cells) post-meal. Same direction as leptin (satiety).</li>
+<li><b>Ghrelin</b> — from empty stomach (X/A cells). <b>Excites NPY/AgRP</b> → hunger. Rises before meals, falls after.</li>
+<li><b>PYY 3-36</b> — from gut L-cells, post-meal. Inhibits NPY → satiety.</li>
+<li><b>CCK</b> — from gut I-cells, fat/protein meal. Acts via vagus → NTS → satiety, meal termination.</li>
+</ul>
+
+<h3>The downstream integrator</h3>
+<p>Arcuate POMC + NPY/AgRP project to the <b>paraventricular nucleus (PVN)</b> of the hypothalamus, and the <b>lateral hypothalamus (LH)</b>. LH neurons fire orexin → both promotes feeding <i>and</i> arousal (an animal must wake up to eat). This is why orexin sits at the centre of both chapters.</p>
+<div class="rule"><b>Lock it:</b> leptin from fat + insulin from pancreas + PYY/CCK from gut = satiety (act on POMC). Ghrelin from stomach = hunger (acts on NPY/AgRP). LH orexin links hunger to arousal. MC4R mutations are the commonest monogenic cause of obesity in humans.</div>
+<div class="trap"><b>TRAP — leptin and obesity.</b> Leptin levels are <i>high</i> in obese people, not low. The pathology is <i>leptin resistance</i>, not leptin deficiency (rare congenital exception aside).</div>
+
+
+<h2 id="stress" class="sec">7. HPA axis, glucocorticoids &amp; the hippocampus</h2>
+<p>This is where Carlson, Sapolsky and clinical neuropsychology converge. The depth pass here is the receptor-level feedback story, because every MCQ on cortisol &amp; the hippocampus rides on it.</p>
+
+<h3>The axis, end-to-end</h3>
+<ol>
+<li>Stressor sensed by amygdala (threat) + prefrontal/hippocampus (contextual appraisal).</li>
+<li><b>Paraventricular nucleus (PVN)</b> of the hypothalamus releases <b>CRH</b> + vasopressin into the hypophyseal portal vein.</li>
+<li>Anterior pituitary corticotropes release <b>ACTH</b> into systemic blood.</li>
+<li><b>Adrenal cortex (zona fasciculata)</b> releases <b>cortisol</b>.</li>
+<li>Cortisol acts everywhere (gluconeogenesis, immunosuppression, sodium retention) and feeds back to shut off CRH + ACTH.</li>
+</ol>
+
+<h3>Two receptors, two feedback loops</h3>
+<table>
+<tr><th>Receptor</th><th>Affinity</th><th>Where</th><th>Role</th></tr>
+<tr><td><b>MR (mineralocorticoid)</b></td><td>High</td><td>Hippocampus &amp; some PVN</td><td>Tonic, basal cortisol regulation; saturated at low cortisol levels</td></tr>
+<tr><td><b>GR (glucocorticoid)</b></td><td>Low</td><td>Hippocampus, PFC, amygdala, hypothalamus, pituitary, everywhere</td><td>Stress-level feedback shutoff; recruited when cortisol is high</td></tr>
+</table>
+<p>The <b>hippocampus is the brain's main inhibitor of the HPA axis</b> via GR. That is the load-bearing fact.</p>
+
+<h3>What chronic stress does to the hippocampus</h3>
+<p>Sustained high cortisol → hippocampal neurons in CA3 + dentate gyrus suffer <b>dendritic atrophy</b>, suppression of <b>neurogenesis in the dentate</b>, eventual <b>volume loss</b>. Less hippocampus → less feedback shutoff → more cortisol → more damage. This is the loop Sapolsky describes; it appears in PTSD, major depression, Cushing's disease.</p>
+<div class="rule"><b>Lock it:</b> PVN → CRH → ACTH → cortisol → MR (low) + GR (high) → hippocampus shuts the axis off. Chronic stress shrinks hippocampus → feedback fails → cortisol stays high.</div>
+<div class="nimhans"><b>NIMHANS angle.</b> Smaller hippocampal volume on MRI is reported in PTSD, MDD with melancholia, Cushing's, and chronic schizophrenia. <b>Dexamethasone suppression test</b> (a synthetic GR agonist) → non-suppression of morning cortisol = an old biological marker for melancholic depression; sensitivity is low but it is the marker NIMHANS still asks about.</div>
+
+
+<h2 id="sex" class="sec">8. Sex hormones — organising vs activating</h2>
+<p>The cleanest two-word concept in the book, and a perennial MCQ.</p>
+<ul>
+<li><b>Organising effects</b> — during a <i>critical period</i> (perinatal in humans, in utero in rodents), gonadal hormones permanently <i>build</i> sexually dimorphic brain circuits. Effects are <b>permanent and structural</b>. Example: prenatal testosterone in males masculinises the <b>sexually dimorphic nucleus (SDN) of the medial preoptic area (mPOA)</b>.</li>
+<li><b>Activating effects</b> — after puberty, the same hormones <i>switch on</i> the behavior in the already-built circuit. Effects are <b>reversible</b>. Castrate an adult male rat → mounting drops; replace testosterone → it comes back.</li>
+</ul>
+
+<h3>The circuits, by sex</h3>
+<table>
+<tr><th>Behavior</th><th>Critical region</th><th>Hormone</th></tr>
+<tr><td>Male sexual behavior (mounting, intromission)</td><td><b>Medial preoptic area (mPOA)</b></td><td>Testosterone → aromatised to estradiol → ERα binding (the "aromatisation hypothesis")</td></tr>
+<tr><td>Female sexual behavior (lordosis in rodents)</td><td><b>Ventromedial hypothalamus (VMH)</b></td><td>Estradiol → priming → progesterone receptor expression</td></tr>
+<tr><td>Maternal behavior</td><td>mPOA + bed nucleus of stria terminalis</td><td>Estradiol + prolactin + oxytocin</td></tr>
+<tr><td>Pair-bonding (prairie vole work)</td><td>Ventral pallidum, NAc</td><td>Vasopressin (males), oxytocin (females)</td></tr>
+</table>
+<div class="trap"><b>TRAP — the aromatisation hypothesis.</b> In rodents, <i>testosterone masculinises the male brain by being converted to estradiol</i> within the brain (aromatase enzyme). The same chemical (estradiol) masculinises male brains and feminises female brains, depending on <i>when</i> and <i>where</i> it acts. Female fetuses are protected from circulating maternal estradiol by alpha-fetoprotein.</div>
+<div class="rule"><b>Lock it:</b> organising = perinatal, permanent, structural. Activating = adult, reversible, behavioural. Male = mPOA (testosterone → aromatised). Female = VMH (estradiol → progesterone). Maternal behavior + pair bonds = oxytocin/vasopressin.</div>
+
+
+<h2 id="memory" class="sec">9. LTP — the molecular cascade</h2>
+<p>If the exam asks "molecular basis of learning", they want this story.</p>
+<ol>
+<li><b>Baseline:</b> glutamate is released onto the postsynaptic dendritic spine. AMPA receptors open → Na+ in → depolarises the spine. NMDA receptors are <i>also</i> bound by glutamate, but at resting potential <b>Mg2+ plugs the channel</b>. Nothing flows.</li>
+<li><b>Strong / paired stimulation:</b> the postsynaptic membrane depolarises enough that the Mg2+ plug is electrostatically expelled.</li>
+<li>NMDA channel is now open with glutamate <i>and</i> voltage. <b>Ca2+ flows in.</b></li>
+<li><b>Ca2+ activates CaMKII</b> (calcium/calmodulin-dependent kinase II). CaMKII <b>phosphorylates AMPA receptors</b> (more conductance) and <b>inserts new AMPA receptors</b> into the spine membrane.</li>
+<li>Same spine, next glutamate release → bigger AMPA response. The synapse is <b>potentiated</b>. With sustained activity, gene transcription (CREB) + protein synthesis (Arc, BDNF) makes the change last hours to days → <b>late-phase LTP</b>.</li>
+</ol>
+<div class="why"><b>Why it matters.</b> NMDA = the <i>coincidence detector</i> (needs glutamate AND depolarisation simultaneously). That is Hebb's "cells that fire together wire together" in molecules. Block NMDA (APV, ketamine) → no LTP → no spatial learning (Morris water maze, Morris &amp; Frey).</div>
+<div class="rule"><b>Lock it:</b> NMDA = coincidence detector (Mg2+ block, voltage-and-ligand-gated). LTP carrier = Ca2+ → CaMKII → AMPA insertion. Late phase = CREB → protein synthesis. APV / ketamine block LTP.</div>
+
+
+<h2 id="psychiatry" class="sec">10. Neurobiology of the major psychiatric disorders</h2>
+<p>Carlson collapses these into one chapter. The MCQ trick is to map each disorder to a one-line neurobiological hypothesis + its drug logic.</p>
+
+<h3>Schizophrenia</h3>
+<ul>
+<li><b>Dopamine hypothesis (original):</b> too much DA. Evidence: D2-blocking drugs work; amphetamine (raises DA) produces a paranoid psychosis indistinguishable from schizophrenia.</li>
+<li><b>Updated:</b> <b>mesolimbic hyperdopaminergia → positive symptoms</b> (hallucinations, delusions); <b>mesocortical hypodopaminergia → negative symptoms</b> (avolition, flat affect) + cognitive symptoms.</li>
+<li><b>Glutamate hypothesis:</b> NMDA hypofunction. Evidence: PCP / ketamine produce the full spectrum (positive + negative + cognitive), classical DA-only drugs produce only positive symptoms.</li>
+<li><b>Structural:</b> ventricular enlargement, reduced cortical grey matter (esp. PFC + temporal), reduced hippocampal volume.</li>
+<li><b>Drug logic:</b> typicals (haloperidol, chlorpromazine) = pure D2 blockade → EPS. Atypicals (clozapine, risperidone, olanzapine) = D2 + 5-HT2A blockade → fewer EPS, more metabolic side effects. Clozapine = only one shown to help treatment-resistant + reduce suicide; needs WBC monitoring (agranulocytosis).</li>
+</ul>
+
+<h3>Depression</h3>
+<ul>
+<li><b>Monoamine hypothesis:</b> deficit of 5-HT &amp; NE. Evidence: tricyclics raise both; SSRIs raise 5-HT; MAOIs raise everything. But: monoamine rises in hours, antidepressant effect takes weeks — so the simple deficit story is incomplete.</li>
+<li><b>Neuroplasticity / BDNF hypothesis:</b> depression involves loss of hippocampal volume, low BDNF. Effective antidepressants raise BDNF + promote hippocampal neurogenesis over weeks — fits the time course.</li>
+<li><b>HPA hypothesis:</b> hypercortisolism + DST non-suppression in melancholic depression (see §7).</li>
+<li><b>Drug logic:</b> SSRI (first line), SNRI, atypical (bupropion = NDRI; mirtazapine = α2 + 5-HT2/3 antagonist), TCA, MAOI. <b>Ketamine</b> (NMDA antagonist) → rapid antidepressant effect — re-frames the whole field as glutamate-dependent.</li>
+</ul>
+
+<h3>Bipolar</h3>
+<ul>
+<li>Strong genetic loading, polygenic.</li>
+<li>Lithium = mood stabiliser of choice; mechanism partly via inositol monophosphatase + GSK-3β inhibition; also reduces suicide in bipolar specifically.</li>
+<li>Antidepressant monotherapy can flip a bipolar patient into mania — classic exam trap.</li>
+</ul>
+
+<h3>Anxiety</h3>
+<ul>
+<li><b>Amygdala-centred</b> fear circuit (see §12). Increased reactivity, weaker prefrontal regulation.</li>
+<li>GABA-A modulation (benzos) → fast relief.</li>
+<li>5-HT (SSRI / SNRI) → first-line maintenance for panic, GAD, OCD, PTSD, social anxiety.</li>
+<li>OCD specifically responds to <i>high-dose SSRI</i> + <b>cortico-striatal-thalamic loop</b> involvement (caudate hyperactivity on PET, normalises with treatment).</li>
+</ul>
+
+<h3>Addiction</h3>
+<ul>
+<li>Hijack of mesolimbic DA (see §3–4).</li>
+<li>Repeated drug exposure → <b>tolerance</b> (receptor downregulation) + <b>sensitisation</b> (incentive-salience strengthening) + <b>withdrawal</b> (opponent process: NAc DA below baseline, amygdala stress system activated).</li>
+<li>Long-term cue-induced craving driven by amygdala + PFC + hippocampus, not VTA-NAc alone.</li>
+</ul>
+<div class="recap"><b>Recap §10.</b> Schiz = DA imbalance + NMDA hypofunction. Depression = monoamines + plasticity + cortisol. Bipolar = mood stabilisers, watch the antidepressant switch. Anxiety = amygdala + GABA + 5-HT. Addiction = mesolimbic hijack + opponent withdrawal.</div>
+
+
+<h2 id="sensorimotor" class="sec">11. Sensorimotor — what Carlson adds over Pinel</h2>
+<p>The basics (motor cortex map, basal ganglia, cerebellum) are on the Pinel page. Carlson's two extra emphases:</p>
+<ul>
+<li><b>Direct vs indirect basal ganglia loops.</b> The <i>direct</i> pathway (cortex → striatum → GPi/SNr → thalamus → cortex) <b>facilitates</b> movement; the <i>indirect</i> pathway (striatum → GPe → STN → GPi) <b>inhibits</b> movement. <b>D1 receptors</b> on direct-pathway neurons (go), <b>D2 receptors</b> on indirect-pathway neurons (no-go). DA from substantia nigra biases the system toward "go" — lose it and you get Parkinson's bradykinesia.</li>
+<li><b>Mirror neurons (di Pellegrino, Rizzolatti, area F5 of macaque premotor cortex)</b> — neurons that fire both when the monkey executes a goal-directed action and when it watches another do it. Hypothesised role in imitation, action understanding, theory of mind; human homologues in inferior frontal gyrus + inferior parietal lobule.</li>
+</ul>
+<div class="trap"><b>TRAP — direct vs indirect pathway receptor.</b> Direct = D1 (facilitating). Indirect = D2 (inhibiting). DA <i>excites</i> direct and <i>inhibits</i> indirect, so it pushes both ways toward "more movement". L-DOPA in Parkinson's restores both.</div>
+
+
+<h2 id="emotion" class="sec">12. Emotion — amygdala in detail</h2>
+<p>The Papez circuit / James-Lange / Cannon-Bard story is on the Pinel page. Carlson focuses on the <b>amygdala as the emotion hub</b>.</p>
+
+<h3>Amygdala nuclei</h3>
+<ul>
+<li><b>Lateral nucleus</b> — sensory input from thalamus + cortex. The "input gate".</li>
+<li><b>Basal + accessory basal nuclei</b> — integrate input with cortical (PFC, hippocampus) context.</li>
+<li><b>Central nucleus (CeA)</b> — output to hypothalamus (autonomic), PAG (freezing, analgesia), brainstem (startle), basal forebrain (vigilance). The "output gate" of fear.</li>
+</ul>
+
+<h3>Fear conditioning circuit (LeDoux)</h3>
+<p><b>Two roads to the amygdala:</b> the <b>low road</b> = thalamus → lateral amygdala, fast &amp; crude (the snake-shaped stick); the <b>high road</b> = thalamus → cortex → lateral amygdala, slower &amp; precise (it's a stick). Lateral amygdala stores the CS-US association via LTP at its glutamate synapses. CeA drives the output (freeze + autonomic burst).</p>
+
+<h3>Klüver-Bucy</h3>
+<p>Bilateral anterior temporal lobectomy (originally in monkeys, then in humans with HSV encephalitis or post-surgical) → <b>hypersexuality, hyperorality (mouthing objects), placidity, visual agnosia, hypermetamorphosis</b>. Damage to amygdala + adjacent temporal cortex.</p>
+<div class="rule"><b>Lock it:</b> amygdala = fear / threat detection. Lateral = input, central = output. LeDoux's two roads = thalamus-amygdala (low) and thalamus-cortex-amygdala (high). Klüver-Bucy = bilateral temporal damage.</div>
+
+
+<h2 id="nimhans" class="sec">13. NIMHANS-tilt — clinical hooks from this page</h2>
+<p>Carlson's chapters that NIMHANS clinical neuropsychology leans on most heavily, and the exact stem you might see:</p>
+<table>
+<tr><th>Clinical scenario</th><th>Underlying Carlson chapter</th><th>The answer</th></tr>
+<tr><td>Resting tremor + rigidity + bradykinesia, responds to L-DOPA</td><td>Nigrostriatal DA loss</td><td>Parkinson's disease — substantia nigra pars compacta</td></tr>
+<tr><td>Memory loss, basal forebrain cholinergic loss</td><td>Basal forebrain ACh; AD</td><td>Alzheimer's; treat with donepezil / rivastigmine / galantamine + memantine (NMDA partial antagonist) in moderate-severe</td></tr>
+<tr><td>REM-without-atonia in a 60-yr-old man, acting out dreams</td><td>SubLDT lesion analogue</td><td>REM sleep behaviour disorder → prodromal Parkinson's / DLB</td></tr>
+<tr><td>Daytime sleep attacks + cataplexy on laughter</td><td>Lateral hypothalamus orexin loss</td><td>Narcolepsy type 1; CSF orexin low; HLA-DQB1*06:02</td></tr>
+<tr><td>Disinhibition + hyperorality + hypersexuality + visual agnosia after HSV encephalitis</td><td>Bilateral temporal / amygdala</td><td>Klüver-Bucy syndrome</td></tr>
+<tr><td>Chronic alcohol + ataxia + confabulation + anterograde amnesia</td><td>Thiamine deficiency → mammillary body + dorsomedial thalamus</td><td>Wernicke-Korsakoff (Carlson covers in addiction chapter)</td></tr>
+<tr><td>Treatment-resistant schizophrenia</td><td>5-HT2A + D2 atypical</td><td>Clozapine (monitor WBC for agranulocytosis)</td></tr>
+<tr><td>Major depression with cortisol non-suppression on DST</td><td>HPA + GR dysregulation</td><td>Melancholic depression</td></tr>
+<tr><td>Caudate hyperactivity on PET, normalises with SSRI / CBT</td><td>Cortico-striatal-thalamic loop</td><td>OCD</td></tr>
+<tr><td>Anti-craving for alcohol, opioid antagonist</td><td>Endogenous opioid → VTA DA</td><td>Naltrexone</td></tr>
+</table>
+
+
+<h2 id="deltas" class="sec">14. Carlson vs Pinel — every divergence worth knowing</h2>
+<table>
+<tr><th>Topic</th><th>Pinel's framing</th><th>Carlson's framing (what to take from here)</th></tr>
+<tr><td>Reward</td><td>Olds &amp; Milner + Berridge wanting/liking</td><td>Full mesolimbic circuit, DA = reward-prediction-error (Schultz)</td></tr>
+<tr><td>Addiction</td><td>Behavioural — tolerance, sensitisation, withdrawal</td><td>Per-drug receptor mechanism + treatment drug</td></tr>
+<tr><td>Sleep</td><td>Stages, REM-NREM cycle</td><td>VLPO ↔ ARAS flip-flop, orexin supervisor, subLDT → REM atonia</td></tr>
+<tr><td>Hunger</td><td>LH = hunger, VMH = satiety, leptin briefly</td><td>Arcuate POMC vs NPY/AgRP, MC4R, leptin/insulin/ghrelin/PYY/CCK</td></tr>
+<tr><td>Stress</td><td>Selye GAS, HPA outlined</td><td>MR vs GR feedback, hippocampal atrophy loop</td></tr>
+<tr><td>Sex</td><td>Hormones &amp; behaviour, briefly</td><td>Organising vs activating, aromatisation hypothesis, mPOA vs VMH</td></tr>
+<tr><td>Memory</td><td>Amnesia patients (HM), systems</td><td>NMDA coincidence detector, Ca2+ → CaMKII → AMPA insertion → late phase via CREB</td></tr>
+<tr><td>Schizophrenia</td><td>DA hypothesis + drugs</td><td>Mesolimbic-hyper + mesocortical-hypo + NMDA hypofunction</td></tr>
+<tr><td>Depression</td><td>Monoamines</td><td>Monoamines + BDNF/neuroplasticity + HPA + ketamine/glutamate</td></tr>
+<tr><td>Movement</td><td>Cortex, BG, cerebellum</td><td>Direct (D1) vs indirect (D2) basal ganglia loops; mirror neurons</td></tr>
+</table>
+
+
+<h2 id="traps" class="sec">15. MCQ traps Carlson sets that Pinel does not</h2>
+<ol>
+<li><b>Cocaine</b> = DAT blocker. <b>Amphetamine</b> = DAT reverser + VMAT2 emptier. <i>Not the same.</i></li>
+<li><b>Benzos</b> = ↑ GABA-A frequency. <b>Barbiturates</b> = ↑ GABA-A duration. (Same channel, different sites.)</li>
+<li><b>Direct pathway</b> = D1 = go. <b>Indirect pathway</b> = D2 = no-go. (DA pushes both toward "go".)</li>
+<li><b>Mesolimbic</b> = positive symptoms (hyper). <b>Mesocortical</b> = negative + cognitive symptoms (hypo). Antipsychotics work on the first; they make the second worse.</li>
+<li><b>NMDA receptor</b> is voltage-AND-ligand-gated; Mg2+ is the voltage-dependent block. AMPA is ligand-only.</li>
+<li><b>Leptin</b> is <i>elevated</i> in human obesity (leptin resistance), not deficient.</li>
+<li><b>Ghrelin</b> = stomach, pre-meal, hunger. Don't confuse with ghrelin/leptin direction.</li>
+<li><b>MR</b> (mineralocorticoid) is the <i>high-affinity</i> cortisol receptor; <b>GR</b> is the <i>low-affinity</i> one recruited in stress. Hippocampus has both.</li>
+<li><b>Aromatisation</b>: testosterone is converted to <i>estradiol</i> in the male brain, which is what masculinises it.</li>
+<li><b>Orexin</b> loss → narcolepsy type 1 (with cataplexy). Orexin neurons live in the <i>lateral hypothalamus</i>.</li>
+<li><b>Clozapine</b> is the only antipsychotic shown to lower suicide in schizophrenia. Side effect: agranulocytosis.</li>
+<li><b>Lithium</b> reduces suicide in bipolar. Mechanism: GSK-3β + inositol monophosphatase inhibition.</li>
+<li><b>Acamprosate</b> stabilises NMDA glutamate signalling in alcohol use disorder. <b>Disulfiram</b> blocks aldehyde dehydrogenase.</li>
+<li><b>Varenicline</b> is a <i>partial</i> agonist at α4β2 nicotinic ACh receptor (smoking cessation).</li>
+<li>The transmitter that <i>peaks</i> in REM is <b>ACh</b>; NE + 5-HT + histamine all <i>drop</i>.</li>
+</ol>
+
+
+<h2 id="selftest" class="sec">16. Self-test — Carlson topics only</h2>
+<ol>
+<li>Name the four DA pathways with origin and target.</li>
+<li>What is the "wanting vs liking" distinction and which transmitter system carries each?</li>
+<li>Walk Olds &amp; Milner's intracranial self-stimulation experiment in three sentences.</li>
+<li>For each: cocaine, amphetamine, heroin, alcohol, nicotine, cannabis — state the primary receptor / transporter action.</li>
+<li>What does the VLPO inhibit, and what supervises the switch?</li>
+<li>Why does orexin loss produce both daytime sleep attacks and cataplexy?</li>
+<li>Where is REM atonia generated, and what is the human disorder of its failure?</li>
+<li>Which two arcuate populations regulate feeding, what do they release, and on what target?</li>
+<li>Why is leptin <i>high</i> in obesity?</li>
+<li>Distinguish MR and GR by affinity, location, and role.</li>
+<li>What is the chronic-stress feedback loop that involves the hippocampus?</li>
+<li>State the organising vs activating distinction with one rodent example each.</li>
+<li>What is the aromatisation hypothesis?</li>
+<li>Walk the NMDA → Ca2+ → CaMKII → AMPA-insertion cascade.</li>
+<li>For schizophrenia, give one piece of evidence each for the DA hypothesis and the NMDA hypothesis.</li>
+<li>Why is the time-course problem the killer of the simple monoamine hypothesis of depression?</li>
+<li>Direct vs indirect basal ganglia pathway — receptor + behaviour.</li>
+<li>Klüver-Bucy: lesion site + four features.</li>
+<li>Name LeDoux's "two roads" to the amygdala.</li>
+<li>One-line clinical pearls (any five from §13).</li>
+</ol>
+
+<p style="color: var(--muted); font-size: 12px; margin-top: 32px;">Page built 2026-05-28 as the first section of the per-section Carlson/Eysenck/Broderick/Schultz/Ahuja/Corey/Gravetter/Baron depth-pass rollout. Source: Carlson &amp; Birkett, <i>Physiology of Behavior</i> (12th ed.), framing &amp; emphases. Walked NIMHANS clinical-tilt where the chapter diverged from Pinel. Pair with the existing <a href="../biopsych-cheatsheet/">Pinel chapter</a> for full section coverage.</p>
+</article>
+<script src="/sihan-met-flashcards/notes/term-popover.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+/* Notes for Exam — in-frame reader refinements.
+   notes-style.css already supplies the paper/serif book look + scoped
+   classes (.trap, .recap, .nimhans, tables). This layer tunes the reading
+   column for the app frame and exposes a font-size control. */
+
+:root {
+  --nfe-fs: 18px;          /* overridden by the shell via postMessage */
+  --nfe-maxw: 760px;
+}
+
+html, body.nfe-reader {
+  background: #f5f1e8 !important;
+}
+body.nfe-reader {
+  margin: 0;
+  padding: 0;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* The single reading column. Narrower than the site default for book feel. */
+.nfe-article.wrap {
+  max-width: var(--nfe-maxw);
+  margin: 0 auto;
+  padding: 30px 26px 120px;
+  font-size: var(--nfe-fs);
+  line-height: 1.78;
+}
+
+.nfe-article h1 {
+  font-size: 1.9em;
+  line-height: 1.2;
+  margin: 8px 0 18px;
+}
+.nfe-article h2 { font-size: 1.4em; margin-top: 1.8em; }
+.nfe-article h3 { font-size: 1.18em; margin-top: 1.4em; }
+.nfe-article p,
+.nfe-article li { font-size: 1em; }
+
+/* let wide tables scroll inside the column instead of blowing it out */
+.nfe-article table { font-size: 0.92em; }
+
+/* tidy first-heading top gap */
+.nfe-article > h1:first-child { margin-top: 0; }
+
+@media (max-width: 640px) {
+  .nfe-article.wrap { padding: 22px 18px 110px; }
+}
