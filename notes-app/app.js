@@ -1,15 +1,18 @@
-/* Notes for Exam — single-page library + reader.
-   No framework. Loads manifest.json, renders a textbook-library home and a
-   full-screen book reader (per-note pages live in content/<slug>.html). */
+/* Notes for Exam — single-page library + reader ("The Reading Desk").
+   No framework. Loads manifest.json, renders an editorial library home and a
+   desk-framed book reader (per-note pages live in content/<slug>.html).
+   On wide screens the reader flanks the page with live rails: a scroll-spy
+   Contents rail (left) and a chapter-progress / up-next rail (right). */
 (function () {
   "use strict";
 
   var app = document.getElementById("app");
   var DATA = null;          // manifest.json
-  var FLAT = [];            // ordered [{slug,title,short,section,sectionName,grad,minutes,words}]
+  var FLAT = [];            // ordered [{slug,title,short,blurb,section,sectionName,grad,minutes,words}]
   var BYSLUG = {};          // slug -> flat entry
   var SEARCH = null;        // lazy search index
   var FS_KEY = "nfe:fs", LAST_KEY = "nfe:last", SCROLL_KEY = "nfe:scroll";
+  var RING_C = 2 * Math.PI * 20;   // progress-ring circumference (r=20)
 
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
@@ -47,6 +50,7 @@
   function route() {
     if (!DATA) return;
     closeSearch();
+    document.body.classList.remove("toc-open");
     var h = location.hash || "";
     var m = h.match(/^#\/read\/([a-z0-9\-.]+)/i);
     if (m && BYSLUG[m[1]]) { renderReader(m[1]); }
@@ -62,23 +66,28 @@
     var lastE = last && BYSLUG[last];
 
     var html = "";
-    html += appbar({ home: true });
+    html += '<div class="appbar"><span class="brand"><span class="mark">N</span> Notes for Exam</span>' +
+      '<span class="spacer"></span>' +
+      '<button class="iconbtn" id="topSearch" aria-label="Search">&#128269;</button></div>';
     html += '<div class="library">';
 
-    // hero
-    html += '<div class="hero">' +
+    // masthead (title page)
+    html += '<div class="masthead">' +
+      '<span class="eyebrow">A Study Library &middot; MET 2026 &amp; NIMHANS</span>' +
       '<h1>Notes for Exam</h1>' +
-      '<p>Every cheatsheet, primer, debrief and deep-dive from your prep, merged so each concept lives in one clean entry, no flipping between twenty overlapping notes. Detail kept, nothing cut. Tap a book to read it like a chapter.</p>' +
+      '<p class="sub">Every cheatsheet, primer, debrief and deep-dive from your prep, merged so each concept lives in one clean entry. Detail kept, nothing cut. Read it like a book.</p>' +
+      '<div class="rule"><span class="orn">&#10086;</span></div>' +
       '<div class="stats">' +
-        '<span><b>' + DATA.chapters + '</b> chapters</span>' +
-        '<span><b>' + Math.round(DATA.words / 1000) + 'k</b> words</span>' +
-        '<span><b>' + DATA.shelves.length + '</b> sections</span>' +
+        '<span><b>' + DATA.chapters + '</b> Books</span>' +
+        '<span><b>' + Math.round(DATA.words / 1000) + 'k</b> Words</span>' +
+        '<span><b>' + DATA.shelves.length + '</b> Sections</span>' +
       '</div></div>';
 
     // search
     html += '<div class="searchbar" id="openSearch">' +
       '<span class="sicon">&#128269;</span>' +
-      '<input type="search" placeholder="Search all notes..." readonly></div>';
+      '<input type="search" placeholder="Search every book…" readonly>' +
+      '<span class="hint">/</span></div>';
 
     // continue
     if (lastE) {
@@ -87,9 +96,9 @@
         '<div class="meta">' +
           '<div class="kicker">Continue reading</div>' +
           '<div class="ttl">' + esc(lastE.short) + '</div>' +
-          '<div class="sub">' + esc(lastE.sectionName) + ' &middot; ' + lastE.minutes + ' min</div>' +
+          '<div class="sub">' + esc(lastE.sectionName) + ' &middot; ' + lastE.minutes + ' min read</div>' +
         '</div>' +
-        '<button class="go">Resume</button></div>';
+        '<button class="go">Resume &#8594;</button></div>';
     }
 
     // shelves
@@ -98,14 +107,16 @@
         '<div class="shelf-head"><h2>' + esc(sh.name) + '</h2>' +
         '<span class="st">' + esc(sh.subtitle) + '</span>' +
         '<span class="ct">' + sh.chapters.length + ' ' + (sh.chapters.length === 1 ? 'book' : 'books') + '</span></div>' +
+        '<div class="shelf-rule"></div>' +
         '<div class="shelf-row">';
       sh.chapters.forEach(function (c) {
         html += '<a class="book" data-go="' + esc(c.slug) + '" href="#/read/' + esc(c.slug) + '" ' +
           'style="background:linear-gradient(150deg,' + sh.grad[0] + ',' + sh.grad[1] + ')">' +
           '<span class="b-kicker">' + esc(sh.name) + '</span>' +
+          '<span class="b-rule"></span>' +
           '<span class="b-title">' + esc(c.short) + '</span>' +
           '<span class="b-blurb">' + esc(c.blurb) + '</span>' +
-          '<span class="b-foot">' + c.minutes + ' min read <i class="dot"></i> ' + Math.round(c.words / 100) / 10 + 'k words</span>' +
+          '<span class="b-foot">' + c.minutes + ' min &middot; ' + Math.round(c.words / 100) / 10 + 'k words</span>' +
           '</a>';
       });
       html += '</div></section>';
@@ -127,9 +138,15 @@
     var prev = FLAT[idx - 1], next = FLAT[idx + 1];
     localStorage.setItem(LAST_KEY, slug);
 
+    // "More in this section"
+    var fam = FLAT.filter(function (f) { return f.section === e.section; });
+
     var html = '<div class="reader">';
+
+    // top bar
     html += '<div class="appbar">' +
       '<button class="backbtn" id="backBtn"><span>&#8592;</span> Library</button>' +
+      '<button class="iconbtn tocbtn" id="tocBtn" aria-label="Contents">&#9776;</button>' +
       '<div class="crumb"><span class="sec">' + esc(e.sectionName) + '</span>' +
       '<span class="tt">' + esc(e.short) + '</span></div>' +
       '<span class="spacer"></span>' +
@@ -137,32 +154,65 @@
       '<button id="fsUp" aria-label="Larger text">A&#43;</button></div>' +
       '<button class="iconbtn" id="readerSearch" aria-label="Search">&#128269;</button>' +
       '</div>';
-    html += '<iframe id="reader" title="' + esc(e.title) + '" src="content/' + esc(slug) + '.html"></iframe>';
+
+    // desk: [contents rail] [stage] [meta rail]
+    html += '<div class="deskwrap">';
+
+    // left rail — live contents (filled after iframe loads)
+    html += '<aside class="rail rail-left">' +
+      '<div class="rail-h">Contents</div>' +
+      '<ul class="toclist" id="tocList"><li><a style="opacity:.5">Loading…</a></li></ul>' +
+      '</aside>';
+
+    // centre stage
+    html += '<div class="stage"><div class="sheet">' +
+      '<iframe id="reader" title="' + esc(e.title) + '" src="content/' + esc(slug) + '.html"></iframe>' +
+      '</div></div>';
+
+    // right rail — progress + up next + more in section
+    html += '<aside class="rail rail-right">' +
+      '<div class="rail-h">Your place</div>' +
+      '<div class="progwrap">' +
+        '<svg class="progring" width="48" height="48" viewBox="0 0 48 48">' +
+          '<circle class="track" cx="24" cy="24" r="20"></circle>' +
+          '<circle class="fill" id="progFill" cx="24" cy="24" r="20" ' +
+            'stroke-dasharray="' + RING_C.toFixed(1) + '" stroke-dashoffset="' + RING_C.toFixed(1) + '"></circle>' +
+          '<text class="pct" id="progPct" x="24" y="28" text-anchor="middle">0%</text>' +
+        '</svg>' +
+        '<div class="progmeta"><div class="ch">Book ' + (idx + 1) + ' of ' + FLAT.length + '</div>' +
+        '<div class="nm">' + esc(e.short) + '</div></div>' +
+      '</div>' +
+      '<div class="upnext">' +
+        navCard("Previous", prev) +
+        navCard("Up next", next) +
+      '</div>' +
+      '<div class="morein"><div class="rail-h">More in ' + esc(e.sectionName) + '</div>' +
+        fam.map(function (f) {
+          return '<a class="moreitem' + (f.slug === slug ? ' cur' : '') + '" data-go="' + esc(f.slug) + '" href="#/read/' + esc(f.slug) + '">' +
+            '<span class="sp" style="background:linear-gradient(180deg,' + f.grad[0] + ',' + f.grad[1] + ')"></span>' +
+            '<span>' + esc(f.short) + '</span></a>';
+        }).join("") +
+      '</div>' +
+      '</aside>';
+
+    html += '</div>'; // deskwrap
+
+    // bottom nav (narrow only) + scrim for contents drawer
     html += '<div class="readernav">' +
       '<button id="prevBtn" ' + (prev ? '' : 'disabled') + '><span>&#8592;</span><span class="lbl">' + (prev ? esc(prev.short) : 'Start') + '</span></button>' +
       '<span class="pos">' + (idx + 1) + ' / ' + FLAT.length + '</span>' +
       '<button id="nextBtn" ' + (next ? '' : 'disabled') + '><span class="lbl">' + (next ? esc(next.short) : 'End') + '</span><span>&#8594;</span></button>' +
       '</div>';
-    html += '</div>';
+    html += '<div class="tocscrim" id="tocScrim"></div>';
+    html += '</div>'; // reader
     app.innerHTML = html;
 
     var frame = document.getElementById("reader");
     frame.addEventListener("load", function () {
       applyFontSize(frame);
-      // restore scroll
-      try {
-        var sc = JSON.parse(localStorage.getItem(SCROLL_KEY) || "{}");
-        if (sc[slug]) frame.contentWindow.scrollTo(0, sc[slug]);
-      } catch (e2) {}
-      // persist scroll
-      try {
-        frame.contentWindow.addEventListener("scroll", function () {
-          var sc = {};
-          try { sc = JSON.parse(localStorage.getItem(SCROLL_KEY) || "{}"); } catch (e3) {}
-          sc[slug] = frame.contentWindow.scrollY;
-          localStorage.setItem(SCROLL_KEY, JSON.stringify(sc));
-        }, { passive: true });
-      } catch (e4) {}
+      buildContents(frame, slug);
+      restoreScroll(frame, slug);
+      wireScrollTracking(frame, slug);
     });
 
     document.getElementById("backBtn").addEventListener("click", function () { location.hash = ""; });
@@ -171,7 +221,131 @@
     if (next) document.getElementById("nextBtn").addEventListener("click", function () { go(next.slug); });
     document.getElementById("fsUp").addEventListener("click", function () { bumpFont(1, frame); });
     document.getElementById("fsDown").addEventListener("click", function () { bumpFont(-1, frame); });
+
+    // contents drawer (narrow)
+    var tocBtn = document.getElementById("tocBtn");
+    var tocScrim = document.getElementById("tocScrim");
+    if (tocBtn) tocBtn.addEventListener("click", function () { document.body.classList.toggle("toc-open"); });
+    if (tocScrim) tocScrim.addEventListener("click", function () { document.body.classList.remove("toc-open"); });
+
+    wireCommon();   // wires [data-go] incl. the rail nav cards + more-in items
     window.scrollTo(0, 0);
+  }
+
+  function navCard(dir, e) {
+    if (!e) return '<div class="navcard disabled"><div class="dir">' + dir + '</div><div class="ttl">—</div></div>';
+    return '<a class="navcard" data-go="' + esc(e.slug) + '" href="#/read/' + esc(e.slug) + '">' +
+      '<div class="dir">' + dir + '</div><div class="ttl">' + esc(e.short) + '</div></a>';
+  }
+
+  /* ---------- reader: live contents + scroll-spy ---------- */
+  var SECS = [];      // [{id, el}]
+  function buildContents(frame, slug) {
+    SECS = [];
+    var list = document.getElementById("tocList");
+    if (!list) return;
+    var doc;
+    try { doc = frame.contentDocument; } catch (err) { doc = null; }
+    if (!doc) { list.innerHTML = ""; return; }
+
+    var items = [];   // {id, label}
+    var tocLinks = doc.querySelectorAll(".booktoc a[href^='#']");
+    if (tocLinks.length) {
+      Array.prototype.forEach.call(tocLinks, function (a) {
+        var id = (a.getAttribute("href") || "").slice(1);
+        if (id && doc.getElementById(id)) items.push({ id: id, label: a.textContent.trim() });
+      });
+    }
+    if (!items.length) {   // fall back to headings (pass-through notes)
+      var heads = doc.querySelectorAll("h2");
+      Array.prototype.forEach.call(heads, function (h, i) {
+        if (!h.id) h.id = "nfe-sec-" + i;
+        var label = h.textContent.trim();
+        if (label) items.push({ id: h.id, label: label });
+      });
+    }
+    if (!items.length) { list.innerHTML = '<li><a style="opacity:.45">No sections</a></li>'; return; }
+
+    var html = "";
+    items.forEach(function (it) {
+      html += '<li><a data-sec="' + esc(it.id) + '">' + esc(it.label) + '</a></li>';
+      SECS.push({ id: it.id, el: doc.getElementById(it.id) });
+    });
+    list.innerHTML = html;
+    Array.prototype.forEach.call(list.querySelectorAll("a[data-sec]"), function (a) {
+      a.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        jumpTo(frame, a.getAttribute("data-sec"));
+        document.body.classList.remove("toc-open");
+      });
+    });
+  }
+
+  function jumpTo(frame, id) {
+    try {
+      var win = frame.contentWindow, doc = frame.contentDocument;
+      var el = doc.getElementById(id);
+      if (!el) return;
+      var y = el.getBoundingClientRect().top + win.scrollY - 14;
+      win.scrollTo({ top: y, behavior: "smooth" });
+    } catch (err) {}
+  }
+
+  function wireScrollTracking(frame, slug) {
+    var win, doc;
+    try { win = frame.contentWindow; doc = frame.contentDocument; } catch (e) { return; }
+    var fill = document.getElementById("progFill");
+    var pct = document.getElementById("progPct");
+    var list = document.getElementById("tocList");
+    var ticking = false;
+
+    function update() {
+      ticking = false;
+      var de = doc.documentElement, b = doc.body;
+      var sh = Math.max(de.scrollHeight, b.scrollHeight);
+      var ch = win.innerHeight || de.clientHeight;
+      var st = win.scrollY || de.scrollTop || 0;
+      var frac = sh > ch ? Math.min(1, Math.max(0, st / (sh - ch))) : 1;
+      if (fill) fill.setAttribute("stroke-dashoffset", (RING_C * (1 - frac)).toFixed(1));
+      if (pct) pct.textContent = Math.round(frac * 100) + "%";
+
+      // persist scroll
+      try {
+        var sc = JSON.parse(localStorage.getItem(SCROLL_KEY) || "{}");
+        sc[slug] = st; localStorage.setItem(SCROLL_KEY, JSON.stringify(sc));
+      } catch (e2) {}
+
+      // scroll-spy: last section whose top is above the fold line
+      if (SECS.length && list) {
+        var line = st + 130, activeId = SECS[0].id;
+        for (var i = 0; i < SECS.length; i++) {
+          var el = SECS[i].el; if (!el) continue;
+          var top = el.getBoundingClientRect().top + st;
+          if (top <= line) activeId = SECS[i].id; else break;
+        }
+        var links = list.querySelectorAll("a[data-sec]"), cur = null;
+        Array.prototype.forEach.call(links, function (a) {
+          var on = a.getAttribute("data-sec") === activeId;
+          a.classList.toggle("active", on);
+          if (on) cur = a;
+        });
+        if (cur && document.body.classList.contains("toc-open") === false) {
+          // keep active item in view within the rail (no page jump)
+          var r = cur.getBoundingClientRect(), pr = list.getBoundingClientRect();
+          if (r.top < pr.top || r.bottom > pr.bottom) cur.scrollIntoView({ block: "nearest" });
+        }
+      }
+    }
+    function onScroll() { if (!ticking) { ticking = true; (win.requestAnimationFrame || setTimeout)(update); } }
+    try { win.addEventListener("scroll", onScroll, { passive: true }); } catch (e3) {}
+    update();
+  }
+
+  function restoreScroll(frame, slug) {
+    try {
+      var sc = JSON.parse(localStorage.getItem(SCROLL_KEY) || "{}");
+      if (sc[slug]) frame.contentWindow.scrollTo(0, sc[slug]);
+    } catch (e) {}
   }
 
   function applyFontSize(frame) {
@@ -197,7 +371,7 @@
   function openSearch() {
     pane.classList.add("open");
     input.value = "";
-    results.innerHTML = '<div class="searchempty">Type to search ' + (DATA ? DATA.chapters : "") + ' chapters.</div>';
+    results.innerHTML = '<div class="searchempty">Type to search ' + (DATA ? DATA.chapters : "") + ' books.</div>';
     setTimeout(function () { input.focus(); }, 30);
     if (!SEARCH) {
       fetch("search-index.json", { cache: "no-cache" })
@@ -210,7 +384,7 @@
   function runSearch(q) {
     q = q.trim().toLowerCase();
     if (!q) { results.innerHTML = '<div class="searchempty">Type to search.</div>'; return; }
-    if (!SEARCH) { results.innerHTML = '<div class="searchempty">Loading index...</div>'; return; }
+    if (!SEARCH) { results.innerHTML = '<div class="searchempty">Loading index…</div>'; return; }
     var terms = q.split(/\s+/);
     var hits = [];
     SEARCH.forEach(function (it) {
@@ -242,19 +416,13 @@
   }
   function snippet(text, term) {
     var i = text.toLowerCase().indexOf(term);
-    if (i === -1) return esc(text.slice(0, 150)) + "...";
+    if (i === -1) return esc(text.slice(0, 150)) + "…";
     var s = Math.max(0, i - 60), e = Math.min(text.length, i + 90);
-    var out = (s > 0 ? "..." : "") + text.slice(s, e) + (e < text.length ? "..." : "");
-    var re = new RegExp("(" + term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "ig");
+    var out = (s > 0 ? "…" : "") + text.slice(s, e) + (e < text.length ? "…" : "");
     return esc(out).replace(new RegExp(esc(term), "ig"), function (m) { return "<mark>" + m + "</mark>"; });
   }
 
   /* ---------- shared wiring ---------- */
-  function appbar(opts) {
-    return '<div class="appbar"><span class="brand"><span class="mark">&#128214;</span> Notes for Exam</span>' +
-      '<span class="spacer"></span>' +
-      '<button class="iconbtn" id="topSearch" aria-label="Search">&#128269;</button></div>';
-  }
   function wireCommon() {
     var ts = document.getElementById("topSearch");
     if (ts) ts.addEventListener("click", openSearch);
@@ -275,7 +443,7 @@
       var idx = FLAT.indexOf(BYSLUG[m[1]]);
       if (e.key === "ArrowRight" && FLAT[idx + 1]) go(FLAT[idx + 1].slug);
       if (e.key === "ArrowLeft" && FLAT[idx - 1]) go(FLAT[idx - 1].slug);
-      if (e.key === "Escape") location.hash = "";
+      if (e.key === "Escape") { if (document.body.classList.contains("toc-open")) document.body.classList.remove("toc-open"); else location.hash = ""; }
     }
   });
 })();

@@ -1,47 +1,122 @@
-/* Notes for Exam — in-frame reader refinements.
-   notes-style.css already supplies the paper/serif book look + scoped
-   classes (.trap, .recap, .nimhans, tables). This layer tunes the reading
-   column for the app frame and exposes a font-size control. */
+/* Notes for Exam — in-frame reader page ("the vellum sheet").
+   notes-style.css supplies the base paper/serif look + scoped classes
+   (.trap, .recap, .nimhans, tables); book.css the merged-book callout
+   vocabulary. This layer turns the page into a real printed book leaf:
+   warm vellum, a proper reading measure, a chapter-opening drop cap,
+   and small-caps section labels. The shell (app.css/app.js) frames this
+   leaf on a desk and supplies the live side rails. */
 
 :root {
-  --nfe-fs: 18px;          /* overridden by the shell via postMessage */
-  --nfe-maxw: 760px;
+  --nfe-fs: 18px;              /* set by the shell via the font control */
+  --nfe-maxw: 40rem;           /* the reading measure (~66 characters) */
+  --leaf:   #f6efdd;
+  --leaf-2: #efe6cf;
+  --leaf-ink:  #2a2114;
+  --leaf-soft: #6a5c43;
+  --leaf-rule: #ded0b0;
+  --leaf-gold: #9c7320;
 }
 
 html, body.nfe-reader {
-  background: #f5f1e8 !important;
+  /* a faint laid-paper texture: hairline horizontal "chain lines" + warmth */
+  background:
+    repeating-linear-gradient(180deg, rgba(120,96,40,0.022) 0 2px, transparent 2px 26px),
+    radial-gradient(120% 80% at 50% 0%, #fbf6e9 0%, var(--leaf) 46%, var(--leaf-2) 100%)
+    !important;
+  background-attachment: fixed !important;
 }
 body.nfe-reader {
   margin: 0;
   padding: 0;
+  color: var(--leaf-ink);
   -webkit-text-size-adjust: 100%;
 }
 
-/* The single reading column. Narrower than the site default for book feel. */
+/* The single reading column, set as a book measure. */
 .nfe-article.wrap {
   max-width: var(--nfe-maxw);
   margin: 0 auto;
-  padding: 30px 26px 120px;
+  padding: 3.2rem 1.9rem 9rem;
   font-size: var(--nfe-fs);
-  line-height: 1.78;
+  line-height: 1.8;
+  color: var(--leaf-ink);
+  -webkit-font-smoothing: antialiased;
+  font-kerning: normal;
+  font-feature-settings: "kern" 1, "liga" 1, "onum" 1;  /* old-style figures where available */
 }
 
+/* Chapter title — engraved, with a small-caps eyebrow and a thin double rule. */
 .nfe-article h1 {
-  font-size: 1.9em;
-  line-height: 1.2;
-  margin: 8px 0 18px;
+  font-size: 2.05em;
+  line-height: 1.16;
+  letter-spacing: 0.2px;
+  margin: 0 0 0.5em;
+  color: var(--leaf-ink);
+  text-wrap: balance;
 }
-.nfe-article h2 { font-size: 1.4em; margin-top: 1.8em; }
-.nfe-article h3 { font-size: 1.18em; margin-top: 1.4em; }
-.nfe-article p,
-.nfe-article li { font-size: 1em; }
-
-/* let wide tables scroll inside the column instead of blowing it out */
-.nfe-article table { font-size: 0.92em; }
-
-/* tidy first-heading top gap */
 .nfe-article > h1:first-child { margin-top: 0; }
 
+/* The orientation lead reads like an opening paragraph, with a drop cap. */
+.nfe-article p.lead {
+  color: #4c4128;
+  border-bottom: none;
+  position: relative;
+  padding: 0 0 1.4rem;
+  margin: 0 0 1.9rem;
+}
+.nfe-article p.lead::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 2px;
+  background:
+    linear-gradient(90deg, var(--leaf-gold), rgba(156,115,32,0.15) 70%, transparent);
+}
+.nfe-article p.lead::first-letter {
+  float: left;
+  font-family: var(--serif, Georgia, serif);
+  font-weight: 700;
+  font-size: 3.5em;
+  line-height: 0.74;
+  padding: 0.06em 0.12em 0 0;
+  margin: 0.02em 0.02em 0 0;
+  color: var(--leaf-gold);
+}
+
+/* Section heads get a small-caps feel via tracking; a hairline above each. */
+.nfe-article h2 {
+  font-size: 1.42em;
+  margin: 2.2em 0 0.7em;
+  padding-top: 0.9em;
+  border-top: 1px solid var(--leaf-rule);
+  color: #221a0f;
+  letter-spacing: 0.2px;
+}
+.nfe-article h2:first-of-type { }
+.nfe-article h3 {
+  font-size: 1.16em;
+  margin-top: 1.5em;
+  color: #2c2314;
+  letter-spacing: 0.2px;
+}
+
+.nfe-article p,
+.nfe-article li { font-size: 1em; }
+.nfe-article a { color: #7a5a16; }
+
+/* The in-page "In this book" contents reads as a frontispiece card. */
+.nfe-article .booktoc {
+  background: linear-gradient(180deg, #fbf6e8, #f1e8d2);
+  border: 1px solid var(--leaf-rule);
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 1px 2px rgba(80,60,20,0.06);
+}
+.nfe-article .booktoc b { color: var(--leaf-soft); }
+.nfe-article .booktoc a { color: #6b4f12; }
+
+/* Wide tables scroll inside the measure instead of blowing it out. */
+.nfe-article table { font-size: 0.92em; }
+
 @media (max-width: 640px) {
-  .nfe-article.wrap { padding: 22px 18px 110px; }
+  .nfe-article.wrap { padding: 2rem 1.15rem 7rem; }
+  .nfe-article h1 { font-size: 1.8em; }
 }
