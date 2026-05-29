@@ -7,7 +7,7 @@
 <script src="/sihan-met-flashcards/gate.js"></script>
 <script src="/sihan-met-flashcards/force-sync.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cognitive Psychology sweep — perception, attention, memory, language, thinking — every named model + who gave it + the hook — MET 2026 + NIMHANS</title>
+<title>Cognitive Psychology — full depth: approaches, perception, recognition, attention, memory, knowledge, language, problem solving, judgement, reasoning — learn it cold — MET 2026 + NIMHANS</title>
 <link rel="stylesheet" href="../../notes-style.css">
 <link rel="stylesheet" href="/sihan-met-flashcards/notes/term-popover.css">
 <link rel="stylesheet" href="/sihan-met-flashcards/notes/page-flip.css">
@@ -28,6 +28,9 @@
   h2.sec { border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-top: 40px; }
   table { font-size: 14px; }
   td:first-child { white-space: nowrap; }
+  .why{background:rgba(88,166,255,.06);border-left:3px solid var(--accent-dim);padding:8px 12px;margin:10px 0;border-radius:4px;font-size:14px}
+  .recap{background:rgba(63,185,80,.06);border:1px solid var(--border);border-radius:6px;padding:10px 14px;margin:14px 0;font-size:13.5px}
+  h3{margin-top:26px} h4{margin-top:18px;color:var(--accent)}
 </style>
 <!-- PWA:met-prep -->
 <link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
@@ -50,8 +53,8 @@
   <a href="../phenomena/">Phenomena</a>
 </nav>
 
-<h1>Cognitive Psychology — the whole domain, named, in book order</h1>
-<p style="color: var(--muted); font-size: 13px;">Built from <b>Eysenck &amp; Keane, <i>Cognitive Psychology: A Student's Handbook</i></b>, the book you listed for cognitive. Cognition spans perception, attention, memory, knowledge, language and thinking, so instead of hunting across pages this is the <b>one cognitive page</b>, laid out the way the book is, chapter by chapter. Every major named model with <b>name → who → the one-line hook</b>, plus trap boxes for the pairs they swap. Built 2026-05-24.</p>
+<h1>Cognitive Psychology — the whole domain, explained cold</h1>
+<p style="color: var(--muted); font-size: 13px;">Built from <b>Eysenck &amp; Keane, <i>Cognitive Psychology: A Student's Handbook</i></b>, the book you listed for cognitive. This is the <b>full-depth version</b>: for every named model you get <b>what it claims, who proposed it, the key experiment (what was done and what was found), and the contrast with its rival</b> in a red trap box. Tables stay as quick-reference, but read the prose around them first. Cognition spans perception, attention, memory, knowledge, language and thinking, so this single page walks the book chapter by chapter. Rebuilt to full depth 2026-05-29.</p>
 
 <div class="swp">
   <a href="../effects/">Effects</a>
@@ -63,7 +66,7 @@
   <a href="../differentiators/">Lookalikes</a>
 </div>
 
-<div class="hy-banner"><b>How cognitive is tested.</b> (1) Name the model from its claim ("we store info in three stores" = multi-store). (2) Pin the model to its author (working memory = Baddeley &amp; Hitch). (3) Tell rival models apart, that's where the distractor lives: Gregory vs Gibson, early vs late selection, episodic vs semantic, prototype vs exemplar, Broca vs Wernicke. Learn each in its contrast pair.</div>
+<div class="hy-banner"><b>How cognitive is tested.</b> (1) Name the model from its claim ("we store info in three stores" = multi-store). (2) Pin the model to its author (working memory = Baddeley &amp; Hitch). (3) Tell rival models apart — that's where the distractor lives: Gregory vs Gibson, early vs late selection, episodic vs semantic, prototype vs exemplar, Broca vs Wernicke. Learn each in its contrast pair, and learn the <i>one experiment</i> that decides between them.</div>
 
 <div class="jump">
 <b>Jump to:</b>
@@ -71,7 +74,7 @@
 <a href="#perception">2. Visual perception</a>
 <a href="#recognition">3. Object &amp; face recognition</a>
 <a href="#attention">4. Attention</a>
-<a href="#stm">5. Short-term &amp; working memory</a>
+<a href="#stm">5. STM &amp; working memory</a>
 <a href="#ltm">6. Long-term memory</a>
 <a href="#forgetting">7. Forgetting &amp; everyday memory</a>
 <a href="#knowledge">8. Concepts &amp; knowledge</a>
@@ -79,179 +82,595 @@
 <a href="#problem">10. Problem solving &amp; expertise</a>
 <a href="#judgement">11. Judgement &amp; decision making</a>
 <a href="#reasoning">12. Reasoning</a>
+<a href="#compare">★ At-a-glance compare</a>
+<a href="#traps">★ MCQ traps</a>
+<a href="#studies">★ Key studies</a>
+<a href="#glossary">★ Glossary</a>
+<a href="#selftest">★ Self-test</a>
 </div>
 
 <!-- 1. APPROACHES -->
 <h2 id="approaches" class="sec">1. Approaches to human cognition</h2>
+<p>Eysenck &amp; Keane open by saying cognitive psychology is not one method but <b>four converging approaches</b>, each with its own logic and limits. The point of knowing all four is that an exam stem will describe a <i>technique</i> and ask which approach it belongs to.</p>
+
+<h3>Experimental cognitive psychology</h3>
+<p><b>What it claims:</b> you can infer the hidden stages of mental processing in healthy people by measuring behaviour under controlled conditions — chiefly <b>reaction time (RT)</b> and <b>accuracy/error rate</b>. It is the oldest strand and the historical core of the field. If a manipulation slows people down, that stage must require processing.</p>
+<p><b>Key logic:</b> the <i>subtraction/additive-factors</i> idea — compare two tasks differing in one operation, and the RT difference estimates that operation's duration. <b>Limit:</b> behaviour alone is ambiguous about the underlying architecture (many models predict the same RT), and lab tasks may lack ecological validity.</p>
+
+<h3>Cognitive neuropsychology + modularity</h3>
+<p><b>What it claims:</b> studying <b>brain-damaged patients</b> reveals the normal architecture of cognition, because damage can knock out one ability while sparing another. The bedrock assumption is <b>modularity</b> (Fodor): the mind contains specialised, domain-specific, informationally encapsulated modules that can be independently impaired.</p>
+<p><b>Key logic — the <span style="color:var(--accent)">double dissociation</span>:</b> patient A is impaired on task X but fine on Y, while patient B is fine on X but impaired on Y. That pattern is strong evidence the two tasks rely on <i>separate</i> systems (one alone could be explained by task difficulty). <b>Example:</b> H.M. lost the ability to form new long-term memories yet had normal short-term span; other patients (e.g. K.F.) show the reverse — together a double dissociation of STM and LTM. <b>Limit:</b> damage is rarely clean, the brain reorganises, and single cases generalise poorly.</p>
+
+<h3>Cognitive neuroscience methods</h3>
+<p><b>What it claims:</b> by measuring the living brain we can locate <i>where</i> and time <i>when</i> cognition happens. The methods trade off spatial against temporal resolution, and the exam loves to ask which method gives which.</p>
 <table>
-<tr><th>Approach</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Experimental cognitive psychology</b></td><td>—</td><td>Studies cognition in healthy people via lab experiments (RT, accuracy); the oldest strand.</td></tr>
-<tr><td><b>Cognitive neuropsychology</b></td><td>—</td><td>Studies brain-damaged patients to infer normal architecture; assumes modularity (functions are separable).</td></tr>
-<tr><td><b>Cognitive neuroscience</b></td><td>—</td><td>Uses fMRI, PET, EEG/ERP, TMS to locate cognition in the brain (where and when).</td></tr>
-<tr><td><b>Computational cognitive science</b></td><td>—</td><td>Builds computer models that simulate cognition; includes connectionism / parallel distributed processing.</td></tr>
-<tr><td><b>Information-processing approach</b></td><td>Broadbent (founding)</td><td>The mind as stages of input → processing → output; the frame the whole book sits in.</td></tr>
+<tr><th>Method</th><th>Measures</th><th>Strength</th></tr>
+<tr><td><b>fMRI</b></td><td>Blood-oxygen (BOLD) — indirect metabolic signal</td><td>Excellent spatial resolution (mm), poor temporal (seconds); shows <i>where</i>.</td></tr>
+<tr><td><b>PET</b></td><td>Radioactive tracer, blood flow/metabolism</td><td>Good spatial, very poor temporal; needs injected tracer.</td></tr>
+<tr><td><b>EEG / ERP</b></td><td>Scalp electrical activity; ERP = signal averaged to an event</td><td>Excellent temporal resolution (ms), poor spatial; shows <i>when</i>.</td></tr>
+<tr><td><b>TMS</b></td><td>Magnetic pulse that briefly disrupts a region</td><td>Creates a "virtual lesion" → tests if a region is <i>necessary</i> (causal, not just correlational).</td></tr>
 </table>
-<div class="rule"><b>Bottom-up vs top-down</b> runs through the whole book. <b>Bottom-up (data-driven)</b> = processing starts from the stimulus. <b>Top-down (concept-driven)</b> = expectations, context and stored knowledge shape it. Almost every debate below is "how much of each."</div>
+<div class="rule"><b>Spatial vs temporal mnemonic:</b> <b>fMRI/PET = WHERE</b> (great space, poor time). <b>EEG/ERP = WHEN</b> (great time, poor space). <b>TMS = whether it's NECESSARY</b> (causal). fMRI and EEG are merely correlational; only TMS and lesions establish that a region is causally required.</div>
+
+<h3>Computational cognitive science &amp; connectionism (PDP)</h3>
+<p><b>What it claims:</b> if a theory is precise enough, you can implement it as a running computer program; a model that actually reproduces human performance (including human <i>errors</i>) is a strong test of the theory. The dominant style is <b>connectionism / parallel distributed processing (PDP)</b>: networks of simple, neuron-like units connected by weighted links, where knowledge is <i>distributed</i> across the pattern of weights rather than stored in one location, and learning happens by gradually adjusting weights (e.g. back-propagation).</p>
+<div class="nimhans"><b>NIMHANS tests harder — connectionism.</b> Be ready for the contrast with classical "symbolic" models. <b>Symbolic</b> (e.g. Newell &amp; Simon's physical-symbol-system) manipulates discrete rules and symbols, processing serially. <b>Connectionist/PDP</b> uses distributed sub-symbolic representations and parallel processing; its hallmarks are <i>graceful degradation</i> (partial damage = partial loss, not total crash), generalisation, and learning from examples. NIMHANS may ask which framework explains prototype effects or developmental error patterns (e.g. the U-shaped curve in learning the past tense) — that's connectionism.</div>
+
+<h3>Bottom-up vs top-down; serial vs parallel</h3>
+<p>Two cross-cutting distinctions run through the whole book. <b>Bottom-up (data-driven)</b> processing starts from the stimulus and works up. <b>Top-down (concept-driven)</b> processing brings expectations, context and stored knowledge to bear. <b>Information processing</b> (the frame Broadbent founded) treats the mind as stages from input → encoding → storage → retrieval → output. Within that frame, processing can be <b>serial</b> (one stage at a time, in sequence) or <b>parallel</b> (several at once). Almost every debate below is really "how much top-down vs bottom-up?" and "serial or parallel?"</p>
+<div class="recap"><b>Recap — approaches.</b> Experimental = RT/accuracy in healthy people. Neuropsychology = patients + double dissociation + modularity. Neuroscience = fMRI/PET (where) · EEG-ERP (when) · TMS (necessary). Computational = running models; PDP = distributed, parallel, learns weights, degrades gracefully. Cutting across all: bottom-up vs top-down, serial vs parallel.</div>
 
 <!-- 2. VISUAL PERCEPTION -->
 <h2 id="perception" class="sec">2. Visual perception</h2>
-<table>
-<tr><th>Theory / term</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Constructivist theory</b></td><td>Richard Gregory</td><td>Perception is top-down: we build (construct) percepts by inference from incomplete data; explains illusions as wrong hypotheses.</td></tr>
-<tr><td><b>Direct perception / ecological theory</b></td><td>James Gibson</td><td>Perception is bottom-up: the rich optic array directly affords meaning, no inference needed ("affordances").</td></tr>
-<tr><td><b>Computational theory (primal/2½-D/3-D sketch)</b></td><td>David Marr</td><td>Vision builds up in stages from edges to a viewer-centred (2½-D) then object-centred (3-D) representation.</td></tr>
-<tr><td><b>Gestalt grouping laws</b></td><td>Wertheimer, Koffka, Köhler</td><td>Proximity, similarity, closure, continuity, common fate, Prägnanz; "the whole is other than the sum of parts."</td></tr>
-<tr><td><b>Depth cues</b></td><td>—</td><td>Binocular (retinal disparity, convergence) + monocular/pictorial (linear perspective, interposition, texture gradient, motion parallax).</td></tr>
-<tr><td><b>Perceptual constancies</b></td><td>—</td><td>Size, shape, colour, brightness stay stable despite changing retinal image.</td></tr>
-<tr><td><b>Two visual systems (perception vs action)</b></td><td>Milner &amp; Goodale</td><td>Ventral stream "what" (perception/recognition) vs dorsal stream "where/how" (visually guided action). Patient DF = damaged ventral.</td></tr>
-</table>
-<div class="trap"><b>Gregory vs Gibson:</b> <b>Gregory</b> = indirect/constructivist, top-down, perception is a <i>hypothesis</i> (great for illusions, poor light). <b>Gibson</b> = direct, bottom-up, info is <i>in the array</i> (great for rich real-world viewing). If the stem says "inference / hypothesis," it's Gregory; "affordance / optic array," it's Gibson.</div>
+<p>The central question: how much does perception build on the stimulus alone, and how much does it require inference from stored knowledge? The two classic answers are Gregory's and Gibson's, and they are the single most tested pair in perception.</p>
+
+<h3>Gregory — constructivist / indirect theory (top-down)</h3>
+<p><b>What it claims:</b> the retinal image is impoverished and ambiguous, so perception is an <b>active construction</b> — the brain forms and tests <i>perceptual hypotheses</i>, the "best guess" about what is out there, using stored knowledge and context. Perception is therefore largely <b>top-down</b> and indirect.</p>
+<p><b>Key evidence:</b> visual <b>illusions</b> are Gregory's strongest card. The <i>hollow-mask illusion</i> (a concave face is seen as convex because we "know" faces are convex) and the <i>Müller-Lyer</i> illusion show perception departing from the stimulus toward what the brain expects. He also pointed to degraded conditions (poor light) where guessing is clearly needed.</p>
+
+<h3>Gibson — direct / ecological theory (bottom-up)</h3>
+<p><b>What it claims:</b> in the real world the <b>optic array</b> is information-rich, not impoverished. As we move, the <i>optic flow</i> and invariants (texture gradients, horizon ratio) specify layout <b>directly</b>, so no inference or hypothesis is needed — perception is <b>bottom-up</b> and "direct." His signature concept is the <b>affordance</b>: objects directly offer their possibilities for action (a chair affords sitting, a handle affords grasping).</p>
+<p><b>Key evidence:</b> pilots and animals navigate using optic flow; texture gradients give depth without "thinking." <b>Limit:</b> Gibson struggles to explain illusions (why would the array mislead us?) and downplays the role of stored knowledge.</p>
+<div class="trap"><b>Gregory vs Gibson:</b> <b>Gregory</b> = indirect/constructivist, top-down, perception is a <i>hypothesis</i> (best for illusions and poor viewing conditions). <b>Gibson</b> = direct/ecological, bottom-up, the info is already <i>in the optic array</i> (best for rich, moving real-world viewing). Stem says "inference / hypothesis / illusion" → Gregory. Stem says "affordance / optic array / optic flow / invariant" → Gibson. Modern view: both are partly right — perception is mostly direct but uses top-down processing when input is degraded.</div>
+
+<h3>Marr — computational theory of vision</h3>
+<p><b>What it claims:</b> vision is information-processing that builds the scene in <b>stages of increasingly rich representation</b>, mostly bottom-up. The three stages:</p>
+<ol style="font-size:14px">
+<li><b>Primal sketch</b> — 2-D, captures edges, bars, blobs and intensity changes from the raw image.</li>
+<li><b>2½-D sketch</b> — depth and orientation of surfaces from the <i>viewer's</i> vantage point (still egocentric).</li>
+<li><b>3-D model</b> — an <i>object-centred</i> representation, independent of viewpoint, suitable for recognition.</li>
+</ol>
+<p>Marr also famously argued any information-processing system must be understood at <b>three levels</b>: the <i>computational</i> (what problem is solved and why), the <i>algorithmic</i> (what representations and steps), and the <i>implementational/hardware</i> (how it is physically realised).</p>
+
+<h3>Gestalt grouping laws</h3>
+<p><b>Who:</b> Wertheimer, Koffka, Köhler. <b>What it claims:</b> the perceptual system organises elements into wholes by innate principles, so that "the whole is <i>other</i> than the sum of its parts." The grouping laws: <b>proximity</b> (near things group), <b>similarity</b> (alike things group), <b>closure</b> (we complete gaps), <b>continuity / good continuation</b> (we follow smooth lines), <b>common fate</b> (things moving together group), and the overarching <b>law of Prägnanz</b> (we perceive the simplest, most stable, "best" organisation possible). <b>Limit:</b> the laws are descriptive, not explanatory, and were mostly demonstrated with 2-D figures.</p>
+
+<h3>Depth cues and constancies</h3>
+<p><b>Binocular cues</b> need two eyes: <i>retinal (binocular) disparity</i> (the slight difference between the two retinal images, the basis of stereopsis) and <i>convergence</i> (the inward turn of the eyes for near objects). <b>Monocular / pictorial cues</b> need only one eye and work in pictures: <i>linear perspective, interposition (overlap), texture gradient, relative size, height in the visual field, aerial perspective, light and shadow</i>, plus the motion-based <i>motion parallax</i>. <b>Perceptual constancies</b> keep the world stable despite a changing retinal image: <i>size, shape, colour and brightness/lightness</i> constancy.</p>
+
+<h3>Milner &amp; Goodale — two visual streams</h3>
+<p><b>What it claims:</b> the visual cortex splits into two functionally distinct pathways. The <b>ventral stream</b> ("what" / vision-for-perception) runs to the temporal lobe and supports conscious recognition and identification. The <b>dorsal stream</b> ("where / how" / vision-for-action) runs to the parietal lobe and guides visually controlled action online.</p>
+<p><b>Key evidence — patient DF:</b> DF had ventral-stream damage (visual-form agnosia from carbon-monoxide poisoning). She <i>could not report</i> the orientation of a slot, yet she could <i>post a card</i> through it accurately — her action system "knew" what her perception system could not. The mirror-image patient (optic ataxia, dorsal damage) can describe an object but mis-reaches for it. That is a double dissociation of perception and action.</p>
+<div class="trap"><b>Ventral vs dorsal:</b> <b>Ventral = "What"</b> (temporal lobe, conscious recognition; DF's damaged stream). <b>Dorsal = "Where/How"</b> (parietal lobe, guiding action; optic-ataxia patients). DF can act on what she cannot consciously perceive — remember "post the card she can't describe."</div>
+<div class="recap"><b>Recap — perception.</b> Gregory (top-down, hypotheses, illusions) vs Gibson (bottom-up, affordances, optic array). Marr builds primal → 2½-D → 3-D, analysed at computational/algorithmic/implementational levels. Gestalt = proximity, similarity, closure, continuity, common fate, Prägnanz. Depth = binocular (disparity, convergence) + monocular/pictorial. Milner &amp; Goodale: ventral "what" vs dorsal "where/how", patient DF dissociates them.</div>
 
 <!-- 3. OBJECT & FACE RECOGNITION -->
 <h2 id="recognition" class="sec">3. Object &amp; face recognition</h2>
-<table>
-<tr><th>Theory / term</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Template theory</b></td><td>—</td><td>Match input to a stored whole template; fails on size/orientation/font variation.</td></tr>
-<tr><td><b>Feature theory / Pandemonium</b></td><td>Selfridge</td><td>Recognise by detecting component features ("demons" shout for the features they see).</td></tr>
-<tr><td><b>Recognition-by-components (geons)</b></td><td>Irving Biederman</td><td>Objects decomposed into ~36 basic 3-D shapes (geons); view-invariant recognition.</td></tr>
-<tr><td><b>Face recognition model</b></td><td>Bruce &amp; Young</td><td>Separate routes: structural encoding → face recognition units → person identity nodes → name. Familiarity can come before the name.</td></tr>
-<tr><td><b>Prosopagnosia</b></td><td>—</td><td>Selective inability to recognise faces despite intact object recognition; ventral/fusiform damage (FFA).</td></tr>
-<tr><td><b>Visual agnosia</b></td><td>Lissauer (apperceptive vs associative)</td><td>Can't recognise objects despite intact vision. Apperceptive = can't form the percept; associative = percept formed but can't link it to meaning.</td></tr>
-</table>
-<div class="trap"><b>Apperceptive vs associative agnosia:</b> apperceptive can't <i>copy</i> the drawing (perception broken); associative <i>can</i> copy it but still can't say what it is (perception intact, meaning lost).</div>
+<p>How do we go from a 2-D retinal pattern to "that's a cup" or "that's my brother" despite changes in size, angle and lighting? The chapter runs from crude template matching to Biederman's geons, then to a dedicated face model.</p>
+
+<h3>Template theory</h3>
+<p><b>What it claims:</b> recognition is matching the input to a stored whole-pattern <b>template</b>; the best match wins. <b>Fatal flaw:</b> it needs a separate template for every size, orientation, font and partial view of every object — combinatorially impossible. Normalisation (rescaling/rotating before matching) only partly rescues it. This failure motivated feature theories.</p>
+
+<h3>Feature theory — Pandemonium (Selfridge)</h3>
+<p><b>What it claims:</b> recognition proceeds by detecting <b>component features</b> rather than whole templates. Selfridge's <b>Pandemonium</b> model is the classic metaphor: layers of "demons" — <i>image demons</i> register the raw input, <i>feature demons</i> shout when their feature is present, <i>cognitive demons</i> shout louder the more of their features are detected, and a <i>decision demon</i> picks the loudest. <b>Support:</b> we confuse letters that share features (E↔F), and visual search is harder among similar-featured distractors. <b>Limit:</b> ignores context and the spatial <i>relations</i> between features (a face is not just two eyes + a nose in any arrangement).</p>
+
+<h3>Biederman — recognition-by-components (geons)</h3>
+<p><b>What it claims:</b> objects are recognised by decomposing them into a small alphabet of basic 3-D volumetric primitives called <b>geons</b> (geometric ions — cylinders, cones, blocks, wedges; about 36 of them). Because geons are defined by <b>non-accidental properties</b> (features like straight vs curved edges that stay constant across most viewpoints), recognition is largely <b>view-invariant</b>: as long as the key geons and their arrangement are visible, you recognise the object from many angles. Builds on <b>Marr &amp; Nishihara's</b> object-centred (viewpoint-independent) representation idea. <b>Support:</b> objects become hard to recognise precisely when degradation hides geon junctions; recognition survives degradation that spares them. <b>Limit:</b> recognition is <i>not</i> perfectly view-invariant (some views are reliably faster), and it explains category-level ("a chair") far better than specific-instance ("<i>my</i> chair") recognition.</p>
+
+<h3>Bruce &amp; Young — model of face recognition</h3>
+<p><b>What it claims:</b> face recognition runs through a sequence of stages with <i>separable</i> routes. Faces first undergo <b>structural encoding</b> (building a description of the face). For familiar faces this feeds <b>Face Recognition Units (FRUs)</b> — one per known face, signalling "this face is familiar." An activated FRU triggers the <b>Person Identity Node (PIN)</b>, which stores semantic/biographical info (their job, where you know them from). <b>Only after the PIN</b> can you retrieve the <b>name</b>, via a separate name-generation store.</p>
+<p><b>Key prediction and evidence:</b> because the name comes <i>last</i> and through its own route, you can feel a face is familiar and recall facts about the person yet be unable to retrieve the name — but you <b>never</b> get the reverse (a name without familiarity). Diary studies of everyday recognition errors confirm exactly this asymmetry. Expression analysis and lip-reading run in <i>parallel</i> separate routes, which is why some patients lose identity recognition but still read emotion, or vice versa.</p>
+
+<h3>Prosopagnosia &amp; the FFA</h3>
+<p><b>What it claims/observes:</b> <b>prosopagnosia</b> is a selective inability to recognise faces despite largely intact object recognition and intact vision — patients may identify people only by voice, gait or a distinctive feature. It is associated with damage to the <b>fusiform face area (FFA)</b> in the ventral temporal cortex, a region that responds preferentially to faces. The double dissociation between prosopagnosia (faces lost, objects spared) and object agnosia (objects lost, faces relatively spared) supports the idea that face processing is at least partly <b>special / domain-specific</b>.</p>
+
+<h3>Apperceptive vs associative agnosia (Lissauer)</h3>
+<p><b>What it claims:</b> visual <b>agnosia</b> is failure to recognise objects despite adequate vision, and Lissauer split it in two by <i>where</i> the breakdown is. <b>Apperceptive agnosia</b> = the <i>percept</i> itself cannot be formed; the patient cannot copy or match a drawing. <b>Associative agnosia</b> = the percept is built fine (the patient <i>can</i> copy the drawing accurately) but it cannot be linked to stored meaning, so they still cannot name it or say what it is for.</p>
+<div class="trap"><b>Apperceptive vs associative agnosia:</b> apperceptive can't <i>copy</i> the drawing (perception is broken); associative <i>can</i> copy it faithfully but still can't say what it is (perception intact, meaning lost). The copying test is the dividing line. Lissauer = "perception lost" vs "meaning lost."</div>
+<div class="recap"><b>Recap — recognition.</b> Template (rigid, fails on variation) → feature/Pandemonium (Selfridge's demons, ignores relations) → Biederman's geons (view-invariant volumetric parts, builds on Marr &amp; Nishihara). Faces: Bruce &amp; Young structural encoding → FRU → PIN → name (name is last, hence familiarity-without-name but never the reverse). Prosopagnosia/FFA = faces lost specifically. Agnosia: apperceptive (can't copy) vs associative (can copy, can't name).</div>
 
 <!-- 4. ATTENTION -->
 <h2 id="attention" class="sec">4. Attention</h2>
-<table>
-<tr><th>Model</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Filter (early-selection) theory</b></td><td>Donald Broadbent</td><td>One channel; an early filter selects by physical features <i>before</i> meaning. Basis of dichotic listening.</td></tr>
-<tr><td><b>Attenuation theory</b></td><td>Anne Treisman</td><td>Unattended channel is turned down, not off; salient words (your name) still get through. Early but leaky filter.</td></tr>
-<tr><td><b>Late-selection theory</b></td><td>Deutsch &amp; Deutsch (extended by Norman)</td><td>All input is processed for meaning; selection happens <i>late</i>, at response.</td></tr>
-<tr><td><b>Capacity / resource theory</b></td><td>Daniel Kahneman</td><td>Attention is a limited pool of effort allocated flexibly; explains dual-task interference.</td></tr>
-<tr><td><b>Spotlight / zoom-lens</b></td><td>Posner; Eriksen</td><td>Visual attention is a movable spotlight that can narrow or widen; Posner cueing measures it.</td></tr>
-<tr><td><b>Feature Integration Theory</b></td><td>Anne Treisman</td><td>Features (colour, shape) detected in parallel pre-attentively; attention is the "glue" that binds them into objects. Explains illusory conjunctions; pop-out vs serial search.</td></tr>
-<tr><td><b>Inattentional / change blindness</b></td><td>Simons &amp; Chabris; Rensink</td><td>We miss the unexpected gorilla / the swapped person when attention is elsewhere.</td></tr>
-<tr><td><b>Automatic vs controlled processing</b></td><td>Shiffrin &amp; Schneider</td><td>Automatic = fast, parallel, no capacity (Stroop interference); controlled = slow, serial, effortful.</td></tr>
-</table>
-<div class="trap"><b>Early vs late selection:</b> <b>Broadbent</b> = filter <i>before</i> meaning (early). <b>Treisman</b> = attenuate, not block (early but leaky). <b>Deutsch-Norman</b> = process everything, select <i>at response</i> (late). The cocktail-party "you hear your own name" finding kills strict Broadbent and fits Treisman.</div>
+<p>Attention is "selection under limited capacity." The historic debate is <i>where</i> in processing the bottleneck sits — early (before meaning) or late (at response). The tool that built the debate is <b>dichotic listening</b>: different messages to each ear, and the listener "shadows" (repeats aloud) one.</p>
+
+<h3>Broadbent — filter (early-selection) theory</h3>
+<p><b>What it claims:</b> there is a single limited-capacity channel preceded by a <b>filter</b> that selects <i>one</i> input on the basis of <b>physical features</b> (which ear, pitch) <b>before</b> meaning is analysed. The unattended channel is blocked.</p>
+<p><b>Key evidence:</b> in dichotic split-span studies, people recalled by <i>ear</i> rather than chronological order, fitting channel-by-channel selection. <b>The finding that broke it:</b> listeners often noticed their <i>own name</i> on the unattended ear (Moray's cocktail-party result) and could switch ears to follow meaning — impossible if the filter blocks meaning entirely.</p>
+
+<h3>Treisman — attenuation theory</h3>
+<p><b>What it claims:</b> the filter does not block the unattended channel, it <b>turns it down (attenuates)</b>. Attenuated input is still analysed, but only items with low thresholds — your name, danger words, contextually expected words — get through. This is the <b>cocktail-party</b> account: most background talk is filtered, but salient input breaks through.</p>
+<p><b>Status:</b> early selection but <i>leaky</i>; explains the own-name effect that sinks strict Broadbent while keeping selection early.</p>
+
+<h3>Deutsch &amp; Norman — late-selection theory</h3>
+<p><b>What it claims:</b> <i>all</i> inputs are fully processed for meaning, and selection happens <b>late</b> — at the response/awareness stage — based on relevance. Deutsch &amp; Deutsch proposed it; Norman refined it (selection by pertinence). <b>Tension:</b> full semantic analysis of everything is metabolically expensive, and most evidence favours an early-but-flexible bottleneck (Treisman), so late selection is generally seen as too strong.</p>
+
+<h3>Kahneman — capacity / resource theory</h3>
+<p><b>What it claims:</b> instead of a fixed structural bottleneck, attention is a <b>limited pool of mental effort/resources</b> flexibly allocated. Two tasks interfere when their combined demand exceeds the pool; effort rises with arousal and task difficulty (indexed by pupil dilation). This explains <b>dual-task</b> performance: easy tasks combine, hard ones compete. <b>Refinement (Allport, Wickens):</b> there may be <i>multiple</i> resource pools (e.g. separate verbal and spatial), so two tasks interfere more if they draw on the same pool.</p>
+
+<h3>Posner spotlight + cueing; Eriksen zoom-lens</h3>
+<p><b>What it claims:</b> visual attention is like a movable <b>spotlight</b> that can be directed independently of the eyes (covert attention). <b>Posner's cueing paradigm:</b> a cue points to a location, then a target appears either at the cued (valid) or another (invalid) location. <b>Finding:</b> RTs are faster after <i>valid</i> cues and slower after <i>invalid</i> ones (a "cost" for re-orienting) — direct evidence attention can move covertly to a location and speed processing there. <b>Eriksen's zoom-lens</b> adds that the spotlight's <i>size</i> is adjustable: it can be a narrow high-resolution beam or a wide low-resolution one, trading area for processing power.</p>
+
+<h3>Treisman — Feature Integration Theory (FIT)</h3>
+<p><b>What it claims:</b> individual features (colour, orientation, size) are registered <b>in parallel, pre-attentively</b>, across the whole field on separate "feature maps." <b>Focused attention</b> is then the "glue" that <i>binds</i> features at a location into a single object. <b>Key evidence:</b> (1) <b>Pop-out vs serial search</b> — a target defined by a single feature (a red bar among green) "pops out" with search time flat regardless of set size (parallel), whereas a target defined by a <i>conjunction</i> of features (a red <i>vertical</i> among red horizontals and green verticals) requires slow item-by-item search rising with set size (serial). (2) <b>Illusory conjunctions</b> — when attention is overloaded or divided, people wrongly recombine features across objects (report a "red X" when shown a red O and a green X), proving features are coded separately before binding.</p>
+
+<h3>Inattentional &amp; change blindness</h3>
+<p><b>Inattentional blindness (Simons &amp; Chabris):</b> when attention is engaged elsewhere (counting basketball passes), people fail to see a salient unexpected event — the person in the <b>gorilla suit</b> walking through. <b>Change blindness (Rensink):</b> with a brief disruption (a flicker or "mudsplash") between two scenes, people fail to notice large changes to the scene. Both show that without attention there is strikingly little conscious perception, and that we do not hold a rich detailed picture of the world in mind.</p>
+
+<h3>Automatic vs controlled processing (Shiffrin &amp; Schneider) + Stroop</h3>
+<p><b>What it claims:</b> with practice, <b>controlled</b> processing (slow, serial, effortful, capacity-limited, flexible) becomes <b>automatic</b> (fast, parallel, effortless, capacity-free, hard to suppress). <b>Evidence:</b> Schneider &amp; Shiffrin's <i>consistent-mapping</i> search becomes automatic and set-size-independent with practice, whereas <i>varied-mapping</i> search stays controlled. <b>The Stroop effect</b> is the showcase of unavoidable automaticity: naming the ink colour of a colour word ("RED" printed in blue) is slowed because reading the word is automatic and intrudes on the controlled colour-naming task.</p>
+<div class="trap"><b>Early vs late selection:</b> <b>Broadbent</b> filters <i>before</i> meaning and blocks the rest (early, all-or-none). <b>Treisman</b> attenuates rather than blocks, so salient meaning leaks through (early but leaky). <b>Deutsch-Norman</b> processes everything for meaning and selects <i>at response</i> (late). The own-name / cocktail-party finding kills strict Broadbent and best fits Treisman.</div>
+<div class="trap"><b>Spotlight vs zoom-lens vs FIT:</b> Posner's <b>spotlight</b> = attention <i>moves</i> to a location (cueing costs/benefits). Eriksen's <b>zoom-lens</b> = the spotlight changes <i>size</i> (area vs resolution trade-off). Treisman's <b>FIT</b> = attention <i>binds features into objects</i> (pop-out vs serial search, illusory conjunctions). Don't mix the "where" of attention (spotlight) with the "binding" job (FIT).</div>
+<div class="recap"><b>Recap — attention.</b> Bottleneck debate: Broadbent (early, blocks) → Treisman (early, attenuates, own-name leaks) → Deutsch-Norman (late, by pertinence) → Kahneman (capacity/effort, no fixed bottleneck). Space: Posner spotlight (cueing), Eriksen zoom-lens. Binding: Treisman's FIT (parallel feature maps + attention as glue; pop-out vs serial; illusory conjunctions). Limits of attention: inattentional (gorilla) and change blindness. Practice: controlled → automatic; Stroop = automatic reading intruding.</div>
 
 <!-- 5. STM & WORKING MEMORY -->
 <h2 id="stm" class="sec">5. Short-term &amp; working memory</h2>
-<table>
-<tr><th>Model / term</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Multi-store model</b></td><td>Atkinson &amp; Shiffrin</td><td>Sensory store → STM → LTM, linked by attention and rehearsal. The serial-position curve (primacy = LTM, recency = STM) supports it.</td></tr>
-<tr><td><b>Sensory memory (iconic / echoic)</b></td><td>Sperling (iconic)</td><td>Very brief, large-capacity modality store; partial-report shows iconic memory ~1/2 s, echoic ~2–4 s.</td></tr>
-<tr><td><b>Magic number 7 ± 2</b></td><td>George Miller</td><td>STM holds ~7 chunks; capacity is set by chunks, not raw items, so chunking expands it.</td></tr>
-<tr><td><b>Working memory model</b></td><td>Baddeley &amp; Hitch</td><td>Replaces unitary STM: central executive + phonological loop + visuospatial sketchpad (+ episodic buffer, added later).</td></tr>
-<tr><td><b>Phonological loop</b></td><td>Baddeley</td><td>Inner voice + inner ear; word-length &amp; phonological-similarity effects, articulatory suppression.</td></tr>
-<tr><td><b>Episodic buffer</b></td><td>Baddeley (2000)</td><td>Limited store that binds info across systems into a unified episode, links to LTM.</td></tr>
-<tr><td><b>Levels of processing</b></td><td>Craik &amp; Lockhart</td><td>Deeper (semantic) encoding → better retention than shallow (structural/phonemic); memory is a by-product of processing depth.</td></tr>
-</table>
-<div class="trap"><b>Multi-store vs working memory:</b> Atkinson-Shiffrin's STM is a single passive store; Baddeley-Hitch splits it into active components doing different jobs. Evidence for the split: you <i>can</i> do a verbal + visuospatial task at once but not two verbal tasks (separate subsystems).</div>
+<p>The chapter moves from the structural "three boxes" model to Baddeley &amp; Hitch's active, multi-component working memory, and ends with the levels-of-processing critique.</p>
+
+<h3>Atkinson &amp; Shiffrin — multi-store (modal) model</h3>
+<p><b>What it claims:</b> memory is three structural stores in series — <b>sensory register → short-term store (STS) → long-term store (LTS)</b> — linked by control processes. Attention moves info from sensory to STM; <b>rehearsal</b> maintains it in STM and transfers it to LTM. STM is limited in capacity and duration; LTM is effectively unlimited and permanent.</p>
+<p><b>Key evidence — the serial-position curve:</b> in free recall, the first items (<b>primacy</b>) and last items (<b>recency</b>) are recalled best. Primacy reflects extra rehearsal into LTM; recency reflects items still in STM. <b>Crucially they dissociate:</b> a delay with a distractor task wipes out <i>recency</i> (STM emptied) but leaves <i>primacy</i> intact; a faster presentation rate hurts <i>primacy</i> (less rehearsal) but not recency. Two variables, two ends → two stores. Patient evidence (H.M.: good STM, no new LTM; K.F.: poor STM, normal LTM) gives the double dissociation. <b>Limit:</b> treats STM as a single passive store and rehearsal as the only route to LTM — both wrong.</p>
+
+<h3>Sperling — iconic memory (and echoic)</h3>
+<p><b>What it claims:</b> there is a brief, high-capacity <b>sensory store</b> for vision (<i>iconic memory</i>). <b>The experiment:</b> Sperling flashed a 3×4 grid of letters for 50 ms. In <i>whole report</i> people recalled only ~4–5 letters. In <b>partial report</b>, a tone (high/medium/low) cued <i>which row</i> to report <i>after</i> the display vanished; people then reported almost any cued row in full. Since they could report whichever row was cued, <i>all</i> ~9–12 letters were briefly available — capacity is large. As the cue was delayed, performance fell to whole-report levels by ~1 second, showing iconic memory <b>decays in about ½ second</b>. The auditory equivalent, <b>echoic memory</b>, lasts longer (~2–4 s).</p>
+
+<h3>Miller — magic number 7 ± 2 &amp; chunking</h3>
+<p><b>What it claims:</b> immediate (short-term) memory span is about <b>7 ± 2 items</b>. The key insight is that the limit is set by the number of <b>chunks</b>, not raw items: by recoding ("HBOFBICIA" → "HBO FBI CIA") you pack more information into the same number of slots, so <b>chunking</b> expands effective capacity. (Later work, e.g. Cowan, argues the true limit is closer to ~4 chunks once rehearsal is controlled.)</p>
+
+<h3>Baddeley &amp; Hitch — working memory model</h3>
+<p><b>What it claims:</b> STM is not one passive store but an active multi-component system that holds <i>and manipulates</i> information. Components:</p>
+<ul style="font-size:14px">
+<li><b>Central executive</b> — attentional controller; allocates resources, switches and coordinates tasks. Limited capacity, modality-free; the least specified part.</li>
+<li><b>Phonological loop</b> — verbal/acoustic store with two parts: the <i>phonological store</i> ("inner ear," holds speech-based info for ~2 s) and the <i>articulatory rehearsal process</i> ("inner voice," refreshes it by subvocal rehearsal).</li>
+<li><b>Visuospatial sketchpad</b> — holds and manipulates visual and spatial information ("inner eye").</li>
+<li><b>Episodic buffer</b> (added 2000) — limited store that <i>binds</i> information from the loop, sketchpad and LTM into a single multimodal episode, and is the interface to long-term memory.</li>
+</ul>
+<p><b>Evidence for the phonological loop:</b> (1) <b>Word-length effect</b> — memory span is worse for longer words because they take longer to rehearse (the loop holds about 2 s of speech). (2) <b>Phonological-similarity effect</b> — lists of similar-sounding letters (B, P, T, V) are recalled worse than dissimilar ones, showing the store is acoustic/phonological. (3) <b>Articulatory suppression</b> — repeating "the, the, the" ties up the rehearsal process and <i>abolishes</i> both the word-length effect and (for visually presented items) the phonological-similarity effect. <b>Evidence for separate subsystems:</b> people can do a verbal task <i>and</i> a visuospatial task at the same time with little interference, but two verbal (or two spatial) tasks compete — the dual-task logic that demands two specialised stores.</p>
+
+<h3>Craik &amp; Lockhart — levels of processing</h3>
+<p><b>What it claims:</b> retention depends not on which "store" or how long you rehearse, but on the <b>depth of processing</b> at encoding. <b>Shallow</b> processing of physical features (is it capital letters?) or sound (does it rhyme?) gives poor memory; <b>deep, semantic</b> processing (does it fit this sentence? what does it mean?) gives strong memory. Memory is a <i>by-product</i> of how you processed the item. <b>Evidence:</b> Craik &amp; Tulving's orienting-task studies — deeper (semantic) judgements produced far better later recognition than shallow ones, even though semantic processing felt no "harder." Distinguishes <i>maintenance</i> rehearsal (mere repetition, little benefit) from <i>elaborative</i> rehearsal (linking to meaning, big benefit). <b>Limit:</b> "depth" is hard to define independently of the memory it predicts (circularity).</p>
+<div class="trap"><b>Multi-store vs working memory:</b> Atkinson-Shiffrin's STM is a <i>single passive store</i>; Baddeley-Hitch splits it into <i>active components</i> doing different jobs. The decisive evidence is dual-task: verbal + visuospatial can run together (different subsystems) but two verbal tasks collide (same subsystem) — impossible for a single STM box.</div>
+<div class="trap"><b>Iconic (Sperling) vs working memory:</b> iconic memory is a pre-attentive <i>sensory</i> store, very large, lasts ~½ s, decays automatically. STM/WM is post-attentive, ~7 chunks (or ~4), lasts ~15–30 s without rehearsal, and (in WM) <i>manipulates</i> info. Don't call the partial-report store "short-term memory."</div>
+<div class="recap"><b>Recap — STM/WM.</b> Atkinson-Shiffrin: sensory → STM → LTM, supported by the serial-position curve (recency = STM, primacy = LTM, and they dissociate). Sperling's partial report: iconic memory is large but ~½ s. Miller: 7±2 chunks, expandable by chunking. Baddeley-Hitch WM: central executive + phonological loop (word-length, phonological-similarity, articulatory suppression) + visuospatial sketchpad + episodic buffer. Craik &amp; Lockhart: depth of processing beats rehearsal time; elaborative &gt; maintenance.</div>
 
 <!-- 6. LONG-TERM MEMORY -->
 <h2 id="ltm" class="sec">6. Long-term memory</h2>
-<table>
-<tr><th>Term</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Declarative vs procedural</b></td><td>Cohen &amp; Squire</td><td>Declarative (explicit, "knowing that") vs procedural (implicit, "knowing how," skills).</td></tr>
-<tr><td><b>Episodic vs semantic</b></td><td>Endel Tulving</td><td>Episodic = events tied to time/place ("my last birthday"); semantic = general facts ("Paris is the capital"). Both declarative.</td></tr>
-<tr><td><b>Encoding specificity principle</b></td><td>Tulving &amp; Thomson</td><td>Retrieval is best when cues at recall match cues at encoding (basis of context- and state-dependent memory).</td></tr>
-<tr><td><b>Forgetting curve</b></td><td>Hermann Ebbinghaus</td><td>Steep early loss then levelling; pioneered nonsense syllables and savings method.</td></tr>
-<tr><td><b>Reconstructive memory / schema</b></td><td>Frederic Bartlett</td><td>"War of the Ghosts": recall is rebuilt to fit schemas, so it distorts toward the familiar.</td></tr>
-<tr><td><b>Consolidation</b></td><td>Müller &amp; Pilzecker; McGaugh</td><td>New memories are fragile and stabilise over time; sleep and the hippocampus aid it.</td></tr>
-<tr><td><b>Patient H.M.</b></td><td>Scoville &amp; Milner</td><td>Bilateral medial-temporal/hippocampal removal → dense anterograde amnesia but intact STM and procedural learning. Proof STM and LTM dissociate.</td></tr>
-</table>
-<div class="trap"><b>Episodic vs semantic:</b> if the fact is tied to <i>when/where you learned it</i>, episodic; if it's free-floating general knowledge, semantic. Amnesics often lose episodic while semantic survives.</div>
-<div class="trap"><b>Anterograde vs retrograde amnesia:</b> anterograde = can't form <i>new</i> memories after the injury (H.M.); retrograde = lost memories from <i>before</i> the injury.</div>
+<p>LTM is not one thing. The chapter carves it into systems (declarative vs procedural; episodic vs semantic), explains how retrieval depends on cues, and grounds the divisions in amnesia.</p>
+
+<h3>Cohen &amp; Squire — declarative vs procedural (non-declarative)</h3>
+<p><b>What it claims:</b> the deepest split is between <b>declarative</b> memory (explicit, conscious, "knowing <i>that</i>" — facts and events, depends on the medial temporal lobe/hippocampus) and <b>procedural / non-declarative</b> memory (implicit, "knowing <i>how</i>" — skills, conditioning, priming, depends on other systems like the basal ganglia and cerebellum). <b>Evidence:</b> amnesics like H.M. cannot form new declarative memories yet <i>can</i> learn new motor skills (mirror-drawing) and show priming — improving across days while denying they ever did the task. That dissociation proves the two are separate systems.</p>
+
+<h3>Tulving — episodic vs semantic</h3>
+<p><b>What it claims:</b> within declarative memory, <b>episodic</b> memory stores personally experienced <i>events</i> tied to a time and place ("my last birthday"), accompanied by mental "time travel" and conscious recollection. <b>Semantic</b> memory stores general <i>facts</i> and knowledge stripped of their learning context ("Paris is the capital of France"). <b>Evidence:</b> in some amnesics episodic memory is devastated while semantic knowledge is relatively preserved (and developmental amnesics can acquire semantic facts despite poor episodic memory) — a dissociation supporting two systems.</p>
+
+<h3>Tulving &amp; Thomson — encoding specificity</h3>
+<p><b>What it claims:</b> retrieval succeeds to the extent that <b>cues present at recall match the cues encoded at the time of learning</b> — memory is about the <i>match</i> between encoding and retrieval, not the strength of the trace alone. This is the umbrella for: <b>context-dependent memory</b> (Godden &amp; Baddeley's divers recalled word lists best when tested in the same environment — land or underwater — as they learned them) and <b>state-dependent memory</b> (recall is better when your internal state, e.g. mood or sobriety, matches learning). It also explains why <i>recognition</i> can sometimes fail where <i>recall</i> succeeds (recognition failure of recallable words).</p>
+
+<h3>Ebbinghaus — the forgetting curve</h3>
+<p><b>What it did:</b> Ebbinghaus tested himself on lists of <b>nonsense syllables</b> (to control for prior meaning) and measured the <b>savings method</b> (how much faster relearning is than original learning). <b>Finding:</b> the <b>forgetting curve</b> — forgetting is steep at first then levels off (most loss happens soon after learning, then the rate slows). He also documented the spacing benefit of distributed practice.</p>
+
+<h3>Bartlett — reconstructive memory &amp; schemas</h3>
+<p><b>What it claims:</b> remembering is not replay but <b>reconstruction</b> guided by <b>schemas</b> (organised prior knowledge). <b>The study — "War of the Ghosts":</b> Bartlett had English participants read an unfamiliar Native American folk tale, then recall it repeatedly over time. Recall became <b>shorter, more coherent, and distorted toward the participants' own cultural expectations</b> — unfamiliar/supernatural elements were dropped or "rationalised" (e.g. "canoe" became "boat"). This showed memory actively reshapes material to fit existing schemas. <b>Caveat the exam may probe:</b> Bartlett's methods were loosely controlled, but the reconstructive principle is well established and underlies Loftus's later eyewitness work.</p>
+
+<h3>Consolidation</h3>
+<p><b>What it claims:</b> a new memory is initially fragile and becomes stable over time through <b>consolidation</b>; disruption (e.g. a head injury, ECT) shortly after learning erases the unconsolidated trace, which is why retrograde amnesia is typically worse for <i>recent</i> memories (Ribot's gradient). The hippocampus binds the memory at first; over time (systems consolidation) the memory becomes increasingly independent of the hippocampus and reliant on the neocortex. Sleep aids consolidation.</p>
+
+<h3>Patient H.M. (Scoville &amp; Milner)</h3>
+<p><b>What happened:</b> to treat severe epilepsy, surgeon Scoville removed H.M.'s medial temporal lobes <b>bilaterally</b>, including most of the <b>hippocampus</b>. The result: dense <b>anterograde amnesia</b> — he could not form new long-term declarative memories — with <b>intact short-term memory</b> (normal digit span), <b>intact procedural learning</b> (he improved at mirror-drawing across days while denying he had ever done it), and largely preserved older memories. <b>Why it matters:</b> H.M. is the founding case that (1) STM and LTM are separate systems, (2) the hippocampus is critical for forming new declarative memories but not for STM or for retrieving old ones, and (3) declarative and procedural memory are dissociable.</p>
+<div class="trap"><b>Episodic vs semantic:</b> if the fact is tied to <i>when/where you learned it</i> (an event with mental time-travel), it's episodic; if it's free-floating general knowledge, it's semantic. Amnesics often lose episodic while semantic survives.</div>
+<div class="trap"><b>Anterograde vs retrograde amnesia:</b> <b>antero</b> = can't form <i>new</i> memories <i>after</i> the injury (H.M.); <b>retro</b> = lost memories from <i>before</i> the injury. Mnemonic: antero = "ahead/forward in time"; retro = "back in time." H.M.'s defining deficit is anterograde.</div>
+<div class="recap"><b>Recap — LTM.</b> Declarative (knowing that, hippocampal) vs procedural (knowing how) — dissociated in H.M. Within declarative: episodic (events, time/place) vs semantic (facts), Tulving. Retrieval = encoding-specificity match (context/state-dependent; Godden &amp; Baddeley divers). Ebbinghaus: nonsense syllables, savings, steep-then-flat forgetting curve. Bartlett: reconstructive, schema-driven, War of the Ghosts. Consolidation stabilises traces (hippocampus → neocortex). H.M. (Scoville &amp; Milner): bilateral hippocampal loss → anterograde amnesia, intact STM and skills.</div>
 
 <!-- 7. FORGETTING & EVERYDAY MEMORY -->
 <h2 id="forgetting" class="sec">7. Forgetting &amp; everyday memory</h2>
-<table>
-<tr><th>Term</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Decay theory</b></td><td>—</td><td>Memory trace fades with time if not used.</td></tr>
-<tr><td><b>Interference theory</b></td><td>—</td><td>Proactive = old learning blocks new; retroactive = new learning blocks old.</td></tr>
-<tr><td><b>Cue-dependent forgetting</b></td><td>Tulving</td><td>The trace is intact but the retrieval cue is missing (tip-of-the-tongue).</td></tr>
-<tr><td><b>Repression / motivated forgetting</b></td><td>Freud</td><td>Threatening memories pushed out of awareness (controversial).</td></tr>
-<tr><td><b>Misinformation effect</b></td><td>Elizabeth Loftus</td><td>Post-event misleading info reshapes eyewitness memory ("smashed" vs "hit" changes the speed estimate).</td></tr>
-<tr><td><b>Flashbulb memory</b></td><td>Brown &amp; Kulik</td><td>Vivid, confident memory of a shocking event; vivid does not mean accurate.</td></tr>
-<tr><td><b>Weapon focus</b></td><td>Loftus</td><td>A weapon draws attention and narrows it, worsening memory for the rest of the scene.</td></tr>
-<tr><td><b>Prospective memory</b></td><td>—</td><td>Remembering to do something in the future (event- vs time-based), distinct from retrospective memory.</td></tr>
-</table>
+<p>Why memories fail, and how memory works outside the lab. The exam wants the named mechanisms and Loftus's eyewitness findings.</p>
+
+<h3>Decay vs interference</h3>
+<p><b>Decay theory:</b> the memory trace simply <b>fades with time</b> if not used — a passive process. Hard to test cleanly because time always lets <i>other</i> activity in. <b>Interference theory</b> (better supported for LTM): forgetting is caused by <i>competition</i> between memories. <b>Proactive interference</b> = <i>old</i> learning disrupts <i>new</i> (your old phone number intrudes on the new one). <b>Retroactive interference</b> = <i>new</i> learning disrupts <i>old</i> (learning French makes you lose Spanish). Mnemonic: PRO = prior interferes <i>forward</i>; RETRO = recent reaches <i>back</i>.</p>
+
+<h3>Cue-dependent forgetting &amp; TOT</h3>
+<p><b>What it claims (Tulving):</b> often the trace is intact but the right <b>retrieval cue</b> is missing — "availability vs accessibility." Provide the cue and the memory returns, which is why recognition often beats free recall. The <b>tip-of-the-tongue (TOT)</b> state is the vivid case: you can report the first letter, number of syllables and similar-sounding words, proving the memory is there but not fully accessible.</p>
+
+<h3>Repression / motivated forgetting</h3>
+<p><b>What it claims (Freud):</b> threatening or anxiety-laden memories are actively pushed out of conscious awareness. Highly controversial and hard to demonstrate experimentally; mentioned for completeness and because it underlies the "recovered memory" debate.</p>
+
+<h3>Loftus — misinformation, leading questions, weapon focus</h3>
+<p><b>What it claims:</b> memory is reconstructive and <b>post-event information can rewrite it</b>. <b>The car-crash study (Loftus &amp; Palmer):</b> participants watched a film of a car accident, then were asked how fast the cars were going when they "<i>smashed / collided / bumped / hit / contacted</i>" each other. The single verb changed the speed estimate — "smashed" produced the highest estimates — and a week later those given "smashed" were <b>more likely to falsely "remember" broken glass</b> that was never in the film. <b>The misinformation effect:</b> misleading post-event details get incorporated into the memory. <b>Weapon focus:</b> when a weapon is present, attention narrows onto it, <i>worsening</i> memory for other details such as the culprit's face. Together these undermine eyewitness reliability.</p>
+
+<h3>Brown &amp; Kulik — flashbulb memory</h3>
+<p><b>What it claims:</b> shocking, emotionally significant public events create vivid, detailed, confidently held memories of the moment one heard the news — as if a "flashbulb" captured the scene. <b>The catch the exam wants:</b> flashbulb memories <i>feel</i> highly accurate and are held with great confidence, but research (e.g. on people's memories of disasters) shows they <b>decay and distort like ordinary memories</b> — confidence is not accuracy.</p>
+
+<h3>Prospective memory</h3>
+<p><b>What it claims:</b> <b>prospective memory</b> is remembering to <i>perform an intended action in the future</i> (take the pill, post the letter), as opposed to <b>retrospective</b> memory (recalling past information). It splits into <b>event-based</b> (do it when a cue occurs — "give Mum the message when you see her") and <b>time-based</b> (do it at a time — "call at 3pm"); time-based is harder because there is no external cue, so it relies more on self-initiated monitoring.</p>
+<div class="trap"><b>Proactive vs retroactive interference:</b> <b>PROactive</b> — <i>prior</i> (old) learning interferes with new. <b>RETROactive</b> — <i>recent</i> (new) learning interferes with old, reaching <i>back</i>. Direction of the arrow is the trick.</div>
+<div class="nimhans"><b>NIMHANS tests harder — prospective memory.</b> Expect the event- vs time-based split, the claim that time-based is harder (no external cue, needs self-initiated retrieval), and that prospective memory has a "remember to remember" component absent from retrospective memory. May be linked clinically to frontal-lobe/executive function and to everyday-memory failures in patients.</div>
+<div class="recap"><b>Recap — forgetting.</b> Decay (passive fading, weakly supported) vs interference (proactive = old→new, retroactive = new→old). Cue-dependent/TOT = it's there but inaccessible (Tulving). Repression = Freud, controversial. Loftus: misinformation, leading-verb car-crash study (broken glass), weapon focus. Brown &amp; Kulik flashbulb = vivid + confident but not actually accurate. Prospective memory: event- vs time-based, time-based harder.</div>
 
 <!-- 8. CONCEPTS & KNOWLEDGE -->
 <h2 id="knowledge" class="sec">8. Concepts &amp; knowledge representation</h2>
-<table>
-<tr><th>Theory / term</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Defining-attribute (classical) view</b></td><td>—</td><td>A concept = a set of necessary &amp; sufficient features; fails for fuzzy categories.</td></tr>
-<tr><td><b>Prototype theory</b></td><td>Eleanor Rosch</td><td>We judge category membership by similarity to a best/average example; basic-level categories &amp; typicality effects ("robin" is a better bird than "penguin").</td></tr>
-<tr><td><b>Exemplar theory</b></td><td>Medin &amp; Schaffer</td><td>We store specific instances, not an average; categorise by similarity to remembered exemplars.</td></tr>
-<tr><td><b>Hierarchical semantic network</b></td><td>Collins &amp; Quillian</td><td>Concepts in a tree with cognitive economy; predicts sentence-verification times by distance.</td></tr>
-<tr><td><b>Spreading activation</b></td><td>Collins &amp; Loftus</td><td>Concepts linked by relatedness, not strict hierarchy; activation spreads → semantic priming.</td></tr>
-<tr><td><b>Schema / script</b></td><td>Bartlett; Schank &amp; Abelson (scripts)</td><td>Organised knowledge packets that guide comprehension and inference (the "restaurant script").</td></tr>
-</table>
-<div class="trap"><b>Prototype vs exemplar:</b> prototype = one abstracted <i>average</i> per category; exemplar = many stored <i>individual</i> instances. "Compare to the ideal bird" = prototype; "compare to all the birds I've seen" = exemplar.</div>
+<p>How are categories ("bird," "furniture") stored? The progression: rigid definitions fail, so we move to prototypes, then exemplars, and to network theories of how concepts connect.</p>
+
+<h3>Defining-attribute (classical) view</h3>
+<p><b>What it claims:</b> a concept is defined by a set of <b>necessary and sufficient features</b> — anything with all of them is a member, anything missing one is not, and all members are equal. <b>Why it fails:</b> most natural categories have <i>fuzzy</i> boundaries and no clean defining set (Wittgenstein's "game"), and people reliably rate some members as <b>more typical</b> than others (a robin is a "better" bird than a penguin) — which a defining-feature view cannot allow, since membership is all-or-none.</p>
+
+<h3>Rosch — prototype theory</h3>
+<p><b>What it claims:</b> categories are organised around a <b>prototype</b> — an abstract best/average example summarising the central tendency of the category. Membership is graded by <b>similarity to the prototype</b>, which directly explains <b>typicality effects</b> (typical members are categorised faster and named first). Rosch also identified the <b>basic level</b> (e.g. "dog") as the most informative, fastest-named, first-learned level — more useful than the superordinate ("animal") or subordinate ("collie"). <b>Evidence:</b> typicality predicts verification speed, production frequency and learning order.</p>
+
+<h3>Medin &amp; Schaffer — exemplar theory</h3>
+<p><b>What it claims:</b> we do <i>not</i> abstract a single prototype; instead we store many specific <b>exemplars</b> (remembered instances) and categorise a new item by its similarity to those stored instances. <b>Advantage over prototypes:</b> exemplar models retain information about variability and atypical members, and account for context and frequency effects that a single averaged prototype loses.</p>
+
+<h3>Collins &amp; Quillian — hierarchical semantic network</h3>
+<p><b>What it claims:</b> concepts are nodes in a <b>hierarchy</b> (canary → bird → animal) and properties are stored at the highest level they apply to — <b>cognitive economy</b> ("has skin" stored once at "animal," not repeated at every animal). <b>Prediction &amp; evidence:</b> <b>sentence-verification time</b> should increase with the <i>distance</i> travelled in the hierarchy — "A canary can sing" (0 levels) is verified faster than "A canary can fly" (1 level) faster than "A canary has skin" (2 levels). Reaction times broadly confirmed this. <b>Problems:</b> the <b>typicality effect</b> ("A robin is a bird" verified faster than "A penguin is a bird," same distance) and <i>familiarity</i> effects break the strict-distance prediction.</p>
+
+<h3>Collins &amp; Loftus — spreading activation</h3>
+<p><b>What it claims:</b> revised the network to drop the strict hierarchy: concepts are linked by <b>semantic relatedness</b>, with shorter/stronger links between more related concepts. Activating one concept causes <b>activation to spread</b> along links to related concepts, pre-activating them. <b>Evidence — semantic priming:</b> people verify "nurse" faster after seeing the related word "doctor" than after an unrelated word, because "doctor" pre-activated "nurse." This handles typicality and relatedness effects the rigid hierarchy could not.</p>
+
+<h3>Schema &amp; script (Bartlett; Schank &amp; Abelson)</h3>
+<p><b>What it claims:</b> larger bodies of knowledge are organised as <b>schemas</b> (structured packets of expectations about objects/situations) that guide comprehension, inference and memory. A <b>script</b> (Schank &amp; Abelson) is a schema for a <i>stereotyped event sequence</i> — the <b>restaurant script</b> (enter → seated → order → eat → pay → leave). <b>Evidence:</b> people falsely "recall" script-consistent actions that were never stated (you infer they paid the bill), and read script-typical sentences faster — showing scripts fill gaps with default inferences.</p>
+<div class="trap"><b>Prototype vs exemplar:</b> prototype = <i>one abstracted average</i> per category, judged by similarity to the ideal. Exemplar = <i>many stored individual instances</i>, judged by similarity to remembered cases. "Compare to the ideal bird" = prototype (Rosch); "compare to all the actual birds I've seen" = exemplar (Medin &amp; Schaffer).</div>
+<div class="trap"><b>Collins &amp; Quillian vs Collins &amp; Loftus:</b> Quillian = strict <i>hierarchy</i> + cognitive economy, predicts verification time by <i>distance</i> (and is broken by typicality). Loftus = <i>spreading activation</i> over a relatedness web, predicts <i>semantic priming</i>. Same first author "Collins," very different models.</div>
+<div class="recap"><b>Recap — knowledge.</b> Classical defining-attribute view fails (fuzzy boundaries, typicality). Rosch: prototypes + typicality + basic level. Medin &amp; Schaffer: exemplars (stored instances, keep variability). Networks: Collins &amp; Quillian hierarchy + cognitive economy + verification-by-distance; Collins &amp; Loftus spreading activation + semantic priming. Schemas/scripts (Schank &amp; Abelson restaurant script) fill gaps with default inferences.</div>
 
 <!-- 9. LANGUAGE -->
 <h2 id="language" class="sec">9. Language</h2>
-<table>
-<tr><th>Theory / term</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Linguistic relativity (Whorf hypothesis)</b></td><td>Sapir &amp; Whorf</td><td>Language shapes thought; strong (determinism) form rejected, weak (influence) form has some support.</td></tr>
-<tr><td><b>Language acquisition device / universal grammar</b></td><td>Noam Chomsky</td><td>Innate grammar; surface vs deep structure; transformational grammar. Against Skinner's behaviourist account.</td></tr>
-<tr><td><b>Garden-path model</b></td><td>Frazier (minimal attachment)</td><td>We parse a sentence one way and have to reanalyse ("The horse raced past the barn fell").</td></tr>
-<tr><td><b>Dual-route model of reading</b></td><td>Coltheart</td><td>Lexical route (whole-word, for irregular words) + grapheme-phoneme route (sounding out). Surface vs phonological dyslexia map onto the two routes.</td></tr>
-<tr><td><b>Speech production model</b></td><td>Willem Levelt</td><td>Conceptualisation → formulation → articulation; speech errors (Spoonerisms, slips) reveal the stages.</td></tr>
-<tr><td><b>Categorical perception / McGurk effect</b></td><td>McGurk &amp; MacDonald</td><td>Vision changes what speech sound you hear (see "ga," hear "ba" → perceive "da"); speech perception is multimodal.</td></tr>
-<tr><td><b>Cohort model</b></td><td>Marslen-Wilson</td><td>Spoken word recognition: all words matching the onset activate, then narrow as more sound arrives.</td></tr>
-<tr><td><b>Broca's aphasia</b></td><td>Paul Broca</td><td>Non-fluent, effortful, agrammatic speech; comprehension relatively spared. Lesion: left frontal.</td></tr>
-<tr><td><b>Wernicke's aphasia</b></td><td>Carl Wernicke</td><td>Fluent but meaningless "word salad," poor comprehension. Lesion: left temporal.</td></tr>
-</table>
-<div class="trap"><b>Broca vs Wernicke:</b> <b>Broca</b> = <i>Broken</i> speech, can't produce, but understands (frontal). <b>Wernicke</b> = fluent nonsense, can't comprehend (temporal). Conduction aphasia = can't repeat (arcuate fasciculus).</div>
+<p>Language covers acquisition, comprehension (parsing, reading, listening), production, and the brain basis. Each subtopic has a signature model and a signature finding.</p>
+
+<h3>Sapir-Whorf — linguistic relativity</h3>
+<p><b>What it claims:</b> the language you speak shapes the way you think. <b>Strong form (linguistic determinism):</b> language <i>determines</i> thought and limits what you can conceive — widely <b>rejected</b> (people think about concepts they have no single word for). <b>Weak form (linguistic relativity):</b> language <i>influences</i> habitual thought and perception — has some support (e.g. colour-term boundaries can shift colour discrimination; grammatical gender nudges object descriptions).</p>
+
+<h3>Chomsky vs Skinner — language acquisition</h3>
+<p><b>What it claims:</b> against <b>Skinner's</b> behaviourist account (language learned by imitation and reinforcement), <b>Chomsky</b> argued grammar is too complex and acquired too fast, on too little/imperfect input, to be learned by reinforcement — the "poverty of the stimulus." He proposed an innate <b>Language Acquisition Device (LAD)</b> embodying a <b>Universal Grammar</b> common to all languages. He distinguished <b>surface structure</b> (the actual words/syntax of a sentence) from <b>deep structure</b> (its underlying meaning), linked by <b>transformational</b> rules — which is why one surface form can be ambiguous (two deep structures) and two different surface forms can share a meaning.</p>
+
+<h3>Frazier — garden-path model (parsing)</h3>
+<p><b>What it claims:</b> syntactic parsing is initially <b>syntax-first and serial</b>: we commit to <i>one</i> structure using simple principles such as <b>minimal attachment</b> (build the simplest tree, fewest nodes) and <b>late closure</b> (attach new words to the current phrase). When that first parse turns out wrong we have to <b>reanalyse</b> — the "garden path." <b>Classic sentence:</b> "The horse raced past the barn fell" — we read "raced" as the main verb and stumble at "fell," which forces reinterpretation ("the horse [that was] raced past the barn fell"). Reading-time spikes at the disambiguating word are the evidence.</p>
+
+<h3>Coltheart — dual-route model of reading</h3>
+<p><b>What it claims:</b> reading aloud uses two routes from print to sound. The <b>lexical (direct) route</b> looks the whole word up in the mental lexicon — needed for <b>irregular</b> words ("yacht," "pint") that don't follow rules. The <b>non-lexical / grapheme-phoneme (sub-lexical) route</b> applies spelling-to-sound rules — needed for <b>novel words and non-words</b> ("glorp"). <b>The clinching dissociation in acquired dyslexia:</b> <b>surface dyslexia</b> = lexical route damaged, so irregular words are "regularised" (read "pint" to rhyme with "mint") but non-words are fine. <b>Phonological dyslexia</b> = grapheme-phoneme route damaged, so familiar words are read but non-words cannot be sounded out. The double dissociation maps cleanly onto the two routes.</p>
+
+<h3>Levelt — speech production</h3>
+<p><b>What it claims:</b> producing speech runs through ordered stages: <b>conceptualisation</b> (deciding the message) → <b>formulation</b> (selecting words — <i>lemma</i>/meaning then <i>lexeme</i>/sound — and building syntax) → <b>articulation</b> (motor output), with a <b>self-monitoring</b> loop. <b>Evidence — speech errors:</b> systematic slips reveal the stages — <b>Spoonerisms</b> ("dear old queen" → "queer old dean") show sound-level exchange at formulation, while word-substitution and "freudian slip" errors implicate the lemma-selection stage. The tip-of-the-tongue state shows lemma retrieved but lexeme (sound) not yet available.</p>
+
+<h3>McGurk effect &amp; cohort model (perception)</h3>
+<p><b>McGurk &amp; MacDonald:</b> speech perception is <b>multimodal</b> — seeing lips say "ga" while hearing "ba" makes you <i>perceive</i> "da," a fusion of the two. Vision overrides audition, proving we integrate seen and heard speech automatically. <b>Marslen-Wilson's cohort model:</b> on hearing a word's onset, <i>all</i> words consistent with it are activated (the "cohort"); as more sound arrives, candidates are eliminated until one remains at the <b>uniqueness point</b>. Context can further narrow the cohort, which is why we recognise spoken words remarkably early.</p>
+
+<h3>Aphasias — Broca, Wernicke, conduction</h3>
+<p><b>Broca's aphasia</b> (Paul Broca): <b>non-fluent</b>, effortful, halting, <b>agrammatic</b> speech (function words dropped), with comprehension relatively spared. Lesion: <b>left frontal</b> lobe (Broca's area). <b>Wernicke's aphasia</b> (Carl Wernicke): <b>fluent</b> but empty, meaningless "<b>word salad</b>" with neologisms and paraphasias, and <b>poor comprehension</b>; patients often unaware of the deficit. Lesion: <b>left posterior temporal</b> lobe (Wernicke's area). <b>Conduction aphasia:</b> fluent speech and good comprehension but a <b>striking inability to repeat</b>, from damage to the <b>arcuate fasciculus</b> connecting the two areas.</p>
+<div class="trap"><b>Broca vs Wernicke:</b> <b>Broca = Broken</b> speech — can't <i>produce</i> fluently but understands (frontal). <b>Wernicke = fluent nonsense</b> — speaks easily but can't <i>comprehend</i> (temporal). <b>Conduction</b> = can't <i>repeat</i> (arcuate fasciculus). Mnemonic: Broca/Broken/front; Wernicke/Word-salad/back.</div>
+<div class="trap"><b>Surface vs phonological dyslexia:</b> <b>surface</b> = lexical route gone → trips on <i>irregular</i> words (regularises "pint"), non-words OK. <b>Phonological</b> = grapheme-phoneme route gone → trips on <i>non-words</i>, real words OK. Map each dyslexia to the route it lost.</div>
+<div class="recap"><b>Recap — language.</b> Sapir-Whorf: strong (determinism) rejected, weak (relativity) some support. Chomsky LAD/Universal Grammar + deep/surface structure vs Skinner's reinforcement. Frazier garden-path: syntax-first, minimal attachment, "horse raced past the barn fell." Coltheart dual-route: lexical (irregular words, surface dyslexia) vs grapheme-phoneme (non-words, phonological dyslexia). Levelt: conceptualise → formulate → articulate, speech errors reveal stages. McGurk = multimodal; Marslen-Wilson cohort = onset activates many, narrows to uniqueness point. Aphasias: Broca (frontal, non-fluent), Wernicke (temporal, fluent nonsense), conduction (arcuate, can't repeat).</div>
 
 <!-- 10. PROBLEM SOLVING & EXPERTISE -->
 <h2 id="problem" class="sec">10. Problem solving &amp; expertise</h2>
-<table>
-<tr><th>Theory / term</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Insight / restructuring</b></td><td>Gestalt (Köhler, Wertheimer)</td><td>Sudden reorganisation of the problem ("aha"); Köhler's chimp Sultan stacking boxes.</td></tr>
-<tr><td><b>Functional fixedness</b></td><td>Karl Duncker</td><td>Fixating on an object's usual use blocks the solution (the candle / box-of-tacks problem).</td></tr>
-<tr><td><b>Mental set (Einstellung)</b></td><td>Abraham Luchins</td><td>A strategy that worked before is applied rigidly even when a simpler one exists (water-jar task).</td></tr>
-<tr><td><b>Means–ends analysis</b></td><td>Newell &amp; Simon</td><td>Reduce the gap between current and goal state via subgoals; General Problem Solver, Tower of Hanoi.</td></tr>
-<tr><td><b>Problem space</b></td><td>Newell &amp; Simon</td><td>All states + operators between start and goal; solving = searching this space.</td></tr>
-<tr><td><b>Well- vs ill-defined problems</b></td><td>—</td><td>Well-defined have clear start/goal/operators (chess); ill-defined don't ("write a good essay").</td></tr>
-<tr><td><b>Expertise &amp; chunking</b></td><td>de Groot; Chase &amp; Simon</td><td>Chess masters recall real board positions far better than novices, but not random ones, expertise = stored chunks, not raw memory.</td></tr>
-<tr><td><b>Analogical problem solving</b></td><td>Gick &amp; Holyoak</td><td>We transfer a solution from a similar problem (radiation/fortress); surface similarity helps spot it.</td></tr>
-</table>
+<p>Two traditions meet here: the Gestalt focus on <i>insight</i> and the obstacles to it, and the information-processing focus on <i>search</i> through a problem space (Newell &amp; Simon), plus what makes experts expert.</p>
+
+<h3>Gestalt insight &amp; restructuring (Köhler, Sultan)</h3>
+<p><b>What it claims:</b> some problems are solved not by gradual search but by a sudden <b>restructuring</b> of how the problem is represented — the "<b>aha</b>" of <b>insight</b>. <b>Evidence:</b> Köhler's chimpanzee <b>Sultan</b> suddenly stacked boxes / joined two sticks to reach a banana after apparent contemplation, rather than by trial-and-error, suggesting a perceptual reorganisation of the situation.</p>
+
+<h3>Duncker — functional fixedness</h3>
+<p><b>What it claims:</b> a barrier to insight is <b>functional fixedness</b> — the tendency to see an object only in terms of its usual function. <b>The candle problem:</b> given a candle, a box of tacks and matches, people struggle to mount the candle on the wall because they see the <b>box as a container</b>, not as a potential <i>shelf</i>; the solution is to empty the box, tack it to the wall, and stand the candle on it. People solve it faster when the box is presented empty (its "container" function de-emphasised).</p>
+
+<h3>Luchins — mental set (Einstellung)</h3>
+<p><b>What it claims:</b> a <b>mental set</b> (Einstellung) is the tendency to keep using a previously successful strategy even when a simpler one is available. <b>The water-jar task:</b> after solving several problems with the same multi-step formula, participants kept applying it to later problems that had a far simpler solution, and some failed problems solvable <i>only</i> the simple way. Prior success entrenches a rigid approach.</p>
+
+<h3>Newell &amp; Simon — means-ends analysis, problem space, GPS</h3>
+<p><b>What it claims:</b> problem solving is <b>search through a problem space</b> — the set of all states (start, goal, intermediate) and the <b>operators</b> that move between them. Because the space is huge, we use <b>heuristics</b>, chiefly <b>means-ends analysis</b>: note the <i>difference</i> between the current state and the goal, find an operator that reduces it, and if that operator can't be applied yet, set a <b>subgoal</b> to enable it. Implemented in their <b>General Problem Solver (GPS)</b> program. <b>Evidence:</b> verbal protocols ("think-aloud") on the <b>Tower of Hanoi</b> and similar well-defined puzzles matched the means-ends, subgoal-setting account.</p>
+
+<h3>Well- vs ill-defined problems</h3>
+<p><b>Well-defined</b> problems have a clearly specified start state, goal state and operators (chess, Tower of Hanoi) — ideal for the problem-space approach. <b>Ill-defined</b> problems lack one or more of these ("write a good essay," "be happy"); most real-world problems are ill-defined, which is a limit on the laboratory puzzle tradition.</p>
+
+<h3>Expertise &amp; chunking (de Groot; Chase &amp; Simon)</h3>
+<p><b>What it claims:</b> expert advantage is <b>knowledge-based</b>, not raw memory. <b>The chess studies:</b> de Groot found masters and novices searched <i>similar</i> numbers of moves, but masters perceived the board in better-organised units. Chase &amp; Simon then showed that, briefly shown a real game position, <b>masters recall the pieces far better than novices — but only for meaningful positions</b>. For <i>random</i> arrangements the master's advantage vanishes. Conclusion: experts don't have bigger memories; they encode the board as a few familiar <b>chunks</b> (and templates), which only helps when the configuration is meaningful.</p>
+
+<h3>Gick &amp; Holyoak — analogical transfer</h3>
+<p><b>What it claims:</b> we can solve a new problem by mapping the solution from a structurally similar one (<b>analogical transfer</b>). <b>The radiation–fortress study:</b> participants who had read the <i>fortress story</i> (a general splits his army to converge on a fort from many roads) were far more likely to solve Duncker's <b>radiation problem</b> (use multiple weak rays converging on a tumour) — <b>but usually only when hinted</b> to use the story. The key finding: spontaneous transfer is <i>poor</i> because people are misled by <b>surface</b> similarity and miss the deeper <b>structural</b> analogy; an explicit cue, or seeing multiple analogues, helps them abstract the shared schema.</p>
+<div class="trap"><b>Functional fixedness vs mental set:</b> functional fixedness (Duncker) = stuck on an <i>object's</i> usual use (the box is "just a box"). Mental set / Einstellung (Luchins) = stuck on a <i>procedure</i> that used to work (keep using the long water-jar formula). Object vs method.</div>
+<div class="recap"><b>Recap — problem solving.</b> Gestalt insight/restructuring (Köhler's Sultan). Blocks to insight: Duncker functional fixedness (candle/box), Luchins mental set (water-jar). Newell &amp; Simon: problem space + operators, means-ends analysis + subgoals, GPS, Tower of Hanoi. Well- vs ill-defined problems. Expertise = chunks not memory (de Groot; Chase &amp; Simon — masters beat novices only on real, not random, boards). Gick &amp; Holyoak: analogical transfer is poor without a hint because surface beats structure (radiation/fortress).</div>
 
 <!-- 11. JUDGEMENT & DECISION MAKING -->
 <h2 id="judgement" class="sec">11. Judgement &amp; decision making</h2>
-<table>
-<tr><th>Term</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Heuristics &amp; biases</b></td><td>Tversky &amp; Kahneman</td><td>Availability (ease of recall), representativeness (resemblance to a prototype), anchoring &amp; adjustment.</td></tr>
-<tr><td><b>Base-rate neglect</b></td><td>Tversky &amp; Kahneman</td><td>Ignoring prior probabilities in favour of individuating detail (the "Tom W." / lawyer-engineer problem).</td></tr>
-<tr><td><b>Conjunction fallacy</b></td><td>Tversky &amp; Kahneman</td><td>Judging "feminist bank teller" more likely than "bank teller" (the Linda problem); a conjunction can't exceed its parts.</td></tr>
-<tr><td><b>Prospect theory</b></td><td>Kahneman &amp; Tversky</td><td>We value gains/losses from a reference point, not absolute wealth; losses loom larger (loss aversion); S-shaped value function.</td></tr>
-<tr><td><b>Framing effect</b></td><td>Tversky &amp; Kahneman</td><td>The same choice framed as a gain vs a loss flips preference (the "Asian disease" problem).</td></tr>
-<tr><td><b>Bounded rationality / satisficing</b></td><td>Herbert Simon</td><td>Limited capacity → we settle for "good enough" rather than the optimal choice.</td></tr>
-<tr><td><b>Dual-process theory (System 1 / 2)</b></td><td>Stanovich &amp; West; Kahneman</td><td>System 1 = fast, automatic, intuitive; System 2 = slow, effortful, analytic.</td></tr>
-</table>
-<div class="trap"><b>Availability vs representativeness:</b> availability = judging by how <i>easily examples come to mind</i> (overrate plane crashes). Representativeness = judging by <i>how much it resembles the stereotype</i> (Linda, Tom W.). The conjunction &amp; base-rate fallacies both stem from representativeness.</div>
+<p>Tversky &amp; Kahneman showed that people don't compute probabilities normatively; they use fast <b>heuristics</b> that usually work but produce systematic <b>biases</b>. Then prospect theory and dual-process theory explain choice under risk and the two "minds" behind it.</p>
+
+<h3>The three heuristics (Tversky &amp; Kahneman)</h3>
+<p><b>Availability:</b> judge how likely/frequent something is by <b>how easily examples come to mind</b>. Because vivid, recent or dramatic events come to mind easily, people overestimate plane crashes, shark attacks and homicide relative to commoner but duller risks. <b>Representativeness:</b> judge probability by <b>how much something resembles the stereotype/prototype</b> of the category, ignoring base rates and sample size. <b>Anchoring &amp; adjustment:</b> an initial value (the anchor) biases the final estimate because adjustment from it is insufficient — e.g. estimates of a product (8×7×…×1 vs 1×2×…×8) differed by starting point, and arbitrary numbers (a spun wheel) shifted estimates of unrelated quantities.</p>
+
+<h3>Base-rate neglect (the Tom W. / lawyer-engineer problem)</h3>
+<p><b>What it shows:</b> when given a personality sketch that <i>sounds like</i> an engineer, people judge "Tom W. is an engineer" as likely <b>regardless of the stated base rate</b> (whether the sample was 70 engineers/30 lawyers or the reverse). The representativeness of the description swamps the prior probability — a failure to combine evidence with base rates (Bayesian reasoning).</p>
+
+<h3>Conjunction fallacy (the Linda problem)</h3>
+<p><b>What it shows:</b> given a sketch of Linda as a socially-conscious philosophy graduate, people judge "<b>Linda is a bank teller <i>and</i> active in the feminist movement</b>" as <b>more probable</b> than "Linda is a bank teller." That is logically impossible — a conjunction can never be more probable than one of its constituents. The cause is representativeness: the feminist-teller story <i>resembles</i> Linda better, and resemblance overrides probability.</p>
+
+<h3>Prospect theory (Kahneman &amp; Tversky)</h3>
+<p><b>What it claims:</b> people evaluate outcomes not as final wealth but as <b>gains and losses relative to a reference point</b>. The <b>value function</b> is S-shaped: concave for gains (risk-averse), convex for losses (risk-seeking to avoid a sure loss), and <b>steeper for losses than gains</b> — this is <b>loss aversion</b> ("losses loom larger than gains," roughly twice as much). Probabilities are also weighted non-linearly (small probabilities overweighted). This explains why the <i>same</i> objective outcome is chosen or rejected depending on framing.</p>
+
+<h3>Framing effect (the Asian disease problem)</h3>
+<p><b>What it shows:</b> the identical choice flips with wording. When a disease programme is framed in terms of lives <b>saved</b> ("200 of 600 will be saved"), people choose the sure option (risk-averse for gains); when the <i>same</i> outcome is framed as deaths ("400 of 600 will die"), people choose the gamble (risk-seeking for losses). A direct demonstration of prospect theory's reference-dependence and loss aversion.</p>
+
+<h3>Simon — bounded rationality &amp; satisficing</h3>
+<p><b>What it claims:</b> real decision-makers have limited information, time and computational capacity, so they cannot optimise; they exercise <b>bounded rationality</b> and <b>satisfice</b> — search only until an option that is "good enough" (meets an aspiration level) is found, then stop, rather than evaluating every alternative for the optimum.</p>
+
+<h3>Dual-process theory (System 1 / System 2)</h3>
+<p><b>What it claims:</b> two modes of thought. <b>System 1</b> is fast, automatic, effortless, intuitive, parallel and emotional — the source of heuristics. <b>System 2</b> is slow, controlled, effortful, analytic and rule-based, and can override System 1 when engaged. Many biases (Linda, base-rate neglect) arise because System 1's intuitive answer is accepted without System 2 checking it.</p>
+<div class="trap"><b>Availability vs representativeness:</b> availability = judging by <i>how easily examples come to mind</i> (overrate plane crashes, recent news). Representativeness = judging by <i>how much it resembles the stereotype</i> (Linda, Tom W.). The <b>conjunction fallacy (Linda)</b> and <b>base-rate neglect (Tom W.)</b> both stem from <i>representativeness</i>, not availability.</div>
+<div class="recap"><b>Recap — judgement.</b> Heuristics: availability (ease of recall), representativeness (resemblance → base-rate neglect Tom W. and conjunction fallacy Linda), anchoring &amp; adjustment. Prospect theory: gains/losses from a reference point, S-shaped value function, loss aversion. Framing (Asian disease) flips choice between save/die wording. Simon: bounded rationality, satisficing (good enough). Dual-process: System 1 fast/intuitive vs System 2 slow/analytic.</div>
 
 <!-- 12. REASONING -->
 <h2 id="reasoning" class="sec">12. Reasoning</h2>
+<p>Reasoning splits into deductive (drawing certain conclusions from premises) and inductive (generalising probably from cases). The recurring theme is that <b>content and context</b>, not pure logic, drive human reasoning — and that we are biased toward confirming and toward believable conclusions.</p>
+
+<h3>Deductive vs inductive</h3>
+<p><b>Deductive</b> reasoning moves from general premises to a <i>logically certain</i> conclusion (syllogisms, conditionals); if the premises are true and the form valid, the conclusion <i>must</i> be true. <b>Inductive</b> reasoning moves from specific observations to a <i>probable</i> generalisation; the conclusion can be well-supported but never guaranteed (the basis of science and everyday prediction).</p>
+
+<h3>Wason — the selection task</h3>
+<p><b>What it shows:</b> given four cards showing, say, <b>A, K, 4, 7</b> and the rule "<i>if a card has a vowel on one side, it has an even number on the other</i>," people must say which cards to turn to test the rule. The logically correct answer is the <b>vowel (A)</b> and the <b>odd number (7)</b> — i.e. P and not-Q (turn the case that could <i>falsify</i> the rule). <b>Most people fail</b> the abstract version, typically picking A and 4 (a matching/confirmation bias). <b>Content effect:</b> with a <i>familiar, deontic</i> rule — "if you drink alcohol you must be over 18," cards "beer, coke, 22, 16" — performance leaps, because we readily check the beer-drinker and the 16-year-old. Concrete, real-world (especially permission) content unlocks correct logic.</p>
+
+<h3>Wason — the 2-4-6 task &amp; confirmation bias</h3>
+<p><b>What it shows:</b> told that "2, 4, 6" fits a rule the experimenter has in mind, participants must discover the rule by proposing their own number-triples and getting yes/no feedback. The actual rule is broad ("<b>any three ascending numbers</b>"), but people fixate on a narrow hypothesis (e.g. "even numbers ascending by 2") and test only triples that <b>confirm</b> it (8-10-12) rather than ones that could <b>falsify</b> it. This <b>confirmation bias</b> — seeking supporting rather than disconfirming evidence — leaves them announcing the wrong rule with confidence.</p>
+
+<h3>Evans — belief bias</h3>
+<p><b>What it shows:</b> in syllogistic reasoning, people judge an argument's validity by <b>whether they believe the conclusion</b> rather than whether it logically follows. They <b>accept invalid syllogisms with believable conclusions</b> ("Some addictive things are not cigarettes" type errors) and <b>reject valid ones with unbelievable conclusions</b>. Belief in the conclusion overrides logical structure — a key piece of evidence that everyday reasoning is not formal logic.</p>
+
+<h3>Johnson-Laird — mental models theory</h3>
+<p><b>What it claims:</b> we reason not by applying formal logical rules but by constructing <b>mental models</b> of the situations the premises describe, then reading off conclusions and (ideally) searching for counterexample models. <b>Key prediction:</b> reasoning errors and difficulty increase with the <b>number of models</b> a problem requires — problems needing only one model are easy; those needing several are error-prone because people fail to construct all of them (and tend to consider just one). Explains why some valid inferences are far harder than others of the same logical "type."</p>
+
+<h3>Atmosphere effect; pragmatic reasoning schemas</h3>
+<p><b>Atmosphere effect (Woodworth &amp; Sells):</b> in syllogisms, the "mood" of the premises biases the conclusion accepted — if premises contain "some," people favour a "some" conclusion; if they contain a negative, they favour a negative conclusion — regardless of validity. <b>Pragmatic reasoning schemas (Cheng &amp; Holyoak):</b> rather than pure logic <i>or</i> mere familiarity, we reason using <b>abstract but content-bound schemas</b> such as <i>permission</i> ("to do X you must satisfy Y") and <i>obligation</i>. This neatly explains the selection-task content effect: the drinking-age version triggers the permission schema and so yields correct "P and not-Q" checking even though it is not a familiar everyday memory.</p>
+<div class="trap"><b>Wason's two tasks:</b> the <b>selection task</b> (4 cards, P/not-Q) tests <i>conditional/deductive</i> logic and is solved by familiar/permission content. The <b>2-4-6 task</b> tests <i>hypothesis testing</i> and exposes <i>confirmation bias</i>. Both are Wason — don't conflate them.</div>
+<div class="trap"><b>Belief bias vs atmosphere effect:</b> <b>belief bias</b> = judging by whether you <i>believe the conclusion</i> (Evans). <b>Atmosphere effect</b> = being swayed by the <i>quantifiers/mood of the premises</i> (some/all/no — Woodworth &amp; Sells). Conclusion-believability vs premise-mood.</div>
+<div class="recap"><b>Recap — reasoning.</b> Deductive (certain) vs inductive (probable). Wason selection task: P and not-Q is correct, abstract fails, familiar/permission content succeeds. Wason 2-4-6: confirmation bias (seek confirming, not falsifying, triples). Evans belief bias: validity judged by conclusion believability. Johnson-Laird mental models: difficulty ↑ with number of models. Atmosphere effect (premise mood) and Cheng &amp; Holyoak pragmatic schemas (permission/obligation explain the content effect).</div>
+
+<div class="nimhans"><b>NIMHANS tests harder — embodied cognition.</b> Beyond the classical "mind as computer" view, <b>embodied (grounded) cognition</b> holds that cognition is shaped by the body and its sensorimotor systems: abstract concepts are partly grounded in bodily/perceptual experience (understanding "grasp an idea" recruits motor representations), and thought is "for" action. Contrast it with the amodal, symbol-manipulation assumption of classical cognitivism. NIMHANS may pair this with the extended/situated-cognition idea that cognition uses the body and environment as part of the processing system.</div>
+
+<div class="nimhans"><b>NIMHANS tests harder — metacognition.</b> <b>Metacognition</b> = "thinking about thinking": knowledge and regulation of one's own cognitive processes (Flavell). It splits into <b>metacognitive knowledge</b> (what you know about your memory/strategies), <b>monitoring</b> (judgements of learning, feeling-of-knowing, the tip-of-the-tongue state as a metamemory signal) and <b>control</b> (deciding how long to study, when to stop). Expect links to study strategies, to frontal-lobe function, and to clinical insight (e.g. impaired metacognition in some disorders).</div>
+
+<!-- ★ AT-A-GLANCE COMPARE TABLE -->
+<h2 id="compare" class="sec">★ At-a-glance compare table</h2>
+<p>The whole page compressed to one scan-able grid: each row is a model, its author, and its single most testable claim or finding.</p>
 <table>
-<tr><th>Term</th><th>Who</th><th>What it is</th></tr>
-<tr><td><b>Deductive vs inductive</b></td><td>—</td><td>Deductive = certain conclusion from premises (syllogisms); inductive = probable generalisation from cases.</td></tr>
-<tr><td><b>Wason selection task</b></td><td>Peter Wason</td><td>The 4-card logic test people fail abstractly but pass when framed as a familiar social rule (drinking-age version).</td></tr>
-<tr><td><b>2-4-6 task / confirmation bias</b></td><td>Peter Wason</td><td>People test rules by seeking confirming, not falsifying, evidence.</td></tr>
-<tr><td><b>Belief bias</b></td><td>Evans, Barston &amp; Pollard</td><td>We accept invalid syllogisms whose conclusions we believe and reject valid ones we don't.</td></tr>
-<tr><td><b>Mental models theory</b></td><td>Philip Johnson-Laird</td><td>We reason by building mental models of possibilities; errors come from considering too few models.</td></tr>
-<tr><td><b>Atmosphere effect</b></td><td>Woodworth &amp; Sells</td><td>The "mood" of the premises (some/all, no) biases which conclusion feels right in syllogisms.</td></tr>
-<tr><td><b>Pragmatic reasoning schemas</b></td><td>Cheng &amp; Holyoak</td><td>We reason with context-bound rules (permission, obligation), not pure logic; explains Wason content effects.</td></tr>
+<tr><th>Model / term</th><th>Who</th><th>One-line claim + key finding</th></tr>
+<tr><td><b>Double dissociation</b></td><td>(neuropsych logic)</td><td>Two patients with opposite sparing → two separate systems (STM vs LTM: H.M. vs K.F.).</td></tr>
+<tr><td><b>fMRI/PET vs EEG/ERP vs TMS</b></td><td>—</td><td>Where (space) vs when (time) vs necessary (causal lesion).</td></tr>
+<tr><td><b>Connectionism / PDP</b></td><td>Rumelhart &amp; McClelland (PDP group)</td><td>Distributed, parallel, learns weights, degrades gracefully.</td></tr>
+<tr><td><b>Constructivist perception</b></td><td>Gregory</td><td>Top-down, perception = hypothesis; explains illusions.</td></tr>
+<tr><td><b>Direct perception</b></td><td>Gibson</td><td>Bottom-up, optic array + affordances; no inference.</td></tr>
+<tr><td><b>Computational vision</b></td><td>Marr</td><td>Primal → 2½-D → 3-D sketch; three levels of analysis.</td></tr>
+<tr><td><b>Gestalt laws</b></td><td>Wertheimer, Koffka, Köhler</td><td>Proximity/similarity/closure/continuity/common fate/Prägnanz.</td></tr>
+<tr><td><b>Two visual streams</b></td><td>Milner &amp; Goodale</td><td>Ventral "what" vs dorsal "where/how"; patient DF.</td></tr>
+<tr><td><b>Pandemonium</b></td><td>Selfridge</td><td>Feature "demons" shout; recognition by features.</td></tr>
+<tr><td><b>Recognition-by-components</b></td><td>Biederman</td><td>Geons; view-invariant via non-accidental properties.</td></tr>
+<tr><td><b>Face recognition model</b></td><td>Bruce &amp; Young</td><td>Structural encoding → FRU → PIN → name (name last).</td></tr>
+<tr><td><b>Filter (early selection)</b></td><td>Broadbent</td><td>Filter by physical features before meaning; blocks rest.</td></tr>
+<tr><td><b>Attenuation</b></td><td>Treisman</td><td>Turns unattended down, not off; own name leaks through.</td></tr>
+<tr><td><b>Late selection</b></td><td>Deutsch &amp; Deutsch / Norman</td><td>All processed for meaning; select at response.</td></tr>
+<tr><td><b>Capacity theory</b></td><td>Kahneman</td><td>Attention = limited effort pool, flexibly allocated.</td></tr>
+<tr><td><b>Spotlight / cueing</b></td><td>Posner</td><td>Covert spotlight; valid cue speeds, invalid slows RT.</td></tr>
+<tr><td><b>Zoom-lens</b></td><td>Eriksen</td><td>Spotlight size adjustable (area vs resolution).</td></tr>
+<tr><td><b>Feature Integration Theory</b></td><td>Treisman</td><td>Parallel feature maps + attention binds; pop-out vs serial; illusory conjunctions.</td></tr>
+<tr><td><b>Automatic vs controlled</b></td><td>Shiffrin &amp; Schneider</td><td>Practice automates; Stroop = automatic reading intrudes.</td></tr>
+<tr><td><b>Multi-store model</b></td><td>Atkinson &amp; Shiffrin</td><td>Sensory → STM → LTM; serial-position curve.</td></tr>
+<tr><td><b>Iconic memory</b></td><td>Sperling</td><td>Partial report: large store, decays ~½ s.</td></tr>
+<tr><td><b>7 ± 2</b></td><td>Miller</td><td>STM ~7 chunks; chunking expands capacity.</td></tr>
+<tr><td><b>Working memory</b></td><td>Baddeley &amp; Hitch</td><td>Executive + phonological loop + sketchpad + episodic buffer.</td></tr>
+<tr><td><b>Levels of processing</b></td><td>Craik &amp; Lockhart</td><td>Deep/semantic encoding beats shallow; depth not duration.</td></tr>
+<tr><td><b>Declarative vs procedural</b></td><td>Cohen &amp; Squire</td><td>Knowing-that vs knowing-how; dissociate in amnesia.</td></tr>
+<tr><td><b>Episodic vs semantic</b></td><td>Tulving</td><td>Events (time/place) vs facts.</td></tr>
+<tr><td><b>Encoding specificity</b></td><td>Tulving &amp; Thomson</td><td>Recall best when cues match encoding (divers study).</td></tr>
+<tr><td><b>Forgetting curve</b></td><td>Ebbinghaus</td><td>Nonsense syllables, savings; steep then flat.</td></tr>
+<tr><td><b>Reconstructive memory</b></td><td>Bartlett</td><td>Schema-driven distortion; War of the Ghosts.</td></tr>
+<tr><td><b>Patient H.M.</b></td><td>Scoville &amp; Milner</td><td>Bilateral hippocampus → anterograde amnesia, intact STM/skills.</td></tr>
+<tr><td><b>Misinformation effect</b></td><td>Loftus</td><td>Leading verb changes memory; "smashed" → false broken glass.</td></tr>
+<tr><td><b>Flashbulb memory</b></td><td>Brown &amp; Kulik</td><td>Vivid + confident, not actually accurate.</td></tr>
+<tr><td><b>Prototype</b></td><td>Rosch</td><td>Average ideal; typicality + basic level.</td></tr>
+<tr><td><b>Exemplar</b></td><td>Medin &amp; Schaffer</td><td>Stored individual instances.</td></tr>
+<tr><td><b>Hierarchical network</b></td><td>Collins &amp; Quillian</td><td>Tree + cognitive economy; verification by distance.</td></tr>
+<tr><td><b>Spreading activation</b></td><td>Collins &amp; Loftus</td><td>Relatedness web; semantic priming.</td></tr>
+<tr><td><b>Scripts</b></td><td>Schank &amp; Abelson</td><td>Event schemas; restaurant script.</td></tr>
+<tr><td><b>Linguistic relativity</b></td><td>Sapir &amp; Whorf</td><td>Strong (determinism) rejected; weak (influence) supported.</td></tr>
+<tr><td><b>Universal grammar / LAD</b></td><td>Chomsky</td><td>Innate grammar; deep vs surface structure; vs Skinner.</td></tr>
+<tr><td><b>Garden-path</b></td><td>Frazier</td><td>Minimal attachment; "horse raced past the barn fell."</td></tr>
+<tr><td><b>Dual-route reading</b></td><td>Coltheart</td><td>Lexical (irregular) vs grapheme-phoneme (non-words); surface vs phonological dyslexia.</td></tr>
+<tr><td><b>Speech production</b></td><td>Levelt</td><td>Conceptualise → formulate → articulate; speech errors.</td></tr>
+<tr><td><b>McGurk effect</b></td><td>McGurk &amp; MacDonald</td><td>Vision changes heard speech (see ga + hear ba → da).</td></tr>
+<tr><td><b>Cohort model</b></td><td>Marslen-Wilson</td><td>Onset activates many; narrow to uniqueness point.</td></tr>
+<tr><td><b>Broca / Wernicke</b></td><td>Broca / Wernicke</td><td>Non-fluent frontal vs fluent-nonsense temporal.</td></tr>
+<tr><td><b>Insight</b></td><td>Köhler (Gestalt)</td><td>Restructuring "aha"; Sultan the chimp.</td></tr>
+<tr><td><b>Functional fixedness</b></td><td>Duncker</td><td>Object's usual use blocks solution; candle problem.</td></tr>
+<tr><td><b>Mental set (Einstellung)</b></td><td>Luchins</td><td>Old strategy over-applied; water-jar.</td></tr>
+<tr><td><b>Means-ends analysis / GPS</b></td><td>Newell &amp; Simon</td><td>Reduce gap via subgoals; problem space; Tower of Hanoi.</td></tr>
+<tr><td><b>Chess expertise</b></td><td>de Groot; Chase &amp; Simon</td><td>Chunks not memory; advantage only on real boards.</td></tr>
+<tr><td><b>Analogical transfer</b></td><td>Gick &amp; Holyoak</td><td>Poor without hint; surface beats structure; radiation/fortress.</td></tr>
+<tr><td><b>Heuristics &amp; biases</b></td><td>Tversky &amp; Kahneman</td><td>Availability, representativeness, anchoring.</td></tr>
+<tr><td><b>Prospect theory</b></td><td>Kahneman &amp; Tversky</td><td>Reference point, S-shaped value, loss aversion.</td></tr>
+<tr><td><b>Bounded rationality</b></td><td>Simon</td><td>Satisfice — "good enough," not optimal.</td></tr>
+<tr><td><b>Selection task</b></td><td>Wason</td><td>P and not-Q; familiar/permission content helps.</td></tr>
+<tr><td><b>2-4-6 task</b></td><td>Wason</td><td>Confirmation bias in hypothesis testing.</td></tr>
+<tr><td><b>Belief bias</b></td><td>Evans</td><td>Validity judged by conclusion believability.</td></tr>
+<tr><td><b>Mental models</b></td><td>Johnson-Laird</td><td>Reason by models; errors ↑ with number of models.</td></tr>
+<tr><td><b>Pragmatic schemas</b></td><td>Cheng &amp; Holyoak</td><td>Permission/obligation schemas explain content effect.</td></tr>
 </table>
-<div class="trap"><b>Wason's two tasks:</b> the <b>selection task</b> (4 cards, P/not-P) tests conditional logic and is solved by familiar content. The <b>2-4-6 task</b> tests hypothesis testing and exposes confirmation bias. Both are Wason, don't conflate them.</div>
 
-<div class="hy-banner" style="margin-top:28px;"><b>That's the cognitive syllabus on one page, Eysenck &amp; Keane in book order.</b> Cover the middle column → name the author; cover the right column → name the model from its claim; and for every trap box, learn both sides of the pair. The type sweeps: <a href="../effects/">Effects</a>, <a href="../phenomena/">Phenomena</a>, <a href="../theories/">Theories</a>, <a href="../theorists/">Theorists</a>.</div>
+<!-- ★ MCQ TRAPS COLLECTED -->
+<h2 id="traps" class="sec">★ All the MCQ traps, collected</h2>
+<p>Every contrast pair on this page, gathered so you can drill the distinctions that distractors are built from.</p>
+<div class="trap"><b>Gregory vs Gibson:</b> indirect/top-down/hypothesis/illusions (Gregory) vs direct/bottom-up/affordances/optic array (Gibson).</div>
+<div class="trap"><b>Early vs late selection:</b> Broadbent (filter before meaning, blocks) vs Treisman (attenuates, own name leaks) vs Deutsch-Norman (full meaning, select at response).</div>
+<div class="trap"><b>Multi-store vs working memory:</b> Atkinson-Shiffrin single passive STM vs Baddeley-Hitch active multi-component (dual-task evidence).</div>
+<div class="trap"><b>Iconic vs STM:</b> Sperling's iconic store = sensory, huge, ~½ s, automatic decay; STM/WM = ~7 chunks, ~15–30 s, manipulates info.</div>
+<div class="trap"><b>Episodic vs semantic:</b> events tied to time/place vs free-floating facts (Tulving).</div>
+<div class="trap"><b>Anterograde vs retrograde amnesia:</b> can't form new memories after injury (H.M.) vs lost memories from before injury.</div>
+<div class="trap"><b>Prototype vs exemplar:</b> one abstracted average (Rosch) vs many stored instances (Medin &amp; Schaffer).</div>
+<div class="trap"><b>Collins &amp; Quillian vs Collins &amp; Loftus:</b> hierarchy + cognitive economy + verification-by-distance vs spreading activation + semantic priming.</div>
+<div class="trap"><b>Broca vs Wernicke:</b> non-fluent, "broken," comprehends, frontal vs fluent "word salad," poor comprehension, temporal. (Conduction = can't repeat, arcuate fasciculus.)</div>
+<div class="trap"><b>Surface vs phonological dyslexia:</b> lexical route lost (regularises irregular words) vs grapheme-phoneme route lost (can't read non-words).</div>
+<div class="trap"><b>Functional fixedness vs mental set:</b> stuck on an object's use (Duncker, candle) vs stuck on a procedure (Luchins, water-jar).</div>
+<div class="trap"><b>Availability vs representativeness:</b> ease of recall vs resemblance to stereotype (representativeness drives both Linda &amp; Tom W.).</div>
+<div class="trap"><b>Wason's two tasks:</b> selection task (P/not-Q, conditional logic) vs 2-4-6 task (confirmation bias, hypothesis testing).</div>
+<div class="trap"><b>Apperceptive vs associative agnosia:</b> can't copy the drawing (percept broken) vs can copy but can't name (meaning lost).</div>
+<div class="trap"><b>Belief bias vs atmosphere effect:</b> swayed by believing the conclusion (Evans) vs swayed by the mood/quantifiers of the premises (Woodworth &amp; Sells).</div>
 
-<footer>Sihan MET 2026 + NIMHANS prep · /notes/cognitive/ · from Eysenck &amp; Keane, Cognitive Psychology: A Student's Handbook · built 2026-05-24</footer>
+<!-- ★ KEY STUDIES WALKTHROUGH -->
+<h2 id="studies" class="sec">★ Key-studies walkthrough</h2>
+<p>The handful of experiments that examiners describe and ask you to name. Know what was <i>done</i> and what was <i>found</i>.</p>
+
+<h4>Patient H.M. (Scoville &amp; Milner)</h4>
+<p>Bilateral medial-temporal resection (incl. hippocampus) to treat epilepsy → dense anterograde amnesia, intact STM (normal digit span), intact procedural learning (mirror-drawing improves while he denies practising), older memories largely spared. <b>Shows:</b> STM ≠ LTM; hippocampus needed to form new declarative memories; declarative ≠ procedural.</p>
+
+<h4>Sperling — partial report</h4>
+<p>3×4 letter grid flashed 50 ms. Whole report ≈ 4–5 letters; a post-display tone cueing one row → near-perfect for that row, so ~all 9–12 were briefly available. Delaying the cue collapses performance by ~1 s. <b>Shows:</b> iconic memory is high-capacity but decays in ~½ s.</p>
+
+<h4>Dichotic listening (Cherry, Broadbent, Moray)</h4>
+<p>Different messages to each ear; shadow one. Listeners notice physical changes (a tone, a switch to a different voice) on the unattended ear but little of its <i>content</i> — yet they detect their <b>own name</b> (cocktail-party effect). <b>Shows:</b> selection is early but leaky → supports Treisman over strict Broadbent.</p>
+
+<h4>Posner — spatial cueing</h4>
+<p>A cue points to a location; target appears at the cued (valid) or another (invalid) spot. Valid cues speed RT, invalid cues slow it (a cost). <b>Shows:</b> attention can move covertly to a location, independent of the eyes (the spotlight).</p>
+
+<h4>Loftus &amp; Palmer — car crash</h4>
+<p>Watch an accident film; the verb in "how fast when they ___?" (smashed/hit/contacted) raises or lowers the speed estimate; a week later "smashed" subjects falsely recall broken glass. <b>Shows:</b> misinformation/leading questions reshape memory — reconstructive, fallible eyewitness memory.</p>
+
+<h4>Wason — selection task</h4>
+<p>4 cards + a conditional rule; correct answer is P and not-Q (the falsifying cards). Abstract version mostly failed (people pick P and Q); a familiar deontic version (drinking-age) is solved easily. <b>Shows:</b> reasoning depends on content/context, not pure logic (→ pragmatic schemas).</p>
+
+<h4>Chase &amp; Simon — chess expertise</h4>
+<p>Briefly shown a board, masters recall piece positions far better than novices — but only for <b>real game positions</b>, not <b>random</b> ones. <b>Shows:</b> expertise is organised knowledge (chunks), not superior raw memory.</p>
+
+<h4>Bartlett — War of the Ghosts</h4>
+<p>English participants repeatedly recall an unfamiliar Native American tale; recall shortens and distorts toward their own cultural schemas (unfamiliar elements dropped/rationalised). <b>Shows:</b> memory is reconstructive and schema-driven.</p>
+
+<!-- ★ GLOSSARY -->
+<h2 id="glossary" class="sec">★ Fast glossary (A–Z)</h2>
+<p style="font-size:13.5px;line-height:1.85">
+<b>Affordance</b> — Gibson: an object's directly perceived possibilities for action.<br>
+<b>Anchoring</b> — initial value biases an estimate (Tversky &amp; Kahneman).<br>
+<b>Anterograde amnesia</b> — can't form new memories after injury (H.M.).<br>
+<b>Articulatory suppression</b> — blocking rehearsal ("the the the"); abolishes word-length effect.<br>
+<b>Attenuation</b> — Treisman: unattended channel turned down, not off.<br>
+<b>Availability heuristic</b> — judge frequency by ease of recall.<br>
+<b>Base-rate neglect</b> — ignoring priors (Tom W.).<br>
+<b>Belief bias</b> — judging validity by conclusion believability (Evans).<br>
+<b>Bottom-up</b> — data/stimulus-driven processing.<br>
+<b>Bounded rationality</b> — Simon: satisfice, not optimise.<br>
+<b>Change blindness</b> — missing changes across a disruption (Rensink).<br>
+<b>Chunking</b> — grouping items to expand STM (Miller).<br>
+<b>Cognitive economy</b> — store a property once at the highest node (Collins &amp; Quillian).<br>
+<b>Cohort model</b> — Marslen-Wilson: onset activates candidates, narrow to uniqueness point.<br>
+<b>Confirmation bias</b> — seeking confirming, not falsifying, evidence (2-4-6 task).<br>
+<b>Conjunction fallacy</b> — A&amp;B judged more probable than A (Linda).<br>
+<b>Connectionism / PDP</b> — distributed, parallel networks that learn weights.<br>
+<b>Consolidation</b> — stabilising of a new memory over time.<br>
+<b>Constructivist perception</b> — Gregory: top-down, hypothesis-driven.<br>
+<b>Context-dependent memory</b> — recall better when environment matches encoding (divers).<br>
+<b>Controlled processing</b> — slow, serial, effortful (vs automatic).<br>
+<b>Declarative memory</b> — explicit "knowing that" (facts/events).<br>
+<b>Deep structure</b> — Chomsky: underlying meaning of a sentence.<br>
+<b>Direct perception</b> — Gibson: bottom-up, optic array.<br>
+<b>Double dissociation</b> — opposite sparing in two patients → two systems.<br>
+<b>Echoic memory</b> — auditory sensory store (~2–4 s).<br>
+<b>Encoding specificity</b> — recall best when cues match encoding (Tulving &amp; Thomson).<br>
+<b>Episodic buffer</b> — Baddeley: multimodal binding store + LTM link.<br>
+<b>Episodic memory</b> — events tied to time/place (Tulving).<br>
+<b>ERP</b> — event-related potential; great temporal resolution.<br>
+<b>Exemplar theory</b> — categorise by stored instances (Medin &amp; Schaffer).<br>
+<b>FFA</b> — fusiform face area; damage → prosopagnosia.<br>
+<b>Feature Integration Theory</b> — Treisman: attention binds features into objects.<br>
+<b>Flashbulb memory</b> — vivid, confident, not actually accurate (Brown &amp; Kulik).<br>
+<b>Forgetting curve</b> — steep then flat loss (Ebbinghaus).<br>
+<b>Framing effect</b> — wording (save vs die) flips choice (Asian disease).<br>
+<b>Functional fixedness</b> — fixed on usual use of an object (Duncker, candle).<br>
+<b>Garden-path</b> — initial parse must be revised (Frazier).<br>
+<b>Geons</b> — Biederman's ~36 volumetric primitives.<br>
+<b>Gestalt laws</b> — proximity, similarity, closure, continuity, common fate, Prägnanz.<br>
+<b>Heuristic</b> — fast, usually-good mental shortcut.<br>
+<b>Iconic memory</b> — visual sensory store (~½ s; Sperling).<br>
+<b>Illusory conjunction</b> — wrongly combining features without attention.<br>
+<b>Inattentional blindness</b> — missing the unexpected (gorilla; Simons &amp; Chabris).<br>
+<b>Insight</b> — sudden restructuring "aha" (Gestalt/Köhler).<br>
+<b>Interference</b> — proactive (old→new) / retroactive (new→old).<br>
+<b>LAD</b> — language acquisition device; innate grammar (Chomsky).<br>
+<b>Late selection</b> — meaning fully processed, select at response (Deutsch-Norman).<br>
+<b>Levels of processing</b> — depth, not duration, drives memory (Craik &amp; Lockhart).<br>
+<b>Lexical route</b> — whole-word reading; lost in surface dyslexia.<br>
+<b>Loss aversion</b> — losses loom larger than gains (prospect theory).<br>
+<b>Means-ends analysis</b> — reduce gap to goal via subgoals (Newell &amp; Simon).<br>
+<b>Mental models</b> — reason by simulating possibilities (Johnson-Laird).<br>
+<b>Mental set / Einstellung</b> — over-applying an old strategy (Luchins).<br>
+<b>Metacognition</b> — thinking about one's own thinking (Flavell).<br>
+<b>Minimal attachment</b> — build the simplest parse tree (Frazier).<br>
+<b>Misinformation effect</b> — post-event info rewrites memory (Loftus).<br>
+<b>Modularity</b> — separable, domain-specific cognitive modules (Fodor).<br>
+<b>Multi-store model</b> — sensory → STM → LTM (Atkinson &amp; Shiffrin).<br>
+<b>Phonological loop</b> — verbal store + rehearsal (inner ear/voice).<br>
+<b>Phonological similarity effect</b> — similar-sounding lists recalled worse.<br>
+<b>PIN</b> — person identity node (Bruce &amp; Young).<br>
+<b>Pop-out</b> — single-feature target found in parallel (flat search slope).<br>
+<b>Pragmatic reasoning schema</b> — permission/obligation rules (Cheng &amp; Holyoak).<br>
+<b>Primacy / recency</b> — best recall of first (LTM) / last (STM) items.<br>
+<b>Procedural memory</b> — implicit "knowing how" (skills).<br>
+<b>Prospect theory</b> — reference-dependent, loss-averse value (Kahneman &amp; Tversky).<br>
+<b>Prospective memory</b> — remembering to act later (event- vs time-based).<br>
+<b>Prosopagnosia</b> — selective face-recognition loss.<br>
+<b>Prototype</b> — abstracted best example of a category (Rosch).<br>
+<b>Recognition-by-components</b> — object recognition via geons (Biederman).<br>
+<b>Representativeness</b> — judge by resemblance to stereotype.<br>
+<b>Retrograde amnesia</b> — loss of memories from before injury.<br>
+<b>Satisficing</b> — choosing "good enough" (Simon).<br>
+<b>Savings method</b> — relearning speed-up measures retention (Ebbinghaus).<br>
+<b>Schema / script</b> — organised knowledge / event sequence (Bartlett; Schank &amp; Abelson).<br>
+<b>Serial-position curve</b> — primacy + recency in free recall.<br>
+<b>Spreading activation</b> — activation flows along a relatedness web (Collins &amp; Loftus).<br>
+<b>Spotlight / zoom-lens</b> — movable, resizable focus of attention (Posner; Eriksen).<br>
+<b>Stroop effect</b> — automatic word-reading intrudes on colour naming.<br>
+<b>Surface structure</b> — actual words/syntax of a sentence (Chomsky).<br>
+<b>System 1 / 2</b> — fast intuitive vs slow analytic thinking.<br>
+<b>Template theory</b> — match input to whole stored pattern (fails on variation).<br>
+<b>TMS</b> — transient "virtual lesion"; tests necessity.<br>
+<b>Top-down</b> — concept/expectation-driven processing.<br>
+<b>TOT</b> — tip-of-the-tongue; accessible-but-not-retrieved.<br>
+<b>Two visual streams</b> — ventral "what" / dorsal "where-how" (Milner &amp; Goodale).<br>
+<b>Universal Grammar</b> — innate grammatical principles (Chomsky).<br>
+<b>Weapon focus</b> — a weapon narrows attention, worsening other recall.<br>
+<b>Word-length effect</b> — longer words → smaller span (phonological loop).<br>
+<b>Working memory</b> — active multi-component STM (Baddeley &amp; Hitch).
+</p>
+
+<!-- ★ SELF-TEST -->
+<h2 id="selftest" class="sec">★ Self-test (active recall)</h2>
+<p>Cover the rest of the page and answer aloud. If you can't, reread that section.</p>
+<h4>1. Approaches</h4>
+<p>What logic lets neuropsychology claim two abilities are separate systems? Which method tells you <i>when</i> (not where) something happens? Which establishes that a region is <i>necessary</i>? Name two hallmarks of PDP.</p>
+<h4>2. Perception</h4>
+<p>How does Gregory explain illusions and how does that differ from Gibson? Name Marr's three stages in order. What did patient DF show about the two visual streams?</p>
+<h4>3. Recognition</h4>
+<p>Why does template theory fail? What are geons and why do they give view-invariance? Put the Bruce &amp; Young stages in order — and why can you have familiarity without a name but never a name without familiarity?</p>
+<h4>4. Attention</h4>
+<p>What dichotic-listening finding sinks strict Broadbent and fits Treisman? In FIT, what are illusory conjunctions evidence of? What's the difference between pop-out and serial search?</p>
+<h4>5. STM &amp; WM</h4>
+<p>What does the serial-position curve show, and how do you dissociate its two ends? Name the three classic phonological-loop effects. What does articulatory suppression abolish?</p>
+<h4>6. LTM</h4>
+<p>Distinguish episodic from semantic, and declarative from procedural. State encoding specificity in one line. What exactly did H.M. lose and retain?</p>
+<h4>7. Forgetting</h4>
+<p>Proactive vs retroactive interference — which direction is which? What did the Loftus &amp; Palmer verb manipulation show? Why is time-based prospective memory harder?</p>
+<h4>8. Knowledge</h4>
+<p>Prototype vs exemplar in one line each. What does sentence-verification time predict in Collins &amp; Quillian, and what breaks that prediction? What is semantic priming evidence for?</p>
+<h4>9. Language</h4>
+<p>Strong vs weak Sapir-Whorf — which survives? Map surface vs phonological dyslexia onto Coltheart's two routes. Broca vs Wernicke: fluency, comprehension, lesion site for each?</p>
+<h4>10. Problem solving</h4>
+<p>Functional fixedness vs mental set — give the classic task for each. What is means-ends analysis? Why do chess masters beat novices only on real boards?</p>
+<h4>11. Judgement</h4>
+<p>Which heuristic drives the Linda and Tom W. problems? State loss aversion and the shape of the value function. What flips choice in the Asian disease problem?</p>
+<h4>12. Reasoning</h4>
+<p>What's the correct answer to the abstract selection task, and what makes people get it right? What bias does the 2-4-6 task expose? State the core prediction of mental-models theory.</p>
+
+<div class="hy-banner" style="margin-top:28px;"><b>That's the cognitive syllabus at full depth, Eysenck &amp; Keane in book order.</b> Method: read the prose to learn each model's claim + key study, use the tables to self-quiz (cover author / cover claim), drill every red trap box as a pair, and finish on the self-test. The type sweeps: <a href="../effects/">Effects</a>, <a href="../phenomena/">Phenomena</a>, <a href="../theories/">Theories</a>, <a href="../theorists/">Theorists</a>, <a href="../differentiators/">Lookalikes</a>.</div>
+
+<footer>Sihan MET 2026 + NIMHANS prep · /notes/cognitive/ · from Eysenck &amp; Keane, Cognitive Psychology: A Student's Handbook · rebuilt to full depth 2026-05-29</footer>
 </div>
 <script>
 /* PWA:met-prep */
