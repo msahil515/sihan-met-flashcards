@@ -709,6 +709,18 @@ const AREAS = [
 // Mock metadata — NIMHANS-pattern papers (+1 / −0.25) first.
 const MOCKS = [
   {
+    id: "diagnostic-1",
+    title: "Gap Diagnostic — Common-Section Focus",
+    path: "quiz/diagnostic-1/",
+    total: 60,
+    storageKey: "diagnostic-1-results-v1",
+    scoring: { plus: 1, minus: 0.25 },
+    sections: { common: 44, mphil: 8, ugcnet: 8 },
+    meta: "60 Q weighted into the common section (the 18-point leak) · sit it as a diagnostic, your misses compile into a 'final study material' sheet on the page · revise that, nothing else",
+    fresh: true,
+    nimhans: true
+  },
+  {
     id: "pyq-real-2025",
     title: "Real PYQ Mock — NIMHANS 2025",
     path: "quiz/pyq-real-2025/",
@@ -853,6 +865,7 @@ const RESOURCES = [
 ];
 
 const NEWS = [
+  { date: "2026-05-29", title: "Gap Diagnostic — your misses become your study material (NEW)", desc: "Not another paper to grind. This 60-question test is a diagnostic, weighted hard into the common section (44 of 60) because that's where the 18 points between you and 90 are leaking, not the two specific sections you already max. Sit it once. When you finish, the page compiles a 'final study material' sheet built ONLY from what you missed (wrong, guessed, or skipped), grouped by topic with the weakest first, and a full revision block under each. That sheet is your whole revision list, nothing else to wade through. +1 / −0.25, practice or timed exam mode, 'Copy study sheet' button to save it.", href: "quiz/diagnostic-1/" },
   { date: "2026-05-29", title: "Real PYQ Mock — NIMHANS 2025 (NEW)", desc: "The NIMHANS M.Phil Clinical Psychology 2025 memory-based paper, built straight from the real questions: every stem and all four options are verbatim, every answer is the paper's official key, nothing synthesised. 59 questions after dropping ones that repeated the 2024 mock or PYQ Mock 2, so it's a genuinely fresh set. Timed exam mode (no answers until you finish, flag and jump around), scored live +1 / −0.25. Heavy on therapy (14), biostats (13), biopsych (10).", href: "quiz/pyq-real-2025/" },
   { date: "2026-05-24", title: "Psych Entrance Mock 1 — UGC-NET + MPhil (NEW)", desc: "Pulled the full 120-question Mock Test 1 straight off psychologyentranceprep.com and rebuilt it natively so it runs offline (the original is a locked-in embedded Google form with no shareable link, but the questions were extractable, no screenshots needed). Three sections: 20 MPhil-specific, 20 UGC-NET specific (Indian psychology, philosophy, Buddhism/Vedanta, gunas, Upanishads), 80 common to both NET and MPhil clinical. Every Q has a worked explanation. Scored +1 / −0.25, target 90+/120. Both real mocks (1 and 2) are now in the app.", href: "quiz/pep-mock-1/" },
   { date: "2026-05-24", title: "Practice by area (NEW)", desc: "A proper untimed drill mode, the one thing the mocks didn't give you. Pick one of the 9 syllabus areas, then narrow to a single topic (e.g. just Reliability, or just Attachment), and work through it question by question. Answer and you see right away whether you're right plus the rule behind it, no marks lost. Progress per area saves on this browser, and the dashboard area cards now have a 'drill this area' shortcut. Open it from Practice in the top nav. ~100 questions across all 9 areas to start, more to come.", href: "quiz/practice/" },
@@ -1134,7 +1147,7 @@ window.addEventListener("storage", refresh);
 
 document.getElementById("resetBtn").addEventListener("click", () => {
   if (!confirm("Wipe all local mock progress from this browser? This cannot be undone.")) return;
-  const prefixes = ["met-mock-1-", "met-mock-2-", "met-mock-3-", "met-mock-4-", "met-mock-5-", "bio-testing-paper-", "nimhans-mock-1-", "pyq-mock-2-", "pyq-real-2024-", "pyq-real-2025-", "sihan-met-quiz-"];
+  const prefixes = ["met-mock-1-", "met-mock-2-", "met-mock-3-", "met-mock-4-", "met-mock-5-", "bio-testing-paper-", "nimhans-mock-1-", "pyq-mock-2-", "pyq-real-2024-", "pyq-real-2025-", "diagnostic-1-", "sihan-met-quiz-"];
   for (let i = localStorage.length - 1; i >= 0; i--) {
     const k = localStorage.key(i);
     if (prefixes.some(p => k.startsWith(p))) localStorage.removeItem(k);

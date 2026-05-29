@@ -512,6 +512,27 @@ const MOCKS = [
     companion: null
   },
   {
+    id: "diagnostic-1",
+    title: "Gap Diagnostic — Common-Section Focus",
+    short: "Gap Diagnostic",
+    path: "../../quiz/diagnostic-1/",
+    storageResults: "diagnostic-1-results-v1",
+    storageNotes: "diagnostic-1-notes-v1",
+    total: 60,
+    max: 60,
+    scoring: (right, wrong) => right - wrong * 0.25,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
+    sections: { common: 44, mphil: 8, ugcnet: 8 },
+    bands: [
+      { min: 50, max: 60, name: "Common section solid", cls: "good", desc: "The leak is plugged. Your misses below are few — clear them and the 90 is yours." },
+      { min: 42, max: 49.99, name: "Closing the gap", cls: "warn", desc: "Common section improving. Revise the gap sheet on the test page, weakest topic first." },
+      { min: 34, max: 41.99, name: "Gap still open", cls: "warn", desc: "Most of the 18-point leak is here. The study sheet is your whole revision list — work it, then re-sit." },
+      { min: -100, max: 33.99, name: "Diagnostic baseline", cls: "bad", desc: "First sitting. Don't panic at the score — the point is the gap map. Revise the sheet and re-attempt." }
+    ],
+    cutoff: 50, cutoffLabel: "common-section target ~50/60",
+    companion: null
+  },
+  {
     id: "pyq-real-2025",
     title: "Real PYQ Mock — NIMHANS 2025 (memory-based)",
     short: "PYQ Real 2025",

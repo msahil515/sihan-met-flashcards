@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0d1117">
+<title>Gap Diagnostic — Common-Section Focus (60 Q)</title>
+<style>
+  :root {
+    --bg: #0d1117; --panel: #161b22; --panel-2: #1f252d; --border: #30363d;
+    --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff; --accent-dim: #1f6feb;
+    --good: #3fb950; --bad: #f85149; --warn: #f0b429;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Text', sans-serif; line-height: 1.5; }
+  .app { max-width: min(1200px, 94vw); margin: 0 auto; padding: 16px; min-height: 100vh; }
+  nav { display: flex; gap: 8px; margin-bottom: 16px; font-size: 13px; flex-wrap: wrap; }
+  nav a { color: var(--accent); text-decoration: none; padding: 6px 10px;
+    border: 1px solid var(--accent-dim); border-radius: 6px; }
+  header { text-align: center; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  h1 { font-size: 18px; margin: 0 0 4px 0; font-weight: 600; letter-spacing: 0.5px; }
+  .subtitle { font-size: 12px; color: var(--muted); }
+  .blueprint { font-size: 11px; color: var(--accent); margin-top: 6px; }
+  .filters { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; margin-bottom: 16px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .filters label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  select { background: var(--panel-2); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 10px; font-size: 14px; font-family: inherit; flex: 1; min-width: 140px;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%238b949e' d='M2 4l4 4 4-4z'/></svg>");
+    background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+  .progress { font-size: 12px; color: var(--muted); text-align: center; margin-bottom: 10px; }
+  .progress-bar { height: 4px; background: var(--panel); border-radius: 2px; overflow: hidden; margin-bottom: 16px; }
+  .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s ease; }
+  .question-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px; margin-bottom: 12px; }
+  .section-tag { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--accent); background: rgba(88, 166, 255, 0.08); padding: 3px 8px; border-radius: 4px; margin-bottom: 10px; }
+  .question-text { font-size: 16px; line-height: 1.5; margin-bottom: 14px; white-space: pre-wrap; }
+  .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+  .option { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; font-size: 15px; cursor: pointer; transition: all 0.15s ease; display: flex; gap: 10px; align-items: flex-start; }
+  .option:hover:not(.disabled) { border-color: var(--accent-dim); background: rgba(31, 111, 235, 0.05); }
+  .option.selected { border-color: var(--accent); background: rgba(88, 166, 255, 0.08); }
+  .option.correct { border-color: var(--good); background: rgba(63, 185, 80, 0.1); }
+  .option.incorrect { border-color: var(--bad); background: rgba(248, 81, 73, 0.08); }
+  .option.disabled { cursor: default; }
+  .option-letter { font-weight: 600; color: var(--accent); flex-shrink: 0; width: 20px; }
+  .option.correct .option-letter { color: var(--good); }
+  .option.incorrect .option-letter { color: var(--bad); }
+  .guess-row { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 12px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+    font-size: 14px; cursor: pointer; user-select: none; }
+  .guess-row.checked { border-color: var(--warn); background: rgba(240, 180, 41, 0.06); }
+  .guess-checkbox { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 4px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.1s ease; }
+  .guess-row.checked .guess-checkbox { border-color: var(--warn); background: var(--warn); }
+  .guess-row.checked .guess-checkbox::after { content: "✓"; color: var(--bg); font-weight: 800; font-size: 14px; }
+  .guess-label { flex: 1; }
+  .guess-label small { display: block; color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .controls { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  button { background: var(--panel); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px; font-size: 14px; font-family: inherit; cursor: pointer;
+    transition: all 0.15s ease; font-weight: 500; }
+  button:hover:not(:disabled) { background: var(--panel-2); border-color: var(--accent-dim); }
+  button:active:not(:disabled) { transform: scale(0.98); }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-primary { border-color: var(--accent-dim); color: var(--accent); }
+  .btn-primary:hover:not(:disabled) { background: rgba(88, 166, 255, 0.08); }
+  .explanation { background: var(--panel-2); border-left: 3px solid var(--accent); border-radius: 6px;
+    padding: 12px 14px; margin-top: 14px; font-size: 14px; color: var(--text); display: none; }
+  .explanation.visible { display: block; }
+  .explanation strong { color: var(--accent); }
+  .notes-area { margin-top: 14px; border-top: 1px dashed var(--border); padding-top: 12px; }
+  .notes-label { display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .notes-saved { font-size: 11px; color: var(--good); opacity: 0; transition: opacity 0.2s ease;
+    text-transform: none; letter-spacing: 0; }
+  .notes-saved.visible { opacity: 1; }
+  .notes-textarea { width: 100%; min-height: 70px; background: var(--panel-2); color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-family: inherit;
+    font-size: 14px; line-height: 1.45; resize: vertical; box-sizing: border-box; }
+  .notes-textarea:focus { outline: none; border-color: var(--accent-dim); background: rgba(31, 111, 235, 0.04); }
+  .notes-textarea::placeholder { color: var(--muted); }
+  .has-note .section-tag::after { content: " · 📝 noted"; color: var(--good); font-weight: 500; }
+  .resume-banner { background: rgba(63, 185, 80, 0.08); border: 1px solid var(--good); border-radius: 8px;
+    padding: 10px 14px; margin-bottom: 12px; font-size: 13px; color: var(--text);
+    display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .resume-banner button { flex: 0 0 auto; padding: 6px 12px; font-size: 12px; }
+  .backup-area { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px; margin-top: 16px; }
+  .backup-area h3 { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .backup-note { font-size: 12px; color: var(--muted); margin: 0 0 10px 0; }
+  .backup-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .analysis-cta { background: linear-gradient(135deg, rgba(63,185,80,0.10), rgba(63,185,80,0.04));
+    border: 1px solid rgba(63,185,80,0.5); border-radius: 8px;
+    padding: 16px; margin-top: 20px; }
+  .analysis-cta h3 { font-size: 13px; color: var(--good); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .analysis-note { font-size: 13px; color: var(--muted); margin: 0 0 12px 0; line-height: 1.55; }
+  .analysis-btn { display: block; width: 100%; box-sizing: border-box; text-align: center;
+    background: rgba(63,185,80,0.18); color: var(--good); border: 1px solid var(--good);
+    border-radius: 8px; padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer;
+    text-decoration: none; transition: background 0.15s ease; }
+  .analysis-btn:hover { background: rgba(63,185,80,0.32); }
+  .export-area { background: var(--panel); border: 1px solid var(--accent); border-radius: 8px;
+    padding: 14px; margin-top: 16px; }
+  .export-area h3 { font-size: 13px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .export-note { font-size: 12px; color: var(--muted); margin: 0 0 10px 0; }
+  .export-btn { width: 100%; background: var(--accent-dim); color: white; border: 1px solid var(--accent);
+    border-radius: 8px; padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer; }
+  .export-btn:hover:not(:disabled) { background: var(--accent); }
+  .stats { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; margin-top: 16px; font-size: 13px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; }
+  .stat-item { padding: 4px; }
+  .stat-num { font-size: 20px; font-weight: 600; display: block; margin-bottom: 2px; }
+  .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-confident-right { color: var(--good); }
+  .stat-guessed-right { color: var(--warn); }
+  .stat-wrong { color: var(--bad); }
+  .stat-skipped { color: var(--muted); }
+  .scoreboard { background: var(--panel); border: 1px solid var(--accent-dim); border-radius: 8px;
+    padding: 12px; margin-top: 16px; text-align: center; font-size: 14px; }
+  .scoreboard .big { font-size: 28px; font-weight: 700; color: var(--accent); display: block; }
+  .scoreboard small { color: var(--muted); }
+  .review-area { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--muted); }
+  .review-area h3 { font-size: 14px; margin: 0 0 8px 0; color: var(--text); }
+  .review-list { list-style: none; padding: 0; margin: 0; }
+  .review-list li { padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .review-list li:last-child { border-bottom: none; }
+  .review-tag { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 3px;
+    margin-right: 6px; font-weight: 600; }
+  .review-tag.guessed { background: rgba(240, 180, 41, 0.15); color: var(--warn); }
+  .review-tag.wrong { background: rgba(248, 81, 73, 0.15); color: var(--bad); }
+  .review-tag.flagged { background: rgba(240, 180, 41, 0.15); color: var(--warn); }
+  .review-list li.review-clickable { cursor: pointer; }
+  .review-list li.review-clickable:hover { background: rgba(88,166,255,0.05); }
+  .review-q { color: var(--text); display: block; margin: 3px 0; }
+  .review-ans { font-size: 12px; color: var(--muted); display: block; }
+  .review-ans .rv-picked { color: var(--bad); font-weight: 600; }
+  .review-ans .rv-correct { color: var(--good); font-weight: 600; }
+  .review-rule { font-size: 12px; color: var(--muted); display: block; margin-top: 2px; font-style: italic; }
+  .reset-btn { margin-top: 12px; width: 100%; color: var(--muted); font-size: 12px; }
+  .section-scores { margin-top: 16px; background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px; }
+  .section-scores h3 { font-size: 13px; margin: 0 0 10px 0; color: var(--text); text-transform: uppercase; letter-spacing: 0.5px; }
+  /* ---- Final study material (misses → revision sheet) ---- */
+  .study-material { margin-top: 16px; background: var(--panel); border: 1px solid var(--accent-dim);
+    border-radius: 12px; padding: 16px; }
+  .study-material > h3 { font-size: 15px; margin: 0 0 4px 0; color: var(--accent); }
+  .study-material > h3 #smCount { font-size: 12px; color: var(--muted); font-weight: 400; }
+  .sm-note { font-size: 12px; color: var(--muted); margin: 0 0 12px 0; }
+  .sm-controls { margin-bottom: 12px; }
+  .sm-topic { margin-top: 14px; }
+  .sm-topic-head { display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.6px;
+    border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-bottom: 10px; }
+  .sm-topic-head .sm-gapn { color: var(--warn); font-weight: 600; }
+  .sm-card { background: var(--panel-2); border: 1px solid var(--border); border-left: 3px solid var(--warn);
+    border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; }
+  .sm-q { font-size: 14px; font-weight: 600; line-height: 1.45; margin-bottom: 7px; }
+  .sm-tag { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    padding: 2px 7px; border-radius: 4px; margin-right: 8px; vertical-align: middle; font-weight: 700; }
+  .sm-tag.wrong { background: rgba(248,81,73,0.12); color: var(--bad); }
+  .sm-tag.guessed { background: rgba(240,180,41,0.12); color: var(--warn); }
+  .sm-tag.skipped { background: rgba(139,148,158,0.16); color: var(--muted); }
+  .sm-ans { font-size: 13px; margin-bottom: 8px; color: var(--muted); }
+  .sm-ans b { color: var(--good); }
+  .sm-study { font-size: 13.5px; line-height: 1.6; color: var(--text); }
+  .sm-empty { font-size: 14px; color: var(--good); padding: 8px 0; }
+  .section-score-row { display: flex; align-items: center; gap: 10px; padding: 6px 0;
+    font-size: 13px; border-bottom: 1px solid var(--border); }
+  .section-score-row:last-child { border-bottom: none; }
+  .section-score-name { flex: 0 0 130px; color: var(--muted); font-size: 12px; }
+  .section-score-bar { flex: 1; height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; display: flex; }
+  .section-score-bar > span { display: block; height: 100%; }
+  .ssr-right { background: var(--good); }
+  .ssr-guessed { background: var(--warn); }
+  .ssr-wrong { background: var(--bad); }
+  .ssr-skipped { background: transparent; }
+  .section-score-num { flex: 0 0 90px; text-align: right; color: var(--text);
+    font-size: 12px; font-variant-numeric: tabular-nums; }
+  @media (max-width: 400px) {
+    .section-score-name { flex-basis: 100px; font-size: 11px; }
+    .section-score-num { flex-basis: 70px; font-size: 11px; }
+    .question-text { font-size: 15px; }
+    .option { font-size: 14px; padding: 10px; }
+    .controls { grid-template-columns: 1fr 1fr; }
+  }
+  /* ---- mode toggle ---- */
+  .mode-toggle { display: flex; gap: 0; background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 4px; margin-bottom: 12px; }
+  .mode-btn { flex: 1; background: transparent; border: 0; border-radius: 6px; padding: 10px;
+    font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; }
+  .mode-btn.active { background: var(--accent-dim); color: #fff; }
+  .mode-hint { font-size: 11px; color: var(--muted); text-align: center; margin: -4px 0 14px 0; }
+  /* ---- exam bar / timer ---- */
+  .exam-bar { position: sticky; top: 0; z-index: 50; background: var(--panel);
+    border: 1px solid var(--accent-dim); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35); }
+  .exam-timer { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--accent); letter-spacing: 1px; }
+  .exam-timer.warn { color: var(--warn); }
+  .exam-timer.danger { color: var(--bad); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
+  .exam-meta { font-size: 11px; color: var(--muted); }
+  .exam-finish-btn { flex: 0 0 auto; background: rgba(63,185,80,0.18); color: var(--good);
+    border: 1px solid var(--good); border-radius: 8px; padding: 9px 14px; font-size: 13px; font-weight: 600; }
+  .exam-finish-btn:hover { background: rgba(63,185,80,0.32); }
+  .exam-intro { background: var(--panel); border: 1px solid var(--accent-dim); border-radius: 10px;
+    padding: 16px; margin-bottom: 14px; }
+  .exam-intro h3 { margin: 0 0 6px 0; font-size: 14px; color: var(--accent); }
+  .exam-intro p { margin: 0 0 12px 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .exam-start-btn { width: 100%; background: var(--accent-dim); color: #fff; border: 1px solid var(--accent);
+    border-radius: 8px; padding: 13px; font-size: 15px; font-weight: 600; }
+  /* ---- flag + secondary controls ---- */
+  .secondary-controls { display: flex; gap: 8px; margin-top: 8px; }
+  .flag-btn { flex: 1; font-size: 13px; }
+  .flag-btn.flagged { border-color: var(--warn); color: var(--warn); background: rgba(240,180,41,0.08); }
+  .has-flag .section-tag::before { content: "🚩 "; }
+  /* ---- redo bar ---- */
+  .redo-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .redo-btn { flex: 1; min-width: 130px; font-size: 13px; }
+  .redo-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(88,166,255,0.08); }
+  .redo-clear { flex: 0 0 auto; color: var(--muted); font-size: 12px; }
+  /* ---- exam question navigator ---- */
+  .nav-grid-wrap { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; margin-bottom: 14px; }
+  .nav-grid-wrap h3 { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .nav-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(30px, 1fr)); gap: 5px; }
+  .nav-cell { aspect-ratio: 1; border: 1px solid var(--border); border-radius: 5px; background: var(--panel-2);
+    color: var(--muted); font-size: 11px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .nav-cell.answered { background: rgba(88,166,255,0.18); color: var(--accent); border-color: var(--accent-dim); }
+  .nav-cell.flagged { border-color: var(--warn); box-shadow: inset 0 0 0 1px var(--warn); }
+  .nav-cell.current { outline: 2px solid var(--accent); outline-offset: 1px; color: #fff; }
+  .nav-cell.correct { background: rgba(63,185,80,0.2); color: var(--good); border-color: var(--good); }
+  .nav-cell.wrong { background: rgba(248,81,73,0.2); color: var(--bad); border-color: var(--bad); }
+  /* ---- attempt history ---- */
+  .attempt-history { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px; margin-top: 16px; }
+  .attempt-history h3 { font-size: 13px; margin: 0 0 4px 0; color: var(--text); text-transform: uppercase; letter-spacing: 0.5px; }
+  .attempt-history .ah-note { font-size: 12px; color: var(--muted); margin: 0 0 12px 0; }
+  .ah-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .ah-row:last-child { border-bottom: none; }
+  .ah-when { flex: 0 0 92px; color: var(--muted); font-size: 11px; }
+  .ah-track { flex: 1; height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; }
+  .ah-fill { height: 100%; background: var(--accent); }
+  .ah-fill.up { background: var(--good); }
+  .ah-fill.down { background: var(--bad); }
+  .ah-score { flex: 0 0 96px; text-align: right; font-variant-numeric: tabular-nums; }
+  .ah-delta { font-size: 11px; margin-left: 6px; }
+  .ah-delta.up { color: var(--good); } .ah-delta.down { color: var(--bad); }
+  .ah-empty { font-size: 12px; color: var(--muted); }
+  footer { text-align: center; font-size: 10px; color: var(--muted); padding: 24px 0 8px 0; }
+</style>
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+</head>
+<body>
+<div class="app">
+  <nav><a href="../../">← Dashboard</a> <a href="../../tests/">Tests</a> <a href="../../results/">My Results</a> <a href="../../notes/">Notes</a> <a href="../../plan/">Plan</a></nav>
+  <header>
+    <h1>Gap Diagnostic — Common-Section Focus (60 Q)</h1>
+    <div class="subtitle">60 questions · diagnostic · +1 right / −0.25 wrong · common-section weighted · your misses become your study material</div>
+    <div class="blueprint">Common 44 · MPhil-Specific 8 · UGC-NET Specific 8 — weighted into the common section where the 18 points are leaking</div>
+  </header>
+
+  <div class="filters">
+    <label for="sectionSelect">Section</label>
+    <select id="sectionSelect">
+      <option value="all">All 60 questions</option>
+      <option value="mphil">MPhil-Specific (8)</option>
+      <option value="ugcnet">UGC-NET Specific (8)</option>
+      <option value="common">Common — NET + MPhil (44) ◀ the gap</option>
+    </select>
+  </div>
+
+  <div class="mode-toggle">
+    <button class="mode-btn" data-action="setMode" data-mode="practice">📚 Practice</button>
+    <button class="mode-btn" data-action="setMode" data-mode="exam">⏱️ Exam mode</button>
+  </div>
+  <div class="mode-hint" id="modeHint"></div>
+
+  <div id="examIntro" class="exam-intro" style="display:none;"></div>
+  <div id="examBar" class="exam-bar" style="display:none;"></div>
+
+  <div id="redoBar" class="redo-bar" style="display:none;"></div>
+
+  <div id="resumeBanner" class="resume-banner" style="display:none;"></div>
+
+  <div class="progress" id="progress">0 / 0</div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div id="quizArea"></div>
+
+  <div id="navGridWrap" class="nav-grid-wrap" style="display:none;">
+    <h3>Jump to question <span id="navGridLegend" style="text-transform:none;letter-spacing:0;"></span></h3>
+    <div class="nav-grid" id="navGrid"></div>
+  </div>
+
+  <div class="scoreboard" id="scoreboard"></div>
+
+  <div class="stats" id="stats">
+    <div class="stat-item"><span class="stat-num stat-confident-right" id="statRight">0</span><span class="stat-label">Right (Solid)</span></div>
+    <div class="stat-item"><span class="stat-num stat-guessed-right" id="statGuessed">0</span><span class="stat-label">Right (Guessed)</span></div>
+    <div class="stat-item"><span class="stat-num stat-wrong" id="statWrong">0</span><span class="stat-label">Wrong</span></div>
+    <div class="stat-item"><span class="stat-num stat-skipped" id="statSkipped">0</span><span class="stat-label">Skipped</span></div>
+  </div>
+
+  <div class="section-scores">
+    <h3>Per-section breakdown</h3>
+    <div id="sectionScores"></div>
+  </div>
+
+  <div class="study-material" id="studyMaterial" style="display:none;">
+    <h3>📕 Your final study material <span id="smCount"></span></h3>
+    <p class="sm-note">This is the whole point of the test. Built only from what you missed (wrong, guessed, or skipped) — weakest topic first. Revise this, nothing else.</p>
+    <div class="sm-controls"><button class="export-btn" data-action="copyStudyMaterial">Copy study sheet</button></div>
+    <div id="studyMaterialBody"></div>
+  </div>
+
+  <div class="attempt-history" id="attemptHistory">
+    <h3>📈 Attempt history</h3>
+    <p class="ah-note">Every time you finish an exam-mode run, the score lands here so you can watch it climb.</p>
+    <div id="attemptHistoryList"></div>
+  </div>
+
+  <div class="review-area" id="reviewArea" style="display:none;">
+    <h3>Things to come back to</h3>
+    <ul class="review-list" id="reviewList"></ul>
+    <button class="reset-btn" data-action="reset">Reset all stats and start over</button>
+  </div>
+
+  <div class="analysis-cta">
+    <h3>📊 Full analysis</h3>
+    <p class="analysis-note">Score + estimated band, section-wise R/W/Skip with miss-rate, top-3 weakest topics linked to the exact cheatsheets, and per-question review with every distractor flagged and explained. Reads your saved answers from this browser.</p>
+    <a class="analysis-btn" href="../../results/analysis/?mock=diagnostic-1">Open full analysis →</a>
+  </div>
+
+  <div class="export-area">
+    <h3>📤 Send results to Sahil</h3>
+    <p class="export-note">Tap to copy a readable export of your score, section breakdown, every wrong/guessed question, and your notes. Paste it to Sahil on WhatsApp for analysis.</p>
+    <button class="export-btn" data-action="exportForAnalysis">Copy results for analysis</button>
+  </div>
+
+  <div class="backup-area">
+    <h3>Backup / restore</h3>
+    <p class="backup-note">Backup Gap Diagnostic progress separately. Paste a previous code to restore.</p>
+    <div class="backup-controls">
+      <button data-action="exportProgress">Copy backup code</button>
+      <button data-action="importProgress">Restore from code</button>
+    </div>
+  </div>
+
+  <footer>Gap Diagnostic · 60 Q · common-section weighted · your misses compile into a study sheet below.</footer>
+</div>
+
+<script>
+// =====================================================================
+// QUESTION BANK — Gap Diagnostic (60 Q)
+// Blueprint: Common 44 (the gap zone) + MPhil-specific 8 + UGC-NET-specific 8. Each Q carries a `topic` + a `study` block that compiles into the final study material on finish.
+// =====================================================================
+const QUESTIONS = [
+  // ===================== COMMON (NET + MPhil core) — the gap zone =====================
+  { id: "diag_co01", section: "common", topic: "Research Methods & Statistics",
+    q: "A researcher rejects the null hypothesis when it is actually true. This is:",
+    options: { a: "A Type I (alpha) error",
+               b: "A Type II (beta) error",
+               c: "Low statistical power",
+               d: "A confounding error" },
+    correct: "a",
+    explanation: "Type I = false positive: rejecting a true null. Type II = false negative: retaining a false null.",
+    study: "Type I error (α): you reject the null when it is TRUE — a false positive. Type II error (β): you fail to reject the null when it is FALSE — a false negative. Power = 1 − β = the probability of correctly detecting a real effect. Memory hook: 'Type 1 = you saw something that wasn't there.' α is the significance level you set (usually .05); it IS the probability of a Type I error." },
+  { id: "diag_co02", section: "common", topic: "Research Methods & Statistics",
+    q: "Which test is appropriate for comparing the means of three or more independent groups?",
+    options: { a: "Independent samples t-test",
+               b: "One-way ANOVA",
+               c: "Pearson correlation",
+               d: "Chi-square test" },
+    correct: "b",
+    explanation: "ANOVA compares means across 3+ groups using the F-ratio; a t-test only handles two groups.",
+    study: "One-way ANOVA compares means of 3+ groups via the F-ratio (between-group variance / within-group variance). A t-test is limited to TWO groups. Running multiple t-tests inflates Type I error, which is exactly why ANOVA exists. A significant ANOVA tells you the groups differ somewhere; post-hoc tests (Tukey HSD, Bonferroni, Scheffé) tell you WHICH pairs differ." },
+  { id: "diag_co03", section: "common", topic: "Research Methods & Statistics",
+    q: "The non-parametric equivalent of the independent-samples t-test is the:",
+    options: { a: "Wilcoxon signed-rank test",
+               b: "Kruskal-Wallis test",
+               c: "Mann-Whitney U test",
+               d: "Friedman test" },
+    correct: "c",
+    explanation: "Mann-Whitney U = non-parametric, two independent groups. Wilcoxon signed-rank = paired/related.",
+    study: "Non-parametric map: Mann-Whitney U ↔ independent t-test (2 independent groups); Wilcoxon signed-rank ↔ paired t-test (2 related groups); Kruskal-Wallis ↔ one-way ANOVA (3+ independent groups); Friedman ↔ repeated-measures ANOVA (3+ related groups). Non-parametric tests are used when data are ordinal or assumptions of normality are violated." },
+  { id: "diag_co04", section: "common", topic: "Research Methods & Statistics",
+    q: "Cronbach's alpha is a measure of:",
+    options: { a: "Criterion validity",
+               b: "Test-retest reliability",
+               c: "Inter-rater reliability",
+               d: "Internal consistency reliability" },
+    correct: "d",
+    explanation: "Cronbach's alpha indexes internal consistency — how well items on a scale measure the same construct.",
+    study: "Cronbach's α measures INTERNAL CONSISTENCY: do the items hang together / measure one underlying construct? Range 0–1; ≥.70 is generally acceptable, ≥.80 good. Don't confuse with: test-retest reliability (stability over time, same test twice), inter-rater reliability (agreement between scorers — Cohen's kappa), and split-half reliability (correlation between two halves, often Spearman-Brown corrected). Reliability ≠ validity." },
+  { id: "diag_co05", section: "common", topic: "Research Methods & Statistics",
+    q: "A correlation coefficient of −0.85 indicates:",
+    options: { a: "A strong negative relationship",
+               b: "A weak negative relationship",
+               c: "No relationship",
+               d: "A strong positive relationship" },
+    correct: "a",
+    explanation: "Magnitude (closeness to 1) = strength; sign = direction. −0.85 is strong and negative.",
+    study: "The SIGN of r gives direction (− = as one rises the other falls); the ABSOLUTE VALUE gives strength. So −0.85 and +0.85 are equally strong, just opposite directions. Rough bands: .10 small, .30 medium, .50 large (Cohen). r² (coefficient of determination) = proportion of variance shared: −0.85 → r² = 0.72, so ~72% of variance is shared. Correlation never proves causation." },
+  { id: "diag_co06", section: "common", topic: "Research Methods & Statistics",
+    q: "Which of the following is a PROBABILITY sampling method?",
+    options: { a: "Quota sampling",
+               b: "Stratified random sampling",
+               c: "Purposive sampling",
+               d: "Snowball sampling" },
+    correct: "b",
+    explanation: "Stratified random is probability sampling (known, non-zero selection chance). Quota/snowball/purposive are non-probability.",
+    study: "PROBABILITY (random) sampling — every unit has a known, non-zero chance: simple random, systematic, stratified (divide into strata, sample randomly within each), cluster. NON-PROBABILITY: convenience, quota, purposive/judgmental, snowball. Only probability sampling supports valid statistical inference to the population. Stratified reduces sampling error when strata differ on the variable of interest." },
+  { id: "diag_co07", section: "common", topic: "Research Methods & Statistics",
+    q: "For a one-sample t-test with a sample size of 20, the degrees of freedom are:",
+    options: { a: "20",
+               b: "18",
+               c: "19",
+               d: "21" },
+    correct: "c",
+    explanation: "df = n − 1 = 19 for a one-sample t-test.",
+    study: "One-sample / paired t-test: df = n − 1. Independent t-test: df = n₁ + n₂ − 2. Chi-square goodness of fit: df = categories − 1; chi-square test of independence: df = (rows − 1)(columns − 1). Degrees of freedom = number of values free to vary; they determine which t/χ²/F distribution you compare your statistic against." },
+  { id: "diag_co08", section: "common", topic: "Psychological Assessment",
+    q: "Which of the following is a PROJECTIVE test of personality?",
+    options: { a: "16PF",
+               b: "MMPI-2",
+               c: "NEO-PI-R",
+               d: "Thematic Apperception Test (TAT)" },
+    correct: "d",
+    explanation: "TAT is projective (ambiguous cards → stories). 16PF, MMPI-2, NEO-PI-R are objective self-report inventories.",
+    study: "PROJECTIVE tests present ambiguous stimuli and assume the person 'projects' inner needs/conflicts: Rorschach (10 inkblots), TAT (Murray & Morgan, 31 cards → tell a story, taps needs/press), Sentence Completion, Draw-A-Person, CAT (children). OBJECTIVE/structured self-reports with fixed scoring: MMPI-2 (566 items, 10 clinical scales), 16PF (Cattell), NEO-PI-R (Big Five), EPQ. Projectives = low structure, qualitative, weaker psychometrics; objectives = high structure, normed." },
+  { id: "diag_co09", section: "common", topic: "Psychological Assessment",
+    q: "A T-score has a mean and standard deviation of:",
+    options: { a: "Mean 50, SD 10",
+               b: "Mean 100, SD 15",
+               c: "Mean 0, SD 1",
+               d: "Mean 500, SD 100" },
+    correct: "a",
+    explanation: "T-scores: mean 50, SD 10. (z: mean 0, SD 1; deviation IQ: mean 100, SD 15.)",
+    study: "Standard score conversions (memorize the table): z-score → mean 0, SD 1. T-score → mean 50, SD 10 (T = 50 + 10z). Deviation IQ / Wechsler → mean 100, SD 15. Stanine → mean 5, SD ~2 (1–9). Sten (16PF) → mean 5.5, SD 2 (1–10). On MMPI a T-score ≥ 65 is clinically significant. A T of 70 = z of +2 = ~98th percentile." },
+  { id: "diag_co10", section: "common", topic: "Psychological Assessment",
+    q: "The MMPI-2 contains how many clinical scales?",
+    options: { a: "4",
+               b: "10",
+               c: "16",
+               d: "13" },
+    correct: "b",
+    explanation: "MMPI-2 has 10 clinical scales plus validity scales (L, F, K, etc.).",
+    study: "MMPI-2: 567 items, 10 CLINICAL scales (Hs, D, Hy, Pd, Mf, Pa, Pt, Sc, Ma, Si) numbered 1–0, plus VALIDITY scales — L (Lie), F (Infrequency), K (Defensiveness/Correction), plus VRIN, TRIN, F-back. Originally by Hathaway & McKinley (1943), empirically/criterion keyed. T ≥ 65 (MMPI-2) is the cut for clinical elevation. The validity scales detect faking-good, faking-bad, and random responding." },
+  { id: "diag_co11", section: "common", topic: "Psychological Assessment",
+    q: "Sten scores (range 1–10) are most associated with which test?",
+    options: { a: "Wechsler scales",
+               b: "Stanford-Binet",
+               c: "Cattell's 16PF",
+               d: "Rorschach" },
+    correct: "c",
+    explanation: "Sten ('standard ten', 1–10, mean 5.5) is the scoring metric of Cattell's 16PF.",
+    study: "STEN = Standard TEN: a 10-point scale (mean 5.5, SD 2) used by Cattell's 16PF. Don't confuse with STANINE = standard NINE (1–9, mean 5, SD ~2), used in educational/aptitude testing. Wechsler uses deviation IQ (mean 100, SD 15) and subtest scaled scores (mean 10, SD 3). Knowing which metric goes with which test is a classic NET item." },
+  { id: "diag_co12", section: "common", topic: "Psychological Assessment",
+    q: "Administering the same test to the same people on two occasions and correlating the scores assesses:",
+    options: { a: "Internal consistency",
+               b: "Construct validity",
+               c: "Content validity",
+               d: "Test-retest reliability" },
+    correct: "d",
+    explanation: "Test-retest reliability = stability of scores over time (same test, two occasions).",
+    study: "Test-retest reliability = administer twice, correlate → STABILITY over time (threatened by practice/carryover effects and the retest interval). Parallel-forms reliability = two equivalent versions, correlate. Internal consistency = Cronbach's α / split-half (one administration). Inter-rater = agreement between judges (kappa). Reliability is necessary but not sufficient for validity — a test can be consistently wrong." },
+  { id: "diag_co13", section: "common", topic: "Psychopathology (DSM / ICD)",
+    q: "Loosening of associations and 'knight's move' thinking are characteristic of:",
+    options: { a: "Formal thought disorder in schizophrenia",
+               b: "Major depressive disorder",
+               c: "Obsessive-compulsive disorder",
+               d: "Specific phobia" },
+    correct: "a",
+    explanation: "Loosening of associations / knight's-move thinking = formal thought disorder, classically in schizophrenia.",
+    study: "Formal thought disorder (a disturbance of the FORM/flow of thought, seen in schizophrenia & mania): loosening of associations / derailment (ideas slip off track), knight's-move thinking (illogical jumps), tangentiality (never returns to point), circumstantiality (eventually returns), flight of ideas (rapid, connected — mania), word salad, neologisms, clang associations, thought blocking. Contrast with disorders of thought CONTENT (delusions) and POSSESSION (thought insertion/withdrawal)." },
+  { id: "diag_co14", section: "common", topic: "Psychopathology (DSM / ICD)",
+    q: "Compared with DSM-IV-TR, the DSM-5 (2013):",
+    options: { a: "Added a sixth axis",
+               b: "Abolished the multiaxial (Axis I–V) system",
+               c: "Retained the five-axis multiaxial system",
+               d: "Replaced diagnoses with ICD codes only" },
+    correct: "b",
+    explanation: "DSM-5 abolished the multiaxial system; Axes I–III merged, Axis IV → psychosocial notes, Axis V (GAF) dropped.",
+    study: "DSM-5 (2013, APA) ELIMINATED the multiaxial system. Old DSM-IV-TR axes: I clinical disorders, II personality disorders + intellectual disability, III general medical conditions, IV psychosocial/environmental stressors, V GAF (Global Assessment of Functioning, 0–100). DSM-5 combined Axes I–III into one list, notes stressors separately, and dropped the GAF (WHODAS suggested instead). It also moved to a non-Roman 'DSM-5' naming to allow incremental updates (5.1, etc.)." },
+  { id: "diag_co15", section: "common", topic: "Psychopathology (DSM / ICD)",
+    q: "Anhedonia refers to:",
+    options: { a: "Reduced need for sleep",
+               b: "Excessive fear of social situations",
+               c: "Inability to experience pleasure",
+               d: "Loss of contact with reality" },
+    correct: "c",
+    explanation: "Anhedonia = markedly diminished interest or pleasure; a core (cardinal) symptom of major depression.",
+    study: "Anhedonia = inability to feel pleasure in normally pleasurable activities — one of the two CARDINAL symptoms of a major depressive episode (the other is depressed mood); at least one must be present. Related depressive terms: avolition (lack of motivation), apathy, alogia (poverty of speech). Anhedonia also appears as a NEGATIVE symptom of schizophrenia. The reward/dopamine and the 'consummatory vs anticipatory pleasure' distinction often follow this in exams." },
+  { id: "diag_co16", section: "common", topic: "Psychopathology (DSM / ICD)",
+    q: "First-rank symptoms of schizophrenia were described by:",
+    options: { a: "Emil Kraepelin",
+               b: "Eugen Bleuler",
+               c: "Karl Jaspers",
+               d: "Kurt Schneider" },
+    correct: "d",
+    explanation: "Kurt Schneider's First-Rank Symptoms (1959). Kraepelin coined 'dementia praecox'; Bleuler coined 'schizophrenia' + the 4 A's.",
+    study: "Schizophrenia name trail: Kraepelin called it 'dementia praecox' (early, deteriorating course). Eugen BLEULER renamed it 'schizophrenia' (1908) and gave the fundamental 4 A's — Associations (loosening), Affect (blunted), Ambivalence, Autism. Kurt SCHNEIDER (1959) listed First-Rank Symptoms: audible thoughts, voices arguing/commenting, thought withdrawal/insertion/broadcasting, made feelings/impulses/acts, somatic passivity, delusional perception. ICD/DSM have since downgraded FRS as non-specific." },
+  { id: "diag_co17", section: "common", topic: "Psychopathology (DSM / ICD)",
+    q: "The minimum duration of symptoms required to diagnose schizophrenia under DSM-5 is:",
+    options: { a: "6 months",
+               b: "1 month",
+               c: "1 week",
+               d: "2 years" },
+    correct: "a",
+    explanation: "DSM-5 requires ≥6 months total (incl. prodrome/residual), with ≥1 month of active-phase symptoms. ICD = 1 month.",
+    study: "DSM-5 schizophrenia: continuous signs ≥ 6 MONTHS, including ≥1 month of active-phase (Criterion A) symptoms. Key contrast points: ICD-10/11 require only ~1 MONTH. Schizophreniform disorder = 1–6 months (DSM). Brief psychotic disorder = 1 day to <1 month. Delusional disorder = ≥1 month of delusions without other psychotic features. Duration cut-offs are heavily tested — keep DSM (6 mo) vs ICD (1 mo) straight." },
+  { id: "diag_co18", section: "common", topic: "Psychopathology (DSM / ICD)",
+    q: "Which cluster of DSM-5 personality disorders is described as 'dramatic, emotional, erratic'?",
+    options: { a: "Cluster A",
+               b: "Cluster B",
+               c: "Cluster C",
+               d: "Cluster D" },
+    correct: "b",
+    explanation: "Cluster B (Antisocial, Borderline, Histrionic, Narcissistic) = dramatic/emotional/erratic.",
+    study: "Three DSM-5 personality-disorder clusters: A — 'odd/eccentric': Paranoid, Schizoid, Schizotypal ('weird'). B — 'dramatic/emotional/erratic': Antisocial, Borderline, Histrionic, Narcissistic ('wild'). C — 'anxious/fearful': Avoidant, Dependent, Obsessive-Compulsive PD ('worried'). There is no Cluster D. Borderline (splitting, identity disturbance, fear of abandonment) is the most exam-frequent; treated with DBT." },
+  { id: "diag_co19", section: "common", topic: "Therapy & Counselling",
+    q: "Unconditional positive regard, empathy, and congruence are the core conditions described by:",
+    options: { a: "Aaron Beck",
+               b: "Albert Ellis",
+               c: "Carl Rogers",
+               d: "Fritz Perls" },
+    correct: "c",
+    explanation: "Carl Rogers' Person-Centred therapy: the three 'necessary and sufficient' conditions.",
+    study: "Carl Rogers (person-centred / client-centred therapy) named three core, 'necessary and sufficient' therapist conditions: (1) Unconditional Positive Regard — non-judgemental acceptance; (2) Empathy — accurate empathic understanding; (3) Congruence/genuineness — being real, not playing a role. Humanistic, non-directive, focuses on the actualizing tendency and the gap between self-concept and ideal self. Contrast: Beck = cognitive, Ellis = REBT, Perls = Gestalt." },
+  { id: "diag_co20", section: "common", topic: "Therapy & Counselling",
+    q: "Systematic desensitization, based on reciprocal inhibition, was developed by:",
+    options: { a: "B. F. Skinner",
+               b: "John Watson",
+               c: "Ivan Pavlov",
+               d: "Joseph Wolpe" },
+    correct: "d",
+    explanation: "Joseph Wolpe developed systematic desensitization using reciprocal inhibition (relaxation incompatible with anxiety).",
+    study: "Systematic desensitization (Joseph Wolpe, 1958) treats phobias/anxiety by three steps: (1) train deep muscle relaxation, (2) build an anxiety HIERARCHY (least → most feared), (3) pair relaxation with each step, working up. Principle = RECIPROCAL INHIBITION: you cannot be relaxed and anxious at once. It is counter-conditioning. Compare: flooding/implosion (full exposure, no hierarchy), exposure & response prevention (OCD), aversion therapy (pair undesired behaviour with aversive stimulus)." },
+  { id: "diag_co21", section: "common", topic: "Therapy & Counselling",
+    q: "The 'empty chair' technique is most associated with:",
+    options: { a: "Gestalt therapy",
+               b: "Psychoanalysis",
+               c: "Cognitive therapy",
+               d: "Behaviour therapy" },
+    correct: "a",
+    explanation: "Empty-chair / two-chair work is a hallmark of Fritz Perls' Gestalt therapy.",
+    study: "The empty-chair technique belongs to GESTALT therapy (Fritz Perls). The client speaks to an imagined person (or a part of self) in an empty chair to work through 'unfinished business' and integrate disowned parts, emphasising here-and-now awareness. Other Gestalt ideas: figure-ground, contact, the 'safe emergency', responsibility. Don't attribute it to psychodrama (Moreno uses role-play/stage) though they overlap." },
+  { id: "diag_co22", section: "common", topic: "Therapy & Counselling",
+    q: "In Ellis's REBT, the 'B' in the ABC model stands for:",
+    options: { a: "Behaviour",
+               b: "Belief",
+               c: "Baseline",
+               d: "Bias" },
+    correct: "b",
+    explanation: "ABC = Activating event → Belief (esp. irrational) → Consequence (emotional/behavioural). Ellis added D (dispute) and E (effect).",
+    study: "Albert Ellis's REBT (Rational Emotive Behaviour Therapy) ABC(DE) model: A = Activating event; B = Belief about it (rational or IRRATIONAL — the real cause of distress); C = Consequence (emotional/behavioural). Therapy adds D = Disputing irrational beliefs and E = Effective new philosophy. Core targets are 'musts/shoulds' (musturbation) and catastrophizing. Contrast with Beck's cognitive therapy: automatic thoughts, cognitive distortions, the cognitive triad, collaborative empiricism." },
+  { id: "diag_co23", section: "common", topic: "Therapy & Counselling",
+    q: "Transference and free association are central techniques of:",
+    options: { a: "Behaviour therapy",
+               b: "Person-centred therapy",
+               c: "Psychoanalytic therapy",
+               d: "Reality therapy" },
+    correct: "c",
+    explanation: "Free association, dream analysis, transference, and interpretation are core psychoanalytic (Freudian) techniques.",
+    study: "Psychoanalysis (Freud) techniques: free association (say whatever comes to mind), dream analysis (manifest vs latent content), analysis of TRANSFERENCE (client redirects feelings about significant figures onto the analyst) and COUNTER-transference (analyst's reactions), interpretation, and working through resistance. Goal: make the unconscious conscious. Contrast: behaviour therapy = conditioning; person-centred = Rogers; reality therapy = Glasser (choices/needs)." },
+  { id: "diag_co24", section: "common", topic: "Therapy & Counselling",
+    q: "Dialectical Behaviour Therapy (DBT) was developed by Marsha Linehan primarily to treat:",
+    options: { a: "Schizophrenia",
+               b: "Autism spectrum disorder",
+               c: "Specific phobias",
+               d: "Borderline personality disorder" },
+    correct: "d",
+    explanation: "Linehan developed DBT for borderline personality disorder and chronic suicidality.",
+    study: "DBT (Marsha Linehan) was built for Borderline Personality Disorder & chronic suicidal/self-harm behaviour; now also used for eating disorders and emotion dysregulation. 'Dialectic' = balancing ACCEPTANCE and CHANGE. Four skills modules: (1) Mindfulness, (2) Distress Tolerance, (3) Emotion Regulation, (4) Interpersonal Effectiveness. Modes: individual therapy, skills group, phone coaching, therapist consultation team. Rooted in CBT + Zen mindfulness." },
+  { id: "diag_co25", section: "common", topic: "Developmental Psychology",
+    q: "Object permanence, according to Piaget, first develops during the:",
+    options: { a: "Sensorimotor stage",
+               b: "Preoperational stage",
+               c: "Concrete operational stage",
+               d: "Formal operational stage" },
+    correct: "a",
+    explanation: "Object permanence (objects exist when out of sight) develops in the sensorimotor stage (0–2 yrs).",
+    study: "Piaget's stages: Sensorimotor (0–2) — develops OBJECT PERMANENCE; Preoperational (2–7) — symbolic thought, egocentrism, lacks conservation, animism, centration; Concrete Operational (7–11) — conservation, reversibility, classification, but concrete; Formal Operational (11+) — abstract & hypothetico-deductive reasoning. Key processes: assimilation, accommodation, equilibration, schema. Object permanence ~8 months (A-not-B error). Critique: underestimated infants (Baillargeon)." },
+  { id: "diag_co26", section: "common", topic: "Developmental Psychology",
+    q: "In Erikson's theory, the psychosocial crisis of adolescence is:",
+    options: { a: "Trust vs mistrust",
+               b: "Identity vs role confusion",
+               c: "Industry vs inferiority",
+               d: "Intimacy vs isolation" },
+    correct: "b",
+    explanation: "Adolescence = Identity vs Role Confusion (stage 5) in Erikson's 8 psychosocial stages.",
+    study: "Erikson's 8 psychosocial stages (crisis · virtue): 1 Trust vs Mistrust (infancy · hope), 2 Autonomy vs Shame/Doubt (will), 3 Initiative vs Guilt (purpose), 4 Industry vs Inferiority (school-age · competence), 5 IDENTITY vs Role Confusion (adolescence · fidelity), 6 Intimacy vs Isolation (young adult · love), 7 Generativity vs Stagnation (midlife · care), 8 Ego Integrity vs Despair (old age · wisdom). Marcia extended stage 5 into 4 identity statuses (diffusion, foreclosure, moratorium, achievement)." },
+  { id: "diag_co27", section: "common", topic: "Developmental Psychology",
+    q: "The 'Strange Situation' procedure for assessing attachment was devised by:",
+    options: { a: "John Bowlby",
+               b: "Harry Harlow",
+               c: "Mary Ainsworth",
+               d: "Konrad Lorenz" },
+    correct: "c",
+    explanation: "Mary Ainsworth's Strange Situation classified infant attachment patterns. Bowlby founded attachment theory.",
+    study: "Mary AINSWORTH created the Strange Situation (a lab procedure of separations/reunions) and identified attachment styles: Secure (~B), Insecure-Avoidant (A), Insecure-Resistant/Ambivalent (C); Main & Solomon later added Disorganized (D). John BOWLBY founded attachment theory (secure base, internal working models, monotropy, the 'maternal deprivation' hypothesis). Harlow = rhesus monkeys/contact comfort; Lorenz = imprinting in geese (critical period)." },
+  { id: "diag_co28", section: "common", topic: "Developmental Psychology",
+    q: "The 'Zone of Proximal Development' is a concept proposed by:",
+    options: { a: "Jean Piaget",
+               b: "Lawrence Kohlberg",
+               c: "Jerome Bruner",
+               d: "Lev Vygotsky" },
+    correct: "d",
+    explanation: "Vygotsky's ZPD = the gap between what a learner can do alone vs with guidance ('scaffolding').",
+    study: "Lev VYGOTSKY (sociocultural theory): the Zone of Proximal Development is the distance between what a child can do ALONE and what they can do with help from a 'more knowledgeable other'. Learning leads development; tools include scaffolding (Bruner's term), private/inner speech, and cultural mediation. Contrast with Piaget (development leads learning; individual constructivism). Kohlberg = moral development stages; Bruner = modes of representation (enactive, iconic, symbolic) + spiral curriculum." },
+  { id: "diag_co29", section: "common", topic: "Social Psychology",
+    q: "The tendency for individuals to be less likely to help when others are present is the:",
+    options: { a: "Bystander effect (diffusion of responsibility)",
+               b: "Social facilitation effect",
+               c: "Halo effect",
+               d: "Just-world phenomenon" },
+    correct: "a",
+    explanation: "Bystander effect: presence of others diffuses responsibility, reducing helping (Darley & Latané, after Kitty Genovese).",
+    study: "Bystander effect (Darley & Latané, prompted by the 1964 Kitty Genovese case): the more bystanders present, the LESS likely (and slower) any one person helps — via diffusion of responsibility, pluralistic ignorance (everyone looks calm, so I assume no emergency), and evaluation apprehension. Latané & Darley's 5-step decision model: notice → interpret as emergency → assume responsibility → know how to help → decide to help. Don't confuse with social facilitation (presence of others improves easy/well-learned tasks)." },
+  { id: "diag_co30", section: "common", topic: "Social Psychology",
+    q: "The theory of cognitive dissonance was proposed by:",
+    options: { a: "Stanley Milgram",
+               b: "Leon Festinger",
+               c: "Solomon Asch",
+               d: "Philip Zimbardo" },
+    correct: "b",
+    explanation: "Leon Festinger (1957): tension from holding inconsistent cognitions motivates attitude/behaviour change.",
+    study: "Cognitive dissonance (Leon Festinger, 1957): inconsistency between cognitions (or between attitude and behaviour) creates discomfort that motivates us to reduce it — by changing the attitude, adding consonant cognitions, or trivializing. Classic study: Festinger & Carlsmith ($1 vs $20 boring-task study — the $1 group changed attitudes MORE, because they had less external justification). Milgram = obedience; Asch = conformity; Zimbardo = Stanford prison experiment." },
+  { id: "diag_co31", section: "common", topic: "Social Psychology",
+    q: "Overestimating dispositional causes and underestimating situational causes of others' behaviour is the:",
+    options: { a: "Self-serving bias",
+               b: "Actor-observer bias",
+               c: "Fundamental attribution error",
+               d: "Confirmation bias" },
+    correct: "c",
+    explanation: "Fundamental attribution error (Ross): over-attribute others' behaviour to personality, under-weight the situation.",
+    study: "Fundamental Attribution Error (correspondence bias; term by Lee Ross): when judging OTHERS we over-credit internal disposition ('he's lazy') and ignore the situation. Related: Actor-Observer Bias — we explain OUR OWN behaviour situationally but others' dispositionally. Self-Serving Bias — credit our successes to ability, blame failures on circumstances. Just-world hypothesis — people get what they deserve. These attribution biases (Heider, Kelley's covariation model) are NET staples." },
+  { id: "diag_co32", section: "common", topic: "Social Psychology",
+    q: "The classic line-judgment experiments demonstrating conformity to group pressure were conducted by:",
+    options: { a: "Stanley Milgram",
+               b: "Philip Zimbardo",
+               c: "Muzafer Sherif",
+               d: "Solomon Asch" },
+    correct: "d",
+    explanation: "Solomon Asch's line-judgment studies showed conformity to a unanimous but wrong majority.",
+    study: "Solomon ASCH (1950s) line-judgment studies: participants conformed to a clearly wrong unanimous majority ~37% of trials; ~75% conformed at least once. Conformity drops sharply if even one ally dissents. Sherif's autokinetic-effect study showed norm formation (informational influence) on an ambiguous task. Milgram = obedience to authority (shock study). Two influence types: NORMATIVE (fit in / be liked) vs INFORMATIONAL (be right when uncertain)." },
+  { id: "diag_co33", section: "common", topic: "Biopsychology",
+    q: "Parkinson's disease is primarily associated with a deficiency of which neurotransmitter?",
+    options: { a: "Dopamine",
+               b: "Serotonin",
+               c: "Acetylcholine",
+               d: "GABA" },
+    correct: "a",
+    explanation: "Parkinson's = loss of dopaminergic neurons in the substantia nigra (nigrostriatal pathway).",
+    study: "Parkinson's disease = degeneration of DOPAMINE-producing neurons in the substantia nigra (basal ganglia / nigrostriatal pathway) → resting tremor, rigidity, bradykinesia, postural instability. Treated with L-DOPA. Contrast NT links: Alzheimer's → acetylcholine deficit; Huntington's → GABA/ACh loss; depression → serotonin/noradrenaline; schizophrenia → dopamine EXCESS (mesolimbic, the dopamine hypothesis); anxiety → low GABA." },
+  { id: "diag_co34", section: "common", topic: "Biopsychology",
+    q: "The 'rest and digest' functions of the body are governed by the:",
+    options: { a: "Sympathetic nervous system",
+               b: "Parasympathetic nervous system",
+               c: "Somatic nervous system",
+               d: "Central nervous system" },
+    correct: "b",
+    explanation: "Parasympathetic = 'rest and digest' (conserves energy). Sympathetic = 'fight or flight'.",
+    study: "Autonomic nervous system has two branches: SYMPATHETIC = 'fight or flight' (↑heart rate, dilates pupils, inhibits digestion, releases adrenaline) and PARASYMPATHETIC = 'rest and digest' (↓heart rate, constricts pupils, stimulates digestion); dominant cranial nerve = vagus (X). They are antagonistic/complementary. The somatic NS controls voluntary skeletal muscle; together with the autonomic NS it makes up the peripheral nervous system." },
+  { id: "diag_co35", section: "common", topic: "Biopsychology",
+    q: "Damage to Broca's area typically results in:",
+    options: { a: "Fluent speech with poor comprehension",
+               b: "Complete loss of hearing",
+               c: "Non-fluent, effortful speech with relatively intact comprehension",
+               d: "Inability to recognize faces" },
+    correct: "c",
+    explanation: "Broca's aphasia = non-fluent, effortful, agrammatic speech; comprehension relatively preserved. Broca's area is in the frontal lobe.",
+    study: "Broca's area (left frontal lobe, near motor cortex) = speech PRODUCTION. Damage → Broca's (expressive/non-fluent) aphasia: halting, effortful, telegraphic speech, but comprehension is relatively intact and the patient is AWARE of the deficit. Wernicke's area (left temporal) = comprehension; damage → fluent but meaningless 'word salad' speech with poor comprehension and little awareness. Arcuate fasciculus damage → conduction aphasia (poor repetition). Face recognition = fusiform (prosopagnosia)." },
+  { id: "diag_co36", section: "common", topic: "Biopsychology",
+    q: "The hippocampus is most critical for:",
+    options: { a: "Regulating body temperature",
+               b: "Controlling balance and coordination",
+               c: "Producing speech",
+               d: "Forming new long-term (declarative) memories" },
+    correct: "d",
+    explanation: "The hippocampus consolidates new declarative/episodic long-term memories (cf. patient H.M.).",
+    study: "Hippocampus (medial temporal lobe, part of the limbic system) = consolidation of new DECLARATIVE/episodic long-term memories; spatial navigation. Patient H.M. (bilateral hippocampal resection) had anterograde amnesia — couldn't form new explicit memories but kept old ones and could learn procedural skills. Other structures: hypothalamus → temperature/homeostasis/4 F's; cerebellum → balance & coordination; amygdala → fear/emotion; Broca's → speech." },
+  { id: "diag_co37", section: "common", topic: "Cognition",
+    q: "The working memory model with a phonological loop, visuospatial sketchpad, and central executive was proposed by:",
+    options: { a: "Baddeley & Hitch",
+               b: "Atkinson & Shiffrin",
+               c: "Tulving",
+               d: "Sperling" },
+    correct: "a",
+    explanation: "Baddeley & Hitch (1974) working memory: central executive + phonological loop + visuospatial sketchpad (+ episodic buffer, 2000).",
+    study: "Baddeley & Hitch (1974) WORKING MEMORY model replaced the passive short-term store: a CENTRAL EXECUTIVE (attentional controller) directs two slave systems — the PHONOLOGICAL LOOP (verbal/acoustic; phonological store + articulatory rehearsal) and the VISUOSPATIAL SKETCHPAD (visual/spatial). Baddeley (2000) added the EPISODIC BUFFER (binds info across systems, links to LTM). Contrast Atkinson-Shiffrin (1968) multi-store: sensory → STM → LTM. Tulving = episodic vs semantic memory." },
+  { id: "diag_co38", section: "common", topic: "Cognition",
+    q: "When previously learned information interferes with the recall of newly learned information, it is called:",
+    options: { a: "Retroactive interference",
+               b: "Proactive interference",
+               c: "Decay",
+               d: "Encoding failure" },
+    correct: "b",
+    explanation: "PROactive interference: OLD learning blocks NEW (forward). REtroactive: NEW blocks OLD (backward).",
+    study: "Interference theory of forgetting: PROACTIVE interference = OLD memories interfere with NEW learning (e.g., last year's locker number intrudes on this year's). RETROACTIVE interference = NEW learning interferes with OLD memories. Mnemonic: PRO = forward (old pushes forward onto new); RETRO = backward (new reaches back onto old). Other forgetting accounts: trace decay, cue-dependent forgetting (encoding-specificity, Tulving), motivated forgetting/repression." },
+  { id: "diag_co39", section: "common", topic: "Cognition",
+    q: "George Miller's classic estimate of the capacity of short-term memory is:",
+    options: { a: "3 ± 1 items",
+               b: "12 ± 3 items",
+               c: "7 ± 2 items",
+               d: "Unlimited" },
+    correct: "c",
+    explanation: "Miller (1956) 'The Magical Number Seven, Plus or Minus Two' — STM holds ~7±2 chunks.",
+    study: "George Miller (1956), 'The Magical Number Seven, Plus or Minus Two': short-term memory capacity ≈ 7 ± 2 CHUNKS. CHUNKING (grouping items into meaningful units) expands effective capacity. STM duration ~15–30s without rehearsal. (Cowan later argued the real limit is closer to 4±1 chunks.) Contrast: sensory memory is brief/high-capacity (Sperling's iconic memory ~250ms); LTM is effectively unlimited and durable." },
+  { id: "diag_co40", section: "common", topic: "Learning & Conditioning",
+    q: "Negative reinforcement involves:",
+    options: { a: "Presenting an aversive stimulus to decrease behaviour",
+               b: "Removing a reward to decrease behaviour",
+               c: "Presenting a reward to increase behaviour",
+               d: "Removing an aversive stimulus to increase behaviour" },
+    correct: "d",
+    explanation: "Negative reinforcement = REMOVE an aversive stimulus → behaviour INCREASES. It is not punishment.",
+    study: "Operant 2×2 (Skinner). REINFORCEMENT always INCREASES behaviour; PUNISHMENT always DECREASES it. 'Positive' = add a stimulus; 'Negative' = remove one. So: Positive reinforcement = add pleasant (praise) → ↑. NEGATIVE reinforcement = remove aversive (seatbelt alarm stops when you buckle) → ↑. Positive punishment = add aversive (scolding) → ↓. Negative punishment = remove pleasant (take away phone) → ↓. The classic trap: negative reinforcement is NOT punishment." },
+  { id: "diag_co41", section: "common", topic: "Learning & Conditioning",
+    q: "The 'Little Albert' experiment, demonstrating the conditioning of a fear response, was conducted by:",
+    options: { a: "John B. Watson",
+               b: "B. F. Skinner",
+               c: "Edward Thorndike",
+               d: "Ivan Pavlov" },
+    correct: "a",
+    explanation: "John B. Watson & Rosalie Rayner (1920) classically conditioned fear in 'Little Albert'.",
+    study: "John B. WATSON (with Rosalie Rayner, 1920) conditioned an 11-month-old, 'Little Albert', to fear a white rat by pairing it (neutral stimulus) with a loud clanging noise (US → fear UR); the fear then generalized to similar furry objects. Demonstrates classical conditioning of emotion + stimulus generalization; Watson is the father of behaviourism ('Give me a dozen healthy infants...'). Pavlov = dogs/salivation; Thorndike = law of effect/puzzle box; Skinner = operant chamber." },
+  { id: "diag_co42", section: "common", topic: "Learning & Conditioning",
+    q: "Learning that occurs without reinforcement and is not demonstrated until there is an incentive (shown in Tolman's rat maze studies) is called:",
+    options: { a: "Insight learning",
+               b: "Latent learning",
+               c: "Observational learning",
+               d: "Vicarious learning" },
+    correct: "b",
+    explanation: "Latent learning (Tolman): learning happens but stays hidden until there's a reason to perform it; evidence for cognitive maps.",
+    study: "Edward TOLMAN — LATENT learning: rats allowed to explore a maze with no reward still learned its layout (a 'cognitive map'); they showed the learning only once food (incentive) was introduced, then quickly outperformed never-rewarded rats. This challenged strict S-R behaviourism by showing learning ≠ performance and that cognition matters. Insight learning = Köhler (chimps, sudden 'aha'); observational/vicarious learning = Bandura (Bobo doll, modelling)." },
+  { id: "diag_co43", section: "common", topic: "Personality",
+    q: "Which of the following is NOT one of the Big Five (OCEAN) personality traits?",
+    options: { a: "Openness to experience",
+               b: "Conscientiousness",
+               c: "Intelligence",
+               d: "Neuroticism" },
+    correct: "c",
+    explanation: "Big Five = OCEAN: Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism. Intelligence is not one.",
+    study: "Big Five / Five-Factor Model (Costa & McCrae; measured by NEO-PI-R) = OCEAN: Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism (vs Emotional Stability). Intelligence is NOT a Big Five factor. Lineage: Allport (trait theory, cardinal/central/secondary), Cattell (16PF, 16 source traits), Eysenck (PEN — Psychoticism, Extraversion, Neuroticism). HEXACO adds Honesty-Humility as a 6th factor." },
+  { id: "diag_co44", section: "common", topic: "Personality",
+    q: "In Freud's structural model, the part of the personality that operates on the 'pleasure principle' is the:",
+    options: { a: "Ego",
+               b: "Superego",
+               c: "Preconscious",
+               d: "Id" },
+    correct: "d",
+    explanation: "The ID seeks immediate gratification (pleasure principle). The ego runs on the reality principle; the superego is the moral conscience.",
+    study: "Freud's structural model: ID — present at birth, fully unconscious, runs on the PLEASURE PRINCIPLE (immediate gratification, primary process thinking). EGO — the 'executive', operates on the REALITY PRINCIPLE (secondary process), mediates id vs superego vs reality, deploys defense mechanisms. SUPEREGO — internalized morals/ideals (conscience + ego-ideal), develops ~age 5 via the Oedipus/Electra resolution. Anxiety arises when the ego can't balance the three." },
+  // ===================== MPhil-SPECIFIC =====================
+  { id: "diag_mp01", section: "mphil", topic: "MPhil — Legal & Professional",
+    q: "The Rehabilitation Council of India (RCI) was established as a statutory body under the RCI Act of:",
+    options: { a: "1992",
+               b: "1987",
+               c: "2002",
+               d: "2016" },
+    correct: "a",
+    explanation: "RCI Act, 1992 — makes registration mandatory to practise as a clinical psychologist/rehabilitation professional.",
+    study: "RCI Act, 1992: the Rehabilitation Council of India (under the Ministry of Social Justice & Empowerment) regulates training and maintains the register of rehabilitation professionals — including clinical psychologists. Registration (CRR number) is MANDATORY to practise; practising unregistered is an offence. Sister legislation to keep straight: Mental Healthcare Act 2017, Rights of Persons with Disabilities (RPwD) Act 2016, National Trust Act 1999, Persons with Disabilities Act 1995 (repealed by RPwD 2016)." },
+  { id: "diag_mp02", section: "mphil", topic: "MPhil — Legal & Professional",
+    q: "The concept of an 'Advance Directive' and a 'Nominated Representative' for mental healthcare in India comes from the:",
+    options: { a: "Mental Health Act, 1987",
+               b: "Mental Healthcare Act, 2017",
+               c: "RPwD Act, 2016",
+               d: "RCI Act, 1992" },
+    correct: "b",
+    explanation: "Mental Healthcare Act (MHCA) 2017 introduced advance directives, nominated representatives, and decriminalized suicide.",
+    study: "Mental Healthcare Act (MHCA), 2017 (replaced the Mental Health Act 1987): rights-based, aligns with the UN CRPD. Key features — right to access mental healthcare, ADVANCE DIRECTIVE (state in advance how you wish to be treated), NOMINATED REPRESENTATIVE, decriminalized attempted suicide (presumed severe stress), restricted ECT (banned without anaesthesia and for minors save exceptions), Mental Health Review Boards. Replaced 'mentally ill person' with 'person with mental illness'." },
+  { id: "diag_mp03", section: "mphil", topic: "MPhil — History & Training Models",
+    q: "The 'scientist-practitioner' model of clinical psychology training (Ph.D.) originated at the 1949 conference held at:",
+    options: { a: "Vail",
+               b: "Salt Lake City",
+               c: "Boulder",
+               d: "Adelphi" },
+    correct: "c",
+    explanation: "Boulder Conference (1949) → scientist-practitioner (Boulder) model, Ph.D. Vail (1973) → practitioner-scholar, Psy.D.",
+    study: "Training models for clinical psychology: BOULDER model (Boulder, Colorado conference, 1949) = SCIENTIST-PRACTITIONER → integrates research + practice, awards the Ph.D. VAIL model (Vail, Colorado, 1973) = PRACTITIONER-SCHOLAR → emphasises clinical practice, awards the Psy.D. (Doctor of Psychology). Also know: Lightner Witmer opened the first psychological CLINIC (1896) and coined 'clinical psychology'; the Clinical-Scientist model (1990s, McFall) is research-heavy." },
+  { id: "diag_mp04", section: "mphil", topic: "MPhil — Ethics",
+    q: "The legal principle that a therapist has a 'duty to warn/protect' an identifiable third party from a client's threats stems from:",
+    options: { a: "The Durham rule",
+               b: "The Daubert standard",
+               c: "The M'Naghten rule",
+               d: "The Tarasoff case" },
+    correct: "d",
+    explanation: "Tarasoff v. Regents (1976) established the duty to warn/protect identifiable potential victims — a limit on confidentiality.",
+    study: "Tarasoff v. Regents of the University of California (1976): created the therapist's DUTY TO WARN / PROTECT an identifiable third party from a client's serious threat — 'protective privilege ends where the public peril begins'. This is a recognised LIMIT to confidentiality (others: risk of harm to self, child/elder abuse, court order). Don't confuse with insanity-defence standards: M'Naghten (right-wrong test), Durham (product test), and Daubert (admissibility of scientific evidence)." },
+  { id: "diag_mp05", section: "mphil", topic: "MPhil — Culture & Diagnosis",
+    q: "'Dhat syndrome', characterized by anxiety over the loss of semen, is a culture-bound syndrome reported in:",
+    options: { a: "The Indian subcontinent",
+               b: "Malaysia",
+               c: "Latin America",
+               d: "The Arctic" },
+    correct: "a",
+    explanation: "Dhat = South Asian culture-bound syndrome: distress attributed to semen loss.",
+    study: "Culture-bound syndromes (now 'cultural concepts of distress', DSM-5): DHAT — South Asia/India, anxiety + somatic symptoms attributed to semen loss in urine. Koro — SE Asia, fear that genitals are retracting into the body. Amok — Malaysia, sudden mass homicidal outburst. Latah — Malaysia/Indonesia, exaggerated startle + echolalia. Pibloktoq ('Arctic hysteria') — Inuit. Susto ('soul loss/fright') — Latin America. Taijin kyofusho — Japan, fear of offending others." },
+  { id: "diag_mp06", section: "mphil", topic: "MPhil — Legal & Professional",
+    q: "In India, the Act that provides for the protection of children from sexual offences is the POCSO Act of:",
+    options: { a: "2005",
+               b: "2012",
+               c: "2009",
+               d: "2015" },
+    correct: "b",
+    explanation: "Protection of Children from Sexual Offences (POCSO) Act, 2012; gender-neutral, defines a child as under 18.",
+    study: "POCSO Act, 2012 (Protection of Children from Sexual Offences): gender-neutral, defines a 'child' as anyone under 18, mandates child-friendly procedures and reporting (mandatory reporting of known offences), and special courts. Related dates: Juvenile Justice (Care & Protection) Act 2015 (amended), Criminal Law (Amendment) Act 2013 (raised age of consent to 18, post-Nirbhaya). Clinical psychologists must know mandatory-reporting duties under POCSO." },
+  { id: "diag_mp07", section: "mphil", topic: "MPhil — Clinical Assessment",
+    q: "In the Mental Status Examination (MSE), 'insight' refers to:",
+    options: { a: "The client's orientation to time, place, and person",
+               b: "The client's ability to do serial subtraction",
+               c: "The client's awareness and understanding of their own illness",
+               d: "The presence of hallucinations" },
+    correct: "c",
+    explanation: "Insight in the MSE = the patient's awareness that they are ill and understanding of its nature; judged on a spectrum.",
+    study: "MSE 'insight' = the patient's awareness/understanding that they have a mental illness and its implications (graded: complete denial → partial → intellectual → true emotional insight). Distinct from JUDGEMENT (ability to make sound decisions). Other MSE domains: Appearance & behaviour, Speech, Mood (sustained, subjective) vs Affect (observed, momentary — range/reactivity/congruence), Thought (form/content/possession), Perception (hallucinations/illusions), Cognition (orientation, attention, memory — serial 7s), Insight & Judgement. Poor insight is common in psychosis and mania." },
+  { id: "diag_mp08", section: "mphil", topic: "MPhil — History & Training Models",
+    q: "The first psychological clinic and the term 'clinical psychology' are credited to:",
+    options: { a: "Sigmund Freud",
+               b: "Wilhelm Wundt",
+               c: "G. Stanley Hall",
+               d: "Lightner Witmer" },
+    correct: "d",
+    explanation: "Lightner Witmer founded the first psychological clinic (Univ. of Pennsylvania, 1896) and coined 'clinical psychology'.",
+    study: "Lightner WITMER opened the world's first psychological clinic at the University of Pennsylvania in 1896 and coined the term 'clinical psychology' (1907, also founded the journal The Psychological Clinic). G. Stanley Hall = first APA president, first US psychology Ph.D., child study / adolescence. Wundt = first experimental psychology lab (Leipzig, 1879). Knowing these 'firsts' (Witmer-clinic, Wundt-lab, Hall-APA) is a reliable MPhil/NET history item." },
+  // ===================== UGC-NET SPECIFIC =====================
+  { id: "diag_nt01", section: "ugcnet", topic: "UGC-NET — Schools & History",
+    q: "The founder of psychophysics, who studied the relationship between physical stimuli and sensations, is:",
+    options: { a: "Gustav Fechner",
+               b: "Wilhelm Wundt",
+               c: "Ernst Weber",
+               d: "Hermann Ebbinghaus" },
+    correct: "a",
+    explanation: "Gustav Fechner is the father of psychophysics (Elements of Psychophysics, 1860); built on Weber's work (Weber-Fechner law).",
+    study: "Gustav FECHNER (1860, 'Elements of Psychophysics') = founder of psychophysics, quantifying the relation between physical stimulus magnitude and sensation. Methods: limits, constant stimuli, adjustment; concepts: absolute threshold, difference threshold (jnd). Weber's law: ΔI/I = constant (just-noticeable difference is a constant proportion). Fechner's law: sensation = k·log(stimulus). Ebbinghaus = forgetting curve / nonsense syllables; Wundt = first lab (1879)." },
+  { id: "diag_nt02", section: "ugcnet", topic: "UGC-NET — Schools & History",
+    q: "The first experimental psychology laboratory (Leipzig, 1879) was established by:",
+    options: { a: "William James",
+               b: "Wilhelm Wundt",
+               c: "Edward Titchener",
+               d: "Sigmund Freud" },
+    correct: "b",
+    explanation: "Wilhelm Wundt founded the first psychology lab at Leipzig in 1879 — the conventional birth of scientific psychology.",
+    study: "Wilhelm WUNDT — first experimental psychology laboratory at Leipzig, 1879 (the marker for psychology becoming a science). His school = STRUCTURALISM (analyse conscious experience into elements via introspection); his student Edward TITCHENER carried structuralism to the US and coined the name. Contrast: William JAMES = functionalism (function/purpose of mind, 'Principles of Psychology', 1890); Freud = psychoanalysis. Wundt-lab vs Witmer-clinic vs James-functionalism are commonly mixed up." },
+  { id: "diag_nt03", section: "ugcnet", topic: "UGC-NET — Schools & History",
+    q: "Functionalism, emphasizing the purpose of mental processes in adaptation, is most associated with:",
+    options: { a: "Wilhelm Wundt",
+               b: "Edward Titchener",
+               c: "William James",
+               d: "John Watson" },
+    correct: "c",
+    explanation: "William James is the leading figure of functionalism (influenced by Darwin); author of 'Principles of Psychology' (1890).",
+    study: "FUNCTIONALISM (William James; also Dewey, Angell, Carr) asked what mind/behaviour is FOR — how consciousness helps the organism adapt and survive (Darwinian influence) — rather than its structure. It paved the way for applied psychology and behaviourism. Contrast STRUCTURALISM (Wundt/Titchener: break consciousness into elements via introspection). James's 'Principles of Psychology' (1890), stream of consciousness, and the James-Lange theory of emotion are linked NET items." },
+  { id: "diag_nt04", section: "ugcnet", topic: "UGC-NET — Cognition & Perception",
+    q: "The Gestalt principle stating that objects close together are perceived as a group is the law of:",
+    options: { a: "Similarity",
+               b: "Continuity",
+               c: "Closure",
+               d: "Proximity" },
+    correct: "d",
+    explanation: "Law of Proximity: elements near each other are grouped together perceptually.",
+    study: "Gestalt principles of perceptual organization ('the whole is other than the sum of its parts'): PROXIMITY (group by nearness), SIMILARITY (group alike items), CLOSURE (fill gaps to see a whole), CONTINUITY/good continuation (follow smooth paths), COMMON FATE (move together = grouped), FIGURE-GROUND, PRÄGNANZ (law of good form/simplicity — the overarching principle). Key Gestalt figures: Wertheimer (phi phenomenon), Köhler (insight), Koffka." },
+  { id: "diag_nt05", section: "ugcnet", topic: "UGC-NET — Research & Applied",
+    q: "When participants change their behaviour simply because they know they are being observed/studied, this is the:",
+    options: { a: "Hawthorne effect",
+               b: "Placebo effect",
+               c: "Halo effect",
+               d: "Pygmalion effect" },
+    correct: "a",
+    explanation: "Hawthorne effect: behaviour changes due to awareness of being observed (from the Western Electric Hawthorne studies).",
+    study: "HAWTHORNE EFFECT (Elton Mayo, Western Electric Hawthorne plant studies, 1920s–30s): workers' productivity rose with ANY change in conditions — even reduced lighting — because they knew they were being watched/given attention; a key threat to internal validity (a reactivity/demand effect). Don't confuse: Placebo effect (improvement from an inert treatment due to expectancy); Halo effect (one trait colours overall judgement); Pygmalion/Rosenthal effect (expectations create self-fulfilling performance — experimenter expectancy)." },
+  { id: "diag_nt06", section: "ugcnet", topic: "UGC-NET — Motivation & Personality",
+    q: "At the apex of Maslow's hierarchy of needs is:",
+    options: { a: "Esteem needs",
+               b: "Self-actualization",
+               c: "Safety needs",
+               d: "Belongingness needs" },
+    correct: "b",
+    explanation: "Maslow's pyramid peaks at self-actualization (realizing one's potential); the classic 5-level model.",
+    study: "Maslow's hierarchy (bottom → top): Physiological → Safety → Love/Belongingness → Esteem → SELF-ACTUALIZATION (realizing one's full potential). The lower four are 'deficiency (D) needs'; self-actualization is a 'being (B) need / growth need'. Maslow later added cognitive and aesthetic needs, and finally SELF-TRANSCENDENCE above self-actualization. Humanistic psychology (Maslow & Rogers) = the 'third force'. Peak experiences are linked to self-actualizers." },
+  { id: "diag_nt07", section: "ugcnet", topic: "UGC-NET — Psychometrics",
+    q: "The extent to which a test score predicts performance on a future criterion is called:",
+    options: { a: "Content validity",
+               b: "Concurrent validity",
+               c: "Predictive validity",
+               d: "Face validity" },
+    correct: "c",
+    explanation: "Predictive validity = test predicts a FUTURE criterion (a type of criterion-related validity). Concurrent = present-time criterion.",
+    study: "Validity types: CONTENT validity (items cover the domain — e.g., a syllabus); CRITERION-related validity, split into PREDICTIVE (test now predicts a FUTURE outcome, e.g., entrance test → later grades) and CONCURRENT (test correlates with a criterion measured at the SAME time); CONSTRUCT validity (does it measure the theoretical construct — via convergent & discriminant evidence, factor analysis); FACE validity (appears valid superficially — weakest, not a true psychometric form). Validity needs reliability but goes beyond it." },
+  { id: "diag_nt08", section: "ugcnet", topic: "UGC-NET — Intelligence",
+    q: "The two-factor theory of intelligence, proposing a general factor 'g' and specific factors 's', was given by:",
+    options: { a: "L. L. Thurstone",
+               b: "J. P. Guilford",
+               c: "Howard Gardner",
+               d: "Charles Spearman" },
+    correct: "d",
+    explanation: "Charles Spearman's two-factor theory: a general intelligence 'g' plus task-specific 's' factors (via factor analysis).",
+    study: "Charles SPEARMAN — two-factor theory of intelligence: a general factor 'g' (common to all tasks) + specific factors 's' (task-specific); he pioneered factor analysis. Contrast other theories: THURSTONE — 7 Primary Mental Abilities (no single g); GUILFORD — Structure of Intellect (up to 150/180 abilities); CATTELL-HORN — fluid (Gf) vs crystallized (Gc); GARDNER — multiple intelligences (8+); STERNBERG — triarchic (analytical, creative, practical); Carroll's three-stratum / CHC model integrates them." },
+];
+
+// =====================================================================
+// ENGINE (cloned from MET Mock 1 with mock-2 storage keys)
+// =====================================================================
+const SECTION_LABELS = {
+  mphil: "MPhil-Specific", ugcnet: "UGC-NET Specific", common: "Common (NET + MPhil)"
+};
+
+const STORAGE_KEY = "diagnostic-1-results-v1";
+const STORAGE_KEY_NOTES = "diagnostic-1-notes-v1";
+const STORAGE_KEY_PROGRESS = "diagnostic-1-progress-v1";
+const STORAGE_KEY_FLAGS = "diagnostic-1-flags-v1";
+const STORAGE_KEY_EXAM = "diagnostic-1-exam-v1";
+const HISTORY_KEY = "results-history-v1";
+
+// Minutes allowed per question in exam mode (120 Q / 120 min on the paper)
+const MIN_PER_Q = 1;
+
+const state = {
+  filtered: [], index: 0, selected: null, guessed: false, submitted: false,
+  results: {}, notes: {}, flags: {}, redo: "none",
+  mode: "practice",
+  exam: { running: false, finished: false, endTs: 0, durationSec: 0 },
+  progress: { lastIndex: 0, lastSection: "all", drafts: {} }
+};
+let examTick = null;
+
+function loadResults() {
+  try { const raw = localStorage.getItem(STORAGE_KEY); if (raw) state.results = JSON.parse(raw); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_NOTES); if (raw) state.notes = JSON.parse(raw); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_FLAGS); if (raw) state.flags = JSON.parse(raw); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_PROGRESS); if (raw) state.progress = Object.assign(state.progress, JSON.parse(raw)); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_EXAM); if (raw) state.exam = Object.assign(state.exam, JSON.parse(raw)); } catch {}
+  if (state.progress.mode === "exam" || state.progress.mode === "practice") state.mode = state.progress.mode;
+}
+function saveResults()  { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.results)); } catch {} }
+function saveNotes()    { try { localStorage.setItem(STORAGE_KEY_NOTES, JSON.stringify(state.notes)); } catch {} }
+function saveFlags()    { try { localStorage.setItem(STORAGE_KEY_FLAGS, JSON.stringify(state.flags)); } catch {} }
+function saveExam()     { try { localStorage.setItem(STORAGE_KEY_EXAM, JSON.stringify(state.exam)); } catch {} }
+function saveProgress() { state.progress.mode = state.mode; try { localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(state.progress)); } catch {} }
+function saveDraft(qid) { if (!qid) return; state.progress.drafts[qid] = { selected: state.selected, guessed: state.guessed }; saveProgress(); }
+
+let notesSaveTimer = null;
+function handleNotesInput(qid, text) {
+  if (text && text.trim()) state.notes[qid] = text; else delete state.notes[qid];
+  if (notesSaveTimer) clearTimeout(notesSaveTimer);
+  notesSaveTimer = setTimeout(() => {
+    saveNotes();
+    const tag = document.querySelector(".notes-saved");
+    if (tag) { tag.classList.add("visible"); setTimeout(() => tag.classList.remove("visible"), 1200); }
+    const card = document.querySelector(".question-card");
+    if (card) { if (state.notes[qid]) card.classList.add("has-note"); else card.classList.remove("has-note"); }
+  }, 400);
+}
+
+function escapeHtml(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+function currentQ() { return state.filtered[state.index]; }
+
+function applyFilter(opts) {
+  opts = opts || {};
+  const sel = document.getElementById("sectionSelect").value;
+  let pool = sel === "all" ? QUESTIONS : QUESTIONS.filter(q => q.section === sel);
+  if (state.redo === "wrong") {
+    pool = pool.filter(q => { const r = state.results[q.id]; return r && !r.correct; });
+  } else if (state.redo === "flagged") {
+    pool = pool.filter(q => state.flags[q.id]);
+  }
+  state.filtered = pool;
+  if (opts.preservePosition && sel === state.progress.lastSection && state.redo === "none") {
+    state.index = Math.min(state.progress.lastIndex || 0, state.filtered.length - 1);
+    if (state.index < 0) state.index = 0;
+  } else { state.index = 0; }
+  renderModeUI();
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = currentQ();
+  if (!q) {
+    document.getElementById("quizArea").innerHTML = "<div class='question-card'>No questions match this filter.</div>";
+    document.getElementById("progress").textContent = "0 / 0";
+    document.getElementById("progressFill").style.width = "0%";
+    renderStats();
+    return;
+  }
+  state.progress.lastIndex = state.index;
+  state.progress.lastSection = document.getElementById("sectionSelect").value;
+  saveProgress();
+
+  const examActive = state.mode === "exam" && state.exam.running && !state.exam.finished;
+  const reveal = (state.mode === "practice" && !!state.results[q.id]) ||
+                 (state.mode === "exam" && state.exam.finished && !!state.results[q.id]);
+
+  const result = state.results[q.id];
+  if (result) { state.selected = result.selected; state.guessed = !!result.guessed; }
+  else {
+    const draft = state.progress.drafts[q.id];
+    state.selected = draft ? draft.selected : null;
+    state.guessed = draft ? !!draft.guessed : false;
+  }
+  state.submitted = reveal; // "submitted" now means locked/revealed
+
+  document.getElementById("progress").textContent = `${state.index + 1} / ${state.filtered.length}`;
+  document.getElementById("progressFill").style.width = `${((state.index + 1) / state.filtered.length) * 100}%`;
+
+  const noteText = state.notes[q.id] || "";
+  const hasNote = !!(noteText && noteText.trim());
+  const hasFlag = !!state.flags[q.id];
+
+  const optionsHtml = ["a","b","c","d"].map(letter => {
+    let cls = "option";
+    if (reveal) {
+      cls += " disabled";
+      if (letter === q.correct) cls += " correct";
+      else if (letter === state.selected) cls += " incorrect";
+    } else if (state.selected === letter) cls += " selected";
+    return `<div class="${cls}" data-letter="${letter}" data-action="select">
+      <span class="option-letter">${letter.toUpperCase()}.</span>
+      <span>${escapeHtml(q.options[letter])}</span></div>`;
+  }).join("");
+
+  // Controls vary by mode
+  let controlsHtml;
+  if (examActive) {
+    controlsHtml = `<div class="controls" style="grid-template-columns:1fr 1fr;">
+        <button data-action="prev" ${state.index === 0 ? "disabled" : ""}>← Prev</button>
+        <button data-action="next" ${state.index === state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+      </div>`;
+  } else if (state.mode === "exam") { // exam finished review
+    controlsHtml = `<div class="controls" style="grid-template-columns:1fr 1fr;">
+        <button data-action="prev" ${state.index === 0 ? "disabled" : ""}>← Prev</button>
+        <button data-action="next" ${state.index === state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+      </div>`;
+  } else { // practice
+    controlsHtml = `<div class="controls">
+        <button data-action="prev" ${state.index === 0 ? "disabled" : ""}>← Prev</button>
+        <button class="btn-primary" data-action="submit" ${reveal || !state.selected ? "disabled" : ""}>
+          ${reveal ? "✓ Submitted" : "Submit"}</button>
+        <button data-action="next" ${state.index === state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+      </div>`;
+  }
+
+  // Guess row + notes only outside an active exam
+  const guessHtml = examActive ? "" : `<div class="guess-row ${state.guessed ? "checked" : ""}" data-action="toggleGuess">
+        <div class="guess-checkbox"></div>
+        <div class="guess-label">I'm guessing this one
+          <small>Helps you track which "rights" were lucky vs solid.</small></div>
+      </div>`;
+  const notesHtml = examActive ? "" : `<div class="notes-area">
+        <div class="notes-label"><span>Your notes</span><span class="notes-saved">saved</span></div>
+        <textarea class="notes-textarea" id="notesInput" data-qid="${q.id}"
+          placeholder="Anything you want to remember about this question — mnemonic, where it came from, why you missed it...">${escapeHtml(noteText)}</textarea>
+      </div>`;
+  const explanationHtml = `<div class="explanation ${reveal ? "visible" : ""}">
+        <strong>${reveal && state.selected === q.correct ? "✓ Correct" : (reveal ? "✗ Wrong" : "")}</strong>
+        ${reveal ? ` — Answer: ${q.correct.toUpperCase()}. ` : ""}${reveal ? escapeHtml(q.explanation) : ""}
+      </div>`;
+
+  document.getElementById("quizArea").innerHTML = `
+    <div class="question-card${hasNote ? " has-note" : ""}${hasFlag ? " has-flag" : ""}">
+      <div class="section-tag">${SECTION_LABELS[q.section]}</div>
+      <div class="question-text">${escapeHtml(q.q)}</div>
+      <div class="options" id="options">${optionsHtml}</div>
+      ${guessHtml}
+      ${controlsHtml}
+      <div class="secondary-controls">
+        <button class="flag-btn ${hasFlag ? "flagged" : ""}" data-action="toggleFlag">
+          ${hasFlag ? "🚩 Flagged — come back to this" : "🚩 Flag for review"}</button>
+      </div>
+      ${explanationHtml}
+      ${notesHtml}
+    </div>`;
+  const notesEl = document.getElementById("notesInput");
+  if (notesEl) notesEl.addEventListener("input", e => handleNotesInput(e.target.dataset.qid, e.target.value));
+  renderNavGrid();
+  renderStats();
+}
+
+function updateSelectionVisual() {
+  document.querySelectorAll("#options .option").forEach(el => {
+    el.classList.toggle("selected", el.dataset.letter === state.selected);
+  });
+  const submitBtn = document.querySelector('[data-action="submit"]');
+  if (submitBtn) submitBtn.disabled = state.submitted || !state.selected;
+}
+function updateGuessVisual() {
+  const row = document.querySelector('[data-action="toggleGuess"]');
+  if (row) row.classList.toggle("checked", state.guessed);
+}
+
+function selectOption(letter) {
+  if (state.mode === "exam" && state.exam.finished) return; // locked after exam ends
+  if (state.submitted) return;
+  const q = currentQ(); if (!q) return;
+  state.selected = letter;
+  if (state.mode === "exam" && state.exam.running) {
+    // exam: record answer immediately, still editable until you finish
+    state.results[q.id] = { selected: letter, correct: letter === q.correct, guessed: false, section: q.section };
+    saveResults();
+    updateSelectionVisual();
+    renderNavGrid();
+  } else {
+    updateSelectionVisual();
+    saveDraft(q.id);
+  }
+}
+function toggleGuess() {
+  if (state.submitted) return;
+  state.guessed = !state.guessed; updateGuessVisual();
+  const q = currentQ(); if (q) saveDraft(q.id);
+}
+function toggleFlag() {
+  const q = currentQ(); if (!q) return;
+  if (state.flags[q.id]) delete state.flags[q.id]; else state.flags[q.id] = true;
+  saveFlags();
+  const btn = document.querySelector('[data-action="toggleFlag"]');
+  const card = document.querySelector(".question-card");
+  if (btn) {
+    const on = !!state.flags[q.id];
+    btn.classList.toggle("flagged", on);
+    btn.textContent = on ? "🚩 Flagged — come back to this" : "🚩 Flag for review";
+  }
+  if (card) card.classList.toggle("has-flag", !!state.flags[q.id]);
+  renderNavGrid();
+  renderModeUI();
+}
+function submitAnswer() {
+  if (state.submitted || !state.selected) return;
+  const q = currentQ();
+  state.results[q.id] = { selected: state.selected, correct: state.selected === q.correct, guessed: state.guessed, section: q.section };
+  saveResults(); state.submitted = true; renderQuestion();
+}
+function nextQuestion() { if (state.index < state.filtered.length - 1) { state.index++; renderQuestion(); } }
+function prevQuestion() { if (state.index > 0) { state.index--; renderQuestion(); } }
+
+document.querySelector(".app").addEventListener("click", function(ev) {
+  const t = ev.target.closest("[data-action]"); if (!t) return;
+  const a = t.dataset.action;
+  if (a === "select") selectOption(t.dataset.letter);
+  else if (a === "toggleGuess") toggleGuess();
+  else if (a === "toggleFlag") toggleFlag();
+  else if (a === "submit") submitAnswer();
+  else if (a === "next") nextQuestion();
+  else if (a === "prev") prevQuestion();
+  else if (a === "setMode") setMode(t.dataset.mode);
+  else if (a === "startExam") startExam();
+  else if (a === "finishExam") finishExam(false);
+  else if (a === "navJump") { state.index = parseInt(t.dataset.idx, 10) || 0; renderQuestion(); window.scrollTo({ top: 0, behavior: "smooth" }); }
+  else if (a === "redoWrong") setRedo("wrong");
+  else if (a === "redoFlagged") setRedo("flagged");
+  else if (a === "redoClear") setRedo("none");
+  else if (a === "reset") {
+    if (confirm("Reset Psych Entrance Mock 1 answers, notes and flags? (Attempt history is kept.)")) {
+      state.results = {}; state.notes = {}; state.flags = {};
+      state.progress = { lastIndex: 0, lastSection: "all", drafts: {} };
+      state.redo = "none";
+      stopExamTimer(); state.exam = { running: false, finished: false, endTs: 0, durationSec: 0 };
+      saveResults(); saveNotes(); saveFlags(); saveProgress(); saveExam();
+      const sel = document.getElementById("sectionSelect"); if (sel) sel.value = "all";
+      applyFilter({ preservePosition: false });
+    }
+  }
+  else if (a === "exportProgress") exportProgress();
+  else if (a === "importProgress") importProgress();
+  else if (a === "exportForAnalysis") exportForAnalysis();
+  else if (a === "copyStudyMaterial") copyStudyMaterial();
+  else if (a === "dismissResume") document.getElementById("resumeBanner").style.display = "none";
+});
+
+function showResumeBanner() {
+  const banner = document.getElementById("resumeBanner"); if (!banner) return;
+  const lastIdx = state.progress.lastIndex || 0;
+  const total = state.filtered.length;
+  const answered = Object.keys(state.results).length;
+  const drafted = Object.keys(state.progress.drafts).length;
+  if (lastIdx <= 0 && answered === 0 && drafted === 0) { banner.style.display = "none"; return; }
+  const pos = Math.min(lastIdx + 1, total);
+  banner.innerHTML = `<span>Resumed from question ${pos} of ${total} · ${answered} answered, ${drafted} drafts saved.</span><button data-action="dismissResume">Dismiss</button>`;
+  banner.style.display = "flex";
+}
+
+function exportProgress() {
+  const payload = { v: 1, paper: "diagnostic-1", ts: new Date().toISOString(),
+    results: state.results, notes: state.notes, progress: state.progress };
+  const code = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(code).then(
+      () => alert("Psych Entrance Mock 1 backup code copied. Save it (WhatsApp to yourself works)."),
+      () => prompt("Copy this backup code somewhere safe:", code));
+  } else { prompt("Copy this backup code somewhere safe:", code); }
+}
+function exportForAnalysis() {
+  let totalRight = 0, totalWrong = 0;
+  for (const q of QUESTIONS) {
+    const r = state.results[q.id]; if (!r) continue;
+    if (r.correct) totalRight++; else totalWrong++;
+  }
+  const blank = QUESTIONS.length - totalRight - totalWrong;
+  const score = Math.round((totalRight * 1 - totalWrong * 0.25) * 100) / 100;
+  const maxScore = QUESTIONS.length * 1;
+
+  const bySection = {};
+  for (const q of QUESTIONS) {
+    if (!bySection[q.section]) bySection[q.section] = { total:0, solid:0, guessed:0, wrong:0, skip:0 };
+    const s = bySection[q.section];
+    s.total++;
+    const r = state.results[q.id];
+    if (!r) s.skip++;
+    else if (r.correct && !r.guessed) s.solid++;
+    else if (r.correct && r.guessed) s.guessed++;
+    else s.wrong++;
+  }
+
+  const ts = new Date().toISOString();
+  let out = `PSYCH ENTRANCE MOCK 1 — RESULTS EXPORT v1\n`;
+  out += `Generated: ${ts}\n`;
+  out += `Score: ${score}/${maxScore}  (${totalRight} right, ${totalWrong} wrong, ${blank} blank · +1/−0.25/0 · target 90+)\n\n`;
+
+  out += `SECTION BREAKDOWN\n=================\n`;
+  for (const sec of Object.keys(SECTION_LABELS)) {
+    const s = bySection[sec]; if (!s) continue;
+    const attempted = s.solid + s.guessed + s.wrong;
+    const got = s.solid + s.guessed;
+    const acc = attempted ? Math.round((got / attempted) * 100) : 0;
+    const name = (SECTION_LABELS[sec] + ":").padEnd(28);
+    out += `${name} ${got}/${s.total} (${acc}%)  solid ${s.solid}  guessed ${s.guessed}  wrong ${s.wrong}  skip ${s.skip}\n`;
+  }
+
+  const attentionItems = QUESTIONS.filter(q => {
+    const r = state.results[q.id];
+    const note = state.notes[q.id];
+    if (note && note.trim()) return true;
+    if (!r) return false;
+    if (!r.correct) return true;
+    if (r.correct && r.guessed) return true;
+    return false;
+  });
+
+  out += `\nQUESTIONS TO REVIEW (wrong, guessed, or with notes): ${attentionItems.length}\n`;
+  out += `=====================================================\n\n`;
+
+  attentionItems.forEach((q, i) => {
+    const r = state.results[q.id];
+    const note = state.notes[q.id];
+    let status;
+    if (!r) status = "SKIPPED (noted)";
+    else if (!r.correct) status = "WRONG";
+    else if (r.guessed) status = "GUESSED-RIGHT";
+    else status = "right";
+
+    out += `[${i+1}] ${q.id} | ${SECTION_LABELS[q.section]} | ${status}`;
+    if (r) {
+      const mark = r.correct ? "✓" : "✗";
+      out += ` | picked ${(r.selected || "?").toUpperCase()} ${mark} | correct ${q.correct.toUpperCase()}`;
+    } else {
+      out += ` | correct ${q.correct.toUpperCase()}`;
+    }
+    out += `\nQ: ${q.q}\n`;
+    out += `A. ${q.options.a}\nB. ${q.options.b}\nC. ${q.options.c}\nD. ${q.options.d}\n`;
+    if (q.explanation) out += `Explanation: ${q.explanation}\n`;
+    if (note && note.trim()) out += `Sihan's note: ${note.trim()}\n`;
+    out += `\n`;
+  });
+
+  const skippedNoNote = QUESTIONS.filter(q => !state.results[q.id] && !(state.notes[q.id] && state.notes[q.id].trim()));
+  if (skippedNoNote.length) {
+    out += `SKIPPED (no note, ${skippedNoNote.length}): ${skippedNoNote.map(q => q.id).join(", ")}\n\n`;
+  }
+
+  out += `END EXPORT\n`;
+
+  try {
+    const snapKey = "results-history-v1";
+    const raw = localStorage.getItem(snapKey);
+    const history = raw ? JSON.parse(raw) : [];
+    history.push({ mock: "diagnostic-1", ts, score, max: maxScore, right: totalRight, wrong: totalWrong, blank, sections: bySection });
+    localStorage.setItem(snapKey, JSON.stringify(history));
+  } catch {}
+
+  const sizeKb = (out.length / 1024).toFixed(1);
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(out).then(
+      () => alert(`Copied ${sizeKb} KB to clipboard.\n\nPaste it to Sahil on WhatsApp, or open the My Results page to see history.`),
+      () => prompt("Copy this export and paste to Sahil on WhatsApp:", out));
+  } else {
+    prompt("Copy this export and paste to Sahil on WhatsApp:", out);
+  }
+}
+
+function importProgress() {
+  const code = prompt("Paste a Psych Entrance Mock 1 backup code. This will REPLACE current progress.");
+  if (!code) return;
+  try {
+    const payload = JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
+    if (payload.v !== 1) throw new Error("unknown version");
+    if (payload.results) state.results = payload.results;
+    if (payload.notes) state.notes = payload.notes;
+    if (payload.progress) state.progress = Object.assign({ lastIndex: 0, lastSection: "all", drafts: {} }, payload.progress);
+    saveResults(); saveNotes(); saveProgress();
+    const sel = document.getElementById("sectionSelect");
+    if (sel && state.progress.lastSection) sel.value = state.progress.lastSection;
+    applyFilter({ preservePosition: true }); showResumeBanner();
+    alert(`Restored ${Object.keys(state.results).length} answered, ${Object.keys(state.notes).length} notes, ${Object.keys(state.progress.drafts).length} drafts.`);
+  } catch (e) { alert("Could not restore: that does not look like a valid Psych Entrance Mock 1 backup code."); }
+}
+
+document.getElementById("sectionSelect").addEventListener("change", () => applyFilter({ preservePosition: false }));
+
+function renderStats() {
+  // During a live exam, keep the score and breakdown hidden (just like the real thing).
+  if (state.mode === "exam" && state.exam.running && !state.exam.finished) {
+    const answered = state.filtered.filter(q => state.results[q.id]).length;
+    ["statRight","statGuessed","statWrong","statSkipped"].forEach(id => {
+      const el = document.getElementById(id); if (el) el.textContent = "–";
+    });
+    const sb = document.getElementById("scoreboard");
+    if (sb) sb.innerHTML = `<span class="big">🔒</span><small>Score hidden — ${answered}/${state.filtered.length} answered. Finish the exam to reveal.</small>`;
+    const ss = document.getElementById("sectionScores");
+    if (ss) ss.innerHTML = `<div style="font-size:12px;color:var(--muted);">Per-area breakdown unlocks when you finish.</div>`;
+    const ra = document.getElementById("reviewArea"); if (ra) ra.style.display = "none";
+    const sm = document.getElementById("studyMaterial"); if (sm) sm.style.display = "none";
+    return;
+  }
+  let confidentRight = 0, guessedRight = 0, wrong = 0, skipped = 0;
+  const reviewItems = [];
+  state.filtered.forEach((q, idx) => {
+    const r = state.results[q.id];
+    const flagged = !!state.flags[q.id];
+    if (!r) skipped++;
+    else if (r.correct && !r.guessed) confidentRight++;
+    else if (r.correct && r.guessed) { guessedRight++; reviewItems.push({ q, r, idx, tag: "guessed", label: "right but guessed" }); }
+    else if (!r.correct) { wrong++; reviewItems.push({ q, r, idx, tag: "wrong", label: "wrong" }); }
+    // Flagged questions not already captured as wrong/guessed still deserve a row.
+    if (flagged && (!r || (r.correct && !r.guessed))) reviewItems.push({ q, r, idx, tag: "flagged", label: "flagged" });
+  });
+  document.getElementById("statRight").textContent = confidentRight;
+  document.getElementById("statGuessed").textContent = guessedRight;
+  document.getElementById("statWrong").textContent = wrong;
+  document.getElementById("statSkipped").textContent = skipped;
+
+  let totalRight = 0, totalWrong = 0;
+  for (const q of QUESTIONS) {
+    const r = state.results[q.id];
+    if (!r) continue;
+    if (r.correct) totalRight++; else totalWrong++;
+  }
+  const score = Math.round((totalRight * 1 - totalWrong * 0.25) * 100) / 100;
+  const maxScore = QUESTIONS.length * 1;
+  const sb = document.getElementById("scoreboard");
+  if (sb) {
+    sb.innerHTML = `<span class="big">${score} / ${maxScore}</span>
+      <small>+1 right · −0.25 wrong · ${totalRight} right, ${totalWrong} wrong, ${QUESTIONS.length - totalRight - totalWrong} blank · this is a diagnostic — the misses below are your revision list</small>`;
+  }
+
+  const bySection = {};
+  for (const q of QUESTIONS) {
+    if (!bySection[q.section]) bySection[q.section] = { total: 0, right: 0, guessed: 0, wrong: 0, skipped: 0 };
+    bySection[q.section].total++;
+    const r = state.results[q.id];
+    if (!r) bySection[q.section].skipped++;
+    else if (r.correct && !r.guessed) bySection[q.section].right++;
+    else if (r.correct && r.guessed) bySection[q.section].guessed++;
+    else if (!r.correct) bySection[q.section].wrong++;
+  }
+  let rows = "";
+  for (const sec of Object.keys(SECTION_LABELS)) {
+    const s = bySection[sec]; if (!s) continue;
+    const attempted = s.right + s.guessed + s.wrong;
+    const accuracy = attempted ? Math.round(((s.right + s.guessed) / attempted) * 100) : null;
+    rows += `<div class="section-score-row">
+      <div class="section-score-name">${SECTION_LABELS[sec]}</div>
+      <div class="section-score-bar">
+        <span class="ssr-right" style="flex: ${s.right};"></span>
+        <span class="ssr-guessed" style="flex: ${s.guessed};"></span>
+        <span class="ssr-wrong" style="flex: ${s.wrong};"></span>
+        <span class="ssr-skipped" style="flex: ${s.skipped};"></span>
+      </div>
+      <div class="section-score-num">${s.right + s.guessed}/${s.total}${accuracy !== null ? " · " + accuracy + "%" : ""}</div>
+    </div>`;
+  }
+  document.getElementById("sectionScores").innerHTML = rows;
+
+  renderStudyMaterial();
+
+  const reviewArea = document.getElementById("reviewArea");
+  const reviewList = document.getElementById("reviewList");
+  if (reviewItems.length === 0) reviewArea.style.display = "none";
+  else {
+    reviewArea.style.display = "block";
+    reviewList.innerHTML = reviewItems.map(item => {
+      const q = item.q, r = item.r;
+      const qText = escapeHtml(q.q.substring(0, 110)) + (q.q.length > 110 ? "…" : "");
+      let ansLine;
+      if (r && !r.correct) {
+        ansLine = `<span class="review-ans">you picked <span class="rv-picked">${escapeHtml(q.options[r.selected] || "—")}</span> · answer <span class="rv-correct">${escapeHtml(q.options[q.correct])}</span></span>`;
+      } else if (r && r.correct) {
+        ansLine = `<span class="review-ans">answer <span class="rv-correct">${escapeHtml(q.options[q.correct])}</span></span>`;
+      } else {
+        ansLine = `<span class="review-ans">not answered · answer <span class="rv-correct">${escapeHtml(q.options[q.correct])}</span></span>`;
+      }
+      const rule = q.explanation ? `<span class="review-rule">${escapeHtml(q.explanation.substring(0, 160))}${q.explanation.length > 160 ? "…" : ""}</span>` : "";
+      return `<li class="review-clickable" data-action="navJump" data-idx="${item.idx}">
+        <span class="review-tag ${item.tag}">${item.label}</span>
+        <span class="review-q">${qText}</span>
+        ${ansLine}
+        ${rule}</li>`;
+    }).join("");
+  }
+}
+
+// =====================================================================
+// FINAL STUDY MATERIAL — your misses, compiled into a revision sheet
+// =====================================================================
+function collectGaps() {
+  // A "gap" = anything you did NOT get solidly right: wrong, right-but-guessed, or skipped.
+  const gaps = [];
+  for (const q of QUESTIONS) {
+    const r = state.results[q.id];
+    let tag = null;
+    if (!r) tag = "skipped";
+    else if (!r.correct) tag = "wrong";
+    else if (r.guessed) tag = "guessed";
+    if (tag) gaps.push({ q, tag });
+  }
+  return gaps;
+}
+
+function renderStudyMaterial() {
+  const wrap = document.getElementById("studyMaterial");
+  const body = document.getElementById("studyMaterialBody");
+  const countEl = document.getElementById("smCount");
+  if (!wrap || !body) return;
+  // Stay hidden mid-exam and until the user has actually engaged with the test.
+  if (state.mode === "exam" && state.exam.running && !state.exam.finished) { wrap.style.display = "none"; return; }
+  const anyAnswered = QUESTIONS.some(q => state.results[q.id]);
+  if (!anyAnswered) { wrap.style.display = "none"; return; }
+
+  const gaps = collectGaps();
+  wrap.style.display = "block";
+  if (gaps.length === 0) {
+    countEl.textContent = "";
+    body.innerHTML = `<div class="sm-empty">No gaps — every question solid and unguessed. Nothing left to revise here. 🎯</div>`;
+    return;
+  }
+  const byTopic = {};
+  for (const g of gaps) { const t = g.q.topic || SECTION_LABELS[g.q.section] || g.q.section; (byTopic[t] = byTopic[t] || []).push(g); }
+  const topics = Object.keys(byTopic).sort((a, b) => byTopic[b].length - byTopic[a].length);
+  const tagOrder = { wrong: 0, guessed: 1, skipped: 2 };
+  const tagLabel = { wrong: "got wrong", guessed: "guessed", skipped: "skipped" };
+  let html = "";
+  for (const t of topics) {
+    const items = byTopic[t].slice().sort((a, b) => tagOrder[a.tag] - tagOrder[b.tag]);
+    html += `<div class="sm-topic"><div class="sm-topic-head"><span>${escapeHtml(t)}</span><span class="sm-gapn">${items.length} gap${items.length > 1 ? "s" : ""}</span></div>`;
+    for (const it of items) {
+      const q = it.q;
+      html += `<div class="sm-card">
+        <div class="sm-q"><span class="sm-tag ${it.tag}">${tagLabel[it.tag]}</span>${escapeHtml(q.q)}</div>
+        <div class="sm-ans">Correct answer: <b>${escapeHtml(q.options[q.correct])}</b></div>
+        <div class="sm-study">${escapeHtml(q.study || q.explanation || "")}</div>
+      </div>`;
+    }
+    html += `</div>`;
+  }
+  countEl.textContent = `· ${gaps.length} gap${gaps.length > 1 ? "s" : ""} across ${topics.length} topic${topics.length > 1 ? "s" : ""}`;
+  body.innerHTML = html;
+}
+
+function copyStudyMaterial() {
+  const gaps = collectGaps();
+  if (gaps.length === 0) { alert("No gaps to copy — you got everything solid."); return; }
+  const byTopic = {};
+  for (const g of gaps) { const t = g.q.topic || SECTION_LABELS[g.q.section] || g.q.section; (byTopic[t] = byTopic[t] || []).push(g); }
+  const topics = Object.keys(byTopic).sort((a, b) => byTopic[b].length - byTopic[a].length);
+  const tagOrder = { wrong: 0, guessed: 1, skipped: 2 };
+  const tagLabel = { wrong: "WRONG", guessed: "GUESSED", skipped: "SKIPPED" };
+  let out = `GAP DIAGNOSTIC — YOUR FINAL STUDY MATERIAL\n${gaps.length} gaps across ${topics.length} topics. Revise this, nothing else.\n`;
+  for (const t of topics) {
+    const items = byTopic[t].slice().sort((a, b) => tagOrder[a.tag] - tagOrder[b.tag]);
+    out += `\n\n=== ${t.toUpperCase()} (${items.length} gap${items.length > 1 ? "s" : ""}) ===\n`;
+    items.forEach((it, i) => {
+      const q = it.q;
+      out += `\n${i + 1}. [${tagLabel[it.tag]}] ${q.q}\n   Answer: ${q.options[q.correct]}\n   ${q.study || q.explanation || ""}\n`;
+    });
+  }
+  const btn = document.querySelector('[data-action="copyStudyMaterial"]');
+  const done = () => { if (btn) { const o = btn.textContent; btn.textContent = "Copied ✓"; setTimeout(() => btn.textContent = o, 1500); } };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(out).then(done).catch(() => { prompt("Copy your study sheet:", out); });
+  } else { prompt("Copy your study sheet:", out); }
+}
+
+// =====================================================================
+// MODE / EXAM TIMER / FLAG-REDO / ATTEMPT HISTORY
+// =====================================================================
+function pad(n) { return n < 10 ? "0" + n : "" + n; }
+function formatTime(totalSec) {
+  if (totalSec < 0) totalSec = 0;
+  const h = Math.floor(totalSec / 3600);
+  const m = Math.floor((totalSec % 3600) / 60);
+  const s = totalSec % 60;
+  return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`;
+}
+
+function setMode(mode) {
+  if (mode !== "practice" && mode !== "exam") return;
+  if (mode === state.mode) return;
+  state.mode = mode;
+  state.redo = "none";
+  saveProgress();
+  if (mode === "practice") stopExamTimer();
+  else if (state.exam.running && state.exam.endTs > Date.now()) resumeExamTimer();
+  applyFilter({ preservePosition: true });
+}
+
+function setRedo(kind) {
+  state.redo = (state.redo === kind) ? "none" : kind;
+  applyFilter({ preservePosition: false });
+}
+
+function countScope() {
+  const sel = document.getElementById("sectionSelect").value;
+  const pool = sel === "all" ? QUESTIONS : QUESTIONS.filter(q => q.section === sel);
+  let wrong = 0, flagged = 0;
+  pool.forEach(q => {
+    const r = state.results[q.id];
+    if (r && !r.correct) wrong++;
+    if (state.flags[q.id]) flagged++;
+  });
+  return { total: pool.length, wrong, flagged };
+}
+
+function renderModeUI() {
+  document.querySelectorAll(".mode-btn").forEach(b => b.classList.toggle("active", b.dataset.mode === state.mode));
+  const hint = document.getElementById("modeHint");
+  const intro = document.getElementById("examIntro");
+  const bar = document.getElementById("examBar");
+  const navWrap = document.getElementById("navGridWrap");
+  const redoBar = document.getElementById("redoBar");
+  const examActive = state.mode === "exam" && state.exam.running && !state.exam.finished;
+  const examFinished = state.mode === "exam" && state.exam.finished;
+
+  if (state.mode === "practice") {
+    hint.textContent = "Answer one at a time, see the rule the moment you submit. No clock.";
+    intro.style.display = "none"; bar.style.display = "none"; navWrap.style.display = "none";
+  } else {
+    if (examActive) {
+      hint.textContent = "Timed run · exam scoring · no answers shown until you finish. Flag and skip freely.";
+      intro.style.display = "none"; bar.style.display = "flex"; navWrap.style.display = "block";
+    } else if (examFinished) {
+      hint.textContent = "Exam finished — reviewing answers with the rule under each. Start a fresh run any time.";
+      intro.style.display = "block"; bar.style.display = "none"; navWrap.style.display = "block";
+      intro.innerHTML = `<h3>Exam finished</h3>
+        <p>Score and per-area breakdown are below. Tap a number in the grid to jump to any question, or use <b>Redo only wrong</b> to retry the misses.</p>
+        <button class="exam-start-btn" data-action="startExam">Start a fresh timed run</button>`;
+    } else {
+      const n = state.filtered.length;
+      const mins = Math.max(1, Math.round(n * MIN_PER_Q));
+      hint.textContent = "Timed run · exam scoring · no answers shown until you finish.";
+      intro.style.display = "block"; bar.style.display = "none"; navWrap.style.display = "none";
+      intro.innerHTML = `<h3>⏱️ Exam mode — like the real thing</h3>
+        <p>${n} questions · ${mins} min on the clock · +1 right, −0.25 wrong, 0 blank. No feedback until you finish, just like the real paper. You can flag questions and jump around with the grid.</p>
+        <button class="exam-start-btn" data-action="startExam">Start ${mins}-minute timed run</button>`;
+    }
+  }
+
+  // Redo bar (both modes, when there's something to redo)
+  const c = countScope();
+  if (c.wrong === 0 && c.flagged === 0 && state.redo === "none") {
+    redoBar.style.display = "none";
+  } else {
+    redoBar.style.display = "flex";
+    redoBar.innerHTML =
+      `<button class="redo-btn ${state.redo === "wrong" ? "active" : ""}" data-action="redoWrong" ${c.wrong ? "" : "disabled"}>↻ Redo only wrong (${c.wrong})</button>
+       <button class="redo-btn ${state.redo === "flagged" ? "active" : ""}" data-action="redoFlagged" ${c.flagged ? "" : "disabled"}>🚩 Flagged only (${c.flagged})</button>
+       ${state.redo !== "none" ? `<button class="redo-btn redo-clear" data-action="redoClear">Show all again</button>` : ""}`;
+  }
+}
+
+function renderNavGrid() {
+  const navWrap = document.getElementById("navGridWrap");
+  if (navWrap.style.display === "none") return;
+  const grid = document.getElementById("navGrid");
+  const finished = state.mode === "exam" && state.exam.finished;
+  grid.innerHTML = state.filtered.map((q, i) => {
+    let cls = "nav-cell";
+    const r = state.results[q.id];
+    if (finished && r) cls += r.correct ? " correct" : " wrong";
+    else if (r) cls += " answered";
+    if (state.flags[q.id]) cls += " flagged";
+    if (i === state.index) cls += " current";
+    return `<div class="${cls}" data-action="navJump" data-idx="${i}">${i + 1}</div>`;
+  }).join("");
+  const legend = document.getElementById("navGridLegend");
+  if (legend) {
+    const answered = state.filtered.filter(q => state.results[q.id]).length;
+    legend.textContent = ` — ${answered}/${state.filtered.length} answered`;
+  }
+}
+
+function resumeExamTimer() { stopExamTimer(); examTick = setInterval(tickExam, 1000); tickExam(); }
+function stopExamTimer() { if (examTick) { clearInterval(examTick); examTick = null; } }
+
+function startExam() {
+  const n = state.filtered.length;
+  if (n === 0) { alert("No questions in this filter."); return; }
+  const mins = Math.max(1, Math.round(n * MIN_PER_Q));
+  if (!confirm(`Start a fresh ${mins}-minute run over these ${n} questions?\n\nThis clears your current answers for them (attempt history is kept).`)) return;
+  // fresh slate for the in-scope questions
+  state.filtered.forEach(q => { delete state.results[q.id]; delete state.progress.drafts[q.id]; });
+  saveResults(); saveProgress();
+  state.redo = "none";
+  state.exam = { running: true, finished: false, endTs: Date.now() + mins * 60 * 1000, durationSec: mins * 60 };
+  saveExam();
+  state.index = 0;
+  resumeExamTimer();
+  applyFilter({ preservePosition: false });
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function tickExam() {
+  const bar = document.getElementById("examBar");
+  const remaining = Math.round((state.exam.endTs - Date.now()) / 1000);
+  if (remaining <= 0) { finishExam(true); return; }
+  const answered = state.filtered.filter(q => state.results[q.id]).length;
+  let tcls = "exam-timer";
+  if (remaining <= 30) tcls += " danger"; else if (remaining <= 120) tcls += " warn";
+  bar.innerHTML = `<div>
+      <div class="${tcls}">${formatTime(remaining)}</div>
+      <div class="exam-meta">${answered}/${state.filtered.length} answered · +1 / −0.25 / 0</div>
+    </div>
+    <button class="exam-finish-btn" data-action="finishExam">Finish & score</button>`;
+}
+
+function finishExam(auto) {
+  if (!state.exam.running && state.exam.finished) return;
+  if (!auto && !confirm("Finish the exam and see your score?")) return;
+  stopExamTimer();
+  state.exam.running = false;
+  state.exam.finished = true;
+  saveExam();
+  const attempt = recordAttempt();
+  renderModeUI();
+  state.index = 0;
+  renderQuestion();
+  renderAttemptHistory();
+  const sb = document.getElementById("scoreboard");
+  if (sb) sb.scrollIntoView({ behavior: "smooth", block: "center" });
+  if (attempt) {
+    setTimeout(() => alert(`${auto ? "Time's up!\n\n" : ""}Score: ${attempt.score}/${attempt.max}\n${attempt.right} right · ${attempt.wrong} wrong · ${attempt.blank} blank\n\nThe rule is now under every question, and this attempt is saved in your history.`), 50);
+  }
+}
+
+function recordAttempt() {
+  let right = 0, wrong = 0;
+  const sections = {};
+  state.filtered.forEach(q => {
+    if (!sections[q.section]) sections[q.section] = { total: 0, solid: 0, guessed: 0, wrong: 0, skip: 0 };
+    sections[q.section].total++;
+    const r = state.results[q.id];
+    if (!r) { sections[q.section].skip++; }
+    else if (r.correct) { right++; sections[q.section].solid++; }
+    else { wrong++; sections[q.section].wrong++; }
+  });
+  const blank = state.filtered.length - right - wrong;
+  const score = Math.round((right * 1 - wrong * 0.25) * 100) / 100;
+  const max = state.filtered.length * 1;
+  const sel = document.getElementById("sectionSelect").value;
+  const scope = sel === "all" ? "Full mock" : (SECTION_LABELS[sel] || sel);
+  const attempt = { mock: "diagnostic-1", mode: "exam", scope, ts: new Date().toISOString(),
+    score, max, right, wrong, blank, sections };
+  try {
+    const raw = localStorage.getItem(HISTORY_KEY);
+    const history = raw ? JSON.parse(raw) : [];
+    history.push(attempt);
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+  } catch {}
+  return attempt;
+}
+
+function renderAttemptHistory() {
+  const wrap = document.getElementById("attemptHistoryList");
+  if (!wrap) return;
+  let history = [];
+  try { const raw = localStorage.getItem(HISTORY_KEY); if (raw) history = JSON.parse(raw); } catch {}
+  const mine = history.filter(h => h.mock === "diagnostic-1");
+  if (mine.length === 0) {
+    wrap.innerHTML = `<div class="ah-empty">No timed runs yet. Switch to ⏱️ Exam mode and finish a run to start tracking your score over time.</div>`;
+    return;
+  }
+  const rows = mine.map((h, i) => {
+    const pct = h.max ? Math.round((h.score / h.max) * 100) : 0;
+    const fillPct = Math.max(0, Math.min(100, pct));
+    const prev = i > 0 ? mine[i - 1] : null;
+    let deltaHtml = "", dir = "";
+    if (prev) {
+      const d = h.score - prev.score;
+      if (d > 0) { dir = "up"; deltaHtml = `<span class="ah-delta up">▲ +${d}</span>`; }
+      else if (d < 0) { dir = "down"; deltaHtml = `<span class="ah-delta down">▼ ${d}</span>`; }
+      else deltaHtml = `<span class="ah-delta">±0</span>`;
+    }
+    const d = new Date(h.ts);
+    const when = `${d.getDate()}/${d.getMonth() + 1} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    const scope = h.scope && h.scope !== "Full mock" ? ` · ${h.scope}` : "";
+    return `<div class="ah-row">
+      <div class="ah-when">${when}${scope}</div>
+      <div class="ah-track"><div class="ah-fill ${dir}" style="width:${fillPct}%;"></div></div>
+      <div class="ah-score">${h.score}/${h.max}${deltaHtml}</div>
+    </div>`;
+  }).join("");
+  wrap.innerHTML = rows;
+}
+
+loadResults();
+if (state.progress.lastSection) {
+  const sel = document.getElementById("sectionSelect");
+  if ([...sel.options].some(o => o.value === state.progress.lastSection)) sel.value = state.progress.lastSection;
+}
+// resume a live exam timer if one was running and time remains
+if (state.mode === "exam" && state.exam.running && !state.exam.finished) {
+  if (state.exam.endTs > Date.now()) resumeExamTimer();
+  else { state.exam.running = false; state.exam.finished = true; saveExam(); }
+}
+applyFilter({ preservePosition: true });
+showResumeBanner();
+renderAttemptHistory();
+</script>
+<script>
+/* PWA:met-prep */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("/sihan-met-flashcards/sw.js").catch(function () {});
+  });
+}
+(function () {
+  var dp = null;
+  window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); dp = e; showBtn(); });
+  function showBtn() {
+    if (document.getElementById("pwaInstallBtn")) return;
+    var b = document.createElement("button");
+    b.id = "pwaInstallBtn"; b.textContent = "Install app";
+    b.style.cssText = "position:fixed;right:14px;bottom:14px;z-index:9999;background:#1f6feb;color:#fff;border:0;border-radius:8px;padding:10px 14px;font:600 14px system-ui,sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.4);cursor:pointer";
+    b.onclick = function () { if (!dp) return; dp.prompt(); dp.userChoice.finally(function(){ dp = null; b.remove(); }); };
+    (document.body || document.documentElement).appendChild(b);
+  }
+  window.addEventListener("appinstalled", function () { var b = document.getElementById("pwaInstallBtn"); if (b) b.remove(); });
+})();
+</script>
+</body>
+</html>

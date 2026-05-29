@@ -13,6 +13,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(ROOT, "..", ".."))
 
 MOCKS = [
+    ("diagnostic-1", "quiz/diagnostic-1/index.html"),
     ("pep-mock-1", "quiz/pep-mock-1/index.html"),
     ("pep-mock-2", "quiz/pep-mock-2/index.html"),
     ("met-mock-1", "quiz/met-mock-1/index.html"),
