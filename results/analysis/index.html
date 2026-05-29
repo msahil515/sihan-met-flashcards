@@ -512,6 +512,28 @@ const MOCKS = [
     companion: null
   },
   {
+    id: "pyq-real-2025",
+    title: "Real PYQ Mock — NIMHANS 2025 (memory-based)",
+    short: "PYQ Real 2025",
+    path: "../../quiz/pyq-real-2025/",
+    storageResults: "pyq-real-2025-results-v1",
+    storageNotes: "pyq-real-2025-notes-v1",
+    total: 59,
+    max: 59,
+    scoring: (right, wrong) => right - wrong * 0.25,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
+    sections: { therapy: 14, biostats: 13, biopsych: 10, abnormal: 8, dev: 5, assessment: 4, general: 4, social: 1 },
+    bands: [
+      { min: 47, max: 59, name: "Cut-off band", cls: "good", desc: "Real NIMHANS PYQ paper, so direction holds. At ~80% you're test-ready on the verbatim questions; lock the routine." },
+      { min: 44, max: 46.99, name: "Borderline", cls: "warn", desc: "Stop the −0.25 leak: skip pure-noise questions instead of guessing. That alone usually clears cut-off." },
+      { min: 41, max: 43.99, name: "Close", cls: "warn", desc: "Section gaps showing — see 'Revise next'. Patch what's there, don't add new topics." },
+      { min: 38, max: 40.99, name: "Needs work", cls: "bad", desc: "Likely 1-2 sections under 50%. Cheatsheets first, then re-attempt." },
+      { min: -100, max: 37.99, name: "Below band", cls: "bad", desc: "Pause new mocks. Do the targeted revision and re-attempt this same paper after a focused week." }
+    ],
+    cutoff: 47, cutoffLabel: "cut-off ~47/59 (80%)",
+    companion: null
+  },
+  {
     id: "pyq-mock-2",
     title: "PYQ Mock 2, pan-India",
     short: "PYQ Mock 2",

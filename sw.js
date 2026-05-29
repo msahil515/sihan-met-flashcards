@@ -107,6 +107,7 @@ const PRECACHE = [
   "/sihan-met-flashcards/quiz/nimhans-mock-1/",
   "/sihan-met-flashcards/quiz/pyq-mock-2/",
   "/sihan-met-flashcards/quiz/pyq-real-2024/",
+  "/sihan-met-flashcards/quiz/pyq-real-2025/",
   "/sihan-met-flashcards/quiz/wrong-remix/",
   "/sihan-met-flashcards/results/",
   "/sihan-met-flashcards/results/analysis/",
