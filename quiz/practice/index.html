@@ -147,6 +147,26 @@
   .explain .verdict.right { color: var(--good); }
   .explain .verdict.wrong { color: var(--bad); }
 
+  /* Guessed toggle + retire/keep fate */
+  .guess-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  .guess-toggle {
+    display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+    background: var(--panel-2); border: 1px solid var(--border); color: var(--muted);
+    border-radius: 999px; padding: 6px 13px; font-size: 12.5px; font-family: inherit; font-weight: 600;
+    transition: border-color .12s, background .12s, color .12s;
+  }
+  .guess-toggle:hover { border-color: var(--warn); }
+  .guess-toggle.on { background: var(--warn-soft); border-color: var(--warn); color: var(--warn); }
+  .guess-toggle .box {
+    width: 15px; height: 15px; border-radius: 4px; border: 1.5px solid currentColor;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 11px; line-height: 1;
+  }
+  .guess-hint { font-size: 11.5px; color: var(--muted); }
+  .fate { margin-top: 13px; font-size: 12.5px; font-weight: 650; display: none; align-items: center; gap: 7px; }
+  .fate.show { display: flex; }
+  .fate.retire { color: var(--good); }
+  .fate.keep { color: var(--warn); }
+
   .nextbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 16px; }
   .nextbar .progress-mini { font-size: 12px; color: var(--muted); }
 
@@ -193,7 +213,7 @@
 <main>
   <div class="hero">
     <h1>Practice by area</h1>
-    <p>Pick an area, drill it topic by topic. No timer, no marks lost — answer and you see right away why, with the rule behind it. Progress saves in this browser.</p>
+    <p>Pick an area, drill it topic by topic. No timer, no marks lost — answer and you see right away why, with the rule behind it. Get one right on your own and it retires for good, you won't see it again. Miss it, or tap <b>Guessed</b> before you answer, and it stays in rotation. Progress saves in this browser.</p>
   </div>
 
   <div class="areas" id="areaGrid"></div>
@@ -210,7 +230,7 @@
 </main>
 
 <footer>
-  Practice mode is for learning, not testing — drill an area until the rule sticks, then prove it on a timed <a href="../../tests/">mock</a>. Progress saved locally in this browser. <a href="../../">Back to dashboard</a>
+  Practice mode is for learning, not testing — drill an area until the rule sticks, then prove it on a timed <a href="../../tests/">mock</a>. Questions you get right on your own retire and stop repeating; misses and flagged guesses keep coming back until they don't. Progress saved locally in this browser. <a href="../../">Back to dashboard</a>
 </footer>
 
 <script src="../../nav-toggle.js"></script>
@@ -360,7 +380,10 @@ function loadProgress() {
 function saveProgress(p) {
   try { localStorage.setItem(STORE_KEY, JSON.stringify(p)); } catch (e) {}
 }
-let progress = loadProgress(); // { areaKey: { seen:{qid:true}, right:{qid:true} } }
+// { areaKey: { seen:{qid}, right:{qid}, retired:{qid}, guessed:{qid} } }
+// retired = answered correctly WITHOUT guessing -> dropped from rotation for good.
+// A miss, or a "right but Guessed", keeps the question in rotation.
+let progress = loadProgress();
 
 function qid(q) { return q.area + "::" + BANK.indexOf(q); }
 function areaCount(key) { return BANK.filter(q => q.area === key).length; }
@@ -382,17 +405,22 @@ function renderAreas() {
   areaGrid.innerHTML = "";
   AREAS.forEach(a => {
     const total = areaCount(a.key);
-    const ap = progress[a.key] || { seen:{}, right:{} };
-    const seen = Object.keys(ap.seen || {}).length;
-    const right = Object.keys(ap.right || {}).length;
-    const pct = total ? Math.round((seen / total) * 100) : 0;
+    const ap = areaProg(a.key);
+    const retired = Object.keys(ap.retired).length;
+    const left = total - retired;
+    const pct = total ? Math.round((retired / total) * 100) : 0;
     const card = document.createElement("button");
     card.type = "button";
     card.className = "area-card" + (state.area === a.key ? " sel" : "");
+    const prog = retired
+      ? (left > 0
+          ? (retired + '/' + total + ' retired · ' + left + ' still in rotation')
+          : 'cleared — all ' + total + ' retired')
+      : 'not started';
     card.innerHTML =
       '<div class="ac-name">' + a.name + '</div>' +
       '<div class="ac-meta">' + total + ' Q · ' + a.note + '</div>' +
-      '<div class="ac-prog">' + (seen ? (seen + '/' + total + ' done · ' + right + ' right') : 'not started') + '</div>' +
+      '<div class="ac-prog">' + prog + '</div>' +
       '<div class="ac-bar"><div class="ac-fill" style="width:' + pct + '%"></div></div>';
     card.addEventListener("click", () => selectArea(a.key));
     areaGrid.appendChild(card);
@@ -426,8 +454,21 @@ function renderTopics() {
   topics.forEach(t => mk(t, t));
 }
 
+function areaProg(key) {
+  const ap = progress[key] || {};
+  ap.seen = ap.seen || {}; ap.right = ap.right || {};
+  ap.retired = ap.retired || {}; ap.guessed = ap.guessed || {};
+  return ap;
+}
+// Questions in a filter that are NOT yet retired (still in rotation).
+function inRotation(areaKey, topic) {
+  const ap = areaProg(areaKey);
+  return BANK.filter(q => q.area === areaKey &&
+    (topic === "all" || q.topic === topic) && !ap.retired[qid(q)]);
+}
+
 function buildQueue() {
-  let qs = BANK.filter(q => q.area === state.area && (state.topic === "all" || q.topic === state.topic));
+  let qs = inRotation(state.area, state.topic);
   // shuffle
   for (let i = qs.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -436,15 +477,46 @@ function buildQueue() {
   state.queue = qs;
 }
 
+function updateCountLabel() {
+  const left = state.queue.length;
+  const retired = Object.keys(areaProg(state.area).retired)
+    .filter(k => state.topic === "all" || BANK[parseInt(k.split("::")[1], 10)] && BANK[parseInt(k.split("::")[1], 10)].topic === state.topic).length;
+  countLabel.textContent = left + (left === 1 ? " question" : " questions") + " in rotation" +
+    (retired ? " · " + retired + " retired" : "") +
+    (state.topic === "all" ? "" : " · " + state.topic);
+}
+
 function renderQuestion() {
   const q = state.queue[state.idx];
-  countLabel.textContent = state.queue.length + (state.queue.length === 1 ? " question" : " questions") +
-    (state.topic === "all" ? "" : " · " + state.topic);
+  updateCountLabel();
   if (!q) {
-    qAreaEl.innerHTML = '<div class="empty">No questions here yet.</div>';
+    // Either the area has no questions for this filter, or every one is retired.
+    const anyInBank = BANK.some(x => x.area === state.area && (state.topic === "all" || x.topic === state.topic));
+    if (anyInBank) {
+      qAreaEl.innerHTML =
+        '<div class="card done-card">' +
+        '<h2>Nothing left in rotation</h2>' +
+        '<p>You\'ve answered every question here right on your own. They\'re all retired — they won\'t come back unless you reset.</p>' +
+        '<div class="actions">' +
+        '<button class="btn" id="reviveBtn" type="button">↻ Bring them back</button>' +
+        '<a class="btn ghost" href="../../tests/">Prove it on a timed mock</a>' +
+        '</div></div>';
+      const rb = document.getElementById("reviveBtn");
+      if (rb) rb.addEventListener("click", () => {
+        const ap = areaProg(state.area);
+        if (state.topic === "all") { ap.retired = {}; }
+        else { Object.keys(ap.retired).forEach(k => { const bi = parseInt(k.split("::")[1],10); if (BANK[bi] && BANK[bi].topic === state.topic) delete ap.retired[k]; }); }
+        progress[state.area] = ap; saveProgress(progress);
+        buildQueue(); state.idx = 0; renderAreas(); renderQuestion();
+      });
+    } else {
+      qAreaEl.innerHTML = '<div class="empty">No questions here yet.</div>';
+    }
     return;
   }
   const id = qid(q);
+  const ap = areaProg(state.area);
+  let guessed = !!ap.guessed[id];   // remember a prior "Guessed" flag for this question
   const card = document.createElement("div");
   card.className = "card";
   let optsHtml = "";
@@ -455,44 +527,74 @@ function renderQuestion() {
     '<div class="q-top"><span class="q-num">Q' + (state.idx + 1) + ' of ' + state.queue.length + '</span>' +
     '<span class="q-topic">' + q.topic + '</span></div>' +
     '<div class="q-text">' + q.q + '</div>' +
+    '<div class="guess-row">' +
+      '<button class="guess-toggle' + (guessed ? ' on' : '') + '" id="guessBtn" type="button" aria-pressed="' + guessed + '">' +
+        '<span class="box">' + (guessed ? '✓' : '') + '</span> Guessed</button>' +
+      '<span class="guess-hint">Tap if you\'re not sure — a right guess stays in rotation.</span>' +
+    '</div>' +
     '<div class="opts">' + optsHtml + '</div>' +
     '<div class="explain" id="explain"></div>' +
+    '<div class="fate" id="fate"></div>' +
     '<div class="nextbar"><span class="progress-mini" id="pmini"></span>' +
     '<button class="btn" id="nextBtn" type="button" style="display:none;">Next →</button></div>';
   qAreaEl.innerHTML = "";
   qAreaEl.appendChild(card);
 
   const explainEl = card.querySelector("#explain");
+  const fateEl = card.querySelector("#fate");
   const nextBtn = card.querySelector("#nextBtn");
+  const guessBtn = card.querySelector("#guessBtn");
   const opts = card.querySelectorAll(".opt");
   let answered = false;
+  let lastRight = false;
+
+  // Persist the guess flag and (if already answered) re-decide the question's fate live.
+  function commitFate() {
+    const ap2 = areaProg(state.area);
+    ap2.seen[id] = true;
+    if (guessed) ap2.guessed[id] = true; else delete ap2.guessed[id];
+    if (lastRight) ap2.right[id] = true; else delete ap2.right[id];
+    // Retire ONLY a right answer that was NOT guessed.
+    if (lastRight && !guessed) ap2.retired[id] = true; else delete ap2.retired[id];
+    progress[state.area] = ap2;
+    saveProgress(progress);
+    renderAreas();
+    if (answered) {
+      const retiredNow = lastRight && !guessed;
+      fateEl.className = "fate show " + (retiredNow ? "retire" : "keep");
+      fateEl.textContent = retiredNow
+        ? "✓ Retired — you won't see this one again."
+        : (lastRight ? "↻ Right, but flagged a guess — staying in rotation." : "↻ Stays in rotation — you'll see it again.");
+      const totRetired = Object.keys(ap2.retired).length;
+      card.querySelector("#pmini").textContent = "This area: " + totRetired + " retired";
+    }
+  }
+
+  guessBtn.addEventListener("click", () => {
+    guessed = !guessed;
+    guessBtn.classList.toggle("on", guessed);
+    guessBtn.setAttribute("aria-pressed", String(guessed));
+    guessBtn.querySelector(".box").textContent = guessed ? "✓" : "";
+    commitFate();
+  });
 
   opts.forEach(btn => {
     btn.addEventListener("click", () => {
       if (answered) return;
       answered = true;
       const chosen = btn.getAttribute("data-k");
-      const isRight = chosen === q.correct;
+      lastRight = chosen === q.correct;
       opts.forEach(o => {
         o.setAttribute("disabled", "true");
         const k = o.getAttribute("data-k");
         if (k === q.correct) o.classList.add("correct");
         else if (k === chosen) o.classList.add("wrong");
       });
-      explainEl.innerHTML = '<span class="verdict ' + (isRight ? "right" : "wrong") + '">' +
-        (isRight ? "Correct." : "Not quite.") + '</span>' + q.explanation;
+      explainEl.innerHTML = '<span class="verdict ' + (lastRight ? "right" : "wrong") + '">' +
+        (lastRight ? "Correct." : "Not quite.") + '</span>' + q.explanation;
       explainEl.classList.add("show");
       nextBtn.style.display = "inline-block";
-      // record progress
-      const ap = progress[state.area] || { seen:{}, right:{} };
-      ap.seen = ap.seen || {}; ap.right = ap.right || {};
-      ap.seen[id] = true;
-      if (isRight) ap.right[id] = true; else delete ap.right[id];
-      progress[state.area] = ap;
-      saveProgress(progress);
-      renderAreas();
-      const ans = Object.keys(ap.seen).length, rt = Object.keys(ap.right).length;
-      card.querySelector("#pmini").textContent = "This area: " + rt + "/" + ans + " right";
+      commitFate();
     });
   });
 
