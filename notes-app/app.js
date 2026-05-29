@@ -68,7 +68,7 @@
     // hero
     html += '<div class="hero">' +
       '<h1>Notes for Exam</h1>' +
-      '<p>Every cheatsheet, primer, debrief and deep-dive from your prep, rebuilt as one clean reading library. Tap a book to read it like a chapter.</p>' +
+      '<p>Every cheatsheet, primer, debrief and deep-dive from your prep, merged so each concept lives in one clean entry, no flipping between twenty overlapping notes. Detail kept, nothing cut. Tap a book to read it like a chapter.</p>' +
       '<div class="stats">' +
         '<span><b>' + DATA.chapters + '</b> chapters</span>' +
         '<span><b>' + Math.round(DATA.words / 1000) + 'k</b> words</span>' +

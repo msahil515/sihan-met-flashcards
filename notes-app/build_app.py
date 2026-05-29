@@ -1,0 +1,226 @@
+#!/usr/bin/env python3
+"""
+Build the "Notes for Exam" library from the CONSOLIDATED books.
+
+This replaces the old build_notes_app.py approach (which stapled every one of
+the ~44 notes/<slug>/index.html pages in as its own chapter). Sihan's ask:
+"one concept living in 20 sub notes becomes one clean entry, but detail stays,
+nothing cut short." So the ~44 overlapping notes are merged into 13 clean books:
+
+  - 9 MERGED books   -> notes-app/merged/<slug>.html  (authored: many notes
+                        fused into one entry per concept, redundancy collapsed,
+                        every unique detail kept)
+  - 4 PASSTHROUGH    -> a single source note that had no real redundancy is
+                        carried over verbatim (chrome stripped, scoped styles
+                        preserved): cognitive, personality, lookalikes, textbook
+
+Outputs: content/<slug>.html (reader pages), manifest.json, search-index.json,
+and stamps sw.js with a content hash.
+"""
+import os, re, json, html, hashlib
+
+ROOT = os.path.dirname(os.path.abspath(__file__))     # .../notes-app
+SITE = os.path.dirname(ROOT)                           # repo root
+NOTES = os.path.join(SITE, "notes")
+MERGED = os.path.join(ROOT, "merged")
+OUT_CONTENT = os.path.join(ROOT, "content")
+
+# ---- Shelves (display order) -------------------------------------------
+SECTIONS = [
+    ("core",      "Core Subjects",        "The syllabus, one merged book per subject", "#1d4ed8", "#1e3a8a"),
+    ("reference", "Quick Reference",       "Effects, theorists, lookalikes, the one-page cram", "#7e22ce", "#581c87"),
+    ("mocks",     "Mocks & Weak Spots",    "Every debrief reorganised by what kept costing marks", "#be123c", "#831843"),
+]
+
+# ---- Books -------------------------------------------------------------
+# kind "merged"  -> merged/<slug>.html (inner article HTML, uses book.css classes)
+# kind "note"    -> notes/<src>/index.html (or notes/<src>.html), chrome stripped
+BOOKS = [
+    # --- Core Subjects (one merged book per subject) ---
+    dict(slug="biopsychology", shelf="core", kind="merged",
+         short="Biopsychology & Neuroscience",
+         blurb="Neurons, action potentials, neurotransmitters, brain anatomy, cranial nerves, the HPA axis, sleep and neuro/genetic disorders, fused into one primer."),
+    dict(slug="cognitive", shelf="core", kind="note", src="cognitive",
+         short="Cognitive Psychology",
+         blurb="Memory, attention, perception, language, thinking and reasoning, the full cognitive deep dive."),
+    dict(slug="developmental", shelf="core", kind="merged",
+         short="Developmental Psychology",
+         blurb="Lifespan theories, attachment, Piaget, Erikson, Kohlberg and Bronfenbrenner's systems, merged."),
+    dict(slug="abnormal", shelf="core", kind="merged",
+         short="Abnormal Psychology",
+         blurb="DSM-5 and ICD classification, every major disorder, diagnostic criteria and the high-yield traps, merged into one."),
+    dict(slug="personality", shelf="core", kind="note", src="personality",
+         short="Personality",
+         blurb="Trait, type, psychodynamic, humanistic and behavioural theories of personality, the full deep dive."),
+    dict(slug="social", shelf="core", kind="merged",
+         short="Social & General Psychology",
+         blurb="Attribution, attitudes, conformity, groups, prejudice plus the general-psych core and every landmark study, merged."),
+    dict(slug="assessment", shelf="core", kind="merged",
+         short="Assessment & Testing",
+         blurb="Reliability, validity, norms, and every intelligence, personality and projective test, merged with full detail."),
+    dict(slug="therapy", shelf="core", kind="merged",
+         short="Therapy, Counselling & Ethics",
+         blurb="Learning and conditioning, every therapy school from Freud to SFBT, common factors and ethics, merged."),
+    dict(slug="research", shelf="core", kind="merged",
+         short="Research Methods & Statistics",
+         blurb="Research design, sampling, distributions, every statistical test, and degrees of freedom from scratch, merged."),
+    # --- Quick Reference ---
+    dict(slug="concepts", shelf="reference", kind="merged",
+         short="Effects, Theories & Originators",
+         blurb="Every named effect, phenomenon, theory, complex and 'who originated what', one cross-referenced lookup."),
+    dict(slug="lookalikes", shelf="reference", kind="note", src="differentiators",
+         short="Lookalikes",
+         blurb="Confusable term pairs side by side, the fast way to stop mixing up the ones that look alike."),
+    dict(slug="textbook", shelf="reference", kind="note", src="textbook",
+         short="The Complete Textbook",
+         blurb="The whole syllabus on one page, the single-scroll cram reference when you want everything at once."),
+    # --- Mocks & Weak Spots ---
+    dict(slug="mocks", shelf="mocks", kind="merged",
+         short="Mock Debriefs & Weak-Spot Fixes",
+         blurb="Every mock debrief reorganised by weak spot, the misses that recurred and exactly how to fix them."),
+]
+
+GATE_STYLE = "html.gate-locked body{display:none!important}"
+
+def strip_tags(s):
+    s = re.sub(r"<[^>]+>", " ", s)
+    s = html.unescape(s)
+    return re.sub(r"\s+", " ", s).strip()
+
+def extract_note(html_text):
+    """For passthrough notes: return (title, styles, content_html, plain)."""
+    styles = []
+    for m in re.finditer(r"<style[^>]*>(.*?)</style>", html_text, re.S | re.I):
+        css = m.group(1)
+        if GATE_STYLE in css:
+            continue
+        styles.append(css)
+    bm = re.search(r"<body[^>]*>(.*)</body>", html_text, re.S | re.I)
+    body = bm.group(1) if bm else html_text
+    body = re.sub(r"<script[^>]*>.*?</script>", "", body, flags=re.S | re.I)
+    body = re.sub(r"<style[^>]*>.*?</style>", "", body, flags=re.S | re.I)
+    body = re.sub(r"<noscript[^>]*>.*?</noscript>", "", body, flags=re.S | re.I)
+    body = re.sub(r"<nav[^>]*>.*?</nav>", "", body, count=1, flags=re.S | re.I)
+    body = re.sub(r"<!--.*?-->", "", body, flags=re.S)
+    body = re.sub(r'<button[^>]*id="(pwaInstallBtn|forceSyncBtn)"[^>]*>.*?</button>',
+                  "", body, flags=re.S | re.I)
+    bs = body.strip()
+    m = re.match(r'<div\s+class="wrap"\s*>', bs, re.I)
+    if m:
+        inner = bs[m.end():]
+        ci = inner.rfind("</div>")
+        if ci != -1:
+            inner = inner[:ci] + inner[ci + len("</div>"):]
+        body = inner
+    else:
+        body = bs
+    tm = re.search(r"<h1[^>]*>(.*?)</h1>", body, re.S | re.I)
+    title = strip_tags(tm.group(1)) if tm else None
+    return title, "\n".join(styles), body.strip(), strip_tags(body)
+
+READER_TMPL = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title} — Notes for Exam</title>
+<link rel="stylesheet" href="../../notes-style.css">
+<link rel="stylesheet" href="/sihan-met-flashcards/notes/term-popover.css">
+<link rel="stylesheet" href="../book.css">
+<link rel="stylesheet" href="../reader.css">
+<style>
+{styles}
+</style>
+</head>
+<body class="nfe-reader">
+<article class="wrap nfe-article">
+{content}
+</article>
+<script src="/sihan-met-flashcards/notes/term-popover.js" defer></script>
+</body>
+</html>
+"""
+
+def main():
+    os.makedirs(OUT_CONTENT, exist_ok=True)
+    # wipe old content pages (the previous 44-chapter build); we rebuild fresh
+    for fn in os.listdir(OUT_CONTENT):
+        if fn.endswith(".html"):
+            os.remove(os.path.join(OUT_CONTENT, fn))
+
+    built = []
+    for b in BOOKS:
+        slug = b["slug"]
+        if b["kind"] == "merged":
+            with open(os.path.join(MERGED, slug + ".html"), encoding="utf-8") as f:
+                content = f.read().strip()
+            styles = ""
+            tm = re.search(r"<h1[^>]*>(.*?)</h1>", content, re.S | re.I)
+            title = strip_tags(tm.group(1)) if tm else b["short"]
+            plain = strip_tags(content)
+        else:  # passthrough note
+            src = b["src"]
+            p = os.path.join(NOTES, src, "index.html")
+            if not os.path.isfile(p):
+                p = os.path.join(NOTES, src + ".html")
+            with open(p, encoding="utf-8") as f:
+                raw = f.read()
+            title, styles, content, plain = extract_note(raw)
+            if not title:
+                title = b["short"]
+
+        out = READER_TMPL.format(title=html.escape(title), styles=styles, content=content)
+        with open(os.path.join(OUT_CONTENT, slug + ".html"), "w", encoding="utf-8") as f:
+            f.write(out)
+
+        words = len(plain.split())
+        built.append(dict(
+            slug=slug, title=title, short=b["short"], blurb=b["blurb"],
+            shelf=b["shelf"], words=words, minutes=max(1, round(words / 220)),
+            text=plain[:6000],
+        ))
+
+    # assemble shelves
+    shelves = []
+    for key, name, subtitle, ga, gb in SECTIONS:
+        items = [c for c in built if c["shelf"] == key]
+        if not items:
+            continue
+        shelves.append(dict(
+            key=key, name=name, subtitle=subtitle, accent=ga, grad=[ga, gb],
+            chapters=[{k: c[k] for k in ("slug", "title", "short", "blurb", "words", "minutes")}
+                      for c in items],
+        ))
+
+    total_words = sum(c["words"] for c in built)
+    manifest = dict(name="Notes for Exam", chapters=len(built),
+                    words=total_words, shelves=shelves)
+    with open(os.path.join(ROOT, "manifest.json"), "w", encoding="utf-8") as f:
+        json.dump(manifest, f, ensure_ascii=False, indent=1)
+
+    search = [{"slug": c["slug"], "title": c["title"], "section": c["shelf"], "text": c["text"]}
+              for c in built]
+    with open(os.path.join(ROOT, "search-index.json"), "w", encoding="utf-8") as f:
+        json.dump(search, f, ensure_ascii=False)
+
+    # stamp SW cache
+    h = hashlib.md5()
+    h.update(json.dumps(manifest, sort_keys=True).encode())
+    for fn in sorted(os.listdir(OUT_CONTENT)):
+        with open(os.path.join(OUT_CONTENT, fn), "rb") as f:
+            h.update(f.read())
+    stamp = h.hexdigest()[:10]
+    sw_path = os.path.join(ROOT, "sw.js")
+    if os.path.isfile(sw_path):
+        sw = open(sw_path, encoding="utf-8").read()
+        sw = re.sub(r'var CACHE = "notes-for-exam-[^"]*";',
+                    f'var CACHE = "notes-for-exam-{stamp}";', sw)
+        open(sw_path, "w", encoding="utf-8").write(sw)
+        print(f"stamped sw cache: notes-for-exam-{stamp}")
+
+    print(f"built {len(built)} books across {len(shelves)} shelves, {total_words:,} words")
+    for sh in shelves:
+        print(f"  {sh['name']:24s} {len(sh['chapters'])} books")
+
+if __name__ == "__main__":
+    main()
