@@ -177,7 +177,7 @@
   <nav><a href="../../">← Dashboard</a> <a href="../../tests/">Tests</a> <a href="../../results/">My Results</a> <a href="../../notes/">Notes</a> <a href="../../plan/">Plan</a></nav>
   <header>
     <h1>Biopsych + Testing paper — 60 Q targeted</h1>
-    <div class="subtitle">60 questions · ~60 min · +4 right / −1 wrong / 0 blank · target 165+/240</div>
+    <div class="subtitle">60 questions · ~60 min · +1 right / −0.25 wrong / 0 blank · target 41+/60</div>
     <div class="blueprint">Biopsychology 30 · Psychological Assessment 30 · fresh stems · drilled hard on the two sections where MET / NIMHANS leak the most marks</div>
   </header>
 
@@ -936,8 +936,8 @@ function exportForAnalysis() {
     if (r.correct) totalRight++; else totalWrong++;
   }
   const blank = QUESTIONS.length - totalRight - totalWrong;
-  const score = totalRight * 4 - totalWrong * 1;
-  const maxScore = QUESTIONS.length * 4;
+  const score = Math.round((totalRight * 1 - totalWrong * 0.25) * 100) / 100;
+  const maxScore = QUESTIONS.length;
 
   const bySection = {};
   for (const q of QUESTIONS) {
@@ -954,7 +954,7 @@ function exportForAnalysis() {
   const ts = new Date().toISOString();
   let out = `BIOPSYCH + TESTING PAPER — RESULTS EXPORT v1\n`;
   out += `Generated: ${ts}\n`;
-  out += `Score: ${score}/${maxScore}  (${totalRight} right, ${totalWrong} wrong, ${blank} blank · +4/−1/0 · target 165+/240)\n\n`;
+  out += `Score: ${score}/${maxScore}  (${totalRight} right, ${totalWrong} wrong, ${blank} blank · +1/−0.25/0 · target 41+/60)\n\n`;
 
   out += `SECTION BREAKDOWN\n=================\n`;
   for (const sec of Object.keys(SECTION_LABELS)) {
@@ -1067,12 +1067,12 @@ function renderStats() {
     if (!r) continue;
     if (r.correct) totalRight++; else totalWrong++;
   }
-  const score = totalRight * 4 - totalWrong * 1;
-  const maxScore = QUESTIONS.length * 4;
+  const score = Math.round((totalRight * 1 - totalWrong * 0.25) * 100) / 100;
+  const maxScore = QUESTIONS.length;
   const sb = document.getElementById("scoreboard");
   if (sb) {
     sb.innerHTML = `<span class="big">${score} / ${maxScore}</span>
-      <small>+4 right · −1 wrong · ${totalRight} right, ${totalWrong} wrong, ${QUESTIONS.length - totalRight - totalWrong} blank · target 165+/240</small>`;
+      <small>+1 right · −0.25 wrong · ${totalRight} right, ${totalWrong} wrong, ${QUESTIONS.length - totalRight - totalWrong} blank · target 41+/60</small>`;
   }
 
   const bySection = {};

@@ -356,19 +356,19 @@ const MOCKS = [
     storageResults: "met-mock-1-results-v1",
     storageNotes: "met-mock-1-notes-v1",
     total: 100,
-    max: 400,
-    scoring: (right, wrong) => right * 4 - wrong * 1,
-    scoringLabel: "+4 right · −1 wrong · 0 blank",
+    max: 100,
+    scoring: (right, wrong) => Math.round((right - wrong * 0.25) * 100) / 100,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
     sections: { biopsych: 15, dev: 15, abnormal: 15, assessment: 15, therapy: 15, biostats: 10, language: 15 },
     bands: [
-      { min: 320, max: 400, name: "Top 10%", cls: "good", desc: "Comfortably above the MET target. If you can hit this twice in a row under timed conditions, you're in seat-at-Manipal territory." },
-      { min: 280, max: 319, name: "Top 25%", cls: "good", desc: "Above the typical MET seat-cut estimate. One push (mostly cleaning up Biostats + Abnormal misses) and you're in the top decile." },
-      { min: 240, max: 279, name: "Top 40%", cls: "warn", desc: "Around the median of serious aspirants. Safe-ish, but no margin. Focus on weak sections from the list below, don't chase new topics." },
-      { min: 200, max: 239, name: "Mid pack", cls: "warn", desc: "Right in the bulk. To pull ahead you need to (a) stop the −1 bleed on guesses, and (b) lock down 1-2 weak sections cold." },
-      { min: 160, max: 199, name: "Below median", cls: "bad", desc: "Most full-length attempters score higher than this. Likely a section is genuinely soft — see the 'Revise next' block below and stop attempting new topics until it's patched." },
-      { min: -400, max: 159, name: "Cold start", cls: "bad", desc: "Score will climb fast once you do focused revision on the weakest section. Don't grind more mocks until you've closed it." }
+      { min: 80, max: 100, name: "Top 10%", cls: "good", desc: "Comfortably above the MET target. If you can hit this twice in a row under timed conditions, you're in seat-at-Manipal territory." },
+      { min: 70, max: 79.99, name: "Top 25%", cls: "good", desc: "Above the typical MET seat-cut estimate. One push (mostly cleaning up Biostats + Abnormal misses) and you're in the top decile." },
+      { min: 60, max: 69.99, name: "Top 40%", cls: "warn", desc: "Around the median of serious aspirants. Safe-ish, but no margin. Focus on weak sections from the list below, don't chase new topics." },
+      { min: 50, max: 59.99, name: "Mid pack", cls: "warn", desc: "Right in the bulk. To pull ahead you need to (a) stop the −0.25 bleed on guesses, and (b) lock down 1-2 weak sections cold." },
+      { min: 40, max: 49.99, name: "Below median", cls: "bad", desc: "Most full-length attempters score higher than this. Likely a section is genuinely soft — see the 'Revise next' block below and stop attempting new topics until it's patched." },
+      { min: -100, max: 39.99, name: "Cold start", cls: "bad", desc: "Score will climb fast once you do focused revision on the weakest section. Don't grind more mocks until you've closed it." }
     ],
-    cutoff: 320, cutoffLabel: "MET target 320",
+    cutoff: 80, cutoffLabel: "MET target 80",
     companion: null
   },
   {
@@ -405,19 +405,19 @@ const MOCKS = [
     storageResults: "met-mock-2-results-v1",
     storageNotes: "met-mock-2-notes-v1",
     total: 180,
-    max: 720,
-    scoring: (right, wrong) => right * 4 - wrong * 1,
-    scoringLabel: "+4 right · −1 wrong · 0 blank",
+    max: 180,
+    scoring: (right, wrong) => Math.round((right - wrong * 0.25) * 100) / 100,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
     sections: { biopsych: 30, dev: 25, abnormal: 30, assessment: 25, therapy: 25, biostats: 20, language: 25 },
     bands: [
-      { min: 576, max: 720, name: "Top 10%", cls: "good", desc: "Comfortably above target on a 720-max paper. If you hit this twice in a row under timed conditions, you're in seat-at-Manipal territory." },
-      { min: 504, max: 575, name: "Top 25%", cls: "good", desc: "Above the typical MET seat-cut estimate. One push (mostly cleaning up Biostats + Abnormal misses) and you're in the top decile." },
-      { min: 432, max: 503, name: "Top 40%", cls: "warn", desc: "Around the median of serious aspirants. Safe-ish, no margin. Patch your two weakest sections instead of chasing new topics." },
-      { min: 360, max: 431, name: "Mid pack", cls: "warn", desc: "Right in the bulk. To pull ahead: (a) stop the −1 bleed on guesses, (b) lock down 1-2 weak sections cold." },
-      { min: 288, max: 359, name: "Below median", cls: "bad", desc: "Most full-length attempters score higher. Likely a section is genuinely soft — see 'Revise next' below before any more mocks." },
-      { min: -720, max: 287, name: "Cold start", cls: "bad", desc: "Score will climb fast once you do focused revision on the weakest section. Don't grind more mocks until you've closed it." }
+      { min: 144, max: 180, name: "Top 10%", cls: "good", desc: "Comfortably above target on a 180-max paper. If you hit this twice in a row under timed conditions, you're in seat-at-Manipal territory." },
+      { min: 126, max: 143.99, name: "Top 25%", cls: "good", desc: "Above the typical MET seat-cut estimate. One push (mostly cleaning up Biostats + Abnormal misses) and you're in the top decile." },
+      { min: 108, max: 125.99, name: "Top 40%", cls: "warn", desc: "Around the median of serious aspirants. Safe-ish, no margin. Patch your two weakest sections instead of chasing new topics." },
+      { min: 90, max: 107.99, name: "Mid pack", cls: "warn", desc: "Right in the bulk. To pull ahead: (a) stop the −0.25 bleed on guesses, (b) lock down 1-2 weak sections cold." },
+      { min: 72, max: 89.99, name: "Below median", cls: "bad", desc: "Most full-length attempters score higher. Likely a section is genuinely soft — see 'Revise next' below before any more mocks." },
+      { min: -180, max: 71.99, name: "Cold start", cls: "bad", desc: "Score will climb fast once you do focused revision on the weakest section. Don't grind more mocks until you've closed it." }
     ],
-    cutoff: 480, cutoffLabel: "MET target 480",
+    cutoff: 120, cutoffLabel: "MET target 120",
     companion: null
   },
   {
@@ -428,19 +428,19 @@ const MOCKS = [
     storageResults: "met-mock-5-results-v1",
     storageNotes: "met-mock-5-notes-v1",
     total: 100,
-    max: 400,
-    scoring: (right, wrong) => right * 4 - wrong * 1,
-    scoringLabel: "+4 right · −1 wrong · 0 blank",
+    max: 100,
+    scoring: (right, wrong) => Math.round((right - wrong * 0.25) * 100) / 100,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
     sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 },
     bands: [
-      { min: 320, max: 400, name: "Top 10%", cls: "good", desc: "Above the 320 line on a 100 Q paper. Two of these back-to-back under timed conditions = comfortable MET seat zone." },
-      { min: 280, max: 319, name: "Top 25%", cls: "good", desc: "Above the typical MET cutoff estimate. Clean up the −1 leak on guesses and you're in the top decile." },
-      { min: 240, max: 279, name: "Top 40%", cls: "warn", desc: "Around the serious-aspirant median. Patch your two weakest sections — don't chase new topics." },
-      { min: 200, max: 239, name: "Mid pack", cls: "warn", desc: "Right in the bulk. Pull ahead by stopping the −1 bleed and locking 1-2 weak sections cold." },
-      { min: 160, max: 199, name: "Below median", cls: "bad", desc: "Most attempters score higher. Likely a section is genuinely soft — revise before another full attempt." },
-      { min: -400, max: 159, name: "Cold start", cls: "bad", desc: "Score will climb fast with focused revision on the weakest section. Don't grind more mocks until you've closed it." }
+      { min: 80, max: 100, name: "Top 10%", cls: "good", desc: "Above the 80 line on a 100 Q paper. Two of these back-to-back under timed conditions = comfortable MET seat zone." },
+      { min: 70, max: 79.99, name: "Top 25%", cls: "good", desc: "Above the typical MET cutoff estimate. Clean up the −0.25 leak on guesses and you're in the top decile." },
+      { min: 60, max: 69.99, name: "Top 40%", cls: "warn", desc: "Around the serious-aspirant median. Patch your two weakest sections — don't chase new topics." },
+      { min: 50, max: 59.99, name: "Mid pack", cls: "warn", desc: "Right in the bulk. Pull ahead by stopping the −0.25 bleed and locking 1-2 weak sections cold." },
+      { min: 40, max: 49.99, name: "Below median", cls: "bad", desc: "Most attempters score higher. Likely a section is genuinely soft — revise before another full attempt." },
+      { min: -100, max: 39.99, name: "Cold start", cls: "bad", desc: "Score will climb fast with focused revision on the weakest section. Don't grind more mocks until you've closed it." }
     ],
-    cutoff: 270, cutoffLabel: "MET target 270",
+    cutoff: 68, cutoffLabel: "MET target 68",
     companion: null
   },
   {
@@ -451,19 +451,19 @@ const MOCKS = [
     storageResults: "met-mock-4-results-v1",
     storageNotes: "met-mock-4-notes-v1",
     total: 100,
-    max: 400,
-    scoring: (right, wrong) => right * 4 - wrong * 1,
-    scoringLabel: "+4 right · −1 wrong · 0 blank",
+    max: 100,
+    scoring: (right, wrong) => Math.round((right - wrong * 0.25) * 100) / 100,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
     sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 },
     bands: [
-      { min: 320, max: 400, name: "Top 10%", cls: "good", desc: "Above the 320 line on a 100 Q paper. Two of these back-to-back under timed conditions = comfortable MET seat zone." },
-      { min: 280, max: 319, name: "Top 25%", cls: "good", desc: "Above the typical MET cutoff estimate. Clean up the −1 leak on guesses and you're in the top decile." },
-      { min: 240, max: 279, name: "Top 40%", cls: "warn", desc: "Around the serious-aspirant median. Patch your two weakest sections — don't chase new topics." },
-      { min: 200, max: 239, name: "Mid pack", cls: "warn", desc: "Right in the bulk. Pull ahead by stopping the −1 bleed and locking 1-2 weak sections cold." },
-      { min: 160, max: 199, name: "Below median", cls: "bad", desc: "Most attempters score higher. Likely a section is genuinely soft — revise before another full attempt." },
-      { min: -400, max: 159, name: "Cold start", cls: "bad", desc: "Score will climb fast with focused revision on the weakest section. Don't grind more mocks until you've closed it." }
+      { min: 80, max: 100, name: "Top 10%", cls: "good", desc: "Above the 80 line on a 100 Q paper. Two of these back-to-back under timed conditions = comfortable MET seat zone." },
+      { min: 70, max: 79.99, name: "Top 25%", cls: "good", desc: "Above the typical MET cutoff estimate. Clean up the −0.25 leak on guesses and you're in the top decile." },
+      { min: 60, max: 69.99, name: "Top 40%", cls: "warn", desc: "Around the serious-aspirant median. Patch your two weakest sections — don't chase new topics." },
+      { min: 50, max: 59.99, name: "Mid pack", cls: "warn", desc: "Right in the bulk. Pull ahead by stopping the −0.25 bleed and locking 1-2 weak sections cold." },
+      { min: 40, max: 49.99, name: "Below median", cls: "bad", desc: "Most attempters score higher. Likely a section is genuinely soft — revise before another full attempt." },
+      { min: -100, max: 39.99, name: "Cold start", cls: "bad", desc: "Score will climb fast with focused revision on the weakest section. Don't grind more mocks until you've closed it." }
     ],
-    cutoff: 270, cutoffLabel: "MET target 270",
+    cutoff: 68, cutoffLabel: "MET target 68",
     companion: null
   },
   {
@@ -474,18 +474,18 @@ const MOCKS = [
     storageResults: "bio-testing-paper-results-v1",
     storageNotes: "bio-testing-paper-notes-v1",
     total: 60,
-    max: 240,
-    scoring: (right, wrong) => right * 4 - wrong * 1,
-    scoringLabel: "+4 right · −1 wrong · 0 blank",
+    max: 60,
+    scoring: (right, wrong) => Math.round((right - wrong * 0.25) * 100) / 100,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
     sections: { biopsych: 30, assessment: 30 },
     bands: [
-      { min: 192, max: 240, name: "Top band", cls: "good", desc: "≥80% on a targeted paper. Both sections are functionally locked. Move on to the weakest of your other 5 sections." },
-      { min: 165, max: 191, name: "Target hit", cls: "good", desc: "At the rough MET-equivalent for these two sections (165/240 ≈ 270/400 pace). Good launchpad into a full mock." },
-      { min: 132, max: 164, name: "Mid", cls: "warn", desc: "55-70% — split usually skewed to one section. Re-read the cheatsheet for the weaker of the two and re-attempt." },
-      { min: 96, max: 131, name: "Patch needed", cls: "bad", desc: "Cheatsheet for the weak section first. Don't redo this paper until you've read it cover to cover." },
-      { min: -240, max: 95, name: "Foundation gap", cls: "bad", desc: "Below 40%. Both biopsych and assessment have heavy memorisation loads — the section cheatsheet must come before another timed attempt." }
+      { min: 48, max: 60, name: "Top band", cls: "good", desc: "≥80% on a targeted paper. Both sections are functionally locked. Move on to the weakest of your other 5 sections." },
+      { min: 41, max: 47.99, name: "Target hit", cls: "good", desc: "At the rough MET-equivalent for these two sections (41/60 ≈ 68/100 pace). Good launchpad into a full mock." },
+      { min: 33, max: 40.99, name: "Mid", cls: "warn", desc: "55-70% — split usually skewed to one section. Re-read the cheatsheet for the weaker of the two and re-attempt." },
+      { min: 24, max: 32.99, name: "Patch needed", cls: "bad", desc: "Cheatsheet for the weak section first. Don't redo this paper until you've read it cover to cover." },
+      { min: -60, max: 23.99, name: "Foundation gap", cls: "bad", desc: "Below 40%. Both biopsych and assessment have heavy memorisation loads — the section cheatsheet must come before another timed attempt." }
     ],
-    cutoff: 165, cutoffLabel: "target 165 (MET-equivalent pace)",
+    cutoff: 41, cutoffLabel: "target 41 (MET-equivalent pace)",
     companion: null
   },
   {
@@ -496,19 +496,19 @@ const MOCKS = [
     storageResults: "met-mock-3-results-v1",
     storageNotes: "met-mock-3-notes-v1",
     total: 100,
-    max: 400,
-    scoring: (right, wrong) => right * 4 - wrong * 1,
-    scoringLabel: "+4 right · −1 wrong · 0 blank",
+    max: 100,
+    scoring: (right, wrong) => Math.round((right - wrong * 0.25) * 100) / 100,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
     sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 },
     bands: [
-      { min: 320, max: 400, name: "Top 10%", cls: "good", desc: "Above the 320 line on a tight-paced 100 Q. Two of these in a row under timed conditions = comfortable MET seat zone." },
-      { min: 280, max: 319, name: "Top 25%", cls: "good", desc: "Above the typical MET cutoff estimate. Clean up the −1 leak on guesses and you're in the top decile." },
-      { min: 240, max: 279, name: "Top 40%", cls: "warn", desc: "Around the serious-aspirant median. Patch your two weakest sections — don't chase new topics." },
-      { min: 200, max: 239, name: "Mid pack", cls: "warn", desc: "Right in the bulk. Pull ahead by stopping the −1 bleed and locking 1-2 weak sections cold." },
-      { min: 160, max: 199, name: "Below median", cls: "bad", desc: "Most attempters score higher. Likely a section is genuinely soft — revise before another full attempt." },
-      { min: -400, max: 159, name: "Cold start", cls: "bad", desc: "Score will climb fast with focused revision on the weakest section. Don't grind more mocks until you've closed it." }
+      { min: 80, max: 100, name: "Top 10%", cls: "good", desc: "Above the 80 line on a tight-paced 100 Q. Two of these in a row under timed conditions = comfortable MET seat zone." },
+      { min: 70, max: 79.99, name: "Top 25%", cls: "good", desc: "Above the typical MET cutoff estimate. Clean up the −0.25 leak on guesses and you're in the top decile." },
+      { min: 60, max: 69.99, name: "Top 40%", cls: "warn", desc: "Around the serious-aspirant median. Patch your two weakest sections — don't chase new topics." },
+      { min: 50, max: 59.99, name: "Mid pack", cls: "warn", desc: "Right in the bulk. Pull ahead by stopping the −0.25 bleed and locking 1-2 weak sections cold." },
+      { min: 40, max: 49.99, name: "Below median", cls: "bad", desc: "Most attempters score higher. Likely a section is genuinely soft — revise before another full attempt." },
+      { min: -100, max: 39.99, name: "Cold start", cls: "bad", desc: "Score will climb fast with focused revision on the weakest section. Don't grind more mocks until you've closed it." }
     ],
-    cutoff: 270, cutoffLabel: "MET target 270",
+    cutoff: 68, cutoffLabel: "MET target 68",
     companion: null
   },
   {

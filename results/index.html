@@ -141,7 +141,7 @@
       <div class="bigstat"><div class="bigstat-label">Snapshots saved</div><div class="bigstat-value" id="heroSnaps">—</div><div class="bigstat-sub">across all mocks</div></div>
       <div class="bigstat"><div class="bigstat-label">Mocks attempted</div><div class="bigstat-value" id="heroMocks">—</div><div class="bigstat-sub" id="heroMocksSub">of 3 full-length</div></div>
       <div class="bigstat"><div class="bigstat-label">Best NIMHANS</div><div class="bigstat-value" id="heroBestN">—</div><div class="bigstat-sub">cutoff 80 / 100</div></div>
-      <div class="bigstat"><div class="bigstat-label">Best MET</div><div class="bigstat-value" id="heroBestM">—</div><div class="bigstat-sub">target 320 / 400</div></div>
+      <div class="bigstat"><div class="bigstat-label">Best MET</div><div class="bigstat-value" id="heroBestM">—</div><div class="bigstat-sub">target 80 / 100</div></div>
     </div>
   </div>
 
@@ -238,9 +238,9 @@ const MOCKS = [
     storageResults: "met-mock-1-results-v1",
     storageNotes: "met-mock-1-notes-v1",
     total: 100,
-    max: 400,
-    scoring: (right, wrong) => right * 4 - wrong * 1,
-    scoringLabel: "+4 / −1 · target 320+",
+    max: 100,
+    scoring: (right, wrong) => Math.round((right - wrong * 0.25) * 100) / 100,
+    scoringLabel: "+1 / −0.25 · target 80+",
     sections: { biopsych: 15, dev: 15, abnormal: 15, assessment: 15, therapy: 15, biostats: 10, language: 15 }
   },
   {
@@ -264,9 +264,9 @@ const MOCKS = [
     storageResults: "met-mock-2-results-v1",
     storageNotes: "met-mock-2-notes-v1",
     total: 180,
-    max: 720,
-    scoring: (right, wrong) => right * 4 - wrong * 1,
-    scoringLabel: "+4 / −1 · target 480+",
+    max: 180,
+    scoring: (right, wrong) => Math.round((right - wrong * 0.25) * 100) / 100,
+    scoringLabel: "+1 / −0.25 · target 120+",
     sections: { biopsych: 30, dev: 25, abnormal: 30, assessment: 25, therapy: 25, biostats: 20, language: 25 }
   },
   {
@@ -277,9 +277,9 @@ const MOCKS = [
     storageResults: "met-mock-4-results-v1",
     storageNotes: "met-mock-4-notes-v1",
     total: 100,
-    max: 400,
-    scoring: (right, wrong) => right * 4 - wrong * 1,
-    scoringLabel: "+4 / −1 · target 270+",
+    max: 100,
+    scoring: (right, wrong) => Math.round((right - wrong * 0.25) * 100) / 100,
+    scoringLabel: "+1 / −0.25 · target 68+",
     sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 }
   },
   {
@@ -290,9 +290,9 @@ const MOCKS = [
     storageResults: "bio-testing-paper-results-v1",
     storageNotes: "bio-testing-paper-notes-v1",
     total: 60,
-    max: 240,
-    scoring: (right, wrong) => right * 4 - wrong * 1,
-    scoringLabel: "+4 / −1 · target 165+/240",
+    max: 60,
+    scoring: (right, wrong) => Math.round((right - wrong * 0.25) * 100) / 100,
+    scoringLabel: "+1 / −0.25 · target 41+/60",
     sections: { biopsych: 30, assessment: 30 }
   },
   {
@@ -303,9 +303,9 @@ const MOCKS = [
     storageResults: "met-mock-3-results-v1",
     storageNotes: "met-mock-3-notes-v1",
     total: 100,
-    max: 400,
-    scoring: (right, wrong) => right * 4 - wrong * 1,
-    scoringLabel: "+4 / −1 · target 270+",
+    max: 100,
+    scoring: (right, wrong) => Math.round((right - wrong * 0.25) * 100) / 100,
+    scoringLabel: "+1 / −0.25 · target 68+",
     sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 }
   },
   {

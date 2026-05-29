@@ -177,7 +177,7 @@
   <nav><a href="../../">← Dashboard</a> <a href="../../tests/">Tests</a> <a href="../../results/">My Results</a> <a href="../../notes/">Notes</a> <a href="../../plan/">Plan</a></nav>
   <header>
     <h1>MET Mock 1 — Full Length</h1>
-    <div class="subtitle">100 questions · 120 min · +4 right / −1 wrong / 0 blank</div>
+    <div class="subtitle">100 questions · 120 min · +1 right / −0.25 wrong / 0 blank</div>
     <div class="blueprint">Bio 15 · Dev 15 · Abnormal 15 · Assessment 15 · Therapy 15 · Biostats 10 · Language 15</div>
   </header>
 
@@ -1279,7 +1279,7 @@ function exportForAnalysis() {
     if (r.correct) totalRight++; else totalWrong++;
   }
   const blank = QUESTIONS.length - totalRight - totalWrong;
-  const score = totalRight * 4 - totalWrong * 1;
+  const score = Math.round((totalRight * 1 - totalWrong * 0.25) * 100) / 100;
 
   const bySection = {};
   for (const q of QUESTIONS) {
@@ -1296,7 +1296,7 @@ function exportForAnalysis() {
   const ts = new Date().toISOString();
   let out = `MET MOCK 1 — RESULTS EXPORT v1\n`;
   out += `Generated: ${ts}\n`;
-  out += `Score: ${score}/400  (${totalRight} right, ${totalWrong} wrong, ${blank} blank · +4/−1/0 · target 320+)\n\n`;
+  out += `Score: ${score}/100  (${totalRight} right, ${totalWrong} wrong, ${blank} blank · +1/−0.25/0 · target 80+)\n\n`;
 
   out += `SECTION BREAKDOWN\n=================\n`;
   for (const sec of Object.keys(SECTION_LABELS)) {
@@ -1410,11 +1410,11 @@ function renderStats() {
     if (!r) continue;
     if (r.correct) totalRight++; else totalWrong++;
   }
-  const score = totalRight * 4 - totalWrong * 1;
+  const score = Math.round((totalRight * 1 - totalWrong * 0.25) * 100) / 100;
   const sb = document.getElementById("scoreboard");
   if (sb) {
-    sb.innerHTML = `<span class="big">${score} / 400</span>
-      <small>+4 right · −1 wrong · ${totalRight} right, ${totalWrong} wrong, ${100 - totalRight - totalWrong} blank · target 320+</small>`;
+    sb.innerHTML = `<span class="big">${score} / 100</span>
+      <small>+1 right · −0.25 wrong · ${totalRight} right, ${totalWrong} wrong, ${100 - totalRight - totalWrong} blank · target 80+</small>`;
   }
 
   const bySection = {};
