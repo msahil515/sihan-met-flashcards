@@ -137,6 +137,13 @@
      scrolls. State below is shared with the keyboard handler. */
   var FRAME = null, RSLUG = null, PREV = null, NEXT = null, RIDX = 0;
   var PAGED = false, SPREAD_W = 0, NSPREADS = 1, CUR = 0;
+  // SPREAD_W is the visible frame width (what one spread occupies on screen).
+  // SPREAD_PITCH is how far the column flow actually advances per spread:
+  // 2 columns = 2*(colWidth + gap) = W - 2*ph + gap, NOT W. Translating by W
+  // accumulates (gap - 2*ph) of drift per spread, so deep pages slide out of
+  // the margins. PAD_H/COL_PITCH carry the geometry so the page count and the
+  // section->spread map use the same true pitch. See paginate().
+  var SPREAD_PITCH = 0, COL_PITCH = 0, PAD_H = 0;
   var SECS = [];                                   // [{id,label,el,spread}]
   var SPREAD_KEY = "nfe:spread";
   var PAGED_MQ = window.matchMedia("(min-width: 1000px)");
@@ -149,6 +156,7 @@
     RSLUG = slug; RIDX = FLAT.indexOf(e);
     PREV = FLAT[RIDX - 1]; NEXT = FLAT[RIDX + 1];
     SECS = []; PAGED = false; NSPREADS = 1; CUR = 0;
+    SPREAD_PITCH = 0; COL_PITCH = 0; PAD_H = 0;
     localStorage.setItem(LAST_KEY, slug);
 
     var html = '<div class="reader">';
@@ -281,6 +289,23 @@
     void art.offsetWidth;                          // force layout at offset 0
 
     SPREAD_W = W;
+    // True column geometry of the .nfe-paged-article: box-sizing:border-box,
+    // column-count:2, horizontal padding ph each side, column-gap = gap. The
+    // browser sizes columns from the article's REAL content box, i.e.
+    // (art.clientWidth - 2*ph), which can differ from the frame width W by a
+    // pixel (sub-pixel rounding / borders). Deriving the pitch from clientWidth
+    // is exactly what CSS does, so colWidth = (clientWidth - 2*ph - gap)/2 and
+    // the per-spread advance SPREAD_PITCH = 2*(colWidth+gap) = clientWidth -
+    // 2*ph + gap comes out an exact integer per pair of columns -> paging by it
+    // lands every spread on the same margins with ZERO accumulated drift. Using
+    // W instead leaves ~1px error per column that compounds and slides deep
+    // pages out of the margins (the bug being fixed here).
+    PAD_H = ph;
+    void art.offsetWidth;                              // ensure paged layout settled
+    var cw = art.clientWidth || W;
+    var colW = (cw - 2 * ph - gap) / 2;
+    COL_PITCH = colW + gap;          // exact per-column advance
+    SPREAD_PITCH = 2 * COL_PITCH;    // = cw - 2*ph + gap, integer per 2 columns
     measureSpreads();
     PAGED = true;
 
@@ -298,9 +323,12 @@
   function measureSpreads() {
     var doc, art; try { doc = FRAME.contentDocument; } catch (e) { return; }
     art = doc && doc.querySelector(".nfe-paged-article");
-    if (!art || !SPREAD_W) return;
+    if (!art || !SPREAD_W || !COL_PITCH) return;
     // child rects and the article rect carry the same translateX, so the
     // offset cancels in (child.left - art.left); no need to un-translate.
+    // Columns sit at x = PAD_H + col*COL_PITCH (relative to the article's
+    // border-box left), so page count and section->spread use COL_PITCH, the
+    // true flow advance, not the on-screen frame width.
     var base = art.getBoundingClientRect().left;
     var total = SPREAD_W;
     var kids = art.children;
@@ -309,11 +337,15 @@
       var right = (r.left - base) + r.width;
       if (right > total) total = right;
     }
-    NSPREADS = Math.max(1, Math.ceil((total - 2) / SPREAD_W));
+    // rightmost content pixel = PAD_H + (ncols-1)*COL_PITCH + colWidth, and
+    // colWidth < COL_PITCH, so ceil((total - PAD_H)/COL_PITCH) recovers ncols.
+    var ncols = Math.max(1, Math.ceil((total - PAD_H - 1) / COL_PITCH));
+    NSPREADS = Math.max(1, Math.ceil(ncols / 2));
     SECS.forEach(function (s) {
       if (s.el) {
-        var x = s.el.getBoundingClientRect().left - base;
-        s.spread = Math.min(NSPREADS - 1, Math.max(0, Math.floor((x + 2) / SPREAD_W)));
+        var x = s.el.getBoundingClientRect().left - base;     // ~ PAD_H + col*COL_PITCH
+        var col = Math.max(0, Math.floor((x - PAD_H + 2) / COL_PITCH));
+        s.spread = Math.min(NSPREADS - 1, Math.floor(col / 2));
       } else s.spread = 0;
     });
   }
@@ -333,7 +365,11 @@
   function applySpread() {
     var doc, art; try { doc = FRAME.contentDocument; } catch (e) { return; }
     art = doc && doc.querySelector(".nfe-paged-article");
-    if (art) art.style.setProperty("--pg-x", (CUR * SPREAD_W) + "px");
+    // advance by the true per-spread pitch (W - 2*ph + gap), not the frame
+    // width, so the columns stay inside the margins on every spread, not just
+    // the first few. Fall back to SPREAD_W only if geometry isn't measured yet.
+    var step = SPREAD_PITCH || SPREAD_W;
+    if (art) art.style.setProperty("--pg-x", (CUR * step) + "px");
 
     var leftPg = CUR * 2 + 1, total = NSPREADS * 2;
     var lab = document.getElementById("pageLabel");
