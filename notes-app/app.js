@@ -45,6 +45,7 @@
     });
 
   window.addEventListener("hashchange", route);
+  postSyncToast();
 
   function route() {
     if (!DATA) return;
@@ -67,7 +68,8 @@
     var html = "";
     html += '<div class="appbar"><span class="brand"><span class="mark">N</span> Notes for Exam</span>' +
       '<span class="spacer"></span>' +
-      '<button class="iconbtn" id="topSearch" aria-label="Search">&#128269;</button></div>';
+      '<button class="iconbtn" id="topSearch" aria-label="Search">&#128269;</button>' +
+      '<button class="iconbtn syncbtn" id="libSync" aria-label="Hard refresh to latest version" title="Hard refresh to latest">&#8635;</button></div>';
     html += '<div class="library">';
 
     // masthead (title page)
@@ -126,6 +128,8 @@
     wireCommon();
     var os = document.getElementById("openSearch");
     if (os) os.addEventListener("click", openSearch);
+    var ls = document.getElementById("libSync");
+    if (ls) ls.addEventListener("click", forceSync);
     window.scrollTo(0, 0);
   }
 
@@ -171,18 +175,19 @@
       '<div class="fontctl"><button id="fsDown" aria-label="Smaller text">A&#8722;</button>' +
       '<button id="fsUp" aria-label="Larger text">A&#43;</button></div>' +
       '<button class="iconbtn" id="readerSearch" aria-label="Search">&#128269;</button>' +
+      '<button class="iconbtn syncbtn" id="reaSync" aria-label="Hard refresh to latest version" title="Hard refresh to latest">&#8635;</button>' +
       '</div>';
 
-    // the desk: a page-turn handle, the open book, a page-turn handle
-    html += '<div class="desk">' +
-      '<button class="turn turn-prev" id="turnPrev" aria-label="Previous page">&#8249;</button>' +
+    // the desk holds the open book; pages turn by swipe or an edge tap (no
+    // dedicated turn button — you flip it like a real book). See wireGestures.
+    html += '<div class="desk" id="desk">' +
       '<div class="openbook" id="openbook">' +
         '<div class="leaf-hi"></div>' +
         '<iframe id="reader" title="' + esc(e.title) + '" src="content/' + esc(slug) + '.html"></iframe>' +
         '<div class="gutter-l"></div><div class="gutter-r"></div>' +
         '<div class="spine"></div>' +
+        '<div class="pageturn-hint" id="turnHint">Swipe, or tap a page edge, to turn &#8594;</div>' +
       '</div>' +
-      '<button class="turn turn-next" id="turnNext" aria-label="Next page">&#8250;</button>' +
       '</div>';
 
     // footer: chapter nav + page position + progress
@@ -210,13 +215,17 @@
       applyFontSize(FRAME);
       buildContents(FRAME);
       wireFrameAnchors(FRAME);
+      wireGestures(FRAME);
       layoutReader();
+      maybeShowTurnHint();
     });
 
     document.getElementById("backBtn").addEventListener("click", function () { location.hash = ""; });
     document.getElementById("readerSearch").addEventListener("click", openSearch);
-    document.getElementById("turnPrev").addEventListener("click", function () { turnPage(-1); });
-    document.getElementById("turnNext").addEventListener("click", function () { turnPage(1); });
+    document.getElementById("reaSync").addEventListener("click", forceSync);
+    // page turns: swipe or tap the page edge (handled in wireGestures); turns
+    // also work outside the iframe by swiping/tapping the desk margins.
+    wireDeskGestures(document.getElementById("desk"));
     if (PREV) document.getElementById("prevBtn").addEventListener("click", function () { go(PREV.slug); });
     if (NEXT) document.getElementById("nextBtn").addEventListener("click", function () { go(NEXT.slug); });
     document.getElementById("fsUp").addEventListener("click", function () { bumpFont(1); });
@@ -542,6 +551,160 @@
       ev.preventDefault();
       jumpTo(href.slice(1));
     }, true);
+  }
+
+  /* ---------- page-turn gestures (swipe + edge tap, no button) ----------
+     Sihan reads on a tablet and wanted to flip pages like a real book: swipe
+     across, or tap a page edge, instead of pressing a dedicated turn button.
+     Gestures only fire in PAGED (two-page spread) mode; in scroll mode a
+     vertical drag is the native scroll. Handlers sit on the iframe document
+     (the reading surface) and on the desk (the margins around the book). */
+  var _lastGestureTurn = 0;
+  function nowMs() { return Date.now(); }
+
+  function isInteractive(node) {
+    while (node && node.nodeType === 1) {
+      var t = node.tagName;
+      if (t === "A" || t === "BUTTON" || t === "INPUT" || t === "SELECT" ||
+          t === "TEXTAREA" || t === "SUMMARY" || t === "LABEL") return true;
+      if (node.getAttribute && node.getAttribute("role")) return true;
+      node = node.parentNode;
+    }
+    return false;
+  }
+  function hasSelection(win) {
+    try {
+      var s = win && win.getSelection && win.getSelection();
+      return !!(s && String(s).length > 0 && !s.isCollapsed);
+    } catch (e) { return false; }
+  }
+  function gestureTurn(dir) { _lastGestureTurn = nowMs(); turnPage(dir); }
+
+  function attachGestures(target, win, fracFn) {
+    var sx = 0, sy = 0, st = 0, moved = false, tracking = false;
+    var SWIPE = 42, TAP_MOVE = 12, TAP_MS = 450, EDGE = 0.32;
+    target.addEventListener("touchstart", function (ev) {
+      if (!ev.touches || ev.touches.length !== 1) { tracking = false; return; }
+      var t = ev.touches[0]; sx = t.clientX; sy = t.clientY; st = nowMs();
+      moved = false; tracking = true;
+    }, { passive: true });
+    target.addEventListener("touchmove", function (ev) {
+      if (!tracking || !ev.touches || !ev.touches.length) return;
+      var t = ev.touches[0];
+      if (Math.abs(t.clientX - sx) > TAP_MOVE || Math.abs(t.clientY - sy) > TAP_MOVE) moved = true;
+    }, { passive: true });
+    target.addEventListener("touchend", function (ev) {
+      if (!tracking) return; tracking = false;
+      if (!PAGED) return;
+      var t = ev.changedTouches && ev.changedTouches[0]; if (!t) return;
+      var dx = t.clientX - sx, dy = t.clientY - sy, dt = nowMs() - st;
+      if (hasSelection(win)) return;
+      if (Math.abs(dx) > SWIPE && Math.abs(dx) > Math.abs(dy) * 1.3) {
+        gestureTurn(dx < 0 ? 1 : -1); dismissTurnHint(); return;   // swipe left = next
+      }
+      if (!moved && Math.abs(dx) < TAP_MOVE && Math.abs(dy) < TAP_MOVE && dt < TAP_MS) {
+        if (isInteractive(t.target)) return;
+        var f = fracFn(t.clientX);
+        if (f < EDGE) { gestureTurn(-1); dismissTurnHint(); }
+        else if (f > 1 - EDGE) { gestureTurn(1); dismissTurnHint(); }
+      }
+    }, { passive: true });
+    // desktop mouse: tap a page edge to turn; suppressed for ~600ms after a
+    // touch so the synthetic click doesn't double-fire the turn.
+    target.addEventListener("click", function (ev) {
+      if (!PAGED) return;
+      if (nowMs() - _lastGestureTurn < 600) return;
+      if (ev.pointerType === "touch") return;
+      if (hasSelection(win) || isInteractive(ev.target)) return;
+      var f = fracFn(ev.clientX);
+      if (f < EDGE) { gestureTurn(-1); dismissTurnHint(); }
+      else if (f > 1 - EDGE) { gestureTurn(1); dismissTurnHint(); }
+    });
+  }
+
+  function wireGestures(frame) {
+    var doc, win;
+    try { doc = frame.contentDocument; win = frame.contentWindow; } catch (e) { return; }
+    if (!doc) return;
+    // clientX inside the iframe is already in the frame's own coordinate space
+    attachGestures(doc, win, function (clientX) { return clientX / (frame.clientWidth || 1); });
+  }
+  function wireDeskGestures(desk) {
+    if (!desk) return;
+    attachGestures(desk, window, function (clientX) {
+      var r = desk.getBoundingClientRect();
+      return (clientX - r.left) / (r.width || 1);
+    });
+  }
+
+  function maybeShowTurnHint() {
+    try {
+      if (!PAGED_MQ.matches || !PAGED) return;
+      if (localStorage.getItem("nfe:turnhint")) return;
+      var h = document.getElementById("turnHint");
+      if (!h) return;
+      setTimeout(function () { if (PAGED) h.classList.add("show"); }, 650);
+      setTimeout(dismissTurnHint, 5200);
+    } catch (e) {}
+  }
+  function dismissTurnHint() {
+    var h = document.getElementById("turnHint");
+    if (h) h.classList.remove("show");
+    try { localStorage.setItem("nfe:turnhint", "1"); } catch (e) {}
+  }
+
+  /* ---------- hard refresh (force-sync to the latest deploy) ----------
+     The installed PWA is cache-first, so a stuck copy can stay on an old
+     build. The ↻ in the app bar unregisters the service worker, drops every
+     cache, and reloads with a cache-buster — the manual escape hatch Sihan
+     asked for. The SW also self-updates on each deploy (stamped CACHE). */
+  var _toastTimer = null;
+  function toast(msg, ms) {
+    var t = document.getElementById("nfeToast");
+    if (!t) {
+      t = document.createElement("div");
+      t.id = "nfeToast";
+      t.setAttribute("role", "status");
+      t.setAttribute("aria-live", "polite");
+      document.body.appendChild(t);
+    }
+    t.innerHTML = msg;
+    t.classList.add("show");
+    if (_toastTimer) clearTimeout(_toastTimer);
+    _toastTimer = setTimeout(function () { t.classList.remove("show"); }, ms || 3200);
+  }
+
+  var _syncing = false;
+  function forceSync() {
+    if (_syncing) return; _syncing = true;
+    Array.prototype.forEach.call(document.querySelectorAll(".syncbtn"), function (b) { b.classList.add("spin"); });
+    toast("Syncing to the latest version&hellip;", 8000);
+    var jobs = [];
+    if ("serviceWorker" in navigator) {
+      jobs.push(navigator.serviceWorker.getRegistrations()
+        .then(function (rs) { return Promise.all(rs.map(function (r) { return r.unregister(); })); })
+        .catch(function () {}));
+    }
+    if (window.caches && caches.keys) {
+      jobs.push(caches.keys()
+        .then(function (ks) { return Promise.all(ks.map(function (k) { return caches.delete(k); })); })
+        .catch(function () {}));
+    }
+    try { sessionStorage.setItem("nfe:synced", "1"); } catch (e) {}
+    Promise.all(jobs).then(function () {
+      location.replace(location.pathname + "?s=" + Date.now() + location.hash);
+    });
+  }
+  function postSyncToast() {
+    try {
+      if (sessionStorage.getItem("nfe:synced")) {
+        sessionStorage.removeItem("nfe:synced");
+        setTimeout(function () { toast("Synced to the latest version"); }, 300);
+        if (location.search.indexOf("s=") !== -1) {
+          try { history.replaceState(null, "", location.pathname + location.hash); } catch (e) {}
+        }
+      }
+    } catch (e) {}
   }
 
   /* per-chapter spread memory */
