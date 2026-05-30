@@ -288,47 +288,34 @@ button { font-family: inherit; cursor: pointer; }
 .reader .appbar .crumb .sec { font-family: var(--sans); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); font-weight: 700; }
 .reader .appbar .crumb .tt { font-family: var(--serif); font-weight: 700; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
 
-/* the desk: dark walnut + grain + vignette, holds the open book */
+/* the desk: now edge-to-edge — the spread IS the screen, no walnut margin.
+   Sihan flagged dead space around the paper in landscape; we drop the desk
+   padding + frame so the vellum reaches every screen edge. The centre spine +
+   gutters stay, so it still reads as two facing pages, just with no border. */
 .desk {
   flex: 1; min-height: 0; position: relative;
   display: flex; align-items: stretch; justify-content: center;
-  gap: 8px;
-  padding: 26px 20px 22px;
-  background:
-    radial-gradient(130% 95% at 50% -12%, rgba(120,84,40,0.24), transparent 60%),
-    repeating-linear-gradient(91deg, rgba(0,0,0,0.10) 0 3px, transparent 3px 7px),
-    linear-gradient(180deg, var(--desk), var(--desk-2));
+  gap: 0;
+  padding: 0;
+  background: var(--vellum);
   overflow: hidden;
 }
-.desk::before { /* edge vignette so the book reads as lit on the desk */
-  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
-  box-shadow: inset 0 0 180px rgba(0,0,0,0.6);
-}
 
-/* ----- the open book: a wide spread that fills the desk width ----- */
+/* ----- the open book: the spread fills the whole desk, edge to edge ----- */
 .openbook {
   position: relative; z-index: 2;
-  flex: 1; min-width: 0; max-width: 1380px; height: 100%;
-  border-radius: 5px;
+  flex: 1; min-width: 0; max-width: none; width: 100%; height: 100%;
+  border-radius: 0;
   background: var(--vellum);
-  box-shadow: var(--leaf-shadow);
+  box-shadow: none;
 }
-/* fore-edges: a stack of pages down each outer side */
+/* fore-edges removed in edge-to-edge mode (they lived in the old outer margin) */
 .openbook::before,
-.openbook::after {
-  content: ""; position: absolute; top: 6px; bottom: 6px; width: 9px; z-index: 5;
-  pointer-events: none;
-  background:
-    repeating-linear-gradient(180deg, rgba(247,241,225,0.95) 0 1.5px, rgba(150,124,74,0.35) 1.5px 3px);
-}
-.openbook::before { left: -9px; border-radius: 4px 0 0 4px;
-  box-shadow: inset -1px 0 2px rgba(0,0,0,0.28), -2px 0 6px rgba(0,0,0,0.4); }
-.openbook::after  { right: -9px; border-radius: 0 4px 4px 0;
-  box-shadow: inset 1px 0 2px rgba(0,0,0,0.28), 2px 0 6px rgba(0,0,0,0.4); }
+.openbook::after { display: none; }
 
 .openbook iframe {
   display: block; width: 100%; height: 100%; border: 0;
-  background: transparent; border-radius: 5px; position: relative; z-index: 2;
+  background: transparent; border-radius: 0; position: relative; z-index: 2;
 }
 
 /* the spine: a soft valley down the centre with a crisp seam */
