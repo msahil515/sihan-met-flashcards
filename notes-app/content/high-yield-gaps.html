@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>High-Yield Gap Closer (PYQ-targeted) — Notes for Exam</title>
+<link rel="stylesheet" href="../../notes-style.css">
+<link rel="stylesheet" href="/sihan-met-flashcards/notes/term-popover.css">
+<link rel="stylesheet" href="../book.css">
+<link rel="stylesheet" href="../reader.css">
+<style>
+
+  .hy-banner { background: linear-gradient(135deg, rgba(88,166,255,0.12), rgba(63,185,80,0.10)); border: 1px solid var(--accent-dim); border-radius: 10px; padding: 14px 16px; margin: 0 0 24px 0; font-size: 14px; color: var(--text); }
+  .hy-banner b { color: var(--accent); }
+  .jump { font-size: 13px; line-height: 1.9; }
+  .jump a { margin-right: 14px; white-space: nowrap; }
+  h2.sec { border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-top: 44px; }
+  h3.sub { margin-top: 26px; color: var(--accent); font-size: 16px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 13.5px; }
+  th, td { border: 1px solid var(--border); padding: 7px 9px; text-align: left; vertical-align: top; }
+  th { background: var(--panel); color: var(--accent); font-weight: 700; }
+  td:first-child { font-weight: 600; }
+  /* "lead with the most-tested fact" callout */
+  .lead { background: rgba(88,166,255,0.10); border-left: 3px solid var(--accent); padding: 9px 13px; margin: 10px 0 16px; border-radius: 4px; font-size: 14px; }
+  .lead b { color: var(--accent); }
+  /* trap / compare box */
+  .trap { background: rgba(210,153,34,0.12); border-left: 3px solid #d29922; padding: 9px 13px; margin: 14px 0; border-radius: 4px; font-size: 13.5px; }
+  .trap b { color: #e3b341; }
+  /* memory hook */
+  .hook { background: rgba(63,185,80,0.10); border-left: 3px solid var(--good); padding: 8px 12px; margin: 12px 0; border-radius: 4px; font-size: 13.5px; }
+  .hook b { color: var(--good); }
+  .fx { font-family: ui-monospace, Menlo, monospace; font-size: 13px; background: var(--panel); padding: 2px 6px; border-radius: 4px; }
+  ul.tight li { margin: 4px 0; }
+
+</style>
+</head>
+<body class="nfe-reader">
+<article class="wrap nfe-article">
+<h1>High-Yield Gap Closer (PYQ-targeted)</h1>
+<p style="color: var(--muted); font-size: 13px;">Ten clusters that the PYQ coverage audit flagged as <b>missing or too thin</b> in the books you actually revise from, written to the depth you need to answer cold MCQs. Ranked by exam yield: Indian tests and stats-application first. Each section <b>leads with the single most testable fact</b>, then gives the table / formula / contrast the examiner builds the trap on. Built for exam eve, 2026-05-30.</p>
+
+<div class="hy-banner"><b>How to use it tonight.</b> Don't read it like a textbook. Read the blue <b>lead</b> line and the amber <b>trap</b> box in each section first, those are the exact things that get tested. The tables are for the "which one is it?" items. If you only have 30 minutes, do clusters 1 (Indian tests), 2 (which test), 4 (correlation types) and 5 (MH law), they are the densest mark-savers.</div>
+
+<div class="jump">
+<b>Jump to:</b>
+<a href="#indiantests">1. Indian intelligence/developmental tests</a>
+<a href="#whichtest">2. Which statistical test?</a>
+<a href="#nonparam">3. Nonparametric tests</a>
+<a href="#corr">4. Special correlation types</a>
+<a href="#law">5. Indian mental-health law</a>
+<a href="#neuropsych">6. Neuropsych batteries</a>
+<a href="#amnesia">7. Amnesia &amp; memory disorders</a>
+<a href="#irt">8. IRT / Rasch</a>
+<a href="#itemanalysis">9. Item analysis formulae</a>
+<a href="#sampling">10. Sampling methods</a>
+</div>
+
+
+<h2 id="indiantests" class="sec">1. Indian intelligence &amp; developmental tests</h2>
+<div class="lead"><b>Lead fact:</b> <b>Bhatia's Battery of Performance Tests of Intelligence (C. M. Bhatia, 1955)</b> is the classic Indian non-verbal/performance IQ test, standardised on Indian children, useful for the illiterate and the hearing-impaired. Its 5 subtests are the single most-asked Indian-test item: <b>Koh's Block Design, Alexander's Pass-Along, Pattern Drawing, Immediate Memory (for digits), Picture Construction.</b></div>
+
+<table>
+<tr><th>Test</th><th>Author / Indian adapter &amp; year</th><th>What it measures</th><th>Age range</th><th>Key facts / when used</th></tr>
+<tr><td>Bhatia's Battery of Performance Tests</td><td>C. M. Bhatia, 1955</td><td>Non-verbal (performance) intelligence</td><td>~11–16 yrs (also used as adult performance screen)</td><td>5 subtests (Koh's Block, Alexander Pass-Along, Pattern Drawing, Immediate Memory, Picture Construction). For illiterate / language-barrier / deaf clients. India's most-used performance test.</td></tr>
+<tr><td>MISIC — Malin's Intelligence Scale for Indian Children</td><td>Arthur J. Malin, 1969 (Nagpur). Indian adaptation of WISC</td><td>General intelligence: Verbal IQ + Performance IQ → Full-scale IQ</td><td>6–15 yrs</td><td>Indianised WISC. 11 subtests (6 verbal, 5 performance). The standard Indian child IQ test alongside Binet-Kamat.</td></tr>
+<tr><td>Binet-Kamat Test (BKT)</td><td>C. H. Kamat, 1934/1967. Indian adaptation of Stanford-Binet</td><td>General intelligence; yields Mental Age &amp; IQ</td><td>~3–22 yrs</td><td>Verbal-loaded, age-scale format. Adapted for Kannada/Marathi-speaking children. Gives Mental Age like the original Binet.</td></tr>
+<tr><td>Seguin Form Board (SFB)</td><td>Édouard Séguin (original); Indian norms by Bhatia and others</td><td>Visuo-motor speed, eye-hand coordination, a quick performance/IQ screen</td><td>~3–10 yrs (esp. preschool / suspected intellectual disability)</td><td>Child fits 10 wooden shapes into slots; <b>best of 3 trials = score</b> (fastest time). Quick non-verbal screen for ID.</td></tr>
+<tr><td>VSMS — Vineland Social Maturity Scale</td><td>Edgar Doll (original, 1935); Indian adaptation by <b>A. J. Malin (1965, Nagpur)</b></td><td><b>Social maturity → Social Age (SA) and Social Quotient (SQ = SA/CA × 100)</b></td><td>Birth–15 yrs (adapted)</td><td>Informant-based (parent interview). 8 domains incl. self-help, self-direction, occupation, communication, socialisation, locomotion. Core tool in <b>intellectual disability</b> assessment (measures adaptive behaviour, not IQ).</td></tr>
+<tr><td>Draw-A-Man Test (DAMT)</td><td>Florence Goodenough (1926); revised Goodenough-Harris (1963); Indian adaptation by <b>Pramila Pathak</b></td><td>Non-verbal intelligence via detail/accuracy of a human figure drawing</td><td>~3–15 yrs</td><td>Score = number of scorable details → Mental Age → IQ. Culture-fair, quick, non-verbal.</td></tr>
+<tr><td>Koh's Block Design</td><td>S. C. Kohs (1920); used within Bhatia's Battery in India</td><td>Non-verbal abstract reasoning, spatial/perceptual organisation</td><td>~5 yrs–adult</td><td>Reproduce printed designs with coloured cubes. A subtest of Bhatia's Battery and conceptually the ancestor of the WAIS/WISC Block Design.</td></tr>
+</table>
+
+<div class="trap"><b>Trap / compare:</b> <b>VSMS measures SOCIAL maturity (Social Quotient), NOT IQ.</b> If a stem says "adaptive behaviour / social age / informant interview," it is VSMS, not an intelligence test. <b>MISIC = adapted WISC (Malin); Binet-Kamat = adapted Stanford-Binet (Kamat).</b> Don't swap them. Bhatia's Battery and Draw-A-Man are <b>performance / non-verbal</b> (good for illiterate/deaf); Binet-Kamat and MISIC's verbal half need language.</div>
+<div class="hook"><b>Hooks:</b> "<b>Mal</b>in did the <b>two</b> Indian standards (<b>MISIC</b> = WISC, and the Indian <b>VSMS</b>)." "<b>Kamat</b> = Binet" (both K/B verbal age-scales). Seguin = <b>form board</b>, best-of-3-trials. Goodenough = <b>Draw-A-Man</b>.</div>
+
+
+<h2 id="whichtest" class="sec">2. Which statistical test do I choose?</h2>
+<div class="lead"><b>Lead logic:</b> three questions decide it, in order: (1) <b>What is the level of measurement of the outcome?</b> nominal/categorical → chi-square family; ordinal → nonparametric; interval/ratio &amp; normal → parametric. (2) <b>How many groups/conditions?</b> 1, 2, or 3+. (3) <b>Are the groups independent or paired (repeated/matched)?</b> Those three answers point to exactly one test.</div>
+
+<h3 class="sub">Master decision table</h3>
+<table>
+<tr><th>Situation</th><th>Parametric (interval, normal)</th><th>Nonparametric (ordinal / non-normal)</th><th>Categorical (nominal)</th></tr>
+<tr><td>1 group vs a known value</td><td>One-sample t-test</td><td>Wilcoxon signed-rank (vs median)</td><td>Chi-square goodness-of-fit; binomial</td></tr>
+<tr><td>2 independent groups</td><td>Independent (unpaired) t-test</td><td><b>Mann-Whitney U</b></td><td>Chi-square test of independence; Fisher's exact (small n)</td></tr>
+<tr><td>2 paired / repeated measures</td><td>Paired t-test</td><td><b>Wilcoxon signed-rank</b></td><td>McNemar's test</td></tr>
+<tr><td>3+ independent groups</td><td>One-way ANOVA (then post-hoc, e.g. Tukey)</td><td><b>Kruskal-Wallis H</b></td><td>Chi-square (r × c table)</td></tr>
+<tr><td>3+ paired / repeated measures</td><td>Repeated-measures ANOVA</td><td><b>Friedman test</b></td><td>Cochran's Q</td></tr>
+<tr><td>Relationship between 2 continuous variables</td><td>Pearson r; linear regression</td><td>Spearman's rho; Kendall's tau</td><td>(see correlation types, cluster 4)</td></tr>
+<tr><td>Predict outcome from predictors</td><td>Multiple regression (continuous DV)</td><td>—</td><td>Logistic regression (binary DV)</td></tr>
+</table>
+
+<h3 class="sub">Worked examples (the way PYQs phrase them)</h3>
+<ul class="tight">
+<li>"Compare mean anxiety scores of a <b>therapy group vs a control group</b> (scores normal)." → 2 independent groups, interval → <b>independent t-test</b>.</li>
+<li>"Same patients' depression scores <b>before and after</b> treatment." → 2 paired, interval → <b>paired t-test</b> (or Wilcoxon signed-rank if ordinal/skewed).</li>
+<li>"Mean reaction time across <b>four</b> drug-dose groups." → 3+ independent, interval → <b>one-way ANOVA</b>.</li>
+<li>"Median pain rating (ordinal 0–10) across <b>three</b> hospitals." → 3+ independent, ordinal → <b>Kruskal-Wallis</b>.</li>
+<li>"Association between <b>gender (M/F)</b> and <b>passed/failed</b>." → both nominal → <b>chi-square test of independence</b>.</li>
+<li>"Rank-correlate <b>class rank</b> with <b>exam rank</b>." → two ordinal → <b>Spearman's rho</b>.</li>
+</ul>
+<div class="trap"><b>Trap:</b> "Repeated / matched / before-after / same subjects" → <b>paired</b> test (paired t, Wilcoxon, RM-ANOVA, Friedman, McNemar). "Two different groups of people" → <b>independent</b> (independent t, Mann-Whitney, one-way ANOVA, chi-square). The examiner hides this in one word: <i>same</i> vs <i>different</i> participants. Also: <b>ANOVA with 2 groups = t-test</b> (F = t²).</div>
+
+
+<h2 id="nonparam" class="sec">3. Nonparametric tests (selection &amp; when to use)</h2>
+<div class="lead"><b>Lead fact:</b> use a nonparametric test when (a) data are <b>ordinal/ranked</b>, or (b) the DV is interval but <b>assumptions of the parametric test fail</b> (non-normal distribution, small n, heterogeneity of variance, or many outliers). They work on <b>ranks/signs, not means</b>, so they need no normality assumption and are less affected by outliers, at the cost of some power.</div>
+
+<h3 class="sub">Parametric ↔ nonparametric pairing table</h3>
+<table>
+<tr><th>Design</th><th>Parametric test</th><th>Nonparametric counterpart</th><th>Based on</th></tr>
+<tr><td>2 independent groups</td><td>Independent t-test</td><td><b>Mann-Whitney U</b> (= Wilcoxon rank-sum)</td><td>Ranks across both groups</td></tr>
+<tr><td>2 paired / repeated</td><td>Paired t-test</td><td><b>Wilcoxon signed-rank</b></td><td>Signed ranks of difference scores</td></tr>
+<tr><td>2 paired, direction only</td><td>—</td><td><b>Sign test</b></td><td>Only the sign (+/−) of each difference (ignores magnitude)</td></tr>
+<tr><td>3+ independent groups</td><td>One-way ANOVA</td><td><b>Kruskal-Wallis H</b></td><td>Ranks across all groups (extension of Mann-Whitney)</td></tr>
+<tr><td>3+ paired / repeated</td><td>Repeated-measures ANOVA</td><td><b>Friedman test</b></td><td>Ranks within each subject across conditions</td></tr>
+<tr><td>Association, 2 continuous</td><td>Pearson r</td><td>Spearman's rho / Kendall's tau</td><td>Ranks</td></tr>
+<tr><td>Categorical frequencies</td><td>(no mean)</td><td><b>Chi-square</b> (goodness-of-fit / independence)</td><td>Observed vs expected counts</td></tr>
+</table>
+<div class="trap"><b>Trap (the classic swap):</b> <b>Mann-Whitney U = 2 INDEPENDENT groups. Wilcoxon SIGNED-RANK = 2 PAIRED groups.</b> Both are "Wilcoxon-ish," which is the trap: Mann-Whitney is also called the <b>Wilcoxon rank-sum</b> test (independent), distinct from the <b>Wilcoxon signed-rank</b> (paired). Kruskal-Wallis is the 3+ version of Mann-Whitney; Friedman is the 3+ version of Wilcoxon signed-rank (i.e. the nonparametric RM-ANOVA). <b>Sign test vs Wilcoxon signed-rank:</b> the sign test uses only direction; signed-rank also uses the magnitude of differences (more powerful).</div>
+<div class="hook"><b>Hook:</b> "<b>I</b>ndependent = Mann-Whitney <b>U</b>" and "Wilcoxon <b>signed</b> = paired (signs of differences need a pair)." Kruskal-Wallis &amp; Friedman both extend to 3+; <b>K</b>ruskal = independent (like ANOVA), <b>F</b>riedman = repeated.</div>
+
+
+<h2 id="corr" class="sec">4. Special correlation types</h2>
+<div class="lead"><b>Lead fact:</b> the coefficient is chosen by the <b>types of the two variables</b>. Two continuous &amp; linear → Pearson r. Two ranks → Spearman/Kendall. One continuous + one <b>true</b> dichotomy → <b>point-biserial</b>. <b>Two true dichotomies → phi (φ).</b> That phi/point-biserial line is the single best-answer trap.</div>
+
+<table>
+<tr><th>Coefficient</th><th>Variable types</th><th>Use when</th></tr>
+<tr><td>Pearson r</td><td>Two continuous (interval/ratio), linear</td><td>The default product-moment correlation; both variables normally distributed and linearly related.</td></tr>
+<tr><td>Spearman's rho (ρ)</td><td>Two ordinal (ranked)</td><td>Monotonic relationship; ranked data or non-normal continuous data. Pearson r computed on the ranks.</td></tr>
+<tr><td>Kendall's tau (τ)</td><td>Two ordinal (ranked)</td><td>Like Spearman but based on concordant/discordant <b>pairs</b>; preferred for small samples / many tied ranks.</td></tr>
+<tr><td><b>Point-biserial</b> (r<sub>pb</sub>)</td><td>One continuous + one <b>true (genuine) dichotomy</b></td><td>e.g. exam score (continuous) × pass/fail or male/female (a real either/or). It is mathematically Pearson r applied to a 0/1 coding. <b>Used in item analysis</b> (item right/wrong × total score).</td></tr>
+<tr><td><b>Biserial</b> (r<sub>b</sub>)</td><td>One continuous + one <b>artificial dichotomy</b> (an underlying continuum forced into two)</td><td>e.g. score × "high vs low" where the split is arbitrary on an underlying continuous trait. Estimates what r <i>would</i> be if the dichotomy were continuous.</td></tr>
+<tr><td><b>Phi (φ)</b></td><td>Two <b>true dichotomies</b> (2 × 2)</td><td>e.g. smoker/non-smoker × disease/no-disease. Equivalent to Pearson r on two 0/1 variables; related to chi-square (φ = √(χ²/N)).</td></tr>
+<tr><td><b>Tetrachoric</b> (r<sub>tet</sub>)</td><td>Two <b>artificial dichotomies</b> (both underlying continua)</td><td>The 2×2 analogue of biserial: both variables are really continuous but recorded as yes/no.</td></tr>
+<tr><td><b>Partial correlation</b></td><td>Two continuous, <b>controlling for</b> a third</td><td>Relationship between X and Y with the effect of Z statistically removed/held constant.</td></tr>
+</table>
+<div class="trap"><b>Trap matrix (memorise this):</b> <b>continuous × TRUE dichotomy → point-biserial</b>; continuous × <b>artificial</b> dichotomy → <b>biserial</b>; <b>TRUE × TRUE dichotomy → phi</b>; artificial × artificial → <b>tetrachoric</b>. The split is "biserial-family = at least one ARTIFICIAL dichotomy (underlying continuum); point-biserial/phi = TRUE/genuine dichotomy." Partial correlation = the "controlling for / holding constant a third variable" stem.</div>
+<div class="hook"><b>Hook:</b> "<b>Point</b>-biserial has a real <b>point</b> of division (true dichotomy)." "<b>Bi</b>serial = the dichotomy is <b>built</b> (artificial) from a continuum." "<b>Phi</b> = <b>F</b>our cells, both true (2×2)." "Tetra = <b>four</b> cells, both fake (artificial)."</div>
+
+
+<h2 id="law" class="sec">5. Indian mental-health law &amp; regulatory bodies</h2>
+<div class="lead"><b>Lead fact:</b> the <b>Mental Healthcare Act 2017</b> (in force 2018) <b>repealed the Mental Health Act 1987</b>, is <b>rights-based</b>, <b>effectively decriminalised suicide</b> (presumed severe stress, not punished under IPC 309), and introduced the <b>Advance Directive</b> and <b>Nominated Representative</b>. The <b>RCI Act 1992</b> is what licenses Clinical Psychologists (you must be RCI-registered with a CRR number to practise).</div>
+
+<h3 class="sub">RCI Act, 1992 (Rehabilitation Council of India)</h3>
+<ul class="tight">
+<li>Statutory body that <b>regulates training and registration</b> of rehabilitation professionals, including <b>Clinical Psychologists</b>.</li>
+<li>Maintains the <b>Central Rehabilitation Register (CRR)</b>; practising without registration is an offence. A clinical psychologist needs RCI registration (a <b>CRR number</b>) to practise.</li>
+<li>Prescribes minimum standards of education (e.g. recognises the M.Phil in Clinical Psychology).</li>
+</ul>
+
+<h3 class="sub">Mental Healthcare Act, 2017 (MHCA) — key provisions</h3>
+<ul class="tight">
+<li><b>Repealed</b> the Mental Health Act 1987; <b>rights-based</b> framework aligned with the UN CRPD.</li>
+<li><b>Decriminalised suicide:</b> a person who attempts suicide is presumed to be under severe stress and shall not be prosecuted (overrides IPC 309 in effect).</li>
+<li><b>Advance Directive (AD):</b> a person may state in advance how they wish to be (or not be) treated for mental illness, and who their representative is.</li>
+<li><b>Nominated Representative (NR):</b> a person nominated to take decisions on the patient's behalf.</li>
+<li><b>Mental Health Review Boards (MHRB):</b> review admissions, advance directives, and protect rights (replaced the old "magistrate" route).</li>
+<li>Established the <b>Central &amp; State Mental Health Authorities</b>; right to access mental healthcare, confidentiality, community living, and to be free from cruel/degrading treatment.</li>
+<li>Restricts <b>ECT</b> (no unmodified ECT; not for minors except with board approval) and regulates seclusion/restraint.</li>
+<li>Defines <b>capacity</b> to make mental-healthcare decisions; supported decision-making model.</li>
+</ul>
+
+<h3 class="sub">RPwD Act, 2016 (Rights of Persons with Disabilities)</h3>
+<ul class="tight">
+<li><b>Repealed</b> the Persons with Disabilities Act 1995; implements the UN CRPD.</li>
+<li>Expanded recognised disabilities from 7 to <b>21 conditions</b>, including <b>mental illness, intellectual disability, autism spectrum disorder, specific learning disabilities</b>, and multiple disabilities.</li>
+<li><b>Benchmark disability = 40%</b> or more of a specified disability (the threshold for reservations/benefits).</li>
+<li>Reservation in higher education and government jobs; accessibility mandates; guardianship provisions.</li>
+</ul>
+<div class="trap"><b>Trap (MHCA vs RPwD):</b> <b>MHCA 2017 = treatment &amp; rights of people with mental ILLNESS</b> (advance directive, nominated representative, decriminalised suicide, review boards). <b>RPwD 2016 = rights/benefits of people with DISABILITY</b> (21 conditions, 40% benchmark, reservations). Both repealed older 1987/1995 laws and both follow the CRPD, that's the overlap the examiner exploits. <b>RCI Act 1992 = who is allowed to PRACTISE</b> (registration/CRR). If a stem mentions "40% / benchmark / reservation / 21 conditions" → RPwD. "Advance directive / nominated representative / decriminalised suicide" → MHCA. "CRR number / register to practise" → RCI.</div>
+
+
+<h2 id="neuropsych" class="sec">6. Neuropsychological test batteries</h2>
+<div class="lead"><b>Lead fact:</b> the <b>PGI Memory Scale (Pershad &amp; Wig, 1977; PGIMER Chandigarh)</b> is the standard <b>Indian memory battery</b> with <b>10 subtests</b> (e.g. remote &amp; recent memory, mental balance, attention/concentration, delayed &amp; immediate recall, retention of similar &amp; dissimilar pairs, visual retention, recognition). It is the most-asked Indian neuropsych instrument.</div>
+
+<table>
+<tr><th>Battery / test</th><th>Author / origin</th><th>What it assesses</th></tr>
+<tr><td>PGI Memory Scale (PGIMS)</td><td>Pershad &amp; Wig, 1977 (PGIMER Chandigarh)</td><td>Memory across 10 subtests; Indian memory standard.</td></tr>
+<tr><td>NIMHANS Neuropsychological Battery</td><td>NIMHANS, Bangalore (Rao, Subbakrishna, Gopukumar et al., 2004)</td><td>Comprehensive Indian battery: attention, executive function, learning &amp; memory, visuospatial; with Indian norms.</td></tr>
+<tr><td>AIIMS Comprehensive Neuropsychological Battery</td><td>AIIMS, New Delhi (Hindi-adapted)</td><td>Indian neuropsych assessment battery in Hindi.</td></tr>
+<tr><td>Halstead-Reitan Battery</td><td>Halstead &amp; Reitan (USA)</td><td>Fixed battery; detects presence/location of brain damage (Category Test, Tactual Performance, etc.).</td></tr>
+<tr><td>Luria-Nebraska Battery</td><td>Golden et al., based on Luria</td><td>Fixed battery across motor, rhythm, tactile, visual, language, memory, intellectual processes.</td></tr>
+<tr><td>Wisconsin Card Sorting Test (WCST)</td><td>Berg / Grant</td><td><b>Executive function, set-shifting, perseveration</b> (frontal/prefrontal).</td></tr>
+<tr><td>Stroop Test</td><td>J. R. Stroop</td><td>Selective attention, response inhibition, processing interference.</td></tr>
+<tr><td>Trail Making Test (A &amp; B)</td><td>Army Individual Test</td><td>A = attention/psychomotor speed; B = set-shifting/executive function.</td></tr>
+<tr><td>Bender-Gestalt Test</td><td>Lauretta Bender</td><td>Visuo-motor integration; screen for organicity / perceptual-motor maturity.</td></tr>
+</table>
+
+<h3 class="sub">Bedside cognitive screens (know the cut-offs)</h3>
+<table>
+<tr><th>Screen</th><th>Max score</th><th>Notes</th></tr>
+<tr><td><b>MMSE</b> (Mini-Mental State Exam; Folstein, 1975)</td><td>30</td><td>Classic dementia screen; &lt;24 suggests impairment. Weak on executive function.</td></tr>
+<tr><td><b>MoCA</b> (Montreal Cognitive Assessment)</td><td>30</td><td>More sensitive than MMSE to <b>mild cognitive impairment</b> and executive deficits; ≥26 normal.</td></tr>
+<tr><td><b>ACE / ACE-III</b> (Addenbrooke's Cognitive Examination)</td><td>100</td><td>5 domains: attention, memory, fluency, language, visuospatial. More detailed than MMSE/MoCA.</td></tr>
+</table>
+<div class="trap"><b>Trap:</b> <b>WCST = set-shifting/perseveration (frontal); Stroop = inhibition; Trail-B = set-shifting; Bender-Gestalt = visuo-motor.</b> Halstead-Reitan and Luria-Nebraska are <b>fixed batteries</b> (run everything) vs a <b>flexible/process</b> approach (pick tests by hypothesis). For India: <b>PGI = memory (Pershad &amp; Wig); NIMHANS = full battery.</b> MoCA beats MMSE for <b>mild</b> impairment.</div>
+
+
+<h2 id="amnesia" class="sec">7. Amnesia types &amp; memory disorders</h2>
+<div class="lead"><b>Lead fact:</b> the contrast is defined relative to the injury. <b>Anterograde = cannot form NEW memories AFTER the event</b> (forward). <b>Retrograde = loss of OLD memories from BEFORE the event</b> (backward). <b>H.M. is the classic anterograde case</b> (bilateral medial temporal lobe / hippocampus removed for epilepsy).</div>
+
+<table>
+<tr><th></th><th>Anterograde amnesia</th><th>Retrograde amnesia</th></tr>
+<tr><td>Lost memories</td><td>New ones can't be formed after the event</td><td>Old ones from before the event are gone</td></tr>
+<tr><td>Time direction</td><td>Forward from the injury</td><td>Backward from the injury</td></tr>
+<tr><td>Classic case / cause</td><td>H.M.; Korsakoff's; hippocampal damage</td><td>Head trauma; often follows Ribot's gradient</td></tr>
+</table>
+
+<ul class="tight">
+<li><b>Ribot's Law:</b> in retrograde amnesia, <b>recent memories are lost first and more severely; older/remote memories are most resistant</b> (temporal gradient). "Last in, first out."</li>
+<li><b>Korsakoff's syndrome:</b> chronic <b>thiamine (B1) deficiency</b>, usually from alcoholism; profound <b>anterograde</b> amnesia (plus some retrograde) with <b>confabulation</b>. Follows Wernicke's encephalopathy (Wernicke-Korsakoff). Mammillary bodies / thalamus.</li>
+<li><b>Transient Global Amnesia (TGA):</b> sudden, temporary, <b>self-limiting</b> episode of dense anterograde (and some retrograde) amnesia lasting hours, with repetitive questioning; resolves fully.</li>
+<li><b>Dissociative (psychogenic) amnesia:</b> memory loss from <b>psychological trauma, not organic injury</b>; typically loss of <b>autobiographical/personal</b> info (often selective for the trauma); a dissociative disorder. Contrast with the organic amnesias above.</li>
+<li><b>Source amnesia:</b> you remember the <b>information but not where/when you learned it</b> (lost the source/context). Linked to frontal-lobe function.</li>
+<li><b>H.M. (Henry Molaison):</b> bilateral medial temporal lobectomy → severe <b>anterograde</b> amnesia but intact <b>procedural</b> learning (could learn mirror-drawing without remembering the practice) → proved declarative vs procedural memory are separate systems.</li>
+</ul>
+<div class="trap"><b>Trap:</b> "Can't make NEW memories" = anterograde (H.M., Korsakoff). "Forgot the PAST" = retrograde (Ribot's gradient: recent gone first). <b>Korsakoff = thiamine + alcohol + confabulation.</b> <b>Dissociative amnesia is PSYCHOGENIC</b> (trauma, loss of personal identity/autobiography), not from brain damage, that's the organic-vs-functional split the examiner tests.</div>
+
+
+<h2 id="irt" class="sec">8. Item Response Theory (IRT) / Rasch</h2>
+<div class="lead"><b>Lead fact:</b> IRT models the probability of a correct response as a function of the <b>person's ability (θ)</b> and the <b>item's parameters</b>. The number of item parameters names the model: <b>1PL (Rasch) = difficulty only; 2PL = difficulty + discrimination; 3PL = difficulty + discrimination + guessing.</b></div>
+
+<table>
+<tr><th>Model</th><th>Parameters estimated</th><th>Key idea</th></tr>
+<tr><td><b>1PL / Rasch</b></td><td><b>b</b> = difficulty only</td><td>All items assumed equally discriminating; only difficulty varies. (Strictly, Rasch fixes discrimination = 1.)</td></tr>
+<tr><td><b>2PL</b></td><td><b>b</b> = difficulty, <b>a</b> = discrimination</td><td>Items differ in how sharply they separate high- from low-ability people.</td></tr>
+<tr><td><b>3PL</b></td><td><b>b</b>, <b>a</b>, and <b>c</b> = guessing (lower asymptote)</td><td>Adds a guessing/pseudo-chance parameter, e.g. ~0.25 on a 4-option MCQ.</td></tr>
+</table>
+<ul class="tight">
+<li><b>Item Characteristic Curve (ICC):</b> S-shaped (logistic) curve plotting P(correct) against ability θ. <b>Difficulty (b)</b> = the θ at which P = 0.5 (curve shifts right for harder items). <b>Discrimination (a)</b> = the <b>steepness</b> of the curve at that point. <b>Guessing (c)</b> = the height of the lower tail (where the curve flattens above 0).</li>
+<li><b>IRT vs Classical Test Theory (CTT):</b> CTT statistics (item difficulty p, discrimination, reliability) are <b>sample-dependent</b>; IRT item parameters are <b>sample-invariant</b> (theoretically stable across groups) and ability is estimated on the same scale as item difficulty. IRT underpins <b>computer-adaptive testing</b>.</li>
+</ul>
+<div class="trap"><b>Trap:</b> "<b>Rasch = 1-parameter</b> (difficulty only)." Count the parameters: 1PL→b, 2PL→b+a, 3PL→b+a+c (c = guessing). On the ICC, <b>difficulty = horizontal position</b> (θ at P=0.5), <b>discrimination = slope</b>. IRT's selling point over CTT = <b>invariance / sample-independence</b> of item parameters.</div>
+
+
+<h2 id="itemanalysis" class="sec">9. Item analysis formulae (difficulty &amp; discrimination)</h2>
+<div class="lead"><b>Lead fact:</b> <b>Item difficulty index (p) = proportion who answered the item correctly.</b> Counter-intuitively, a <b>higher p means an EASIER item</b> (more people got it right). The ideal range is roughly <b>p = 0.3–0.7</b>, centred near 0.5 for maximum discrimination.</div>
+
+<h3 class="sub">Item difficulty index (p)</h3>
+<p><span class="fx">p = (number of examinees who answered correctly) / (total number of examinees)</span></p>
+<ul class="tight">
+<li>Range 0 to 1. <b>High p = easy item; low p = hard item.</b></li>
+<li>p near <b>0.5</b> maximises differentiation; acceptable band ≈ <b>0.30–0.70</b>. p &gt; 0.9 (too easy) or &lt; 0.2 (too hard) items are usually dropped.</li>
+</ul>
+
+<h3 class="sub">Item discrimination index (D)</h3>
+<p><span class="fx">D = (proportion correct in HIGH group) − (proportion correct in LOW group) = p<sub>upper</sub> − p<sub>lower</sub></span></p>
+<ul class="tight">
+<li>Split by total score into upper and lower groups (commonly the top 27% vs bottom 27%).</li>
+<li>Range −1 to +1. A good item is correctly answered by <b>more high-scorers than low-scorers</b> (positive D).</li>
+</ul>
+<table>
+<tr><th>D value</th><th>Interpretation</th></tr>
+<tr><td><b>D ≥ 0.40</b></td><td>Very good / excellent discriminator</td></tr>
+<tr><td>0.30–0.39</td><td>Good (reasonably discriminating)</td></tr>
+<tr><td>0.20–0.29</td><td>Marginal (needs revision)</td></tr>
+<tr><td>&lt; 0.20</td><td>Poor (revise or discard)</td></tr>
+<tr><td><b>Negative D</b></td><td><b>Faulty item</b>, low-scorers outperform high-scorers (often a mis-keyed or ambiguous item); always discard/recheck key.</td></tr>
+</table>
+<p><b>Distractor analysis:</b> examine each wrong option. A good distractor is chosen by <b>more low-scorers than high-scorers</b>. A distractor chosen by <b>nobody</b> is non-functional (not plausible) and should be replaced; a distractor that attracts <b>more high-scorers</b> than low-scorers signals a flawed item.</p>
+<div class="trap"><b>Trap (the most-missed point):</b> <b>a HIGH difficulty index (p) means an EASY item</b>, the word "difficulty" is backwards from intuition. <b>D ≥ 0.4 = good; negative D = throw it out.</b> The point-biserial correlation (cluster 4) is the other standard discrimination statistic (item right/wrong × total score).</div>
+
+
+<h2 id="sampling" class="sec">10. Sampling methods (identify from the scenario)</h2>
+<div class="lead"><b>Lead fact:</b> the master split is <b>probability sampling</b> (every unit has a known, non-zero chance of selection → allows generalisation &amp; estimation of sampling error) vs <b>non-probability sampling</b> (selection by convenience/judgement → cannot estimate sampling error, higher bias). Spotting "random / known chance" vs "researcher chose / whoever was available" decides the half.</div>
+
+<h3 class="sub">Probability (random) methods</h3>
+<table>
+<tr><th>Method</th><th>How it works</th><th>Scenario cue (the tell)</th></tr>
+<tr><td>Simple random</td><td>Every unit has equal chance; lottery / random-number table</td><td>"Names drawn from a hat," "random number generator"</td></tr>
+<tr><td>Systematic</td><td>Pick every k-th unit after a random start (k = N/n)</td><td>"<b>Every 10th</b> patient," "every k-th name on the list"</td></tr>
+<tr><td>Stratified</td><td>Divide population into <b>strata (subgroups)</b>, sample randomly <b>within each</b></td><td>"Divided by gender/grade/income, then sampled from each" — homogeneous strata, heterogeneous between</td></tr>
+<tr><td>Cluster</td><td>Divide into <b>clusters (e.g. schools, wards)</b>, randomly select <b>whole clusters</b>, study everyone in them</td><td>"Selected 5 schools at random and tested all students" — naturally occurring groups</td></tr>
+<tr><td>Multistage</td><td>Sampling in successive stages (e.g. state → district → village → household)</td><td>"Sampled in several stages / nested levels"</td></tr>
+</table>
+
+<h3 class="sub">Non-probability methods</h3>
+<table>
+<tr><th>Method</th><th>How it works</th><th>Scenario cue (the tell)</th></tr>
+<tr><td>Convenience (accidental)</td><td>Whoever is easiest/available</td><td>"Students in the researcher's own class," "people at the mall"</td></tr>
+<tr><td>Purposive (judgemental)</td><td>Researcher deliberately picks units fitting a criterion</td><td>"Selected experts / typical cases on purpose / chosen for their expertise"</td></tr>
+<tr><td>Quota</td><td>Fill preset quotas per subgroup, but units chosen non-randomly</td><td>"Fill 50 men and 50 women" but NOT random within — the non-probability twin of stratified</td></tr>
+<tr><td>Snowball (chain-referral)</td><td>Existing participants <b>refer</b> others</td><td>"One participant referred friends," hidden/hard-to-reach populations (drug users, undocumented)</td></tr>
+</table>
+<div class="trap"><b>Trap pairs:</b> <b>Stratified (probability) vs Quota (non-probability):</b> both use subgroups, but stratified samples <b>randomly</b> within strata, quota does <b>not</b>. <b>Stratified vs Cluster:</b> stratified samples <b>within every</b> subgroup (subgroups are homogeneous, you want representation of each); cluster picks <b>whole groups</b> at random and studies all of them (clusters mini-mirror the population). <b>Systematic = "every k-th."</b> <b>Snowball = referral chains</b> (hard-to-reach). <b>Purposive = expert/criterion judgement.</b></div>
+<div class="hook"><b>Hook:</b> "Every k-th = systema<b>tic</b> (tic-tic-tic, regular)." "Stra<b>tified</b> = randomly within strata; <b>Quo</b>ta = quotas but no randomness." "Cluster = grab whole groups." "Snowball rolls from referral to referral."</div>
+
+<div class="hy-banner" style="margin-top:32px;"><b>That's the gap closer.</b> These ten were the audit's highest-yield holes in the books you revise from. Lead line + trap box per cluster is the exam-eve read; the tables are the "which one is it" reference. Good luck tomorrow.</div>
+
+<footer>Sihan MET 2026 + NIMHANS prep · High-Yield Gap Closer · built 2026-05-30 from the PYQ coverage audit</footer>
+</article>
+<script src="/sihan-met-flashcards/notes/term-popover.js" defer></script>
+<!-- FS_MODE start -->
+<style id="fs-mode-style">
+  .fs-toggle{position:fixed;z-index:2147483000;bottom:14px;right:14px;width:46px;height:46px;border:0;border-radius:50%;
+    background:rgba(18,24,33,.74);color:#e6edf3;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 2px 12px rgba(0,0,0,.5);
+    padding:0;opacity:.5;transition:opacity .15s;-webkit-tap-highlight-color:transparent}
+  .fs-toggle:hover,.fs-toggle:active{opacity:1}
+  @media print{.fs-toggle{display:none}}
+  body.fs-active .topbar,
+  body.fs-active header,
+  body.fs-active nav,
+  body.fs-active .app-header,
+  body.fs-active .site-header,
+  body.fs-active footer{display:none !important}
+  body.fs-active{margin:0 !important;padding:0 !important;min-height:100vh}
+  body.fs-active main,
+  body.fs-active .wrap,
+  body.fs-active .container,
+  body.fs-active #app,
+  body.fs-active .app,
+  body.fs-active .page{max-width:100% !important;width:100% !important;margin:0 !important;
+    padding-left:12px !important;padding-right:12px !important;padding-top:10px !important;padding-bottom:14px !important}
+  @media (orientation:landscape){
+    body.fs-active main,
+    body.fs-active .wrap,
+    body.fs-active .container,
+    body.fs-active #app,
+    body.fs-active .app,
+    body.fs-active .page{padding-top:8px !important;padding-bottom:8px !important;
+      padding-left:18px !important;padding-right:18px !important}
+  }
+</style>
+<script>
+(function(){
+  if(window.__fsModeInit) return; window.__fsModeInit=true;
+  var ENTER='⛶', EXIT='✕';
+  function nativeOn(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function reqNative(){var el=document.documentElement;var r=el.requestFullscreen||el.webkitRequestFullscreen;
+    if(r){try{var p=r.call(el);if(p&&p.catch)p.catch(function(){});}catch(e){}}}
+  function exitNative(){if(!nativeOn())return;var x=document.exitFullscreen||document.webkitExitFullscreen;
+    if(x){try{x.call(document);}catch(e){}}}
+  var btn=document.createElement('button');
+  btn.className='fs-toggle';btn.type='button';
+  function paint(){var on=document.body.classList.contains('fs-active');
+    btn.textContent=on?EXIT:ENTER;btn.setAttribute('aria-label',on?'Exit fullscreen':'Enter fullscreen');btn.title=on?'Exit fullscreen':'Fullscreen';}
+  function go(){document.body.classList.add('fs-active');reqNative();paint();}
+  function stop(){document.body.classList.remove('fs-active');exitNative();paint();}
+  function toggle(){document.body.classList.contains('fs-active')?stop():go();}
+  btn.addEventListener('click',toggle);
+  function mount(){if(!document.body)return;if(!btn.isConnected)document.body.appendChild(btn);paint();}
+  if(document.body){mount();}else{document.addEventListener('DOMContentLoaded',mount);}
+  function sync(){if(!nativeOn()&&document.body.classList.contains('fs-active')){document.body.classList.remove('fs-active');paint();}}
+  document.addEventListener('fullscreenchange',sync);
+  document.addEventListener('webkitfullscreenchange',sync);
+})();
+</script>
+<!-- FS_MODE end -->
+</body>
+</html>
