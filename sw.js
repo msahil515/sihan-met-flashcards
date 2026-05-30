@@ -1,7 +1,7 @@
 /* MET 2026 prep - offline service worker
    Precaches the whole site so it works with no signal after one install.
    Bump CACHE on each deploy to refresh. */
-const CACHE = "met-prep-20260530-portrait1up";
+const CACHE = "met-prep-20260530-hpafix2";
 const BASE = "/sihan-met-flashcards/";
 const PRECACHE = [
   "/sihan-met-flashcards/",
@@ -141,15 +141,19 @@ self.addEventListener("fetch", (e) => {
 
   // Navigations: serve cache first (offline-friendly), refresh in background.
   if (req.mode === "navigate") {
+    // NETWORK-FIRST: a live page must always beat a stale cache, and we never
+    // cache a non-200. The old cache-first handler stored whatever came back —
+    // including 404s — so a page opened during a transient 404 (e.g. the notes/
+    // nav gap earlier) kept serving that dead 404 even after it went live. That
+    // was the "HPA Axis page 404s though it exists" bug. Offline: cache, then BASE.
     e.respondWith(
-      caches.match(req).then((cached) => {
-        const net = fetch(req).then((res) => {
+      fetch(req).then((res) => {
+        if (res && res.status === 200) {
           const copy = res.clone();
           caches.open(CACHE).then((c) => c.put(req, copy));
-          return res;
-        }).catch(() => cached || caches.match(BASE));
-        return cached || net;
-      })
+        }
+        return res;
+      }).catch(() => caches.match(req).then((cached) => cached || caches.match(BASE)))
     );
     return;
   }
