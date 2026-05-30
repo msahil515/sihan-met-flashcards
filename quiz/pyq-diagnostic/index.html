@@ -134,7 +134,7 @@
   <nav><a href="../">← Quiz hub</a> <a href="../../">Dashboard</a> <a href="../../notes/">Notes</a></nav>
   <header>
     <h1>PYQ Diagnostic</h1>
-    <div class="subtitle">Real past-year questions · tagged by paper · +1 / −0.25 marking · auto study sheet</div>
+    <div class="subtitle">Real past-year questions from ALL institutes (NIMHANS · IHBAS · RML · IMHANS · NFSU · JEMAS · GMCH · CIP · AMITY · RINPAS · Gurugram) · each tagged by paper + year · +1 / −0.25 marking · auto study sheet</div>
   </header>
 
   <div class="filters">
@@ -192,10 +192,12 @@
 
 <script>
 // =====================================================================
-// PYQ DIAGNOSTIC — REAL PAST-YEAR QUESTIONS
+// PYQ DIAGNOSTIC — REAL PAST-YEAR QUESTIONS (ALL UNIVERSITIES)
 // Every item is transcribed from a real PYQ source PDF on disk.
+// Multi-university pool: NIMHANS (plurality, his exam) + IHBAS, RML, IMHANS,
+// NFSU, JEMAS, GMCH, GMCC, CIP, AMITY, RINPAS, Gurugram.
 // Schema: { id, section, src, q, options:{a,b,c,d}, correct, explanation, also? }
-//   src  = true paper + year + institute (shown to the student)
+//   src  = true paper + year + institute (shown to the student via the ★ tag)
 //   also = de-dup note when the same question appears in another paper
 // Sections: biopsych, cognitive, dev, social, personality, abnormal,
 //           assessment, therapy, research
@@ -833,7 +835,571 @@ const QUESTIONS = [
     q:"Which approach considers the central core of dysfunctional behaviour to be irrational beliefs?",
     options:{a:"Cognitive Behaviour Therapy", b:"Dialectical Therapy", c:"Rational Emotive Behaviour Therapy", d:"Behaviour Therapy"},
     correct:"c",
-    explanation:"Ellis's REBT locates dysfunction in irrational beliefs, disputed via the ABCDE model." }
+    explanation:"Ellis's REBT locates dysfunction in irrational beliefs, disputed via the ABCDE model." },
+
+  // ============ IHBAS (Institute of Human Behaviour & Allied Sciences, Delhi) ============
+  { id:"ihbaspy01", section:"cognitive", src:"IHBAS PY (Paper-II) Q4",
+    q:"Having seen or heard a stimulus once may facilitate recognizing it on a later occasion, even without awareness that this is happening. This phenomenon is:",
+    options:{a:"Primacy effect", b:"Recency effect", c:"Practice effect", d:"Priming effect"},
+    correct:"d",
+    explanation:"Priming = prior exposure to a stimulus implicitly facilitates later processing/recognition of it." },
+
+  { id:"ihbaspy02", section:"biopsych", src:"IHBAS PY (Paper-II) Q1",
+    q:"The visible spectrum wavelength ranges approximately from:",
+    options:{a:"380 to 760 nanometres", b:"200 to 700 nanometres", c:"400 to 1000 nanometres", d:"100 to 1000 nanometres"},
+    correct:"a",
+    explanation:"The human visible spectrum spans roughly 380-760 nm (violet to red)." },
+
+  { id:"ihbaspy03", section:"biopsych", src:"IHBAS PY (Paper-II) Q11",
+    q:"The resting membrane potential of a typical neuron is approximately:",
+    options:{a:"-95 mV", b:"+85 mV", c:"-70 mV", d:"+70 mV"},
+    correct:"c",
+    explanation:"A neuron's resting potential is about -70 mV (inside negative relative to outside)." },
+
+  { id:"ihbaspy04", section:"research", src:"IHBAS PY (Paper-II) Q12",
+    q:"A chi-square for a contingency table was based on six degrees of freedom. If the table had three rows, how many columns would it have?",
+    options:{a:"2", b:"3", c:"4", d:"6"},
+    correct:"c",
+    explanation:"df = (rows-1)(cols-1). 6 = (3-1)(cols-1) → cols-1 = 3 → 4 columns." },
+
+  { id:"ihbas20q01", section:"assessment", src:"IHBAS 2020 (M.Phil Clin Psy) Q1",
+    q:"In the Simon-Binet test, a person of 40 years chronological age has a mental age of 20 years. The person is intellectually:",
+    options:{a:"Below average", b:"Average", c:"Above average", d:"Genius"},
+    correct:"a",
+    explanation:"Ratio IQ = MA/CA × 100 = 20/40 × 100 = 50, well below average. (For adults CA is capped, but on the literal ratio the person scores below average.)" },
+
+  { id:"ihbas20q02", section:"abnormal", src:"IHBAS 2020 (M.Phil Clin Psy) Q6",
+    q:"Anhedonia is another word for:",
+    options:{a:"Weight loss", b:"Low energy level", c:"Low frustration tolerance", d:"Inability to experience pleasure"},
+    correct:"d",
+    explanation:"Anhedonia = markedly reduced ability to experience pleasure, a core symptom of depression." },
+
+  { id:"ihbas20q03", section:"abnormal", src:"IHBAS 2020 (M.Phil Clin Psy) Q44",
+    q:"The depressive (depressogenic) attributional style involves making which kinds of attributions for one's problems?",
+    options:{a:"Internal, stable", b:"Internal, unstable", c:"External, unstable", d:"External, stable"},
+    correct:"a",
+    explanation:"Abramson/Seligman: depression-prone people attribute bad events to internal, stable (and global) causes.",
+    also:"Also tested in NIMHANS 2023 Q44 (global/stable/internal)." },
+
+  { id:"ihbas20q04", section:"therapy", src:"IHBAS 2020 (M.Phil Clin Psy) Q3",
+    q:"The empty chair technique is a technique of:",
+    options:{a:"Psychoanalytic psychotherapy", b:"Introspection", c:"Gestalt therapy", d:"Behaviour therapy"},
+    correct:"c",
+    explanation:"The empty-chair technique is a hallmark of Gestalt therapy (Fritz Perls)." },
+
+  { id:"ihbas20q05", section:"assessment", src:"IHBAS 2020 (M.Phil Clin Psy) Q27",
+    q:"How many chromatic (coloured) cards does the Rorschach Inkblot Test contain?",
+    options:{a:"5", b:"2", c:"3", d:"10"},
+    correct:"a",
+    explanation:"Of the 10 Rorschach cards, 5 are chromatic (coloured) and 5 achromatic; cards VIII, IX, X are fully coloured and II, III have red." },
+
+  { id:"ihbas20q06", section:"personality", src:"IHBAS 2020 (M.Phil Clin Psy) Q58",
+    q:"The unconscious feminine component in men, in Jung's theory, is known as:",
+    options:{a:"Animus", b:"Shadow", c:"Anima", d:"Archetypes"},
+    correct:"c",
+    explanation:"Jung: the anima is the unconscious feminine side in men; the animus is the masculine side in women." },
+
+  { id:"ihbas20q07", section:"cognitive", src:"IHBAS 2020 (M.Phil Clin Psy) Q80",
+    q:"Rejecting strict S-R connectionism, the S-O-R (stimulus-organism-response) concept was developed by:",
+    options:{a:"Woodworth", b:"C.G. Jung", c:"E.B. Titchener", d:"Sigmund Freud"},
+    correct:"a",
+    explanation:"Robert Woodworth inserted the organism (O) into the S-R formula, giving the S-O-R model." },
+
+  { id:"ihbas20q08", section:"abnormal", src:"IHBAS 2020 (M.Phil Clin Psy) Q39",
+    q:"\"Shell shock\" was later termed:",
+    options:{a:"OCD", b:"ADHD", c:"DPD", d:"PTSD"},
+    correct:"d",
+    explanation:"The WWI term 'shell shock' evolved into the modern diagnosis of post-traumatic stress disorder (PTSD)." },
+
+  // ============ RML (Dr. Ram Manohar Lohia Hospital, Delhi) ============
+  { id:"rml24q01", section:"biopsych", src:"RML 2024 (M.Phil Clin Psy, key) Q1",
+    q:"Dark adaptation is the process in which the eyes become more sensitive to:",
+    options:{a:"Green light", b:"Coloured lights", c:"Light with bright illumination", d:"Light with low illumination"},
+    correct:"d",
+    explanation:"Dark adaptation increases retinal (rod) sensitivity to low-illumination light over time in darkness. (Official key: D.)" },
+
+  { id:"rml24q02", section:"cognitive", src:"RML 2024 (M.Phil Clin Psy, key) Q6",
+    q:"Which is the smallest unit of meaning-distinguishing sound in speech perception?",
+    options:{a:"Syllables", b:"Consonant", c:"Phonemes", d:"Morphemes"},
+    correct:"c",
+    explanation:"A phoneme is the smallest unit of sound that distinguishes meaning. (A morpheme is the smallest unit that carries meaning; the smallest sound unit is the phoneme. Official key: C.)" },
+
+  { id:"rml24q03", section:"personality", src:"RML 2024 (M.Phil Clin Psy, key) Q9",
+    q:"The concept of the \"collective unconscious\" was given by:",
+    options:{a:"Sigmund Freud", b:"Alfred Adler", c:"Carl Jung", d:"Karen Horney"},
+    correct:"c",
+    explanation:"Jung proposed the collective unconscious, a shared reservoir of archetypes. (Official key: C.)" },
+
+  { id:"rml24q04", section:"social", src:"RML 2024 (M.Phil Clin Psy, key) Q4",
+    q:"The process of changing one's behaviour to match that of others in a group is termed:",
+    options:{a:"Norming", b:"Conformity", c:"Standardization", d:"Forming a social contact"},
+    correct:"b",
+    explanation:"Conformity = adjusting behaviour/attitudes to align with group norms. (Official key: B.)" },
+
+  { id:"rml24q05", section:"biopsych", src:"RML 2024 (M.Phil Clin Psy, key) Q10",
+    q:"Spinning in a circle and then feeling like your head is spinning when you stop is due to which structure?",
+    options:{a:"Semicircular canals", b:"Proprioceptors", c:"Otolith organs", d:"Otolith crystals"},
+    correct:"a",
+    explanation:"The semicircular canals of the vestibular system detect rotational (angular) acceleration; their fluid lag produces the spinning after-sensation. (Official key: A.)" },
+
+  { id:"rml24q06", section:"cognitive", src:"RML 2024 (M.Phil Clin Psy, key) Q7",
+    q:"A teacher gives students stickers for good work, and five stickers exempt them from homework. These stickers are an example of a:",
+    options:{a:"Primary reinforcer", b:"Token", c:"Generalized reinforcer", d:"Prepotent response"},
+    correct:"b",
+    explanation:"Stickers exchangeable for a privilege are tokens (secondary reinforcers) in a token economy. (Official key: B.)" },
+
+  { id:"rml20q01", section:"personality", src:"RML 2020 (M.Phil Clin Psy) Q1",
+    q:"Roshan copes with intense anger by enrolling in a kickboxing class, channelling his emotions into a socially acceptable outlet. This defence mechanism is:",
+    options:{a:"Sublimation", b:"Projection", c:"Displacement", d:"Repression"},
+    correct:"a",
+    explanation:"Channelling unacceptable impulses into socially valued activity (sport, art) is sublimation, a mature defence." },
+
+  { id:"rml20q02", section:"biopsych", src:"RML 2020 (M.Phil Clin Psy) Q3",
+    q:"Which area of the brain is centrally involved in emotion and motivation?",
+    options:{a:"Limbic system", b:"Pituitary gland", c:"Cerebellum", d:"Corpus callosum"},
+    correct:"a",
+    explanation:"The limbic system (amygdala, hippocampus, hypothalamus, etc.) governs emotion and motivation." },
+
+  { id:"rml20q03", section:"personality", src:"RML 2020 (M.Phil Clin Psy) Q10",
+    q:"Involuntarily blocking unpleasant feelings and experiences from one's awareness is known as:",
+    options:{a:"Repression", b:"Rationalisation", c:"Sublimation", d:"Suppression"},
+    correct:"a",
+    explanation:"Repression = unconscious, involuntary exclusion of distressing material; suppression is the conscious, deliberate version." },
+
+  { id:"rml20q04", section:"cognitive", src:"RML 2020 (M.Phil Clin Psy) Q12",
+    q:"Which memory store holds information for the shortest duration?",
+    options:{a:"Sensory memory", b:"Short-term memory", c:"Explicit memory", d:"Implicit memory"},
+    correct:"a",
+    explanation:"Sensory memory holds raw input for a fraction of a second to ~2 s, the briefest store in the modal model." },
+
+  { id:"rml21q01", section:"cognitive", src:"RML 2021 (M.Phil Clin Psy) Q1",
+    q:"Sheena gives herself a mini chocolate after every 45 minutes of study. Which reinforcement schedule is she using?",
+    options:{a:"Variable ratio schedule", b:"Variable interval schedule", c:"Fixed interval schedule", d:"Fixed ratio schedule"},
+    correct:"c",
+    explanation:"Reinforcement after a set, fixed amount of elapsed time (every 45 min) is a fixed-interval schedule." },
+
+  { id:"rml21q02", section:"biopsych", src:"RML 2021 (M.Phil Clin Psy) Q2",
+    q:"A scientist destroys a rat's ventromedial hypothalamus (VMH). Which is most likely to occur?",
+    options:{a:"The rat will drink excessive amounts of water.", b:"The rat will eat excessive amounts of food.", c:"The rat will refuse to drink.", d:"The rat will refuse to eat."},
+    correct:"b",
+    explanation:"VMH lesions remove the satiety signal, producing hyperphagia and obesity. (The lateral hypothalamus is the 'hunger' centre.)" },
+
+  { id:"rml21q03", section:"social", src:"RML 2021 (M.Phil Clin Psy) Q3",
+    q:"Arvind strongly dislikes smoking but smokes at a party to fit in with friends. He will most likely experience:",
+    options:{a:"Justification of efforts", b:"Increased drive to smoke", c:"Cognitive dissonance", d:"Drive reduction"},
+    correct:"c",
+    explanation:"Acting against one's attitude ('smoking is disgusting' yet smoking) produces cognitive dissonance (Festinger)." },
+
+  // ============ IMHANS (Institute of Mental Health & Neurosciences, Kozhikode) ============
+  { id:"imhans19q01", section:"biopsych", src:"IMHANS 2019 (M.Phil Clin Psy) Q2",
+    q:"Destruction of which brain structure leads to anterograde amnesia?",
+    options:{a:"Cerebrum", b:"Hippocampus", c:"Amygdala", d:"Pons"},
+    correct:"b",
+    explanation:"Bilateral hippocampal damage prevents formation of new long-term declarative memories (anterograde amnesia)." },
+
+  { id:"imhans19q02", section:"cognitive", src:"IMHANS 2019 (M.Phil Clin Psy) Q15",
+    q:"The famous book 'Principles of Psychology' (1890) was authored by:",
+    options:{a:"Wilhelm Wundt", b:"E.B. Titchener", c:"William James", d:"J.B. Watson"},
+    correct:"c",
+    explanation:"William James wrote 'The Principles of Psychology' and is regarded as the father of American (functionalist) psychology." },
+
+  { id:"imhans19q03", section:"cognitive", src:"IMHANS 2019 (M.Phil Clin Psy) Q16",
+    q:"The functionalists were strongly influenced by:",
+    options:{a:"Charles Darwin", b:"Wilhelm Wundt", c:"E.B. Titchener", d:"William James"},
+    correct:"a",
+    explanation:"Functionalism focused on the adaptive purpose of mind/behaviour, drawing directly on Darwin's evolutionary theory." },
+
+  { id:"imhans19q04", section:"personality", src:"IMHANS 2019 (M.Phil Clin Psy) Q20",
+    q:"The author of 'A Theory of Human Motivation' (the hierarchy of needs) is:",
+    options:{a:"Abraham Maslow", b:"Rollo May", c:"Viktor Frankl", d:"Carl Rogers"},
+    correct:"a",
+    explanation:"Maslow's 1943 paper 'A Theory of Human Motivation' introduced the hierarchy of needs." },
+
+  { id:"imhans19q05", section:"social", src:"IMHANS 2019 (M.Phil Clin Psy) Q27",
+    q:"Carol Gilligan's main criticism of Kohlberg's theory of moral development centred on:",
+    options:{a:"Gender differences in orientation towards morality", b:"A lack of emphasis on socialization", c:"The absence of cross-cultural support", d:"The way morality is operationalised"},
+    correct:"a",
+    explanation:"Gilligan argued Kohlberg's stages reflected a male 'justice' orientation and neglected women's 'care' orientation." },
+
+  { id:"imhans19q06", section:"biopsych", src:"IMHANS 2019 (M.Phil Clin Psy) Q28",
+    q:"Which sensory modality is most directly integrated with the limbic system?",
+    options:{a:"Visual", b:"Auditory", c:"Olfactory", d:"Tactile"},
+    correct:"c",
+    explanation:"Olfaction projects directly to limbic structures (amygdala, entorhinal cortex), bypassing the thalamus, which is why smell strongly evokes emotion and memory." },
+
+  { id:"imhans20q01", section:"cognitive", src:"IMHANS 2020 (M.Phil Clin Psy) Q1",
+    q:"The occurrence of \"illusory conjunctions\" is evidence supporting which theory of attention/perception?",
+    options:{a:"Pandemonium model", b:"Prototype theory", c:"Feature Integration Theory", d:"Bottleneck model"},
+    correct:"c",
+    explanation:"Treisman's Feature Integration Theory: without focused attention, features can be miscombined, producing illusory conjunctions." },
+
+  { id:"imhans20q02", section:"cognitive", src:"IMHANS 2020 (M.Phil Clin Psy) Q3",
+    q:"Research on memory consolidation can be traced to the pioneering work of:",
+    options:{a:"Hermann Ebbinghaus", b:"Müller and Pilzecker", c:"Franciscus Donders", d:"William James"},
+    correct:"b",
+    explanation:"Müller and Pilzecker (1900) introduced the concept of consolidation (and retroactive interference)." },
+
+  { id:"imhans20q03", section:"assessment", src:"IMHANS 2020 (M.Phil Clin Psy) Q13",
+    q:"The \"two-point code\" (code type) is a unique interpretive feature of:",
+    options:{a:"MMPI", b:"Beck Depression Inventory", c:"Halstead-Reitan Battery", d:"Luria-Nebraska Battery"},
+    correct:"a",
+    explanation:"MMPI interpretation often uses the two highest clinical scales as a 'two-point code type'." },
+
+  { id:"imhans21q01", section:"therapy", src:"IMHANS 2021 (M.Phil Clin Psy) Q1",
+    q:"The genogram, a multigenerational family diagram, was originated by:",
+    options:{a:"Franz Alexander", b:"Murray Bowen", c:"Masters and Johnson", d:"James Mann"},
+    correct:"b",
+    explanation:"Murray Bowen developed the genogram as a tool in his family-systems therapy." },
+
+  { id:"imhans21q02", section:"personality", src:"IMHANS 2021 (M.Phil Clin Psy) Q4",
+    q:"The view that individuals respond to the world through perspectives learnt from important people in their developmental past is called:",
+    options:{a:"Object permanence theory", b:"Distorted perspective theory", c:"Object-relations theory", d:"Ego-defence theory"},
+    correct:"c",
+    explanation:"Object-relations theory holds that internalised early relationships shape how one perceives and relates to others.",
+    also:"Object relations also tested in NIMHANS 2024 (mb) Q90." },
+
+  { id:"imhans24q01", section:"research", src:"IMHANS 2024 (M.Phil Clin Psy) Q1",
+    q:"Which is a distinguishing feature of grounded theory?",
+    options:{a:"It begins with a hypothesis", b:"It develops theories based on data", c:"It tests pre-existing theories", d:"It uses only quantitative data"},
+    correct:"b",
+    explanation:"Grounded theory (Glaser & Strauss) builds theory inductively from the data rather than testing a prior hypothesis." },
+
+  { id:"imhans24q02", section:"abnormal", src:"IMHANS 2024 (M.Phil Clin Psy) Q3",
+    q:"The primary purpose of classification systems like DSM-5 and ICD-11 in mental health is to:",
+    options:{a:"Provide a treatment plan for mental disorders", b:"Classify and diagnose mental health conditions based on specific criteria", c:"Determine the causes of mental illness", d:"Assess the risk of future mental health issues"},
+    correct:"b",
+    explanation:"Nosological systems standardise the classification and diagnosis of disorders by explicit criteria." },
+
+  { id:"imhans24q03", section:"therapy", src:"IMHANS 2024 (M.Phil Clin Psy) Q5",
+    q:"Neuroimaging studies show CBT can induce structural changes in which areas crucial for emotion regulation?",
+    options:{a:"Cerebellum and thalamus", b:"Prefrontal cortex and amygdala", c:"Hippocampus and hypothalamus", d:"Occipital lobe and brainstem"},
+    correct:"b",
+    explanation:"CBT is associated with normalised prefrontal-cortex (top-down control) and amygdala (threat) function." },
+
+  // ============ NFSU (National Forensic Sciences University) ============
+  { id:"nfsu25q01", section:"biopsych", src:"NFSU 2025 (M.Phil Clin Psy) Q1",
+    q:"Which neurotransmitter plays a key role in memory, arousal and attention (and is depleted in Alzheimer's disease)?",
+    options:{a:"Serotonin", b:"Acetylcholine", c:"GABA", d:"Dopamine"},
+    correct:"b",
+    explanation:"Acetylcholine is central to memory, arousal and attention; its loss is a hallmark of Alzheimer's disease." },
+
+  { id:"nfsu25q02", section:"biopsych", src:"NFSU 2025 (M.Phil Clin Psy) Q4",
+    q:"Wernicke's area is connected to Broca's area by a bundle of nerve fibres called the:",
+    options:{a:"Cingulate gyrus", b:"Corpus callosum", c:"Central sulcus", d:"Arcuate fasciculus"},
+    correct:"d",
+    explanation:"The arcuate fasciculus links Wernicke's and Broca's areas; its damage causes conduction aphasia." },
+
+  { id:"nfsu25q03", section:"cognitive", src:"NFSU 2025 (M.Phil Clin Psy) Q5",
+    q:"Which Gestalt principle explains why we group objects that are close together as a single unit?",
+    options:{a:"Similarity", b:"Proximity", c:"Closure", d:"Continuity"},
+    correct:"b",
+    explanation:"The Gestalt law of proximity: elements near each other are perceived as belonging together." },
+
+  { id:"nfsu25q04", section:"cognitive", src:"NFSU 2025 (M.Phil Clin Psy) Q10",
+    q:"Ebbinghaus's forgetting curve shows that:",
+    options:{a:"Forgetting happens slowly and evenly over time.", b:"Most forgetting occurs soon after learning, then slows down.", c:"Forgetting only happens if information is not rehearsed.", d:"Forgetting never occurs for well-learned material."},
+    correct:"b",
+    explanation:"The forgetting curve is steepest immediately after learning, then flattens (rapid early loss, slower later)." },
+
+  { id:"nfsu25q05", section:"biopsych", src:"NFSU 2025 (M.Phil Clin Psy) Q14",
+    q:"Which stress-response system releases cortisol to prepare the body for prolonged challenges?",
+    options:{a:"Sympathetic nervous system", b:"Parasympathetic nervous system", c:"Hypothalamic-pituitary-adrenal (HPA) axis", d:"Autonomic nervous system"},
+    correct:"c",
+    explanation:"The HPA axis (hypothalamus → pituitary → adrenal cortex) releases cortisol for the sustained stress response." },
+
+  { id:"nfsu25q06", section:"personality", src:"NFSU 2025 (M.Phil Clin Psy) Q19",
+    q:"Who proposed the Balance Theory of attitudes?",
+    options:{a:"Fritz Heider", b:"Leon Festinger", c:"Albert Ellis", d:"Leon Thurstone"},
+    correct:"a",
+    explanation:"Heider's Balance Theory (P-O-X model) holds that people seek consistency among their attitudes and relations." },
+
+  { id:"nfsu25q07", section:"assessment", src:"NFSU 2025 (M.Phil Clin Psy) Q21",
+    q:"Who proposed the Multifactor (Primary Mental Abilities) Theory of Intelligence?",
+    options:{a:"Charles Spearman", b:"Louis Thurstone", c:"Howard Gardner", d:"Robert Sternberg"},
+    correct:"b",
+    explanation:"Thurstone proposed seven Primary Mental Abilities (the multifactor view), opposing Spearman's single 'g'." },
+
+  { id:"nfsu25q08", section:"social", src:"NFSU 2025 (M.Phil Clin Psy) Q63",
+    q:"The study of the unspoken rules governing the use of interpersonal space is called:",
+    options:{a:"Kinesics", b:"Psychoecology", c:"Proxemics", d:"Territoriality"},
+    correct:"c",
+    explanation:"Proxemics (Edward Hall) studies how people use and interpret interpersonal distance." },
+
+  { id:"nfsu25q09", section:"social", src:"NFSU 2025 (M.Phil Clin Psy) Q64",
+    q:"You agree to bring dip to a party; the host then asks you to also bring popcorn, chips, and sodas. This compliance strategy is:",
+    options:{a:"The low-ball technique", b:"The foot-in-the-door technique", c:"The whole-part technique", d:"The passive obedience method"},
+    correct:"b",
+    explanation:"Securing a small commitment first, then escalating requests, is the foot-in-the-door technique." },
+
+  { id:"nfsu25q10", section:"research", src:"NFSU 2025 (M.Phil Clin Psy) Q72",
+    q:"Which statistic is NOT permissible with ordinal-scale data?",
+    options:{a:"Median", b:"Quartile Deviation", c:"Percentile", d:"Standard Deviation"},
+    correct:"d",
+    explanation:"Ordinal data support order-based statistics (median, percentiles, quartiles) but not the SD, which needs interval data." },
+
+  { id:"nfsu25q11", section:"research", src:"NFSU 2025 (M.Phil Clin Psy) Q82",
+    q:"Which test gives the correlation for ordinal data from one sample?",
+    options:{a:"Related t-test", b:"Spearman's rank-order correlation", c:"Kruskal-Wallis", d:"Mann-Whitney"},
+    correct:"b",
+    explanation:"Spearman's rho is the correlation coefficient for ranked (ordinal) data.",
+    also:"Spearman's rho also tested in NIMHANS 2023 Q82." },
+
+  { id:"nfsu25q12", section:"social", src:"NFSU 2025 (M.Phil Clin Psy) Q70",
+    q:"A group reaching a decision by minimizing conflict and failing to critically test ideas is exhibiting:",
+    options:{a:"Group compromise", b:"Group consensus", c:"Groupthink", d:"Group cohesion"},
+    correct:"c",
+    explanation:"Janis's groupthink: the drive for harmony/conformity overrides realistic appraisal of alternatives." },
+
+  // ============ JEMAS (Joint Entrance for M.Phil/Allied Sciences, West Bengal) ============
+  { id:"jemas23q01", section:"cognitive", src:"JEMAS(PG) 2023 (M.Phil CP) Q2",
+    q:"The Gestalt school of psychology was founded in Germany by ____ along with Koffka and Köhler.",
+    options:{a:"James Wundt", b:"Max Wertheimer", c:"John B. Watson", d:"John Dewey"},
+    correct:"b",
+    explanation:"Max Wertheimer founded Gestalt psychology with colleagues Kurt Koffka and Wolfgang Köhler." },
+
+  { id:"jemas23q02", section:"therapy", src:"JEMAS(PG) 2023 (M.Phil CP) Q4",
+    q:"A famous name associated with Existential (group) therapy is:",
+    options:{a:"John Dewey", b:"Alfred Adler", c:"Irvin Yalom", d:"Marsha Linehan"},
+    correct:"c",
+    explanation:"Irvin Yalom is a leading figure in existential and group psychotherapy." },
+
+  { id:"jemas23q03", section:"abnormal", src:"JEMAS(PG) 2023 (M.Phil CP) Q8",
+    q:"The book 'The Myth of Mental Illness' was written by:",
+    options:{a:"Carl Jung", b:"Thomas Szasz", c:"Karen Horney", d:"William James"},
+    correct:"b",
+    explanation:"Thomas Szasz challenged the medical model of mental illness in 'The Myth of Mental Illness' (1961)." },
+
+  { id:"jemas23q04", section:"abnormal", src:"JEMAS(PG) 2023 (M.Phil CP) Q9",
+    q:"The book 'Madness and Civilization' was written by:",
+    options:{a:"Sigmund Freud", b:"Anna Freud", c:"Michel Foucault", d:"Ronald Laing"},
+    correct:"c",
+    explanation:"Michel Foucault traced the social history of madness in 'Madness and Civilization' (Folie et Déraison)." },
+
+  { id:"jemas23q05", section:"abnormal", src:"JEMAS(PG) 2023 (M.Phil CP) Q7",
+    q:"AUDIT, a screening tool for harmful/hazardous use and dependence, was developed by:",
+    options:{a:"World Health Organization", b:"American Psychological Association", c:"National Institute on Drug Abuse", d:"Centre for Substance Abuse Treatment"},
+    correct:"a",
+    explanation:"The Alcohol Use Disorders Identification Test (AUDIT) was developed by the WHO." },
+
+  { id:"jemas24q01", section:"assessment", src:"JEMAS(PG) 2024 (M.Phil CP) Q1",
+    q:"The Symbol Search subtest of the WAIS-IV primarily assesses:",
+    options:{a:"Auditory processing", b:"Concentration", c:"Mental manipulation", d:"Processing speed"},
+    correct:"d",
+    explanation:"Symbol Search loads on the Processing Speed Index of the WAIS-IV." },
+
+  { id:"jemas24q02", section:"dev", src:"JEMAS(PG) 2024 (M.Phil CP) Q3",
+    q:"Hartshorne and May's classic studies of children's moral behaviour found that:",
+    options:{a:"Moral children always adhere to recognized moral standards.", b:"Children apply situational morality, acting differently across situations involving the same principle.", c:"Moral children never cheat.", d:"Boys generally have a stronger conscience than girls."},
+    correct:"b",
+    explanation:"Hartshorne & May found honesty was not a stable trait; children's moral behaviour was largely situation-specific." },
+
+  // ============ GMCH (Government Medical College & Hospital, Chandigarh) ============
+  { id:"gmch24q01", section:"biopsych", src:"GMCH 2024 (M.Phil Clin Psy) Q (CFS/eye)",
+    q:"The centre of the macula with the highest cone density, responsible for sharpest vision, is the:",
+    options:{a:"Optic disc", b:"Fovea", c:"Blind spot", d:"Ciliary body"},
+    correct:"b",
+    explanation:"The fovea centralis has the densest cone packing and provides maximal visual acuity." },
+
+  { id:"gmch25q01", section:"abnormal", src:"GMCH 2025 (M.Phil Clin Psy) Q1",
+    q:"Which model emphasizes the influence of early childhood experiences on psychopathology?",
+    options:{a:"Behavioral model", b:"Cognitive model", c:"Psychodynamic model", d:"Biopsychosocial model"},
+    correct:"c",
+    explanation:"The psychodynamic model traces adult psychopathology to early-childhood experiences and unconscious conflict." },
+
+  { id:"gmch25q02", section:"abnormal", src:"GMCH 2025 (M.Phil Clin Psy) Q2",
+    q:"The key characteristic of the diathesis-stress model is:",
+    options:{a:"Emphasizing unconscious conflicts", b:"Interaction between genetic vulnerability and environmental stress", c:"Attributing mental illness solely to social factors", d:"Considering only biological factors"},
+    correct:"b",
+    explanation:"Diathesis-stress: a predisposition (diathesis) interacts with stress to precipitate a disorder." },
+
+  { id:"gmch25q03", section:"abnormal", src:"GMCH 2025 (M.Phil Clin Psy) Q3",
+    q:"Which is NOT a component of Beck's cognitive triad?",
+    options:{a:"Negative view of self", b:"Negative view of the world", c:"Negative view of the past", d:"Negative view of the future"},
+    correct:"c",
+    explanation:"Beck's cognitive triad in depression = negative views of the self, the world, and the future (not the past)." },
+
+  { id:"gmch25q04", section:"biopsych", src:"GMCH 2025 (M.Phil Clin Psy) Q8",
+    q:"A patient presents with fluctuating consciousness, vivid visual hallucinations, and autonomic dysfunction. The most likely condition is:",
+    options:{a:"Schizophrenia", b:"Dementia with Lewy bodies", c:"Major depressive disorder", d:"OCD"},
+    correct:"b",
+    explanation:"Fluctuating cognition, recurrent visual hallucinations, parkinsonism and autonomic features are core to Dementia with Lewy bodies." },
+
+  { id:"gmch25q05", section:"assessment", src:"GMCH 2025 (M.Phil Clin Psy) Q10",
+    q:"Which test is primarily used to assess frontal-lobe (executive) functioning?",
+    options:{a:"Wisconsin Card Sorting Test", b:"Wechsler Memory Scale", c:"Bender-Gestalt Test", d:"Rey-Osterrieth Complex Figure Test"},
+    correct:"a",
+    explanation:"The Wisconsin Card Sorting Test measures set-shifting and is a classic test of frontal/executive function." },
+
+  { id:"gmch25q06", section:"biopsych", src:"GMCH 2025 (M.Phil Clin Psy) Q11",
+    q:"A lesion in the left inferior frontal gyrus is most likely to cause:",
+    options:{a:"Wernicke's aphasia", b:"Broca's aphasia", c:"Conduction aphasia", d:"Anomic aphasia"},
+    correct:"b",
+    explanation:"Broca's area lies in the left inferior frontal gyrus; its lesion produces non-fluent (Broca's) aphasia." },
+
+  { id:"gmch25q07", section:"abnormal", src:"GMCH 2025 (M.Phil Clin Psy) Q9",
+    q:"The primary feature distinguishing bipolar I from bipolar II disorder is the presence of:",
+    options:{a:"Major depressive episodes", b:"Hypomanic episodes", c:"Manic episodes", d:"Absence of mood symptoms"},
+    correct:"c",
+    explanation:"Bipolar I requires at least one full manic episode; bipolar II has hypomania plus major depression but no full mania." },
+
+  { id:"gmch25q08", section:"therapy", src:"GMCH 2025 (M.Phil Clin Psy) Q20",
+    q:"Dialectical Behavior Therapy (DBT) was originally developed for treating:",
+    options:{a:"Major depressive disorder", b:"Schizophrenia", c:"Borderline personality disorder", d:"Generalized anxiety disorder"},
+    correct:"c",
+    explanation:"Marsha Linehan developed DBT specifically for borderline personality disorder (and chronic suicidality)." },
+
+  // ============ GMCC (Government Medical College Chandigarh) 2023 ============
+  { id:"gmcc23q01", section:"research", src:"GMCC 2023 (M.Phil Clin Psy) Q8",
+    q:"The highest level of evidence in the scientific-literature hierarchy is generated by:",
+    options:{a:"Expert committee recommendations", b:"Observational studies", c:"Randomized controlled trials", d:"Systematic review / meta-analysis of RCTs"},
+    correct:"d",
+    explanation:"A systematic review/meta-analysis of RCTs sits atop the evidence hierarchy; a single RCT ranks just below it." },
+
+  { id:"gmcc23q02", section:"research", src:"GMCC 2023 (M.Phil Clin Psy) Q7",
+    q:"For the dataset of weights {30, 35, 40, 45, 50, 50, 55, 60}, the mode and median are:",
+    options:{a:"Mode 30; Median 50", b:"Mode 47.5; Median 50", c:"Mode 50; Median 47.5", d:"Mode 60; Median 50"},
+    correct:"c",
+    explanation:"50 appears twice (mode = 50); the median of the 8 values is the mean of the 4th and 5th (45, 50) = 47.5." },
+
+  { id:"gmcc23q03", section:"research", src:"GMCC 2023 (M.Phil Clin Psy) Q1",
+    q:"To test whether childhood-vaccination is associated with autism, an ethical design giving results in a reasonable time is:",
+    options:{a:"Prospective cohort study", b:"Case-control study", c:"Descriptive study", d:"Randomized controlled trial"},
+    correct:"b",
+    explanation:"For a (relatively rare) outcome with a past exposure, a case-control study is efficient and ethical; an RCT deliberately assigning a suspected harm would be unethical.",
+    also:"Case-control for rare outcomes also tested in NIMHANS 2024 (mb) Q3." },
+
+  // ============ CIP (Central Institute of Psychiatry, Ranchi) 2020 ============
+  { id:"cip20q01", section:"cognitive", src:"CIP 2020 (M.Phil Clin Psy) Q5",
+    q:"Insight learning is basically learning by:",
+    options:{a:"Cognition", b:"Conditioning", c:"Trial and error", d:"Imitation"},
+    correct:"a",
+    explanation:"Köhler's insight learning involves a sudden cognitive restructuring of the problem, not gradual trial-and-error." },
+
+  { id:"cip20q02", section:"cognitive", src:"CIP 2020 (M.Phil Clin Psy) Q10",
+    q:"An organism repeats behaviours that bring satisfaction and discards those that bring dissatisfaction. This is:",
+    options:{a:"Law of similarity", b:"Hull's law of proximity", c:"Thorndike's Law of Effect", d:"None of these"},
+    correct:"c",
+    explanation:"Thorndike's Law of Effect: satisfying consequences strengthen a response; annoying ones weaken it.",
+    also:"Law of Effect also tested in NIMHANS 2024 (mb) Q63." },
+
+  { id:"cip20q03", section:"abnormal", src:"CIP 2020 (M.Phil Clin Psy) Q13",
+    q:"Learned helplessness underlies the psychology of which condition?",
+    options:{a:"Conflict", b:"Frustration", c:"Anxiety", d:"Depression"},
+    correct:"d",
+    explanation:"Seligman's learned helplessness is a classic laboratory model of depression." },
+
+  { id:"cip20q04", section:"therapy", src:"CIP 2020 (M.Phil Clin Psy) Q14",
+    q:"The concept of \"programmed learning\" was introduced by:",
+    options:{a:"Skinner", b:"Hull", c:"Watson", d:"Thorndike"},
+    correct:"a",
+    explanation:"B.F. Skinner developed programmed instruction and the teaching machine from operant principles." },
+
+  { id:"cip20q05", section:"research", src:"CIP 2020 (M.Phil Clin Psy) Q16",
+    q:"A null hypothesis is a:",
+    options:{a:"Hypothesis of no difference", b:"Hypothesis of zero significance", c:"Hypothesis that assigns zero to the variable", d:"None of the above"},
+    correct:"a",
+    explanation:"The null hypothesis states there is no real difference/effect (any observed difference is due to chance)." },
+
+  // ============ AMITY University 2023 ============
+  { id:"amity23q01", section:"biopsych", src:"AMITY University 2023 (M.Phil CP) Q3",
+    q:"Damage to which brain structure would most likely result in death?",
+    options:{a:"Cerebellum", b:"Medulla", c:"Reticular formation", d:"Pons"},
+    correct:"b",
+    explanation:"The medulla oblongata controls vital autonomic functions (breathing, heart rate); its destruction is typically fatal." },
+
+  { id:"amity23q02", section:"therapy", src:"AMITY University 2023 (M.Phil CP) Q4",
+    q:"A parent deliberately ignores a child's temper tantrums to discourage them. This strategy is:",
+    options:{a:"Negative reinforcement", b:"Extinction", c:"Operant escape", d:"Operant avoidance"},
+    correct:"b",
+    explanation:"Withholding the reinforcer (attention) so the behaviour decreases is extinction." },
+
+  { id:"amity23q03", section:"biopsych", src:"AMITY University 2023 (M.Phil CP) Q6",
+    q:"Which lobe of the brain primarily processes auditory information?",
+    options:{a:"Occipital", b:"Parietal", c:"Temporal", d:"Frontal"},
+    correct:"c",
+    explanation:"The primary auditory cortex sits in the temporal lobe (Heschl's gyrus)." },
+
+  { id:"amity23q04", section:"personality", src:"AMITY University 2023 (M.Phil CP) Q11",
+    q:"In Lewin's topological (field) theory, the \"life space\" includes:",
+    options:{a:"Person and psychological environment", b:"Society and group", c:"Person and group", d:"Environment and group"},
+    correct:"a",
+    explanation:"Lewin: B = f(P,E); the life space is the person plus their perceived psychological environment.",
+    also:"'Life space' also tested in NIMHANS 2023 Q28." },
+
+  { id:"amity23q05", section:"abnormal", src:"AMITY University 2023 (M.Phil CP) Q12",
+    q:"Valium, Xanax, Rohypnol, and Halcion are all:",
+    options:{a:"Benzodiazepines", b:"Barbiturates", c:"SSRIs", d:"Stimulants"},
+    correct:"a",
+    explanation:"These are all benzodiazepines (anxiolytic/sedative-hypnotic GABA-A modulators)." },
+
+  // ============ RINPAS (Ranchi Institute of Neuro-Psychiatry & Allied Sciences) Booklet 2024 ============
+  { id:"rinpas24q01", section:"abnormal", src:"RINPAS Booklet 2024 (M.Phil/Ph.D) Q1",
+    q:"According to Masters and Johnson, the correct sequence of the human sexual response cycle is:",
+    options:{a:"Excitement → Orgasm → Plateau → Resolution", b:"Excitement → Plateau → Orgasm → Resolution", c:"Excitement → Arousal → Orgasm → Resolution", d:"Arousal → Excitement → Orgasm → Resolution"},
+    correct:"b",
+    explanation:"Masters & Johnson: Excitement → Plateau → Orgasm → Resolution." },
+
+  { id:"rinpas24q02", section:"biopsych", src:"RINPAS Booklet 2024 (M.Phil/Ph.D) Q2",
+    q:"Amit became impulsive, irresponsible, and unconcerned with consequences after an accident. He most likely suffered damage to the:",
+    options:{a:"Parietal lobe", b:"Frontal lobe", c:"Occipital lobe", d:"Temporal lobe"},
+    correct:"b",
+    explanation:"Frontal-lobe damage (cf. Phineas Gage) impairs impulse control, judgment and social conduct." },
+
+  { id:"rinpas24q03", section:"biopsych", src:"RINPAS Booklet 2024 (M.Phil/Ph.D) Q6",
+    q:"Down syndrome (mongolism) occurs due to:",
+    options:{a:"An extra chromosome on pair 23", b:"An extra chromosome on pair 21", c:"An extra chromosome on pair 20", d:"An extra Y chromosome"},
+    correct:"b",
+    explanation:"Down syndrome = trisomy 21 (an extra copy of chromosome 21).",
+    also:"Down syndrome / trisomy 21 also tested in NIMHANS 2023 Q46." },
+
+  { id:"rinpas24q04", section:"biopsych", src:"RINPAS Booklet 2024 (M.Phil/Ph.D) Q5",
+    q:"Most human characteristics are determined by many sets of genes; such traits are called:",
+    options:{a:"Biogenic", b:"Multigenic", c:"Polygenic", d:"Sociogenic"},
+    correct:"c",
+    explanation:"Traits influenced by many genes acting together are polygenic (e.g. height, intelligence)." },
+
+  { id:"rinpas24q05", section:"abnormal", src:"RINPAS Booklet 2024 (M.Phil/Ph.D) Q4",
+    q:"Which is NOT a compulsive behaviour seen in Obsessive-Compulsive Disorder?",
+    options:{a:"Tapping", b:"Hoarding", c:"Washing", d:"Checking"},
+    correct:"b",
+    explanation:"Washing, checking and tapping are OCD compulsions; hoarding is now classified as a separate disorder (Hoarding Disorder) in DSM-5." },
+
+  // ============ Gurugram University 2025 ============
+  { id:"gu25q01", section:"cognitive", src:"Gurugram University 2025 (M.Phil CP) Q1",
+    q:"A student learned 'raag malkaus', then a month later learned 'raag kaafi'; now whenever he tries 'kaafi' he sings 'malkaus'. This is:",
+    options:{a:"The method of loci", b:"Forgetting curve", c:"Proactive interference", d:"Retroactive interference"},
+    correct:"c",
+    explanation:"Old learning (malkaus) intruding on newer learning (kaafi) is proactive interference (forward acting)." },
+
+  { id:"gu25q02", section:"personality", src:"Gurugram University 2025 (M.Phil CP) Q2",
+    q:"Maslow's hierarchy of needs is broadly divided into which two categories?",
+    options:{a:"Material needs and emotional needs", b:"Cognitive needs and emotional needs", c:"Deficiency needs and growth needs", d:"All of the above"},
+    correct:"c",
+    explanation:"Maslow grouped the lower four levels as deficiency (D) needs and self-actualization as a growth (B) need." },
+
+  { id:"gu25q03", section:"cognitive", src:"Gurugram University 2025 (M.Phil CP) Q6",
+    q:"The tendency for spaced (distributed) practice to yield better long-term retention than massed practice is the:",
+    options:{a:"Serial position effect", b:"Spacing effect", c:"Recency effect", d:"Primacy effect"},
+    correct:"b",
+    explanation:"The spacing effect: distributing study over time beats cramming for durable retention." },
+
+  { id:"gu25q04", section:"biopsych", src:"Gurugram University 2025 (M.Phil CP) Q5",
+    q:"According to the Cannon-Bard theory of emotion:",
+    options:{a:"The thalamus plays a central role in producing emotions", b:"The cerebellum must give the go-ahead for emotions", c:"Emotion arises only from interpreting bodily feedback", d:"Emotion is purely a cognitive appraisal"},
+    correct:"a",
+    explanation:"Cannon-Bard: the thalamus simultaneously sends signals to the cortex (emotion) and body (arousal); they occur together, not sequentially." },
+
+  { id:"gu25q05", section:"cognitive", src:"Gurugram University 2025 (M.Phil CP) Q9",
+    q:"The ability to attend to more than one thing at the same time is:",
+    options:{a:"Sustained attention", b:"Divided attention", c:"Selective attention", d:"Alternating attention"},
+    correct:"b",
+    explanation:"Divided attention = distributing attention across multiple tasks/stimuli at once." },
+
+  { id:"gu25q06", section:"cognitive", src:"Gurugram University 2025 (M.Phil CP) Q7",
+    q:"Two parallel train tracks appearing to converge in the distance illustrate which monocular depth cue?",
+    options:{a:"Linear perspective", b:"Convergence", c:"Aerial perspective", d:"Motion parallax"},
+    correct:"a",
+    explanation:"Linear perspective: parallel lines appear to converge with distance, signalling depth (a monocular/pictorial cue)." }
 ];
 
 // =====================================================================
