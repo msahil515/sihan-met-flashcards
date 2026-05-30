@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0d1117">
+<title>PYQ Diagnostic — Real Past-Year Questions</title>
+<style>
+  :root {
+    --bg: #0d1117; --panel: #161b22; --panel-2: #1f252d; --border: #30363d;
+    --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff; --accent-dim: #1f6feb;
+    --good: #3fb950; --bad: #f85149; --warn: #f0b429;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin:0; padding:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','SF Pro Text',sans-serif; line-height:1.5; }
+  .app { max-width:min(1200px,94vw); margin:0 auto; padding:16px; min-height:100vh; }
+  nav { display:flex; gap:8px; margin-bottom:16px; font-size:13px; flex-wrap:wrap; }
+  nav a { color:var(--accent); text-decoration:none; padding:6px 10px; border:1px solid var(--accent-dim); border-radius:6px; }
+  header { text-align:center; padding-bottom:12px; border-bottom:1px solid var(--border); margin-bottom:16px; }
+  h1 { font-size:18px; margin:0 0 4px 0; font-weight:600; letter-spacing:0.5px; }
+  .subtitle { font-size:12px; color:var(--muted); }
+  .filters { background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:12px;
+    margin-bottom:16px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .filters label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; }
+  select { background:var(--panel-2); color:var(--text); border:1px solid var(--border); border-radius:6px;
+    padding:8px 10px; font-size:14px; font-family:inherit; flex:1; min-width:140px; appearance:none; -webkit-appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%238b949e' d='M2 4l4 4 4-4z'/></svg>");
+    background-repeat:no-repeat; background-position:right 10px center; padding-right:28px; }
+  .progress { font-size:12px; color:var(--muted); text-align:center; margin-bottom:10px; }
+  .progress-bar { height:4px; background:var(--panel); border-radius:2px; overflow:hidden; margin-bottom:16px; }
+  .progress-fill { height:100%; background:var(--accent); width:0%; transition:width 0.3s ease; }
+  .scorebar { background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:10px 14px;
+    margin-bottom:14px; display:flex; justify-content:space-between; align-items:center; font-size:14px; }
+  .scorebar .net { font-weight:700; font-size:18px; font-variant-numeric:tabular-nums; }
+  .scorebar small { color:var(--muted); font-size:11px; display:block; }
+  .question-card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:12px; }
+  .section-tag { display:inline-block; font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--accent);
+    background:rgba(88,166,255,0.08); padding:3px 8px; border-radius:4px; margin-bottom:10px; margin-right:6px; }
+  .src-tag { display:inline-block; font-size:10px; letter-spacing:0.5px; color:var(--warn);
+    background:rgba(240,180,41,0.08); padding:3px 8px; border-radius:4px; margin-bottom:10px; }
+  .dupe-note { font-size:11px; color:var(--muted); margin-bottom:8px; font-style:italic; }
+  .question-text { font-size:16px; line-height:1.5; margin-bottom:14px; white-space:pre-wrap; }
+  .options { display:flex; flex-direction:column; gap:8px; margin-bottom:14px; }
+  .option { background:var(--panel-2); border:1px solid var(--border); border-radius:8px; padding:12px; font-size:15px;
+    cursor:pointer; transition:all 0.15s ease; display:flex; gap:10px; align-items:flex-start; }
+  .option:hover:not(.disabled) { border-color:var(--accent-dim); background:rgba(31,111,235,0.05); }
+  .option.selected { border-color:var(--accent); background:rgba(88,166,255,0.08); }
+  .option.correct { border-color:var(--good); background:rgba(63,185,80,0.1); }
+  .option.incorrect { border-color:var(--bad); background:rgba(248,81,73,0.08); }
+  .option.disabled { cursor:default; }
+  .option-letter { font-weight:600; color:var(--accent); flex-shrink:0; width:20px; }
+  .option.correct .option-letter { color:var(--good); }
+  .option.incorrect .option-letter { color:var(--bad); }
+  .guess-row { background:var(--panel-2); border:1px solid var(--border); border-radius:8px; padding:10px 12px;
+    margin-bottom:14px; display:flex; align-items:center; gap:10px; font-size:14px; cursor:pointer; user-select:none; }
+  .guess-row.checked { border-color:var(--warn); background:rgba(240,180,41,0.06); }
+  .guess-checkbox { width:20px; height:20px; border:2px solid var(--border); border-radius:4px; display:flex;
+    align-items:center; justify-content:center; flex-shrink:0; transition:all 0.1s ease; }
+  .guess-row.checked .guess-checkbox { border-color:var(--warn); background:var(--warn); }
+  .guess-row.checked .guess-checkbox::after { content:"✓"; color:var(--bg); font-weight:800; font-size:14px; }
+  .guess-label { flex:1; }
+  .guess-label small { display:block; color:var(--muted); font-size:11px; margin-top:2px; }
+  .controls { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  button { background:var(--panel); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:12px;
+    font-size:14px; font-family:inherit; cursor:pointer; transition:all 0.15s ease; font-weight:500; }
+  button:hover:not(:disabled) { background:var(--panel-2); border-color:var(--accent-dim); }
+  button:active:not(:disabled) { transform:scale(0.98); }
+  button:disabled { opacity:0.4; cursor:not-allowed; }
+  .btn-primary { border-color:var(--accent-dim); color:var(--accent); }
+  .btn-primary:hover:not(:disabled) { background:rgba(88,166,255,0.08); }
+  .explanation { background:var(--panel-2); border-left:3px solid var(--accent); border-radius:6px; padding:12px 14px;
+    margin-top:14px; font-size:14px; color:var(--text); display:none; }
+  .explanation.visible { display:block; }
+  .explanation strong { color:var(--accent); }
+  .retired-badge { display:inline-block; font-size:10px; color:var(--good); background:rgba(63,185,80,0.1);
+    padding:2px 6px; border-radius:4px; margin-left:6px; }
+  .stats { background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:12px; margin-top:16px;
+    font-size:13px; display:grid; grid-template-columns:repeat(4,1fr); gap:8px; text-align:center; }
+  .stat-item { padding:4px; }
+  .stat-num { font-size:20px; font-weight:600; display:block; margin-bottom:2px; }
+  .stat-label { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; }
+  .stat-confident-right { color:var(--good); }
+  .stat-guessed-right { color:var(--warn); }
+  .stat-wrong { color:var(--bad); }
+  .stat-skipped { color:var(--muted); }
+  .section-scores { margin-top:16px; background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:12px; }
+  .section-scores h3 { font-size:13px; margin:0 0 10px 0; color:var(--text); text-transform:uppercase; letter-spacing:0.5px; }
+  .section-score-row { display:flex; align-items:center; gap:10px; padding:6px 0; font-size:13px; border-bottom:1px solid var(--border); }
+  .section-score-row:last-child { border-bottom:none; }
+  .section-score-name { flex:0 0 150px; color:var(--muted); font-size:12px; }
+  .section-score-bar { flex:1; height:8px; background:var(--panel-2); border-radius:4px; overflow:hidden; display:flex; }
+  .section-score-bar > span { display:block; height:100%; }
+  .ssr-right { background:var(--good); } .ssr-guessed { background:var(--warn); }
+  .ssr-wrong { background:var(--bad); } .ssr-skipped { background:transparent; }
+  .section-score-num { flex:0 0 90px; text-align:right; color:var(--text); font-size:12px; font-variant-numeric:tabular-nums; }
+  .studysheet { margin-top:24px; background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:16px; display:none; }
+  .studysheet.visible { display:block; }
+  .studysheet h2 { font-size:16px; margin:0 0 4px 0; color:var(--accent); }
+  .studysheet .ss-sub { font-size:12px; color:var(--muted); margin-bottom:14px; }
+  .ss-section { margin-bottom:18px; }
+  .ss-section h3 { font-size:13px; text-transform:uppercase; letter-spacing:1px; color:var(--warn); margin:0 0 8px 0;
+    border-bottom:1px solid var(--border); padding-bottom:4px; }
+  .ss-item { padding:10px 0; border-bottom:1px dashed var(--border); font-size:14px; }
+  .ss-item:last-child { border-bottom:none; }
+  .ss-item .ss-q { font-weight:600; margin-bottom:4px; }
+  .ss-item .ss-ans { color:var(--good); font-size:13px; }
+  .ss-item .ss-yours { color:var(--bad); font-size:13px; }
+  .ss-item .ss-src { color:var(--muted); font-size:11px; }
+  .ss-item .ss-exp { color:var(--muted); font-size:13px; margin-top:4px; }
+  .reset-btn { margin-top:12px; width:100%; color:var(--muted); font-size:12px; }
+  footer { text-align:center; font-size:10px; color:var(--muted); padding:24px 0 8px 0; }
+  @media (max-width:400px) {
+    .question-text { font-size:15px; } .option { font-size:14px; padding:10px; }
+    .section-score-name { flex-basis:110px; font-size:11px; } .section-score-num { flex-basis:70px; font-size:11px; }
+  }
+</style>
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+</head>
+<body>
+<div class="app">
+  <nav><a href="../">← Quiz hub</a> <a href="../../">Dashboard</a> <a href="../../notes/">Notes</a></nav>
+  <header>
+    <h1>PYQ Diagnostic</h1>
+    <div class="subtitle">Real past-year questions · tagged by paper · +1 / −0.25 marking · auto study sheet</div>
+  </header>
+
+  <div class="filters">
+    <label for="sectionSelect">Section</label>
+    <select id="sectionSelect">
+      <option value="all">All sections</option>
+      <option value="biopsych">Biopsychology / Neuro</option>
+      <option value="cognitive">Cognitive / General</option>
+      <option value="dev">Developmental</option>
+      <option value="social">Social Psychology</option>
+      <option value="personality">Personality</option>
+      <option value="abnormal">Abnormal / Clinical</option>
+      <option value="assessment">Psychological Assessment</option>
+      <option value="therapy">Psychotherapy</option>
+      <option value="research">Research / Stats / Ethics</option>
+    </select>
+    <select id="modeSelect">
+      <option value="active">Active only (hide retired)</option>
+      <option value="all">Show all questions</option>
+    </select>
+  </div>
+
+  <div class="scorebar">
+    <div><span class="net" id="netScore">0.00</span><small>Net marks (+1 / −0.25)</small></div>
+    <div style="text-align:right"><span id="answeredCount">0</span> answered · <span id="maxScore">0</span> max</div>
+  </div>
+
+  <div class="progress" id="progress">0 / 0</div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div id="quizArea"></div>
+
+  <div class="stats" id="stats">
+    <div class="stat-item"><span class="stat-num stat-confident-right" id="statRight">0</span><span class="stat-label">Right (Solid)</span></div>
+    <div class="stat-item"><span class="stat-num stat-guessed-right" id="statGuessed">0</span><span class="stat-label">Right (Guessed)</span></div>
+    <div class="stat-item"><span class="stat-num stat-wrong" id="statWrong">0</span><span class="stat-label">Wrong</span></div>
+    <div class="stat-item"><span class="stat-num stat-skipped" id="statSkipped">0</span><span class="stat-label">Skipped</span></div>
+  </div>
+
+  <div class="section-scores">
+    <h3>Per-section breakdown</h3>
+    <div id="sectionScores"></div>
+  </div>
+
+  <div class="studysheet" id="studysheet">
+    <h2>Final study material — your gaps</h2>
+    <div class="ss-sub">Every question you missed or guessed, grouped by topic. Revise these first.</div>
+    <div id="studysheetBody"></div>
+  </div>
+
+  <button class="reset-btn" data-action="reset">Reset all progress (clears retired questions and stats)</button>
+
+  <footer>Every question sourced from a real past-year paper. Right + not guessed = retired (won't repeat). Progress saved locally.</footer>
+</div>
+
+<script>
+// =====================================================================
+// PYQ DIAGNOSTIC — REAL PAST-YEAR QUESTIONS
+// Every item is transcribed from a real PYQ source PDF on disk.
+// Schema: { id, section, src, q, options:{a,b,c,d}, correct, explanation, also? }
+//   src  = true paper + year + institute (shown to the student)
+//   also = de-dup note when the same question appears in another paper
+// Sections: biopsych, cognitive, dev, social, personality, abnormal,
+//           assessment, therapy, research
+// =====================================================================
+const QUESTIONS = [
+  // ============ NIMHANS 2023 (memory-based) ============
+  { id:"n23q01", section:"abnormal", src:"NIMHANS 2023 (memory-based) Q1",
+    q:"Which of the following best describes the psychiatric syndrome known as \"Folie à deux\"?",
+    options:{a:"A condition where an individual develops delusions in the absence of any external influence.",
+      b:"A disorder characterized by shared delusional beliefs between two or more closely associated individuals.",
+      c:"A neurological disorder where two individuals simultaneously experience identical symptoms of epilepsy.",
+      d:"A rare form of dissociative identity disorder affecting two people at the same time."},
+    correct:"b", also:"Same concept asked in NIMHANS 2024 (mb) Q19 (Shared Psychotic Disorder).",
+    explanation:"Folie à deux / Shared Psychotic Disorder = transmission of a delusion from a primary (dominant) person to a secondary person in a close relationship." },
+
+  { id:"n23q02", section:"biopsych", src:"NIMHANS 2023 (memory-based) Q2",
+    q:"What is the centre portion of the eye responsible for high levels of visual acuity called?",
+    options:{a:"Iris", b:"Retina", c:"Fovea", d:"Lens"},
+    correct:"c",
+    explanation:"The fovea (centre of the macula) has the highest density of cones, giving maximal visual acuity." },
+
+  { id:"n23q03", section:"research", src:"NIMHANS 2023 (memory-based) Q3-Q4",
+    q:"A Scree Plot is primarily used to depict the eigenvalues of factors/components, helping decide how many factors to retain. It is most associated with:",
+    options:{a:"Regression Analysis", b:"Factor Analysis", c:"Chi-Square Test", d:"T-Test"},
+    correct:"b", also:"This appeared twice in NIMHANS 2023 (Q3 and Q4) and again in NIMHANS 2024 (mb) Q6 (Scree plot + Kaiser rule).",
+    explanation:"A scree plot graphs eigenvalues against factor number; the 'elbow' guides retention in Factor Analysis / PCA." },
+
+  { id:"n23q05", section:"biopsych", src:"NIMHANS 2023 (memory-based) Q5",
+    q:"Which area of the human nervous system is primarily responsible for controlling involuntary functions such as breathing, digestion, and heartbeat?",
+    options:{a:"Cerebral Cortex", b:"Limbic System", c:"Autonomic Nervous System", d:"Somatic Nervous System"},
+    correct:"c",
+    explanation:"The autonomic nervous system (sympathetic + parasympathetic) governs involuntary visceral functions." },
+
+  { id:"n23q06", section:"abnormal", src:"NIMHANS 2023 (memory-based) Q6",
+    q:"The term \"Dementia Praecox\" is historically related to which psychiatric disorder?",
+    options:{a:"Bipolar Disorder", b:"Schizophrenia", c:"Alzheimer's Disease", d:"Obsessive-Compulsive Disorder"},
+    correct:"b", also:"Same concept asked in NIMHANS 2024 (mb) Q17.",
+    explanation:"Kraepelin's 'dementia praecox' (premature dementia) was renamed schizophrenia by Eugen Bleuler." },
+
+  { id:"n23q07", section:"therapy", src:"NIMHANS 2023 (memory-based) Q7",
+    q:"In REBT, the concepts of \"awfulizing\" and \"musterbation\" refer to:",
+    options:{a:"Therapeutic techniques to enhance mindfulness and relaxation.",
+      b:"Cognitive distortions involving catastrophizing situations and holding rigid demands, respectively.",
+      c:"Stages of therapeutic intervention focusing on behaviour modification.",
+      d:"Assessment methods for identifying unconscious conflicts."},
+    correct:"b",
+    explanation:"Ellis: awfulizing = catastrophizing; musterbation = rigid 'must/should' demands. Both are irrational beliefs to be disputed." },
+
+  { id:"n23q08", section:"personality", src:"NIMHANS 2023 (memory-based) Q8",
+    q:"Who is credited with introducing the concept of the \"transitional object\" in psychology?",
+    options:{a:"Sigmund Freud", b:"Carl Rogers", c:"Donald Winnicott", d:"Jean Piaget"},
+    correct:"c", also:"Repeated in NIMHANS 2023 Q75 (definition of transitional object).",
+    explanation:"Winnicott described the transitional object (e.g. a blanket) bridging dependence and independence." },
+
+  { id:"n23q09", section:"dev", src:"NIMHANS 2023 (memory-based) Q9",
+    q:"According to Piaget, hypothetical-deductive reasoning appears in which stage?",
+    options:{a:"Sensorimotor Stage", b:"Preoperational Stage", c:"Concrete Operational Stage", d:"Formal Operational Stage"},
+    correct:"d",
+    explanation:"Formal operational (11+ yrs) brings abstract, hypothetico-deductive reasoning." },
+
+  { id:"n23q13", section:"social", src:"NIMHANS 2023 (memory-based) Q13",
+    q:"Which term describes the phenomenon where an individual or group is marginalized or ostracized from society due to differing beliefs or thought processes?",
+    options:{a:"Conformity", b:"Social Facilitation", c:"Cognitive Dissonance", d:"Social Alienation"},
+    correct:"d",
+    explanation:"Social alienation = estrangement/marginalisation from a group or society." },
+
+  { id:"n23q15", section:"cognitive", src:"NIMHANS 2023 (memory-based) Q15",
+    q:"Who is considered the \"father of modern psychology\"?",
+    options:{a:"Wilhelm Wundt", b:"Sigmund Freud", c:"William James", d:"Carl Rogers"},
+    correct:"a", also:"Wundt's lab also asked in NIMHANS 2023 Q53; Wundt/introspection in NIMHANS 2024 (mb) Q7.",
+    explanation:"Wundt founded the first psychology laboratory (Leipzig, 1879); called the father of experimental/modern psychology." },
+
+  { id:"n23q25", section:"therapy", src:"NIMHANS 2023 (memory-based) Q25",
+    q:"According to Irvin Yalom, which of the following does NOT typically occur in group therapy?",
+    options:{a:"Instillation of hope", b:"Development of socializing techniques", c:"Catharsis", d:"Isolation of members"},
+    correct:"d",
+    explanation:"Yalom's therapeutic factors include hope, socializing techniques, catharsis, universality, cohesiveness — NOT isolation." },
+
+  { id:"n23q27", section:"personality", src:"NIMHANS 2023 (memory-based) Q27",
+    q:"According to Carl Jung, which archetype represents the dark desires and hidden aspects of the personality?",
+    options:{a:"The Persona", b:"The Anima/Animus", c:"The Self", d:"The Shadow"},
+    correct:"d",
+    explanation:"The Shadow holds repressed, socially unacceptable impulses. Persona = social mask; Self = unity archetype." },
+
+  { id:"n23q28", section:"personality", src:"NIMHANS 2023 (memory-based) Q28",
+    q:"The concept of \"life space\" was introduced by which psychologist?",
+    options:{a:"Sigmund Freud", b:"B.F. Skinner", c:"Kurt Lewin", d:"Carl Rogers"},
+    correct:"c",
+    explanation:"Lewin's field theory: behaviour is a function of the person and environment within the 'life space'. B = f(P,E)." },
+
+  { id:"n23q29", section:"dev", src:"NIMHANS 2023 (memory-based) Q29",
+    q:"What does the Visual Cliff experiment measure?",
+    options:{a:"Depth perception", b:"Color vision", c:"Pattern recognition", d:"Auditory localization"},
+    correct:"a",
+    explanation:"Gibson & Walk's visual cliff tested depth perception in infants and animals." },
+
+  { id:"n23q31", section:"assessment", src:"NIMHANS 2023 (memory-based) Q31",
+    q:"Which of the following is NOT a projective test?",
+    options:{a:"Rorschach Inkblot Test", b:"Thematic Apperception Test (TAT)", c:"Minnesota Multiphasic Personality Inventory (MMPI)", d:"Draw-A-Person Test"},
+    correct:"c",
+    explanation:"MMPI is an objective (self-report) inventory. Rorschach, TAT, and DAP are projective techniques." },
+
+  { id:"n23q33", section:"assessment", src:"NIMHANS 2023 (memory-based) Q33",
+    q:"The age-scale method is used in which IQ test?",
+    options:{a:"Wechsler Adult Intelligence Scale (WAIS)", b:"Stanford-Binet Intelligence Scale", c:"Raven's Progressive Matrices", d:"Kaufman Assessment Battery for Children (KABC)"},
+    correct:"b",
+    explanation:"The original Stanford-Binet used the age-scale (mental age) method; ratio IQ = MA/CA × 100." },
+
+  { id:"n23q34", section:"cognitive", src:"NIMHANS 2023 (memory-based) Q34",
+    q:"Which schedule of reinforcement is most resistant to extinction?",
+    options:{a:"Fixed Ratio", b:"Variable Ratio", c:"Fixed Interval", d:"Variable Interval"},
+    correct:"b", also:"Repeated in NIMHANS 2024 (mb) Q79.",
+    explanation:"Variable-ratio schedules (e.g. gambling) produce high, steady responding most resistant to extinction." },
+
+  { id:"n23q35", section:"therapy", src:"NIMHANS 2023 (memory-based) Q35",
+    q:"Prolonged exposure therapy is primarily used to treat which disorder?",
+    options:{a:"Generalized Anxiety Disorder", b:"Major Depressive Disorder", c:"Post-Traumatic Stress Disorder", d:"Obsessive-Compulsive Disorder"},
+    correct:"c",
+    explanation:"Prolonged Exposure (Foa) is a first-line trauma-focused therapy for PTSD." },
+
+  { id:"n23q37", section:"dev", src:"NIMHANS 2023 (memory-based) Q37",
+    q:"Mary Ainsworth is best known for her work on which aspect of developmental psychology?",
+    options:{a:"Cognitive development", b:"Moral development", c:"Attachment theory", d:"Language acquisition"},
+    correct:"c",
+    explanation:"Ainsworth devised the Strange Situation and classified infant attachment styles." },
+
+  { id:"n23q39", section:"abnormal", src:"NIMHANS 2023 (memory-based) Q39",
+    q:"When obsessions are NOT aligned with a person's values or self-concept, they are described as:",
+    options:{a:"Ego-syntonic", b:"Ego-dystonic", c:"Psychotic", d:"Neurotic"},
+    correct:"b",
+    explanation:"Ego-dystonic = experienced as alien/distressing (typical of OCD obsessions). Ego-syntonic fits the self (e.g. OCPD traits)." },
+
+  { id:"n23q43", section:"personality", src:"NIMHANS 2023 (memory-based) Q43",
+    q:"Which personality theory was developed using factor analysis?",
+    options:{a:"Psychoanalytic Theory", b:"Humanistic Theory", c:"Trait Theory", d:"Social Learning Theory"},
+    correct:"c",
+    explanation:"Cattell (16PF) and Eysenck built trait theories using factor analysis." },
+
+  { id:"n23q44", section:"abnormal", src:"NIMHANS 2023 (memory-based) Q44",
+    q:"The depressive attributional style is typically characterized by which type of attributions?",
+    options:{a:"Global, stable, and internal negative", b:"Specific, unstable, and external positive",
+      c:"Global, unstable, and internal positive", d:"Specific, stable, and external negative"},
+    correct:"a",
+    explanation:"Abramson/Seligman: the depressogenic style attributes bad events to internal, stable, global causes." },
+
+  { id:"n23q45", section:"research", src:"NIMHANS 2023 (memory-based) Q45",
+    q:"Cohen's Kappa is a statistical measure used to assess which of the following?",
+    options:{a:"Test-retest reliability", b:"Internal consistency", c:"Inter-rater reliability", d:"Validity"},
+    correct:"c",
+    explanation:"Cohen's kappa quantifies agreement between two raters, correcting for chance." },
+
+  { id:"n23q46", section:"biopsych", src:"NIMHANS 2023 (memory-based) Q46",
+    q:"Down syndrome is most commonly caused by which genetic anomaly?",
+    options:{a:"Monosomy 18", b:"Trisomy 21", c:"Trisomy 18", d:"Monosomy X"},
+    correct:"b",
+    explanation:"Down syndrome = trisomy 21. Trisomy 18 = Edwards; Monosomy X = Turner syndrome." },
+
+  { id:"n23q47", section:"personality", src:"NIMHANS 2023 (memory-based) Q47",
+    q:"Which personality type has been linked to increased cardiovascular risk due to high negative emotions and social inhibition?",
+    options:{a:"Type A", b:"Type B", c:"Type D", d:"Type E"},
+    correct:"c", also:"Type D / D-type repeated in NIMHANS 2024 (mb) Q76.",
+    explanation:"Type D ('distressed') = negative affectivity + social inhibition, linked to poorer cardiac prognosis." },
+
+  { id:"n23q48", section:"cognitive", src:"NIMHANS 2023 (memory-based) Q48",
+    q:"In decision-making, the term \"thumb rule\" is most associated with which concept?",
+    options:{a:"Algorithms", b:"Heuristics", c:"Biases", d:"Probabilities"},
+    correct:"b", also:"Algorithm vs heuristic contrast repeated in NIMHANS 2023 Q99.",
+    explanation:"A heuristic is a mental shortcut / rule of thumb — fast but not guaranteed correct." },
+
+  { id:"n23q49", section:"cognitive", src:"NIMHANS 2023 (memory-based) Q49",
+    q:"The planning fallacy is a cognitive bias that involves:",
+    options:{a:"Overestimating the time required to complete a task", b:"Underestimating the time and resources needed to complete a task",
+      c:"Accurately predicting time and resources", d:"Relying on past experiences to make future predictions"},
+    correct:"b",
+    explanation:"The planning fallacy = systematically underestimating task completion time despite past evidence." },
+
+  { id:"n23q51", section:"social", src:"NIMHANS 2023 (memory-based) Q51",
+    q:"The false consensus effect refers to which cognitive bias?",
+    options:{a:"Overestimating the extent to which others share our beliefs and behaviours",
+      b:"Underestimating the extent to which others agree with us",
+      c:"Believing rare events are more common than they are", d:"Perceiving relationships between unrelated events"},
+    correct:"a",
+    explanation:"False consensus = assuming others think/behave as we do more than they actually do." },
+
+  { id:"n23q52", section:"personality", src:"NIMHANS 2023 (memory-based) Q52",
+    q:"Which defence mechanism is illustrated by someone who, after a bad day at work, comes home and kicks their dog?",
+    options:{a:"Regression", b:"Displacement", c:"Projection", d:"Sublimation"},
+    correct:"b",
+    explanation:"Displacement = redirecting an impulse from a threatening target onto a safer one." },
+
+  { id:"n23q55", section:"biopsych", src:"NIMHANS 2023 (memory-based) Q55",
+    q:"Which part of the brain is primarily responsible for regulating arousal and wakefulness?",
+    options:{a:"Ascending Reticular Activating System (ARAS)", b:"Hippocampus", c:"Cerebellum", d:"Medulla Oblongata"},
+    correct:"a", also:"RAS arousal repeated in NIMHANS 2024 (mb) Q44.",
+    explanation:"The ARAS in the brainstem maintains cortical arousal, wakefulness, and attention." },
+
+  { id:"n23q56", section:"therapy", src:"NIMHANS 2023 (memory-based) Q56",
+    q:"In person-centred therapy, what are the three core conditions (Rogers' triad) for therapeutic change?",
+    options:{a:"Unconditional positive regard, empathy, and congruence", b:"Free association, transference, and interpretation",
+      c:"Active listening, behavioural analysis, and reinforcement", d:"Systematic desensitization, flooding, and cognitive restructuring"},
+    correct:"a",
+    explanation:"Rogers: UPR, accurate empathy, and congruence (genuineness) are necessary and sufficient for change." },
+
+  { id:"n23q58", section:"biopsych", src:"NIMHANS 2023 (memory-based) Q58",
+    q:"Which correctly lists the sequence of structures through which sound travels in the ear?",
+    options:{a:"Tympanic membrane, cochlea, auditory canal, ossicles", b:"Auditory canal, tympanic membrane, ossicles, cochlea",
+      c:"Ossicles, tympanic membrane, auditory canal, cochlea", d:"Cochlea, auditory canal, tympanic membrane, ossicles"},
+    correct:"b",
+    explanation:"Sound path: auditory canal → tympanic membrane → ossicles (malleus, incus, stapes) → cochlea." },
+
+  { id:"n23q60", section:"cognitive", src:"NIMHANS 2023 (memory-based) Q60",
+    q:"The phi phenomenon refers to which perceptual phenomenon?",
+    options:{a:"The perception of continuous motion between separate objects viewed in rapid succession",
+      b:"The perception of a single image in stereopsis", c:"An afterimage following intense visual exposure",
+      d:"Detecting faint stimuli amid background noise"},
+    correct:"a",
+    explanation:"Wertheimer's phi phenomenon = apparent motion from rapidly successive stationary stimuli (basis of Gestalt)." },
+
+  { id:"n23q67", section:"social", src:"NIMHANS 2023 (memory-based) Q67",
+    q:"The actor-observer bias refers to which tendency?",
+    options:{a:"Overestimating personal traits in others' behaviour while underestimating situational factors",
+      b:"Underestimating personal traits in others' behaviour while overestimating situational factors",
+      c:"Attributing one's own behaviour to situational factors while attributing others' behaviour to personal traits",
+      d:"Attributing one's own behaviour to personal traits while attributing others' behaviour to situational factors"},
+    correct:"c",
+    explanation:"Actor-observer bias: we explain our own actions situationally but others' actions dispositionally." },
+
+  { id:"n23q69", section:"biopsych", src:"NIMHANS 2023 (memory-based) Q69",
+    q:"Synaptic plasticity refers to which process in the brain?",
+    options:{a:"The ability of neurons to generate new action potentials", b:"The strengthening or weakening of synapses based on activity levels",
+      c:"The formation of new neurons in the hippocampus", d:"The transmission of electrical signals across the synaptic cleft"},
+    correct:"b",
+    explanation:"Synaptic plasticity = activity-dependent change in synaptic strength (LTP/LTD); basis of learning." },
+
+  { id:"n23q70", section:"cognitive", src:"NIMHANS 2023 (memory-based) Q70",
+    q:"Weber's Law is best described by which statement?",
+    options:{a:"The just-noticeable difference (JND) is a fixed amount for any stimulus.",
+      b:"The JND is a constant fraction/proportion of the original stimulus intensity.",
+      c:"Detecting a stimulus depends solely on duration of exposure.",
+      d:"Perception is not influenced by changes in intensity."},
+    correct:"b", also:"Weber/JND researcher also asked in NIMHANS 2023 Q98 (Weber).",
+    explanation:"Weber's Law: ΔI/I = constant; the JND is a constant proportion of the baseline intensity." },
+
+  { id:"n23q73", section:"cognitive", src:"NIMHANS 2023 (memory-based) Q73",
+    q:"In signal detection theory, which best describes a \"hit\"?",
+    options:{a:"Correctly identifying a signal when it is present", b:"Failing to detect a signal when it is present",
+      c:"Incorrectly identifying a signal when it is absent", d:"Correctly identifying that no signal is present"},
+    correct:"a",
+    explanation:"Hit = signal present + 'yes'. Miss = present + 'no'. False alarm = absent + 'yes'. Correct rejection = absent + 'no'." },
+
+  { id:"n23q77", section:"research", src:"NIMHANS 2023 (memory-based) Q77",
+    q:"Which best describes the difference between platykurtic and leptokurtic distributions?",
+    options:{a:"Platykurtic have higher peaks and fatter tails than leptokurtic", b:"Platykurtic have lower peaks and thinner tails than leptokurtic",
+      c:"Platykurtic are more likely bimodal; leptokurtic always unimodal", d:"Platykurtic are more symmetric; leptokurtic more skewed"},
+    correct:"b",
+    explanation:"Platykurtic = flatter, low peak, thin tails (kurtosis < 3). Leptokurtic = sharp peak, fat tails (kurtosis > 3)." },
+
+  { id:"n23q82", section:"research", src:"NIMHANS 2023 (memory-based) Q82",
+    q:"Spearman's rank-order correlation coefficient is best used for:",
+    options:{a:"The linear relationship between two interval/ratio variables", b:"The strength and direction of the relationship between two ordinal variables",
+      c:"The association between nominal variables", d:"Testing differences between the means of two independent groups"},
+    correct:"b",
+    explanation:"Spearman's rho is the non-parametric correlation for ordinal (ranked) data." },
+
+  { id:"n23q83", section:"dev", src:"NIMHANS 2023 (memory-based) Q83",
+    q:"James Marcia's theory of identity development includes which identity statuses?",
+    options:{a:"Identity Diffusion, Identity Foreclosure, Identity Moratorium, Identity Achievement",
+      b:"Preconventional, Conventional, Postconventional, Transcendental",
+      c:"Trust vs Mistrust, Autonomy vs Shame, Initiative vs Guilt, Industry vs Inferiority",
+      d:"Exploration, Commitment, Realization, Implementation"},
+    correct:"a",
+    explanation:"Marcia's four statuses cross exploration × commitment: diffusion, foreclosure, moratorium, achievement." },
+
+  { id:"n23q84", section:"cognitive", src:"NIMHANS 2023 (memory-based) Q84",
+    q:"Which researcher conducted the experiment with chimpanzees stacking boxes to reach a banana, illustrating insight learning?",
+    options:{a:"Lawrence Kohlberg", b:"Harry Harlow", c:"Jean Piaget", d:"Wolfgang Köhler"},
+    correct:"d",
+    explanation:"Köhler's chimpanzee (Sultan) studies demonstrated insight learning — sudden restructuring of a problem." },
+
+  { id:"n23q85", section:"social", src:"NIMHANS 2023 (memory-based) Q85",
+    q:"In social psychology, the concept of reactance refers to:",
+    options:{a:"The tendency to comply with authority figures", b:"Increased motivation to perform a behaviour when one's freedom to do it is threatened",
+      c:"Changing one's attitude to align with the majority", d:"Evaluating one's abilities by comparing with others"},
+    correct:"b",
+    explanation:"Brehm's reactance: a threat to freedom increases the appeal of the restricted option." },
+
+  { id:"n23q89", section:"assessment", src:"NIMHANS 2023 (memory-based) Q89",
+    q:"Charles Spearman is best known for which contribution to psychology?",
+    options:{a:"Developing the theory of multiple intelligences", b:"Proposing general intelligence, the 'g' factor",
+      c:"Creating the hierarchy of needs", d:"Formulating the law of effect"},
+    correct:"b",
+    explanation:"Spearman proposed the two-factor theory of intelligence with a general factor 'g'." },
+
+  { id:"n23q96", section:"research", src:"NIMHANS 2023 (memory-based) Q96",
+    q:"To remove the influence of number of children from the relationship between marital stress and length of marriage, which method is most appropriate?",
+    options:{a:"Biserial correlation", b:"Multiple correlation", c:"Linear correlation", d:"Partial correlation"},
+    correct:"d",
+    explanation:"Partial correlation controls for (partials out) the effect of a third variable." },
+
+  { id:"n23q97", section:"research", src:"NIMHANS 2023 (memory-based) Q97",
+    q:"Sampling methods that clearly specify the likelihood of inclusion of each element are known as:",
+    options:{a:"Probability sampling methods", b:"Non-probability sampling methods", c:"Statistical sampling", d:"None of the above"},
+    correct:"a",
+    explanation:"In probability sampling, every element has a known, non-zero chance of selection (allows estimation of sampling error)." },
+
+  { id:"n23q99", section:"cognitive", src:"NIMHANS 2023 (memory-based) Q99",
+    q:"The use of ______ guarantees solving a problem whereas ______ does not guarantee a solution.",
+    options:{a:"Trial and error, heuristics", b:"Algorithm, heuristics", c:"Hill climbing, tower of Hanoi", d:"Heuristics, trial and error"},
+    correct:"b",
+    explanation:"An algorithm is a step-by-step procedure guaranteeing a solution; a heuristic is a shortcut that does not." },
+
+  { id:"n23q100", section:"social", src:"NIMHANS 2023 (memory-based) Q100",
+    q:"According to the Just World Hypothesis, why do people engage in victim blaming?",
+    options:{a:"They believe the victim is inherently unlucky.", b:"They assume the world is chaotic and unpredictable.",
+      c:"They want to avoid feeling empathy for the victim.",
+      d:"They believe people get what they deserve, so the victim must have caused their own suffering."},
+    correct:"d", also:"Just-world also asked in NIMHANS 2023 Q26 and NIMHANS 2024 (mb) Q71.",
+    explanation:"Just-world belief: the world is fair, so victims are assumed to deserve their fate — producing victim blaming." },
+
+  // ============ NIMHANS 2024 (memory-based) ============
+  { id:"n24q01", section:"research", src:"NIMHANS 2024 (memory-based) Q1",
+    q:"In a cohort study of a new intervention and relapse in schizophrenia, the risk ratio is 1.0. This indicates that:",
+    options:{a:"Relapse incidence in the exposed group is double the unexposed.",
+      b:"The intervention has a significant protective effect.",
+      c:"There is no difference in relapse risk between intervention and control groups.",
+      d:"The odds of exposure are equal in relapse and non-relapse groups."},
+    correct:"c",
+    explanation:"RR = 1.0 means equal risk in both groups — no association. RR < 1 protective, RR > 1 harmful." },
+
+  { id:"n24q02", section:"research", src:"NIMHANS 2024 (memory-based) Q2",
+    q:"To ensure transparency and replicability in a systematic review of CBT for insomnia, the researcher should follow:",
+    options:{a:"CONSORT Statement", b:"PRISMA Guidelines", c:"STROBE Checklist", d:"CARE Guidelines"},
+    correct:"b",
+    explanation:"PRISMA governs systematic reviews/meta-analyses. CONSORT = RCTs, STROBE = observational, CARE = case reports." },
+
+  { id:"n24q03", section:"research", src:"NIMHANS 2024 (memory-based) Q3",
+    q:"To study a rare outcome and its past exposures (e.g. a dissociative disorder and childhood trauma), the MOST feasible design is:",
+    options:{a:"Prospective Cohort Study", b:"Cross-Sectional Study", c:"Case-Control Study", d:"Randomized Controlled Trial"},
+    correct:"c",
+    explanation:"Case-control designs are efficient for rare outcomes — start with cases, look back at exposures." },
+
+  { id:"n24q04", section:"research", src:"NIMHANS 2024 (memory-based) Q4",
+    q:"A researcher randomly selects 5 districts per state, then 10 schools per district, then 30 students per school. This is:",
+    options:{a:"Stratified Random Sampling", b:"Quota Sampling", c:"Cluster Sampling", d:"Purposive Sampling"},
+    correct:"c",
+    explanation:"Selecting nested groups (districts→schools→students) is multistage cluster sampling." },
+
+  { id:"n24q05", section:"research", src:"NIMHANS 2024 (memory-based) Q5",
+    q:"Which sampling method relies on the researcher's judgment to select 'typical' participants and does NOT allow calculation of sampling error?",
+    options:{a:"Simple Random Sampling", b:"Stratified Random Sampling", c:"Quota Sampling", d:"Cluster Sampling"},
+    correct:"c",
+    explanation:"Quota sampling is non-probability — judgement-based, so sampling error cannot be estimated. (Purposive is also judgement-based; among the options, quota fits.)" },
+
+  { id:"n24q08", section:"research", src:"NIMHANS 2024 (memory-based) Q8 (ethics/law)",
+    q:"Under the Mental Healthcare Act 2017, regarding treatment of minors (under 18), which statement is accurate?",
+    options:{a:"A minor can be admitted only with consent of the Mental Health Review Board.",
+      b:"The nominated representative decides everything regardless of the minor's capacity.",
+      c:"A minor has the right to appoint a nominated representative, and their opinion on treatment must be considered in an age-appropriate manner.",
+      d:"A minor can never be admitted against their will, regardless of parents' wishes."},
+    correct:"c",
+    explanation:"MHCA 2017 protects minors' rights, including being heard in an age-appropriate manner." },
+
+  { id:"n24q10", section:"research", src:"NIMHANS 2024 (memory-based) Q10 (ethics)",
+    q:"The principle of nonmaleficence in ethical practice is BEST described as the obligation to:",
+    options:{a:"Act in the best interest of the client and promote welfare.",
+      b:"Respect the client's right to self-determination.",
+      c:"Be fair and impartial in distributing services.",
+      d:"Refrain from causing harm or injury to the client."},
+    correct:"d",
+    explanation:"Nonmaleficence = 'do no harm'. Beneficence = promote welfare; autonomy = self-determination; justice = fairness." },
+
+  { id:"n24q13", section:"abnormal", src:"NIMHANS 2024 (memory-based) Q13",
+    q:"Which is NOT one of the three core dimensions of high Expressed Emotion (EE)?",
+    options:{a:"Hostility", b:"Critical Comments", c:"Emotional Over-involvement", d:"Warmth and Positive Regard"},
+    correct:"d",
+    explanation:"High EE = criticism, hostility, and emotional over-involvement — a relapse predictor in schizophrenia." },
+
+  { id:"n24q14", section:"dev", src:"NIMHANS 2024 (memory-based) Q14",
+    q:"In Thomas & Chess's model, a child who is negative in mood, slow to adapt, and has irregular biological rhythms is:",
+    options:{a:"Easy Temperament", b:"Difficult Temperament", c:"Slow-to-Warm-Up Temperament", d:"Insecurely Attached"},
+    correct:"b",
+    explanation:"Thomas & Chess: difficult temperament = negative mood, irregular rhythms, slow adaptability, intense reactions." },
+
+  { id:"n24q15", section:"abnormal", src:"NIMHANS 2024 (memory-based) Q15",
+    q:"A 'formulation' differs from a 'diagnosis' in that a formulation primarily aims to:",
+    options:{a:"Classify symptoms according to DSM-5.",
+      b:"Provide a hypothesis about the cause, precipitants, and maintaining factors of an individual's difficulties.",
+      c:"Determine prognosis and likely course.", d:"Rule out organic causes."},
+    correct:"b",
+    explanation:"A formulation is an individualized explanatory model (predisposing, precipitating, perpetuating, protective factors)." },
+
+  { id:"n24q18", section:"personality", src:"NIMHANS 2024 (memory-based) Q18",
+    q:"A man shows grandiosity, need for admiration, and lack of empathy. Per Kohut's self-psychology, this arises from a failure in parental:",
+    options:{a:"Mirroring", b:"Idealizing", c:"Twinship", d:"Confrontation"},
+    correct:"a",
+    explanation:"Kohut: failure of empathic mirroring of the grandiose self underlies narcissistic pathology." },
+
+  { id:"n24q22", section:"abnormal", src:"NIMHANS 2024 (memory-based) Q22",
+    q:"The specific phobia of pain is known as:",
+    options:{a:"Nosophobia", b:"Algophobia", c:"Cynophobia", d:"Hematophobia"},
+    correct:"b",
+    explanation:"Algophobia = fear of pain. Nosophobia = disease, cynophobia = dogs, hematophobia = blood." },
+
+  { id:"n24q24", section:"abnormal", src:"NIMHANS 2024 (memory-based) Q24",
+    q:"A client shows excessive emotionality, attention-seeking, and seductive behaviour rather than grandiosity. This is more characteristic of:",
+    options:{a:"Narcissistic Personality Disorder", b:"Histrionic Personality Disorder", c:"Borderline Personality Disorder", d:"Dependent Personality Disorder"},
+    correct:"b",
+    explanation:"Histrionic PD = excessive emotionality and attention-seeking. Contrast with narcissistic grandiosity." },
+
+  { id:"n24q25", section:"cognitive", src:"NIMHANS 2024 (memory-based) Q25",
+    q:"In Baddeley's model, the subsystem that integrates the phonological loop, visuospatial sketchpad, and LTM into a coherent episode is the:",
+    options:{a:"Central Executive", b:"Episodic Buffer", c:"Visuospatial Sketchpad", d:"Phonological Loop"},
+    correct:"b",
+    explanation:"The episodic buffer (added 2000) binds information across subsystems and links to long-term memory." },
+
+  { id:"n24q26", section:"dev", src:"NIMHANS 2024 (memory-based) Q26",
+    q:"The Marshmallow Test (Walter Mischel) primarily measures a child's capacity for:",
+    options:{a:"Sustained attention", b:"Resistance to temptation", c:"Delay of gratification", d:"Impulse control in social settings"},
+    correct:"c", also:"Marshmallow Test repeated in NIMHANS 2023 Q79.",
+    explanation:"Mischel's marshmallow paradigm assesses delay of gratification." },
+
+  { id:"n24q27", section:"cognitive", src:"NIMHANS 2024 (memory-based) Q27",
+    q:"The correct sequence of Graham Wallas's four stages of creative thinking is:",
+    options:{a:"Preparation, Illumination, Incubation, Verification", b:"Incubation, Preparation, Verification, Illumination",
+      c:"Preparation, Incubation, Illumination, Verification", d:"Illumination, Preparation, Verification, Incubation"},
+    correct:"c",
+    explanation:"Wallas: Preparation → Incubation → Illumination → Verification." },
+
+  { id:"n24q28", section:"cognitive", src:"NIMHANS 2024 (memory-based) Q28",
+    q:"According to Bandura, which is NOT a necessary process for observational learning?",
+    options:{a:"Attention", b:"Motivation", c:"Reinforcement", d:"Reproduction"},
+    correct:"c", also:"Bandura's stages also listed in NIMHANS 2023 Q68 (Attention, Retention, Reproduction, Motivation).",
+    explanation:"The four processes are Attention, Retention, Reproduction, Motivation. Reinforcement is not one of the four core sub-processes." },
+
+  { id:"n24q33", section:"social", src:"NIMHANS 2024 (memory-based) Q33",
+    q:"The \"halo effect\" is a cognitive bias in which:",
+    options:{a:"A person's overall impression of another influences ratings of specific traits.",
+      b:"Individuals take credit for success but blame external factors for failure.",
+      c:"People overestimate how much others share their opinions.",
+      d:"A person's initial impression anchors all subsequent judgments."},
+    correct:"a",
+    explanation:"Halo effect: a global impression (e.g. attractiveness) biases judgments of unrelated specific traits." },
+
+  { id:"n24q34", section:"social", src:"NIMHANS 2024 (memory-based) Q34",
+    q:"The \"looking-glass self\" (Charles Horton Cooley) posits that self-concept is primarily formed by:",
+    options:{a:"Our innate, unconscious drives.", b:"Comparing ourselves to similar others.",
+      c:"Imagining how we appear to others and how they judge us.", d:"Resolving psychosocial crises at each life stage."},
+    correct:"c",
+    explanation:"Cooley's looking-glass self: identity is shaped by our perception of how others see and judge us." },
+
+  { id:"n24q36", section:"biopsych", src:"NIMHANS 2024 (memory-based) Q36",
+    q:"Which neuroimaging technique directly measures the brain's electrical activity with high temporal resolution (the 'ECG of the brain')?",
+    options:{a:"fMRI", b:"PET", c:"EEG", d:"MEG"},
+    correct:"c",
+    explanation:"EEG records cortical electrical activity with millisecond (high temporal) resolution but poor spatial resolution." },
+
+  { id:"n24q38", section:"biopsych", src:"NIMHANS 2024 (memory-based) Q38",
+    q:"Patient H.M. (Henry Molaison) had medial temporal lobes removed. His most profound deficit was:",
+    options:{a:"Procedural memory", b:"Semantic memory", c:"Anterograde amnesia", d:"Retrograde amnesia"},
+    correct:"c", also:"H.M.'s preserved procedural learning asked in NIMHANS 2024 (mb) Q39.",
+    explanation:"H.M. could not form new long-term declarative memories (anterograde amnesia) after bilateral hippocampal removal." },
+
+  { id:"n24q43", section:"biopsych", src:"NIMHANS 2024 (memory-based) Q43",
+    q:"A patient cannot perform coordinated, purposeful movements (e.g. brushing hair) despite intact motor function, sensation, and comprehension. This is:",
+    options:{a:"Agnosia", b:"Ataxia", c:"Apraxia", d:"Alexia"},
+    correct:"c",
+    explanation:"Apraxia = inability to execute learned purposeful movements despite intact strength and comprehension." },
+
+  { id:"n24q45", section:"assessment", src:"NIMHANS 2024 (memory-based) Q45",
+    q:"For an illiterate rural child with minimal test exposure, the MOST appropriate intelligence test to minimize cultural/educational bias is:",
+    options:{a:"Bhatia's Battery of Performance Tests of Intelligence", b:"WISC-IV", c:"Stanford-Binet (5th ed.)", d:"MISIC"},
+    correct:"a",
+    explanation:"Bhatia's performance battery is non-verbal and well-suited to illiterate/low-literacy Indian populations." },
+
+  { id:"n24q48", section:"assessment", src:"NIMHANS 2024 (memory-based) Q48",
+    q:"In the Rorschach, a response determined primarily by the shape/form of the blot (not colour or movement) is scored as:",
+    options:{a:"FC (Form-Color)", b:"F (Form)", c:"M (Human Movement)", d:"C (Pure Color)"},
+    correct:"b",
+    explanation:"Pure form responses are coded F. FC blends form and colour; M = human movement; C = pure colour." },
+
+  { id:"n24q49", section:"assessment", src:"NIMHANS 2024 (memory-based) Q49",
+    q:"A test requiring maximum performance under standardized conditions (e.g. an IQ test) is classified as a(n):",
+    options:{a:"Speed test", b:"Ability test", c:"Power test", d:"Personality inventory"},
+    correct:"b",
+    explanation:"Maximum-performance tests (ability/aptitude/achievement) ask the examinee to do their best, unlike typical-performance tests." },
+
+  { id:"n24q55", section:"therapy", src:"NIMHANS 2024 (memory-based) Q55",
+    q:"A dog-phobic client relaxes and imagines an increasing hierarchy of dog interactions, from a picture to petting one. This is:",
+    options:{a:"Flooding", b:"Systematic Desensitization", c:"Implosive Therapy", d:"Modeling"},
+    correct:"b",
+    explanation:"Systematic desensitization (Wolpe) pairs graded imaginal exposure with relaxation (reciprocal inhibition)." },
+
+  { id:"n24q57", section:"therapy", src:"NIMHANS 2024 (memory-based) Q57",
+    q:"Viktor Frankl's concept of the \"will to meaning\" is central to which therapeutic school?",
+    options:{a:"REBT", b:"Logotherapy", c:"Existential-Humanistic Therapy", d:"ACT"},
+    correct:"b",
+    explanation:"Frankl founded logotherapy; its central tenet is the human 'will to meaning'." },
+
+  { id:"n24q59", section:"therapy", src:"NIMHANS 2024 (memory-based) Q59",
+    q:"According to the Premack Principle, a high-probability behaviour (e.g. video games) can be used to:",
+    options:{a:"Reinforce a low-probability behaviour (e.g. homework).", b:"Punish a low-probability behaviour.",
+      c:"Reinforce another high-probability behaviour.", d:"Extinguish a maladaptive behaviour."},
+    correct:"a", also:"Premack also asked in NIMHANS 2023 Q78.",
+    explanation:"Premack ('Grandma's rule'): a preferred high-frequency activity reinforces a less-preferred low-frequency one." },
+
+  { id:"n24q60", section:"therapy", src:"NIMHANS 2024 (memory-based) Q60",
+    q:"\"Time-out\" used to manage a child's aggression is technically classified as:",
+    options:{a:"Positive Punishment", b:"Negative Reinforcement", c:"Negative Punishment", d:"Positive Reinforcement"},
+    correct:"c", also:"Time-out as negative punishment also asked in NIMHANS 2023 Q91.",
+    explanation:"Time-out removes access to a reinforcing environment to decrease behaviour = negative punishment." },
+
+  { id:"n24q61", section:"therapy", src:"NIMHANS 2024 (memory-based) Q61",
+    q:"Reinforcing successive approximations of a desired behaviour until the target is achieved is known as:",
+    options:{a:"Chaining", b:"Shaping", c:"Fading", d:"Prompting"},
+    correct:"b",
+    explanation:"Shaping reinforces progressively closer approximations to a target behaviour." },
+
+  { id:"n24q63", section:"cognitive", src:"NIMHANS 2024 (memory-based) Q63",
+    q:"Thorndike's \"law of effect\" states that:",
+    options:{a:"Behaviours followed by pleasurable consequences are more likely to be repeated.",
+      b:"Organisms learn by observing and imitating models.",
+      c:"Insight occurs when problem elements are suddenly restructured.",
+      d:"All behaviour is motivated by unconscious drives."},
+    correct:"a",
+    explanation:"Law of effect: responses producing satisfying consequences are strengthened (basis of operant conditioning)." },
+
+  { id:"n24q69", section:"social", src:"NIMHANS 2024 (memory-based) Q69",
+    q:"The bystander effect is primarily explained by which two factors?",
+    options:{a:"Social loafing and deindividuation.", b:"Diffusion of responsibility and pluralistic ignorance.",
+      c:"Social comparison and normative influence.", d:"Group polarization and groupthink."},
+    correct:"b", also:"Bystander effect also asked in NIMHANS 2023 Q59.",
+    explanation:"Latané & Darley: diffusion of responsibility + pluralistic ignorance reduce helping when others are present." },
+
+  { id:"n24q70", section:"social", src:"NIMHANS 2024 (memory-based) Q70",
+    q:"The classic 'bystander apathy' effect was studied following the real-life murder of:",
+    options:{a:"Martin Luther King Jr.", b:"Kitty Genovese", c:"Emmett Till", d:"Malala Yousafzai"},
+    correct:"b",
+    explanation:"The 1964 Kitty Genovese case spurred Latané & Darley's bystander research." },
+
+  { id:"n24q72", section:"social", src:"NIMHANS 2024 (memory-based) Q72",
+    q:"An invisible barrier preventing a qualified individual from advancing based on gender or minority status is called:",
+    options:{a:"The Matthew Effect", b:"The Glass Ceiling Effect", c:"The Halo Effect", d:"The Pygmalion Effect"},
+    correct:"b",
+    explanation:"The glass ceiling is an unseen barrier to advancement for women/minorities." },
+
+  { id:"n24q73", section:"cognitive", src:"NIMHANS 2024 (memory-based) Q73",
+    q:"Learned helplessness occurs when an organism:",
+    options:{a:"Learns to perform a behaviour to escape an aversive stimulus.",
+      b:"Observes a model being rewarded for aggression.",
+      c:"Experiences repeated unavoidable aversive events, leading to passive acceptance of later aversive events.",
+      d:"Fails to receive reinforcement, leading to extinction."},
+    correct:"c",
+    explanation:"Seligman: uncontrollable aversive events produce learned helplessness — a model of depression." },
+
+  { id:"n24q76", section:"personality", src:"NIMHANS 2024 (memory-based) Q76",
+    q:"The 'D-type' personality, a risk factor for poor cardiovascular prognosis, is characterized by:",
+    options:{a:"Hostility and competitiveness.",
+      b:"The joint tendency to experience negative emotions and to inhibit self-expression socially (social inhibition).",
+      c:"An optimistic and resilient outlook.", d:"Perfectionism and rigidity."},
+    correct:"b",
+    explanation:"Type D = negative affectivity + social inhibition (Denollet)." },
+
+  { id:"n24q79", section:"cognitive", src:"NIMHANS 2024 (memory-based) Q79",
+    q:"Which reinforcement schedule typically produces the highest response rate and is most resistant to extinction?",
+    options:{a:"Fixed Ratio", b:"Variable Ratio", c:"Fixed Interval", d:"Variable Interval"},
+    correct:"b",
+    explanation:"Variable-ratio schedules generate the highest, steadiest responding and greatest extinction resistance." },
+
+  // ============ NIMHANS 2023 — additional well-formed items ============
+  { id:"n23q26", section:"social", src:"NIMHANS 2023 (memory-based) Q26",
+    q:"Which theory explains the phenomenon of victim blaming?",
+    options:{a:"Cognitive Dissonance Theory", b:"Social Learning Theory", c:"Just World Phenomenon", d:"Attribution Theory"},
+    correct:"c",
+    explanation:"The just-world phenomenon — belief that people get what they deserve — underlies victim blaming." },
+
+  { id:"n23q40", section:"personality", src:"NIMHANS 2023 (memory-based) Q40",
+    q:"Carl Jung's principle of synchronicity refers to:",
+    options:{a:"The universal unconscious mind shared by all humans", b:"The meaningful coincidence of events that are not causally related",
+      c:"The process of individuation and personal growth", d:"Archetypal patterns of behaviour and thought"},
+    correct:"b",
+    explanation:"Synchronicity = meaningful coincidence without a causal link." },
+
+  { id:"n23q53", section:"cognitive", src:"NIMHANS 2023 (memory-based) Q53",
+    q:"Wilhelm Wundt is known for which contribution to psychology?",
+    options:{a:"Developing psychoanalysis", b:"Establishing the first laboratory dedicated to psychological research",
+      c:"Proposing the hierarchy of needs", d:"Creating the stages of cognitive development"},
+    correct:"b",
+    explanation:"Wundt opened the first psychology laboratory in Leipzig (1879)." },
+
+  { id:"n23q66", section:"cognitive", src:"NIMHANS 2023 (memory-based) Q66",
+    q:"The phonological loop in Baddeley's model is primarily responsible for:",
+    options:{a:"Visual and spatial processing", b:"Storing and rehearsing auditory and verbal information",
+      c:"Coordinating integration of information", d:"Managing long-term memory retrieval"},
+    correct:"b",
+    explanation:"The phonological loop holds and rehearses verbal/acoustic information (inner voice + inner ear)." },
+
+  { id:"n23q71", section:"social", src:"NIMHANS 2023 (memory-based) Q71",
+    q:"Anomie, as introduced by Émile Durkheim, refers to:",
+    options:{a:"A state of normlessness where social norms are unclear or no longer applicable",
+      b:"The progression from traditional to modern societies", c:"Adaptation to the dominant culture's values",
+      d:"Internalisation of societal norms and values"},
+    correct:"a",
+    explanation:"Durkheim's anomie = breakdown/absence of social norms, linked to higher suicide risk." },
+
+  { id:"n23q72", section:"therapy", src:"NIMHANS 2023 (memory-based) Q72",
+    q:"Object relations therapy focuses on:",
+    options:{a:"The analysis of dreams and unconscious desires",
+      b:"The relationships between internalized images of self and others",
+      c:"Rational thinking and cognitive restructuring", d:"Reinforcement and punishment to shape behaviour"},
+    correct:"b",
+    explanation:"Object relations theory centres on internalized representations of self and significant others." },
+
+  { id:"n23q81", section:"cognitive", src:"NIMHANS 2023 (memory-based) Q81",
+    q:"The representativeness heuristic involves:",
+    options:{a:"Estimating likelihood by how easily examples come to mind",
+      b:"Evaluating probability by how much something resembles existing stereotypes/categories",
+      c:"Deciding based on the first piece of information encountered", d:"Assessing likelihood by perceived importance"},
+    correct:"b", also:"Contrast with availability heuristic (option a).",
+    explanation:"Representativeness = judging by similarity to a prototype; availability = ease of recall (Tversky & Kahneman)." },
+
+  { id:"n23q86", section:"assessment", src:"NIMHANS 2023 (memory-based) Q86",
+    q:"Predictive validity refers to:",
+    options:{a:"The degree a test measures what it claims to measure", b:"The consistency of results across administrations",
+      c:"The extent to which a test predicts future performance or outcomes", d:"The relevance of test content"},
+    correct:"c",
+    explanation:"Predictive validity = how well current scores forecast a future criterion." },
+
+  { id:"n23q92", section:"social", src:"NIMHANS 2023 (memory-based) Q92",
+    q:"Which of the following is NOT an example of an attribution bias?",
+    options:{a:"Fundamental Attribution Error", b:"Self-Serving Bias", c:"Confirmation Bias", d:"Actor-Observer Bias"},
+    correct:"c",
+    explanation:"Confirmation bias is a reasoning bias, not an attribution bias. The others concern how we explain behaviour." },
+
+  { id:"n23q94", section:"therapy", src:"NIMHANS 2023 (memory-based) Q94",
+    q:"Which approach considers the central core of dysfunctional behaviour to be irrational beliefs?",
+    options:{a:"Cognitive Behaviour Therapy", b:"Dialectical Therapy", c:"Rational Emotive Behaviour Therapy", d:"Behaviour Therapy"},
+    correct:"c",
+    explanation:"Ellis's REBT locates dysfunction in irrational beliefs, disputed via the ABCDE model." }
+];
+
+// =====================================================================
+const STORE_KEY = "pyqDiagnostic_v1";
+function loadState(){ try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch(e){ return {}; } }
+function saveState(s){ try { localStorage.setItem(STORE_KEY, JSON.stringify(s)); } catch(e){} }
+// state.results[id] = { picked, correct, guessed, retired }
+let state = loadState();
+if(!state.results) state.results = {};
+
+const SECTION_LABELS = {
+  biopsych:"Biopsychology / Neuro", cognitive:"Cognitive / General", dev:"Developmental",
+  social:"Social Psychology", personality:"Personality", abnormal:"Abnormal / Clinical",
+  assessment:"Psychological Assessment", therapy:"Psychotherapy", research:"Research / Stats / Ethics"
+};
+
+const sectionSelect = document.getElementById("sectionSelect");
+const modeSelect = document.getElementById("modeSelect");
+const quizArea = document.getElementById("quizArea");
+
+function visibleQuestions(){
+  const sec = sectionSelect.value;
+  const mode = modeSelect.value;
+  return QUESTIONS.filter(q=>{
+    if(sec!=="all" && q.section!==sec) return false;
+    if(mode==="active"){
+      const r = state.results[q.id];
+      if(r && r.retired) return false;
+    }
+    return true;
+  });
+}
+
+function render(){
+  const list = visibleQuestions();
+  quizArea.innerHTML = "";
+  list.forEach((q, idx)=> quizArea.appendChild(renderCard(q, idx)));
+  if(list.length===0){
+    quizArea.innerHTML = "<div class='question-card'>No questions in this view. All retired? Switch to “Show all questions” or pick another section.</div>";
+  }
+  updateProgress();
+  updateStats();
+  updateSectionScores();
+  updateStudySheet();
+}
+
+function renderCard(q){
+  const r = state.results[q.id] || {};
+  const card = document.createElement("div");
+  card.className = "question-card";
+
+  const tagRow = document.createElement("div");
+  const secTag = document.createElement("span");
+  secTag.className = "section-tag";
+  secTag.textContent = SECTION_LABELS[q.section] || q.section;
+  const srcTag = document.createElement("span");
+  srcTag.className = "src-tag";
+  srcTag.textContent = "★ " + q.src;
+  tagRow.appendChild(secTag); tagRow.appendChild(srcTag);
+  if(r.retired){
+    const rb = document.createElement("span"); rb.className="retired-badge"; rb.textContent="retired ✓";
+    tagRow.appendChild(rb);
+  }
+  card.appendChild(tagRow);
+
+  if(q.also){
+    const dn = document.createElement("div"); dn.className="dupe-note"; dn.textContent = "↻ "+q.also;
+    card.appendChild(dn);
+  }
+
+  const qt = document.createElement("div");
+  qt.className = "question-text";
+  qt.textContent = q.q;
+  card.appendChild(qt);
+
+  const answered = !!r.picked;
+  const opts = document.createElement("div");
+  opts.className = "options";
+  ["a","b","c","d"].forEach(letter=>{
+    if(!(letter in q.options)) return;
+    const o = document.createElement("div");
+    o.className = "option";
+    if(answered){
+      o.classList.add("disabled");
+      if(letter===q.correct) o.classList.add("correct");
+      else if(letter===r.picked) o.classList.add("incorrect");
+    } else if(r.picked===letter){
+      o.classList.add("selected");
+    }
+    const lt = document.createElement("span"); lt.className="option-letter"; lt.textContent = letter+")";
+    const tx = document.createElement("span"); tx.textContent = q.options[letter];
+    o.appendChild(lt); o.appendChild(tx);
+    if(!answered){ o.addEventListener("click", ()=> pick(q, letter)); }
+    opts.appendChild(o);
+  });
+  card.appendChild(opts);
+
+  // guess toggle (only meaningful before answering)
+  if(!answered){
+    const gr = document.createElement("div");
+    gr.className = "guess-row" + (r.guessFlag ? " checked":"");
+    const gb = document.createElement("div"); gb.className="guess-checkbox";
+    const gl = document.createElement("div"); gl.className="guess-label";
+    gl.innerHTML = "I'm guessing this one <small>Mark before you answer. A correct answer marked “guessed” will NOT retire — it stays in rotation.</small>";
+    gr.appendChild(gb); gr.appendChild(gl);
+    gr.addEventListener("click", ()=>{
+      r.guessFlag = !r.guessFlag;
+      state.results[q.id] = r; saveState(state);
+      gr.classList.toggle("checked", r.guessFlag);
+    });
+    card.appendChild(gr);
+  }
+
+  if(answered){
+    const ex = document.createElement("div");
+    ex.className = "explanation visible";
+    const verdict = r.correct ? (r.guessed ? "Correct (guessed)" : "Correct") : "Incorrect";
+    ex.innerHTML = "<strong>"+verdict+" — answer: "+q.correct+")</strong> "+q.explanation;
+    card.appendChild(ex);
+  }
+  return card;
+}
+
+function pick(q, letter){
+  const r = state.results[q.id] || {};
+  const guessed = !!r.guessFlag;
+  const correct = (letter === q.correct);
+  r.picked = letter;
+  r.correct = correct;
+  r.guessed = guessed;
+  // retire only if correct AND not guessed
+  r.retired = correct && !guessed;
+  state.results[q.id] = r;
+  saveState(state);
+  render();
+}
+
+function scoreAll(){
+  let right=0, guessedRight=0, wrong=0, answered=0, net=0;
+  QUESTIONS.forEach(q=>{
+    const r = state.results[q.id];
+    if(r && r.picked){
+      answered++;
+      if(r.correct){ net += 1; if(r.guessed) guessedRight++; else right++; }
+      else { net -= 0.25; wrong++; }
+    }
+  });
+  return { right, guessedRight, wrong, answered, net, total: QUESTIONS.length, skipped: QUESTIONS.length-answered };
+}
+
+function updateProgress(){
+  const list = visibleQuestions();
+  const ans = list.filter(q=> state.results[q.id] && state.results[q.id].picked).length;
+  document.getElementById("progress").textContent = ans + " / " + list.length + " answered in this view";
+  const pct = list.length ? Math.round(ans/list.length*100) : 0;
+  document.getElementById("progressFill").style.width = pct + "%";
+  const s = scoreAll();
+  document.getElementById("netScore").textContent = s.net.toFixed(2);
+  document.getElementById("answeredCount").textContent = s.answered;
+  document.getElementById("maxScore").textContent = s.total;
+}
+
+function updateStats(){
+  const s = scoreAll();
+  document.getElementById("statRight").textContent = s.right;
+  document.getElementById("statGuessed").textContent = s.guessedRight;
+  document.getElementById("statWrong").textContent = s.wrong;
+  document.getElementById("statSkipped").textContent = s.skipped;
+}
+
+function updateSectionScores(){
+  const cont = document.getElementById("sectionScores");
+  cont.innerHTML = "";
+  const sections = [...new Set(QUESTIONS.map(q=>q.section))];
+  sections.forEach(sec=>{
+    const qs = QUESTIONS.filter(q=>q.section===sec);
+    let right=0, guessed=0, wrong=0, skipped=0;
+    qs.forEach(q=>{
+      const r = state.results[q.id];
+      if(!r || !r.picked){ skipped++; }
+      else if(r.correct){ if(r.guessed) guessed++; else right++; }
+      else wrong++;
+    });
+    const n = qs.length;
+    const row = document.createElement("div"); row.className="section-score-row";
+    const name = document.createElement("div"); name.className="section-score-name"; name.textContent = SECTION_LABELS[sec]||sec;
+    const bar = document.createElement("div"); bar.className="section-score-bar";
+    function seg(cls, cnt){ const s=document.createElement("span"); s.className=cls; s.style.width=(n?cnt/n*100:0)+"%"; return s; }
+    bar.appendChild(seg("ssr-right",right)); bar.appendChild(seg("ssr-guessed",guessed));
+    bar.appendChild(seg("ssr-wrong",wrong)); bar.appendChild(seg("ssr-skipped",skipped));
+    const num = document.createElement("div"); num.className="section-score-num";
+    num.textContent = right+"/"+n+" solid";
+    row.appendChild(name); row.appendChild(bar); row.appendChild(num);
+    cont.appendChild(row);
+  });
+}
+
+function updateStudySheet(){
+  const sheet = document.getElementById("studysheet");
+  const body = document.getElementById("studysheetBody");
+  // gaps = wrong OR guessed-right (answered but not mastered)
+  const gaps = QUESTIONS.filter(q=>{
+    const r = state.results[q.id];
+    return r && r.picked && (!r.correct || r.guessed);
+  });
+  if(gaps.length===0){ sheet.classList.remove("visible"); body.innerHTML=""; return; }
+  sheet.classList.add("visible");
+  body.innerHTML = "";
+  const sections = [...new Set(gaps.map(q=>q.section))];
+  sections.forEach(sec=>{
+    const secGaps = gaps.filter(q=>q.section===sec);
+    const div = document.createElement("div"); div.className="ss-section";
+    const h = document.createElement("h3"); h.textContent = (SECTION_LABELS[sec]||sec)+" — "+secGaps.length+" to revise";
+    div.appendChild(h);
+    secGaps.forEach(q=>{
+      const r = state.results[q.id];
+      const item = document.createElement("div"); item.className="ss-item";
+      const qd = document.createElement("div"); qd.className="ss-q"; qd.textContent = q.q;
+      const correctText = q.options[q.correct];
+      const ans = document.createElement("div"); ans.className="ss-ans"; ans.textContent = "Correct: "+q.correct+") "+correctText;
+      item.appendChild(qd); item.appendChild(ans);
+      if(!r.correct && r.picked){
+        const yours = document.createElement("div"); yours.className="ss-yours";
+        yours.textContent = "You picked: "+r.picked+") "+(q.options[r.picked]||"");
+        item.appendChild(yours);
+      } else if(r.guessed){
+        const yours = document.createElement("div"); yours.className="ss-yours";
+        yours.textContent = "Guessed right — review so it's solid next time.";
+        item.appendChild(yours);
+      }
+      const exp = document.createElement("div"); exp.className="ss-exp"; exp.textContent = q.explanation;
+      item.appendChild(exp);
+      const src = document.createElement("div"); src.className="ss-src"; src.textContent = "Source: "+q.src;
+      item.appendChild(src);
+      div.appendChild(item);
+    });
+    body.appendChild(div);
+  });
+}
+
+sectionSelect.addEventListener("change", render);
+modeSelect.addEventListener("change", render);
+document.querySelector("[data-action=reset]").addEventListener("click", ()=>{
+  if(confirm("Reset ALL progress? This clears your answers, stats, and retired questions.")){
+    state = { results:{} }; saveState(state); render();
+  }
+});
+
+render();
+</script>
+</body>
+</html>
