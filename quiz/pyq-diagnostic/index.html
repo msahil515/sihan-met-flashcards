@@ -1399,7 +1399,253 @@ const QUESTIONS = [
     q:"Two parallel train tracks appearing to converge in the distance illustrate which monocular depth cue?",
     options:{a:"Linear perspective", b:"Convergence", c:"Aerial perspective", d:"Motion parallax"},
     correct:"a",
-    explanation:"Linear perspective: parallel lines appear to converge with distance, signalling depth (a monocular/pictorial cue)." }
+    explanation:"Linear perspective: parallel lines appear to converge with distance, signalling depth (a monocular/pictorial cue)." },
+
+  // ===== Vision-transcribed from scanned university papers (2026-05-30). GGSIPU items carry the paper's OFFICIAL answer key. =====
+  { id:"vis_ggsipu_01", section:"research", src:"GGSIPU M.Phil CP 2022 Q3 (official key: C)",
+    q:"Duncan's multiple range test, Newman-Keuls, Tukey's HSD and Scheffé tests can be used only when:",
+    options:{a:"The F ratio is not significant", b:"The F ratio cannot be determined", c:"The F ratio is significant", d:"The sample is small"},
+    correct:"c", explanation:"Post-hoc tests run only after a significant omnibus ANOVA F, to locate which means differ." },
+
+  { id:"vis_ggsipu_02", section:"research", src:"GGSIPU M.Phil CP 2022 Q5 (official key: A)",
+    q:"In a negatively skewed distribution, the position of the mean relative to the median is:",
+    options:{a:"Left of the median", b:"Right of the median", c:"Same as the median", d:"Same as the mode"},
+    correct:"a", explanation:"Negative (left) skew pulls the mean below the median: mean < median." },
+
+  { id:"vis_ggsipu_03", section:"research", src:"GGSIPU M.Phil CP 2022 Q14 (official key: C)",
+    q:"A double-blind study is used to minimize the impact of:",
+    options:{a:"Experimenter bias only", b:"Expectancy effects only", c:"Both experimenter bias and expectancy effects", d:"Neither"},
+    correct:"c", explanation:"Double-blind hides condition from both researcher and participant." },
+
+  { id:"vis_ggsipu_04", section:"research", src:"GGSIPU M.Phil CP 2022 Q50 (official key: B)",
+    q:"A Type II error occurs when a researcher:",
+    options:{a:"Rejects a true null hypothesis", b:"Fails to reject a false null hypothesis", c:"Uses too large a sample", d:"Sets alpha too high"},
+    correct:"b", explanation:"Type II (beta) = missing a real effect by failing to reject a false null." },
+
+  { id:"vis_ggsipu_05", section:"research", src:"GGSIPU M.Phil CP 2022 Q66 (official key: A)",
+    q:"In classical test theory, an observed test score equals:",
+    options:{a:"True score + error score", b:"True score + reliability", c:"Error score + validity", d:"True score + standard deviation"},
+    correct:"a", explanation:"X = T + E is the foundational CTT equation." },
+
+  { id:"vis_ggsipu_06", section:"research", src:"GGSIPU M.Phil CP 2022 Q73 (official key: A)",
+    q:"'Incremental validity' refers to the extent to which a test:",
+    options:{a:"Adds to prediction beyond existing measures", b:"Appears to measure what it claims", c:"Is consistent over time", d:"Covers the content domain"},
+    correct:"a", explanation:"Incremental validity = added predictive value over and above other measures." },
+
+  { id:"vis_ggsipu_07", section:"dev", src:"GGSIPU M.Phil CP 2022 Q4 (official key: females-care)",
+    q:"Carol Gilligan departs from Kohlberg by arguing that females tend to emphasize:",
+    options:{a:"An ethics of justice", b:"An ethics of care", c:"Punishment avoidance", d:"Social contract reasoning"},
+    correct:"b", explanation:"Gilligan proposed a relational 'ethics of care' she felt Kohlberg's justice scale underweighted." },
+
+  { id:"vis_ggsipu_08", section:"dev", src:"GGSIPU M.Phil CP 2022 Q6 (official key: A)",
+    q:"The principal factor that changes the affordances available to a toddler vs an infant is:",
+    options:{a:"Independent locomotion", b:"Starting to speak", c:"The attachment relationship", d:"New kinds of caretaking"},
+    correct:"a", explanation:"Self-produced locomotion massively expands a toddler's action possibilities." },
+
+  { id:"vis_ggsipu_09", section:"social", src:"GGSIPU M.Phil CP 2022 Q18 (official key: B)",
+    q:"Who proposed the social role theory of gender?",
+    options:{a:"David Buss", b:"Alice Eagly", c:"Carol Gilligan", d:"Sandra Bem"},
+    correct:"b", explanation:"Eagly's social role theory roots gender differences in social roles." },
+
+  { id:"vis_ggsipu_10", section:"personality", src:"GGSIPU M.Phil CP 2022 Q17 (official key: B)",
+    q:"According to Adler, middle children tend to be:",
+    options:{a:"Overachieving and anxious", b:"Competitive and ambitious", c:"Spoiled and dependent", d:"Filled with inferiority"},
+    correct:"b", explanation:"Adler saw middle children as competitive, striving to surpass the firstborn." },
+
+  { id:"vis_ggsipu_11", section:"dev", src:"GGSIPU M.Phil CP 2022 Q43 (official key: A)",
+    q:"In Erikson's view, adolescence is best described as:",
+    options:{a:"A psychosocial moratorium", b:"Not a true developmental stage", c:"The final stage of development", d:"A period without crisis"},
+    correct:"a", explanation:"Erikson called adolescence a 'moratorium' for identity exploration." },
+
+  { id:"vis_ggsipu_12", section:"biopsych", src:"GGSIPU M.Phil CP 2022 Q13 (official key: Alzheimer's)",
+    q:"Acetylcholine deficiency in the brain is most directly related to which condition?",
+    options:{a:"Senile dementia (Alzheimer's)", b:"Parkinson's disease", c:"Schizophrenia", d:"Bipolar disorder"},
+    correct:"a", explanation:"The cholinergic hypothesis links ACh loss to Alzheimer's-type dementia." },
+
+  { id:"vis_ggsipu_13", section:"biopsych", src:"GGSIPU M.Phil CP 2022 Q16 (official key: C)",
+    q:"For which neurotransmitter does alcohol act as an agonist?",
+    options:{a:"Serotonin", b:"Acetylcholine", c:"GABA", d:"Endorphins"},
+    correct:"c", explanation:"Alcohol potentiates inhibitory GABA-A transmission." },
+
+  { id:"vis_ggsipu_14", section:"cognitive", src:"GGSIPU M.Phil CP 2022 Q28 (official key: D)",
+    q:"A secondary task that disrupts the central executive of working memory is:",
+    options:{a:"Continually repeating one word", b:"Remembering a spatial configuration", c:"Listening to irrelevant speech", d:"Random number generation"},
+    correct:"d", explanation:"Random generation taxes the central executive (inhibition + monitoring)." },
+
+  { id:"vis_ggsipu_15", section:"cognitive", src:"GGSIPU M.Phil CP 2022 Q30 (official key: A)",
+    q:"Taste aversion (the Garcia effect) is an example of:",
+    options:{a:"Classical conditioning", b:"Second-order conditioning", c:"Operant conditioning", d:"Spurious association"},
+    correct:"a", explanation:"Conditioned taste aversion is a biologically prepared classical conditioning." },
+
+  { id:"vis_ggsipu_16", section:"cognitive", src:"GGSIPU M.Phil CP 2022 Q38 (official key: B)",
+    q:"The Müller-Lyer illusion is weak or absent in people from cultures that have:",
+    options:{a:"Many right-angled, carpentered structures", b:"Few corners and non-carpentered environments", c:"More women than men", d:"Lots of trees"},
+    correct:"b", explanation:"Carpentered-world hypothesis: those without cornered environments are less fooled." },
+
+  { id:"vis_ggsipu_17", section:"abnormal", src:"GGSIPU M.Phil CP 2022 Q11 (official key: D)",
+    q:"Per DSM, the proposed criterion set for deliberately hurting one's own body without intent to die is:",
+    options:{a:"Internet gaming disorder", b:"Attenuated psychosis syndrome", c:"Persistent complex bereavement", d:"Non-suicidal self-injury"},
+    correct:"d", explanation:"NSSI is a DSM-5 condition for further study." },
+
+  { id:"vis_ggsipu_18", section:"abnormal", src:"GGSIPU M.Phil CP 2022 Q2 (official key: A)",
+    q:"Which is a culture-bound syndrome marked by exaggerated startle and uttering normally inhibited words?",
+    options:{a:"Latah", b:"Koro", c:"Dhat", d:"Susto"},
+    correct:"a", explanation:"Latah (SE Asia): startle-induced echolalia/echopraxia and disinhibited speech." },
+
+  { id:"vis_rml_01", section:"research", src:"RML 2023 bilingual RM paper Q59 (key underline)",
+    q:"Levene's test is used to check:",
+    options:{a:"Normality of data", b:"Homogeneity of variances", c:"Independence of observations", d:"Equality of group sizes"},
+    correct:"b", explanation:"Levene's tests the equal-variance assumption for t-tests/ANOVA." },
+
+  { id:"vis_rml_02", section:"research", src:"RML 2023 bilingual RM paper Q60 (key underline)",
+    q:"Which non-parametric test compares medians of three or more independent groups?",
+    options:{a:"Mann-Whitney U", b:"Kruskal-Wallis", c:"Wilcoxon signed-rank", d:"Friedman"},
+    correct:"b", explanation:"Kruskal-Wallis is the non-parametric one-way ANOVA for 3+ groups." },
+
+  { id:"vis_rml_03", section:"research", src:"RML 2023 bilingual RM paper Q63 (key underline)",
+    q:"Which correlation method is used when one variable is continuous and the other is genuinely dichotomous?",
+    options:{a:"Pearson's r", b:"Spearman's rho", c:"Point-biserial correlation", d:"Phi coefficient"},
+    correct:"c", explanation:"Point-biserial correlates a continuous variable with a true dichotomy." },
+
+  { id:"vis_rml_04", section:"research", src:"RML 2023 bilingual RM paper Q62 (key underline)",
+    q:"Which test determines whether two correlation coefficients differ significantly?",
+    options:{a:"Independent samples t-test", b:"Pearson correlation", c:"Fisher's z-test", d:"One-way ANOVA"},
+    correct:"c", explanation:"Fisher's r-to-z transform allows comparing two correlations." },
+
+  { id:"vis_rml_05", section:"research", src:"RML 2023 bilingual RM paper Q35 (key underline)",
+    q:"Which is NOT a form of plagiarism?",
+    options:{a:"Collusion", b:"Proper citation", c:"Patchwriting", d:"Ghost-writing"},
+    correct:"b", explanation:"Correctly citing sources is the opposite of plagiarism." },
+
+  { id:"vis_rml_06", section:"cognitive", src:"RML 2023 bilingual RM paper Q56 (key underline)",
+    q:"The misinformation effect occurs when:",
+    options:{a:"Memories become more accurate over time", b:"Memories are distorted by leading/misleading information", c:"Memories decay without retrieval", d:"Memories are blocked by interference"},
+    correct:"b", explanation:"Loftus's misinformation effect: post-event misleading info distorts memory." },
+
+  { id:"vis_rml_07", section:"biopsych", src:"RML 2023 bilingual RM paper Q50 (key underline)",
+    q:"Synaptic pruning is most closely associated with:",
+    options:{a:"Memory consolidation", b:"Neuronal development and plasticity", c:"Neurotransmitter release", d:"Long-term potentiation"},
+    correct:"b", explanation:"Pruning weak synapses is part of normal neural development/plasticity." },
+
+  { id:"vis_rml_08", section:"biopsych", src:"RML 2023 bilingual RM paper Q49 (key underline)",
+    q:"Which structure regulates the body's internal clock and sleep-wake cycle (melatonin)?",
+    options:{a:"Pineal gland", b:"Hypothalamus", c:"Thalamus", d:"Pituitary gland"},
+    correct:"a", explanation:"The pineal gland secretes melatonin (driven by the SCN)." },
+
+  { id:"vis_rml_09", section:"social", src:"RML 2023 bilingual RM paper Q43 (key underline)",
+    q:"The concept of 'reciprocal determinism' is central to which theory?",
+    options:{a:"Psychodynamic theory", b:"Social cognitive theory (Bandura)", c:"Humanistic theory", d:"Trait theory"},
+    correct:"b", explanation:"Person, behavior, and environment mutually influence one another." },
+
+  { id:"vis_rml_10", section:"cognitive", src:"RML 2023 bilingual RM paper Q39 (key underline)",
+    q:"'Affordances' (action possibilities offered by the environment) were introduced by:",
+    options:{a:"Hermann von Helmholtz", b:"James J. Gibson", c:"Richard Gregory", d:"Ulric Neisser"},
+    correct:"b", explanation:"Gibson's ecological theory of direct perception." },
+
+  { id:"vis_rml_11", section:"cognitive", src:"RML 2023 bilingual RM paper Q36 (key underline)",
+    q:"Who is known for 'bounded rationality' (decisions constrained by limited information/resources)?",
+    options:{a:"Herbert Simon", b:"Daniel Kahneman", c:"Amos Tversky", d:"Howard Gardner"},
+    correct:"a", explanation:"Herbert Simon's bounded rationality." },
+
+  { id:"vis_rml_12", section:"dev", src:"RML 2023 bilingual RM paper Q42 (key underline)",
+    q:"Per Erikson, the psychosocial crisis of adolescence is:",
+    options:{a:"Identity vs Role Confusion", b:"Trust vs Mistrust", c:"Autonomy vs Shame and Doubt", d:"Intimacy vs Isolation"},
+    correct:"a", explanation:"Stage 5 of Erikson's model." },
+
+  { id:"vis_rml_13", section:"research", src:"RML 2023 bilingual RM paper Q41 (key underline)",
+    q:"Snowball sampling is best described as:",
+    options:{a:"Random selection of participants", b:"Existing participants recruit future participants", c:"Ensuring equal subgroup representation", d:"Selecting by availability"},
+    correct:"b", explanation:"A chain-referral non-probability method." },
+
+  { id:"vis_ihbas_01", section:"research", src:"IHBAS April 2024 (Series D) Q24",
+    q:"The split-half method is used as a test of:",
+    options:{a:"Stability over time", b:"Internal reliability", c:"Inter-observer consistency", d:"External validity"},
+    correct:"b", explanation:"Splitting a test into halves and correlating them estimates internal consistency." },
+
+  { id:"vis_ihbas_02", section:"abnormal", src:"IHBAS April 2024 (Series D) Q90",
+    q:"Which psychotherapy is indicated for treatment of obsessive-compulsive disorder?",
+    options:{a:"Humanistic therapy", b:"Exposure and Response Prevention", c:"Existential therapy", d:"REBT"},
+    correct:"b", explanation:"ERP is the first-line behavioural treatment for OCD." },
+
+  { id:"vis_ihbas_03", section:"dev", src:"IHBAS April 2024 (Series D) Q33",
+    q:"Children from families where parents are both a source of comfort AND fear tend to develop:",
+    options:{a:"Avoidant attachment", b:"Disorganized attachment", c:"Ambivalent attachment", d:"Secure attachment"},
+    correct:"b", explanation:"A frightening-yet-needed caregiver yields disorganized attachment." },
+
+  { id:"vis_ihbas_04", section:"biopsych", src:"IHBAS April 2024 (Series D) Q56 (key annotation: D)",
+    q:"Verbal declarative memory deficits are found MOST in:",
+    options:{a:"First-episode schizophrenia", b:"PTSD with comorbid depression", c:"GAD with a Holocaust history", d:"Alcohol-induced psychosis"},
+    correct:"d", explanation:"The Series key annotation for Q56 marks option D." },
+
+  { id:"vis_ihbas_05", section:"social", src:"IHBAS April 2024 (Series D) Q14",
+    q:"The tendency to attribute one's successes to internal factors and failures to external factors is:",
+    options:{a:"Fundamental attribution error", b:"Self-serving bias", c:"Actor-observer bias", d:"Attributional bias"},
+    correct:"b", explanation:"Self-serving bias protects self-esteem." },
+
+  { id:"vis_ihbas_06", section:"cognitive", src:"IHBAS April 2024 (Series D) Q39",
+    q:"Uncompleted or interrupted tasks are remembered better than completed ones. This is the:",
+    options:{a:"Von Restorff effect", b:"Primacy effect", c:"Zeigarnik effect", d:"Modality effect"},
+    correct:"c", explanation:"The Zeigarnik effect." },
+
+  { id:"vis_ihbas_07", section:"personality", src:"IHBAS April 2024 (Series D) Q78",
+    q:"Who suggested a three-factor (PEN) theory of personality?",
+    options:{a:"Gordon Allport", b:"Raymond Cattell", c:"Hans Eysenck", d:"McCrae & Costa"},
+    correct:"c", explanation:"Eysenck: Psychoticism, Extraversion, Neuroticism." },
+
+  { id:"vis_rinpas_01", section:"abnormal", src:"RINPAS 2019 (IR-1B/19) Q27",
+    q:"Who first coined the term 'Dementia Praecox'?",
+    options:{a:"Eugen Bleuler", b:"Bénédict Morel", c:"Karl Wernicke", d:"Emil Kraepelin"},
+    correct:"b", explanation:"Morel coined it; Kraepelin systematized it; Bleuler renamed it schizophrenia." },
+
+  { id:"vis_rinpas_02", section:"abnormal", src:"RINPAS 2019 (IR-1B/19) Q31",
+    q:"Who pioneered insulin coma therapy for schizophrenia?",
+    options:{a:"Ugo Cerletti", b:"Manfred Sakel", c:"Ladislas Meduna", d:"Egas Moniz"},
+    correct:"b", explanation:"Manfred Sakel introduced insulin shock therapy in the 1930s." },
+
+  { id:"vis_rinpas_03", section:"abnormal", src:"RINPAS 2019 (IR-1B/19) Q23-24",
+    q:"Who coined the term 'Psychiatry'?",
+    options:{a:"Johann Weyer", b:"Johann Reil", c:"John Conolly", d:"Philippe Pinel"},
+    correct:"b", explanation:"Johann Christian Reil coined 'Psychiatrie' in 1808." },
+
+  { id:"vis_rinpas_04", section:"abnormal", src:"RINPAS 2019 (IR-1B/19) Q25",
+    q:"Who is regarded as the founder of clinical psychology?",
+    options:{a:"Lightner Witmer", b:"Francis Galton", c:"William James", d:"Wilhelm Griesinger"},
+    correct:"a", explanation:"Lightner Witmer founded the first psychological clinic (1896) and coined 'clinical psychology'." },
+
+  { id:"vis_jemas_01", section:"biopsych", src:"JEMAS 2022 mock-series (rotated scan, key tick)",
+    q:"Afferent and efferent nerves are found in which of the following?",
+    options:{a:"Sympathetic nervous system", b:"Parasympathetic nervous system", c:"Somatic nervous system", d:"Central nervous system"},
+    correct:"c", explanation:"The somatic nervous system carries afferent (sensory) and efferent (motor) fibres." },
+
+  { id:"vis_jemas_02", section:"personality", src:"JEMAS 2022 mock-series (rotated scan, key tick)",
+    q:"The term 'free association' was coined by:",
+    options:{a:"Adler", b:"Erikson", c:"Freud", d:"Jung"},
+    correct:"c", explanation:"Free association is a core technique Freud developed in psychoanalysis." },
+
+  { id:"vis_jemas_03", section:"assessment", src:"JEMAS 2022 mock-series (rotated scan, key tick)",
+    q:"The term IQ was introduced by:",
+    options:{a:"Terman", b:"Allport", c:"William Stern", d:"Watson"},
+    correct:"c", explanation:"William Stern introduced the intelligence quotient (mental age / chronological age x 100)." },
+
+  { id:"vis_jemas_04", section:"assessment", src:"JEMAS 2022 mock-series (rotated scan, key tick)",
+    q:"To compute IQ, which formula is used?",
+    options:{a:"MA / CA x 100", b:"CA / MA x 100", c:"CA / MA x 100", d:"MA / CA x 100"},
+    correct:"a", explanation:"Ratio IQ = (Mental Age / Chronological Age) x 100." },
+
+  { id:"vis_nfsu_01", section:"research", src:"NFSU 2024 mock-series (key + explanation page)",
+    q:"If you draw 100 samples from a population and plot all their means as a frequency histogram, you have a:",
+    options:{a:"Mean distribution", b:"Skewed distribution", c:"Sampling distribution", d:"None of the above"},
+    correct:"c", explanation:"The distribution of sample means is the sampling distribution of the mean." },
+
+  { id:"vis_nfsu_02", section:"research", src:"NFSU 2024 mock-series (key + explanation page)",
+    q:"A Type I error occurs when one:",
+    options:{a:"Accepts the null hypothesis when it should be rejected", b:"Rejects the null hypothesis when it should be retained (rejecting a true null)", c:"Fails to reject a false null", d:"Increases the sample size"},
+    correct:"b", explanation:"Type I error = rejecting a true null hypothesis (false positive), its probability is alpha." },
+
+  { id:"vis_nfsu_03", section:"research", src:"NFSU 2024 mock-series (key + explanation page)",
+    q:"A platykurtic distribution is:",
+    options:{a:"More peaked than normal", b:"Flatter than normal", c:"Bimodal", d:"Perfectly symmetric"},
+    correct:"b", explanation:"Platykurtic = flatter (lower, broader peak) than the normal curve; leptokurtic = more peaked." }
 ];
 
 // =====================================================================
