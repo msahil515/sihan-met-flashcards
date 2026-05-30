@@ -348,6 +348,13 @@ button { font-family: inherit; cursor: pointer; }
   position: absolute; left: 0; right: 0; top: 0; height: 3px; z-index: 4; pointer-events: none;
   background: linear-gradient(180deg, rgba(255,255,255,0.7), transparent); border-radius: 5px 5px 0 0;
 }
+/* Single-page (portrait) mode: ONE page fills the frame, so there is no centre
+   spine or inner-gutter shadows. Keyed off the body class the shell sets (not a
+   width media query) because a 1024px iPad held upright is single-page yet wider
+   than the 999px breakpoint below. */
+body.reading-1up .openbook .spine,
+body.reading-1up .openbook .gutter-l,
+body.reading-1up .openbook .gutter-r { display: none; }
 
 /* ----- page-turn handles flanking the book ----- */
 .turn {

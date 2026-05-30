@@ -145,8 +145,14 @@ body.nfe-reader.nfe-paged {
   max-width: none;
   margin: 0;
   padding: var(--pg-pv, 3rem) var(--pg-ph, 2.4rem);
-  column-count: 2;
-  -webkit-column-count: 2;
+  /* The page width is driven by the shell: it sets --pg-colw so exactly N
+     columns sit across the frame (2 in a landscape spread, 1 in a portrait
+     single page), and the remaining text overflows into more same-width
+     columns to the right that the shell pages through. Using column-width
+     (not a fixed column-count) is what lets the SAME pagination machinery do
+     both 1-up and 2-up: a single portrait page is just a page-wide column. */
+  column-width: var(--pg-colw, 18rem);
+  -webkit-column-width: var(--pg-colw, 18rem);
   column-gap: var(--pg-gap, 5rem);
   -webkit-column-gap: var(--pg-gap, 5rem);
   column-fill: auto;

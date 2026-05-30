@@ -141,6 +141,11 @@
      scrolls. State below is shared with the keyboard handler. */
   var FRAME = null, RSLUG = null, PREV = null, NEXT = null, RIDX = 0;
   var PAGED = false, SPREAD_W = 0, NSPREADS = 1, CUR = 0;
+  // Columns visible per turn: 2 = a landscape two-page spread, 1 = a portrait
+  // single page you flip like a real book. Set by paginate() from the viewport;
+  // every page-count / section-map / label calc below reads it so the same code
+  // path drives both. (CUR counts spreads; one spread = NCOLS columns.)
+  var NCOLS = 2;
   // SPREAD_W is the visible frame width (what one spread occupies on screen).
   // SPREAD_PITCH is how far the column flow actually advances per spread:
   // 2 columns = 2*(colWidth + gap) = W - 2*ph + gap, NOT W. Translating by W
@@ -150,7 +155,20 @@
   var SPREAD_PITCH = 0, COL_PITCH = 0, PAD_H = 0;
   var SECS = [];                                   // [{id,label,el,spread}]
   var SPREAD_KEY = "nfe:spread";
-  var PAGED_MQ = window.matchMedia("(min-width: 1000px)");
+  // How many printed pages to show, by viewport:
+  //   2 → wide landscape: the two-page spread.
+  //   1 → portrait (incl. a 1024px iPad held upright) or a narrow landscape:
+  //       ONE page, turned like a book. This is the portrait single-page mode —
+  //       before, a portrait tablet ≥1000px wrongly got a cramped 2-up spread,
+  //       and a smaller portrait tablet fell all the way back to scrolling.
+  //   0 → phone: continuous scroll (paging one tiny column reads worse).
+  function colsForViewport() {
+    var portrait = window.matchMedia("(orientation: portrait)").matches;
+    var w = window.innerWidth || document.documentElement.clientWidth || 0;
+    if (!portrait && w >= 1000) return 2;
+    if (w >= 680) return 1;
+    return 0;
+  }
   var pendingOpenLast = false;                     // arrive at a chapter's last page
   var relayoutTimer = null;
 
@@ -244,7 +262,8 @@
   function layoutReader() {
     var doc; try { doc = FRAME.contentDocument; } catch (e) { return; }
     if (!doc) return;
-    if (PAGED_MQ.matches) paginate();
+    var cols = colsForViewport();
+    if (cols >= 1) paginate(cols);
     else scrollSetup();
   }
 
@@ -257,16 +276,35 @@
     } catch (e) {}
   }
 
-  /* ----- paged (two-page spread) ----- */
-  function paginate() {
+  /* ----- paged (book pages: 2-up spread or 1-up single page) ----- */
+  function paginate(cols) {
     var doc, art; try { doc = FRAME.contentDocument; } catch (e) { return; }
     art = doc.querySelector(".nfe-article");
     if (!art) return;
     var W = FRAME.clientWidth, H = FRAME.clientHeight;
     if (W < 4 || H < 4) { return; }
+    NCOLS = (cols === 1) ? 1 : 2;
+    document.body.classList.toggle("reading-1up", NCOLS === 1);
+    document.body.classList.toggle("reading-2up", NCOLS === 2);
 
-    var gap = Math.round(Math.min(110, Math.max(58, W * 0.072)));   // the spine gutter
-    var ph  = Math.round(Math.min(70,  Math.max(30, W * 0.038)));   // outer page margins
+    // 2-up: a wide spine gutter splits the two pages. 1-up: there is no spine,
+    // so the "gap" is just the slack between consecutive flipped pages — keep it
+    // tight, and give the single page a roomier outer margin (it's the whole
+    // reading measure now, not half a spread).
+    var gap, ph;
+    if (NCOLS === 1) {
+      ph  = Math.round(Math.min(96, Math.max(34, W * 0.085)));
+      // In 1-up the single page fills the whole measure (colW = cw - 2*ph), so
+      // the NEXT page starts at ph + colW + gap = cw - ph + gap. For it to sit
+      // fully off the right edge (no sliver of the incoming page bleeding into
+      // the outer margin) the gap must be at least the outer margin ph; pad it a
+      // touch past that. It's dead space you only see mid-slide, so a wide gap
+      // costs nothing but a cleaner turn.
+      gap = ph + 12;
+    } else {
+      gap = Math.round(Math.min(110, Math.max(58, W * 0.072)));   // the spine gutter
+      ph  = Math.round(Math.min(70,  Math.max(30, W * 0.038)));   // outer page margins
+    }
     var pv  = Math.round(Math.min(70,  Math.max(28, H * 0.072)));   // top/bottom margins
 
     var de = doc.documentElement;
@@ -299,22 +337,29 @@
 
     SPREAD_W = W;
     // True column geometry of the .nfe-paged-article: box-sizing:border-box,
-    // column-count:2, horizontal padding ph each side, column-gap = gap. The
-    // browser sizes columns from the article's REAL content box, i.e.
-    // (art.clientWidth - 2*ph), which can differ from the frame width W by a
-    // pixel (sub-pixel rounding / borders). Deriving the pitch from clientWidth
-    // is exactly what CSS does, so colWidth = (clientWidth - 2*ph - gap)/2 and
-    // the per-spread advance SPREAD_PITCH = 2*(colWidth+gap) = clientWidth -
-    // 2*ph + gap comes out an exact integer per pair of columns -> paging by it
-    // lands every spread on the same margins with ZERO accumulated drift. Using
-    // W instead leaves ~1px error per column that compounds and slides deep
-    // pages out of the margins (the bug being fixed here).
+    // horizontal padding ph each side, column-gap = gap, and NCOLS page-columns
+    // sitting across the frame. The browser sizes columns from the article's
+    // REAL content box, i.e. (art.clientWidth - 2*ph), which can differ from the
+    // frame width W by a pixel (sub-pixel rounding / borders). Deriving the
+    // pitch from clientWidth is exactly what CSS does, so
+    //   colWidth   = (clientWidth - 2*ph - (NCOLS-1)*gap) / NCOLS
+    //   COL_PITCH  = colWidth + gap              (exact per-column advance)
+    //   SPREAD_PITCH = NCOLS * COL_PITCH         (advance per turn)
+    // comes out an exact multiple per page of columns -> paging by it lands
+    // every page on the same margins with ZERO accumulated drift. Using W
+    // instead leaves ~1px error per column that compounds and slides deep pages
+    // out of the margins (the offset bug this fixes). We also feed colWidth back
+    // as --pg-colw so CSS lays out exactly NCOLS columns across the frame.
     PAD_H = ph;
+    var cw0 = art.clientWidth || W;
+    var colW = (cw0 - 2 * ph - (NCOLS - 1) * gap) / NCOLS;
+    de.style.setProperty("--pg-colw", colW + "px");
     void art.offsetWidth;                              // ensure paged layout settled
     var cw = art.clientWidth || W;
-    var colW = (cw - 2 * ph - gap) / 2;
+    colW = (cw - 2 * ph - (NCOLS - 1) * gap) / NCOLS;
+    de.style.setProperty("--pg-colw", colW + "px");
     COL_PITCH = colW + gap;          // exact per-column advance
-    SPREAD_PITCH = 2 * COL_PITCH;    // = cw - 2*ph + gap, integer per 2 columns
+    SPREAD_PITCH = NCOLS * COL_PITCH;
     measureSpreads();
     PAGED = true;
 
@@ -349,12 +394,12 @@
     // rightmost content pixel = PAD_H + (ncols-1)*COL_PITCH + colWidth, and
     // colWidth < COL_PITCH, so ceil((total - PAD_H)/COL_PITCH) recovers ncols.
     var ncols = Math.max(1, Math.ceil((total - PAD_H - 1) / COL_PITCH));
-    NSPREADS = Math.max(1, Math.ceil(ncols / 2));
+    NSPREADS = Math.max(1, Math.ceil(ncols / NCOLS));
     SECS.forEach(function (s) {
       if (s.el) {
         var x = s.el.getBoundingClientRect().left - base;     // ~ PAD_H + col*COL_PITCH
         var col = Math.max(0, Math.floor((x - PAD_H + 2) / COL_PITCH));
-        s.spread = Math.min(NSPREADS - 1, Math.floor(col / 2));
+        s.spread = Math.min(NSPREADS - 1, Math.floor(col / NCOLS));
       } else s.spread = 0;
     });
   }
@@ -380,9 +425,12 @@
     var step = SPREAD_PITCH || SPREAD_W;
     if (art) art.style.setProperty("--pg-x", (CUR * step) + "px");
 
-    var leftPg = CUR * 2 + 1, total = NSPREADS * 2;
+    var leftPg = CUR * NCOLS + 1, total = NSPREADS * NCOLS;
     var lab = document.getElementById("pageLabel");
-    if (lab) lab.textContent = NSPREADS > 1
+    if (lab && NCOLS === 1) lab.textContent = NSPREADS > 1
+      ? "Page " + leftPg + " of " + total
+      : " ";
+    else if (lab) lab.textContent = NSPREADS > 1
       ? "Pages " + leftPg + "–" + (leftPg + 1) + " of " + total
       : " ";
     setProgress((CUR + 1) / NSPREADS);
@@ -423,6 +471,7 @@
   function scrollSetup() {
     var win, doc; try { win = FRAME.contentWindow; doc = FRAME.contentDocument; } catch (e) { return; }
     clearPaged(doc);
+    document.body.classList.remove("reading-1up", "reading-2up");
     PAGED = false;
     var lab = document.getElementById("pageLabel");
     if (lab) lab.textContent = " ";
@@ -639,7 +688,7 @@
 
   function maybeShowTurnHint() {
     try {
-      if (!PAGED_MQ.matches || !PAGED) return;
+      if (!PAGED) return;
       if (localStorage.getItem("nfe:turnhint")) return;
       var h = document.getElementById("turnHint");
       if (!h) return;

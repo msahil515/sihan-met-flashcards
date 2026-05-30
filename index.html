@@ -996,7 +996,7 @@ function renderAreas(mockResults) {
 
     html += `<div class="area-links">`;
     html += `<a class="pill" href="quiz/practice/#${area.key}" style="border-color:var(--accent-dim);color:var(--accent);">▸ drill this area</a>`;
-    for (const n of area.notes.slice(0, 3)) html += `<a class="pill" href="notes/${n}/">${n.replace(/-/g,' ')}</a>`;
+    for (const n of area.notes) html += `<a class="pill" href="notes/${n}/">${n.replace(/-/g,' ')}</a>`;
     html += `</div>`;
 
     card.innerHTML = html;
