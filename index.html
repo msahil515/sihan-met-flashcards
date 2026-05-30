@@ -1147,7 +1147,7 @@ window.addEventListener("storage", refresh);
 
 document.getElementById("resetBtn").addEventListener("click", () => {
   if (!confirm("Wipe all local mock progress from this browser? This cannot be undone.")) return;
-  const prefixes = ["met-mock-1-", "met-mock-2-", "met-mock-3-", "met-mock-4-", "met-mock-5-", "bio-testing-paper-", "nimhans-mock-1-", "pyq-mock-2-", "pyq-real-2024-", "pyq-real-2025-", "diagnostic-1-", "sihan-met-quiz-"];
+  const prefixes = ["met-mock-1-", "met-mock-2-", "met-mock-3-", "met-mock-4-", "met-mock-5-", "bio-testing-paper-", "nimhans-mock-1-", "pyq-mock-2-", "pyq-real-2024-", "pyq-real-2025-", "pyq-diagnostic-", "diagnostic-1-", "sihan-met-quiz-"];
   for (let i = localStorage.length - 1; i >= 0; i--) {
     const k = localStorage.key(i);
     if (prefixes.some(p => k.startsWith(p))) localStorage.removeItem(k);
