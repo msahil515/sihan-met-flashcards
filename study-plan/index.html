@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d1117">
+<title>Study Plan — how long the complete notes take</title>
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Study Plan">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --panel-2:#1f252d; --border:#30363d;
+    --border-strong:#444c56; --text:#e6edf3; --muted:#8b949e;
+    --accent:#58a6ff; --accent-dim:#1f6feb; --accent-soft:rgba(88,166,255,.12);
+    --good:#3fb950; --good-soft:rgba(63,185,80,.14);
+    --warn:#f0b429; --warn-soft:rgba(240,180,41,.14);
+    --bad:#f85149; --purple:#a371f7;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','SF Pro Text',sans-serif;
+    line-height:1.5;min-height:100vh}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .topbar{position:sticky;top:0;z-index:10;background:rgba(13,17,23,.92);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  .topbar-inner{max-width:min(1100px,94vw);margin:0 auto;padding:12px 24px;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .brand-title{font-size:15px;font-weight:700;letter-spacing:.3px}
+  .brand-sub{font-size:11px;color:var(--muted)}
+  .nav{display:flex;gap:4px;flex-wrap:wrap}
+  .nav a{color:var(--text);padding:6px 12px;border-radius:6px;font-size:13px;font-weight:500;border:1px solid transparent}
+  .nav a:hover{background:var(--panel);border-color:var(--border);text-decoration:none}
+  .nav a.active{background:var(--accent-soft);color:var(--accent);border-color:var(--accent-dim)}
+  main{max-width:min(1100px,94vw);margin:0 auto;padding:26px 24px 64px}
+  .hero{background:linear-gradient(135deg,rgba(31,111,235,.18),rgba(163,113,247,.10));
+    border:1px solid var(--accent-dim);border-radius:14px;padding:22px 26px;margin-bottom:22px}
+  .hero h1{margin:0 0 6px;font-size:25px;font-weight:700;letter-spacing:.2px}
+  .hero p{margin:0;color:var(--muted);font-size:14px;max-width:70ch}
+  .hero p b{color:var(--text)}
+  .tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px}
+  .track{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
+  .track h3{margin:0 0 2px;font-size:14px;font-weight:600;color:var(--muted)}
+  .track .big{font-size:28px;font-weight:700;line-height:1.1;margin:2px 0 4px}
+  .track.cold .big{color:var(--accent)}
+  .track.fast .big{color:var(--warn)}
+  .track.rev .big{color:var(--good)}
+  .track p{margin:6px 0 0;font-size:12.5px;color:var(--muted);line-height:1.5}
+  .callout{background:var(--warn-soft);border:1px solid var(--warn);border-left:4px solid var(--warn);
+    border-radius:12px;padding:14px 18px;font-size:13.5px;margin-bottom:28px;line-height:1.55}
+  .callout b{color:var(--warn)}
+  section{margin-bottom:30px}
+  .section-title{font-size:18px;font-weight:700;margin:0 0 4px;letter-spacing:.2px}
+  .section-sub{font-size:12px;color:var(--muted);margin:0 0 14px}
+  table.scope{width:100%;border-collapse:collapse;background:var(--panel);
+    border:1px solid var(--border);border-radius:12px;overflow:hidden;font-size:13px}
+  table.scope th,table.scope td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border)}
+  table.scope th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;
+    font-weight:600;border-bottom-color:var(--border-strong)}
+  table.scope td.num,table.scope th.num{text-align:right;font-variant-numeric:tabular-nums}
+  table.scope tr:last-child td{border-bottom:none}
+  table.scope tfoot td{font-weight:700;background:var(--panel-2)}
+  .wbar{display:inline-block;width:70px;height:6px;background:var(--panel-2);border-radius:3px;
+    overflow:hidden;vertical-align:middle;margin-right:8px}
+  .wbar>span{display:block;height:100%;background:var(--accent);border-radius:3px}
+  .week{display:flex;gap:14px;align-items:flex-start;background:var(--panel);
+    border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:10px}
+  .week .wk{flex:0 0 70px;font-weight:700;color:var(--accent);font-size:13px;padding-top:1px}
+  .week .wd{font-size:13.5px;line-height:1.55}
+  .week .wd small{color:var(--muted)}
+  .btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+  .btn{flex:1 1 240px;background:var(--panel);border:1px solid var(--border);border-radius:12px;
+    padding:15px 18px;color:inherit;text-decoration:none;transition:border-color .15s,transform .12s}
+  .btn:hover{border-color:var(--accent-dim);transform:translateY(-1px);text-decoration:none}
+  .btn.pri{background:linear-gradient(135deg,rgba(63,185,80,.10),rgba(88,166,255,.06));border-color:var(--good)}
+  .btn h4{margin:0 0 3px;font-size:14.5px;font-weight:600}
+  .btn p{margin:0;font-size:12px;color:var(--muted);line-height:1.45}
+  .back{display:inline-block;margin-bottom:6px;font-size:13px;color:var(--muted)}
+  .back:hover{color:var(--accent)}
+  footer{margin-top:36px;padding:18px 0 0;border-top:1px solid var(--border);
+    text-align:center;font-size:11px;color:var(--muted);line-height:1.6}
+  @media (max-width:760px){
+    .tracks{grid-template-columns:1fr}
+    main{padding:18px 14px 48px}
+    .topbar-inner{padding:10px 14px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div>
+      <div class="brand-title">Sihan, NIMHANS 2026</div>
+      <div class="brand-sub">Study plan — pacing the complete notes</div>
+    </div>
+    <nav class="nav">
+      <a href="/sihan-met-flashcards/">Dashboard</a>
+      <a href="/sihan-met-flashcards/notes-app/">Notes</a>
+      <a href="/sihan-met-flashcards/study-plan/" class="active">Study Plan</a>
+      <a href="/sihan-met-flashcards/quiz/practice/">Practice</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+  <a class="back" href="/sihan-met-flashcards/">&larr; back to dashboard</a>
+
+  <div class="hero">
+    <h1>How long will the complete notes take?</h1>
+    <p>Straight answer for learning it cold, not skimming: <b>roughly 5 to 6 weeks at 3 to 4 hours a day</b> for a proper first pass that actually sticks. That is the full set at depth, around a hundred chapters across the core texts, regrouped into the nine syllabus areas below. Three ways to pace it, then the smarter route.</p>
+  </div>
+
+  <div class="tracks">
+    <div class="track cold">
+      <h3>Learning it cold</h3>
+      <div class="big">5–6 weeks</div>
+      <p>At 3–4 hrs/day. A genuine first pass where it sticks, not skimming. About 130–150 hrs total.</p>
+    </div>
+    <div class="track fast">
+      <h3>Compressed</h3>
+      <div class="big">~1 month</div>
+      <p>Push to 6 hrs/day and the same first pass folds into roughly four weeks. Heavier days, less calendar.</p>
+    </div>
+    <div class="track rev">
+      <h3>Just revising</h3>
+      <div class="big">~2 weeks</div>
+      <p>If you already know chunks and you are only refreshing, it is far faster. Reading to remind, not to learn.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <b>Don't read it cover to cover.</b> That is the slow play. Smarter move: let the PYQ priorities point you at the high-yield clusters first, hit those hard, then backfill the rest. You get exam-ready long before you have touched every chapter. The breakdown below is ordered heaviest-first for exactly that reason.
+  </div>
+
+  <section>
+    <h2 class="section-title">The scope, by syllabus area</h2>
+    <p class="section-sub">Nine areas, NIMHANS-weighted from the 2023–25 papers. Hours are a rough cold-pass estimate, scaled to weight. Do the heavy baskets first.</p>
+    <table class="scope">
+      <thead>
+        <tr><th>Area</th><th class="num">Weight</th><th class="num">~Hours</th><th>Priority</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Research &amp; Statistics</td><td class="num">16%</td><td class="num">22–26</td><td><span class="wbar"><span style="width:100%"></span></span></td></tr>
+        <tr><td>Psychotherapy</td><td class="num">15%</td><td class="num">20–24</td><td><span class="wbar"><span style="width:94%"></span></span></td></tr>
+        <tr><td>Assessment / Psychometrics</td><td class="num">14%</td><td class="num">19–22</td><td><span class="wbar"><span style="width:88%"></span></span></td></tr>
+        <tr><td>Biopsychology / Neuro</td><td class="num">14%</td><td class="num">19–22</td><td><span class="wbar"><span style="width:88%"></span></span></td></tr>
+        <tr><td>Abnormal / Clinical</td><td class="num">12%</td><td class="num">16–19</td><td><span class="wbar"><span style="width:75%"></span></span></td></tr>
+        <tr><td>Cognitive — Learning, Memory, Attention</td><td class="num">10%</td><td class="num">13–16</td><td><span class="wbar"><span style="width:63%"></span></span></td></tr>
+        <tr><td>Developmental</td><td class="num">8%</td><td class="num">11–13</td><td><span class="wbar"><span style="width:50%"></span></span></td></tr>
+        <tr><td>Social Psychology</td><td class="num">6%</td><td class="num">8–10</td><td><span class="wbar"><span style="width:38%"></span></span></td></tr>
+        <tr><td>Personality</td><td class="num">5%</td><td class="num">7–9</td><td><span class="wbar"><span style="width:31%"></span></span></td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td>Total</td><td class="num">100%</td><td class="num">~135–160</td><td></td></tr>
+      </tfoot>
+    </table>
+  </section>
+
+  <section>
+    <h2 class="section-title">A realistic 6-week first pass</h2>
+    <p class="section-sub">Cold, at 3–4 hrs/day, heaviest baskets front-loaded so you are exam-useful early. Read the callout above first.</p>
+    <div class="week"><div class="wk">Week 1</div><div class="wd">Research &amp; Statistics, all of it, then start Psychotherapy. <small>Designs, sampling, reliability/validity, the test families, ethics. NIMHANS's single heaviest basket, so it goes first.</small></div></div>
+    <div class="week"><div class="wk">Week 2</div><div class="wd">Finish Psychotherapy, then start Assessment. <small>School-by-school, founder pairs, technique-to-school. Then into the test-to-subtest grind.</small></div></div>
+    <div class="week"><div class="wk">Week 3</div><div class="wd">Finish Assessment, then start Biopsychology. <small>Wechsler/Stanford-Binet/Raven's, MMPI/16PF/NEO, Rorschach/TAT. Then neurons, anatomy, NTs, HPA.</small></div></div>
+    <div class="week"><div class="wk">Week 4</div><div class="wd">Finish Biopsychology, then Abnormal / Clinical. <small>Action potential, sleep, cranial nerves. Then DSM-5 vs ICD-11, the disorder groups, diagnostic detail.</small></div></div>
+    <div class="week"><div class="wk">Week 5</div><div class="wd">Cognitive, then Developmental. <small>Learning theories, memory models, attention phenomena. Piaget/Erikson/Kohlberg, attachment, Vygotsky, Bronfenbrenner.</small></div></div>
+    <div class="week"><div class="wk">Week 6</div><div class="wd">Social, Personality, then full review. <small>Conformity, attribution, group processes. Trait/psychodynamic/humanistic/social-cognitive. Then straight into mocks.</small></div></div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Smarter route — do this instead of cover-to-cover</h2>
+    <p class="section-sub">High-yield first. The fastest path to exam-ready.</p>
+    <div class="btns">
+      <a class="btn pri" href="/sihan-met-flashcards/notes/nimhans-pyq-breakdown/">
+        <h4>🎯 PYQ Topic Breakdown</h4>
+        <p>300 PYQs across 2023–25, tiered Tier 1/2/3 by what actually repeats, with a 4-week revision plan. Start here, study the Tier 1 clusters first.</p>
+      </a>
+      <a class="btn" href="/sihan-met-flashcards/quiz/pyq-diagnostic/">
+        <h4>🧪 PYQ Diagnostic</h4>
+        <p>94 real past-paper questions. Sit it once; your misses compile into a topic-grouped study sheet on the page. Revise that, nothing else.</p>
+      </a>
+      <a class="btn" href="/sihan-met-flashcards/notes-app/">
+        <h4>📚 Open the complete notes</h4>
+        <p>Every area at full depth, as a book library. This is the set the timings above are for.</p>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    Numbers are estimates for planning, not a promise. "Cold" assumes real learning; revision is much faster. Area weights are from 2023–25 PYQ analysis, not an official blueprint. Adjust to your own pace.
+  </footer>
+</main>
+
+</body>
+</html>
