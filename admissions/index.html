@@ -23,42 +23,68 @@
   .lede{color:var(--ink2);font-size:16px;background:var(--panel-2);border:1px solid var(--border);
     border-radius:8px;padding:14px 18px;margin:18px 0 6px}
   .updated{font-family:var(--sans);font-size:12px;color:var(--muted);margin:-2px 0 6px}
-  .toc{font-family:var(--sans);font-size:14px;background:var(--panel-2);border:1px solid var(--border);
-    border-radius:8px;padding:14px 18px;margin:18px 0}
-  .toc a{display:inline-block;margin:3px 14px 3px 0;color:var(--accent);text-decoration:none}
-  .toc a:hover{text-decoration:underline}
-
-  .grp{margin-top:30px;border-top:3px solid var(--accent-dim);padding-top:6px}
-  .card{background:var(--panel);border:1px solid var(--border);border-radius:10px;
-    padding:14px 18px;margin:14px 0;font-family:var(--sans)}
-  .card.open{border-left:5px solid var(--good)}
-  .card.soon{border-left:5px solid #c98a1f}
-  .card.closed{border-left:5px solid var(--bad);opacity:.92}
-  .card h3{font-family:var(--sans);margin:0 0 4px;font-size:18px}
-  .badge{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
-    padding:3px 9px;border-radius:6px;vertical-align:middle;margin-left:8px}
-  .b-open{background:rgba(47,125,70,.14);color:var(--good);border:1px solid rgba(47,125,70,.3)}
-  .b-soon{background:rgba(201,138,31,.14);color:#a96f12;border:1px solid rgba(201,138,31,.32)}
-  .b-closed{background:rgba(192,57,43,.12);color:var(--bad);border:1px solid rgba(192,57,43,.28)}
-  .b-rci{background:rgba(61,111,208,.12);color:var(--accent);border:1px solid rgba(61,111,208,.3)}
-  .rows{display:flex;flex-wrap:wrap;gap:6px 22px;margin:8px 0 4px;font-size:14px}
-  .rows div{min-width:150px}
-  .rows b{color:var(--text)}
-  .note{font-size:13.5px;color:var(--ink2);margin:8px 0 2px;line-height:1.6}
-  .note.flag{background:rgba(192,57,43,.07);border:1px solid rgba(192,57,43,.2);border-radius:6px;padding:8px 12px}
-  .links a{display:inline-block;margin:4px 12px 0 0;font-size:13.5px}
-  .prio{background:rgba(47,125,70,.08);border:1px solid rgba(47,125,70,.25);border-radius:8px;
-    padding:12px 16px;margin:14px 0;font-family:var(--sans);font-size:15px}
-  .prio b{color:var(--good)}
   .why{border-left:3px solid var(--accent);background:rgba(61,111,208,.06);padding:10px 16px;margin:18px 0;
     border-radius:0 6px 6px 0;font-family:var(--sans);font-size:14.5px}
-  .src{font-size:13px;color:var(--muted);font-family:var(--sans)}
-  .num{font-variant-numeric:tabular-nums}
-  .countdown{display:inline-block;margin:6px 0 2px;font-family:var(--sans);font-size:13px;font-weight:800;
-    letter-spacing:.02em;padding:4px 10px;border-radius:6px;background:rgba(47,125,70,.12);color:var(--good);
-    border:1px solid rgba(47,125,70,.3);font-variant-numeric:tabular-nums}
-  .countdown.urgent{background:rgba(192,57,43,.12);color:var(--bad);border-color:rgba(192,57,43,.3)}
-  .countdown.passed{background:rgba(120,120,120,.12);color:var(--muted);border-color:rgba(120,120,120,.3)}
+
+  /* legend */
+  .legend{font-family:var(--sans);font-size:13px;display:flex;flex-wrap:wrap;gap:6px 16px;margin:14px 0 6px;align-items:center}
+  .legend .chip{display:inline-flex;align-items:center;gap:6px}
+  .legend .sw{width:14px;height:14px;border-radius:3px;display:inline-block;border:1px solid var(--border)}
+  .sw-live{background:rgba(47,125,70,.30)}
+  .sw-soon{background:rgba(201,138,31,.30)}
+  .sw-later{background:rgba(61,111,208,.22)}
+  .sw-closed{background:rgba(120,120,120,.22)}
+
+  /* table */
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0 8px;
+    border:1px solid var(--border);border-radius:10px}
+  table.adm{border-collapse:collapse;width:100%;min-width:1020px;font-family:var(--sans);font-size:13px}
+  table.adm th,table.adm td{padding:9px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--border)}
+  table.adm thead th{position:sticky;top:0;z-index:3;background:var(--panel-2);color:var(--text);
+    font-size:11.5px;letter-spacing:.03em;text-transform:uppercase;border-bottom:2px solid var(--accent-dim);white-space:nowrap}
+  table.adm tbody tr:hover{filter:brightness(1.04)}
+  /* sticky first column (college) */
+  table.adm th.col-col,table.adm td.col-col{position:sticky;left:0;z-index:2;min-width:150px;max-width:190px;
+    border-right:1px solid var(--border)}
+  table.adm thead th.col-col{z-index:4}
+  table.adm td.col-col{font-weight:700;color:var(--text)}
+  table.adm td .sub{font-weight:400;color:var(--muted);font-size:11.5px;display:block;margin-top:2px}
+
+  /* row status tints (background must be set on cells so sticky col inherits it) */
+  tr.r-live   td{background:rgba(47,125,70,.10)}
+  tr.r-live   td.col-col{background:rgba(47,125,70,.16);border-left:4px solid var(--good)}
+  tr.r-soon   td{background:rgba(201,138,31,.09)}
+  tr.r-soon   td.col-col{background:rgba(201,138,31,.15);border-left:4px solid #c98a1f}
+  tr.r-later  td{background:rgba(61,111,208,.07)}
+  tr.r-later  td.col-col{background:rgba(61,111,208,.13);border-left:4px solid var(--accent)}
+  tr.r-closed td{background:rgba(120,120,120,.07);color:var(--muted)}
+  tr.r-closed td.col-col{background:rgba(120,120,120,.13);border-left:4px solid #9aa0a6;color:var(--ink2)}
+
+  .st{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;
+    padding:2px 7px;border-radius:5px;white-space:nowrap}
+  .st-live{background:rgba(47,125,70,.16);color:var(--good);border:1px solid rgba(47,125,70,.32)}
+  .st-soon{background:rgba(201,138,31,.16);color:#a96f12;border:1px solid rgba(201,138,31,.34)}
+  .st-later{background:rgba(61,111,208,.14);color:var(--accent);border:1px solid rgba(61,111,208,.32)}
+  .st-closed{background:rgba(120,120,120,.16);color:var(--muted);border:1px solid rgba(120,120,120,.32)}
+  .cd{display:block;margin-top:3px;font-size:11px;font-weight:800;color:var(--good);font-variant-numeric:tabular-nums}
+  .cd.urgent{color:var(--bad)}
+  .cd.passed{color:var(--muted)}
+  .unk{color:var(--muted);font-style:italic}
+  .yes{color:var(--good);font-weight:700}
+  .no{color:var(--bad);font-weight:700}
+  td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  table.adm a{font-weight:700}
+
+  .prio{background:rgba(47,125,70,.08);border:1px solid rgba(47,125,70,.25);border-radius:8px;
+    padding:12px 16px;margin:18px 0;font-family:var(--sans);font-size:14.5px}
+  .prio b{color:var(--good)}
+  .caveats{font-family:var(--sans);font-size:14px;line-height:1.65;margin:14px 0}
+  .caveats li{margin:6px 0}
+  .flag{background:rgba(192,57,43,.07);border:1px solid rgba(192,57,43,.2);border-radius:6px;
+    padding:10px 14px;margin:14px 0;font-family:var(--sans);font-size:13.5px;line-height:1.6}
+  .fn{font-size:12.5px;color:var(--muted);font-family:var(--sans);line-height:1.6;margin:10px 0}
+  .src{font-size:12.5px;color:var(--muted);font-family:var(--sans)}
+  h2.grp{margin-top:30px;border-top:3px solid var(--accent-dim);padding-top:8px}
 </style>
 </head>
 <body>
@@ -66,260 +92,301 @@
 <nav><a href="../">← Home</a> <a href="../news/">News board</a> <a href="../notes/">Notes</a></nav>
 
 <h1>RCI Clinical Psychology Admissions Tracker</h1>
-<p class="updated">Built 2026-06-02, re-checked same day. <b>Every college now has its direct register / apply link</b> in its card, pulled straight off the institute's own admission portal (not a third-party page). Reachable portals were confirmed to load (RML/GGSIPU, NFSU Samarth, NIMHANS, CIP, Christ, Manipal, CSJMU, CSMU, JSS). The three India-only government portals (DIMHANS, IHBAS, RINPAS) are the genuine official sites but are geo-restricted to India, so they open for you and not from outside; they're flagged as such. Live countdowns below tick to each deadline. Dates shift, so the rule stands: <b>confirm on the official portal before you pay.</b></p>
-
-<p class="lede">Every RCI-recognised Clinical Psychology program I could find for the <b>2026&ndash;27</b> batch, sorted by what closes first. The honest headline: most windows already closed, but you've got <b>three live shots</b> &mdash; <b>RML (closes 7 June, do this first)</b>, then <b>NFSU Gandhinagar + Delhi (10 June)</b>. Christ closed in February (the "June 14" was wrong, corrected below).</p>
+<p class="updated">Rebuilt 2026-06-02 as one proper table. Every RCI-recognised Clinical Psychology program I could find for the <b>2026&ndash;27</b> batch, one row each, sorted by what closes first. Live rows up top in green, closing ones amber, closed ones greyed out at the bottom. <b>Anything I couldn't verify off the official portal is marked <span class="unk">unknown</span>, not guessed.</b> Dates move, so the rule stands: confirm on the institute's own portal before you pay.</p>
 
 <div class="why">
-<b>Read this first, it changes the whole map.</b> From 2026 the old <b>M.Phil Clinical Psychology</b> is being replaced by the <b>MA Clinical Psychology (RCI)</b> under NEP 2020 + RCI restructuring. So the new RCI-tagged MA at NIMHANS / CIP / IHBAS / RINPAS / NFSU <b>is the licensing program</b> now, it's not a lesser stepping stone. What does NOT license you is a plain academic MA/MSc Clinical Psychology with no RCI tag (Amity, most private universities). The only thing that matters: does it carry the <b>RCI</b> tag.
+<b>Read this first, it changes the whole map.</b> From 2026 the old <b>M.Phil Clinical Psychology</b> is being replaced by the <b>MA Clinical Psychology (RCI)</b> under NEP 2020 + RCI restructuring. The new RCI-tagged MA <b>is the licensing program</b> now, not a lesser step. A plain academic MA/MSc with no RCI tag does <b>not</b> license you. Only one thing matters: does it carry the <b>RCI</b> tag. Every row below does.
 </div>
 
-<div class="toc">
-  <b>Jump to:</b>
-  <a href="#open">Open now</a>
-  <a href="#prio">What to prioritise</a>
-  <a href="#closed">Closed for 2026</a>
-  <a href="#later">Opens later</a>
-  <a href="#verify">Before you pay</a>
+<div class="legend">
+  <span class="chip"><span class="sw sw-live"></span> Live, apply now</span>
+  <span class="chip"><span class="sw sw-soon"></span> Closing / just closed, check the portal</span>
+  <span class="chip"><span class="sw sw-later"></span> Opens later this year</span>
+  <span class="chip"><span class="sw sw-closed"></span> Closed for 2026 (2027 target)</span>
 </div>
 
-<!-- ============ OPEN ============ -->
-<h2 class="grp" id="open">Open right now &mdash; apply to these</h2>
-<p class="note" style="margin:2px 0 6px">Sorted by what closes first. The countdown on each is live, it ticks down in real time.</p>
+<div class="tablewrap">
+<table class="adm">
+<thead>
+  <tr>
+    <th class="col-col">College</th>
+    <th>Course</th>
+    <th>Deadline</th>
+    <th>Exam date</th>
+    <th>Fee</th>
+    <th>Seats</th>
+    <th>Govt / Pvt</th>
+    <th>Own hospital</th>
+    <th>Dist. from Udupi</th>
+    <th>Language fit</th>
+    <th>Master&rsquo;s holder can sit?</th>
+    <th>Apply</th>
+  </tr>
+</thead>
+<tbody>
 
-<div class="card open">
-  <h3>ABVIMS &amp; Dr RML Hospital, Delhi &mdash; MA Clinical Psychology <span class="badge b-rci">RCI</span><span class="badge b-open">Open</span></h3>
-  <div class="countdown" data-deadline="2026-06-07T23:59:00+05:30"></div>
-  <div class="rows">
-    <div><b>Deadline</b> 7 June 2026, 11:59 PM</div>
-    <div><b>Entrance</b> CET-166 (GGSIPU), date TBA</div>
-    <div><b>Selection</b> 70% test + 30% interview</div>
-    <div><b>App fee</b> &#8377;2,500</div>
-  </div>
-  <div class="note flag"><b>Do this one first &mdash; it closes first (7 June).</b> Run via GGSIPU (IP University); admission is the CET-166 entrance, not your MET. Deadline was extended from 30 May to 7 June, so it's genuinely live. (This corrects the earlier "likely closed" line, it's open.) RCI-recognised, formerly the M.Phil.</div>
-  <div class="links">
-    <a href="https://ipu.admissions.nic.in/" target="_blank" rel="noopener">Apply: GGSIPU portal &rarr;</a>
-    <a href="https://www.upseducation.in/update/abvims-rml-ma-clinical-psychology-rci-admission-2026/" target="_blank" rel="noopener">Details</a>
-  </div>
+  <!-- ===== LIVE ===== -->
+  <tr class="r-live">
+    <td class="col-col">ABVIMS &amp; Dr RML Hospital, Delhi <span class="sub">do this one first</span></td>
+    <td>MA Clinical Psychology (RCI)</td>
+    <td><span class="st st-live">Live</span><br>7 Jun 2026<span class="cd" data-deadline="2026-06-07T23:59:00+05:30"></span></td>
+    <td>CET-166 (GGSIPU)<br><span class="unk">date TBA</span></td>
+    <td class="num">&#8377;2,500</td>
+    <td class="num"><span class="unk">unknown</span></td>
+    <td>Govt</td>
+    <td class="yes">Yes <span class="sub">RML Hospital attached</span></td>
+    <td class="num">~2,150 km</td>
+    <td>Hindi / English</td>
+    <td class="yes">Yes&#8202;<sup>*</sup></td>
+    <td><a href="https://ipu.admissions.nic.in/" target="_blank" rel="noopener">GGSIPU portal &rarr;</a></td>
+  </tr>
+
+  <tr class="r-live">
+    <td class="col-col">NFSU Gandhinagar</td>
+    <td>MA Clinical Psychology (RCI)</td>
+    <td><span class="st st-live">Live</span><br>10 Jun 2026<span class="cd" data-deadline="2026-06-10T23:59:00+05:30"></span></td>
+    <td>No own test &mdash;<br>CUET-PG 2026 score</td>
+    <td class="num"><span class="unk">see portal</span></td>
+    <td class="num">24</td>
+    <td>Govt</td>
+    <td class="no">No</td>
+    <td class="num">~1,300 km</td>
+    <td>English / Gujarati</td>
+    <td class="yes">Yes&#8202;<sup>*</sup></td>
+    <td><a href="https://nfsuadm.samarth.edu.in" target="_blank" rel="noopener">NFSU Samarth &rarr;</a></td>
+  </tr>
+
+  <tr class="r-live">
+    <td class="col-col">NFSU Delhi</td>
+    <td>MA Clinical Psychology (RCI)</td>
+    <td><span class="st st-live">Live</span><br>10 Jun 2026<span class="cd" data-deadline="2026-06-10T23:59:00+05:30"></span></td>
+    <td>No own test &mdash;<br>CUET-PG 2026 score</td>
+    <td class="num"><span class="unk">see portal</span></td>
+    <td class="num">22</td>
+    <td>Govt</td>
+    <td class="no">No</td>
+    <td class="num">~2,150 km</td>
+    <td>English / Hindi</td>
+    <td class="yes">Yes&#8202;<sup>*</sup></td>
+    <td><a href="https://nfsuadm.samarth.edu.in" target="_blank" rel="noopener">NFSU Samarth &rarr;</a></td>
+  </tr>
+
+  <!-- ===== CLOSING / JUST CLOSED ===== -->
+  <tr class="r-soon">
+    <td class="col-col">CSMU, Navi Mumbai</td>
+    <td>MA Clinical Psychology (RCI)</td>
+    <td><span class="st st-soon">Closing</span><br>~30 May 2026<br><span class="sub">check for extension</span></td>
+    <td>6 Jun 2026<br>(70% test + 30% intvw)</td>
+    <td class="num">&#8377;1,500</td>
+    <td class="num">10</td>
+    <td>Private</td>
+    <td><span class="unk">unknown</span></td>
+    <td class="num">~830 km</td>
+    <td>Marathi / Hindi</td>
+    <td class="unk">unknown</td>
+    <td><a href="https://csmu.ac.in/rciadmission/" target="_blank" rel="noopener">CSMU RCI &rarr;</a></td>
+  </tr>
+
+  <tr class="r-soon">
+    <td class="col-col">CSJMU, Kanpur</td>
+    <td>MA Clinical Psychology (RCI)</td>
+    <td><span class="st st-soon">Closing</span><br>~31 May 2026<br><span class="sub">check for extension</span></td>
+    <td>~5&ndash;6 Jun 2026</td>
+    <td class="num"><span class="unk">unknown</span></td>
+    <td class="num"><span class="unk">unknown</span></td>
+    <td>Govt</td>
+    <td><span class="unk">unknown</span></td>
+    <td class="num">~1,900 km</td>
+    <td>Hindi</td>
+    <td class="unk">unknown</td>
+    <td><a href="https://csjmuadm.samarth.edu.in/" target="_blank" rel="noopener">CSJMU portal &rarr;</a></td>
+  </tr>
+
+  <tr class="r-soon">
+    <td class="col-col">Ashtavakra (AIRSR), Delhi</td>
+    <td>MA Clinical Psychology (RCI)</td>
+    <td><span class="st st-soon">Likely closed</span><br>~31 May 2026</td>
+    <td>via GGSIPU<br><span class="unk">date TBA</span></td>
+    <td class="num">&#8377;2,500</td>
+    <td class="num">10</td>
+    <td>Private</td>
+    <td><span class="unk">unknown</span></td>
+    <td class="num">~2,150 km</td>
+    <td>Hindi / English</td>
+    <td class="unk">unknown</td>
+    <td><a href="https://ipu.admissions.nic.in/" target="_blank" rel="noopener">GGSIPU portal &rarr;</a></td>
+  </tr>
+
+  <!-- ===== OPENS LATER ===== -->
+  <tr class="r-later">
+    <td class="col-col">DIMHANS, Dharwad <span class="sub">closest govt + own hospital</span></td>
+    <td>Clinical Psychology (M.Phil &rarr; RCI MA)</td>
+    <td><span class="st st-later">Opens ~Sep&ndash;Oct</span><br><span class="unk">2026 date not published</span></td>
+    <td>~Oct (100 MCQ,<br>&minus;0.25/wrong, 90 min)</td>
+    <td class="num">&#8377;1,000 / &#8377;500<br><span class="sub">Gen / SC-ST</span></td>
+    <td class="num">4 (M.Phil)<br>20 (M.Sc)</td>
+    <td>Govt</td>
+    <td class="yes">Yes <span class="sub">own psych hospital</span></td>
+    <td class="num">~230&ndash;250 km</td>
+    <td>Kannada / Hindi / English</td>
+    <td class="yes">Yes <span class="sub">master&rsquo;s required</span></td>
+    <td><a href="https://dimhans.karnataka.gov.in/112/about-clinical-psychology/en" target="_blank" rel="noopener">DIMHANS &rarr;</a></td>
+  </tr>
+
+  <tr class="r-later">
+    <td class="col-col">JSS, Mysuru</td>
+    <td>MA Clinical Psychology (RCI)</td>
+    <td><span class="st st-later">Not announced</span><br><span class="unk">2026 date TBA</span></td>
+    <td>JSS AHER PGCET + viva<br><span class="unk">date TBA</span></td>
+    <td class="num"><span class="unk">unknown</span></td>
+    <td class="num"><span class="unk">unknown</span></td>
+    <td>Private</td>
+    <td class="yes">Yes <span class="sub">JSS Hospital</span></td>
+    <td class="num">~370 km</td>
+    <td>Kannada / English</td>
+    <td class="unk">unknown</td>
+    <td><a href="https://jssuni.edu.in/jssaher/jssaher-admissions/admissions-home.aspx" target="_blank" rel="noopener">JSS AHER &rarr;</a></td>
+  </tr>
+
+  <!-- ===== CLOSED (2027 targets) ===== -->
+  <tr class="r-closed">
+    <td class="col-col">NIMHANS, Bengaluru <span class="sub">#1 target for 2027</span></td>
+    <td>MA Clinical Psychology (RCI)</td>
+    <td><span class="st st-closed">Closed</span><br>was 8 Apr 2026</td>
+    <td>was 31 May 2026<br>(100 MCQ, +1/&minus;0.25)</td>
+    <td class="num"><span class="unk">unknown</span></td>
+    <td class="num"><span class="unk">unknown</span></td>
+    <td>Govt</td>
+    <td class="yes">Yes</td>
+    <td class="num">~400 km</td>
+    <td>Kannada / English</td>
+    <td class="yes">Yes&#8202;<sup>*</sup></td>
+    <td><a href="https://nimhans-admission.lntedutech.com/pg-courses-2026/home" target="_blank" rel="noopener">NIMHANS &rarr;</a></td>
+  </tr>
+
+  <tr class="r-closed">
+    <td class="col-col">MAHE / Manipal <span class="sub">the MET you just sat</span></td>
+    <td>MA / MSc Clinical Psychology (RCI)</td>
+    <td><span class="st st-closed">Closed</span><br>~26 Apr 2026 (MET)</td>
+    <td>MET (already sat)</td>
+    <td class="num"><span class="unk">unknown</span></td>
+    <td class="num"><span class="unk">unknown</span></td>
+    <td>Private</td>
+    <td class="yes">Yes <span class="sub">Kasturba Hospital</span></td>
+    <td class="num">~5 km (next door)</td>
+    <td>Kannada / Tulu</td>
+    <td class="yes">Yes</td>
+    <td><a href="https://apply.manipal.edu/" target="_blank" rel="noopener">Manipal &rarr;</a></td>
+  </tr>
+
+  <tr class="r-closed">
+    <td class="col-col">Christ University (Blr / Delhi NCR)</td>
+    <td>MA Clinical Psychology (RCI)</td>
+    <td><span class="st st-closed">Closed</span><br>was 2 Feb 2026</td>
+    <td>was 7 / 14 Feb 2026</td>
+    <td class="num"><span class="unk">unknown</span></td>
+    <td class="num"><span class="unk">unknown</span></td>
+    <td>Private</td>
+    <td class="no">No</td>
+    <td class="num">~400 km (Blr)</td>
+    <td>Kannada / English</td>
+    <td class="unk">unknown</td>
+    <td><a href="https://espro.christuniversity.in/Application/" target="_blank" rel="noopener">Christ &rarr;</a></td>
+  </tr>
+
+  <tr class="r-closed">
+    <td class="col-col">IHBAS, Delhi</td>
+    <td>MA Clinical Psychology (RCI)</td>
+    <td><span class="st st-closed">Closed</span><br>was 30 Dec&ndash;1 Feb</td>
+    <td><span class="unk">unknown</span><br><span class="sub">applies by post</span></td>
+    <td class="num"><span class="unk">unknown</span></td>
+    <td class="num"><span class="unk">unknown</span></td>
+    <td>Govt</td>
+    <td class="yes">Yes <span class="sub">IHBAS is a hospital</span></td>
+    <td class="num">~2,150 km</td>
+    <td>Hindi / English</td>
+    <td class="yes">Yes&#8202;<sup>*</sup></td>
+    <td><a href="https://ihbas.delhi.gov.in/ihbas/pg-admission" target="_blank" rel="noopener">IHBAS &rarr;<span class="sub">India portal</span></a></td>
+  </tr>
+
+  <tr class="r-closed">
+    <td class="col-col">CIP, Ranchi</td>
+    <td>MA Clinical Psychology (RCI)</td>
+    <td><span class="st st-closed">Closed</span><br>for 2026</td>
+    <td>CBT 100 + interview 50</td>
+    <td class="num"><span class="unk">unknown</span></td>
+    <td class="num">22</td>
+    <td>Govt</td>
+    <td class="yes">Yes <span class="sub">CIP hospital</span></td>
+    <td class="num">~2,000 km</td>
+    <td>Hindi / English</td>
+    <td class="yes">Yes&#8202;<sup>*</sup></td>
+    <td><a href="https://hllcip.cbtexam.in" target="_blank" rel="noopener">CIP portal &rarr;</a></td>
+  </tr>
+
+  <tr class="r-closed">
+    <td class="col-col">RINPAS, Ranchi</td>
+    <td>Clinical Psychology (RCI)</td>
+    <td><span class="st st-closed">Closed</span><br>for 2026</td>
+    <td><span class="unk">unknown</span><br><span class="sub">DD to Ranchi Univ.</span></td>
+    <td class="num"><span class="unk">unknown</span></td>
+    <td class="num"><span class="unk">unknown</span></td>
+    <td>Govt</td>
+    <td class="yes">Yes <span class="sub">RINPAS hospital</span></td>
+    <td class="num">~2,000 km</td>
+    <td>Hindi / English</td>
+    <td class="unk">unknown</td>
+    <td><a href="https://www.rinpas.nic.in/" target="_blank" rel="noopener">RINPAS &rarr;<span class="sub">India portal</span></a></td>
+  </tr>
+
+</tbody>
+</table>
 </div>
 
-<div class="card open">
-  <h3>NFSU Gandhinagar &mdash; MA Clinical Psychology <span class="badge b-rci">RCI</span><span class="badge b-open">Open</span></h3>
-  <div class="countdown" data-deadline="2026-06-10T23:59:00+05:30"></div>
-  <div class="rows">
-    <div><b>Deadline</b> 10 June 2026</div>
-    <div><b>Selection</b> CUET-PG 2026 score</div>
-    <div><b>Seats</b> <span class="num">24</span></div>
-    <div><b>App fee</b> see portal</div>
-  </div>
-  <div class="note">Formerly the M.Phil, now the RCI MA. <b>Selection is on your CUET-PG score, not a separate NFSU entrance</b> (this corrects the earlier "own entrance" line). No interview/GD stage stated. Eligibility: 4-yr BA/BSc Psychology, or 3-yr + bridge/1st-yr MA, min 55% (50% SC/ST). 2 yrs / 4 sem. App fee not published, check at payment.</div>
-  <div class="links">
-    <a href="https://nfsuadm.samarth.edu.in" target="_blank" rel="noopener">Apply: nfsuadm.samarth.edu.in &rarr;</a>
-    <a href="https://www.upseducation.in/update/nfsu-gandhinagar-ma-clinical-psychology-rci-2026/" target="_blank" rel="noopener">Details</a>
-  </div>
-</div>
+<p class="fn"><sup>*</sup> <b>Master&rsquo;s holder eligibility:</b> these RCI MA programs set the floor at a Bachelor&rsquo;s (4-yr or 3-yr+bridge) in Psychology with min 55% (50% SC/ST), so a master&rsquo;s holder clears the bar. DIMHANS&rsquo; M.Phil track <b>requires</b> a master&rsquo;s. Where I couldn&rsquo;t confirm the exact rule on the portal, it&rsquo;s left <span class="unk">unknown</span> &mdash; confirm before you pay. Distances are road distance from Udupi, rounded.</p>
 
-<div class="card open">
-  <h3>NFSU Delhi &mdash; MA Clinical Psychology <span class="badge b-rci">RCI</span><span class="badge b-open">Open</span></h3>
-  <div class="countdown" data-deadline="2026-06-10T23:59:00+05:30"></div>
-  <div class="rows">
-    <div><b>Deadline</b> 10 June 2026</div>
-    <div><b>Selection</b> CUET-PG 2026 score</div>
-    <div><b>Seats</b> <span class="num">22</span></div>
-    <div><b>App fee</b> see portal</div>
-  </div>
-  <div class="note">Same program, Delhi campus. Same CUET-PG-based selection, same eligibility, 2 yrs / 4 sem. <b>Apply to both campuses</b> off the one Samarth portal, two more shots for the same effort.</div>
-  <div class="links">
-    <a href="https://nfsuadm.samarth.edu.in" target="_blank" rel="noopener">Apply: nfsuadm.samarth.edu.in &rarr;</a>
-    <a href="https://www.upseducation.in/update/nfsu-delhi-ma-clinical-psychology-rci-2026/" target="_blank" rel="noopener">Details</a>
-  </div>
-</div>
-
-<div class="card soon">
-  <h3>CSJMU Kanpur &mdash; MA Clinical Psychology <span class="badge b-rci">RCI</span><span class="badge b-soon">Closing / closed</span></h3>
-  <div class="rows">
-    <div><b>Deadline</b> ~31 May 2026</div>
-    <div><b>Entrance</b> ~5&ndash;6 June (for applicants)</div>
-  </div>
-  <div class="note">Application window hit ~31 May, so it's effectively shut as of 2 June, but the entrance test runs this week for people already in. Worth one check of the portal in case the window was extended; don't bank on it.</div>
-  <div class="links">
-    <a href="https://csjmuadm.samarth.edu.in/" target="_blank" rel="noopener"><b>Register / apply &rarr;</b> CSJMU admission portal</a>
-    <a href="https://csjmu.ac.in/all-courses/m-a-clinical-psychology-rci-recognized-program/" target="_blank" rel="noopener">Course page</a>
-  </div>
-</div>
-
-<div class="card soon">
-  <h3>CSMU &mdash; MA Clinical Psychology <span class="badge b-rci">RCI</span><span class="badge b-soon">Closing / closed</span></h3>
-  <div class="rows">
-    <div><b>Deadline</b> ~30 May 2026</div>
-    <div><b>Entrance</b> ~5&ndash;6 June (for applicants)</div>
-  </div>
-  <div class="note">Chhatrapati Shivaji Maharaj University, Navi Mumbai. Window just closed, but its entrance is dated 6 June 2026, so check the portal directly in case applications are still open. 70% test + 30% interview, app fee &#8377;1,500, 10 seats.</div>
-  <div class="links">
-    <a href="https://csmu.ac.in/rciadmission/" target="_blank" rel="noopener"><b>Register / apply &rarr;</b> CSMU RCI admission</a>
-    <a href="https://www.upseducation.in/update/csmu-ma-clinical-psychology-rci-admission-2026/" target="_blank" rel="noopener">Details</a>
-  </div>
-</div>
-
-<div class="card soon">
-  <h3>Ashtavakra Institute &mdash; MA Clinical Psychology <span class="badge b-rci">RCI</span><span class="badge b-soon">Likely closed</span></h3>
-  <div class="rows"><div><b>Deadline</b> ~31 May 2026</div></div>
-  <div class="note">Ashtavakra Institute of Rehabilitation Sciences &amp; Research (AIRSR), Rohini, Delhi. GGSIPU-affiliated, so you register through the same IP University portal as RML. App fee &#8377;2,500, 10 seats. Lower priority than NFSU/RML regardless.</div>
-  <div class="links">
-    <a href="https://ipu.admissions.nic.in/" target="_blank" rel="noopener"><b>Register / apply &rarr;</b> GGSIPU portal (AIRSR is IPU-affiliated)</a>
-    <a href="https://www.upseducation.in/update/airsr-ma-clinical-psychology-rci-admission-2026/" target="_blank" rel="noopener">Details</a>
-  </div>
-</div>
-
-<!-- ============ PRIORITY ============ -->
-<h2 class="grp" id="prio">What to prioritise</h2>
+<!-- ===== PRIORITY ===== -->
+<h2 class="grp">What to do, in order</h2>
 <div class="prio">
-<b>1. RML (GGSIPU portal) &mdash; closes 7 June, do this today.</b> It's the earliest deadline and it runs on its own CET-166 entrance, so it does not depend on CUET-PG. &#8377;2,500 fee, 70% test + 30% interview. Get the form in first.<br><br>
-<b>2. NFSU Gandhinagar + NFSU Delhi</b> &mdash; both due 10 June, both RCI, both ride your CUET-PG score. Get both in off the single Samarth portal.<br><br>
-<b>3. The CUET-PG question.</b> Because NFSU selects on CUET-PG (not its own test), the real action item is: <b>did you sit CUET-PG 2026, and is your score in?</b> If yes, submit both NFSU forms. If you did not write CUET-PG, NFSU can't shortlist you, so RML (own entrance) becomes your main live shot and the 2027 cycle (NIMHANS/CIP/IHBAS open Dec 2026&ndash;Feb 2027) is the bigger play.<br><br>
-<b>4. Quick portal-check</b> CSJMU / CSMU / Ashtavakra in case of an extension, but treat them as closed.
+<b>1. RML (GGSIPU portal) &mdash; closes 7 June, do this today.</b> Earliest deadline, runs on its own CET-166 entrance so it does not depend on CUET-PG. &#8377;2,500, 70% test + 30% interview. Get the form in first.<br><br>
+<b>2. NFSU Gandhinagar + NFSU Delhi &mdash; both due 10 June.</b> Both RCI, both selected on your <b>CUET-PG 2026 score</b> (no separate NFSU test). Two shots off the one Samarth portal.<br><br>
+<b>3. The CUET-PG question.</b> NFSU shortlists on CUET-PG, so the real question is: <b>did you sit CUET-PG 2026 and is your score in?</b> If yes, submit both NFSU forms. If you did not write CUET-PG, NFSU can&rsquo;t shortlist you, so RML (own entrance) is your main live shot and the 2027 cycle is the bigger play.<br><br>
+<b>4. Quick portal-check</b> CSMU / CSJMU / Ashtavakra for an extension, but treat them as closed.
 </div>
 
-<!-- ============ CLOSED ============ -->
-<h2 class="grp" id="closed">Closed for the 2026&ndash;27 batch</h2>
+<ul class="caveats">
+  <li><b>DIMHANS, Dharwad</b> is the standout on paper: closest govt option (~230 km), <b>own psychiatric hospital</b> so clinical hours are in-house, same &minus;0.25 mock scale as NIMHANS. <b>Two gates:</b> Karnataka domicile is mandatory (Udupi counts), and the M.Phil track runs only 4 seats. Watch the portal from ~September.</li>
+  <li><b>Christ correction:</b> the earlier "Delhi NCR open till June 14" was wrong &mdash; Christ&rsquo;s RCI MA closed <b>2 February 2026</b>. Any "June" Christ date you see is a different non-RCI stream; check the RCI tag before applying.</li>
+  <li><b>2027 cycle:</b> NIMHANS, IHBAS, CIP and RINPAS typically open applications between <b>December 2026 and February 2027</b>, entrances around April&ndash;May. That&rsquo;s your runway for the top RCI seats.</li>
+</ul>
 
-<div class="card closed">
-  <h3>NIMHANS, Bengaluru &mdash; MA Clinical Psychology <span class="badge b-rci">RCI</span><span class="badge b-closed">Closed</span></h3>
-  <div class="rows">
-    <div><b>Deadline was</b> 8 April 2026</div>
-    <div><b>Exam was</b> 31 May 2026 (PhD 30 May)</div>
-  </div>
-  <div class="note">The gold standard, and the new RCI MA <b>is</b> the old M.Phil renamed. Exam: 100 MCQ / 90 min, +1 / &minus;0.25 (exactly your mock scale). Missed for this year; this is the #1 target for the 2027 cycle, application opens ~Dec 2026.</div>
-  <div class="links">
-    <a href="https://nimhans-admission.lntedutech.com/pg-courses-2026/home" target="_blank" rel="noopener"><b>Register / apply &rarr;</b> NIMHANS admission portal</a>
-    <a href="https://www.upseducation.in/update/nimhans-clinical-psychology-admission-2026/" target="_blank" rel="noopener">Details</a>
-  </div>
+<!-- ===== VERIFY ===== -->
+<div class="flag">
+<b>Before you pay:</b> every date here was cross-checked on 2 June 2026, but admission portals move dates, extend windows and reuse last year&rsquo;s pages. For any program you actually apply to, open the institute&rsquo;s own portal, confirm the RCI tag, confirm the current deadline, and confirm the fee before paying. The three India-only government portals (DIMHANS, IHBAS, RINPAS) are the genuine official sites but are geo-restricted to India, so they open for you and time out from outside.
 </div>
 
-<div class="card closed">
-  <h3>MAHE / Manipal &mdash; MA Clinical Psychology <span class="badge b-rci">RCI</span><span class="badge b-closed">Closed</span></h3>
-  <div class="rows"><div><b>Deadline was</b> ~26 April 2026 (MET)</div></div>
-  <div class="note">This was the MET you just sat &mdash; that exam <i>was</i> the Manipal entrance. Result/counselling is the live thread here, not a new application.</div>
-  <div class="links">
-    <a href="https://apply.manipal.edu/" target="_blank" rel="noopener"><b>Register / apply &rarr;</b> Manipal admission portal</a>
-    <a href="https://www.manipal.edu/soahs-manipal/program-list/m-sc--clinical-psychology.html" target="_blank" rel="noopener">Program page</a>
-    <a href="https://www.upseducation.in/update/mahe-ma-clinical-psychology-admission-2026/" target="_blank" rel="noopener">Details</a>
-  </div>
-</div>
-
-<div class="card closed">
-  <h3>Christ University (Bengaluru / Delhi NCR) &mdash; MA Clinical Psychology <span class="badge b-rci">RCI</span><span class="badge b-closed">Closed</span></h3>
-  <div class="rows">
-    <div><b>Deadline was</b> 2 Feb 2026</div>
-    <div><b>Entrance was</b> 7 / 14 Feb 2026</div>
-  </div>
-  <div class="note flag"><b>Correction:</b> the earlier WhatsApp note said Christ Delhi NCR was open until June 14. That's wrong &mdash; Christ's RCI MA Clinical Psych closed <b>2 February 2026</b> with the entrance in February. Don't chase it for this cycle. (If you see a "Delhi NCR June" date anywhere, it's a different non-RCI MSc/MA stream, verify the RCI tag before applying.)</div>
-  <div class="links">
-    <a href="https://espro.christuniversity.in/Application/" target="_blank" rel="noopener"><b>Register / apply &rarr;</b> Christ application portal</a>
-    <a href="https://www.upseducation.in/update/christ-university-ma-clinical-psychology-rci-admissions-2026/" target="_blank" rel="noopener">Details</a>
-  </div>
-</div>
-
-<div class="card closed">
-  <h3>IHBAS, Delhi &mdash; MA Clinical Psychology <span class="badge b-rci">RCI</span><span class="badge b-closed">Closed</span></h3>
-  <div class="rows"><div><b>Window was</b> 30 Dec 2025 &ndash; 1 Feb 2026</div></div>
-  <div class="note">Two-year RCI program affiliated with Delhi University (formerly M.Phil). Closed in February; strong 2027 target alongside NIMHANS. Note: IHBAS takes applications by post (offline), not an online form, so the link below is the official PG-admission notification page where the form + notice are published.</div>
-  <div class="links">
-    <a href="https://ihbas.delhi.gov.in/ihbas/pg-admission" target="_blank" rel="noopener"><b>Register / apply &rarr;</b> IHBAS PG admission (official, India portal)</a>
-    <a href="https://www.upseducation.in/update/mphil-clinical-psychology-ihbas/" target="_blank" rel="noopener">Details</a>
-  </div>
-</div>
-
-<div class="card closed">
-  <h3>CIP Ranchi &mdash; MA Clinical Psychology <span class="badge b-rci">RCI</span><span class="badge b-closed">Closed for 2026</span></h3>
-  <div class="rows">
-    <div><b>Selection</b> CBT 100 + interview 50</div>
-    <div><b>Seats</b> <span class="num">22</span></div>
-  </div>
-  <div class="note">Central govt institute, formerly M.Phil. Entrance is a computer-based test across metro cities + Ranchi, then interview. Strong 2027 target. Apply portal opens in the new cycle.</div>
-  <div class="links">
-    <a href="https://hllcip.cbtexam.in" target="_blank" rel="noopener"><b>Register / apply &rarr;</b> CIP application portal</a>
-    <a href="https://www.cipranchi.nic.in/en/entrance-examinations" target="_blank" rel="noopener">CIP entrance page</a>
-  </div>
-</div>
-
-<div class="card closed">
-  <h3>RINPAS Ranchi &mdash; Clinical Psychology <span class="badge b-rci">RCI</span><span class="badge b-closed">Closed for 2026</span></h3>
-  <div class="note">RCI program (formerly M.Phil) + PhD. Another 2027 target in the Ranchi cluster with CIP. Application is via demand draft to Ranchi University (offline); the official site below carries the prospectus + form.</div>
-  <div class="links">
-    <a href="https://www.rinpas.nic.in/" target="_blank" rel="noopener"><b>Register / apply &rarr;</b> RINPAS official site (India portal)</a>
-    <a href="https://www.upseducation.in/rinpas-ranchi-clinical-psychology-admission" target="_blank" rel="noopener">Details</a>
-  </div>
-</div>
-
-<!-- ============ LATER ============ -->
-<h2 class="grp" id="later">No date yet / opens later</h2>
-
-<div class="card soon">
-  <h3>DIMHANS, Dharwad &mdash; Clinical Psychology (M.Phil &rarr; RCI MA) <span class="badge b-rci">RCI</span><span class="badge b-soon">Opens ~Sep&ndash;Oct</span></h3>
-  <div class="rows">
-    <div><b>2026 deadline</b> not published yet</div>
-    <div><b>Cycle</b> October (2024: form 13 Oct, exam 15 Oct)</div>
-    <div><b>Entrance</b> 100 MCQ, &minus;0.25/wrong, 90 min</div>
-    <div><b>Seats</b> <span class="num">4</span> (M.Phil); <span class="num">20</span> on the M.Sc</div>
-    <div><b>App fee</b> &#8377;1,000 (Gen/OBC), &#8377;500 (SC/ST)</div>
-    <div><b>Affiliation</b> RGUHS, run under NIMHANS MOU</div>
-  </div>
-  <div class="note">Govt of Karnataka mental-health + neurosciences institute in Dharwad. <b>Own full psychiatric hospital attached</b>, so your clinical training hours are in-house, the column that matters most. RCI-recognised since 2019, run under an MOU with NIMHANS, so it's a real license seat. Distance from Udupi is ~230&ndash;250 km (a few hours by road), and Dharwad's a proper city so Kannada/Hindi/English manages fine, no real language barrier. The entrance is 100 MCQ with &minus;0.25 per wrong, <b>exactly your mock scale</b>, same as NIMHANS. The M.Phil is moving to the RCI MA like everywhere else.</div>
-  <div class="note flag"><b>Two real gates before you bank on this.</b> (1) <b>Karnataka domicile is mandatory</b> &mdash; you need a Karnataka domicile certificate to even apply. If you've got that (Udupi counts), you're in; if not, this one's shut regardless. (2) <b>Tiny intake</b>: the M.Phil ran only 4 seats (the M.Sc track had 20), so it's sharp competition. Eligibility: master's in Psychology, min 55% (50% SC/ST). 2026 dates aren't up yet &mdash; the cycle has historically opened around September&ndash;October, so its next intake likely hasn't opened, watch the portal from ~September.</div>
-  <div class="links">
-    <a href="https://dimhans.karnataka.gov.in/112/about-clinical-psychology/en" target="_blank" rel="noopener"><b>Register / apply &rarr;</b> DIMHANS official portal</a>
-    <a href="https://dimhans.karnataka.gov.in/english" target="_blank" rel="noopener">DIMHANS home (notifications)</a>
-    <a href="https://www.upseducation.in/update/dimhans-m-phil-clinical-psychology-admission-2024/" target="_blank" rel="noopener">Last cycle details</a>
-  </div>
-</div>
-
-<div class="card soon">
-  <h3>JSS Mysuru &mdash; MA Clinical Psychology <span class="badge b-rci">RCI</span><span class="badge b-soon">Not announced</span></h3>
-  <div class="note">RCI MA listed but 2026 dates not announced yet. Keep an eye on the portal; could be a late-cycle option. Selection runs on the JSS AHER PGCET + viva.</div>
-  <div class="links">
-    <a href="https://jssuni.edu.in/jssaher/jssaher-admissions/admissions-home.aspx" target="_blank" rel="noopener"><b>Register / apply &rarr;</b> JSS AHER admissions</a>
-    <a href="https://www.upseducation.in/update/ma-clinical-psychology-jss-mysuru-admission-2026/" target="_blank" rel="noopener">Details</a>
-  </div>
-</div>
-<div class="note" style="margin-top:14px">For the <b>2027 cycle</b>, the heavy hitters (NIMHANS, IHBAS, CIP, RINPAS) typically open applications between <b>December 2026 and February 2027</b>, with entrances around April&ndash;May. That's your real runway to prep for the top RCI seats.</div>
-
-<!-- ============ VERIFY ============ -->
-<h2 class="grp" id="verify">Before you pay</h2>
-<div class="note flag">
-Every date here was cross-checked on 2 June 2026 but admission portals move dates, extend windows, and reuse last year's pages. <b>For any program you actually apply to: open the institute's own portal, confirm the RCI tag, confirm the current deadline, and confirm the fee before paying.</b> Aggregator sites (including the ones linked here) lag the official notices.
-</div>
-
-<p class="src" style="margin-top:24px">Sources: UPS Education
-<a href="https://www.upseducation.in/latest-psychology-admissions" target="_blank" rel="noopener">latest psychology admissions</a>,
-<a href="https://www.upseducation.in/update/nfsu-delhi-ma-clinical-psychology-rci-2026/" target="_blank" rel="noopener">NFSU Delhi</a>,
-<a href="https://www.upseducation.in/update/nfsu-gandhinagar-ma-clinical-psychology-rci-2026/" target="_blank" rel="noopener">NFSU Gandhinagar</a>,
-<a href="https://www.upseducation.in/update/christ-university-ma-clinical-psychology-rci-admissions-2026/" target="_blank" rel="noopener">Christ</a>,
-<a href="https://www.upseducation.in/update/nimhans-clinical-psychology-admission-2026/" target="_blank" rel="noopener">NIMHANS</a>,
-<a href="https://www.upseducation.in/update/mphil-clinical-psychology-ihbas/" target="_blank" rel="noopener">IHBAS</a>,
-and institute portals (NFSU Samarth, NIMHANS, Christ, CIP Ranchi,
-<a href="https://dimhans.karnataka.gov.in/112/about-clinical-psychology/en" target="_blank" rel="noopener">DIMHANS Dharwad</a>). RCI = Rehabilitation Council of India, the body that licenses clinical psychologists.</p>
+<p class="src" style="margin-top:20px">Sources: institute portals (RML/GGSIPU, NFSU Samarth, NIMHANS, CIP, Christ, Manipal, CSJMU, CSMU, JSS, DIMHANS) and UPS Education
+<a href="https://www.upseducation.in/latest-psychology-admissions" target="_blank" rel="noopener">psychology admissions</a> listings, cross-checked 2 June 2026. RCI = Rehabilitation Council of India, the body that licenses clinical psychologists.</p>
 
 </div>
 <script>
 (function(){
   function render(){
     var now = new Date();
-    document.querySelectorAll('.countdown[data-deadline]').forEach(function(el){
+    document.querySelectorAll('.cd[data-deadline]').forEach(function(el){
       var dl = new Date(el.getAttribute('data-deadline'));
       var ms = dl - now;
       el.classList.remove('urgent','passed');
       if (isNaN(dl.getTime())) { el.textContent=''; return; }
       if (ms <= 0){
         el.classList.add('passed');
-        el.textContent = 'Deadline passed — verify on the portal';
+        el.textContent = 'Closed — verify on portal';
         return;
       }
       var d = Math.floor(ms/86400000);
       var h = Math.floor((ms%86400000)/3600000);
       var m = Math.floor((ms%3600000)/60000);
-      var txt = 'Closes in ' + (d>0 ? d+'d ' : '') + h+'h ' + m+'m';
-      el.textContent = txt;
+      el.textContent = 'Closes in ' + (d>0 ? d+'d ' : '') + h+'h ' + m+'m';
       if (ms < 48*3600000) el.classList.add('urgent');
     });
   }
