@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exam News Board — live feed</title>
+<link rel="stylesheet" href="/sihan-met-flashcards/notes-style.css">
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<meta name="theme-color" content="#0d1117">
+<style>
+  .lede{color:var(--ink2);font-size:16px;background:var(--panel-2);border:1px solid var(--border);
+    border-radius:8px;padding:14px 18px;margin:18px 0 6px}
+  .statusline{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;font-family:var(--sans);
+    font-size:12.5px;color:var(--muted);margin:8px 0 6px}
+  .statusline .dot{width:8px;height:8px;border-radius:50%;background:var(--good);display:inline-block;
+    box-shadow:0 0 0 0 rgba(47,125,70,.5);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(47,125,70,.45)}70%{box-shadow:0 0 0 7px rgba(47,125,70,0)}100%{box-shadow:0 0 0 0 rgba(47,125,70,0)}}
+  .refresh-btn{font-family:var(--sans);font-size:12.5px;font-weight:700;cursor:pointer;
+    background:var(--panel-2);color:var(--accent);border:1px solid var(--border);border-radius:6px;padding:4px 10px}
+  .refresh-btn:hover{border-color:var(--accent)}
+  .refresh-btn.spin{opacity:.6;pointer-events:none}
+
+  .grp{margin-top:30px;border-top:3px solid var(--accent-dim);padding-top:6px}
+  .grp.pin{border-top-color:#c98a1f}
+  .pin-sub{font-family:var(--sans);font-size:13px;color:var(--ink2);margin:2px 0 6px}
+
+  .item{background:var(--panel);border:1px solid var(--border);border-radius:10px;
+    padding:13px 17px;margin:13px 0;font-family:var(--sans);border-left:5px solid var(--accent-dim)}
+  .item.pinned{border-left-color:#c98a1f;background:rgba(201,138,31,.05)}
+  .item h3{font-family:var(--sans);margin:0 0 5px;font-size:17px;line-height:1.35}
+  .meta{display:flex;flex-wrap:wrap;align-items:center;gap:7px 9px;margin:0 0 7px}
+  .tag{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+    padding:3px 8px;border-radius:6px}
+  .t-deadline{background:rgba(201,138,31,.14);color:#a96f12;border:1px solid rgba(201,138,31,.32)}
+  .t-result{background:rgba(61,111,208,.12);color:var(--accent);border:1px solid rgba(61,111,208,.3)}
+  .t-exam{background:rgba(120,80,200,.13);color:#7a52c8;border:1px solid rgba(120,80,200,.3)}
+  .t-notification{background:rgba(47,125,70,.14);color:var(--good);border:1px solid rgba(47,125,70,.3)}
+  .t-correction{background:rgba(192,57,43,.12);color:var(--bad);border:1px solid rgba(192,57,43,.28)}
+  .t-structural{background:rgba(120,120,120,.13);color:var(--muted);border:1px solid rgba(120,120,120,.3)}
+  .t-looking-ahead{background:rgba(120,120,120,.10);color:var(--muted);border:1px solid rgba(120,120,120,.26)}
+  .when{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .body{font-size:13.5px;color:var(--ink2);line-height:1.6;margin:4px 0 7px}
+  .src a{font-size:13px}
+  .countdown{display:inline-block;font-family:var(--sans);font-size:12.5px;font-weight:800;
+    letter-spacing:.02em;padding:3px 9px;border-radius:6px;background:rgba(47,125,70,.12);color:var(--good);
+    border:1px solid rgba(47,125,70,.3);font-variant-numeric:tabular-nums}
+  .countdown.urgent{background:rgba(192,57,43,.12);color:var(--bad);border-color:rgba(192,57,43,.3)}
+  .countdown.passed{background:rgba(120,120,120,.12);color:var(--muted);border-color:rgba(120,120,120,.3)}
+  .empty{font-family:var(--sans);color:var(--muted);font-size:14px;padding:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="../">← Home</a> <a href="../admissions/">Admissions tracker</a> <a href="../notes/">Notes</a></nav>
+
+<h1>Exam News Board</h1>
+<p class="lede">A live feed sitting on top of the <a href="../admissions/">admissions tracker</a>: result dates, application deadlines, new notifications, entrance exam dates, and any RCI college that opens or extends a window. Time-sensitive stuff is pinned up top with a countdown; everything else is newest-first with the source link so it's not just me saying it.</p>
+
+<div class="statusline">
+  <span><span class="dot"></span> Live &mdash; auto-refreshes every 5 min</span>
+  <span id="updatedStamp">Loading&hellip;</span>
+  <button class="refresh-btn" id="refreshBtn">Refresh now</button>
+</div>
+
+<!-- ============ PINNED ============ -->
+<section id="pinnedSection" hidden>
+  <h2 class="grp pin">Pinned &mdash; closing soon</h2>
+  <p class="pin-sub">Live countdowns, soonest first. Get the earliest one in today.</p>
+  <div id="pinnedList"></div>
+</section>
+
+<!-- ============ FEED ============ -->
+<h2 class="grp">Latest updates</h2>
+<div id="feedList"><p class="empty">Loading the feed&hellip;</p></div>
+
+<p class="src" style="font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-top:26px">
+This board pulls its data on a schedule on its own, you don't have to ask it to. Dates here are cross-checked against the official portals, but admission sites move dates without notice, so the rule still stands: <b>confirm on the institute's own portal before you pay.</b> RCI = Rehabilitation Council of India, the body that licenses clinical psychologists.</p>
+
+</div>
+
+<script>
+/* Embedded fallback so the board renders instantly and offline (PWA).
+   Live data is fetched from news.json and overrides this on every load + every 5 min. */
+window.__NEWS_FALLBACK = {
+  "updated": "2026-06-02T06:40:00+05:30",
+  "note": "Live exam + admissions feed. Pinned items up top with countdowns; everything else newest-first. Each item carries its source so it's not just me saying it.",
+  "pinned": [
+    {
+      "id": "rml-2026",
+      "category": "Deadline",
+      "title": "RML / ABVIMS — MA Clinical Psychology (RCI) application closes",
+      "deadline": "2026-06-07T23:59:00+05:30",
+      "date": "2026-06-02",
+      "body": "Closes first of everything live. Runs on the GGSIPU portal, admission is the CET-166 entrance (not your MET). 70% test + 30% interview, app fee Rs 2,500. Deadline was extended from 30 May to 7 June, so it is genuinely open. Do this one today.",
+      "source": { "label": "Apply: GGSIPU portal", "url": "https://ipu.admissions.nic.in/" }
+    },
+    {
+      "id": "nfsu-gn-2026",
+      "category": "Deadline",
+      "title": "NFSU Gandhinagar — MA Clinical Psychology (RCI) application closes",
+      "deadline": "2026-06-10T23:59:00+05:30",
+      "date": "2026-06-02",
+      "body": "Selection is on your CUET-PG 2026 score, not a separate NFSU test. 24 seats. Apply off the Samarth portal. Eligibility: 4-yr BA/BSc Psych, or 3-yr + bridge, min 55%.",
+      "source": { "label": "Apply: nfsuadm.samarth.edu.in", "url": "https://nfsuadm.samarth.edu.in" }
+    },
+    {
+      "id": "nfsu-dl-2026",
+      "category": "Deadline",
+      "title": "NFSU Delhi — MA Clinical Psychology (RCI) application closes",
+      "deadline": "2026-06-10T23:59:00+05:30",
+      "date": "2026-06-02",
+      "body": "Same program, Delhi campus, same CUET-PG-based selection, 22 seats. Apply to both NFSU campuses off the one Samarth portal, two more shots for the same effort.",
+      "source": { "label": "Apply: nfsuadm.samarth.edu.in", "url": "https://nfsuadm.samarth.edu.in" }
+    }
+  ],
+  "feed": [
+    {
+      "category": "Result",
+      "title": "MET 2026 (Manipal) — result watch",
+      "date": "2026-06-02",
+      "body": "MET Phase 1 scorecard came out 17 April, Phase 2 around late May. For MA Clinical Psychology the live thread now is the program merit list + counselling call, not a new application. Log in at manipal.edu with the email and password you used to register and check your scorecard / merit status.",
+      "source": { "label": "MET results — manipal.edu", "url": "https://www.manipal.edu/mu/admission/indian-students/online-entrance-exam-overview.html" }
+    },
+    {
+      "category": "Result",
+      "title": "NIMHANS 2026 — result watch",
+      "date": "2026-06-02",
+      "body": "NIMHANS held its PG entrance 29–31 May 2026 (MA Clinical Psych on 31 May, PhD 30 May). Results post to the official results page below. No date announced yet; check it directly rather than trusting any aggregator.",
+      "source": { "label": "NIMHANS official results", "url": "https://www.nimhans.ac.in/academics/results" }
+    },
+    {
+      "category": "Notification",
+      "title": "RCI Admissions Tracker rebuilt — DIMHANS Dharwad added",
+      "date": "2026-06-02",
+      "body": "Full RCI Clinical Psych tracker re-checked against the institute portals. Added DIMHANS Dharwad (RCI, own psychiatric hospital for in-house clinical hours, run under a NIMHANS MOU). Two gates on it: Karnataka domicile is mandatory and the M.Phil track is only 4 seats. Cycle historically opens ~Sep–Oct.",
+      "source": { "label": "Open the tracker", "url": "../admissions/" }
+    },
+    {
+      "category": "Deadline",
+      "title": "RML / ABVIMS deadline extended to 7 June",
+      "date": "2026-06-02",
+      "body": "ABVIMS / Dr RML Hospital pushed its MA Clinical Psychology (RCI) application deadline from 30 May to 7 June 2026 on the GGSIPU portal. That makes it your earliest live window, so it goes first.",
+      "source": { "label": "Details — UPS Education", "url": "https://www.upseducation.in/update/abvims-rml-ma-clinical-psychology-rci-admission-2026/" }
+    },
+    {
+      "category": "Correction",
+      "title": "Christ University is CLOSED (the 'June 14' was wrong)",
+      "date": "2026-06-02",
+      "body": "Earlier note said Christ Delhi NCR was open until 14 June. That is wrong: Christ's RCI MA Clinical Psych closed 2 February 2026 with the entrance in February. Don't chase it for this cycle. If you see a 'Delhi NCR June' date anywhere it's a different non-RCI stream, check the RCI tag first.",
+      "source": { "label": "Christ portal", "url": "https://espro.christuniversity.in/Application/" }
+    },
+    {
+      "category": "Exam",
+      "title": "NIMHANS MA Clinical Psych entrance held (31 May)",
+      "date": "2026-05-31",
+      "body": "NIMHANS ran its PG entrance window 29–31 May 2026, MA Clinical Psychology paper on 31 May. 100 MCQ / 90 min, +1 / −0.25 (exactly your mock scale). This year's cycle is now closed; result is the live thread.",
+      "source": { "label": "NIMHANS exam calendar", "url": "https://www.nimhans.ac.in/academics/examinations" }
+    },
+    {
+      "category": "Deadline",
+      "title": "NFSU Gandhinagar + Delhi windows open (due 10 June)",
+      "date": "2026-05-31",
+      "body": "Both NFSU RCI MA Clinical Psych campuses are taking applications, due 10 June, selected on CUET-PG score. This corrects the earlier 'NFSU own entrance' line, there's no separate NFSU test.",
+      "source": { "label": "Details — NFSU Gandhinagar", "url": "https://www.upseducation.in/update/nfsu-gandhinagar-ma-clinical-psychology-rci-2026/" }
+    },
+    {
+      "category": "Exam",
+      "title": "MAHE / Manipal MET held — this was your exam",
+      "date": "2026-04-26",
+      "body": "The MET you sat was the Manipal MA Clinical Psychology entrance. No fresh application here, the result + counselling is the live thread (see the MET result watch above).",
+      "source": { "label": "MAHE Clinical Psych admission", "url": "https://www.upseducation.in/update/mahe-ma-clinical-psychology-admission-2026/" }
+    },
+    {
+      "category": "Result",
+      "title": "MET 2026 Phase 1 scorecard released",
+      "date": "2026-04-17",
+      "body": "MAHE released the MET 2026 Phase 1 result on 17 April. Scores are visible after logging in at manipal.edu. Merit and counselling for the Clinical Psych program follow from this.",
+      "source": { "label": "MET result steps", "url": "https://www.shiksha.com/engineering/met-exam-results" }
+    },
+    {
+      "category": "Structural",
+      "title": "M.Phil Clinical Psychology replaced by the RCI MA",
+      "date": "2026-01-15",
+      "body": "From 2026, under NEP 2020 + RCI restructuring, the old M.Phil Clinical Psychology is being replaced by the MA Clinical Psychology (RCI). So the RCI-tagged MA at NIMHANS / CIP / IHBAS / NFSU IS the licensing program now, not a lesser step. A plain MA/MSc with no RCI tag does not license you. The only thing that matters is the RCI tag.",
+      "source": { "label": "How the tracker explains it", "url": "../admissions/#open" }
+    },
+    {
+      "category": "Looking ahead",
+      "title": "2027 cycle — the heavy hitters reopen Dec 2026–Feb 2027",
+      "date": "2026-06-01",
+      "body": "NIMHANS, IHBAS, CIP Ranchi and RINPAS typically open applications between December 2026 and February 2027, entrances around April–May. If this cycle doesn't land, that's your real runway for the top RCI seats. This board will flag each one the day it opens.",
+      "source": { "label": "Closed-for-2026 group", "url": "../admissions/#closed" }
+    }
+  ]
+};
+</script>
+<script>
+(function(){
+  var DATA = window.__NEWS_FALLBACK || {pinned:[],feed:[]};
+  var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+  function esc(s){ var d=document.createElement("div"); d.textContent=s==null?"":String(s); return d.innerHTML; }
+  function tagClass(cat){ return "t-" + String(cat||"").toLowerCase().replace(/\s+/g,"-"); }
+
+  function fmtDate(iso){
+    if(!iso) return "";
+    var p = String(iso).slice(0,10).split("-");
+    if(p.length<3) return esc(iso);
+    var y=+p[0], m=+p[1], d=+p[2];
+    if(!m||!d) return esc(iso);
+    return d + " " + (MONTHS[m-1]||"") + " " + y;
+  }
+
+  function itemHTML(it, pinned){
+    var cd = it.deadline ? '<span class="countdown" data-deadline="'+esc(it.deadline)+'"></span>' : '';
+    var src = (it.source && it.source.url)
+      ? '<div class="src"><a href="'+esc(it.source.url)+'" target="_blank" rel="noopener">'+esc(it.source.label||"Source")+' &rarr;</a></div>'
+      : '';
+    return '<div class="item'+(pinned?' pinned':'')+'">'
+      + '<h3>'+esc(it.title)+'</h3>'
+      + '<div class="meta">'
+        + '<span class="tag '+tagClass(it.category)+'">'+esc(it.category)+'</span>'
+        + (it.date ? '<span class="when">'+fmtDate(it.date)+'</span>' : '')
+        + cd
+      + '</div>'
+      + '<div class="body">'+esc(it.body)+'</div>'
+      + src
+    + '</div>';
+  }
+
+  function render(){
+    var pinned = (DATA.pinned||[]).slice().sort(function(a,b){
+      return new Date(a.deadline||0) - new Date(b.deadline||0);
+    });
+    var ps = document.getElementById("pinnedSection");
+    var pl = document.getElementById("pinnedList");
+    if(pinned.length){
+      ps.hidden = false;
+      pl.innerHTML = pinned.map(function(it){ return itemHTML(it, true); }).join("");
+    } else { ps.hidden = true; pl.innerHTML=""; }
+
+    var feed = (DATA.feed||[]).slice().sort(function(a,b){
+      return String(b.date||"").localeCompare(String(a.date||""));
+    });
+    var fl = document.getElementById("feedList");
+    fl.innerHTML = feed.length
+      ? feed.map(function(it){ return itemHTML(it, false); }).join("")
+      : '<p class="empty">No updates yet.</p>';
+
+    tickCountdowns();
+  }
+
+  function tickCountdowns(){
+    var now = new Date();
+    document.querySelectorAll(".countdown[data-deadline]").forEach(function(el){
+      var dl = new Date(el.getAttribute("data-deadline"));
+      el.classList.remove("urgent","passed");
+      if(isNaN(dl.getTime())){ el.textContent=""; return; }
+      var ms = dl - now;
+      if(ms<=0){ el.classList.add("passed"); el.textContent="Closed — verify on the portal"; return; }
+      var d=Math.floor(ms/86400000), h=Math.floor((ms%86400000)/3600000), m=Math.floor((ms%3600000)/60000);
+      el.textContent = "Closes in " + (d>0? d+"d ":"") + h+"h " + m+"m";
+      if(ms < 48*3600000) el.classList.add("urgent");
+    });
+  }
+
+  function stamp(updated, live){
+    var el = document.getElementById("updatedStamp");
+    var when = updated ? fmtDate(updated) : "";
+    var t = updated ? new Date(updated) : null;
+    var hm = (t && !isNaN(t.getTime()))
+      ? (" " + ("0"+t.getHours()).slice(-2) + ":" + ("0"+t.getMinutes()).slice(-2))
+      : "";
+    el.textContent = "Updated " + when + hm + (live ? "" : " (cached)");
+  }
+
+  function fetchLive(){
+    var btn = document.getElementById("refreshBtn");
+    btn.classList.add("spin");
+    fetch("news.json?t=" + new Date().getTime(), {cache:"no-store"})
+      .then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
+      .then(function(j){
+        DATA = j;
+        render();
+        stamp(j.updated, true);
+      })
+      .catch(function(){
+        render();
+        stamp(DATA.updated, false);
+      })
+      .finally(function(){ btn.classList.remove("spin"); });
+  }
+
+  // first paint from fallback so nothing flashes empty, then pull live
+  render();
+  stamp(DATA.updated, false);
+  fetchLive();
+
+  document.getElementById("refreshBtn").addEventListener("click", fetchLive);
+  setInterval(fetchLive, 5*60*1000);   // auto-refresh data every 5 min
+  setInterval(tickCountdowns, 30000);  // tick the countdowns every 30s
+  window.addEventListener("focus", fetchLive);
+})();
+</script>
+
+<script>
+/* PWA:met-prep */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("/sihan-met-flashcards/sw.js").catch(function () {});
+  });
+}
+</script>
+<script src="/sihan-met-flashcards/nav-toggle.js"></script>
+</body>
+</html>
