@@ -54,6 +54,11 @@
     border-radius:0 6px 6px 0;font-family:var(--sans);font-size:14.5px}
   .src{font-size:13px;color:var(--muted);font-family:var(--sans)}
   .num{font-variant-numeric:tabular-nums}
+  .countdown{display:inline-block;margin:6px 0 2px;font-family:var(--sans);font-size:13px;font-weight:800;
+    letter-spacing:.02em;padding:4px 10px;border-radius:6px;background:rgba(47,125,70,.12);color:var(--good);
+    border:1px solid rgba(47,125,70,.3);font-variant-numeric:tabular-nums}
+  .countdown.urgent{background:rgba(192,57,43,.12);color:var(--bad);border-color:rgba(192,57,43,.3)}
+  .countdown.passed{background:rgba(120,120,120,.12);color:var(--muted);border-color:rgba(120,120,120,.3)}
 </style>
 </head>
 <body>
@@ -61,9 +66,9 @@
 <nav><a href="../">← Home</a> <a href="../notes/">Notes</a></nav>
 
 <h1>RCI Clinical Psychology Admissions Tracker</h1>
-<p class="updated">Built 2026-06-02. Cross-checked against UPS Education listings + the institute portals. Dates shift, so the rule stands: <b>confirm on the official portal before you pay.</b></p>
+<p class="updated">Built 2026-06-02, re-checked same day against the institute portals (GGSIPU, NFSU Samarth) + UPS Education. Live countdowns below tick to each deadline. Dates shift, so the rule stands: <b>confirm on the official portal before you pay.</b></p>
 
-<p class="lede">Every RCI-recognised Clinical Psychology program I could find for the <b>2026&ndash;27</b> batch, grouped by whether you can still apply. The honest headline: most windows already closed. Your live shots are <b>NFSU (both campuses)</b>. Christ closed in February (the bot's earlier "June 14" was wrong, corrected below).</p>
+<p class="lede">Every RCI-recognised Clinical Psychology program I could find for the <b>2026&ndash;27</b> batch, sorted by what closes first. The honest headline: most windows already closed, but you've got <b>three live shots</b> &mdash; <b>RML (closes 7 June, do this first)</b>, then <b>NFSU Gandhinagar + Delhi (10 June)</b>. Christ closed in February (the "June 14" was wrong, corrected below).</p>
 
 <div class="why">
 <b>Read this first, it changes the whole map.</b> From 2026 the old <b>M.Phil Clinical Psychology</b> is being replaced by the <b>MA Clinical Psychology (RCI)</b> under NEP 2020 + RCI restructuring. So the new RCI-tagged MA at NIMHANS / CIP / IHBAS / RINPAS / NFSU <b>is the licensing program</b> now, it's not a lesser stepping stone. What does NOT license you is a plain academic MA/MSc Clinical Psychology with no RCI tag (Amity, most private universities). The only thing that matters: does it carry the <b>RCI</b> tag.
@@ -80,16 +85,34 @@
 
 <!-- ============ OPEN ============ -->
 <h2 class="grp" id="open">Open right now &mdash; apply to these</h2>
+<p class="note" style="margin:2px 0 6px">Sorted by what closes first. The countdown on each is live, it ticks down in real time.</p>
+
+<div class="card open">
+  <h3>ABVIMS &amp; Dr RML Hospital, Delhi &mdash; MA Clinical Psychology <span class="badge b-rci">RCI</span><span class="badge b-open">Open</span></h3>
+  <div class="countdown" data-deadline="2026-06-07T23:59:00+05:30"></div>
+  <div class="rows">
+    <div><b>Deadline</b> 7 June 2026, 11:59 PM</div>
+    <div><b>Entrance</b> CET-166 (GGSIPU), date TBA</div>
+    <div><b>Selection</b> 70% test + 30% interview</div>
+    <div><b>App fee</b> &#8377;2,500</div>
+  </div>
+  <div class="note flag"><b>Do this one first &mdash; it closes first (7 June).</b> Run via GGSIPU (IP University); admission is the CET-166 entrance, not your MET. Deadline was extended from 30 May to 7 June, so it's genuinely live. (This corrects the earlier "likely closed" line, it's open.) RCI-recognised, formerly the M.Phil.</div>
+  <div class="links">
+    <a href="https://ipu.admissions.nic.in/" target="_blank" rel="noopener">Apply: GGSIPU portal &rarr;</a>
+    <a href="https://www.upseducation.in/update/abvims-rml-ma-clinical-psychology-rci-admission-2026/" target="_blank" rel="noopener">Details</a>
+  </div>
+</div>
 
 <div class="card open">
   <h3>NFSU Gandhinagar &mdash; MA Clinical Psychology <span class="badge b-rci">RCI</span><span class="badge b-open">Open</span></h3>
+  <div class="countdown" data-deadline="2026-06-10T23:59:00+05:30"></div>
   <div class="rows">
     <div><b>Deadline</b> 10 June 2026</div>
     <div><b>Selection</b> CUET-PG 2026 score</div>
     <div><b>Seats</b> <span class="num">24</span></div>
-    <div><b>Duration</b> 2 yrs / 4 sem</div>
+    <div><b>App fee</b> see portal</div>
   </div>
-  <div class="note">Formerly the M.Phil, now the RCI MA. <b>Selection is on your CUET-PG score, not a separate NFSU entrance</b> (this corrects the earlier "own entrance" line). No interview/GD stage stated. Eligibility: 4-yr BA/BSc Psychology, or 3-yr + bridge/1st-yr MA, min 55% (50% SC/ST).</div>
+  <div class="note">Formerly the M.Phil, now the RCI MA. <b>Selection is on your CUET-PG score, not a separate NFSU entrance</b> (this corrects the earlier "own entrance" line). No interview/GD stage stated. Eligibility: 4-yr BA/BSc Psychology, or 3-yr + bridge/1st-yr MA, min 55% (50% SC/ST). 2 yrs / 4 sem. App fee not published, check at payment.</div>
   <div class="links">
     <a href="https://nfsuadm.samarth.edu.in" target="_blank" rel="noopener">Apply: nfsuadm.samarth.edu.in &rarr;</a>
     <a href="https://www.upseducation.in/update/nfsu-gandhinagar-ma-clinical-psychology-rci-2026/" target="_blank" rel="noopener">Details</a>
@@ -98,13 +121,14 @@
 
 <div class="card open">
   <h3>NFSU Delhi &mdash; MA Clinical Psychology <span class="badge b-rci">RCI</span><span class="badge b-open">Open</span></h3>
+  <div class="countdown" data-deadline="2026-06-10T23:59:00+05:30"></div>
   <div class="rows">
     <div><b>Deadline</b> 10 June 2026</div>
     <div><b>Selection</b> CUET-PG 2026 score</div>
     <div><b>Seats</b> <span class="num">22</span></div>
-    <div><b>Duration</b> 2 yrs / 4 sem</div>
+    <div><b>App fee</b> see portal</div>
   </div>
-  <div class="note">Same program, Delhi campus. Same CUET-PG-based selection, same eligibility. <b>Apply to both campuses</b> off the one Samarth portal, two more shots for the same effort.</div>
+  <div class="note">Same program, Delhi campus. Same CUET-PG-based selection, same eligibility, 2 yrs / 4 sem. <b>Apply to both campuses</b> off the one Samarth portal, two more shots for the same effort.</div>
   <div class="links">
     <a href="https://nfsuadm.samarth.edu.in" target="_blank" rel="noopener">Apply: nfsuadm.samarth.edu.in &rarr;</a>
     <a href="https://www.upseducation.in/update/nfsu-delhi-ma-clinical-psychology-rci-2026/" target="_blank" rel="noopener">Details</a>
@@ -132,25 +156,19 @@
 </div>
 
 <div class="card soon">
-  <h3>ABVIMS &amp; Dr RML Hospital, Delhi <span class="badge b-rci">RCI</span><span class="badge b-soon">Likely closed</span></h3>
-  <div class="rows"><div><b>Deadline</b> ~31 May 2026</div></div>
-  <div class="note">Listed with a ~31 May deadline, so almost certainly shut. Verify directly only if you want to be sure.</div>
-  <div class="links"><a href="https://www.upseducation.in/latest-psychology-admissions" target="_blank" rel="noopener">Listing</a></div>
-</div>
-
-<div class="card soon">
   <h3>Ashtavakra Institute &mdash; MA Clinical Psychology <span class="badge b-rci">RCI</span><span class="badge b-soon">Likely closed</span></h3>
   <div class="rows"><div><b>Deadline</b> ~31 May 2026</div></div>
-  <div class="note">Private RCI program, ~31 May deadline. Lower priority than NFSU regardless.</div>
+  <div class="note">Private RCI program, ~31 May deadline. Lower priority than NFSU/RML regardless.</div>
   <div class="links"><a href="https://www.upseducation.in/latest-psychology-admissions" target="_blank" rel="noopener">Listing</a></div>
 </div>
 
 <!-- ============ PRIORITY ============ -->
 <h2 class="grp" id="prio">What to prioritise</h2>
 <div class="prio">
-<b>1. NFSU Gandhinagar + NFSU Delhi</b> &mdash; both due 10 June, both RCI, both ride your CUET-PG score. This is your whole live game. Get both in off the single Samarth portal.<br><br>
-<b>2. The CUET-PG question.</b> Because NFSU selects on CUET-PG (not its own test), the real action item is: <b>did you sit CUET-PG 2026, and is your score in?</b> If yes, just submit both NFSU forms. If you did not write CUET-PG, NFSU can't shortlist you and the two NFSU lines effectively don't apply, in which case 2026 RCI MA seats are basically gone and the play is to target the <b>2027 cycle</b> (NIMHANS/CIP/IHBAS open Dec 2026&ndash;Feb 2027). Confirm your CUET-PG status before anything else.<br><br>
-<b>3. Quick portal-check</b> CSJMU / CSMU / ABVIMS-RML in case of an extension, but treat them as closed.
+<b>1. RML (GGSIPU portal) &mdash; closes 7 June, do this today.</b> It's the earliest deadline and it runs on its own CET-166 entrance, so it does not depend on CUET-PG. &#8377;2,500 fee, 70% test + 30% interview. Get the form in first.<br><br>
+<b>2. NFSU Gandhinagar + NFSU Delhi</b> &mdash; both due 10 June, both RCI, both ride your CUET-PG score. Get both in off the single Samarth portal.<br><br>
+<b>3. The CUET-PG question.</b> Because NFSU selects on CUET-PG (not its own test), the real action item is: <b>did you sit CUET-PG 2026, and is your score in?</b> If yes, submit both NFSU forms. If you did not write CUET-PG, NFSU can't shortlist you, so RML (own entrance) becomes your main live shot and the 2027 cycle (NIMHANS/CIP/IHBAS open Dec 2026&ndash;Feb 2027) is the bigger play.<br><br>
+<b>4. Quick portal-check</b> CSJMU / CSMU / Ashtavakra in case of an extension, but treat them as closed.
 </div>
 
 <!-- ============ CLOSED ============ -->
@@ -235,5 +253,31 @@ Every date here was cross-checked on 2 June 2026 but admission portals move date
 and institute portals (NFSU Samarth, NIMHANS, Christ, CIP Ranchi). RCI = Rehabilitation Council of India, the body that licenses clinical psychologists.</p>
 
 </div>
+<script>
+(function(){
+  function render(){
+    var now = new Date();
+    document.querySelectorAll('.countdown[data-deadline]').forEach(function(el){
+      var dl = new Date(el.getAttribute('data-deadline'));
+      var ms = dl - now;
+      el.classList.remove('urgent','passed');
+      if (isNaN(dl.getTime())) { el.textContent=''; return; }
+      if (ms <= 0){
+        el.classList.add('passed');
+        el.textContent = 'Deadline passed — verify on the portal';
+        return;
+      }
+      var d = Math.floor(ms/86400000);
+      var h = Math.floor((ms%86400000)/3600000);
+      var m = Math.floor((ms%3600000)/60000);
+      var txt = 'Closes in ' + (d>0 ? d+'d ' : '') + h+'h ' + m+'m';
+      el.textContent = txt;
+      if (ms < 48*3600000) el.classList.add('urgent');
+    });
+  }
+  render();
+  setInterval(render, 30000);
+})();
+</script>
 </body>
 </html>
