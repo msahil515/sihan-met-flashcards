@@ -1,0 +1,41 @@
+name: Refresh trackers
+
+# Auto-refreshes the Admissions Tracker + News Board twice a day and stamps the
+# "Last refreshed" time at the top of each page. Cron is UTC; IST = UTC+5:30.
+on:
+  schedule:
+    - cron: '30 2 * * *'   # 08:00 IST
+    - cron: '30 9 * * *'   # 15:00 IST
+  workflow_dispatch:        # lets you trigger a refresh by hand any time
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-trackers
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run refresh
+        run: python3 refresh_trackers.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "sihan-refresh-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Auto-refresh trackers: $(TZ=Asia/Kolkata date '+%-d %b %Y %H:%M IST')"
+            git push
+          fi
