@@ -65,7 +65,9 @@
 <div class="wrap">
 <nav><a href="../">← Home</a> <a href="../admissions/">Admissions tracker</a> <a href="../notes/">Notes</a></nav>
 
-<div style="font-family:var(--sans);font-size:12.5px;color:var(--muted);background:var(--panel-2);border:1px solid var(--border);border-radius:7px;padding:7px 13px;margin:12px 0 2px"><span style="color:var(--good);font-weight:800">●</span> <!--LR-->Last refreshed: <b>4 Jun 2026, 4:45 PM IST</b> &middot; auto-refreshes 8&nbsp;AM &amp; 3&nbsp;PM IST daily<!--/LR--></div>
+<div style="font-family:var(--sans);font-size:12.5px;color:var(--muted);background:var(--panel-2);border:1px solid var(--border);border-radius:7px;padding:7px 13px;margin:12px 0 2px"><span style="color:var(--good);font-weight:800">●</span> <!--LR-->Last refreshed: <b>4 Jun 2026, 6:44 PM IST</b> &middot; auto-refreshes 8&nbsp;AM &amp; 3&nbsp;PM IST daily<!--/LR--></div>
+
+<div id="srcCheck" style="font-family:var(--sans);font-size:11.5px;color:var(--muted);padding:1px 4px 0;margin:0 0 4px" hidden></div>
 
 <h1>Exam News Board</h1>
 <p class="lede">A live feed sitting on top of the <a href="../admissions/">admissions tracker</a>: result dates, application deadlines, new notifications, entrance exam dates, and any RCI college that opens or extends a window. Time-sensitive stuff is pinned up top with a countdown; everything else is newest-first with the source link so it's not just me saying it.</p>
@@ -262,6 +264,7 @@ window.__NEWS_FALLBACK = {
       : '<p class="empty">No updates yet.</p>';
 
     tickCountdowns();
+    renderSourceCheck();
   }
 
   function tickCountdowns(){
@@ -276,6 +279,18 @@ window.__NEWS_FALLBACK = {
       el.textContent = "Closes in " + (d>0? d+"d ":"") + h+"h " + m+"m";
       if(ms < 48*3600000) el.classList.add("urgent");
     });
+  }
+
+  function renderSourceCheck(){
+    var el = document.getElementById("srcCheck");
+    if(!el) return;
+    var sc = DATA.source_check;
+    if(!sc || !sc.checked){ el.hidden = true; return; }
+    var bits = sc.reachable + " of " + sc.checked + " source portals auto-read this run";
+    if(sc.changed) bits += " &middot; <b>" + sc.changed + " changed</b> (flagged below)";
+    if(sc.manual)  bits += " &middot; " + sc.manual + " need manual (login/PDF/cert)";
+    el.innerHTML = "Source check: " + bits + ".";
+    el.hidden = false;
   }
 
   function stamp(updated, live){
