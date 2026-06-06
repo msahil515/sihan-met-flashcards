@@ -93,6 +93,22 @@
   .fn{font-size:12.5px;color:var(--muted);font-family:var(--sans);line-height:1.6;margin:10px 0}
   .src{font-size:12.5px;color:var(--muted);font-family:var(--sans)}
   h2.grp{margin-top:30px;border-top:3px solid var(--accent-dim);padding-top:8px}
+
+  /* First batch (apply now) — the live MA/MSc chunk, surfaced above the full table */
+  .batch{background:rgba(47,125,70,.07);border:1px solid rgba(47,125,70,.28);border-radius:10px;
+    padding:16px 18px;margin:18px 0;font-family:var(--sans)}
+  .batch h2{margin:0 0 4px;font-size:18px;color:var(--good)}
+  .batch .bsub{font-size:13px;color:var(--muted);margin:0 0 12px}
+  .batch ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+  .batch li{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;font-size:14px;line-height:1.45;
+    padding:9px 12px;background:var(--panel-2);border:1px solid var(--border);border-radius:7px}
+  .batch .nm{font-weight:800;color:var(--text)}
+  .batch .win{font-variant-numeric:tabular-nums;font-weight:700;color:var(--good)}
+  .batch .win.amber{color:#a96f12}
+  .batch .meta{color:var(--muted);font-size:12.5px}
+  .batch li a{font-weight:800;margin-left:auto;white-space:nowrap}
+  .batch .roll{font-size:13px;color:var(--ink2);margin:11px 0 0;line-height:1.55}
+  .batch .roll b{color:var(--text)}
 </style>
 </head>
 <body>
@@ -102,10 +118,55 @@
 <div style="font-family:var(--sans);font-size:12.5px;color:var(--muted);background:var(--panel-2);border:1px solid var(--border);border-radius:7px;padding:7px 13px;margin:12px 0 2px"><span style="color:var(--good);font-weight:800">●</span> <!--LR-->Last refreshed: <b>6 Jun 2026, 4:34 PM IST</b> &middot; auto-refreshes 8&nbsp;AM &amp; 3&nbsp;PM IST daily<!--/LR--></div>
 
 <h1>RCI Clinical Psychology Admissions Tracker</h1>
-<p class="updated">Rebuilt 2026-06-02, expanded 2026-06-04 to <b>50+ programs nationwide</b>, and on <b>2026-06-05</b> I added a <b>Hostel</b> column and went back through the curated top block filling the empty <b>fee / seats / hostel</b> cells with real numbers off the institute pages (RML 13 seats &amp; Dhanwantri hostel, CIP 21 seats + 210-bed hostel &amp; no tuition, NIMHANS ~&#8377;17.8k/yr, Manipal ~&#8377;6.1L, Christ ~&#8377;4.8L, NFSU ~&#8377;2.6L, JSS hostel, etc.). <b>Same day I went into the nationwide directory and filled real fee/seats off the prospectuses for the big govt M.Phil institutes</b> (GMCH-32 Chandigarh 8 seats + &#8377;12k/mo stipend, LGBRIMH Tezpur ~11&ndash;12 seats &amp; &#8377;25k/mo stipend, SCB Cuttack 12 seats + &#8377;10k/mo stipend, IOP Kolkata 8 seats, PGIMER ~&#8377;51k, SRIHER 10 seats, Amrita Kochi), so those rows now carry hard numbers instead of <span class="unk">unknown</span> &mdash; dates still say <span class="st st-later">Verify</span> until the 2026 window opens. The top block is the curated, date-checked set for the <b>2026&ndash;27</b> batch (sorted by what closes first: live in green, closing amber, closed greyed). Below that is the full <b>nationwide RCI directory</b> &mdash; every other RCI-recognised Clinical Psychology program (M.Phil + the new RCI MA) I could confirm off the RCI lists, so you have the whole national map in one place. <b>On 2026-06-06 I went row by row through every program</b> and filled the remaining cells off the institute portals + RCI lists: 2026 status, application open/close dates, exam/interview dates, fees, seats, hostel and the real apply link for each. New finds in that pass: <b>Sree Balaji (SBMCH) Chennai is live, closes 15 Jun</b> (&#8377;100 app, own hospital, 10 seats, entrance 22 Jun); the small private unis (LPU, SGT, Manav Rachna, GD Goenka, Apex, Tantia, Shyam, Rama) run rolling/merit intakes so they're marked open; several (Tecnia, Desh Bhagat, Pannadhay, GMC Srinagar, CSMU, CSJMU) had 2026 windows that already closed; and the big govt M.Phils (AIIMS, PGIMER, GMCH-32, IHBAS, Rohtak, Cuttack, RIMS, Gwalior, PGIBAMS, RINPAS) are between cycles, opening Dec&ndash;Aug for 2027. Corrections worth flagging: <b>Amity Mumbai has no RCI MA</b>, <b>Amity Gwalior's MA is the regular non-RCI one</b>, and <b>Kateel Ashok Pai runs only M.Phil/MSc, not an RCI MA</b>. <b>Anything I still couldn't verify off the official portal stays <span class="unk">unknown</span>, &ldquo;not published&rdquo; or <span class="st st-later">Verify</span>, never guessed.</b> Dates and fees move, so the rule stands: confirm on the institute's own portal before you pay.</p>
+<p class="updated">Rebuilt 2026-06-02, expanded 2026-06-04 to <b>50+ programs nationwide</b>, and on <b>2026-06-05</b> I added a <b>Hostel</b> column and went back through the curated top block filling the empty <b>fee / seats / hostel</b> cells with real numbers off the institute pages (RML 13 seats &amp; Dhanwantri hostel, CIP 21 seats + 210-bed hostel &amp; no tuition, NIMHANS ~&#8377;17.8k/yr, Manipal ~&#8377;6.1L, Christ ~&#8377;4.8L, NFSU ~&#8377;2.6L, JSS hostel, etc.). <b>Same day I went into the nationwide directory and filled real fee/seats off the prospectuses for the big govt M.Phil institutes</b> (GMCH-32 Chandigarh 8 seats + &#8377;12k/mo stipend, LGBRIMH Tezpur ~11&ndash;12 seats &amp; &#8377;25k/mo stipend, SCB Cuttack 12 seats + &#8377;10k/mo stipend, IOP Kolkata 8 seats, PGIMER ~&#8377;51k, SRIHER 10 seats, Amrita Kochi), so those rows now carry hard numbers instead of <span class="unk">unknown</span> &mdash; dates still say <span class="st st-later">Verify</span> until the 2026 window opens. The top block is the curated, date-checked set for the <b>2026&ndash;27</b> batch (sorted by what closes first: live in green, closing amber, closed greyed). Below that is the full <b>nationwide RCI directory</b> &mdash; every other RCI-recognised Clinical Psychology program (M.Phil + the new RCI MA) I could confirm off the RCI lists, so you have the whole national map in one place. <b>On 2026-06-06 I went row by row through every program</b> and filled the remaining cells off the institute portals + RCI lists: 2026 status, application open/close dates, exam/interview dates, fees, seats, hostel and the real apply link for each. New finds in that pass: <b>Sree Balaji (SBMCH) Chennai is live, closes 15 Jun</b> (&#8377;100 app, own hospital, 10 seats, entrance 22 Jun); the small private unis (LPU, SGT, Manav Rachna, GD Goenka, Apex, Tantia, Shyam, Rama) run rolling/merit intakes so they're marked open; several (Tecnia, Desh Bhagat, Pannadhay, GMC Srinagar, CSMU, CSJMU) had 2026 windows that already closed; and the big govt M.Phils (AIIMS, PGIMER, GMCH-32, IHBAS, Rohtak, Cuttack, RIMS, Gwalior, PGIBAMS, RINPAS) are between cycles, opening Dec&ndash;Aug for 2027. Corrections worth flagging: <b>Amity Mumbai has no RCI MA</b>, <b>Amity Gwalior's MA is the regular non-RCI one</b>, and <b>Kateel Ashok Pai runs only M.Phil/MSc, not an RCI MA</b>. <b>Anything I still couldn't verify off the official portal stays <span class="unk">unknown</span>, &ldquo;not published&rdquo; or <span class="st st-later">Verify</span>, never guessed.</b> Dates and fees move, so the rule stands: confirm on the institute's own portal before you pay. <b>2026-06-06 (later):</b> pulled the live MA/MSc chunk into a <b>First batch</b> box at the top &mdash; each apply-now program with its open&rarr;close window and real apply link, so you can start on it while the rest of the table keeps filling behind it.</p>
 
 <div class="why">
 <b>Read this first, it changes the whole map.</b> From 2026 the old <b>M.Phil Clinical Psychology</b> is being replaced by the <b>MA Clinical Psychology (RCI)</b> under NEP 2020 + RCI restructuring. The new RCI-tagged MA <b>is the licensing program</b> now, not a lesser step. A plain academic MA/MSc with no RCI tag does <b>not</b> license you. Only one thing matters: does it carry the <b>RCI</b> tag. Every government row below is RCI-tagged. The one to check is <b>Amity</b> (Jaipur &amp; Noida): it sells <b>two</b> "MA Clinical" degrees, an older regular MA that does <b>not</b> license you and a new RCI-regulated MA that does, so its rows are flagged <b>verify per-campus</b> &mdash; get the RCI tag in writing before you pay.
+</div>
+
+<!-- ===== FIRST BATCH (apply now) ===== -->
+<div class="batch">
+<h2>First batch &mdash; MA/MSc Clinical Psych, apply now</h2>
+<p class="bsub">The live RCI MA/MSc rows pulled to the top so you can act today. Open &rarr; close + the real apply link for each. Everything else (opens-later + the full nationwide directory) is in the table below, and I keep filling behind this.</p>
+<ul>
+  <li>
+    <span class="nm">ABVIMS &amp; RML Hospital, Delhi</span>
+    <span class="win">open now &rarr; 7 Jun 2026</span>
+    <span class="meta">RCI MA &middot; GGSIPU CET-166 &middot; &#8377;2,500 &middot; 13 seats &middot; own hospital + hostel &middot; do this one first</span>
+    <a href="https://ipu.admissions.nic.in/" target="_blank" rel="noopener">GGSIPU portal &rarr;</a>
+  </li>
+  <li>
+    <span class="nm">NFSU Gandhinagar</span>
+    <span class="win">open now &rarr; 10 Jun 2026</span>
+    <span class="meta">RCI MA &middot; CUET-PG 2026 score (no own test) &middot; ~&#8377;2.6L &middot; 24 seats</span>
+    <a href="https://nfsuadm.samarth.edu.in" target="_blank" rel="noopener">NFSU Samarth &rarr;</a>
+  </li>
+  <li>
+    <span class="nm">NFSU Delhi</span>
+    <span class="win">open now &rarr; 10 Jun 2026</span>
+    <span class="meta">RCI MA &middot; CUET-PG 2026 score &middot; ~&#8377;2.6L &middot; 22 seats</span>
+    <a href="https://nfsuadm.samarth.edu.in" target="_blank" rel="noopener">NFSU Samarth &rarr;</a>
+  </li>
+  <li>
+    <span class="nm">Sree Balaji (SBMCH), Chennai</span>
+    <span class="win">open now &rarr; 15 Jun 2026</span>
+    <span class="meta">RCI MA &middot; entrance 22 Jun &middot; &#8377;100 app &middot; 10 seats &middot; own 715-bed hospital + hostel</span>
+    <a href="https://www.sbmch.ac.in/" target="_blank" rel="noopener">SBMCH &rarr;</a>
+  </li>
+  <li>
+    <span class="nm">Amity Jaipur (AICP/AIBAS)</span>
+    <span class="win amber">open now &middot; rolling</span>
+    <span class="meta">MA Clinical &mdash; <b>verify RCI track in writing</b> &middot; your PI 11 Jun, report 9:15&nbsp;am &middot; ~&#8377;7.3L</span>
+    <a href="https://portal.amity.edu/NewOnlineForm/Candidate/SignUp" target="_blank" rel="noopener">Amity portal &rarr;</a>
+  </li>
+  <li>
+    <span class="nm">Amity Noida (AIPS)</span>
+    <span class="win amber">open now &middot; rolling</span>
+    <span class="meta">MA Clinical (RCI track exists &mdash; <b>verify per-campus</b>) &middot; AmityJEE + PI &middot; ~&#8377;6.0L</span>
+    <a href="https://portal.amity.edu/NewOnlineForm/Candidate/SignUp" target="_blank" rel="noopener">Amity portal &rarr;</a>
+  </li>
+</ul>
+<p class="roll"><b>Also open now (rolling private intakes, no fixed last date):</b> LPU (LPUNEST, ~&#8377;5.6L), SGT Gurugram (own hospital), Manav Rachna, GD Goenka Gurugram, Apex Jaipur, plus Amity Lucknow / Patna / Gurugram / Greater Noida. RCI seats cap small, so earlier is safer &mdash; and confirm the RCI tag in writing before you pay. Full rows + fees in the table below.</p>
 </div>
 
 <div class="legend">
