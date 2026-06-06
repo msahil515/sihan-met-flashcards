@@ -24,6 +24,7 @@ MOCKS = [
     ("bio-testing-paper", "quiz/bio-testing-paper/index.html"),
     ("nimhans-mock-1", "quiz/nimhans-mock-1/index.html"),
     ("pyq-mock-2", "quiz/pyq-mock-2/index.html"),
+    ("rml-2024", "quiz/rml-2024/index.html"),
 ]
 
 PATTERN = re.compile(r"const QUESTIONS = (\[.*?\n\]);", re.S)

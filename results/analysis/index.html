@@ -555,6 +555,28 @@ const MOCKS = [
     companion: null
   },
   {
+    id: "rml-2024",
+    title: "RML 2024 PYQ Mock (verbatim paper)",
+    short: "RML PYQ 2024",
+    path: "../../quiz/rml-2024/",
+    storageResults: "rml-2024-results-v1",
+    storageNotes: "rml-2024-notes-v1",
+    total: 100,
+    max: 100,
+    scoring: (right, wrong) => right - wrong * 0.25,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
+    sections: { general: 38, biopsych: 18, abnormal: 14, therapy: 13, biostats: 6, assessment: 6, dev: 3, social: 2 },
+    bands: [
+      { min: 70, max: 100, name: "Strong", cls: "good", desc: "Real RML paper, verbatim. Above 70 here means the recognition-heavy clinical/cognitive base is solid. Lock it and keep the −0.25 leak shut." },
+      { min: 60, max: 69.99, name: "On target", cls: "good", desc: "Around the serious-aspirant zone for this paper. Patch your two weakest sections (see below), don't chase new topics." },
+      { min: 50, max: 59.99, name: "Borderline", cls: "warn", desc: "Stop guessing pure-noise items (the −0.25 adds up over 100 Q). That alone usually moves you up a band." },
+      { min: 40, max: 49.99, name: "Needs work", cls: "warn", desc: "A section or two is genuinely soft. Cheatsheets first, then re-sit this same paper." },
+      { min: -100, max: 39.99, name: "Baseline", cls: "bad", desc: "First cold sitting. The point is the gap map below, not the score. Revise the weakest section and re-attempt." }
+    ],
+    cutoff: 60, cutoffLabel: "working target ~60/100 (RML MA cutoff not officially published)",
+    companion: null
+  },
+  {
     id: "pyq-mock-2",
     title: "PYQ Mock 2, pan-India",
     short: "PYQ Mock 2",

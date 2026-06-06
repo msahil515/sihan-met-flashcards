@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0d1117">
+<title>RML 2024 PYQ Mock (Verbatim Paper, 100 Q)</title>
+<style>
+  :root {
+    --bg: #0d1117; --panel: #161b22; --panel-2: #1f252d; --border: #30363d;
+    --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff; --accent-dim: #1f6feb;
+    --good: #3fb950; --bad: #f85149; --warn: #f0b429;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Text', sans-serif; line-height: 1.5; }
+  .app { max-width: min(1200px, 94vw); margin: 0 auto; padding: 16px; min-height: 100vh; }
+  nav { display: flex; gap: 8px; margin-bottom: 16px; font-size: 13px; flex-wrap: wrap; }
+  nav a { color: var(--accent); text-decoration: none; padding: 6px 10px;
+    border: 1px solid var(--accent-dim); border-radius: 6px; }
+  header { text-align: center; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  h1 { font-size: 18px; margin: 0 0 4px 0; font-weight: 600; letter-spacing: 0.5px; }
+  .subtitle { font-size: 12px; color: var(--muted); }
+  .blueprint { font-size: 11px; color: var(--accent); margin-top: 6px; }
+  .filters { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; margin-bottom: 16px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .filters label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  select { background: var(--panel-2); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 10px; font-size: 14px; font-family: inherit; flex: 1; min-width: 140px;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%238b949e' d='M2 4l4 4 4-4z'/></svg>");
+    background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+  .progress { font-size: 12px; color: var(--muted); text-align: center; margin-bottom: 10px; }
+  .progress-bar { height: 4px; background: var(--panel); border-radius: 2px; overflow: hidden; margin-bottom: 16px; }
+  .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s ease; }
+  .question-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px; margin-bottom: 12px; }
+  .section-tag { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--accent); background: rgba(88, 166, 255, 0.08); padding: 3px 8px; border-radius: 4px; margin-bottom: 10px; }
+  .question-text { font-size: 16px; line-height: 1.5; margin-bottom: 14px; white-space: pre-wrap; }
+  .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+  .option { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; font-size: 15px; cursor: pointer; transition: all 0.15s ease; display: flex; gap: 10px; align-items: flex-start; }
+  .option:hover:not(.disabled) { border-color: var(--accent-dim); background: rgba(31, 111, 235, 0.05); }
+  .option.selected { border-color: var(--accent); background: rgba(88, 166, 255, 0.08); }
+  .option.correct { border-color: var(--good); background: rgba(63, 185, 80, 0.1); }
+  .option.incorrect { border-color: var(--bad); background: rgba(248, 81, 73, 0.08); }
+  .option.disabled { cursor: default; }
+  .option-letter { font-weight: 600; color: var(--accent); flex-shrink: 0; width: 20px; }
+  .option.correct .option-letter { color: var(--good); }
+  .option.incorrect .option-letter { color: var(--bad); }
+  .guess-row { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 12px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+    font-size: 14px; cursor: pointer; user-select: none; }
+  .guess-row.checked { border-color: var(--warn); background: rgba(240, 180, 41, 0.06); }
+  .guess-checkbox { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 4px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.1s ease; }
+  .guess-row.checked .guess-checkbox { border-color: var(--warn); background: var(--warn); }
+  .guess-row.checked .guess-checkbox::after { content: "✓"; color: var(--bg); font-weight: 800; font-size: 14px; }
+  .guess-label { flex: 1; }
+  .guess-label small { display: block; color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .controls { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  button { background: var(--panel); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px; font-size: 14px; font-family: inherit; cursor: pointer;
+    transition: all 0.15s ease; font-weight: 500; }
+  button:hover:not(:disabled) { background: var(--panel-2); border-color: var(--accent-dim); }
+  button:active:not(:disabled) { transform: scale(0.98); }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-primary { border-color: var(--accent-dim); color: var(--accent); }
+  .btn-primary:hover:not(:disabled) { background: rgba(88, 166, 255, 0.08); }
+  .explanation { background: var(--panel-2); border-left: 3px solid var(--accent); border-radius: 6px;
+    padding: 12px 14px; margin-top: 14px; font-size: 14px; color: var(--text); display: none; }
+  .explanation.visible { display: block; }
+  .explanation strong { color: var(--accent); }
+  .notes-area { margin-top: 14px; border-top: 1px dashed var(--border); padding-top: 12px; }
+  .notes-label { display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .notes-saved { font-size: 11px; color: var(--good); opacity: 0; transition: opacity 0.2s ease;
+    text-transform: none; letter-spacing: 0; }
+  .notes-saved.visible { opacity: 1; }
+  .notes-textarea { width: 100%; min-height: 70px; background: var(--panel-2); color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-family: inherit;
+    font-size: 14px; line-height: 1.45; resize: vertical; box-sizing: border-box; }
+  .notes-textarea:focus { outline: none; border-color: var(--accent-dim); background: rgba(31, 111, 235, 0.04); }
+  .notes-textarea::placeholder { color: var(--muted); }
+  .has-note .section-tag::after { content: " · 📝 noted"; color: var(--good); font-weight: 500; }
+  .resume-banner { background: rgba(63, 185, 80, 0.08); border: 1px solid var(--good); border-radius: 8px;
+    padding: 10px 14px; margin-bottom: 12px; font-size: 13px; color: var(--text);
+    display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .resume-banner button { flex: 0 0 auto; padding: 6px 12px; font-size: 12px; }
+  .backup-area { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px; margin-top: 16px; }
+  .backup-area h3 { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .backup-note { font-size: 12px; color: var(--muted); margin: 0 0 10px 0; }
+  .backup-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .analysis-cta { background: linear-gradient(135deg, rgba(63,185,80,0.10), rgba(63,185,80,0.04));
+    border: 1px solid rgba(63,185,80,0.5); border-radius: 8px;
+    padding: 16px; margin-top: 20px; }
+  .analysis-cta h3 { font-size: 13px; color: var(--good); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .analysis-note { font-size: 13px; color: var(--muted); margin: 0 0 12px 0; line-height: 1.55; }
+  .analysis-btn { display: block; width: 100%; box-sizing: border-box; text-align: center;
+    background: rgba(63,185,80,0.18); color: var(--good); border: 1px solid var(--good);
+    border-radius: 8px; padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer;
+    text-decoration: none; transition: background 0.15s ease; }
+  .analysis-btn:hover { background: rgba(63,185,80,0.32); }
+  .export-area { background: var(--panel); border: 1px solid var(--accent); border-radius: 8px;
+    padding: 14px; margin-top: 16px; }
+  .export-area h3 { font-size: 13px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .export-note { font-size: 12px; color: var(--muted); margin: 0 0 10px 0; }
+  .export-btn { width: 100%; background: var(--accent-dim); color: white; border: 1px solid var(--accent);
+    border-radius: 8px; padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer; }
+  .export-btn:hover:not(:disabled) { background: var(--accent); }
+  .stats { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; margin-top: 16px; font-size: 13px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; }
+  .stat-item { padding: 4px; }
+  .stat-num { font-size: 20px; font-weight: 600; display: block; margin-bottom: 2px; }
+  .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-confident-right { color: var(--good); }
+  .stat-guessed-right { color: var(--warn); }
+  .stat-wrong { color: var(--bad); }
+  .stat-skipped { color: var(--muted); }
+  .scoreboard { background: var(--panel); border: 1px solid var(--accent-dim); border-radius: 8px;
+    padding: 12px; margin-top: 16px; text-align: center; font-size: 14px; }
+  .scoreboard .big { font-size: 28px; font-weight: 700; color: var(--accent); display: block; }
+  .scoreboard small { color: var(--muted); }
+  .review-area { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--muted); }
+  .review-area h3 { font-size: 14px; margin: 0 0 8px 0; color: var(--text); }
+  .review-list { list-style: none; padding: 0; margin: 0; }
+  .review-list li { padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .review-list li:last-child { border-bottom: none; }
+  .review-tag { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 3px;
+    margin-right: 6px; font-weight: 600; }
+  .review-tag.guessed { background: rgba(240, 180, 41, 0.15); color: var(--warn); }
+  .review-tag.wrong { background: rgba(248, 81, 73, 0.15); color: var(--bad); }
+  .review-tag.flagged { background: rgba(240, 180, 41, 0.15); color: var(--warn); }
+  .review-list li.review-clickable { cursor: pointer; }
+  .review-list li.review-clickable:hover { background: rgba(88,166,255,0.05); }
+  .review-q { color: var(--text); display: block; margin: 3px 0; }
+  .review-ans { font-size: 12px; color: var(--muted); display: block; }
+  .review-ans .rv-picked { color: var(--bad); font-weight: 600; }
+  .review-ans .rv-correct { color: var(--good); font-weight: 600; }
+  .review-rule { font-size: 12px; color: var(--muted); display: block; margin-top: 2px; font-style: italic; }
+  .reset-btn { margin-top: 12px; width: 100%; color: var(--muted); font-size: 12px; }
+  .section-scores { margin-top: 16px; background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px; }
+  .section-scores h3 { font-size: 13px; margin: 0 0 10px 0; color: var(--text); text-transform: uppercase; letter-spacing: 0.5px; }
+  .section-score-row { display: flex; align-items: center; gap: 10px; padding: 6px 0;
+    font-size: 13px; border-bottom: 1px solid var(--border); }
+  .section-score-row:last-child { border-bottom: none; }
+  .section-score-name { flex: 0 0 130px; color: var(--muted); font-size: 12px; }
+  .section-score-bar { flex: 1; height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; display: flex; }
+  .section-score-bar > span { display: block; height: 100%; }
+  .ssr-right { background: var(--good); }
+  .ssr-guessed { background: var(--warn); }
+  .ssr-wrong { background: var(--bad); }
+  .ssr-skipped { background: transparent; }
+  .section-score-num { flex: 0 0 90px; text-align: right; color: var(--text);
+    font-size: 12px; font-variant-numeric: tabular-nums; }
+  @media (max-width: 400px) {
+    .section-score-name { flex-basis: 100px; font-size: 11px; }
+    .section-score-num { flex-basis: 70px; font-size: 11px; }
+    .question-text { font-size: 15px; }
+    .option { font-size: 14px; padding: 10px; }
+    .controls { grid-template-columns: 1fr 1fr; }
+  }
+  /* ---- mode toggle ---- */
+  .mode-toggle { display: flex; gap: 0; background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 4px; margin-bottom: 12px; }
+  .mode-btn { flex: 1; background: transparent; border: 0; border-radius: 6px; padding: 10px;
+    font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; }
+  .mode-btn.active { background: var(--accent-dim); color: #fff; }
+  .mode-hint { font-size: 11px; color: var(--muted); text-align: center; margin: -4px 0 14px 0; }
+  /* ---- exam bar / timer ---- */
+  .exam-bar { position: sticky; top: 0; z-index: 50; background: var(--panel);
+    border: 1px solid var(--accent-dim); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35); }
+  .exam-timer { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--accent); letter-spacing: 1px; }
+  .exam-timer.warn { color: var(--warn); }
+  .exam-timer.danger { color: var(--bad); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
+  .exam-meta { font-size: 11px; color: var(--muted); }
+  .exam-finish-btn { flex: 0 0 auto; background: rgba(63,185,80,0.18); color: var(--good);
+    border: 1px solid var(--good); border-radius: 8px; padding: 9px 14px; font-size: 13px; font-weight: 600; }
+  .exam-finish-btn:hover { background: rgba(63,185,80,0.32); }
+  .exam-intro { background: var(--panel); border: 1px solid var(--accent-dim); border-radius: 10px;
+    padding: 16px; margin-bottom: 14px; }
+  .exam-intro h3 { margin: 0 0 6px 0; font-size: 14px; color: var(--accent); }
+  .exam-intro p { margin: 0 0 12px 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .exam-start-btn { width: 100%; background: var(--accent-dim); color: #fff; border: 1px solid var(--accent);
+    border-radius: 8px; padding: 13px; font-size: 15px; font-weight: 600; }
+  /* ---- flag + secondary controls ---- */
+  .secondary-controls { display: flex; gap: 8px; margin-top: 8px; }
+  .flag-btn { flex: 1; font-size: 13px; }
+  .flag-btn.flagged { border-color: var(--warn); color: var(--warn); background: rgba(240,180,41,0.08); }
+  .has-flag .section-tag::before { content: "🚩 "; }
+  /* ---- redo bar ---- */
+  .redo-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .redo-btn { flex: 1; min-width: 130px; font-size: 13px; }
+  .redo-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(88,166,255,0.08); }
+  .redo-clear { flex: 0 0 auto; color: var(--muted); font-size: 12px; }
+  /* ---- exam question navigator ---- */
+  .nav-grid-wrap { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; margin-bottom: 14px; }
+  .nav-grid-wrap h3 { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .nav-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(30px, 1fr)); gap: 5px; }
+  .nav-cell { aspect-ratio: 1; border: 1px solid var(--border); border-radius: 5px; background: var(--panel-2);
+    color: var(--muted); font-size: 11px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .nav-cell.answered { background: rgba(88,166,255,0.18); color: var(--accent); border-color: var(--accent-dim); }
+  .nav-cell.flagged { border-color: var(--warn); box-shadow: inset 0 0 0 1px var(--warn); }
+  .nav-cell.current { outline: 2px solid var(--accent); outline-offset: 1px; color: #fff; }
+  .nav-cell.correct { background: rgba(63,185,80,0.2); color: var(--good); border-color: var(--good); }
+  .nav-cell.wrong { background: rgba(248,81,73,0.2); color: var(--bad); border-color: var(--bad); }
+  /* ---- attempt history ---- */
+  .attempt-history { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px; margin-top: 16px; }
+  .attempt-history h3 { font-size: 13px; margin: 0 0 4px 0; color: var(--text); text-transform: uppercase; letter-spacing: 0.5px; }
+  .attempt-history .ah-note { font-size: 12px; color: var(--muted); margin: 0 0 12px 0; }
+  .ah-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .ah-row:last-child { border-bottom: none; }
+  .ah-when { flex: 0 0 92px; color: var(--muted); font-size: 11px; }
+  .ah-track { flex: 1; height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; }
+  .ah-fill { height: 100%; background: var(--accent); }
+  .ah-fill.up { background: var(--good); }
+  .ah-fill.down { background: var(--bad); }
+  .ah-score { flex: 0 0 96px; text-align: right; font-variant-numeric: tabular-nums; }
+  .ah-delta { font-size: 11px; margin-left: 6px; }
+  .ah-delta.up { color: var(--good); } .ah-delta.down { color: var(--bad); }
+  .ah-empty { font-size: 12px; color: var(--muted); }
+  footer { text-align: center; font-size: 10px; color: var(--muted); padding: 24px 0 8px 0; }
+</style>
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+</head>
+<body>
+<div class="app">
+  <nav><a href="../../">← Dashboard</a> <a href="../../tests/">Tests</a> <a href="../../results/">My Results</a> <a href="../../notes/">Notes</a> <a href="../../plan/">Plan</a></nav>
+  <header>
+    <h1>RML 2024 PYQ Mock (Verbatim Paper)</h1>
+    <div class="subtitle">100 verbatim Qs · ABVIMS / Dr RML Hospital, Delhi · M.Phil Clinical Psych 2024 (CET-157) · untimed Practice by default · +1 / −0.25 / 0 blank</div>
+    <div class="blueprint">All 100 questions from the 2024 RML / ABVIMS (Dr RML Hospital) M.Phil Clinical Psychology entrance, verbatim, with the paper's official answer key (the source marks each correct option in bold). No synthesised questions, no synthesised distractors. This is the M.Phil (CET-157) paper, the best real depth-calibration available for the RML MA route, pulled straight from your <a href="../../resources/" style="color:inherit;">Drive library</a>. Default mode is untimed Practice (instant reveal + explanation per question); flip to Exam mode for a timed run. One item (Q51, "arbitrary zero") keeps the paper's official key but is flagged in its explanation where that key is academically disputed.</div>
+  </header>
+
+  <div class="filters">
+    <label for="sectionSelect">Section</label>
+    <select id="sectionSelect">
+      <option value="all">All 100 questions</option>
+      <option value="general">General / Cognitive (38)</option>
+      <option value="biopsych">Neuropsych / Biopsych (18)</option>
+      <option value="abnormal">Abnormal / Psychopathology (14)</option>
+      <option value="therapy">Psychotherapy (13)</option>
+      <option value="biostats">Biostats / Research (6)</option>
+      <option value="assessment">Psychological Assessment (6)</option>
+      <option value="dev">Developmental (3)</option>
+      <option value="social">Social Psychology (2)</option>
+    </select>
+  </div>
+
+  <div class="mode-toggle">
+    <button class="mode-btn" data-action="setMode" data-mode="practice">📚 Practice</button>
+    <button class="mode-btn" data-action="setMode" data-mode="exam">⏱️ Exam mode</button>
+  </div>
+  <div class="mode-hint" id="modeHint"></div>
+
+  <div id="examIntro" class="exam-intro" style="display:none;"></div>
+  <div id="examBar" class="exam-bar" style="display:none;"></div>
+
+  <div id="redoBar" class="redo-bar" style="display:none;"></div>
+
+  <div id="resumeBanner" class="resume-banner" style="display:none;"></div>
+
+  <div class="progress" id="progress">0 / 0</div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div id="quizArea"></div>
+
+  <div id="navGridWrap" class="nav-grid-wrap" style="display:none;">
+    <h3>Jump to question <span id="navGridLegend" style="text-transform:none;letter-spacing:0;"></span></h3>
+    <div class="nav-grid" id="navGrid"></div>
+  </div>
+
+  <div class="scoreboard" id="scoreboard"></div>
+
+  <div class="stats" id="stats">
+    <div class="stat-item"><span class="stat-num stat-confident-right" id="statRight">0</span><span class="stat-label">Right (Solid)</span></div>
+    <div class="stat-item"><span class="stat-num stat-guessed-right" id="statGuessed">0</span><span class="stat-label">Right (Guessed)</span></div>
+    <div class="stat-item"><span class="stat-num stat-wrong" id="statWrong">0</span><span class="stat-label">Wrong</span></div>
+    <div class="stat-item"><span class="stat-num stat-skipped" id="statSkipped">0</span><span class="stat-label">Skipped</span></div>
+  </div>
+
+  <div class="section-scores">
+    <h3>Per-section breakdown</h3>
+    <div id="sectionScores"></div>
+  </div>
+
+  <div class="attempt-history" id="attemptHistory">
+    <h3>📈 Attempt history</h3>
+    <p class="ah-note">Every time you finish an exam-mode run, the score lands here so you can watch it climb.</p>
+    <div id="attemptHistoryList"></div>
+  </div>
+
+  <div class="review-area" id="reviewArea" style="display:none;">
+    <h3>Things to come back to</h3>
+    <ul class="review-list" id="reviewList"></ul>
+    <button class="reset-btn" data-action="reset">Reset all stats and start over</button>
+  </div>
+
+  <div class="analysis-cta">
+    <h3>📊 Full analysis</h3>
+    <p class="analysis-note">Score + estimated band, section-wise R/W/Skip with miss-rate, top-3 weakest topics linked to the exact cheatsheets, and per-question review with every distractor flagged and explained. Reads your saved answers from this browser.</p>
+    <a class="analysis-btn" href="../../results/analysis/?mock=rml-2024">Open full analysis →</a>
+  </div>
+
+  <div class="export-area">
+    <h3>📤 Send results to Sahil</h3>
+    <p class="export-note">Tap to copy a readable export of your score, section breakdown, every wrong/guessed question, and your notes. Paste it to Sahil on WhatsApp for analysis.</p>
+    <button class="export-btn" data-action="exportForAnalysis">Copy results for analysis</button>
+  </div>
+
+  <div class="backup-area">
+    <h3>Backup / restore</h3>
+    <p class="backup-note">Backup RML 2024 PYQ Mock progress separately. Paste a previous code to restore.</p>
+    <div class="backup-controls">
+      <button data-action="exportProgress">Copy backup code</button>
+      <button data-action="importProgress">Restore from code</button>
+    </div>
+  </div>
+
+  <footer>RML 2024 PYQ Mock · ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2024 (CET-157) · 100 verbatim Qs · real options + official answer key · independent state.</footer>
+</div>
+
+<script>
+// =====================================================================
+// QUESTION BANK — RML 2024 PYQ Mock, ABVIMS / Dr RML Hospital, Delhi
+// M.Phil Clinical Psychology entrance 2024 (CET-157). All 100 questions:
+// every stem and all four options are VERBATIM from the paper PDF; every
+// answer is the paper's OFFICIAL key (the source marks the correct option
+// in bold, extracted programmatically). No synthesised distractors.
+// Explanations authored. Q51 ("arbitrary zero") keeps the paper's official
+// key but its explanation flags that the conventional answer is interval.
+// =====================================================================
+const QUESTIONS = [
+  { id: "rml24_001", section: "general",
+    q: "Dark adaptation is the process in which the eyes get more sensitive to:",
+    options: { a: "Green light", b: "Coloured lights", c: "Light with bright illumination", d: "Light with low illumination" },
+    correct: "d",
+    explanation: "Dark adaptation is the eye becoming more sensitive in dim conditions, the rods take over so you can see in low illumination." },
+  { id: "rml24_002", section: "therapy",
+    q: "Any distorting or selective effect of a person’s inner world on his perception or conception of the outer world is termed:",
+    options: { a: "Projection", b: "Introjection", c: "Empathy", d: "Denial" },
+    correct: "d",
+    explanation: "Denial is refusing to accept reality, the inner world distorts how the outer world is perceived or conceived." },
+  { id: "rml24_003", section: "general",
+    q: "The phenomenon that is nearly opposite of habituation is termed:",
+    options: { a: "Sensitisation", b: "Stabilization", c: "Inhabitation", d: "Habitation" },
+    correct: "a",
+    explanation: "Sensitisation is the opposite of habituation: instead of responding less to a repeated stimulus, the response grows stronger." },
+  { id: "rml24_004", section: "social",
+    q: "The process of changing your behaviour to match that of others in a group is termed:",
+    options: { a: "Norming", b: "Conformity", c: "Standardization", d: "Forming a social contact" },
+    correct: "b",
+    explanation: "Conformity is changing your own behaviour to match the group. (Norming/forming are Tuckman's group stages, not the behaviour change itself.)" },
+  { id: "rml24_005", section: "biostats",
+    q: "Reliable difference between two groups can be obtained by using:",
+    options: { a: "Norms", b: "Validity", c: "Reliability", d: "Statistical test" },
+    correct: "d",
+    explanation: "Only a statistical test tells you whether a difference between two groups is reliable (not due to chance). Norms/validity/reliability are test properties, not the comparison." },
+  { id: "rml24_006", section: "general",
+    q: "Which is the smallest unit of meaning in speech perception?",
+    options: { a: "Syllables", b: "Consonant", c: "Phonemes", d: "Morphemes" },
+    correct: "d",
+    explanation: "A morpheme is the smallest unit that carries meaning. A phoneme is the smallest unit of sound, not meaning." },
+  { id: "rml24_007", section: "general",
+    q: "The first-grade teacher gives students stickers when they perform well. If they earn five stickers in one day they are exempt from homework. The stickers in this example could also be called:",
+    options: { a: "Primary reinforcer", b: "Token", c: "Generalized reinforcer", d: "Prepotent responses" },
+    correct: "b",
+    explanation: "A token is a secondary reinforcer that can be exchanged for a backup reward (here, exemption from homework), the basis of token economies." },
+  { id: "rml24_008", section: "general",
+    q: "The concept of “Self-reference effect” was founded by:",
+    options: { a: "Craik and Lockhart", b: "Posner", c: "Paivio", d: "Rogers and Kuiper" },
+    correct: "d",
+    explanation: "The self-reference effect (better memory for self-related material) is credited to Rogers, Kuiper and Kirker (1977)." },
+  { id: "rml24_009", section: "therapy",
+    q: "The concept of the “collective unconscious” was given by:",
+    options: { a: "Sigmund Freud", b: "Alfred Adler", c: "Carl Jung", d: "Karen Horney" },
+    correct: "c",
+    explanation: "The collective unconscious, the inherited layer of universal archetypes, is Carl Jung's concept." },
+  { id: "rml24_010", section: "biopsych",
+    q: "Narendra turns around and around in a circle. When he stops, he feels like his head is spinning. What is responsible for this sensation?",
+    options: { a: "Semi circular canals", b: "Proprioceptors", c: "Otolith organs", d: "Otolith crystals" },
+    correct: "a",
+    explanation: "The semicircular canals of the inner ear sense rotational/angular acceleration, so they keep firing after you stop spinning, hence the dizziness." },
+  { id: "rml24_011", section: "therapy",
+    q: "The concept of inferiority complex – superiority drive was given by:",
+    options: { a: "Carl Jung", b: "Victor Frankl", c: "Alfred Adler", d: "Erik Erikson" },
+    correct: "c",
+    explanation: "Alfred Adler's individual psychology centres on the inferiority complex and the compensatory striving for superiority." },
+  { id: "rml24_012", section: "general",
+    q: "During insight learning there is the sudden realization of the solution to a problem. This is known as the:",
+    options: { a: "‘aha’ experience", b: "Light bulb", c: "Momentary", d: "Learning" },
+    correct: "a",
+    explanation: "Kohler's insight learning is marked by the sudden 'aha' experience, the solution appearing all at once." },
+  { id: "rml24_013", section: "abnormal",
+    q: "The term ‘Ambivalence’ was coined by:",
+    options: { a: "Kraepelin", b: "Eugen Bleuler", c: "Richmond Fromm", d: "Sigmund Freud" },
+    correct: "b",
+    explanation: "Eugen Bleuler coined 'ambivalence' (and 'schizophrenia', 'autism'), the four A's." },
+  { id: "rml24_014", section: "abnormal",
+    q: "Delusion of infidelity on part of the sexual partner is known as:",
+    options: { a: "Ekbom’s Syndrome", b: "Othello syndrome", c: "de clérambault’s syndrome", d: "Couvade syndrome" },
+    correct: "b",
+    explanation: "Othello syndrome is the delusion of infidelity, a fixed false belief that the partner is unfaithful." },
+  { id: "rml24_015", section: "general",
+    q: "Highway engineers sometimes paint stripes on freeway off-ramps to enhance the perception of depth. This uses the cue of:",
+    options: { a: "Aerial perspective", b: "Parallax", c: "Overlap", d: "Texture gradients" },
+    correct: "d",
+    explanation: "Texture gradient is a monocular depth cue: texture appears denser and finer with distance, painted stripes exploit this." },
+  { id: "rml24_016", section: "therapy",
+    q: "A woman harassed by her boss at work, initiates an argument with her husband. She is using which of the following ego’s defense mechanisms:",
+    options: { a: "Projection", b: "Identification", c: "Sublimation", d: "Displacement" },
+    correct: "d",
+    explanation: "Displacement redirects an impulse from a threatening target (the boss) to a safer one (the husband)." },
+  { id: "rml24_017", section: "assessment",
+    q: "The improvement in anxiety may sometimes spuriously improve depression. This is called:",
+    options: { a: "Halo effect", b: "Ceiling effect", c: "Hawthorne effect", d: "Therapeutic effect" },
+    correct: "a",
+    explanation: "The halo effect is when a rating on one trait spuriously colours the rating of another, anxiety improving 'drags' the depression rating with it." },
+  { id: "rml24_018", section: "abnormal",
+    q: "Which of the following disorder is a common cause of pseudodementia?",
+    options: { a: "Schizophrenia", b: "Mania", c: "Depression", d: "Hypochondriasis" },
+    correct: "c",
+    explanation: "Depressive pseudodementia mimics dementia (poor memory/concentration) but is caused by depression and is reversible with treatment." },
+  { id: "rml24_019", section: "therapy",
+    q: "In paranoia, the ego’s defense mechanism as given by Melaine Klein is seen as:",
+    options: { a: "Reaction formation", b: "Splitting", c: "Suppression", d: "Projection" },
+    correct: "b",
+    explanation: "Melanie Klein saw splitting (all-good vs all-bad) as the core defence of the paranoid-schizoid position." },
+  { id: "rml24_020", section: "general",
+    q: "The tendency to complete a figure is called:",
+    options: { a: "Continuation", b: "Continuity", c: "Closure", d: "Similarity" },
+    correct: "c",
+    explanation: "Closure is the Gestalt tendency to perceive an incomplete figure as whole by filling in the gaps." },
+  { id: "rml24_021", section: "abnormal",
+    q: "Which of the following is NOT a Schneider’s first-rank symptom?",
+    options: { a: "Auditory hallucination", b: "Delusional perception", c: "Passivity phenomenon", d: "Delusion of self-reference" },
+    correct: "d",
+    explanation: "Schneider's first-rank symptoms include audible thoughts, passivity and delusional perception. Delusion of self-reference is NOT first-rank." },
+  { id: "rml24_022", section: "general",
+    q: "The Yerkes-Dodson law states that between performance and anxiety, there is:",
+    options: { a: "Inverted-U shaped relationship", b: "Curvilinear relationship", c: "Linear relationship", d: "M-shaped relationship" },
+    correct: "a",
+    explanation: "The Yerkes-Dodson law describes an inverted-U: performance rises with arousal/anxiety up to a point, then falls." },
+  { id: "rml24_023", section: "therapy",
+    q: "The following defense mechanisms are used in obsessive-compulsive disorder:",
+    options: { a: "Isolation", b: "Undoing", c: "Reaction formation", d: "Displacement" },
+    correct: "b",
+    explanation: "Undoing (a ritual act to cancel an unacceptable thought) is the classic OCD defence; isolation and reaction formation also occur but undoing is the keyed answer." },
+  { id: "rml24_024", section: "general",
+    q: "A toddler goes to great lengths to open a box. She knows there is nothing in the box. This is an example of:",
+    options: { a: "Intrinsic motivation", b: "Homeostasis", c: "Extrinsic motivation", d: "Secondary motivation" },
+    correct: "a",
+    explanation: "Intrinsic motivation is doing something for its own sake (curiosity), with no external reward, the empty box still draws her." },
+  { id: "rml24_025", section: "abnormal",
+    q: "The term ‘la Bella indifference’ seen in hysteria was first used by:",
+    options: { a: "Sigmund Freud", b: "Anna Freud", c: "Pierre Janet", d: "Hippocrates" },
+    correct: "c",
+    explanation: "'La belle indifference', the bland lack of concern about a serious symptom, was described by Pierre Janet." },
+  { id: "rml24_026", section: "general",
+    q: "A child has learned to avoid a furry, black cat. However, she still plays with her grandmother’s short-haired tabby. Her response demonstrates:",
+    options: { a: "Discrimination", b: "Extinction", c: "Successive approximation", d: "Negative transfer" },
+    correct: "a",
+    explanation: "Discrimination: she responds to the original feared stimulus (black furry cat) but not to a sufficiently different one (the tabby)." },
+  { id: "rml24_027", section: "abnormal",
+    q: "In hysterical dissociative states, all of the following are seen EXCEPT:",
+    options: { a: "Multiple personality", b: "Fugue", c: "Amnesia", d: "Déjà vu" },
+    correct: "d",
+    explanation: "Dissociative (hysterical) states include amnesia, fugue and multiple personality. Deja vu is a normal/other phenomenon, the EXCEPT." },
+  { id: "rml24_028", section: "abnormal",
+    q: "Which of the following psychiatric illness is most common after cardiac surgery?",
+    options: { a: "Schizophrenia", b: "Delirium", c: "Anxiety", d: "Depression" },
+    correct: "b",
+    explanation: "Post-cardiotomy delirium is the most common psychiatric complication after cardiac surgery." },
+  { id: "rml24_029", section: "general",
+    q: "The density of stones increases as we look farther away. This phenomenon is due to?",
+    options: { a: "Convergence", b: "Aerial perspective", c: "Interposition", d: "Texture gradient" },
+    correct: "d",
+    explanation: "As stones get denser/finer with distance, that is texture gradient (a monocular depth cue)." },
+  { id: "rml24_030", section: "biopsych",
+    q: "The neurotransmitters called feel-good hormones are known as:",
+    options: { a: "Dopamine", b: "Endorphins", c: "GABA", d: "Acetylcholine" },
+    correct: "b",
+    explanation: "Endorphins are the body's own opioids, the 'feel-good' neurotransmitters released during exercise, pain and pleasure." },
+  { id: "rml24_031", section: "dev",
+    q: "In the case of human development, the strongest evidence for the critical period hypothesis is found in:",
+    options: { a: "Imprinting", b: "Language acquisition", c: "Embryonic development", d: "Development of vocational interests" },
+    correct: "a",
+    explanation: "Imprinting (Lorenz) is the strongest evidence for a critical period, it must occur within a narrow window or not at all." },
+  { id: "rml24_032", section: "general",
+    q: "The process of getting adjusted to different intensities of light is called:",
+    options: { a: "Visual adaptation", b: "Visual assimilation", c: "Visual accommodation", d: "Visual sensation" },
+    correct: "a",
+    explanation: "Visual adaptation is adjusting to changing light intensities (light and dark adaptation). Accommodation is lens focusing, a different process." },
+  { id: "rml24_033", section: "therapy",
+    q: "Distress tolerance is a major treatment modality in which of the following therapy?",
+    options: { a: "Behaviour therapy", b: "Dialectical Behaviour therapy", c: "Cognitive Behaviour Therapy", d: "Psychodynamic therapy" },
+    correct: "b",
+    explanation: "Distress tolerance is one of the four core skill modules of Dialectical Behaviour Therapy (with mindfulness, emotion regulation, interpersonal effectiveness)." },
+  { id: "rml24_034", section: "general",
+    q: "What is the relationship between frequency and wavelength?",
+    options: { a: "Direct", b: "Collateral", c: "Bilateral", d: "Inverse" },
+    correct: "d",
+    explanation: "Frequency and wavelength are inversely related: higher frequency means shorter wavelength (their product is the wave's speed)." },
+  { id: "rml24_035", section: "general",
+    q: "Who developed the concept of ‘magic number’?",
+    options: { a: "Heinz", b: "Ebbinghaus", c: "Triesman", d: "Miller" },
+    correct: "d",
+    explanation: "George Miller's 'magic number seven, plus or minus two' set the classic span of short-term memory." },
+  { id: "rml24_036", section: "general",
+    q: "Primacy-recency effect was first observed by whom?",
+    options: { a: "McCray and Hunter", b: "Ebbinghaus", c: "Craik and Lockhart", d: "Baddeley and Hitch" },
+    correct: "a",
+    explanation: "The official key credits McCrary and Hunter for first observing the primacy-recency (serial position) effect. (The effect is most often associated with Ebbinghaus.)" },
+  { id: "rml24_037", section: "general",
+    q: "Air traffic controllers and radar readers provide us with a good example of which of the following phenomenon?",
+    options: { a: "Selective attention", b: "Sustained attention", c: "Divided attention", d: "Perceptual attention" },
+    correct: "b",
+    explanation: "Watching a radar screen for rare signals over long periods is sustained attention (vigilance)." },
+  { id: "rml24_038", section: "biopsych",
+    q: "Papillae is responsible for which sensory function?",
+    options: { a: "Smell", b: "Touch", c: "Taste", d: "Vision" },
+    correct: "c",
+    explanation: "The papillae on the tongue house the taste buds, so they serve taste (gustation)." },
+  { id: "rml24_039", section: "general",
+    q: "Who developed the Decay theory?",
+    options: { a: "Ebbinghaus", b: "Thorndike", c: "Tulving", d: "Melton and Irwin" },
+    correct: "b",
+    explanation: "The official key attributes decay (trace) theory to Thorndike, forgetting from disuse of the memory trace over time." },
+  { id: "rml24_040", section: "biopsych",
+    q: "What is the key brain structure that is often damaged in patients with anterograde amnesia?",
+    options: { a: "Hippocampus", b: "Cerebral cortex", c: "Amygdala", d: "Hypothalamus" },
+    correct: "a",
+    explanation: "The hippocampus is essential for forming new long-term memories; damage to it causes anterograde amnesia." },
+  { id: "rml24_041", section: "general",
+    q: "An English-speaking person may have greater difficulty learning Spanish because of his or her tendency to wish to apply English grammar to the new language. This occurs due to which of the following phenomenon?",
+    options: { a: "Proactive reference", b: "Retroactive reference", c: "Trace decay", d: "Retrieval failure" },
+    correct: "b",
+    explanation: "Proactive interference: old learning (English grammar) disrupts new learning (Spanish). 'Pro' = forward-acting." },
+  { id: "rml24_042", section: "biopsych",
+    q: "Which of the four lobes of the brain is responsible for interpreting sensory information?",
+    options: { a: "Frontal lobe", b: "Occipital lobe", c: "Parietal lobe", d: "Temporal lobe" },
+    correct: "c",
+    explanation: "The parietal lobe integrates and interprets somatosensory information (touch, spatial sense)." },
+  { id: "rml24_043", section: "abnormal",
+    q: "Which illness is known as the common cold of psychiatry?",
+    options: { a: "Schizophrenia", b: "Depression", c: "Obsessive-compulsive disorder", d: "Hysteria" },
+    correct: "b",
+    explanation: "Depression is so prevalent it is called the 'common cold of psychiatry'." },
+  { id: "rml24_044", section: "general",
+    q: "Why the number plates given for motorbikes or cars carry only 4 digit numbers coupled with some alphabets?",
+    options: { a: "Selected attention", b: "Span of attention", c: "Divided attention", d: "Sustained attention" },
+    correct: "b",
+    explanation: "Span of attention is how many items can be grasped in a single brief exposure; plates keep digits within that span." },
+  { id: "rml24_045", section: "biopsych",
+    q: "Human ear responds to frequencies between the range of",
+    options: { a: "20 to 20000 HZ", b: "20 to 2000 HZ", c: "20 to 200 HZ", d: "200 to 20000 HZ" },
+    correct: "a",
+    explanation: "The healthy human ear responds roughly to 20 to 20,000 Hz." },
+  { id: "rml24_046", section: "general",
+    q: "The tip of the tongue phenomenon appears to be caused by a problem in:",
+    options: { a: "Retrieval", b: "Engrams", c: "Storage", d: "Repression" },
+    correct: "a",
+    explanation: "The tip-of-the-tongue state is a retrieval failure, the memory is stored but momentarily inaccessible." },
+  { id: "rml24_047", section: "dev",
+    q: "Lack of bowel control in children is known as:",
+    options: { a: "Encopresis", b: "Analism", c: "Enuresis", d: "Anorexia" },
+    correct: "a",
+    explanation: "Encopresis is repeated passing of faeces in inappropriate places (lack of bowel control); enuresis is the urinary equivalent." },
+  { id: "rml24_048", section: "general",
+    q: "In PQRST method, a method of enhancing memory, what does the alphabet ‘S’ stand for?",
+    options: { a: "Storing", b: "Self-recitation", c: "Sequencing", d: "Semantics" },
+    correct: "b",
+    explanation: "In the PQRST study method (Preview, Question, Read, Self-recitation, Test), 'S' stands for Self-recitation." },
+  { id: "rml24_049", section: "therapy",
+    q: "Deepika is unable to gain threatening or anxiety-provoking material into her access to conscious awareness. This phenomenon occurs due to____________________.",
+    options: { a: "Suppression", b: "Repression", c: "Depression", d: "Denial" },
+    correct: "b",
+    explanation: "Repression is the unconscious blocking of threatening material from awareness (suppression is its conscious counterpart)." },
+  { id: "rml24_050", section: "general",
+    q: "Who developed the Filter-attenuation theory?",
+    options: { a: "Broadbent", b: "Triesman", c: "Johnston", d: "Heinz" },
+    correct: "b",
+    explanation: "Anne Treisman's attenuation theory modified Broadbent's filter: unattended channels are turned down, not fully blocked." },
+  { id: "rml24_051", section: "biostats",
+    q: "Arbitrary zero is the characteristic of which scale?",
+    options: { a: "Ratio scale", b: "Ordinal scale", c: "Interval scale", d: "Nominal scale" },
+    correct: "a",
+    explanation: "Official key: ratio scale. Note: by the standard textbook definition an ARBITRARY (non-true) zero is the hallmark of the INTERVAL scale (e.g. Celsius); the ratio scale has a true/absolute zero. Flag this one, the conventional answer is interval." },
+  { id: "rml24_052", section: "biopsych",
+    q: "Which of the following act as receptor(s) for scotopic vision?",
+    options: { a: "Retina", b: "Cones", c: "Iris", d: "Rods" },
+    correct: "d",
+    explanation: "Rods are the photoreceptors for scotopic (low-light, night) vision; cones handle photopic/colour vision." },
+  { id: "rml24_053", section: "general",
+    q: "The rail tracks appear to be converging to all of u is an example of:",
+    options: { a: "Permanent illusion", b: "Personal illusion", c: "Visual illusion", d: "Muller-Lyer illusion" },
+    correct: "a",
+    explanation: "Converging rail tracks are a visual illusion produced by linear-perspective depth cues on a flat retinal image." },
+  { id: "rml24_054", section: "therapy",
+    q: "The ‘start-stop technique’ and the ‘squeeze technique’ is useful in the treatment of:",
+    options: { a: "Male erectile disorder", b: "Premature ejaculation", c: "Inhibited male orgasm", d: "Vaginismus" },
+    correct: "b",
+    explanation: "The stop-start (Semans) and squeeze (Masters & Johnson) techniques are behavioural treatments for premature ejaculation." },
+  { id: "rml24_055", section: "abnormal",
+    q: "Premature ejaculation is most commonly associated with:",
+    options: { a: "Diabetes mellitus", b: "Masturbation", c: "Personality disorder", d: "Anxiety state" },
+    correct: "d",
+    explanation: "Premature ejaculation is most commonly linked to anxiety/performance anxiety rather than an organic cause." },
+  { id: "rml24_056", section: "biostats",
+    q: "The research findings indicate that job satisfaction and performance usually have:",
+    options: { a: "Weak negative correlation", b: "No correlation", c: "Weak positive correlation", d: "Strong positive correlation" },
+    correct: "c",
+    explanation: "Job satisfaction and performance show only a weak positive correlation in the research literature, satisfied workers are slightly, not strongly, more productive." },
+  { id: "rml24_057", section: "biopsych",
+    q: "Following a stroke, a person has difficulty in recognizing faces. This condition is called:",
+    options: { a: "Aphasia", b: "Agnosia", c: "Apraxia", d: "Ataxia" },
+    correct: "b",
+    explanation: "Inability to recognise faces after a stroke is (prosop)agnosia, a failure of recognition despite intact sensation." },
+  { id: "rml24_058", section: "dev",
+    q: "Who gave the important concept of ‘identity crisis’ in adolescents?",
+    options: { a: "Bowlby", b: "Melanie Klein", c: "Eric Erikson", d: "Eric Berne" },
+    correct: "c",
+    explanation: "Erik Erikson described the 'identity vs role confusion' crisis of adolescence, the identity crisis." },
+  { id: "rml24_059", section: "therapy",
+    q: "The treatment of choice for Adjustment disorder is:",
+    options: { a: "Psychoanalytic psychotherapy", b: "Group psychotherapy", c: "Cognitive behaviour therapy", d: "Crisis intervention" },
+    correct: "d",
+    explanation: "Crisis intervention is the treatment of choice for adjustment disorder, brief, problem-focused support around the stressor." },
+  { id: "rml24_060", section: "general",
+    q: "Which of the following would be considered an acute stressor?",
+    options: { a: "A pop quiz", b: "HIV disease", c: "Marital discord", d: "Colon cancer" },
+    correct: "a",
+    explanation: "A pop quiz is an acute (brief, time-limited) stressor; HIV, marital discord and cancer are chronic stressors." },
+  { id: "rml24_061", section: "abnormal",
+    q: "The term ‘kleptomania’ was given by:",
+    options: { a: "Marc", b: "Bleuler", c: "Munro", d: "Morselli" },
+    correct: "a",
+    explanation: "The term 'kleptomania' is attributed to Marc (C.C. Marc), the irresistible impulse to steal." },
+  { id: "rml24_062", section: "abnormal",
+    q: "Hypnagogic hallucinations most commonly occur in:",
+    options: { a: "Schizophrenia", b: "Delirium", c: "Drug dependence", d: "Normal" },
+    correct: "d",
+    explanation: "Hypnagogic hallucinations (on falling asleep) and hypnopompic ones (on waking) occur in normal people." },
+  { id: "rml24_063", section: "general",
+    q: "The tendency to assume that we would have been better at predicting actual events than is really true is termed as:",
+    options: { a: "Hindsight effect", b: "Just world hypothesis", c: "Decisiveness", d: "Confirmation" },
+    correct: "a",
+    explanation: "Hindsight bias ('I knew it all along') is the tendency to overestimate how well you could have predicted an outcome after it happens." },
+  { id: "rml24_064", section: "biopsych",
+    q: "In a typical major sleep period, how many cycles of NREM-REM is there:",
+    options: { a: "2-4", b: "4-6", c: "6-10", d: "10-12" },
+    correct: "b",
+    explanation: "A normal night's sleep cycles through NREM-REM about 4 to 6 times." },
+  { id: "rml24_065", section: "biostats",
+    q: "Parameter is characteristic of:",
+    options: { a: "The sample", b: "The population", c: "An individual", d: "A test" },
+    correct: "b",
+    explanation: "A parameter is a numerical characteristic of the whole population; the matching sample value is a statistic." },
+  { id: "rml24_066", section: "general",
+    q: "A student is afraid of a sports ground in which he has lost a game. It is an example of:",
+    options: { a: "Inhibition", b: "Cognitive learning", c: "Classical conditioning", d: "Social learning" },
+    correct: "c",
+    explanation: "A previously neutral place paired with a bad outcome now triggers fear, that's classical (Pavlovian) conditioning." },
+  { id: "rml24_067", section: "general",
+    q: "In an experiment the stimuli were presented to the subjects in certain order and after the presentation of stimuli their order was disturbed. In the test phase the subjects were needed to set them in the presented order. Which of the following methods was used in this experiment?",
+    options: { a: "Reconstruction", b: "Relearning", c: "Recognition", d: "Recall" },
+    correct: "a",
+    explanation: "Asking subjects to restore the original order of presented items is the reconstruction method of measuring retention." },
+  { id: "rml24_068", section: "general",
+    q: "Habit weakening through the elimination of any reward is called:",
+    options: { a: "Negative reinforcement", b: "Extinction", c: "Reciprocal inhibition", d: "Flooding" },
+    correct: "b",
+    explanation: "Extinction is the weakening of a learned response when reinforcement is withdrawn." },
+  { id: "rml24_069", section: "assessment",
+    q: "‘Scales’ and ‘Inventories’ are usually:",
+    options: { a: "Subjective", b: "Objective", c: "Projective", d: "Introjective" },
+    correct: "b",
+    explanation: "Scales and inventories are objective tests, fixed items and standardized scoring, unlike projective tests." },
+  { id: "rml24_070", section: "general",
+    q: "A rule-of-thumb that allows for an efficient search for the selection of a problem is termed as",
+    options: { a: "Algorithm", b: "Education", c: "Learning", d: "Heuristic" },
+    correct: "d",
+    explanation: "A heuristic is a rule-of-thumb shortcut for efficient (not guaranteed) problem solving; an algorithm guarantees a solution but is slower." },
+  { id: "rml24_071", section: "general",
+    q: "In order, starting from the first stage, what are the stages of the general adaption syndrome",
+    options: { a: "Resistance, alarm, exhaustion", b: "Alarm, resistance, exhaustion", c: "Resistance, illness, alarm,", d: "Alarm, exhaustion, illness" },
+    correct: "b",
+    explanation: "Selye's General Adaptation Syndrome runs alarm, then resistance, then exhaustion." },
+  { id: "rml24_072", section: "therapy",
+    q: "A teacher in his class sees two students bored, feels his class is not liked by all the students is which type of cognitive error:",
+    options: { a: "Arbitrary inference", b: "Selective attention", c: "Over generalization", d: "Magnification" },
+    correct: "b",
+    explanation: "Reading two bored students as 'the whole class dislikes me' is selective abstraction/attention, judging the whole from one detail." },
+  { id: "rml24_073", section: "abnormal",
+    q: "Following are negative features of schizophrenia except:",
+    options: { a: "Avolition", b: "Alogia", c: "Ambivalence", d: "Affective blunting" },
+    correct: "c",
+    explanation: "Negative symptoms of schizophrenia include avolition, alogia and affective blunting. Ambivalence is not a negative symptom, the EXCEPT." },
+  { id: "rml24_074", section: "general",
+    q: "Which of the following factor is most directly linked to a higher risk for coronary heart disease?",
+    options: { a: "Type A personality", b: "Type B personality", c: "Hostility", d: "Self-efficacy" },
+    correct: "a",
+    explanation: "The Type A behaviour pattern (time-urgent, competitive, hostile) is the personality factor most directly tied to coronary heart disease." },
+  { id: "rml24_075", section: "biopsych",
+    q: "The left hemisphere is:",
+    options: { a: "Concerned to a large extent with spatial and pattern sense", b: "The minor hemisphere", c: "The major hemisphere", d: "Centre of musical ability" },
+    correct: "c",
+    explanation: "For most people the left hemisphere is the major (dominant) hemisphere, controlling language." },
+  { id: "rml24_076", section: "biostats",
+    q: "‘Reinforcement will have positive effect on performance,’ which type of hypothesis is this?",
+    options: { a: "Null and directional", b: "Alternate and directional", c: "Null and non-directional", d: "Alternate and non-directional" },
+    correct: "b",
+    explanation: "'Reinforcement will have a positive effect' predicts a specific direction, so it is an alternate (research) and directional hypothesis." },
+  { id: "rml24_077", section: "biopsych",
+    q: "Which of the following illnesses caused by a long term abuse of alcohol often involves profound retrograde amnesia?",
+    options: { a: "Alzheimer’s disease", b: "Parkinson’s disease", c: "Huntington’s disease", d: "Korsakoff’s psychosis" },
+    correct: "d",
+    explanation: "Korsakoff's psychosis, from chronic alcohol/thiamine deficiency, classically involves profound amnesia and confabulation." },
+  { id: "rml24_078", section: "biopsych",
+    q: "The master gland which manufactures hormones which affect most of the other glands and which regulates growth is the ___________________.",
+    options: { a: "Adrenal cortex", b: "Adrenal medulla", c: "Pituitary gland", d: "Thyroid gland" },
+    correct: "c",
+    explanation: "The pituitary is the 'master gland': its hormones control most other endocrine glands and regulate growth." },
+  { id: "rml24_079", section: "biopsych",
+    q: "Cutting through a person’s corpus callosum causes the person to :",
+    options: { a: "Die", b: "Become blind", c: "Be unable to speak or understand language", d: "Have difficulty coordinating certain kind of activities" },
+    correct: "d",
+    explanation: "Severing the corpus callosum (split-brain) leaves the person alive and able to speak but impairs coordination between the two hemispheres." },
+  { id: "rml24_080", section: "biopsych",
+    q: "In carrying out the ‘fight or flight’ response, the role of supervisor is assigned to the:",
+    options: { a: "Adrenal gland", b: "Pituitary gland", c: "Hypothalamus", d: "Parasympathetic nervous system" },
+    correct: "c",
+    explanation: "The hypothalamus is the 'supervisor' of the fight-or-flight response, driving the sympathetic and endocrine stress reaction." },
+  { id: "rml24_081", section: "abnormal",
+    q: "Our current mood and feelings are best described by the term:",
+    options: { a: "Emotion", b: "Mood", c: "Affect", d: "Feeling" },
+    correct: "c",
+    explanation: "Affect is the observed, here-and-now expression of emotion; mood is the sustained, pervasive emotional climate." },
+  { id: "rml24_082", section: "assessment",
+    q: "A response style or bias, in which there is tendency to agree with test items regardless of their contents is called:",
+    options: { a: "Halo effect", b: "Central tendency effect", c: "Social desirability effect", d: "Acquiescence effect" },
+    correct: "d",
+    explanation: "Acquiescence is the response bias of agreeing with items regardless of content (yea-saying)." },
+  { id: "rml24_083", section: "general",
+    q: "Which of the following does NOT reflect inductive reasoning?",
+    options: { a: "Probabilistic conclusions", b: "Heuristics", c: "Decision making", d: "Process involved in concept formation" },
+    correct: "b",
+    explanation: "Inductive reasoning moves from specifics to probable general conclusions (concept formation, probabilistic conclusions). Heuristics are shortcuts, not inductive reasoning per the key." },
+  { id: "rml24_084", section: "biopsych",
+    q: "The seat of emotion is to be found in _________________.",
+    options: { a: "Reticular formation", b: "Hind brain", c: "Limbic system", d: "Forebrain" },
+    correct: "c",
+    explanation: "The limbic system (amygdala, hippocampus, etc.) is the seat of emotion." },
+  { id: "rml24_085", section: "general",
+    q: "Who gave the concept of ‘Folk psychology’?",
+    options: { a: "Wilhelm Maximilian Wundt", b: "Sigmund Freud", c: "Ivan Pavlov", d: "Wilhelm Roentgen" },
+    correct: "a",
+    explanation: "Wilhelm Wundt wrote the 10-volume 'Volkerpsychologie' (folk/cultural psychology)." },
+  { id: "rml24_086", section: "therapy",
+    q: "ERP is a form of therapy used for:",
+    options: { a: "Personality disorders", b: "Depression", c: "Schizophrenia", d: "Obsessive-compulsive disorder" },
+    correct: "d",
+    explanation: "ERP (Exposure and Response Prevention) is the first-line behavioural therapy for OCD." },
+  { id: "rml24_087", section: "assessment",
+    q: "Which of the following statements is TRUE?",
+    options: { a: "A test can be valid without being reliable", b: "A test can be reliable without being valid", c: "If a test measures what it is intended to measure, then by definition it is reliable", d: "If a test gives consistent scores when administered repeatedly then it is valid" },
+    correct: "b",
+    explanation: "A test can be reliable (consistent) without being valid (measuring the right thing). Validity, however, requires reliability." },
+  { id: "rml24_088", section: "biopsych",
+    q: "Which lobe of the cerebral cortex has intellectual functioning as its main domain?",
+    options: { a: "Occipital lobe", b: "Frontal lobe", c: "Parietal lobe", d: "Temporal lobe" },
+    correct: "b",
+    explanation: "The frontal lobe handles higher intellectual functions, planning, reasoning, executive control." },
+  { id: "rml24_089", section: "assessment",
+    q: "Which of the following is NOT a criterion based validity?",
+    options: { a: "Concurrent validity", b: "Face validity", c: "Predictive validity", d: "Factorial validity" },
+    correct: "c",
+    explanation: "Face validity (whether a test 'looks' valid) is not criterion-based; concurrent and predictive validity are." },
+  { id: "rml24_090", section: "general",
+    q: "Consider the following principles with regard to the technique of shaping: i. Speed ii. Power iii. Non-verbal iv. Performance On which of the above principles is the technique of shaping based?",
+    options: { a: "1 and 3", b: "1, 2 and 3", c: "1, 2 and 4", d: "1 and 2" },
+    correct: "b",
+    explanation: "Shaping reinforces successive approximations and rests on speed, power and the non-verbal principle (options i, ii, iii) per the key." },
+  { id: "rml24_091", section: "general",
+    q: "What is the approximate visual field covered by each human eye?",
+    options: { a: "130 degrees", b: "160 degrees", c: "180 degrees", d: "220 degrees" },
+    correct: "c",
+    explanation: "Each human eye covers roughly a 180-degree visual field horizontally." },
+  { id: "rml24_092", section: "therapy",
+    q: "Which of the following defense mechanism is seen in patients with borderline personality disorder?",
+    options: { a: "Splitting", b: "Regression", c: "Undoing", d: "Sublimation" },
+    correct: "a",
+    explanation: "Splitting (seeing people as all-good or all-bad) is the hallmark defence in borderline personality disorder." },
+  { id: "rml24_093", section: "general",
+    q: "‘Stroop effect’ is an account of:",
+    options: { a: "Stimulus dominance", b: "Semantic dominance", c: "Instructional dominance", d: "Conceptual dominance" },
+    correct: "a",
+    explanation: "The Stroop effect shows stimulus/semantic dominance: the automatic reading of a colour word interferes with naming its ink colour." },
+  { id: "rml24_094", section: "general",
+    q: "The tendency to think of the use of objects only in terms of their habitual use is known as:",
+    options: { a: "Mental barrier", b: "Functional fixedness", c: "Einstellung", d: "Trial and error" },
+    correct: "b",
+    explanation: "Functional fixedness is being unable to see an object used in any way other than its usual function." },
+  { id: "rml24_095", section: "biopsych",
+    q: "The ‘satiety centre’ of the brain is located in the:",
+    options: { a: "Lateral hypothalamus", b: "Ventromedial hippocampus", c: "Lateral thalamus", d: "Ventromedial hypothalamus" },
+    correct: "d",
+    explanation: "The ventromedial hypothalamus is the satiety ('stop eating') centre; the lateral hypothalamus is the hunger centre." },
+  { id: "rml24_096", section: "abnormal",
+    q: "A patient with anorexia nervosa has traits of:",
+    options: { a: "Perfectionism", b: "Impulsivity", c: "Avoidance", d: "Dependence" },
+    correct: "a",
+    explanation: "Anorexia nervosa is strongly associated with perfectionistic, rigid, control-oriented traits." },
+  { id: "rml24_097", section: "biostats",
+    q: "‘Census’ is the example of which method?",
+    options: { a: "Ex post facto", b: "Field study", c: "Survey", d: "Sociometry" },
+    correct: "c",
+    explanation: "A census surveys an entire population, so it is an example of the survey method." },
+  { id: "rml24_098", section: "assessment",
+    q: "Which of the following is the most important characteristic of a psychological test?",
+    options: { a: "Objectivity", b: "Subjectivity", c: "Validity", d: "Rationality" },
+    correct: "a",
+    explanation: "Objectivity (scoring free of the examiner's judgement) is regarded as the most essential characteristic of a psychological test." },
+  { id: "rml24_099", section: "biopsych",
+    q: "Neurotransmitters are released at the:",
+    options: { a: "Axon hillock", b: "Axon terminals", c: "Myelin sheath", d: "Telodendria" },
+    correct: "b",
+    explanation: "Neurotransmitters are released from the axon terminals (synaptic boutons) into the synaptic cleft." },
+  { id: "rml24_100", section: "social",
+    q: "Solomon Asch’s classic experiment was arranged to test the limits of:",
+    options: { a: "Social perception", b: "Conformity", c: "Coercive power", d: "Leadership" },
+    correct: "b",
+    explanation: "Solomon Asch's line-judgement studies tested the limits of conformity to group pressure." },
+];
+
+const SECTION_LABELS = {
+  therapy: "Psychotherapy", biostats: "Biostats / Research", biopsych: "Neuropsych / Biopsych",
+  abnormal: "Abnormal", dev: "Developmental", assessment: "Psych Assessment",
+  general: "General / Cognitive", social: "Social Psychology"
+};
+
+const STORAGE_KEY = "rml-2024-results-v1";
+const STORAGE_KEY_NOTES = "rml-2024-notes-v1";
+const STORAGE_KEY_PROGRESS = "rml-2024-progress-v1";
+const STORAGE_KEY_FLAGS = "rml-2024-flags-v1";
+const STORAGE_KEY_EXAM = "rml-2024-exam-v1";
+const HISTORY_KEY = "results-history-v1";
+
+// Minutes per question in exam mode (RML 100 Q, ~1 min/Q in the optional timed mode)
+const MIN_PER_Q = 1.0;
+
+const state = {
+  filtered: [], index: 0, selected: null, guessed: false, submitted: false,
+  results: {}, notes: {}, flags: {}, redo: "none",
+  mode: "practice",
+  exam: { running: false, finished: false, endTs: 0, durationSec: 0 },
+  progress: { lastIndex: 0, lastSection: "all", drafts: {} }
+};
+let examTick = null;
+
+function loadResults() {
+  try { const raw = localStorage.getItem(STORAGE_KEY); if (raw) state.results = JSON.parse(raw); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_NOTES); if (raw) state.notes = JSON.parse(raw); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_FLAGS); if (raw) state.flags = JSON.parse(raw); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_PROGRESS); if (raw) state.progress = Object.assign(state.progress, JSON.parse(raw)); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_EXAM); if (raw) state.exam = Object.assign(state.exam, JSON.parse(raw)); } catch {}
+  if (state.progress.mode === "exam" || state.progress.mode === "practice") state.mode = state.progress.mode;
+}
+function saveResults()  { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.results)); } catch {} }
+function saveNotes()    { try { localStorage.setItem(STORAGE_KEY_NOTES, JSON.stringify(state.notes)); } catch {} }
+function saveFlags()    { try { localStorage.setItem(STORAGE_KEY_FLAGS, JSON.stringify(state.flags)); } catch {} }
+function saveExam()     { try { localStorage.setItem(STORAGE_KEY_EXAM, JSON.stringify(state.exam)); } catch {} }
+function saveProgress() { state.progress.mode = state.mode; try { localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(state.progress)); } catch {} }
+function saveDraft(qid) { if (!qid) return; state.progress.drafts[qid] = { selected: state.selected, guessed: state.guessed }; saveProgress(); }
+
+let notesSaveTimer = null;
+function handleNotesInput(qid, text) {
+  if (text && text.trim()) state.notes[qid] = text; else delete state.notes[qid];
+  if (notesSaveTimer) clearTimeout(notesSaveTimer);
+  notesSaveTimer = setTimeout(() => {
+    saveNotes();
+    const tag = document.querySelector(".notes-saved");
+    if (tag) { tag.classList.add("visible"); setTimeout(() => tag.classList.remove("visible"), 1200); }
+    const card = document.querySelector(".question-card");
+    if (card) { if (state.notes[qid]) card.classList.add("has-note"); else card.classList.remove("has-note"); }
+  }, 400);
+}
+
+function escapeHtml(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+function currentQ() { return state.filtered[state.index]; }
+
+function applyFilter(opts) {
+  opts = opts || {};
+  const sel = document.getElementById("sectionSelect").value;
+  let pool = sel === "all" ? QUESTIONS : QUESTIONS.filter(q => q.section === sel);
+  if (state.redo === "wrong") {
+    pool = pool.filter(q => { const r = state.results[q.id]; return r && !r.correct; });
+  } else if (state.redo === "flagged") {
+    pool = pool.filter(q => state.flags[q.id]);
+  }
+  state.filtered = pool;
+  if (opts.preservePosition && sel === state.progress.lastSection && state.redo === "none") {
+    state.index = Math.min(state.progress.lastIndex || 0, state.filtered.length - 1);
+    if (state.index < 0) state.index = 0;
+  } else { state.index = 0; }
+  renderModeUI();
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = currentQ();
+  if (!q) {
+    document.getElementById("quizArea").innerHTML = "<div class='question-card'>No questions match this filter.</div>";
+    document.getElementById("progress").textContent = "0 / 0";
+    document.getElementById("progressFill").style.width = "0%";
+    renderStats();
+    return;
+  }
+  state.progress.lastIndex = state.index;
+  state.progress.lastSection = document.getElementById("sectionSelect").value;
+  saveProgress();
+
+  const examActive = state.mode === "exam" && state.exam.running && !state.exam.finished;
+  const reveal = (state.mode === "practice" && !!state.results[q.id]) ||
+                 (state.mode === "exam" && state.exam.finished && !!state.results[q.id]);
+
+  const result = state.results[q.id];
+  if (result) { state.selected = result.selected; state.guessed = !!result.guessed; }
+  else {
+    const draft = state.progress.drafts[q.id];
+    state.selected = draft ? draft.selected : null;
+    state.guessed = draft ? !!draft.guessed : false;
+  }
+  state.submitted = reveal; // "submitted" now means locked/revealed
+
+  document.getElementById("progress").textContent = `${state.index + 1} / ${state.filtered.length}`;
+  document.getElementById("progressFill").style.width = `${((state.index + 1) / state.filtered.length) * 100}%`;
+
+  const noteText = state.notes[q.id] || "";
+  const hasNote = !!(noteText && noteText.trim());
+  const hasFlag = !!state.flags[q.id];
+
+  const optionsHtml = ["a","b","c","d"].map(letter => {
+    let cls = "option";
+    if (reveal) {
+      cls += " disabled";
+      if (letter === q.correct) cls += " correct";
+      else if (letter === state.selected) cls += " incorrect";
+    } else if (state.selected === letter) cls += " selected";
+    return `<div class="${cls}" data-letter="${letter}" data-action="select">
+      <span class="option-letter">${letter.toUpperCase()}.</span>
+      <span>${escapeHtml(q.options[letter])}</span></div>`;
+  }).join("");
+
+  // Controls vary by mode
+  let controlsHtml;
+  if (examActive) {
+    controlsHtml = `<div class="controls" style="grid-template-columns:1fr 1fr;">
+        <button data-action="prev" ${state.index === 0 ? "disabled" : ""}>← Prev</button>
+        <button data-action="next" ${state.index === state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+      </div>`;
+  } else if (state.mode === "exam") { // exam finished review
+    controlsHtml = `<div class="controls" style="grid-template-columns:1fr 1fr;">
+        <button data-action="prev" ${state.index === 0 ? "disabled" : ""}>← Prev</button>
+        <button data-action="next" ${state.index === state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+      </div>`;
+  } else { // practice
+    controlsHtml = `<div class="controls">
+        <button data-action="prev" ${state.index === 0 ? "disabled" : ""}>← Prev</button>
+        <button class="btn-primary" data-action="submit" ${reveal || !state.selected ? "disabled" : ""}>
+          ${reveal ? "✓ Submitted" : "Submit"}</button>
+        <button data-action="next" ${state.index === state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+      </div>`;
+  }
+
+  // Guess row + notes only outside an active exam
+  const guessHtml = examActive ? "" : `<div class="guess-row ${state.guessed ? "checked" : ""}" data-action="toggleGuess">
+        <div class="guess-checkbox"></div>
+        <div class="guess-label">I'm guessing this one
+          <small>Helps you track which "rights" were lucky vs solid.</small></div>
+      </div>`;
+  const notesHtml = examActive ? "" : `<div class="notes-area">
+        <div class="notes-label"><span>Your notes</span><span class="notes-saved">saved</span></div>
+        <textarea class="notes-textarea" id="notesInput" data-qid="${q.id}"
+          placeholder="Anything you want to remember about this question — mnemonic, where it came from, why you missed it...">${escapeHtml(noteText)}</textarea>
+      </div>`;
+  const explanationHtml = `<div class="explanation ${reveal ? "visible" : ""}">
+        <strong>${reveal && state.selected === q.correct ? "✓ Correct" : (reveal ? "✗ Wrong" : "")}</strong>
+        ${reveal ? ` — Answer: ${q.correct.toUpperCase()}. ` : ""}${reveal ? escapeHtml(q.explanation) : ""}
+      </div>`;
+
+  document.getElementById("quizArea").innerHTML = `
+    <div class="question-card${hasNote ? " has-note" : ""}${hasFlag ? " has-flag" : ""}">
+      <div class="section-tag">${SECTION_LABELS[q.section]}</div>
+      <div class="question-text">${escapeHtml(q.q)}</div>
+      <div class="options" id="options">${optionsHtml}</div>
+      ${guessHtml}
+      ${controlsHtml}
+      <div class="secondary-controls">
+        <button class="flag-btn ${hasFlag ? "flagged" : ""}" data-action="toggleFlag">
+          ${hasFlag ? "🚩 Flagged — come back to this" : "🚩 Flag for review"}</button>
+      </div>
+      ${explanationHtml}
+      ${notesHtml}
+    </div>`;
+  const notesEl = document.getElementById("notesInput");
+  if (notesEl) notesEl.addEventListener("input", e => handleNotesInput(e.target.dataset.qid, e.target.value));
+  renderNavGrid();
+  renderStats();
+}
+
+function updateSelectionVisual() {
+  document.querySelectorAll("#options .option").forEach(el => {
+    el.classList.toggle("selected", el.dataset.letter === state.selected);
+  });
+  const submitBtn = document.querySelector('[data-action="submit"]');
+  if (submitBtn) submitBtn.disabled = state.submitted || !state.selected;
+}
+function updateGuessVisual() {
+  const row = document.querySelector('[data-action="toggleGuess"]');
+  if (row) row.classList.toggle("checked", state.guessed);
+}
+
+function selectOption(letter) {
+  if (state.mode === "exam" && state.exam.finished) return; // locked after exam ends
+  if (state.submitted) return;
+  const q = currentQ(); if (!q) return;
+  state.selected = letter;
+  if (state.mode === "exam" && state.exam.running) {
+    // exam: record answer immediately, still editable until you finish
+    state.results[q.id] = { selected: letter, correct: letter === q.correct, guessed: false, section: q.section };
+    saveResults();
+    updateSelectionVisual();
+    renderNavGrid();
+  } else {
+    updateSelectionVisual();
+    saveDraft(q.id);
+  }
+}
+function toggleGuess() {
+  if (state.submitted) return;
+  state.guessed = !state.guessed; updateGuessVisual();
+  const q = currentQ(); if (q) saveDraft(q.id);
+}
+function toggleFlag() {
+  const q = currentQ(); if (!q) return;
+  if (state.flags[q.id]) delete state.flags[q.id]; else state.flags[q.id] = true;
+  saveFlags();
+  const btn = document.querySelector('[data-action="toggleFlag"]');
+  const card = document.querySelector(".question-card");
+  if (btn) {
+    const on = !!state.flags[q.id];
+    btn.classList.toggle("flagged", on);
+    btn.textContent = on ? "🚩 Flagged — come back to this" : "🚩 Flag for review";
+  }
+  if (card) card.classList.toggle("has-flag", !!state.flags[q.id]);
+  renderNavGrid();
+  renderModeUI();
+}
+function submitAnswer() {
+  if (state.submitted || !state.selected) return;
+  const q = currentQ();
+  state.results[q.id] = { selected: state.selected, correct: state.selected === q.correct, guessed: state.guessed, section: q.section };
+  saveResults(); state.submitted = true; renderQuestion();
+}
+function nextQuestion() { if (state.index < state.filtered.length - 1) { state.index++; renderQuestion(); } }
+function prevQuestion() { if (state.index > 0) { state.index--; renderQuestion(); } }
+
+document.querySelector(".app").addEventListener("click", function(ev) {
+  const t = ev.target.closest("[data-action]"); if (!t) return;
+  const a = t.dataset.action;
+  if (a === "select") selectOption(t.dataset.letter);
+  else if (a === "toggleGuess") toggleGuess();
+  else if (a === "toggleFlag") toggleFlag();
+  else if (a === "submit") submitAnswer();
+  else if (a === "next") nextQuestion();
+  else if (a === "prev") prevQuestion();
+  else if (a === "setMode") setMode(t.dataset.mode);
+  else if (a === "startExam") startExam();
+  else if (a === "finishExam") finishExam(false);
+  else if (a === "navJump") { state.index = parseInt(t.dataset.idx, 10) || 0; renderQuestion(); window.scrollTo({ top: 0, behavior: "smooth" }); }
+  else if (a === "redoWrong") setRedo("wrong");
+  else if (a === "redoFlagged") setRedo("flagged");
+  else if (a === "redoClear") setRedo("none");
+  else if (a === "reset") {
+    if (confirm("Reset RML 2024 PYQ Mock answers, notes and flags? (Attempt history is kept.)")) {
+      state.results = {}; state.notes = {}; state.flags = {};
+      state.progress = { lastIndex: 0, lastSection: "all", drafts: {} };
+      state.redo = "none";
+      stopExamTimer(); state.exam = { running: false, finished: false, endTs: 0, durationSec: 0 };
+      saveResults(); saveNotes(); saveFlags(); saveProgress(); saveExam();
+      const sel = document.getElementById("sectionSelect"); if (sel) sel.value = "all";
+      applyFilter({ preservePosition: false });
+    }
+  }
+  else if (a === "exportProgress") exportProgress();
+  else if (a === "importProgress") importProgress();
+  else if (a === "exportForAnalysis") exportForAnalysis();
+  else if (a === "dismissResume") document.getElementById("resumeBanner").style.display = "none";
+});
+
+function showResumeBanner() {
+  const banner = document.getElementById("resumeBanner"); if (!banner) return;
+  const lastIdx = state.progress.lastIndex || 0;
+  const total = state.filtered.length;
+  const answered = Object.keys(state.results).length;
+  const drafted = Object.keys(state.progress.drafts).length;
+  if (lastIdx <= 0 && answered === 0 && drafted === 0) { banner.style.display = "none"; return; }
+  const pos = Math.min(lastIdx + 1, total);
+  banner.innerHTML = `<span>Resumed from question ${pos} of ${total} · ${answered} answered, ${drafted} drafts saved.</span><button data-action="dismissResume">Dismiss</button>`;
+  banner.style.display = "flex";
+}
+
+function exportProgress() {
+  const payload = { v: 1, paper: "rml-2024", ts: new Date().toISOString(),
+    results: state.results, notes: state.notes, progress: state.progress };
+  const code = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(code).then(
+      () => alert("RML 2024 PYQ Mock backup code copied. Save it (WhatsApp to yourself works)."),
+      () => prompt("Copy this backup code somewhere safe:", code));
+  } else { prompt("Copy this backup code somewhere safe:", code); }
+}
+function exportForAnalysis() {
+  let totalRight = 0, totalWrong = 0;
+  for (const q of QUESTIONS) {
+    const r = state.results[q.id]; if (!r) continue;
+    if (r.correct) totalRight++; else totalWrong++;
+  }
+  const blank = QUESTIONS.length - totalRight - totalWrong;
+  const score = totalRight * 1 - totalWrong * 0.25;
+  const maxScore = QUESTIONS.length * 1;
+
+  const bySection = {};
+  for (const q of QUESTIONS) {
+    if (!bySection[q.section]) bySection[q.section] = { total:0, solid:0, guessed:0, wrong:0, skip:0 };
+    const s = bySection[q.section];
+    s.total++;
+    const r = state.results[q.id];
+    if (!r) s.skip++;
+    else if (r.correct && !r.guessed) s.solid++;
+    else if (r.correct && r.guessed) s.guessed++;
+    else s.wrong++;
+  }
+
+  const ts = new Date().toISOString();
+  let out = `MET MOCK 2 — RESULTS EXPORT v1\n`;
+  out += `Generated: ${ts}\n`;
+  out += `Score: ${score}/${maxScore}  (${totalRight} right, ${totalWrong} wrong, ${blank} blank · +1/−0.25/0 · cut-off ~80%)\n\n`;
+
+  out += `SECTION BREAKDOWN\n=================\n`;
+  for (const sec of Object.keys(SECTION_LABELS)) {
+    const s = bySection[sec]; if (!s) continue;
+    const attempted = s.solid + s.guessed + s.wrong;
+    const got = s.solid + s.guessed;
+    const acc = attempted ? Math.round((got / attempted) * 100) : 0;
+    const name = (SECTION_LABELS[sec] + ":").padEnd(28);
+    out += `${name} ${got}/${s.total} (${acc}%)  solid ${s.solid}  guessed ${s.guessed}  wrong ${s.wrong}  skip ${s.skip}\n`;
+  }
+
+  const attentionItems = QUESTIONS.filter(q => {
+    const r = state.results[q.id];
+    const note = state.notes[q.id];
+    if (note && note.trim()) return true;
+    if (!r) return false;
+    if (!r.correct) return true;
+    if (r.correct && r.guessed) return true;
+    return false;
+  });
+
+  out += `\nQUESTIONS TO REVIEW (wrong, guessed, or with notes): ${attentionItems.length}\n`;
+  out += `=====================================================\n\n`;
+
+  attentionItems.forEach((q, i) => {
+    const r = state.results[q.id];
+    const note = state.notes[q.id];
+    let status;
+    if (!r) status = "SKIPPED (noted)";
+    else if (!r.correct) status = "WRONG";
+    else if (r.guessed) status = "GUESSED-RIGHT";
+    else status = "right";
+
+    out += `[${i+1}] ${q.id} | ${SECTION_LABELS[q.section]} | ${status}`;
+    if (r) {
+      const mark = r.correct ? "✓" : "✗";
+      out += ` | picked ${(r.selected || "?").toUpperCase()} ${mark} | correct ${q.correct.toUpperCase()}`;
+    } else {
+      out += ` | correct ${q.correct.toUpperCase()}`;
+    }
+    out += `\nQ: ${q.q}\n`;
+    out += `A. ${q.options.a}\nB. ${q.options.b}\nC. ${q.options.c}\nD. ${q.options.d}\n`;
+    if (q.explanation) out += `Explanation: ${q.explanation}\n`;
+    if (note && note.trim()) out += `Sihan's note: ${note.trim()}\n`;
+    out += `\n`;
+  });
+
+  const skippedNoNote = QUESTIONS.filter(q => !state.results[q.id] && !(state.notes[q.id] && state.notes[q.id].trim()));
+  if (skippedNoNote.length) {
+    out += `SKIPPED (no note, ${skippedNoNote.length}): ${skippedNoNote.map(q => q.id).join(", ")}\n\n`;
+  }
+
+  out += `END EXPORT\n`;
+
+  try {
+    const snapKey = "results-history-v1";
+    const raw = localStorage.getItem(snapKey);
+    const history = raw ? JSON.parse(raw) : [];
+    history.push({ mock: "rml-2024", ts, score, max: maxScore, right: totalRight, wrong: totalWrong, blank, sections: bySection });
+    localStorage.setItem(snapKey, JSON.stringify(history));
+  } catch {}
+
+  const sizeKb = (out.length / 1024).toFixed(1);
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(out).then(
+      () => alert(`Copied ${sizeKb} KB to clipboard.\n\nPaste it to Sahil on WhatsApp, or open the My Results page to see history.`),
+      () => prompt("Copy this export and paste to Sahil on WhatsApp:", out));
+  } else {
+    prompt("Copy this export and paste to Sahil on WhatsApp:", out);
+  }
+}
+
+function importProgress() {
+  const code = prompt("Paste an RML 2024 PYQ Mock backup code. This will REPLACE current progress.");
+  if (!code) return;
+  try {
+    const payload = JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
+    if (payload.v !== 1) throw new Error("unknown version");
+    if (payload.results) state.results = payload.results;
+    if (payload.notes) state.notes = payload.notes;
+    if (payload.progress) state.progress = Object.assign({ lastIndex: 0, lastSection: "all", drafts: {} }, payload.progress);
+    saveResults(); saveNotes(); saveProgress();
+    const sel = document.getElementById("sectionSelect");
+    if (sel && state.progress.lastSection) sel.value = state.progress.lastSection;
+    applyFilter({ preservePosition: true }); showResumeBanner();
+    alert(`Restored ${Object.keys(state.results).length} answered, ${Object.keys(state.notes).length} notes, ${Object.keys(state.progress.drafts).length} drafts.`);
+  } catch (e) { alert("Could not restore: that does not look like a valid RML 2024 PYQ Mock backup code."); }
+}
+
+document.getElementById("sectionSelect").addEventListener("change", () => applyFilter({ preservePosition: false }));
+
+function renderStats() {
+  // During a live exam, keep the score and breakdown hidden (just like the real thing).
+  if (state.mode === "exam" && state.exam.running && !state.exam.finished) {
+    const answered = state.filtered.filter(q => state.results[q.id]).length;
+    ["statRight","statGuessed","statWrong","statSkipped"].forEach(id => {
+      const el = document.getElementById(id); if (el) el.textContent = "–";
+    });
+    const sb = document.getElementById("scoreboard");
+    if (sb) sb.innerHTML = `<span class="big">🔒</span><small>Score hidden — ${answered}/${state.filtered.length} answered. Finish the exam to reveal.</small>`;
+    const ss = document.getElementById("sectionScores");
+    if (ss) ss.innerHTML = `<div style="font-size:12px;color:var(--muted);">Per-area breakdown unlocks when you finish.</div>`;
+    const ra = document.getElementById("reviewArea"); if (ra) ra.style.display = "none";
+    return;
+  }
+  let confidentRight = 0, guessedRight = 0, wrong = 0, skipped = 0;
+  const reviewItems = [];
+  state.filtered.forEach((q, idx) => {
+    const r = state.results[q.id];
+    const flagged = !!state.flags[q.id];
+    if (!r) skipped++;
+    else if (r.correct && !r.guessed) confidentRight++;
+    else if (r.correct && r.guessed) { guessedRight++; reviewItems.push({ q, r, idx, tag: "guessed", label: "right but guessed" }); }
+    else if (!r.correct) { wrong++; reviewItems.push({ q, r, idx, tag: "wrong", label: "wrong" }); }
+    // Flagged questions not already captured as wrong/guessed still deserve a row.
+    if (flagged && (!r || (r.correct && !r.guessed))) reviewItems.push({ q, r, idx, tag: "flagged", label: "flagged" });
+  });
+  document.getElementById("statRight").textContent = confidentRight;
+  document.getElementById("statGuessed").textContent = guessedRight;
+  document.getElementById("statWrong").textContent = wrong;
+  document.getElementById("statSkipped").textContent = skipped;
+
+  let totalRight = 0, totalWrong = 0;
+  for (const q of QUESTIONS) {
+    const r = state.results[q.id];
+    if (!r) continue;
+    if (r.correct) totalRight++; else totalWrong++;
+  }
+  const score = totalRight * 1 - totalWrong * 0.25;
+  const maxScore = QUESTIONS.length * 1;
+  const sb = document.getElementById("scoreboard");
+  if (sb) {
+    sb.innerHTML = `<span class="big">${score} / ${maxScore}</span>
+      <small>+1 right · −0.25 wrong · ${totalRight} right, ${totalWrong} wrong, ${QUESTIONS.length - totalRight - totalWrong} blank · working target ~60/100</small>`;
+  }
+
+  const bySection = {};
+  for (const q of QUESTIONS) {
+    if (!bySection[q.section]) bySection[q.section] = { total: 0, right: 0, guessed: 0, wrong: 0, skipped: 0 };
+    bySection[q.section].total++;
+    const r = state.results[q.id];
+    if (!r) bySection[q.section].skipped++;
+    else if (r.correct && !r.guessed) bySection[q.section].right++;
+    else if (r.correct && r.guessed) bySection[q.section].guessed++;
+    else if (!r.correct) bySection[q.section].wrong++;
+  }
+  let rows = "";
+  for (const sec of Object.keys(SECTION_LABELS)) {
+    const s = bySection[sec]; if (!s) continue;
+    const attempted = s.right + s.guessed + s.wrong;
+    const accuracy = attempted ? Math.round(((s.right + s.guessed) / attempted) * 100) : null;
+    rows += `<div class="section-score-row">
+      <div class="section-score-name">${SECTION_LABELS[sec]}</div>
+      <div class="section-score-bar">
+        <span class="ssr-right" style="flex: ${s.right};"></span>
+        <span class="ssr-guessed" style="flex: ${s.guessed};"></span>
+        <span class="ssr-wrong" style="flex: ${s.wrong};"></span>
+        <span class="ssr-skipped" style="flex: ${s.skipped};"></span>
+      </div>
+      <div class="section-score-num">${s.right + s.guessed}/${s.total}${accuracy !== null ? " · " + accuracy + "%" : ""}</div>
+    </div>`;
+  }
+  document.getElementById("sectionScores").innerHTML = rows;
+
+  const reviewArea = document.getElementById("reviewArea");
+  const reviewList = document.getElementById("reviewList");
+  if (reviewItems.length === 0) reviewArea.style.display = "none";
+  else {
+    reviewArea.style.display = "block";
+    reviewList.innerHTML = reviewItems.map(item => {
+      const q = item.q, r = item.r;
+      const qText = escapeHtml(q.q.substring(0, 110)) + (q.q.length > 110 ? "…" : "");
+      let ansLine;
+      if (r && !r.correct) {
+        ansLine = `<span class="review-ans">you picked <span class="rv-picked">${escapeHtml(q.options[r.selected] || "—")}</span> · answer <span class="rv-correct">${escapeHtml(q.options[q.correct])}</span></span>`;
+      } else if (r && r.correct) {
+        ansLine = `<span class="review-ans">answer <span class="rv-correct">${escapeHtml(q.options[q.correct])}</span></span>`;
+      } else {
+        ansLine = `<span class="review-ans">not answered · answer <span class="rv-correct">${escapeHtml(q.options[q.correct])}</span></span>`;
+      }
+      const rule = q.explanation ? `<span class="review-rule">${escapeHtml(q.explanation.substring(0, 160))}${q.explanation.length > 160 ? "…" : ""}</span>` : "";
+      return `<li class="review-clickable" data-action="navJump" data-idx="${item.idx}">
+        <span class="review-tag ${item.tag}">${item.label}</span>
+        <span class="review-q">${qText}</span>
+        ${ansLine}
+        ${rule}</li>`;
+    }).join("");
+  }
+}
+
+// =====================================================================
+// MODE / EXAM TIMER / FLAG-REDO / ATTEMPT HISTORY
+// =====================================================================
+function pad(n) { return n < 10 ? "0" + n : "" + n; }
+function formatTime(totalSec) {
+  if (totalSec < 0) totalSec = 0;
+  const h = Math.floor(totalSec / 3600);
+  const m = Math.floor((totalSec % 3600) / 60);
+  const s = totalSec % 60;
+  return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`;
+}
+
+function setMode(mode) {
+  if (mode !== "practice" && mode !== "exam") return;
+  if (mode === state.mode) return;
+  state.mode = mode;
+  state.redo = "none";
+  saveProgress();
+  if (mode === "practice") stopExamTimer();
+  else if (state.exam.running && state.exam.endTs > Date.now()) resumeExamTimer();
+  applyFilter({ preservePosition: true });
+}
+
+function setRedo(kind) {
+  state.redo = (state.redo === kind) ? "none" : kind;
+  applyFilter({ preservePosition: false });
+}
+
+function countScope() {
+  const sel = document.getElementById("sectionSelect").value;
+  const pool = sel === "all" ? QUESTIONS : QUESTIONS.filter(q => q.section === sel);
+  let wrong = 0, flagged = 0;
+  pool.forEach(q => {
+    const r = state.results[q.id];
+    if (r && !r.correct) wrong++;
+    if (state.flags[q.id]) flagged++;
+  });
+  return { total: pool.length, wrong, flagged };
+}
+
+function renderModeUI() {
+  document.querySelectorAll(".mode-btn").forEach(b => b.classList.toggle("active", b.dataset.mode === state.mode));
+  const hint = document.getElementById("modeHint");
+  const intro = document.getElementById("examIntro");
+  const bar = document.getElementById("examBar");
+  const navWrap = document.getElementById("navGridWrap");
+  const redoBar = document.getElementById("redoBar");
+  const examActive = state.mode === "exam" && state.exam.running && !state.exam.finished;
+  const examFinished = state.mode === "exam" && state.exam.finished;
+
+  if (state.mode === "practice") {
+    hint.textContent = "Answer one at a time, see the rule the moment you submit. No clock.";
+    intro.style.display = "none"; bar.style.display = "none"; navWrap.style.display = "none";
+  } else {
+    if (examActive) {
+      hint.textContent = "Timed run · +1 / −0.25 scoring · no answers shown until you finish. Flag and skip freely.";
+      intro.style.display = "none"; bar.style.display = "flex"; navWrap.style.display = "block";
+    } else if (examFinished) {
+      hint.textContent = "Exam finished — reviewing answers with the rule under each. Start a fresh run any time.";
+      intro.style.display = "block"; bar.style.display = "none"; navWrap.style.display = "block";
+      intro.innerHTML = `<h3>Exam finished</h3>
+        <p>Score and per-area breakdown are below. Tap a number in the grid to jump to any question, or use <b>Redo only wrong</b> to retry the misses.</p>
+        <button class="exam-start-btn" data-action="startExam">Start a fresh timed run</button>`;
+    } else {
+      const n = state.filtered.length;
+      const mins = Math.max(1, Math.round(n * MIN_PER_Q));
+      hint.textContent = "Timed run · +1 / −0.25 scoring · no answers shown until you finish.";
+      intro.style.display = "block"; bar.style.display = "none"; navWrap.style.display = "none";
+      intro.innerHTML = `<h3>⏱️ Exam mode — like the real thing</h3>
+        <p>${n} questions · ${mins} min on the clock · +1 right, −0.25 wrong, 0 blank. No feedback until you finish, just like the real paper. You can flag questions and jump around with the grid.</p>
+        <button class="exam-start-btn" data-action="startExam">Start ${mins}-minute timed run</button>`;
+    }
+  }
+
+  // Redo bar (both modes, when there's something to redo)
+  const c = countScope();
+  if (c.wrong === 0 && c.flagged === 0 && state.redo === "none") {
+    redoBar.style.display = "none";
+  } else {
+    redoBar.style.display = "flex";
+    redoBar.innerHTML =
+      `<button class="redo-btn ${state.redo === "wrong" ? "active" : ""}" data-action="redoWrong" ${c.wrong ? "" : "disabled"}>↻ Redo only wrong (${c.wrong})</button>
+       <button class="redo-btn ${state.redo === "flagged" ? "active" : ""}" data-action="redoFlagged" ${c.flagged ? "" : "disabled"}>🚩 Flagged only (${c.flagged})</button>
+       ${state.redo !== "none" ? `<button class="redo-btn redo-clear" data-action="redoClear">Show all again</button>` : ""}`;
+  }
+}
+
+function renderNavGrid() {
+  const navWrap = document.getElementById("navGridWrap");
+  if (navWrap.style.display === "none") return;
+  const grid = document.getElementById("navGrid");
+  const finished = state.mode === "exam" && state.exam.finished;
+  grid.innerHTML = state.filtered.map((q, i) => {
+    let cls = "nav-cell";
+    const r = state.results[q.id];
+    if (finished && r) cls += r.correct ? " correct" : " wrong";
+    else if (r) cls += " answered";
+    if (state.flags[q.id]) cls += " flagged";
+    if (i === state.index) cls += " current";
+    return `<div class="${cls}" data-action="navJump" data-idx="${i}">${i + 1}</div>`;
+  }).join("");
+  const legend = document.getElementById("navGridLegend");
+  if (legend) {
+    const answered = state.filtered.filter(q => state.results[q.id]).length;
+    legend.textContent = ` — ${answered}/${state.filtered.length} answered`;
+  }
+}
+
+function resumeExamTimer() { stopExamTimer(); examTick = setInterval(tickExam, 1000); tickExam(); }
+function stopExamTimer() { if (examTick) { clearInterval(examTick); examTick = null; } }
+
+function startExam() {
+  const n = state.filtered.length;
+  if (n === 0) { alert("No questions in this filter."); return; }
+  const mins = Math.max(1, Math.round(n * MIN_PER_Q));
+  if (!confirm(`Start a fresh ${mins}-minute run over these ${n} questions?\n\nThis clears your current answers for them (attempt history is kept).`)) return;
+  // fresh slate for the in-scope questions
+  state.filtered.forEach(q => { delete state.results[q.id]; delete state.progress.drafts[q.id]; });
+  saveResults(); saveProgress();
+  state.redo = "none";
+  state.exam = { running: true, finished: false, endTs: Date.now() + mins * 60 * 1000, durationSec: mins * 60 };
+  saveExam();
+  state.index = 0;
+  resumeExamTimer();
+  applyFilter({ preservePosition: false });
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function tickExam() {
+  const bar = document.getElementById("examBar");
+  const remaining = Math.round((state.exam.endTs - Date.now()) / 1000);
+  if (remaining <= 0) { finishExam(true); return; }
+  const answered = state.filtered.filter(q => state.results[q.id]).length;
+  let tcls = "exam-timer";
+  if (remaining <= 30) tcls += " danger"; else if (remaining <= 120) tcls += " warn";
+  bar.innerHTML = `<div>
+      <div class="${tcls}">${formatTime(remaining)}</div>
+      <div class="exam-meta">${answered}/${state.filtered.length} answered · +1 / −0.25 / 0</div>
+    </div>
+    <button class="exam-finish-btn" data-action="finishExam">Finish & score</button>`;
+}
+
+function finishExam(auto) {
+  if (!state.exam.running && state.exam.finished) return;
+  if (!auto && !confirm("Finish the exam and see your score?")) return;
+  stopExamTimer();
+  state.exam.running = false;
+  state.exam.finished = true;
+  saveExam();
+  const attempt = recordAttempt();
+  renderModeUI();
+  state.index = 0;
+  renderQuestion();
+  renderAttemptHistory();
+  const sb = document.getElementById("scoreboard");
+  if (sb) sb.scrollIntoView({ behavior: "smooth", block: "center" });
+  if (attempt) {
+    setTimeout(() => alert(`${auto ? "Time's up!\n\n" : ""}Score: ${attempt.score}/${attempt.max}\n${attempt.right} right · ${attempt.wrong} wrong · ${attempt.blank} blank\n\nThe rule is now under every question, and this attempt is saved in your history.`), 50);
+  }
+}
+
+function recordAttempt() {
+  let right = 0, wrong = 0;
+  const sections = {};
+  state.filtered.forEach(q => {
+    if (!sections[q.section]) sections[q.section] = { total: 0, solid: 0, guessed: 0, wrong: 0, skip: 0 };
+    sections[q.section].total++;
+    const r = state.results[q.id];
+    if (!r) { sections[q.section].skip++; }
+    else if (r.correct) { right++; sections[q.section].solid++; }
+    else { wrong++; sections[q.section].wrong++; }
+  });
+  const blank = state.filtered.length - right - wrong;
+  const score = right * 1 - wrong * 0.25;
+  const max = state.filtered.length * 1;
+  const sel = document.getElementById("sectionSelect").value;
+  const scope = sel === "all" ? "Full mock" : (SECTION_LABELS[sel] || sel);
+  const attempt = { mock: "rml-2024", mode: "exam", scope, ts: new Date().toISOString(),
+    score, max, right, wrong, blank, sections };
+  try {
+    const raw = localStorage.getItem(HISTORY_KEY);
+    const history = raw ? JSON.parse(raw) : [];
+    history.push(attempt);
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+  } catch {}
+  return attempt;
+}
+
+function renderAttemptHistory() {
+  const wrap = document.getElementById("attemptHistoryList");
+  if (!wrap) return;
+  let history = [];
+  try { const raw = localStorage.getItem(HISTORY_KEY); if (raw) history = JSON.parse(raw); } catch {}
+  const mine = history.filter(h => h.mock === "rml-2024");
+  if (mine.length === 0) {
+    wrap.innerHTML = `<div class="ah-empty">No timed runs yet. Switch to ⏱️ Exam mode and finish a run to start tracking your score over time.</div>`;
+    return;
+  }
+  const rows = mine.map((h, i) => {
+    const pct = h.max ? Math.round((h.score / h.max) * 100) : 0;
+    const fillPct = Math.max(0, Math.min(100, pct));
+    const prev = i > 0 ? mine[i - 1] : null;
+    let deltaHtml = "", dir = "";
+    if (prev) {
+      const d = h.score - prev.score;
+      if (d > 0) { dir = "up"; deltaHtml = `<span class="ah-delta up">▲ +${d}</span>`; }
+      else if (d < 0) { dir = "down"; deltaHtml = `<span class="ah-delta down">▼ ${d}</span>`; }
+      else deltaHtml = `<span class="ah-delta">±0</span>`;
+    }
+    const d = new Date(h.ts);
+    const when = `${d.getDate()}/${d.getMonth() + 1} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    const scope = h.scope && h.scope !== "Full mock" ? ` · ${h.scope}` : "";
+    return `<div class="ah-row">
+      <div class="ah-when">${when}${scope}</div>
+      <div class="ah-track"><div class="ah-fill ${dir}" style="width:${fillPct}%;"></div></div>
+      <div class="ah-score">${h.score}/${h.max}${deltaHtml}</div>
+    </div>`;
+  }).join("");
+  wrap.innerHTML = rows;
+}
+
+loadResults();
+if (state.progress.lastSection) {
+  const sel = document.getElementById("sectionSelect");
+  if ([...sel.options].some(o => o.value === state.progress.lastSection)) sel.value = state.progress.lastSection;
+}
+// resume a live exam timer if one was running and time remains
+if (state.mode === "exam" && state.exam.running && !state.exam.finished) {
+  if (state.exam.endTs > Date.now()) resumeExamTimer();
+  else { state.exam.running = false; state.exam.finished = true; saveExam(); }
+}
+applyFilter({ preservePosition: true });
+showResumeBanner();
+renderAttemptHistory();
+</script>
+<script>
+/* PWA:met-prep */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("/sihan-met-flashcards/sw.js").catch(function () {});
+  });
+}
+(function () {
+  var dp = null;
+  window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); dp = e; showBtn(); });
+  function showBtn() {
+    if (document.getElementById("pwaInstallBtn")) return;
+    var b = document.createElement("button");
+    b.id = "pwaInstallBtn"; b.textContent = "Install app";
+    b.style.cssText = "position:fixed;right:14px;bottom:14px;z-index:9999;background:#1f6feb;color:#fff;border:0;border-radius:8px;padding:10px 14px;font:600 14px system-ui,sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.4);cursor:pointer";
+    b.onclick = function () { if (!dp) return; dp.prompt(); dp.userChoice.finally(function(){ dp = null; b.remove(); }); };
+    (document.body || document.documentElement).appendChild(b);
+  }
+  window.addEventListener("appinstalled", function () { var b = document.getElementById("pwaInstallBtn"); if (b) b.remove(); });
+})();
+</script>
+<!-- FS_MODE start -->
+<style id="fs-mode-style">
+  .fs-toggle{position:fixed;z-index:2147483000;bottom:14px;right:14px;width:46px;height:46px;border:0;border-radius:50%;
+    background:rgba(18,24,33,.74);color:#e6edf3;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 2px 12px rgba(0,0,0,.5);
+    padding:0;opacity:.5;transition:opacity .15s;-webkit-tap-highlight-color:transparent}
+  .fs-toggle:hover,.fs-toggle:active{opacity:1}
+  @media print{.fs-toggle{display:none}}
+  body.fs-active .topbar,
+  body.fs-active header,
+  body.fs-active nav,
+  body.fs-active .app-header,
+  body.fs-active .site-header,
+  body.fs-active footer{display:none !important}
+  body.fs-active{margin:0 !important;padding:0 !important;min-height:100vh}
+  body.fs-active main,
+  body.fs-active .wrap,
+  body.fs-active .container,
+  body.fs-active #app,
+  body.fs-active .app,
+  body.fs-active .page{max-width:100% !important;width:100% !important;margin:0 !important;
+    padding-left:12px !important;padding-right:12px !important;padding-top:10px !important;padding-bottom:14px !important}
+  @media (orientation:landscape){
+    body.fs-active main,
+    body.fs-active .wrap,
+    body.fs-active .container,
+    body.fs-active #app,
+    body.fs-active .app,
+    body.fs-active .page{padding-top:8px !important;padding-bottom:8px !important;
+      padding-left:18px !important;padding-right:18px !important}
+  }
+</style>
+<script>
+(function(){
+  if(window.__fsModeInit) return; window.__fsModeInit=true;
+  var ENTER='\u26F6', EXIT='\u2715';
+  function nativeOn(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function reqNative(){var el=document.documentElement;var r=el.requestFullscreen||el.webkitRequestFullscreen;
+    if(r){try{var p=r.call(el);if(p&&p.catch)p.catch(function(){});}catch(e){}}}
+  function exitNative(){if(!nativeOn())return;var x=document.exitFullscreen||document.webkitExitFullscreen;
+    if(x){try{x.call(document);}catch(e){}}}
+  var btn=document.createElement('button');
+  btn.className='fs-toggle';btn.type='button';
+  function paint(){var on=document.body.classList.contains('fs-active');
+    btn.textContent=on?EXIT:ENTER;btn.setAttribute('aria-label',on?'Exit fullscreen':'Enter fullscreen');btn.title=on?'Exit fullscreen':'Fullscreen';}
+  function go(){document.body.classList.add('fs-active');reqNative();paint();}
+  function stop(){document.body.classList.remove('fs-active');exitNative();paint();}
+  function toggle(){document.body.classList.contains('fs-active')?stop():go();}
+  btn.addEventListener('click',toggle);
+  function mount(){if(!document.body)return;if(!btn.isConnected)document.body.appendChild(btn);paint();}
+  if(document.body){mount();}else{document.addEventListener('DOMContentLoaded',mount);}
+  function sync(){if(!nativeOn()&&document.body.classList.contains('fs-active')){document.body.classList.remove('fs-active');paint();}}
+  document.addEventListener('fullscreenchange',sync);
+  document.addEventListener('webkitfullscreenchange',sync);
+})();
+</script>
+<!-- FS_MODE end -->
+</body>
+</html>
