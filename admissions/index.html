@@ -115,6 +115,11 @@
   <span class="chip"><span class="sw sw-closed"></span> Closed for 2026 (2027 target)</span>
 </div>
 
+<div class="legend" style="margin-top:6px">
+  <label class="chip" style="cursor:pointer;user-select:none"><input type="checkbox" id="maOnly" checked style="margin-right:7px;vertical-align:middle"> <b>Masters (MA / MSc) only</b> &mdash; hide the M.Phil-only rows</label>
+  <span class="chip" id="rowCount" style="opacity:.75"></span>
+</div>
+
 <div class="tablewrap">
 <table class="adm">
 <thead>
@@ -1135,6 +1140,32 @@
   }
   render();
   setInterval(render, 30000);
+})();
+</script>
+<script>
+(function(){
+  // M.Phil-only institutes (no Masters / RCI-MA route) — hidden when "Masters only" is on.
+  var MPHIL_ONLY = ['PGIMER','GMCH-32','LGBRIMH','IMHANS, Kozhikode','Institute of Psychiatry','State Inst. of Mental Health','Mental Health Institute, Cuttack','RIMS, Imphal','Gwalior Mansik','PGIBAMS','GMC Srinagar','Amrita School of Medicine','Sweekaar','Kateel Ashok Pai'];
+  var cb = document.getElementById('maOnly');
+  var counter = document.getElementById('rowCount');
+  var rows = Array.prototype.slice.call(document.querySelectorAll('table.adm tbody tr'));
+  function apply(){
+    var on = cb.checked, shown = 0, total = 0;
+    rows.forEach(function(tr){
+      var c = tr.querySelector('td.col-col');
+      if(!c) return; // directory-header colspan row
+      total++;
+      var name = c.textContent;
+      var mphil = MPHIL_ONLY.some(function(f){ return name.indexOf(f) !== -1; });
+      var hide = on && mphil;
+      tr.style.display = hide ? 'none' : '';
+      if(!hide) shown++;
+    });
+    counter.textContent = on ? ('Showing ' + shown + ' Masters programs (' + (total-shown) + ' M.Phil-only hidden)')
+                             : ('Showing all ' + total + ' programs');
+  }
+  cb.addEventListener('change', apply);
+  apply();
 })();
 </script>
 </body>
