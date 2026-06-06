@@ -20,1214 +20,211 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
 <meta name="theme-color" content="#0d1117">
 <style>
-  /* This page is a wide 12-column data table, not prose. The shared stylesheet caps every
-     .wrap at min(880px, 92vw) for comfortable reading line-length, but that squeezes this
-     table into a narrow column and leaves big side margins on a landscape tablet. Override
-     the cap here so the sheet fills the screen; phones still fall back to the horizontal
-     scroll inside .tablewrap. */
   .wrap{max-width:min(1900px,96vw);padding-left:28px;padding-right:28px}
-  @media (max-width:600px){.wrap{padding-left:14px;padding-right:14px}}
-
+  @media (max-width:600px){.wrap{padding-left:12px;padding-right:12px}}
   .lede{color:var(--ink2);font-size:16px;background:var(--panel-2);border:1px solid var(--border);
     border-radius:8px;padding:14px 18px;margin:18px 0 6px}
-  .updated{font-family:var(--sans);font-size:12px;color:var(--muted);margin:-2px 0 6px}
-  .why{border-left:3px solid var(--accent);background:rgba(61,111,208,.06);padding:10px 16px;margin:18px 0;
-    border-radius:0 6px 6px 0;font-family:var(--sans);font-size:14.5px}
-
-  /* legend */
-  .legend{font-family:var(--sans);font-size:13px;display:flex;flex-wrap:wrap;gap:6px 16px;margin:14px 0 6px;align-items:center}
-  .legend .chip{display:inline-flex;align-items:center;gap:6px}
-  .legend .sw{width:14px;height:14px;border-radius:3px;display:inline-block;border:1px solid var(--border)}
-  .sw-live{background:rgba(47,125,70,.30)}
-  .sw-soon{background:rgba(201,138,31,.30)}
-  .sw-later{background:rgba(61,111,208,.22)}
-  .sw-closed{background:rgba(120,120,120,.22)}
-
-  /* table */
+  .updated{font-family:var(--sans);font-size:12px;color:var(--muted);margin:6px 0}
+  .why{border-left:3px solid var(--accent);background:rgba(61,111,208,.06);padding:10px 16px;margin:16px 0;
+    border-radius:0 6px 6px 0;font-family:var(--sans);font-size:14.5px;line-height:1.6}
+  .stat{display:flex;flex-wrap:wrap;gap:10px 22px;font-family:var(--sans);font-size:13.5px;margin:14px 0 2px}
+  .stat b{color:var(--text);font-size:18px;font-variant-numeric:tabular-nums}
+  .stat .s{color:var(--muted)}
+  .legend{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin:12px 0 4px;line-height:1.7}
   .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0 8px;
     border:1px solid var(--border);border-radius:10px}
-  table.adm{border-collapse:collapse;width:100%;min-width:1280px;font-family:var(--sans);font-size:13px}
-  table.adm th,table.adm td{padding:9px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--border)}
+  table.adm{border-collapse:collapse;width:100%;min-width:1320px;font-family:var(--sans);font-size:13px}
+  table.adm th,table.adm td{padding:8px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--border)}
   table.adm thead th{position:sticky;top:0;z-index:3;background:var(--panel-2);color:var(--text);
-    font-size:11.5px;letter-spacing:.03em;text-transform:uppercase;border-bottom:2px solid var(--accent-dim);white-space:nowrap}
-  table.adm tbody tr:hover{filter:brightness(1.04)}
-  /* sticky first column (college) */
-  table.adm th.col-col,table.adm td.col-col{position:sticky;left:0;z-index:2;min-width:150px;max-width:190px;
-    border-right:1px solid var(--border)}
-  table.adm thead th.col-col{z-index:4}
+    font-size:11px;letter-spacing:.03em;text-transform:uppercase;border-bottom:2px solid var(--accent-dim);white-space:nowrap}
+  table.adm tbody tr:hover{filter:brightness(1.05)}
+  table.adm th.col-col,table.adm td.col-col{position:sticky;left:0;z-index:2;min-width:230px;max-width:300px;
+    border-right:1px solid var(--border);background:var(--bg)}
+  table.adm thead th.col-col{z-index:4;background:var(--panel-2)}
   table.adm td.col-col{font-weight:700;color:var(--text)}
-  table.adm td .sub{font-weight:400;color:var(--muted);font-size:11.5px;display:block;margin-top:2px}
-
-  /* row status tints (background must be set on cells so sticky col inherits it) */
-  tr.r-live   td{background:rgba(47,125,70,.10)}
-  tr.r-live   td.col-col{background:rgba(47,125,70,.16);border-left:4px solid var(--good)}
-  tr.r-soon   td{background:rgba(201,138,31,.09)}
-  tr.r-soon   td.col-col{background:rgba(201,138,31,.15);border-left:4px solid #c98a1f}
-  tr.r-later  td{background:rgba(61,111,208,.07)}
-  tr.r-later  td.col-col{background:rgba(61,111,208,.13);border-left:4px solid var(--accent)}
-  tr.r-closed td{background:rgba(120,120,120,.07);color:var(--muted)}
-  tr.r-closed td.col-col{background:rgba(120,120,120,.13);border-left:4px solid #9aa0a6;color:var(--ink2)}
-
-  .st{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;
-    padding:2px 7px;border-radius:5px;white-space:nowrap}
-  .st-live{background:rgba(47,125,70,.16);color:var(--good);border:1px solid rgba(47,125,70,.32)}
-  .st-soon{background:rgba(201,138,31,.16);color:#a96f12;border:1px solid rgba(201,138,31,.34)}
-  .st-later{background:rgba(61,111,208,.14);color:var(--accent);border:1px solid rgba(61,111,208,.32)}
-  .st-closed{background:rgba(120,120,120,.16);color:var(--muted);border:1px solid rgba(120,120,120,.32)}
-  .cd{display:block;margin-top:3px;font-size:11px;font-weight:800;color:var(--good);font-variant-numeric:tabular-nums}
-  .cd.urgent{color:var(--bad)}
-  .cd.passed{color:var(--muted)}
-  .unk{color:var(--muted);font-style:italic}
+  table.adm td .sub{font-weight:400;color:var(--muted);font-size:11px;display:block;margin-top:2px}
+  tr.grpr td{background:var(--panel-2);padding:6px 11px}
+  td.grphdr{font-family:var(--sans);font-weight:800;font-size:12px;letter-spacing:.04em;text-transform:uppercase;
+    color:var(--accent);border-bottom:2px solid var(--accent-dim)}
+  .unk{color:var(--muted);font-style:italic;font-size:12px}
   .yes{color:var(--good);font-weight:700}
-  .no{color:var(--bad);font-weight:700}
+  .no{color:var(--muted);font-weight:700}
+  .govt{color:var(--good);font-weight:700}
+  .priv{color:#a96f12;font-weight:700}
   td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  td.prog{min-width:170px;line-height:1.5}
+  .smu{display:inline-block;min-width:42px;color:var(--muted);font-size:11px}
+  .pnote{display:inline-block;font-size:10px;font-weight:800;padding:1px 5px;border-radius:4px;white-space:nowrap}
+  .pn-regret{background:rgba(192,57,43,.14);color:#c0392b;border:1px solid rgba(192,57,43,.3)}
+  .pn-cond{background:rgba(201,138,31,.14);color:#a96f12;border:1px solid rgba(201,138,31,.3)}
   table.adm a{font-weight:700}
-
-  .prio{background:rgba(47,125,70,.08);border:1px solid rgba(47,125,70,.25);border-radius:8px;
-    padding:12px 16px;margin:18px 0;font-family:var(--sans);font-size:14.5px}
-  .prio b{color:var(--good)}
-  .caveats{font-family:var(--sans);font-size:14px;line-height:1.65;margin:14px 0}
-  .caveats li{margin:6px 0}
-  .flag{background:rgba(192,57,43,.07);border:1px solid rgba(192,57,43,.2);border-radius:6px;
-    padding:10px 14px;margin:14px 0;font-family:var(--sans);font-size:13.5px;line-height:1.6}
-  .fn{font-size:12.5px;color:var(--muted);font-family:var(--sans);line-height:1.6;margin:10px 0}
-  .src{font-size:12.5px;color:var(--muted);font-family:var(--sans)}
-  h2.grp{margin-top:30px;border-top:3px solid var(--accent-dim);padding-top:8px}
-
-  /* First batch (apply now) — the live MA/MSc chunk, surfaced above the full table */
-  .batch{background:rgba(47,125,70,.07);border:1px solid rgba(47,125,70,.28);border-radius:10px;
-    padding:16px 18px;margin:18px 0;font-family:var(--sans)}
-  .batch h2{margin:0 0 4px;font-size:18px;color:var(--good)}
-  .batch .bsub{font-size:13px;color:var(--muted);margin:0 0 12px}
-  .batch ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-  .batch li{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;font-size:14px;line-height:1.45;
-    padding:9px 12px;background:var(--panel-2);border:1px solid var(--border);border-radius:7px}
-  .batch .nm{font-weight:800;color:var(--text)}
-  .batch .win{font-variant-numeric:tabular-nums;font-weight:700;color:var(--good)}
-  .batch .win.amber{color:#a96f12}
-  .batch .meta{color:var(--muted);font-size:12.5px}
-  .batch li a{font-weight:800;margin-left:auto;white-space:nowrap}
-  .batch .roll{font-size:13px;color:var(--ink2);margin:11px 0 0;line-height:1.55}
-  .batch .roll b{color:var(--text)}
+  .src{font-size:12.5px;color:var(--muted);font-family:var(--sans);line-height:1.65;margin:18px 0}
+  .flag{background:rgba(192,57,43,.06);border:1px solid rgba(192,57,43,.2);border-radius:7px;
+    padding:11px 15px;margin:14px 0;font-family:var(--sans);font-size:13.5px;line-height:1.6}
 </style>
 </head>
 <body>
 <div class="wrap">
 <nav><a href="../">← Home</a> <a href="../news/">News board</a> <a href="../notes/">Notes</a></nav>
 
-<div style="font-family:var(--sans);font-size:12.5px;color:var(--muted);background:var(--panel-2);border:1px solid var(--border);border-radius:7px;padding:7px 13px;margin:12px 0 2px"><span style="color:var(--good);font-weight:800">●</span> <!--LR-->Last refreshed: <b>6 Jun 2026, 4:34 PM IST</b> &middot; auto-refreshes 8&nbsp;AM &amp; 3&nbsp;PM IST daily<!--/LR--></div>
-
 <h1>RCI Clinical Psychology Admissions Tracker</h1>
-<p class="updated">Rebuilt 2026-06-02, expanded 2026-06-04 to <b>50+ programs nationwide</b>, and on <b>2026-06-05</b> I added a <b>Hostel</b> column and went back through the curated top block filling the empty <b>fee / seats / hostel</b> cells with real numbers off the institute pages (RML 13 seats &amp; Dhanwantri hostel, CIP 21 seats + 210-bed hostel &amp; no tuition, NIMHANS ~&#8377;17.8k/yr, Manipal ~&#8377;6.1L, Christ ~&#8377;4.8L, NFSU ~&#8377;2.6L, JSS hostel, etc.). <b>Same day I went into the nationwide directory and filled real fee/seats off the prospectuses for the big govt M.Phil institutes</b> (GMCH-32 Chandigarh 8 seats + &#8377;12k/mo stipend, LGBRIMH Tezpur ~11&ndash;12 seats &amp; &#8377;25k/mo stipend, SCB Cuttack 12 seats + &#8377;10k/mo stipend, IOP Kolkata 8 seats, PGIMER ~&#8377;51k, SRIHER 10 seats, Amrita Kochi), so those rows now carry hard numbers instead of <span class="unk">unknown</span> &mdash; dates still say <span class="st st-later">Verify</span> until the 2026 window opens. The top block is the curated, date-checked set for the <b>2026&ndash;27</b> batch (sorted by what closes first: live in green, closing amber, closed greyed). Below that is the full <b>nationwide RCI directory</b> &mdash; every other RCI-recognised Clinical Psychology program (M.Phil + the new RCI MA) I could confirm off the RCI lists, so you have the whole national map in one place. <b>On 2026-06-06 I went row by row through every program</b> and filled the remaining cells off the institute portals + RCI lists: 2026 status, application open/close dates, exam/interview dates, fees, seats, hostel and the real apply link for each. New finds in that pass: <b>Sree Balaji (SBMCH) Chennai is live, closes 15 Jun</b> (&#8377;100 app, own hospital, 10 seats, entrance 22 Jun); the small private unis (LPU, SGT, Manav Rachna, GD Goenka, Apex, Tantia, Shyam, Rama) run rolling/merit intakes so they're marked open; several (Tecnia, Desh Bhagat, Pannadhay, GMC Srinagar, CSMU, CSJMU) had 2026 windows that already closed; and the big govt M.Phils (AIIMS, PGIMER, GMCH-32, IHBAS, Rohtak, Cuttack, RIMS, Gwalior, PGIBAMS, RINPAS) are between cycles, opening Dec&ndash;Aug for 2027. Corrections worth flagging: <b>Amity Mumbai has no RCI MA</b>, <b>Amity Gwalior's MA is the regular non-RCI one</b>, and <b>Kateel Ashok Pai runs only M.Phil/MSc, not an RCI MA</b>. <b>Anything I still couldn't verify off the official portal stays <span class="unk">unknown</span>, &ldquo;not published&rdquo; or <span class="st st-later">Verify</span>, never guessed.</b> Dates and fees move, so the rule stands: confirm on the institute's own portal before you pay. <b>2026-06-06 (later):</b> pulled the live MA/MSc chunk into a <b>First batch</b> box at the top &mdash; each apply-now program with its open&rarr;close window and real apply link, so you can start on it while the rest of the table keeps filling behind it.</p>
+<p class="updated">Rebuilt 6 Jun 2026 from a single source: the RCI <b>“List of Approved Institutions upto 04-02-2026”</b> PDF (113 pages, generated 4 Feb 2026).</p>
 
-<div class="why">
-<b>Read this first, it changes the whole map.</b> From 2026 the old <b>M.Phil Clinical Psychology</b> is being replaced by the <b>MA Clinical Psychology (RCI)</b> under NEP 2020 + RCI restructuring. The new RCI-tagged MA <b>is the licensing program</b> now, not a lesser step. A plain academic MA/MSc with no RCI tag does <b>not</b> license you. Only one thing matters: does it carry the <b>RCI</b> tag. Every government row below is RCI-tagged. The one to check is <b>Amity</b> (Jaipur &amp; Noida): it sells <b>two</b> "MA Clinical" degrees, an older regular MA that does <b>not</b> license you and a new RCI-regulated MA that does, so its rows are flagged <b>verify per-campus</b> &mdash; get the RCI tag in writing before you pay.
-</div>
+<div class="lede">Every RCI-approved institution offering a <b>Master’s-level Clinical Psychology</b> program — M.Phil (Cl.Psy.), M.A. Clinical Psychology, or the new M.Clin.Psy. nomenclature. Bachelor’s (B.Sc Cl.Psy.), diploma (P.D. Cl.Psy.), Psy.D and Rehab-Psychology programs are excluded.</div>
 
-<!-- ===== FIRST BATCH (apply now) ===== -->
-<div class="batch">
-<h2>First batch &mdash; MA/MSc Clinical Psych, apply now</h2>
-<p class="bsub">The live RCI MA/MSc rows pulled to the top so you can act today. Open &rarr; close + the real apply link for each. Everything else (opens-later + the full nationwide directory) is in the table below, and I keep filling behind this.</p>
-<ul>
-  <li>
-    <span class="nm">ABVIMS &amp; RML Hospital, Delhi</span>
-    <span class="win">open now &rarr; 7 Jun 2026</span>
-    <span class="meta">RCI MA &middot; GGSIPU CET-166 &middot; &#8377;2,500 &middot; 13 seats &middot; own hospital + hostel &middot; do this one first</span>
-    <a href="https://ipu.admissions.nic.in/" target="_blank" rel="noopener">GGSIPU portal &rarr;</a>
-  </li>
-  <li>
-    <span class="nm">NFSU Gandhinagar</span>
-    <span class="win">open now &rarr; 10 Jun 2026</span>
-    <span class="meta">RCI MA &middot; CUET-PG 2026 score (no own test) &middot; ~&#8377;2.6L &middot; 24 seats</span>
-    <a href="https://nfsuadm.samarth.edu.in" target="_blank" rel="noopener">NFSU Samarth &rarr;</a>
-  </li>
-  <li>
-    <span class="nm">NFSU Delhi</span>
-    <span class="win">open now &rarr; 10 Jun 2026</span>
-    <span class="meta">RCI MA &middot; CUET-PG 2026 score &middot; ~&#8377;2.6L &middot; 22 seats</span>
-    <a href="https://nfsuadm.samarth.edu.in" target="_blank" rel="noopener">NFSU Samarth &rarr;</a>
-  </li>
-  <li>
-    <span class="nm">Sree Balaji (SBMCH), Chennai</span>
-    <span class="win">open now &rarr; 15 Jun 2026</span>
-    <span class="meta">RCI MA &middot; entrance 22 Jun &middot; &#8377;100 app &middot; 10 seats &middot; own 715-bed hospital + hostel</span>
-    <a href="https://www.sbmch.ac.in/" target="_blank" rel="noopener">SBMCH &rarr;</a>
-  </li>
-  <li>
-    <span class="nm">Amity Jaipur (AICP/AIBAS)</span>
-    <span class="win amber">open now &middot; rolling</span>
-    <span class="meta">MA Clinical &mdash; <b>verify RCI track in writing</b> &middot; your PI 11 Jun, report 9:15&nbsp;am &middot; ~&#8377;7.3L</span>
-    <a href="https://portal.amity.edu/NewOnlineForm/Candidate/SignUp" target="_blank" rel="noopener">Amity portal &rarr;</a>
-  </li>
-  <li>
-    <span class="nm">Amity Noida (AIPS)</span>
-    <span class="win amber">open now &middot; rolling</span>
-    <span class="meta">MA Clinical (RCI track exists &mdash; <b>verify per-campus</b>) &middot; AmityJEE + PI &middot; ~&#8377;6.0L</span>
-    <a href="https://portal.amity.edu/NewOnlineForm/Candidate/SignUp" target="_blank" rel="noopener">Amity portal &rarr;</a>
-  </li>
-</ul>
-<p class="roll"><b>Also open now (rolling private intakes, no fixed last date):</b> LPU (LPUNEST, ~&#8377;5.6L), SGT Gurugram (own hospital), Manav Rachna, GD Goenka Gurugram, Apex Jaipur, plus Amity Lucknow / Patna / Gurugram / Greater Noida. RCI seats cap small, so earlier is safer &mdash; and confirm the RCI tag in writing before you pay. Full rows + fees in the table below.</p>
-</div>
+<div class="why"><b>Ground rule:</b> this table is built <b>only</b> from the RCI PDF. College, RCI code, city, state, government/private, own-hospital, the program(s) and the approved <b>seats (intake)</b> all come straight off that list. The PDF does <b>not</b> carry fees, application/exam dates or application portals, so those cells read <b>unknown</b> rather than a guess. “unknown” = verify on the institute’s own portal before you rely on it.</div>
 
-<div class="legend">
-  <span class="chip"><span class="sw sw-live"></span> Live, apply now</span>
-  <span class="chip"><span class="sw sw-soon"></span> Closing / just closed, check the portal</span>
-  <span class="chip"><span class="sw sw-later"></span> Opens later this year</span>
-  <span class="chip"><span class="sw sw-closed"></span> Closed for 2026 (2027 target)</span>
+<div class="stat">
+  <span><b>89</b> <span class="s">programs / institutions</span></span>
+  <span><b>72</b> <span class="s">offer M.Phil (Cl.Psy.)</span></span>
+  <span><b>33</b> <span class="s">offer M.A. Clinical Psy.</span></span>
+  <span><b>30</b> <span class="s">government</span></span>
+  <span><b>59</b> <span class="s">private</span></span>
+  <span><b>27</b> <span class="s">states / UTs</span></span>
 </div>
-
-<div class="legend" style="margin-top:6px">
-  <label class="chip" style="cursor:pointer;user-select:none"><input type="checkbox" id="maOnly" checked style="margin-right:7px;vertical-align:middle"> <b>Masters (MA / MSc) only</b> &mdash; hide the M.Phil-only rows</label>
-  <span class="chip" id="rowCount" style="opacity:.75"></span>
-</div>
+<p class="legend"><b>Seats</b> = latest approved RCI intake for that program. <span class="pnote pn-regret">Regret 2025-26</span> = RCI declined that program’s approval for the 2025-26 cycle (institution still on the approved list; the other program may be live). <span class="pnote pn-cond">Conditional approval</span> = approved subject to conditions. <b>Own hospital</b> = the institution is itself a hospital / medical college / mental-health institute (verifiable from its name); “unknown” where an attached hospital can’t be confirmed from the PDF.</p>
 
 <div class="tablewrap">
 <table class="adm">
-<thead>
-  <tr>
-    <th class="col-col">College</th>
-    <th>Location</th>
-    <th>Course</th>
-    <th>Deadline</th>
-    <th>Exam date</th>
-    <th>Fee</th>
-    <th>Seats</th>
-    <th>Govt / Pvt</th>
-    <th>Own hospital</th>
-    <th>Hostel</th>
-    <th>Dist. from Udupi</th>
-    <th>Language fit</th>
-    <th>Master&rsquo;s holder can sit?</th>
-    <th>Apply</th>
-  </tr>
-</thead>
+<thead><tr>
+<th class="col-col">College (RCI code)</th>
+<th>City</th>
+<th>State</th>
+<th>Govt / Private</th>
+<th>Own hospital</th>
+<th>Program(s)</th>
+<th>Seats</th>
+<th>Fees</th>
+<th>App. opens</th>
+<th>App. closes</th>
+<th>Exam / interview</th>
+<th>Application link</th>
+</tr></thead>
 <tbody>
-
-  <!-- ===== LIVE ===== -->
-  <tr class="r-live">
-    <td class="col-col">ABVIMS &amp; Dr RML Hospital, Delhi <span class="sub">do this one first</span></td>
-    <td>New Delhi<span class="sub">Delhi</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-live">Live</span><br>7 Jun 2026<span class="cd" data-deadline="2026-06-07T23:59:00+05:30"></span></td>
-    <td>CET-166 (GGSIPU)<br><span class="unk">date TBA</span></td>
-    <td class="num">&#8377;2,500 <span class="sub">app fee</span></td>
-    <td class="num">13</td>
-    <td>Govt</td>
-    <td class="yes">Yes <span class="sub">RML Hospital attached</span></td>
-    <td class="yes">Yes <span class="sub">Dhanwantri Chhatrawas, ~&#8377;1&ndash;2k/mo</span></td>
-    <td class="num">~2,150 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://ipu.admissions.nic.in/" target="_blank" rel="noopener">GGSIPU portal &rarr;</a></td>
-  </tr>
-
-  <tr class="r-live">
-    <td class="col-col">NFSU Gandhinagar</td>
-    <td>Gandhinagar<span class="sub">Gujarat</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-live">Live</span><br>10 Jun 2026<span class="cd" data-deadline="2026-06-10T23:59:00+05:30"></span></td>
-    <td>No own test &mdash;<br>CUET-PG 2026 score</td>
-    <td class="num">~&#8377;2.6L <span class="sub">full course</span></td>
-    <td class="num">24</td>
-    <td>Govt</td>
-    <td class="no">No</td>
-    <td>Limited <span class="sub">top 2&ndash;3 + intl only; ~&#8377;53k/sem</span></td>
-    <td class="num">~1,300 km</td>
-    <td>English / Gujarati</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://nfsuadm.samarth.edu.in" target="_blank" rel="noopener">NFSU Samarth &rarr;</a></td>
-  </tr>
-
-  <tr class="r-live">
-    <td class="col-col">NFSU Delhi</td>
-    <td>New Delhi<span class="sub">Delhi</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-live">Live</span><br>10 Jun 2026<span class="cd" data-deadline="2026-06-10T23:59:00+05:30"></span></td>
-    <td>No own test &mdash;<br>CUET-PG 2026 score</td>
-    <td class="num">~&#8377;2.6L <span class="sub">full course</span></td>
-    <td class="num">22</td>
-    <td>Govt</td>
-    <td class="no">No</td>
-    <td>Limited <span class="sub">merit/intl only</span></td>
-    <td class="num">~2,150 km</td>
-    <td>English / Hindi</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://nfsuadm.samarth.edu.in" target="_blank" rel="noopener">NFSU Samarth &rarr;</a></td>
-  </tr>
-
-  <tr class="r-live">
-    <td class="col-col">Amity Jaipur (AICP / AIBAS) <span class="sub">your PI 11 Jun, report 9:15&nbsp;am</span></td>
-    <td>Jaipur<span class="sub">Rajasthan</span></td>
-    <td>MA Clinical Psychology<br><span class="sub">RCI track marketed &mdash; <b>verify per-campus</b></span></td>
-    <td><span class="st st-live">Open now</span><br>Rolling<br><span class="sub">RCI seats capped &amp; fill &mdash; apply early</span></td>
-    <td>Written test + PI<br>PI 11 Jun 2026<br><span class="sub">+ micro-presentation (RCI track)</span></td>
-    <td class="num">&#8377;1,100 <span class="sub">app</span><br><span class="sub">~&#8377;7.3L tuition</span></td>
-    <td class="num">10 <span class="sub">RCI list; small batch</span></td>
-    <td>Private</td>
-    <td class="no">No <span class="sub">tie-up placements</span></td>
-    <td class="yes">Yes <span class="sub">paid, separate; apply early</span></td>
-    <td class="num">~2,000 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://portal.amity.edu/NewOnlineForm/Candidate/SignUp" target="_blank" rel="noopener">Amity apply portal &rarr;</a><br><a href="../amity/" style="font-size:12px">full Amity brief &rarr;</a></td>
-  </tr>
-
-  <tr class="r-live">
-    <td class="col-col">Amity Noida (AIPS)</td>
-    <td>Noida<span class="sub">Uttar Pradesh</span></td>
-    <td>MA Clinical Psychology<br><span class="sub">RCI track exists &mdash; <b>verify per-campus</b></span></td>
-    <td><span class="st st-live">Open now</span><br>Rolling<br><span class="sub">apply early</span></td>
-    <td>AmityJEE (written) + PI<br><span class="sub">RCI track confirmed</span></td>
-    <td class="num">&#8377;1,100 <span class="sub">app</span><br><span class="sub">~&#8377;6.0L tuition</span></td>
-    <td class="num">10 <span class="sub">RCI list</span></td>
-    <td>Private</td>
-    <td class="no">No</td>
-    <td class="yes">Yes <span class="sub">paid, separate</span></td>
-    <td class="num">~2,150 km</td>
-    <td>English / Hindi</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://portal.amity.edu/NewOnlineForm/Candidate/SignUp" target="_blank" rel="noopener">Amity apply portal &rarr;</a><br><a href="../amity/" style="font-size:12px">full Amity brief &rarr;</a></td>
-  </tr>
-
-  <!-- ===== CLOSING / JUST CLOSED ===== -->
-  <tr class="r-soon">
-    <td class="col-col">CSMU, Navi Mumbai</td>
-    <td>Navi Mumbai<span class="sub">Maharashtra</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-closed">Closed</span><br>was 30 May 2026<br><span class="sub">no extension; exam was 6 Jun</span></td>
-    <td>6 Jun 2026<br>(70% test + 30% intvw)</td>
-    <td class="num">&#8377;1,500 <span class="sub">app fee</span></td>
-    <td class="num">10</td>
-    <td>Private</td>
-    <td class="no">No <span class="sub">campus medical unit only</span></td>
-    <td class="yes">Yes <span class="sub">on-campus hostel</span></td>
-    <td class="num">~830 km</td>
-    <td>Marathi / Hindi</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://csmu.ac.in/rciadmission/" target="_blank" rel="noopener">CSMU RCI &rarr;</a></td>
-  </tr>
-
-  <tr class="r-soon">
-    <td class="col-col">CSJMU, Kanpur</td>
-    <td>Kanpur<span class="sub">Uttar Pradesh</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-closed">Closed</span><br>was 31 May 2026<br><span class="sub">exam was 5 Jun</span></td>
-    <td>5 Jun 2026</td>
-    <td class="num">State-univ fees<br><span class="sub">total not published</span></td>
-    <td class="num">10</td>
-    <td>Govt</td>
-    <td class="no">No <span class="sub">dept, no attached hosp.</span></td>
-    <td class="yes">Yes <span class="sub">univ. hostels</span></td>
-    <td class="num">~1,900 km</td>
-    <td>Hindi</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://csjmuadm.samarth.edu.in/" target="_blank" rel="noopener">CSJMU portal &rarr;</a></td>
-  </tr>
-
-  <tr class="r-soon">
-    <td class="col-col">Ashtavakra (AIRSR), Delhi</td>
-    <td>New Delhi<span class="sub">Delhi</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-closed">Closed</span><br>was 8&ndash;31 May 2026</td>
-    <td>GGSIPU CET-166<br>(70% test + 30% PI)<br><span class="sub">date TBA</span></td>
-    <td class="num">&#8377;2,500 <span class="sub">app fee</span></td>
-    <td class="num">10</td>
-    <td>Private</td>
-    <td class="no">No <span class="sub">day institute</span></td>
-    <td class="no">No <span class="sub">day institute</span></td>
-    <td class="num">~2,150 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://ipu.admissions.nic.in/" target="_blank" rel="noopener">GGSIPU portal &rarr;</a></td>
-  </tr>
-
-  <!-- ===== OPENS LATER ===== -->
-  <tr class="r-later">
-    <td class="col-col">DIMHANS, Dharwad <span class="sub">closest govt + own hospital</span></td>
-    <td>Dharwad<span class="sub">Karnataka</span></td>
-    <td>Clinical Psychology (M.Phil &rarr; RCI MA)</td>
-    <td><span class="st st-later">Opens ~Sep&ndash;Oct</span><br><span class="unk">2026 date not published</span></td>
-    <td>~Oct (100 MCQ,<br>&minus;0.25/wrong, 90 min)</td>
-    <td class="num">&#8377;1,000 / &#8377;500<br><span class="sub">Gen / SC-ST</span></td>
-    <td class="num">6 (M.Phil)<br>20 (M.Sc)</td>
-    <td>Govt</td>
-    <td class="yes">Yes <span class="sub">own psych hospital</span></td>
-    <td class="yes">Yes <span class="sub">govt institute hostel</span></td>
-    <td class="num">~230&ndash;250 km</td>
-    <td>Kannada / Hindi / English</td>
-    <td class="yes">Yes <span class="sub">master&rsquo;s required</span></td>
-    <td><a href="https://dimhans.karnataka.gov.in/112/about-clinical-psychology/en" target="_blank" rel="noopener">DIMHANS &rarr;</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">JSS, Mysuru</td>
-    <td>Mysuru<span class="sub">Karnataka</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-later">Opens ~Mar</span><br>to ~7 Oct 2026<br><span class="sub">verify on portal</span></td>
-    <td>JSS AHER entrance + viva<br>~16 Oct 2026</td>
-    <td class="num">~&#8377;4.73L/yr<br><span class="sub">tuition + fees</span></td>
-    <td class="num">10</td>
-    <td>Private</td>
-    <td class="yes">Yes <span class="sub">JSS Hospital</span></td>
-    <td class="yes">Yes <span class="sub">~&#8377;1.6&ndash;1.9L/yr w/ mess</span></td>
-    <td class="num">~370 km</td>
-    <td>Kannada / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://jssuni.edu.in/jssaher/jssaher-admissions/admissions-home.aspx" target="_blank" rel="noopener">JSS AHER &rarr;</a></td>
-  </tr>
-
-  <!-- ===== CLOSED (2027 targets) ===== -->
-  <tr class="r-closed">
-    <td class="col-col">NIMHANS, Bengaluru <span class="sub">#1 target for 2027</span></td>
-    <td>Bengaluru<span class="sub">Karnataka</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-closed">Closed</span><br>was 8 Apr 2026</td>
-    <td>was 31 May 2026<br>(100 MCQ, +1/&minus;0.25)</td>
-    <td class="num">~&#8377;17,800/yr <span class="sub">govt-subsidised</span></td>
-    <td class="num">~30 <span class="sub">all categories</span></td>
-    <td>Govt</td>
-    <td class="yes">Yes</td>
-    <td class="yes">Yes <span class="sub">campus hostels</span></td>
-    <td class="num">~400 km</td>
-    <td>Kannada / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://nimhans-admission.lntedutech.com/pg-courses-2026/home" target="_blank" rel="noopener">NIMHANS &rarr;</a></td>
-  </tr>
-
-  <tr class="r-closed">
-    <td class="col-col">MAHE / Manipal <span class="sub">the MET you just sat</span></td>
-    <td>Manipal<span class="sub">Karnataka</span></td>
-    <td>MA / MSc Clinical Psychology (RCI)</td>
-    <td><span class="st st-closed">Closed</span><br>~26 Apr 2026 (MET)</td>
-    <td>MET (already sat)</td>
-    <td class="num">~&#8377;6.1L <span class="sub">2-yr tuition</span></td>
-    <td class="num">~14 <span class="sub">MET-selected; not officially published</span></td>
-    <td>Private</td>
-    <td class="yes">Yes <span class="sub">Kasturba Hospital</span></td>
-    <td class="yes">Yes <span class="sub">~&#8377;72k&ndash;2.5L/yr</span></td>
-    <td class="num">~5 km (next door)</td>
-    <td>Kannada / Tulu</td>
-    <td class="yes">Yes</td>
-    <td><a href="https://apply.manipal.edu/" target="_blank" rel="noopener">Manipal &rarr;</a></td>
-  </tr>
-
-  <tr class="r-closed">
-    <td class="col-col">Christ University (Blr / Delhi NCR)</td>
-    <td>Bengaluru<span class="sub">Karnataka</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-closed">Closed</span><br>was 2 Feb 2026</td>
-    <td>was 7 / 14 Feb 2026</td>
-    <td class="num">~&#8377;4.8L <span class="sub">2-yr course</span></td>
-    <td class="num">10</td>
-    <td>Private</td>
-    <td class="no">No</td>
-    <td class="yes">Yes <span class="sub">~&#8377;50k/yr, not mandatory</span></td>
-    <td class="num">~400 km (Blr)</td>
-    <td>Kannada / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://espro.christuniversity.in/Application/" target="_blank" rel="noopener">Christ &rarr;</a></td>
-  </tr>
-
-  <tr class="r-closed">
-    <td class="col-col">IHBAS, Delhi</td>
-    <td>New Delhi<span class="sub">Delhi</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-later">Opens ~Jul&ndash;Aug</span><br><span class="sub">2026 window not yet published</span></td>
-    <td>Written 100 MCQ, 90 min<br><span class="sub">no neg, no interview; ~Sep</span></td>
-    <td class="num">&#8377;3,000 / &#8377;1,500<br><span class="sub">Gen / Reserved</span></td>
-    <td class="num">12 <span class="sub">11 + 1 PwD</span></td>
-    <td>Govt</td>
-    <td class="yes">Yes <span class="sub">IHBAS is a hospital</span></td>
-    <td class="yes">Yes <span class="sub">govt institute hostel</span></td>
-    <td class="num">~2,150 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://ihbas.delhi.gov.in/ihbas/pg-admission" target="_blank" rel="noopener">IHBAS &rarr;<span class="sub">India portal</span></a></td>
-  </tr>
-
-  <tr class="r-closed">
-    <td class="col-col">CIP, Ranchi</td>
-    <td>Ranchi<span class="sub">Jharkhand</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-closed">Closed</span><br>for 2026</td>
-    <td>CBT 100 + interview 50</td>
-    <td class="num">Nil <span class="sub">govt-funded; only exam/deposit</span></td>
-    <td class="num">21</td>
-    <td>Govt</td>
-    <td class="yes">Yes <span class="sub">CIP hospital</span></td>
-    <td class="yes">Yes <span class="sub">210-bed, sep. boys/girls + mess</span></td>
-    <td class="num">~2,000 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://hllcip.cbtexam.in" target="_blank" rel="noopener">CIP portal &rarr;</a></td>
-  </tr>
-
-  <tr class="r-closed">
-    <td class="col-col">RINPAS, Ranchi</td>
-    <td>Ranchi<span class="sub">Jharkhand</span></td>
-    <td>Clinical Psychology (RCI)</td>
-    <td><span class="st st-closed">Closed</span><br>for 2026<br><span class="sub">2025 closed ~12 Mar</span></td>
-    <td>Entrance 100 MCQ &times;2,<br>&minus;1/wrong + interview<br><span class="sub">via Ranchi Univ.</span></td>
-    <td class="num">&#8377;1,200 / &#8377;600<br><span class="sub">Gen / SC-ST</span></td>
-    <td class="num">12</td>
-    <td>Govt</td>
-    <td class="yes">Yes <span class="sub">RINPAS hospital</span></td>
-    <td class="yes">Yes <span class="sub">govt institute hostel</span></td>
-    <td class="num">~2,000 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://ranchiuniversity.ac.in/" target="_blank" rel="noopener">Ranchi Univ &rarr;<span class="sub">conducts RINPAS entrance</span></a></td>
-  </tr>
-
-
-  <!-- ===== NATIONWIDE RCI DIRECTORY (added 4 Jun 2026 — verify each portal) ===== -->
-  <tr><td colspan="14" style="background:var(--panel-2);border-top:3px solid var(--accent-dim);font-family:var(--sans);font-size:13px;color:var(--ink2);padding:11px 13px"><b style="color:var(--text)">Nationwide RCI directory</b> &mdash; every other RCI-recognised Clinical Psychology program (M.Phil + the new RCI MA) I could confirm off the RCI lists, so the full national map is in one place. These aren&rsquo;t date-checked per portal yet, so each is marked <span class="st st-later">Verify</span>: open the portal, confirm the RCI tag and the live 2026 deadline before you act. Government first, then private.</td></tr>
-  <tr class="r-later">
-    <td class="col-col">AIIMS, New Delhi <span class="sub">top govt M.Phil</span></td>
-    <td>New Delhi<span class="sub">Delhi</span></td>
-    <td>M.Phil / MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-later">Opens ~Jul</span><br><span class="sub">July session; 2026 notice not yet out</span></td>
-    <td>Written + interview<br><span class="sub">not yet published</span></td>
-    <td class="num">~&#8377;2,000<br><span class="sub">app, indicative</span></td>
-    <td class="num">Not published</td>
-    <td>Govt</td>
-    <td class="yes">Yes <span class="sub">AIIMS hospital</span></td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~2,150 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://www.aiimsexams.ac.in/" target="_blank" rel="noopener">AIIMS exams →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">PGIMER, Chandigarh <span class="sub">top govt M.Phil</span></td>
-    <td>Chandigarh<span class="sub">Chandigarh</span></td>
-    <td>M.Phil Clinical Psychology (RCI)</td>
-    <td><span class="st st-later">Opens ~Sep / Mar</span><br><span class="sub">notices Sep-Oct &amp; Mar-Apr; verify M.Phil intake</span></td>
-    <td>Written + interview<br><span class="sub">not yet published</span></td>
-    <td class="num">~&#8377;51k <span class="sub">2-yr total; ~&#8377;26k yr&nbsp;1</span></td>
-    <td class="num">Not published</td>
-    <td>Govt</td>
-    <td class="yes">Yes <span class="sub">PGIMER hospital</span></td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~2,400 km</td>
-    <td>Hindi / Punjabi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://pgimer.edu.in/" target="_blank" rel="noopener">PGIMER →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">GMCH-32, Chandigarh <span class="sub">Dept of Psychiatry</span></td>
-    <td>Chandigarh<span class="sub">Chandigarh</span></td>
-    <td>M.Phil Clinical Psychology (RCI)</td>
-    <td><span class="st st-later">Opens ~late May</span><br><span class="sub">2025: form 22 May, close 20 Jun</span></td>
-    <td>Entrance ~Aug + counselling<br><span class="sub">2025: test 2 Aug</span></td>
-    <td class="num">~&#8377;51k <span class="sub">2-yr; app &#8377;2k/&#8377;1k; stipend &#8377;12k/mo</span></td>
-    <td class="num">8 <span class="sub">UR-7, SC-1; 85% UT quota</span></td>
-    <td>Govt</td>
-    <td class="yes">Yes <span class="sub">GMCH hospital</span></td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~2,400 km</td>
-    <td>Hindi / Punjabi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://gmch.gov.in/" target="_blank" rel="noopener">GMCH →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">LGBRIMH, Tezpur (Assam) <span class="sub">regional inst. of mental health</span></td>
-    <td>Tezpur<span class="sub">Assam</span></td>
-    <td>M.Phil Clinical Psychology (RCI)</td>
-    <td><span class="st st-closed">2025-26 closed</span><br><span class="sub">2026-27 notice not yet out</span></td>
-    <td>Entrance + interview<br><span class="sub">date not published</span></td>
-    <td class="num">~&#8377;16.8k/yr <span class="sub">app &#8377;1,500; stipend &#8377;25k/mo</span></td>
-    <td class="num">~11&ndash;12 <span class="sub">50% NE-states quota</span></td>
-    <td>Govt</td>
-    <td class="yes">Yes <span class="sub">own MH hospital</span></td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~3,500 km</td>
-    <td>Assamese / Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://lgbrimh.gov.in/" target="_blank" rel="noopener">LGBRIMH →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">IMHANS, Kozhikode (Kerala) <span class="sub">inst. of mental health</span></td>
-    <td>Kozhikode<span class="sub">Kerala</span></td>
-    <td>M.Phil Clinical Psychology (RCI)</td>
-    <td><span class="st st-closed">2025-26 closed</span><br><span class="sub">awaiting RCI extension; via Kerala UHS / LBS</span></td>
-    <td>via Kerala UHS<br><span class="sub">date not published</span></td>
-    <td class="num">Not published</td>
-    <td class="num">Not published</td>
-    <td>Govt</td>
-    <td class="yes">Yes <span class="sub">own MH hospital</span></td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~350 km</td>
-    <td>Malayalam / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://lbscentre.kerala.gov.in/" target="_blank" rel="noopener">LBS Centre Kerala →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Institute of Psychiatry, Kolkata <span class="sub">IOP / SSKM</span></td>
-    <td>Kolkata<span class="sub">West Bengal</span></td>
-    <td>M.Phil Clinical Psychology (RCI)</td>
-    <td><span class="st st-soon">~May window</span><br><span class="sub">via WBJEEB JEMAS&#8209;PG; likely closed</span></td>
-    <td>JEMAS-PG entrance<br><span class="sub">(WBJEEB)</span></td>
-    <td class="num">&#8377;3,000 <span class="sub">app fee</span></td>
-    <td class="num">8</td>
-    <td>Govt</td>
-    <td class="yes">Yes <span class="sub">IOP hospital</span></td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~1,900 km</td>
-    <td>Bengali / Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://wbjeeb.nic.in/" target="_blank" rel="noopener">WBJEEB →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">State Inst. of Mental Health, Rohtak <span class="sub">Pt. BD Sharma PGIMS</span></td>
-    <td>Rohtak<span class="sub">Haryana</span></td>
-    <td>M.Phil Clinical Psychology (RCI)</td>
-    <td><span class="st st-closed">2025-26 closed</span><br><span class="sub">2026-27 notice not yet out</span></td>
-    <td>Entrance + interview<br><span class="sub">date not published</span></td>
-    <td class="num">Not published</td>
-    <td class="num">Not published</td>
-    <td>Govt</td>
-    <td class="yes">Yes <span class="sub">PGIMS hospital</span></td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~2,150 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://pgimsrohtak.ac.in/" target="_blank" rel="noopener">PGIMS Rohtak →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Mental Health Institute, Cuttack <span class="sub">SCB Medical College</span></td>
-    <td>Cuttack<span class="sub">Odisha</span></td>
-    <td>M.Phil Clinical Psychology (RCI)</td>
-    <td><span class="st st-closed">2025-26 closed</span><br><span class="sub">Odisha domicile; 2026 notice not out</span></td>
-    <td>Entrance + interview<br><span class="sub">Odisha domicile only</span></td>
-    <td class="num">~&#8377;25k <span class="sub">2-yr; app &#8377;1,500; stipend &#8377;10k/mo</span></td>
-    <td class="num">12 <span class="sub">UR-10, SC-1, ST-1</span></td>
-    <td>Govt</td>
-    <td class="yes">Yes <span class="sub">own MH hospital</span></td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~1,700 km</td>
-    <td>Odia / Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://www.upseducation.in/latest-psychology-admissions" target="_blank" rel="noopener">via UPS list →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">RIMS, Imphal (Manipur) <span class="sub">regional inst. of medical sciences</span></td>
-    <td>Imphal<span class="sub">Manipur</span></td>
-    <td>M.Phil Clinical Psychology (RCI)</td>
-    <td><span class="st st-closed">2025-26 closed</span><br><span class="sub">NE-states quota; 2026 notice not out</span></td>
-    <td>Entrance + interview<br><span class="sub">date not published</span></td>
-    <td class="num">Not published</td>
-    <td class="num">Not published</td>
-    <td>Govt</td>
-    <td class="yes">Yes <span class="sub">RIMS hospital</span></td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~3,800 km</td>
-    <td>Manipuri / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://www.rims.edu.in/" target="_blank" rel="noopener">RIMS →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Gwalior Mansik Arogyashala (MP) <span class="sub">state mental hospital</span></td>
-    <td>Gwalior<span class="sub">Madhya Pradesh</span></td>
-    <td>M.Phil Clinical Psychology (RCI)</td>
-    <td><span class="st st-closed">2025-27 closed</span><br><span class="sub">was 28 Jun 2025; reopens ~Jun</span></td>
-    <td>Entrance ~Jul + counselling<br><span class="sub">2025: test 13 Jul</span></td>
-    <td class="num">&#8377;1,000 / &#8377;500<br><span class="sub">Gen / SC-ST (DD)</span></td>
-    <td class="num">12</td>
-    <td>Govt</td>
-    <td class="yes">Yes <span class="sub">own MH hospital</span></td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~1,700 km</td>
-    <td>Hindi</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://gwaliormentalhospital.org/" target="_blank" rel="noopener">Gwalior MAS →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">PGIBAMS, Raipur (Chhattisgarh) <span class="sub">Dept of Psychiatry</span></td>
-    <td>Raipur<span class="sub">Chhattisgarh</span></td>
-    <td>M.Phil Clinical Psychology (RCI)</td>
-    <td><span class="st st-closed">2025-27 closed</span><br><span class="sub">was 8 Jul 2025</span></td>
-    <td>Entrance + interview<br><span class="sub">date not published</span></td>
-    <td class="num">Not published</td>
-    <td class="num">20</td>
-    <td>Govt</td>
-    <td class="yes">Yes <span class="sub">attached hospital</span></td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~1,500 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://pgibams.co.in/admission-form.php" target="_blank" rel="noopener">PGIBAMS →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">GMC Srinagar (J&K) <span class="sub">Dept of Psychiatry</span></td>
-    <td>Srinagar<span class="sub">J &amp; K</span></td>
-    <td>M.Phil Clinical Psychology (RCI)</td>
-    <td><span class="st st-closed">Closed for 2026</span><br><span class="sub">was 12&ndash;25 Feb 2026</span></td>
-    <td>Entrance + viva<br><span class="sub">via Univ. of Kashmir</span></td>
-    <td class="num">&#8377;900 <span class="sub">online, non-refundable</span></td>
-    <td class="num">8</td>
-    <td>Govt</td>
-    <td class="yes">Yes <span class="sub">GMC hospital</span></td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~2,900 km</td>
-    <td>Urdu / Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://kashmiruniversity.net/" target="_blank" rel="noopener">Univ. of Kashmir →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">NIEPVD, Dehradun <span class="sub">national institute (RCI)</span></td>
-    <td>Dehradun<span class="sub">Uttarakhand</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-later">Opens ~mid-2026</span><br><span class="sub">prospectus out Feb; dates TBA</span></td>
-    <td>Entrance + interview<br><span class="sub">date not published</span></td>
-    <td class="num">app &#8377;5k/&#8377;3k<br><span class="sub">~&#8377;2L/yr (&#8377;4L total)</span></td>
-    <td class="num">10 <span class="sub">UR-4 SC-2 ST-1 OBC-3</span></td>
-    <td>Govt</td>
-    <td class="yes">Yes <span class="sub">clinical unit + OPD</span></td>
-    <td>Limited <span class="sub">PwD-priority only</span></td>
-    <td class="num">~2,400 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://niepvd.nic.in/" target="_blank" rel="noopener">NIEPVD →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">NIEPMD, Chennai (Kovalam) <span class="sub">national institute (RCI)</span></td>
-    <td>Chennai<span class="sub">Tamil Nadu</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-closed">2025 cycle closed</span><br><span class="sub">was 15 Jul 2025; MA replacing M.Phil</span></td>
-    <td>Written 75% + interview 25%<br><span class="sub">date not published</span></td>
-    <td class="num">&#8377;2,000 / &#8377;1,000<br><span class="sub">Gen-OBC / SC-ST-EWS</span></td>
-    <td class="num">13 <span class="sub">M.Phil intake</span></td>
-    <td>Govt</td>
-    <td class="yes">Yes <span class="sub">multi-therapy clinic</span></td>
-    <td class="yes">Yes <span class="sub">sep. boys/girls; ~&#8377;18k</span></td>
-    <td class="num">~720 km</td>
-    <td>Tamil / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://niepmd.tn.nic.in/" target="_blank" rel="noopener">NIEPMD →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Gurugram University (Haryana) <span class="sub">state university</span></td>
-    <td>Gurugram<span class="sub">Haryana</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-later">Opens ~Jun&ndash;Jul</span><br><span class="sub">Samarth portal open; 2025: 4 Jun&ndash;15 Jul</span></td>
-    <td>Written + interview<br><span class="sub">2025: 18 / 23 Jul</span></td>
-    <td class="num">~&#8377;2.5L/yr<br><span class="sub">yr1 ~&#8377;2,50,470</span></td>
-    <td class="num">10</td>
-    <td>Govt</td>
-    <td class="no">No</td>
-    <td>Not published</td>
-    <td class="num">~2,100 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://gurugramuniversityadm.samarth.edu.in/" target="_blank" rel="noopener">Gurugram Univ apply →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">SRIHER, Chennai <span class="sub">Sri Ramachandra (deemed)</span></td>
-    <td>Chennai<span class="sub">Tamil Nadu</span></td>
-    <td>M.Phil / MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-later">Opens ~mid-2026</span><br><span class="sub">confirm on portal</span></td>
-    <td>Entrance + interview<br><span class="sub">date not published</span></td>
-    <td class="num">~&#8377;1.5L/yr <span class="sub">~&#8377;3&ndash;4L total</span></td>
-    <td class="num">10</td>
-    <td>Private</td>
-    <td class="yes">Yes <span class="sub">SRMC hospital</span></td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~720 km</td>
-    <td>Tamil / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://www.sriramachandra.edu.in/" target="_blank" rel="noopener">SRIHER →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Amrita School of Medicine, Kochi <span class="sub">Amrita Vishwa Vidyapeetham</span></td>
-    <td>Kochi<span class="sub">Kerala</span></td>
-    <td>M.Phil Clinical Psychology (RCI)</td>
-    <td><span class="st st-later">Opens ~mid-2026</span><br><span class="sub">confirm on portal</span></td>
-    <td>Entrance + interview<br><span class="sub">needs 60% at master&rsquo;s</span></td>
-    <td class="num">&#8377;500 <span class="sub">app; ~&#8377;3.5&ndash;4.5L/yr tuition</span></td>
-    <td class="num">~10&ndash;12</td>
-    <td>Private</td>
-    <td class="yes">Yes <span class="sub">Amrita hospital</span></td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~600 km</td>
-    <td>Malayalam / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://www.amrita.edu/" target="_blank" rel="noopener">Amrita →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Sweekaar Academy, Secunderabad <span class="sub">rehab sciences (RCI)</span></td>
-    <td>Secunderabad<span class="sub">Telangana</span></td>
-    <td>M.Phil Clinical Psychology (RCI)</td>
-    <td><span class="st st-later">Verify on portal</span><br><span class="sub">2026 dates not published</span></td>
-    <td>Entrance + interview<br><span class="sub">date not published</span></td>
-    <td class="num">Not published</td>
-    <td class="num">Not published</td>
-    <td>Private</td>
-    <td class="no">No <span class="sub">rehab academy</span></td>
-    <td>Not published</td>
-    <td class="num">~750 km</td>
-    <td>Telugu / Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://www.upseducation.in/latest-psychology-admissions" target="_blank" rel="noopener">via UPS list →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Sree Balaji Med. College, Chennai <span class="sub">Bharath (deemed)</span></td>
-    <td>Chennai<span class="sub">Tamil Nadu</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-live">Live</span><br>15 Jun 2026<span class="cd" data-deadline="2026-06-15T23:59:00+05:30"></span></td>
-    <td>Entrance 22 Jun 2026<br>+ interview</td>
-    <td class="num">&#8377;100 <span class="sub">app fee</span></td>
-    <td class="num">10</td>
-    <td>Private</td>
-    <td class="yes">Yes <span class="sub">SBMCH hospital (715-bed)</span></td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~720 km</td>
-    <td>Tamil / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://www.sbmch.ac.in/" target="_blank" rel="noopener">SBMCH →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">SGT University, Gurugram <span class="sub">SGT (deemed)</span></td>
-    <td>Gurugram<span class="sub">Haryana</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-live">Open (rolling)</span><br><span class="sub">merit/CUET; confirm dates</span></td>
-    <td>Merit / CUET-PG<br>+ interview</td>
-    <td class="num">Not published</td>
-    <td class="num">10 <span class="sub">RCI list</span></td>
-    <td>Private</td>
-    <td class="yes">Yes <span class="sub">SGT hospital</span></td>
-    <td class="yes">Yes <span class="sub">residential campus</span></td>
-    <td class="num">~2,100 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://sgtuniversity.ac.in/" target="_blank" rel="noopener">SGT →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Manav Rachna University, Faridabad <span class="sub">MRIIRS</span></td>
-    <td>Faridabad<span class="sub">Haryana</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-live">Open (rolling)</span><br><span class="sub">merit/MRNAT; verify RCI track</span></td>
-    <td>MRNAT / merit<br>+ interview</td>
-    <td class="num">Not published</td>
-    <td class="num">10 <span class="sub">RCI list</span></td>
-    <td>Private</td>
-    <td class="no">No</td>
-    <td class="yes">Yes <span class="sub">residential campus</span></td>
-    <td class="num">~2,100 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://manavrachna.edu.in/" target="_blank" rel="noopener">Manav Rachna →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">GD Goenka University, Gurugram <span class="sub">GDGU</span></td>
-    <td>Gurugram<span class="sub">Haryana</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-live">Open (rolling)</span><br><span class="sub">merit; confirm dates</span></td>
-    <td>Merit / entrance<br>+ interview</td>
-    <td class="num">Not published</td>
-    <td class="num">10 <span class="sub">RCI list</span></td>
-    <td>Private</td>
-    <td class="no">No</td>
-    <td class="yes">Yes <span class="sub">residential campus</span></td>
-    <td class="num">~2,100 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://www.gdgoenkauniversity.com/" target="_blank" rel="noopener">GD Goenka →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Lovely Professional University <span class="sub">Phagwara, Punjab</span></td>
-    <td>Phagwara<span class="sub">Punjab</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-live">Open now</span><br><span class="sub">LPUNEST rolling cycles</span></td>
-    <td>LPUNEST 70% + interview 30%<br><span class="sub">on-demand test</span></td>
-    <td class="num">~&#8377;5.6L <span class="sub">program total</span></td>
-    <td class="num">10 <span class="sub">RCI list</span></td>
-    <td>Private</td>
-    <td class="no">No</td>
-    <td class="yes">Yes <span class="sub">fully residential</span></td>
-    <td class="num">~2,400 km</td>
-    <td>Hindi / Punjabi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://www.lpu.in/programmes/ma-clinical-psychology-with-rci" target="_blank" rel="noopener">LPU RCI MA →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Rama University, Kanpur <span class="sub">FPBS</span></td>
-    <td>Kanpur<span class="sub">Uttar Pradesh</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-live">Open (rolling)</span><br><span class="sub">merit; confirm MA track</span></td>
-    <td>Merit + interview<br><span class="sub">date not published</span></td>
-    <td class="num">Not published</td>
-    <td class="num">10 <span class="sub">RCI list</span></td>
-    <td>Private</td>
-    <td class="no">No</td>
-    <td class="yes">Yes <span class="sub">university hostels</span></td>
-    <td class="num">~1,900 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://www.ramauniversity.ac.in/psychology-adminission/" target="_blank" rel="noopener">Rama Univ →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Desh Bhagat University <span class="sub">Mandi Gobindgarh, Punjab</span></td>
-    <td>Mandi Gobindgarh<span class="sub">Punjab</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-closed">Closed for 2026</span><br><span class="sub">was 28 Feb&ndash;27 Apr 2026</span></td>
-    <td>Entrance 2 May 2026<br>+ interview from 11 May</td>
-    <td class="num">&#8377;2,000 <span class="sub">app (&#8377;2,500 late)</span></td>
-    <td class="num">10</td>
-    <td>Private</td>
-    <td class="no">No</td>
-    <td class="yes">Yes <span class="sub">residential campus</span></td>
-    <td class="num">~2,300 km</td>
-    <td>Punjabi / Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://admissions.deshbhagatuniversity.in/" target="_blank" rel="noopener">Desh Bhagat →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Apex University, Jaipur <span class="sub">Apex Inst. of Special Edu.</span></td>
-    <td>Jaipur<span class="sub">Rajasthan</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-live">Open (rolling)</span><br><span class="sub">no fixed last date; verify RCI</span></td>
-    <td>CUET / AUCET<br>+ interview</td>
-    <td class="num">~&#8377;3L/sem<br><span class="sub">per course page</span></td>
-    <td class="num">10 <span class="sub">RCI list</span></td>
-    <td>Private</td>
-    <td class="no">No</td>
-    <td class="yes">Yes <span class="sub">residential campus</span></td>
-    <td class="num">~2,000 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://apexuniversityjaipur.ac.in/course/clinical-psychology-ma" target="_blank" rel="noopener">Apex Univ →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Tantia University <span class="sub">Sri Ganganagar, Rajasthan</span></td>
-    <td>Sri Ganganagar<span class="sub">Rajasthan</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-live">Open (rolling)</span><br><span class="sub">merit; confirm MA track</span></td>
-    <td>Merit-based<br><span class="sub">+ interview</span></td>
-    <td class="num">Not published</td>
-    <td class="num">10 <span class="sub">RCI list</span></td>
-    <td>Private</td>
-    <td class="no">No</td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~2,400 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://tantiauniversity.com/" target="_blank" rel="noopener">Tantia →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Kateel Ashok Pai Memorial Inst. <span class="sub">Shivamogga, Karnataka</span></td>
-    <td>Shivamogga<span class="sub">Karnataka</span></td>
-    <td>M.Phil Clinical Psych (RCI)<br><span class="sub">no RCI MA &mdash; M.Phil/MSc only</span></td>
-    <td><span class="st st-later">Verify on portal</span><br><span class="sub">M.Phil cycle; 2026 dates TBA</span></td>
-    <td>M.Phil entrance + interview<br><span class="sub">date not published</span></td>
-    <td class="num">Not published</td>
-    <td class="num">12 <span class="sub">M.Phil intake</span></td>
-    <td>Private</td>
-    <td class="yes">Yes <span class="sub">Ashok Pai MH centre</span></td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~200 km</td>
-    <td>Kannada / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://www.upseducation.in/latest-psychology-admissions" target="_blank" rel="noopener">via UPS list →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Tecnia Inst. of Advanced Studies <span class="sub">Delhi</span></td>
-    <td>Delhi<span class="sub">Delhi</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-closed">Closed for 2026</span><br><span class="sub">was 8&ndash;31 May 2026</span></td>
-    <td>GGSIPU CET-166<br>(70% test + 30% PI)</td>
-    <td class="num">&#8377;2,500 <span class="sub">app fee</span></td>
-    <td class="num">10 <span class="sub">RCI list</span></td>
-    <td>Private</td>
-    <td class="no">No</td>
-    <td class="no">No <span class="sub">day institute</span></td>
-    <td class="num">~2,150 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://tiastc.tecnia.in/" target="_blank" rel="noopener">TIAS →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Shyam University, Dausa <span class="sub">Dept of Special Edu., Rajasthan</span></td>
-    <td>Dausa<span class="sub">Rajasthan</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-live">Open (rolling)</span><br><span class="sub">merit; RCI conditional approval</span></td>
-    <td>Merit-based<br><span class="sub">+ interview</span></td>
-    <td class="num">Not published</td>
-    <td class="num">10 <span class="sub">RCI list (conditional)</span></td>
-    <td>Private</td>
-    <td class="no">No</td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~1,900 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://www.shyamuniversity.ac.in/" target="_blank" rel="noopener">Shyam Univ →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Pannadhay University, Sikkim <span class="sub">Gangtok</span></td>
-    <td>Gangtok<span class="sub">Sikkim</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-closed">Closed for 2026</span><br><span class="sub">was 15 May 2026; inaugural batch</span></td>
-    <td>Entrance 31 May 2026<br>+ interview 1 Jun</td>
-    <td class="num">Not published</td>
-    <td class="num">10 <span class="sub">RCI conditional</span></td>
-    <td>Private</td>
-    <td class="no">No</td>
-    <td>Not published</td>
-    <td class="num">~3,000 km</td>
-    <td>Nepali / Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://sikkimpu.com/" target="_blank" rel="noopener">Pannadhay Univ →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Soc. Inst. of Psych. Research & Health <span class="sub">Amroha, UP</span></td>
-    <td>Amroha<span class="sub">Uttar Pradesh</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-later">Verify on portal</span><br><span class="sub">thin web presence; 2026 dates TBA</span></td>
-    <td>Not published<br><span class="sub">contact institute</span></td>
-    <td class="num">Not published</td>
-    <td class="num">10 <span class="sub">RCI list</span></td>
-    <td>Private</td>
-    <td class="no">No</td>
-    <td>Not published</td>
-    <td class="num">~2,200 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://www.upseducation.in/latest-psychology-admissions" target="_blank" rel="noopener">via UPS list →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Amity Gwalior (MP) <span class="sub">verify RCI tag per campus</span></td>
-    <td>Gwalior<span class="sub">Madhya Pradesh</span></td>
-    <td>MA Clinical Psychology<br><span class="sub">regular MA &mdash; NOT RCI track</span></td>
-    <td><span class="st st-live">Open (rolling)</span><br><span class="sub">~21 Jul indicative; non-RCI</span></td>
-    <td>AmityJEE + interview</td>
-    <td class="num">&#8377;1,100 app<br><span class="sub">~&#8377;1.68L total</span></td>
-    <td class="num">Not published</td>
-    <td>Private</td>
-    <td class="no">No</td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~1,700 km</td>
-    <td>Hindi / English</td>
-    <td class="no">N/A <span class="sub">non-RCI</span></td>
-    <td><a href="https://portal.amity.edu/NewOnlineForm/Candidate/SignUp" target="_blank" rel="noopener">Amity apply →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Amity Lucknow (UP) <span class="sub">verify RCI tag per campus</span></td>
-    <td>Lucknow<span class="sub">Uttar Pradesh</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-live">Open (rolling)</span><br><span class="sub">~21 Jul 2026 indicative</span></td>
-    <td>AmityJEE + interview</td>
-    <td class="num">&#8377;1,100 app<br><span class="sub">tuition not published</span></td>
-    <td class="num">10 <span class="sub">RCI list</span></td>
-    <td>Private</td>
-    <td class="no">No</td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~2,000 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://portal.amity.edu/NewOnlineForm/Candidate/SignUp" target="_blank" rel="noopener">Amity apply →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Amity Mumbai (MH) <span class="sub">verify RCI tag per campus</span></td>
-    <td>Mumbai<span class="sub">Maharashtra</span></td>
-    <td>No RCI MA found<br><span class="sub">BSc/diploma/legacy M.Phil only</span></td>
-    <td><span class="st st-closed">No RCI MA</span><br><span class="sub">not on RCI list</span></td>
-    <td>N/A</td>
-    <td class="num">N/A</td>
-    <td class="num">N/A</td>
-    <td>Private</td>
-    <td class="no">No</td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~830 km</td>
-    <td>Marathi / Hindi / English</td>
-    <td class="no">N/A</td>
-    <td><a href="https://portal.amity.edu/NewOnlineForm/Candidate/SignUp" target="_blank" rel="noopener">Amity apply →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Amity Kolkata (WB) <span class="sub">verify RCI tag per campus</span></td>
-    <td>Kolkata<span class="sub">West Bengal</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-later">Verify</span><br><span class="sub">RCI-listed but 2026 psych forms reportedly not open</span></td>
-    <td>AmityJEE + interview</td>
-    <td class="num">&#8377;1,100 app<br><span class="sub">tuition not published</span></td>
-    <td class="num">10 <span class="sub">RCI list</span></td>
-    <td>Private</td>
-    <td class="no">No</td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~1,900 km</td>
-    <td>Bengali / Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://portal.amity.edu/NewOnlineForm/Candidate/SignUp" target="_blank" rel="noopener">Amity apply →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Amity Patna (Bihar) <span class="sub">verify RCI tag per campus</span></td>
-    <td>Patna<span class="sub">Bihar</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-live">Open (rolling)</span><br><span class="sub">~21 Jul 2026 indicative</span></td>
-    <td>AmityJEE + interview</td>
-    <td class="num">&#8377;1,100 app<br><span class="sub">tuition not published</span></td>
-    <td class="num">10 <span class="sub">RCI list</span></td>
-    <td>Private</td>
-    <td class="no">No</td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~2,300 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://portal.amity.edu/NewOnlineForm/Candidate/SignUp" target="_blank" rel="noopener">Amity apply →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Amity Gurugram (Haryana) <span class="sub">verify RCI tag per campus</span></td>
-    <td>Gurugram<span class="sub">Haryana</span></td>
-    <td>MA Clinical Psychology (RCI)<br><span class="sub">confirm MA vs MSc track</span></td>
-    <td><span class="st st-live">Open (rolling)</span><br><span class="sub">~21 Jul 2026 indicative</span></td>
-    <td>AmityJEE + interview</td>
-    <td class="num">&#8377;1,100 app<br><span class="sub">tuition not published</span></td>
-    <td class="num">10 <span class="sub">RCI list</span></td>
-    <td>Private</td>
-    <td class="no">No</td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~2,100 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://portal.amity.edu/NewOnlineForm/Candidate/SignUp" target="_blank" rel="noopener">Amity apply →</a></td>
-  </tr>
-
-  <tr class="r-later">
-    <td class="col-col">Amity Greater Noida (UP) <span class="sub">verify RCI tag per campus</span></td>
-    <td>Greater Noida<span class="sub">Uttar Pradesh</span></td>
-    <td>MA Clinical Psychology (RCI)</td>
-    <td><span class="st st-live">Open (rolling)</span><br><span class="sub">~21 Jul 2026 indicative</span></td>
-    <td>AmityJEE + interview</td>
-    <td class="num">&#8377;1,100 app<br><span class="sub">tuition not published</span></td>
-    <td class="num">10 <span class="sub">RCI list</span></td>
-    <td>Private</td>
-    <td class="no">No</td>
-    <td class="yes">Yes <span class="sub">campus hostel</span></td>
-    <td class="num">~2,150 km</td>
-    <td>Hindi / English</td>
-    <td class="yes">Yes&#8202;<sup>*</sup></td>
-    <td><a href="https://portal.amity.edu/NewOnlineForm/Candidate/SignUp" target="_blank" rel="noopener">Amity apply →</a></td>
-  </tr>
-
+<tr class="grpr"><td class="col-col grphdr">Andhra Pradesh</td><td class="grphdr" colspan="11">Andhra Pradesh &middot; 1 program</td></tr>
+<tr><td class="col-col">Indlas Hospitals<span class="sub">RCI code AP048</span></td><td>Vijayawada</td><td>Andhra Pradesh</td><td><span class="priv">Private</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">6</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Assam</td><td class="grphdr" colspan="11">Assam &middot; 1 program</td></tr>
+<tr><td class="col-col">Lokopriya Gopinath Bordoloi Regional Institute of Mental Health (LGBRIMH)<span class="sub">RCI code AS004</span></td><td>Tezpur</td><td>Assam</td><td><span class="govt">Govt</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">12</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://lgbrimh.org" target="_blank" rel="noopener">lgbrimh.org</a></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Bihar</td><td class="grphdr" colspan="11">Bihar &middot; 1 program</td></tr>
+<tr><td class="col-col">Amity Institute of Clinical Psychology, Amity University Bihar<span class="sub">RCI code BR018</span></td><td>Patna</td><td>Bihar</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)<br>M.A. (Cl.Psy.)</td><td class="num"><span class="smu">M.Phil</span> 8<br><span class="smu">MA</span> 10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Chandigarh</td><td class="grphdr" colspan="11">Chandigarh &middot; 1 program</td></tr>
+<tr><td class="col-col">Government Medical College &amp; Hospital (GMCH-32), Dept. of Psychiatry<span class="sub">RCI code CH005</span></td><td>Chandigarh</td><td>Chandigarh</td><td><span class="govt">Govt</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://gmch.gov.in" target="_blank" rel="noopener">gmch.gov.in</a></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Chhattisgarh</td><td class="grphdr" colspan="11">Chhattisgarh &middot; 3 programs</td></tr>
+<tr><td class="col-col">Post Graduate Institute of Behavioural &amp; Medical Sciences (PIBMS)<span class="sub">RCI code CG006</span></td><td>Raipur</td><td>Chhattisgarh</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">20</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Central India Institute<span class="sub">RCI code CG014</span></td><td>Rajnandgaon</td><td>Chhattisgarh</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">12</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://ciirjn.org" target="_blank" rel="noopener">ciirjn.org</a></td></tr>
+<tr><td class="col-col">Amity Institute of Behavioural &amp; Allied Sciences, Amity University<span class="sub">RCI code CG016</span></td><td>Raipur</td><td>Chhattisgarh</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">4</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Delhi</td><td class="grphdr" colspan="11">Delhi &middot; 4 programs</td></tr>
+<tr><td class="col-col">Institute of Human Behaviour &amp; Allied Sciences (IHBAS)<span class="sub">RCI code DL019</span></td><td>Delhi</td><td>Delhi</td><td><span class="govt">Govt</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">23+1 (PwD)</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://ihbasdelhigovt.nic.in" target="_blank" rel="noopener">ihbasdelhigovt.nic.in</a></td></tr>
+<tr><td class="col-col">PGIMER, Dr. Ram Manohar Lohia Hospital<span class="sub">RCI code DL025</span></td><td>New Delhi</td><td>Delhi</td><td><span class="govt">Govt</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">12+1 (EWS)</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Ashtavakra Institute of Rehabilitation Sciences &amp; Research<span class="sub">RCI code DL032</span></td><td>Delhi (Rohini)</td><td>Delhi</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.A. (Cl.Psy.)</td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">National Forensic Sciences University (NFSU), Delhi Campus<span class="sub">RCI code DL039</span></td><td>New Delhi (Rohini)</td><td>Delhi</td><td><span class="govt">Govt</span></td><td><span class="no">No</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">10+1 (EWS)</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://nfsu.ac.in" target="_blank" rel="noopener">nfsu.ac.in</a></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Gujarat</td><td class="grphdr" colspan="11">Gujarat &middot; 2 programs</td></tr>
+<tr><td class="col-col">School of Behavioural Sciences, National Forensic Sciences University<span class="sub">RCI code GJ020</span></td><td>Gandhinagar</td><td>Gujarat</td><td><span class="govt">Govt</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">13</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://nfsu.edu.in" target="_blank" rel="noopener">nfsu.edu.in</a></td></tr>
+<tr><td class="col-col">Rashtriya Raksha University, School of Criminology &amp; Behavioural Sciences<span class="sub">RCI code GJ027</span></td><td>Gandhinagar</td><td>Gujarat</td><td><span class="govt">Govt</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">12</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Haryana</td><td class="grphdr" colspan="11">Haryana &middot; 8 programs</td></tr>
+<tr><td class="col-col">Amity Institute of Clinical Psychology, Amity University Haryana<span class="sub">RCI code HR018</span></td><td>Gurugram (Manesar)</td><td>Haryana</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)<br>M.A. (Cl.Psy.)</td><td class="num"><span class="smu">M.Phil</span> 8<br><span class="smu">MA</span> 10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://amity.edu/gurgaon" target="_blank" rel="noopener">amity.edu/gurgaon</a></td></tr>
+<tr><td class="col-col">Shree Guru Gobind Singh Tricentenary (SGT) University<span class="sub">RCI code HR040</span></td><td>Gurugram</td><td>Haryana</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)<br>M.A. (Cl.Psy.)</td><td class="num"><span class="smu">M.Phil</span> 10<br><span class="smu">MA</span> 10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Faculty of Education, Manav Rachna University<span class="sub">RCI code HR048</span></td><td>Faridabad</td><td>Haryana</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.A. (Cl.Psy.) <span class="pnote pn-cond">Conditional approval</span></td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Om Sterling Global University<span class="sub">RCI code HR056</span></td><td>Hisar</td><td>Haryana</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://osgu.ac.in" target="_blank" rel="noopener">osgu.ac.in</a></td></tr>
+<tr><td class="col-col">Gurugram University<span class="sub">RCI code HR077</span></td><td>Gurugram</td><td>Haryana</td><td><span class="govt">Govt</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)<br>M.A. (Cl.Psy.)</td><td class="num"><span class="smu">M.Phil</span> 6<br><span class="smu">MA</span> 10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Dept. of Clinical Psychology, Manav Rachna International Institute of Research &amp; Studies<span class="sub">RCI code HR078</span></td><td>Faridabad</td><td>Haryana</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)<br>M.A. (Cl.Psy.) <span class="pnote pn-regret">Regret 2025-26</span></td><td class="num"><span class="smu">M.Phil</span> 10<br><span class="smu">MA</span> <span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">G.D. Goenka University<span class="sub">RCI code HR079</span></td><td>Gurugram</td><td>Haryana</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.A. (Cl.Psy.) <span class="pnote pn-regret">Regret 2025-26</span></td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Dept. of Clinical Psychology, IILM University<span class="sub">RCI code HR081</span></td><td>Gurugram</td><td>Haryana</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.A. (Cl.Psy.) <span class="pnote pn-regret">Regret 2025-26</span></td><td class="num"><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Jammu &amp; Kashmir</td><td class="grphdr" colspan="11">Jammu &amp; Kashmir &middot; 1 program</td></tr>
+<tr><td class="col-col">Postgraduate Dept. of Psychiatry, Government Medical College<span class="sub">RCI code JK005</span></td><td>Srinagar</td><td>Jammu &amp; Kashmir</td><td><span class="govt">Govt</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">8</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Jharkhand</td><td class="grphdr" colspan="11">Jharkhand &middot; 2 programs</td></tr>
+<tr><td class="col-col">Ranchi Institute of Neuro-Psychiatry &amp; Allied Sciences (RINPAS)<span class="sub">RCI code JKH002</span></td><td>Ranchi</td><td>Jharkhand</td><td><span class="govt">Govt</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">12</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Central Institute of Psychiatry (CIP)<span class="sub">RCI code JKH003</span></td><td>Ranchi</td><td>Jharkhand</td><td><span class="govt">Govt</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">21</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://cipranchi.nic.in" target="_blank" rel="noopener">cipranchi.nic.in</a></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Karnataka</td><td class="grphdr" colspan="11">Karnataka &middot; 6 programs</td></tr>
+<tr><td class="col-col">Dept. of Clinical Psychology, School of Allied Health Sciences, Manipal Academy of Higher Education<span class="sub">RCI code KK009</span></td><td>Manipal</td><td>Karnataka</td><td><span class="priv">Private</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">14</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://manipal.edu" target="_blank" rel="noopener">manipal.edu</a></td></tr>
+<tr><td class="col-col">National Institute of Mental Health &amp; Neurosciences (NIMHANS)<span class="sub">RCI code KK033</span></td><td>Bengaluru</td><td>Karnataka</td><td><span class="govt">Govt</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">21</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://nimhans.kar.nic.in" target="_blank" rel="noopener">nimhans.kar.nic.in</a></td></tr>
+<tr><td class="col-col">Dharwad Institute of Mental Health &amp; Neurosciences (DIMHANS)<span class="sub">RCI code KK043</span></td><td>Dharwad</td><td>Karnataka</td><td><span class="govt">Govt</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">6</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">J.S.S. Medical College (JSS Academy of Higher Education &amp; Research)<span class="sub">RCI code KK046</span></td><td>Mysuru</td><td>Karnataka</td><td><span class="priv">Private</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)<br>M.A. (Cl.Psy.)</td><td class="num"><span class="smu">M.Phil</span> 10<br><span class="smu">MA</span> 10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://jssuni.edu.in" target="_blank" rel="noopener">jssuni.edu.in</a></td></tr>
+<tr><td class="col-col">Kateel Ashok Pai Memorial Institute of Allied Health Sciences (Manasa Trust)<span class="sub">RCI code KK050</span></td><td>Shivamogga</td><td>Karnataka</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)<br>M.A. (Cl.Psy.)</td><td class="num"><span class="smu">M.Phil</span> 12<br><span class="smu">MA</span> 10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://ahs.kapmi.edu.in" target="_blank" rel="noopener">ahs.kapmi.edu.in</a></td></tr>
+<tr><td class="col-col">Christ (Deemed to be University)<span class="sub">RCI code KK056</span></td><td>Bengaluru</td><td>Karnataka</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.A. (Cl.Psy.)</td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Kerala</td><td class="grphdr" colspan="11">Kerala &middot; 2 programs</td></tr>
+<tr><td class="col-col">Amrita School of Medicine, Amrita Institute of Medical Sciences (AIMS)<span class="sub">RCI code KL033</span></td><td>Kochi</td><td>Kerala</td><td><span class="priv">Private</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://aimshospital.org" target="_blank" rel="noopener">aimshospital.org</a></td></tr>
+<tr><td class="col-col">Institute of Mental Health &amp; Neurosciences (IMHANS), Govt. Medical College Campus<span class="sub">RCI code KL046</span></td><td>Kozhikode</td><td>Kerala</td><td><span class="govt">Govt</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">12</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Madhya Pradesh</td><td class="grphdr" colspan="11">Madhya Pradesh &middot; 6 programs</td></tr>
+<tr><td class="col-col">Sri Aurobindo Institute of Medical Sciences (SAIMS)<span class="sub">RCI code MP013</span></td><td>Indore</td><td>Madhya Pradesh</td><td><span class="priv">Private</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">6</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://saimsonline.com" target="_blank" rel="noopener">saimsonline.com</a></td></tr>
+<tr><td class="col-col">Gwalior Mansik Arogyashala<span class="sub">RCI code MP017</span></td><td>Gwalior</td><td>Madhya Pradesh</td><td><span class="govt">Govt</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.) <span class="pnote pn-regret">Regret 2025-26</span></td><td class="num"><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://gwaliormentalhospital.org" target="_blank" rel="noopener">gwaliormentalhospital.org</a></td></tr>
+<tr><td class="col-col">S. S. College<span class="sub">RCI code MP021</span></td><td>Bhopal</td><td>Madhya Pradesh</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">4</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Amity Institute of Behavioural &amp; Allied Sciences, Amity University MP<span class="sub">RCI code MP031</span></td><td>Gwalior</td><td>Madhya Pradesh</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">8</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://amity.edu" target="_blank" rel="noopener">amity.edu</a></td></tr>
+<tr><td class="col-col">Man College of Special Education &amp; Psychological Studies<span class="sub">RCI code MP038</span></td><td>Guna</td><td>Madhya Pradesh</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Dr. Preeti Global University<span class="sub">RCI code MP050</span></td><td>Shivpuri</td><td>Madhya Pradesh</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.A. (Cl.Psy.) <span class="pnote pn-cond">Conditional approval</span></td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Maharashtra</td><td class="grphdr" colspan="11">Maharashtra &middot; 5 programs</td></tr>
+<tr><td class="col-col">Amity Institute of Behavioural &amp; Allied Sciences, Amity University Mumbai<span class="sub">RCI code MH104</span></td><td>Panvel, Mumbai</td><td>Maharashtra</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">8</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Dept. of Mental Health, Institute of Naval Medicine (INHS Asvini)<span class="sub">RCI code MH105</span></td><td>Mumbai (Colaba)</td><td>Maharashtra</td><td><span class="govt">Govt</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">4</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Maharashtra Institute of Mental Health, Sassoon General Hospital Campus<span class="sub">RCI code MH108</span></td><td>Pune</td><td>Maharashtra</td><td><span class="govt">Govt</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">4</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Chhatrapati Shivaji Maharaj University<span class="sub">RCI code MH113</span></td><td>Navi Mumbai (Panvel)</td><td>Maharashtra</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.A. (Cl.Psy.)</td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Dept. of Psychology, Savitribai Phule Pune University<span class="sub">RCI code MH114</span></td><td>Pune</td><td>Maharashtra</td><td><span class="govt">Govt</span></td><td><span class="unk">unknown</span></td><td class="prog">M.A. (Cl.Psy.) <span class="pnote pn-regret">Regret 2025-26</span></td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Manipur</td><td class="grphdr" colspan="11">Manipur &middot; 1 program</td></tr>
+<tr><td class="col-col">Regional Institute of Medical Sciences (RIMS)<span class="sub">RCI code MN002</span></td><td>Imphal</td><td>Manipur</td><td><span class="govt">Govt</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">6</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://rims.edu.in" target="_blank" rel="noopener">rims.edu.in</a></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Mizoram</td><td class="grphdr" colspan="11">Mizoram &middot; 1 program</td></tr>
+<tr><td class="col-col">Dept. of Clinical Psychology, Mizoram University<span class="sub">RCI code MZ004</span></td><td>Aizawl</td><td>Mizoram</td><td><span class="govt">Govt</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://mzu.edu.in" target="_blank" rel="noopener">mzu.edu.in</a></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Odisha</td><td class="grphdr" colspan="11">Odisha &middot; 1 program</td></tr>
+<tr><td class="col-col">Mental Health Institute, SCB Medical College &amp; Hospital<span class="sub">RCI code OR020</span></td><td>Cuttack</td><td>Odisha</td><td><span class="govt">Govt</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">12</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Puducherry</td><td class="grphdr" colspan="11">Puducherry &middot; 2 programs</td></tr>
+<tr><td class="col-col">School of Rehabilitation &amp; Behavioural Sciences, Vinayaka Mission’s Research Foundation (VMRF-DU)<span class="sub">RCI code PD001</span></td><td>Puducherry</td><td>Puducherry</td><td><span class="priv">Private</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">8</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">School of Allied Health Sciences, VMRF (Vinayaka Missions Medical College &amp; Hospital Campus)<span class="sub">RCI code PD004</span></td><td>Karaikal</td><td>Puducherry</td><td><span class="priv">Private</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">6</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Punjab</td><td class="grphdr" colspan="11">Punjab &middot; 4 programs</td></tr>
+<tr><td class="col-col">Dayanand Medical College &amp; Hospital<span class="sub">RCI code PB015</span></td><td>Ludhiana</td><td>Punjab</td><td><span class="priv">Private</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">6</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Desh Bhagat University<span class="sub">RCI code PB020</span></td><td>Mandi Gobindgarh</td><td>Punjab</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.A. (Cl.Psy.)</td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Amity University (Amity School of Education &amp; Research)<span class="sub">RCI code PB021</span></td><td>Mohali</td><td>Punjab</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">8</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Lovely Professional University (LPU)<span class="sub">RCI code PB023</span></td><td>Phagwara</td><td>Punjab</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.A. (Cl.Psy.) <span class="pnote pn-regret">Regret 2025-26</span></td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Rajasthan</td><td class="grphdr" colspan="11">Rajasthan &middot; 13 programs</td></tr>
+<tr><td class="col-col">Amity Institute of Behavioural &amp; Allied Sciences, Amity University Rajasthan<span class="sub">RCI code RJ017</span></td><td>Jaipur</td><td>Rajasthan</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)<br>M.A. (Cl.Psy.)</td><td class="num"><span class="smu">M.Phil</span> 10<br><span class="smu">MA</span> 10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://amity.edu/jaipur" target="_blank" rel="noopener">amity.edu/jaipur</a></td></tr>
+<tr><td class="col-col">Shekhawati Teachers Training Institute<span class="sub">RCI code RJ042</span></td><td>Sikar</td><td>Rajasthan</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.A. (Cl.Psy.)</td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Mahatma Gandhi Medical College &amp; Hospital (MGUMST), Faculty of Medicine<span class="sub">RCI code RJ065</span></td><td>Jaipur</td><td>Rajasthan</td><td><span class="priv">Private</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)<br>M.A. (Cl.Psy.) <span class="pnote pn-regret">Regret 2025-26</span></td><td class="num"><span class="smu">M.Phil</span> 10<br><span class="smu">MA</span> <span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Apex Institute of Special Education, Apex University<span class="sub">RCI code RJ066</span></td><td>Jaipur</td><td>Rajasthan</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)<br>M.A. (Cl.Psy.)</td><td class="num"><span class="smu">M.Phil</span> 10<br><span class="smu">MA</span> 10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Dept. of Education, Shri Khushal Das University (SKD University)<span class="sub">RCI code RJ085</span></td><td>Hanumangarh</td><td>Rajasthan</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">12</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">MJRP College of Education, Mahatma Jyoti Rao Phoole University<span class="sub">RCI code RJ091</span></td><td>Jaipur</td><td>Rajasthan</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">12</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">OPJS University<span class="sub">RCI code RJ095</span></td><td>Churu</td><td>Rajasthan</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Madhav University<span class="sub">RCI code RJ099</span></td><td>Sirohi (Abu Road)</td><td>Rajasthan</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">6</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Shyam University, Dept. of Special Education<span class="sub">RCI code RJ150</span></td><td>Dausa</td><td>Rajasthan</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)<br>M.A. (Cl.Psy.) <span class="pnote pn-cond">Conditional approval</span></td><td class="num"><span class="smu">M.Phil</span> 10<br><span class="smu">MA</span> 10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Suresh Gyan Vihar University<span class="sub">RCI code RJ170</span></td><td>Jaipur</td><td>Rajasthan</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">12</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://mygyanvihar.com" target="_blank" rel="noopener">mygyanvihar.com</a></td></tr>
+<tr><td class="col-col">Nims School of Humanities &amp; Social Sciences, Nims University Rajasthan<span class="sub">RCI code RJ195</span></td><td>Jaipur</td><td>Rajasthan</td><td><span class="priv">Private</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://nimsuniversity.org" target="_blank" rel="noopener">nimsuniversity.org</a></td></tr>
+<tr><td class="col-col">Pacific Medical College and Hospital (Pacific Medical University)<span class="sub">RCI code RJ200</span></td><td>Udaipur</td><td>Rajasthan</td><td><span class="priv">Private</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Tantia University<span class="sub">RCI code RJ216</span></td><td>Sri Ganganagar</td><td>Rajasthan</td><td><span class="priv">Private</span></td><td><span class="yes">Yes</span></td><td class="prog">M.A. (Cl.Psy.) <span class="pnote pn-regret">Regret 2025-26</span></td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Sikkim</td><td class="grphdr" colspan="11">Sikkim &middot; 2 programs</td></tr>
+<tr><td class="col-col">Medhavi Skill University<span class="sub">RCI code SK003</span></td><td>Gangtok (Singtam)</td><td>Sikkim</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.A. (Cl.Psy.) <span class="pnote pn-regret">Regret 2025-26</span></td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Pannadhay University, Dept. of Special Education<span class="sub">RCI code SK004</span></td><td>Gangtok</td><td>Sikkim</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.A. (Cl.Psy.) <span class="pnote pn-cond">Conditional approval</span></td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Tamil Nadu</td><td class="grphdr" colspan="11">Tamil Nadu &middot; 5 programs</td></tr>
+<tr><td class="col-col">Dept. of Clinical Psychology, Sri Ramachandra Institute of Higher Education &amp; Research (SRIHER)<span class="sub">RCI code TN015</span></td><td>Chennai</td><td>Tamil Nadu</td><td><span class="priv">Private</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://sriramachandra.edu.in" target="_blank" rel="noopener">sriramachandra.edu.in</a></td></tr>
+<tr><td class="col-col">National Institute for Empowerment of Persons with Multiple Disabilities (NIEPMD)<span class="sub">RCI code TN023</span></td><td>Chennai</td><td>Tamil Nadu</td><td><span class="govt">Govt</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">13</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://niepmd.nic.in" target="_blank" rel="noopener">niepmd.nic.in</a></td></tr>
+<tr><td class="col-col">SRM Medical College Hospital &amp; Research Centre (SRM IST)<span class="sub">RCI code TN027</span></td><td>Chengalpattu</td><td>Tamil Nadu</td><td><span class="priv">Private</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">12</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://srmist.edu.in" target="_blank" rel="noopener">srmist.edu.in</a></td></tr>
+<tr><td class="col-col">Institute of Mental Health, Kilpauk<span class="sub">RCI code TN056</span></td><td>Chennai</td><td>Tamil Nadu</td><td><span class="govt">Govt</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.) <span class="pnote pn-regret">Regret 2025-26</span></td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Sree Balaji Medical College and Hospital (SBMCH)<span class="sub">RCI code TN062</span></td><td>Chennai (Chromepet)</td><td>Tamil Nadu</td><td><span class="priv">Private</span></td><td><span class="yes">Yes</span></td><td class="prog">M.A. (Cl.Psy.)</td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Telangana</td><td class="grphdr" colspan="11">Telangana &middot; 2 programs</td></tr>
+<tr><td class="col-col">Thakur Hari Prasad Institute of Research &amp; Rehabilitation for the Mentally Handicapped<span class="sub">RCI code TL001</span></td><td>Hyderabad</td><td>Telangana</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">12</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Sweekaar Academy of Rehabilitation Sciences<span class="sub">RCI code TL003</span></td><td>Secunderabad</td><td>Telangana</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num"><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://sweekaar.org" target="_blank" rel="noopener">sweekaar.org</a></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Tripura</td><td class="grphdr" colspan="11">Tripura &middot; 1 program</td></tr>
+<tr><td class="col-col">ICFAI University Tripura<span class="sub">RCI code TR002</span></td><td>West Tripura (Mohanpur)</td><td>Tripura</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://iutripura.edu.in" target="_blank" rel="noopener">iutripura.edu.in</a></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Uttar Pradesh</td><td class="grphdr" colspan="11">Uttar Pradesh &middot; 10 programs</td></tr>
+<tr><td class="col-col">Amity Institute of Behavioural (Health) &amp; Allied Sciences (AIBHAS), Amity University<span class="sub">RCI code UP017</span></td><td>Noida</td><td>Uttar Pradesh</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)<br>M.A. (Cl.Psy.)</td><td class="num"><span class="smu">M.Phil</span> 14<br><span class="smu">MA</span> 10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://amity.edu" target="_blank" rel="noopener">amity.edu</a></td></tr>
+<tr><td class="col-col">Institute of Mental Health and Hospital<span class="sub">RCI code UP018</span></td><td>Agra</td><td>Uttar Pradesh</td><td><span class="govt">Govt</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://imhh.org.in" target="_blank" rel="noopener">imhh.org.in</a></td></tr>
+<tr><td class="col-col">Dept. of Psychiatry, King George’s Medical University (KGMU)<span class="sub">RCI code UP053</span></td><td>Lucknow</td><td>Uttar Pradesh</td><td><span class="govt">Govt</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">8</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://kgmcindia.edu" target="_blank" rel="noopener">kgmcindia.edu</a></td></tr>
+<tr><td class="col-col">Gautam Buddha University<span class="sub">RCI code UP054</span></td><td>Greater Noida</td><td>Uttar Pradesh</td><td><span class="govt">Govt</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://gbu.ac.in" target="_blank" rel="noopener">gbu.ac.in</a></td></tr>
+<tr><td class="col-col">Amity University, Lucknow<span class="sub">RCI code UP062</span></td><td>Lucknow</td><td>Uttar Pradesh</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)<br>M.A. (Cl.Psy.)</td><td class="num"><span class="smu">M.Phil</span> 10<br><span class="smu">MA</span> 10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://amity.edu" target="_blank" rel="noopener">amity.edu</a></td></tr>
+<tr><td class="col-col">Nai Subah (Institute of Mental Health &amp; Behavioural Sciences)<span class="sub">RCI code UP076</span></td><td>Varanasi</td><td>Uttar Pradesh</td><td><span class="priv">Private</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Amity Institute of Behavioural (Health) &amp; Allied Sciences (AIBHAS), Amity University<span class="sub">RCI code UP260</span></td><td>Greater Noida</td><td>Uttar Pradesh</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)<br>M.A. (Cl.Psy.)</td><td class="num"><span class="smu">M.Phil</span> 8<br><span class="smu">MA</span> 10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://amity.edu/gn" target="_blank" rel="noopener">amity.edu/gn</a></td></tr>
+<tr><td class="col-col">Santosh Medical College &amp; Hospitals (Santosh Deemed to be University)<span class="sub">RCI code UP261</span></td><td>Ghaziabad</td><td>Uttar Pradesh</td><td><span class="priv">Private</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">6</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Chhatrapati Shahu Ji Maharaj University (CSJMU)<span class="sub">RCI code UP270</span></td><td>Kanpur</td><td>Uttar Pradesh</td><td><span class="govt">Govt</span></td><td><span class="unk">unknown</span></td><td class="prog">M.A. (Cl.Psy.)</td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr><td class="col-col">Faculty of Psychology &amp; Behavioural Sciences, Rama University<span class="sub">RCI code UP271</span></td><td>Kanpur</td><td>Uttar Pradesh</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.A. (Cl.Psy.) <span class="pnote pn-cond">Conditional approval</span></td><td class="num">10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr class="grpr"><td class="col-col grphdr">Uttarakhand</td><td class="grphdr" colspan="11">Uttarakhand &middot; 1 program</td></tr>
+<tr><td class="col-col">National Institute for the Empowerment of Persons with Visual Disabilities (NIEPVD)<span class="sub">RCI code UT001</span></td><td>Dehradun</td><td>Uttarakhand</td><td><span class="govt">Govt</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)<br>M.A. (Cl.Psy.)</td><td class="num"><span class="smu">M.Phil</span> 8<br><span class="smu">MA</span> 10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
+<tr class="grpr"><td class="col-col grphdr">West Bengal</td><td class="grphdr" colspan="11">West Bengal &middot; 3 programs</td></tr>
+<tr><td class="col-col">Dept. of Psychology, University of Calcutta<span class="sub">RCI code WB026</span></td><td>Kolkata</td><td>West Bengal</td><td><span class="govt">Govt</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">12</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://caluniv.ac.in" target="_blank" rel="noopener">caluniv.ac.in</a></td></tr>
+<tr><td class="col-col">Institute of Psychiatry, IPGME&amp;R<span class="sub">RCI code WB029</span></td><td>Kolkata</td><td>West Bengal</td><td><span class="govt">Govt</span></td><td><span class="yes">Yes</span></td><td class="prog">M.Phil (Cl.Psy.)</td><td class="num">8</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><a href="https://iopkolkata.in" target="_blank" rel="noopener">iopkolkata.in</a></td></tr>
+<tr><td class="col-col">Amity Institute of Behavioural &amp; Allied Sciences (AIBHAS), Amity University<span class="sub">RCI code WB044</span></td><td>Kolkata</td><td>West Bengal</td><td><span class="priv">Private</span></td><td><span class="unk">unknown</span></td><td class="prog">M.Phil (Cl.Psy.)<br>M.A. (Cl.Psy.)</td><td class="num"><span class="smu">M.Phil</span> 10<br><span class="smu">MA</span> 10</td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td><td><span class="unk">unknown</span></td></tr>
 </tbody>
 </table>
 </div>
 
-<p class="fn"><sup>*</sup> <b>Master&rsquo;s holder eligibility:</b> these RCI MA programs set the floor at a Bachelor&rsquo;s (4-yr or 3-yr+bridge) in Psychology with min 55% (50% SC/ST), so a master&rsquo;s holder clears the bar. DIMHANS&rsquo; M.Phil track <b>requires</b> a master&rsquo;s. Where I couldn&rsquo;t confirm the exact rule on the portal, it&rsquo;s left <span class="unk">unknown</span> &mdash; confirm before you pay. Distances are road distance from Udupi, rounded.</p>
+<div class="flag"><b>Why so many “unknown” cells:</b> the RCI approved-institutions list is a recognition register, not an admissions brochure. It proves a college is allowed to run the program and how many seats RCI sanctioned, but it never prints fees, opening/closing dates or a portal link. Filling those from third-party aggregators is exactly the guessing you told me to stop. Pick the colleges you want from this verified list and I’ll open each official portal one by one to fill its dates and fees for real.</div>
 
-<!-- ===== PRIORITY ===== -->
-<h2 class="grp">What to do, in order</h2>
-<div class="prio">
-<b>1. RML (GGSIPU portal) &mdash; closes 7 June, do this today.</b> Earliest deadline, runs on its own CET-166 entrance so it does not depend on CUET-PG. &#8377;2,500, 70% test + 30% interview. Get the form in first.<br><br>
-<b>2. NFSU Gandhinagar + NFSU Delhi &mdash; both due 10 June.</b> Both RCI, both selected on your <b>CUET-PG 2026 score</b> (no separate NFSU test). Two shots off the one Samarth portal.<br><br>
-<b>3. Sree Balaji (SBMCH), Chennai &mdash; closes 15 June.</b> Found this in the row-by-row dig: a live RCI MA with its own 715-bed teaching hospital, only &#8377;100 to apply, 10 seats, entrance 22 June. ~720 km, closest live private after the Karnataka ones are shut. Worth a form.<br><br>
-<b>4. Rolling private intakes &mdash; open now, apply anytime.</b> LPU (LPUNEST, ~&#8377;5.6L), SGT Gurugram (own hospital), Manav Rachna, GD Goenka, Apex Jaipur, plus Amity Jaipur/Noida/Lucknow/Patna/Gurugram/Greater Noida (confirm the RCI tag in writing). No fixed deadline, but RCI seats cap small so earlier is safer.<br><br>
-<b>5. The CUET-PG question.</b> NFSU shortlists on CUET-PG, so the real question is: <b>did you sit CUET-PG 2026 and is your score in?</b> If yes, submit both NFSU forms. If you did not write CUET-PG, NFSU can&rsquo;t shortlist you, so RML (own entrance) is your main live shot and the 2027 cycle is the bigger play.<br><br>
-<b>6. Treat as closed for 2026:</b> CSMU / CSJMU / Ashtavakra / Tecnia / Desh Bhagat / Pannadhay / GMC Srinagar all closed their 2026 windows (verify only if you want a long-shot extension). The big govt M.Phils (AIIMS, PGIMER, GMCH-32, IHBAS, NIMHANS, CIP, RINPAS) open Dec 2026&ndash;Aug for the 2027 cycle &mdash; that&rsquo;s the real runway for a top seat.
-</div>
-
-<ul class="caveats">
-  <li><b>DIMHANS, Dharwad</b> is the standout on paper: closest govt option (~230 km), <b>own psychiatric hospital</b> so clinical hours are in-house, same &minus;0.25 mock scale as NIMHANS. <b>Two gates:</b> Karnataka domicile is mandatory (Udupi counts), and the M.Phil track runs only 4 seats. Watch the portal from ~September.</li>
-  <li><b>Christ correction:</b> the earlier "Delhi NCR open till June 14" was wrong &mdash; Christ&rsquo;s RCI MA closed <b>2 February 2026</b>. Any "June" Christ date you see is a different non-RCI stream; check the RCI tag before applying.</li>
-  <li><b>2027 cycle:</b> NIMHANS, IHBAS, CIP and RINPAS typically open applications between <b>December 2026 and February 2027</b>, entrances around April&ndash;May. That&rsquo;s your runway for the top RCI seats.</li>
-  <li><b>Amity (Jaipur + Noida)</b> are <b>open now</b> on a rolling cycle, so they&rsquo;re in the live group, but two warnings: (1) confirm in writing it&rsquo;s the <b>RCI-regulated</b> MA, not the regular non-licensing one, and confirm that RCI tag directly with RCI; (2) the entrance question count, marking scheme, exact interview format and seat count are <b>not published</b> for MA Clinical, so they&rsquo;re left <span class="unk">unknown</span> here. Your Jaipur <b>PI is 11 June, report 9:15&nbsp;am.</b> Full breakdown on the <a href="../amity/">Amity brief</a>.</li>
-</ul>
-
-<!-- ===== VERIFY ===== -->
-<div class="flag">
-<b>Before you pay:</b> the curated block was cross-checked on 2 June 2026 and every row was re-checked portal-by-portal on 6 June 2026, but admission portals move dates, extend windows and reuse last year&rsquo;s pages. For any program you actually apply to, open the institute&rsquo;s own portal, confirm the RCI tag, confirm the current deadline, and confirm the fee before paying. The three India-only government portals (DIMHANS, IHBAS, RINPAS) are the genuine official sites but are geo-restricted to India, so they open for you and time out from outside.
-</div>
-
-<p class="src" style="margin-top:20px">Sources: institute portals (RML/GGSIPU, NFSU Samarth, NIMHANS, CIP, Christ, Manipal, CSJMU, CSMU, JSS, DIMHANS) and UPS Education
-<a href="https://www.upseducation.in/latest-psychology-admissions" target="_blank" rel="noopener">psychology admissions</a> listings, cross-checked 2 June 2026. Amity Jaipur &amp; Noida rows added 4 June 2026 (fees/eligibility from Collegedunia, GetMyUni, Careers360 &amp; UPS aggregators, since Amity&rsquo;s own course pages were redirecting; treat hard numbers as indicative and confirm on the prospectus). Nationwide RCI directory (39 more programs) added 4 June 2026 off the RCI-approved M.Phil + MA institution lists (<a href="https://www.upseducation.in/update/list-of-rci-approved-m-phil-clinical-psychology-institutions/" target="_blank" rel="noopener">M.Phil list</a>, <a href="https://www.upseducation.in/update/rci-approved-ma-clinical-psychology-colleges-in-india/" target="_blank" rel="noopener">MA list</a>); those rows carry institute + type + RCI status but not per-portal dates yet, so each is flagged <span class="st st-later">Verify</span>. Directory rows whose admissions URL I couldn&rsquo;t pin link to the UPS listing instead of guessing one. <b>Hostel column + fee/seats fill pass (5 Jun 2026):</b> seats, fees and hostel facts for the curated top block taken from the institute prospectus pages and Collegedunia/Careers360/Shiksha/UPS aggregators (RML 13 seats &amp; Dhanwantri hostel; CIP 21 seats, govt-funded, 210-bed hostel; NIMHANS ~&#8377;17,800/yr; Manipal ~&#8377;6.1L; Christ ~&#8377;4.8L + ~&#8377;50k/yr hostel; NFSU ~&#8377;2.6L, hostel limited to top 2&ndash;3 + international; JSS hostel ~&#8377;1.6&ndash;1.9L/yr). Directory rows with their own attached hospital are marked &ldquo;campus hostel&rdquo; (residential medical/govt institutes). <b>Directory fee/seats fill pass (5 Jun 2026):</b> GMCH-32 Chandigarh (8 seats UR-7/SC-1, ~&#8377;51k 2-yr, &#8377;12k/mo stipend), PGIMER (~&#8377;51k 2-yr), LGBRIMH Tezpur (~11&ndash;12 seats, ~&#8377;16.8k/yr, &#8377;25k/mo stipend), SCB Cuttack (12 seats, ~&#8377;25k 2-yr, &#8377;10k/mo stipend), IOP Kolkata (8 seats via WBJEEB JEMAS-PG, app &#8377;3,000), SRIHER Chennai (10 seats, ~&#8377;1.5L/yr), Amrita Kochi (~10&ndash;12 seats, app &#8377;500) &mdash; all off the institute prospectuses + Collegedunia/Careers360/UPS listings; their <b>2026 dates</b> stay <span class="st st-later">Verify</span> until the portal opens. RCI = Rehabilitation Council of India, the body that licenses clinical psychologists.</p>
+<p class="src">Source: Rehabilitation Council of India — <b>List of Approved Institutions upto 04-02-2026</b> (113-page PDF, “Approved institutes update”, created 4 Feb 2026), synced from WhatsApp 6 Jun 2026 07:32. Filter applied: any institution with M.Phil (Cl.Psy.), M.A. Cl.Psy. or M.Clin.Psy. on its approved-programme list. Government/private and own-hospital read from the institution’s name and the PDF’s “Status of Centre of Excellence” column; website is the address literally printed in the PDF where one exists. RCI = Rehabilitation Council of India, the statutory body that licenses clinical psychologists in India.</p>
 
 </div>
-<script>
-(function(){
-  function render(){
-    var now = new Date();
-    document.querySelectorAll('.cd[data-deadline]').forEach(function(el){
-      var dl = new Date(el.getAttribute('data-deadline'));
-      var ms = dl - now;
-      el.classList.remove('urgent','passed');
-      if (isNaN(dl.getTime())) { el.textContent=''; return; }
-      if (ms <= 0){
-        el.classList.add('passed');
-        el.textContent = 'Closed — verify on portal';
-        return;
-      }
-      var d = Math.floor(ms/86400000);
-      var h = Math.floor((ms%86400000)/3600000);
-      var m = Math.floor((ms%3600000)/60000);
-      el.textContent = 'Closes in ' + (d>0 ? d+'d ' : '') + h+'h ' + m+'m';
-      if (ms < 48*3600000) el.classList.add('urgent');
-    });
-  }
-  render();
-  setInterval(render, 30000);
-})();
-</script>
-<script>
-(function(){
-  // M.Phil-only institutes (no Masters / RCI-MA route) — hidden when "Masters only" is on.
-  var MPHIL_ONLY = ['PGIMER','GMCH-32','LGBRIMH','IMHANS, Kozhikode','Institute of Psychiatry','State Inst. of Mental Health','Mental Health Institute, Cuttack','RIMS, Imphal','Gwalior Mansik','PGIBAMS','GMC Srinagar','Amrita School of Medicine','Sweekaar','Kateel Ashok Pai'];
-  var cb = document.getElementById('maOnly');
-  var counter = document.getElementById('rowCount');
-  var rows = Array.prototype.slice.call(document.querySelectorAll('table.adm tbody tr'));
-  function apply(){
-    var on = cb.checked, shown = 0, total = 0;
-    rows.forEach(function(tr){
-      var c = tr.querySelector('td.col-col');
-      if(!c) return; // directory-header colspan row
-      total++;
-      var name = c.textContent;
-      var mphil = MPHIL_ONLY.some(function(f){ return name.indexOf(f) !== -1; });
-      var hide = on && mphil;
-      tr.style.display = hide ? 'none' : '';
-      if(!hide) shown++;
-    });
-    counter.textContent = on ? ('Showing ' + shown + ' Masters programs (' + (total-shown) + ' M.Phil-only hidden)')
-                             : ('Showing all ' + total + ' programs');
-  }
-  cb.addEventListener('change', apply);
-  apply();
-})();
-</script>
 </body>
 </html>
