@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abnormal Psychology — the integrative approach, disorder by disorder (Barlow &amp; Durand + DSM-5-TR + ICD-11) — MET 2026 + NIMHANS</title>
+<link rel="stylesheet" href="../../notes-style.css">
+<link rel="stylesheet" href="/sihan-met-flashcards/notes/term-popover.css">
+<link rel="stylesheet" href="/sihan-met-flashcards/notes/page-flip.css">
+<style>
+  .hy-banner { background: linear-gradient(135deg, rgba(88,166,255,0.12), rgba(63,185,80,0.10)); border: 1px solid var(--accent-dim); border-radius: 10px; padding: 14px 16px; margin: 0 0 24px 0; font-size: 14px; color: var(--text); }
+  .hy-banner b { color: var(--accent); }
+  .trap { background: rgba(248,81,73,0.08); border-left: 3px solid var(--bad); padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .trap b { color: var(--bad); }
+  .rule { background: rgba(63,185,80,0.08); border-left: 3px solid var(--good); padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .rule b { color: var(--good); }
+  .nimhans { background: rgba(163,113,247,0.10); border-left: 3px solid #a371f7; padding: 8px 12px; margin: 10px 0; border-radius: 4px; font-size: 14px; }
+  .nimhans b { color: #a371f7; }
+  .why { background: rgba(210,153,34,0.10); border-left: 3px solid #d29922; padding: 10px 13px; margin: 12px 0; border-radius: 4px; font-size: 14px; }
+  .why b { color: #d29922; }
+  .bio { background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--muted); border-radius: 4px; padding: 9px 13px; margin: 10px 0; font-size: 13.5px; color: var(--muted); }
+  .bio b { color: var(--text); }
+  .eg { font-style: italic; color: var(--muted); }
+  /* B&D opens each disorder with a clinical case */
+  .case { background: rgba(88,166,255,0.07); border: 1px solid var(--accent-dim); border-left: 3px solid var(--accent); border-radius: 6px; padding: 11px 14px; margin: 12px 0; font-size: 14px; }
+  .case b { color: var(--accent); }
+  .case .lbl { display:block; text-transform: uppercase; letter-spacing: 0.07em; font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+  /* side-by-side DSM-5-TR vs ICD-11 criteria box */
+  .crit { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin: 14px 0; font-size: 13.5px; }
+  .crit > div { padding: 11px 13px; }
+  .crit .dsm { background: rgba(88,166,255,0.06); border-right: 1px solid var(--border); }
+  .crit .icd { background: rgba(163,113,247,0.06); }
+  .crit h5 { margin: 0 0 7px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .crit .dsm h5 { color: var(--accent); }
+  .crit .icd h5 { color: #a371f7; }
+  .crit ul { margin: 0; padding-left: 17px; }
+  .crit li { margin: 3px 0; }
+  @media (max-width: 620px){ .crit { grid-template-columns: 1fr; } .crit .dsm { border-right: none; border-bottom: 1px solid var(--border); } }
+  .integ { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 4px 14px 10px; margin: 12px 0; font-size: 13.5px; }
+  .integ table { margin: 6px 0 0; }
+  .swp { display:flex; gap:8px; flex-wrap:wrap; margin: 0 0 22px; }
+  .swp a { font-size:12.5px; font-weight:600; border:1px solid var(--border); border-radius:999px; padding:6px 13px; white-space:nowrap; }
+  .swp a.here { border-color: var(--accent); color: var(--accent); }
+  .jump { font-size: 13px; line-height: 1.9; }
+  .jump a { margin-right: 14px; white-space: nowrap; }
+  .part { color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-size: 12px; font-weight: 700; margin: 46px 0 0; padding-top: 18px; border-top: 1px solid var(--border); }
+  h2.sec { border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-top: 14px; }
+  h2.sec .cn { color: var(--muted); font-weight: 400; font-size: 16px; }
+  h3 { color: var(--accent); margin-top: 26px; }
+  h4 { color: var(--text); font-size: 15px; margin-top: 20px; }
+  table { font-size: 14px; }
+  td:first-child { white-space: nowrap; }
+  .recap { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin: 16px 0 8px; font-size: 14px; }
+  .recap b { color: var(--accent); }
+</style>
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<meta name="theme-color" content="#0d1117">
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <a href="../../">← Dashboard</a>
+  <a href="../">All Notes</a>
+  <a href="../abnormal-ahuja/">Abnormal (Ahuja)</a>
+  <a href="../theorists/">Theorists</a>
+  <a href="../psychotherapy-cheatsheet/">Therapy cheatsheet</a>
+</nav>
+
+<h1>Abnormal Psychology — the integrative approach, disorder by disorder (Barlow &amp; Durand + DSM-5-TR + ICD-11)</h1>
+<p style="color: var(--muted); font-size: 13px;">The Abnormal section built the way <b>Barlow &amp; Durand, <i>Abnormal Psychology: An Integrative Approach</i></b> teaches it: every disorder opens with a <b>clinical case</b>, then runs the book's four-beat frame — <b>(1) clinical description</b> · <b>(2) statistics</b> (prevalence, onset, sex ratio, course) · <b>(3) causes</b>, read through the <b>multidimensional integrative model</b> (biological × psychological × emotional × social × developmental) · <b>(4) treatment</b>. On top of the book, every disorder's classification is cross-checked against the <b>current</b> criteria so nothing is outdated: <b>DSM-5-TR</b> (APA, 2022) and <b>ICD-11</b> (WHO, in force Jan 2022), shown <b>side by side where they differ</b> (the ICD-11 reclassifications are exactly what MET/NIMHANS/RCI fish for). Look-alike distinctions MCQs live on are in <span style="color:var(--bad);">red</span> trap boxes; where NIMHANS pushes past the book it's in <span style="color:#a371f7;">purple</span>. This is the companion to the <a href="../abnormal-ahuja/">Ahuja full-book page</a> — same disorders, the integrative/case lens instead of the Indian-psychiatry lens. Built 2026-06-07.</p>
+
+<div class="swp">
+  <a href="../abnormal-barlow-durand/" class="here">Abnormal (Barlow &amp; Durand)</a>
+  <a href="../abnormal-ahuja/">Abnormal (Ahuja, full book)</a>
+  <a href="../abnormal-psych-cheatsheet/">Abnormal cheatsheet</a>
+  <a href="../icd/">ICD breakdown</a>
+  <a href="../high-yield-abnormal-dev/">High-yield sheet</a>
+  <a href="../counselling-sharf/">Counselling (Sharf)</a>
+  <a href="../differentiators/">Lookalikes</a>
+</div>
+
+<div class="hy-banner"><b>What is "Barlow &amp; Durand" and why a second abnormal page.</b> The Ahuja page reads the field as Indian psychiatry: definitions, criteria, drugs, fast and exam-tight. Barlow &amp; Durand reads it as <b>integrative science</b>: it refuses any single cause and forces every disorder through a <b>multidimensional model</b>, and it teaches from <b>cases</b>. That's the angle this page adds. Same syllabus, deeper "why does it happen" answers (causes), plus the <b>triple vulnerability</b> theory (Barlow's own) for the anxiety block and the <b>equifinality / multifinality</b> developmental ideas — both pure B&amp;D, both testable. Use Ahuja for the cut-offs and drugs, use this for the model questions ("which approach / what causes it / which dimension").</div>
+
+<div class="why"><b>Two ideas hold the whole book together.</b> <b>(1) The multidimensional integrative model.</b> No disorder has one cause; each is the product of <b>biological</b> (genes, brain circuits, neurotransmitters), <b>psychological</b> (learning, cognition, conditioning), <b>emotional</b>, <b>social/cultural</b> and <b>developmental</b> dimensions interacting. <b>(2) Diathesis-stress run forward in time.</b> A vulnerability (diathesis) only becomes a disorder when life delivers the stress; genes and environment are not separate but <b>reciprocal</b> (your genes shape the environments you pick), and experience switches genes on and off (<b>epigenetics</b>). Hold these two and you can reconstruct almost every "what causes X / which model" answer.</div>
+
+<div class="jump">
+<b>Jump to:</b>
+<a href="#define">1. Defining a disorder (the 3 components)</a>
+<a href="#integrative">2. The integrative model</a>
+<a href="#assess">3. Assessment &amp; diagnosis</a>
+<a href="#anxiety">4. Anxiety disorders + triple vulnerability</a>
+<a href="#panic">5. Panic disorder &amp; agoraphobia</a>
+<a href="#phobia">6. Specific &amp; social phobia</a>
+<a href="#trauma">7. Trauma- &amp; stressor-related (PTSD)</a>
+<a href="#ocd">8. OCD &amp; related</a>
+<a href="#somatic">9. Somatic symptom disorders</a>
+<a href="#dissociative">10. Dissociative disorders</a>
+<a href="#mood">11. Mood disorders</a>
+<a href="#suicide">12. Suicide</a>
+<a href="#eating">13. Eating disorders</a>
+<a href="#sleep">14. Sleep–wake disorders</a>
+<a href="#sex">15. Sexual, gender &amp; paraphilic</a>
+<a href="#substance">16. Substance-related &amp; addictive</a>
+<a href="#personality">17. Personality disorders</a>
+<a href="#schizophrenia">18. Schizophrenia spectrum</a>
+<a href="#neurodev">19. Neurodevelopmental</a>
+<a href="#neurocog">20. Neurocognitive</a>
+<a href="#compare">DSM vs ICD at a glance</a>
+<a href="#traps">All the MCQ traps</a>
+<a href="#roster">Names &amp; studies roster</a>
+<a href="#glossary">Fast glossary (A–Z)</a>
+<a href="#selftest">Self-test (active recall)</a>
+</div>
+
+<!-- ============== PART ONE ============== -->
+<p class="part">Part One · Foundations &amp; the integrative model</p>
+
+<h2 id="define" class="sec"><span class="cn">Ch 1.</span> What makes behaviour a disorder, and the three traditions</h2>
+<p>Barlow &amp; Durand do <b>not</b> use a "4 Ds" list. Their working definition of a <b>psychological disorder</b> has <b>three components</b>, and all three usually travel together: <b>(1) psychological dysfunction</b> — a breakdown in cognitive, emotional or behavioural functioning; <b>(2) distress or impairment</b> — it hurts the person or wrecks their day-to-day functioning; <b>(3) an atypical or culturally unexpected response</b> — it deviates from what the culture expects (and is not merely a deviant act society dislikes). They lean on Wakefield's <b>"harmful dysfunction"</b>: a disorder is a failure of an internal mechanism to do what it evolved to do (<i>dysfunction</i>) <i>and</i> that failure is <i>harmful</i> to the person by their culture's standards.</p>
+<div class="trap"><b>B&amp;D's 3 vs Ahuja's 4 Ds.</b> If a question cites "<b>dysfunction + distress/impairment + atypical/culturally unexpected</b>," that's the Barlow &amp; Durand definition (3 components). The "Deviance, Distress, Dysfunction, Danger" 4-D list is the more common Indian-text framing. <b>Danger is NOT one of B&amp;D's three.</b> Both agree dysfunction/impairment is the indispensable core and distress alone is neither necessary nor sufficient (a person in mania feels great).</div>
+<table>
+<tr><th>Tradition</th><th>Core claim · key names</th><th>Treatment it implies</th></tr>
+<tr><td><b>Supernatural</b></td><td>Possession, sin, the moon, witchcraft; <i>Malleus Maleficarum</i> (1487); the "mass hysteria"/St Vitus dances</td><td>Exorcism, prayer, shunning</td></tr>
+<tr><td><b>Biological</b></td><td>Hippocrates' <b>four humours</b> (imbalance = illness); <b>Galen</b>; <b>Kraepelin</b> (classification, <i>dementia praecox</i>); the discovery that <b>general paresis</b> = late-stage syphilis cemented "mental illness can be physical"</td><td>Rest, drugs, ECT, psychosurgery</td></tr>
+<tr><td><b>Psychological</b></td><td><b>Moral therapy</b> (Pinel at Bicêtre, Tuke's York Retreat — humane treatment); <b>Freud</b> &amp; psychoanalysis (unconscious, defences); <b>Watson/Pavlov/Skinner</b> behaviourism (learning); humanism (Rogers)</td><td>Talk therapy, conditioning, person-centred</td></tr>
+</table>
+<p>B&amp;D frame the modern clinician as a <b>scientist-practitioner</b>: a consumer and producer of research who treats each case as testable. The whole book is then an argument that the three traditions are not rivals but <i>dimensions</i> of one integrative explanation.</p>
+<div class="recap"><b>Recap Ch 1.</b> B&amp;D disorder = psychological <b>dysfunction</b> + <b>distress/impairment</b> + <b>atypical/culturally unexpected</b> (3 components, NOT 4 Ds; "harmful dysfunction," Wakefield). Three historical traditions — supernatural, biological (humours → Kraepelin → general paresis), psychological (moral therapy → Freud → behaviourism) — converge in the integrative model. The clinician is a scientist-practitioner.</div>
+
+<h2 id="integrative" class="sec"><span class="cn">Ch 2.</span> The integrative (multidimensional) model — the signature of the book</h2>
+<p>This is the chapter the rest of the book runs on, and the one most worth knowing cold. No disorder has one cause; B&amp;D insist on a <b>multidimensional integrative</b> reading where several dimensions interact over time.</p>
+<div class="integ">
+<table>
+<tr><th>Dimension</th><th>What it contributes · the B&amp;D concepts</th></tr>
+<tr><td><b>Genetic</b></td><td>Genes rarely cause a disorder alone; they set <b>vulnerability</b>. Key B&amp;D ideas: <b>diathesis-stress</b> (a gene/vulnerability lies dormant until stress triggers it), the <b>reciprocal gene-environment model</b> (your genetic make-up makes you seek environments that then express the gene), and <b>epigenetics</b> (experience switches gene expression on/off without changing DNA). Polygenic, not one "gene for" anything.</td></tr>
+<tr><td><b>Neuroscience</b></td><td>Brain <b>structure</b> (limbic system, amygdala = fear; hippocampus; prefrontal cortex; basal ganglia; HPA axis) and <b>neurotransmitters</b> as currents, not switches: <b>serotonin</b> (regulation/restraint of behaviour), <b>GABA</b> (the brake — reduces anxiety; benzodiazepines act here), <b>glutamate</b> (the accelerator), <b>norepinephrine</b> (alarm/arousal), <b>dopamine</b> (reward, "switch" for other systems; implicated in schizophrenia &amp; addiction). The <b>HPA axis</b> → <b>cortisol</b> is the body's stress engine.</td></tr>
+<tr><td><b>Behavioural &amp; cognitive</b></td><td><b>Classical &amp; operant conditioning</b> of maladaptive responses; <b>learned helplessness</b> (Seligman — uncontrollable aversive events → giving up → a model of depression); <b>prepared learning</b> (Seligman — we are evolutionarily primed to fear snakes/heights, not electrical outlets); cognitive appraisal and attributional style. <b>Learning is not just behaviour</b>: even one bad experience plus information transmission plants a fear.</td></tr>
+<tr><td><b>Emotional</b></td><td>Emotions (basic-emotion theory) are action tendencies that, dysregulated, drive disorders; <b>emotion contributes to behaviour</b> (panic = the fight-flight emotion fired with no danger). Suppressing/avoiding emotion maintains anxiety.</td></tr>
+<tr><td><b>Social &amp; cultural</b></td><td>Social relationships buffer or worsen risk (loneliness predicts illness and death); culture shapes the <i>form</i> a disorder takes (e.g. somatic expression of depression, culture-bound syndromes). Gender roles channel which disorders appear.</td></tr>
+<tr><td><b>Developmental / life-span</b></td><td>The <b>principle of equifinality</b> — many different paths can lead to the <i>same</i> disorder — and its partner <b>multifinality</b> — the same risk factor can lead to <i>different</i> outcomes. Timing matters: the same insult has different effects at different ages.</td></tr>
+</table>
+</div>
+<div class="nimhans"><b>NIMHANS/MET love these named B&amp;D concepts:</b> the <b>diathesis-stress</b> model, the <b>reciprocal gene-environment</b> model, <b>epigenetics</b>, <b>equifinality</b> (many roads → one disorder) vs <b>multifinality</b>, <b>learned helplessness</b> (Seligman → depression), <b>prepared learning</b> (why phobias cluster on evolutionary threats), and the neurotransmitter "currents" reading (GABA = brake, glutamate = accelerator, serotonin = regulator). The integrative model itself is the answer to any "which approach best explains psychopathology today" item.</div>
+<div class="trap"><b>Equifinality vs multifinality.</b> <b>Equifinality</b> = different starting points reach the <i>same</i> endpoint (abuse, genes, or loss can all end in depression). <b>Multifinality</b> = one starting point reaches <i>different</i> endpoints (one abused child becomes depressed, another resilient). Same prefix logic as "equi = equal end."</div>
+<div class="recap"><b>Recap Ch 2.</b> Every disorder = biological × psychological × emotional × social × developmental, interacting. Genetic dimension: diathesis-stress, reciprocal gene-environment, epigenetics. Neuroscience: GABA brake / glutamate accelerator / serotonin regulator / dopamine reward / HPA-cortisol stress. Behavioural-cognitive: learned helplessness, prepared learning. Developmental: equifinality &amp; multifinality.</div>
+
+<h2 id="assess" class="sec"><span class="cn">Ch 3.</span> Clinical assessment &amp; diagnosis</h2>
+<p>Good assessment is <b>reliable</b> (consistent — same result across raters/time), <b>valid</b> (measures what it claims), and <b>standardised</b> (fixed procedure + norms). B&amp;D's tools: the <b>clinical interview</b> + <b>mental status exam</b> (appearance/behaviour, thought process &amp; content, mood &amp; affect, intellectual functioning, sensorium); <b>behavioural assessment</b> (ABCs — antecedent, behaviour, consequence); <b>psychological tests</b> — <b>projective</b> (Rorschach, TAT — unstructured, weak psychometrics), <b>objective/personality</b> (MMPI), <b>intelligence</b> (WAIS/WISC), and <b>neuropsychological</b> (Halstead-Reitan, Luria-Nebraska); plus <b>neuroimaging</b> (CT/MRI structure; fMRI/PET function) and <b>psychophysiology</b> (EEG, heart rate, EDA).</p>
+<div class="crit">
+  <div class="dsm"><h5>DSM-5-TR (APA, 2022)</h5><ul>
+    <li>Mostly <b>categorical</b> (you have it or you don't) with criteria sets + thresholds.</li>
+    <li><b>Multiaxial system abandoned</b> in DSM-5 (the old Axes I–V are gone).</li>
+    <li>Organised so related disorders sit together (anxiety / OCD / trauma split into 3 chapters).</li>
+    <li>Adds dimensional severity ratings and cross-cutting measures alongside categories.</li>
+  </ul></div>
+  <div class="icd"><h5>ICD-11 (WHO, in force 2022)</h5><ul>
+    <li>Global standard; mental disorders = <b>Chapter 06</b>. India follows ICD officially.</li>
+    <li>More <b>prototype/description-based</b> — leans on clinician judgement, fewer rigid counts.</li>
+    <li>Built-in <b>dimensionality</b> (clearest in personality disorders).</li>
+    <li>Never used DSM-style axes.</li>
+  </ul></div>
+</div>
+<div class="trap"><b>Reliability ≠ validity.</b> A test can be reliable (consistent) yet invalid (consistently wrong). Validity <i>requires</i> reliability but not the reverse. <b>Projective tests</b> (Rorschach/TAT) = high clinical richness, weak reliability/validity; <b>objective tests</b> (MMPI) = empirically keyed, strong psychometrics.</div>
+<div class="recap"><b>Recap Ch 3.</b> Assessment must be reliable + valid + standardised. Tools: interview + MSE, behavioural ABC, projective vs objective tests, IQ, neuropsych, imaging, psychophysiology. DSM-5-TR = categorical, no axes; ICD-11 = more dimensional, prototype-based, Chapter 06.</div>
+
+<!-- ============== PART TWO: ANXIETY ============== -->
+<p class="part">Part Two · Anxiety, trauma &amp; OCD (B&amp;D Ch 5)</p>
+
+<h2 id="anxiety" class="sec"><span class="cn">Ch 4.</span> Anxiety disorders, and Barlow's triple vulnerability</h2>
+<p>B&amp;D draw a sharp line between three states. <b>Anxiety</b> = a future-oriented mood state, apprehension about possible threat (cognitive/somatic tension). <b>Fear</b> = an immediate alarm reaction to <i>present</i> danger — the <b>fight-flight</b> response firing now. <b>Panic attack</b> = fear occurring when there is <i>nothing to be afraid of</i> — a false alarm. Cued (situational) vs <b>uncued/unexpected</b> panic attacks; only unexpected ones define panic disorder.</p>
+<div class="why"><b>The triple vulnerability theory (Barlow) — pure B&amp;D, very testable.</b> Anxiety disorders grow from <b>three vulnerabilities stacking</b>: <b>(1) generalised biological vulnerability</b> (a heritable tendency to be tense/neurotic); <b>(2) generalised psychological vulnerability</b> (a sense, from early experience, that the world is dangerous and uncontrollable); <b>(3) specific psychological vulnerability</b> (learning, from family/experience, <i>what</i> to focus the anxiety on — e.g. "physical symptoms are dangerous" → panic; "social evaluation is dangerous" → social anxiety). General vulnerabilities alone aren't enough; the specific one points the anxiety at its target.</div>
+<h4>Generalised Anxiety Disorder (GAD)</h4>
+<div class="case"><span class="lbl">Clinical snapshot</span> A woman describes herself as a lifelong worrier: she frets about her kids, money, her health, being late, things that "might" go wrong, can't switch it off, feels keyed-up and tired, sleeps badly, neck always tense. There's no single feared object, just a roving, uncontrollable worry that has been there for years.</div>
+<p><b>Clinical description:</b> excessive, uncontrollable <b>worry</b> about multiple everyday domains, with physical tension. The cognition (worry) is the engine; B&amp;D note GAD patients show <i>autonomic restriction</i> (chronically tense, not spiking) — worry may be an avoidance of worse imagery. <b>Statistics:</b> ~3% (1-yr), insidious onset, often early; ~2:1 female. <b>Causes:</b> generalised biological + psychological vulnerability; worry as cognitive avoidance. <b>Treatment:</b> CBT (especially targeting the worry process), SSRIs/SNRIs, short-term benzodiazepines for acute relief only.</p>
+<div class="crit">
+  <div class="dsm"><h5>DSM-5-TR — GAD</h5><ul>
+    <li>Excessive anxiety/worry, more days than not, for <b>≥6 months</b>, about several events.</li>
+    <li>Worry is <b>hard to control</b>.</li>
+    <li><b>≥3 of 6</b>: restlessness, easily fatigued, poor concentration, irritability, muscle tension, sleep disturbance.</li>
+    <li>Distress/impairment; not substance/medical.</li>
+  </ul></div>
+  <div class="icd"><h5>ICD-11 — GAD</h5><ul>
+    <li>Marked general apprehension or worry about multiple events, <b>≥ several months</b> (most days).</li>
+    <li>Plus additional symptoms: muscle tension, restlessness, autonomic overactivity, difficulty concentrating, irritability, sleep disturbance.</li>
+    <li>Less wedded to the exact "≥3 of 6 / 6-month" count — clinician judgement of persistence.</li>
+  </ul></div>
+</div>
+<div class="trap"><b>GAD vs normal worry vs OCD.</b> GAD = free-floating worry about <i>real-life</i> domains, ego-syntonic ("I'm a worrier"). OCD = intrusive, unwanted, often senseless thoughts (contamination, harm) that the person resists. The GAD cut-off is the <b>6-month</b> rule in DSM.</div>
+<div class="recap"><b>Recap Ch 4.</b> Anxiety (future) vs fear (present alarm = fight-flight) vs panic (false alarm). <b>Triple vulnerability</b> = generalised biological + generalised psychological + specific psychological. GAD = uncontrollable free-floating worry ≥6 months (DSM) + ≥3 symptoms; CBT + SSRIs.</div>
+
+<h2 id="panic" class="sec"><span class="cn">Ch 5.</span> Panic disorder &amp; agoraphobia</h2>
+<div class="case"><span class="lbl">Clinical snapshot</span> A young man's heart suddenly races in a supermarket, he can't breathe, his hands tingle, he's sure he's having a heart attack and is going to die. ER tests are normal. Now he scans his body constantly and avoids supermarkets, then buses, then leaving home alone, in case "it" happens again where he can't get help.</div>
+<p><b>Clinical description:</b> recurrent <b>unexpected panic attacks</b> (abrupt surge of fear peaking within minutes — palpitations, sweating, choking, chest pain, derealisation, fear of dying/going crazy) followed by persistent worry about more attacks or a maladaptive change in behaviour. <b>Agoraphobia</b> = fear/avoidance of situations where escape is hard or help unavailable if panic strikes (transport, open/enclosed spaces, crowds, queues, being out alone). <b>Statistics:</b> panic ~2–3%, onset adolescence–mid-30s, ~2:1 female; agoraphobia often follows panic. <b>Causes (B&amp;D's model):</b> an initial <b>false alarm</b> (a panic attack out of the blue) becomes a <b>learned alarm</b> through <b>interoceptive conditioning</b> — the body's own sensations (racing heart) become conditioned cues for panic — layered on <b>anxiety sensitivity</b> (the belief that bodily sensations are dangerous). <b>Treatment:</b> CBT with <b>interoceptive exposure</b> (deliberately bring on the sensations and disconfirm catastrophe) + <i>in-vivo</i> exposure for agoraphobia; SSRIs/SNRIs; benzodiazepines only short-term.</p>
+<div class="crit">
+  <div class="dsm"><h5>DSM-5-TR — Panic disorder</h5><ul>
+    <li>Recurrent <b>unexpected</b> panic attacks.</li>
+    <li><b>≥1 month</b> of persistent worry about further attacks <i>or</i> a maladaptive behaviour change.</li>
+    <li><b>Agoraphobia is a separate, standalone diagnosis</b> (can be coded with or without panic).</li>
+    <li>"Panic attack" can be a <b>specifier</b> on any disorder.</li>
+  </ul></div>
+  <div class="icd"><h5>ICD-11 — Panic disorder</h5><ul>
+    <li>Recurrent unexpected panic attacks + persistent concern/avoidance.</li>
+    <li><b>Agoraphobia</b> also a standalone category (marked fear in multiple situations where escape is difficult).</li>
+    <li>Panic attacks can be added as a <b>qualifier</b> to other anxiety/fear disorders.</li>
+  </ul></div>
+</div>
+<div class="trap"><b>The attack is not the disorder.</b> A panic <i>attack</i> can occur in many conditions; <b>panic disorder</b> requires the attacks be <b>unexpected</b> + <b>≥1 month</b> of anticipatory worry/behaviour change. <b>Interoceptive conditioning</b> (fearing your own heartbeat) is the B&amp;D mechanism — a classic MCQ term.</div>
+<div class="recap"><b>Recap Ch 5.</b> Panic disorder = unexpected attacks + ≥1 month worry; false alarm → learned alarm via interoceptive conditioning + anxiety sensitivity. Agoraphobia is now standalone in both DSM-5 and ICD-11. Treat with interoceptive + in-vivo exposure CBT and SSRIs.</div>
+
+<h2 id="phobia" class="sec"><span class="cn">Ch 6.</span> Specific phobia &amp; social anxiety disorder</h2>
+<div class="case"><span class="lbl">Clinical snapshot (B&amp;D's classic "Judy" case)</span> A bright teenager faints whenever she sees blood, even a drop, even on TV in biology class — her blood pressure spikes then crashes (the vasovagal drop), she goes pale and passes out. She has reorganised her whole life to avoid the sight of blood or injury.</div>
+<p><b>Specific phobia</b> = marked, persistent, unreasonable fear of a specific object/situation, ≥6 months, with avoidance. B&amp;D's four subtypes: <b>blood-injection-injury (BII)</b>, <b>situational</b> (planes, lifts), <b>natural environment</b> (heights, water, storms), <b>animal</b> (+ "other"). <b>BII is unique</b>: a <b>biphasic, diphasic vasovagal response</b> — BP and HR briefly rise then sharply <i>drop</i>, causing <b>fainting</b> — and it runs strongly in families (the only phobia where you faint). <b>Social anxiety disorder (social phobia)</b> = marked fear of scrutiny/negative evaluation in social or performance situations. <b>Causes:</b> direct conditioning, vicarious learning (watching someone else's fear), information transmission, all on a base of <b>prepared learning</b> (Seligman) + the triple vulnerability. <b>Treatment:</b> <b>exposure</b> is first-line (graded exposure, systematic desensitisation, participant modelling); for BII add <b>applied tension</b> (tense muscles to keep BP up and prevent the faint); social anxiety adds cognitive restructuring + SSRIs.</p>
+<div class="trap"><b>BII phobia is the one that makes you faint.</b> Every other phobia drives BP/HR <i>up</i> (sympathetic) and you want to flee; <b>BII</b> is biphasic — up then a parasympathetic crash → vasovagal <b>fainting</b>. Treatment quirk: <b>applied muscle tension</b>, not relaxation. High-yield distractor.</div>
+<div class="trap"><b>Social anxiety vs avoidant PD vs agoraphobia.</b> Social anxiety = fear of <i>judgement/embarrassment</i>; agoraphobia = fear that <i>escape/help</i> is unavailable; avoidant personality disorder = a pervasive, lifelong pattern of feeling inadequate &amp; hypersensitive to rejection (the trait-level version of social anxiety).</div>
+<div class="recap"><b>Recap Ch 6.</b> Specific phobia (4 types: BII, situational, natural-environment, animal), ≥6 months; BII = biphasic vasovagal faint, treated with applied tension. Social anxiety = fear of evaluation. Learned by conditioning/vicarious/information on a prepared-learning base; exposure is first-line.</div>
+
+<h2 id="trauma" class="sec"><span class="cn">Ch 7.</span> Trauma- &amp; stressor-related disorders (PTSD)</h2>
+<div class="case"><span class="lbl">Clinical snapshot</span> Months after a motorway pile-up, a driver still jolts awake from nightmares of the crash, can't drive past the spot, feels numb and detached from his family, can't remember part of the crash, and snaps at any sudden noise. It hasn't faded; it's running his life.</div>
+<p><b>PTSD</b> follows exposure to actual/threatened death, serious injury or sexual violence (directly, witnessed, or learned-of for close others). <b>DSM-5 moved PTSD out of the anxiety chapter</b> into "Trauma- and Stressor-Related Disorders." Four symptom clusters: <b>intrusion</b> (flashbacks, nightmares), <b>avoidance</b>, <b>negative alterations in cognition/mood</b>, <b>arousal/reactivity</b> (hypervigilance, exaggerated startle), lasting <b>&gt;1 month</b>. <b>Acute Stress Disorder</b> = the same picture lasting <b>3 days–1 month</b> right after the trauma. <b>Causes:</b> the trauma is necessary but not sufficient — pre-trauma vulnerability (biological reactivity, prior trauma), peri-trauma severity, and post-trauma factors (lack of social support) decide who develops it; a conditioned-fear + failure-of-extinction model. <b>Treatment:</b> trauma-focused CBT, <b>prolonged exposure</b>, cognitive processing therapy, EMDR; SSRIs.</p>
+<div class="crit">
+  <div class="dsm"><h5>DSM-5-TR — Trauma disorders</h5><ul>
+    <li><b>One PTSD</b> diagnosis, <b>4 clusters</b> (intrusion, avoidance, negative cognition/mood, arousal), &gt;1 month.</li>
+    <li><b>Acute Stress Disorder</b> for the 3-day–1-month window.</li>
+    <li>A <b>dissociative subtype</b> of PTSD (depersonalisation/derealisation).</li>
+    <li><b>No</b> Complex PTSD category.</li>
+  </ul></div>
+  <div class="icd"><h5>ICD-11 — Trauma disorders</h5><ul>
+    <li><b>Simplified PTSD</b>: re-experiencing <i>in the here-and-now</i> + avoidance + sense of current threat.</li>
+    <li>Adds a separate <b>Complex PTSD (CPTSD)</b>: PTSD + <b>disturbances in self-organisation</b> (affect dysregulation, negative self-concept, relationship difficulties) after prolonged/repeated trauma.</li>
+    <li>Adds <b>Prolonged Grief Disorder</b> and <b>Adjustment disorder</b> in this grouping.</li>
+  </ul></div>
+</div>
+<div class="nimhans"><b>The reclassification MET likes:</b> <b>ICD-11 has Complex PTSD, DSM-5-TR does not.</b> CPTSD = PTSD core + the three "self-organisation" disturbances, after chronic trauma (childhood abuse, captivity). Also know: both manuals now have <b>Prolonged Grief Disorder</b> (DSM-5-TR added it in 2022).</div>
+<div class="recap"><b>Recap Ch 7.</b> PTSD = post-trauma, 4 clusters (intrusion/avoidance/negative mood/arousal), &gt;1 month; ASD = 3 days–1 month. ICD-11 adds <b>Complex PTSD</b> (+ disturbances in self-organisation); DSM doesn't. Trauma necessary, not sufficient — vulnerability + support decide. Prolonged exposure / TF-CBT / EMDR + SSRIs.</div>
+
+<h2 id="ocd" class="sec"><span class="cn">Ch 8.</span> Obsessive-Compulsive &amp; Related Disorders</h2>
+<div class="case"><span class="lbl">Clinical snapshot</span> A student washes his hands until they bleed because an intrusive image of "germs spreading death to my family" floods him with dread; the washing relieves it for minutes, then it returns. He knows it's irrational, hates it, and it now eats four hours a day.</div>
+<p><b>DSM-5 carved OCD out of anxiety</b> into its own grouping (ICD-11 too). <b>OCD</b> = <b>obsessions</b> (recurrent, intrusive, unwanted thoughts/images/urges that cause anxiety — contamination, doubt, symmetry, taboo/aggressive) <i>and/or</i> <b>compulsions</b> (repetitive behaviours/mental acts done to neutralise the anxiety — washing, checking, counting, ordering, praying), time-consuming (&gt;1 hr/day). Insight is usually retained (<b>ego-dystonic</b>). <b>Related:</b> <b>Body Dysmorphic Disorder</b> (preoccupation with an imagined/slight defect + mirror-checking), <b>Hoarding disorder</b> (new), <b>Trichotillomania</b> (hair-pulling), <b>Excoriation</b> (skin-picking). <b>Causes:</b> cortico-striato-thalamo-cortical loop overactivity, serotonin; cognitively, <b>thought-action fusion</b> (treating a thought as morally equal to the act) and inflated responsibility maintain it; the compulsion is <b>negatively reinforced</b> by anxiety relief. <b>Treatment:</b> <b>Exposure and Response Prevention (ERP)</b> is the treatment of choice (expose to the trigger, block the compulsion, let anxiety habituate) + SSRIs (often high-dose); clomipramine.</p>
+<div class="trap"><b>OCD vs OCPD.</b> OCD = <b>ego-dystonic</b> intrusive obsessions + compulsions, the person is distressed by them (a clinical disorder). <b>OCPD</b> = <b>ego-syntonic</b> personality style — perfectionism, orderliness, control, rigidity, <i>no</i> true obsessions/compulsions — the person thinks they're right. Distressed by the thoughts → OCD; thinks the rigidity is correct → OCPD.</div>
+<div class="trap"><b>Obsession vs compulsion vs delusion.</b> Obsession = intrusive <i>thought</i>; compulsion = the <i>act</i> that relieves it; both retain insight. A delusion = a fixed false belief held <i>with</i> conviction (no insight) — that's psychosis, not OCD.</div>
+<div class="recap"><b>Recap Ch 8.</b> OCD = obsessions (thoughts) + compulsions (acts), ego-dystonic, &gt;1hr/day, own DSM-5/ICD-11 chapter. Relatives: BDD, hoarding, trichotillomania, excoriation. Maintained by negative reinforcement + thought-action fusion. <b>ERP</b> is first-line + SSRIs/clomipramine. Don't confuse with OCPD.</div>
+
+<!-- ============== PART THREE: SOMATIC & DISSOCIATIVE ============== -->
+<p class="part">Part Three · Somatic symptom &amp; dissociative disorders (B&amp;D Ch 6)</p>
+
+<h2 id="somatic" class="sec"><span class="cn">Ch 9.</span> Somatic symptom &amp; related disorders</h2>
+<div class="case"><span class="lbl">Clinical snapshot</span> A man is convinced his stomach aches mean cancer. Test after test is clear, doctor after doctor reassures him, but within days the fear is back; he reads symptom websites for hours, books more scans, and his life narrows to monitoring his body.</div>
+<p>The body is the stage; the distress is psychological. <b>DSM-5 collapsed the old "somatoform" list</b> into fewer, clearer categories and <b>dropped the requirement that symptoms be medically unexplained</b> — what matters now is the <i>excessive response</i> to symptoms.</p>
+<table>
+<tr><th>Disorder</th><th>Core</th></tr>
+<tr><td><b>Somatic Symptom Disorder</b></td><td>One+ distressing somatic symptoms + <b>excessive</b> thoughts/feelings/behaviours about them (≥6 months). Symptom may even be medically real — it's the disproportionate response that's the disorder.</td></tr>
+<tr><td><b>Illness Anxiety Disorder</b></td><td>Preoccupation with <i>having/getting</i> a serious illness with <b>few or no</b> somatic symptoms; high health anxiety, checking or avoidance. (The reworked "hypochondriasis.")</td></tr>
+<tr><td><b>Conversion Disorder (Functional Neurological Symptom Disorder)</b></td><td>Neurological symptoms (paralysis, blindness, non-epileptic seizures, aphonia) <b>incompatible</b> with any medical disease; classic sign <b>la belle indifférence</b> (oddly calm about a dramatic deficit). Freud's original "hysteria."</td></tr>
+<tr><td><b>Factitious Disorder</b></td><td>Deliberately faking/inducing symptoms to <b>assume the sick role</b> (no external reward). Imposed on another = <b>factitious disorder imposed on another</b> (old Munchausen by proxy).</td></tr>
+</table>
+<div class="trap"><b>Conversion vs factitious vs malingering — the classic 3-way.</b> All three present with symptoms that don't fit disease. <b>Conversion</b> = symptom is <b>unconscious/genuine</b> (not faked), no external gain. <b>Factitious</b> = <b>consciously faked</b> for the <i>internal</i> reward of being a patient (the sick role). <b>Malingering</b> = <b>consciously faked</b> for an <i>external</i> reward (money, drugs, avoiding work/jail) — and malingering is <b>not a mental disorder</b>. Split on: conscious? and external gain?</div>
+<div class="recap"><b>Recap Ch 9.</b> DSM-5 dropped "medically unexplained" — it's the excessive response that defines somatic symptom disorder. Illness anxiety = fear of disease, few symptoms. Conversion = genuine, unconscious neuro symptom (la belle indifférence). Factitious (sick role, no reward) vs malingering (external reward, not a disorder).</div>
+
+<h2 id="dissociative" class="sec"><span class="cn">Ch 10.</span> Dissociative disorders</h2>
+<p>A disruption of the normally integrated functions of <b>consciousness, memory, identity and perception</b> — usually trauma-linked.</p>
+<table>
+<tr><th>Disorder</th><th>Core</th></tr>
+<tr><td><b>Dissociative Amnesia</b></td><td>Inability to recall important (usually traumatic) autobiographical information, beyond ordinary forgetting. <b>Dissociative fugue</b> = amnesia + sudden purposeful <b>travel</b>/wandering, now a <i>specifier</i> of amnesia.</td></tr>
+<tr><td><b>Depersonalisation / Derealisation Disorder</b></td><td>Persistent detachment from one's <b>self</b> (depersonalisation — "I'm watching myself," unreal body) or <b>surroundings</b> (derealisation — the world looks dreamlike/foggy), with <b>intact reality testing</b>.</td></tr>
+<tr><td><b>Dissociative Identity Disorder (DID)</b></td><td>Two+ distinct <b>personality states</b> + recurrent gaps in memory. Strongly linked to <b>severe, early, chronic trauma</b> (the post-traumatic model). Formerly "multiple personality disorder."</td></tr>
+</table>
+<div class="trap"><b>DID ≠ schizophrenia.</b> "Split mind" (Bleuler's term for schizophrenia) = split among thought/emotion/behaviour, <b>not</b> split into multiple people. <b>DID</b> = multiple identity states. A common deliberate distractor. Also: depersonalisation keeps <b>reality testing intact</b> (you know it's not real), unlike psychosis.</div>
+<div class="recap"><b>Recap Ch 10.</b> Dissociation = breakdown of integrated consciousness/memory/identity. Amnesia (± fugue travel), depersonalisation/derealisation (detachment, reality intact), DID (≥2 identity states + amnesia, trauma-driven). DID is not schizophrenia.</div>
+
+<!-- ============== PART FOUR: MOOD ============== -->
+<p class="part">Part Four · Mood disorders &amp; suicide (B&amp;D Ch 7)</p>
+
+<h2 id="mood" class="sec"><span class="cn">Ch 11.</span> Mood (depressive &amp; bipolar) disorders</h2>
+<div class="case"><span class="lbl">Clinical snapshot</span> For two months a woman has felt flat and hopeless, dropped the things she used to love, sleeps badly and wakes at 4am, can't concentrate at work, feels worthless and "a burden," and has started thinking everyone would be better off without her.</div>
+<p>B&amp;D build the chapter from <b>mood episodes</b> (the building blocks) up to the <b>disorders</b> (defined by which episodes occur).</p>
+<table>
+<tr><th>Episode</th><th>Definition</th></tr>
+<tr><td><b>Major depressive episode</b></td><td><b>≥5/9</b> over the same 2 weeks (≥1 = depressed mood or anhedonia): mood, anhedonia, weight/appetite, sleep, psychomotor change, fatigue, worthlessness/guilt, poor concentration, suicidality (<b>SIG E CAPS</b>).</td></tr>
+<tr><td><b>Manic episode</b></td><td>Abnormally elevated/expansive/<b>irritable</b> mood + increased energy, <b>≥1 week</b>, ≥3 symptoms (<b>DIG FAST</b>: distractibility, indiscretion, grandiosity, flight of ideas, activity↑, sleep need↓, talkativeness); marked impairment / may be psychotic.</td></tr>
+<tr><td><b>Hypomanic episode</b></td><td>Same symptoms, <b>≥4 days</b>, <b>no</b> marked impairment, no psychosis, no hospitalisation.</td></tr>
+</table>
+<table>
+<tr><th>Disorder</th><th>Defining requirement</th></tr>
+<tr><td><b>Major Depressive Disorder</b></td><td>≥1 major depressive episode, no mania/hypomania ever.</td></tr>
+<tr><td><b>Persistent Depressive Disorder (dysthymia)</b></td><td>Depressed mood most days <b>≥2 years</b> (1 yr in youth); chronic but milder. "Double depression" = MDD on top of PDD.</td></tr>
+<tr><td><b>Bipolar I</b></td><td>≥1 full <b>manic</b> episode (depression not required).</td></tr>
+<tr><td><b>Bipolar II</b></td><td>≥1 <b>hypomanic</b> + ≥1 <b>major depressive</b>; <b>never</b> a full manic episode.</td></tr>
+<tr><td><b>Cyclothymia</b></td><td><b>≥2 years</b> of fluctuating subthreshold hypomanic + depressive symptoms.</td></tr>
+</table>
+<p><b>Statistics:</b> MDD lifetime ~16%, <b>~2:1 female</b>, mean onset late 20s; bipolar ~1–2%, equal sexes, the most heritable mood disorder (MZ concordance ~60–70%). <b>Causes (integrative):</b> heritability ~40% (depression) up to ~80% (bipolar); monoamine (serotonin/NE/dopamine) dysregulation; HPA-axis/cortisol overactivity; psychologically, <b>Beck's negative cognitive triad</b> (negative view of self, world, future) + depressogenic schemas, and <b>Seligman's learned helplessness → hopelessness</b> theory (attributing bad events to internal-stable-global causes). Stressful life events + low social support trigger episodes in the vulnerable. <b>Treatment:</b> depression — <b>SSRIs</b> first-line, SNRIs/TCAs/MAOIs, <b>ECT</b> for severe/psychotic/refractory; psychotherapy <b>CBT</b> &amp; <b>IPT</b> have the best evidence. Bipolar — <b>lithium</b> (mood stabiliser, anti-suicidal, narrow therapeutic index), valproate/lamotrigine, atypical antipsychotics; <b>antidepressant monotherapy avoided</b> (can flip to mania).</p>
+<div class="crit">
+  <div class="dsm"><h5>DSM-5-TR — Mood</h5><ul>
+    <li>Depressive and bipolar disorders are <b>two separate chapters</b>.</li>
+    <li><b>Bereavement exclusion removed</b> — MDD can be diagnosed soon after a loss.</li>
+    <li>Added <b>DMDD</b> (child irritability) and <b>PMDD</b> as depressive disorders; <b>Prolonged Grief Disorder</b> (2022).</li>
+    <li>Specifiers: melancholic, atypical, peripartum, seasonal, with mixed features, with anxious distress.</li>
+  </ul></div>
+  <div class="icd"><h5>ICD-11 — Mood</h5><ul>
+    <li>Single <b>"Mood disorders"</b> grouping, then depressive vs bipolar.</li>
+    <li>Depression graded by <b>severity</b> (mild/moderate/severe ± psychotic) and single vs recurrent.</li>
+    <li>Has <b>Bipolar I and II</b> and cyclothymia; no DMDD (irritability handled differently).</li>
+    <li>Prolonged Grief Disorder sits under trauma/stress, not mood.</li>
+  </ul></div>
+</div>
+<div class="trap"><b>BP-I vs BP-II vs cyclothymia.</b> One full <b>mania</b> ever = BP-I (forever). <b>Hypomania + depression, no mania</b> = BP-II. Chronic subthreshold ups-and-downs ≥2 yrs = cyclothymia. <b>MDD vs grief:</b> grief comes in waves, centres on the loss, self-esteem preserved; MDD is pervasive with worthlessness/anhedonia (and DSM-5 dropped the bereavement exclusion).</div>
+<div class="recap"><b>Recap Ch 11.</b> Episodes (MDE ≥5/9 / 2wk; mania ≥1wk; hypomania ≥4 days) build the disorders (MDD, PDD ≥2yr, BP-I one mania, BP-II hypomania+depression, cyclothymia ≥2yr). Monoamine + HPA + Beck's triad + learned helplessness. SSRIs/ECT + CBT/IPT for depression; lithium for bipolar, no antidepressant alone.</div>
+
+<h2 id="suicide" class="sec"><span class="cn">Ch 12.</span> Suicide</h2>
+<p>B&amp;D treat suicide in the mood chapter. <b>Durkheim's sociological types:</b> <b>egoistic</b> (low social integration, isolation), <b>altruistic</b> (over-integration, dying for the group), <b>anomic</b> (sudden disruption of norms — a crash, a job loss), <b>fatalistic</b> (over-regulation, no escape). <b>Risk factors:</b> prior attempt (the strongest predictor), a clear plan/means, hopelessness, male sex (men complete more; women attempt more), older age, substance use, recent loss, family history, access to lethal means. <b>Terms:</b> <b>ideation → plan → attempt → completion</b>; <b>parasuicide</b>/non-suicidal self-injury (self-harm without intent to die). <b>Prevention:</b> means restriction, crisis lines, treating the underlying disorder; lithium specifically lowers suicide in bipolar.</p>
+<div class="trap"><b>Men vs women.</b> Women <b>attempt</b> suicide more often; men <b>complete</b> (die by) suicide more often, largely because of more lethal means. The single best <i>predictor</i> of a future attempt is a <b>past attempt</b>.</div>
+<div class="recap"><b>Recap Ch 12.</b> Durkheim: egoistic / altruistic / anomic / fatalistic. Strongest predictor = prior attempt; hopelessness + plan + means raise risk. Women attempt more, men complete more. Restrict means, treat the disorder.</div>
+
+<!-- ============== PART FIVE: EATING & SLEEP ============== -->
+<p class="part">Part Five · Eating &amp; sleep–wake disorders (B&amp;D Ch 8)</p>
+
+<h2 id="eating" class="sec"><span class="cn">Ch 13.</span> Eating disorders</h2>
+<div class="case"><span class="lbl">Clinical snapshot</span> A 17-year-old at 78% of expected weight insists she is "fat," skips meals, runs daily, weighs herself five times a day, and has stopped menstruating; her family is frightened but she cannot see a problem.</div>
+<table>
+<tr><th>Disorder</th><th>Core</th></tr>
+<tr><td><b>Anorexia Nervosa</b></td><td><b>Restriction → significantly low weight</b>, intense fear of weight gain, distorted body image / denial of seriousness. Subtypes: <b>restricting</b> vs <b>binge-eating/purging</b>. (DSM-5 <b>dropped the amenorrhoea requirement</b>.) Highest mortality of any mental disorder.</td></tr>
+<tr><td><b>Bulimia Nervosa</b></td><td>Recurrent <b>binge</b> + <b>compensatory behaviour</b> (vomiting, laxatives, fasting, over-exercise), self-evaluation over-tied to shape/weight; weight usually <b>normal</b>. Signs: Russell's sign (knuckle calluses), parotid swelling, eroded enamel.</td></tr>
+<tr><td><b>Binge-Eating Disorder</b></td><td>Recurrent binges with <b>no</b> compensatory behaviour; distress; <b>new full DSM-5 category</b>. Most common eating disorder; linked to obesity.</td></tr>
+</table>
+<p><b>Statistics:</b> ~90% female, onset adolescence, Western/industrialised &amp; weight-focused subcultures over-represented. <b>Causes (integrative):</b> sociocultural <b>thin-ideal</b> internalisation + dieting + perfectionism + low self-esteem, on a genetic/temperamental base; serotonin involvement. <b>Treatment:</b> <b>CBT is first-line for bulimia and binge-eating</b>; anorexia — weight restoration first, then <b>family-based treatment (Maudsley)</b> for adolescents; SSRIs help bulimia.</p>
+<div class="crit">
+  <div class="dsm"><h5>DSM-5-TR — Eating</h5><ul>
+    <li>Anorexia, bulimia, binge-eating, ARFID, pica, rumination.</li>
+    <li>Anorexia: <b>no amenorrhoea</b> requirement; severity by <b>BMI</b>.</li>
+    <li>Binge-Eating Disorder = a <b>full standalone</b> diagnosis.</li>
+  </ul></div>
+  <div class="icd"><h5>ICD-11 — Eating</h5><ul>
+    <li>Same core set; adds <b>ARFID</b> and recognises <b>Binge-Eating Disorder</b>.</li>
+    <li>Anorexia defined by <b>significantly low body weight</b> for age/height + dread of weight gain (no amenorrhoea either).</li>
+    <li>Allows an "anorexia with dangerously low weight" severity flag.</li>
+  </ul></div>
+</div>
+<div class="trap"><b>Anorexia vs bulimia.</b> The split is <b>weight</b>: anorexia = significantly <b>underweight</b> (the binge/purge <i>subtype</i> of anorexia still exists, but they're underweight); bulimia = <b>normal/near-normal</b> weight with binge-purge cycles. If markedly underweight → anorexia regardless of purging.</div>
+<div class="recap"><b>Recap Ch 13.</b> Anorexia (low weight, fear of gain, distorted image; no amenorrhoea criterion; highest mortality), bulimia (binge + compensation, normal weight), binge-eating (no compensation, new category). Thin-ideal + perfectionism on a genetic base. CBT first-line for bulimia/BED; FBT (Maudsley) for adolescent anorexia.</div>
+
+<h2 id="sleep" class="sec"><span class="cn">Ch 14.</span> Sleep–wake disorders</h2>
+<table>
+<tr><th>Group</th><th>Key disorders</th></tr>
+<tr><td><b>Dyssomnias</b> (amount/quality/timing)</td><td><b>Insomnia disorder</b> (trouble falling/staying asleep); <b>Hypersomnolence</b>; <b>Narcolepsy</b> (sleep attacks + <b>cataplexy</b> + sleep-onset REM, low hypocretin/orexin); breathing-related (<b>sleep apnoea</b>); circadian-rhythm disorders.</td></tr>
+<tr><td><b>Parasomnias</b> (abnormal events)</td><td><b>NREM</b>: sleepwalking &amp; <b>sleep terrors</b> (deep slow-wave sleep, no dream recall, hard to wake). <b>REM</b>: <b>nightmare disorder</b> (vivid dreams, easily recalled) &amp; REM sleep behaviour disorder.</td></tr>
+</table>
+<div class="trap"><b>Sleep terror vs nightmare.</b> <b>Sleep terror</b> = NREM (slow-wave), early night, child screams/agitated but <b>unwakeable and amnesic</b> for it. <b>Nightmare</b> = REM, later night, person <b>wakes fully and remembers</b> the dream. <b>Narcolepsy's giveaway = cataplexy</b> (sudden loss of muscle tone with emotion).</div>
+<p><b>Treatment:</b> insomnia — <b>CBT-I</b> (stimulus control, sleep restriction, sleep hygiene) is first-line over hypnotics; narcolepsy — stimulants/modafinil + scheduled naps; apnoea — CPAP.</p>
+<div class="recap"><b>Recap Ch 14.</b> Dyssomnias (insomnia, narcolepsy+cataplexy, apnoea, circadian) vs parasomnias (NREM sleep terrors/sleepwalking — amnesic; REM nightmares — recalled). CBT-I first-line for insomnia.</div>
+
+<!-- ============== PART SIX: SEX, SUBSTANCE ============== -->
+<p class="part">Part Six · Sexual / gender, substance &amp; impulse (B&amp;D Ch 10–11)</p>
+
+<h2 id="sex" class="sec"><span class="cn">Ch 15.</span> Sexual dysfunctions, gender dysphoria &amp; paraphilic disorders</h2>
+<p>B&amp;D split this into three very different things — don't blur them.</p>
+<table>
+<tr><th>Group</th><th>Core</th></tr>
+<tr><td><b>Sexual dysfunctions</b></td><td>Problems in the sexual response cycle: desire (low desire), arousal (erectile, female arousal), orgasm (premature/delayed/female orgasmic), pain (genito-pelvic pain/penetration). Persistent + distressing.</td></tr>
+<tr><td><b>Gender dysphoria</b></td><td>Distress from a marked incongruence between experienced and assigned gender. <b>The diagnosis is the distress, not the identity.</b></td></tr>
+<tr><td><b>Paraphilic disorders</b></td><td>Intense atypical sexual interest (e.g. voyeuristic, exhibitionistic, frotteuristic, sexual sadism/masochism, pedophilic, fetishistic) that <b>causes distress/impairment or harms others</b>. A paraphilia is only a <i>disorder</i> when it harms or distresses.</td></tr>
+</table>
+<div class="crit">
+  <div class="dsm"><h5>DSM-5-TR</h5><ul>
+    <li>Keeps <b>"Gender Dysphoria"</b> as a diagnosis (distress-based) within mental disorders.</li>
+    <li>Paraphilia vs paraphilic <b>disorder</b> distinction (interest vs harmful/distressing).</li>
+  </ul></div>
+  <div class="icd"><h5>ICD-11</h5><ul>
+    <li><b>Moved gender out of mental disorders</b>: renamed <b>"Gender incongruence,"</b> placed in a new chapter on <b>sexual health</b> — explicitly <b>de-pathologised</b>.</li>
+    <li>Paraphilic = "Paraphilic disorders," focused on risk/non-consent.</li>
+  </ul></div>
+</div>
+<div class="nimhans"><b>The MET/RCI favourite:</b> <b>ICD-11 removed gender incongruence from the mental-disorders chapter</b> (it's now under sexual health), while DSM-5-TR still lists Gender Dysphoria. Also: a <b>paraphilia</b> (the interest) is not itself a disorder — it becomes a <b>paraphilic disorder</b> only with distress, impairment, or harm to others/non-consent.</div>
+<div class="recap"><b>Recap Ch 15.</b> Three separate things: sexual dysfunctions (response-cycle problems), gender dysphoria/incongruence (distress, NOT the identity — ICD-11 moved it out of mental disorders), paraphilic disorders (atypical interest only a disorder if harmful/distressing).</div>
+
+<h2 id="substance" class="sec"><span class="cn">Ch 16.</span> Substance-related, addictive &amp; impulse-control disorders</h2>
+<p>DSM-5 merged abuse + dependence into a single <b>Substance Use Disorder</b> on a severity spectrum (mild/moderate/severe by symptom count across 4 groups: <b>impaired control, social impairment, risky use, pharmacological</b> = tolerance + withdrawal). <b>Key terms:</b> <b>tolerance</b> (need more for the same effect), <b>withdrawal</b> (a substance-specific syndrome on stopping), <b>intoxication</b>. Substance classes: <b>depressants</b> (alcohol, benzodiazepines, opioids — though opioids are often listed apart), <b>stimulants</b> (cocaine, amphetamines, nicotine, caffeine), <b>opioids</b>, <b>hallucinogens</b>, <b>cannabis</b>. <b>Behavioural addiction:</b> DSM-5 added <b>Gambling Disorder</b> (the first non-substance addiction, reflecting a shared reward-circuit/dopamine basis); ICD-11 added <b>Gaming disorder</b> too. <b>Causes:</b> dopamine reward pathway (nucleus accumbens, VTA), positive then negative reinforcement (use to feel good → use to stop feeling bad), genetic vulnerability, social learning, conditioning of cues. <b>Treatment:</b> motivational interviewing, CBT/relapse-prevention, contingency management, 12-step; agonist/antagonist meds (methadone/buprenorphine, naltrexone, disulfiram, nicotine replacement).</p>
+<div class="nimhans"><b>Reclassifications to know:</b> DSM-5 <b>collapsed abuse + dependence</b> into one Substance Use Disorder (severity-graded), and added <b>Gambling Disorder</b> as a behavioural addiction; <b>ICD-11 added Gaming disorder</b>. These "behavioural addictions" sitting beside substances is exactly the kind of update MET tests.</div>
+<div class="recap"><b>Recap Ch 16.</b> One Substance Use Disorder, severity-graded (impaired control / social / risky / pharmacological). Tolerance vs withdrawal vs intoxication. Gambling Disorder (DSM-5) &amp; Gaming disorder (ICD-11) = behavioural addictions on the dopamine reward circuit. MI + CBT + agonist/antagonist meds.</div>
+
+<!-- ============== PART SEVEN: PERSONALITY ============== -->
+<p class="part">Part Seven · Personality disorders (B&amp;D Ch 12)</p>
+
+<h2 id="personality" class="sec"><span class="cn">Ch 17.</span> Personality disorders</h2>
+<p>An <b>enduring, pervasive, inflexible pattern</b> of inner experience and behaviour deviating markedly from cultural expectation, stable from adolescence/early adulthood, causing distress/impairment — across cognition, affect, interpersonal functioning, impulse control. DSM-5 keeps <b>10 categorical</b> types in <b>three clusters</b>.</p>
+<table>
+<tr><th>Cluster</th><th>Theme</th><th>Disorders (the one-line tell)</th></tr>
+<tr><td><b>A — "odd / eccentric"</b></td><td>Withdrawn, mistrustful</td><td><b>Paranoid</b> (pervasive distrust); <b>Schizoid</b> (detached loner, no desire for relationships); <b>Schizotypal</b> (eccentric, magical thinking, odd perceptions — on the schizophrenia spectrum)</td></tr>
+<tr><td><b>B — "dramatic / erratic"</b></td><td>Emotional, impulsive</td><td><b>Antisocial</b> (disregard for/violation of others' rights, deceit, no remorse; ≥18, conduct disorder before 15); <b>Borderline</b> (instability of relationships, self-image, affect + impulsivity, fear of abandonment, self-harm); <b>Histrionic</b> (attention-seeking, shallow dramatic emotion); <b>Narcissistic</b> (grandiosity, need for admiration, lack of empathy)</td></tr>
+<tr><td><b>C — "anxious / fearful"</b></td><td>Tense, inhibited</td><td><b>Avoidant</b> (social inhibition, feels inadequate, hypersensitive to rejection); <b>Dependent</b> (clinging, can't decide alone, needs to be taken care of); <b>Obsessive-Compulsive PD</b> (perfectionism, orderliness, control — ego-syntonic)</td></tr>
+</table>
+<div class="crit">
+  <div class="dsm"><h5>DSM-5-TR — PDs</h5><ul>
+    <li><b>Kept the 10 categorical types</b> in 3 clusters (Section II).</li>
+    <li>An <b>Alternative DSM-5 Model</b> (dimensional: impairment + 5 trait domains) sits in <b>Section III</b> for study.</li>
+  </ul></div>
+  <div class="icd"><h5>ICD-11 — PDs</h5><ul>
+    <li><b>Abolished the categorical types entirely.</b> A single "Personality disorder" diagnosis graded by <b>severity</b> (mild/moderate/severe).</li>
+    <li>Then optional <b>trait domain qualifiers</b>: negative affectivity, detachment, dissociality, disinhibition, anankastia.</li>
+    <li>Plus a <b>borderline pattern</b> qualifier (kept for treatment relevance).</li>
+  </ul></div>
+</div>
+<div class="nimhans"><b>The single biggest PD reclassification:</b> <b>ICD-11 went fully dimensional</b> — it scrapped the named types and grades severity + trait domains, keeping only a "borderline pattern" specifier. DSM-5 kept the 10 categories (dimensional model only in Section III). This DSM-categorical vs ICD-dimensional split is a stock MET/NIMHANS item.</div>
+<div class="trap"><b>BPD vs NPD.</b> The BPD feature NOT in NPD = <b>pervasive instability of relationships, self-image and affect</b> + frantic efforts to avoid abandonment + self-harm. NPD = stable grandiosity + need for admiration + lack of empathy. <b>Schizoid vs avoidant:</b> schizoid <i>doesn't want</i> relationships; avoidant <i>wants</i> them but fears rejection. <b>Schizotypal</b> = the odd-beliefs/eccentric one, on the schizophrenia spectrum.</div>
+<div class="recap"><b>Recap Ch 17.</b> Enduring, pervasive, inflexible pattern from early adulthood. Cluster A odd (paranoid/schizoid/schizotypal), B dramatic (antisocial/borderline/histrionic/narcissistic), C anxious (avoidant/dependent/OCPD). DSM keeps 10 categories; <b>ICD-11 is fully dimensional</b> (severity + traits + borderline pattern). BPD = instability; schizoid doesn't want vs avoidant fears.</div>
+
+<!-- ============== PART EIGHT: SCHIZOPHRENIA ============== -->
+<p class="part">Part Eight · Schizophrenia spectrum (B&amp;D Ch 13)</p>
+
+<h2 id="schizophrenia" class="sec"><span class="cn">Ch 18.</span> Schizophrenia &amp; other psychotic disorders</h2>
+<div class="case"><span class="lbl">Clinical snapshot</span> A 21-year-old, withdrawn over the past year, now believes the TV is sending him coded messages, hears two voices commenting on everything he does, speaks in derailed half-sentences, and has stopped washing or going to class.</div>
+<p><b>Clinical description:</b> a disturbance of thought, perception, affect and behaviour. <b>Positive</b> symptoms (excess of normal function): <b>delusions</b> (fixed false beliefs — persecutory, grandiose, referential, of control), <b>hallucinations</b> (usually <b>auditory</b>), <b>disorganised speech</b> (derailment, tangentiality, word salad), grossly disorganised/catatonic behaviour. <b>Negative</b> symptoms (loss): <b>avolition</b> (apathy), <b>alogia</b> (poverty of speech), <b>anhedonia</b>, <b>asociality</b>, <b>flat affect</b>. <b>Disorganised</b> symptoms (speech + behaviour + inappropriate affect). <b>Statistics:</b> lifetime ~<b>1%</b>, equal sexes, <b>earlier onset in men</b> (late teens–20s) than women. <b>Causes (integrative):</b> strongest is <b>genetic</b> (MZ concordance ~48%, ~10% in a first-degree relative); the <b>dopamine hypothesis</b> (mesolimbic D2 overactivity → positive symptoms; all antipsychotics block D2) refined to include glutamate/NMDA; <b>neurodevelopmental</b> markers (enlarged ventricles, reduced grey matter, obstetric complications, winter birth, maternal infection); and the psychosocial <b>expressed emotion (EE)</b> finding — high family criticism/over-involvement predicts <b>relapse</b>. <b>Treatment:</b> antipsychotics — <b>typical/first-gen</b> (haloperidol, chlorpromazine; strong D2 block → extrapyramidal effects, tardive dyskinesia) and <b>atypical/second-gen</b> (risperidone, olanzapine; <b>clozapine</b> for treatment-resistant, needs WBC monitoring for agranulocytosis) + psychosocial (CBT for psychosis, family therapy to lower EE, social-skills training).</p>
+<div class="crit">
+  <div class="dsm"><h5>DSM-5-TR — Schizophrenia</h5><ul>
+    <li><b>≥2</b> of [delusions, hallucinations, disorganised speech, grossly disorganised/catatonic, negative], ≥1 of the first three.</li>
+    <li>Continuous signs <b>≥6 months</b> (≥1 month active) + functional decline.</li>
+    <li><b>Subtypes abolished.</b></li>
+  </ul></div>
+  <div class="icd"><h5>ICD-11 — Schizophrenia</h5><ul>
+    <li>≥2 core symptoms (≥1 of delusions, hallucinations, disorganised thinking, experiences of influence/passivity) for <b>≥1 month</b>.</li>
+    <li><b>No 6-month / functional-decline requirement.</b></li>
+    <li>Subtypes dropped; replaced by <b>symptom specifiers</b> (positive, negative, depressive, manic, psychomotor, cognitive).</li>
+  </ul></div>
+</div>
+<table>
+<tr><th>Spectrum neighbour</th><th>Tell</th></tr>
+<tr><td><b>Brief psychotic disorder</b> (DSM) / acute &amp; transient (ICD)</td><td>Psychosis <b>&lt;1 month</b>, full recovery</td></tr>
+<tr><td><b>Schizophreniform</b> (DSM)</td><td>Full picture <b>1–6 months</b></td></tr>
+<tr><td><b>Schizoaffective</b></td><td>Schizophrenia + mood episode, PLUS ≥2 weeks of psychosis <b>without</b> mood symptoms</td></tr>
+<tr><td><b>Delusional disorder</b></td><td>≥1 month of delusion(s), function otherwise intact</td></tr>
+<tr><td><b>Shared psychotic</b> (folie à deux)</td><td>Delusion transferred to a close, dependent partner</td></tr>
+</table>
+<div class="trap"><b>The duration delta:</b> schizophrenia = <b>6 months in DSM, 1 month in ICD</b>. By duration: brief psychotic &lt;1mo → schizophreniform 1–6mo → schizophrenia ≥6mo. <b>Kraepelin</b> named it <i>dementia praecox</i>; <b>Bleuler</b> renamed it <b>schizophrenia</b> ("splitting of psychic functions" — NOT split personality / DID). Subtypes (paranoid, catatonic, hebephrenic) are <b>abolished</b> in both manuals.</div>
+<div class="recap"><b>Recap Ch 18.</b> Positive (delusions/hallucinations/disorganised) + negative (avolition/alogia/anhedonia/asociality/flat affect). ~1%, genes strongest, dopamine D2 + neurodevelopment + high EE → relapse. DSM 6mo / ICD 1mo; subtypes gone. Antipsychotics (clozapine if resistant) + family therapy. Bleuler ≠ split personality.</div>
+
+<!-- ============== PART NINE: NEURODEV & NEUROCOG ============== -->
+<p class="part">Part Nine · Neurodevelopmental &amp; neurocognitive disorders (B&amp;D Ch 14–15)</p>
+
+<h2 id="neurodev" class="sec"><span class="cn">Ch 19.</span> Neurodevelopmental disorders</h2>
+<p>Onset in the <b>developmental period</b> (childhood), with deficits that impair personal/social/academic functioning.</p>
+<table>
+<tr><th>Disorder</th><th>Core</th></tr>
+<tr><td><b>Intellectual Disability</b></td><td>Deficits in <b>intellectual</b> (reasoning, IQ ~&lt;70) <b>and adaptive</b> functioning, onset in development. Severity now graded by <b>adaptive functioning</b>, not IQ score alone.</td></tr>
+<tr><td><b>Autism Spectrum Disorder</b></td><td>Two domains: <b>(1)</b> persistent deficits in social communication/interaction; <b>(2)</b> restricted, repetitive behaviours/interests + sensory sensitivities. <b>DSM-5 merged</b> autistic disorder, Asperger's and PDD-NOS into one <b>spectrum</b> with severity levels.</td></tr>
+<tr><td><b>ADHD</b></td><td><b>Inattention</b> and/or <b>hyperactivity-impulsivity</b>, ≥6 symptoms, several before <b>age 12</b>, in ≥2 settings. Presentations: inattentive, hyperactive-impulsive, combined. Treated with <b>stimulants</b> (methylphenidate, amphetamines) + behavioural therapy.</td></tr>
+<tr><td><b>Specific Learning Disorder</b></td><td>Difficulty in reading (dyslexia), writing or maths (dyscalculia) well below age, despite adequate instruction/IQ.</td></tr>
+<tr><td><b>Tic disorders</b></td><td><b>Tourette's</b> = multiple motor + ≥1 vocal tic, &gt;1 year.</td></tr>
+</table>
+<div class="trap"><b>ASD reclassification.</b> <b>DSM-5 abolished Asperger's as a separate diagnosis</b> — it's folded into Autism Spectrum Disorder with severity levels. ADHD onset moved from "before 7" (DSM-IV) to "before <b>age 12</b>" (DSM-5). High-yield change items.</div>
+<div class="recap"><b>Recap Ch 19.</b> ID (intellectual + adaptive, graded by adaptive function), ASD (social-communication + repetitive; Asperger's merged in), ADHD (inattention/hyperactivity, &lt;12, ≥2 settings, stimulants), specific learning disorder, Tourette's.</div>
+
+<h2 id="neurocog" class="sec"><span class="cn">Ch 20.</span> Neurocognitive disorders</h2>
+<table>
+<tr><th>Disorder</th><th>Core · the delirium vs dementia split</th></tr>
+<tr><td><b>Delirium</b></td><td><b>Acute, fluctuating</b> disturbance of <b>attention &amp; awareness</b> + cognition, over hours–days, from a medical cause (infection, drugs, metabolic). <b>Reversible</b>, clouded consciousness. A medical emergency.</td></tr>
+<tr><td><b>Major Neurocognitive Disorder (dementia)</b></td><td><b>Gradual, progressive</b> decline in ≥1 cognitive domain (memory, executive, language, etc.) that impairs independence, with <b>clear consciousness</b>. Subtypes: <b>Alzheimer's</b> (commonest — amyloid plaques + tau tangles, insidious memory-first), vascular, frontotemporal, Lewy body, Parkinson's, HIV. <b>Mild NCD</b> = decline without loss of independence.</td></tr>
+</table>
+<div class="trap"><b>Delirium vs dementia — the exam's favourite pair.</b> <b>Delirium</b> = <b>acute</b> onset, <b>fluctuating</b>, <b>attention</b> impaired, consciousness <b>clouded</b>, usually <b>reversible</b>. <b>Dementia</b> = <b>gradual</b>, <b>progressive</b>, <b>memory</b>-led, consciousness <b>clear</b>, usually irreversible. (DSM-5 renamed dementia "<b>major neurocognitive disorder</b>.")</div>
+<div class="recap"><b>Recap Ch 20.</b> Delirium = acute, fluctuating, attention/consciousness, reversible. Major NCD (dementia) = gradual, progressive, memory, clear consciousness; Alzheimer's = plaques + tangles, commonest. Don't swap the two.</div>
+
+<!-- ============== COMPARE / TRAPS / ROSTER / GLOSSARY / SELFTEST ============== -->
+<p class="part">Part Ten · Exam armoury</p>
+
+<h2 id="compare" class="sec">DSM-5-TR vs ICD-11 — every delta in one table</h2>
+<table>
+<tr><th>Topic</th><th>DSM-5-TR (APA)</th><th>ICD-11 (WHO)</th></tr>
+<tr><td>Publisher / use</td><td>APA; research-heavy, US</td><td>WHO; global standard, India official; Chapter 06</td></tr>
+<tr><td>Style</td><td>Categorical, operational criteria; <b>axes abandoned</b></td><td>Prototype/description-based, more dimensional</td></tr>
+<tr><td>Schizophrenia duration</td><td><b>6 months</b> (1 mo active) + decline</td><td><b>1 month</b>, no decline requirement</td></tr>
+<tr><td>Schizophrenia subtypes</td><td>Abolished</td><td>Abolished (uses specifiers)</td></tr>
+<tr><td>Personality disorders</td><td>10 <b>categorical</b> types (dimensional model in Section III)</td><td><b>Fully dimensional</b> — severity + traits + borderline pattern</td></tr>
+<tr><td>PTSD</td><td>One PTSD (4 clusters); dissociative subtype; <b>no CPTSD</b></td><td>Simplified PTSD + separate <b>Complex PTSD</b></td></tr>
+<tr><td>Gender</td><td><b>Gender Dysphoria</b> (kept in mental disorders, distress-based)</td><td><b>Gender incongruence</b> moved OUT to sexual-health chapter</td></tr>
+<tr><td>Behavioural addiction</td><td><b>Gambling Disorder</b> (internet gaming in appendix)</td><td><b>Gaming disorder</b> added as a diagnosis</td></tr>
+<tr><td>Grief</td><td><b>Prolonged Grief Disorder</b> (added 2022) under depressive</td><td>Prolonged Grief Disorder under trauma/stress</td></tr>
+<tr><td>Somatic</td><td>"Medically unexplained" requirement <b>dropped</b>; somatic symptom + illness anxiety</td><td>"Bodily distress disorder" (graded by severity)</td></tr>
+<tr><td>Bereavement &amp; MDD</td><td>Bereavement exclusion <b>removed</b></td><td>Allows MDD diagnosis in grief with clinical judgement</td></tr>
+</table>
+
+<h2 id="traps" class="sec">All the MCQ traps, in one place</h2>
+<table>
+<tr><th>Pair / item</th><th>The one tell that splits them</th></tr>
+<tr><td>B&amp;D's 3 components vs the 4 Ds</td><td>B&amp;D = dysfunction + distress/impairment + atypical (<b>no Danger</b>)</td></tr>
+<tr><td>Equifinality vs multifinality</td><td>Many roads → one disorder (equi) vs one cause → many outcomes (multi)</td></tr>
+<tr><td>Anxiety vs fear vs panic</td><td>Future apprehension vs present alarm (fight-flight) vs false alarm</td></tr>
+<tr><td>Panic attack vs panic disorder</td><td>Attack alone ≠ disorder; need unexpected attacks + 1 month worry</td></tr>
+<tr><td>BII phobia</td><td>The only phobia that <b>faints</b> (biphasic vasovagal); treat with <b>applied tension</b></td></tr>
+<tr><td>Social anxiety vs avoidant PD</td><td>State disorder (fear of evaluation) vs lifelong personality trait</td></tr>
+<tr><td>Schizoid vs avoidant PD</td><td>Doesn't <i>want</i> relationships vs <i>wants</i> them, fears rejection</td></tr>
+<tr><td>OCD vs OCPD</td><td>Ego-dystonic obsessions/compulsions vs ego-syntonic perfectionism</td></tr>
+<tr><td>PTSD: DSM vs ICD</td><td>ICD-11 has <b>Complex PTSD</b>; DSM-5-TR does not</td></tr>
+<tr><td>Conversion vs factitious vs malingering</td><td>Unconscious / sick-role internal / external reward (malingering not a disorder)</td></tr>
+<tr><td>DID vs schizophrenia</td><td>Multiple identities vs split thought/affect (Bleuler) — not split person</td></tr>
+<tr><td>Anorexia vs bulimia</td><td>Underweight vs normal weight</td></tr>
+<tr><td>Sleep terror vs nightmare</td><td>NREM, amnesic, unwakeable vs REM, recalled, wakes fully</td></tr>
+<tr><td>BP-I vs BP-II vs cyclothymia</td><td>One mania / hypomania+depression / ≥2yr subthreshold</td></tr>
+<tr><td>Schizoaffective vs psychotic mood disorder</td><td>≥2 weeks of psychosis <b>without</b> mood = schizoaffective</td></tr>
+<tr><td>Delirium vs dementia</td><td>Acute/fluctuating/attention/reversible vs gradual/progressive/memory/clear</td></tr>
+<tr><td>Suicide: men vs women</td><td>Women attempt more, men complete more; best predictor = prior attempt</td></tr>
+<tr><td>Schizophrenia: DSM vs ICD</td><td>6 months vs 1 month</td></tr>
+<tr><td>Gender: DSM vs ICD</td><td>DSM keeps Gender Dysphoria; ICD-11 moved gender incongruence out of mental disorders</td></tr>
+<tr><td>Paraphilia vs paraphilic disorder</td><td>Interest alone ≠ disorder; needs distress/impairment/harm</td></tr>
+</table>
+
+<h2 id="roster" class="sec">Names &amp; ideas roster</h2>
+<table>
+<tr><th>Name</th><th>What they're tied to</th></tr>
+<tr><td><b>Barlow</b></td><td>The <b>triple vulnerability</b> theory of anxiety; the integrative approach itself</td></tr>
+<tr><td><b>Wakefield</b></td><td><b>Harmful dysfunction</b> definition of disorder</td></tr>
+<tr><td><b>Seligman</b></td><td><b>Learned helplessness</b> (→ depression) &amp; <b>prepared learning</b> (phobias)</td></tr>
+<tr><td><b>Beck</b></td><td>Negative <b>cognitive triad</b>; cognitive therapy for depression</td></tr>
+<tr><td><b>Kraepelin</b></td><td>Classification; coined <b>dementia praecox</b></td></tr>
+<tr><td><b>Bleuler</b></td><td>Renamed it <b>schizophrenia</b>; the <b>4 A's</b></td></tr>
+<tr><td><b>Pinel / Tuke</b></td><td><b>Moral therapy</b> (humane treatment, asylum reform)</td></tr>
+<tr><td><b>Hippocrates / Galen</b></td><td>The <b>four humours</b> (biological tradition)</td></tr>
+<tr><td><b>Durkheim</b></td><td>Sociological types of suicide (egoistic / altruistic / anomic / fatalistic)</td></tr>
+<tr><td><b>Engel</b></td><td>The <b>biopsychosocial</b> model (1977)</td></tr>
+<tr><td><b>Freud</b></td><td>Psychoanalysis; "hysteria" → conversion</td></tr>
+<tr><td><b>Mowrer</b></td><td><b>Two-factor</b> theory (classical fear + operant avoidance)</td></tr>
+</table>
+
+<h2 id="glossary" class="sec">Fast glossary (A–Z)</h2>
+<table>
+<tr><td><b>Anxiety sensitivity</b></td><td>Belief that bodily sensations are dangerous; feeds panic</td></tr>
+<tr><td><b>Applied tension</b></td><td>Tensing muscles to keep BP up — the BII-phobia treatment</td></tr>
+<tr><td><b>Cataplexy</b></td><td>Sudden loss of muscle tone with emotion; hallmark of narcolepsy</td></tr>
+<tr><td><b>Diathesis-stress</b></td><td>Vulnerability + stressor → disorder</td></tr>
+<tr><td><b>Ego-dystonic / -syntonic</b></td><td>Experienced as alien &amp; distressing / as part of the self (OCD vs OCPD)</td></tr>
+<tr><td><b>Epigenetics</b></td><td>Experience switching gene expression on/off without changing DNA</td></tr>
+<tr><td><b>Equifinality / multifinality</b></td><td>Many paths → one outcome / one cause → many outcomes</td></tr>
+<tr><td><b>Expressed emotion (EE)</b></td><td>Family criticism/over-involvement predicting schizophrenia relapse</td></tr>
+<tr><td><b>Interoceptive conditioning</b></td><td>Bodily sensations become conditioned cues for panic</td></tr>
+<tr><td><b>La belle indifférence</b></td><td>Odd calm about a dramatic deficit (conversion)</td></tr>
+<tr><td><b>Learned helplessness</b></td><td>Giving up after uncontrollable aversive events (Seligman)</td></tr>
+<tr><td><b>Malingering</b></td><td>Faking symptoms for external reward (not a disorder)</td></tr>
+<tr><td><b>Prepared learning</b></td><td>Evolutionary readiness to fear certain stimuli</td></tr>
+<tr><td><b>Reciprocal gene-environment</b></td><td>Genes shape which environments you select, which then express the genes</td></tr>
+<tr><td><b>Russell's sign</b></td><td>Knuckle calluses from self-induced vomiting (bulimia)</td></tr>
+<tr><td><b>Tardive dyskinesia</b></td><td>Late involuntary movements from long-term D2-blocking antipsychotics</td></tr>
+<tr><td><b>Thought-action fusion</b></td><td>Treating a thought as morally equal to the act (OCD)</td></tr>
+<tr><td><b>Triple vulnerability</b></td><td>Generalised biological + generalised psychological + specific psychological (Barlow)</td></tr>
+</table>
+
+<h2 id="selftest" class="sec">Self-test (cover the answers, active recall)</h2>
+<ol style="font-size:14px; line-height:1.7;">
+<li>What are Barlow &amp; Durand's <b>three components</b> of a psychological disorder, and which "D" is missing vs the 4-D list? <span class="eg">— dysfunction + distress/impairment + atypical/culturally unexpected; <b>Danger</b> is missing.</span></li>
+<li>Name the three vulnerabilities in Barlow's <b>triple vulnerability</b> theory. <span class="eg">— generalised biological, generalised psychological, specific psychological.</span></li>
+<li>Equifinality vs multifinality? <span class="eg">— many roads to one disorder vs one cause to many outcomes.</span></li>
+<li>Which neurotransmitter is the "brake" and which the "accelerator"? <span class="eg">— GABA (brake), glutamate (accelerator).</span></li>
+<li>Panic disorder needs how long of anticipatory worry after the attacks? <span class="eg">— ≥1 month.</span></li>
+<li>What is the B&amp;D mechanism that turns a first panic attack into panic disorder? <span class="eg">— interoceptive conditioning + anxiety sensitivity (false alarm → learned alarm).</span></li>
+<li>Which phobia makes you faint, and how is it treated? <span class="eg">— blood-injection-injury (biphasic vasovagal); applied tension.</span></li>
+<li>Which manual has Complex PTSD? <span class="eg">— ICD-11 (not DSM-5-TR).</span></li>
+<li>Conversion vs factitious vs malingering — split them. <span class="eg">— unconscious / sick-role (internal) / external reward (and malingering isn't a disorder).</span></li>
+<li>DID vs schizophrenia — what does "split" actually mean in schizophrenia? <span class="eg">— split among thought/emotion/behaviour (Bleuler), not multiple people.</span></li>
+<li>Schizophrenia duration: DSM vs ICD? <span class="eg">— 6 months vs 1 month.</span></li>
+<li>BP-I vs BP-II? <span class="eg">— one full mania (BP-I) vs hypomania + depression and never mania (BP-II).</span></li>
+<li>First-line therapy for OCD? <span class="eg">— Exposure and Response Prevention (ERP).</span></li>
+<li>What did ICD-11 do with gender incongruence and personality disorders? <span class="eg">— moved gender out of mental disorders; made PDs fully dimensional.</span></li>
+<li>Delirium vs dementia in four words each. <span class="eg">— acute/fluctuating/attention/reversible vs gradual/progressive/memory/clear.</span></li>
+<li>Sleep terror vs nightmare — sleep stage and recall? <span class="eg">— NREM, amnesic vs REM, recalled.</span></li>
+<li>Anorexia vs bulimia — the deciding feature? <span class="eg">— weight (underweight vs normal).</span></li>
+<li>Durkheim's four suicide types? <span class="eg">— egoistic, altruistic, anomic, fatalistic.</span></li>
+<li>Which two behavioural addictions did the manuals add (and to which)? <span class="eg">— Gambling Disorder (DSM-5), Gaming disorder (ICD-11).</span></li>
+<li>Best single predictor of a future suicide attempt? <span class="eg">— a prior attempt.</span></li>
+</ol>
+
+<p style="margin-top:32px; color:var(--muted); font-size:13px;">Companion page: <a href="../abnormal-ahuja/">Abnormal (Ahuja, full book)</a> for the Indian-psychiatry lens, cut-offs and drugs. Use both: Ahuja for criteria/treatment recall, Barlow &amp; Durand for the model/causes questions.</p>
+
+<footer style="margin-top:40px; padding-top:16px; border-top:1px solid var(--border); color:var(--muted); font-size:12.5px;">Sihan MET 2026 + NIMHANS prep · /notes/abnormal-barlow-durand/ · built off Barlow &amp; Durand, <i>Abnormal Psychology: An Integrative Approach</i>, criteria cross-checked to DSM-5-TR + ICD-11 · built 2026-06-07</footer>
+
+</div>
+<script src="/sihan-met-flashcards/notes/term-popover.js"></script>
+<script src="/sihan-met-flashcards/notes/page-flip.js"></script>
+<!-- FS_MODE start -->
+<style>
+  .fs-toggle{position:fixed;right:14px;bottom:14px;z-index:9998;width:44px;height:44px;
+    border-radius:50%;border:1px solid var(--border);background:var(--panel);color:var(--text);
+    font-size:18px;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.3);opacity:0.85}
+  .fs-toggle:hover{opacity:1}
+  body.fs-active nav,body.fs-active footer{display:none !important}
+  body.fs-active .wrap{max-width:none !important}
+  @media (max-width:700px){
+    body.fs-active .wrap{padding-top:8px !important;padding-bottom:8px !important;
+      padding-left:18px !important;padding-right:18px !important}
+  }
+</style>
+<script>
+(function(){
+  if(window.__fsModeInit) return; window.__fsModeInit=true;
+  var ENTER='⛶', EXIT='✕';
+  function nativeOn(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function reqNative(){var el=document.documentElement;var r=el.requestFullscreen||el.webkitRequestFullscreen;
+    if(r){try{var p=r.call(el);if(p&&p.catch)p.catch(function(){});}catch(e){}}}
+  function exitNative(){if(!nativeOn())return;var x=document.exitFullscreen||document.webkitExitFullscreen;
+    if(x){try{x.call(document);}catch(e){}}}
+  var btn=document.createElement('button');
+  btn.className='fs-toggle';btn.type='button';
+  function paint(){var on=document.body.classList.contains('fs-active');
+    btn.textContent=on?EXIT:ENTER;btn.setAttribute('aria-label',on?'Exit fullscreen':'Enter fullscreen');btn.title=on?'Exit fullscreen':'Fullscreen';}
+  function go(){document.body.classList.add('fs-active');reqNative();paint();}
+  function stop(){document.body.classList.remove('fs-active');exitNative();paint();}
+  function toggle(){document.body.classList.contains('fs-active')?stop():go();}
+  btn.addEventListener('click',toggle);
+  function mount(){if(!document.body)return;if(!btn.isConnected)document.body.appendChild(btn);paint();}
+  if(document.body){mount();}else{document.addEventListener('DOMContentLoaded',mount);}
+  function sync(){if(!nativeOn()&&document.body.classList.contains('fs-active')){document.body.classList.remove('fs-active');paint();}}
+  document.addEventListener('fullscreenchange',sync);
+  document.addEventListener('webkitfullscreenchange',sync);
+})();
+</script>
+<!-- FS_MODE end -->
+<script src="/sihan-met-flashcards/notes/note-highlight.js"></script>
+</body>
+</html>
