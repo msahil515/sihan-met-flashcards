@@ -30,6 +30,7 @@ SECTIONS = [
     ("core",      "Core Subjects",        "The syllabus, one merged book per subject", "#1d4ed8", "#1e3a8a"),
     ("reference", "Quick Reference",       "Effects, theorists, lookalikes, the one-page cram", "#7e22ce", "#581c87"),
     ("mocks",     "Mocks & Weak Spots",    "Every debrief reorganised by what kept costing marks", "#be123c", "#831843"),
+    ("interview", "Interview Prep",        "Your own clinical voice, straight from your YD sessions", "#0f766e", "#134e4a"),
 ]
 
 # ---- Books -------------------------------------------------------------
@@ -78,6 +79,10 @@ BOOKS = [
     dict(slug="mocks", shelf="mocks", kind="merged",
          short="Mock Debriefs & Weak-Spot Fixes",
          blurb="Every mock debrief reorganised by weak spot, the misses that recurred and exactly how to fix them."),
+    # --- Interview Prep ---
+    dict(slug="therapy-style", shelf="interview", kind="note", src="therapy-style",
+         short="Your Therapeutic Style",
+         blurb="Interview-ready profile built only from your own YD sessions: 14 named techniques with the real mechanics, the most-difficult-case walkthrough, and answers you can give out loud."),
 ]
 
 GATE_STYLE = "html.gate-locked body{display:none!important}"

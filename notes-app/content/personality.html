@@ -37,6 +37,37 @@
   .recap { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin: 16px 0 8px; font-size: 14px; }
   .recap b { color: var(--accent); }
 
+
+  .fs-toggle{position:fixed;z-index:2147483000;bottom:14px;right:14px;width:46px;height:46px;border:0;border-radius:50%;
+    background:rgba(18,24,33,.74);color:#e6edf3;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 2px 12px rgba(0,0,0,.5);
+    padding:0;opacity:.5;transition:opacity .15s;-webkit-tap-highlight-color:transparent}
+  .fs-toggle:hover,.fs-toggle:active{opacity:1}
+  @media print{.fs-toggle{display:none}}
+  body.fs-active .topbar,
+  body.fs-active header,
+  body.fs-active nav,
+  body.fs-active .app-header,
+  body.fs-active .site-header,
+  body.fs-active footer{display:none !important}
+  body.fs-active{margin:0 !important;padding:0 !important;min-height:100vh}
+  body.fs-active main,
+  body.fs-active .wrap,
+  body.fs-active .container,
+  body.fs-active #app,
+  body.fs-active .app,
+  body.fs-active .page{max-width:100% !important;width:100% !important;margin:0 !important;
+    padding-left:12px !important;padding-right:12px !important;padding-top:10px !important;padding-bottom:14px !important}
+  @media (orientation:landscape){
+    body.fs-active main,
+    body.fs-active .wrap,
+    body.fs-active .container,
+    body.fs-active #app,
+    body.fs-active .app,
+    body.fs-active .page{padding-top:8px !important;padding-bottom:8px !important;
+      padding-left:18px !important;padding-right:18px !important}
+  }
+
 </style>
 </head>
 <body class="nfe-reader">
