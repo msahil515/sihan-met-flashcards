@@ -26,6 +26,7 @@ MOCKS = [
     ("pyq-mock-2", "quiz/pyq-mock-2/index.html"),
     ("rml-2024", "quiz/rml-2024/index.html"),
     ("ihbas-2020", "quiz/ihbas-2020/index.html"),
+    ("ihbas-2024", "quiz/ihbas-2024/index.html"),
 ]
 
 PATTERN = re.compile(r"const QUESTIONS = (\[.*?\n\]);", re.S)

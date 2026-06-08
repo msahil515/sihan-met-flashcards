@@ -599,6 +599,28 @@ const MOCKS = [
     companion: null
   },
   {
+    id: "ihbas-2024",
+    title: "IHBAS 2024 PYQ Mock (real paper)",
+    short: "IHBAS PYQ 2024",
+    path: "../../quiz/ihbas-2024/",
+    storageResults: "ihbas-2024-results-v1",
+    storageNotes: "ihbas-2024-notes-v1",
+    total: 100,
+    max: 100,
+    scoring: (right, wrong) => right - wrong * 0.25,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
+    sections: { general: 26, biopsych: 15, abnormal: 13, therapy: 10, biostats: 12, assessment: 5, dev: 5, social: 14 },
+    bands: [
+      { min: 70, max: 100, name: "Strong", cls: "good", desc: "Official IHBAS 2024 paper. Above 70 raw is genuinely strong on the real key. Lock it; the real exam has no negative marking so your true score is even higher." },
+      { min: 60, max: 69.99, name: "On target", cls: "good", desc: "Cut-off zone for this paper. Patch your two weakest sections below, don't chase new topics." },
+      { min: 50, max: 59.99, name: "Borderline", cls: "warn", desc: "Note: the real IHBAS has NO negative marking, so on the actual exam you'd attempt everything. Here, stop the −0.25 leak and re-sit." },
+      { min: 40, max: 49.99, name: "Needs work", cls: "warn", desc: "A section or two is soft. Cheatsheets first, then re-sit this same paper." },
+      { min: -100, max: 39.99, name: "Baseline", cls: "bad", desc: "First cold sitting. The point is the gap map below, not the score. Revise the weakest section and re-attempt." }
+    ],
+    cutoff: 60, cutoffLabel: "working target ~60/100 (IHBAS cutoff not officially published; real exam has no negative marking)",
+    companion: null
+  },
+  {
     id: "pyq-mock-2",
     title: "PYQ Mock 2, pan-India",
     short: "PYQ Mock 2",

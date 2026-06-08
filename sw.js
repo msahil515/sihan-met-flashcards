@@ -1,7 +1,7 @@
 /* MET 2026 prep - offline service worker
    Precaches the whole site so it works with no signal after one install.
    Bump CACHE on each deploy to refresh. */
-const CACHE = "met-prep-20260607-blatt-spitz-full";
+const CACHE = "met-prep-20260608-ihbas-2024";
 const BASE = "/sihan-met-flashcards/";
 const PRECACHE = [
   "/sihan-met-flashcards/",
@@ -119,6 +119,7 @@ const PRECACHE = [
   "/sihan-met-flashcards/quiz/nimhans-mock-1/",
   "/sihan-met-flashcards/quiz/pyq-mock-2/",
   "/sihan-met-flashcards/quiz/pyq-real-2024/",
+  "/sihan-met-flashcards/quiz/ihbas-2024/",
   "/sihan-met-flashcards/quiz/pyq-real-2025/",
   "/sihan-met-flashcards/quiz/wrong-remix/",
   "/sihan-met-flashcards/results/",
