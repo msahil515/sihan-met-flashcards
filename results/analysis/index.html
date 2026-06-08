@@ -577,6 +577,28 @@ const MOCKS = [
     companion: null
   },
   {
+    id: "ihbas-2020",
+    title: "IHBAS 2020 PYQ Mock (real paper)",
+    short: "IHBAS PYQ 2020",
+    path: "../../quiz/ihbas-2020/",
+    storageResults: "ihbas-2020-results-v1",
+    storageNotes: "ihbas-2020-notes-v1",
+    total: 92,
+    max: 92,
+    scoring: (right, wrong) => right - wrong * 0.25,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
+    sections: { general: 15, biopsych: 7, abnormal: 11, therapy: 22, biostats: 9, assessment: 7, dev: 10, social: 11 },
+    bands: [
+      { min: 65, max: 92, name: "Strong", cls: "good", desc: "Real IHBAS paper. Above 65 here means your clinical/therapy and Indian-psych base is solid. Lock it and keep the −0.25 leak shut." },
+      { min: 55, max: 64.99, name: "On target", cls: "good", desc: "Serious-aspirant zone for this paper. Patch your two weakest sections below, don't chase new topics." },
+      { min: 46, max: 54.99, name: "Borderline", cls: "warn", desc: "Stop guessing pure-noise items (the −0.25 adds up). That alone usually moves you up a band." },
+      { min: 37, max: 45.99, name: "Needs work", cls: "warn", desc: "A section or two is genuinely soft. Cheatsheets first, then re-sit this same paper." },
+      { min: -100, max: 36.99, name: "Baseline", cls: "bad", desc: "First cold sitting. The point is the gap map below, not the score. Revise the weakest section and re-attempt." }
+    ],
+    cutoff: 55, cutoffLabel: "working target ~55/92 (IHBAS cutoff not officially published)",
+    companion: null
+  },
+  {
     id: "pyq-mock-2",
     title: "PYQ Mock 2, pan-India",
     short: "PYQ Mock 2",

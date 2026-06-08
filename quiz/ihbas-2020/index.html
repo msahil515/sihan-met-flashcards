@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0d1117">
+<title>IHBAS 2020 PYQ Mock (Real Paper, 92 Q)</title>
+<style>
+  :root {
+    --bg: #0d1117; --panel: #161b22; --panel-2: #1f252d; --border: #30363d;
+    --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff; --accent-dim: #1f6feb;
+    --good: #3fb950; --bad: #f85149; --warn: #f0b429;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Text', sans-serif; line-height: 1.5; }
+  .app { max-width: min(1200px, 94vw); margin: 0 auto; padding: 16px; min-height: 100vh; }
+  nav { display: flex; gap: 8px; margin-bottom: 16px; font-size: 13px; flex-wrap: wrap; }
+  nav a { color: var(--accent); text-decoration: none; padding: 6px 10px;
+    border: 1px solid var(--accent-dim); border-radius: 6px; }
+  header { text-align: center; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  h1 { font-size: 18px; margin: 0 0 4px 0; font-weight: 600; letter-spacing: 0.5px; }
+  .subtitle { font-size: 12px; color: var(--muted); }
+  .blueprint { font-size: 11px; color: var(--accent); margin-top: 6px; }
+  .filters { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; margin-bottom: 16px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .filters label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  select { background: var(--panel-2); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 10px; font-size: 14px; font-family: inherit; flex: 1; min-width: 140px;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%238b949e' d='M2 4l4 4 4-4z'/></svg>");
+    background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+  .progress { font-size: 12px; color: var(--muted); text-align: center; margin-bottom: 10px; }
+  .progress-bar { height: 4px; background: var(--panel); border-radius: 2px; overflow: hidden; margin-bottom: 16px; }
+  .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s ease; }
+  .question-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px; margin-bottom: 12px; }
+  .section-tag { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--accent); background: rgba(88, 166, 255, 0.08); padding: 3px 8px; border-radius: 4px; margin-bottom: 10px; }
+  .question-text { font-size: 16px; line-height: 1.5; margin-bottom: 14px; white-space: pre-wrap; }
+  .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+  .option { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; font-size: 15px; cursor: pointer; transition: all 0.15s ease; display: flex; gap: 10px; align-items: flex-start; }
+  .option:hover:not(.disabled) { border-color: var(--accent-dim); background: rgba(31, 111, 235, 0.05); }
+  .option.selected { border-color: var(--accent); background: rgba(88, 166, 255, 0.08); }
+  .option.correct { border-color: var(--good); background: rgba(63, 185, 80, 0.1); }
+  .option.incorrect { border-color: var(--bad); background: rgba(248, 81, 73, 0.08); }
+  .option.disabled { cursor: default; }
+  .option-letter { font-weight: 600; color: var(--accent); flex-shrink: 0; width: 20px; }
+  .option.correct .option-letter { color: var(--good); }
+  .option.incorrect .option-letter { color: var(--bad); }
+  .guess-row { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 12px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+    font-size: 14px; cursor: pointer; user-select: none; }
+  .guess-row.checked { border-color: var(--warn); background: rgba(240, 180, 41, 0.06); }
+  .guess-checkbox { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 4px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.1s ease; }
+  .guess-row.checked .guess-checkbox { border-color: var(--warn); background: var(--warn); }
+  .guess-row.checked .guess-checkbox::after { content: "✓"; color: var(--bg); font-weight: 800; font-size: 14px; }
+  .guess-label { flex: 1; }
+  .guess-label small { display: block; color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .controls { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  button { background: var(--panel); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px; font-size: 14px; font-family: inherit; cursor: pointer;
+    transition: all 0.15s ease; font-weight: 500; }
+  button:hover:not(:disabled) { background: var(--panel-2); border-color: var(--accent-dim); }
+  button:active:not(:disabled) { transform: scale(0.98); }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-primary { border-color: var(--accent-dim); color: var(--accent); }
+  .btn-primary:hover:not(:disabled) { background: rgba(88, 166, 255, 0.08); }
+  .explanation { background: var(--panel-2); border-left: 3px solid var(--accent); border-radius: 6px;
+    padding: 12px 14px; margin-top: 14px; font-size: 14px; color: var(--text); display: none; }
+  .explanation.visible { display: block; }
+  .explanation strong { color: var(--accent); }
+  .notes-area { margin-top: 14px; border-top: 1px dashed var(--border); padding-top: 12px; }
+  .notes-label { display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .notes-saved { font-size: 11px; color: var(--good); opacity: 0; transition: opacity 0.2s ease;
+    text-transform: none; letter-spacing: 0; }
+  .notes-saved.visible { opacity: 1; }
+  .notes-textarea { width: 100%; min-height: 70px; background: var(--panel-2); color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-family: inherit;
+    font-size: 14px; line-height: 1.45; resize: vertical; box-sizing: border-box; }
+  .notes-textarea:focus { outline: none; border-color: var(--accent-dim); background: rgba(31, 111, 235, 0.04); }
+  .notes-textarea::placeholder { color: var(--muted); }
+  .has-note .section-tag::after { content: " · 📝 noted"; color: var(--good); font-weight: 500; }
+  .resume-banner { background: rgba(63, 185, 80, 0.08); border: 1px solid var(--good); border-radius: 8px;
+    padding: 10px 14px; margin-bottom: 12px; font-size: 13px; color: var(--text);
+    display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .resume-banner button { flex: 0 0 auto; padding: 6px 12px; font-size: 12px; }
+  .backup-area { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px; margin-top: 16px; }
+  .backup-area h3 { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .backup-note { font-size: 12px; color: var(--muted); margin: 0 0 10px 0; }
+  .backup-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .analysis-cta { background: linear-gradient(135deg, rgba(63,185,80,0.10), rgba(63,185,80,0.04));
+    border: 1px solid rgba(63,185,80,0.5); border-radius: 8px;
+    padding: 16px; margin-top: 20px; }
+  .analysis-cta h3 { font-size: 13px; color: var(--good); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .analysis-note { font-size: 13px; color: var(--muted); margin: 0 0 12px 0; line-height: 1.55; }
+  .analysis-btn { display: block; width: 100%; box-sizing: border-box; text-align: center;
+    background: rgba(63,185,80,0.18); color: var(--good); border: 1px solid var(--good);
+    border-radius: 8px; padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer;
+    text-decoration: none; transition: background 0.15s ease; }
+  .analysis-btn:hover { background: rgba(63,185,80,0.32); }
+  .export-area { background: var(--panel); border: 1px solid var(--accent); border-radius: 8px;
+    padding: 14px; margin-top: 16px; }
+  .export-area h3 { font-size: 13px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .export-note { font-size: 12px; color: var(--muted); margin: 0 0 10px 0; }
+  .export-btn { width: 100%; background: var(--accent-dim); color: white; border: 1px solid var(--accent);
+    border-radius: 8px; padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer; }
+  .export-btn:hover:not(:disabled) { background: var(--accent); }
+  .stats { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; margin-top: 16px; font-size: 13px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; }
+  .stat-item { padding: 4px; }
+  .stat-num { font-size: 20px; font-weight: 600; display: block; margin-bottom: 2px; }
+  .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-confident-right { color: var(--good); }
+  .stat-guessed-right { color: var(--warn); }
+  .stat-wrong { color: var(--bad); }
+  .stat-skipped { color: var(--muted); }
+  .scoreboard { background: var(--panel); border: 1px solid var(--accent-dim); border-radius: 8px;
+    padding: 12px; margin-top: 16px; text-align: center; font-size: 14px; }
+  .scoreboard .big { font-size: 28px; font-weight: 700; color: var(--accent); display: block; }
+  .scoreboard small { color: var(--muted); }
+  .review-area { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--muted); }
+  .review-area h3 { font-size: 14px; margin: 0 0 8px 0; color: var(--text); }
+  .review-list { list-style: none; padding: 0; margin: 0; }
+  .review-list li { padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .review-list li:last-child { border-bottom: none; }
+  .review-tag { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 3px;
+    margin-right: 6px; font-weight: 600; }
+  .review-tag.guessed { background: rgba(240, 180, 41, 0.15); color: var(--warn); }
+  .review-tag.wrong { background: rgba(248, 81, 73, 0.15); color: var(--bad); }
+  .review-tag.flagged { background: rgba(240, 180, 41, 0.15); color: var(--warn); }
+  .review-list li.review-clickable { cursor: pointer; }
+  .review-list li.review-clickable:hover { background: rgba(88,166,255,0.05); }
+  .review-q { color: var(--text); display: block; margin: 3px 0; }
+  .review-ans { font-size: 12px; color: var(--muted); display: block; }
+  .review-ans .rv-picked { color: var(--bad); font-weight: 600; }
+  .review-ans .rv-correct { color: var(--good); font-weight: 600; }
+  .review-rule { font-size: 12px; color: var(--muted); display: block; margin-top: 2px; font-style: italic; }
+  .reset-btn { margin-top: 12px; width: 100%; color: var(--muted); font-size: 12px; }
+  .section-scores { margin-top: 16px; background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px; }
+  .section-scores h3 { font-size: 13px; margin: 0 0 10px 0; color: var(--text); text-transform: uppercase; letter-spacing: 0.5px; }
+  .section-score-row { display: flex; align-items: center; gap: 10px; padding: 6px 0;
+    font-size: 13px; border-bottom: 1px solid var(--border); }
+  .section-score-row:last-child { border-bottom: none; }
+  .section-score-name { flex: 0 0 130px; color: var(--muted); font-size: 12px; }
+  .section-score-bar { flex: 1; height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; display: flex; }
+  .section-score-bar > span { display: block; height: 100%; }
+  .ssr-right { background: var(--good); }
+  .ssr-guessed { background: var(--warn); }
+  .ssr-wrong { background: var(--bad); }
+  .ssr-skipped { background: transparent; }
+  .section-score-num { flex: 0 0 90px; text-align: right; color: var(--text);
+    font-size: 12px; font-variant-numeric: tabular-nums; }
+  @media (max-width: 400px) {
+    .section-score-name { flex-basis: 100px; font-size: 11px; }
+    .section-score-num { flex-basis: 70px; font-size: 11px; }
+    .question-text { font-size: 15px; }
+    .option { font-size: 14px; padding: 10px; }
+    .controls { grid-template-columns: 1fr 1fr; }
+  }
+  /* ---- mode toggle ---- */
+  .mode-toggle { display: flex; gap: 0; background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 4px; margin-bottom: 12px; }
+  .mode-btn { flex: 1; background: transparent; border: 0; border-radius: 6px; padding: 10px;
+    font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; }
+  .mode-btn.active { background: var(--accent-dim); color: #fff; }
+  .mode-hint { font-size: 11px; color: var(--muted); text-align: center; margin: -4px 0 14px 0; }
+  /* ---- exam bar / timer ---- */
+  .exam-bar { position: sticky; top: 0; z-index: 50; background: var(--panel);
+    border: 1px solid var(--accent-dim); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35); }
+  .exam-timer { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--accent); letter-spacing: 1px; }
+  .exam-timer.warn { color: var(--warn); }
+  .exam-timer.danger { color: var(--bad); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
+  .exam-meta { font-size: 11px; color: var(--muted); }
+  .exam-finish-btn { flex: 0 0 auto; background: rgba(63,185,80,0.18); color: var(--good);
+    border: 1px solid var(--good); border-radius: 8px; padding: 9px 14px; font-size: 13px; font-weight: 600; }
+  .exam-finish-btn:hover { background: rgba(63,185,80,0.32); }
+  .exam-intro { background: var(--panel); border: 1px solid var(--accent-dim); border-radius: 10px;
+    padding: 16px; margin-bottom: 14px; }
+  .exam-intro h3 { margin: 0 0 6px 0; font-size: 14px; color: var(--accent); }
+  .exam-intro p { margin: 0 0 12px 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .exam-start-btn { width: 100%; background: var(--accent-dim); color: #fff; border: 1px solid var(--accent);
+    border-radius: 8px; padding: 13px; font-size: 15px; font-weight: 600; }
+  /* ---- flag + secondary controls ---- */
+  .secondary-controls { display: flex; gap: 8px; margin-top: 8px; }
+  .flag-btn { flex: 1; font-size: 13px; }
+  .flag-btn.flagged { border-color: var(--warn); color: var(--warn); background: rgba(240,180,41,0.08); }
+  .has-flag .section-tag::before { content: "🚩 "; }
+  /* ---- redo bar ---- */
+  .redo-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .redo-btn { flex: 1; min-width: 130px; font-size: 13px; }
+  .redo-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(88,166,255,0.08); }
+  .redo-clear { flex: 0 0 auto; color: var(--muted); font-size: 12px; }
+  /* ---- exam question navigator ---- */
+  .nav-grid-wrap { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; margin-bottom: 14px; }
+  .nav-grid-wrap h3 { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .nav-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(30px, 1fr)); gap: 5px; }
+  .nav-cell { aspect-ratio: 1; border: 1px solid var(--border); border-radius: 5px; background: var(--panel-2);
+    color: var(--muted); font-size: 11px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .nav-cell.answered { background: rgba(88,166,255,0.18); color: var(--accent); border-color: var(--accent-dim); }
+  .nav-cell.flagged { border-color: var(--warn); box-shadow: inset 0 0 0 1px var(--warn); }
+  .nav-cell.current { outline: 2px solid var(--accent); outline-offset: 1px; color: #fff; }
+  .nav-cell.correct { background: rgba(63,185,80,0.2); color: var(--good); border-color: var(--good); }
+  .nav-cell.wrong { background: rgba(248,81,73,0.2); color: var(--bad); border-color: var(--bad); }
+  /* ---- attempt history ---- */
+  .attempt-history { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px; margin-top: 16px; }
+  .attempt-history h3 { font-size: 13px; margin: 0 0 4px 0; color: var(--text); text-transform: uppercase; letter-spacing: 0.5px; }
+  .attempt-history .ah-note { font-size: 12px; color: var(--muted); margin: 0 0 12px 0; }
+  .ah-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .ah-row:last-child { border-bottom: none; }
+  .ah-when { flex: 0 0 92px; color: var(--muted); font-size: 11px; }
+  .ah-track { flex: 1; height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; }
+  .ah-fill { height: 100%; background: var(--accent); }
+  .ah-fill.up { background: var(--good); }
+  .ah-fill.down { background: var(--bad); }
+  .ah-score { flex: 0 0 96px; text-align: right; font-variant-numeric: tabular-nums; }
+  .ah-delta { font-size: 11px; margin-left: 6px; }
+  .ah-delta.up { color: var(--good); } .ah-delta.down { color: var(--bad); }
+  .ah-empty { font-size: 12px; color: var(--muted); }
+  footer { text-align: center; font-size: 10px; color: var(--muted); padding: 24px 0 8px 0; }
+</style>
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+</head>
+<body>
+<div class="app">
+  <nav><a href="../../">← Dashboard</a> <a href="../../tests/">Tests</a> <a href="../../results/">My Results</a> <a href="../../notes/">Notes</a> <a href="../../plan/">Plan</a></nav>
+  <header>
+    <h1>IHBAS 2020 PYQ Mock (Real Paper)</h1>
+    <div class="subtitle">92 real Qs · IHBAS, Delhi · M.Phil Clinical Psychology entrance 2020 · untimed Practice by default · +1 / −0.25 / 0 blank</div>
+    <div class="blueprint">Real questions from the 2020 IHBAS (Institute of Human Behaviour &amp; Allied Sciences, Delhi) M.Phil Clinical Psychology entrance, transcribed from the previous-year paper in your <a href="../../resources/" style="color:inherit;">Drive library</a>. Every answer is verified against the paper's marked key and standard clinical-psychology sources, no invented questions, no invented distractors. 8 of the original 100 were dropped (one exact duplicate plus a few genuinely ambiguous items) so you only drill verified content, hence 92. Default mode is untimed Practice (instant reveal + explanation per question); flip to Exam mode for a timed run. Q47 keeps the source key (CARS) but its explanation flags that India uses ISAA for disability certification.</div>
+  </header>
+
+  <div class="filters">
+    <label for="sectionSelect">Section</label>
+    <select id="sectionSelect">
+      <option value="all">All 92 questions</option>
+      <option value="general">General / Cognitive (15)</option>
+      <option value="biopsych">Neuropsych / Biopsych (7)</option>
+      <option value="abnormal">Abnormal / Psychopathology (11)</option>
+      <option value="therapy">Psychotherapy (22)</option>
+      <option value="biostats">Biostats / Research (9)</option>
+      <option value="assessment">Psychological Assessment (7)</option>
+      <option value="dev">Developmental (10)</option>
+      <option value="social">Social Psychology (11)</option>
+    </select>
+  </div>
+
+  <div class="mode-toggle">
+    <button class="mode-btn" data-action="setMode" data-mode="practice">📚 Practice</button>
+    <button class="mode-btn" data-action="setMode" data-mode="exam">⏱️ Exam mode</button>
+  </div>
+  <div class="mode-hint" id="modeHint"></div>
+
+  <div id="examIntro" class="exam-intro" style="display:none;"></div>
+  <div id="examBar" class="exam-bar" style="display:none;"></div>
+
+  <div id="redoBar" class="redo-bar" style="display:none;"></div>
+
+  <div id="resumeBanner" class="resume-banner" style="display:none;"></div>
+
+  <div class="progress" id="progress">0 / 0</div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div id="quizArea"></div>
+
+  <div id="navGridWrap" class="nav-grid-wrap" style="display:none;">
+    <h3>Jump to question <span id="navGridLegend" style="text-transform:none;letter-spacing:0;"></span></h3>
+    <div class="nav-grid" id="navGrid"></div>
+  </div>
+
+  <div class="scoreboard" id="scoreboard"></div>
+
+  <div class="stats" id="stats">
+    <div class="stat-item"><span class="stat-num stat-confident-right" id="statRight">0</span><span class="stat-label">Right (Solid)</span></div>
+    <div class="stat-item"><span class="stat-num stat-guessed-right" id="statGuessed">0</span><span class="stat-label">Right (Guessed)</span></div>
+    <div class="stat-item"><span class="stat-num stat-wrong" id="statWrong">0</span><span class="stat-label">Wrong</span></div>
+    <div class="stat-item"><span class="stat-num stat-skipped" id="statSkipped">0</span><span class="stat-label">Skipped</span></div>
+  </div>
+
+  <div class="section-scores">
+    <h3>Per-section breakdown</h3>
+    <div id="sectionScores"></div>
+  </div>
+
+  <div class="attempt-history" id="attemptHistory">
+    <h3>📈 Attempt history</h3>
+    <p class="ah-note">Every time you finish an exam-mode run, the score lands here so you can watch it climb.</p>
+    <div id="attemptHistoryList"></div>
+  </div>
+
+  <div class="review-area" id="reviewArea" style="display:none;">
+    <h3>Things to come back to</h3>
+    <ul class="review-list" id="reviewList"></ul>
+    <button class="reset-btn" data-action="reset">Reset all stats and start over</button>
+  </div>
+
+  <div class="analysis-cta">
+    <h3>📊 Full analysis</h3>
+    <p class="analysis-note">Score + estimated band, section-wise R/W/Skip with miss-rate, top-3 weakest topics linked to the exact cheatsheets, and per-question review with every distractor flagged and explained. Reads your saved answers from this browser.</p>
+    <a class="analysis-btn" href="../../results/analysis/?mock=ihbas-2020">Open full analysis →</a>
+  </div>
+
+  <div class="export-area">
+    <h3>📤 Send results to Sahil</h3>
+    <p class="export-note">Tap to copy a readable export of your score, section breakdown, every wrong/guessed question, and your notes. Paste it to Sahil on WhatsApp for analysis.</p>
+    <button class="export-btn" data-action="exportForAnalysis">Copy results for analysis</button>
+  </div>
+
+  <div class="backup-area">
+    <h3>Backup / restore</h3>
+    <p class="backup-note">Backup IHBAS 2020 PYQ Mock progress separately. Paste a previous code to restore.</p>
+    <div class="backup-controls">
+      <button data-action="exportProgress">Copy backup code</button>
+      <button data-action="importProgress">Restore from code</button>
+    </div>
+  </div>
+
+  <footer>IHBAS 2020 PYQ Mock · Institute of Human Behaviour &amp; Allied Sciences, Delhi · M.Phil Clinical Psychology entrance 2020 · 92 real Qs · verified answer key · independent state.</footer>
+</div>
+
+<script>
+// =====================================================================
+// QUESTION BANK -- IHBAS 2020 PYQ Mock, Institute of Human Behaviour &
+// Allied Sciences (IHBAS), Delhi. M.Phil Clinical Psychology entrance,
+// 2020 previous-year paper. Real questions transcribed from the PYQ,
+// each answer verified against the paper's marked key and standard
+// clinical-psychology sources. 8 of the 100 items dropped (one exact
+// duplicate, the rest ambiguous/unverifiable). No invented questions.
+// =====================================================================
+const QUESTIONS = [
+  { id: "ihbas20_001", section: "general",
+    q: "The visible spectrum wavelength ranges from",
+    options: { a: "380 to 760 nanometres", b: "200 to 700 nanometres", c: "400 to 1000 nanometres", d: "100 to 1000 nanometres" },
+    correct: "a",
+    explanation: "The human visible spectrum runs roughly 380 to 760 nm, violet at the short end to red at the long end." },
+  { id: "ihbas20_002", section: "therapy",
+    q: "'Healing and Persuasion' is the work of:",
+    options: { a: "Alfred Pritz", b: "Jerome Frank", c: "Charles Winnicot", d: "Jeff Klerman" },
+    correct: "b",
+    explanation: "Jerome Frank ('Persuasion and Healing') argued all psychotherapies share common factors: a healing relationship, a rationale, and the restoration of morale." },
+  { id: "ihbas20_003", section: "therapy",
+    q: "A stimulus that is constantly present, or paired with, the absence of a noxious stimulus may become a:",
+    options: { a: "Safety signal", b: "Avoidance cue", c: "Relief stimulus", d: "Readiness prompt" },
+    correct: "a",
+    explanation: "A safety signal reliably predicts the absence of danger, so it lowers anxiety; over-reliance on safety signals maintains anxiety disorders." },
+  { id: "ihbas20_004", section: "dev",
+    q: "The fact that people can use later experiences to compensate for earlier deficits is a contradiction of which element of earlier developmental psychology?",
+    options: { a: "Critical periods", b: "Continuity", c: "Sensitive periods", d: "Stability" },
+    correct: "a",
+    explanation: "A strict critical-period view says a window missed is lost forever; later compensation contradicts that rigid notion." },
+  { id: "ihbas20_005", section: "dev",
+    q: "Helicopter Parenting is the result of:",
+    options: { a: "Parental anxiety", b: "Parental unfulfilled wishes", c: "Parents' personality traits", d: "All of above" },
+    correct: "d",
+    explanation: "Over-controlling 'helicopter' parenting is driven by parental anxiety, unfulfilled wishes and personality, hence all of the above." },
+  { id: "ihbas20_006", section: "biopsych",
+    q: "The twenty-third pair of chromosomes is missing an X, turning into a syndrome characterised by a short, infertile female:",
+    options: { a: "Down Syndrome", b: "Asperger's Syndrome", c: "Turner's Syndrome", d: "Klinefelter's Syndrome" },
+    correct: "c",
+    explanation: "Turner syndrome (45,X) is a single X, producing a short, infertile female. Klinefelter (47,XXY) is in males." },
+  { id: "ihbas20_007", section: "dev",
+    q: "Which theory of attachment is currently considered the predominantly accepted theory by developmental psychologists?",
+    options: { a: "Psychoanalytic", b: "Learning", c: "Cognitive-developmental", d: "Ethological" },
+    correct: "d",
+    explanation: "Bowlby's ethological theory (attachment as an evolved survival system) is the dominant modern account." },
+  { id: "ihbas20_008", section: "dev",
+    q: "At which stage, according to Kohlberg's theory of moral development, does the individual view laws as instruments for expressing the will of the majority and furthering welfare?",
+    options: { a: "Punishment-and-obedience orientation", b: "Social-order-maintaining morality", c: "Morality of individual principles of conscience", d: "Social-contract orientation" },
+    correct: "d",
+    explanation: "Stage 5, the social-contract orientation: laws are social agreements that can be changed for the greater good." },
+  { id: "ihbas20_009", section: "dev",
+    q: "The first emotions expressed by infants are:",
+    options: { a: "Pain and anger", b: "Rage and fear", c: "Fear and euphoria", d: "Delight and distress" },
+    correct: "d",
+    explanation: "The earliest differentiated states are global delight and distress, from which specific emotions later differentiate." },
+  { id: "ihbas20_010", section: "dev",
+    q: "This theorist argued that newborn creatures imprint on their caregivers during a critical period in early development.",
+    options: { a: "Mary Ainsworth", b: "John Bowlby", c: "Erik Erikson", d: "Konrad Lorenz" },
+    correct: "d",
+    explanation: "Konrad Lorenz demonstrated imprinting in geese, fixed within a narrow critical period after hatching." },
+  { id: "ihbas20_011", section: "general",
+    q: "Psychology studies both overt and covert behaviour. Covert behaviour is:",
+    options: { a: "Observable and measurable", b: "Measurable but not observable", c: "Only measurable", d: "Only observable" },
+    correct: "b",
+    explanation: "Covert behaviour (thoughts, feelings) cannot be directly observed but can be measured indirectly (self-report, physiology)." },
+  { id: "ihbas20_012", section: "general",
+    q: "A person who is very adept at planning, monitoring, and controlling all phases of the multistore model must have very good:",
+    options: { a: "Attention", b: "Inhibition", c: "Meta-cognition", d: "Knowledge base" },
+    correct: "c",
+    explanation: "Planning, monitoring and controlling one's own cognition is metacognition, thinking about thinking." },
+  { id: "ihbas20_013", section: "dev",
+    q: "The starting point for self-socialization, according to Kohlberg's cognitive-developmental theory of gender-role development, is:",
+    options: { a: "Gender consistency", b: "Basic gender identity", c: "Gender stability", d: "Gender-role achievement" },
+    correct: "b",
+    explanation: "Self-socialization begins once the child labels itself as a boy or girl, basic gender identity, the first step before stability and consistency." },
+  { id: "ihbas20_014", section: "biostats",
+    q: "A body of prior work related to a research problem is referred to as:",
+    options: { a: "Archive", b: "Repository", c: "Literature", d: "None of the above" },
+    correct: "c",
+    explanation: "The accumulated prior work on a problem is the literature; reviewing it is the literature review." },
+  { id: "ihbas20_015", section: "biostats",
+    q: "The principle of ethical research under which the subjects should be given full information about all aspects of the research study after it is done is known as:",
+    options: { a: "Debriefing", b: "Description", c: "Explanation", d: "Interpretation" },
+    correct: "a",
+    explanation: "Debriefing is the post-study disclosure of the study's true purpose and any deception used." },
+  { id: "ihbas20_016", section: "biostats",
+    q: "Those sampling methods which clearly specify the likelihood of inclusion of each element in the sample are known as:",
+    options: { a: "Probability sampling methods", b: "Non-Probability sampling methods", c: "Statistical sampling", d: "Empirical sampling" },
+    correct: "a",
+    explanation: "In probability sampling every element has a known, non-zero chance of selection, which is what allows generalization." },
+  { id: "ihbas20_017", section: "biostats",
+    q: "The scope of research methodology is ______ than that of research methods:",
+    options: { a: "Narrower", b: "Wider", c: "Similar", d: "Depends on situation" },
+    correct: "b",
+    explanation: "Methodology is the broader study of how research is done (logic, assumptions, design); methods are the specific tools within it." },
+  { id: "ihbas20_018", section: "biostats",
+    q: "Uniting various qualitative methods with quantitative methods can be called as:",
+    options: { a: "Coalition", b: "Triangulation", c: "Multidimensional approach", d: "Co-operative inquiry" },
+    correct: "b",
+    explanation: "Triangulation combines multiple methods or data sources to cross-validate findings." },
+  { id: "ihbas20_019", section: "biostats",
+    q: "A statistical measure based upon a population is known as:",
+    options: { a: "Statistic", b: "Parameter", c: "Sample", d: "None of the above" },
+    correct: "b",
+    explanation: "A parameter describes a population; a statistic describes a sample." },
+  { id: "ihbas20_020", section: "general",
+    q: "The book 'Indian Children on a Psychiatrist's Playground' is written by:",
+    options: { a: "Shekar Sheshadri", b: "Shoba Srinath", c: "Maria Kovac", d: "Erna Hoch" },
+    correct: "d",
+    explanation: "Erna Hoch, the Swiss psychiatrist who worked in India, authored 'Indian Children on a Psychiatrist's Playground'." },
+  { id: "ihbas20_021", section: "general",
+    q: "Mental Health in Indian Schools is the work of:",
+    options: { a: "Savita Malhotra", b: "Jitendra Nagpal", c: "Malavika Kapur", d: "Srikala Bharat" },
+    correct: "c",
+    explanation: "Malavika Kapur (NIMHANS) is known for her work on child mental health and mental health in Indian schools." },
+  { id: "ihbas20_022", section: "general",
+    q: "Indian Association of Clinical Psychologists (IACP) was formed in the year:",
+    options: { a: "1968", b: "1970", c: "1971", d: "1978" },
+    correct: "a",
+    explanation: "The IACP was founded in 1968, the professional body for clinical psychologists in India." },
+  { id: "ihbas20_023", section: "abnormal",
+    q: "False belief which cannot be shaken by reason is termed as:",
+    options: { a: "Illusion", b: "Delusion", c: "Hallucination", d: "False memory" },
+    correct: "b",
+    explanation: "A delusion is a fixed false belief held despite contradictory evidence and not shared by the person's culture." },
+  { id: "ihbas20_024", section: "biopsych",
+    q: "The part of the nervous system involved in emotional behaviour is:",
+    options: { a: "Hippocampus", b: "Thalamus", c: "Hypothalamus", d: "Limbic system" },
+    correct: "d",
+    explanation: "The limbic system (amygdala, hippocampus, hypothalamus, cingulate) is the emotional core of the brain." },
+  { id: "ihbas20_025", section: "general",
+    q: "When you stretch your right hand farther away from your body, you still perceive it to be of the same size as that of your left hand. This is due to:",
+    options: { a: "Size constancy", b: "Shape constancy", c: "Motion parallax", d: "Depth perception" },
+    correct: "a",
+    explanation: "Size constancy: an object is perceived as the same size despite changes in retinal image size with distance." },
+  { id: "ihbas20_026", section: "social",
+    q: "A state that occurs when bystanders in an emergency situation use the behaviour of others to determine whether help is actually required is called:",
+    options: { a: "Pluralistic ignorance", b: "Group conformity", c: "Group compliance", d: "Crowd behavior" },
+    correct: "a",
+    explanation: "Pluralistic ignorance: each bystander reads others' inaction as 'no emergency', so nobody acts (bystander effect)." },
+  { id: "ihbas20_027", section: "abnormal",
+    q: "Which of the following is not a positive symptom?",
+    options: { a: "Hallucination", b: "Delusions", c: "Flattened affect", d: "Disorganized behavior" },
+    correct: "c",
+    explanation: "Flattened (blunted) affect is a negative symptom; hallucinations, delusions and disorganization are positive symptoms." },
+  { id: "ihbas20_028", section: "therapy",
+    q: "Fixed role therapy, which encouraged clients to practice new roles and relationships, was developed by:",
+    options: { a: "George Kelly", b: "Aaron Beck", c: "Albert Ellis", d: "Fritz Perls" },
+    correct: "a",
+    explanation: "George Kelly's personal-construct therapy used fixed-role therapy: the client enacts a new self for a set period." },
+  { id: "ihbas20_029", section: "therapy",
+    q: "Schofield's (1964) 'YAVIS Syndrome' describes:",
+    options: { a: "Therapy technique", b: "Psychiatric Illness", c: "Therapist's Qualities", d: "Patient's Characteristics" },
+    correct: "d",
+    explanation: "YAVIS (Young, Attractive, Verbal, Intelligent, Successful) describes the kind of patient therapists tend to prefer." },
+  { id: "ihbas20_030", section: "social",
+    q: "Norms that suggest to people the way they ought to behave are called:",
+    options: { a: "Descriptive norms", b: "Idealistic norms", c: "Prescriptive norms", d: "Perceived norms" },
+    correct: "c",
+    explanation: "Prescriptive (injunctive) norms state how one ought to behave; descriptive norms state how people actually behave." },
+  { id: "ihbas20_031", section: "therapy",
+    q: "It is considered that successful CBT treatments of social phobia include elements of the following:",
+    options: { a: "Exposure therapy", b: "Social skills retraining", c: "Cognitive restructuring", d: "All of above" },
+    correct: "d",
+    explanation: "Effective CBT for social phobia combines exposure, social-skills work and cognitive restructuring." },
+  { id: "ihbas20_032", section: "abnormal",
+    q: "Comorbidity means:",
+    options: { a: "People suffering with the same psychopathology die at the same time", b: "Sufferers exhibit a chronic fear of death", c: "Depression always happens in the winter", d: "Differentially defined disorders can co-occur" },
+    correct: "d",
+    explanation: "Comorbidity is the co-occurrence of two or more separately defined disorders in the same person." },
+  { id: "ihbas20_033", section: "abnormal",
+    q: "Suffocation Alarm Theories explain the clinical condition of:",
+    options: { a: "Down Syndrome", b: "Autistic Spectrum Disorder", c: "Delirium", d: "Panic Disorder" },
+    correct: "d",
+    explanation: "Klein's suffocation false-alarm theory explains panic disorder: a hypersensitive CO2/suffocation monitor misfires." },
+  { id: "ihbas20_034", section: "general",
+    q: "Marshmallow Experiment was conducted at:",
+    options: { a: "Stanford University", b: "University of Pennsylvania", c: "Nebraska University", d: "Derek University" },
+    correct: "a",
+    explanation: "Walter Mischel ran the marshmallow delay-of-gratification studies at Stanford." },
+  { id: "ihbas20_035", section: "general",
+    q: "Which is the correct existing legislation for mental health services in India?",
+    options: { a: "Mental Health Act, 1987", b: "Persons with Mental Illness Act, 2016", c: "Mental Health Care Act, 2017", d: "Indian Mental Health Act, 2018" },
+    correct: "c",
+    explanation: "The Mental Healthcare Act 2017 (in force from 2018) replaced the 1987 Act and decriminalized suicide." },
+  { id: "ihbas20_036", section: "general",
+    q: "Reciprocal causation model has been described under:",
+    options: { a: "Social cognitive theory", b: "Two-factor theory", c: "Drive reduction theory", d: "Constructivist theory" },
+    correct: "a",
+    explanation: "Bandura's social cognitive theory uses reciprocal determinism: person, behaviour and environment all influence each other." },
+  { id: "ihbas20_037", section: "therapy",
+    q: "Premack Principle explains:",
+    options: { a: "A process of Interpersonal relationship", b: "A technique of behaviour modification in children", c: "Pattern of language development", d: "Impact of parenting on behavioural problems in young children" },
+    correct: "b",
+    explanation: "The Premack principle (high-probability behaviour reinforces low-probability behaviour, 'Grandma's rule') is a behaviour-modification technique." },
+  { id: "ihbas20_038", section: "therapy",
+    q: "Subjective unit of distress (SUD) is mostly used under:",
+    options: { a: "Exposure & response prevention", b: "Multi-model therapy", c: "Mindfulness-based stress management", d: "Systematic desensitization" },
+    correct: "d",
+    explanation: "The SUDs scale (0-100) is used in Wolpe's systematic desensitization to titrate the anxiety hierarchy." },
+  { id: "ihbas20_039", section: "biopsych",
+    q: "Impairment in Executive Function is characteristic of:",
+    options: { a: "Obsessive-compulsive disorder", b: "Catatonic schizophrenia", c: "Frontal lobe syndrome", d: "Temporal lobe epilepsy" },
+    correct: "c",
+    explanation: "Executive functions (planning, inhibition, set-shifting) are frontal-lobe functions, so they break down in frontal-lobe syndrome." },
+  { id: "ihbas20_040", section: "assessment",
+    q: "Confabulatory responses on Rorschach Psychodiagnostics are indicative of:",
+    options: { a: "Impairment in reality testing", b: "Extreme lack of empathy", c: "Regressed ego", d: "Cognitive immaturity" },
+    correct: "a",
+    explanation: "A confabulatory (DW) response, over-generalizing from a detail to the whole blot, signals impaired reality testing." },
+  { id: "ihbas20_041", section: "assessment",
+    q: "Disorder in thinking can be effectively assessed by:",
+    options: { a: "Rorschach Psychodiagnostics", b: "Thematic Apperception Test", c: "Bender Gestalt Test", d: "Object Sorting Test" },
+    correct: "d",
+    explanation: "The Goldstein-Scheerer Object Sorting Test taps concept formation and abstract thinking, sensitive to thought disorder." },
+  { id: "ihbas20_042", section: "assessment",
+    q: "Elevated Lie scale on Multiphasic Questionnaire (MPQ) is indicative of:",
+    options: { a: "Tendency to fake and manipulate", b: "Social desirability", c: "Mistrust", d: "All the above" },
+    correct: "d",
+    explanation: "A high L (Lie) score reflects an attempt to look unrealistically good, social desirability and faking-good." },
+  { id: "ihbas20_043", section: "assessment",
+    q: "Absence of 'Human' Response on Rorschach Psychodiagnostics Test indicates:",
+    options: { a: "Apathy", b: "Poor interpersonal orientation", c: "Lack of empathy", d: "All the above" },
+    correct: "b",
+    explanation: "Low or absent human (H) responses suggest poor interest in and orientation towards other people." },
+  { id: "ihbas20_044", section: "abnormal",
+    q: "High EE (Expressed Emotion) is known to cause:",
+    options: { a: "Poor treatment outcome", b: "Relapse of psychotic illness", c: "Negative symptoms of schizophrenia", d: "Violent behavior in schizophrenic patients" },
+    correct: "b",
+    explanation: "High expressed emotion (criticism, hostility, over-involvement) in the family strongly predicts relapse in schizophrenia." },
+  { id: "ihbas20_045", section: "assessment",
+    q: "The instrument used for the assessment of disability in autism is:",
+    options: { a: "CARS", b: "ISAA", c: "DAAS", d: "PAAS" },
+    correct: "a",
+    explanation: "The source keys CARS (Childhood Autism Rating Scale), which rates severity. Note: in India the ISAA (Indian Scale for Assessment of Autism) is the tool used for disability-percentage certification, so watch the wording on exam day." },
+  { id: "ihbas20_046", section: "therapy",
+    q: "Dialectical Behaviour Therapy is indicated for the treatment of:",
+    options: { a: "Anxiety Disorders", b: "Borderline Personality Disorder", c: "Acute and Transient Psychotic Disorder", d: "Post-traumatic Stress Disorder" },
+    correct: "b",
+    explanation: "Linehan developed DBT specifically for borderline personality disorder and chronic suicidality." },
+  { id: "ihbas20_047", section: "abnormal",
+    q: "Mode of suicide attempt indicates:",
+    options: { a: "Intentionality", b: "Lethality", c: "Conviction", d: "Survival" },
+    correct: "b",
+    explanation: "The method/mode chosen (e.g. hanging vs superficial cut) is the key marker of the lethality of an attempt." },
+  { id: "ihbas20_048", section: "assessment",
+    q: "Trail Making Test helps to assess ______ in children with ADHD.",
+    options: { a: "Inattention", b: "Social Skills", c: "Impulsivity", d: "Over-activity" },
+    correct: "a",
+    explanation: "Trail Making (especially Part A) taps visual attention and processing speed, so it indexes inattention." },
+  { id: "ihbas20_049", section: "therapy",
+    q: "Which of the following is not a part of Parent Management Training?",
+    options: { a: "Attending positive behaviour", b: "Rewarding positive behaviour", c: "Ignoring undesirable behaviour", d: "Negative reinforcement" },
+    correct: "d",
+    explanation: "PMT teaches attending, rewarding and planned ignoring; negative reinforcement is not one of its core techniques." },
+  { id: "ihbas20_050", section: "therapy",
+    q: "A male adult with Depressive Disorder and marital discord would benefit more from:",
+    options: { a: "Psychodynamic psychotherapy", b: "Cognitive behavior therapy", c: "Marital & couple therapy", d: "Supportive therapy" },
+    correct: "c",
+    explanation: "When the depression is embedded in marital discord, marital/couple therapy targets the maintaining relationship problem directly." },
+  { id: "ihbas20_051", section: "therapy",
+    q: "Exposure & response prevention is the most effective treatment of:",
+    options: { a: "Obsessive-compulsive disorder", b: "Social anxiety disorder", c: "Claustrophobia", d: "Panic disorder" },
+    correct: "a",
+    explanation: "ERP (exposure to the trigger while preventing the compulsion) is the first-line behavioural treatment for OCD." },
+  { id: "ihbas20_052", section: "therapy",
+    q: "Validation Therapy is very helpful in the psychological management of:",
+    options: { a: "Post-traumatic stress disorder", b: "Organic personality disorder", c: "Acute and transient psychotic disorder", d: "Alzheimer's Dementia" },
+    correct: "d",
+    explanation: "Naomi Feil's Validation Therapy is used with people who have Alzheimer's and other dementias." },
+  { id: "ihbas20_053", section: "assessment",
+    q: "Impact of psychiatric illness on one's cognitive and intellectual abilities can be estimated on the basis of:",
+    options: { a: "Deterioration quotient", b: "Mediation index", c: "Sense of coherence index", d: "Theory of Mind index" },
+    correct: "a",
+    explanation: "Wechsler's Deterioration Quotient compares 'hold' vs 'don't-hold' subtests to estimate intellectual decline." },
+  { id: "ihbas20_054", section: "therapy",
+    q: "Which therapy is mostly needed in 'Crisis Management'?",
+    options: { a: "Cognitive behavior therapy", b: "Acceptance & commitment therapy", c: "Expressive therapy", d: "Supportive therapy" },
+    correct: "d",
+    explanation: "In acute crisis the immediate need is stabilization and support, so supportive therapy is the modality of choice." },
+  { id: "ihbas20_055", section: "biopsych",
+    q: "A person suffered a head injury in a road accident several years ago. Since the accident, he is unable to form new memories. He can remember many things which he did before the accident, but he cannot remember what he said ten minutes ago. The part of the brain which is most probably injured is:",
+    options: { a: "Brain stem", b: "Hippocampus", c: "Spinal cord", d: "Reticular formation" },
+    correct: "b",
+    explanation: "Inability to form new memories with intact old ones is anterograde amnesia, the signature of hippocampal damage." },
+  { id: "ihbas20_056", section: "therapy",
+    q: "Over-correction is a behavioural technique to manage:",
+    options: { a: "Bed wetting in children", b: "Repetitive aggressive behaviour in autistic children", c: "Temper tantrum in children", d: "Alienation in adolescent" },
+    correct: "b",
+    explanation: "Overcorrection (restitution + positive practice) is used for disruptive, repetitive and aggressive behaviours, including in autism." },
+  { id: "ihbas20_057", section: "therapy",
+    q: "Motivational interviewing is used in the management of:",
+    options: { a: "Non-compliance to treatment", b: "Substance abuse", c: "Anxious-avoidant personality disorder", d: "Bipolar disorder" },
+    correct: "b",
+    explanation: "Miller and Rollnick developed motivational interviewing to resolve ambivalence in substance-abuse treatment." },
+  { id: "ihbas20_058", section: "general",
+    q: "Who was called the 'French Freud'?",
+    options: { a: "Jules Pierre Falret", b: "Jean-Etienne Esquirol", c: "Paul Briquet", d: "Jacques Lacan" },
+    correct: "d",
+    explanation: "Jacques Lacan, who 'returned to Freud' through a structural/linguistic lens, is nicknamed the French Freud." },
+  { id: "ihbas20_059", section: "therapy",
+    q: "Dream work as described by Freud operates by the following mechanisms except:",
+    options: { a: "Displacement", b: "Condensation", c: "Dissociation", d: "Dramatisation" },
+    correct: "c",
+    explanation: "Freud's dream work uses condensation, displacement, dramatization (representation) and secondary revision, not dissociation." },
+  { id: "ihbas20_060", section: "therapy",
+    q: "'Animus is the unconscious, masculine side of a woman's female persona' was given by:",
+    options: { a: "Alfred Adler", b: "Anna Freud", c: "Carl Jung", d: "Victor Emil Frankl" },
+    correct: "c",
+    explanation: "The animus (inner masculine in women) and anima (inner feminine in men) are Jungian archetypes." },
+  { id: "ihbas20_061", section: "therapy",
+    q: "Schizophrenia corresponds to the autistic phase of development and the person fails to develop an adequate and stable symbiosis, was the developmental theory of schizophrenia given by:",
+    options: { a: "Ping-Nie Pao", b: "Sylvano Arieti", c: "Margaret Mahler", d: "Edith Jacobson" },
+    correct: "c",
+    explanation: "Margaret Mahler's separation-individuation theory (normal autistic and symbiotic phases) framed psychosis as failed symbiosis." },
+  { id: "ihbas20_062", section: "therapy",
+    q: "The concept of 'Organ Inferiority' was given by:",
+    options: { a: "Harry Stack Sullivan", b: "M. Klein", c: "Anna Freud", d: "Alfred Adler" },
+    correct: "d",
+    explanation: "Adler proposed that perceived organ inferiority drives compensatory striving, central to his individual psychology." },
+  { id: "ihbas20_063", section: "abnormal",
+    q: "Hyperkinetic syndrome is characterized by the following except:",
+    options: { a: "Social Withdrawal", b: "Over-activity", c: "Distractibility", d: "Short attention-span" },
+    correct: "a",
+    explanation: "Hyperkinetic disorder is overactivity, distractibility and short attention span; social withdrawal is not a feature." },
+  { id: "ihbas20_064", section: "abnormal",
+    q: "Infantile Autism was first described by:",
+    options: { a: "Leo Kanner", b: "Cameron", c: "Goldstein", d: "Jasper" },
+    correct: "a",
+    explanation: "Leo Kanner first described early infantile autism in 1943." },
+  { id: "ihbas20_065", section: "dev",
+    q: "Jean Piaget is known for:",
+    options: { a: "Free association", b: "Operant Conditioning", c: "Aggression as learned social behavior", d: "Intelligence as a biological adaptation" },
+    correct: "d",
+    explanation: "Piaget viewed intelligence as biological adaptation through assimilation and accommodation seeking equilibrium." },
+  { id: "ihbas20_066", section: "social",
+    q: "'The more we see and interact with a person, the more likely he or she is to become our friend or sexual partner.' This denotes:",
+    options: { a: "Propinquity effect", b: "Exposure effect", c: "Matching hypothesis", d: "Reciprocity" },
+    correct: "a",
+    explanation: "The propinquity (proximity) effect: physical and functional nearness increases liking and the chance of a relationship." },
+  { id: "ihbas20_067", section: "social",
+    q: "Reasons for behavior that rest on the personality traits of the individual carrying out the behavior are:",
+    options: { a: "Situational causes", b: "Environmental causes", c: "Dispositional causes", d: "Cultural causes" },
+    correct: "c",
+    explanation: "Attributing behaviour to internal traits is a dispositional (internal) attribution; the situation is the external one." },
+  { id: "ihbas20_068", section: "social",
+    q: "A tendency to act in a way that is consistent with one's own belief, expectation, or cognition about an event or behavior, thereby increasing the likelihood that the event or behavior will occur, is termed as:",
+    options: { a: "Self-fulfilling prophecy", b: "Confirmation bias", c: "Motivational reaction", d: "Base-rate fallacy" },
+    correct: "a",
+    explanation: "A self-fulfilling prophecy: an expectation changes behaviour in a way that makes the expectation come true." },
+  { id: "ihbas20_069", section: "social",
+    q: "Low-prejudiced people engage in:",
+    options: { a: "Automatic information processing resulting in involuntary stereotyping", b: "Controlled information processing resulting in refuting stereotype", c: "Controlled information processing resulting in involuntary stereotyping", d: "Automatic information processing resulting in voluntary stereotyping" },
+    correct: "b",
+    explanation: "Low-prejudice people use effortful, controlled processing to consciously override and refute the automatic stereotype." },
+  { id: "ihbas20_070", section: "general",
+    q: "Self-reference effect refers to:",
+    options: { a: "The phenomenon in which information is recalled better when it is related to the self", b: "The entire sum of a person's impressions about himself or herself", c: "The set of beliefs we hold about what we are like as individuals", d: "The knowledge that we exist as individuals, separate from everyone else" },
+    correct: "a",
+    explanation: "The self-reference effect: material encoded in relation to oneself is remembered better than other material." },
+  { id: "ihbas20_071", section: "general",
+    q: "Type A behavior pattern is characterized by:",
+    options: { a: "Non-competitiveness, impatience and hostility", b: "Impatience, non-competitiveness, and aggression", c: "Competitiveness, impatience and hostility", d: "Hostility, lack of aggression and competitiveness" },
+    correct: "c",
+    explanation: "Friedman and Rosenman's Type A pattern is competitiveness, time-urgency/impatience and hostility, linked to heart disease." },
+  { id: "ihbas20_072", section: "social",
+    q: "Emotional isolation means:",
+    options: { a: "Feeling a lack of deep emotional attachment to one specific person", b: "Suffering from a lack of friends/associates", c: "Suffering from feelings of incompetence", d: "Feeling a sense of inadequacy and low self-esteem" },
+    correct: "a",
+    explanation: "Weiss distinguished emotional isolation (no close attachment figure) from social isolation (no wider social network)." },
+  { id: "ihbas20_073", section: "social",
+    q: "Communicating information about one's feelings means:",
+    options: { a: "Descriptive self-disclosure", b: "Prescriptive self-disclosure", c: "Non-evaluative self-disclosure", d: "Evaluative self-disclosure" },
+    correct: "a",
+    explanation: "Disclosing one's own feelings and facts about oneself is descriptive self-disclosure." },
+  { id: "ihbas20_074", section: "social",
+    q: "Pluralistic ignorance refers to:",
+    options: { a: "Ignoring eyewitnesses in case of an accident", b: "Being suggestible in determining the cause of accident", c: "In an emergency, mistakenly assuming, based on the behavior of the others, that help is unnecessary", d: "Ignoring others' behavior in emergency" },
+    correct: "c",
+    explanation: "Pluralistic ignorance: people privately feel concern but, seeing others stay calm, wrongly conclude no help is needed." },
+  { id: "ihbas20_075", section: "social",
+    q: "Altruistic Personality is characterized by:",
+    options: { a: "Offering help only when one feels like", b: "Consistently helping others", c: "Calculating the cost and benefits of helping", d: "Readiness to help in an emergency" },
+    correct: "b",
+    explanation: "The altruistic personality shows a stable, consistent disposition to help across situations and time." },
+  { id: "ihbas20_076", section: "social",
+    q: "When people are able to think systematically about an issue and focus on arguments, they are likely to take the ______ route to persuasion.",
+    options: { a: "Peripheral", b: "Emotional", c: "Situational", d: "Central" },
+    correct: "d",
+    explanation: "In the Elaboration Likelihood Model, careful argument-focused processing is the central route to persuasion." },
+  { id: "ihbas20_077", section: "biostats",
+    q: "Which one of the following does not apply to qualitative research?",
+    options: { a: "Recognition of the role of language and discourse", b: "Emphasis on objective truth", c: "Understanding of processes", d: "Concern for human individuality" },
+    correct: "b",
+    explanation: "Qualitative research embraces subjectivity and meaning; a search for a single objective truth is the positivist (quantitative) stance." },
+  { id: "ihbas20_078", section: "biostats",
+    q: "Which one of the following does not go with the others?",
+    options: { a: "Symbolic interactionism", b: "Meaning", c: "Phenomenology", d: "Researcher's authority" },
+    correct: "d",
+    explanation: "Symbolic interactionism, meaning and phenomenology are interpretive/qualitative ideas; 'researcher's authority' does not belong with them." },
+  { id: "ihbas20_079", section: "biostats",
+    q: "Experimental designs with more than one independent variable, in which the different variable levels are combined in a systematic manner, are:",
+    options: { a: "Factorial Experiments", b: "Quasi Experiments", c: "Systematic Experiments", d: "Descriptive Experiments" },
+    correct: "a",
+    explanation: "A factorial design crosses two or more independent variables, allowing tests of main effects and interactions." },
+  { id: "ihbas20_080", section: "therapy",
+    q: "Noogenic anxiety is described under:",
+    options: { a: "Humanistic School", b: "Gestalt school", c: "Existential school", d: "Psychodynamic school" },
+    correct: "c",
+    explanation: "Noogenic (existential) anxiety arises from a lack of meaning, central to Frankl's existential logotherapy." },
+  { id: "ihbas20_081", section: "therapy",
+    q: "A patient who describes a particularly gruesome thought or fantasy but denies any feelings of anxiety or disgust associated with it is using which of the following Ego's defense:",
+    options: { a: "Denial", b: "Rationalization", c: "Isolation", d: "Displacement" },
+    correct: "c",
+    explanation: "Isolation of affect splits the idea from its feeling, so a horrific thought is reported with no emotion." },
+  { id: "ihbas20_082", section: "abnormal",
+    q: "Which of the following defense mechanisms is not involved in obsessive-compulsive disorder?",
+    options: { a: "Reaction formation", b: "Repression", c: "Isolation", d: "Undoing" },
+    correct: "b",
+    explanation: "The classic OCD defences are isolation, undoing and reaction formation; repression is not one of the core three." },
+  { id: "ihbas20_083", section: "therapy",
+    q: "A patient sees a friend in the street who fails to acknowledge him; he thinks his friend does not like him anymore. He has the following type of cognitive error:",
+    options: { a: "Selective abstraction", b: "Arbitrary inference", c: "Personalization", d: "Magnification" },
+    correct: "b",
+    explanation: "Arbitrary inference: drawing a conclusion (the friend dislikes me) with no supporting evidence." },
+  { id: "ihbas20_084", section: "biopsych",
+    q: "Amnesia is a clinical condition of:",
+    options: { a: "Pathological loss of memory", b: "Behavioral disturbance", c: "Depressed Affect", d: "Impaired perception" },
+    correct: "a",
+    explanation: "Amnesia is a pathological loss of memory, retrograde (old) and/or anterograde (new)." },
+  { id: "ihbas20_085", section: "biopsych",
+    q: "Aphasia is the disturbance in:",
+    options: { a: "Language function due to organic disease", b: "Intellectual functioning", c: "Abstract thinking", d: "Memory" },
+    correct: "a",
+    explanation: "Aphasia is an acquired language disturbance from brain damage (e.g. Broca's or Wernicke's area)." },
+  { id: "ihbas20_086", section: "biopsych",
+    q: "Which of the following is not a neurotransmitter?",
+    options: { a: "Dopamine", b: "Serotonin", c: "Nor-epinephrine", d: "Adrenalin" },
+    correct: "d",
+    explanation: "Dopamine, serotonin and noradrenaline act as neurotransmitters; adrenaline (epinephrine) acts mainly as a circulating hormone." },
+  { id: "ihbas20_087", section: "dev",
+    q: "Thomas and Chess are known for their contribution in the field of:",
+    options: { a: "Human sexuality", b: "Temperament", c: "Needs & drives", d: "Marital therapy" },
+    correct: "b",
+    explanation: "Thomas and Chess's New York Longitudinal Study defined infant temperament (easy, difficult, slow-to-warm-up)." },
+  { id: "ihbas20_088", section: "dev",
+    q: "Eight stages of the life-cycle from the 'Oral-sensory stage' to the 'Stage of maturity' were described by:",
+    options: { a: "Freud", b: "Sullivan", c: "Erikson", d: "Klein" },
+    correct: "c",
+    explanation: "Erik Erikson's eight psychosocial stages run from oral-sensory (trust vs mistrust) to maturity (integrity vs despair)." },
+  { id: "ihbas20_089", section: "general",
+    q: "The researcher who formulated the theory which explains how we form artificial concepts rather than natural concepts by developing a hypothesis is:",
+    options: { a: "Clark Hull", b: "Eleanor Rosch", c: "Jerome Bruner", d: "John Watson" },
+    correct: "c",
+    explanation: "Bruner's hypothesis-testing studies of concept formation used artificial concepts; Rosch worked on natural/prototype concepts." },
+  { id: "ihbas20_090", section: "abnormal",
+    q: "Reducing contact hours is one of the important strategies in the management of:",
+    options: { a: "Interpersonal violence", b: "Para suicidal risk", c: "Expressed emotion", d: "Stubbornness in children" },
+    correct: "c",
+    explanation: "Cutting face-to-face contact hours lowers high expressed emotion in the family and reduces relapse risk." },
+  { id: "ihbas20_091", section: "general",
+    q: "How people organize information in memory and use it to understand behavior is called:",
+    options: { a: "Motivational approach", b: "Schema approach", c: "Perceptual approach", d: "Organizational approach" },
+    correct: "b",
+    explanation: "A schema is an organized knowledge structure that guides how we encode, interpret and recall social information." },
+  { id: "ihbas20_092", section: "abnormal",
+    q: "'Displacement' is a defense mechanism typically seen in:",
+    options: { a: "Hysteria", b: "Phobias", c: "Obsessive-compulsive disorder", d: "Depression" },
+    correct: "b",
+    explanation: "In phobias, anxiety is displaced from its real source onto an external, avoidable object (e.g. Little Hans)." }
+];
+
+const SECTION_LABELS = {
+  therapy: "Psychotherapy", biostats: "Biostats / Research", biopsych: "Neuropsych / Biopsych",
+  abnormal: "Abnormal", dev: "Developmental", assessment: "Psych Assessment",
+  general: "General / Cognitive", social: "Social Psychology"
+};
+
+const STORAGE_KEY = "ihbas-2020-results-v1";
+const STORAGE_KEY_NOTES = "ihbas-2020-notes-v1";
+const STORAGE_KEY_PROGRESS = "ihbas-2020-progress-v1";
+const STORAGE_KEY_FLAGS = "ihbas-2020-flags-v1";
+const STORAGE_KEY_EXAM = "ihbas-2020-exam-v1";
+const HISTORY_KEY = "results-history-v1";
+
+// Minutes per question in exam mode (IHBAS 92 Q, ~1 min/Q in the optional timed mode)
+const MIN_PER_Q = 1.0;
+
+const state = {
+  filtered: [], index: 0, selected: null, guessed: false, submitted: false,
+  results: {}, notes: {}, flags: {}, redo: "none",
+  mode: "practice",
+  exam: { running: false, finished: false, endTs: 0, durationSec: 0 },
+  progress: { lastIndex: 0, lastSection: "all", drafts: {} }
+};
+let examTick = null;
+
+function loadResults() {
+  try { const raw = localStorage.getItem(STORAGE_KEY); if (raw) state.results = JSON.parse(raw); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_NOTES); if (raw) state.notes = JSON.parse(raw); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_FLAGS); if (raw) state.flags = JSON.parse(raw); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_PROGRESS); if (raw) state.progress = Object.assign(state.progress, JSON.parse(raw)); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_EXAM); if (raw) state.exam = Object.assign(state.exam, JSON.parse(raw)); } catch {}
+  if (state.progress.mode === "exam" || state.progress.mode === "practice") state.mode = state.progress.mode;
+}
+function saveResults()  { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.results)); } catch {} }
+function saveNotes()    { try { localStorage.setItem(STORAGE_KEY_NOTES, JSON.stringify(state.notes)); } catch {} }
+function saveFlags()    { try { localStorage.setItem(STORAGE_KEY_FLAGS, JSON.stringify(state.flags)); } catch {} }
+function saveExam()     { try { localStorage.setItem(STORAGE_KEY_EXAM, JSON.stringify(state.exam)); } catch {} }
+function saveProgress() { state.progress.mode = state.mode; try { localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(state.progress)); } catch {} }
+function saveDraft(qid) { if (!qid) return; state.progress.drafts[qid] = { selected: state.selected, guessed: state.guessed }; saveProgress(); }
+
+let notesSaveTimer = null;
+function handleNotesInput(qid, text) {
+  if (text && text.trim()) state.notes[qid] = text; else delete state.notes[qid];
+  if (notesSaveTimer) clearTimeout(notesSaveTimer);
+  notesSaveTimer = setTimeout(() => {
+    saveNotes();
+    const tag = document.querySelector(".notes-saved");
+    if (tag) { tag.classList.add("visible"); setTimeout(() => tag.classList.remove("visible"), 1200); }
+    const card = document.querySelector(".question-card");
+    if (card) { if (state.notes[qid]) card.classList.add("has-note"); else card.classList.remove("has-note"); }
+  }, 400);
+}
+
+function escapeHtml(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+function currentQ() { return state.filtered[state.index]; }
+
+function applyFilter(opts) {
+  opts = opts || {};
+  const sel = document.getElementById("sectionSelect").value;
+  let pool = sel === "all" ? QUESTIONS : QUESTIONS.filter(q => q.section === sel);
+  if (state.redo === "wrong") {
+    pool = pool.filter(q => { const r = state.results[q.id]; return r && !r.correct; });
+  } else if (state.redo === "flagged") {
+    pool = pool.filter(q => state.flags[q.id]);
+  }
+  state.filtered = pool;
+  if (opts.preservePosition && sel === state.progress.lastSection && state.redo === "none") {
+    state.index = Math.min(state.progress.lastIndex || 0, state.filtered.length - 1);
+    if (state.index < 0) state.index = 0;
+  } else { state.index = 0; }
+  renderModeUI();
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = currentQ();
+  if (!q) {
+    document.getElementById("quizArea").innerHTML = "<div class='question-card'>No questions match this filter.</div>";
+    document.getElementById("progress").textContent = "0 / 0";
+    document.getElementById("progressFill").style.width = "0%";
+    renderStats();
+    return;
+  }
+  state.progress.lastIndex = state.index;
+  state.progress.lastSection = document.getElementById("sectionSelect").value;
+  saveProgress();
+
+  const examActive = state.mode === "exam" && state.exam.running && !state.exam.finished;
+  const reveal = (state.mode === "practice" && !!state.results[q.id]) ||
+                 (state.mode === "exam" && state.exam.finished && !!state.results[q.id]);
+
+  const result = state.results[q.id];
+  if (result) { state.selected = result.selected; state.guessed = !!result.guessed; }
+  else {
+    const draft = state.progress.drafts[q.id];
+    state.selected = draft ? draft.selected : null;
+    state.guessed = draft ? !!draft.guessed : false;
+  }
+  state.submitted = reveal; // "submitted" now means locked/revealed
+
+  document.getElementById("progress").textContent = `${state.index + 1} / ${state.filtered.length}`;
+  document.getElementById("progressFill").style.width = `${((state.index + 1) / state.filtered.length) * 100}%`;
+
+  const noteText = state.notes[q.id] || "";
+  const hasNote = !!(noteText && noteText.trim());
+  const hasFlag = !!state.flags[q.id];
+
+  const optionsHtml = ["a","b","c","d"].map(letter => {
+    let cls = "option";
+    if (reveal) {
+      cls += " disabled";
+      if (letter === q.correct) cls += " correct";
+      else if (letter === state.selected) cls += " incorrect";
+    } else if (state.selected === letter) cls += " selected";
+    return `<div class="${cls}" data-letter="${letter}" data-action="select">
+      <span class="option-letter">${letter.toUpperCase()}.</span>
+      <span>${escapeHtml(q.options[letter])}</span></div>`;
+  }).join("");
+
+  // Controls vary by mode
+  let controlsHtml;
+  if (examActive) {
+    controlsHtml = `<div class="controls" style="grid-template-columns:1fr 1fr;">
+        <button data-action="prev" ${state.index === 0 ? "disabled" : ""}>← Prev</button>
+        <button data-action="next" ${state.index === state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+      </div>`;
+  } else if (state.mode === "exam") { // exam finished review
+    controlsHtml = `<div class="controls" style="grid-template-columns:1fr 1fr;">
+        <button data-action="prev" ${state.index === 0 ? "disabled" : ""}>← Prev</button>
+        <button data-action="next" ${state.index === state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+      </div>`;
+  } else { // practice
+    controlsHtml = `<div class="controls">
+        <button data-action="prev" ${state.index === 0 ? "disabled" : ""}>← Prev</button>
+        <button class="btn-primary" data-action="submit" ${reveal || !state.selected ? "disabled" : ""}>
+          ${reveal ? "✓ Submitted" : "Submit"}</button>
+        <button data-action="next" ${state.index === state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+      </div>`;
+  }
+
+  // Guess row + notes only outside an active exam
+  const guessHtml = examActive ? "" : `<div class="guess-row ${state.guessed ? "checked" : ""}" data-action="toggleGuess">
+        <div class="guess-checkbox"></div>
+        <div class="guess-label">I'm guessing this one
+          <small>Helps you track which "rights" were lucky vs solid.</small></div>
+      </div>`;
+  const notesHtml = examActive ? "" : `<div class="notes-area">
+        <div class="notes-label"><span>Your notes</span><span class="notes-saved">saved</span></div>
+        <textarea class="notes-textarea" id="notesInput" data-qid="${q.id}"
+          placeholder="Anything you want to remember about this question — mnemonic, where it came from, why you missed it...">${escapeHtml(noteText)}</textarea>
+      </div>`;
+  const explanationHtml = `<div class="explanation ${reveal ? "visible" : ""}">
+        <strong>${reveal && state.selected === q.correct ? "✓ Correct" : (reveal ? "✗ Wrong" : "")}</strong>
+        ${reveal ? ` — Answer: ${q.correct.toUpperCase()}. ` : ""}${reveal ? escapeHtml(q.explanation) : ""}
+      </div>`;
+
+  document.getElementById("quizArea").innerHTML = `
+    <div class="question-card${hasNote ? " has-note" : ""}${hasFlag ? " has-flag" : ""}">
+      <div class="section-tag">${SECTION_LABELS[q.section]}</div>
+      <div class="question-text">${escapeHtml(q.q)}</div>
+      <div class="options" id="options">${optionsHtml}</div>
+      ${guessHtml}
+      ${controlsHtml}
+      <div class="secondary-controls">
+        <button class="flag-btn ${hasFlag ? "flagged" : ""}" data-action="toggleFlag">
+          ${hasFlag ? "🚩 Flagged — come back to this" : "🚩 Flag for review"}</button>
+      </div>
+      ${explanationHtml}
+      ${notesHtml}
+    </div>`;
+  const notesEl = document.getElementById("notesInput");
+  if (notesEl) notesEl.addEventListener("input", e => handleNotesInput(e.target.dataset.qid, e.target.value));
+  renderNavGrid();
+  renderStats();
+}
+
+function updateSelectionVisual() {
+  document.querySelectorAll("#options .option").forEach(el => {
+    el.classList.toggle("selected", el.dataset.letter === state.selected);
+  });
+  const submitBtn = document.querySelector('[data-action="submit"]');
+  if (submitBtn) submitBtn.disabled = state.submitted || !state.selected;
+}
+function updateGuessVisual() {
+  const row = document.querySelector('[data-action="toggleGuess"]');
+  if (row) row.classList.toggle("checked", state.guessed);
+}
+
+function selectOption(letter) {
+  if (state.mode === "exam" && state.exam.finished) return; // locked after exam ends
+  if (state.submitted) return;
+  const q = currentQ(); if (!q) return;
+  state.selected = letter;
+  if (state.mode === "exam" && state.exam.running) {
+    // exam: record answer immediately, still editable until you finish
+    state.results[q.id] = { selected: letter, correct: letter === q.correct, guessed: false, section: q.section };
+    saveResults();
+    updateSelectionVisual();
+    renderNavGrid();
+  } else {
+    updateSelectionVisual();
+    saveDraft(q.id);
+  }
+}
+function toggleGuess() {
+  if (state.submitted) return;
+  state.guessed = !state.guessed; updateGuessVisual();
+  const q = currentQ(); if (q) saveDraft(q.id);
+}
+function toggleFlag() {
+  const q = currentQ(); if (!q) return;
+  if (state.flags[q.id]) delete state.flags[q.id]; else state.flags[q.id] = true;
+  saveFlags();
+  const btn = document.querySelector('[data-action="toggleFlag"]');
+  const card = document.querySelector(".question-card");
+  if (btn) {
+    const on = !!state.flags[q.id];
+    btn.classList.toggle("flagged", on);
+    btn.textContent = on ? "🚩 Flagged — come back to this" : "🚩 Flag for review";
+  }
+  if (card) card.classList.toggle("has-flag", !!state.flags[q.id]);
+  renderNavGrid();
+  renderModeUI();
+}
+function submitAnswer() {
+  if (state.submitted || !state.selected) return;
+  const q = currentQ();
+  state.results[q.id] = { selected: state.selected, correct: state.selected === q.correct, guessed: state.guessed, section: q.section };
+  saveResults(); state.submitted = true; renderQuestion();
+}
+function nextQuestion() { if (state.index < state.filtered.length - 1) { state.index++; renderQuestion(); } }
+function prevQuestion() { if (state.index > 0) { state.index--; renderQuestion(); } }
+
+document.querySelector(".app").addEventListener("click", function(ev) {
+  const t = ev.target.closest("[data-action]"); if (!t) return;
+  const a = t.dataset.action;
+  if (a === "select") selectOption(t.dataset.letter);
+  else if (a === "toggleGuess") toggleGuess();
+  else if (a === "toggleFlag") toggleFlag();
+  else if (a === "submit") submitAnswer();
+  else if (a === "next") nextQuestion();
+  else if (a === "prev") prevQuestion();
+  else if (a === "setMode") setMode(t.dataset.mode);
+  else if (a === "startExam") startExam();
+  else if (a === "finishExam") finishExam(false);
+  else if (a === "navJump") { state.index = parseInt(t.dataset.idx, 10) || 0; renderQuestion(); window.scrollTo({ top: 0, behavior: "smooth" }); }
+  else if (a === "redoWrong") setRedo("wrong");
+  else if (a === "redoFlagged") setRedo("flagged");
+  else if (a === "redoClear") setRedo("none");
+  else if (a === "reset") {
+    if (confirm("Reset IHBAS 2020 PYQ Mock answers, notes and flags? (Attempt history is kept.)")) {
+      state.results = {}; state.notes = {}; state.flags = {};
+      state.progress = { lastIndex: 0, lastSection: "all", drafts: {} };
+      state.redo = "none";
+      stopExamTimer(); state.exam = { running: false, finished: false, endTs: 0, durationSec: 0 };
+      saveResults(); saveNotes(); saveFlags(); saveProgress(); saveExam();
+      const sel = document.getElementById("sectionSelect"); if (sel) sel.value = "all";
+      applyFilter({ preservePosition: false });
+    }
+  }
+  else if (a === "exportProgress") exportProgress();
+  else if (a === "importProgress") importProgress();
+  else if (a === "exportForAnalysis") exportForAnalysis();
+  else if (a === "dismissResume") document.getElementById("resumeBanner").style.display = "none";
+});
+
+function showResumeBanner() {
+  const banner = document.getElementById("resumeBanner"); if (!banner) return;
+  const lastIdx = state.progress.lastIndex || 0;
+  const total = state.filtered.length;
+  const answered = Object.keys(state.results).length;
+  const drafted = Object.keys(state.progress.drafts).length;
+  if (lastIdx <= 0 && answered === 0 && drafted === 0) { banner.style.display = "none"; return; }
+  const pos = Math.min(lastIdx + 1, total);
+  banner.innerHTML = `<span>Resumed from question ${pos} of ${total} · ${answered} answered, ${drafted} drafts saved.</span><button data-action="dismissResume">Dismiss</button>`;
+  banner.style.display = "flex";
+}
+
+function exportProgress() {
+  const payload = { v: 1, paper: "ihbas-2020", ts: new Date().toISOString(),
+    results: state.results, notes: state.notes, progress: state.progress };
+  const code = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(code).then(
+      () => alert("IHBAS 2020 PYQ Mock backup code copied. Save it (WhatsApp to yourself works)."),
+      () => prompt("Copy this backup code somewhere safe:", code));
+  } else { prompt("Copy this backup code somewhere safe:", code); }
+}
+function exportForAnalysis() {
+  let totalRight = 0, totalWrong = 0;
+  for (const q of QUESTIONS) {
+    const r = state.results[q.id]; if (!r) continue;
+    if (r.correct) totalRight++; else totalWrong++;
+  }
+  const blank = QUESTIONS.length - totalRight - totalWrong;
+  const score = totalRight * 1 - totalWrong * 0.25;
+  const maxScore = QUESTIONS.length * 1;
+
+  const bySection = {};
+  for (const q of QUESTIONS) {
+    if (!bySection[q.section]) bySection[q.section] = { total:0, solid:0, guessed:0, wrong:0, skip:0 };
+    const s = bySection[q.section];
+    s.total++;
+    const r = state.results[q.id];
+    if (!r) s.skip++;
+    else if (r.correct && !r.guessed) s.solid++;
+    else if (r.correct && r.guessed) s.guessed++;
+    else s.wrong++;
+  }
+
+  const ts = new Date().toISOString();
+  let out = `MET MOCK 2 — RESULTS EXPORT v1\n`;
+  out += `Generated: ${ts}\n`;
+  out += `Score: ${score}/${maxScore}  (${totalRight} right, ${totalWrong} wrong, ${blank} blank · +1/−0.25/0 · cut-off ~80%)\n\n`;
+
+  out += `SECTION BREAKDOWN\n=================\n`;
+  for (const sec of Object.keys(SECTION_LABELS)) {
+    const s = bySection[sec]; if (!s) continue;
+    const attempted = s.solid + s.guessed + s.wrong;
+    const got = s.solid + s.guessed;
+    const acc = attempted ? Math.round((got / attempted) * 100) : 0;
+    const name = (SECTION_LABELS[sec] + ":").padEnd(28);
+    out += `${name} ${got}/${s.total} (${acc}%)  solid ${s.solid}  guessed ${s.guessed}  wrong ${s.wrong}  skip ${s.skip}\n`;
+  }
+
+  const attentionItems = QUESTIONS.filter(q => {
+    const r = state.results[q.id];
+    const note = state.notes[q.id];
+    if (note && note.trim()) return true;
+    if (!r) return false;
+    if (!r.correct) return true;
+    if (r.correct && r.guessed) return true;
+    return false;
+  });
+
+  out += `\nQUESTIONS TO REVIEW (wrong, guessed, or with notes): ${attentionItems.length}\n`;
+  out += `=====================================================\n\n`;
+
+  attentionItems.forEach((q, i) => {
+    const r = state.results[q.id];
+    const note = state.notes[q.id];
+    let status;
+    if (!r) status = "SKIPPED (noted)";
+    else if (!r.correct) status = "WRONG";
+    else if (r.guessed) status = "GUESSED-RIGHT";
+    else status = "right";
+
+    out += `[${i+1}] ${q.id} | ${SECTION_LABELS[q.section]} | ${status}`;
+    if (r) {
+      const mark = r.correct ? "✓" : "✗";
+      out += ` | picked ${(r.selected || "?").toUpperCase()} ${mark} | correct ${q.correct.toUpperCase()}`;
+    } else {
+      out += ` | correct ${q.correct.toUpperCase()}`;
+    }
+    out += `\nQ: ${q.q}\n`;
+    out += `A. ${q.options.a}\nB. ${q.options.b}\nC. ${q.options.c}\nD. ${q.options.d}\n`;
+    if (q.explanation) out += `Explanation: ${q.explanation}\n`;
+    if (note && note.trim()) out += `Sihan's note: ${note.trim()}\n`;
+    out += `\n`;
+  });
+
+  const skippedNoNote = QUESTIONS.filter(q => !state.results[q.id] && !(state.notes[q.id] && state.notes[q.id].trim()));
+  if (skippedNoNote.length) {
+    out += `SKIPPED (no note, ${skippedNoNote.length}): ${skippedNoNote.map(q => q.id).join(", ")}\n\n`;
+  }
+
+  out += `END EXPORT\n`;
+
+  try {
+    const snapKey = "results-history-v1";
+    const raw = localStorage.getItem(snapKey);
+    const history = raw ? JSON.parse(raw) : [];
+    history.push({ mock: "ihbas-2020", ts, score, max: maxScore, right: totalRight, wrong: totalWrong, blank, sections: bySection });
+    localStorage.setItem(snapKey, JSON.stringify(history));
+  } catch {}
+
+  const sizeKb = (out.length / 1024).toFixed(1);
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(out).then(
+      () => alert(`Copied ${sizeKb} KB to clipboard.\n\nPaste it to Sahil on WhatsApp, or open the My Results page to see history.`),
+      () => prompt("Copy this export and paste to Sahil on WhatsApp:", out));
+  } else {
+    prompt("Copy this export and paste to Sahil on WhatsApp:", out);
+  }
+}
+
+function importProgress() {
+  const code = prompt("Paste an IHBAS 2020 PYQ Mock backup code. This will REPLACE current progress.");
+  if (!code) return;
+  try {
+    const payload = JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
+    if (payload.v !== 1) throw new Error("unknown version");
+    if (payload.results) state.results = payload.results;
+    if (payload.notes) state.notes = payload.notes;
+    if (payload.progress) state.progress = Object.assign({ lastIndex: 0, lastSection: "all", drafts: {} }, payload.progress);
+    saveResults(); saveNotes(); saveProgress();
+    const sel = document.getElementById("sectionSelect");
+    if (sel && state.progress.lastSection) sel.value = state.progress.lastSection;
+    applyFilter({ preservePosition: true }); showResumeBanner();
+    alert(`Restored ${Object.keys(state.results).length} answered, ${Object.keys(state.notes).length} notes, ${Object.keys(state.progress.drafts).length} drafts.`);
+  } catch (e) { alert("Could not restore: that does not look like a valid IHBAS 2020 PYQ Mock backup code."); }
+}
+
+document.getElementById("sectionSelect").addEventListener("change", () => applyFilter({ preservePosition: false }));
+
+function renderStats() {
+  // During a live exam, keep the score and breakdown hidden (just like the real thing).
+  if (state.mode === "exam" && state.exam.running && !state.exam.finished) {
+    const answered = state.filtered.filter(q => state.results[q.id]).length;
+    ["statRight","statGuessed","statWrong","statSkipped"].forEach(id => {
+      const el = document.getElementById(id); if (el) el.textContent = "–";
+    });
+    const sb = document.getElementById("scoreboard");
+    if (sb) sb.innerHTML = `<span class="big">🔒</span><small>Score hidden — ${answered}/${state.filtered.length} answered. Finish the exam to reveal.</small>`;
+    const ss = document.getElementById("sectionScores");
+    if (ss) ss.innerHTML = `<div style="font-size:12px;color:var(--muted);">Per-area breakdown unlocks when you finish.</div>`;
+    const ra = document.getElementById("reviewArea"); if (ra) ra.style.display = "none";
+    return;
+  }
+  let confidentRight = 0, guessedRight = 0, wrong = 0, skipped = 0;
+  const reviewItems = [];
+  state.filtered.forEach((q, idx) => {
+    const r = state.results[q.id];
+    const flagged = !!state.flags[q.id];
+    if (!r) skipped++;
+    else if (r.correct && !r.guessed) confidentRight++;
+    else if (r.correct && r.guessed) { guessedRight++; reviewItems.push({ q, r, idx, tag: "guessed", label: "right but guessed" }); }
+    else if (!r.correct) { wrong++; reviewItems.push({ q, r, idx, tag: "wrong", label: "wrong" }); }
+    // Flagged questions not already captured as wrong/guessed still deserve a row.
+    if (flagged && (!r || (r.correct && !r.guessed))) reviewItems.push({ q, r, idx, tag: "flagged", label: "flagged" });
+  });
+  document.getElementById("statRight").textContent = confidentRight;
+  document.getElementById("statGuessed").textContent = guessedRight;
+  document.getElementById("statWrong").textContent = wrong;
+  document.getElementById("statSkipped").textContent = skipped;
+
+  let totalRight = 0, totalWrong = 0;
+  for (const q of QUESTIONS) {
+    const r = state.results[q.id];
+    if (!r) continue;
+    if (r.correct) totalRight++; else totalWrong++;
+  }
+  const score = totalRight * 1 - totalWrong * 0.25;
+  const maxScore = QUESTIONS.length * 1;
+  const sb = document.getElementById("scoreboard");
+  if (sb) {
+    sb.innerHTML = `<span class="big">${score} / ${maxScore}</span>
+      <small>+1 right · −0.25 wrong · ${totalRight} right, ${totalWrong} wrong, ${QUESTIONS.length - totalRight - totalWrong} blank · working target ~60/100</small>`;
+  }
+
+  const bySection = {};
+  for (const q of QUESTIONS) {
+    if (!bySection[q.section]) bySection[q.section] = { total: 0, right: 0, guessed: 0, wrong: 0, skipped: 0 };
+    bySection[q.section].total++;
+    const r = state.results[q.id];
+    if (!r) bySection[q.section].skipped++;
+    else if (r.correct && !r.guessed) bySection[q.section].right++;
+    else if (r.correct && r.guessed) bySection[q.section].guessed++;
+    else if (!r.correct) bySection[q.section].wrong++;
+  }
+  let rows = "";
+  for (const sec of Object.keys(SECTION_LABELS)) {
+    const s = bySection[sec]; if (!s) continue;
+    const attempted = s.right + s.guessed + s.wrong;
+    const accuracy = attempted ? Math.round(((s.right + s.guessed) / attempted) * 100) : null;
+    rows += `<div class="section-score-row">
+      <div class="section-score-name">${SECTION_LABELS[sec]}</div>
+      <div class="section-score-bar">
+        <span class="ssr-right" style="flex: ${s.right};"></span>
+        <span class="ssr-guessed" style="flex: ${s.guessed};"></span>
+        <span class="ssr-wrong" style="flex: ${s.wrong};"></span>
+        <span class="ssr-skipped" style="flex: ${s.skipped};"></span>
+      </div>
+      <div class="section-score-num">${s.right + s.guessed}/${s.total}${accuracy !== null ? " · " + accuracy + "%" : ""}</div>
+    </div>`;
+  }
+  document.getElementById("sectionScores").innerHTML = rows;
+
+  const reviewArea = document.getElementById("reviewArea");
+  const reviewList = document.getElementById("reviewList");
+  if (reviewItems.length === 0) reviewArea.style.display = "none";
+  else {
+    reviewArea.style.display = "block";
+    reviewList.innerHTML = reviewItems.map(item => {
+      const q = item.q, r = item.r;
+      const qText = escapeHtml(q.q.substring(0, 110)) + (q.q.length > 110 ? "…" : "");
+      let ansLine;
+      if (r && !r.correct) {
+        ansLine = `<span class="review-ans">you picked <span class="rv-picked">${escapeHtml(q.options[r.selected] || "—")}</span> · answer <span class="rv-correct">${escapeHtml(q.options[q.correct])}</span></span>`;
+      } else if (r && r.correct) {
+        ansLine = `<span class="review-ans">answer <span class="rv-correct">${escapeHtml(q.options[q.correct])}</span></span>`;
+      } else {
+        ansLine = `<span class="review-ans">not answered · answer <span class="rv-correct">${escapeHtml(q.options[q.correct])}</span></span>`;
+      }
+      const rule = q.explanation ? `<span class="review-rule">${escapeHtml(q.explanation.substring(0, 160))}${q.explanation.length > 160 ? "…" : ""}</span>` : "";
+      return `<li class="review-clickable" data-action="navJump" data-idx="${item.idx}">
+        <span class="review-tag ${item.tag}">${item.label}</span>
+        <span class="review-q">${qText}</span>
+        ${ansLine}
+        ${rule}</li>`;
+    }).join("");
+  }
+}
+
+// =====================================================================
+// MODE / EXAM TIMER / FLAG-REDO / ATTEMPT HISTORY
+// =====================================================================
+function pad(n) { return n < 10 ? "0" + n : "" + n; }
+function formatTime(totalSec) {
+  if (totalSec < 0) totalSec = 0;
+  const h = Math.floor(totalSec / 3600);
+  const m = Math.floor((totalSec % 3600) / 60);
+  const s = totalSec % 60;
+  return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`;
+}
+
+function setMode(mode) {
+  if (mode !== "practice" && mode !== "exam") return;
+  if (mode === state.mode) return;
+  state.mode = mode;
+  state.redo = "none";
+  saveProgress();
+  if (mode === "practice") stopExamTimer();
+  else if (state.exam.running && state.exam.endTs > Date.now()) resumeExamTimer();
+  applyFilter({ preservePosition: true });
+}
+
+function setRedo(kind) {
+  state.redo = (state.redo === kind) ? "none" : kind;
+  applyFilter({ preservePosition: false });
+}
+
+function countScope() {
+  const sel = document.getElementById("sectionSelect").value;
+  const pool = sel === "all" ? QUESTIONS : QUESTIONS.filter(q => q.section === sel);
+  let wrong = 0, flagged = 0;
+  pool.forEach(q => {
+    const r = state.results[q.id];
+    if (r && !r.correct) wrong++;
+    if (state.flags[q.id]) flagged++;
+  });
+  return { total: pool.length, wrong, flagged };
+}
+
+function renderModeUI() {
+  document.querySelectorAll(".mode-btn").forEach(b => b.classList.toggle("active", b.dataset.mode === state.mode));
+  const hint = document.getElementById("modeHint");
+  const intro = document.getElementById("examIntro");
+  const bar = document.getElementById("examBar");
+  const navWrap = document.getElementById("navGridWrap");
+  const redoBar = document.getElementById("redoBar");
+  const examActive = state.mode === "exam" && state.exam.running && !state.exam.finished;
+  const examFinished = state.mode === "exam" && state.exam.finished;
+
+  if (state.mode === "practice") {
+    hint.textContent = "Answer one at a time, see the rule the moment you submit. No clock.";
+    intro.style.display = "none"; bar.style.display = "none"; navWrap.style.display = "none";
+  } else {
+    if (examActive) {
+      hint.textContent = "Timed run · +1 / −0.25 scoring · no answers shown until you finish. Flag and skip freely.";
+      intro.style.display = "none"; bar.style.display = "flex"; navWrap.style.display = "block";
+    } else if (examFinished) {
+      hint.textContent = "Exam finished — reviewing answers with the rule under each. Start a fresh run any time.";
+      intro.style.display = "block"; bar.style.display = "none"; navWrap.style.display = "block";
+      intro.innerHTML = `<h3>Exam finished</h3>
+        <p>Score and per-area breakdown are below. Tap a number in the grid to jump to any question, or use <b>Redo only wrong</b> to retry the misses.</p>
+        <button class="exam-start-btn" data-action="startExam">Start a fresh timed run</button>`;
+    } else {
+      const n = state.filtered.length;
+      const mins = Math.max(1, Math.round(n * MIN_PER_Q));
+      hint.textContent = "Timed run · +1 / −0.25 scoring · no answers shown until you finish.";
+      intro.style.display = "block"; bar.style.display = "none"; navWrap.style.display = "none";
+      intro.innerHTML = `<h3>⏱️ Exam mode — like the real thing</h3>
+        <p>${n} questions · ${mins} min on the clock · +1 right, −0.25 wrong, 0 blank. No feedback until you finish, just like the real paper. You can flag questions and jump around with the grid.</p>
+        <button class="exam-start-btn" data-action="startExam">Start ${mins}-minute timed run</button>`;
+    }
+  }
+
+  // Redo bar (both modes, when there's something to redo)
+  const c = countScope();
+  if (c.wrong === 0 && c.flagged === 0 && state.redo === "none") {
+    redoBar.style.display = "none";
+  } else {
+    redoBar.style.display = "flex";
+    redoBar.innerHTML =
+      `<button class="redo-btn ${state.redo === "wrong" ? "active" : ""}" data-action="redoWrong" ${c.wrong ? "" : "disabled"}>↻ Redo only wrong (${c.wrong})</button>
+       <button class="redo-btn ${state.redo === "flagged" ? "active" : ""}" data-action="redoFlagged" ${c.flagged ? "" : "disabled"}>🚩 Flagged only (${c.flagged})</button>
+       ${state.redo !== "none" ? `<button class="redo-btn redo-clear" data-action="redoClear">Show all again</button>` : ""}`;
+  }
+}
+
+function renderNavGrid() {
+  const navWrap = document.getElementById("navGridWrap");
+  if (navWrap.style.display === "none") return;
+  const grid = document.getElementById("navGrid");
+  const finished = state.mode === "exam" && state.exam.finished;
+  grid.innerHTML = state.filtered.map((q, i) => {
+    let cls = "nav-cell";
+    const r = state.results[q.id];
+    if (finished && r) cls += r.correct ? " correct" : " wrong";
+    else if (r) cls += " answered";
+    if (state.flags[q.id]) cls += " flagged";
+    if (i === state.index) cls += " current";
+    return `<div class="${cls}" data-action="navJump" data-idx="${i}">${i + 1}</div>`;
+  }).join("");
+  const legend = document.getElementById("navGridLegend");
+  if (legend) {
+    const answered = state.filtered.filter(q => state.results[q.id]).length;
+    legend.textContent = ` — ${answered}/${state.filtered.length} answered`;
+  }
+}
+
+function resumeExamTimer() { stopExamTimer(); examTick = setInterval(tickExam, 1000); tickExam(); }
+function stopExamTimer() { if (examTick) { clearInterval(examTick); examTick = null; } }
+
+function startExam() {
+  const n = state.filtered.length;
+  if (n === 0) { alert("No questions in this filter."); return; }
+  const mins = Math.max(1, Math.round(n * MIN_PER_Q));
+  if (!confirm(`Start a fresh ${mins}-minute run over these ${n} questions?\n\nThis clears your current answers for them (attempt history is kept).`)) return;
+  // fresh slate for the in-scope questions
+  state.filtered.forEach(q => { delete state.results[q.id]; delete state.progress.drafts[q.id]; });
+  saveResults(); saveProgress();
+  state.redo = "none";
+  state.exam = { running: true, finished: false, endTs: Date.now() + mins * 60 * 1000, durationSec: mins * 60 };
+  saveExam();
+  state.index = 0;
+  resumeExamTimer();
+  applyFilter({ preservePosition: false });
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function tickExam() {
+  const bar = document.getElementById("examBar");
+  const remaining = Math.round((state.exam.endTs - Date.now()) / 1000);
+  if (remaining <= 0) { finishExam(true); return; }
+  const answered = state.filtered.filter(q => state.results[q.id]).length;
+  let tcls = "exam-timer";
+  if (remaining <= 30) tcls += " danger"; else if (remaining <= 120) tcls += " warn";
+  bar.innerHTML = `<div>
+      <div class="${tcls}">${formatTime(remaining)}</div>
+      <div class="exam-meta">${answered}/${state.filtered.length} answered · +1 / −0.25 / 0</div>
+    </div>
+    <button class="exam-finish-btn" data-action="finishExam">Finish & score</button>`;
+}
+
+function finishExam(auto) {
+  if (!state.exam.running && state.exam.finished) return;
+  if (!auto && !confirm("Finish the exam and see your score?")) return;
+  stopExamTimer();
+  state.exam.running = false;
+  state.exam.finished = true;
+  saveExam();
+  const attempt = recordAttempt();
+  renderModeUI();
+  state.index = 0;
+  renderQuestion();
+  renderAttemptHistory();
+  const sb = document.getElementById("scoreboard");
+  if (sb) sb.scrollIntoView({ behavior: "smooth", block: "center" });
+  if (attempt) {
+    setTimeout(() => alert(`${auto ? "Time's up!\n\n" : ""}Score: ${attempt.score}/${attempt.max}\n${attempt.right} right · ${attempt.wrong} wrong · ${attempt.blank} blank\n\nThe rule is now under every question, and this attempt is saved in your history.`), 50);
+  }
+}
+
+function recordAttempt() {
+  let right = 0, wrong = 0;
+  const sections = {};
+  state.filtered.forEach(q => {
+    if (!sections[q.section]) sections[q.section] = { total: 0, solid: 0, guessed: 0, wrong: 0, skip: 0 };
+    sections[q.section].total++;
+    const r = state.results[q.id];
+    if (!r) { sections[q.section].skip++; }
+    else if (r.correct) { right++; sections[q.section].solid++; }
+    else { wrong++; sections[q.section].wrong++; }
+  });
+  const blank = state.filtered.length - right - wrong;
+  const score = right * 1 - wrong * 0.25;
+  const max = state.filtered.length * 1;
+  const sel = document.getElementById("sectionSelect").value;
+  const scope = sel === "all" ? "Full mock" : (SECTION_LABELS[sel] || sel);
+  const attempt = { mock: "ihbas-2020", mode: "exam", scope, ts: new Date().toISOString(),
+    score, max, right, wrong, blank, sections };
+  try {
+    const raw = localStorage.getItem(HISTORY_KEY);
+    const history = raw ? JSON.parse(raw) : [];
+    history.push(attempt);
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+  } catch {}
+  return attempt;
+}
+
+function renderAttemptHistory() {
+  const wrap = document.getElementById("attemptHistoryList");
+  if (!wrap) return;
+  let history = [];
+  try { const raw = localStorage.getItem(HISTORY_KEY); if (raw) history = JSON.parse(raw); } catch {}
+  const mine = history.filter(h => h.mock === "ihbas-2020");
+  if (mine.length === 0) {
+    wrap.innerHTML = `<div class="ah-empty">No timed runs yet. Switch to ⏱️ Exam mode and finish a run to start tracking your score over time.</div>`;
+    return;
+  }
+  const rows = mine.map((h, i) => {
+    const pct = h.max ? Math.round((h.score / h.max) * 100) : 0;
+    const fillPct = Math.max(0, Math.min(100, pct));
+    const prev = i > 0 ? mine[i - 1] : null;
+    let deltaHtml = "", dir = "";
+    if (prev) {
+      const d = h.score - prev.score;
+      if (d > 0) { dir = "up"; deltaHtml = `<span class="ah-delta up">▲ +${d}</span>`; }
+      else if (d < 0) { dir = "down"; deltaHtml = `<span class="ah-delta down">▼ ${d}</span>`; }
+      else deltaHtml = `<span class="ah-delta">±0</span>`;
+    }
+    const d = new Date(h.ts);
+    const when = `${d.getDate()}/${d.getMonth() + 1} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    const scope = h.scope && h.scope !== "Full mock" ? ` · ${h.scope}` : "";
+    return `<div class="ah-row">
+      <div class="ah-when">${when}${scope}</div>
+      <div class="ah-track"><div class="ah-fill ${dir}" style="width:${fillPct}%;"></div></div>
+      <div class="ah-score">${h.score}/${h.max}${deltaHtml}</div>
+    </div>`;
+  }).join("");
+  wrap.innerHTML = rows;
+}
+
+loadResults();
+if (state.progress.lastSection) {
+  const sel = document.getElementById("sectionSelect");
+  if ([...sel.options].some(o => o.value === state.progress.lastSection)) sel.value = state.progress.lastSection;
+}
+// resume a live exam timer if one was running and time remains
+if (state.mode === "exam" && state.exam.running && !state.exam.finished) {
+  if (state.exam.endTs > Date.now()) resumeExamTimer();
+  else { state.exam.running = false; state.exam.finished = true; saveExam(); }
+}
+applyFilter({ preservePosition: true });
+showResumeBanner();
+renderAttemptHistory();
+</script>
+<script>
+/* PWA:met-prep */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("/sihan-met-flashcards/sw.js").catch(function () {});
+  });
+}
+(function () {
+  var dp = null;
+  window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); dp = e; showBtn(); });
+  function showBtn() {
+    if (document.getElementById("pwaInstallBtn")) return;
+    var b = document.createElement("button");
+    b.id = "pwaInstallBtn"; b.textContent = "Install app";
+    b.style.cssText = "position:fixed;right:14px;bottom:14px;z-index:9999;background:#1f6feb;color:#fff;border:0;border-radius:8px;padding:10px 14px;font:600 14px system-ui,sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.4);cursor:pointer";
+    b.onclick = function () { if (!dp) return; dp.prompt(); dp.userChoice.finally(function(){ dp = null; b.remove(); }); };
+    (document.body || document.documentElement).appendChild(b);
+  }
+  window.addEventListener("appinstalled", function () { var b = document.getElementById("pwaInstallBtn"); if (b) b.remove(); });
+})();
+</script>
+<!-- FS_MODE start -->
+<style id="fs-mode-style">
+  .fs-toggle{position:fixed;z-index:2147483000;bottom:14px;right:14px;width:46px;height:46px;border:0;border-radius:50%;
+    background:rgba(18,24,33,.74);color:#e6edf3;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 2px 12px rgba(0,0,0,.5);
+    padding:0;opacity:.5;transition:opacity .15s;-webkit-tap-highlight-color:transparent}
+  .fs-toggle:hover,.fs-toggle:active{opacity:1}
+  @media print{.fs-toggle{display:none}}
+  body.fs-active .topbar,
+  body.fs-active header,
+  body.fs-active nav,
+  body.fs-active .app-header,
+  body.fs-active .site-header,
+  body.fs-active footer{display:none !important}
+  body.fs-active{margin:0 !important;padding:0 !important;min-height:100vh}
+  body.fs-active main,
+  body.fs-active .wrap,
+  body.fs-active .container,
+  body.fs-active #app,
+  body.fs-active .app,
+  body.fs-active .page{max-width:100% !important;width:100% !important;margin:0 !important;
+    padding-left:12px !important;padding-right:12px !important;padding-top:10px !important;padding-bottom:14px !important}
+  @media (orientation:landscape){
+    body.fs-active main,
+    body.fs-active .wrap,
+    body.fs-active .container,
+    body.fs-active #app,
+    body.fs-active .app,
+    body.fs-active .page{padding-top:8px !important;padding-bottom:8px !important;
+      padding-left:18px !important;padding-right:18px !important}
+  }
+</style>
+<script>
+(function(){
+  if(window.__fsModeInit) return; window.__fsModeInit=true;
+  var ENTER='\u26F6', EXIT='\u2715';
+  function nativeOn(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function reqNative(){var el=document.documentElement;var r=el.requestFullscreen||el.webkitRequestFullscreen;
+    if(r){try{var p=r.call(el);if(p&&p.catch)p.catch(function(){});}catch(e){}}}
+  function exitNative(){if(!nativeOn())return;var x=document.exitFullscreen||document.webkitExitFullscreen;
+    if(x){try{x.call(document);}catch(e){}}}
+  var btn=document.createElement('button');
+  btn.className='fs-toggle';btn.type='button';
+  function paint(){var on=document.body.classList.contains('fs-active');
+    btn.textContent=on?EXIT:ENTER;btn.setAttribute('aria-label',on?'Exit fullscreen':'Enter fullscreen');btn.title=on?'Exit fullscreen':'Fullscreen';}
+  function go(){document.body.classList.add('fs-active');reqNative();paint();}
+  function stop(){document.body.classList.remove('fs-active');exitNative();paint();}
+  function toggle(){document.body.classList.contains('fs-active')?stop():go();}
+  btn.addEventListener('click',toggle);
+  function mount(){if(!document.body)return;if(!btn.isConnected)document.body.appendChild(btn);paint();}
+  if(document.body){mount();}else{document.addEventListener('DOMContentLoaded',mount);}
+  function sync(){if(!nativeOn()&&document.body.classList.contains('fs-active')){document.body.classList.remove('fs-active');paint();}}
+  document.addEventListener('fullscreenchange',sync);
+  document.addEventListener('webkitfullscreenchange',sync);
+})();
+</script>
+<!-- FS_MODE end -->
+</body>
+</html>
