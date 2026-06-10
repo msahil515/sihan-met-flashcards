@@ -621,6 +621,28 @@ const MOCKS = [
     companion: null
   },
   {
+    id: "amity-2023",
+    title: "Amity 2023 PYQ Mock (real paper)",
+    short: "Amity PYQ 2023",
+    path: "../../quiz/amity-2023/",
+    storageResults: "amity-2023-results-v1",
+    storageNotes: "amity-2023-notes-v1",
+    total: 96,
+    max: 96,
+    scoring: (right, wrong) => right - wrong * 0.25,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
+    sections: { general: 22, biopsych: 30, abnormal: 18, therapy: 7, biostats: 5, assessment: 6, dev: 6, social: 2 },
+    bands: [
+      { min: 62, max: 96, name: "Strong", cls: "good", desc: "Amity 2023 entrance (Amit Panwar reproduction). Above ~62/96 is a strong showing. Amity gates on the interview too, so pair this with the /amity/ interview prep." },
+      { min: 52, max: 61.99, name: "On target", cls: "good", desc: "Working-target zone. Patch your two weakest sections below before chasing new topics." },
+      { min: 42, max: 51.99, name: "Borderline", cls: "warn", desc: "Stop the −0.25 leak on items you half-know and re-sit. A couple of sections are soft." },
+      { min: 32, max: 41.99, name: "Needs work", cls: "warn", desc: "A section or two is weak. Hit the cheatsheets, then re-sit this same paper." },
+      { min: -100, max: 31.99, name: "Baseline", cls: "bad", desc: "First cold sitting. Read the gap map below, not the score. Revise the weakest section and re-attempt." }
+    ],
+    cutoff: 52, cutoffLabel: "working target ~52/96 (Amity entrance cutoff not officially published; selection also weights the interview)",
+    companion: null
+  },
+  {
     id: "pyq-mock-2",
     title: "PYQ Mock 2, pan-India",
     short: "PYQ Mock 2",
