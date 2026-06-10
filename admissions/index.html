@@ -61,6 +61,19 @@
   .src{font-size:12.5px;color:var(--muted);font-family:var(--sans);line-height:1.65;margin:18px 0}
   .flag{background:rgba(192,57,43,.06);border:1px solid rgba(192,57,43,.2);border-radius:7px;
     padding:11px 15px;margin:14px 0;font-family:var(--sans);font-size:13.5px;line-height:1.6}
+  .myexam{background:rgba(61,111,208,.07);border:1px solid var(--accent-dim);border-left:4px solid var(--accent);
+    border-radius:10px;padding:16px 20px;margin:16px 0 6px;font-family:var(--sans)}
+  .myexam h2{margin:0 0 4px;font-size:17px;color:var(--text);font-family:var(--sans)}
+  .myexam .meta{font-size:12.5px;color:var(--muted);margin:0 0 12px;line-height:1.55}
+  .myexam .cd{display:inline-block;background:rgba(192,57,43,.12);color:#c0392b;border:1px solid rgba(192,57,43,.3);
+    border-radius:6px;padding:1px 9px;font-weight:800;font-size:12.5px;margin-left:6px;vertical-align:middle}
+  .myexam ol{list-style:none;margin:0;padding:0}
+  .myexam li{display:flex;gap:14px;padding:7px 0;border-bottom:1px solid var(--border);font-size:14px;line-height:1.5}
+  .myexam li:last-child{border-bottom:none}
+  .myexam li .dt{flex:0 0 120px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
+  .myexam li.hl .dt{color:#c0392b}
+  .myexam li .ev{color:var(--ink2)}
+  .myexam .note{font-size:12.5px;color:var(--muted);margin:11px 0 0;line-height:1.55}
 </style>
 </head>
 <body>
@@ -68,6 +81,21 @@
 <nav><a href="../">← Home</a> <a href="../news/">News board</a> <a href="../notes/">Notes</a></nav>
 
 <h1>RCI Clinical Psychology Admissions Tracker</h1>
+
+<div class="myexam">
+<h2>★ Your exam — Master in Clinical Psychology <span class="cd" id="cbtCd">8 days out</span></h2>
+<p class="meta">Program codes <b>102072</b> / <b>101092</b>. The institute isn’t named on the schedule shot, and these are the portal’s internal program codes — they don’t appear in the RCI list below. Tell me the college name and I’ll tie this straight into the table. Dates are exactly as on the shot you sent (10 Jun).</p>
+<ol>
+<li class="hl"><span class="dt">18 Jun 2026</span><span class="ev"><b>CBT</b> — computer-based test</span></li>
+<li><span class="dt">23–24 Jun</span><span class="ev">Written result</span></li>
+<li><span class="dt">29–30 Jun</span><span class="ev">Interview / GD</span></li>
+<li><span class="dt">10–11 Jul</span><span class="ev">Final result + admission letter</span></li>
+<li><span class="dt">by 17 Jul</span><span class="ev">Fee payment</span></li>
+<li><span class="dt">last wk Jul</span><span class="ev">Classes start</span></li>
+</ol>
+<p class="note">Pinned from your 10 Jun schedule. The CBT countdown above updates live.</p>
+</div>
+
 <p class="updated">Rebuilt 6 Jun 2026 from a single source: the RCI <b>“List of Approved Institutions upto 25-05-2026”</b> PDF (123 pages, generated 25 May 2026). This supersedes the earlier 04-02-2026 list.</p>
 
 <div class="lede">Every RCI-approved institution offering a <b>Master’s-level Clinical Psychology</b> program — <b>M.Phil (Cl.Psy.)</b> or <b>M.A. Clinical Psychology (RCI)</b>. Special-education (D.Ed/B.Ed Spl.Ed), Bachelor’s (B.Sc Cl.Psy. Hons), the P.D. and Psy.D (Cl.Psy.) diplomas, and M.Phil (Rehab.Psy.) are all excluded. The newer “M.Clin.Psy.” nomenclature does not yet appear anywhere in this 25-05-2026 list.</div>
@@ -228,5 +256,6 @@
 <p class="src">Source: Rehabilitation Council of India — <b>List of Approved Institutions upto 25-05-2026</b> (123-page PDF, generated 25 May 2026), the newer list Sihan sent on 6 Jun 2026, replacing the 04-02-2026 register. Filter applied: any institution whose approved-programme list carries <b>M.Phil (Cl.Psy.)</b> or <b>M.A. Cl.Psy.</b> — 91 institutions across 27 states/UTs (72 M.Phil, 38 M.A.). Government/private and own-hospital are read from the institution’s name and the PDF’s “Status of Centre of Excellence” column; seats are the latest RCI-approved intake; the website is the address literally printed in the PDF where one exists. Everything not on the PDF is marked unknown, never guessed. RCI = Rehabilitation Council of India, the statutory body that licenses clinical psychologists in India.</p>
 
 </div>
+<script>(function(){var el=document.getElementById('cbtCd');if(!el)return;var cbt=new Date('2026-06-18T09:00:00+05:30');var now=new Date();var d=Math.ceil((cbt-now)/86400000);el.textContent=(d>1?d+' days out':d===1?'tomorrow':d===0?'today':'CBT done');})();</script>
 </body>
 </html>
