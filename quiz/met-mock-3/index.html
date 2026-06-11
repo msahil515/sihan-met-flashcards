@@ -230,9 +230,9 @@
 
   <div class="export-area">
     <h3>📤 Send results to Sahil</h3>
-    <p class="export-note">Readable export of your score, section breakdown, every wrong/guessed question, and your notes. <b>Copy</b> drops it straight onto WhatsApp; <b>Save as text file</b> downloads a plain .txt you can open in any notes/text app, no decoding.</p>
-    <button class="export-btn" data-action="exportForAnalysis">Copy results for analysis</button>
-    <button class="export-btn" data-action="downloadResultsTxt" style="margin-top:8px;">Save as text file (.txt)</button>
+    <p class="export-note">One tap saves a plain <b>.txt</b> of your full result (score, section breakdown, every wrong/guessed question, your notes) straight to your phone. Just attach that file and send it to Sahil on WhatsApp, no copy-paste, no doc. (Prefer pasting? Use copy below.)</p>
+    <button class="export-btn" data-action="downloadResultsTxt">⬇ Download results (.txt)</button>
+    <button class="export-btn" data-action="exportForAnalysis" style="margin-top:8px; background:transparent; color:var(--muted); border-color:var(--border); font-weight:500;">Or copy to clipboard instead</button>
   </div>
 
   <div class="backup-area">
@@ -1372,6 +1372,15 @@ function downloadResultsTxt() {
   const slug = (location.pathname.replace(/\/index\.html$/, "").split("/").filter(Boolean).pop() || "quiz");
   const stamp = new Date().toISOString().slice(0, 10);
   const fname = slug + "-results-" + stamp + ".txt";
+  // On phones, hand the .txt to the native share sheet so it drops straight
+  // into WhatsApp: tap -> share -> WhatsApp -> send. No copy-paste, no doc.
+  try {
+    const file = new File([out], fname, { type: "text/plain" });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: fname }).catch(function () {});
+      return;
+    }
+  } catch (e) { /* not supported: fall through to a plain file download */ }
   try {
     const blob = new Blob([out], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
