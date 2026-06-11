@@ -28,6 +28,7 @@ OUT_CONTENT = os.path.join(ROOT, "content")
 # ---- Shelves (display order) -------------------------------------------
 SECTIONS = [
     ("core",      "Core Subjects",        "The syllabus, one merged book per subject", "#1d4ed8", "#1e3a8a"),
+    ("amity",     "Amity",                 "Everything Amity MA Clinical in one book", "#b45309", "#78350f"),
     ("reference", "Quick Reference",       "Effects, theorists, lookalikes, the one-page cram", "#7e22ce", "#581c87"),
     ("mocks",     "Mocks & Weak Spots",    "Every debrief reorganised by what kept costing marks", "#be123c", "#831843"),
     ("interview", "Interview Prep",        "Your own clinical voice, straight from your YD sessions", "#0f766e", "#134e4a"),
@@ -68,6 +69,10 @@ BOOKS = [
     dict(slug="research", shelf="core", kind="merged",
          short="Research Methods & Statistics",
          blurb="Research design, sampling, distributions, every statistical test, and degrees of freedom from scratch, merged."),
+    # --- Amity ---
+    dict(slug="amity", shelf="amity", kind="note", src="amity-book",
+         short="Amity — MA Clinical Psychology",
+         blurb="Every bit of Amity material in one book: both target campuses, the entrance topic patterns and depth, the general-psych recall battery, the english/aptitude section, the scripted interview, the forum and fees read, and the full paper-by-paper Jaipur AIBAS syllabus."),
     # --- Quick Reference ---
     dict(slug="concepts", shelf="reference", kind="merged",
          short="Effects, Theories & Originators",
