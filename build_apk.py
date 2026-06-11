@@ -21,17 +21,39 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-WORKBASE = Path("/tmp/apk-build")                     # outside the repo (avoid copy recursion)
+WORKBASE = Path(os.environ.get("APK_WORKBASE", "/tmp/apk-build"))  # outside the repo (avoid copy recursion)
 TEMPLATE_APK = ROOT / "downloads" / "_template.apk"   # pristine copy of original
-KEYSTORE = Path.home() / ".sihan-met-keystore" / "sihan-met.jks"
-KS_PASS = "sihanmet2026"
-KS_ALIAS = "sihanmet"
+# Keystore path is overridable so CI can decode it from a secret to a temp file.
+KEYSTORE = Path(os.environ.get("SIHAN_MET_KEYSTORE",
+                               Path.home() / ".sihan-met-keystore" / "sihan-met.jks"))
+KS_PASS = os.environ.get("SIHAN_MET_KS_PASS", "sihanmet2026")
+KS_ALIAS = os.environ.get("SIHAN_MET_KS_ALIAS", "sihanmet")
 
-# Android build-tools (installed via `brew install --cask android-commandlinetools`
-# then `sdkmanager "build-tools;34.0.0"`). Needed for v2/v3 signing.
+
+def _find_tool(name, *fallbacks):
+    """Locate an Android build-tool: env override -> PATH -> known fallbacks.
+
+    Lets the same script build locally (homebrew android-commandlinetools) and
+    in CI (Ubuntu's `apksigner`/`zipalign` apt packages, which land on PATH).
+    """
+    env = os.environ.get(name.upper())
+    if env:
+        return env
+    found = shutil.which(name)
+    if found:
+        return found
+    for fb in fallbacks:
+        if Path(fb).exists():
+            return str(fb)
+    return name  # let subprocess surface a clear "not found"
+
+
+# Android build-tools. Local: `brew install --cask android-commandlinetools` then
+# `sdkmanager "build-tools;34.0.0"`. CI: `apt-get install apksigner zipalign`.
+# Both produce v1+v2+v3 signatures; the scheme is what matters, not the version.
 _BT = Path("/opt/homebrew/share/android-commandlinetools/build-tools/34.0.0")
-ZIPALIGN = str(_BT / "zipalign")
-APKSIGNER = str(_BT / "apksigner")
+ZIPALIGN = _find_tool("zipalign", _BT / "zipalign")
+APKSIGNER = _find_tool("apksigner", _BT / "apksigner")
 
 # Sections to drop from the notes-only build (everything that isn't "the notes").
 NOTES_EXCLUDE_TOP = {"quiz", "tests", "results", "plan", "checklist", "games"}
@@ -384,10 +406,28 @@ def build(kind: str):
     shutil.rmtree(workdir)
 
 
+def ensure_template():
+    """Guarantee `downloads/_template.apk` exists.
+
+    The template is gitignored (absent from fresh clones / CI checkouts), but it's
+    just the WebView wrapper with no signature/assets. The committed MET-Prep.apk
+    already carries that exact wrapper (patched manifest, fullSensor orientation),
+    and extract_template() strips META-INF/ + assets/ anyway, so a straight copy of
+    the latest MET-Prep.apk is a valid pristine template. This is self-sustaining:
+    every rebuild keeps the same wrapper, so reconstructing from it is stable.
+    """
+    if TEMPLATE_APK.exists():
+        return
+    built = ROOT / "downloads" / "MET-Prep.apk"
+    if not built.exists():
+        sys.exit(f"missing template and no MET-Prep.apk to reconstruct from: {TEMPLATE_APK}")
+    print(f"[template] reconstructing {TEMPLATE_APK.name} from {built.name}")
+    shutil.copy2(built, TEMPLATE_APK)
+
+
 if __name__ == "__main__":
     kinds = sys.argv[1:] or ["full", "notes"]
-    if not TEMPLATE_APK.exists():
-        sys.exit(f"missing template: {TEMPLATE_APK}")
+    ensure_template()
     for k in kinds:
         build(k)
     print("done")

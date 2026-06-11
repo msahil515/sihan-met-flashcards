@@ -1,0 +1,65 @@
+name: Rebuild APK daily
+
+# Rebuilds both offline Android APKs every morning off the live site content, so
+# each day's build bakes in the freshest mocks/notes/breakdowns. Signs with the
+# same key as before (decoded from a secret) so updates install seamlessly over
+# the old build. Cron is UTC; IST = UTC+5:30. 03:00 UTC = 08:30 IST, which runs
+# after the 02:30 UTC tracker/news refresh so that content is fresh too.
+on:
+  schedule:
+    - cron: '0 3 * * *'    # 08:30 IST, daily
+  workflow_dispatch:        # lets you trigger a rebuild by hand any time
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rebuild-apk
+  cancel-in-progress: false
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install Android signing tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y apksigner zipalign
+
+      - name: Decode signing keystore
+        env:
+          KS_B64: ${{ secrets.SIHAN_MET_KEYSTORE_B64 }}
+        run: |
+          if [ -z "$KS_B64" ]; then
+            echo "::error::SIHAN_MET_KEYSTORE_B64 secret is not set; cannot sign the APK."
+            exit 1
+          fi
+          echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/sihan-met.jks"
+
+      - name: Rebuild APKs off the live site
+        env:
+          SIHAN_MET_KEYSTORE: ${{ runner.temp }}/sihan-met.jks
+        run: python3 build_apk.py
+
+      - name: Commit and push fresh APKs
+        run: |
+          git config user.name "sihan-apk-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No APK changes to commit."
+          else
+            git commit -m "Daily APK rebuild: $(TZ=Asia/Kolkata date '+%-d %b %Y %H:%M IST')"
+            git push
+          fi
