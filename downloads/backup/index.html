@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d1117">
+<title>Full Backup — MET 2026 + NIMHANS</title>
+<link rel="stylesheet" href="/sihan-met-flashcards/site.css">
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<style>
+  .backup-btn{display:block;width:100%;box-sizing:border-box;margin:0;padding:16px 18px;
+    font-size:17px;font-weight:700;border:0;border-radius:10px;cursor:pointer;
+    background:#1f6feb;color:#fff;box-shadow:0 2px 12px rgba(31,111,235,.35);
+    transition:background .12s, transform .05s;}
+  .backup-btn:hover{background:#1a5fd0;}
+  .backup-btn:active{transform:translateY(1px);}
+  .backup-btn[disabled]{background:#30363d;color:#8b949e;cursor:default;box-shadow:none;}
+  .backup-btn.secondary{background:#21262d;color:#e6edf3;border:1px solid #30363d;
+    box-shadow:none;font-size:15px;padding:12px 16px;margin-top:10px;font-weight:600;}
+  .backup-btn.secondary:hover{background:#2a313a;}
+  #bkStatus{margin-top:14px;font-size:13px;color:#8b949e;line-height:1.5;min-height:18px;}
+  #bkStatus .ok{color:#3fb950;}
+  #bkStatus .warn{color:#d29922;}
+  #bkStatus .err{color:#f85149;}
+  .bk-bar{height:6px;border-radius:4px;background:#21262d;overflow:hidden;margin-top:10px;display:none;}
+  .bk-bar > i{display:block;height:100%;width:0;background:#1f6feb;transition:width .2s;}
+  #bkPreview{margin-top:14px;display:none;}
+  #bkPreview textarea{width:100%;box-sizing:border-box;height:180px;background:#0d1117;color:#c9d1d9;
+    border:1px solid #30363d;border-radius:8px;padding:10px;font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
+    white-space:pre;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-title">Sihan, MET 2026</span>
+      <span class="brand-sub">MA Clinical Psychology, Manipal</span>
+    </div>
+    <nav class="nav">
+      <a href="/sihan-met-flashcards/">Dashboard</a>
+      <a href="/sihan-met-flashcards/tests/">Tests</a>
+      <a href="/sihan-met-flashcards/results/">My Results</a>
+      <a href="/sihan-met-flashcards/notes/">Notes</a>
+      <a href="/sihan-met-flashcards/checklist/">Checklist</a>
+      <a href="/sihan-met-flashcards/plan/">Plan</a>
+      <a href="/sihan-met-flashcards/downloads/" class="active">Downloads</a>
+    </nav>
+    <span class="countdown-chip" id="countdownChip">—</span>
+  </div>
+</div>
+
+<main>
+
+  <div class="page-hero">
+    <div class="crumbs">Downloads · Full Backup</div>
+    <h1>Full Backup, one text file</h1>
+    <p>One button. Pulls every test you've attempted on this device, every note you typed under a question, and your whole score history over time, into a single plain-text file. No codes, no decoding. Open it in any notes/text app or drop it straight into a doc for analysis.</p>
+  </div>
+
+  <section>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Download everything</div>
+      </div>
+      <div class="card-body">
+        <p style="margin:0 0 14px;color:#8b949e;font-size:14px;">
+          This reads your saved data straight out of this browser. It works offline. Do it on the device (and browser) where you actually take the mocks, your data lives per device. Big runs can take 10&ndash;20 seconds while it gathers every test.
+        </p>
+        <button id="bkDownload" class="backup-btn">Download full backup (.txt)</button>
+        <button id="bkCopy" class="backup-btn secondary">Copy everything to clipboard instead</button>
+        <div class="bk-bar" id="bkBar"><i></i></div>
+        <div id="bkStatus"></div>
+        <div id="bkPreview"><textarea readonly id="bkPreviewText"></textarea></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <div class="card-head"><div class="card-title">What's inside</div></div>
+      <div class="card-body">
+        <ul style="margin:0;padding-left:18px;color:#c9d1d9;font-size:14px;line-height:1.7;">
+          <li><b>Per-test detail</b> &mdash; for every mock you've touched: score, section-by-section breakdown, and each question you got wrong, guessed, or wrote a note on, with the question text, options, the correct answer, the explanation, and your own note.</li>
+          <li><b>Score history</b> &mdash; every timed run you've finished, with date, score and the section split, so you can see the trend.</li>
+          <li><b>Notes journal</b> &mdash; the free-text journal notes you saved on the My Results page.</li>
+          <li><b>Raw appendix</b> &mdash; anything else saved (e.g. the FITB and practice banks) dumped raw so nothing is lost.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>Sihan MET 2026 + NIMHANS prep · full backup is generated from this browser's saved data</footer>
+
+<script>
+/* =====================================================================
+   FULL BACKUP BUILDER
+   Aggregates every quiz's own buildResultsExport() (loaded in a hidden
+   iframe, same origin) plus the shared score history + journal into one
+   readable .txt. The per-quiz export is the canonical rich format, so
+   this file matches exactly what each quiz's "Save as text file" gives,
+   just all of them concatenated.
+   ===================================================================== */
+(function () {
+  "use strict";
+  const BASE = "/sihan-met-flashcards";
+  const HISTORY_KEY = "results-history-v1";
+  const JOURNAL_KEY = "results-journal-v1";
+
+  // Quizzes that expose buildResultsExport(), with their storage keys.
+  // pep-mock-1-solo is intentionally omitted: it shares pep-mock-1's keys.
+  const QUIZZES = [
+    { slug: "met-mock-1",       title: "MET Mock 1 — Full Length (100 Q)",                 r: "met-mock-1-results-v1",       n: "met-mock-1-notes-v1" },
+    { slug: "met-mock-2",       title: "MET Mock 2 — Full Length (180 Q)",                 r: "met-mock-2-results-v1",       n: "met-mock-2-notes-v1" },
+    { slug: "met-mock-3",       title: "MET Mock 3 — 100 Q tight pace",                    r: "met-mock-3-results-v1",       n: "met-mock-3-notes-v1" },
+    { slug: "met-mock-4",       title: "MET Mock 4 — 100 Q fresh full-spectrum",           r: "met-mock-4-results-v1",       n: "met-mock-4-notes-v1" },
+    { slug: "met-mock-5",       title: "MET Mock 5 — 100 Q fresh full-spectrum",           r: "met-mock-5-results-v1",       n: "met-mock-5-notes-v1" },
+    { slug: "nimhans-mock-1",   title: "NIMHANS Mock 1 — Actual PYQs (2023–2025)",         r: "nimhans-mock-1-results-v2",   n: "nimhans-mock-1-notes-v2" },
+    { slug: "pyq-real-2025",    title: "Real PYQ — NIMHANS 2025 Memory-Based (59 Q)",      r: "pyq-real-2025-results-v1",    n: "pyq-real-2025-notes-v1" },
+    { slug: "pyq-real-2024",    title: "Real PYQ — NIMHANS 2024 Memory-Based (100 Q)",     r: "pyq-real-2024-results-v1",    n: "pyq-real-2024-notes-v1" },
+    { slug: "pyq-mock-2",       title: "PYQ Mock 2 — Pan-India M.Phil Entrance (100 Q)",   r: "pyq-mock-2-results-v1",       n: "pyq-mock-2-notes-v1" },
+    { slug: "rml-2024",         title: "RML 2024 PYQ Mock (Verbatim, 100 Q)",              r: "rml-2024-results-v1",         n: "rml-2024-notes-v1" },
+    { slug: "ihbas-2024",       title: "IHBAS 2024 PYQ Mock (Real Paper, 100 Q)",          r: "ihbas-2024-results-v1",       n: "ihbas-2024-notes-v1" },
+    { slug: "ihbas-2020",       title: "IHBAS 2020 PYQ Mock (Real Paper, 92 Q)",           r: "ihbas-2020-results-v1",       n: "ihbas-2020-notes-v1" },
+    { slug: "amity-2023",       title: "Amity 2023 PYQ Mock (Real Paper, 96 Q)",           r: "amity-2023-results-v1",       n: "amity-2023-notes-v1" },
+    { slug: "pep-mock-1",       title: "Psych Entrance Mock 1 — UGC-NET + MPhil (120 Q)",   r: "pep-mock-1-results-v1",       n: "pep-mock-1-notes-v1" },
+    { slug: "pep-mock-2",       title: "Psych Entrance Mock 2 — UGC-NET + MPhil (121 Q)",   r: "pep-mock-2-results-v1",       n: "pep-mock-2-notes-v1" },
+    { slug: "diagnostic-1",     title: "Gap Diagnostic — Common-Section Focus (60 Q)",     r: "diagnostic-1-results-v1",     n: "diagnostic-1-notes-v1" },
+    { slug: "bio-testing-paper",title: "Biopsych + Testing paper — 60 Q targeted",         r: "bio-testing-paper-results-v1",n: "bio-testing-paper-notes-v1" }
+  ];
+
+  // Keys already represented by a dumped quiz / rendered section,
+  // so the raw appendix doesn't repeat them.
+  function coveredKeys() {
+    const s = new Set([HISTORY_KEY, JOURNAL_KEY]);
+    for (const q of QUIZZES) {
+      s.add(q.r); s.add(q.n);
+      s.add(q.slug + "-progress-v1"); s.add(q.slug + "-flags-v1"); s.add(q.slug + "-exam-v1");
+      s.add(q.slug + "-progress-v2"); s.add(q.slug + "-flags-v2"); s.add(q.slug + "-exam-v2");
+      s.add(q.slug + "-snapshots-v1");
+    }
+    return s;
+  }
+
+  function objLen(key) {
+    try { const raw = localStorage.getItem(key); if (!raw) return 0;
+      const o = JSON.parse(raw); return (o && typeof o === "object") ? Object.keys(o).length : 0;
+    } catch (e) { return 0; }
+  }
+  function hasData(q) { return objLen(q.r) > 0 || objLen(q.n) > 0; }
+
+  function quickStats(q) {
+    let attempted = 0, right = 0;
+    try {
+      const o = JSON.parse(localStorage.getItem(q.r) || "{}");
+      for (const k in o) {
+        const r = o[k]; if (!r) continue;
+        if (r.selected == null && r.correct == null) continue;
+        attempted++; if (r.correct) right++;
+      }
+    } catch (e) {}
+    return { attempted, right, notes: objLen(q.n) };
+  }
+
+  // Load a quiz in a hidden iframe and call its buildResultsExport().
+  // Same origin + gate already unlocked on this device => no overlay,
+  // the page's top-level loadResults() runs, and buildResultsExport is
+  // a top-level function declaration => available on the iframe window.
+  function dumpQuizViaIframe(q) {
+    return new Promise(function (resolve) {
+      const ifr = document.createElement("iframe");
+      ifr.style.cssText = "position:absolute;width:1px;height:1px;left:-9999px;top:-9999px;border:0;opacity:0";
+      let done = false;
+      function finish(text) { if (done) return; done = true; try { ifr.remove(); } catch (e) {} resolve(text); }
+      const to = setTimeout(function () { finish(null); }, 20000);
+      ifr.onload = function () {
+        setTimeout(function () {
+          try {
+            const w = ifr.contentWindow;
+            if (w && typeof w.buildResultsExport === "function") {
+              const t = w.buildResultsExport();
+              clearTimeout(to); finish(typeof t === "string" ? t : null);
+            } else { clearTimeout(to); finish(null); }
+          } catch (e) { clearTimeout(to); finish(null); }
+        }, 150);
+      };
+      ifr.onerror = function () { clearTimeout(to); finish(null); };
+      ifr.src = BASE + "/quiz/" + q.slug + "/";
+      document.body.appendChild(ifr);
+    });
+  }
+
+  function rawFallbackForQuiz(q) {
+    let out = "";
+    const keys = [q.r, q.n];
+    for (const k of keys) {
+      const raw = localStorage.getItem(k);
+      if (raw == null) continue;
+      out += "--- " + k + " (raw) ---\n";
+      try { out += JSON.stringify(JSON.parse(raw), null, 2) + "\n"; }
+      catch (e) { out += raw + "\n"; }
+    }
+    return out || "(no saved data found for this test)\n";
+  }
+
+  function renderHistoryTimeline(history) {
+    if (!Array.isArray(history) || history.length === 0) {
+      return "No timed runs recorded yet. (Score history fills in when you finish a run in Exam mode.)\n";
+    }
+    // group by mock, preserve chronological order within each
+    const byMock = {};
+    for (const h of history) {
+      const m = h.mock || "unknown";
+      (byMock[m] = byMock[m] || []).push(h);
+    }
+    let out = "";
+    Object.keys(byMock).forEach(function (m) {
+      const runs = byMock[m];
+      out += m + "  (" + runs.length + " run" + (runs.length === 1 ? "" : "s") + ")\n";
+      runs.forEach(function (h, i) {
+        const d = h.ts ? new Date(h.ts) : null;
+        const when = d ? d.toLocaleString() : "?";
+        const pct = h.max ? Math.round((h.score / h.max) * 100) : 0;
+        let line = "  " + (i + 1) + ". " + when + " — " + h.score + "/" + h.max + " (" + pct + "%)";
+        if (typeof h.right === "number") line += "  right " + h.right + " · wrong " + (h.wrong || 0) + " · blank " + (h.blank || 0);
+        if (h.scope && h.scope !== "Full mock") line += "  [" + h.scope + "]";
+        out += line + "\n";
+        if (h.sections && typeof h.sections === "object") {
+          Object.keys(h.sections).forEach(function (sec) {
+            const s = h.sections[sec];
+            const got = (s.solid || 0) + (s.guessed || 0);
+            out += "       · " + sec + ": " + got + "/" + (s.total || 0) +
+                   " (solid " + (s.solid || 0) + ", guessed " + (s.guessed || 0) +
+                   ", wrong " + (s.wrong || 0) + ", skip " + (s.skip || 0) + ")\n";
+          });
+        }
+      });
+      out += "\n";
+    });
+    return out;
+  }
+
+  function renderJournal(journal) {
+    if (!journal || typeof journal !== "object") return "No journal notes saved.\n";
+    const keys = Object.keys(journal).filter(function (k) { return journal[k] && String(journal[k]).trim(); });
+    if (keys.length === 0) return "No journal notes saved.\n";
+    let out = "";
+    keys.forEach(function (k) {
+      out += "[" + k + "]\n" + String(journal[k]).trim() + "\n\n";
+    });
+    return out;
+  }
+
+  function renderRawAppendix(coveredSet) {
+    const pat = /-(results|notes|progress|snapshots|exam|flags)-v\d+$/;
+    const extra = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (!k || coveredSet.has(k)) continue;
+      if (pat.test(k)) extra.push(k);
+    }
+    extra.sort();
+    if (extra.length === 0) return "Nothing else saved. Every test is already covered above.\n";
+    let out = "";
+    extra.forEach(function (k) {
+      const raw = localStorage.getItem(k);
+      out += "--- " + k + " ---\n";
+      try { out += JSON.stringify(JSON.parse(raw), null, 2) + "\n\n"; }
+      catch (e) { out += (raw || "") + "\n\n"; }
+    });
+    return out;
+  }
+
+  function div(title) {
+    const bar = "================================================================";
+    return "\n\n" + bar + "\n" + title + "\n" + bar + "\n\n";
+  }
+
+  async function buildFullBackup(onProgress) {
+    const now = new Date();
+    const iso = now.toISOString();
+
+    // Preserve score history so the iframe exports (which each push a
+    // snapshot) don't pollute it. Restored after all iframes finish.
+    const histBefore = localStorage.getItem(HISTORY_KEY);
+    let history = [];
+    try { history = histBefore ? JSON.parse(histBefore) : []; } catch (e) { history = []; }
+    let journal = {};
+    try { journal = JSON.parse(localStorage.getItem(JOURNAL_KEY) || "{}"); } catch (e) { journal = {}; }
+
+    const withData = QUIZZES.filter(hasData);
+
+    const bar = "================================================================";
+    let out = bar + "\n";
+    out += "SIHAN — MET 2026 / NIMHANS · FULL BACKUP\n";
+    out += "Generated: " + iso + "\n";
+    out += "          (" + now.toLocaleString() + ")\n";
+    out += bar + "\n\n";
+    out += "Everything saved in this browser: every test you've attempted,\n";
+    out += "every note you typed under a question, and your score history.\n";
+    out += "Plain text — open it anywhere or paste it straight into a doc.\n";
+    out += "NOTE: this is per-device. It reflects what's saved on THIS browser.\n\n";
+
+    out += "CONTENTS\n--------\n";
+    out += "Tests with saved data: " + withData.length + " of " + QUIZZES.length + "\n";
+    if (withData.length) {
+      withData.forEach(function (q) {
+        const s = quickStats(q);
+        out += "  • " + q.title + "\n";
+        out += "      attempted " + s.attempted + ", right " + s.right +
+               (s.notes ? (", your notes on " + s.notes + " Q") : "") + "\n";
+      });
+    } else {
+      out += "  (none yet on this device)\n";
+    }
+    out += "\nScore-history runs recorded: " + history.length + "\n";
+    out += "Journal notes: " + Object.keys(journal).filter(function (k) { return journal[k] && String(journal[k]).trim(); }).length + "\n";
+
+    // PART 1 — per-test detail via each quiz's own export
+    out += div("PART 1 — PER-TEST DETAIL (full breakdown of every test)");
+    if (withData.length === 0) {
+      out += "No saved test data on this device yet.\n";
+    } else {
+      for (let i = 0; i < withData.length; i++) {
+        const q = withData[i];
+        if (onProgress) onProgress(i, withData.length, q.title);
+        out += "\n\n##############################################################\n";
+        out += "### " + q.title + "\n";
+        out += "##############################################################\n\n";
+        let text = null;
+        try { text = await dumpQuizViaIframe(q); } catch (e) { text = null; }
+        if (text && text.trim()) {
+          out += text.trim() + "\n";
+        } else {
+          out += "(could not load the rich export — raw saved data follows)\n\n";
+          out += rawFallbackForQuiz(q);
+        }
+      }
+    }
+
+    // Restore the pristine score history.
+    try {
+      if (histBefore === null) localStorage.removeItem(HISTORY_KEY);
+      else localStorage.setItem(HISTORY_KEY, histBefore);
+    } catch (e) {}
+
+    // PART 2 — score history
+    out += div("PART 2 — SCORE HISTORY OVER TIME");
+    out += renderHistoryTimeline(history);
+
+    // PART 3 — journal
+    out += div("PART 3 — NOTES JOURNAL (from My Results)");
+    out += renderJournal(journal);
+
+    // PART 4 — raw appendix for anything not already covered
+    out += div("PART 4 — RAW DATA APPENDIX (anything not covered above)");
+    out += renderRawAppendix(coveredKeys());
+
+    out += "\n\n" + bar + "\nEND OF BACKUP\n" + bar + "\n";
+    return out;
+  }
+
+  // ---- UI wiring ----
+  const btnDl = document.getElementById("bkDownload");
+  const btnCopy = document.getElementById("bkCopy");
+  const status = document.getElementById("bkStatus");
+  const bar = document.getElementById("bkBar");
+  const barFill = bar.querySelector("i");
+  const preview = document.getElementById("bkPreview");
+  const previewText = document.getElementById("bkPreviewText");
+  let busy = false;
+
+  function setBusy(on) {
+    busy = on;
+    btnDl.disabled = on; btnCopy.disabled = on;
+    bar.style.display = on ? "block" : "none";
+    if (!on) barFill.style.width = "0";
+  }
+  function onProgress(i, total, title) {
+    barFill.style.width = Math.round(((i) / total) * 100) + "%";
+    status.innerHTML = "Reading test " + (i + 1) + " of " + total + ": " + title.replace(/</g, "&lt;") + " …";
+  }
+
+  async function run(mode) {
+    if (busy) return;
+    setBusy(true);
+    preview.style.display = "none";
+    status.innerHTML = "Gathering your data…";
+    let text;
+    try {
+      text = await buildFullBackup(onProgress);
+    } catch (e) {
+      setBusy(false);
+      status.innerHTML = "<span class='err'>Something went wrong building the backup: " + (e && e.message ? e.message : e) + "</span>";
+      return;
+    }
+    barFill.style.width = "100%";
+    const sizeKb = (text.length / 1024).toFixed(1);
+
+    if (mode === "copy") {
+      const ok = function () {
+        setBusy(false);
+        status.innerHTML = "<span class='ok'>Copied " + sizeKb + " KB to the clipboard.</span> Paste it into a doc or to Sahil on WhatsApp.";
+        previewText.value = text; preview.style.display = "block";
+      };
+      const fail = function () {
+        setBusy(false);
+        status.innerHTML = "<span class='warn'>Couldn't reach the clipboard. Here's the full text — select all and copy:</span>";
+        previewText.value = text; preview.style.display = "block";
+        previewText.focus(); previewText.select();
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(ok, fail);
+      } else { fail(); }
+      return;
+    }
+
+    // download
+    const stamp = new Date().toISOString().slice(0, 10);
+    const fname = "sihan-full-backup-" + stamp + ".txt";
+    try {
+      const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url; a.download = fname; a.style.display = "none";
+      document.body.appendChild(a); a.click();
+      setTimeout(function () { document.body.removeChild(a); URL.revokeObjectURL(url); }, 200);
+      setBusy(false);
+      status.innerHTML = "<span class='ok'>Saved " + fname + " (" + sizeKb + " KB).</span> Check your Downloads. If nothing saved, use “Copy” below.";
+    } catch (e) {
+      setBusy(false);
+      status.innerHTML = "<span class='warn'>Download blocked by the browser. Here's the full text — select all and copy:</span>";
+      previewText.value = text; preview.style.display = "block";
+      previewText.focus(); previewText.select();
+    }
+  }
+
+  btnDl.addEventListener("click", function () { run("download"); });
+  btnCopy.addEventListener("click", function () { run("copy"); });
+})();
+</script>
+
+<script>
+function updateCountdown() {
+  const exam = new Date('2026-05-31T00:00:00+05:30');
+  const ms = exam - new Date();
+  const d = ms > 0 ? Math.floor(ms / 86400000) : 0;
+  document.getElementById("countdownChip").textContent = ms > 0 ? `${d} days to exam` : "Exam day!";
+}
+updateCountdown();
+</script>
+
+<script>
+/* PWA:met-prep */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("/sihan-met-flashcards/sw.js").catch(function () {});
+  });
+}
+</script>
+<script src="/sihan-met-flashcards/nav-toggle.js"></script>
+<!-- FS_MODE start -->
+<style id="fs-mode-style">
+  .fs-toggle{position:fixed;z-index:2147483000;bottom:14px;right:14px;width:46px;height:46px;border:0;border-radius:50%;
+    background:rgba(18,24,33,.74);color:#e6edf3;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 2px 12px rgba(0,0,0,.5);
+    padding:0;opacity:.5;transition:opacity .15s;-webkit-tap-highlight-color:transparent}
+  .fs-toggle:hover,.fs-toggle:active{opacity:1}
+  @media print{.fs-toggle{display:none}}
+  body.fs-active .topbar,
+  body.fs-active header,
+  body.fs-active nav,
+  body.fs-active .app-header,
+  body.fs-active .site-header,
+  body.fs-active footer{display:none !important}
+  body.fs-active{margin:0 !important;padding:0 !important;min-height:100vh}
+  body.fs-active main,
+  body.fs-active .wrap,
+  body.fs-active .container,
+  body.fs-active #app,
+  body.fs-active .app,
+  body.fs-active .page{max-width:100% !important;width:100% !important;margin:0 !important;
+    padding-left:12px !important;padding-right:12px !important;padding-top:10px !important;padding-bottom:14px !important}
+  @media (orientation:landscape){
+    body.fs-active main,
+    body.fs-active .wrap,
+    body.fs-active .container,
+    body.fs-active #app,
+    body.fs-active .app,
+    body.fs-active .page{padding-top:8px !important;padding-bottom:8px !important;
+      padding-left:18px !important;padding-right:18px !important}
+  }
+</style>
+<script>
+(function(){
+  if(window.__fsModeInit) return; window.__fsModeInit=true;
+  var ENTER='⛶', EXIT='✕';
+  function nativeOn(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function reqNative(){var el=document.documentElement;var r=el.requestFullscreen||el.webkitRequestFullscreen;
+    if(r){try{var p=r.call(el);if(p&&p.catch)p.catch(function(){});}catch(e){}}}
+  function exitNative(){if(!nativeOn())return;var x=document.exitFullscreen||document.webkitExitFullscreen;
+    if(x){try{x.call(document);}catch(e){}}}
+  var btn=document.createElement('button');
+  btn.className='fs-toggle';btn.type='button';
+  function paint(){var on=document.body.classList.contains('fs-active');
+    btn.textContent=on?EXIT:ENTER;btn.setAttribute('aria-label',on?'Exit fullscreen':'Enter fullscreen');btn.title=on?'Exit fullscreen':'Fullscreen';}
+  function go(){document.body.classList.add('fs-active');reqNative();paint();}
+  function stop(){document.body.classList.remove('fs-active');exitNative();paint();}
+  function toggle(){document.body.classList.contains('fs-active')?stop():go();}
+  btn.addEventListener('click',toggle);
+  function mount(){if(!document.body)return;if(!btn.isConnected)document.body.appendChild(btn);paint();}
+  if(document.body){mount();}else{document.addEventListener('DOMContentLoaded',mount);}
+  function sync(){if(!nativeOn()&&document.body.classList.contains('fs-active')){document.body.classList.remove('fs-active');paint();}}
+  document.addEventListener('fullscreenchange',sync);
+  document.addEventListener('webkitfullscreenchange',sync);
+})();
+</script>
+<!-- FS_MODE end -->
+</body>
+</html>

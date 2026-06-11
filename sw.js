@@ -1,12 +1,13 @@
 /* MET 2026 prep - offline service worker
    Precaches the whole site so it works with no signal after one install.
    Bump CACHE on each deploy to refresh. */
-const CACHE = "met-prep-20260611-pyq-full-explanations";
+const CACHE = "met-prep-20260611-full-backup";
 const BASE = "/sihan-met-flashcards/";
 const PRECACHE = [
   "/sihan-met-flashcards/",
   "/sihan-met-flashcards/checklist/",
   "/sihan-met-flashcards/downloads/",
+  "/sihan-met-flashcards/downloads/backup/",
   "/sihan-met-flashcards/icons/apple-touch-icon.png",
   "/sihan-met-flashcards/icons/favicon-16.png",
   "/sihan-met-flashcards/icons/favicon-32.png",
