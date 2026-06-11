@@ -76,6 +76,14 @@
     padding: 12px 14px; margin-top: 14px; font-size: 14px; color: var(--text); display: none; }
   .explanation.visible { display: block; }
   .explanation strong { color: var(--accent); }
+  /* readable-notes explanation layout — bigger text, spaced blocks (2026-06-11) */
+  .explanation { font-size: 16px; line-height: 1.7; padding: 16px 18px; border-radius: 8px; }
+  .exp-verdict { font-size: 17px; font-weight: 700; letter-spacing: 0.2px; color: var(--accent);
+    margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .exp-verdict.ok { color: var(--good); }
+  .exp-verdict.bad { color: var(--bad); }
+  .exp-concept { font-size: 16px; line-height: 1.75; color: var(--text); }
+  .exp-concept strong { color: var(--accent); }
   .notes-area { margin-top: 14px; border-top: 1px dashed var(--border); padding-top: 12px; }
   .notes-label { display: flex; justify-content: space-between; align-items: center;
     font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
@@ -1957,8 +1965,8 @@ function renderQuestion() {
           placeholder="Anything you want to remember about this question — mnemonic, where it came from, why you missed it...">${escapeHtml(noteText)}</textarea>
       </div>`;
   const explanationHtml = `<div class="explanation ${reveal ? "visible" : ""}">
-        <strong>${reveal && state.selected === q.correct ? "✓ Correct" : (reveal ? "✗ Wrong" : "")}</strong>
-        ${reveal ? ` — Answer: ${q.correct.toUpperCase()}. ` : ""}${reveal ? escapeHtml(q.explanation) : ""}
+        ${reveal ? `<div class="exp-verdict ${state.selected === q.correct ? "ok" : "bad"}">${state.selected === q.correct ? "✓ Correct" : "✗ Wrong"} &nbsp;·&nbsp; Answer: ${q.correct.toUpperCase()}</div>
+        <div class="exp-concept">${escapeHtml(q.explanation)}</div>` : ""}
       </div>`;
 
   document.getElementById("quizArea").innerHTML = `

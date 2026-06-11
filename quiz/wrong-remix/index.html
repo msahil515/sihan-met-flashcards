@@ -86,6 +86,14 @@
     padding: 12px 14px; margin-top: 14px; font-size: 14px; color: var(--text); display: none; }
   .explanation.visible { display: block; }
   .explanation strong { color: var(--accent); }
+  /* readable-notes explanation layout — bigger text, spaced blocks (2026-06-11) */
+  .explanation { font-size: 16px; line-height: 1.7; padding: 16px 18px; border-radius: 8px; }
+  .exp-verdict { font-size: 17px; font-weight: 700; letter-spacing: 0.2px; color: var(--accent);
+    margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .exp-verdict.ok { color: var(--good); }
+  .exp-verdict.bad { color: var(--bad); }
+  .exp-concept { font-size: 16px; line-height: 1.75; color: var(--text); }
+  .exp-concept strong { color: var(--accent); }
   .firsttime { margin-top: 10px; padding: 8px 10px; border-radius: 6px; font-size: 12px;
     background: rgba(248,81,73,0.06); border: 1px dashed var(--bad); color: var(--text); }
   .firsttime b { color: var(--bad); }
@@ -504,7 +512,10 @@ function renderQuiz() {
       </div>
       <div class="question-text">${escapeHtml(q.q)}</div>
       <div class="options">${opts}</div>
-      <div class="${explCls}"><strong>Why ${q.correct.toUpperCase()}:</strong> ${escapeHtml(q.explanation || "(no explanation on file)")}${firstHint ? "" : ""}</div>
+      <div class="${explCls}">
+        <div class="exp-verdict">Answer: ${q.correct.toUpperCase()}</div>
+        <div class="exp-concept">${escapeHtml(q.explanation || "(no explanation on file)")}</div>
+      </div>
       ${answered && firstHint ? firstHint : ""}
     </div>`;
   }).join("");
