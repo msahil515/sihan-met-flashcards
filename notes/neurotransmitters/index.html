@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neurotransmitters, Full Primer — MET 2026 + NIMHANS</title>
+<link rel="stylesheet" href="../../notes-style.css">
+<link rel="stylesheet" href="/sihan-met-flashcards/notes/term-popover.css">
+<link rel="stylesheet" href="/sihan-met-flashcards/notes/page-flip.css">
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<meta name="theme-color" content="#0d1117">
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <a href="../../">← Home</a>
+  <a href="../">All Notes</a>
+</nav>
+
+<h1 id="neurotransmitters-complete-met-reference">Neurotransmitters — Complete MET Reference</h1>
+<p>Every major neurotransmitter, built to the same depth as the Action Potential page. For each one: <strong>what it is, where it's made, the receptor types, what it actually does in the brain and body, and the clinical angle</strong> (what too much or too little causes, which drugs hit it). This is the companion to the Action Potential note — that page is the electrical signal <em>inside</em> a neuron; this page is the chemical signal <em>between</em> neurons. The two together are the whole of neural communication, and between them they cover most of the biopsych anatomy block MET and NIMHANS hammer.</p>
+
+<h2 id="start-here-what-a-neurotransmitter-actually-is">0. What a Neurotransmitter Actually Is (start here)</h2>
+<p><strong>A neurotransmitter is a chemical messenger a neuron releases to talk to the next cell.</strong> The action potential is electrical and stops dead at the end of the axon — it cannot jump the synaptic gap. So the neuron converts the electrical signal into a chemical one: the action potential arrives at the terminal, Ca2+ rushes in, vesicles fuse with the membrane and dump neurotransmitter into the synaptic cleft, and that chemical drifts across and binds receptors on the next cell. That binding either excites the next cell (pushes it toward firing) or inhibits it (pushes it away). Everything your brain does — mood, movement, memory, arousal, attention — is the net result of these chemical pushes and pulls.</p>
+
+<h3 id="the-five-things-to-know-before-the-names">Five things to know before the names make sense</h3>
+<ol type="1">
+<li><p><strong>It is always the same loop.</strong> Synthesise the transmitter → package it in vesicles → release on Ca2+ entry → bind postsynaptic receptors → terminate the signal (reuptake, enzyme breakdown, or diffusion). Every transmitter follows this loop; only the chemistry and the receptors change. Memorise the loop once and each transmitter is just a fill-in-the-blanks.</p></li>
+<li><p><strong>The receptor decides the effect, not the transmitter.</strong> The same transmitter can excite one cell and inhibit another depending on which receptor it lands on. Acetylcholine speeds the brain but slows the heart. Dopamine excites via D1, inhibits via D2. So "is glutamate excitatory?" is really "what receptor is it hitting?" — though a few (glutamate, GABA) are reliable enough that you can name a default.</p></li>
+<li><p><strong>Two receptor families, always.</strong> <strong>Ionotropic</strong> receptors ARE ion channels — transmitter binds, channel opens, ions flow in milliseconds. Fast, on/off. <strong>Metabotropic</strong> receptors are G-protein-coupled (GPCRs) — transmitter binds, a second-messenger cascade fires inside the cell, slow (ms to seconds) but long-lasting and able to change gene expression. Every transmitter's receptor list sorts into these two buckets. This single distinction answers a huge share of MCQs.</p></li>
+<li><p><strong>How the signal is turned off is as testable as how it's turned on.</strong> Three mechanisms: <strong>reuptake</strong> (a transporter pumps it back into the terminal — dopamine, serotonin, norepinephrine, glutamate, GABA), <strong>enzymatic breakdown</strong> in the cleft (acetylcholine by acetylcholinesterase), and <strong>diffusion</strong>. Most psychiatric drugs work by blocking reuptake or blocking the breakdown enzyme — i.e. they don't add transmitter, they stop it being cleared, so more stays in the cleft.</p></li>
+<li><p><strong>Where it's made tells you what it does.</strong> A transmitter's job is set by the small cluster of neurons that make it and where those neurons project. Almost all your dopamine comes from two tiny midbrain nuclei; all your serotonin from the raphe nuclei; all your norepinephrine from the locus coeruleus. Learn the source nucleus and the projection target and the function falls out for free.</p></li>
+</ol>
+
+<h3 id="excitatory-vs-inhibitory-the-one-line-version">Excitatory vs inhibitory — the one-line version</h3>
+<p>An <strong>excitatory</strong> transmitter depolarises the next cell (usually Na+ or Ca2+ in → EPSP → closer to threshold). An <strong>inhibitory</strong> transmitter hyperpolarises it (usually Cl- in or K+ out → IPSP → away from threshold). The two workhorses: <strong>glutamate is the brain's main excitatory transmitter, GABA is the brain's main inhibitory transmitter.</strong> If you remember nothing else, remember that pair — the brain runs on the balance between them, and seizures, anxiety and anaesthesia are all that balance tipping.</p>
+
+<h3 id="why-exams-hammer-this-topic">Why exams hammer this topic</h3>
+<p>Neurotransmitter MCQs test precise recall of: <strong>which amino acid each is synthesised from</strong>, <strong>the receptor type</strong> (ionotropic vs metabotropic, and the named subtypes — NMDA, GABA-A, D2, 5-HT2A, nicotinic vs muscarinic, alpha vs beta), <strong>excitatory vs inhibitory</strong>, <strong>the deficiency/excess disease</strong> (dopamine ↓ = Parkinson's, dopamine ↑ = psychosis; ACh ↓ = Alzheimer's; serotonin ↓ = depression; GABA ↓ = anxiety/seizures), and <strong>which drug class hits it</strong> (SSRIs, antipsychotics, benzodiazepines, anticholinesterases). Get the source, the receptor, and the clinical pair for each transmitter and you clear nearly the whole block. The MET paper had a "neurotransmitter families" item; NIMHANS tests this every single year.</p>
+
+<h2 id="the-master-classification">1. The Master Classification (learn this skeleton first)</h2>
+<p>Don't memorise transmitters as a flat list. Sort them into chemical families — the family tells you the synthesis route and clusters the drugs.</p>
+<table>
+<thead>
+<tr><th>Family</th><th>Members</th><th>Made from</th><th>Default action</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Amino acids</strong></td><td>Glutamate, GABA, Glycine</td><td>Glutamate from glutamine; GABA from glutamate; glycine from serine</td><td>Glutamate = excitatory; GABA & glycine = inhibitory</td></tr>
+<tr><td><strong>Monoamines — Catecholamines</strong></td><td>Dopamine, Norepinephrine (noradrenaline), Epinephrine (adrenaline)</td><td><strong>Tyrosine</strong> (one pathway, in sequence)</td><td>Modulatory (depends on receptor)</td></tr>
+<tr><td><strong>Monoamines — Indoleamine</strong></td><td>Serotonin (5-HT)</td><td><strong>Tryptophan</strong></td><td>Modulatory</td></tr>
+<tr><td><strong>Monoamines — Imidazoleamine</strong></td><td>Histamine</td><td><strong>Histidine</strong></td><td>Mostly excitatory / arousal</td></tr>
+<tr><td><strong>Cholinergic</strong></td><td>Acetylcholine</td><td>Acetyl-CoA + choline</td><td>Excitatory in CNS/muscle; can inhibit (heart)</td></tr>
+<tr><td><strong>Neuropeptides</strong></td><td>Endorphins, enkephalins, substance P, oxytocin, vasopressin, CCK, NPY</td><td>Larger protein precursors (made in cell body)</td><td>Modulatory, slow, long-acting</td></tr>
+<tr><td><strong>Gasotransmitters</strong></td><td>Nitric oxide (NO), carbon monoxide (CO)</td><td>NO from arginine</td><td>Retrograde (back across the synapse)</td></tr>
+<tr><td><strong>Endocannabinoids</strong></td><td>Anandamide, 2-AG</td><td>Membrane lipids</td><td>Retrograde, inhibit release</td></tr>
+</tbody>
+</table>
+<p><strong>Memory hooks for the source amino acids:</strong> "<strong>Catecholamines come from TYrosine</strong>" (TY = TYrosine). "<strong>Serotonin from TRYptophan</strong>" (both have 'TRY/SERO' — you TRY to feel SEReNe). "<strong>Histamine from HISTidine</strong>" (same first four letters). "<strong>GABA from Glutamate</strong>" — the brain's brake is built one chemical step from the brain's accelerator (remove a COOH group with the enzyme GAD).</p>
+
+<h3 id="the-key-fork-small-molecule-vs-peptide">The key fork: small-molecule vs peptide</h3>
+<table>
+<thead>
+<tr><th></th><th>Small-molecule (amino acids, monoamines, ACh)</th><th>Neuropeptides</th></tr>
+</thead>
+<tbody>
+<tr><td>Made where</td><td>In the axon <strong>terminal</strong> (local, fast resupply)</td><td>In the <strong>cell body</strong>, shipped down the axon</td></tr>
+<tr><td>Vesicles</td><td>Small, clear</td><td>Large, dense-core</td></tr>
+<tr><td>Speed</td><td>Fast (ms)</td><td>Slow, long-lasting</td></tr>
+<tr><td>Released by</td><td>Single action potentials</td><td>High-frequency bursts (need more Ca2+)</td></tr>
+</tbody>
+</table>
+
+<h2 id="glutamate">2. Glutamate — the brain's main EXCITATORY transmitter</h2>
+<p><strong>What it is.</strong> The most abundant neurotransmitter in the CNS; the principal excitatory transmitter — roughly half of all brain synapses are glutamatergic. It is also a standard amino acid and a metabolic molecule, so the brain keeps the transmitter pool walled off from the metabolic pool.</p>
+<p><strong>Where it's made.</strong> Synthesised in the terminal from <strong>glutamine</strong> (supplied by neighbouring glial cells via the glutamate–glutamine cycle) by the enzyme glutaminase; also from the Krebs-cycle intermediate alpha-ketoglutarate. It is everywhere in the cortex and hippocampus — it is not made by one small nucleus the way the monoamines are; it is a workhorse transmitter used by projection neurons throughout the brain.</p>
+<p><strong>Receptor types.</strong> Two families, and this split is a classic MCQ:</p>
+<table>
+<thead><tr><th>Receptor</th><th>Type</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td><strong>NMDA</strong></td><td>Ionotropic</td><td>The plasticity receptor. Lets in <strong>Ca2+</strong>. Needs both glutamate AND postsynaptic depolarisation to open (a Mg2+ plug must be expelled first) → it is a "coincidence detector" → the molecular basis of <strong>LTP</strong> and learning. Glycine is a required co-agonist.</td></tr>
+<tr><td><strong>AMPA</strong></td><td>Ionotropic</td><td>Lets in Na+. The fast workhorse of routine excitatory transmission; carries most of the EPSP.</td></tr>
+<tr><td><strong>Kainate</strong></td><td>Ionotropic</td><td>Modulates release; less common.</td></tr>
+<tr><td><strong>mGluR (1–8)</strong></td><td>Metabotropic</td><td>G-protein-coupled, slow modulation.</td></tr>
+</tbody>
+</table>
+<p><strong>What it does (brain & body).</strong> Fast excitatory signalling, learning and memory (via NMDA-receptor-driven LTP — see the LTP/Action Potential note), cortical processing, and it is the workhorse of nearly every excitatory circuit. Terminated by <strong>reuptake (EAAT transporters)</strong> into neurons and glia — there is no extracellular enzyme to break it down, so reuptake is everything.</p>
+<p><strong>Clinical angle.</strong></p>
+<ul>
+<li><strong>Too much = excitotoxicity.</strong> Excess glutamate over-opens NMDA receptors → massive Ca2+ influx → the cell kills itself. This is the final common pathway of neuron death in <strong>stroke, traumatic brain injury, and the slow degeneration of ALS, Huntington's and Alzheimer's</strong>.</li>
+<li><strong>Drugs that block it.</strong> <strong>Memantine</strong> (NMDA antagonist) is used in moderate–severe Alzheimer's to limit excitotoxicity. <strong>Ketamine and PCP</strong> are NMDA antagonists — at high doses dissociation and a psychosis-like state (which is why the "NMDA hypofunction" model of schizophrenia exists); at low doses ketamine is a rapid-acting antidepressant. <strong>Riluzole</strong> (reduces glutamate) prolongs survival in ALS. <strong>Lamotrigine</strong> dampens glutamate release as a mood stabiliser/anticonvulsant.</li>
+</ul>
+<p><strong>Lock it:</strong> Glutamate = excitatory, NMDA = Ca2+ + LTP + learning, too much = excitotoxicity (stroke), memantine blocks NMDA in Alzheimer's.</p>
+
+<h2 id="gaba">3. GABA — the brain's main INHIBITORY transmitter</h2>
+<p><strong>What it is.</strong> Gamma-aminobutyric acid, the principal inhibitory transmitter in the brain. It is the brake to glutamate's accelerator; about a third of brain synapses are GABAergic. Brain function is the dynamic balance of glutamate and GABA — tip toward glutamate and you get seizures, tip toward GABA and you get sedation.</p>
+<p><strong>Where it's made.</strong> Made directly from <strong>glutamate</strong> by the enzyme <strong>glutamic acid decarboxylase (GAD)</strong>, which needs vitamin B6 (pyridoxine) as a cofactor — a clean MCQ fact: the brain's main inhibitory transmitter is one enzymatic step from its main excitatory one. Used by inhibitory interneurons throughout the cortex, and concentrated in the basal ganglia and cerebellum (Purkinje cells are GABAergic).</p>
+<p><strong>Receptor types.</strong></p>
+<table>
+<thead><tr><th>Receptor</th><th>Type</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td><strong>GABA-A</strong></td><td>Ionotropic</td><td>A <strong>Cl- channel</strong>. Cl- flows IN → hyperpolarisation → IPSP. This is the target of <strong>benzodiazepines, barbiturates, alcohol, and many general anaesthetics</strong>, which all bind here and amplify the chloride current.</td></tr>
+<tr><td><strong>GABA-B</strong></td><td>Metabotropic</td><td>G-protein-coupled; opens K+ channels (K+ out) → slower, longer inhibition. Target of <strong>baclofen</strong> (muscle relaxant).</td></tr>
+</tbody>
+</table>
+<p><strong>Why benzodiazepines and barbiturates differ (high-yield).</strong> Both work at GABA-A. <strong>Benzodiazepines increase the frequency</strong> of channel opening; <strong>barbiturates increase the duration</strong> of opening (and at high dose open it without GABA at all — which is why barbiturate overdose is lethal and benzo overdose alone usually isn't). "Benzo = Frequency, Barb = Bduration."</p>
+<p><strong>What it does (brain & body).</strong> Dampens neural excitability — anxiety control, muscle tone, seizure threshold, sleep onset. Terminated by reuptake (GAT transporters) and breakdown by GABA transaminase.</p>
+<p><strong>Clinical angle.</strong></p>
+<ul>
+<li><strong>Too little GABA = anxiety, insomnia, and seizures</strong> (nothing braking the glutamate). Low GABA is a core model of generalised anxiety.</li>
+<li><strong>Drugs that boost it.</strong> <strong>Benzodiazepines</strong> (diazepam, lorazepam, alprazolam) for anxiety, seizures, alcohol withdrawal, muscle spasm. <strong>Barbiturates</strong> (phenobarbital) — older, for seizures/anaesthesia. <strong>Z-drugs</strong> (zolpidem) for sleep. <strong>Alcohol</strong> acts partly here (which is why benzos treat alcohol withdrawal — same receptor). <strong>Valproate, vigabatrin, tiagabine</strong> are anticonvulsants that raise GABA. Flumazenil reverses benzos (antagonist).</li>
+</ul>
+<p><strong>Lock it:</strong> GABA = inhibitory, made from glutamate by GAD (needs B6), GABA-A = Cl- channel = benzos/barbiturates/alcohol, too little = anxiety + seizures.</p>
+
+<h2 id="dopamine">4. Dopamine — reward, movement, psychosis</h2>
+<p><strong>What it is.</strong> A catecholamine and the first of the monoamines. The transmitter of reward, motivation, motor control and (in excess) psychosis. Tested constantly because it sits at the centre of Parkinson's, schizophrenia, addiction and ADHD.</p>
+<p><strong>Where it's made.</strong> From the amino acid <strong>tyrosine</strong> via the pathway <em>tyrosine → L-DOPA → dopamine</em>. The rate-limiting enzyme is <strong>tyrosine hydroxylase</strong> (tyrosine → L-DOPA). Two tiny midbrain nuclei make almost all of it, and the four pathways they feed are the entire clinical story:</p>
+<table>
+<thead><tr><th>Pathway</th><th>From → To</th><th>Job (and what goes wrong)</th></tr></thead>
+<tbody>
+<tr><td><strong>Nigrostriatal</strong></td><td>Substantia nigra → striatum</td><td>Movement. Dies in <strong>Parkinson's</strong> (→ tremor, rigidity, bradykinesia). Antipsychotics block it here → drug-induced parkinsonism / EPS.</td></tr>
+<tr><td><strong>Mesolimbic</strong></td><td>VTA → nucleus accumbens / limbic system</td><td>Reward, motivation, the "high." <strong>Overactive → positive symptoms of schizophrenia</strong> (hallucinations, delusions); the site of drug addiction.</td></tr>
+<tr><td><strong>Mesocortical</strong></td><td>VTA → prefrontal cortex</td><td>Cognition, motivation. <strong>Underactive → negative symptoms</strong> of schizophrenia (flat affect, avolition).</td></tr>
+<tr><td><strong>Tuberoinfundibular</strong></td><td>Hypothalamus → pituitary</td><td>Dopamine <strong>inhibits prolactin</strong>. Block it (antipsychotics) → prolactin rises → galactorrhoea, amenorrhoea, sexual dysfunction.</td></tr>
+</tbody>
+</table>
+<p><strong>Receptor types.</strong> All <strong>metabotropic (GPCRs)</strong>, in two families: <strong>D1-like (D1, D5) = excitatory</strong> (stimulate cAMP); <strong>D2-like (D2, D3, D4) = inhibitory</strong> (reduce cAMP). <strong>D2 is the headline receptor</strong> — antipsychotics are essentially D2 blockers, and D2-blocking potency tracks antipsychotic potency.</p>
+<p><strong>What it does (brain & body).</strong> Reward prediction and motivation (dopamine fires to <em>unexpected</em> reward — the basis of reinforcement learning), voluntary movement, working memory and executive function, and inhibition of prolactin. Terminated by <strong>reuptake (DAT)</strong> then broken down by <strong>MAO and COMT</strong>.</p>
+<p><strong>Clinical angle.</strong></p>
+<ul>
+<li><strong>Too little (nigrostriatal) = Parkinson's disease</strong>: resting tremor, rigidity, bradykinesia, postural instability. Treated with <strong>L-DOPA</strong> (crosses the blood–brain barrier where dopamine can't) plus carbidopa, and dopamine agonists (pramipexole, ropinirole).</li>
+<li><strong>Too much (mesolimbic) = psychosis</strong>: the <strong>dopamine hypothesis of schizophrenia</strong>. Positive symptoms = excess mesolimbic dopamine; treated with <strong>antipsychotics (D2 blockers)</strong> — typicals (haloperidol, chlorpromazine) and atypicals (risperidone, olanzapine, clozapine, which also hit 5-HT2A). Drugs that flood dopamine (amphetamine, cocaine — which block DAT) can trigger a paranoid psychosis, supporting the model.</li>
+<li><strong>The side-effect mirror.</strong> Because the four pathways share the transmitter, a D2 blocker that fixes mesolimbic psychosis also blocks nigrostriatal (→ extrapyramidal symptoms, tardive dyskinesia) and tuberoinfundibular (→ hyperprolactinaemia). This trade-off is the single most testable thing about antipsychotics.</li>
+<li><strong>ADHD & addiction.</strong> Stimulants (methylphenidate, amphetamine) raise synaptic dopamine — therapeutic in ADHD, addictive in excess. Reward/addiction runs through the mesolimbic accumbens.</li>
+</ul>
+<p><strong>Lock it:</strong> Tyrosine → L-DOPA → dopamine (tyrosine hydroxylase rate-limiting); 4 pathways; D2 is the antipsychotic target; ↓nigrostriatal = Parkinson's, ↑mesolimbic = psychosis.</p>
+
+<h2 id="serotonin">5. Serotonin (5-HT) — mood, sleep, appetite</h2>
+<p><strong>What it is.</strong> 5-hydroxytryptamine, an indoleamine monoamine. The "mood, sleep, appetite and impulse" transmitter — the master regulator that the entire antidepressant industry targets. Note: ~90% of the body's serotonin is in the <strong>gut</strong> (regulating motility), not the brain.</p>
+<p><strong>Where it's made.</strong> From the amino acid <strong>tryptophan</strong>: <em>tryptophan → 5-HTP → serotonin</em>; the rate-limiting enzyme is <strong>tryptophan hydroxylase</strong>. In the brain it comes almost entirely from the <strong>raphe nuclei</strong> in the brainstem, which project diffusely to nearly the whole cortex and limbic system — one small source, brain-wide influence.</p>
+<p><strong>Receptor types.</strong> At least seven families (5-HT1 to 5-HT7), almost all <strong>metabotropic</strong>. The exam-relevant ones:</p>
+<table>
+<thead><tr><th>Receptor</th><th>Type</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td><strong>5-HT1A</strong></td><td>Metabotropic</td><td>Inhibitory; target of <strong>buspirone</strong> (anxiolytic) and SSRIs' anti-anxiety effect.</td></tr>
+<tr><td><strong>5-HT2A</strong></td><td>Metabotropic</td><td>The <strong>hallucinogen receptor</strong> — LSD, psilocybin, mescaline are 5-HT2A agonists. Atypical antipsychotics block it.</td></tr>
+<tr><td><strong>5-HT3</strong></td><td><strong>Ionotropic</strong> (the exception)</td><td>The one ligand-gated serotonin receptor; in the gut/brainstem it drives nausea — <strong>ondansetron</strong> (antiemetic) blocks it.</td></tr>
+</tbody>
+</table>
+<p><strong>What it does (brain & body).</strong> Mood stabilisation, sleep–wake cycling (precursor to melatonin), appetite and satiety, impulse and aggression control, pain modulation, and gut motility. Terminated by <strong>reuptake via the serotonin transporter (SERT)</strong> — the exact molecule SSRIs block — then broken down by MAO.</p>
+<p><strong>Clinical angle.</strong></p>
+<ul>
+<li><strong>Too little = depression, anxiety, OCD, impulsivity/aggression.</strong> The <strong>monoamine hypothesis of depression</strong> centres on low serotonin (and norepinephrine).</li>
+<li><strong>Drugs that raise it.</strong> <strong>SSRIs</strong> (fluoxetine, sertraline, escitalopram) block SERT reuptake → more serotonin in the cleft → first-line for depression, anxiety, OCD, PTSD. <strong>SNRIs</strong> (venlafaxine, duloxetine) hit serotonin + norepinephrine. <strong>TCAs</strong> and <strong>MAOIs</strong> are older agents that also raise it. <strong>Buspirone</strong> (5-HT1A) for anxiety.</li>
+<li><strong>Serotonin syndrome</strong> = too much: agitation, hyperthermia, tremor, clonus, autonomic instability — caused by combining serotonergic drugs (e.g. SSRI + MAOI). A high-yield emergency.</li>
+<li><strong>The delay.</strong> SSRIs raise cleft serotonin within hours but take <strong>2–6 weeks</strong> to lift mood — evidence that the real fix is downstream receptor adaptation and neuroplasticity, not just the raw level. A favourite NIMHANS discussion point.</li>
+</ul>
+<p><strong>Lock it:</strong> Tryptophan → 5-HTP → serotonin; raphe nuclei; SERT is the SSRI target; ↓ = depression; 5-HT2A = hallucinogens; 5-HT3 = the lone ionotropic one (ondansetron).</p>
+
+<h2 id="acetylcholine">6. Acetylcholine (ACh) — muscle, memory, autonomic</h2>
+<p><strong>What it is.</strong> The first neurotransmitter ever discovered (Otto Loewi, "Vagusstoff," 1921 — Nobel fact). It does three big jobs in three places: it is the transmitter at the <strong>neuromuscular junction</strong> (every voluntary muscle), the main transmitter of the <strong>parasympathetic nervous system</strong>, and a key <strong>memory/arousal</strong> transmitter in the brain.</p>
+<p><strong>Where it's made.</strong> The odd one out — <em>not</em> from a single amino acid. Made in the terminal from <strong>acetyl-CoA + choline</strong> by the enzyme choline acetyltransferase (ChAT). The brain's cholinergic memory neurons cluster in the <strong>basal forebrain (nucleus basalis of Meynert)</strong> and project to the cortex and hippocampus — and that is exactly the cluster that dies in Alzheimer's.</p>
+<p><strong>Receptor types — the cleanest split on the page:</strong></p>
+<table>
+<thead><tr><th>Receptor</th><th>Type</th><th>Where / note</th></tr></thead>
+<tbody>
+<tr><td><strong>Nicotinic (nAChR)</strong></td><td><strong>Ionotropic</strong></td><td>Fast. At the <strong>neuromuscular junction</strong> and autonomic ganglia. Agonist: nicotine. Blocked by curare (muscle paralysis).</td></tr>
+<tr><td><strong>Muscarinic (mAChR, M1–M5)</strong></td><td><strong>Metabotropic</strong></td><td>Slow. On <strong>parasympathetic target organs</strong> (heart, glands, smooth muscle) and in the CNS (memory). Agonist: muscarine. Blocked by <strong>atropine</strong>.</td></tr>
+</tbody>
+</table>
+<p><strong>What it does (brain & body).</strong> Brain: learning, memory, attention, arousal, REM sleep. Body: contracts skeletal muscle (nicotinic at the NMJ), and runs "rest and digest" parasympathetic functions (muscarinic) — slows the heart, constricts pupils, stimulates salivation/digestion, contracts the bladder. Terminated uniquely by <strong>enzymatic breakdown in the cleft by acetylcholinesterase (AChE)</strong> — not reuptake. This enzyme is a major drug target.</p>
+<p><strong>Clinical angle.</strong></p>
+<ul>
+<li><strong>Too little (basal forebrain) = Alzheimer's disease.</strong> Loss of cholinergic neurons → memory impairment. Treated with <strong>acetylcholinesterase inhibitors</strong> (donepezil, rivastigmine, galantamine) that stop ACh being broken down → more ACh in the cleft → modest cognitive benefit. (Memantine adds the glutamate/NMDA arm.)</li>
+<li><strong>Myasthenia gravis = autoimmune attack on nicotinic receptors</strong> at the NMJ → muscle weakness, fatigability. Treated with the AChE inhibitor <strong>neostigmine/pyridostigmine</strong>.</li>
+<li><strong>Anticholinergic effects (block muscarinic) = "dry as a bone, blind as a bat, red as a beet, mad as a hatter, hot as a hare"</strong>: dry mouth, blurred vision, flushing, confusion, urinary retention, constipation, tachycardia. Atropine is the prototype; many antipsychotics, TCAs and antihistamines have this as a side effect, which is why they impair memory in the elderly.</li>
+<li><strong>Cholinergic crisis / nerve agents & organophosphates</strong> (sarin, insecticides) <em>irreversibly block AChE</em> → ACh floods → SLUDGE (Salivation, Lacrimation, Urination, Defecation, GI distress, Emesis), bradycardia, paralysis. Treated with atropine + pralidoxime.</li>
+</ul>
+<p><strong>Lock it:</strong> Nicotinic = ionotropic = muscle (NMJ); muscarinic = metabotropic = parasympathetic organs (atropine blocks); broken down by acetylcholinesterase; ↓ = Alzheimer's (donepezil); NMJ antibodies = myasthenia gravis.</p>
+
+<h2 id="norepinephrine">7. Norepinephrine (Noradrenaline) — arousal, fight-or-flight</h2>
+<p><strong>What it is.</strong> A catecholamine, the brain's <strong>arousal, alertness and stress</strong> transmitter, and the main transmitter of the <strong>sympathetic nervous system</strong>. It is the "wake up and respond" signal — central to attention, mood, and the body's fight-or-flight response.</p>
+<p><strong>Where it's made.</strong> One step further down the dopamine pathway: <em>tyrosine → L-DOPA → dopamine → norepinephrine</em> (the enzyme dopamine beta-hydroxylase converts dopamine to NE). In the brain it comes almost entirely from one tiny brainstem nucleus, the <strong>locus coeruleus</strong>, which projects brain-wide — like serotonin's raphe, a small source with global reach. In the body it is released by sympathetic postganglionic neurons and (as epinephrine) the adrenal medulla.</p>
+<p><strong>Receptor types.</strong> All <strong>metabotropic (GPCRs)</strong>, the <strong>adrenergic receptors</strong>: <strong>alpha-1, alpha-2, beta-1, beta-2, beta-3</strong>. Exam-relevant: <strong>beta-1</strong> (heart — speeds it; "you have 1 heart"), <strong>beta-2</strong> (lungs — dilates bronchi; "you have 2 lungs"), <strong>alpha-1</strong> (blood vessels — constricts), <strong>alpha-2</strong> (autoreceptor — feedback that reduces further release).</p>
+<p><strong>What it does (brain & body).</strong> Brain: arousal, vigilance, selective attention, mood, and consolidation of emotional memory. Body (sympathetic "fight or flight"): raises heart rate and blood pressure, dilates the bronchi and pupils, mobilises glucose, shunts blood to muscle. Terminated by <strong>reuptake (NET)</strong> then broken down by <strong>MAO and COMT</strong> (same enzymes as the other catecholamines).</p>
+<p><strong>Clinical angle.</strong></p>
+<ul>
+<li><strong>Too little = depression (low arousal, low energy) and inattention.</strong> Part of the monoamine hypothesis alongside serotonin.</li>
+<li><strong>Too much = anxiety, panic, hypervigilance, hypertension.</strong> Overactive NE drives the physical symptoms of panic and PTSD hyperarousal.</li>
+<li><strong>Drugs.</strong> <strong>SNRIs</strong> (venlafaxine, duloxetine) and <strong>TCAs</strong> raise NE (and serotonin) for depression. <strong>Atomoxetine</strong> (selective NE reuptake inhibitor) for ADHD. <strong>Beta-blockers</strong> (propranolol) block beta receptors → used for performance/physical anxiety and tremor; <strong>clonidine</strong> (alpha-2 agonist) lowers NE output → used in ADHD, hypertension, and withdrawal. <strong>MAOIs</strong> raise it. Stimulants (amphetamine) raise NE + dopamine.</li>
+</ul>
+<p><strong>Lock it:</strong> Made one step past dopamine (dopamine beta-hydroxylase); locus coeruleus; adrenergic receptors (beta-1 heart, beta-2 lungs, alpha vessels); fight-or-flight / arousal; SNRIs and beta-blockers.</p>
+
+<h2 id="the-others">8. The Others You Get Tested On</h2>
+<p>Beyond the big six, these come up — know the one-liner and the clinical pairing for each.</p>
+
+<h3 id="epinephrine">Epinephrine (Adrenaline)</h3>
+<p>The last catecholamine in the chain (<em>NE → epinephrine</em>, by the enzyme PNMT). Mostly a <strong>hormone</strong>, released from the <strong>adrenal medulla</strong> into the blood rather than acting as a major CNS transmitter. It is the surge hormone of acute fight-or-flight — pounding heart, dilated pupils, glucose dump. Clinically: the emergency drug for <strong>anaphylaxis and cardiac arrest</strong>.</p>
+
+<h3 id="histamine">Histamine</h3>
+<p>Made from <strong>histidine</strong>; in the brain it comes from the hypothalamus (tuberomammillary nucleus) and drives <strong>wakefulness and arousal</strong>. This is why <strong>antihistamines that cross into the brain (first-generation, e.g. diphenhydramine) cause drowsiness</strong> — they block the brain's "stay awake" signal. In the body it drives allergy and inflammation (H1) and gastric acid secretion (H2 — blocked by ranitidine/famotidine). Many sedating psychiatric drugs (and the weight gain of some antipsychotics) come partly from H1 blockade.</p>
+
+<h3 id="glycine">Glycine</h3>
+<p>The other major <strong>inhibitory</strong> transmitter, working mainly in the <strong>spinal cord and brainstem</strong> (where GABA dominates the brain). Ionotropic glycine receptors are Cl- channels (inhibitory, like GABA-A). Also doubles as the required <strong>co-agonist at the NMDA receptor</strong> (an excitatory role — a nice MCQ twist). Blocked by <strong>strychnine</strong> → loss of inhibition → violent muscle spasms/convulsions. Tetanus toxin blocks glycine release for the same effect.</p>
+
+<h3 id="endorphins">Endorphins / Enkephalins (endogenous opioids)</h3>
+<p>Neuropeptides — the body's own <strong>painkillers and pleasure chemicals</strong>. They bind <strong>opioid receptors (mu, delta, kappa)</strong>, inhibit pain transmission (suppress substance P in the spinal cord), and produce euphoria (the "runner's high," stress-induced analgesia). Morphine, heroin and other opioids hijack the same mu receptor — which is the whole basis of opioid analgesia and addiction. Naloxone is the opioid-receptor blocker that reverses overdose.</p>
+
+<h3 id="substance-p">Substance P</h3>
+<p>A neuropeptide that <strong>transmits pain</strong> signals (especially the slow, aching kind) from the periphery into the spinal cord. Endorphins work partly by <em>suppressing</em> substance P. Also implicated in mood and vomiting (its NK1 receptor is the target of the antiemetic aprepitant).</p>
+
+<h3 id="oxytocin-vasopressin">Oxytocin & Vasopressin</h3>
+<p>Hypothalamic neuropeptides. <strong>Oxytocin</strong> = bonding, trust, social attachment, labour contractions, milk let-down ("the love/bonding hormone"). <strong>Vasopressin (ADH)</strong> = water retention, blood pressure, and a role in social/territorial behaviour. Both are released from the posterior pituitary.</p>
+
+<h3 id="nitric-oxide">Nitric Oxide (NO)</h3>
+<p>A gas, not packaged in vesicles — it is made on demand from <strong>arginine</strong> and diffuses straight through membranes. It works as a <strong>retrograde messenger</strong> (travels backward, from the postsynaptic cell to the presynaptic terminal) and is involved in LTP, blood-vessel dilation (the mechanism Viagra/sildenafil exploits), and smooth-muscle relaxation.</p>
+
+<h3 id="endocannabinoids">Endocannabinoids (Anandamide, 2-AG)</h3>
+<p>Lipid messengers, also <strong>retrograde</strong> — released by the postsynaptic cell to dial <em>down</em> transmitter release from the presynaptic terminal. They tune mood, appetite, pain and memory. THC (cannabis) acts on the same <strong>CB1 receptor</strong>, which is why it affects appetite ("the munchies"), memory and mood.</p>
+
+<h2 id="the-three-big-hypotheses">9. The Three Big Hypotheses (one table, very testable)</h2>
+<p>Three transmitter–disease links are the backbone of biological psychiatry. Know them as a unit.</p>
+<table>
+<thead><tr><th>Hypothesis</th><th>Claim</th><th>Evidence / drug</th></tr></thead>
+<tbody>
+<tr><td><strong>Dopamine hypothesis of schizophrenia</strong></td><td>Positive symptoms = <strong>excess</strong> mesolimbic dopamine</td><td>Antipsychotics (D2 blockers) reduce symptoms; amphetamine (↑DA) induces psychosis. Negative symptoms = ↓ mesocortical DA.</td></tr>
+<tr><td><strong>Monoamine hypothesis of depression</strong></td><td>Depression = <strong>deficiency</strong> of serotonin and norepinephrine</td><td>SSRIs/SNRIs/TCAs/MAOIs (all raise monoamines) treat it. Reserpine (depletes monoamines) caused depression.</td></tr>
+<tr><td><strong>Cholinergic hypothesis of Alzheimer's</strong></td><td>Memory loss = <strong>loss</strong> of acetylcholine (basal forebrain)</td><td>AChE inhibitors (donepezil) give modest benefit; anticholinergics worsen memory.</td></tr>
+</tbody>
+</table>
+
+<h2 id="enzymes-and-drug-targets">10. The Enzymes & Termination Targets (where the drugs act)</h2>
+<p>Most psychiatric drugs don't add transmitter — they block clearance. Know the cast:</p>
+<table>
+<thead><tr><th>Mechanism</th><th>Molecule</th><th>Blocked by → effect</th></tr></thead>
+<tbody>
+<tr><td>Serotonin reuptake</td><td>SERT</td><td><strong>SSRIs</strong> → more serotonin (depression, anxiety, OCD)</td></tr>
+<tr><td>Norepinephrine reuptake</td><td>NET</td><td>SNRIs, atomoxetine, TCAs → more NE</td></tr>
+<tr><td>Dopamine reuptake</td><td>DAT</td><td>Cocaine, methylphenidate, amphetamine → more dopamine</td></tr>
+<tr><td>Monoamine breakdown</td><td><strong>MAO</strong> (monoamine oxidase)</td><td><strong>MAOIs</strong> → more DA/NE/5-HT (but tyramine "cheese reaction" risk)</td></tr>
+<tr><td>Catecholamine breakdown</td><td>COMT</td><td>COMT inhibitors (entacapone) → prolong L-DOPA in Parkinson's</td></tr>
+<tr><td>Acetylcholine breakdown</td><td><strong>AChE</strong> (acetylcholinesterase)</td><td><strong>AChE inhibitors</strong> (donepezil) → more ACh (Alzheimer's, myasthenia)</td></tr>
+<tr><td>GABA breakdown</td><td>GABA transaminase</td><td>Vigabatrin → more GABA (seizures)</td></tr>
+</tbody>
+</table>
+
+<h2 id="mcq-traps">11. The Top MCQ Traps</h2>
+<ol type="1">
+<li><strong>Main excitatory vs inhibitory?</strong> Glutamate excitatory, GABA inhibitory. (Glycine inhibitory in the cord.)</li>
+<li><strong>Which receptor is ionotropic vs metabotropic?</strong> Nicotinic (ACh), NMDA/AMPA/kainate (glutamate), GABA-A, 5-HT3, glycine = ionotropic. Everything else listed (muscarinic, D1–D5, all adrenergic, GABA-B, most 5-HT, mGluR) = metabotropic. <strong>5-HT3 is the one ionotropic serotonin receptor.</strong></li>
+<li><strong>Which amino acid makes which?</strong> Catecholamines (DA, NE, Epi) from <strong>tyrosine</strong>; serotonin from <strong>tryptophan</strong>; histamine from <strong>histidine</strong>; GABA from <strong>glutamate</strong>.</li>
+<li><strong>Rate-limiting enzymes:</strong> tyrosine hydroxylase (catecholamines), tryptophan hydroxylase (serotonin), GAD (GABA).</li>
+<li><strong>Nicotinic vs muscarinic?</strong> Nicotinic = ionotropic = muscle/NMJ + ganglia (curare blocks). Muscarinic = metabotropic = parasympathetic organs + CNS memory (atropine blocks).</li>
+<li><strong>Parkinson's vs schizophrenia</strong> are the two faces of dopamine: too little (nigrostriatal) vs too much (mesolimbic). A drug that helps one tends to worsen the other.</li>
+<li><strong>How is ACh terminated?</strong> Enzymatic breakdown (acetylcholinesterase), NOT reuptake. Glutamate, GABA and the monoamines are terminated by reuptake.</li>
+<li><strong>Benzodiazepine vs barbiturate at GABA-A:</strong> benzo ↑ <strong>frequency</strong> of channel opening, barbiturate ↑ <strong>duration</strong>.</li>
+<li><strong>Which receptor for hallucinogens?</strong> 5-HT2A (LSD, psilocybin agonists).</li>
+<li><strong>Retrograde messengers?</strong> Nitric oxide and the endocannabinoids — they travel backward across the synapse.</li>
+<li><strong>NMDA receptor specifics:</strong> lets in Ca2+, needs glutamate + depolarisation (expels the Mg2+ plug), needs glycine as co-agonist, is the basis of LTP. Blocked by ketamine/PCP/memantine.</li>
+<li><strong>Where is most serotonin?</strong> In the gut (~90%), not the brain. Brain serotonin = raphe nuclei.</li>
+</ol>
+
+<h2 id="met-style-mcqs">12. 12 MET-style MCQs</h2>
+
+<strong>Q1.</strong> The principal excitatory neurotransmitter in the central nervous system is: A. GABA  B. Glutamate  C. Dopamine  D. Glycine
+<details><summary>Answer</summary><strong>B. Glutamate.</strong> GABA and glycine are the main inhibitory transmitters.</details>
+
+<strong>Q2.</strong> GABA is synthesised from which precursor, by which enzyme? A. Tyrosine, tyrosine hydroxylase  B. Glutamate, glutamic acid decarboxylase (GAD)  C. Tryptophan, tryptophan hydroxylase  D. Choline, ChAT
+<details><summary>Answer</summary><strong>B.</strong> GABA is made directly from glutamate by GAD (needs vitamin B6).</details>
+
+<strong>Q3.</strong> The rate-limiting enzyme in dopamine synthesis is: A. DOPA decarboxylase  B. Tyrosine hydroxylase  C. Dopamine beta-hydroxylase  D. MAO
+<details><summary>Answer</summary><strong>B. Tyrosine hydroxylase</strong> (tyrosine → L-DOPA), the rate-limiting step for all catecholamines.</details>
+
+<strong>Q4.</strong> Degeneration of dopaminergic neurons in the substantia nigra (nigrostriatal pathway) causes: A. Schizophrenia  B. Parkinson's disease  C. Alzheimer's disease  D. Depression
+<details><summary>Answer</summary><strong>B. Parkinson's disease.</strong> Loss of nigrostriatal dopamine → tremor, rigidity, bradykinesia.</details>
+
+<strong>Q5.</strong> Antipsychotic drugs primarily act by blocking which receptor? A. 5-HT3  B. GABA-A  C. Dopamine D2  D. Nicotinic
+<details><summary>Answer</summary><strong>C. Dopamine D2.</strong> D2-blocking potency tracks antipsychotic potency (positive symptoms = excess mesolimbic dopamine).</details>
+
+<strong>Q6.</strong> Which serotonin receptor is ionotropic (ligand-gated ion channel)? A. 5-HT1A  B. 5-HT2A  C. 5-HT3  D. 5-HT7
+<details><summary>Answer</summary><strong>C. 5-HT3.</strong> The lone ionotropic serotonin receptor; ondansetron blocks it for nausea. The rest are metabotropic.</details>
+
+<strong>Q7.</strong> SSRIs relieve depression by blocking: A. MAO  B. The serotonin transporter (SERT)  C. Acetylcholinesterase  D. Dopamine D2 receptors
+<details><summary>Answer</summary><strong>B. SERT.</strong> Blocking reuptake leaves more serotonin in the synaptic cleft.</details>
+
+<strong>Q8.</strong> Acetylcholine at the neuromuscular junction acts on which receptor? A. Muscarinic (metabotropic)  B. Nicotinic (ionotropic)  C. Both equally  D. GABA-B
+<details><summary>Answer</summary><strong>B. Nicotinic, ionotropic.</strong> Muscarinic receptors are on parasympathetic target organs and in the CNS.</details>
+
+<strong>Q9.</strong> Acetylcholine is terminated in the synaptic cleft mainly by: A. Reuptake via a transporter  B. Breakdown by acetylcholinesterase  C. Diffusion only  D. Breakdown by MAO
+<details><summary>Answer</summary><strong>B. Acetylcholinesterase.</strong> ACh is the exception — enzymatic breakdown, not reuptake. (Donepezil blocks this enzyme in Alzheimer's.)</details>
+
+<strong>Q10.</strong> Benzodiazepines enhance GABA-A function by increasing the ____ of chloride channel opening, while barbiturates increase the ____. A. duration; frequency  B. frequency; duration  C. amplitude; frequency  D. frequency; amplitude
+<details><summary>Answer</summary><strong>B. frequency; duration.</strong> "Benzo = Frequency, Barb = Bduration."</details>
+
+<strong>Q11.</strong> The main brain source of serotonin is the: A. Locus coeruleus  B. Substantia nigra  C. Raphe nuclei  D. Nucleus basalis of Meynert
+<details><summary>Answer</summary><strong>C. Raphe nuclei.</strong> Locus coeruleus = norepinephrine; substantia nigra = dopamine; nucleus basalis = acetylcholine.</details>
+
+<strong>Q12.</strong> Excessive glutamate causing neuronal death via Ca2+ overload (in stroke, ALS) is called: A. Apoptosis  B. Excitotoxicity  C. Disinhibition  D. Long-term depression
+<details><summary>Answer</summary><strong>B. Excitotoxicity.</strong> Memantine (NMDA antagonist) is used partly to limit it in Alzheimer's.</details>
+
+<h2 id="quick-recall">13. Quick-recall master table</h2>
+<table>
+<thead><tr><th>Transmitter</th><th>Made from / source</th><th>Key receptors</th><th>Action</th><th>Too little / too much</th><th>Drug hook</th></tr></thead>
+<tbody>
+<tr><td><strong>Glutamate</strong></td><td>Glutamine; cortex/hippocampus</td><td>NMDA, AMPA (ionotropic); mGluR</td><td>Main excitatory</td><td>↑ = excitotoxicity (stroke, ALS)</td><td>Memantine, ketamine (NMDA block)</td></tr>
+<tr><td><strong>GABA</strong></td><td>Glutamate via GAD</td><td>GABA-A (Cl-, ionotropic), GABA-B</td><td>Main inhibitory</td><td>↓ = anxiety, seizures</td><td>Benzos, barbiturates, alcohol</td></tr>
+<tr><td><strong>Dopamine</strong></td><td>Tyrosine; SN + VTA</td><td>D1-like (excit.), D2-like (inhib.)</td><td>Reward, movement</td><td>↓ nigrostriatal = Parkinson's; ↑ mesolimbic = psychosis</td><td>L-DOPA; antipsychotics (D2 block)</td></tr>
+<tr><td><strong>Serotonin</strong></td><td>Tryptophan; raphe nuclei</td><td>5-HT1A, 2A (metab.); 5-HT3 (iono.)</td><td>Mood, sleep, appetite</td><td>↓ = depression, OCD; ↑ = serotonin syndrome</td><td>SSRIs (SERT block)</td></tr>
+<tr><td><strong>Acetylcholine</strong></td><td>Acetyl-CoA + choline; basal forebrain</td><td>Nicotinic (iono.), Muscarinic (metab.)</td><td>Muscle, memory, parasympathetic</td><td>↓ = Alzheimer's; NMJ antibodies = myasthenia</td><td>Donepezil (AChE block); atropine</td></tr>
+<tr><td><strong>Norepinephrine</strong></td><td>Tyrosine (past dopamine); locus coeruleus</td><td>Alpha-1/2, Beta-1/2 (all metab.)</td><td>Arousal, fight-or-flight</td><td>↓ = depression; ↑ = anxiety, hypertension</td><td>SNRIs, beta-blockers, clonidine</td></tr>
+<tr><td><strong>Epinephrine</strong></td><td>NE via PNMT; adrenal medulla</td><td>Adrenergic</td><td>Surge hormone (acute stress)</td><td>—</td><td>Anaphylaxis, cardiac arrest</td></tr>
+<tr><td><strong>Histamine</strong></td><td>Histidine; hypothalamus</td><td>H1, H2, H3</td><td>Wakefulness, allergy, gastric acid</td><td>Block H1 → drowsiness</td><td>Antihistamines; H2 blockers</td></tr>
+<tr><td><strong>Glycine</strong></td><td>Serine; spinal cord/brainstem</td><td>Glycine receptor (Cl-); NMDA co-agonist</td><td>Inhibitory (cord)</td><td>Strychnine blocks → spasms</td><td>—</td></tr>
+<tr><td><strong>Endorphins</strong></td><td>Peptide precursors</td><td>Opioid (mu, delta, kappa)</td><td>Pain relief, euphoria</td><td>—</td><td>Morphine/heroin (mu); naloxone reverses</td></tr>
+</tbody>
+</table>
+
+<h2 id="memorization-aids">14. Memorization aids</h2>
+<ul>
+<li><strong>"Glu Goes, GABA Stops"</strong> — glutamate excites, GABA inhibits.</li>
+<li><strong>"TYrosine → DA → NE → Epi"</strong> — one catecholamine chain, in order, all from tyrosine.</li>
+<li><strong>"SERotonin from tRYptophan, SERene"</strong> — and SERT is what the SSRI blocks.</li>
+<li><strong>"Nico is Fast, Musca is Slow"</strong> — nicotinic ionotropic (muscle), muscarinic metabotropic (organs).</li>
+<li><strong>"DA down = Parkinson's, DA up = psychosis"</strong> — the two faces of dopamine.</li>
+<li><strong>"ACh is eaten, not recycled"</strong> — broken down by acetylcholinesterase, not reuptake.</li>
+<li><strong>"Benzo Frequency, Barb Bduration"</strong> — at the GABA-A chloride channel.</li>
+<li><strong>"5-HT3 is the odd one"</strong> — the one ionotropic serotonin receptor.</li>
+<li><strong>"NMDA = Ca2+ = memory"</strong> — the LTP receptor; ties this page to the Action Potential note.</li>
+<li><strong>Source nuclei: "Raphe = serotonin, Locus coeruleus = norepinephrine, Substantia nigra/VTA = dopamine, Nucleus basalis = acetylcholine."</strong></li>
+</ul>
+
+<footer>Sihan MET 2026 + NIMHANS Prep · Built 2026-06-11 — every major neurotransmitter to the same depth as the Action Potential page (what it is, where it's made, receptor types, brain & body function, clinical angle). Companion to the Action Potential / LTP note.</footer>
+</div><script>
+/* PWA:met-prep */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("/sihan-met-flashcards/sw.js").catch(function () {});
+  });
+}
+(function () {
+  var dp = null;
+  window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); dp = e; showBtn(); });
+  function showBtn() {
+    if (document.getElementById("pwaInstallBtn")) return;
+    var b = document.createElement("button");
+    b.id = "pwaInstallBtn"; b.textContent = "Install app";
+    b.style.cssText = "position:fixed;right:14px;bottom:14px;z-index:9999;background:#1f6feb;color:#fff;border:0;border-radius:8px;padding:10px 14px;font:600 14px system-ui,sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.4);cursor:pointer";
+    b.onclick = function () { if (!dp) return; dp.prompt(); dp.userChoice.finally(function(){ dp = null; b.remove(); }); };
+    (document.body || document.documentElement).appendChild(b);
+  }
+  window.addEventListener("appinstalled", function () { var b = document.getElementById("pwaInstallBtn"); if (b) b.remove(); });
+})();
+</script>
+<script src="/sihan-met-flashcards/notes/note-highlight.js"></script>
+<script src="/sihan-met-flashcards/notes/term-popover.js" defer></script>
+<script src="/sihan-met-flashcards/notes/page-flip.js" defer></script>
+<!-- FS_MODE start -->
+<style id="fs-mode-style">
+  .fs-toggle{position:fixed;z-index:2147483000;bottom:14px;right:14px;width:46px;height:46px;border:0;border-radius:50%;
+    background:rgba(18,24,33,.74);color:#e6edf3;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 2px 12px rgba(0,0,0,.5);
+    padding:0;opacity:.5;transition:opacity .15s;-webkit-tap-highlight-color:transparent}
+  .fs-toggle:hover,.fs-toggle:active{opacity:1}
+  @media print{.fs-toggle{display:none}}
+  body.fs-active .topbar,
+  body.fs-active header,
+  body.fs-active nav,
+  body.fs-active .app-header,
+  body.fs-active .site-header,
+  body.fs-active footer{display:none !important}
+  body.fs-active{margin:0 !important;padding:0 !important;min-height:100vh}
+  body.fs-active main,
+  body.fs-active .wrap,
+  body.fs-active .container,
+  body.fs-active #app,
+  body.fs-active .app,
+  body.fs-active .page{max-width:100% !important;width:100% !important;margin:0 !important;
+    padding-left:12px !important;padding-right:12px !important;padding-top:10px !important;padding-bottom:14px !important}
+  @media (orientation:landscape){
+    body.fs-active main,
+    body.fs-active .wrap,
+    body.fs-active .container,
+    body.fs-active #app,
+    body.fs-active .app,
+    body.fs-active .page{padding-top:8px !important;padding-bottom:8px !important;
+      padding-left:18px !important;padding-right:18px !important}
+  }
+</style>
+<script>
+(function(){
+  if(window.__fsModeInit) return; window.__fsModeInit=true;
+  var ENTER='⛶', EXIT='✕';
+  function nativeOn(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function reqNative(){var el=document.documentElement;var r=el.requestFullscreen||el.webkitRequestFullscreen;
+    if(r){try{var p=r.call(el);if(p&&p.catch)p.catch(function(){});}catch(e){}}}
+  function exitNative(){if(!nativeOn())return;var x=document.exitFullscreen||document.webkitExitFullscreen;
+    if(x){try{x.call(document);}catch(e){}}}
+  var btn=document.createElement('button');
+  btn.className='fs-toggle';btn.type='button';
+  function paint(){var on=document.body.classList.contains('fs-active');
+    btn.textContent=on?EXIT:ENTER;btn.setAttribute('aria-label',on?'Exit fullscreen':'Enter fullscreen');btn.title=on?'Exit fullscreen':'Fullscreen';}
+  function go(){document.body.classList.add('fs-active');reqNative();paint();}
+  function stop(){document.body.classList.remove('fs-active');exitNative();paint();}
+  function toggle(){document.body.classList.contains('fs-active')?stop():go();}
+  btn.addEventListener('click',toggle);
+  function mount(){if(!document.body)return;if(!btn.isConnected)document.body.appendChild(btn);paint();}
+  if(document.body){mount();}else{document.addEventListener('DOMContentLoaded',mount);}
+  function sync(){if(!nativeOn()&&document.body.classList.contains('fs-active')){document.body.classList.remove('fs-active');paint();}}
+  document.addEventListener('fullscreenchange',sync);
+  document.addEventListener('webkitfullscreenchange',sync);
+})();
+</script>
+<!-- FS_MODE end -->
+</body></html>
