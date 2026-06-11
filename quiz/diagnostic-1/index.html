@@ -351,9 +351,9 @@
 
   <div class="export-area">
     <h3>📤 Send results to Sahil</h3>
-    <p class="export-note">One tap saves a plain <b>.txt</b> of your full result (score, section breakdown, every wrong/guessed question, your notes) straight to your phone. Just attach that file and send it to Sahil on WhatsApp, no copy-paste, no doc. (Prefer pasting? Use copy below.)</p>
-    <button class="export-btn" data-action="downloadResultsTxt">⬇ Download results (.txt)</button>
-    <button class="export-btn" data-action="exportForAnalysis" style="margin-top:8px; background:transparent; color:var(--muted); border-color:var(--border); font-weight:500;">Or copy to clipboard instead</button>
+    <p class="export-note">One tap shows your full result as plain text (score, section breakdown, every wrong/guessed question, your notes). Tap <b>Copy</b>, then paste it straight to Sahil on WhatsApp. No file, no download.</p>
+    <button class="export-btn" data-action="showResultText">📋 Show &amp; copy result (plain text)</button>
+    <button class="export-btn" data-action="downloadResultsTxt" style="margin-top:8px; background:transparent; color:var(--muted); border-color:var(--border); font-weight:500;">Or save as a .txt file instead</button>
   </div>
 
   <div class="backup-area">
@@ -1184,6 +1184,7 @@ document.querySelector(".app").addEventListener("click", function(ev) {
   else if (a === "importProgress") importProgress();
   else if (a === "exportForAnalysis") exportForAnalysis();
   else if (a === "downloadResultsTxt") downloadResultsTxt();
+  else if (a === "showResultText") showResultText();
   else if (a === "copyStudyMaterial") copyStudyMaterial();
   else if (a === "dismissResume") document.getElementById("resumeBanner").style.display = "none";
 });
@@ -1310,6 +1311,55 @@ function exportForAnalysis() {
   } else {
     prompt("Copy this export and paste to Sahil on WhatsApp:", out);
   }
+}
+function showResultText() {
+  // Reliable "copy it out" path: render the per-mock result as plain text in an
+  // on-screen, selectable box with a Copy button. No file, no share sheet, and
+  // it still works where the clipboard API is blocked (falls back to selection).
+  var out = buildResultsExport();
+  var prev = document.getElementById("resultTextOverlay");
+  if (prev) prev.remove();
+  var ov = document.createElement("div");
+  ov.id = "resultTextOverlay";
+  ov.setAttribute("style", "position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:14px;");
+  var box = document.createElement("div");
+  box.setAttribute("style", "background:var(--card,#fff);color:var(--text,#111);border-radius:14px;max-width:680px;width:100%;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.4);");
+  var head = document.createElement("div");
+  head.setAttribute("style", "padding:14px 16px;font-weight:700;border-bottom:1px solid var(--border,#ddd);display:flex;justify-content:space-between;align-items:center;gap:8px;");
+  head.innerHTML = "<span>Your result — tap Copy, paste to Sahil</span>";
+  var closeX = document.createElement("button");
+  closeX.textContent = "✕";
+  closeX.setAttribute("style", "background:none;border:none;font-size:20px;line-height:1;cursor:pointer;color:var(--muted,#888);padding:2px 6px;");
+  closeX.onclick = function () { ov.remove(); };
+  head.appendChild(closeX);
+  var ta = document.createElement("textarea");
+  ta.readOnly = true;
+  ta.value = out;
+  ta.setAttribute("style", "flex:1;min-height:240px;width:100%;border:none;padding:14px 16px;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;resize:none;background:var(--bg,#fafafa);color:var(--text,#111);box-sizing:border-box;");
+  var bar = document.createElement("div");
+  bar.setAttribute("style", "padding:12px 16px;border-top:1px solid var(--border,#ddd);display:flex;gap:10px;");
+  var copyBtn = document.createElement("button");
+  copyBtn.textContent = "📋 Copy all";
+  copyBtn.setAttribute("style", "flex:1;padding:12px;border:none;border-radius:10px;background:var(--accent,#2d6cdf);color:#fff;font-weight:700;font-size:15px;cursor:pointer;");
+  function doCopy() {
+    ta.focus(); ta.select(); ta.setSelectionRange(0, ta.value.length);
+    var done = function () { copyBtn.textContent = "✓ Copied — now paste to Sahil"; setTimeout(function(){ copyBtn.textContent = "📋 Copy all"; }, 2500); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(out).then(done, function () { try { document.execCommand("copy"); done(); } catch (e) {} });
+    } else { try { document.execCommand("copy"); done(); } catch (e) {} }
+  }
+  copyBtn.onclick = doCopy;
+  var doneBtn = document.createElement("button");
+  doneBtn.textContent = "Close";
+  doneBtn.setAttribute("style", "padding:12px 18px;border:1px solid var(--border,#ddd);border-radius:10px;background:transparent;color:var(--text,#111);font-weight:600;cursor:pointer;");
+  doneBtn.onclick = function () { ov.remove(); };
+  bar.appendChild(copyBtn); bar.appendChild(doneBtn);
+  box.appendChild(head); box.appendChild(ta); box.appendChild(bar);
+  ov.appendChild(box);
+  ov.onclick = function (e) { if (e.target === ov) ov.remove(); };
+  document.body.appendChild(ov);
+  // Pre-select so even a manual long-press copy is one step.
+  setTimeout(function () { ta.focus(); ta.select(); }, 30);
 }
 function downloadResultsTxt() {
   const out = buildResultsExport();
