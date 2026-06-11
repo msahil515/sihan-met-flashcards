@@ -72,7 +72,7 @@ BOOKS = [
     # --- Amity ---
     dict(slug="amity", shelf="amity", kind="merged",
          short="Amity — MA Clinical Psychology",
-         blurb="The whole entrance taught from scratch in one book, deeper than a revision sheet: the schools of psychology, intelligence theories, language and memory, the general-psych core, the Indian-psychology cluster Amity weights heaviest, the english/aptitude section drilled, and the PYQ depth off your own paper. Pure study material, read it cover to cover and you walk in ready."),
+         blurb="The whole entrance built to the official six-section syllabus and taught from scratch to NIMHANS depth: abnormal psychology & psychopathology, biopsychology, research methods & advanced statistics, psychological testing & psychodiagnostics, psychotherapy & ethics/law, and general & developmental psychology, plus two appendices off your own paper. Read it cover to cover and you walk in ready."),
     # --- Quick Reference ---
     dict(slug="concepts", shelf="reference", kind="merged",
          short="Effects, Theories & Originators",
