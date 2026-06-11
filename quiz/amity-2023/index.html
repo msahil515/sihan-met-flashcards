@@ -329,8 +329,9 @@
 
   <div class="export-area">
     <h3>📤 Send results to Sahil</h3>
-    <p class="export-note">Tap to copy a readable export of your score, section breakdown, every wrong/guessed question, and your notes. Paste it to Sahil on WhatsApp for analysis.</p>
+    <p class="export-note">Readable export of your score, section breakdown, every wrong/guessed question, and your notes. <b>Copy</b> drops it straight onto WhatsApp; <b>Save as text file</b> downloads a plain .txt you can open in any notes/text app, no decoding.</p>
     <button class="export-btn" data-action="exportForAnalysis">Copy results for analysis</button>
+    <button class="export-btn" data-action="downloadResultsTxt" style="margin-top:8px;">Save as text file (.txt)</button>
   </div>
 
   <div class="backup-area">
@@ -1204,6 +1205,7 @@ document.querySelector(".app").addEventListener("click", function(ev) {
   else if (a === "exportProgress") exportProgress();
   else if (a === "importProgress") importProgress();
   else if (a === "exportForAnalysis") exportForAnalysis();
+  else if (a === "downloadResultsTxt") downloadResultsTxt();
   else if (a === "dismissResume") document.getElementById("resumeBanner").style.display = "none";
 });
 
@@ -1229,7 +1231,7 @@ function exportProgress() {
       () => prompt("Copy this backup code somewhere safe:", code));
   } else { prompt("Copy this backup code somewhere safe:", code); }
 }
-function exportForAnalysis() {
+function buildResultsExport() {
   let totalRight = 0, totalWrong = 0;
   for (const q of QUESTIONS) {
     const r = state.results[q.id]; if (!r) continue;
@@ -1322,6 +1324,10 @@ function exportForAnalysis() {
     localStorage.setItem(snapKey, JSON.stringify(history));
   } catch {}
 
+  return out;
+}
+function exportForAnalysis() {
+  const out = buildResultsExport();
   const sizeKb = (out.length / 1024).toFixed(1);
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(out).then(
@@ -1329,6 +1335,22 @@ function exportForAnalysis() {
       () => prompt("Copy this export and paste to Sahil on WhatsApp:", out));
   } else {
     prompt("Copy this export and paste to Sahil on WhatsApp:", out);
+  }
+}
+function downloadResultsTxt() {
+  const out = buildResultsExport();
+  const slug = (location.pathname.replace(/\/index\.html$/, "").split("/").filter(Boolean).pop() || "quiz");
+  const stamp = new Date().toISOString().slice(0, 10);
+  const fname = slug + "-results-" + stamp + ".txt";
+  try {
+    const blob = new Blob([out], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = fname; a.style.display = "none";
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 150);
+  } catch (e) {
+    prompt("Copy this and paste into a text file (" + fname + "):", out);
   }
 }
 
