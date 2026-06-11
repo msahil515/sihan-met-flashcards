@@ -70,9 +70,9 @@ BOOKS = [
          short="Research Methods & Statistics",
          blurb="Research design, sampling, distributions, every statistical test, and degrees of freedom from scratch, merged."),
     # --- Amity ---
-    dict(slug="amity", shelf="amity", kind="note", src="amity-book",
+    dict(slug="amity", shelf="amity", kind="merged",
          short="Amity — MA Clinical Psychology",
-         blurb="Every bit of Amity material in one book: both target campuses, the entrance topic patterns and depth, the general-psych recall battery, the english/aptitude section, the scripted interview, the forum and fees read, and the full paper-by-paper Jaipur AIBAS syllabus."),
+         blurb="The whole entrance taught from scratch in one book, deeper than a revision sheet: the schools of psychology, intelligence theories, language and memory, the general-psych core, the Indian-psychology cluster Amity weights heaviest, the english/aptitude section drilled, and the PYQ depth off your own paper. Pure study material, read it cover to cover and you walk in ready."),
     # --- Quick Reference ---
     dict(slug="concepts", shelf="reference", kind="merged",
          short="Effects, Theories & Originators",
