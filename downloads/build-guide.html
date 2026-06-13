@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Build It From Scratch — The Manual</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 20mm 16mm; }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "Iowan Old Style", Georgia, "Times New Roman", serif;
+    color: #1a1a1a; line-height: 1.5; font-size: 10.7pt; margin: 0;
+  }
+  h1, h2, h3, h4 { font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; color: #0b2942; line-height: 1.2; }
+  h1 { font-size: 26pt; margin: 0 0 4px; letter-spacing: -0.5px; }
+  h2 { font-size: 16pt; margin: 26px 0 8px; padding-bottom: 5px; border-bottom: 2px solid #1f6feb; page-break-after: avoid; }
+  h3 { font-size: 12.5pt; margin: 18px 0 5px; color: #11497a; page-break-after: avoid; }
+  h4 { font-size: 10.8pt; margin: 13px 0 3px; color: #333; page-break-after: avoid; }
+  p { margin: 6px 0; }
+  ul, ol { margin: 6px 0 6px 0; padding-left: 20px; }
+  li { margin: 3px 0; }
+  code { font-family: "SF Mono", "Menlo", Consolas, monospace; font-size: 8.9pt; background: #eef1f5; padding: 1px 4px; border-radius: 3px; color: #b1003a; }
+  pre { background: #0d1117; color: #d6e2f0; font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 8.4pt; line-height: 1.45; padding: 11px 13px; border-radius: 7px; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; margin: 8px 0; page-break-inside: avoid; }
+  pre code { background: none; color: inherit; padding: 0; }
+  .lead { font-size: 11.5pt; color: #444; margin: 10px 0 4px; }
+  .callout { background: #fff8e6; border-left: 4px solid #f0b429; padding: 8px 13px; margin: 10px 0; border-radius: 0 5px 5px 0; page-break-inside: avoid; }
+  .callout.tip { background: #eaf7ee; border-left-color: #2da44e; }
+  .callout.gotcha { background: #fdecef; border-left-color: #cf222e; }
+  .callout b { color: #0b2942; }
+  .prompt { background: #f3f6fb; border: 1px solid #d0d9e6; border-left: 4px solid #1f6feb; padding: 9px 13px; margin: 9px 0; border-radius: 0 5px 5px 0; font-family: -apple-system, Arial, sans-serif; font-size: 9.6pt; color: #14304a; page-break-inside: avoid; }
+  .prompt .lbl { display: block; font-size: 7.6pt; letter-spacing: 1px; text-transform: uppercase; color: #1f6feb; font-weight: 700; margin-bottom: 4px; }
+  .cover { text-align: left; padding: 30px 0 14px; border-bottom: 3px solid #0b2942; margin-bottom: 8px; }
+  .cover .kicker { font-family: -apple-system, Arial, sans-serif; font-size: 10pt; letter-spacing: 2px; text-transform: uppercase; color: #1f6feb; font-weight: 700; }
+  .cover .sub { font-family: -apple-system, Arial, sans-serif; font-size: 13pt; color: #555; margin-top: 8px; }
+  .cover .meta { font-family: -apple-system, Arial, sans-serif; font-size: 9pt; color: #888; margin-top: 14px; }
+  .toc { font-family: -apple-system, Arial, sans-serif; font-size: 10pt; columns: 2; column-gap: 26px; margin: 12px 0; }
+  .toc div { margin: 3px 0; break-inside: avoid; }
+  .toc .n { color: #1f6feb; font-weight: 700; display: inline-block; width: 20px; }
+  table { width: 100%; border-collapse: collapse; font-family: -apple-system, Arial, sans-serif; font-size: 8.8pt; margin: 9px 0; page-break-inside: avoid; }
+  th, td { border: 1px solid #cdd6e0; padding: 5px 8px; text-align: left; vertical-align: top; }
+  th { background: #0b2942; color: #fff; font-weight: 600; }
+  tr:nth-child(even) td { background: #f4f7fb; }
+  .chapter { page-break-before: always; }
+  .pill { display: inline-block; background: #e7eefc; color: #1f6feb; font-family: -apple-system, Arial, sans-serif; font-size: 8pt; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-right: 5px; }
+  hr { border: 0; border-top: 1px solid #ddd; margin: 16px 0; }
+  .footer-note { font-family: -apple-system, Arial, sans-serif; font-size: 8.5pt; color: #999; text-align: center; margin-top: 22px; padding-top: 10px; border-top: 1px solid #eee; }
+  a { color: #1f6feb; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="kicker">Build Manual · v1.0</div>
+  <h1>Build It From Scratch</h1>
+  <div class="sub">How to rebuild the entire MET / NIMHANS prep system on a fresh Claude account, starting from zero.</div>
+  <div class="meta">The Notes-for-Exam book library · the mock &amp; test engine · the live trackers · the offline pack.<br>
+  Written as a build manual, not a chat log. June 2026.</div>
+</div>
+
+<p class="lead">This is the playbook. If you handed a stranger a brand-new Claude account, an empty GitHub, and the same pile of syllabus and past-paper PDFs, this document tells them exactly how to reproduce everything that's on the site. No prior code knowledge assumed. You will be telling Claude what to build; Claude writes the code. Your job is to know <i>what to ask for, in what order, and how to feed it the source material.</i></p>
+
+<h2 style="border:none; margin-top:14px;">What's inside</h2>
+<div class="toc">
+  <div><span class="n">0</span> The mental model</div>
+  <div><span class="n">1</span> One-time setup (the cold start)</div>
+  <div><span class="n">2</span> The skeleton site, live in an hour</div>
+  <div><span class="n">3</span> Feeding Claude the source PDFs</div>
+  <div><span class="n">4</span> The Notes-for-Exam book library</div>
+  <div><span class="n">5</span> The mock &amp; test engine</div>
+  <div><span class="n">6</span> Turning a real PYQ paper into a mock</div>
+  <div><span class="n">7</span> Teaching to depth (the explanations)</div>
+  <div><span class="n">8</span> The live trackers (admissions + news)</div>
+  <div><span class="n">9</span> The offline pack (PWA, APK, single file)</div>
+  <div><span class="n">10</span> Polish: gate, fullscreen, sync</div>
+  <div><span class="n">11</span> The prompting playbook</div>
+  <div><span class="n">12</span> Gotchas that will bite you</div>
+  <div><span class="n">13</span> The build order, end to end</div>
+</div>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>0 · The mental model</h2>
+
+<p>Before any code, understand the shape of the thing, because every later decision falls out of it.</p>
+
+<p><b>It is one static website.</b> No server, no database, no backend, no login system, no monthly bill. It is a folder of HTML, CSS and JavaScript files sitting in a GitHub repository. GitHub serves that folder for free at a public URL (GitHub Pages). That single decision is what makes the whole thing cheap, fast, durable, and trivially offline-able.</p>
+
+<p>Everything you see is a consequence of that:</p>
+<ul>
+  <li><b>Each mock test is a single self-contained HTML file.</b> The questions, the answers, the scoring logic, the explanations: all baked into one file. Open it, it runs. No network call.</li>
+  <li><b>"Your data" never leaves the phone.</b> Scores, notes, and progress are stored in the browser's own <code>localStorage</code>. There is nothing to hack, nothing to sync, no privacy surface.</li>
+  <li><b>"Offline" is almost free.</b> Because it's just files, you can wrap the whole folder in a Service Worker (a browser feature that caches files) and it keeps working with the WiFi off. The Android APK is literally that same folder in a thin wrapper.</li>
+  <li><b>The trackers update themselves.</b> A scheduled job (GitHub Actions) runs twice a day, asks for fresh data, rewrites a small JSON file, and commits it. The site re-reads that file. No human in the loop.</li>
+</ul>
+
+<div class="callout tip"><b>Why this matters for you:</b> you are not "programming." You are directing. Claude can write a self-contained quiz HTML file in one shot if you describe it well. The skill you're building is <i>specification</i>, not coding. The rest of this manual is about how to specify each piece.</div>
+
+<h3>The toolchain, in one breath</h3>
+<table>
+  <tr><th>Tool</th><th>What it's for</th><th>Cost</th></tr>
+  <tr><td>Claude (Pro/Max) + Claude Code</td><td>Writes all the code and content. Claude Code is the terminal app that can actually create and edit files on your machine, not just chat.</td><td>Subscription</td></tr>
+  <tr><td>GitHub account</td><td>Stores the files; hosts them live for free via Pages.</td><td>Free</td></tr>
+  <tr><td>Git</td><td>The "save and publish" mechanism. Claude runs it for you.</td><td>Free</td></tr>
+  <tr><td>A laptop with a terminal</td><td>Where Claude Code runs. Mac or Linux easiest; Windows works.</td><td>—</td></tr>
+  <tr><td>Python 3</td><td>Only for a few build scripts (reading PDFs, packing the APK). Claude writes these too.</td><td>Free</td></tr>
+</table>
+
+<p>That's the whole stack. No cloud account, no hosting bill, no framework, no Node build step, no React. The deliberate primitiveness is the point: it will still work in five years.</p>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>1 · One-time setup (the cold start)</h2>
+
+<p>You're on a fresh machine with a fresh Claude account. Do these once.</p>
+
+<ol>
+  <li><b>Get Claude.</b> Subscribe to Claude (Pro is fine to start; Max if you'll be doing this for hours daily). Install <b>Claude Code</b> from the official Anthropic instructions. It runs in your terminal. This is the piece that can create files, run git, and execute scripts; the web chat alone cannot.</li>
+  <li><b>Make a GitHub account.</b> Free. Pick a username you don't mind being in the public URL (the site will live at <code>https://YOURNAME.github.io/REPO/</code>).</li>
+  <li><b>Install git</b> and tell it who you are. Claude Code can walk you through this; on a Mac it's typically already there.</li>
+  <li><b>Authenticate GitHub from the terminal</b> (the <code>gh</code> CLI is easiest). This lets Claude push your changes live without you pasting passwords each time.</li>
+</ol>
+
+<div class="callout"><b>The one sentence to open with.</b> Once Claude Code is running in an empty folder, your very first message sets the contract for everything after. Use something like the prompt below. It tells Claude the architecture so it doesn't reach for a heavy framework.</div>
+
+<div class="prompt"><span class="lbl">Opening prompt</span>
+"I'm building a static study-prep website for one exam. Hard constraints: plain HTML/CSS/vanilla JavaScript only, no frameworks, no build step, no backend. It will be hosted on GitHub Pages. Every test must be a single self-contained HTML file that works offline. All user data stays in localStorage. Set up an empty repo with a homepage and get it deploying to GitHub Pages so I can confirm the live URL works before we build anything real."</div>
+
+<p>When Claude finishes, you should have a public URL that shows a near-empty page. <b>Confirm that URL loads in your phone's browser before doing anything else.</b> Everything from here is "add a page, push, refresh."</p>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>2 · The skeleton site, live in an hour</h2>
+
+<p>Don't build content yet. Build the frame the content will hang on. Ask Claude for:</p>
+
+<ul>
+  <li>A <b>homepage</b> (<code>index.html</code>) with a top navigation bar: Dashboard, Tests, Notes, Results, Plan, Downloads. The links can point at empty pages for now.</li>
+  <li>A <b>shared stylesheet</b> (<code>site.css</code>) defining a dark theme with CSS variables (background, panel, text, accent, good/bad/warning colours). Everything reuses this so the whole site looks like one app, not a pile of pages.</li>
+  <li>A <b>folder per section</b>: <code>/tests/</code>, <code>/notes/</code>, <code>/results/</code>, each just an index page that lists what's inside.</li>
+</ul>
+
+<div class="callout tip"><b>Design choice that paid off:</b> a single dark theme defined once in CSS variables, reused by every page including the self-contained quizzes. When a quiz is its own file, paste the same <code>:root</code> variable block at the top. It keeps 130+ pages visually identical without a framework.</div>
+
+<h3>Deploy hygiene (do this now, thank yourself later)</h3>
+<ul>
+  <li>Put an empty file named <code>.nojekyll</code> at the repo root. GitHub Pages otherwise tries to run a blog-builder (Jekyll) over your files and can silently drop folders that start with an underscore. The empty file turns that off.</li>
+  <li>After <i>every</i> push, check the <b>Actions / Pages build status</b> in GitHub, not just that the push succeeded. A green push with a failed Pages build means your change isn't live. This trips everyone up once.</li>
+</ul>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>3 · Feeding Claude the source PDFs</h2>
+
+<p>This is the step people skip and then wonder why the content is generic. <b>The depth comes entirely from the source material you feed in.</b> Claude teaching "from memory" gives you a Wikipedia summary. Claude teaching <i>from the actual RCI syllabus PDF and the actual past papers</i> gives you something that matches the real exam. The difference is everything.</p>
+
+<h3>What to collect first</h3>
+<ol>
+  <li><b>The official syllabus PDF</b> for your exam. The real one, section by section, with the weightings.</li>
+  <li><b>Every past-year question paper (PYQ) you can get</b>, ideally with an answer key. Even photographed or scanned ones.</li>
+  <li><b>Any standard textbooks</b> the exam is based on (for this build: Pinel for biopsychology, Schultz for personality, Baron for social, etc.).</li>
+  <li><b>Reputable mock papers</b> from coaching sources, clearly labelled as practice, not official.</li>
+</ol>
+
+<h3>How to hand them over</h3>
+<p>Claude Code reads files on your machine. Drop the PDFs in a folder and point at them. The trick is asking Claude to <i>extract verbatim first, interpret second</i>:</p>
+
+<div class="prompt"><span class="lbl">Extraction prompt</span>
+"Here's the official syllabus PDF. Read it and give me back the exact section structure: every section, sub-section, and topic, with the mark weighting for each, word for word as printed. Do not summarise or reorganise it into your own categories yet. I want the skeleton to match the official document exactly."</div>
+
+<div class="callout gotcha"><b>Gotcha that recurs:</b> PDFs lie. Scanned papers come out garbled when you pull plain text (columns interleave, ticks vanish). Two fixes that worked repeatedly: (1) for scanned/answer-key images, have Claude <i>vision-read</i> the page (look at it as an image) rather than parse the text layer; (2) for the question text itself, prefer the embedded text layer (PyMuPDF) when it's clean. Cross-check the count: if the paper says 100 questions and you extracted 100, good; if you got 92, find the 8 it dropped before trusting anything.</div>
+
+<div class="callout tip"><b>Build the skeleton to the <i>official</i> shape, not the forum shape.</b> A real lesson here: an early version was structured around how students <i>talk about</i> the syllabus on forums. It got rejected. The rebuild followed the official syllabus PDF's own six-section structure exactly. Match the document, not the chatter.</div>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>4 · The Notes-for-Exam book library</h2>
+
+<p>This is the reading half of the system: the syllabus turned into actual study notes, presented as a shelf of "books" you can open and read like an e-reader.</p>
+
+<h3>4.1 Generate the notes, one section at a time</h3>
+<p>Don't ask for "notes on everything." Go section by section off the skeleton you extracted in Chapter 3. For each topic:</p>
+
+<div class="prompt"><span class="lbl">Notes prompt (per section)</span>
+"Using the official syllabus section [X] and the textbook chapters I gave you, write exam-grade study notes for this section. Depth target: enough that someone reading only this could answer a hard MCQ on it. Use headings, short paragraphs, and call out the high-yield facts and the classic traps examiners set. Don't pad. Save it as a markdown file under content/[section-slug].md."</div>
+
+<p>Keep each section in its own file. It makes later editing surgical: you can deepen one chapter without Claude regenerating the whole library.</p>
+
+<h3>4.2 Wrap the notes in a "book reader"</h3>
+<p>Raw markdown isn't pleasant to revise from on a phone. The reader presents each notes file as a paginated book: single-page in portrait, two-page spread in landscape, swipe to turn pages, theme-aware.</p>
+
+<div class="prompt"><span class="lbl">Reader prompt</span>
+"Build a 'Notes for Exam' reader as a PWA at /notes-app/. It lists every notes file as a book on a shelf. Tapping one opens a paginated reader: one page in portrait, a two-page spread in landscape, both from the same code path using CSS column-width and a column count, not column-count:2. Pages turn by swiping. It must work offline. Generate it from the markdown files with a Python build script so I can rebuild after editing notes."</div>
+
+<div class="callout gotcha"><b>Two real reader bugs, so you skip them:</b> (1) Page the spread by the article's measured content width (<code>clientWidth</code>-derived pitch), not the frame width, or deep pages drift out of the margins. (2) Do portrait single-page and landscape spread from <i>one</i> code path via column-width + a column-count variable; don't special-case with <code>column-count:2</code>. And whenever you edit the reader shell, bump the Service Worker cache name (see Ch. 9) or phones keep serving the old version.</div>
+
+<h3>4.3 Why a build script</h3>
+<p>The library is generated, not hand-written. A Python script (Claude writes it: <code>build_notes_app.py</code>) reads the markdown content files and emits the HTML pages, the shelf index, and the offline manifest. Edit content → re-run script → push. This is the pattern for anything with many similar pages.</p>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>5 · The mock &amp; test engine</h2>
+
+<p>The testing half. The core insight: <b>one engine, many data files.</b> You build the quiz machinery once, then every mock is just a list of questions handed to the same machine.</p>
+
+<h3>5.1 What the engine does</h3>
+<ul>
+  <li>Shows one question at a time (or a scrollable list), records the chosen option.</li>
+  <li>Scores on the real marking scheme (this build standardised on <b>+1 correct, −0.25 wrong</b>; pick yours and keep it consistent across every mock and the analysis page).</li>
+  <li>On submit: shows the score, a section-by-section breakdown, bands, and the cut-off line.</li>
+  <li>Lets the user type a note under any question and saves it.</li>
+  <li>Persists the whole attempt to <code>localStorage</code> so "My Results" can list past attempts.</li>
+</ul>
+
+<div class="prompt"><span class="lbl">Engine prompt</span>
+"Build a self-contained quiz engine in one HTML file. It reads a questions array (each item: stem, four options, correct index, section tag, and an explanation). Features: one-question-at-a-time with a progress bar, flag-for-review, +1/−0.25 scoring, a results screen with per-section breakdown and a cut-off band, a per-question notes field, and full attempt history saved to localStorage. No network, no libraries. Make the questions array a clearly marked block at the top so I can drop new question sets in."</div>
+
+<h3>5.2 Every mock = a copy of the engine + a new question array</h3>
+<p>Once the engine file is solid, each new mock is: copy the file, replace the questions array, change the title. That's why there are two dozen mocks (Amity, IHBAS, RML, PYQ Real, the MET mocks, pep mocks, diagnostics) with zero duplicated effort. Claude does the copy-and-swap.</p>
+
+<div class="callout tip"><b>Keep the marking scheme sacred.</b> Decide it once. If half your mocks score +4/−1 and half score +1/−0.25, the "My Results" comparison becomes meaningless. Standardise, and make the analysis page's scoring, max marks, bands, and cut-off all read from the same scale.</div>
+
+<h3>5.3 The diagnostic variant</h3>
+<p>One high-value variant: a diagnostic test that's weighted toward the section the student is weakest in, and whose <i>missed</i> questions auto-compile into a personalised study sheet at the bottom of the results. Same engine, plus a "collect the misses into a list" step on submit.</p>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>6 · Turning a real past paper into a mock</h2>
+
+<p>This is the highest-value, fiddliest task, so it gets its own chapter. Goal: take a real exam PDF and a real answer key and produce a faithful, attemptable mock, not a paraphrase.</p>
+
+<h3>The reliable recipe</h3>
+<ol>
+  <li><b>Render and read.</b> Have Claude open the PDF. If the text layer is clean, pull questions from it (PyMuPDF). If it's a scan, vision-read the pages.</li>
+  <li><b>Extract the answer key separately.</b> Keys are often a grid of bold letters or ticked boxes. The bold-flag trick works: PyMuPDF exposes which characters are bold, so the correct option often falls out of "which letter is bold." For ticked scans, vision-read.</li>
+  <li><b>Match key to questions by number,</b> not by position. Off-by-one in the key is the most common error; verify against a question you know.</li>
+  <li><b>Count and reconcile.</b> If the paper has 100 Qs and the key covers only 70, say so out loud and mark the uncovered ones, don't invent answers.</li>
+  <li><b>Flag the debatable ones.</b> Real papers have wrong or contested official keys. Keep the official answer but add a visible "⚠ key debate" note rather than silently overriding.</li>
+  <li><b>Drop the junk honestly.</b> Duplicates, unreadable items, truly ambiguous ones: remove them and record how many you dropped and why. Don't pad back to a round number.</li>
+</ol>
+
+<div class="prompt"><span class="lbl">PYQ-to-mock prompt</span>
+"Here's a real exam paper PDF and its answer key. Build a faithful untimed mock from it reusing my existing quiz engine. Extract questions verbatim, don't paraphrase. Pull the key by [bold-flag / vision-reading the ticks]. Match key to question by printed question number and verify against Q[n] which I know is [answer]. Tell me the final question count, exactly which items you dropped and why, and flag any answers where the official key looks contested. Don't fabricate answers for anything the key doesn't cover."</div>
+
+<div class="callout gotcha"><b>Real war stories from this build:</b> one paper had corrupt compression and had to be repaired before it would render; pages 4–6 of another were rotated 90°; one file labelled as an "IHBAS PY paper" turned out to be a completely different exam (a UGC-NET paper) once read. Always actually read the source before trusting its filename.</div>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>7 · Teaching to depth (the explanations)</h2>
+
+<p>A mock that only tells you "correct answer: B" teaches nothing. The depth feature: <b>under every question, a full explanation, plus a line on why each wrong option is wrong.</b> That last part, the per-distractor traps, is what turns a test into a lesson.</p>
+
+<h3>The data shape</h3>
+<p>Extend each question with two fields: a main <code>explanation</code> (why the right answer is right, with the concept behind it) and a <code>traps</code> array, one short line per wrong option explaining the misconception that makes it tempting.</p>
+
+<div class="prompt"><span class="lbl">Deep-explanation prompt</span>
+"For each question in this mock, write: (1) a concept-level explanation of why the correct answer is right, the kind a topper would give, not a one-liner; and (2) for each of the three wrong options, one line naming the specific misconception or look-alike fact that makes someone pick it. Output it as explanation + a traps array per question. Match the notes-style voice, bigger readable text, not a cramped tooltip."</div>
+
+<div class="callout tip"><b>How this scaled across 22 mocks:</b> the reliable pattern was extract → hand each mock to a focused sub-task → write the explanations → port them into the engine's render → verify a sample by eye. Do it per mock, not all at once; quality drops when you ask for too much in one shot.</div>
+
+<h3>Companion pages that fall out of depth work</h3>
+<ul>
+  <li><b>Look-alikes page:</b> a running list of confusable term-pairs ("tell these two apart"). Every time a trap is "they confused X with Y," X/Y becomes an entry.</li>
+  <li><b>Gap diagnostic / miss-breakdown:</b> feed in the exact questions a student got wrong and build a page that explains each miss and the underlying gap. (This is the "send me the 32 you missed and I'll break down every one" pattern.)</li>
+</ul>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>8 · The live trackers (admissions + news)</h2>
+
+<p>Two pages that have to stay current without you touching them: an <b>admissions tracker</b> (programs, deadlines, fees, seats) and a <b>news board</b> (exam notifications). The mechanism is the reusable part.</p>
+
+<h3>How self-updating works without a server</h3>
+<ol>
+  <li>The page reads its data from a small <b>JSON file</b> in the repo (e.g. <code>news.json</code>), and also has the same data inlined as a fallback so it renders instantly.</li>
+  <li>A <b>GitHub Actions</b> workflow runs on a schedule (this build: 8am and 3pm IST). It runs a Python script (<code>refresh_trackers.py</code>) that fetches fresh info, rewrites the JSON, stamps a "last refreshed" time, and commits it back to the repo.</li>
+  <li>GitHub Pages redeploys automatically on that commit. Next time anyone opens the page, it's current.</li>
+</ol>
+
+<div class="prompt"><span class="lbl">Tracker prompt</span>
+"Build an admissions tracker page that reads from data/admissions.json (programs, deadline, fee, seats, hostel, status). Render it as cards with a 'last refreshed' stamp at the top. Then add a GitHub Actions workflow that runs twice daily, runs a Python script to refresh the JSON, and commits the change so Pages redeploys. Keep an inlined copy of the JSON in the HTML as a fallback so the page never renders empty, and remember to re-sync that inlined copy whenever the script format changes."</div>
+
+<div class="callout gotcha"><b>The fallback trap:</b> if you inline a copy of the data for instant render <i>and</i> load the JSON, you now have two copies. When you change one, change both, or the page shows stale inlined data to anyone whose fetch is slow. Cron times in Actions are UTC; convert from your local time carefully (8am IST is 2:30am UTC).</div>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>9 · The offline pack (PWA, APK, single file)</h2>
+
+<p>Three tiers of "works with no internet," from easiest to most packaged. You don't need all three; this build did all three because different people wanted different things.</p>
+
+<h3>Tier 1 · PWA + Service Worker (free, do this always)</h3>
+<p>A Service Worker is a bit of JavaScript the browser keeps running. It caches every file on first visit, so the site loads with the WiFi off and can be "Added to Home Screen" like an app. Add a <code>manifest.webmanifest</code> (app name, icons) and a <code>sw.js</code> that precaches the file list.</p>
+
+<div class="callout gotcha"><b>Two Service Worker rules learned the hard way:</b> (1) <b>Bump the cache name on every deploy</b> (e.g. <code>met-prep-20260611-...</code>). The SW serves the cached version until the name changes; forget this and users see old content forever. A force-sync button and an auto-stamped cache name fix the "why is it stale" complaints. (2) <b>Never cache a non-200 response.</b> An early bug cached a 404 on a page that didn't exist yet (cache-first), so even after the page went live it kept 404ing. Use network-first for navigation and never store a non-200.</div>
+
+<h3>Tier 2 · The Android APK (sideloadable app)</h3>
+<p>The APK is the same site folder wrapped so Android treats it as an installed app with its own icon, fully offline. No Google Play, no Android Studio needed for this approach: a Python script (<code>build_apk.py</code>) packs the site into a template APK and signs it with a local keystore. Claude writes the script; you keep the keystore file.</p>
+
+<div class="prompt"><span class="lbl">APK prompt</span>
+"Write a Python build script that takes my whole site folder and packs it into an installable Android APK that runs the site fully offline in a WebView, with its own home-screen icon and name. Sign it with a local keystore (generate one if missing). I don't have Android Studio; use a template APK + repackaging approach. Make it rebuildable so I can regenerate the APK after the site changes."</div>
+
+<p>To keep the APK current, the same scheduled-job idea applies: a daily Action rebuilds it off the live site so re-installing always gives the latest.</p>
+
+<h3>Tier 3 · The single-file standalone (give one page to an outsider)</h3>
+<p>Sometimes you want to hand someone <i>one</i> mock with no access to the rest of the site and no internet. The recipe: take a page, strip the shared gate/nav/Service-Worker hooks, inline everything into one HTML file, and add a "Save offline" button that downloads the page to itself as a Blob. One file, double-click, works forever, reveals nothing else.</p>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>10 · Polish: gate, fullscreen, sync</h2>
+
+<ul>
+  <li><b>Casual gate.</b> A shared <code>gate.js</code> asks for a passphrase before showing any page (this build: a single shared word). It is <i>not</i> real security, it just keeps the site out of random hands and search results. Don't store anything sensitive behind it and don't pretend it's auth.</li>
+  <li><b>Fullscreen / focus mode.</b> A one-tap button injected on every page that hides browser chrome for distraction-free revision. Injected site-wide by a small script rather than pasted into each file.</li>
+  <li><b>Results export.</b> Let the student copy their result out as plain readable text (a modal they can select and copy is the primary path; a <code>.txt</code> download is the fallback). People want their scores in a form they can paste into a doc, not locked in the app.</li>
+  <li><b>Full backup.</b> One button that pulls every attempt + every note + the whole score history out of localStorage into a single plain-text file. localStorage lives only on that one device; without an export, a cleared browser wipes everything.</li>
+</ul>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>11 · The prompting playbook</h2>
+
+<p>The build is 10% architecture and 90% knowing how to ask. The patterns that actually worked:</p>
+
+<table>
+  <tr><th>Pattern</th><th>Why it works</th></tr>
+  <tr><td><b>Extract verbatim before you interpret.</b></td><td>Forces Claude to anchor on the real document instead of its own summary. Every depth win started here.</td></tr>
+  <tr><td><b>One section / one mock at a time.</b></td><td>Quality collapses when you ask for "all of it." Small, verifiable chunks stay accurate.</td></tr>
+  <tr><td><b>Always ask for the build script, not just the output.</b></td><td>You'll regenerate everything ten times. A script makes "edit content, rebuild, push" a 30-second loop.</td></tr>
+  <tr><td><b>Make Claude report what it dropped.</b></td><td>"Tell me the final count and exactly what you removed and why" catches silent fabrication and missing questions.</td></tr>
+  <tr><td><b>Verify against a known answer.</b></td><td>"Check this against Q12, which I know is C" instantly surfaces off-by-one key errors.</td></tr>
+  <tr><td><b>Reuse, don't reinvent.</b></td><td>"Build this the same way as the existing X" keeps 130 pages consistent and is far faster than describing from scratch.</td></tr>
+  <tr><td><b>State the hard constraints every time the context resets.</b></td><td>"Vanilla JS, no framework, single self-contained file" up front stops Claude reaching for React.</td></tr>
+</table>
+
+<div class="callout tip"><b>The meta-move:</b> after each working piece, ask Claude to write down <i>how</i> it built it (the recipe, the gotchas) in a notes file. Next time you build a similar thing, hand it that note. The build accelerates as the recipe library grows; that's exactly how this very manual exists.</div>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>12 · Gotchas that will bite you</h2>
+
+<p>Concentrated list of every trap this build hit, so you don't pay for them twice.</p>
+
+<table>
+  <tr><th>Symptom</th><th>Cause &amp; fix</th></tr>
+  <tr><td>Push succeeds but the site doesn't change.</td><td>Pages build failed silently. Add <code>.nojekyll</code>; always check the Pages build status, not just the push.</td></tr>
+  <tr><td>Live page keeps 404ing after you add it.</td><td>Service Worker cached the 404 (cache-first). Use network-first for navigation; never cache a non-200.</td></tr>
+  <tr><td>Users see old content after an update.</td><td>SW cache name unchanged. Auto-stamp the cache name per build; add a force-sync button.</td></tr>
+  <tr><td>Extracted PYQ has fewer questions than the paper.</td><td>Text-layer dropped some (columns, rotation, corrupt compression). Count and reconcile; vision-read the hard pages; repair/rotate first.</td></tr>
+  <tr><td>Answer key is one option off everywhere.</td><td>Matched key by position, not printed number. Re-match by question number; verify against a known answer.</td></tr>
+  <tr><td>Tracker shows stale data instantly then updates.</td><td>Inlined fallback copy out of sync with the JSON. Re-sync the inlined copy whenever the data changes.</td></tr>
+  <tr><td>Scheduled job runs at the wrong time.</td><td>GitHub Actions cron is UTC. Convert from your timezone (IST = UTC+5:30).</td></tr>
+  <tr><td>git push hangs or dies on a synced folder.</td><td>Cloud-synced folders (iCloud/Dropbox) deadlock git's memory-mapping. Work from a local <code>/tmp</code> clone and push from there.</td></tr>
+  <tr><td>Book reader pages drift out of the margins on deep pages.</td><td>Paged by frame width instead of measured content pitch. Use the article's <code>clientWidth</code>-derived pitch.</td></tr>
+</table>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>13 · The build order, end to end</h2>
+
+<p>If you did nothing but follow this list top to bottom, you'd reproduce the whole system.</p>
+
+<ol>
+  <li><b>Setup</b> (Ch. 1): Claude Code, GitHub, git authenticated. Open with the architecture-setting prompt.</li>
+  <li><b>Skeleton</b> (Ch. 2): homepage, shared dark stylesheet, empty section folders, deploying live with <code>.nojekyll</code>. Confirm the URL loads on your phone.</li>
+  <li><b>Collect sources</b> (Ch. 3): syllabus PDF, every PYQ + key, textbooks. Extract the official syllabus structure verbatim.</li>
+  <li><b>Notes library</b> (Ch. 4): section-by-section notes → build script → book reader PWA.</li>
+  <li><b>Quiz engine</b> (Ch. 5): one self-contained engine file with localStorage, +1/−0.25 scoring, per-section results.</li>
+  <li><b>Real PYQ mocks</b> (Ch. 6): turn each past paper into a faithful mock via the extract-and-reconcile recipe.</li>
+  <li><b>Depth pass</b> (Ch. 7): add full explanations + per-distractor traps to each mock; spin off the look-alikes and miss-breakdown pages.</li>
+  <li><b>Trackers</b> (Ch. 8): admissions + news pages reading JSON, with a twice-daily GitHub Action keeping them fresh.</li>
+  <li><b>Offline pack</b> (Ch. 9): Service Worker/PWA first (always), then the APK build script, then single-file standalones for giveaways.</li>
+  <li><b>Polish</b> (Ch. 10): gate, fullscreen, results export, full backup.</li>
+  <li><b>Maintain</b>: as new papers and notifications arrive, it's just "add a page, rebuild, push." The system is designed so additions are cheap forever.</li>
+</ol>
+
+<div class="callout"><b>The honest bottom line.</b> None of this is hard in the sense of clever code. It's hard in the sense of <i>discipline</i>: feed real sources, work in small verifiable chunks, make everything rebuildable, and write down the recipe each time. Do that with a fresh Claude account and you end up exactly here: a fast, free, offline-capable prep system that out-teaches anything you could buy, because it's built from the actual exam, not a summary of it.</div>
+
+<div class="footer-note">Build It From Scratch · v1.0 · A from-zero manual for the MET / NIMHANS prep system. Built the same way it describes: real sources, small chunks, every recipe written down.</div>
+
+</body>
+</html>
