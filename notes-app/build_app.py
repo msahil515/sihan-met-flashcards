@@ -27,6 +27,7 @@ OUT_CONTENT = os.path.join(ROOT, "content")
 
 # ---- Shelves (display order) -------------------------------------------
 SECTIONS = [
+    ("strategy",  "Exam Strategy",        "What actually gets tested, the repeated questions, the high-yield map", "#9d174d", "#831843"),
     ("core",      "Core Subjects",        "The syllabus, one merged book per subject", "#1d4ed8", "#1e3a8a"),
     ("amity",     "Amity",                 "Everything Amity MA Clinical in one book", "#b45309", "#78350f"),
     ("reference", "Quick Reference",       "Effects, theorists, lookalikes, the one-page cram", "#7e22ce", "#581c87"),
@@ -38,6 +39,10 @@ SECTIONS = [
 # kind "merged"  -> merged/<slug>.html (inner article HTML, uses book.css classes)
 # kind "note"    -> notes/<src>/index.html (or notes/<src>.html), chrome stripped
 BOOKS = [
+    # --- Exam Strategy ---
+    dict(slug="master-guide", shelf="strategy", kind="merged", search_cap=40000,
+         short="Master Guide for Clinical Psychology (Amit Panwar)",
+         blurb="The cheat-map of exactly what CIP, IHBAS, RML and NIMHANS test: the exam pattern analysis, the questions that actually repeat across papers, the high-yield strategy, plus an A–Z terminology glossary, 24 named therapies (founder · concepts · techniques) and 25 landmark experiments (who · year · where · what)."),
     # --- Core Subjects (one merged book per subject) ---
     dict(slug="biopsychology", shelf="core", kind="merged",
          short="Biopsychology & Neuroscience",
@@ -187,10 +192,13 @@ def main():
             f.write(out)
 
         words = len(plain.split())
+        # reference/glossary books carry their searchable terms past the usual
+        # 6000-char window, so let a book opt into a longer search snippet.
+        cap = b.get("search_cap", 6000)
         built.append(dict(
             slug=slug, title=title, short=b["short"], blurb=b["blurb"],
             shelf=b["shelf"], words=words, minutes=max(1, round(words / 220)),
-            text=plain[:6000],
+            text=plain[:cap],
         ))
 
     # assemble shelves
