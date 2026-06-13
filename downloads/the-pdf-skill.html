@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The PDF Skill — Send a PDF, Get Notes</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 20mm 16mm; }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "Iowan Old Style", Georgia, "Times New Roman", serif;
+    color: #1a1a1a; line-height: 1.5; font-size: 10.9pt; margin: 0;
+  }
+  h1, h2, h3, h4 { font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; color: #0b2942; line-height: 1.2; }
+  h1 { font-size: 27pt; margin: 0 0 4px; letter-spacing: -0.5px; }
+  h2 { font-size: 16.5pt; margin: 26px 0 8px; padding-bottom: 5px; border-bottom: 2px solid #1f6feb; page-break-after: avoid; }
+  h3 { font-size: 12.5pt; margin: 18px 0 5px; color: #11497a; page-break-after: avoid; }
+  h4 { font-size: 10.8pt; margin: 13px 0 3px; color: #333; page-break-after: avoid; }
+  p { margin: 6px 0; }
+  ul, ol { margin: 6px 0 6px 0; padding-left: 20px; }
+  li { margin: 4px 0; }
+  code { font-family: "SF Mono", "Menlo", Consolas, monospace; font-size: 9pt; background: #eef1f5; padding: 1px 4px; border-radius: 3px; color: #b1003a; }
+  .lead { font-size: 11.8pt; color: #444; margin: 10px 0 4px; }
+  .callout { background: #fff8e6; border-left: 4px solid #f0b429; padding: 8px 13px; margin: 10px 0; border-radius: 0 5px 5px 0; page-break-inside: avoid; }
+  .callout.tip { background: #eaf7ee; border-left-color: #2da44e; }
+  .callout.gotcha { background: #fdecef; border-left-color: #cf222e; }
+  .callout b { color: #0b2942; }
+  .prompt { background: #f3f6fb; border: 1px solid #d0d9e6; border-left: 4px solid #1f6feb; padding: 9px 13px; margin: 9px 0; border-radius: 0 5px 5px 0; font-family: -apple-system, Arial, sans-serif; font-size: 9.9pt; color: #14304a; page-break-inside: avoid; }
+  .prompt .lbl { display: block; font-size: 7.6pt; letter-spacing: 1px; text-transform: uppercase; color: #1f6feb; font-weight: 700; margin-bottom: 4px; }
+  .prompt b { color: #0b2942; }
+  .cover { text-align: left; padding: 30px 0 14px; border-bottom: 3px solid #0b2942; margin-bottom: 8px; }
+  .cover .kicker { font-family: -apple-system, Arial, sans-serif; font-size: 10pt; letter-spacing: 2px; text-transform: uppercase; color: #1f6feb; font-weight: 700; }
+  .cover .sub { font-family: -apple-system, Arial, sans-serif; font-size: 13.5pt; color: #555; margin-top: 8px; }
+  .cover .meta { font-family: -apple-system, Arial, sans-serif; font-size: 9pt; color: #888; margin-top: 14px; }
+  .toc { font-family: -apple-system, Arial, sans-serif; font-size: 10pt; margin: 12px 0; }
+  .toc div { margin: 4px 0; break-inside: avoid; }
+  .toc .n { color: #1f6feb; font-weight: 700; display: inline-block; width: 20px; }
+  table { width: 100%; border-collapse: collapse; font-family: -apple-system, Arial, sans-serif; font-size: 9pt; margin: 9px 0; page-break-inside: avoid; }
+  th, td { border: 1px solid #cdd6e0; padding: 6px 9px; text-align: left; vertical-align: top; }
+  th { background: #0b2942; color: #fff; font-weight: 600; }
+  tr:nth-child(even) td { background: #f4f7fb; }
+  .chapter { page-break-before: always; }
+  .step { background: #fbfcfe; border: 1px solid #e2e8f1; border-radius: 8px; padding: 12px 15px 12px 52px; margin: 11px 0; position: relative; page-break-inside: avoid; }
+  .step .num { position: absolute; left: 13px; top: 12px; width: 28px; height: 28px; background: #1f6feb; color: #fff; font-family: -apple-system, Arial, sans-serif; font-weight: 700; font-size: 13pt; border-radius: 50%; text-align: center; line-height: 28px; }
+  .step h4 { margin-top: 0; color: #0b2942; font-size: 11.4pt; }
+  hr { border: 0; border-top: 1px solid #ddd; margin: 16px 0; }
+  .footer-note { font-family: -apple-system, Arial, sans-serif; font-size: 8.5pt; color: #999; text-align: center; margin-top: 22px; padding-top: 10px; border-top: 1px solid #eee; }
+  a { color: #1f6feb; text-decoration: none; }
+  .big-move { background: #0b2942; color: #fff; border-radius: 10px; padding: 16px 20px; margin: 14px 0; font-family: -apple-system, Arial, sans-serif; page-break-inside: avoid; }
+  .big-move .l { font-size: 8pt; letter-spacing: 2px; text-transform: uppercase; color: #7fb2ff; font-weight: 700; }
+  .big-move .m { font-size: 15pt; font-weight: 600; margin-top: 6px; line-height: 1.35; }
+  .big-move .m em { color: #ffd479; font-style: normal; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="kicker">The Core Skill · v1.0</div>
+  <h1>Send a PDF, Get Notes</h1>
+  <div class="sub">The one move the whole system runs on. You send a PDF, you say where it goes, it gets built to depth and pushed live. That's it.</div>
+  <div class="meta">No Python. No setup. No git. No code. You just talk and send. June 2026.</div>
+</div>
+
+<p class="lead">Everything on the site, every note, every mock, the tracker, the offline pack, is the same move repeated. This guide is only about that one move, written plain. If you read nothing else, read the box below.</p>
+
+<div class="big-move">
+  <div class="l">The whole skill, in one line</div>
+  <div class="m">Drop a PDF. Say <em>"turn this into notes and put it in the app"</em> or <em>"make a mock out of this."</em> Done. It writes it up properly and pushes it live, and you get a link.</div>
+</div>
+
+<h2 style="border:none; margin-top:14px;">What's inside</h2>
+<div class="toc">
+  <div><span class="n">1</span> The move, in three steps</div>
+  <div><span class="n">2</span> Where a PDF can land (the four places)</div>
+  <div><span class="n">3</span> Exactly what to say (copy these)</div>
+  <div><span class="n">4</span> What "to depth" means, so you know what you're getting</div>
+  <div><span class="n">5</span> After it's live: checking it, and fixing it</div>
+  <div><span class="n">6</span> Small things that make the result better</div>
+  <div><span class="n">7</span> What you never have to do</div>
+  <div><span class="n">8</span> Cheat sheet: one-liners to copy</div>
+</div>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>1 · The move, in three steps</h2>
+
+<p>There is no setup before this and no cleanup after. The entire thing is three steps, and you only do the first two. The third happens on its own.</p>
+
+<div class="step">
+  <div class="num">1</div>
+  <h4>Send the PDF</h4>
+  <p>Attach the PDF in the chat. Past paper, a chapter, a syllabus, a notes dump, a screenshot of a question, anything. It doesn't have to be clean. Scanned, rotated, badly OCR'd, half-highlighted: all fine. It reads it as-is.</p>
+</div>
+
+<div class="step">
+  <div class="num">2</div>
+  <h4>Say where it goes and what it should become</h4>
+  <p>One sentence. <i>"Make this a note in the app."</i> <i>"Turn this into a mock."</i> <i>"Add this to the tracker."</i> You don't have to be precise; if you just say "put this somewhere useful," it picks. But the more you say, the closer it lands. Section 3 has the exact lines.</p>
+</div>
+
+<div class="step">
+  <div class="num">3</div>
+  <h4>It builds it and pushes it live (you do nothing)</h4>
+  <p>It reads the PDF, writes the note or builds the mock to full depth, puts it in the right folder, and publishes it to the site. A minute or two later it sends you the link. You open it on your phone. That's the end of it.</p>
+</div>
+
+<div class="callout tip"><b>The key thing to trust:</b> you are not asking for a draft you then have to edit. You are asking for the finished, live thing. The reply you get back is a URL, not homework.</div>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>2 · Where a PDF can land (the four places)</h2>
+
+<p>A PDF can become one of four things. You don't memorise this, you just need to know it exists so you know what to ask for. When in doubt, ask for notes; you can always say "now also make a mock from it" after.</p>
+
+<table>
+  <tr><th>You want</th><th>It becomes</th><th>Lands in</th></tr>
+  <tr><td><b>To study / revise the content</b></td><td>A note in the Notes-for-Exam book library, written to depth, searchable, works offline.</td><td>The Notes app</td></tr>
+  <tr><td><b>To practise on it / test yourself</b></td><td>A self-contained mock: real questions, scored, with a full explanation under every one.</td><td>Tests</td></tr>
+  <tr><td><b>To track an admission / news</b></td><td>A row in the admissions tracker or a card on the news board (dates, fees, seats, links).</td><td>Tracker / News</td></tr>
+  <tr><td><b>To keep a copy that works offline</b></td><td>Folded into the offline pack so it's there on a flight or with no signal.</td><td>Offline pack</td></tr>
+</table>
+
+<p>All four are the same move under the hood. The only thing that changes is the one sentence you say in step 2.</p>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>3 · Exactly what to say (copy these)</h2>
+
+<p>Send the PDF, then send one of these. Plain language. You can change the words; these just work.</p>
+
+<h3>To turn it into notes</h3>
+<div class="prompt"><span class="lbl">Notes</span>"Turn this PDF into notes and put it in the app. Write it to full depth, don't just summarise it."</div>
+<p>If it's one chapter of a known book, say so: <i>"This is the Pinel chapter on the brain, add it to the notes app at proper depth."</i> Naming the book helps it match the look and depth of the others.</p>
+
+<h3>To turn it into a mock / test</h3>
+<div class="prompt"><span class="lbl">Mock</span>"Make a mock out of this. Use the real questions from the paper, score it, and put a full explanation under every question."</div>
+<p>If the PDF <b>is a real past paper</b> with an answer key, say that, because it changes how carefully it's handled: <i>"This is a real past paper, the answers are marked in bold. Build it verbatim, don't invent questions, and flag anything where the key looks wrong."</i></p>
+
+<h3>To add it to the tracker</h3>
+<div class="prompt"><span class="lbl">Tracker</span>"This is the admission notice for [college]. Add it to the tracker with the dates, fees, seats and the link."</div>
+
+<h3>When you're not sure</h3>
+<div class="prompt"><span class="lbl">Let it pick</span>"Here's a PDF. Read it and put it wherever it's most useful on the site, then tell me what you did and where it is."</div>
+
+<div class="callout"><b>One PDF, both things.</b> You can ask for notes <i>and</i> a mock from the same PDF: "Make notes from this and also build a mock from it." Or come back later: "remember that paper I sent, now make a mock from it too."</div>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>4 · What "to depth" means</h2>
+
+<p>This is the part that makes it worth doing at all, so it's worth knowing what you're actually getting. "To depth" is the default, you don't have to ask for it. It means:</p>
+
+<ul>
+  <li><b>For a note:</b> it doesn't paste the PDF text back. It rewrites the content as proper exam notes, explains the concepts, keeps the figures and diagrams where they matter, and writes it so you can actually revise from it, not just re-read it.</li>
+  <li><b>For a mock:</b> every question gets a real explanation underneath, not just "the answer is C." It explains why C is right <i>and</i> why each wrong option is the trap it is. So a mock you got wrong teaches you, instead of just scoring you.</li>
+  <li><b>For a real past paper:</b> it pulls the questions exactly as written, uses the official answer key, and tells you honestly if a key looks debatable instead of quietly papering over it.</li>
+</ul>
+
+<div class="callout tip"><b>You can always push for more.</b> If a note feels thin, say <i>"go deeper on this one, it's too shallow."</i> If you want the explanations richer, say <i>"add the trap under each wrong option."</i> Depth is a dial you can turn after the fact.</div>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>5 · After it's live: checking it, and fixing it</h2>
+
+<p>You get a link. Open it. If something's off, you don't fix it yourself, you just say what's wrong in plain words and it redoes that part. Examples of exactly what to say:</p>
+
+<table>
+  <tr><th>What you notice</th><th>What you say</th></tr>
+  <tr><td>A note is too shallow</td><td>"That note's too thin, go deeper, explain it properly."</td></tr>
+  <tr><td>A question's answer looks wrong</td><td>"Question 14 in that mock, I think the answer is wrong, check it against the key."</td></tr>
+  <tr><td>It put it in the wrong place</td><td>"Move that into the Notes app instead, it shouldn't be a mock."</td></tr>
+  <tr><td>The page won't load / looks old</td><td>"That page is showing the old version, force it to update."</td></tr>
+  <tr><td>You want it gone</td><td>"Take that one down, I don't need it."</td></tr>
+</table>
+
+<div class="callout gotcha"><b>If a fresh page looks stale on your phone:</b> the app caches things to work offline, so a brand-new page can show the old version for a minute. Pull to refresh, or hit the refresh (↻) button. If it's still stuck, just say "force-update that page" and it'll bump the cache so it reloads clean.</div>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>6 · Small things that make the result better</h2>
+
+<p>None of these are required. The move works without them. They just make it land closer the first time, so you do fewer "redo this" rounds.</p>
+
+<ul>
+  <li><b>Name the source.</b> "This is the IHBAS 2024 paper" beats "here's a PDF." It knows your papers and matches the style of the ones already up.</li>
+  <li><b>Say if it's verbatim.</b> For a real paper, "build it exactly, don't invent questions" tells it to reproduce, not rewrite. Important for past papers.</li>
+  <li><b>Say which exam it's for.</b> "This is for the Amity Noida MA" vs "for NIMHANS" changes how it's framed and where it files it.</li>
+  <li><b>Send the answer key too, if you have it.</b> Even a screenshot of the bold answers. It'll use the real key instead of working out answers itself.</li>
+  <li><b>One PDF per message is cleanest.</b> If you dump five at once, say what each is, or just send them one at a time and say "same as before" for each.</li>
+</ul>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>7 · What you never have to do</h2>
+
+<p>This is the reassurance part. The whole point of the skill is that the boring machinery is invisible. You never touch any of this:</p>
+
+<table>
+  <tr><th>You never...</th><th>Because...</th></tr>
+  <tr><td>Write or run Python</td><td>It writes and runs any script itself, you never see it.</td></tr>
+  <tr><td>Touch git, GitHub, or "push" anything</td><td>Publishing live is part of the move. It does it.</td></tr>
+  <tr><td>Set anything up or install anything</td><td>It's already set up. You're just feeding it PDFs.</td></tr>
+  <tr><td>Open a code editor or edit HTML</td><td>You describe what's wrong in words. It edits the code.</td></tr>
+  <tr><td>Format the PDF or clean it first</td><td>Messy, scanned, rotated, half-OCR'd: it handles it.</td></tr>
+  <tr><td>Wait around or babysit it</td><td>You send and walk away. It pings you the link when it's live.</td></tr>
+</table>
+
+<p>If you ever find yourself about to do one of these, stop, you're doing its job. Say what you want in a sentence instead.</p>
+
+<!-- ========================================================= -->
+<div class="chapter"></div>
+<h2>8 · Cheat sheet: one-liners to copy</h2>
+
+<p>Send the PDF first, then one of these. That's the whole manual on one page.</p>
+
+<h3>Make something</h3>
+<div class="prompt">"Turn this into notes and put it in the app, full depth."</div>
+<div class="prompt">"Make a mock out of this, real questions, score it, explanation under each one."</div>
+<div class="prompt">"This is a real past paper with the answers in bold, build it verbatim and flag any dodgy keys."</div>
+<div class="prompt">"This is the admission notice for [college], add it to the tracker."</div>
+<div class="prompt">"Read this and put it wherever it's most useful, then tell me where it went."</div>
+
+<h3>Fix something</h3>
+<div class="prompt">"That note's too thin, go deeper."</div>
+<div class="prompt">"Question [N] looks wrong, recheck it against the key."</div>
+<div class="prompt">"Add the trap explanation under each wrong option."</div>
+<div class="prompt">"Move that into the Notes app, it shouldn't be a mock."</div>
+<div class="prompt">"That page is stale on my phone, force-update it."</div>
+
+<div class="callout tip" style="margin-top:18px;"><b>That's the skill.</b> Send a PDF, say where it goes, get a link. Everything else on the site, the notes, the 20-odd mocks, the tracker, the offline app, was built exactly this way, one PDF at a time. You already know how to use all of it.</div>
+
+<div class="footer-note">Sihan · MET 2026 / NIMHANS prep · The PDF Skill · built and pushed live the same way it describes.</div>
+
+</body>
+</html>
