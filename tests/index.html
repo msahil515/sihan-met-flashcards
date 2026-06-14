@@ -31,6 +31,29 @@
   .backup-counts > div { padding: 4px; }
   .backup-counts .n { display: block; font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
   .backup-counts .l { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Done / auto-hide controls */
+  .done-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 11px 14px; margin-bottom: 14px; font-size: 13px; }
+  .done-bar .dh { color: var(--muted); font-size: 12px; }
+  .done-opt { display: inline-flex; align-items: center; gap: 7px; cursor: pointer; user-select: none; }
+  .done-opt input { width: 16px; height: 16px; accent-color: var(--accent-dim); cursor: pointer; }
+  .done-show-btn { font-size: 12px; padding: 6px 12px; border-radius: 6px; cursor: pointer;
+    border: 1px solid var(--border); background: var(--panel-2); color: var(--text); font-weight: 500; }
+  .done-show-btn:hover { border-color: var(--accent-dim); color: var(--accent); }
+  .done-show-btn.on { border-color: var(--accent-dim); color: var(--accent); }
+  .done-count { color: var(--muted); margin-left: auto; font-size: 12px; }
+  /* per-card done button */
+  .card { position: relative; }
+  .done-toggle { position: absolute; top: 10px; right: 10px; z-index: 3;
+    font-size: 11px; font-weight: 600; padding: 5px 11px; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--border); background: rgba(13,17,23,.72); color: var(--muted);
+    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); transition: all .12s; line-height: 1; }
+  .done-toggle:hover { border-color: var(--good); color: var(--good); }
+  .done-toggle.is-done { border-color: var(--good); background: var(--good); color: #0d1117; }
+  .card.is-finished { opacity: .62; }
+  .card.is-finished:hover { opacity: 1; }
 </style>
 <!-- PWA:met-prep -->
 <link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
@@ -76,6 +99,12 @@
     <div class="section-head">
       <h2 class="section-title">Full-length mocks</h2>
       <span class="section-sub">Sit one in a single block, +1/−0.25 scoring, simulate the real paper</span>
+    </div>
+    <div class="done-bar">
+      <span class="dh">Done with a paper? Drop it off the list so you're not staring at tests you've already smashed.</span>
+      <label class="done-opt"><input type="checkbox" id="autoHideChk"> Auto-hide once I finish a paper</label>
+      <button class="done-show-btn" id="showFinishedBtn" type="button">Show finished (0)</button>
+      <span class="done-count" id="liveCount"></span>
     </div>
     <div class="grid cols-2" id="mocksGrid"></div>
   </section>
@@ -454,17 +483,47 @@ function readMock(m) {
   return { answered, correct, wrong };
 }
 
+/* ---- Done / hide state ---------------------------------------------- */
+const DONE_KEY = "tests-done-v1";          // { [mockId]: true } manually marked done
+const HIDE_SETTINGS_KEY = "tests-hide-settings-v1"; // { autoHide, showFinished }
+
+function readDone()      { return readJSON(DONE_KEY, {}) || {}; }
+function writeDone(d)    { localStorage.setItem(DONE_KEY, JSON.stringify(d)); }
+function readHideSettings() {
+  const s = readJSON(HIDE_SETTINGS_KEY, null) || {};
+  return { autoHide: s.autoHide !== false, showFinished: !!s.showFinished }; // autoHide defaults ON
+}
+function writeHideSettings(s) { localStorage.setItem(HIDE_SETTINGS_KEY, JSON.stringify(s)); }
+
+// A paper counts as "finished" if you marked it done, or auto-hide is on and you've answered every question.
+function isFinished(m, r, settings, done) {
+  if (done[m.id]) return true;
+  if (settings.autoHide && r.answered >= m.total && m.total > 0) return true;
+  return false;
+}
+
 function renderMocks() {
   const root = document.getElementById("mocksGrid");
   root.innerHTML = "";
+  const settings = readHideSettings();
+  const done = readDone();
+  let finishedCount = 0, shownCount = 0;
+
   for (const m of MOCKS) {
     const r = readMock(m);
+    const finished = isFinished(m, r, settings, done);
+    if (finished) finishedCount++;
+    if (finished && !settings.showFinished) continue; // dropped off the list
+    shownCount++;
+
     const pct = r.answered ? Math.round((r.correct / r.answered) * 100) : null;
-    const cardCls = "card link" + (m.fresh ? " fresh" : "");
+    const cardCls = "card link" + (m.fresh ? " fresh" : "") + (finished ? " is-finished" : "");
+    const manualDone = !!done[m.id];
     const a = document.createElement("a");
     a.className = cardCls;
     a.href = m.path;
     a.innerHTML = `
+      <button type="button" class="done-toggle${manualDone ? ' is-done' : ''}" data-done-id="${m.id}">${manualDone ? '✓ Done' : (finished ? '✓ Finished' : 'Mark done')}</button>
       <div class="card-head">
         <div>
           <div class="card-title">${m.title}</div>
@@ -480,10 +539,39 @@ function renderMocks() {
       </div>
       <div class="bar ${pct==null?'':pct>=75?'good':pct>=50?'warn':'bad'}"><span style="width:${pct==null?0:Math.min(100,pct)}%"></span></div>
       <div class="pill-row">${m.tags.map(t => `<span class="pill">${t}</span>`).join("")}</div>
-      <div class="card-cta">${r.answered ? "Continue →" : "Open mock →"}</div>
+      <div class="card-cta">${finished ? "Revisit →" : (r.answered ? "Continue →" : "Open mock →")}</div>
     `;
     root.appendChild(a);
   }
+
+  if (!shownCount) {
+    const empty = document.createElement("div");
+    empty.style.cssText = "grid-column:1/-1;padding:22px;text-align:center;color:var(--muted);font-size:14px;border:1px dashed var(--border);border-radius:8px;";
+    empty.textContent = finishedCount
+      ? "All mocks marked finished — nice. Hit “Show finished” to revisit any of them."
+      : "No mocks to show.";
+    root.appendChild(empty);
+  }
+
+  // sync controls
+  const autoChk = document.getElementById("autoHideChk");
+  if (autoChk) autoChk.checked = settings.autoHide;
+  const showBtn = document.getElementById("showFinishedBtn");
+  if (showBtn) {
+    showBtn.textContent = (settings.showFinished ? "Hide finished (" : "Show finished (") + finishedCount + ")";
+    showBtn.classList.toggle("on", settings.showFinished);
+  }
+  const live = document.getElementById("liveCount");
+  if (live) live.textContent = finishedCount
+    ? `${shownCount} active · ${finishedCount} finished`
+    : `${shownCount} active`;
+}
+
+function toggleDone(id) {
+  const done = readDone();
+  if (done[id]) delete done[id]; else done[id] = true;
+  writeDone(done);
+  refresh();
 }
 
 function renderDrillScores() {
@@ -525,7 +613,8 @@ const BACKUP_KEYS = [
   "pyq-mock-2-results-v1",      "pyq-mock-2-notes-v1",      "pyq-mock-2-progress-v1",
   "pyq-real-2024-results-v1",   "pyq-real-2024-notes-v1",   "pyq-real-2024-progress-v1",
   "sihan-met-quiz-results-v1",  "sihan-met-quiz-notes-v1",  "sihan-met-quiz-progress-v1",
-  "results-history-v1",         "results-journal-v1"
+  "results-history-v1",         "results-journal-v1",
+  "tests-done-v1",              "tests-hide-settings-v1"
 ];
 
 function collectBackup() {
@@ -648,6 +737,29 @@ document.getElementById("restoreFileInput").addEventListener("change", (e) => {
   const f = e.target.files && e.target.files[0];
   restoreFromFile(f);
   e.target.value = "";
+});
+
+// Per-card "Mark done" button (delegated; cards are <a>, so stop the navigation)
+document.getElementById("mocksGrid").addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-done-id]");
+  if (!btn) return;
+  e.preventDefault();
+  e.stopPropagation();
+  toggleDone(btn.getAttribute("data-done-id"));
+});
+
+document.getElementById("autoHideChk").addEventListener("change", (e) => {
+  const s = readHideSettings();
+  s.autoHide = e.target.checked;
+  writeHideSettings(s);
+  refresh();
+});
+
+document.getElementById("showFinishedBtn").addEventListener("click", () => {
+  const s = readHideSettings();
+  s.showFinished = !s.showFinished;
+  writeHideSettings(s);
+  refresh();
 });
 
 window.addEventListener("focus", refresh);
