@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0d1117">
+<title>Flight PYQ #1 — 15 Qs, no internet needed</title>
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --panel2:#1f252d; --border:#30363d;
+    --text:#e6edf3; --muted:#8b949e; --accent:#58a6ff; --accent-dim:#1f6feb;
+    --good:#3fb950;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','SF Pro Text',sans-serif;
+    line-height:1.55;font-size:17px}
+  .wrap{max-width:760px;margin:0 auto;padding:18px 16px 120px}
+  header{text-align:center;padding-bottom:14px;border-bottom:1px solid var(--border);margin-bottom:18px}
+  h1{font-size:21px;margin:0 0 6px}
+  .sub{color:var(--muted);font-size:14px}
+  .banner{background:var(--panel);border:1px solid var(--border);border-radius:10px;
+    padding:12px 14px;margin-bottom:18px;font-size:14.5px;color:var(--muted)}
+  .banner b{color:var(--text)}
+  .q{background:var(--panel);border:1px solid var(--border);border-radius:12px;
+    padding:16px 16px 8px;margin-bottom:14px}
+  .q .stem{font-weight:600;margin-bottom:12px}
+  .q .num{color:var(--accent);font-weight:700;margin-right:6px}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:11px 12px;margin-bottom:8px;
+    border:1px solid var(--border);border-radius:9px;cursor:pointer;background:var(--panel2);
+    transition:border-color .12s,background .12s}
+  .opt:hover{border-color:var(--accent-dim)}
+  .opt.sel{border-color:var(--accent);background:rgba(88,166,255,.12)}
+  .opt .letter{flex:0 0 auto;width:24px;height:24px;border-radius:6px;border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--muted)}
+  .opt.sel .letter{background:var(--accent);color:#0d1117;border-color:var(--accent)}
+  .opt .txt{flex:1}
+  .bar{position:fixed;left:0;right:0;bottom:0;background:rgba(13,17,23,.95);
+    border-top:1px solid var(--border);padding:12px 16px;backdrop-filter:blur(8px)}
+  .bar .inner{max-width:760px;margin:0 auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .count{color:var(--muted);font-size:14px;margin-right:auto}
+  .count b{color:var(--text)}
+  button{font:inherit;font-size:15px;font-weight:600;border:none;border-radius:9px;
+    padding:11px 16px;cursor:pointer}
+  .primary{background:var(--accent);color:#0d1117}
+  .ghost{background:var(--panel2);color:var(--text);border:1px solid var(--border)}
+  .out{background:var(--panel);border:1px solid var(--accent-dim);border-radius:12px;
+    padding:16px;margin-top:8px;display:none}
+  .out.show{display:block}
+  .out h3{margin:0 0 8px;font-size:16px}
+  .answers{font-size:20px;font-weight:700;letter-spacing:1px;word-spacing:6px;
+    background:var(--panel2);border:1px solid var(--border);border-radius:9px;padding:14px;
+    text-align:center;margin:10px 0;color:var(--good)}
+  .miss{color:var(--muted);font-size:13.5px}
+  footer{text-align:center;color:var(--muted);font-size:12.5px;margin-top:26px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>✈️ Flight PYQ #1</h1>
+    <div class="sub">15 questions · clinical / RCI pattern · no key shown · works with zero internet</div>
+  </header>
+
+  <div class="banner">
+    Read and pick. Nothing's marked here on purpose, the point is you <b>actually attempt it</b>.
+    When you've done all 15, hit <b>Copy my answers</b> at the bottom, then paste that into WhatsApp and send it.
+    I'll mark it and break down every miss. Tap <b>Save offline copy</b> first so it survives the flight.
+  </div>
+
+  <div id="quiz"></div>
+
+  <div class="out" id="out">
+    <h3>Your answers — paste this to me</h3>
+    <div class="answers" id="answersText"></div>
+    <div class="miss" id="missNote"></div>
+    <button class="primary" id="copyBtn" style="margin-top:10px;width:100%">Copy to clipboard</button>
+  </div>
+
+  <footer>MET 2026 prep · flight set · self-contained, no key inside</footer>
+</div>
+
+<div class="bar">
+  <div class="inner">
+    <span class="count" id="count"><b>0</b> / 15 answered</span>
+    <button class="ghost" id="saveBtn">Save offline copy</button>
+    <button class="primary" id="doneBtn">Copy my answers</button>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [
+  {q:'The "law of effect" was proposed by:',o:["Pavlov","Thorndike","Skinner","Watson"]},
+  {q:"Korsakoff's syndrome is most associated with deficiency of:",o:["Vitamin B1 (thiamine)","Vitamin B12","Vitamin D","Folate"]},
+  {q:"In Piaget's theory, object permanence develops in the:",o:["Sensorimotor stage","Preoperational","Concrete operational","Formal operational"]},
+  {q:"The neurotransmitter most implicated in the positive symptoms of schizophrenia:",o:["Serotonin","GABA","Dopamine","Acetylcholine"]},
+  {q:"Cronbach's alpha is a measure of:",o:["Validity","Internal consistency reliability","Test-retest reliability","Inter-rater reliability"]},
+  {q:"The defense mechanism of attributing one's own unacceptable impulses to others is:",o:["Reaction formation","Projection","Displacement","Sublimation"]},
+  {q:"Type I error refers to:",o:["Accepting a false null","Rejecting a true null","Low power","Large sample bias"]},
+  {q:"WAIS-IV is primarily used to assess:",o:["Personality","Adult intelligence","Neuropsych soft signs","Aptitude"]},
+  {q:'The "fight or flight" response is mediated mainly by the:',o:["Parasympathetic NS","Sympathetic NS","Somatic NS","Enteric NS"]},
+  {q:'According to Beck, the "cognitive triad" in depression is negative views of:',o:["Id, ego, superego","Self, world, future","Past, present, future","Self, mother, father"]},
+  {q:"A correlation of -0.85 indicates:",o:["Weak negative","Strong negative","No relationship","Strong positive"]},
+  {q:"The mirror neuron system is most associated with:",o:["Broca's area / premotor cortex","Hippocampus","Amygdala","Cerebellum only"]},
+  {q:"In DSM-5, at least how many symptoms over 2 weeks are needed for a major depressive episode:",o:["3","4","5","7"]},
+  {q:"Token economy is based on the principle of:",o:["Classical conditioning","Operant conditioning","Observational learning","Insight"]},
+  {q:"The Halstead-Reitan battery is used for:",o:["Personality assessment","Neuropsychological assessment","Vocational testing","Projective testing"]},
+];
+const LET = ["a","b","c","d"];
+const ans = {};
+
+const quiz = document.getElementById("quiz");
+QUESTIONS.forEach((item, qi) => {
+  const card = document.createElement("div");
+  card.className = "q";
+  let html = `<div class="stem"><span class="num">${qi+1}.</span>${esc(item.q)}</div>`;
+  item.o.forEach((opt, oi) => {
+    html += `<div class="opt" data-q="${qi}" data-o="${oi}">
+      <span class="letter">${LET[oi]}</span><span class="txt">${esc(opt)}</span></div>`;
+  });
+  card.innerHTML = html;
+  quiz.appendChild(card);
+});
+
+quiz.addEventListener("click", e => {
+  const opt = e.target.closest(".opt");
+  if(!opt) return;
+  const qi = +opt.dataset.q, oi = +opt.dataset.o;
+  ans[qi] = oi;
+  opt.parentElement.querySelectorAll(".opt").forEach(el => el.classList.remove("sel"));
+  opt.classList.add("sel");
+  updateCount();
+});
+
+function updateCount(){
+  document.getElementById("count").innerHTML = `<b>${Object.keys(ans).length}</b> / 15 answered`;
+}
+
+function buildString(){
+  return QUESTIONS.map((_,qi)=> (qi+1) + (qi in ans ? LET[ans[qi]] : "_")).join(" ");
+}
+
+document.getElementById("doneBtn").addEventListener("click", () => {
+  const str = buildString();
+  document.getElementById("answersText").textContent = str;
+  const missing = QUESTIONS.map((_,i)=>i).filter(i=>!(i in ans));
+  document.getElementById("missNote").textContent = missing.length
+    ? `Still blank: Q${missing.map(i=>i+1).join(", Q")} — go back and pick before sending.`
+    : "All 15 done. Send it.";
+  const out = document.getElementById("out");
+  out.classList.add("show");
+  out.scrollIntoView({behavior:"smooth"});
+});
+
+document.getElementById("copyBtn").addEventListener("click", async () => {
+  const str = document.getElementById("answersText").textContent;
+  try{ await navigator.clipboard.writeText(str); copied(); }
+  catch(_){
+    const ta=document.createElement("textarea");ta.value=str;document.body.appendChild(ta);
+    ta.select();try{document.execCommand("copy");copied();}catch(e){}document.body.removeChild(ta);
+  }
+});
+function copied(){const b=document.getElementById("copyBtn");b.textContent="Copied ✓";setTimeout(()=>b.textContent="Copy to clipboard",1500);}
+
+document.getElementById("saveBtn").addEventListener("click", () => {
+  const html = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+  const blob = new Blob([html], {type:"text/html"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "Flight-PYQ-1.html";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  const b=document.getElementById("saveBtn");b.textContent="Saved ✓";setTimeout(()=>b.textContent="Save offline copy",1500);
+});
+
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+</script>
+</body>
+</html>
