@@ -54,6 +54,16 @@
   .done-toggle.is-done { border-color: var(--good); background: var(--good); color: #0d1117; }
   .card.is-finished { opacity: .62; }
   .card.is-finished:hover { opacity: 1; }
+
+  /* Pinned deep-explanation section */
+  .deep-head { display: flex; flex-direction: column; gap: 4px; margin-bottom: 6px; }
+  .deep-banner { background: linear-gradient(180deg, rgba(255,196,0,.10), rgba(255,196,0,.03));
+    border: 1px solid rgba(255,196,0,.28); border-radius: 8px; padding: 11px 14px; margin-bottom: 14px;
+    font-size: 13px; color: var(--text); line-height: 1.5; }
+  .deep-banner b { color: var(--accent); }
+  .card.deep { border-color: rgba(255,196,0,.30); }
+  .badge.deep { background: #ffc400; color: #1a1500; }
+  .pill.deep-pill { background: rgba(255,196,0,.16); color: #ffce3a; border-color: rgba(255,196,0,.35); }
 </style>
 <!-- PWA:met-prep -->
 <link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
@@ -94,6 +104,17 @@
     <h1>Tests Library</h1>
     <p>Full-length mocks built to exam pattern, plus a topic-by-topic mixed bank for daily drills. Every answer is logged in your browser so the dashboard can show section-wise scores.</p>
   </div>
+
+  <section>
+    <div class="section-head deep-head">
+      <h2 class="section-title">⭐ Deep explanations — the revamp papers</h2>
+      <span class="section-sub">Full worked answer under every single question · pinned here so you find them in one tap</span>
+    </div>
+    <div class="deep-banner">
+      These are the four you asked about. The "revamp" wasn't four <i>new</i> papers, it's the <b>deep explanations</b> added under every question of mocks you already had: why the right answer is right, the concept from scratch, and a trap line for each wrong option. They sit in the full list too under these exact names, so this is just the shortcut.
+    </div>
+    <div class="grid cols-2" id="deepGrid"></div>
+  </section>
 
   <section>
     <div class="section-head">
@@ -293,7 +314,8 @@ const MOCKS = [
     sections: { general: 38, biopsych: 18, abnormal: 14, therapy: 13, biostats: 6, assessment: 6, dev: 3, social: 2 },
     blurb: "The full 2024 RML / ABVIMS (Dr RML Hospital, Delhi) M.Phil Clinical Psychology entrance paper, all 100 questions verbatim with the paper's official answer key (the source marks each correct option in bold). Nothing synthesised. This is the M.Phil (CET-157) paper, the best real depth-calibration for the RML MA route, pulled from your Drive library. Untimed Practice mode by default (instant reveal + explanation per question); flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
-    tags: ["100% real PYQ", "official key", "real distractors", "RML 2024", "untimed practice"]
+    deepExp: true,
+    tags: ["deep explanations", "100% real PYQ", "official key", "real distractors", "RML 2024", "untimed practice"]
   },
   {
     id: "ihbas-2020",
@@ -305,7 +327,8 @@ const MOCKS = [
     sections: { general: 15, biopsych: 7, abnormal: 11, therapy: 22, biostats: 9, assessment: 7, dev: 10, social: 11 },
     blurb: "The 2020 IHBAS (Institute of Human Behaviour & Allied Sciences, Delhi) M.Phil Clinical Psychology entrance paper, real questions transcribed from the previous-year paper in your Drive library. Every answer is verified against the paper's marked key and standard clinical-psychology sources, nothing invented. 8 of the original 100 dropped (one exact duplicate plus a few genuinely ambiguous items), so 92 verified questions. Therapy-heavy paper (22 Q), with a real Indian-psychology / Indian clinical-psych load (Erna Hoch, Malavika Kapur, IACP, ISAA vs CARS) that tracks the MET pattern. Untimed Practice mode by default (instant reveal + explanation); flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
-    tags: ["real PYQ", "verified key", "real distractors", "IHBAS 2020", "untimed practice"]
+    deepExp: true,
+    tags: ["deep explanations", "real PYQ", "verified key", "real distractors", "IHBAS 2020", "untimed practice"]
   },
   {
     id: "ihbas-2024",
@@ -317,7 +340,8 @@ const MOCKS = [
     sections: { general: 26, biopsych: 15, abnormal: 13, therapy: 10, biostats: 12, assessment: 5, dev: 5, social: 14 },
     blurb: "The actual IHBAS M.Phil Clinical Psychology entrance held 20 Oct 2024 — Test Booklet Series A, all 100 questions transcribed verbatim from the official paper, every answer set from the official IHBAS answer key (Booklet A). No invented questions or distractors. The four booklets (A/B/C/D) and the official key are on your Resources page as direct downloads. Real exam: 100 MCQs, 90 min, NO negative marking; this mock defaults to untimed Practice (instant reveal + one-line rationale) and scores +1/−0.25/0 to stay comparable with your other mocks — for a true-to-exam number, read the raw 'right' count out of 100. A few items carry a ⚠ key-debate note where the official key is arguable (e.g. prosopagnosia, ISAA vs CARS); the official answer is kept so your score matches the real key. Independent storage.",
     fresh: true,
-    tags: ["100% real PYQ", "official key", "real distractors", "IHBAS 2024", "untimed practice"]
+    deepExp: true,
+    tags: ["deep explanations", "100% real PYQ", "official key", "real distractors", "IHBAS 2024", "untimed practice"]
   },
   {
     id: "amity-2023",
@@ -329,7 +353,8 @@ const MOCKS = [
     sections: { general: 22, biopsych: 30, abnormal: 18, therapy: 7, biostats: 5, assessment: 6, dev: 6, social: 2 },
     blurb: "The Amity University 2023 M.A. Clinical Psychology entrance, reproduced in the Psychologist Amit Panwar 'Previous Year Mock Test Series.' All 96 usable questions transcribed verbatim and every answer read off the option marked correct in that source PDF (highlighted key, page by page). 4 of the original 100 dropped — two exact duplicates, one duplicate-and-ambiguous, one whose mark missed a clear option. No invented questions or distractors. Defaults to untimed Practice (instant reveal + one-line rationale) and scores +1/−0.25/0 to stay comparable with your other mocks — read the raw 'right' count out of 96 for a clean number. A few items carry a ⚠ key-debate note where the source key is arguable (Q4 extinction, Q64 limbic, Q80 token economy); the source answer is kept so your score matches the paper. Amity also gates on the interview — pair this with the /amity/ prep. Independent storage.",
     fresh: true,
-    tags: ["100% real PYQ", "source key", "real distractors", "Amity 2023", "untimed practice"]
+    deepExp: true,
+    tags: ["deep explanations", "100% real PYQ", "source key", "real distractors", "Amity 2023", "untimed practice"]
   },
   {
     id: "pep-mock-1",
@@ -502,6 +527,58 @@ function isFinished(m, r, settings, done) {
   return false;
 }
 
+// Order the pinned deep-explanation papers exactly as Sihan was told about them.
+const DEEP_ORDER = ["amity-2023", "ihbas-2024", "ihbas-2020", "rml-2024"];
+
+function buildCardEl(m, r, finished, done, pinned) {
+  const pct = r.answered ? Math.round((r.correct / r.answered) * 100) : null;
+  const manualDone = !!done[m.id];
+  const cardCls = "card link" + (m.fresh ? " fresh" : "") + (m.deepExp ? " deep" : "") + (finished ? " is-finished" : "");
+  const a = document.createElement("a");
+  a.className = cardCls;
+  a.href = m.path;
+  const badge = pinned
+    ? '<span class="badge deep">Deep ✓</span>'
+    : (m.fresh ? '<span class="badge good">NEW</span>' : '<span class="badge muted">Mock</span>');
+  a.innerHTML = `
+    <button type="button" class="done-toggle${manualDone ? ' is-done' : ''}" data-done-id="${m.id}">${manualDone ? '✓ Done' : (finished ? '✓ Finished' : 'Mark done')}</button>
+    <div class="card-head">
+      <div>
+        <div class="card-title">${m.title}</div>
+        <div class="card-sub">${m.sub}</div>
+      </div>
+      ${badge}
+    </div>
+    <div class="card-body">${m.blurb}</div>
+    <div style="display:flex;align-items:baseline;gap:10px;margin-top:14px;">
+      <div style="font-size:28px;font-weight:700;line-height:1;">${r.correct}</div>
+      <div style="color:var(--muted);font-size:13px;">correct of ${m.total}</div>
+      ${pct != null ? `<div style="margin-left:auto;color:${pct>=75?'var(--good)':pct>=50?'var(--warn)':'var(--bad)'};font-weight:600;font-size:13px;">${pct}% of ${r.answered} answered</div>` : ''}
+    </div>
+    <div class="bar ${pct==null?'':pct>=75?'good':pct>=50?'warn':'bad'}"><span style="width:${pct==null?0:Math.min(100,pct)}%"></span></div>
+    <div class="pill-row">${m.tags.map(t => `<span class="pill${t === 'deep explanations' ? ' deep-pill' : ''}">${t}</span>`).join("")}</div>
+    <div class="card-cta">${finished ? "Revisit →" : (r.answered ? "Continue →" : "Open mock →")}</div>
+  `;
+  return a;
+}
+
+// Pinned shortcut row: always shows the four deep-explanation papers regardless of
+// auto-hide / done state, so they're findable in one tap.
+function renderDeep() {
+  const root = document.getElementById("deepGrid");
+  if (!root) return;
+  root.innerHTML = "";
+  const settings = readHideSettings();
+  const done = readDone();
+  for (const id of DEEP_ORDER) {
+    const m = MOCKS.find(x => x.id === id);
+    if (!m) continue;
+    const r = readMock(m);
+    const finished = isFinished(m, r, settings, done);
+    root.appendChild(buildCardEl(m, r, finished, done, true));
+  }
+}
+
 function renderMocks() {
   const root = document.getElementById("mocksGrid");
   root.innerHTML = "";
@@ -515,33 +592,7 @@ function renderMocks() {
     if (finished) finishedCount++;
     if (finished && !settings.showFinished) continue; // dropped off the list
     shownCount++;
-
-    const pct = r.answered ? Math.round((r.correct / r.answered) * 100) : null;
-    const cardCls = "card link" + (m.fresh ? " fresh" : "") + (finished ? " is-finished" : "");
-    const manualDone = !!done[m.id];
-    const a = document.createElement("a");
-    a.className = cardCls;
-    a.href = m.path;
-    a.innerHTML = `
-      <button type="button" class="done-toggle${manualDone ? ' is-done' : ''}" data-done-id="${m.id}">${manualDone ? '✓ Done' : (finished ? '✓ Finished' : 'Mark done')}</button>
-      <div class="card-head">
-        <div>
-          <div class="card-title">${m.title}</div>
-          <div class="card-sub">${m.sub}</div>
-        </div>
-        ${m.fresh ? '<span class="badge good">NEW</span>' : '<span class="badge muted">Mock</span>'}
-      </div>
-      <div class="card-body">${m.blurb}</div>
-      <div style="display:flex;align-items:baseline;gap:10px;margin-top:14px;">
-        <div style="font-size:28px;font-weight:700;line-height:1;">${r.correct}</div>
-        <div style="color:var(--muted);font-size:13px;">correct of ${m.total}</div>
-        ${pct != null ? `<div style="margin-left:auto;color:${pct>=75?'var(--good)':pct>=50?'var(--warn)':'var(--bad)'};font-weight:600;font-size:13px;">${pct}% of ${r.answered} answered</div>` : ''}
-      </div>
-      <div class="bar ${pct==null?'':pct>=75?'good':pct>=50?'warn':'bad'}"><span style="width:${pct==null?0:Math.min(100,pct)}%"></span></div>
-      <div class="pill-row">${m.tags.map(t => `<span class="pill">${t}</span>`).join("")}</div>
-      <div class="card-cta">${finished ? "Revisit →" : (r.answered ? "Continue →" : "Open mock →")}</div>
-    `;
-    root.appendChild(a);
+    root.appendChild(buildCardEl(m, r, finished, done, false));
   }
 
   if (!shownCount) {
@@ -724,8 +775,9 @@ function restoreFromFile(file) {
   reader.readAsText(file);
 }
 
-function refresh() { renderMocks(); renderDrillScores(); renderBackupCounts(); }
+function refresh() { renderDeep(); renderMocks(); renderDrillScores(); renderBackupCounts(); }
 
+renderDeep();
 renderMocks();
 renderDrillScores();
 renderBackupCounts();
@@ -740,13 +792,19 @@ document.getElementById("restoreFileInput").addEventListener("change", (e) => {
 });
 
 // Per-card "Mark done" button (delegated; cards are <a>, so stop the navigation)
-document.getElementById("mocksGrid").addEventListener("click", (e) => {
-  const btn = e.target.closest("[data-done-id]");
-  if (!btn) return;
-  e.preventDefault();
-  e.stopPropagation();
-  toggleDone(btn.getAttribute("data-done-id"));
-});
+function wireDoneClicks(gridId) {
+  const grid = document.getElementById(gridId);
+  if (!grid) return;
+  grid.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-done-id]");
+    if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    toggleDone(btn.getAttribute("data-done-id"));
+  });
+}
+wireDoneClicks("mocksGrid");
+wireDoneClicks("deepGrid");
 
 document.getElementById("autoHideChk").addEventListener("change", (e) => {
   const s = readHideSettings();
