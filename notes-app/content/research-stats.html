@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Methods &amp; Statistics — Notes for Exam</title>
+<link rel="stylesheet" href="../../notes-style.css">
+<link rel="stylesheet" href="/sihan-met-flashcards/notes/term-popover.css">
+<link rel="stylesheet" href="../book.css">
+<link rel="stylesheet" href="../reader.css">
+<style>
+
+</style>
+</head>
+<body class="nfe-reader">
+<article class="wrap nfe-article">
+<h1>Research Methods &amp; Statistics</h1>
+<p class="lead">How psychological knowledge is made and judged: the philosophical paradigms beneath every study, the quantitative, qualitative and mixed methods that grow from them, the experimental and non-experimental designs that license (or block) causal claims, and the statistical tests that decide whether a result is real. This book moves from epistemology to inference, builds every parametric test (t, F) from the logic of sampling distributions, extends them to MANOVA and ANCOVA, and closes with the distribution-free family. It is prioritised for MET 2026 and NIMHANS clinical psychology, with assumptions, degrees of freedom and a "which test when" decision table you can recite under pressure.</p>
+
+<div class="booktoc"><b>In this book</b><ol>
+<li><a href="#sec-paradigms">Paradigms &amp; methods of research</a></li>
+<li><a href="#sec-designs">Research designs &amp; sampling</a></li>
+<li><a href="#sec-inference">Hypothesis testing &amp; inference</a></li>
+<li><a href="#sec-ttest">Parametric test: the t-test</a></li>
+<li><a href="#sec-anova">ANOVA &amp; experimental designs</a></li>
+<li><a href="#sec-manova">MANOVA &amp; ANCOVA</a></li>
+<li><a href="#sec-nonparam">Non-parametric tests</a></li>
+<li><a href="#sec-decision">"Which test when" decision guide</a></li>
+</ol></div>
+
+<!-- ===================== 1. PARADIGMS ===================== -->
+<h2 id="sec-paradigms">1. Paradigms &amp; methods of research</h2>
+<p><strong>The one idea behind the section.</strong> Before any method is chosen, a researcher already holds a <strong>paradigm</strong>: a way of thinking about and conducting research, a philosophy that guides how the research might be done. Method is downstream of philosophy. Two scientists can study the same phenomenon and reach different designs because they answer two prior questions differently: what is real (<strong>ontology</strong>) and how can we know it (<strong>epistemology</strong>).</p>
+
+<div class="callout def"><div class="co-h">Definition</div><p><strong>Ontology</strong> = the nature of reality (is there one objective reality, or many constructed realities?). <strong>Epistemology</strong> = the nature of knowledge and the relationship between the knower and what is known (can the researcher stand apart from what is studied, or are they entangled with it?). Together they shape both the data-collection process and the analysis.</p></div>
+
+<h3>The four research paradigms</h3>
+<p>Learn each by its stance on reality, on the researcher, and on the kind of knowledge it produces.</p>
+<table>
+<thead><tr><th>Paradigm</th><th>Ontology / epistemology</th><th>Typical methods</th><th>Goal</th></tr></thead>
+<tbody>
+<tr><td><strong>Positivism</strong></td><td>One objective reality exists and can be measured directly; researcher is detached and value-free</td><td>Experiments, structured measurement, statistics</td><td>Discover universal laws; explain and predict</td></tr>
+<tr><td><strong>Post-positivism</strong></td><td>Objective reality exists but can only be known <em>imperfectly and probabilistically</em>; all observation is theory-laden</td><td>Quantitative methods with a plan fixed before the study; falsification</td><td>Approximate truth through repeated, fallible testing</td></tr>
+<tr><td><strong>Constructivism / interpretivism</strong></td><td>Reality is socially and personally <em>constructed</em>; multiple realities; knower and known are inseparable</td><td>Open-ended interviews, observation, narrative documents kept in text form</td><td>Understand meaning from the participant's perspective</td></tr>
+<tr><td><strong>Critical / transformative</strong></td><td>Reality is shaped by power, history, economics; knowledge is political</td><td>Critical ethnography, participatory and emancipatory designs</td><td>Expose and change unjust structures; empower</td></tr>
+</tbody>
+</table>
+<div class="callout trap"><div class="co-h">Trap</div><p><strong>Positivism vs post-positivism.</strong> Both are "objective-reality" paradigms and both drive quantitative work. The shift is that <strong>positivism</strong> claims we can know reality directly and with certainty, while <strong>post-positivism</strong> (the modern stance behind most quantitative social science) says we can only know it <em>imperfectly</em>: every measurement is fallible, theory-laden, and provisional, so we falsify rather than prove. In exam phrasing, "quantitative research = post-positivist approach" and "qualitative research = constructivist approach".</p></div>
+
+<h3>Quantitative vs qualitative vs mixed methods</h3>
+<p>The paradigm choice cascades into a whole research stance. The table is high-yield because the paper tests the cascade directly.</p>
+<table>
+<thead><tr><th>Feature</th><th>Quantitative (post-positivist)</th><th>Qualitative (constructivist)</th></tr></thead>
+<tbody>
+<tr><td>Plan</td><td>A specific plan is developed <em>prior</em> to the study; tight structure</td><td>Less structure on specific guidelines; general guidelines only; emergent design</td></tr>
+<tr><td>Data</td><td>"Objective": easily classified or quantified (age, gender, test scores, recovery time)</td><td>"Subjective": interpreted differently by different people (perceptions of pain, feelings about work)</td></tr>
+<tr><td>Collection</td><td>Structured interviews / questionnaires, observations, records; scored reliably with little training</td><td>Open-ended interviews, observation, narrative documents (diaries); data kept in text form</td></tr>
+<tr><td>Analysis</td><td><strong>Inferential statistics</strong> to generalise from sample to population</td><td>Coding of <strong>themes</strong>, assigning meaning to words or images</td></tr>
+<tr><td>Strength</td><td>Results across many studies can be combined into a large body of evidence</td><td>Depth; tools for data, analysis and interpretation that quantitative work lacks</td></tr>
+</tbody>
+</table>
+<p><strong>Mixed methods.</strong> When the two paradigms are <em>blended so that one sets the stage for or leads to the other</em>, the approach is mixed methods. It rests on the <strong>pragmatic</strong> approach, which focuses on methodological rather than philosophical concerns and combines qualitative and quantitative methods, using <strong>exploratory and confirmatory</strong> methods. This widens the options for data collection, analysis tools and interpretation.</p>
+<div class="callout trap"><div class="co-h">Trap</div><p>Using two methods in the same study but <em>discussing them separately</em> is <strong>not</strong> mixed methods, it is just "two methods being used". Mixed methods requires genuine integration where one paradigm feeds the other.</p></div>
+
+<h3>Qualitative methods of research, in depth</h3>
+<p>NIMHANS expects you to name each qualitative tradition and its signature.</p>
+<ul>
+<li><strong>Observation.</strong> Being present in a situation and recording one's impressions. The primary research instrument is <em>the self</em>, consciously gathering sensory data. Problems: the enormous complexity of human behaviour, the impossibility of a complete record, and the subjectivity of the researcher. Types: <em>structured</em> (schedules predetermine the categories of behaviour/talk to be observed, e.g. Flanders' Interaction Analysis Categories, FIAC), <em>unstructured</em> (broad decisions made in advance, seen through the researcher's own socio-culturally constructed values), <em>shadow studies</em> (tracking one participant), and <em>participant observation</em> (the researcher joins and participates, gaining unique insight but risking distraction from the research purpose).</li>
+<li><strong>Survey method.</strong> Studies large and small populations (universes) by selecting and studying samples to discover relative incidence, distribution and interrelations of variables. Variables = sociological facts (sex, income, religious/political affiliation, SES), opinions and attitudes. Factual "face-sheet information" is recorded on a face sheet. Uses interviews, schedules and questionnaires; other types include the <em>panel technique</em> (same respondents re-interviewed over time), <em>telephone surveys</em> (high speed, low cost) and <em>mail questionnaires</em> (cheap but poor response rate, cannot check answers). Researchers use a <strong>flow plan</strong>: objectives &rarr; statement of problem &rarr; sample and sampling plan &rarr; construction of the schedule/instrument &rarr; data collection &rarr; coding and tabulation &rarr; analysis and interpretation &rarr; report. <em>Advantages</em>: wide scope, accurate. <em>Disadvantages</em>: does not penetrate below the surface, demanding of time and money, can lift the respondent out of his social context and invalidate results.</li>
+<li><strong>Phenomenology.</strong> The study of lived human phenomena within everyday social contexts, from the perspective of those who experience them. <em>Direct approach</em>: the detached researcher shines a light on the foreground, studying participants' mental representations (rooted in <strong>Husserl</strong>, whose starting point is a conscious actor separated from a world of objects). <em>Indirect approach</em>: the involved, connected observer immerses in the everyday world and lights up the background (rooted in <strong>Heidegger</strong>, who saw us as first and foremost immersed in the world, aiming to deepen understanding of "what it is to be").</li>
+<li><strong>Grounded theory.</strong> A theory-<em>generating</em> methodology; the end product is an integrated theoretical formulation. The researcher does <em>not</em> enter with a predefined theory. Coding sequence: <strong>open coding</strong> (concept identification, text broken apart line-by-line) &rarr; <strong>axial coding</strong> (weaving data back together, grouping concepts into categories) &rarr; <strong>selective coding</strong> (constructing the single most representative <em>core category</em>). Key constructs: <strong>theoretical sampling</strong> (data gathering directed by emerging concepts), <strong>saturation</strong> (no new concepts/properties emerge; data become repetitive), and <strong>memo writing</strong> (records of the analyst's evolving thoughts). The theory is a co-construction between researcher and participants.</li>
+<li><strong>Field studies.</strong> <em>Ex post facto</em> scientific inquiries into relations among variables in real social structures; the researcher does <em>not</em> manipulate any independent variable. Two types: <em>exploratory</em> (seeks "what is", discovers significant variables and relations, lays groundwork for later hypothesis testing) and <em>hypothesis-testing</em>. Strong in realism, social significance, strength of variables, theory orientation and heuristic quality; weakest in its ex-post-facto character (weaker statements of relation than experiments), plethora of variables, lack of precision, and practical problems (feasibility, cost, sampling, time).</li>
+<li><strong>Focus group.</strong> A small but demographically diverse group whose reactions are studied in guided/open discussion (market research, political analysis); peer groups and professional teams work better than strangers. Problems: pecking orders, histories and animosities, confusion about purpose, and convenience/purposive sampling (not representative). Not an effective way of measuring attitudes; it is a social process in which participants <em>co-produce</em> an account specific to that time and place.</li>
+<li><strong>Ethnography.</strong> Literally "writing about people"; treats people as meaning-makers and aims to describe how a culture "ticks". Tends to focus on a limited range of cases (often one setting), with strong links to anthropology (proper ethnography = participant observer in everyday life). <em>Critical ethnographers</em> link the "micro" (participants' meanings) to the "macro" (structural and political dimensions). Demands <strong>reflexivity</strong> (a research diary) and openness to reformulating the problem.</li>
+<li><strong>Narrative inquiry / life history.</strong> Concerned with the production, interpretation and representation of storied accounts of lived experience. A <em>life story</em> becomes a <em>life history</em> when the researcher adds analysis of the social, historical, political and economic context. The life-history inquiry is a dialogic event co-constructed over time.</li>
+</ul>
+
+<h3>Research ethics</h3>
+<p>Whatever the paradigm, ethical conduct is non-negotiable. Core principles tested at NIMHANS level:</p>
+<ul>
+<li><strong>Informed consent</strong> &mdash; voluntary participation with full disclosure of purpose, procedures and risks; a code of practice has to be established in advance.</li>
+<li><strong>Confidentiality and anonymity</strong> &mdash; protecting identity and data; especially hard in focus groups.</li>
+<li><strong>Beneficence and non-maleficence</strong> &mdash; maximise benefit, minimise harm; this is why withdrawing a successful treatment in a reversal (ABAB) design can be considered <em>unethical</em> in clinical settings, motivating multiple-baseline designs.</li>
+<li><strong>Right to withdraw</strong> without penalty at any time.</li>
+<li><strong>Debriefing</strong> &mdash; explaining the study afterwards, especially when deception was used.</li>
+<li><strong>Justice</strong> &mdash; fair selection of participants; no exploitation of vulnerable groups.</li>
+</ul>
+
+<div class="callout key"><div class="co-h">High-yield</div><p>Paradigm cascade: <strong>positivism/post-positivism &rarr; quantitative &rarr; objective data &rarr; inferential statistics</strong>; <strong>constructivism &rarr; qualitative &rarr; subjective data &rarr; thematic coding</strong>; <strong>pragmatism &rarr; mixed methods</strong>. Ontology = nature of reality; epistemology = nature of knowledge. Husserl = direct phenomenology; Heidegger = indirect. Grounded theory codes open &rarr; axial &rarr; selective and stops at saturation.</p></div>
+
+<!-- ===================== 2. DESIGNS ===================== -->
+<h2 id="sec-designs">2. Research designs &amp; sampling</h2>
+<p>A <strong>design</strong> is the structure that decides what you can conclude. The single most important question is whether the design supports a <em>causal</em> claim, and that turns on two features: an <strong>active (manipulated) independent variable</strong> and <strong>random assignment</strong>.</p>
+
+<h3>The family of designs</h3>
+<table>
+<thead><tr><th>Design</th><th>Active IV?</th><th>Random assignment?</th><th>Causal claim?</th></tr></thead>
+<tbody>
+<tr><td><strong>True (randomised) experiment</strong></td><td>Yes</td><td>Yes</td><td>Yes &mdash; the gold standard</td></tr>
+<tr><td><strong>Quasi-experiment</strong></td><td>Yes</td><td>No (intact groups)</td><td>Weak; confounds not fully ruled out</td></tr>
+<tr><td><strong>Correlational</strong></td><td>No (measured, not manipulated)</td><td>No</td><td>No &mdash; association only</td></tr>
+<tr><td><strong>Descriptive</strong></td><td>No</td><td>No</td><td>No &mdash; "what is", no comparison</td></tr>
+</tbody>
+</table>
+
+<h3>True (randomised) experimental approach</h3>
+<p>Has <strong>random assignment</strong> of participants to intervention and comparison groups <em>and</em> an active, manipulated independent variable; the groups' scores on the dependent variable are compared. Criteria: (1) the IV must be active, i.e. manipulatable, with the experimenter able to set several levels; (2) participants are randomly assigned, so each has an equal chance of any group, and after assignment but before intervention the groups are assumed equivalent in all other respects including demographics. A study can have a <em>weak sampling procedure and still be a true experiment</em> (random assignment, not random sampling, is what makes it experimental). The researcher controls extraneous variables to maximise the IV's effect.</p>
+<p>Types of true-experimental designs:</p>
+<ul>
+<li><strong>Posttest-only control-group design</strong> &mdash; randomise to two groups, treat one, measure both after.</li>
+<li><strong>Pretest&ndash;posttest control-group design</strong> &mdash; measure before and after in both groups.</li>
+<li><strong>Solomon four-group design</strong> &mdash; combines the two above to detect and control for <em>pretest sensitisation</em> (whether being pretested changes the effect).</li>
+<li><strong>Randomised experimental design with matching</strong> &mdash; match participants on a relevant variable, then randomly assign within pairs.</li>
+<li><strong>Within-subjects (crossover) design</strong> &mdash; each participant receives every condition.</li>
+</ul>
+
+<h3>Quasi-experimental approach</h3>
+<p>Has an active IV <em>but no random assignment</em>; participants are already in intact groups, so the researcher has less control. The design's strength depends on how much control the investigator actually has over manipulating the IV. Categories:</p>
+<ul>
+<li><strong>Pre-experimental designs</strong> (quasi-experiments with major limitations, no feasible comparison group or pretest): one-group posttest-only, one-group pretest&ndash;posttest, posttest-only non-equivalent groups.</li>
+<li><strong>Pretest&ndash;posttest designs</strong> with a non-equivalent comparison group.</li>
+<li><strong>Time-series designs</strong> &mdash; repeated measures before and after intervention, no random assignment; single-group and multiple-group time-series.</li>
+<li><strong>Single-subject (small-n) designs</strong> (see ANOVA section).</li>
+</ul>
+
+<h3>Variables and validity</h3>
+<ul>
+<li><strong>Independent variable (IV)</strong> = the presumed cause; <strong>dependent variable (DV)</strong> = the measured effect.</li>
+<li><strong>Extraneous variable</strong> = any variable other than the IV that could affect the DV; a <strong>confound</strong> is an extraneous variable that systematically varies with the IV.</li>
+<li><strong>Internal validity</strong> = the degree to which the design supports a causal claim (threatened by history, maturation, testing, instrumentation, regression to the mean, selection, attrition).</li>
+<li><strong>External validity</strong> = generalisability to other people, settings and times.</li>
+</ul>
+
+<h3>Sampling</h3>
+<p>Sampling decides external validity (generalisation), whereas random <em>assignment</em> decides internal validity (causation). Do not confuse the two.</p>
+<table>
+<thead><tr><th>Probability (random) sampling</th><th>Non-probability sampling</th></tr></thead>
+<tbody>
+<tr><td><strong>Simple random</strong> &mdash; every member has equal, independent chance</td><td><strong>Convenience</strong> &mdash; whoever is available</td></tr>
+<tr><td><strong>Systematic</strong> &mdash; every k-th member from a list</td><td><strong>Purposive</strong> &mdash; chosen for a characteristic the researcher wants</td></tr>
+<tr><td><strong>Stratified</strong> &mdash; split into strata, sample within each (proportionate or disproportionate)</td><td><strong>Quota</strong> &mdash; fill preset category counts non-randomly</td></tr>
+<tr><td><strong>Cluster / multistage</strong> &mdash; sample naturally occurring groups, then within them</td><td><strong>Snowball</strong> &mdash; participants recruit further participants</td></tr>
+</tbody>
+</table>
+<div class="callout trap"><div class="co-h">Trap</div><p>Random <strong>sampling</strong> &ne; random <strong>assignment</strong>. Random sampling (drawing the sample from the population) supports <em>generalisation</em>; random assignment (allocating participants to conditions) supports <em>causal inference</em>. A true experiment requires random assignment but can survive a weak (non-random) sample. Focus groups and field studies use convenience/purposive sampling, so they cannot claim a representative sample.</p></div>
+
+<!-- ===================== 3. INFERENCE ===================== -->
+<h2 id="sec-inference">3. Hypothesis testing &amp; inference</h2>
+<p>All parametric tests share one engine: compare an observed result against the <strong>sampling distribution</strong> of the statistic expected if nothing were going on. Master this once and the t, F and z tests all become the same move.</p>
+
+<h3>The logic of significance testing</h3>
+<p>The four steps of hypothesis testing:</p>
+<ol>
+<li>Formulate a <strong>null hypothesis (H<sub>0</sub>)</strong> about a population parameter (e.g. about the population mean), along with an <strong>alternative hypothesis (H<sub>1</sub>)</strong>.</li>
+<li>Draw a random sample and compute the sample statistic (e.g. the sample mean).</li>
+<li>Examine the <strong>sampling distribution</strong> of the statistic under H<sub>0</sub> to learn which outcomes would occur, and with what relative frequency, if H<sub>0</sub> were true.</li>
+<li><strong>Retain</strong> H<sub>0</sub> if the sample outcome is in line with what H<sub>0</sub> predicts; otherwise <strong>reject</strong> it and accept H<sub>1</sub>.</li>
+</ol>
+<p>The <strong>regions of rejection</strong> are the two extreme tails of the sampling distribution that lead to rejecting H<sub>0</sub>; the central portion (e.g. the middle 95%) is the <strong>region of retention</strong>. For a two-tailed test at &alpha; = .05, we reject only if the outcome falls in the upper 2.5% or lower 2.5% (.025 + .025 = .05).</p>
+
+<h3>Significance level, confidence and critical values</h3>
+<ul>
+<li><strong>Level of significance (&alpha;)</strong> &mdash; symbolised by the Greek letter alpha; indicates the stringency of the test. The usual level is <strong>0.05</strong> (95% confidence). Other levels: 0.10 (90%), 0.01 (99%), 0.001 (99.9%).</li>
+<li><strong>Critical values</strong> separate the rejection regions from the retention region. For a normal distribution, the two-tailed z critical values are <strong>&plusmn;1.96 at .05</strong> and <strong>&plusmn;2.58 at .01</strong>. If the obtained z exceeds &plusmn;1.96, the sample mean differs significantly from the population mean at the .05 level.</li>
+</ul>
+
+<div class="callout def"><div class="co-h">Definition</div><p><strong>Type I error</strong> = rejecting a true H<sub>0</sub> (a false positive); its probability is &alpha;. <strong>Type II error</strong> = retaining a false H<sub>0</sub> (a false negative); its probability is &beta;. <strong>Power</strong> = 1 &minus; &beta;, the probability of correctly detecting a real effect. Lowering &alpha; reduces Type I error but raises Type II error.</p></div>
+
+<h3>Parametric vs non-parametric</h3>
+<p><strong>Parametric tests</strong> assume the data come from a population with a specific distribution (usually normal), require interval/ratio data, and test population <em>parameters</em> (means, variances). <strong>Non-parametric (distribution-free) tests</strong> make few or no distributional assumptions and work on nominal or ordinal data. Parametric tests are more powerful <em>when their assumptions hold</em>; non-parametric tests are the fallback when assumptions are violated.</p>
+
+<!-- ===================== 4. T-TEST ===================== -->
+<h2 id="sec-ttest">4. Parametric test: the t-test</h2>
+<p>The t-test compares <strong>means</strong>. It is the workhorse parametric test for one or two groups. There are three forms, all built on the same sampling-distribution logic.</p>
+
+<table>
+<thead><tr><th>Type</th><th>What it compares</th></tr></thead>
+<tbody>
+<tr><td><strong>One-sample t-test</strong></td><td>The mean of one group against a known norm or population average (e.g. "is this group's IQ significantly above 100?")</td></tr>
+<tr><td><strong>Independent-samples t-test</strong></td><td>The means of two different groups drawn independently of each other (not matched)</td></tr>
+<tr><td><strong>Dependent / paired (related) samples t-test</strong></td><td>The means of two matched groups, or the same group measured twice (pre-test vs post-test)</td></tr>
+</tbody>
+</table>
+
+<h3>From z to t</h3>
+<p>For hypothesis testing, the z of a sample mean is <strong>z = (sample mean &minus; population mean) / standard deviation of the population</strong>. When the population standard deviation is <em>unknown</em>, an unbiased estimate is calculated from the sample's SD. If the <em>actual SD of the sample</em> is used instead of the unbiased SD, we get a <strong>t score</strong> rather than a z score. The <strong>t distribution</strong>:</p>
+<ul>
+<li>is <strong>more leptokurtic</strong> than the normal distribution (taller peak, heavier tails);</li>
+<li>has a <strong>larger standard deviation</strong> than the normal curve;</li>
+<li><strong>depends on the degrees of freedom</strong>, and approaches the normal curve as df increases.</li>
+</ul>
+<p>The critical t value is found from a table using the <strong>degrees of freedom</strong> and the level of significance. If the obtained t statistic exceeds the critical value, H<sub>0</sub> is rejected.</p>
+
+<div class="callout def"><div class="co-h">Definition</div><p><strong>Degrees of freedom (df)</strong> = the number of values free to vary when computing a statistic. For the <strong>one-sample</strong> and <strong>paired</strong> t-test, df = <strong>n &minus; 1</strong>. For the <strong>independent-samples</strong> t-test, df = <strong>n<sub>1</sub> + n<sub>2</sub> &minus; 2</strong>.</p></div>
+
+<h3>One-sample t-test</h3>
+<p>Tests a hypothesis about a single group, e.g. whether a group's IQ is significantly above the average of 100. Assumptions:</p>
+<ul>
+<li>A random sample has been drawn from the population (with-replacement sampling plan in the classical derivation).</li>
+<li>The sampling distribution of the mean follows the normal curve.</li>
+<li>(In the z version) the population standard deviation is known; when it is unknown, estimate it from the sample and use t.</li>
+</ul>
+<p>Formula in words: <strong>t = (sample mean &minus; population mean) / standard error of the mean</strong>, where the standard error = s / &radic;n. When SD or standard error is not given, t is computed from raw scores using the sum of squares (SS): the unbiased sample SD is s<sub>x</sub> = &radic;(SS<sub>x</sub> / (n &minus; 1)).</p>
+
+<h3>Independent-samples t-test</h3>
+<p>Instead of comparing a sample mean to a population, it considers the <strong>difference between two samples independently drawn from two populations</strong>. If the two population means are equal, then across repeated sampling sometimes (X &minus; Y) is positive and sometimes negative, and over all possible differences the mean is <strong>zero</strong>. So the <em>mean of the sampling distribution of differences (X &minus; Y) is zero</em> when the two population means are equal &mdash; that is the null hypothesis. The sampling distribution of (X &minus; Y) is normal when both populations are normal, and tends toward normal even when they are not (central limit theorem).</p>
+<p>Testing the difference:</p>
+<ul>
+<li>With <strong>large samples</strong>, use z: significant if z exceeds &plusmn;1.96 (.05) or &plusmn;2.58 (.01).</li>
+<li>With <strong>smaller samples</strong>, use t, assuming the variances of X and Y are equal &mdash; the <strong>assumption of homogeneity of variance</strong>. If the variances are <em>not</em> equal, a <strong>pooled estimate of variance</strong> is calculated (and a correction such as Welch's can be applied).</li>
+</ul>
+<p>Assumptions of the independent-samples t-test: (1) independence of observations, (2) normality of the DV in each population, (3) homogeneity of variance, (4) interval/ratio measurement.</p>
+
+<h3>Dependent / paired-samples t-test</h3>
+<p>For related or paired samples (the same subjects measured twice, or matched pairs), the <strong>standard deviation differs from that of independent samples</strong>: the test works on the <em>difference scores</em>, so it removes between-subject variability and is generally more powerful. The statistic is <strong>t = mean of difference scores / standard error of the difference scores</strong>, with df = n &minus; 1 (n = number of pairs). The key assumption is that the <em>difference scores</em> are normally distributed.</p>
+
+<div class="callout tip"><div class="co-h">Mnemonic</div><p>"<strong>One norm, two free, paired diff</strong>": <strong>One</strong>-sample compares to a <em>norm</em>; <strong>independent</strong> uses df = n<sub>1</sub>+n<sub>2</sub>&minus;2 (each group loses one, "two free"); <strong>paired</strong> works on <em>difference</em> scores with df = n&minus;1.</p></div>
+
+<div class="callout key"><div class="co-h">High-yield</div><p>t replaces z when the population SD is unknown; t is leptokurtic and df-dependent (df = n&minus;1 for one-sample/paired, n<sub>1</sub>+n<sub>2</sub>&minus;2 for independent). Independent t assumes homogeneity of variance; if violated, pool the variance (or use Welch). Paired t uses difference scores and is more powerful by removing between-subject variance. For two groups, <strong>F = t&sup2;</strong>.</p></div>
+
+<!-- ===================== 5. ANOVA ===================== -->
+<h2 id="sec-anova">5. ANOVA &amp; experimental designs</h2>
+<p><strong>Analysis of variance (ANOVA)</strong> tests mean differences across <strong>two or more</strong> groups simultaneously. It was developed by <strong>Ronald A. Fisher</strong>; the name "F test" was given by <strong>Snedecor</strong> in Fisher's honour, and Snedecor (1946) tabulated the variance ratios (F ratios). Despite testing means, ANOVA works on <strong>variance</strong> rather than standard deviation and standard errors.</p>
+
+<h3>Why ANOVA instead of many t-tests</h3>
+<p>For k groups, running t-tests on every pair means k(k&minus;1)/2 comparisons. Each comparison carries its own Type I error risk, so <strong>Type I error inflates</strong> as the number of comparisons grows. ANOVA tests all means at once with a single test, holding &alpha; fixed. (For exactly two groups, ANOVA and the t-test agree: <strong>F = t&sup2;</strong>.)</p>
+
+<h3>Partitioning variance</h3>
+<p>The total variability of a set of scores composed of several groups can be partitioned:</p>
+<div class="callout def"><div class="co-h">Definition</div><p><strong>Total SS = SS<sub>between</sub> + SS<sub>within</sub></strong>. <strong>Mean square (MS) = variance = SS / df</strong>. <em>Within-group</em> variance reflects error (innate group differences); <em>between-group</em> variance reflects treatment effects. If between-group variability is much greater than the error (within) variability, that indicates a treatment effect. Error (unsystematic) variance is reduced by random assignment and by controlling extraneous variables.</p></div>
+
+<h3>One-way ANOVA</h3>
+<p>One categorical IV (factor) with two or more levels, one DV. Degrees of freedom for k groups of n each:</p>
+<table>
+<thead><tr><th>Source</th><th>SS</th><th>df</th><th>MS</th></tr></thead>
+<tbody>
+<tr><td>Between groups</td><td>SS<sub>between</sub></td><td><strong>k &minus; 1</strong></td><td>SS<sub>between</sub> / (k&minus;1)</td></tr>
+<tr><td>Within groups (error)</td><td>SS<sub>within</sub></td><td><strong>k(n &minus; 1)</strong></td><td>SS<sub>within</sub> / k(n&minus;1)</td></tr>
+<tr><td>Total</td><td>SS<sub>total</sub></td><td><strong>kn &minus; 1</strong></td><td></td></tr>
+</tbody>
+</table>
+<p>The <strong>F ratio = MS<sub>between</sub> / MS<sub>within</sub></strong>. F should be greater than 1 to suggest a treatment effect, and must exceed the critical F (at the chosen confidence level, found from a table using df = k&minus;1 and k(n&minus;1)) to be significant. If the obtained F exceeds the critical F, reject H<sub>0</sub>.</p>
+<p><strong>Strength of association.</strong> Significance does not measure effect size. <strong>Omega squared (&omega;&sup2;)</strong> gives the proportion of total variability in the scores accounted for by the treatments (eta squared, &eta;&sup2;, is the related but more biased index).</p>
+
+<h3>Assumptions of ANOVA</h3>
+<table>
+<thead><tr><th>Assumption</th><th>How tested / notes</th></tr></thead>
+<tbody>
+<tr><td><strong>Normality</strong> of the criterion (dependent) variable</td><td>Shapiro&ndash;Wilk, Jarque&ndash;Bera, Kolmogorov&ndash;Smirnov. Not essential: only extreme deviations matter because F is insensitive to smaller ones; symmetric non-normality causes only slight inflation of Type I error</td></tr>
+<tr><td><strong>Homogeneity of variance</strong> (homoscedasticity)</td><td>Bartlett's test, Levene's test. With normal populations and equal Ns, alpha inflation is slight; F is robust to departures</td></tr>
+<tr><td><strong>Independence</strong> of the dependent scores (additivity)</td><td>Each subject's score is independent of all others. This is the <em>most important</em> assumption, followed by homogeneity of variance</td></tr>
+</tbody>
+</table>
+<p>If assumptions are violated, either use a suitable <strong>non-parametric test</strong> or apply a <strong>transformation</strong> of the measurement scale. Monotonic transformations leave the ordinal relationship unchanged: <strong>square-root</strong> (Poisson data, where mean = variance; e.g. &radic;(X+0.5)), <strong>logarithmic</strong> (when SD varies with the mean, transform X to log X), <strong>reciprocal</strong> (when treatment SDs are proportional to the square of the means, transform to 1/X), and <strong>arcsine</strong> (for binomial data, i.e. proportions/percentages, transform to the angle whose sine is the square root of the proportion: sin&#8315;&sup1;&radic;p).</p>
+
+<h3>Two-way (factorial) ANOVA</h3>
+<p>Used when there are <strong>two categorical IVs</strong> and one DV. Its great advantage is that it finds <strong>interaction effects</strong> of the two variables alongside each variable's individual (main) effect. The between-groups SS now includes the interaction A&times;B in addition to A and B separately:</p>
+<div class="callout def"><div class="co-h">Definition</div><p><strong>Total SS = SS<sub>A</sub> + SS<sub>B</sub> + SS<sub>AB</sub> + SS<sub>within</sub></strong>. Degrees of freedom (r rows of factor A, c columns of factor B): A df = <strong>r&minus;1</strong>; B df = <strong>c&minus;1</strong>; interaction A&times;B df = <strong>(r&minus;1)(c&minus;1)</strong>; within df = <strong>k(n&minus;1)</strong>; total df = <strong>kn&minus;1</strong>. Each effect gets its own F ratio (its MS &divide; MS<sub>within</sub>).</p></div>
+<div class="callout trap"><div class="co-h">Trap</div><p>An <strong>interaction effect</strong> means the effect of one IV <em>depends on the level of the other</em> (the lines on a plot are non-parallel). A significant interaction qualifies the main effects: do not interpret main effects in isolation when the interaction is significant. A <strong>main effect</strong> is the overall effect of one IV averaged across the levels of the other.</p></div>
+
+<h3>Post-hoc tests</h3>
+<p>If the ANOVA F is significant, the need arises to find <em>where</em> the difference lies. Ordinary t-tests between pairs would again inflate Type I error, so post-hoc tests are used that resemble t-tests but control the error rate:</p>
+<ul>
+<li><strong>Fisher's Least Significant Difference (LSD)</strong>, also called Fisher's protected t-test &mdash; useful when the number of groups/treatments is small.</li>
+<li><strong>Tukey's HSD</strong> (honestly significant difference) &mdash; yields the smallest number of significant differences and applies to a broad class of situations; the <em>most recommended</em> for post-hoc comparisons.</li>
+<li><strong>Newman&ndash;Keuls test.</strong></li>
+<li><strong>Duncan's multiple range test.</strong></li>
+</ul>
+
+<h3>Experimental designs that control error variance</h3>
+<ul>
+<li><strong>Randomised block design.</strong> Random assignment equalises groups in theory but fails at low N, so <strong>blocking</strong> groups subjects on an initial measure (taken before the experiment with the same or a closely resembling instrument) to minimise within-group variance. The number of subjects per block is usually kept equal to the number of treatments; it can be run with one subject per block or n subjects per block.</li>
+<li><strong>Repeated-measures design.</strong> Error variance is minimised by using the <em>same subject across treatments</em>; the same sample is exposed to all treatment conditions (with one treatment, this becomes a pre-test/post-test on the same group). SS is partitioned into between-subjects SS, within-subjects SS and between-treatments SS, with the <em>residual</em> from within-subjects SS treated as the error term.</li>
+<li><strong>Latin square design.</strong> Tries to eliminate row and column effects (e.g. order of presentation of treatments). Each treatment appears only once in each row and each column. For a p&times;p square: total df = <strong>p&sup2;&minus;1</strong>, row df = <strong>p&minus;1</strong>, column df = <strong>p&minus;1</strong>, residual (error) df = <strong>(p&minus;1)(p&minus;2)</strong>; F is the ratio of treatment MS to residual MS. The number of Latin squares that can be generated for n treatments is (n!)&times;[(n&minus;1)!].</li>
+</ul>
+
+<h3>Single-case (small-n) designs</h3>
+<p>Single-subject research studies in detail the behaviour of each of a small number of participants (typically 2&ndash;10, hence "small-n"), focusing on the individual rather than group means, because group research can hide individual differences and produce results that represent no actual individual. It still seeks causal relationships through manipulation of an IV, careful measurement of a DV, and control of extraneous variables.</p>
+<ul>
+<li><strong>AB / ABAB (reversal) design.</strong> The original and most common single-subject design. First <em>A</em> = baseline (observed until stable/flat); first <em>B</em> = intervention; then withdraw treatment for a second <em>A</em>; then a second <em>B</em>. AB alone cannot rule out other causes; the reversal (ABAB) strengthens the inference, and more A/B phases make it more convincing.</li>
+<li><strong>Multiple-baseline designs.</strong> Used when removing a successful treatment would be unethical. Up to three baselines are recorded simultaneously (across <em>subjects</em>, across <em>behaviours</em>, or across <em>settings</em>); the intervention is introduced to one baseline at a randomly selected time while the others stay unchanged, ruling out external events as the cause.</li>
+<li><strong>Alternating-treatment (multielement) design.</strong> Compares two treatments within the single-subject framework: establish a baseline, introduce the first treatment, then alternate the two treatments until distinct, stable response patterns to each can be discerned.</li>
+</ul>
+
+<div class="callout key"><div class="co-h">High-yield</div><p>ANOVA: Fisher developed it, Snedecor named F. <strong>F = MS<sub>between</sub>/MS<sub>within</sub></strong>; one-way df = (k&minus;1) and k(n&minus;1). Two-way splits SS into A + B + A&times;B + error and finds <strong>interactions</strong>. The most important assumption is <strong>independence/additivity</strong>, then homogeneity of variance; normality matters least. Significant F &rarr; <strong>Tukey's HSD</strong> (most recommended) post-hoc. Effect size = <strong>&omega;&sup2;</strong>. For two groups, F = t&sup2;.</p></div>
+
+<!-- ===================== 6. MANOVA & ANCOVA ===================== -->
+<h2 id="sec-manova">6. MANOVA &amp; ANCOVA</h2>
+<p>These extend ANOVA in two different directions: ANCOVA adds a <em>covariate</em> to remove nuisance variance from a single DV; MANOVA adds <em>multiple dependent variables</em> tested together.</p>
+
+<h3>ANCOVA (Analysis of Covariance)</h3>
+<p><strong>ANCOVA is a method of controlling variance statistically</strong> by holding another related variable (the <strong>covariate X</strong>) constant. The covariate is an extraneous variable whose effect we are trying to remove from the DV, increasing precision and power. It is the statistical alternative to physical control or matching.</p>
+<p><strong>Assumptions of ANCOVA</strong> (in addition to the usual ANOVA assumptions):</p>
+<ul>
+<li>The <strong>covariate (X) is unaffected by the treatment</strong> (ideally measured before the intervention).</li>
+<li>The <strong>regression coefficient of Y on X is the same for all groups and is linear</strong> &mdash; the <em>homogeneity-of-regression-slopes</em> assumption.</li>
+<li>The <strong>correlations between X and Y are the same for all groups</strong>.</li>
+</ul>
+<p><strong>How ANCOVA works.</strong> It uses ANOVA on an <em>adjusted</em> SS: first the DV's (Y) SS is computed for total, between and within groups; then the same is done for the covariate's (X) SS; and the adjusted SS on Y is calculated as <strong>SS<sub>adj</sub> = SS<sub>Y</sub> &minus; (SP)&sup2; / SS<sub>X</sub></strong>, where <strong>SP</strong> is the sum of <em>products</em> (of X and Y) rather than the sum of squares, computed for total, between and within groups.</p>
+<p><strong>Degrees of freedom: ANCOVA loses one extra df</strong> (for estimating the regression on the covariate):</p>
+<table>
+<thead><tr><th>Source</th><th>ANOVA df</th><th>ANCOVA df</th></tr></thead>
+<tbody>
+<tr><td>Total</td><td>kn &minus; 1</td><td><strong>kn &minus; 2</strong></td></tr>
+<tr><td>Treatment (between)</td><td>k &minus; 1</td><td>k &minus; 1</td></tr>
+<tr><td>Within (error)</td><td>k(n &minus; 1)</td><td><strong>k(n &minus; 1) &minus; 1</strong></td></tr>
+</tbody>
+</table>
+
+<h3>MANOVA (Multivariate Analysis of Variance)</h3>
+<p>MANOVA is a <strong>multivariate</strong> procedure used to assess group differences across <strong>multiple metric dependent variables simultaneously</strong>: each treatment group is observed on two or more DVs. Rather than test each DV separately (which would inflate Type I error and ignore the correlations among DVs), MANOVA combines the dependent measures into a <strong>variate</strong> (a linear combination, via discriminant functions) and tests that composite for equality across groups. The dependent-variable weights are devised to produce a variate score for each respondent that is <em>maximally different across all groups</em>. MANOVA assesses the impact of multiple IVs on the individual DVs <em>and</em> on the DVs collectively.</p>
+<p><strong>Multivariate test statistics</strong> (each can be approximated by an F statistic):</p>
+<table>
+<thead><tr><th>Statistic</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><strong>Wilks' lambda (U statistic)</strong></td><td>Often called the "multivariate F"; most commonly used for overall between-group significance; considers <em>all</em> discriminant functions, asking whether groups differ at all without focusing on a single linear combination</td></tr>
+<tr><td><strong>Pillai's criterion</strong></td><td>Similar to Wilks' lambda; considers all the characteristic roots; the <em>most robust</em> to assumption violations</td></tr>
+<tr><td><strong>Hotelling's trace (Hotelling's T&sup2;)</strong></td><td>Similar to Wilks' lambda; considers all characteristic roots</td></tr>
+<tr><td><strong>Roy's greatest characteristic root (gcr)</strong></td><td>Measures differences on <em>only the first</em> discriminant function; gives power and specificity when the DVs are strongly interrelated on a single dimension, but is the <em>most affected by violations</em> of assumptions</td></tr>
+</tbody>
+</table>
+<p><strong>Assumptions of MANOVA:</strong> independence of observations; multivariate normality of the DVs; <strong>homogeneity of the variance&ndash;covariance matrices</strong> (tested by <strong>Box's M</strong> test, the multivariate analogue of homogeneity of variance); linearity among DVs; and adequate sample size relative to the number of DVs.</p>
+
+<div class="callout trap"><div class="co-h">Trap</div><p>Distinguish the three extensions. <strong>ANOVA</strong> = one+ IV, <em>one</em> DV. <strong>ANCOVA</strong> = ANOVA plus a continuous <em>covariate</em> that is statistically removed (still one DV). <strong>MANOVA</strong> = two or more <em>dependent</em> variables tested together. "Covariate" &ne; "multiple DVs": a covariate is a nuisance variable you control; the DVs are the outcomes you care about.</p></div>
+
+<div class="callout tip"><div class="co-h">Mnemonic</div><p>The "C" in AN<strong>C</strong>OVA = <strong>C</strong>ovariate (Controlled). The "M" in <strong>M</strong>ANOVA = <strong>M</strong>ultiple (dependent variables). Pick the statistic: <strong>P</strong>illai = most robu<strong>s</strong>t; <strong>R</strong>oy's = most <strong>r</strong>isky under violations but most powerful on one dimension.</p></div>
+
+<div class="callout key"><div class="co-h">High-yield</div><p>ANCOVA controls a <strong>covariate</strong> statistically (covariate must be unaffected by treatment, with equal/linear Y-on-X slopes across groups); it loses one extra df (total = kn&minus;2). MANOVA tests <strong>multiple DVs</strong> via a variate; <strong>Wilks' lambda</strong> is the standard test ("multivariate F"), <strong>Pillai's</strong> is most robust, <strong>Roy's gcr</strong> is most sensitive to violations. Homogeneity of variance&ndash;covariance matrices is checked by <strong>Box's M</strong>.</p></div>
+
+<!-- ===================== 7. NON-PARAMETRIC ===================== -->
+<h2 id="sec-nonparam">7. Non-parametric tests</h2>
+<p><strong>Non-parametric (distribution-free) tests</strong> are used when the data are nominal or ordinal, when sample sizes are small, or when parametric assumptions (normality, homogeneity of variance, interval measurement) are violated. They make few assumptions about the shape of the population distribution. Learn each by its design (one sample, two related, two independent, k related, k independent) and its parametric counterpart.</p>
+
+<h3>Chi-square (&chi;&sup2;) tests &mdash; for nominal/categorical data</h3>
+<p>The <strong>chi-square statistic</strong> compares <strong>observed frequencies (O)</strong> with the <strong>expected frequencies (E)</strong> predicted under H<sub>0</sub>: <strong>&chi;&sup2; = &sum;[(O &minus; E)&sup2; / E]</strong>. Two main uses:</p>
+<ul>
+<li><strong>Chi-square goodness of fit</strong> &mdash; tests whether the observed distribution of one categorical variable matches an expected distribution; df = <strong>k &minus; 1</strong> (k = number of categories).</li>
+<li><strong>Chi-square test of independence (association)</strong> &mdash; tests whether two categorical variables are related in a contingency table; df = <strong>(r &minus; 1)(c &minus; 1)</strong> (r rows, c columns). Expected cell frequency = (row total &times; column total) / grand total.</li>
+</ul>
+<p>Assumptions: independent observations; categories mutually exclusive; expected frequency in each cell should be at least 5 (otherwise combine categories or use Fisher's exact test, or apply Yates' continuity correction for a 2&times;2 table).</p>
+
+<h3>Sign test &mdash; two related samples (direction only)</h3>
+<p>The sign test gets its name because it uses <strong>plus and minus signs</strong> rather than quantitative measures. Useful when quantitative measurement is impossible or infeasible but the two members of each pair can be ranked relative to each other. The only assumption is that the variable has a <em>continuous distribution</em>; it makes no assumption about the form of the distribution of differences and does not assume all subjects come from the same population &mdash; the only requirement is matching within each pair on relevant extraneous variables.</p>
+<ul>
+<li><strong>Null hypothesis:</strong> the median difference is zero, i.e. p(X<sub>a</sub> &gt; X<sub>b</sub>) = p(X<sub>a</sub> &lt; X<sub>b</sub>) = 0.5. We focus only on the <em>direction</em> (sign) of each pair's difference. Under H<sub>0</sub>, the number of "+" pairs should equal the number of "&minus;" pairs; H<sub>0</sub> is rejected if too few of one sign occur.</li>
+<li><strong>Ties:</strong> a pair showing no difference (d = 0) is dropped and N is reduced.</li>
+<li><strong>Small samples:</strong> x = the difference in the number of each sign is found, and N and x give the probability p from the binomial distribution. <strong>Large samples (N &gt; 25):</strong> use the normal approximation to the binomial.</li>
+</ul>
+
+<h3>Wilcoxon matched-pairs signed-ranks test &mdash; two related samples (direction + magnitude)</h3>
+<p>Like the sign test it uses the direction of differences, but it <em>also</em> uses their <strong>relative magnitude</strong>, making it a more powerful test. Procedure:</p>
+<ol>
+<li>For each matched pair, find the signed difference d<sub>i</sub> (each pair has one d<sub>i</sub>).</li>
+<li>Rank all the d's <em>without regard to sign</em>; assign tied d's the average of the ranks they would occupy.</li>
+<li>Affix to each rank the sign (+ or &minus;) of the difference it represents.</li>
+<li>Compute <strong>T = the smaller of the sums of the like-signed ranks</strong> (the smaller of the sum of positive ranks and the sum of negative ranks).</li>
+<li>Determine N = the number of d's that have a sign (pairs with d = 0 are dropped).</li>
+<li>For <strong>N &le; 25</strong>, compare T with the critical value: reject H<sub>0</sub> if observed T is &le; the table value. For <strong>N &gt; 25</strong>, T is practically normally distributed, so compute z and refer to the normal table (double p for a two-tailed test).</li>
+</ol>
+<p>The parametric counterpart is the paired-samples t-test.</p>
+
+<h3>Mann&ndash;Whitney U test &mdash; two independent samples</h3>
+<p>The non-parametric counterpart of the independent-samples t-test, for two independent groups on ordinal data. Procedure:</p>
+<ol>
+<li>Determine n<sub>1</sub> (cases in the smaller group) and n<sub>2</sub> (cases in the larger group).</li>
+<li>Rank <em>together</em> the scores of both groups, assigning rank 1 to the algebraically lowest score; ranks run 1 to N = n<sub>1</sub> + n<sub>2</sub>; tied observations get the average of the tied ranks.</li>
+<li>Compute U by counting or by formula.</li>
+<li>Significance depends on n<sub>2</sub>: if n<sub>2</sub> &le; 8, use the exact-probability table; if n<sub>2</sub> is 9&ndash;20, use the critical-value table; if n<sub>2</sub> &gt; 20, compute z and use the normal table (double p for two-tailed).</li>
+<li>If the observed U's associated probability is &le; &alpha;, reject H<sub>0</sub>.</li>
+</ol>
+
+<h3>Kruskal&ndash;Wallis one-way ANOVA by ranks &mdash; k independent samples</h3>
+<p>The non-parametric counterpart of the one-way (independent-groups) ANOVA, for <strong>independent samples</strong>. It uses the <strong>H statistic</strong> and does <em>not</em> require equal Ns. When the number of cases is not too small (more than 5 per group), <strong>H is distributed as &chi;&sup2; with k &minus; 1 degrees of freedom</strong>, so the calculated H is checked against the chi-square table for significance.</p>
+
+<h3>Friedman ANOVA by ranks &mdash; k related samples</h3>
+<p>The non-parametric counterpart of the repeated-measures ANOVA, used for <strong>repeated measures</strong> (related samples); both one-way and two-way versions can be performed. It uses the <strong>&chi;&sup2;<sub>r</sub> statistic</strong>. When the number of rows/columns is not too small, &chi;&sup2;<sub>r</sub> is distributed as &chi;&sup2; with <strong>k &minus; 1 degrees of freedom</strong>, and is checked against the chi-square table.</p>
+
+<h3>Spearman's rank correlation (rho, &rho;) &mdash; ordinal association</h3>
+<p>The non-parametric counterpart of Pearson's r, used to measure the <strong>strength and direction of a monotonic relationship</strong> between two ordinal (ranked) variables. It is Pearson's correlation computed on the ranks. Formula: <strong>&rho; = 1 &minus; [6&sum;d&sup2; / (n(n&sup2; &minus; 1))]</strong>, where d = the difference between the two ranks of each observation and n = the number of pairs. Spearman's &rho; ranges from &minus;1 to +1; tied ranks receive the average rank. (Kendall's tau, &tau;, is an alternative rank-correlation coefficient.)</p>
+
+<div class="callout trap"><div class="co-h">Trap</div><p><strong>Sign test vs Wilcoxon signed-ranks.</strong> Both handle two <em>related</em> samples, but the sign test uses only the <em>direction</em> of differences (less powerful), while Wilcoxon uses direction <em>and magnitude</em> (more powerful). <strong>Mann&ndash;Whitney U vs Wilcoxon signed-ranks:</strong> Mann&ndash;Whitney is for <em>independent</em> groups; Wilcoxon signed-ranks is for <em>related</em> pairs. (Confusingly, there is also a "Wilcoxon rank-sum" test that is equivalent to Mann&ndash;Whitney for independent samples.) <strong>Kruskal&ndash;Wallis vs Friedman:</strong> Kruskal&ndash;Wallis = k <em>independent</em> groups (H statistic); Friedman = k <em>related</em> measures (&chi;&sup2;<sub>r</sub>). Both are distributed as &chi;&sup2; with k&minus;1 df.</p></div>
+
+<div class="callout key"><div class="co-h">High-yield</div><p>Non-parametric &harr; parametric pairs: <strong>Mann&ndash;Whitney U &harr; independent t</strong>; <strong>Wilcoxon signed-ranks &harr; paired t</strong>; <strong>Kruskal&ndash;Wallis (H) &harr; one-way ANOVA</strong>; <strong>Friedman (&chi;&sup2;<sub>r</sub>) &harr; repeated-measures ANOVA</strong>; <strong>Spearman's &rho; &harr; Pearson's r</strong>; <strong>chi-square</strong> for categorical frequencies. Kruskal&ndash;Wallis H and Friedman &chi;&sup2;<sub>r</sub> are both approximated by &chi;&sup2; with k&minus;1 df. Chi-square independence df = (r&minus;1)(c&minus;1).</p></div>
+
+<!-- ===================== 8. DECISION GUIDE ===================== -->
+<h2 id="sec-decision">8. "Which test when" decision guide</h2>
+<p>This is the most examinable table in the whole book. Pick the test from three features: the <strong>level of measurement</strong>, the <strong>number of groups/conditions</strong>, and whether the groups are <strong>independent or related</strong>.</p>
+
+<table>
+<thead><tr><th>Research question</th><th>Parametric test</th><th>Non-parametric counterpart</th><th>Key df</th></tr></thead>
+<tbody>
+<tr><td>One group vs a known norm</td><td>One-sample t-test</td><td>One-sample sign / Wilcoxon</td><td>n &minus; 1</td></tr>
+<tr><td>Two <em>independent</em> groups</td><td>Independent-samples t-test</td><td>Mann&ndash;Whitney U</td><td>n<sub>1</sub> + n<sub>2</sub> &minus; 2</td></tr>
+<tr><td>Two <em>related</em> measures (pre/post, matched)</td><td>Paired-samples t-test</td><td>Wilcoxon signed-ranks (or sign test)</td><td>n &minus; 1</td></tr>
+<tr><td>Three+ <em>independent</em> groups, one IV</td><td>One-way ANOVA (F)</td><td>Kruskal&ndash;Wallis (H)</td><td>k&minus;1, k(n&minus;1)</td></tr>
+<tr><td>Three+ <em>related</em> measures</td><td>Repeated-measures ANOVA</td><td>Friedman (&chi;&sup2;<sub>r</sub>)</td><td>k &minus; 1</td></tr>
+<tr><td>Two IVs, one DV (+ interaction)</td><td>Two-way / factorial ANOVA</td><td>&mdash;</td><td>(r&minus;1), (c&minus;1), (r&minus;1)(c&minus;1)</td></tr>
+<tr><td>One+ IV, one DV, controlling a covariate</td><td>ANCOVA</td><td>&mdash;</td><td>total kn &minus; 2</td></tr>
+<tr><td>One+ IV, <em>multiple</em> DVs together</td><td>MANOVA (Wilks' &Lambda;)</td><td>&mdash;</td><td>&mdash;</td></tr>
+<tr><td>Association between two interval variables</td><td>Pearson's r</td><td>Spearman's &rho; / Kendall's &tau;</td><td>n &minus; 2</td></tr>
+<tr><td>Association between two categorical variables</td><td>&mdash;</td><td>Chi-square (&chi;&sup2;)</td><td>(r&minus;1)(c&minus;1)</td></tr>
+</tbody>
+</table>
+
+<div class="callout tip"><div class="co-h">Mnemonic</div><p>Read the question in three beats: <strong>"What scale? How many groups? Linked or not?"</strong> Interval + 2 groups + independent &rarr; independent t (or its rank cousin Mann&ndash;Whitney). Interval + 3+ groups &rarr; ANOVA (or Kruskal&ndash;Wallis). Add a covariate &rarr; ANCOVA; add DVs &rarr; MANOVA; add a second IV &rarr; factorial ANOVA with an <em>interaction</em>.</p></div>
+
+<div class="callout key"><div class="co-h">High-yield</div><p>The whole inferential toolkit is one logic applied at different scales: compare an observed statistic to its sampling distribution under H<sub>0</sub>, reject if it falls in the rejection region. <strong>t</strong> compares 1&ndash;2 means; <strong>F (ANOVA)</strong> compares 2+ means via variance ratio and avoids the Type I inflation of multiple t-tests; <strong>ANCOVA</strong> removes a covariate; <strong>MANOVA</strong> adds multiple DVs; the <strong>non-parametric</strong> family rank-orders the data when assumptions fail. Match measurement level, group number, and independence, and the right test names itself.</p></div>
+</article>
+<script src="/sihan-met-flashcards/notes/term-popover.js" defer></script>
+</body>
+</html>
