@@ -665,6 +665,28 @@ const MOCKS = [
     companion: null
   },
   {
+    id: "amity-recall",
+    title: "Amity Recall PYQ Mock (your paper)",
+    short: "Amity Recall",
+    path: "../../quiz/amity-recall/",
+    storageResults: "amity-recall-results-v1",
+    storageNotes: "amity-recall-notes-v1",
+    total: 17,
+    max: 17,
+    scoring: (right, wrong) => right - wrong * 0.25,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
+    sections: { social: 5, general: 10, dev: 2 },
+    bands: [
+      { min: 14, max: 17, name: "Strong", cls: "good", desc: "These are off your own recall list, so above ~14/17 means the concepts you brought out of the Amity hall are locked. Pair it with the verbatim Amity 2023 paper and the /amity/ interview prep." },
+      { min: 11, max: 13.99, name: "On target", cls: "good", desc: "Solid on your own recall. Patch the misses below, they are concepts you already half-know." },
+      { min: 8, max: 10.99, name: "Borderline", cls: "warn", desc: "Stop the −0.25 leak on items you half-know. The Indian Psychology cluster is the usual leak here." },
+      { min: 5, max: 7.99, name: "Needs work", cls: "warn", desc: "Re-read the full explanation under each miss, then re-sit. These are your own paper's concepts, they should stick." },
+      { min: -100, max: 4.99, name: "Baseline", cls: "bad", desc: "First cold sitting. Read the explanations, not the score — every item here is a concept you reported from the real paper." }
+    ],
+    cutoff: 11, cutoffLabel: "working target ~11/17 (recall set off your Master Concept List; no official cutoff)",
+    companion: null
+  },
+  {
     id: "pyq-mock-2",
     title: "PYQ Mock 2, pan-India",
     short: "PYQ Mock 2",

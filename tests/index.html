@@ -370,6 +370,19 @@ const MOCKS = [
     tags: ["deep explanations", "100% real PYQ", "source key", "real distractors", "Amity 2023", "untimed practice"]
   },
   {
+    id: "amity-recall",
+    title: "Amity Recall PYQ Mock (your paper)",
+    sub: "17 recall Qs · Amity M.A. Clinical Psychology entrance · built off YOUR Master Concept List from the paper you sat · untimed Practice + timed Exam",
+    path: "../quiz/amity-recall/",
+    total: 17,
+    storageKey: "amity-recall-results-v1",
+    sections: { social: 5, general: 10, dev: 2 },
+    blurb: "A second Amity set, and the most authentic source you have: built straight off your own Master Concept List — the concepts you recalled from the Amity entrance you actually sat. Each of the 17 items takes one concept from that list and turns it into a clean MCQ with the answer, the concept written out in full, and a line on why each wrong option is a trap (the distractor the concept itself flagged). It is a recall reconstruction, not a verbatim photocopy, so the stems/options are mine while every fact, answer, and trap is yours off that list. Indian Psychology is weighted heavy on purpose — Amity leans on it harder than NIMHANS and it is the cluster that has cost you. Defaults to untimed Practice (instant reveal + full explanation under every Q) and scores +1/−0.25/0 to stay comparable; read the raw 'right' count out of 17. Pair with the verbatim Amity 2023 paper and the /amity/ interview prep. Independent storage.",
+    fresh: true,
+    deepExp: true,
+    tags: ["deep explanations", "your recall", "real paper concepts", "Indian psychology", "Amity", "untimed practice"]
+  },
+  {
     id: "pep-mock-1",
     title: "Psych Entrance Mock 1 — UGC-NET + MPhil Clinical (120 Q)",
     sub: "120 Q · 120 min · +1 / −0.25 · MPhil-specific + UGC-NET + common",
@@ -541,7 +554,7 @@ function isFinished(m, r, settings, done) {
 }
 
 // Order the pinned deep-explanation papers exactly as Sihan was told about them.
-const DEEP_ORDER = ["systems-theories", "amity-2023", "ihbas-2024", "ihbas-2020", "rml-2024"];
+const DEEP_ORDER = ["systems-theories", "amity-recall", "amity-2023", "ihbas-2024", "ihbas-2020", "rml-2024"];
 
 function buildCardEl(m, r, finished, done, pinned) {
   const pct = r.answered ? Math.round((r.correct / r.answered) * 100) : null;
