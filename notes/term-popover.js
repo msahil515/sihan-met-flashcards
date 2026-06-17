@@ -3,14 +3,12 @@
    NMDA, AMPA, HPA, BDNF, KF rings, etc.). Tap anywhere outside the popover to
    close. Built 2026-05-28 for the rizzolatti page + every notes/ page.
 
-   Definitions come from three sources, in priority order:
-   1. The built-in TERM_DEFS dictionary below (curated for MET/NIMHANS).
-   2. A "defining occurrence" auto-extracted from the page itself
-      (the first sentence/list item where the term is bolded and followed
-      by a definitional dash or colon).
-   3. Fallback: the first paragraph of context where the term appears.
-
-   This means even novel bolded terms on a new page get a useful popover. */
+   Definitions come from ONE source: the curated built-in TERM_DEFS glossary
+   below (plus its ALIASES). A bolded word is only made tappable/underlined if
+   it actually resolves to a real definition here — so tapping always returns
+   the real definition of that exact term, never the surrounding sentence and
+   never a blank card. (Reworked 2026-06-17: the old on-page-sentence fallback
+   was dumping nearby text instead of a definition; it has been removed.) */
 (function () {
   "use strict";
   if (window.__tpLoaded) return;
@@ -237,7 +235,23 @@
     "mmn": "Mismatch negativity. Pre-attentive ERP component (~150–250 ms) to a deviant in a stream of standards. Auditory cortex generator. Reduced in schizophrenia.",
     "p300": "Positive ERP component ~300 ms after a task-relevant rare stimulus. Indexes attention/working memory. Reduced amplitude in schizophrenia, alcoholism.",
     "n400": "Negative ERP ~400 ms to semantic violations ('She buttered her bread with socks'). Kutas & Hillyard 1980. Indexes semantic processing.",
-    "cnv": "Contingent negative variation. Slow negative shift between a warning and a target stimulus. Indexes anticipation/preparation."
+    "cnv": "Contingent negative variation. Slow negative shift between a warning and a target stimulus. Indexes anticipation/preparation.",
+
+    /* High-frequency exam terms (learning, development, assessment) */
+    "classical conditioning": "Pavlovian learning. A neutral stimulus (CS) paired with an unconditioned stimulus (US) comes to elicit a conditioned response (CR). Acquisition, extinction, spontaneous recovery, generalisation, discrimination. Pavlov, Watson (Little Albert).",
+    "operant conditioning": "Instrumental learning. Behaviour is shaped by its consequences: reinforcement (increases behaviour) vs punishment (decreases it), each positive (add) or negative (remove). Skinner; built on Thorndike's law of effect.",
+    "law of effect": "Thorndike's principle: responses followed by satisfaction are strengthened (stamped in), those followed by discomfort are weakened. The conceptual ancestor of operant conditioning.",
+    "reinforcement": "Any consequence that increases the future probability of a behaviour. Positive = add a pleasant stimulus; negative = remove an aversive one. Not the same as punishment.",
+    "negative reinforcement": "Removing an aversive stimulus to increase a behaviour (e.g. seatbelt alarm stops when you buckle up). Increases behaviour — it is NOT punishment.",
+    "token economy": "Operant behaviour-modification system: target behaviours earn tokens (secondary reinforcers) exchangeable for backup reinforcers. Used in wards, classrooms, with chronic SZ.",
+    "object permanence": "The understanding that objects continue to exist when out of sight. Develops in Piaget's sensorimotor stage (~8 months), tested by hidden-object search; failure → A-not-B error.",
+    "conservation": "Piagetian concept: quantity stays the same despite changes in appearance (number, mass, volume). Acquired in the concrete-operational stage; pre-operational children fail due to centration.",
+    "cognitive triad": "Beck's triad of negative views in depression: negative views of the self, the world, and the future. Targeted by cognitive therapy.",
+    "reliability": "Consistency of a measure. Types: test-retest (stability over time), inter-rater, parallel-forms, internal consistency (Cronbach's alpha, split-half). Necessary but not sufficient for validity.",
+    "validity": "Whether a test measures what it claims to. Types: content, criterion (concurrent + predictive), construct (convergent + discriminant), face. A test can be reliable yet invalid.",
+    "internal consistency": "How well a test's items measure the same construct. Indexed by Cronbach's alpha (and split-half reliability). High alpha → items hang together.",
+    "positive symptoms": "Schizophrenia symptoms that ADD to normal experience: delusions, hallucinations, disorganised speech/behaviour. Linked to mesolimbic dopamine excess; respond to D2 blockade.",
+    "negative symptoms": "Schizophrenia symptoms that SUBTRACT from normal function: blunted affect, alogia, avolition, anhedonia, asociality. Linked to mesocortical dopamine deficit; poorly responsive to typical antipsychotics."
   };
 
   /* Aliases: map common written forms to dictionary keys */
@@ -393,6 +407,12 @@
       if (!txt || txt.length > 80) return; /* skip very long bolded blocks */
       /* Only wrap if it has any letters */
       if (!/[a-zA-Z]/.test(txt)) return;
+      /* CORE FIX: only make a bold term tappable when it resolves to a REAL
+         glossary definition. Previously every <b>/<strong> was wrapped, so
+         tapping a bolded phrase with no entry fell through to a sentence dump
+         or a blank "no definition" card. Underline now means: real def exists. */
+      var resolved = lookupDef(txt.replace(/[—–:.,;]+$/, ""));
+      if (!resolved) return;
 
       /* Wrap the bold's existing contents in a span */
       var span = document.createElement("span");
@@ -479,32 +499,9 @@
     return null;
   }
 
-  /* Find a "defining occurrence" of the term on this page. We look for an
-     <li> or <p> where the term (or one of its alias keys) is bolded and
-     followed by a dash-or-colon definition. */
-  function findOnPageDef(term) {
-    var needle = normalise(term);
-    if (!needle) return null;
-
-    var candidates = root.querySelectorAll("li, p, dt, dd, td");
-    var best = null;
-    for (var i = 0; i < candidates.length; i++) {
-      var el = candidates[i];
-      var b = el.querySelector("b, strong");
-      if (!b) continue;
-      var btext = normalise(b.textContent);
-      if (btext === needle || btext.indexOf(needle) !== -1 || needle.indexOf(btext) !== -1) {
-        var full = el.textContent.replace(/\s+/g, " ").trim();
-        if (full.length > 20 && full.length < 600) {
-          best = full;
-          break;
-        }
-        if (!best && full.length < 1200) best = full;
-      }
-    }
-    if (best) return { def: best, source: "from this page" };
-    return null;
-  }
+  /* (Removed) findOnPageDef: it returned the whole surrounding <li>/<p> text,
+     which is what produced the "dumps the sentence / blank" behaviour Sihan
+     reported. Definitions now come from the curated glossary only. */
 
   /* -------------------- 4. POPOVER UI -------------------- */
 
@@ -527,7 +524,7 @@
 
   var hint = document.createElement("div");
   hint.id = "tp-hint";
-  hint.textContent = "tip: tap any bolded term for a definition";
+  hint.textContent = "tip: tap any underlined term for its definition";
   document.body.appendChild(hint);
   /* Hide hint after first interaction */
   function hideHint() { hint.classList.add("tp-hide"); try { sessionStorage.setItem("tp-hint-seen", "1"); } catch(e) {} }
@@ -563,19 +560,19 @@
   function openPopover(termEl) {
     var raw = termEl.getAttribute("data-term") || termEl.textContent || "";
     var term = raw.trim().replace(/[—–:.,;]+$/, "");
-    var lookup = lookupDef(term) || findOnPageDef(term);
+    /* Glossary lookup ONLY. We never dump the surrounding sentence anymore —
+       a term is only tappable if it resolved here, so this should always hit. */
+    var lookup = lookupDef(term);
 
     pop.querySelector(".tp-pop-term").textContent = term;
     var body = pop.querySelector(".tp-pop-body");
     var source = pop.querySelector(".tp-pop-source");
     if (lookup) {
       body.textContent = lookup.def;
-      source.textContent = lookup.source === "dictionary"
-        ? "from the built-in glossary"
-        : "from this page";
+      source.textContent = "from the built-in glossary";
     } else {
-      body.innerHTML = '<em>No definition stored yet for this term. It’s bolded on this page as a key term — open the cheatsheets or master glossary for context.</em>';
-      source.textContent = "no match found";
+      body.innerHTML = '<em>Not in the glossary yet — tell Sahil to add this term.</em>';
+      source.textContent = "no glossary entry";
     }
 
     if (activeTerm) activeTerm.classList.remove("tp-active");
