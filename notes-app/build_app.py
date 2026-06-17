@@ -29,6 +29,7 @@ OUT_CONTENT = os.path.join(ROOT, "content")
 SECTIONS = [
     ("strategy",  "Exam Strategy",        "What actually gets tested, the repeated questions, the high-yield map", "#9d174d", "#831843"),
     ("core",      "Core Subjects",        "The syllabus, one merged book per subject", "#1d4ed8", "#1e3a8a"),
+    ("systems",   "Systems & Theories",    "The whole history of psychology, every school taught from the ground up", "#0e7490", "#155e75"),
     ("amity",     "Amity",                 "Everything Amity MA Clinical in one book", "#b45309", "#78350f"),
     ("reference", "Quick Reference",       "Effects, theorists, lookalikes, the one-page cram", "#7e22ce", "#581c87"),
     ("mocks",     "Mocks & Weak Spots",    "Every debrief reorganised by what kept costing marks", "#be123c", "#831843"),
@@ -74,6 +75,10 @@ BOOKS = [
     dict(slug="research", shelf="core", kind="merged",
          short="Research Methods & Statistics",
          blurb="Research design, sampling, distributions, every statistical test, and degrees of freedom from scratch, merged."),
+    # --- Systems & Theories ---
+    dict(slug="systems-theories", shelf="systems", kind="merged", search_cap=40000,
+         short="Systems & Theories of Psychology",
+         blurb="The full history-and-systems unit taught from the ground up to NIMHANS depth: structuralism, functionalism, Gestalt, behaviorism, psychoanalysis and the whole psychodynamic tree, humanistic and existential, the cognitive revolution, and Indian psychology, with every key theorist, date, and exam trap inline. Read top to bottom to see how each school answers the one before it. The companion notes to the 119-question Systems & Theories mock."),
     # --- Amity ---
     dict(slug="amity", shelf="amity", kind="merged",
          short="Amity — MA Clinical Psychology",
