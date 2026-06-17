@@ -269,6 +269,19 @@
 <script>
 const MOCKS = [
   {
+    id: "systems-theories",
+    title: "Systems & Theories Mock (Panwar bank)",
+    sub: "119 MCQs · Amit Panwar \"Systems & Theories of Psychology\" unit bank · common-section drilling · official key + full revamp depth · untimed Practice + timed Exam",
+    path: "../quiz/systems-theories/",
+    total: 119,
+    storageKey: "systems-theories-results-v1",
+    sections: { history: 19, psychodyn: 36, behavioural: 13, humanistic: 21, cognitive: 12, indian: 18 },
+    blurb: "The full Amit Panwar Systems & Theories of Psychology unit practice question bank, all 119 MCQs, built into a native mock that marks itself. Every question carries the book's own OFFICIAL answer and its baked-in solution (shown as 'Panwar key'), PLUS the full revamp depth layered on top: why the right option is right, the concept taught from scratch, and a per-distractor trap explaining why each wrong option is wrong. This is core common-section material — history & schools, psychodynamic (Freud/Adler/Jung/neo-Freudians), behavioural/learning, humanistic & Gestalt, cognitive & consciousness, and Indian psychology. Exactly the common-section drilling that decides the gap. Untimed Practice by default (instant reveal + explanation per question); flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. A few items where the printed key is academically debatable keep the official letter but flag the dispute. Independent storage.",
+    fresh: true,
+    deepExp: true,
+    tags: ["deep explanations", "systems & theories", "Panwar bank", "common section", "official key", "trap per wrong option", "untimed practice", "119 Q"]
+  },
+  {
     id: "flight-mock-100",
     title: "Flight Mock 100 — full paper, full-depth answers",
     sub: "100 Q · the full flight paper · every MET / clinical-psych domain · untimed, marks itself · full revamp-depth answer under every Q",
@@ -528,7 +541,7 @@ function isFinished(m, r, settings, done) {
 }
 
 // Order the pinned deep-explanation papers exactly as Sihan was told about them.
-const DEEP_ORDER = ["amity-2023", "ihbas-2024", "ihbas-2020", "rml-2024"];
+const DEEP_ORDER = ["systems-theories", "amity-2023", "ihbas-2024", "ihbas-2020", "rml-2024"];
 
 function buildCardEl(m, r, finished, done, pinned) {
   const pct = r.answered ? Math.round((r.correct / r.answered) * 100) : null;

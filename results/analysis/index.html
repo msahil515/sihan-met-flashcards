@@ -577,6 +577,28 @@ const MOCKS = [
     companion: null
   },
   {
+    id: "systems-theories",
+    title: "Systems & Theories Mock (Panwar bank, 119 Q)",
+    short: "Systems & Theories",
+    path: "../../quiz/systems-theories/",
+    storageResults: "systems-theories-results-v1",
+    storageNotes: "systems-theories-notes-v1",
+    total: 119,
+    max: 119,
+    scoring: (right, wrong) => right - wrong * 0.25,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
+    sections: { history: 19, psychodyn: 36, behavioural: 13, humanistic: 21, cognitive: 12, indian: 18 },
+    bands: [
+      { min: 83, max: 119, name: "Strong", cls: "good", desc: "70%+ on the Systems & Theories common-section bank. This is exactly the recognition stuff that decides the common section. Lock it and keep the −0.25 leak shut." },
+      { min: 71, max: 82.99, name: "On target", cls: "good", desc: "Around 60-70%. Solid base on schools/theorists. Patch your two weakest sections below, don't chase new topics." },
+      { min: 59, max: 70.99, name: "Borderline", cls: "warn", desc: "50-60%. Stop guessing pure-noise items (−0.25 adds up over 119 Q). Drill the weak section, then re-sit." },
+      { min: 47, max: 58.99, name: "Needs work", cls: "warn", desc: "A couple of sections (often psychodynamic or Indian psych) are genuinely soft. Read the explanations, then re-attempt." },
+      { min: -200, max: 46.99, name: "Baseline", cls: "bad", desc: "First cold sitting. The point is the gap map below, not the score. Revise the weakest section and re-attempt." }
+    ],
+    cutoff: 83, cutoffLabel: "working target ~70% (≈83/119) on common-section systems & theories",
+    companion: null
+  },
+  {
     id: "ihbas-2020",
     title: "IHBAS 2020 PYQ Mock (real paper)",
     short: "IHBAS PYQ 2020",
@@ -679,7 +701,13 @@ const SECTION_LABELS = {
   language: "Language",
   social: "Social Psychology",
   general: "General",
-  english: "English"
+  english: "English",
+  history: "History & Schools",
+  psychodyn: "Psychodynamic",
+  behavioural: "Behavioural / Learning",
+  humanistic: "Humanistic / Gestalt",
+  cognitive: "Cognitive / Consciousness",
+  indian: "Indian Psychology"
 };
 
 const SECTION_NOTES = {
