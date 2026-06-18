@@ -40,8 +40,12 @@ if ("serviceWorker" in navigator) {
 </script>
 <!-- Refresh/sync button: same ↻ control as the prep site. Tap it to pull the
      latest notes off the live site without re-downloading the app. Stacked
-     ABOVE the fullscreen toggle so the two don't overlap. -->
+     ABOVE the fullscreen toggle so the two don't overlap. This floating button
+     replaces the old small app-bar .syncbtn icons (which vanished in
+     fullscreen reading mode) — hide those so there's ONE consistent refresh
+     control everywhere, matching the prep site. -->
 <style id="notes-app-sync-pos">
+  .syncbtn{display:none !important;}
   #met-force-sync-btn{bottom:72px !important;right:15px !important;}
   #met-force-sync-toast{bottom:130px !important;}
   @media (max-width:600px){
