@@ -38,6 +38,18 @@ if ("serviceWorker" in navigator) {
   });
 }
 </script>
+<!-- Refresh/sync button: same ↻ control as the prep site. Tap it to pull the
+     latest notes off the live site without re-downloading the app. Stacked
+     ABOVE the fullscreen toggle so the two don't overlap. -->
+<style id="notes-app-sync-pos">
+  #met-force-sync-btn{bottom:72px !important;right:15px !important;}
+  #met-force-sync-toast{bottom:130px !important;}
+  @media (max-width:600px){
+    #met-force-sync-btn{bottom:64px !important;right:13px !important;}
+    #met-force-sync-toast{bottom:118px !important;}
+  }
+</style>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
 <!-- FS_MODE start -->
 <style id="fs-mode-style">
   .fs-toggle{position:fixed;z-index:2147483000;bottom:14px;right:14px;width:46px;height:46px;border:0;border-radius:50%;

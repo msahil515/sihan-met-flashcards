@@ -1,7 +1,7 @@
 /* Notes for Exam — service worker. Own cache, scoped to /notes-app/.
    Precaches the shell + every chapter page so the whole library works offline.
    CACHE name is stamped by build_notes_app.py on each build so updates self-apply. */
-var CACHE = "notes-for-exam-20260617-tapfix";
+var CACHE = "notes-for-exam-20260617-syncbtn";
 var BASE = "/sihan-met-flashcards/notes-app/";
 var SHELL = [
   BASE,
@@ -15,7 +15,8 @@ var SHELL = [
   BASE + "search-index.json",
   "/sihan-met-flashcards/notes-style.css",
   "/sihan-met-flashcards/notes/term-popover.css",
-  "/sihan-met-flashcards/notes/term-popover.js"
+  "/sihan-met-flashcards/notes/term-popover.js",
+  "/sihan-met-flashcards/force-sync.js"
 ];
 
 self.addEventListener("install", function (e) {
