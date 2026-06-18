@@ -23,6 +23,17 @@
   var TOAST_ID = "met-force-sync-toast";
   var FLAG = "metJustSynced";
 
+  // The live site this app mirrors. When the button is tapped INSIDE the
+  // installed APK (served from the offline WebView asset host below), a plain
+  // reload would just re-show the bundled build. So in that case we cross over
+  // to the live site to actually pull the newest content. On the live site
+  // itself the button keeps doing a normal same-origin cache-bust reload.
+  var LIVE_ORIGIN = "https://msahil515.github.io";
+  var APK_HOST = "appassets.local";   // WebViewAssetLoader virtual host
+  function inApkShell() {
+    return location.hostname === APK_HOST;
+  }
+
   function injectStyles() {
     if (document.getElementById("met-force-sync-style")) return;
     var css =
@@ -115,6 +126,23 @@
     }
 
     Promise.all([swDone, cacheDone]).then(function () {
+      // Inside the installed APK: pull the live site instead of reloading the
+      // bundled offline copy. That's the whole point of the button here.
+      if (inApkShell()) {
+        if (navigator.onLine === false) {
+          if (btn) btn.classList.remove("spin");
+          syncing = false;
+          toast("You're offline &mdash; showing the copy saved on your tablet", 4200);
+          return;
+        }
+        // Cross to the live origin, same path, cache-busted. met_synced=1 makes
+        // the live page show the confirmation toast (sessionStorage doesn't
+        // survive the origin change).
+        var live = LIVE_ORIGIN + location.pathname +
+          "?s=" + Date.now() + "&met_synced=1" + location.hash;
+        location.replace(live);
+        return;
+      }
       try { sessionStorage.setItem(FLAG, "1"); } catch (e) {}
       var url = location.pathname + "?s=" + Date.now() + location.hash;
       location.replace(url);
@@ -123,10 +151,13 @@
 
   function postSyncToast() {
     try {
-      if (sessionStorage.getItem(FLAG)) {
-        sessionStorage.removeItem(FLAG);
+      var fromFlag = false;
+      try { fromFlag = !!sessionStorage.getItem(FLAG); } catch (e) {}
+      var fromParam = location.search.indexOf("met_synced=1") !== -1;
+      if (fromFlag || fromParam) {
+        try { sessionStorage.removeItem(FLAG); } catch (e) {}
         setTimeout(function () { toast("Synced to the latest version"); }, 280);
-        if (location.search.indexOf("s=") !== -1) {
+        if (location.search.indexOf("s=") !== -1 || fromParam) {
           try { history.replaceState(null, "", location.pathname + location.hash); } catch (e) {}
         }
       }
