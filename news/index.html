@@ -65,7 +65,7 @@
 <div class="wrap">
 <nav><a href="../">← Home</a> <a href="../admissions/">Admissions tracker</a> <a href="../notes/">Notes</a></nav>
 
-<div style="font-family:var(--sans);font-size:12.5px;color:var(--muted);background:var(--panel-2);border:1px solid var(--border);border-radius:7px;padding:7px 13px;margin:12px 0 2px"><span style="color:var(--good);font-weight:800">●</span> <!--LR-->Last refreshed: <b>21 Jun 2026, 5:29 PM IST</b> &middot; auto-refreshes 8&nbsp;AM &amp; 3&nbsp;PM IST daily<!--/LR--></div>
+<div style="font-family:var(--sans);font-size:12.5px;color:var(--muted);background:var(--panel-2);border:1px solid var(--border);border-radius:7px;padding:7px 13px;margin:12px 0 2px"><span style="color:var(--good);font-weight:800">●</span> <!--LR-->Last refreshed: <b>21 Jun 2026, 10:10 PM IST</b> &middot; auto-refreshes 8&nbsp;AM &amp; 3&nbsp;PM IST daily<!--/LR--></div>
 
 <div id="srcCheck" style="font-family:var(--sans);font-size:11.5px;color:var(--muted);padding:1px 4px 0;margin:0 0 4px" hidden></div>
 
@@ -98,55 +98,87 @@ This board pulls its data on a schedule on its own, you don't have to ask it to.
 /* Embedded fallback so the board renders instantly and offline (PWA).
    Live data is fetched from news.json and overrides this on every load + every 5 min. */
 window.__NEWS_FALLBACK = {
-  "updated": "2026-06-10T20:30+05:30",
+  "updated": "2026-06-21T22:10+05:30",
   "note": "Live exam + admissions feed for the five live targets (Amity Noida, SGT, RML, IHBAS, CIP). Pinned items up top with countdowns; everything else newest-first. Each item carries its source so it's not just me saying it.",
   "pinned": [
     {
-      "id": "nfsu-gn-2026",
+      "id": "sgt-2026",
       "category": "Deadline",
-      "title": "NFSU Gandhinagar — MA Clinical Psychology (RCI) application closes",
-      "deadline": "2026-06-10T23:59:00+05:30",
-      "date": "2026-06-02",
-      "body": "Selection is on your CUET-PG 2026 score, not a separate NFSU test. 24 seats. Apply off the Samarth portal. Eligibility: 4-yr BA/BSc Psych, or 3-yr + bridge, min 55%.",
+      "title": "SGT University — MA Clinical Psychology (RCI) application closes",
+      "deadline": "2026-07-04T23:59:00+05:30",
+      "date": "2026-06-21",
+      "body": "Open right now, and the only one of your five flagged colleges with a live near-term window. MA Clinical Psychology (RCI) (the old M.Phil, renamed), 10 seats, app fee Rs 1,500. Form by ~4 Jul, written entrance ~11 Jul 2026 at the Gurugram campus. Dates are aggregator-sourced (UPS Education / Power Within) and tagged tentative, so confirm on the portal, but treat 4 Jul as your apply-by.",
       "source": {
-        "label": "Apply: nfsuadm.samarth.edu.in",
-        "url": "https://nfsuadm.samarth.edu.in"
-      }
-    },
-    {
-      "id": "nfsu-dl-2026",
-      "category": "Deadline",
-      "title": "NFSU Delhi — MA Clinical Psychology (RCI) application closes",
-      "deadline": "2026-06-10T23:59:00+05:30",
-      "date": "2026-06-02",
-      "body": "Same program, Delhi campus, same CUET-PG-based selection, 22 seats. Apply to both NFSU campuses off the one Samarth portal, two more shots for the same effort.",
-      "source": {
-        "label": "Apply: nfsuadm.samarth.edu.in",
-        "url": "https://nfsuadm.samarth.edu.in"
+        "label": "Apply: admission.sgtuniversity.ac.in",
+        "url": "https://admission.sgtuniversity.ac.in/"
       }
     }
   ],
   "feed": [
     {
-      "id": "focus-five-2026",
-      "category": "Structural",
-      "title": "Focus narrowed to five — NIMHANS + Manipal off the board",
-      "date": "2026-06-10",
-      "body": "Everything now points at five live targets: Amity Noida, SGT, RML, IHBAS and CIP (Ranchi). NIMHANS and Manipal/MET are done for this cycle (both sat, both closed), so they've been pulled off the tracker, the dashboard and this feed so they're not in your face. SGT and CIP start building out the moment you send a syllabus, pattern or papers.",
+      "id": "targets5-2026",
+      "category": "Deadline",
+      "title": "Application + exam dates pulled for your 5 flagged colleges (Amity / SGT / IHBAS / CIP / JSS)",
+      "date": "2026-06-21",
+      "body": "You asked, here it is, verified off the portals, no fake dates. SGT — OPEN, form by ~4 Jul, written ~11 Jul 2026. Amity Noida — OPEN (rolling 2026 intake, no single hard deadline; selection is interview-led, exam date not published). JSS Mysuru — not open yet, runs an October cycle (aggregator window ~7 Oct form / ~16 Oct entrance, verify). IHBAS Delhi — 2026-28 M.Phil notification NOT out yet (last cycle was Aug form / 28 Sep exam; expect Aug–Sep). CIP Ranchi — 2026 notification NOT out yet (CBT historically ~Feb). Bottom line: only SGT needs action this week. Full grid on the tracker.",
       "source": {
-        "label": "Open the tracker",
-        "url": "../admissions/"
+        "label": "Full list on the tracker",
+        "url": "../admissions/#targets"
       }
     },
     {
-      "id": "src-change-07d84a1472",
+      "id": "amity-noida-2026",
+      "category": "Deadline",
+      "title": "Amity Noida (AIBHAS) — Clinical Psychology 2026 intake OPEN",
+      "date": "2026-06-21",
+      "body": "Amity's 2026 admissions are open and run rolling/phased, so there's no single hard last date you can lock a countdown to (aggregators throw out Feb/Apr/May/Jun, none official). The RCI MA Clinical Psych selection is interview-led; the official course page lists a Personal Interview, not a separate written test, and no interview date is published. Apply on the portal and call AIBHAS Noida (0120-4713600) to confirm the RCI MA + M.Phil intake. App fee ~Rs 1,100.",
+      "source": {
+        "label": "Apply: portal.amity.edu",
+        "url": "https://portal.amity.edu/NewOnlineForm/Candidate/SignUp"
+      }
+    },
+    {
+      "id": "jss-2026",
+      "category": "Looking ahead",
+      "title": "JSS Mysuru — Clinical Psychology runs an OCTOBER cycle (not open yet)",
+      "date": "2026-06-21",
+      "body": "JSS AHER's clinical psych entrance (now MA Clinical Psychology (RCI), the renamed M.Phil) is an October cycle. Official site still shows only 2025 results; the 2026 brochure isn't live. Aggregator (UPS Education) projects form ~7 Oct, entrance test + viva ~16 Oct 2026, which matches JSS's real Oct cadence (2024 closed 8 Oct, exam 22 Oct), so plausible but unconfirmed. Re-check jssuni.edu.in or email clinicalpsychology@jssuni.edu.in around Aug–Sep.",
+      "source": {
+        "label": "JSS admissions",
+        "url": "https://jssuni.edu.in/jssaher/jssaher-admissions/admissions-home.aspx"
+      }
+    },
+    {
+      "id": "ihbas-2026",
+      "category": "Notification",
+      "title": "IHBAS Delhi — 2026-28 M.Phil notification NOT out yet",
+      "date": "2026-06-21",
+      "body": "Checked the official IHBAS pages and every aggregator: the latest real M.Phil Clinical Psychology notice is still the 2025-27 batch (form closed 31 Jul 2025, exam 28 Sep 2025, results out). No 2026-28 notification anywhere, only speculative 'expected Aug–Sep 2026' guesses. The entrance is 100 MCQ, 90 min, no negative marking, no interview; fee was Rs 3,000/1,500, stipend Rs 25,000/mo, 23+1 seats. This board flags it the day the new notice drops.",
+      "source": {
+        "label": "IHBAS PG admission",
+        "url": "https://ihbas.delhi.gov.in/ihbas/pg-admission"
+      }
+    },
+    {
+      "id": "cip-2026",
+      "category": "Notification",
+      "title": "CIP Ranchi — 2026 M.Phil notification NOT out yet",
+      "date": "2026-06-21",
+      "body": "Both the official site (cipranchi.nic.in) and the application portal (hllcip.cbtexam.in) carry only 2025-session content; no 2026 notification, prospectus or dates exist yet. CIP's CBT is historically held around February, so the next live window is realistically the 2027 cycle opening late 2026 / early 2027. Selection is CBT (100) + interview/practical (50), ~21 seats. Watch out: the '30 Aug 2026' date floating around is NEET-PG for MD Psychiatry, not this program.",
+      "source": {
+        "label": "CIP Ranchi",
+        "url": "https://cipranchi.nic.in"
+      }
+    },
+    {
+      "id": "src-change-6da27897cc",
       "category": "Notification",
       "title": "Portal updated — re-verify: Open the source",
-      "date": "2026-06-10",
+      "date": "2026-06-21",
       "body": "This source page changed since the last auto-check. A deadline, status, or notice may have moved, so confirm the current date on the portal before acting on it.",
       "source": {
         "label": "Open the source",
-        "url": "https://ipu.admissions.nic.in/"
+        "url": "https://nfsuadm.samarth.edu.in"
       },
       "auto": true
     },
@@ -154,7 +186,7 @@ window.__NEWS_FALLBACK = {
       "id": "src-change-ee1ab8496c",
       "category": "Notification",
       "title": "Portal updated — re-verify: Open the source",
-      "date": "2026-06-09",
+      "date": "2026-06-19",
       "body": "This source page changed since the last auto-check. A deadline, status, or notice may have moved, so confirm the current date on the portal before acting on it.",
       "source": {
         "label": "Open the source",
@@ -166,7 +198,7 @@ window.__NEWS_FALLBACK = {
       "id": "src-change-cc639f85c9",
       "category": "Notification",
       "title": "Portal updated — re-verify: Open the source",
-      "date": "2026-06-09",
+      "date": "2026-06-19",
       "body": "This source page changed since the last auto-check. A deadline, status, or notice may have moved, so confirm the current date on the portal before acting on it.",
       "source": {
         "label": "Open the source",
@@ -175,16 +207,49 @@ window.__NEWS_FALLBACK = {
       "auto": true
     },
     {
-      "id": "src-change-6da27897cc",
+      "id": "src-change-07d84a1472",
       "category": "Notification",
-      "title": "Portal updated — re-verify: Apply: nfsuadm.samarth.edu.in",
-      "date": "2026-06-09",
+      "title": "Portal updated — re-verify: Open the source",
+      "date": "2026-06-19",
       "body": "This source page changed since the last auto-check. A deadline, status, or notice may have moved, so confirm the current date on the portal before acting on it.",
       "source": {
         "label": "Open the source",
-        "url": "https://nfsuadm.samarth.edu.in"
+        "url": "https://ipu.admissions.nic.in/"
       },
       "auto": true
+    },
+    {
+      "id": "nfsu-dl-2026",
+      "category": "Deadline",
+      "title": "NFSU Delhi — MA Clinical Psychology (RCI) application closes",
+      "date": "2026-06-02",
+      "body": "Same program, Delhi campus, same CUET-PG-based selection, 22 seats. Apply to both NFSU campuses off the one Samarth portal, two more shots for the same effort.",
+      "source": {
+        "label": "Apply: nfsuadm.samarth.edu.in",
+        "url": "https://nfsuadm.samarth.edu.in"
+      }
+    },
+    {
+      "id": "nfsu-gn-2026",
+      "category": "Deadline",
+      "title": "NFSU Gandhinagar — MA Clinical Psychology (RCI) application closes",
+      "date": "2026-06-02",
+      "body": "Selection is on your CUET-PG 2026 score, not a separate NFSU test. 24 seats. Apply off the Samarth portal. Eligibility: 4-yr BA/BSc Psych, or 3-yr + bridge, min 55%.",
+      "source": {
+        "label": "Apply: nfsuadm.samarth.edu.in",
+        "url": "https://nfsuadm.samarth.edu.in"
+      }
+    },
+    {
+      "id": "focus-five-2026",
+      "category": "Structural",
+      "title": "Focus narrowed to five — NIMHANS + Manipal off the board",
+      "date": "2026-06-10",
+      "body": "Everything now points at five live targets: Amity Noida, SGT, RML, IHBAS and CIP (Ranchi). NIMHANS and Manipal/MET are done for this cycle (both sat, both closed), so they've been pulled off the tracker, the dashboard and this feed so they're not in your face. SGT and CIP start building out the moment you send a syllabus, pattern or papers.",
+      "source": {
+        "label": "Open the tracker",
+        "url": "../admissions/"
+      }
     },
     {
       "id": "rml-2026",
@@ -258,12 +323,12 @@ window.__NEWS_FALLBACK = {
       }
     }
   ],
-  "last_refreshed": "2026-06-10T20:30+05:30",
+  "last_refreshed": "2026-06-21T22:10+05:30",
   "source_check": {
-    "ran_at": "2026-06-10T20:30+05:30",
-    "checked": 40,
-    "reachable": 22,
-    "manual": 18,
+    "ran_at": "2026-06-21T22:10+05:30",
+    "checked": 34,
+    "reachable": 19,
+    "manual": 15,
     "changed": 0
   }
 };
