@@ -577,6 +577,116 @@ const MOCKS = [
     companion: null
   },
   {
+    id: "rml-2020",
+    title: "RML 2020 PYQ Mock (verbatim paper)",
+    short: "RML PYQ 2020",
+    path: "../../quiz/rml-2020/",
+    storageResults: "rml-2020-results-v1",
+    storageNotes: "rml-2020-notes-v1",
+    total: 100,
+    max: 100,
+    scoring: (right, wrong) => right - wrong * 0.25,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
+    sections: { psychopathology: 19, social: 16, systems: 10, assessment: 9, biopsych: 9, cognitive: 9, development: 9, stats: 8, therapy: 8, general: 3 },
+    bands: [
+      { min: 70, max: 100, name: "Strong", cls: "good", desc: "Real RML paper, verbatim. Above 70 here means the recognition-heavy clinical/cognitive base is solid. Lock it and keep the −0.25 leak shut." },
+      { min: 60, max: 69.99, name: "On target", cls: "good", desc: "Around the serious-aspirant zone for this paper. Patch your two weakest sections (see below), don't chase new topics." },
+      { min: 50, max: 59.99, name: "Borderline", cls: "warn", desc: "Stop guessing pure-noise items (the −0.25 adds up over 100 Q). That alone usually moves you up a band." },
+      { min: 40, max: 49.99, name: "Needs work", cls: "warn", desc: "A section or two is genuinely soft. Cheatsheets first, then re-sit this same paper." },
+      { min: -100, max: 39.99, name: "Baseline", cls: "bad", desc: "First cold sitting. The point is the gap map below, not the score. Revise the weakest section and re-attempt." }
+    ],
+    cutoff: 60, cutoffLabel: "working target ~60/100 (RML MA cutoff not officially published)",
+    companion: null
+  },
+  {
+    id: "rml-2021",
+    title: "RML 2021 PYQ Mock (verbatim paper)",
+    short: "RML PYQ 2021",
+    path: "../../quiz/rml-2021/",
+    storageResults: "rml-2021-results-v1",
+    storageNotes: "rml-2021-notes-v1",
+    total: 100,
+    max: 100,
+    scoring: (right, wrong) => right - wrong * 0.25,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
+    sections: { stats: 19, development: 18, assessment: 15, psychopathology: 13, therapy: 11, social: 8, biopsych: 6, general: 4, cognitive: 3, systems: 3 },
+    bands: [
+      { min: 70, max: 100, name: "Strong", cls: "good", desc: "Real RML paper, verbatim. Above 70 here means the recognition-heavy clinical/cognitive base is solid. Lock it and keep the −0.25 leak shut." },
+      { min: 60, max: 69.99, name: "On target", cls: "good", desc: "Around the serious-aspirant zone for this paper. Patch your two weakest sections (see below), don't chase new topics." },
+      { min: 50, max: 59.99, name: "Borderline", cls: "warn", desc: "Stop guessing pure-noise items (the −0.25 adds up over 100 Q). That alone usually moves you up a band." },
+      { min: 40, max: 49.99, name: "Needs work", cls: "warn", desc: "A section or two is genuinely soft. Cheatsheets first, then re-sit this same paper." },
+      { min: -100, max: 39.99, name: "Baseline", cls: "bad", desc: "First cold sitting. The point is the gap map below, not the score. Revise the weakest section and re-attempt." }
+    ],
+    cutoff: 60, cutoffLabel: "working target ~60/100 (RML MA cutoff not officially published)",
+    companion: null
+  },
+  {
+    id: "rml-2022",
+    title: "RML 2022 PYQ Mock (verbatim paper)",
+    short: "RML PYQ 2022",
+    path: "../../quiz/rml-2022/",
+    storageResults: "rml-2022-results-v1",
+    storageNotes: "rml-2022-notes-v1",
+    total: 100,
+    max: 100,
+    scoring: (right, wrong) => right - wrong * 0.25,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
+    sections: { assessment: 19, psychopathology: 15, therapy: 15, development: 14, general: 10, social: 8, biopsych: 7, cognitive: 6, stats: 6 },
+    bands: [
+      { min: 70, max: 100, name: "Strong", cls: "good", desc: "Real RML paper, verbatim. Above 70 here means the recognition-heavy clinical/cognitive base is solid. Lock it and keep the −0.25 leak shut." },
+      { min: 60, max: 69.99, name: "On target", cls: "good", desc: "Around the serious-aspirant zone for this paper. Patch your two weakest sections (see below), don't chase new topics." },
+      { min: 50, max: 59.99, name: "Borderline", cls: "warn", desc: "Stop guessing pure-noise items (the −0.25 adds up over 100 Q). That alone usually moves you up a band." },
+      { min: 40, max: 49.99, name: "Needs work", cls: "warn", desc: "A section or two is genuinely soft. Cheatsheets first, then re-sit this same paper." },
+      { min: -100, max: 39.99, name: "Baseline", cls: "bad", desc: "First cold sitting. The point is the gap map below, not the score. Revise the weakest section and re-attempt." }
+    ],
+    cutoff: 60, cutoffLabel: "working target ~60/100 (RML MA cutoff not officially published)",
+    companion: null
+  },
+  {
+    id: "rml-2023",
+    title: "RML 2023 PYQ Mock (verbatim paper)",
+    short: "RML PYQ 2023",
+    path: "../../quiz/rml-2023/",
+    storageResults: "rml-2023-results-v1",
+    storageNotes: "rml-2023-notes-v1",
+    total: 70,
+    max: 70,
+    scoring: (right, wrong) => right - wrong * 0.25,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
+    sections: { stats: 21, general: 17, cognitive: 9, systems: 8, biopsych: 7, assessment: 3, development: 2, social: 2, psychopathology: 1 },
+    bands: [
+      { min: 49, max: 70, name: "Strong", cls: "good", desc: "Real RML paper, verbatim (70 Q). Above 70% here means the recognition-heavy base is solid. Lock it and keep the −0.25 leak shut." },
+      { min: 42, max: 48.99, name: "On target", cls: "good", desc: "Around the serious-aspirant zone for this paper. Patch your two weakest sections (see below), don't chase new topics." },
+      { min: 35, max: 41.99, name: "Borderline", cls: "warn", desc: "Stop guessing pure-noise items (the −0.25 adds up). That alone usually moves you up a band." },
+      { min: 28, max: 34.99, name: "Needs work", cls: "warn", desc: "A section or two is genuinely soft. Cheatsheets first, then re-sit this same paper." },
+      { min: -100, max: 27.99, name: "Baseline", cls: "bad", desc: "First cold sitting. The point is the gap map below, not the score. Revise the weakest section and re-attempt." }
+    ],
+    cutoff: 42, cutoffLabel: "working target ~42/70 (RML MA cutoff not officially published)",
+    companion: null
+  },
+  {
+    id: "rml-2025",
+    title: "RML 2025 PYQ Mock (verbatim paper)",
+    short: "RML PYQ 2025",
+    path: "../../quiz/rml-2025/",
+    storageResults: "rml-2025-results-v1",
+    storageNotes: "rml-2025-notes-v1",
+    total: 100,
+    max: 100,
+    scoring: (right, wrong) => right - wrong * 0.25,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
+    sections: { assessment: 22, general: 20, biopsych: 18, stats: 12, cognitive: 10, development: 8, psychopathology: 8, social: 1, therapy: 1 },
+    bands: [
+      { min: 70, max: 100, name: "Strong", cls: "good", desc: "Real RML paper, verbatim. Above 70 here means the recognition-heavy clinical/cognitive base is solid. Lock it and keep the −0.25 leak shut." },
+      { min: 60, max: 69.99, name: "On target", cls: "good", desc: "Around the serious-aspirant zone for this paper. Patch your two weakest sections (see below), don't chase new topics." },
+      { min: 50, max: 59.99, name: "Borderline", cls: "warn", desc: "Stop guessing pure-noise items (the −0.25 adds up over 100 Q). That alone usually moves you up a band." },
+      { min: 40, max: 49.99, name: "Needs work", cls: "warn", desc: "A section or two is genuinely soft. Cheatsheets first, then re-sit this same paper." },
+      { min: -100, max: 39.99, name: "Baseline", cls: "bad", desc: "First cold sitting. The point is the gap map below, not the score. Revise the weakest section and re-attempt." }
+    ],
+    cutoff: 60, cutoffLabel: "working target ~60/100 (RML MA cutoff not officially published)",
+    companion: null
+  },
+  {
     id: "systems-theories",
     title: "Systems & Theories Mock (Panwar bank, 119 Q)",
     short: "Systems & Theories",
@@ -729,7 +839,11 @@ const SECTION_LABELS = {
   behavioural: "Behavioural / Learning",
   humanistic: "Humanistic / Gestalt",
   cognitive: "Cognitive / Consciousness",
-  indian: "Indian Psychology"
+  indian: "Indian Psychology",
+  psychopathology: "Psychopathology",
+  development: "Developmental",
+  stats: "Biostats / Methods",
+  systems: "Systems & Theories"
 };
 
 const SECTION_NOTES = {
