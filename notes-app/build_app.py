@@ -32,6 +32,7 @@ SECTIONS = [
     ("syllabus",  "Rodrick Sir's Syllabus","Every file in the shared Drive, built unit by unit to full depth, nothing left out", "#15803d", "#14532d"),
     ("systems",   "Systems & Theories",    "The whole history of psychology, every school taught from the ground up", "#0e7490", "#155e75"),
     ("amity",     "Amity",                 "Everything Amity MA Clinical in one book", "#b45309", "#78350f"),
+    ("rml",       "RML — CET-166",         "The whole RML MA Clinical entrance syllabus taught from scratch", "#b91c1c", "#7f1d1d"),
     ("reference", "Quick Reference",       "Effects, theorists, lookalikes, the one-page cram", "#7e22ce", "#581c87"),
     ("mocks",     "Mocks & Weak Spots",    "Every debrief reorganised by what kept costing marks", "#be123c", "#831843"),
     ("interview", "Interview Prep",        "Your own clinical voice, straight from your YD sessions", "#0f766e", "#134e4a"),
@@ -115,6 +116,10 @@ BOOKS = [
     dict(slug="amity", shelf="amity", kind="merged",
          short="Amity — MA Clinical Psychology",
          blurb="The whole entrance built to the official six-section syllabus and taught from scratch to NIMHANS depth: abnormal psychology & psychopathology, biopsychology, research methods & advanced statistics, psychological testing & psychodiagnostics, psychotherapy & ethics/law, and general & developmental psychology, plus two appendices off your own paper. Read it cover to cover and you walk in ready."),
+    # --- RML ---
+    dict(slug="rml-study-material", shelf="rml", kind="note", src="rml-study-material", search_cap=40000,
+         short="RML Clinical Psychology, from scratch",
+         blurb="The whole RML MA Clinical Psychology (CET-166) subject syllabus taught from zero across 12 sections, tuned to how the RML paper actually behaves: ICD-deep abnormal, who-developed-which-therapy and the acronyms, Indian psychology past and present, and the five carrying domains (stats, research methods, social, clinical, personality and developmental). Every theorist named in full, every test names its author, every therapy names its founder."),
     # --- Quick Reference ---
     dict(slug="concepts", shelf="reference", kind="merged",
          short="Effects, Theories & Originators",
