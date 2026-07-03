@@ -78,7 +78,7 @@
 
   function get(k, d) { try { return localStorage.getItem(k) || d; } catch (e) { return d; } }
   function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
-  function themeId() { var t = get(K_THEME, "clinical"); return THEMES.some(function (x) { return x.id === t; }) ? t : "clinical"; }
+  function themeId() { var t = get(K_THEME, "warm"); return THEMES.some(function (x) { return x.id === t; }) ? t : "warm"; }
   function modePref() { var m = get(K_MODE, "auto"); return (m === "light" || m === "dark") ? m : "auto"; }
   function resolveMode(p) { if (p === "light" || p === "dark") return p; return (mq && mq.matches) ? "dark" : "light"; }
 
