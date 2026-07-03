@@ -96,10 +96,9 @@ kbd{font:600 11px/1 var(--font-ui);background:var(--page-line);color:var(--page-
   padding:5px 11px;border-radius:11px;background:var(--surface-2);border:1px solid var(--line)}
 .d-score b{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--good)}
 .d-score span{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.d-clock{font-size:10.5px;color:var(--muted)}.d-clock b{color:var(--primary);font-weight:600}
 .d-finish{border:none;background:var(--primary);color:#fff;font:600 13px/1 var(--font-ui);
   padding:9px 15px;border-radius:11px}
-@media(max-width:680px){.d-back,.d-clock{display:none}}
+@media(max-width:680px){.d-back{display:none}}
 
 /* stage */
 .d-stage{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:22px;
@@ -302,7 +301,6 @@ function renderDevice(){
     '<div class="d-mid"><b>MET Mock 2</b><span>180 questions · untimed</span></div>'+
     '<div class="d-prog"><div class="d-rail"><i></i></div><div class="d-pnum">68 / 180</div></div>'+
     '<div class="d-score"><b>+58.5</b><span>score so far</span></div>'+
-    '<span class="d-clock">🕳 <b>No clock</b></span>'+
     '<button class="d-finish">Finish</button>'+
   '</div></div>'+
   '<div class="d-stage">'+
