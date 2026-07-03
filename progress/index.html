@@ -85,12 +85,12 @@
 <div class="wrap">
   <h1 style="margin:8px 0 2px;font-size:24px;">Progress board</h1>
   <p class="lede">Every pending task, straight read, no inflating. <b>Two big builds first</b> (RML textbook + site revamp). Everything sitting at 0% is queued on purpose or waiting on something from you, not forgotten.</p>
-  <p class="stamp" id="stamp">Last updated 3 Jul 2026</p>
+  <p class="stamp" id="stamp">Last updated 3 Jul 2026, 3 PM</p>
 
   <div class="roll">
-    <div class="box"><div class="n" id="rActive">4</div><div class="l">In progress</div></div>
+    <div class="box"><div class="n" id="rActive">5</div><div class="l">In progress</div></div>
     <div class="box"><div class="n" id="rBlocked">3</div><div class="l">Waiting on you</div></div>
-    <div class="box"><div class="n" id="rQueued">2</div><div class="l">Queued</div></div>
+    <div class="box"><div class="n" id="rQueued">1</div><div class="l">Queued</div></div>
     <div class="box"><div class="n" id="rLive">1</div><div class="l">Live watch</div></div>
   </div>
 
@@ -107,14 +107,17 @@ var TASKS = [
     { t: "RML full textbook", pct: 60, tag: "building",
       n: "Whole CET-166 syllabus from scratch, PYQ-weighted, in the notes app. Syllabus backbone mapped, high-yield sections drafted; still building the thinner topics out to full depth.",
       link: "../notes-app/", linkText: "Notes app" },
-    { t: "MET site revamp, theme 1", pct: 55, tag: "building",
-      n: "Structured deep explanation on every Q (answer + theorist block, chunked concept, A/B/C/D traps) + untimed engine. Engine and layout done; wiring the per-Q structured render across the mocks now.",
+    { t: "MET site revamp, theme 1", pct: 85, tag: "building",
+      n: "Untimed engine live, 'No clock' tag dropped, and structured deep explanation now authored on EVERY Q across all mocks (761 questions, 2283 per-distractor traps just landed, no one-liners left). Remaining: final full-depth verification pass + rolling the same treatment across the other 4 themes.",
       link: "../take/", linkText: "New look" },
     { t: "Notes app: structured layout + theorist app-wide", pct: 40, tag: "building",
       n: "Theorist named at every theory, structured layout on every note. New RML material already complies; sweeping the older notes into the same shape now." },
     { t: "RCI tracker: fee / seats / hostel cells", pct: 50, tag: "building",
       n: "Filling the fee, seats and hostel columns for the target colleges in chunks.",
       link: "../admissions/", linkText: "Admissions" },
+    { t: "Tests deep pass", pct: 30, tag: "building",
+      n: "Deep structured answers + per-distractor traps now authored on pep 1/2, MET 1/3/4, bio, diagnostic and nimhans in the new engine. Left: porting the same depth into the classic deep quiz pages.",
+      link: "../tests/", linkText: "Tests" },
   ]},
   { group: "Refocus", items: [
     { t: "Strip + refocus to Amity Noida / SGT / RML / IHBAS / CIP", pct: 20, tag: "building",
@@ -130,8 +133,6 @@ var TASKS = [
       n: "Blocked on one word: tell me what MD means (which exam / subject) and I start building." },
   ]},
   { group: "Queued behind the two builds", items: [
-    { t: "Tests deep pass", pct: 0, tag: "queued",
-      n: "Deep structured explanations on pep mocks + MET mocks 1-4 + bio paper + diagnostic. Queued on purpose so I'm not spreading thin across half-finished mocks." },
     { t: "MET APK: refresh/sync button + daily rebuild", pct: 0, tag: "queued",
       n: "In-app refresh button + a daily auto-rebuild off the live site. Not started, next after the builds." },
   ]},
