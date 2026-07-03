@@ -83,9 +83,17 @@
   #grp-diag  .section-title::before { background: #f85149; }
   .grp-count { font-size: 11px; color: var(--muted); font-weight: 500; margin-left: 8px;
     background: var(--panel-2); border: 1px solid var(--border); border-radius: 999px; padding: 2px 9px; }
-  /* Study-materials / tracker cards */
-  .study-card { display: flex; flex-direction: column; gap: 6px; }
+  /* Notes / cheatsheets / trackers — its own clear section, kept separate from the mocks */
+  .study-sec { background: linear-gradient(180deg, rgba(86,212,221,.055), rgba(86,212,221,0));
+    border: 1px solid rgba(86,212,221,.22); border-radius: 12px; padding: 16px 16px 18px; margin-bottom: 26px; }
+  .study-sec .section-head { margin-bottom: 14px; }
+  .study-sec .section-title { display: inline-flex; align-items: center; gap: 9px; }
+  .study-sec .section-title::before { content: ""; width: 4px; height: 18px; border-radius: 2px;
+    background: #56d4dd; display: inline-block; }
+  .study-card { display: flex; flex-direction: column; gap: 6px; transition: border-color .12s, transform .12s; }
+  .study-card:hover { border-color: rgba(86,212,221,.55); transform: translateY(-2px); }
   .study-card .card-icon { font-size: 22px; line-height: 1; margin-bottom: 2px; }
+  .study-card .card-cta { margin-top: auto; color: #56d4dd; }
 </style>
 <!-- PWA:met-prep -->
 <link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
@@ -128,6 +136,7 @@
     <h1>Tests Library</h1>
     <p>Every mock, grouped by college so you're not scrolling a wall of cards. Real past papers up top (Amity, IHBAS, RML, NIMHANS), then the full-length practice mocks, diagnostics and drills. Answers save in your browser, finished papers drop off the list on their own, and the dashboard reads it all back as section-wise scores.</p>
     <div class="jump-row">
+      <a class="pill accent" href="#study">📒 Notes &amp; cheatsheets</a>
       <a class="pill accent" href="#deep">⭐ Deep-explanation papers</a>
       <a class="pill" href="#grp-amity">Amity</a>
       <a class="pill" href="#grp-ihbas">IHBAS</a>
@@ -136,9 +145,53 @@
       <a class="pill" href="#grp-met">MET mocks</a>
       <a class="pill" href="#grp-pep">Entrance prep</a>
       <a class="pill" href="#grp-diag">Diagnostics</a>
-      <a class="pill" href="#study">Notes &amp; trackers</a>
     </div>
   </div>
+
+  <section id="study" class="study-sec">
+    <div class="section-head">
+      <h2 class="section-title">Notes, cheatsheets &amp; trackers</h2>
+      <span class="section-sub">Pinned up top and kept out of the tests list, so you can grab a cheatsheet or open a tracker without scrolling past a wall of mocks</span>
+    </div>
+    <div class="grid cols-3">
+      <a class="card link study-card" href="../notes-app/">
+        <div class="card-icon">📖</div>
+        <div class="card-title">Notes for Exam app</div>
+        <div class="card-body muted">The whole notes library as a book reader — from-scratch subject books, exam-strategy shelves, gap-closers. Portrait single-page, landscape two-up.</div>
+        <div class="card-cta">Open notes app →</div>
+      </a>
+      <a class="card link study-card" href="../notes/">
+        <div class="card-icon">⚡</div>
+        <div class="card-title">Cheatsheets &amp; deep notes</div>
+        <div class="card-body muted">The fast-reference sheets — biostats, psychotherapy, biopsych, assessment, abnormal, development — plus the full-depth reference pages behind each mock.</div>
+        <div class="card-cta">All cheatsheets →</div>
+      </a>
+      <a class="card link study-card" href="../admissions/">
+        <div class="card-icon">🎯</div>
+        <div class="card-title">Admissions / RCI tracker</div>
+        <div class="card-body muted">Live application windows and exam dates for the five — Amity Noida, SGT, RML, IHBAS, CIP — auto-refreshed twice a day. Fee / seats / hostel cells filling in.</div>
+        <div class="card-cta">Open tracker →</div>
+      </a>
+      <a class="card link study-card" href="../news/">
+        <div class="card-icon">📰</div>
+        <div class="card-title">Exam news board</div>
+        <div class="card-body muted">Auto-polled notifications and updates across the target colleges, so a window opening doesn't slip past.</div>
+        <div class="card-cta">Open news →</div>
+      </a>
+      <a class="card link study-card" href="../checklist/">
+        <div class="card-icon">✅</div>
+        <div class="card-title">Prep checklist</div>
+        <div class="card-body muted">The syllabus turned into a tick-off list — what's covered, what's still open, mapped onto the cheatsheets.</div>
+        <div class="card-cta">Open checklist →</div>
+      </a>
+      <a class="card link study-card" href="../database/">
+        <div class="card-icon">🗄️</div>
+        <div class="card-title">Database &amp; Drive library</div>
+        <div class="card-body muted">The shared Drive folder as the backbone — every paper and resource sorted by college and by type, with a how-to-add workflow.</div>
+        <div class="card-cta">Open database →</div>
+      </a>
+    </div>
+  </section>
 
   <section id="deep">
     <div class="section-head deep-head">
@@ -242,51 +295,6 @@
           <span class="pill">Per-section stats</span>
         </div>
         <div class="card-cta" id="mixedScore">Open →</div>
-      </a>
-    </div>
-  </section>
-
-  <section id="study">
-    <div class="section-head">
-      <h2 class="section-title">Notes, cheatsheets &amp; trackers</h2>
-      <span class="section-sub">The study side of the site, kept out of the tests list so each has its own clear home</span>
-    </div>
-    <div class="grid cols-3">
-      <a class="card link study-card" href="../notes-app/">
-        <div class="card-icon">📖</div>
-        <div class="card-title">Notes for Exam app</div>
-        <div class="card-body muted">The whole notes library as a book reader — from-scratch subject books, exam-strategy shelves, gap-closers. Portrait single-page, landscape two-up.</div>
-        <div class="card-cta">Open notes app →</div>
-      </a>
-      <a class="card link study-card" href="../notes/">
-        <div class="card-icon">⚡</div>
-        <div class="card-title">Cheatsheets &amp; deep notes</div>
-        <div class="card-body muted">The fast-reference sheets — biostats, psychotherapy, biopsych, assessment, abnormal, development — plus the full-depth reference pages behind each mock.</div>
-        <div class="card-cta">All cheatsheets →</div>
-      </a>
-      <a class="card link study-card" href="../admissions/">
-        <div class="card-icon">🎯</div>
-        <div class="card-title">Admissions / RCI tracker</div>
-        <div class="card-body muted">Live application windows and exam dates for the five — Amity Noida, SGT, RML, IHBAS, CIP — auto-refreshed twice a day. Fee / seats / hostel cells filling in.</div>
-        <div class="card-cta">Open tracker →</div>
-      </a>
-      <a class="card link study-card" href="../news/">
-        <div class="card-icon">📰</div>
-        <div class="card-title">Exam news board</div>
-        <div class="card-body muted">Auto-polled notifications and updates across the target colleges, so a window opening doesn't slip past.</div>
-        <div class="card-cta">Open news →</div>
-      </a>
-      <a class="card link study-card" href="../checklist/">
-        <div class="card-icon">✅</div>
-        <div class="card-title">Prep checklist</div>
-        <div class="card-body muted">The syllabus turned into a tick-off list — what's covered, what's still open, mapped onto the cheatsheets.</div>
-        <div class="card-cta">Open checklist →</div>
-      </a>
-      <a class="card link study-card" href="../database/">
-        <div class="card-icon">🗄️</div>
-        <div class="card-title">Database &amp; Drive library</div>
-        <div class="card-body muted">The shared Drive folder as the backbone — every paper and resource sorted by college and by type, with a how-to-add workflow.</div>
-        <div class="card-cta">Open database →</div>
       </a>
     </div>
   </section>
