@@ -295,10 +295,11 @@ function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
 
 /* deep explanation: from-scratch concept + per-wrong-option trap breakdown.
    Falls back to the plain one-string explanation for mocks not yet deepened. */
-const DEEP = (window.PREVIEW_DEEP && window.PREVIEW_DEEP[MID]) || {};
-function explainHTML(q){
-  const d = DEEP[q.id];
-  if(!d) return `<p>${q.explanation||""}</p>`;
+const DEEP = (window.PREVIEW_DEEP && window.PREVIEW_DEEP[MID]) || null;
+function explainHTML(q, idx){
+  // deep overlay is an ordered array (index matches runtime question order); guard on the stem.
+  const d = (DEEP && DEEP[idx]) ? DEEP[idx] : null;
+  if(!d || (d.q && q.q && d.q.trim()!==q.q.trim())) return `<p>${q.explanation||""}</p>`;
   let h = "";
   if(d.concept) h += `<div class="deep-concept"><div class="deep-h">The concept · why ${q.correct.toUpperCase()} is right</div><p>${d.concept}</p></div>`;
   const traps = d.traps||{};
@@ -342,7 +343,7 @@ function renderQ(){
     <div class="opts">${optHtml}</div>
     <div class="reveal ${revealed?"show":""}" id="revealBox">
       <div class="reveal-tag">Why — answer ${q.correct.toUpperCase()}</div>
-      ${explainHTML(q)}
+      ${explainHTML(q, st.i)}
     </div>
     <div class="reader-foot">
       <button class="btn ghost" id="prevBtn" ${st.i===0?"disabled":""}>← Previous</button>
@@ -459,7 +460,7 @@ function finish(){
     return `<div class="rev-item" data-state="${state}" data-flag="${fl?1:0}">
       <p class="rq"><b>Q${i+1} · ${SL[q.section]||q.section}${a==null?" · skipped":ok?"":" · missed"}${fl?" · flagged":""}</b>${q.q}</p>
       ${opts}
-      <div class="rev-note">${explainHTML(q)}</div></div>`;
+      <div class="rev-note">${explainHTML(q, i)}</div></div>`;
   }).join("");
 
   document.getElementById("quizStage").style.display="none";
