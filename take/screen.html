@@ -44,14 +44,17 @@ button{font-family:inherit;cursor:pointer}
   backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line);
   padding:calc(env(safe-area-inset-top) + 10px) 18px 10px;
 }
-.topbar-row{display:flex;align-items:center;gap:14px;max-width:1240px;margin:0 auto}
-.back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;
+/* two tiers: title sits on its own line (head), controls flow clean below (controls) */
+.topbar-head{display:flex;align-items:baseline;gap:12px;max-width:1240px;margin:0 auto 9px}
+.topbar-controls{display:flex;align-items:center;gap:12px;max-width:1240px;margin:0 auto;flex-wrap:wrap}
+.back{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;
   font-size:13px;font-weight:600;padding:7px 10px;border-radius:9px}
 .back:hover{background:var(--surface-2);color:var(--ink)}
-.mock-id{display:flex;flex-direction:column;line-height:1.15;min-width:0}
-.mock-id b{font-family:var(--font-display);font-weight:600;font-size:16px;letter-spacing:-.01em}
+.mock-id{flex:1 1 auto;display:flex;flex-direction:column;line-height:1.18;min-width:0}
+.mock-id b{font-family:var(--font-display);font-weight:600;font-size:16px;letter-spacing:-.01em;
+  overflow-wrap:anywhere}
 .mock-id span{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.prog{flex:1;min-width:60px;display:flex;align-items:center;gap:11px}
+.prog{flex:1 1 200px;min-width:140px;display:flex;align-items:center;gap:11px}
 .prog-rail{flex:1;height:7px;border-radius:99px;background:var(--surface-2);overflow:hidden}
 .prog-rail>i{display:block;height:100%;width:0;border-radius:99px;
   background:linear-gradient(90deg,var(--primary),var(--primary-ink));transition:width .4s cubic-bezier(.2,.7,.2,1)}
@@ -190,8 +193,8 @@ button{font-family:inherit;cursor:pointer}
 .linkbtn:hover{color:var(--primary)}
 
 /* ---------- Navigator ---------- */
-.nav-panel{position:sticky;top:96px;background:var(--surface);border:1px solid var(--line);
-  border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;max-height:calc(100vh - 120px);
+.nav-panel{position:sticky;top:116px;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;max-height:calc(100vh - 140px);
   display:flex;flex-direction:column}
 .nav-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .nav-head h3{margin:0;font-family:var(--font-display);font-weight:600;font-size:15px}
@@ -287,9 +290,11 @@ button{font-family:inherit;cursor:pointer}
 <body>
 
 <div class="topbar">
-  <div class="topbar-row">
+  <div class="topbar-head">
     <a class="back" href="./">← Library</a>
     <div class="mock-id"><b id="mockTitle">MET Mock 2</b><span id="mockSub">180 questions · untimed</span></div>
+  </div>
+  <div class="topbar-controls">
     <div class="prog">
       <div class="prog-rail"><i id="progFill"></i></div>
       <div class="prog-num" id="progNum">0 / 180</div>
