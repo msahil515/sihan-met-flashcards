@@ -115,7 +115,17 @@ button{font-family:inherit;cursor:pointer}
 .reveal.show{display:block;animation:fade .3s ease}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .reveal-tag{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--primary-ink);margin-bottom:8px}
-.reveal p{font-family:var(--font-read);font-size:17.5px;line-height:1.55;color:var(--ink-soft);margin:0}
+.reveal p{font-family:var(--font-read);font-size:17.5px;line-height:1.58;color:var(--ink-soft);margin:0}
+.deep-h{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--primary-ink);margin:18px 0 8px}
+.deep-concept p{margin:0 0 10px}
+.deep-traps{margin-top:4px;display:flex;flex-direction:column;gap:10px}
+.trap{display:flex;gap:12px;align-items:flex-start;background:var(--bad-wash);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.trap-k{flex:0 0 26px;height:26px;border-radius:7px;background:var(--bad);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);margin-top:2px}
+.trap-body{min-width:0}
+.trap-body .to{font-family:var(--font-read);font-weight:600;color:var(--ink);font-size:15.5px;display:block;margin-bottom:3px}
+.trap-body p{font-size:15.5px;line-height:1.5}
+.rev-note .deep-h{margin:12px 0 6px}
+.rev-note .trap{padding:9px 11px}
 
 /* footer controls in reader */
 .reader-foot{margin-top:auto;padding-top:24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
@@ -265,6 +275,7 @@ button{font-family:inherit;cursor:pointer}
 <!-- RESULTS -->
 <div class="results" id="results"></div>
 
+<script src="data-deep.js"></script>
 <script src="data-all.js"></script>
 <script>
 /* pick the mock from ?m=<id>; fall back to met-mock-2 (or first available) */
@@ -282,6 +293,23 @@ let st = {i:0, answers:{}, flags:{}, revealed:{}, visited:{0:1}, filter:"all"};
 try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.answers){st={...st,...s};st.filter="all";}}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
 
+/* deep explanation: from-scratch concept + per-wrong-option trap breakdown.
+   Falls back to the plain one-string explanation for mocks not yet deepened. */
+const DEEP = (window.PREVIEW_DEEP && window.PREVIEW_DEEP[MID]) || {};
+function explainHTML(q){
+  const d = DEEP[q.id];
+  if(!d) return `<p>${q.explanation||""}</p>`;
+  let h = "";
+  if(d.concept) h += `<div class="deep-concept"><div class="deep-h">The concept · why ${q.correct.toUpperCase()} is right</div><p>${d.concept}</p></div>`;
+  const traps = d.traps||{};
+  const wrong = LETTERS.filter(L=>q.options[L] && L!==q.correct && traps[L]);
+  if(wrong.length){
+    h += `<div class="deep-h">Why the other options are wrong</div><div class="deep-traps">`;
+    h += wrong.map(L=>`<div class="trap"><span class="trap-k">${L.toUpperCase()}</span><div class="trap-body"><span class="to">${q.options[L]}</span><p>${traps[L]}</p></div></div>`).join("");
+    h += `</div>`;
+  }
+  return h || `<p>${q.explanation||""}</p>`;
+}
 const answeredCount = ()=>Object.keys(st.answers).length;
 const flaggedCount = ()=>Object.values(st.flags).filter(Boolean).length;
 
@@ -314,7 +342,7 @@ function renderQ(){
     <div class="opts">${optHtml}</div>
     <div class="reveal ${revealed?"show":""}" id="revealBox">
       <div class="reveal-tag">Why — answer ${q.correct.toUpperCase()}</div>
-      <p>${q.explanation||""}</p>
+      ${explainHTML(q)}
     </div>
     <div class="reader-foot">
       <button class="btn ghost" id="prevBtn" ${st.i===0?"disabled":""}>← Previous</button>
@@ -431,7 +459,7 @@ function finish(){
     return `<div class="rev-item" data-state="${state}" data-flag="${fl?1:0}">
       <p class="rq"><b>Q${i+1} · ${SL[q.section]||q.section}${a==null?" · skipped":ok?"":" · missed"}${fl?" · flagged":""}</b>${q.q}</p>
       ${opts}
-      <div class="rev-note">${q.explanation||""}</div></div>`;
+      <div class="rev-note">${explainHTML(q)}</div></div>`;
   }).join("");
 
   document.getElementById("quizStage").style.display="none";
