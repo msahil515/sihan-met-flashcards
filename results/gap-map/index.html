@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d1117">
+<title>Gap map — every miss, every paper</title>
+<link rel="stylesheet" href="../../site.css">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<style>
+  .lead { color: var(--muted); font-size: 14px; line-height: 1.6; max-width: 760px; }
+
+  /* Hero summary tiles */
+  .gm-hero { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 20px; }
+  .gm-tile { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 18px 16px; text-align: center; }
+  .gm-tile .n { font-size: 34px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+  .gm-tile .n.good { color: var(--good); } .gm-tile .n.warn { color: var(--warn); } .gm-tile .n.bad { color: var(--bad); }
+  .gm-tile .l { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 8px; }
+  @media (max-width: 640px){ .gm-hero { grid-template-columns: repeat(2, 1fr); } }
+
+  /* Priority banner (the known #1 leak) */
+  .gm-pin { margin-top: 18px; background: linear-gradient(135deg, rgba(248,81,73,0.12), rgba(240,180,41,0.08));
+    border: 1px solid rgba(248,81,73,0.4); border-radius: 12px; padding: 18px 20px; }
+  .gm-pin .tag { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--bad); font-weight: 700; }
+  .gm-pin h3 { margin: 6px 0 8px; font-size: 18px; }
+  .gm-pin p { margin: 0; font-size: 13px; color: var(--text); line-height: 1.6; }
+  .gm-pin a { color: var(--accent); }
+
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 34px 0 12px; }
+  .section-title { font-size: 17px; font-weight: 700; margin: 0; }
+  .section-sub { font-size: 12px; color: var(--muted); }
+
+  .toolbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .toolbar button { font-size: 12px; padding: 7px 13px; border-radius: 7px; border: 1px solid var(--border);
+    background: var(--panel-2); color: var(--text); cursor: pointer; }
+  .toolbar button:hover { border-color: var(--accent-dim); color: var(--accent); }
+  .toolbar button.on { border-color: var(--accent); color: var(--accent); background: var(--panel); }
+
+  /* Leak cards */
+  .leak-list { display: flex; flex-direction: column; gap: 12px; }
+  .leak { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .leak-head { display: grid; grid-template-columns: 34px 1fr auto; gap: 14px; align-items: center; padding: 14px 16px; cursor: pointer; }
+  .leak-rank { font-size: 20px; font-weight: 800; color: var(--muted); text-align: center; font-variant-numeric: tabular-nums; }
+  .leak-main { min-width: 0; }
+  .leak-name { font-size: 15px; font-weight: 700; }
+  .leak-meta { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .leak-bar { height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; margin-top: 8px; max-width: 420px; }
+  .leak-bar > span { display: block; height: 100%; background: var(--bad); }
+  .leak-bar.warn > span { background: var(--warn); }
+  .leak-bar.good > span { background: var(--good); }
+  .leak-right { text-align: right; }
+  .leak-miss { font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .leak-miss.bad { color: var(--bad); } .leak-miss.warn { color: var(--warn); } .leak-miss.good { color: var(--good); }
+  .leak-miss-l { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .paper-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .paper-chip { font-size: 10px; padding: 2px 8px; border-radius: 999px; background: var(--panel-2); color: var(--muted); border: 1px solid var(--border); }
+  .paper-chip.multi { color: var(--warn); border-color: rgba(240,180,41,0.4); }
+
+  .leak-body { display: none; padding: 0 16px 16px; border-top: 1px solid var(--border); }
+  .leak.open .leak-body { display: block; }
+  .study-note { background: var(--panel-2); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0;
+    padding: 12px 14px; font-size: 13px; line-height: 1.62; margin: 14px 0; }
+  .study-note b { color: var(--accent); }
+  .miss-q { border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-top: 10px; font-size: 13px; }
+  .miss-q .qtxt { font-weight: 600; line-height: 1.5; }
+  .miss-q .qfrom { font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+  .miss-q .ans { margin-top: 8px; font-size: 12.5px; line-height: 1.55; }
+  .miss-q .ans .ok { color: var(--good); font-weight: 600; }
+  .miss-q .ans .no { color: var(--bad); font-weight: 600; }
+  .miss-q .exp { margin-top: 8px; font-size: 12.5px; color: var(--text); line-height: 1.6; }
+  .miss-links { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .miss-links a { font-size: 11px; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--border);
+    background: var(--panel-2); color: var(--text); text-decoration: none; }
+  .miss-links a:hover { border-color: var(--accent-dim); color: var(--accent); }
+
+  /* Section table */
+  .gm-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .gm-table th { text-align: left; padding: 10px 12px; font-size: 11px; color: var(--muted); text-transform: uppercase;
+    letter-spacing: 0.5px; border-bottom: 1px solid var(--border); font-weight: 600; }
+  .gm-table td { padding: 11px 12px; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; vertical-align: top; }
+  .gm-table tr:last-child td { border-bottom: none; }
+  .gm-table td.nm { font-weight: 600; color: var(--text); white-space: nowrap; }
+  .acc-pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+  .acc-pill.good { background: rgba(63,185,80,0.15); color: var(--good); }
+  .acc-pill.warn { background: rgba(240,180,41,0.15); color: var(--warn); }
+  .acc-pill.bad  { background: rgba(248,81,73,0.15); color: var(--bad); }
+  .gm-coach { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+
+  .paper-row { display: grid; grid-template-columns: 1fr auto auto; gap: 12px; align-items: center;
+    padding: 10px 14px; background: var(--panel-2); border-radius: 8px; font-size: 13px; margin-top: 8px; }
+  .paper-row .pn { font-weight: 600; }
+  .paper-row .ps { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 12px; }
+  .paper-row a { font-size: 12px; color: var(--accent); text-decoration: none; }
+
+  .empty { background: var(--panel); border: 1px dashed var(--border); border-radius: 12px; padding: 30px 24px; text-align: center; margin-top: 24px; }
+  .empty h3 { margin: 0 0 10px; font-size: 18px; }
+  .empty p { color: var(--muted); font-size: 13px; line-height: 1.6; max-width: 560px; margin: 0 auto 8px; }
+  .empty .btn-row { margin-top: 18px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .empty a.btn { display: inline-block; padding: 9px 16px; border-radius: 8px; background: var(--accent-dim); color: #fff;
+    border: 1px solid var(--accent); font-size: 13px; font-weight: 600; text-decoration: none; }
+  .empty a.btn.ghost { background: var(--panel-2); color: var(--text); border-color: var(--border); }
+
+  .toast { position: fixed; bottom: 74px; left: 50%; transform: translateX(-50%); background: var(--good); color: #04140a;
+    padding: 10px 18px; border-radius: 999px; font-size: 13px; font-weight: 600; opacity: 0; pointer-events: none;
+    transition: opacity .2s; z-index: 3000; }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-title">Sihan, MET 2026</span>
+      <span class="brand-sub">MA Clinical Psychology, Manipal</span>
+    </div>
+    <nav class="nav">
+      <a href="../../">Dashboard</a>
+      <a href="../../tests/">Tests</a>
+      <a href="../" class="active">My Results</a>
+      <a href="../../notes/">Notes</a>
+      <a href="../../plan/">Plan</a>
+      <a href="../../downloads/">Downloads</a>
+    </nav>
+    <span class="countdown-chip" id="countdownChip">—</span>
+  </div>
+</div>
+
+<main>
+  <div class="page-hero">
+    <div class="crumbs"><a href="../">← My Results</a> &nbsp;·&nbsp; Gap map</div>
+    <h1>Gap map — every miss, every paper</h1>
+    <p class="lead">This pulls every mock you've attempted <b>on this device</b>, matches each wrong answer to its topic, and ranks the
+      concepts that keep costing you across papers. Not "you got these wrong" — <b>which holes show up again and again</b>. Then it builds
+      the study material straight from your own misses. Attempt mocks on this same phone/browser so they save here.</p>
+  </div>
+
+  <div id="content"></div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script src="../analysis/data.js"></script>
+<script>
+/* ============================================================
+   LABELS / COACHING (superset of the per-mock analysis maps)
+   ============================================================ */
+const SECTION_LABELS = {
+  mphil: "MPhil-Specific", ugcnet: "UGC-NET Specific", common: "Common (NET + MPhil)",
+  biopsych: "Biopsychology", dev: "Developmental", development: "Developmental", abnormal: "Abnormal",
+  assessment: "Psych Assessment", therapy: "Psychotherapy", biostats: "Biostats / Methods", stats: "Biostats / Methods",
+  language: "Language", english: "English", social: "Social Psychology", general: "General",
+  history: "History & Schools", psychodyn: "Psychodynamic", behavioural: "Behavioural / Learning",
+  humanistic: "Humanistic / Gestalt", cognitive: "Cognitive / Consciousness", indian: "Indian Psychology",
+  psychopathology: "Psychopathology", systems: "Systems & Theories", unknown: "Unsorted"
+};
+const SECTION_NOTES = {
+  biopsych: [{ label: "Biopsych cheatsheet", href: "../../notes/biopsych-cheatsheet/" }, { label: "Action potential", href: "../../notes/action-potential/" }, { label: "HPA axis", href: "../../notes/hpa-axis/" }],
+  dev: [{ label: "Dev psych cheatsheet", href: "../../notes/dev-psych-cheatsheet/" }, { label: "High-yield abnormal + dev", href: "../../notes/high-yield-abnormal-dev/" }],
+  development: [{ label: "Dev psych cheatsheet", href: "../../notes/dev-psych-cheatsheet/" }],
+  abnormal: [{ label: "Abnormal cheatsheet", href: "../../notes/abnormal-psych-cheatsheet/" }, { label: "High-yield abnormal + dev", href: "../../notes/high-yield-abnormal-dev/" }],
+  assessment: [{ label: "Assessment notes", href: "../../notes/assessment/" }, { label: "Revision pack", href: "../../notes/revision-pack/" }],
+  therapy: [{ label: "Psychotherapy cheatsheet", href: "../../notes/psychotherapy-cheatsheet/" }, { label: "Learning + conditioning", href: "../../notes/learning-conditioning/" }],
+  biostats: [{ label: "Biostats cheatsheet", href: "../../notes/biostats-cheatsheet/" }, { label: "Research methodology", href: "../../notes/research-methodology/" }],
+  stats: [{ label: "Biostats cheatsheet", href: "../../notes/biostats-cheatsheet/" }, { label: "Research methodology", href: "../../notes/research-methodology/" }],
+  language: [{ label: "Language cheatsheet", href: "../../notes/language-cheatsheet/" }],
+  english: [{ label: "Language cheatsheet", href: "../../notes/language-cheatsheet/" }],
+  social: [{ label: "Revision pack", href: "../../notes/revision-pack/" }, { label: "NIMHANS PYQ breakdown", href: "../../notes/nimhans-pyq-breakdown/" }],
+  general: [{ label: "Revision pack", href: "../../notes/revision-pack/" }],
+  common: [{ label: "Notes hub", href: "../../notes/" }, { label: "Biostats cheatsheet", href: "../../notes/biostats-cheatsheet/" }],
+  systems: [{ label: "Systems & Theories notes", href: "../../notes-app/" }]
+};
+const SECTION_COACH = {
+  biopsych: "Pure recall. Cheatsheet end-to-end; you should not be missing these.",
+  dev: "Stage ladders (Erikson, Piaget, Kohlberg, Ainsworth). Memorise the ages cold, they repeat every paper.",
+  development: "Stage ladders (Erikson, Piaget, Kohlberg, Ainsworth). Memorise the ages cold.",
+  abnormal: "DSM-5 criteria are the spine. Learn the bullet criteria, not prose.",
+  assessment: "Reliability/validity + which test measures what. Build a test-name → what-it-screens table.",
+  therapy: "School + founder + the one signature technique. The revision pack has the table.",
+  biostats: "Type I/II, parametric vs non-parametric, sampling. Highest guessing tax — lock it or skip it.",
+  stats: "Type I/II, parametric vs non-parametric, sampling. Highest guessing tax — lock it or skip it.",
+  language: "Punctuation, agreement, prepositions. Cheap marks if you slow down.",
+  english: "Punctuation, agreement, prepositions. Cheap marks if you slow down.",
+  social: "Attribution, group processes, Asch / Milgram / Zimbardo and their twists.",
+  general: "Names, dates, who-said-what. Cheap memorisation marks — make a list.",
+  common: "The common block is the biggest weight in the RCI MA papers. This is where the exam is won or lost.",
+  systems: "Schools, founders, and what each system claimed. Name the theorist every time."
+};
+/* Display titles + family grouping for auto-discovered mocks */
+const MOCK_TITLES = {
+  "diagnostic-1": "Gap Diagnostic", "pep-mock-1": "PEP Mock 1", "pep-mock-2": "PEP Mock 2",
+  "met-mock-1": "MET Mock 1", "met-mock-2": "MET Mock 2", "met-mock-3": "MET Mock 3", "met-mock-4": "MET Mock 4", "met-mock-5": "MET Mock 5",
+  "bio-testing-paper": "Biopsych + Testing paper", "nimhans-mock-1": "NIMHANS Mock 1", "pyq-mock-2": "PYQ Mock 2",
+  "pyq-real-2024": "PYQ Real 2024", "pyq-real-2025": "PYQ Real 2025",
+  "rml-2020": "RML 2020", "rml-2021": "RML 2021", "rml-2022": "RML 2022", "rml-2023": "RML 2023", "rml-2024": "RML 2024", "rml-2025": "RML 2025",
+  "rml-practice-1": "RML Practice 1", "ihbas-2020": "IHBAS 2020", "ihbas-2024": "IHBAS 2024",
+  "amity-2023": "Amity 2023", "amity-recall": "Amity Recall", "systems-theories": "Systems & Theories",
+  "flight-mock-100": "Flight Mock 100", "flight-pyq-1": "Flight PYQ 1", "wrong-remix": "Wrong-answer remix", "otta-mphil": "Otta M.Phil"
+};
+const MOCK_FAMILY = {
+  "met-mock-1": "MET", "met-mock-2": "MET", "met-mock-3": "MET", "met-mock-4": "MET", "met-mock-5": "MET", "bio-testing-paper": "MET",
+  "pep-mock-1": "PEP", "pep-mock-2": "PEP", "diagnostic-1": "Diagnostic", "nimhans-mock-1": "NIMHANS",
+  "pyq-mock-2": "PYQ", "pyq-real-2024": "PYQ", "pyq-real-2025": "PYQ",
+  "rml-2020": "RML", "rml-2021": "RML", "rml-2022": "RML", "rml-2023": "RML", "rml-2024": "RML", "rml-2025": "RML", "rml-practice-1": "RML",
+  "ihbas-2020": "IHBAS", "ihbas-2024": "IHBAS", "amity-2023": "Amity", "amity-recall": "Amity", "systems-theories": "Systems"
+};
+function mockPath(id) { return "../../quiz/" + id + "/"; }
+function prettyTitle(id) { return MOCK_TITLES[id] || id.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase()); }
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+function readJSON(key, fb) { try { const r = localStorage.getItem(key); return r ? JSON.parse(r) : fb; } catch { return fb; } }
+function escapeHtml(s) { const d = document.createElement("div"); d.textContent = s == null ? "" : String(s); return d.innerHTML; }
+function pctBucket(p) { if (p == null) return "muted"; if (p >= 75) return "good"; if (p >= 50) return "warn"; return "bad"; }
+function optText(q, letter) {
+  if (!q || !q.options || letter == null) return "";
+  const o = q.options;
+  if (Array.isArray(o)) { const idx = typeof letter === "number" ? letter : "abcdefgh".indexOf(String(letter)); return o[idx] || ""; }
+  return o[letter] || o[String(letter)] || "";
+}
+function correctOf(q) { return q ? (q.correct != null ? q.correct : q.answer) : null; }
+
+/* ============================================================
+   DISCOVER ATTEMPTS + BUILD GAP MODEL
+   ============================================================ */
+function discoverMocks() {
+  const seen = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    const m = k && k.match(/^(.+)-results-v\d+$/);
+    if (!m) continue;
+    const id = m[1];
+    // keep highest version if duplicated
+    if (!seen[id] || k > seen[id].key) seen[id] = { id, key: k };
+  }
+  return Object.values(seen);
+}
+
+function buildModel() {
+  const bank = window.QUESTION_BANK || {};
+  const mocks = discoverMocks();
+  const papers = [];       // { id, title, family, right, wrong, answered, total }
+  const topics = {};       // topicName -> { seen, right, wrong, papers:Set, section, misses:[] }
+  const sections = {};     // sectionKey -> { seen, right, wrong }
+  let totRight = 0, totWrong = 0, totAns = 0;
+
+  for (const mk of mocks) {
+    const res = readJSON(mk.key, {}) || {};
+    const qs = bank[mk.id] || [];
+    const byId = {};
+    for (const q of qs) byId[q.id] = q;
+
+    let pr = 0, pw = 0, pa = 0;
+    for (const qid of Object.keys(res)) {
+      const r = res[qid];
+      if (!r || r.selected == null) continue;
+      pa++;
+      const q = byId[qid];
+      const section = (q && q.section) || r.section || "unknown";
+      // topic bucket: prefer real topic tag, else fall back to section label
+      const topic = (q && q.topic) ? q.topic : (SECTION_LABELS[section] || section);
+
+      if (!sections[section]) sections[section] = { seen: 0, right: 0, wrong: 0 };
+      if (!topics[topic]) topics[topic] = { seen: 0, right: 0, wrong: 0, papers: new Set(), section, misses: [] };
+      sections[section].seen++; topics[topic].seen++;
+      topics[topic].papers.add(mk.id);
+
+      if (r.correct) { pr++; totRight++; sections[section].right++; topics[topic].right++; }
+      else {
+        pw++; totWrong++; sections[section].wrong++; topics[topic].wrong++;
+        topics[topic].misses.push({
+          mockId: mk.id, section,
+          q: q ? q.q : null,
+          correctLetter: q ? correctOf(q) : null,
+          correctText: q ? optText(q, correctOf(q)) : null,
+          yourLetter: r.selected,
+          yourText: q ? optText(q, r.selected) : null,
+          study: q ? (q.study || q.explanation || null) : null
+        });
+      }
+      totAns++;
+    }
+    if (pa > 0) papers.push({ id: mk.id, title: prettyTitle(mk.id), family: MOCK_FAMILY[mk.id] || "Other",
+      right: pr, wrong: pw, answered: pa });
+  }
+
+  // rank topics: damage first (wrong count), then miss rate
+  const topicArr = Object.entries(topics).map(([name, t]) => ({
+    name, section: t.section, seen: t.seen, right: t.right, wrong: t.wrong,
+    papers: Array.from(t.papers), missRate: t.seen ? t.wrong / t.seen : 0, misses: t.misses
+  })).sort((a, b) => (b.wrong - a.wrong) || (b.missRate - a.missRate) || (b.seen - a.seen));
+
+  const sectionArr = Object.entries(sections).map(([key, s]) => ({
+    key, label: SECTION_LABELS[key] || key, seen: s.seen, right: s.right, wrong: s.wrong,
+    missRate: s.seen ? s.wrong / s.seen : 0
+  })).sort((a, b) => (b.wrong - a.wrong) || (b.missRate - a.missRate));
+
+  papers.sort((a, b) => (b.answered - a.answered));
+
+  return { papers, topicArr, sectionArr, totRight, totWrong, totAns };
+}
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+let SHOW_ALL_TOPICS = false;
+let MODEL = null;
+
+function render() {
+  MODEL = buildModel();
+  const root = document.getElementById("content");
+  if (MODEL.totAns === 0) { root.innerHTML = emptyHtml(); return; }
+
+  const acc = MODEL.totAns ? Math.round(MODEL.totRight / MODEL.totAns * 100) : 0;
+  const commonSec = MODEL.sectionArr.find(s => s.key === "common");
+
+  let html = "";
+
+  // hero tiles
+  html += `<div class="gm-hero">
+    <div class="gm-tile"><div class="n">${MODEL.papers.length}</div><div class="l">Papers attempted</div></div>
+    <div class="gm-tile"><div class="n">${MODEL.totAns}</div><div class="l">Questions answered</div></div>
+    <div class="gm-tile"><div class="n bad">${MODEL.totWrong}</div><div class="l">Total wrong</div></div>
+    <div class="gm-tile"><div class="n ${pctBucket(acc)}">${acc}%</div><div class="l">Overall accuracy</div></div>
+  </div>`;
+
+  // pinned #1 leak: common section
+  html += pinnedHtml(commonSec);
+
+  // biggest leaks by topic
+  html += `<div class="section-head">
+      <div><h2 class="section-title">Your biggest leaks, ranked</h2>
+        <div class="section-sub">Concepts sorted by total marks lost across every paper. Tap one to see every miss + the fix.</div></div>
+      <div class="toolbar">
+        <button id="btnAll" onclick="toggleAll()">${SHOW_ALL_TOPICS ? "Top leaks only" : "Show all topics"}</button>
+        <button onclick="expandAll(true)">Expand all</button>
+        <button onclick="copyGapMap()">Copy as text</button>
+      </div>
+    </div>`;
+  html += `<div class="leak-list" id="leakList">${leaksHtml()}</div>`;
+
+  // section breakdown across all papers
+  html += `<div class="section-head"><div><h2 class="section-title">Section breakdown, all papers combined</h2>
+    <div class="section-sub">Miss rate = wrong ÷ answered, pooled across every mock. Drill top-down.</div></div></div>`;
+  html += sectionTableHtml();
+
+  // papers included
+  html += `<div class="section-head"><div><h2 class="section-title">Papers in this map</h2>
+    <div class="section-sub">Everything saved on this device. Missing one? Attempt it here so it counts.</div></div></div>`;
+  html += papersHtml();
+
+  root.innerHTML = html;
+}
+
+function pinnedHtml(commonSec) {
+  if (commonSec && commonSec.seen >= 5) {
+    const mr = Math.round(commonSec.missRate * 100);
+    return `<div class="gm-pin">
+      <div class="tag">#1 priority · the common section</div>
+      <h3>Common block: ${commonSec.wrong} wrong of ${commonSec.seen} attempted (${mr}% miss rate)</h3>
+      <p>This is the single biggest weight in the RCI MA papers and it's your leakiest zone. Every point you claw back here is
+      a point that was sitting on the table. Fix this before chasing new topics — the ranked leaks below are mostly living inside it.
+      Notes: <a href="../../notes/biostats-cheatsheet/">Biostats</a> · <a href="../../notes/">full notes hub</a>.</p>
+    </div>`;
+  }
+  return `<div class="gm-pin">
+      <div class="tag">#1 priority · the common section</div>
+      <h3>The common section is your known biggest leak</h3>
+      <p>Across your attempts the common block (research methods, stats, cognition, perception) is where the marks bleed — on the
+      review set you scored, 31 of 32 common-section questions were wrong, which is the ~18 points between you and 90. Attempt the
+      <a href="../../quiz/diagnostic-1/">Gap Diagnostic</a> and the common-heavy mocks on this device and this banner will fill in with
+      your live numbers. Start here: <a href="../../notes/biostats-cheatsheet/">Biostats cheatsheet</a>.</p>
+    </div>`;
+}
+
+function leaksHtml() {
+  const list = MODEL.topicArr.filter(t => t.wrong > 0);
+  const shown = SHOW_ALL_TOPICS ? list : list.slice(0, 12);
+  if (!shown.length) return `<div class="empty" style="margin-top:0;"><p>No wrong answers recorded yet. Nice — or you haven't attempted much on this device.</p></div>`;
+  return shown.map((t, i) => {
+    const mr = Math.round(t.missRate * 100);
+    const barCls = mr >= 50 ? "" : mr >= 30 ? "warn" : "good";
+    const missCls = mr >= 50 ? "bad" : mr >= 30 ? "warn" : "good";
+    const chips = t.papers.map(pid => `<span class="paper-chip${t.papers.length > 1 ? " multi" : ""}">${escapeHtml(prettyTitle(pid))}</span>`).join("");
+    const multi = t.papers.length > 1 ? ` · costs you in ${t.papers.length} papers` : "";
+    return `<div class="leak" data-i="${i}">
+      <div class="leak-head" onclick="toggleLeak(${i})">
+        <div class="leak-rank">${i + 1}</div>
+        <div class="leak-main">
+          <div class="leak-name">${escapeHtml(t.name)}</div>
+          <div class="leak-meta">${SECTION_LABELS[t.section] || t.section}${multi}</div>
+          <div class="leak-bar ${barCls}"><span style="width:${mr}%"></span></div>
+          <div class="paper-chips">${chips}</div>
+        </div>
+        <div class="leak-right">
+          <div class="leak-miss ${missCls}">${t.wrong}</div>
+          <div class="leak-miss-l">wrong / ${t.seen}</div>
+        </div>
+      </div>
+      <div class="leak-body">${leakBodyHtml(t)}</div>
+    </div>`;
+  }).join("");
+}
+
+function leakBodyHtml(t) {
+  // one compiled study note (first available study text), then every miss
+  const notes = SECTION_NOTES[t.section] || [{ label: "Notes hub", href: "../../notes/" }];
+  const noteLinks = notes.map(n => `<a href="${n.href}">${escapeHtml(n.label)}</a>`).join("");
+  const coach = SECTION_COACH[t.section];
+  let html = "";
+  if (coach) html += `<div class="study-note"><b>Fix:</b> ${escapeHtml(coach)}</div>`;
+  html += t.misses.map(m => {
+    let ans = "";
+    if (m.correctText || m.correctLetter) {
+      ans = `<div class="ans"><span class="ok">Correct: ${escapeHtml((m.correctLetter ? String(m.correctLetter).toUpperCase() + ") " : "") + (m.correctText || ""))}</span>`;
+      if (m.yourText || m.yourLetter) ans += `<br><span class="no">You picked: ${escapeHtml((m.yourLetter ? String(m.yourLetter).toUpperCase() + ") " : "") + (m.yourText || ""))}</span>`;
+      ans += `</div>`;
+    }
+    const exp = m.study ? `<div class="exp">${escapeHtml(m.study)}</div>` : "";
+    const qtxt = m.q ? `<div class="qtxt">${escapeHtml(m.q)}</div>` : `<div class="qtxt" style="color:var(--muted)">(This paper isn't in the tagged bank yet — section-level only.)</div>`;
+    return `<div class="miss-q">
+      <div class="qfrom">${escapeHtml(prettyTitle(m.mockId))}</div>
+      ${qtxt}${ans}${exp}
+    </div>`;
+  }).join("");
+  html += `<div class="miss-links">${noteLinks}</div>`;
+  return html;
+}
+
+function sectionTableHtml() {
+  const rows = MODEL.sectionArr.map(s => {
+    const mr = Math.round(s.missRate * 100);
+    const acc = 100 - mr;
+    const cls = pctBucket(acc);
+    const coach = SECTION_COACH[s.key] || "";
+    return `<tr>
+      <td class="nm">${escapeHtml(s.label)}</td>
+      <td>${s.seen}</td>
+      <td style="color:var(--bad)">${s.wrong}</td>
+      <td><span class="acc-pill ${cls}">${acc}%</span></td>
+      <td class="gm-coach">${escapeHtml(coach)}</td>
+    </tr>`;
+  }).join("");
+  return `<table class="gm-table">
+    <thead><tr><th>Section</th><th>Answered</th><th>Wrong</th><th>Accuracy</th><th>What to do</th></tr></thead>
+    <tbody>${rows}</tbody></table>`;
+}
+
+function papersHtml() {
+  return MODEL.papers.map(p => {
+    const acc = p.answered ? Math.round(p.right / p.answered * 100) : 0;
+    return `<div class="paper-row">
+      <div class="pn">${escapeHtml(p.title)} <span style="color:var(--muted);font-weight:400;font-size:11px;">· ${escapeHtml(p.family)}</span></div>
+      <div class="ps">${p.right}/${p.answered} · ${acc}%</div>
+      <a href="${mockPath(p.id)}">Open →</a>
+    </div>`;
+  }).join("");
+}
+
+function emptyHtml() {
+  return `<div class="empty">
+    <h3>No saved attempts on this device yet</h3>
+    <p>Your scores only live in this browser once you actually attempt a mock here. Open any mock, answer the questions, and come
+    back — this page then builds your gap map automatically from every paper you've done.</p>
+    <p>Best places to start: the <b>Gap Diagnostic</b> (built to surface exactly where you leak) and any full-length MET or RML paper.</p>
+    <div class="btn-row">
+      <a class="btn" href="../../quiz/diagnostic-1/">Gap Diagnostic</a>
+      <a class="btn ghost" href="../../tests/">All mocks</a>
+    </div>
+  </div>`;
+}
+
+/* ============================================================
+   INTERACTION
+   ============================================================ */
+function toggleLeak(i) {
+  const el = document.querySelector(`.leak[data-i="${i}"]`);
+  if (el) el.classList.toggle("open");
+}
+function expandAll() {
+  document.querySelectorAll(".leak").forEach(el => el.classList.add("open"));
+}
+function toggleAll() { SHOW_ALL_TOPICS = !SHOW_ALL_TOPICS; render(); }
+
+function copyGapMap() {
+  const txt = buildText();
+  const done = () => showToast("Gap map copied");
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(done, () => fallbackCopy(txt, done));
+  } else fallbackCopy(txt, done);
+}
+function fallbackCopy(txt, cb) {
+  const ta = document.createElement("textarea"); ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand("copy"); cb(); } catch (e) { alert("Copy failed — long-press to select."); }
+  document.body.removeChild(ta);
+}
+function buildText() {
+  const acc = MODEL.totAns ? Math.round(MODEL.totRight / MODEL.totAns * 100) : 0;
+  let out = `GAP MAP — MET/RCI prep\n${MODEL.papers.length} papers · ${MODEL.totAns} answered · ${MODEL.totWrong} wrong · ${acc}% accuracy\n`;
+  out += `\n=== BIGGEST LEAKS (marks lost across all papers) ===\n`;
+  MODEL.topicArr.filter(t => t.wrong > 0).slice(0, SHOW_ALL_TOPICS ? 999 : 15).forEach((t, i) => {
+    out += `${i + 1}. ${t.name} — ${t.wrong} wrong / ${t.seen} (${Math.round(t.missRate * 100)}%)`;
+    if (t.papers.length > 1) out += `  [${t.papers.length} papers]`;
+    out += `\n`;
+  });
+  out += `\n=== SECTION BREAKDOWN ===\n`;
+  MODEL.sectionArr.forEach(s => {
+    out += `${s.label}: ${s.wrong} wrong / ${s.seen} (${Math.round((1 - s.missRate) * 100)}% acc)\n`;
+  });
+  out += `\n=== STUDY SHEET (top 8 leaks) ===\n`;
+  MODEL.topicArr.filter(t => t.wrong > 0).slice(0, 8).forEach((t, i) => {
+    out += `\n[${i + 1}] ${t.name}\n`;
+    if (SECTION_COACH[t.section]) out += `Fix: ${SECTION_COACH[t.section]}\n`;
+    t.misses.slice(0, 4).forEach(m => {
+      if (m.q) out += `Q: ${m.q}\n`;
+      if (m.correctText) out += `  Correct: ${m.correctText}\n`;
+      if (m.study) out += `  ${m.study}\n`;
+    });
+  });
+  return out;
+}
+function showToast(msg) {
+  const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 1600);
+}
+
+/* ============================================================
+   COUNTDOWN + INIT
+   ============================================================ */
+function updateCountdown() {
+  const exam = new Date('2026-05-31T00:00:00+05:30');
+  const ms = exam - new Date();
+  const days = ms > 0 ? Math.floor(ms / 86400000) : 0;
+  const chip = document.getElementById("countdownChip");
+  if (chip) chip.textContent = ms > 0 ? `${days} days to exam` : "Exam day!";
+}
+updateCountdown();
+render();
+</script>
+<script src="/sihan-met-flashcards/nav-toggle.js"></script>
+</body>
+</html>
