@@ -64,6 +64,28 @@
   .card.deep { border-color: rgba(255,196,0,.30); }
   .badge.deep { background: #ffc400; color: #1a1500; }
   .pill.deep-pill { background: rgba(255,196,0,.16); color: #ffce3a; border-color: rgba(255,196,0,.35); }
+
+  /* Hero jump-nav */
+  .jump-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .jump-row .pill { cursor: pointer; }
+  html { scroll-behavior: smooth; }
+  section[id], .page-hero { scroll-margin-top: 78px; }
+  /* Group section headers get a subtle college accent line */
+  .grp-sec .section-title { display: inline-flex; align-items: center; gap: 9px; }
+  .grp-sec .section-title::before { content: ""; width: 4px; height: 18px; border-radius: 2px;
+    background: var(--accent); display: inline-block; }
+  #grp-amity .section-title::before { background: #a371f7; }
+  #grp-ihbas .section-title::before { background: #3fb950; }
+  #grp-rml   .section-title::before { background: #f0b429; }
+  #grp-pyq   .section-title::before { background: #58a6ff; }
+  #grp-met   .section-title::before { background: #ff7b72; }
+  #grp-pep   .section-title::before { background: #56d4dd; }
+  #grp-diag  .section-title::before { background: #f85149; }
+  .grp-count { font-size: 11px; color: var(--muted); font-weight: 500; margin-left: 8px;
+    background: var(--panel-2); border: 1px solid var(--border); border-radius: 999px; padding: 2px 9px; }
+  /* Study-materials / tracker cards */
+  .study-card { display: flex; flex-direction: column; gap: 6px; }
+  .study-card .card-icon { font-size: 22px; line-height: 1; margin-bottom: 2px; }
 </style>
 <!-- PWA:met-prep -->
 <link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
@@ -80,8 +102,8 @@
 <div class="topbar">
   <div class="topbar-inner">
     <div class="brand">
-      <span class="brand-title">Sihan, MET 2026</span>
-      <span class="brand-sub">MA Clinical Psychology, Manipal</span>
+      <span class="brand-title">Sihan — Clinical Psych 2026</span>
+      <span class="brand-sub">M.A. Clinical Psychology (RCI) · Amity Noida · SGT · RML · IHBAS · CIP</span>
     </div>
     <nav class="nav">
       <a href="../">Dashboard</a>
@@ -89,10 +111,11 @@
       <a href="../pyq-coverage/">PYQ Coverage</a>
       <a href="../quiz/practice/">Practice</a>
       <a href="../results/">My Results</a>
-      <a href="../notes/">Notes</a>
+      <a href="../notes-app/">Notes</a>
       <a href="../checklist/">Checklist</a>
+      <a href="../admissions/">Admissions</a>
       <a href="../plan/">Plan</a>
-      <a href="../downloads/">Downloads</a>
+      <a href="../downloads/">Get the app</a>
     </nav>
     <span class="countdown-chip" id="countdownChip">—</span>
   </div>
@@ -103,10 +126,21 @@
   <div class="page-hero">
     <div class="crumbs">Tests</div>
     <h1>Tests Library</h1>
-    <p>Full-length mocks built to exam pattern, plus a topic-by-topic mixed bank for daily drills. Every answer is logged in your browser so the dashboard can show section-wise scores.</p>
+    <p>Every mock, grouped by college so you're not scrolling a wall of cards. Real past papers up top (Amity, IHBAS, RML, NIMHANS), then the full-length practice mocks, diagnostics and drills. Answers save in your browser, finished papers drop off the list on their own, and the dashboard reads it all back as section-wise scores.</p>
+    <div class="jump-row">
+      <a class="pill accent" href="#deep">⭐ Deep-explanation papers</a>
+      <a class="pill" href="#grp-amity">Amity</a>
+      <a class="pill" href="#grp-ihbas">IHBAS</a>
+      <a class="pill" href="#grp-rml">RML</a>
+      <a class="pill" href="#grp-pyq">NIMHANS &amp; PYQ</a>
+      <a class="pill" href="#grp-met">MET mocks</a>
+      <a class="pill" href="#grp-pep">Entrance prep</a>
+      <a class="pill" href="#grp-diag">Diagnostics</a>
+      <a class="pill" href="#study">Notes &amp; trackers</a>
+    </div>
   </div>
 
-  <section>
+  <section id="deep">
     <div class="section-head deep-head">
       <h2 class="section-title">⭐ Deep explanations — the revamp papers</h2>
       <span class="section-sub">Full worked answer under every single question · pinned here so you find them in one tap</span>
@@ -119,8 +153,8 @@
 
   <section>
     <div class="section-head">
-      <h2 class="section-title">Full-length mocks</h2>
-      <span class="section-sub">Sit one in a single block, +1/−0.25 scoring, simulate the real paper</span>
+      <h2 class="section-title">Mocks by college</h2>
+      <span class="section-sub">Real past papers first (Amity, IHBAS, RML, NIMHANS), then full-length practice, entrance-prep and diagnostics · every mock is +1/−0.25 unless noted</span>
     </div>
     <div class="done-bar">
       <span class="dh">Done with a paper? Drop it off the list so you're not staring at tests you've already smashed.</span>
@@ -128,7 +162,7 @@
       <button class="done-show-btn" id="showFinishedBtn" type="button">Show finished (0)</button>
       <span class="done-count" id="liveCount"></span>
     </div>
-    <div class="grid cols-2" id="mocksGrid"></div>
+    <div id="groupsRoot"></div>
   </section>
 
   <section>
@@ -208,6 +242,51 @@
           <span class="pill">Per-section stats</span>
         </div>
         <div class="card-cta" id="mixedScore">Open →</div>
+      </a>
+    </div>
+  </section>
+
+  <section id="study">
+    <div class="section-head">
+      <h2 class="section-title">Notes, cheatsheets &amp; trackers</h2>
+      <span class="section-sub">The study side of the site, kept out of the tests list so each has its own clear home</span>
+    </div>
+    <div class="grid cols-3">
+      <a class="card link study-card" href="../notes-app/">
+        <div class="card-icon">📖</div>
+        <div class="card-title">Notes for Exam app</div>
+        <div class="card-body muted">The whole notes library as a book reader — from-scratch subject books, exam-strategy shelves, gap-closers. Portrait single-page, landscape two-up.</div>
+        <div class="card-cta">Open notes app →</div>
+      </a>
+      <a class="card link study-card" href="../notes/">
+        <div class="card-icon">⚡</div>
+        <div class="card-title">Cheatsheets &amp; deep notes</div>
+        <div class="card-body muted">The fast-reference sheets — biostats, psychotherapy, biopsych, assessment, abnormal, development — plus the full-depth reference pages behind each mock.</div>
+        <div class="card-cta">All cheatsheets →</div>
+      </a>
+      <a class="card link study-card" href="../admissions/">
+        <div class="card-icon">🎯</div>
+        <div class="card-title">Admissions / RCI tracker</div>
+        <div class="card-body muted">Live application windows and exam dates for the five — Amity Noida, SGT, RML, IHBAS, CIP — auto-refreshed twice a day. Fee / seats / hostel cells filling in.</div>
+        <div class="card-cta">Open tracker →</div>
+      </a>
+      <a class="card link study-card" href="../news/">
+        <div class="card-icon">📰</div>
+        <div class="card-title">Exam news board</div>
+        <div class="card-body muted">Auto-polled notifications and updates across the target colleges, so a window opening doesn't slip past.</div>
+        <div class="card-cta">Open news →</div>
+      </a>
+      <a class="card link study-card" href="../checklist/">
+        <div class="card-icon">✅</div>
+        <div class="card-title">Prep checklist</div>
+        <div class="card-body muted">The syllabus turned into a tick-off list — what's covered, what's still open, mapped onto the cheatsheets.</div>
+        <div class="card-cta">Open checklist →</div>
+      </a>
+      <a class="card link study-card" href="../database/">
+        <div class="card-icon">🗄️</div>
+        <div class="card-title">Database &amp; Drive library</div>
+        <div class="card-body muted">The shared Drive folder as the backbone — every paper and resource sorted by college and by type, with a how-to-add workflow.</div>
+        <div class="card-cta">Open database →</div>
       </a>
     </div>
   </section>
@@ -635,6 +714,33 @@ function isFinished(m, r, settings, done) {
 // Order the pinned deep-explanation papers exactly as Sihan was told about them.
 const DEEP_ORDER = ["systems-theories", "amity-recall", "amity-2023", "ihbas-2024", "ihbas-2020", "rml-2024"];
 
+// Mocks grouped by college / family so the list reads as sections, not one long dump.
+// `members` also fixes the order inside each group; anything not listed here is caught
+// by the "Other mocks" fallback in renderGroups so nothing silently disappears.
+const GROUPS = [
+  { id: "amity", title: "Amity",
+    sub: "Real Amity M.A. Clinical Psychology entrance papers — pair with the /amity/ interview prep",
+    members: ["amity-2023", "amity-recall"] },
+  { id: "ihbas", title: "IHBAS",
+    sub: "IHBAS Delhi M.Phil Clinical Psychology entrances, real papers with verified keys",
+    members: ["ihbas-2024", "ihbas-2020"] },
+  { id: "rml", title: "RML",
+    sub: "ABVIMS / Dr RML Hospital + GGSIPU papers — the CET-166 depth-calibration set, 2020 through 2025",
+    members: ["rml-2020", "rml-2021", "rml-2022", "rml-2023", "rml-2024", "rml-2025"] },
+  { id: "pyq", title: "NIMHANS & pan-India PYQ",
+    sub: "Verbatim NIMHANS M.Phil papers plus the cross-institute PYQ banks",
+    members: ["pyq-real-2025", "pyq-real-2024", "nimhans-mock-1", "pyq-mock-2"] },
+  { id: "met", title: "MET-pattern mocks",
+    sub: "Full-length practice built to the MET blueprint — content carries to every RCI paper minus the Language block",
+    members: ["met-mock-5", "met-mock-4", "met-mock-3", "met-mock-2", "met-mock-1", "bio-testing-paper"] },
+  { id: "pep", title: "Entrance-prep mocks (UGC-NET + M.Phil)",
+    sub: "The psychologyentranceprep.com mock tests, rebuilt to run offline",
+    members: ["pep-mock-1", "pep-mock-2"] },
+  { id: "diag", title: "Diagnostics & common-section drills",
+    sub: "Sit-once diagnostics and the common-section banks that decide the gap — misses compile into a study sheet on the page",
+    members: ["diagnostic-1", "systems-theories", "flight-mock-100"] }
+];
+
 function buildCardEl(m, r, finished, done, pinned) {
   const pct = r.answered ? Math.round((r.correct / r.answered) * 100) : null;
   const manualDone = !!done[m.id];
@@ -684,25 +790,57 @@ function renderDeep() {
   }
 }
 
-function renderMocks() {
-  const root = document.getElementById("mocksGrid");
+function renderGroups() {
+  const root = document.getElementById("groupsRoot");
   root.innerHTML = "";
   const settings = readHideSettings();
   const done = readDone();
   let finishedCount = 0, shownCount = 0;
 
-  for (const m of MOCKS) {
-    const r = readMock(m);
-    const finished = isFinished(m, r, settings, done);
-    if (finished) finishedCount++;
-    if (finished && !settings.showFinished) continue; // dropped off the list
-    shownCount++;
-    root.appendChild(buildCardEl(m, r, finished, done, false));
+  // Build the render order: defined groups, then a fallback for any uncategorised mock.
+  const known = new Set(GROUPS.flatMap(g => g.members));
+  const groups = GROUPS.slice();
+  const leftover = MOCKS.filter(m => !known.has(m.id)).map(m => m.id);
+  if (leftover.length) {
+    groups.push({ id: "other", title: "Other mocks", sub: "", members: leftover });
+  }
+
+  for (const g of groups) {
+    const mocks = g.members.map(id => MOCKS.find(x => x.id === id)).filter(Boolean);
+    const cards = [];
+    let liveInGroup = 0, finishedInGroup = 0;
+    for (const m of mocks) {
+      const r = readMock(m);
+      const finished = isFinished(m, r, settings, done);
+      if (finished) { finishedCount++; finishedInGroup++; }
+      if (finished && !settings.showFinished) continue; // dropped off the list
+      cards.push(buildCardEl(m, r, finished, done, false));
+      shownCount++; liveInGroup++;
+    }
+    if (!cards.length) continue; // whole group hidden -> skip its header too
+
+    const sec = document.createElement("section");
+    sec.id = "grp-" + g.id;
+    sec.className = "grp-sec";
+    const countLabel = finishedInGroup
+      ? `${liveInGroup} active · ${finishedInGroup} finished`
+      : `${liveInGroup} paper${liveInGroup === 1 ? "" : "s"}`;
+    const head = document.createElement("div");
+    head.className = "section-head";
+    head.innerHTML =
+      `<h2 class="section-title">${g.title}<span class="grp-count">${countLabel}</span></h2>` +
+      (g.sub ? `<span class="section-sub">${g.sub}</span>` : "");
+    const grid = document.createElement("div");
+    grid.className = "grid cols-2";
+    cards.forEach(c => grid.appendChild(c));
+    sec.appendChild(head);
+    sec.appendChild(grid);
+    root.appendChild(sec);
   }
 
   if (!shownCount) {
     const empty = document.createElement("div");
-    empty.style.cssText = "grid-column:1/-1;padding:22px;text-align:center;color:var(--muted);font-size:14px;border:1px dashed var(--border);border-radius:8px;";
+    empty.style.cssText = "padding:22px;text-align:center;color:var(--muted);font-size:14px;border:1px dashed var(--border);border-radius:8px;";
     empty.textContent = finishedCount
       ? "All mocks marked finished — nice. Hit “Show finished” to revisit any of them."
       : "No mocks to show.";
@@ -880,10 +1018,10 @@ function restoreFromFile(file) {
   reader.readAsText(file);
 }
 
-function refresh() { renderDeep(); renderMocks(); renderDrillScores(); renderBackupCounts(); }
+function refresh() { renderDeep(); renderGroups(); renderDrillScores(); renderBackupCounts(); }
 
 renderDeep();
-renderMocks();
+renderGroups();
 renderDrillScores();
 renderBackupCounts();
 updateCountdown();
@@ -908,7 +1046,7 @@ function wireDoneClicks(gridId) {
     toggleDone(btn.getAttribute("data-done-id"));
   });
 }
-wireDoneClicks("mocksGrid");
+wireDoneClicks("groupsRoot");
 wireDoneClicks("deepGrid");
 
 document.getElementById("autoHideChk").addEventListener("change", (e) => {
