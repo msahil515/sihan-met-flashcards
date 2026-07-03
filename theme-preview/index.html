@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pick a theme — MET / RCI prep revamp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Theme preview — same test screen rendered in all 5 themes.
+   Tap a number (or press 1-5), flip the light/dark toggle, and
+   the live test-screen below re-themes instantly. Palettes are
+   copied verbatim from /take/theme.js so what you pick here is
+   exactly what the whole site becomes.
+   ============================================================ */
+:root{
+  --page-bg:#0e1214; --page-ink:#eef2f2; --page-soft:#aebcbd; --page-line:#28363a;
+  --page-card:#161f22; --font-ui:'Inter',system-ui,-apple-system,sans-serif;
+  --font-read:'Newsreader',Georgia,serif; --font-display:'Fraunces',Georgia,serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--page-bg);color:var(--page-ink);font-family:var(--font-ui);
+  -webkit-font-smoothing:antialiased;line-height:1.5}
+
+/* ---------- page header ---------- */
+.head{max-width:1080px;margin:0 auto;padding:26px 20px 6px}
+.kick{font-size:12px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--page-soft)}
+.head h1{font-family:var(--font-display);font-weight:600;font-size:clamp(24px,5vw,34px);
+  letter-spacing:-.015em;margin:6px 0 8px}
+.head p{color:var(--page-soft);font-size:15px;max-width:56ch;margin:0}
+.head p b{color:var(--page-ink);font-weight:600}
+
+/* ---------- theme chips (side-by-side) ---------- */
+.picker{max-width:1080px;margin:20px auto 0;padding:0 20px}
+.chips{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+@media(max-width:760px){.chips{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:420px){.chips{grid-template-columns:1fr}}
+.chip{position:relative;text-align:left;border:1.5px solid var(--page-line);background:var(--page-card);
+  border-radius:16px;padding:12px 12px 13px;cursor:pointer;transition:.16s;overflow:hidden;color:inherit}
+.chip:hover{transform:translateY(-2px);border-color:var(--c-primary,#4aa)}
+.chip.on{border-color:var(--c-primary);box-shadow:0 0 0 2px var(--c-primary) inset,0 10px 30px rgba(0,0,0,.35)}
+.chip .num{position:absolute;top:10px;right:11px;width:23px;height:23px;border-radius:7px;
+  display:grid;place-items:center;font-weight:800;font-size:13px;background:var(--page-line);color:var(--page-ink)}
+.chip.on .num{background:var(--c-primary);color:#fff}
+.swatch{height:52px;border-radius:11px;border:1px solid rgba(128,128,128,.25);overflow:hidden;
+  display:flex;position:relative;margin-bottom:10px}
+.swatch .fill{flex:1}
+.swatch .card{position:absolute;left:9px;top:9px;right:9px;bottom:9px;border-radius:7px;
+  display:flex;align-items:center;gap:6px;padding:0 9px}
+.swatch .card .aa{font-family:var(--font-display);font-weight:700;font-size:15px}
+.swatch .card .dot{width:11px;height:11px;border-radius:50%}
+.chip .nm{font-family:var(--font-display);font-weight:600;font-size:14.5px;line-height:1.15;display:block}
+.chip .ds{font-size:11.5px;color:var(--page-soft);line-height:1.35;margin-top:3px;display:block}
+
+/* ---------- controls row ---------- */
+.controls{max-width:1080px;margin:18px auto 0;padding:0 20px;display:flex;align-items:center;
+  gap:14px;flex-wrap:wrap}
+.now{font-size:14px;color:var(--page-soft)}
+.now b{color:var(--page-ink);font-weight:600;font-family:var(--font-display)}
+.seg{display:inline-flex;border:1px solid var(--page-line);border-radius:10px;overflow:hidden}
+.seg button{border:none;background:var(--page-card);color:var(--page-soft);font:600 12.5px/1 var(--font-ui);
+  padding:9px 15px;cursor:pointer}
+.seg button.on{background:var(--page-ink);color:var(--page-bg)}
+.hint{font-size:12.5px;color:var(--page-soft);margin-left:auto}
+kbd{font:600 11px/1 var(--font-ui);background:var(--page-line);color:var(--page-ink);
+  padding:2px 6px;border-radius:5px}
+
+/* ============================================================
+   The live test-screen preview. Colour vars are set on #device
+   inline (from the selected palette); everything inside reads
+   var(--bg) etc, exactly like the real /take/ screen.
+   ============================================================ */
+.frame-wrap{max-width:1080px;margin:16px auto 60px;padding:0 20px}
+.device{--shadow:0 1px 2px rgba(0,0,0,.14),0 12px 34px rgba(0,0,0,.18);--radius:16px;
+  background:var(--bg);border-radius:20px;overflow:hidden;
+  border:1px solid rgba(128,128,128,.28);box-shadow:0 24px 70px rgba(0,0,0,.5);
+  color:var(--ink);font-family:var(--font-ui);transition:background .25s}
+
+/* top bar */
+.d-top{background:color-mix(in srgb,var(--surface) 90%,transparent);
+  border-bottom:1px solid var(--line);padding:12px 18px}
+.d-top-row{display:flex;align-items:center;gap:13px}
+.d-back{color:var(--muted);font-size:12.5px;font-weight:600}
+.d-mid{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+.d-mid b{font-family:var(--font-display);font-weight:600;font-size:15px;color:var(--ink)}
+.d-mid span{font-size:11px;color:var(--muted)}
+.d-prog{flex:1;min-width:50px;display:flex;align-items:center;gap:10px}
+.d-rail{flex:1;height:7px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.d-rail>i{display:block;height:100%;width:38%;border-radius:99px;
+  background:linear-gradient(90deg,var(--primary),var(--primary-ink))}
+.d-pnum{font-size:12px;font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.d-score{display:inline-flex;flex-direction:column;align-items:flex-end;line-height:1.05;
+  padding:5px 11px;border-radius:11px;background:var(--surface-2);border:1px solid var(--line)}
+.d-score b{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--good)}
+.d-score span{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.d-clock{font-size:10.5px;color:var(--muted)}.d-clock b{color:var(--primary);font-weight:600}
+.d-finish{border:none;background:var(--primary);color:#fff;font:600 13px/1 var(--font-ui);
+  padding:9px 15px;border-radius:11px}
+@media(max-width:680px){.d-back,.d-clock{display:none}}
+
+/* stage */
+.d-stage{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:22px;
+  padding:22px 20px 26px;align-items:start}
+@media(max-width:820px){.d-stage{grid-template-columns:1fr}.d-nav{display:none}}
+
+/* reader */
+.d-reader{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:26px 30px 24px}
+@media(max-width:560px){.d-reader{padding:20px 17px}}
+.d-eyebrow{display:flex;align-items:center;gap:11px;margin-bottom:17px;flex-wrap:wrap}
+.d-qi{font-family:var(--font-display);font-weight:600;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.d-qi b{color:var(--ink);font-size:20px}
+.d-sec{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--primary-ink);background:var(--primary-wash);padding:5px 11px;border-radius:99px}
+.d-flag{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;
+  color:var(--amber);background:var(--amber-wash);border:1px solid var(--amber);padding:7px 12px;border-radius:99px}
+.d-flag svg{width:14px;height:14px}
+.d-stem{font-family:var(--font-read);font-size:22px;line-height:1.42;color:var(--ink);
+  letter-spacing:-.005em;margin:0 0 22px}
+@media(max-width:560px){.d-stem{font-size:19px}}
+.d-opts{display:flex;flex-direction:column;gap:11px}
+.d-opt{display:flex;gap:14px;align-items:flex-start;background:var(--surface);
+  border:1.5px solid var(--line);border-radius:13px;padding:14px 16px;
+  font-family:var(--font-read);font-size:17px;line-height:1.4;color:var(--ink)}
+.d-opt .k{flex:none;width:28px;height:28px;border-radius:8px;background:var(--surface-2);
+  border:1px solid var(--line);display:grid;place-items:center;font-family:var(--font-ui);
+  font-weight:700;font-size:13px;color:var(--ink-soft);text-transform:uppercase}
+.d-opt.sel{border-color:var(--primary);background:var(--primary-wash)}
+.d-opt.sel .k{background:var(--primary);border-color:var(--primary);color:#fff}
+.d-opt.correct{border-color:var(--good);background:var(--good-wash)}
+.d-opt.correct .k{background:var(--good);border-color:var(--good);color:#fff}
+.d-opt.wrong{border-color:var(--bad);background:var(--bad-wash)}
+.d-opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+
+/* revealed explanation */
+.d-reveal{margin-top:20px;border-top:1px dashed var(--line);padding-top:18px}
+.d-rtag{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--primary-ink);margin-bottom:8px}
+.d-deep-h{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--primary-ink);margin:16px 0 7px}
+.d-reveal p{font-family:var(--font-read);font-size:16.5px;line-height:1.56;color:var(--ink-soft);margin:0 0 10px}
+.d-traps{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+.d-trap{display:flex;gap:11px;align-items:flex-start;background:var(--bad-wash);
+  border:1px solid var(--line);border-radius:12px;padding:11px 13px}
+.d-trap .tk{flex:0 0 24px;height:24px;border-radius:7px;background:var(--bad);color:#fff;
+  font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);margin-top:2px}
+.d-trap .to{font-family:var(--font-read);font-weight:600;color:var(--ink);font-size:15px;display:block;margin-bottom:2px}
+.d-trap p{font-size:14.5px;line-height:1.48;margin:0}
+
+/* reader footer */
+.d-foot{margin-top:22px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.d-foot .sp{flex:1}
+.d-btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);
+  font:600 13px/1 var(--font-ui);padding:9px 14px;border-radius:11px}
+.d-btn.ghost{border-color:transparent;background:transparent;color:var(--muted)}
+.d-btn.primary{border-color:var(--primary);background:var(--primary);color:#fff}
+.d-link{background:none;border:none;color:var(--muted);font:600 12.5px/1 var(--font-ui);padding:8px 5px}
+
+/* mini navigator */
+.d-nav{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
+.d-nav h3{margin:0 0 13px;font-family:var(--font-display);font-weight:600;font-size:14px;color:var(--ink)}
+.d-filters{display:flex;gap:5px;margin-bottom:12px;flex-wrap:wrap}
+.d-filters span{border:1px solid var(--line);background:var(--surface);color:var(--muted);
+  font-size:10.5px;font-weight:600;padding:5px 9px;border-radius:99px}
+.d-filters span.on{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.d-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(34px,1fr));gap:7px}
+.d-cell{aspect-ratio:1;border:1.5px solid var(--line);background:var(--surface);border-radius:9px;
+  font-family:var(--font-ui);font-weight:600;font-size:12px;color:var(--ink-soft);
+  display:grid;place-items:center;position:relative;font-variant-numeric:tabular-nums}
+.d-cell.answered{background:var(--primary-wash);border-color:var(--primary);color:var(--primary-ink)}
+.d-cell.current{outline:2px solid var(--ink);outline-offset:1px}
+.d-cell.flagged::after{content:"";position:absolute;top:-4px;right:-4px;width:10px;height:10px;
+  border-radius:50%;background:var(--amber);border:2px solid var(--surface)}
+.d-legend{margin-top:13px;padding-top:12px;border-top:1px solid var(--line);
+  display:flex;flex-direction:column;gap:7px;font-size:11.5px;color:var(--muted)}
+.d-legend div{display:flex;align-items:center;gap:8px}
+.d-sw{width:14px;height:14px;border-radius:5px;border:1.5px solid var(--line)}
+.d-sw.a{background:var(--primary-wash);border-color:var(--primary)}
+
+/* footer note */
+.foot{max-width:1080px;margin:0 auto 60px;padding:0 20px;color:var(--page-soft);font-size:13px}
+.foot b{color:var(--page-ink)}
+</style>
+</head>
+<body>
+
+<div class="head">
+  <div class="kick">MET / RCI prep · site revamp</div>
+  <h1>Pick the look. Same test screen, 5 themes.</h1>
+  <p>Tap a number below and the real test screen re-themes instantly. Flip the <b>Light / Dark</b> toggle to see each one both ways. When one clicks, <b>text me the number</b> and I build the whole revamp in it.</p>
+</div>
+
+<div class="picker">
+  <div class="chips" id="chips"></div>
+</div>
+
+<div class="controls">
+  <div class="now">Showing <b id="nowName">—</b></div>
+  <div class="seg" id="modeSeg">
+    <button data-m="light" class="on">Light</button>
+    <button data-m="dark">Dark</button>
+  </div>
+  <div class="hint">Press <kbd>1</kbd>–<kbd>5</kbd> to flip · <kbd>L</kbd>/<kbd>D</kbd> light/dark</div>
+</div>
+
+<div class="frame-wrap">
+  <div class="device" id="device"><!-- rendered --></div>
+</div>
+
+<div class="foot">
+  This is a preview only, nothing here saves. The real engine (untimed, deep explanations, section breakdown) already lives at <b>/take/</b>. Once you pick, the whole site moves to that theme. — <b>#1 Warm · #2 Clinical · #3 Slate · #4 Sage · #5 Navy</b>
+</div>
+
+<script>
+/* ============================================================
+   Palettes copied verbatim from /take/theme.js, but ordered and
+   numbered to MATCH the numbering Sihan was texted:
+     1 Warm editorial · 2 Clean clinical · 3 Dark slate
+     4 Calm sage · 5 Deep navy + gold
+   sig = the mode the theme is designed to shine in (what the
+   text message described). Toggle overrides it.
+   ============================================================ */
+var THEMES = [
+  { n:1, id:"warm", name:"Warm editorial", desc:"Off-white paper, serif headers, soft clay accents. Matches the notes app.", sig:"light",
+    light:{bg:"#F3EDE2",surface:"#FBF7EF","surface-2":"#EFE7D8",line:"#E0D5C2",ink:"#2B2119","ink-soft":"#5A4C3C",muted:"#8A7B66",primary:"#B5623A","primary-ink":"#8F4A29","primary-wash":"#F3E2D6",amber:"#B5623A","amber-wash":"#F3E2D6",good:"#5E7A4F","good-wash":"#E7EFDE",bad:"#B0402F","bad-wash":"#F4E1DC"},
+    dark:{bg:"#1E1913",surface:"#28221A","surface-2":"#332B20",line:"#453A2B",ink:"#EDE4D5","ink-soft":"#C6B7A0",muted:"#9A8A72",primary:"#D98A5F","primary-ink":"#E6B48D","primary-wash":"#3A2A1D",amber:"#D98A5F","amber-wash":"#3A2A1D",good:"#8FB077","good-wash":"#26311C",bad:"#E08668","bad-wash":"#361F18"} },
+
+  { n:2, id:"clinical", name:"Clean clinical", desc:"Crisp white, calm blue-teal, lots of air. Exam-portal feel.", sig:"light",
+    light:{bg:"#F4F6F7",surface:"#FFFFFF","surface-2":"#EEF1F2",line:"#DCE2E3",ink:"#17262B","ink-soft":"#425258",muted:"#6C7B80",primary:"#0B6E6B","primary-ink":"#08514F","primary-wash":"#E4F0EF",amber:"#C77D2E","amber-wash":"#FBEEDD",good:"#2E7D5B","good-wash":"#E3F1EA",bad:"#BE4A32","bad-wash":"#F8E7E2"},
+    dark:{bg:"#0E1618",surface:"#152124","surface-2":"#1B292C",line:"#26383C",ink:"#E7EDED","ink-soft":"#AFC0C1",muted:"#7E9294",primary:"#3FB6AF","primary-ink":"#8FE0DA","primary-wash":"#123332",amber:"#E0A55C","amber-wash":"#33260F",good:"#5FC494","good-wash":"#14312A",bad:"#E58469","bad-wash":"#361D18"} },
+
+  { n:3, id:"slate", name:"Dark slate", desc:"Deep charcoal, soft mint/teal. Easy on the eyes at night.", sig:"dark",
+    light:{bg:"#EEF1F3",surface:"#FFFFFF","surface-2":"#E6EAED",line:"#D3DADF",ink:"#1B2429","ink-soft":"#45525A",muted:"#6E7C85",primary:"#0E9C8E","primary-ink":"#0A7468","primary-wash":"#DDF3EF",amber:"#C88A3E","amber-wash":"#F7ECDA",good:"#2E8B6B","good-wash":"#E1F1EA",bad:"#C0503B","bad-wash":"#F7E6E1"},
+    dark:{bg:"#10151A",surface:"#182029","surface-2":"#1F2A34",line:"#2C3A46",ink:"#E4EBF0","ink-soft":"#AEBECB",muted:"#7C8B99",primary:"#4FD6C4","primary-ink":"#93E9DD","primary-wash":"#123430",amber:"#E2AC63","amber-wash":"#33270F",good:"#63D3A4","good-wash":"#15332A",bad:"#E88A6F","bad-wash":"#361E18"} },
+
+  { n:4, id:"sage", name:"Calm sage", desc:"Muted green + cream, low-glare. Built for long sessions.", sig:"light",
+    light:{bg:"#EAEEE3",surface:"#F6F8F0","surface-2":"#DFE6D3",line:"#CBD5BC",ink:"#232B1C","ink-soft":"#4C583F",muted:"#7A856A",primary:"#5B7A4E","primary-ink":"#425C38","primary-wash":"#E1EAD5",amber:"#B08544","amber-wash":"#F1E7D2",good:"#4F7A4E","good-wash":"#E1EAD5",bad:"#A9503C","bad-wash":"#F0E2DC"},
+    dark:{bg:"#161A12",surface:"#1F241A","surface-2":"#272E20",line:"#38412C",ink:"#E6EBDD","ink-soft":"#C0C9AE",muted:"#8B957A",primary:"#8FB077","primary-ink":"#B2CE9E","primary-wash":"#28311D",amber:"#D3AA6A","amber-wash":"#332810",good:"#8FB077","good-wash":"#28311D",bad:"#D38B72","bad-wash":"#331E17"} },
+
+  { n:5, id:"navy", name:"Deep navy + gold", desc:"Darker, sharper, premium. Navy with gold accents.", sig:"dark",
+    light:{bg:"#EEF0F5",surface:"#FFFFFF","surface-2":"#E5E9F0",line:"#D2D8E4",ink:"#161E2E","ink-soft":"#3E4859",muted:"#6B7688",primary:"#1E3A6B","primary-ink":"#152A50","primary-wash":"#E0E7F3",amber:"#B8862B","amber-wash":"#F5EAD2",good:"#2E7D5B","good-wash":"#E1F0E8",bad:"#B34A3A","bad-wash":"#F5E4DF"},
+    dark:{bg:"#0B1220",surface:"#121C31","surface-2":"#1A2740",line:"#2A3A57",ink:"#E9EEF8","ink-soft":"#B2BFD6",muted:"#7E8CA6",primary:"#D4AF57","primary-ink":"#E7C878","primary-wash":"#332811",amber:"#D4AF57","amber-wash":"#332811",good:"#4FB088","good-wash":"#123028",bad:"#E07A63","bad-wash":"#331B16"} }
+];
+
+/* the sample question used in the preview (real MET / clinical-psych style) */
+var SAMPLE = {
+  section:"Clinical Psychology",
+  qi:7, total:180,
+  stem:"A therapist repeatedly notices she feels unusually protective and maternal toward a young male client, mirroring feelings she has toward her own son. In psychodynamic terms, this reaction is best described as:",
+  opts:{
+    a:"Transference",
+    b:"Countertransference",
+    c:"Projective identification",
+    d:"Therapeutic alliance"
+  },
+  correct:"b", picked:"a",
+  concept:"Countertransference is the therapist’s own emotional reaction to the client, shaped by the therapist’s past and unresolved conflicts. Here the clinician’s feelings toward the client are being coloured by her relationship with her son, so the reaction originates in <em>her</em>, not the client. Freud framed it as the analyst’s counterpart to the patient’s transference; modern practice treats it as a source of clinical information when noticed and managed.",
+  traps:{
+    a:{to:"Transference", why:"Reverses the direction. Transference is the <em>client</em> redirecting feelings about a past figure onto the therapist. Here it is the therapist reacting to the client, so it is the mirror image."},
+    c:{to:"Projective identification", why:"A Kleinian defence where the client unconsciously pushes the therapist to <em>act out</em> a disowned feeling. Nothing here says the client induced the feeling; it arises from the therapist’s own history."},
+    d:{to:"Therapeutic alliance", why:"The collaborative working bond between therapist and client. It is a working relationship, not an unconscious emotional reaction, so it does not fit the vignette."}
+  }
+};
+
+var LETTERS=["a","b","c","d"];
+var state={sel:0, mode:"light"};
+
+function pal(t,mode){ return mode==="dark"?t.dark:t.light; }
+
+function renderDevice(){
+  var t=THEMES[state.sel], p=pal(t,state.mode), dev=document.getElementById("device");
+  /* set palette vars on the device wrapper */
+  var vars=""; for(var k in p) vars+="--"+k+":"+p[k]+";";
+  dev.setAttribute("style",vars);
+
+  var q=SAMPLE;
+  var opts=LETTERS.map(function(L){
+    var cls="d-opt";
+    if(L===q.correct) cls+=" correct";
+    else if(L===q.picked) cls+=" wrong";
+    return '<div class="'+cls+'"><span class="k">'+L+'</span><span>'+q.opts[L]+'</span></div>';
+  }).join("");
+
+  var wrong=LETTERS.filter(function(L){return L!==q.correct && q.traps[L];});
+  var traps=wrong.map(function(L){
+    return '<div class="d-trap"><span class="tk">'+L.toUpperCase()+'</span><div><span class="to">'+q.traps[L].to+'</span><p>'+q.traps[L].why+'</p></div></div>';
+  }).join("");
+
+  var cells="";
+  for(var i=1;i<=12;i++){
+    var c="d-cell";
+    if(i<q.qi) c+=" answered";
+    if(i===q.qi) c+=" current answered";
+    if(i===4||i===9) c+=" flagged";
+    cells+='<div class="'+c+'">'+i+'</div>';
+  }
+
+  dev.innerHTML=
+  '<div class="d-top"><div class="d-top-row">'+
+    '<span class="d-back">← Library</span>'+
+    '<div class="d-mid"><b>MET Mock 2</b><span>180 questions · untimed</span></div>'+
+    '<div class="d-prog"><div class="d-rail"><i></i></div><div class="d-pnum">68 / 180</div></div>'+
+    '<div class="d-score"><b>+58.5</b><span>score so far</span></div>'+
+    '<span class="d-clock">🕳 <b>No clock</b></span>'+
+    '<button class="d-finish">Finish</button>'+
+  '</div></div>'+
+  '<div class="d-stage">'+
+    '<section class="d-reader">'+
+      '<div class="d-eyebrow">'+
+        '<span class="d-qi">Q<b>'+q.qi+'</b> / '+q.total+'</span>'+
+        '<span class="d-sec">'+q.section+'</span>'+
+        '<span class="d-flag"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>Flagged</span>'+
+      '</div>'+
+      '<p class="d-stem">'+q.stem+'</p>'+
+      '<div class="d-opts">'+opts+'</div>'+
+      '<div class="d-reveal">'+
+        '<div class="d-rtag">Why — answer '+q.correct.toUpperCase()+'</div>'+
+        '<div class="d-deep-h">The concept · why '+q.correct.toUpperCase()+' is right</div>'+
+        '<p>'+q.concept+'</p>'+
+        '<div class="d-deep-h">Why the other options are wrong</div>'+
+        '<div class="d-traps">'+traps+'</div>'+
+      '</div>'+
+      '<div class="d-foot">'+
+        '<button class="d-btn ghost">← Previous</button>'+
+        '<button class="d-link">Hide explanation</button>'+
+        '<span class="sp"></span>'+
+        '<button class="d-btn ghost">Skip →</button>'+
+        '<button class="d-btn primary">Next →</button>'+
+      '</div>'+
+    '</section>'+
+    '<aside class="d-nav">'+
+      '<h3>Jump to question</h3>'+
+      '<div class="d-filters"><span class="on">All</span><span>Unanswered 112</span><span>Review 2</span></div>'+
+      '<div class="d-grid">'+cells+'</div>'+
+      '<div class="d-legend"><div><span class="d-sw"></span> Not answered</div><div><span class="d-sw a"></span> Answered</div></div>'+
+    '</aside>'+
+  '</div>';
+
+  document.getElementById("nowName").textContent="#"+t.n+" · "+t.name;
+  document.querySelectorAll(".chip").forEach(function(el,idx){el.classList.toggle("on",idx===state.sel);});
+  document.querySelectorAll("#modeSeg button").forEach(function(b){b.classList.toggle("on",b.dataset.m===state.mode);});
+  document.documentElement.setAttribute("data-mode",state.mode);
+}
+
+function buildChips(){
+  var wrap=document.getElementById("chips");
+  wrap.innerHTML=THEMES.map(function(t,i){
+    var lp=t.light, dp=t.dark, p=pal(t,t.sig);
+    return '<button class="chip" data-i="'+i+'" style="--c-primary:'+p.primary+'">'+
+      '<span class="num">'+t.n+'</span>'+
+      '<span class="swatch" style="background:'+p.bg+'">'+
+        '<span class="card" style="background:'+p.surface+';border:1px solid '+p.line+'">'+
+          '<span class="aa" style="color:'+p.ink+'">Aa</span>'+
+          '<span class="dot" style="background:'+p.primary+'"></span>'+
+          '<span class="dot" style="background:'+p.good+'"></span>'+
+          '<span class="dot" style="background:'+p.bad+'"></span>'+
+        '</span>'+
+      '</span>'+
+      '<span class="nm">'+t.name+'</span>'+
+      '<span class="ds">'+t.desc+'</span>'+
+    '</button>';
+  }).join("");
+  wrap.querySelectorAll(".chip").forEach(function(el){
+    el.onclick=function(){ selectTheme(+el.dataset.i); };
+  });
+}
+
+function selectTheme(i){
+  state.sel=i;
+  state.mode=THEMES[i].sig;   /* jump to the mode this theme was designed for */
+  renderDevice();
+  document.getElementById("device").scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+document.getElementById("modeSeg").onclick=function(e){
+  var b=e.target.closest("button"); if(!b)return;
+  state.mode=b.dataset.m; renderDevice();
+};
+
+document.addEventListener("keydown",function(e){
+  if(e.key>="1"&&e.key<="5"){ selectTheme(+e.key-1); }
+  else if(e.key.toLowerCase()==="l"){ state.mode="light"; renderDevice(); }
+  else if(e.key.toLowerCase()==="d"){ state.mode="dark"; renderDevice(); }
+});
+
+buildChips();
+selectTheme(0);
+</script>
+</body>
+</html>
