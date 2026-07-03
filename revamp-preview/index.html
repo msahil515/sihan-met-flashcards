@@ -102,7 +102,7 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-s
       <span>Clean <b>score</b> + section breakdown</span>
     </div>
     <div class="cta-row">
-      <a class="big-btn" href="screen.html">Try the new test screen →</a>
+      <a class="big-btn" href="screen.html?m=met-mock-2">Try the new test screen →</a>
       <a class="big-btn alt" href="#library">See the mock library</a>
     </div>
   </header>
@@ -128,7 +128,7 @@ for(const g of GROUPS){
   for(const m of members){
     const badge = m.deepExp?'<span class="badge deep">Deep ✓</span>':(m.fresh?'<span class="badge new">New</span>':'');
     const tags=(m.tags||[]).slice(0,3).map(t=>`<i>${t}</i>`).join("");
-    out+=`<a class="card" href="screen.html">
+    out+=`<a class="card" href="screen.html?m=${m.id}">
       ${badge}
       <div class="ct">${m.title}</div>
       <div class="cs">${m.sub||""}</div>

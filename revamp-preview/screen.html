@@ -256,11 +256,17 @@ button{font-family:inherit;cursor:pointer}
 <!-- RESULTS -->
 <div class="results" id="results"></div>
 
-<script src="data-mock.js"></script>
+<script src="data-all.js"></script>
 <script>
-const M = window.PREVIEW_MOCK;
+/* pick the mock from ?m=<id>; fall back to met-mock-2 (or first available) */
+const ALL = window.PREVIEW_MOCKS || {};
+const reqId = new URLSearchParams(location.search).get("m");
+const MID = (reqId && ALL[reqId]) ? reqId : (ALL["met-mock-2"] ? "met-mock-2" : Object.keys(ALL)[0]);
+const M = ALL[MID] || (window.PREVIEW_MOCK || {questions:[],sectionLabels:{},fullTitle:"Mock",sub:""});
+M.title = M.fullTitle || M.title || "Mock";
+M.sub = M.sub || (M.questions.length + " questions · untimed");
 const Q = M.questions, SL = M.sectionLabels, N = Q.length;
-const KEY = "revamp-preview-mock2-v1";
+const KEY = "revamp-preview-" + MID + "-v1";
 const LETTERS = ["a","b","c","d"];
 
 let st = {i:0, answers:{}, flags:{}, revealed:{}, visited:{0:1}, filter:"all"};
@@ -417,7 +423,7 @@ function finish(){
   const R=document.getElementById("results");
   R.innerHTML=`
     <div class="score-card">
-      <div class="score-eyebrow">MET Mock 2 · untimed · scored +1 / −0.25</div>
+      <div class="score-eyebrow">${M.title} · untimed · scored +1 / −0.25</div>
       <div class="score-big">${score.toFixed(2).replace(/\.00$/,'')}<small> / ${N}</small></div>
       <div class="score-sub">${right} of ${answered} answered right (${accAnswered}%)${skipped?` · ${skipped} left blank`:""}</div>
       <div class="score-stats">
@@ -452,7 +458,7 @@ function finish(){
   };
   document.getElementById("backBtn2").onclick=backToQuiz;
   document.getElementById("restartBtn").onclick=()=>{
-    if(!confirm("Clear all answers and flags and start MET Mock 2 fresh?"))return;
+    if(!confirm("Clear all answers and flags and start "+M.title+" fresh?"))return;
     st={i:0,answers:{},flags:{},revealed:{},visited:{0:1},filter:"all"};save();
     backToQuiz(); renderQ(); syncNav(); updateProg();
   };
