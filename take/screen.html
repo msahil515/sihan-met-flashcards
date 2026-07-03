@@ -147,6 +147,44 @@ button{font-family:inherit;cursor:pointer}
 .deep-concept strong,.trap-body strong,.rev-note strong{color:var(--ink);font-weight:600}
 .deep-concept em,.trap-body em{font-style:italic}
 
+/* ---- structured explanation: answer block + titled chunks + A/B/C/D traps ---- */
+.exp{display:flex;flex-direction:column;gap:0}
+.exp b,.exp strong{color:var(--ink);font-weight:700}
+.exp i,.exp em{font-style:italic}
+.exp-answer{display:flex;flex-wrap:wrap;align-items:center;gap:12px;
+  background:var(--good-wash);border:1px solid var(--good);border-left:4px solid var(--good);
+  border-radius:12px;padding:14px 16px}
+.exp-answer .ak{flex:none;min-width:30px;height:30px;padding:0 9px;border-radius:8px;background:var(--good);
+  color:#fff;font-family:var(--font-ui);font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center}
+.exp-answer .abody{min-width:0;flex:1}
+.exp-answer .alabel{font-family:var(--font-ui);font-size:10.5px;font-weight:700;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--good);display:block;margin-bottom:2px}
+.exp-answer .atext{font-family:var(--font-read);font-size:17px;line-height:1.35;color:var(--ink);font-weight:600}
+.exp-answer .exp-fig{width:100%;font-family:var(--font-ui);font-size:13px;color:var(--ink-soft);
+  border-top:1px dashed var(--good);padding-top:9px;margin-top:2px}
+.exp-answer .exp-fig strong{color:var(--good)}
+.exp-sec{padding-top:16px;margin-top:16px;border-top:1px solid var(--line)}
+.exp-sec:first-child{padding-top:0;margin-top:0;border-top:0}
+.exp-sec .exp-h{font-family:var(--font-ui);font-size:11px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--primary-ink);margin:0 0 9px}
+.exp-sec p{font-family:var(--font-read);font-size:17px;line-height:1.56;color:var(--ink-soft);margin:0 0 10px}
+.exp-sec p:last-child{margin-bottom:0}
+.exp-traps{display:flex;flex-direction:column;gap:10px}
+.exp-trap{display:flex;gap:12px;align-items:flex-start;background:var(--bad-wash);
+  border:1px solid var(--line);border-left:3px solid var(--bad);border-radius:12px;padding:12px 14px}
+.exp-trap .tk{flex:0 0 26px;height:26px;border-radius:7px;background:var(--bad);color:#fff;font-weight:700;
+  font-size:13px;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);margin-top:1px}
+.exp-trap .tb{min-width:0}
+.exp-trap .to{font-family:var(--font-read);font-weight:600;color:var(--ink);font-size:15.5px;display:block;margin-bottom:4px}
+.exp-trap .tw{font-family:var(--font-read);font-size:15px;line-height:1.5;color:var(--ink-soft);margin:0}
+.exp-trap .tflag{font-family:var(--font-ui);font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--bad);display:inline-block;margin-right:7px;vertical-align:1px}
+/* tighter variant inside the results review list */
+.rev-note .exp-answer{padding:11px 13px}
+.rev-note .exp-sec{padding-top:13px;margin-top:13px}
+.rev-note .exp-sec p{font-size:15.5px}
+.rev-note .exp-answer .atext{font-size:15.5px}
+
 /* footer controls in reader */
 .reader-foot{margin-top:auto;padding-top:24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .reader-foot .spacer{flex:1}
@@ -330,23 +368,80 @@ function writeSummary(){
 }
 function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){} writeSummary();}
 
-/* deep explanation: from-scratch concept + per-wrong-option trap breakdown.
-   Falls back to the plain one-string explanation for mocks not yet deepened. */
+/* Structured explanation renderer (shared by the live reveal AND the results
+   review). Every explanation renders as: a highlighted correct-answer (+ key
+   figure) block up top, then the concept broken into titled chunks (not one
+   blob), then an A/B/C/D "why each wrong option is wrong" list with the trap
+   called out. Theorist / proper names are bolded on plain-text segments; any
+   segment that already carries authored HTML (<b>, <i>, .exp-book …) is left
+   untouched so its own markup survives. Falls back to the one-string
+   explanation — still inside the answer block — for mocks not yet deepened. */
 const DEEP = (window.PREVIEW_DEEP && window.PREVIEW_DEEP[MID]) || null;
+const STOP_LEAD=/^(The|This|That|These|Those|Option|Options|Both|When|Because|While|Although|However|Since|Rather|Unlike|Its|Their|His|Her|Your|If|In|At|As|On|By|For|Not|Equal|Each|Every|Here|There|Latin|Greek|Thus|Hence)\b/;
+function boldFig(seg){
+  if(!seg || /[<>]/.test(seg)) return seg;               // leave authored HTML alone
+  seg = seg.replace(/\b([A-Z][a-z]{2,}(?:'|’)s)\b/g,'<strong>$1</strong>');       // Piaget's, Skinner's
+  seg = seg.replace(/\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2})\b/g,function(m){           // Jean Piaget, Carl Rogers
+    return STOP_LEAD.test(m)?m:'<strong>'+m+'</strong>';});
+  return seg;
+}
+function findFigure(text){
+  if(!text) return null;
+  let m = String(text).match(/\b([A-Z][a-z]{2,})(?:'|’)s\b/);
+  if(m && !/^(This|That|These|Those|Option|Both|Here|There|Latin|Greek|Its|Their|Each|Every|Thus|Hence)$/.test(m[1])) return m[1];
+  m = String(text).match(/\b(?:by|after|per|from|of)\s+([A-Z][a-z]+\s+[A-Z][a-z]+)\b/);
+  if(m && !STOP_LEAD.test(m[1])) return m[1];
+  return null;
+}
+function paras(text){
+  if(!text) return [];
+  // split into sentences (lookahead only — no lookbehind, older-Safari safe),
+  // then pair sentences up so each chunk is a short readable paragraph.
+  const parts = String(text).replace(/([.!?])\s+(?=[A-Z(<"'‘“])/g,'$1␟').split('␟');
+  const out=[]; for(let i=0;i<parts.length;i+=2) out.push(parts.slice(i,i+2).join(' ').trim());
+  return out.filter(Boolean);
+}
+function answerBlock(q, figSource){
+  const fig = findFigure(figSource);
+  return `<div class="exp-answer">
+      <span class="ak">${q.correct.toUpperCase()}</span>
+      <span class="abody"><span class="alabel">Correct answer</span>
+      <span class="atext">${q.options[q.correct]||""}</span></span>
+      ${fig?`<span class="exp-fig">Key figure — <strong>${fig}</strong></span>`:""}
+    </div>`;
+}
 function explainHTML(q, idx){
-  // deep overlay is an ordered array (index matches runtime question order); guard on the stem.
   const d = (DEEP && DEEP[idx]) ? DEEP[idx] : null;
-  if(!d || (d.q && q.q && d.q.trim()!==q.q.trim())) return `<p>${q.explanation||""}</p>`;
-  let h = "";
-  if(d.concept) h += `<div class="deep-concept"><div class="deep-h">The concept · why ${q.correct.toUpperCase()} is right</div><p>${d.concept}</p></div>`;
-  const traps = d.traps||{};
-  const wrong = LETTERS.filter(L=>q.options[L] && L!==q.correct && traps[L]);
-  if(wrong.length){
-    h += `<div class="deep-h">Why the other options are wrong</div><div class="deep-traps">`;
-    h += wrong.map(L=>`<div class="trap"><span class="trap-k">${L.toUpperCase()}</span><div class="trap-body"><span class="to">${q.options[L]}</span><p>${traps[L]}</p></div></div>`).join("");
-    h += `</div>`;
+  const deepOK = d && !(d.q && q.q && d.q.trim()!==q.q.trim()) && d.concept;
+  let h = `<div class="exp">`;
+  if(deepOK){
+    h += answerBlock(q, d.concept);
+    // peel the "Option x captures…" justification sentence off the definition
+    let def=d.concept, why="";
+    const cut=d.concept.search(/[.!?]\s+Options?\s+[a-d]\b/);
+    if(cut>40){ def=d.concept.slice(0,cut+1).trim(); why=d.concept.slice(cut+1).trim(); }
+    h += `<div class="exp-sec"><div class="exp-h">The concept</div>${
+      paras(def).map(p=>`<p>${boldFig(p)}</p>`).join("")}</div>`;
+    if(why) h += `<div class="exp-sec"><div class="exp-h">Why ${q.correct.toUpperCase()} is right</div>${
+      paras(why).map(p=>`<p>${boldFig(p)}</p>`).join("")}</div>`;
+    const traps=d.traps||{};
+    const wrong=LETTERS.filter(L=>q.options[L] && L!==q.correct && traps[L]);
+    if(wrong.length){
+      h += `<div class="exp-sec"><div class="exp-h">Why the other options are wrong</div><div class="exp-traps">`;
+      h += wrong.map(L=>`<div class="exp-trap"><span class="tk">${L.toUpperCase()}</span>`
+        +`<span class="tb"><span class="to">${q.options[L]}</span>`
+        +`<p class="tw"><span class="tflag">The trap</span>${boldFig(traps[L])}</p></span></div>`).join("");
+      h += `</div></div>`;
+    }
+  } else {
+    // not-yet-deepened mock: still lead with the answer block, then structure
+    // whatever single-string explanation exists into short paragraphs.
+    h += answerBlock(q, q.explanation||"");
+    const body=paras(q.explanation||"");
+    if(body.length) h += `<div class="exp-sec"><div class="exp-h">Why ${q.correct.toUpperCase()} is right</div>${
+      body.map(p=>`<p>${boldFig(p)}</p>`).join("")}</div>`;
   }
-  return h || `<p>${q.explanation||""}</p>`;
+  return h + `</div>`;
 }
 const answeredCount = ()=>Object.keys(st.answers).length;
 const flaggedCount = ()=>Object.values(st.flags).filter(Boolean).length;
@@ -413,7 +508,7 @@ function renderQ(){
     <p class="stem">${q.q}</p>
     <div class="opts">${optHtml}</div>
     <div class="reveal ${revealed?"show":""}" id="revealBox">
-      <div class="reveal-tag">Why — answer ${q.correct.toUpperCase()}</div>
+      <div class="reveal-tag">Explanation</div>
       ${explainHTML(q, st.i)}
     </div>
     <div class="reader-foot">
