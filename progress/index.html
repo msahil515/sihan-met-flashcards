@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d1117">
+<title>Progress — what's done on each task</title>
+<link rel="stylesheet" href="../site.css">
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<style>
+  .wrap { max-width: 860px; margin: 0 auto; padding: 18px 16px 90px; }
+  .lede { color: var(--muted); font-size: 14px; margin: 4px 0 20px; }
+  .lede b { color: var(--text); }
+  .stamp { color: var(--muted); font-size: 12px; margin-bottom: 18px; }
+  .prio {
+    background: var(--accent-soft); border: 1px solid var(--accent-dim);
+    border-radius: 10px; padding: 12px 14px; margin: 0 0 22px;
+    font-size: 13.5px; color: var(--text); line-height: 1.55;
+  }
+  .prio b { color: var(--accent); }
+  .grp-title {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 1.4px;
+    color: var(--muted); margin: 26px 0 10px; font-weight: 700;
+  }
+  .card {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 10px; padding: 13px 15px; margin-bottom: 11px;
+  }
+  .card-top { display: flex; align-items: baseline; gap: 10px; justify-content: space-between; }
+  .card-title { font-size: 15px; font-weight: 650; color: var(--text); }
+  .pct { font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+  .bar { height: 8px; border-radius: 6px; background: var(--panel-3); margin: 9px 0 8px; overflow: hidden; }
+  .bar > span { display: block; height: 100%; border-radius: 6px; }
+  .note { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .tag {
+    display: inline-block; font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.6px; padding: 2px 7px; border-radius: 5px; margin-left: 8px; vertical-align: 2px;
+  }
+  .tag.blocked { background: var(--bad-soft); color: var(--bad); }
+  .tag.live { background: var(--good-soft); color: var(--good); }
+  .tag.queued { background: var(--panel-3); color: var(--muted); }
+  .tag.building { background: var(--accent-soft); color: var(--accent); }
+  .card a { color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--accent); }
+  .roll { display: flex; gap: 14px; flex-wrap: wrap; margin: 18px 0 4px; }
+  .roll .box {
+    flex: 1; min-width: 150px; background: var(--panel); border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px 14px;
+  }
+  .roll .n { font-size: 22px; font-weight: 800; color: var(--text); font-variant-numeric: tabular-nums; }
+  .roll .l { font-size: 11.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-title">Sihan, MET 2026</span>
+      <span class="brand-sub">MA Clinical Psychology</span>
+    </div>
+    <nav class="nav">
+      <a href="../">Dashboard</a>
+      <a href="../tests/">Tests</a>
+      <a href="../results/">My Results</a>
+      <a href="../notes/">Notes</a>
+      <a href="./" class="active">Progress</a>
+      <a href="../admissions/">Admissions</a>
+      <a href="../downloads/">Downloads</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+  <h1 style="margin:8px 0 2px;font-size:24px;">Progress board</h1>
+  <p class="lede">Every pending task, straight read, no inflating. <b>Two big builds first</b> (RML textbook + site revamp). Everything sitting at 0% is queued on purpose or waiting on something from you, not forgotten.</p>
+  <p class="stamp" id="stamp">Last updated 3 Jul 2026</p>
+
+  <div class="roll">
+    <div class="box"><div class="n" id="rActive">4</div><div class="l">In progress</div></div>
+    <div class="box"><div class="n" id="rBlocked">3</div><div class="l">Waiting on you</div></div>
+    <div class="box"><div class="n" id="rQueued">2</div><div class="l">Queued</div></div>
+    <div class="box"><div class="n" id="rLive">1</div><div class="l">Live watch</div></div>
+  </div>
+
+  <div class="prio">
+    <b>How to read this:</b> the two builds are where the hours are going. Anything at 0% blocked has a one-line ask next to it. Send me that one thing and it moves off zero the same day.
+  </div>
+
+  <div id="board"></div>
+</div>
+
+<script>
+var TASKS = [
+  { group: "Building now", items: [
+    { t: "RML full textbook", pct: 60, tag: "building",
+      n: "Whole CET-166 syllabus from scratch, PYQ-weighted, in the notes app. Syllabus backbone mapped, high-yield sections drafted; still building the thinner topics out to full depth.",
+      link: "../notes-app/", linkText: "Notes app" },
+    { t: "MET site revamp, theme 1", pct: 55, tag: "building",
+      n: "Structured deep explanation on every Q (answer + theorist block, chunked concept, A/B/C/D traps) + untimed engine. Engine and layout done; wiring the per-Q structured render across the mocks now.",
+      link: "../take/", linkText: "New look" },
+    { t: "Notes app: structured layout + theorist app-wide", pct: 40, tag: "building",
+      n: "Theorist named at every theory, structured layout on every note. New RML material already complies; sweeping the older notes into the same shape now." },
+    { t: "RCI tracker: fee / seats / hostel cells", pct: 50, tag: "building",
+      n: "Filling the fee, seats and hostel columns for the target colleges in chunks.",
+      link: "../admissions/", linkText: "Admissions" },
+  ]},
+  { group: "Refocus", items: [
+    { t: "Strip + refocus to Amity Noida / SGT / RML / IHBAS / CIP", pct: 20, tag: "building",
+      n: "Dead NIMHANS / Manipal admin content archived. Full sweep to cut everything down to the five live targets still pending.",
+      link: "../archive/", linkText: "Archive" },
+  ]},
+  { group: "Waiting on you", items: [
+    { t: "Results gap analysis", pct: 0, tag: "blocked",
+      n: "Fully blocked. Send your attempt result screenshots and this moves the same day." },
+    { t: "Common section: 32-miss breakdown", pct: 0, tag: "blocked",
+      n: "Need the 32 review questions you got wrong. Send those 32 and I build the per-miss breakdown page." },
+    { t: "Study material for MD", pct: 0, tag: "blocked",
+      n: "Blocked on one word: tell me what MD means (which exam / subject) and I start building." },
+  ]},
+  { group: "Queued behind the two builds", items: [
+    { t: "Tests deep pass", pct: 0, tag: "queued",
+      n: "Deep structured explanations on pep mocks + MET mocks 1-4 + bio paper + diagnostic. Queued on purpose so I'm not spreading thin across half-finished mocks." },
+    { t: "MET APK: refresh/sync button + daily rebuild", pct: 0, tag: "queued",
+      n: "In-app refresh button + a daily auto-rebuild off the live site. Not started, next after the builds." },
+  ]},
+  { group: "Live watch", items: [
+    { t: "Watching IHBAS + CIP 2026 windows", pct: null, tag: "live",
+      n: "Ongoing, live watch. Nothing dropped yet; you'll get pinged the day either window opens.",
+      link: "../news/", linkText: "News board" },
+  ]},
+];
+
+function barColor(pct){
+  if (pct === null) return "var(--good)";
+  if (pct === 0) return "var(--bad)";
+  if (pct < 50) return "var(--warn)";
+  return "var(--accent)";
+}
+function pctColor(pct){
+  if (pct === null) return "var(--good)";
+  if (pct === 0) return "var(--muted)";
+  if (pct < 50) return "var(--warn)";
+  return "var(--accent)";
+}
+
+var board = document.getElementById("board");
+TASKS.forEach(function(g){
+  var h = document.createElement("div");
+  h.className = "grp-title";
+  h.textContent = g.group;
+  board.appendChild(h);
+  g.items.forEach(function(it){
+    var c = document.createElement("div");
+    c.className = "card";
+    var pctText = it.pct === null ? "live" : it.pct + "%";
+    var fill = it.pct === null ? 100 : it.pct;
+    var link = it.link ? ' <a href="' + it.link + '">' + (it.linkText || "open") + ' →</a>' : '';
+    c.innerHTML =
+      '<div class="card-top"><div class="card-title">' + it.t +
+        '<span class="tag ' + it.tag + '">' + it.tag + '</span></div>' +
+        '<div class="pct" style="color:' + pctColor(it.pct) + '">' + pctText + '</div></div>' +
+      '<div class="bar"><span style="width:' + fill + '%;background:' + barColor(it.pct) + '"></span></div>' +
+      '<div class="note">' + it.n + link + '</div>';
+    board.appendChild(c);
+  });
+});
+</script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("/sihan-met-flashcards/sw.js").catch(function () {});
+  });
+}
+</script>
+<script src="/sihan-met-flashcards/nav-toggle.js"></script>
+</body>
+</html>
