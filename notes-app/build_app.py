@@ -112,6 +112,9 @@ BOOKS = [
     dict(slug="systems-theories", shelf="systems", kind="merged", search_cap=40000,
          short="Systems & Theories of Psychology",
          blurb="The full history-and-systems unit taught from the ground up to NIMHANS depth: structuralism, functionalism, Gestalt, behaviorism, psychoanalysis and the whole psychodynamic tree, humanistic and existential, the cognitive revolution, and Indian psychology, with every key theorist, date, and exam trap inline. Read top to bottom to see how each school answers the one before it. The companion notes to the 119-question Systems & Theories mock."),
+    dict(slug="systems-theories-explained", shelf="systems", kind="merged", search_cap=40000,
+         short="Systems & Theories — Answer Explanations",
+         blurb="Every one of the 119 Systems & Theories mock questions written out the way the test screen shows them: the correct answer and the theorist it belongs to up top, the concept built from scratch below, then each wrong option nailed to whose idea it actually is. The full-depth explanations, now readable straight through in the notes app, grouped by school."),
     # --- Amity ---
     dict(slug="amity", shelf="amity", kind="merged",
          short="Amity — MA Clinical Psychology",
