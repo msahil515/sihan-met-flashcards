@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Revamp preview — new theme</title>
+<title>Take a mock — new look · MET / RCI Clinical Psych prep</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -83,16 +83,28 @@ a{color:inherit} button{font-family:inherit;cursor:pointer}
 .tags i{font-style:normal;font-size:11px;font-weight:600;color:var(--ink-soft);
   background:var(--surface-2);padding:3px 9px;border-radius:7px}
 footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:13px;text-align:center}
+.topnav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:14px 0 0}
+.topnav a{font-size:13px;font-weight:600;color:var(--ink-soft);text-decoration:none;padding:7px 12px;border-radius:9px;border:1px solid var(--line);background:var(--surface)}
+.topnav a:hover{border-color:var(--primary);color:var(--primary)}
+.topnav .sp{flex:1}
 </style>
+<script src="theme.js"></script>
 </head>
 <body>
-<div class="pv">Preview build — the <b>new theme</b> applied to the tests list + the test-taking screen. Nothing live has changed. Tap any mock to try the new answer screen.</div>
 
 <div class="wrap">
+  <nav class="topnav">
+    <a href="../">Dashboard</a>
+    <a href="../tests/">Full test library</a>
+    <a href="../notes-app/">Notes</a>
+    <a href="../results/">My results</a>
+    <span class="sp"></span>
+    <span id="themeMount"></span>
+  </nav>
   <header class="hero">
-    <div class="kicker">MET / RCI Clinical Psych 2026 · revamp preview</div>
+    <div class="kicker">MET / RCI Clinical Psych 2026 · new look</div>
     <h1>The screen you actually <em>work in</em>, redesigned.</h1>
-    <p class="lede">Same papers, new feel. A calmer reading layout, no clock anywhere, jump between questions, flag and come back, mark for review, and a clean score at the end. Both the list and the test screen, one theme throughout.</p>
+    <p class="lede">Same papers, new feel. A calmer reading layout, no clock anywhere, jump between questions, flag and come back, mark for review, and a clean score at the end. Five themes to pick from, light or dark, one look throughout.</p>
     <div class="feat">
       <span><b>No</b> timer or clock</span>
       <span>Serif <b>reading</b> layout</span>
@@ -102,13 +114,13 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-s
       <span>Clean <b>score</b> + section breakdown</span>
     </div>
     <div class="cta-row">
-      <a class="big-btn" href="screen.html?m=met-mock-2">Try the new test screen →</a>
-      <a class="big-btn alt" href="#library">See the mock library</a>
+      <a class="big-btn" href="screen.html?m=met-mock-2">Open MET Mock 2 →</a>
+      <a class="big-btn alt" href="#library">Jump to the mock library</a>
     </div>
   </header>
 
   <main class="groups" id="library"><!-- rendered --></main>
-  <footer>Preview only · portrait + landscape · your live site is untouched until you say go.</footer>
+  <footer>New look · untimed · portrait + landscape · answers saved locally in your browser.</footer>
 </div>
 
 <script src="data-registry.js"></script>
@@ -134,7 +146,7 @@ for(const g of GROUPS){
       <div class="cs">${m.sub||""}</div>
       <div class="tags">${tags}</div>
       <div class="meta"><span class="qn">${m.total||"—"}<small> Qs</small></span>
-        <span class="go">Preview screen →</span></div>
+        <span class="go">Open →</span></div>
     </a>`;
   }
   out+=`</div></section>`;

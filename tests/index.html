@@ -53,6 +53,19 @@
   .done-toggle:hover { border-color: var(--good); color: var(--good); }
   .done-toggle.is-done { border-color: var(--good); background: var(--good); color: #0d1117; }
   .card.is-finished { opacity: .62; }
+  .cta-row2 { display: flex; align-items: center; gap: 10px; }
+  .take-new { flex: none; font-size: 12px; font-weight: 700; padding: 7px 13px; border-radius: 999px;
+    cursor: pointer; border: 1px solid var(--accent); background: transparent; color: var(--accent);
+    transition: all .12s; line-height: 1; margin-left: auto; }
+  .take-new:hover { background: var(--accent); color: #0d1117; }
+  .newlook-banner { display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    border: 1px solid var(--accent); background: rgba(88,166,255,.08); border-radius: 14px;
+    padding: 14px 18px; margin: 0 0 20px; }
+  .newlook-banner .nb-txt { flex: 1; min-width: 200px; }
+  .newlook-banner .nb-txt b { font-size: 15px; }
+  .newlook-banner .nb-txt span { display: block; color: var(--muted); font-size: 13px; margin-top: 3px; }
+  .newlook-banner a.nb-go { flex: none; background: var(--accent); color: #0d1117; font-weight: 700;
+    font-size: 13.5px; text-decoration: none; padding: 11px 18px; border-radius: 11px; }
   .card.is-finished:hover { opacity: 1; }
 
   /* Pinned deep-explanation section */
@@ -146,6 +159,14 @@
       <a class="pill" href="#grp-pep">Entrance prep</a>
       <a class="pill" href="#grp-diag">Diagnostics</a>
     </div>
+  </div>
+
+  <div class="newlook-banner">
+    <div class="nb-txt">
+      <b>✨ New look is live</b>
+      <span>Take any mock in the redesigned screen: five themes (light or dark), no clock, jump navigator, running score, cleaner explanations. Hit "✨ New look" on any card, or open the whole library in the new theme.</span>
+    </div>
+    <a class="nb-go" href="../take/">Open new-look library →</a>
   </div>
 
   <section id="study" class="study-sec">
@@ -776,7 +797,10 @@ function buildCardEl(m, r, finished, done, pinned) {
     </div>
     <div class="bar ${pct==null?'':pct>=75?'good':pct>=50?'warn':'bad'}"><span style="width:${pct==null?0:Math.min(100,pct)}%"></span></div>
     <div class="pill-row">${m.tags.map(t => `<span class="pill${t === 'deep explanations' ? ' deep-pill' : ''}">${t}</span>`).join("")}</div>
-    <div class="card-cta">${finished ? "Revisit →" : (r.answered ? "Continue →" : "Open mock →")}</div>
+    <div class="cta-row2">
+      <span class="card-cta">${finished ? "Revisit →" : (r.answered ? "Continue →" : "Open mock →")}</span>
+      <button type="button" class="take-new" data-take-id="${m.id}" title="Take it in the new look: five themes, no clock, jump navigator, running score">✨ New look</button>
+    </div>
   `;
   return a;
 }
@@ -1047,6 +1071,13 @@ function wireDoneClicks(gridId) {
   const grid = document.getElementById(gridId);
   if (!grid) return;
   grid.addEventListener("click", (e) => {
+    const take = e.target.closest("[data-take-id]");
+    if (take) {
+      e.preventDefault();
+      e.stopPropagation();
+      location.href = "../take/screen.html?m=" + encodeURIComponent(take.getAttribute("data-take-id"));
+      return;
+    }
     const btn = e.target.closest("[data-done-id]");
     if (!btn) return;
     e.preventDefault();
