@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Revamp preview — new theme</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4F6F7; --surface:#FFFFFF; --surface-2:#EEF1F2; --line:#DCE2E3;
+  --ink:#17262B; --ink-soft:#425258; --muted:#6C7B80;
+  --primary:#0B6E6B; --primary-ink:#08514F; --primary-wash:#E4F0EF;
+  --amber:#C77D2E; --amber-wash:#FBEEDD; --good:#2E7D5B; --bad:#BE4A32;
+  --shadow:0 1px 2px rgba(23,38,43,.05), 0 10px 28px rgba(23,38,43,.07);
+  --font-ui:'Inter',system-ui,-apple-system,sans-serif;
+  --font-read:'Newsreader',Georgia,serif; --font-display:'Fraunces',Georgia,serif;
+}
+@media (prefers-color-scheme: dark){:root{
+  --bg:#0E1618; --surface:#152124; --surface-2:#1B292C; --line:#26383C;
+  --ink:#E7EDED; --ink-soft:#AFC0C1; --muted:#7E9294;
+  --primary:#3FB6AF; --primary-ink:#8FE0DA; --primary-wash:#123332;
+  --amber:#E0A55C; --amber-wash:#33260F; --good:#5FC494; --bad:#E58469;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 32px rgba(0,0,0,.35);
+}}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--font-ui);-webkit-font-smoothing:antialiased;line-height:1.55}
+a{color:inherit} button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+
+/* preview banner */
+.pv{background:var(--ink);color:var(--surface);font-size:13px;font-weight:500;
+  padding:9px 20px;text-align:center}
+.pv b{color:var(--amber)}
+
+/* hero */
+.hero{padding:56px 0 30px;position:relative}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--primary-ink);margin-bottom:16px}
+.hero h1{font-family:var(--font-display);font-weight:600;font-size:clamp(38px,6vw,62px);
+  line-height:1.02;letter-spacing:-.025em;margin:0 0 18px;max-width:15ch}
+.hero h1 em{font-style:italic;color:var(--primary)}
+.lede{font-family:var(--font-read);font-size:20px;line-height:1.5;color:var(--ink-soft);max-width:60ch;margin:0}
+.feat{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.feat span{font-size:13px;font-weight:600;color:var(--ink-soft);background:var(--surface);
+  border:1px solid var(--line);padding:8px 14px;border-radius:99px;box-shadow:var(--shadow)}
+.feat span b{color:var(--primary)}
+.cta-row{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap}
+.big-btn{display:inline-flex;align-items:center;gap:9px;background:var(--primary);color:#fff;
+  text-decoration:none;font-weight:600;font-size:15px;padding:14px 24px;border-radius:13px;
+  box-shadow:0 6px 18px color-mix(in srgb,var(--primary) 32%,transparent);transition:.15s}
+.big-btn:hover{background:var(--primary-ink)}
+.big-btn.alt{background:var(--surface);color:var(--ink);border:1px solid var(--line);box-shadow:var(--shadow)}
+
+/* group */
+.groups{padding:20px 0 70px}
+.grp{margin-top:44px}
+.grp-head{display:flex;align-items:baseline;gap:14px;margin-bottom:4px;
+  border-bottom:1px solid var(--line);padding-bottom:12px}
+.grp-head h2{font-family:var(--font-display);font-weight:600;font-size:26px;letter-spacing:-.015em;margin:0;
+  display:inline-flex;align-items:center;gap:11px}
+.grp-head h2::before{content:"";width:5px;height:22px;border-radius:3px;background:var(--dot,var(--primary))}
+.grp-head .count{margin-left:auto;font-size:12.5px;color:var(--muted);font-weight:600;white-space:nowrap}
+.grp-sub{font-family:var(--font-read);font-size:15.5px;color:var(--muted);margin:12px 0 20px;max-width:70ch}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);
+  border-radius:16px;box-shadow:var(--shadow);padding:22px;text-decoration:none;transition:.16s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-3px);border-color:var(--primary)}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--dot,var(--primary));opacity:.85}
+.card .ct{font-family:var(--font-display);font-weight:600;font-size:18.5px;line-height:1.2;letter-spacing:-.01em;margin:6px 0 8px;padding-right:58px}
+.card .cs{font-size:13px;color:var(--muted);line-height:1.5}
+.card .meta{margin-top:auto;padding-top:16px;display:flex;align-items:center;gap:10px}
+.card .qn{font-family:var(--font-display);font-weight:600;font-size:22px;color:var(--ink)}
+.card .qn small{font-size:12px;color:var(--muted);font-weight:500;font-family:var(--font-ui)}
+.card .go{margin-left:auto;font-size:13px;font-weight:600;color:var(--primary)}
+.badge{position:absolute;top:16px;right:16px;font-size:10.5px;font-weight:700;letter-spacing:.05em;
+  padding:4px 9px;border-radius:99px;text-transform:uppercase}
+.badge.new{background:var(--primary-wash);color:var(--primary-ink)}
+.badge.deep{background:var(--amber-wash);color:var(--amber)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tags i{font-style:normal;font-size:11px;font-weight:600;color:var(--ink-soft);
+  background:var(--surface-2);padding:3px 9px;border-radius:7px}
+footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:13px;text-align:center}
+</style>
+</head>
+<body>
+<div class="pv">Preview build — the <b>new theme</b> applied to the tests list + the test-taking screen. Nothing live has changed. Tap any mock to try the new answer screen.</div>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="kicker">MET / RCI Clinical Psych 2026 · revamp preview</div>
+    <h1>The screen you actually <em>work in</em>, redesigned.</h1>
+    <p class="lede">Same papers, new feel. A calmer reading layout, no clock anywhere, jump between questions, flag and come back, mark for review, and a clean score at the end. Both the list and the test screen, one theme throughout.</p>
+    <div class="feat">
+      <span><b>No</b> timer or clock</span>
+      <span>Serif <b>reading</b> layout</span>
+      <span>Jump-to <b>navigator</b></span>
+      <span>Flag &amp; <b>review</b></span>
+      <span>Skip &amp; <b>come back</b></span>
+      <span>Clean <b>score</b> + section breakdown</span>
+    </div>
+    <div class="cta-row">
+      <a class="big-btn" href="screen.html">Try the new test screen →</a>
+      <a class="big-btn alt" href="#library">See the mock library</a>
+    </div>
+  </header>
+
+  <main class="groups" id="library"><!-- rendered --></main>
+  <footer>Preview only · portrait + landscape · your live site is untouched until you say go.</footer>
+</div>
+
+<script src="data-registry.js"></script>
+<script>
+const DOTS={amity:"#a371f7",ihbas:"#3fb950",rml:"#f0b429",pyq:"#58a6ff",met:"#ff7b72",pep:"#56d4dd",diag:"#f85149"};
+const byId=Object.fromEntries(MOCKS.map(m=>[m.id,m]));
+const root=document.getElementById("library");
+let out="";
+for(const g of GROUPS){
+  const members=g.members.map(id=>byId[id]).filter(Boolean);
+  if(!members.length)continue;
+  const totQ=members.reduce((a,m)=>a+(m.total||0),0);
+  out+=`<section class="grp" style="--dot:${DOTS[g.id]||'var(--primary)'}">
+    <div class="grp-head"><h2>${g.title}</h2><span class="count">${members.length} mocks · ${totQ} Qs</span></div>
+    <p class="grp-sub">${g.sub}</p>
+    <div class="cards">`;
+  for(const m of members){
+    const badge = m.deepExp?'<span class="badge deep">Deep ✓</span>':(m.fresh?'<span class="badge new">New</span>':'');
+    const tags=(m.tags||[]).slice(0,3).map(t=>`<i>${t}</i>`).join("");
+    out+=`<a class="card" href="screen.html">
+      ${badge}
+      <div class="ct">${m.title}</div>
+      <div class="cs">${m.sub||""}</div>
+      <div class="tags">${tags}</div>
+      <div class="meta"><span class="qn">${m.total||"—"}<small> Qs</small></span>
+        <span class="go">Preview screen →</span></div>
+    </a>`;
+  }
+  out+=`</div></section>`;
+}
+root.innerHTML=out;
+</script>
+</body>
+</html>
