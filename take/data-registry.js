@@ -274,6 +274,7 @@ const MOCKS = [
     sections: { biopsych: 30, dev: 25, abnormal: 30, assessment: 25, therapy: 25, biostats: 20, language: 25 },
     blurb: "Full-length MET-pattern paper. 180 Q across all 7 sections in MET-style weighting (Bio 30, Dev 25, Abnormal 30, Assessment 25, Therapy 25, Biostats 20, Language 25). Harder distractors than Mock 1 — fewer giveaways, more two-options-look-right traps. Same engine: section filter, per-Q notes, backup code, full analysis page.",
     fresh: false,
+    deepExp: true,
     tags: ["Full length", "MET +1 / −0.25", "180 Q", "harder distractors"]
   },
   {
