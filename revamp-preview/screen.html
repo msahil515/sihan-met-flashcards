@@ -66,6 +66,12 @@ button{font-family:inherit;cursor:pointer}
 .btn:disabled{opacity:.4;cursor:not-allowed}
 .no-clock{font-size:11px;color:var(--muted);display:inline-flex;align-items:center;gap:5px}
 .no-clock b{color:var(--primary);font-weight:600}
+.run-score{display:inline-flex;flex-direction:column;align-items:flex-end;line-height:1.05;
+  padding:5px 12px;border-radius:11px;background:var(--surface-2);border:1px solid var(--line);white-space:nowrap}
+.run-score b{font-family:var(--font-display);font-weight:700;font-size:16px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.run-score b.up{color:var(--good)} .run-score b.down{color:var(--bad)}
+.run-score span{font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+@media(max-width:640px){.run-score{padding:4px 9px}.run-score b{font-size:14px}}
 
 /* ---------- Layout ---------- */
 .stage{max-width:1240px;margin:0 auto;padding:22px 18px 40px;
@@ -217,6 +223,9 @@ button{font-family:inherit;cursor:pointer}
       <div class="prog-rail"><i id="progFill"></i></div>
       <div class="prog-num" id="progNum">0 / 180</div>
     </div>
+    <div class="run-score" id="runScore" title="Running score so far (+1 right / −0.25 wrong)">
+      <b id="runScoreVal">0</b><span>score so far</span>
+    </div>
     <span class="no-clock">🞰 <b>No clock</b></span>
     <button class="btn primary" id="finishBtn">Finish</button>
   </div>
@@ -366,6 +375,15 @@ function updateProg(){
   const a=answeredCount();
   document.getElementById("progFill").style.width=(a/N*100)+"%";
   document.getElementById("progNum").textContent=a+" / "+N;
+  updateScore();
+}
+function updateScore(){
+  let right=0,wrong=0;
+  for(const k in st.answers){ if(st.answers[k]===Q[+k].correct)right++; else wrong++; }
+  const s=right*1 - wrong*0.25;
+  const el=document.getElementById("runScoreVal");
+  el.textContent=(s>0?"+":"")+ (Math.round(s*100)/100).toString();
+  el.className = s>0?"up":(s<0?"down":"");
 }
 
 /* mobile sheet */
