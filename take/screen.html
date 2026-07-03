@@ -84,7 +84,7 @@ button{font-family:inherit;cursor:pointer}
 
 /* ---------- Reading pane ---------- */
 .reader{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  box-shadow:var(--shadow);padding:30px 34px 26px;min-height:56vh;display:flex;flex-direction:column}
+  box-shadow:var(--shadow);padding:30px 34px 28px;display:flex;flex-direction:column}
 @media(max-width:560px){.reader{padding:22px 18px}}
 .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
 .q-index{font-family:var(--font-display);font-weight:600;font-size:14px;color:var(--muted);
@@ -92,12 +92,13 @@ button{font-family:inherit;cursor:pointer}
 .q-index b{color:var(--ink);font-size:22px}
 .sec-tag{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
   color:var(--primary-ink);background:var(--primary-wash);padding:5px 11px;border-radius:99px}
-.flag-pill{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;
+.flag-pill{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;
   color:var(--muted);background:var(--surface-2);border:1px solid var(--line);padding:8px 13px;border-radius:99px;transition:.15s}
 .flag-pill:hover{color:var(--amber);border-color:var(--amber)}
 .flag-pill.on{color:var(--amber);background:var(--amber-wash);border-color:var(--amber)}
 .flag-pill svg{width:15px;height:15px}
-.mark-pill{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;
+/* Bookmark + Flag travel together as one cluster pinned to the right edge */
+.mark-pill{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;
   color:var(--muted);background:var(--surface-2);border:1px solid var(--line);padding:8px 13px;border-radius:99px;transition:.15s}
 .mark-pill:hover{color:var(--primary);border-color:var(--primary)}
 .mark-pill.on{color:var(--primary);background:var(--primary-wash);border-color:var(--primary)}
@@ -187,7 +188,8 @@ button{font-family:inherit;cursor:pointer}
 .rev-note .exp-answer .atext{font-size:15.5px}
 
 /* footer controls in reader */
-.reader-foot{margin-top:auto;padding-top:24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.reader-foot{margin-top:26px;padding-top:22px;border-top:1px solid var(--line);
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .reader-foot .spacer{flex:1}
 .linkbtn{background:none;border:none;color:var(--muted);font-weight:600;font-size:13px;padding:8px 6px}
 .linkbtn:hover{color:var(--primary)}
@@ -302,7 +304,7 @@ button{font-family:inherit;cursor:pointer}
     <div class="run-score" id="runScore" title="Running score so far (+1 right / −0.25 wrong)">
       <b id="runScoreVal">0</b><span>score so far</span>
     </div>
-    <button class="btn ghost" id="focusBtn" title="Toggle a wide, distraction-free reading column">⛶ Focus</button>
+    <button class="btn" id="focusBtn" title="Toggle a wide, distraction-free reading column">⛶ Focus</button>
     <span id="themeMount"></span>
     <button class="btn primary" id="finishBtn">Finish</button>
   </div>

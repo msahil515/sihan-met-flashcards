@@ -179,8 +179,8 @@
       btn.type = "button";
       btn.innerHTML = btnHtml;
       btn.style.cssText = "display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line,#ddd);" +
-        "background:var(--surface,#fff);color:var(--ink,#111);font:600 13px/1 var(--font-ui,system-ui,sans-serif);" +
-        "padding:9px 13px;border-radius:11px;cursor:pointer";
+        "background:var(--surface,#fff);color:var(--ink,#111);font:600 13.5px/1 var(--font-ui,system-ui,sans-serif);" +
+        "padding:9px 15px;border-radius:11px;cursor:pointer";
       host.appendChild(btn);
     } else {
       btn = document.createElement("button");
