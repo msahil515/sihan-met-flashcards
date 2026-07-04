@@ -30,6 +30,10 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
+/* the sticky top bar covers the top of the reading column; without this,
+   scrollIntoView() when you jump/Next lands the question UNDER the bar.
+   JS keeps this in sync with the real bar height (see syncTopbarOffset). */
+html{scroll-padding-top:132px}
 body{
   background:var(--bg); color:var(--ink); font-family:var(--font-ui);
   -webkit-font-smoothing:antialiased; line-height:1.5;
@@ -73,6 +77,23 @@ button{font-family:inherit;cursor:pointer}
 .run-score b.up{color:var(--good)} .run-score b.down{color:var(--bad)}
 .run-score span{font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
 @media(max-width:640px){.run-score{padding:4px 9px}.run-score b{font-size:14px}}
+/* ---- phone header: keep the sticky bar short so it doesn't eat a tall
+   S24-Ultra screen or bury the question when you jump/Next ---- */
+@media(max-width:900px){
+  .topbar{padding:calc(env(safe-area-inset-top) + 8px) 14px 8px}
+  .topbar-head{margin-bottom:7px;gap:9px}
+  .mock-id b{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mock-id span{display:none}          /* dupes the "1 / 180" progress count */
+  .topbar-controls{gap:9px}
+  .prog{flex:1 1 100%;min-width:0}
+  #focusBtn{display:none}              /* navigator is a bottom sheet here; the wide-column toggle is a no-op on phones */
+}
+@media(max-width:560px){
+  .topbar{padding:calc(env(safe-area-inset-top) + 6px) 12px 6px}
+  #themeMount button span{display:none}  /* icon-only Theme (🎨) to keep the control row on one line */
+  #themeMount button{padding:8px 12px}
+  .btn.primary#finishBtn{padding:8px 13px}
+}
 
 /* ---------- Layout ---------- */
 .stage{max-width:1240px;margin:0 auto;padding:22px 18px 40px;
@@ -740,10 +761,20 @@ document.addEventListener("keydown",e=>{
   else if(e.key.toLowerCase()==="b"){st.marks[st.i]=!st.marks[st.i];save();renderQ();syncNav();}
 });
 
+/* keep scroll-padding-top matched to the real sticky-bar height so a
+   jump/Next never lands the question stem underneath the header */
+function syncTopbarOffset(){
+  const tb=document.querySelector(".topbar");
+  if(tb) document.documentElement.style.scrollPaddingTop=(tb.offsetHeight+14)+"px";
+}
+
 /* init */
 document.getElementById("mockTitle").textContent=M.title;
 document.getElementById("mockSub").textContent=M.sub;
 applyFocus();
+syncTopbarOffset();
+window.addEventListener("resize",syncTopbarOffset);
+window.addEventListener("load",syncTopbarOffset);
 if(activeList()){  // resumed mid redo-wrong pass
   document.getElementById("fWrong").style.display="";
   st.filter="wrong";
