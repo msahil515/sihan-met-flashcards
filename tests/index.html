@@ -1,1205 +1,396 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<style>html.gate-locked body{display:none!important}</style>
-<script>document.documentElement.classList.add("gate-locked")</script>
-<script src="/sihan-met-flashcards/gate.js"></script>
-<script src="/sihan-met-flashcards/force-sync.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0d1117">
-<title>Tests — MET 2026 + NIMHANS</title>
-<link rel="stylesheet" href="../site.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tests — MET / RCI Clinical Psych prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  .backup-card { display: flex; flex-direction: column; gap: 14px; }
-  .backup-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-  .backup-btn { font-size: 13px; padding: 9px 16px; border-radius: 6px; cursor: pointer;
-    border: 1px solid var(--accent-dim); background: var(--accent-dim); color: white; font-weight: 600; }
-  .backup-btn:hover { background: var(--accent); }
-  .backup-btn.ghost { background: transparent; color: var(--text); border-color: var(--border); font-weight: 500; }
-  .backup-btn.ghost:hover { background: var(--panel-2); border-color: var(--accent-dim); color: var(--accent); }
-  .backup-file-label { font-size: 13px; padding: 9px 16px; border-radius: 6px; cursor: pointer;
-    border: 1px solid var(--border); background: var(--panel-2); color: var(--text); font-weight: 500;
-    display: inline-flex; align-items: center; gap: 6px; }
-  .backup-file-label:hover { border-color: var(--accent-dim); color: var(--accent); }
-  .backup-file-label input[type=file] { display: none; }
-  .backup-status { font-size: 12px; color: var(--muted); min-height: 16px; }
-  .backup-status.ok { color: var(--good); }
-  .backup-status.err { color: var(--bad); }
-  .backup-counts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
-    background: var(--panel-2); border-radius: 6px; padding: 10px; font-size: 12px; text-align: center; }
-  .backup-counts > div { padding: 4px; }
-  .backup-counts .n { display: block; font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
-  .backup-counts .l { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+:root{
+  --bg:#F3EDE2; --surface:#FBF7EF; --surface-2:#EFE7D8; --line:#E0D5C2;
+  --ink:#2B2119; --ink-soft:#5A4C3C; --muted:#8A7B66;
+  --primary:#B5623A; --primary-ink:#8F4A29; --primary-wash:#F3E2D6;
+  --amber:#B5623A; --amber-wash:#F3E2D6; --good:#5E7A4F; --bad:#B0402F;
+  --shadow:0 1px 2px rgba(43,33,25,.05), 0 10px 28px rgba(43,33,25,.08);
+  --font-ui:'Inter',system-ui,-apple-system,sans-serif;
+  --font-read:'Newsreader',Georgia,serif; --font-display:'Fraunces',Georgia,serif;
+}
+@media (prefers-color-scheme: dark){:root{
+  --bg:#1E1913; --surface:#28221A; --surface-2:#332B20; --line:#453A2B;
+  --ink:#EDE4D5; --ink-soft:#C6B7A0; --muted:#9A8A72;
+  --primary:#D98A5F; --primary-ink:#E6B48D; --primary-wash:#3A2A1D;
+  --amber:#D98A5F; --amber-wash:#3A2A1D; --good:#8FB077; --bad:#E08668;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 32px rgba(0,0,0,.35);
+}}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--font-ui);-webkit-font-smoothing:antialiased;line-height:1.55}
+a{color:inherit} button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
 
-  /* Done / auto-hide controls */
-  .done-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px;
-    background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
-    padding: 11px 14px; margin-bottom: 14px; font-size: 13px; }
-  .done-bar .dh { color: var(--muted); font-size: 12px; }
-  .done-opt { display: inline-flex; align-items: center; gap: 7px; cursor: pointer; user-select: none; }
-  .done-opt input { width: 16px; height: 16px; accent-color: var(--accent-dim); cursor: pointer; }
-  .done-show-btn { font-size: 12px; padding: 6px 12px; border-radius: 6px; cursor: pointer;
-    border: 1px solid var(--border); background: var(--panel-2); color: var(--text); font-weight: 500; }
-  .done-show-btn:hover { border-color: var(--accent-dim); color: var(--accent); }
-  .done-show-btn.on { border-color: var(--accent-dim); color: var(--accent); }
-  .done-count { color: var(--muted); margin-left: auto; font-size: 12px; }
-  /* per-card done button */
-  .card { position: relative; }
-  .done-toggle { position: absolute; top: 10px; right: 10px; z-index: 3;
-    font-size: 11px; font-weight: 600; padding: 5px 11px; border-radius: 999px; cursor: pointer;
-    border: 1px solid var(--border); background: rgba(13,17,23,.72); color: var(--muted);
-    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); transition: all .12s; line-height: 1; }
-  .done-toggle:hover { border-color: var(--good); color: var(--good); }
-  .done-toggle.is-done { border-color: var(--good); background: var(--good); color: #0d1117; }
-  .card.is-finished { opacity: .62; }
-  .cta-row2 { display: flex; align-items: center; gap: 10px; }
-  .take-new { flex: none; font-size: 12px; font-weight: 700; padding: 7px 13px; border-radius: 999px;
-    cursor: pointer; border: 1px solid var(--accent); background: transparent; color: var(--accent);
-    transition: all .12s; line-height: 1; margin-left: auto; }
-  .take-new:hover { background: var(--accent); color: #0d1117; }
-  .newlook-banner { display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
-    border: 1px solid var(--accent); background: rgba(88,166,255,.08); border-radius: 14px;
-    padding: 14px 18px; margin: 0 0 20px; }
-  .newlook-banner .nb-txt { flex: 1; min-width: 200px; }
-  .newlook-banner .nb-txt b { font-size: 15px; }
-  .newlook-banner .nb-txt span { display: block; color: var(--muted); font-size: 13px; margin-top: 3px; }
-  .newlook-banner a.nb-go { flex: none; background: var(--accent); color: #0d1117; font-weight: 700;
-    font-size: 13.5px; text-decoration: none; padding: 11px 18px; border-radius: 11px; }
-  .card.is-finished:hover { opacity: 1; }
+/* top nav */
+.topnav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:14px 0 0}
+.topnav a{font-size:13px;font-weight:600;color:var(--ink-soft);text-decoration:none;padding:7px 12px;border-radius:9px;border:1px solid var(--line);background:var(--surface)}
+.topnav a:hover{border-color:var(--primary);color:var(--primary)}
+.topnav .sp{flex:1}
 
-  /* Pinned deep-explanation section */
-  .deep-head { display: flex; flex-direction: column; gap: 4px; margin-bottom: 6px; }
-  .deep-banner { background: linear-gradient(180deg, rgba(255,196,0,.10), rgba(255,196,0,.03));
-    border: 1px solid rgba(255,196,0,.28); border-radius: 8px; padding: 11px 14px; margin-bottom: 14px;
-    font-size: 13px; color: var(--text); line-height: 1.5; }
-  .deep-banner b { color: var(--accent); }
-  .card.deep { border-color: rgba(255,196,0,.30); }
-  .badge.deep { background: #ffc400; color: #1a1500; }
-  .pill.deep-pill { background: rgba(255,196,0,.16); color: #ffce3a; border-color: rgba(255,196,0,.35); }
+/* hero */
+.hero{padding:46px 0 22px}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--primary-ink);margin-bottom:14px}
+.hero h1{font-family:var(--font-display);font-weight:600;font-size:clamp(34px,5.4vw,54px);
+  line-height:1.03;letter-spacing:-.025em;margin:0 0 16px;max-width:16ch}
+.hero h1 em{font-style:italic;color:var(--primary)}
+.lede{font-family:var(--font-read);font-size:19px;line-height:1.5;color:var(--ink-soft);max-width:62ch;margin:0}
+.feat{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+.feat span{font-size:12.5px;font-weight:600;color:var(--ink-soft);background:var(--surface);
+  border:1px solid var(--line);padding:7px 13px;border-radius:99px;box-shadow:var(--shadow)}
+.feat span b{color:var(--primary)}
 
-  /* Hero jump-nav */
-  .jump-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-  .jump-row .pill { cursor: pointer; }
-  html { scroll-behavior: smooth; }
-  section[id], .page-hero { scroll-margin-top: 78px; }
-  /* Group section headers get a subtle college accent line */
-  .grp-sec .section-title { display: inline-flex; align-items: center; gap: 9px; }
-  .grp-sec .section-title::before { content: ""; width: 4px; height: 18px; border-radius: 2px;
-    background: var(--accent); display: inline-block; }
-  #grp-amity .section-title::before { background: #a371f7; }
-  #grp-ihbas .section-title::before { background: #3fb950; }
-  #grp-rml   .section-title::before { background: #f0b429; }
-  #grp-pyq   .section-title::before { background: #58a6ff; }
-  #grp-met   .section-title::before { background: #ff7b72; }
-  #grp-pep   .section-title::before { background: #56d4dd; }
-  #grp-diag  .section-title::before { background: #f85149; }
-  .grp-count { font-size: 11px; color: var(--muted); font-weight: 500; margin-left: 8px;
-    background: var(--panel-2); border: 1px solid var(--border); border-radius: 999px; padding: 2px 9px; }
-  /* Notes / cheatsheets / trackers — its own clear section, kept separate from the mocks */
-  .study-sec { background: linear-gradient(180deg, rgba(86,212,221,.055), rgba(86,212,221,0));
-    border: 1px solid rgba(86,212,221,.22); border-radius: 12px; padding: 16px 16px 18px; margin-bottom: 26px; }
-  .study-sec .section-head { margin-bottom: 14px; }
-  .study-sec .section-title { display: inline-flex; align-items: center; gap: 9px; }
-  .study-sec .section-title::before { content: ""; width: 4px; height: 18px; border-radius: 2px;
-    background: #56d4dd; display: inline-block; }
-  .study-card { display: flex; flex-direction: column; gap: 6px; transition: border-color .12s, transform .12s; }
-  .study-card:hover { border-color: rgba(86,212,221,.55); transform: translateY(-2px); }
-  .study-card .card-icon { font-size: 22px; line-height: 1; margin-bottom: 2px; }
-  .study-card .card-cta { margin-top: auto; color: #56d4dd; }
+/* resume strip */
+.resume{display:none;align-items:center;gap:14px;flex-wrap:wrap;margin-top:24px;background:var(--surface);
+  border:1px solid var(--primary);border-radius:15px;box-shadow:var(--shadow);padding:16px 20px}
+.resume.show{display:flex}
+.resume .rl{min-width:0}
+.resume .re{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--primary-ink)}
+.resume .rt{font-family:var(--font-display);font-weight:600;font-size:17px;margin:3px 0 4px}
+.resume .rp{font-size:12.5px;color:var(--muted)}
+.resume a.rgo{margin-left:auto;background:var(--primary);color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:11px 20px;border-radius:11px;white-space:nowrap}
+.resume a.rgo:hover{background:var(--primary-ink)}
+
+/* study section */
+.study-sec{margin-top:30px;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--primary);
+  border-radius:16px;box-shadow:var(--shadow);padding:24px 24px 26px}
+.study-sec h2{font-family:var(--font-display);font-weight:600;font-size:22px;letter-spacing:-.015em;margin:0 0 4px}
+.study-sec .ssub{font-family:var(--font-read);font-size:14.5px;color:var(--muted);margin:0 0 18px;max-width:74ch}
+.study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px}
+.study-card{display:flex;flex-direction:column;gap:5px;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:13px;padding:16px;text-decoration:none;transition:.14s}
+.study-card:hover{border-color:var(--primary);transform:translateY(-2px)}
+.study-card .ic{font-size:21px;line-height:1}
+.study-card .st{font-family:var(--font-display);font-weight:600;font-size:15.5px}
+.study-card .sb{font-size:12.5px;color:var(--muted);line-height:1.45}
+.study-card .sc{margin-top:auto;font-size:12.5px;font-weight:600;color:var(--primary);padding-top:4px}
+
+/* controls bar */
+.controls{position:sticky;top:0;z-index:20;margin:34px 0 6px;padding:14px 0;
+  background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(8px)}
+.ctl-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.search{flex:1;min-width:210px;display:flex;align-items:center;gap:9px;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px;padding:0 13px;box-shadow:var(--shadow)}
+.search input{flex:1;border:none;background:none;outline:none;color:var(--ink);
+  font:500 14.5px/1 var(--font-ui);padding:12px 0}
+.search svg{width:16px;height:16px;color:var(--muted);flex:none}
+.search .clr{border:none;background:none;color:var(--muted);font-size:17px;padding:4px;display:none}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chips button{border:1px solid var(--line);background:var(--surface);color:var(--muted);
+  font:600 12.5px/1 var(--font-ui);padding:9px 13px;border-radius:99px;box-shadow:var(--shadow);transition:.13s}
+.chips button.on{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.chips button b{font-variant-numeric:tabular-nums;opacity:.8;margin-left:3px}
+.viewtog{display:flex;border:1px solid var(--line);border-radius:11px;overflow:hidden;box-shadow:var(--shadow)}
+.viewtog button{border:none;background:var(--surface);color:var(--muted);font:600 12.5px/1 var(--font-ui);
+  padding:9px 13px;display:inline-flex;align-items:center;gap:6px}
+.viewtog button.on{background:var(--primary);color:#fff}
+.hidefin{display:inline-flex;align-items:center;gap:8px;font:600 12.5px/1 var(--font-ui);color:var(--ink-soft);
+  border:1px solid var(--line);background:var(--surface);border-radius:11px;padding:9px 13px;box-shadow:var(--shadow)}
+.hidefin input{accent-color:var(--primary);width:15px;height:15px}
+.hidefin b{color:var(--muted);font-weight:600}
+
+/* groups + cards */
+.groups{padding:8px 0 70px}
+.grp{margin-top:38px}
+.grp-head{display:flex;align-items:baseline;gap:14px;margin-bottom:4px;border-bottom:1px solid var(--line);padding-bottom:11px}
+.grp-head h2{font-family:var(--font-display);font-weight:600;font-size:24px;letter-spacing:-.015em;margin:0;
+  display:inline-flex;align-items:center;gap:11px}
+.grp-head h2::before{content:"";width:5px;height:20px;border-radius:3px;background:var(--dot,var(--primary))}
+.grp-head .count{margin-left:auto;font-size:12px;color:var(--muted);font-weight:600;white-space:nowrap}
+.grp-sub{font-family:var(--font-read);font-size:15px;color:var(--muted);margin:11px 0 18px;max-width:72ch}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:15px}
+.card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);
+  border-radius:16px;box-shadow:var(--shadow);padding:20px;text-decoration:none;transition:.16s;position:relative;overflow:hidden;cursor:pointer}
+.card:hover{transform:translateY(-3px);border-color:var(--primary)}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--dot,var(--primary));opacity:.85}
+.card.isdone{opacity:.72}
+.card .ct{font-family:var(--font-display);font-weight:600;font-size:18px;line-height:1.2;letter-spacing:-.01em;margin:6px 0 7px;padding-right:60px}
+.card .cs{font-size:12.5px;color:var(--muted);line-height:1.5}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.tags i{font-style:normal;font-size:11px;font-weight:600;color:var(--ink-soft);background:var(--surface-2);padding:3px 9px;border-radius:7px}
+.pmini{height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden;margin-top:14px}
+.pmini>i{display:block;height:100%;border-radius:99px;background:var(--primary);width:0}
+.meta{margin-top:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.meta .qn{font-family:var(--font-display);font-weight:600;font-size:20px;color:var(--ink)}
+.meta .qn small{font-size:11px;color:var(--muted);font-weight:500;font-family:var(--font-ui)}
+.meta .pstat{font-size:11.5px;font-weight:600;color:var(--muted)}
+.meta .go{margin-left:auto;font-size:12.5px;font-weight:600;color:var(--primary)}
+.donebtn{border:1px solid var(--line);background:var(--surface);color:var(--muted);
+  font:600 11px/1 var(--font-ui);padding:6px 10px;border-radius:8px}
+.donebtn:hover{border-color:var(--primary);color:var(--primary)}
+.badge{position:absolute;top:15px;right:15px;font-size:10px;font-weight:700;letter-spacing:.05em;
+  padding:4px 9px;border-radius:99px;text-transform:uppercase}
+.badge.new{background:var(--primary-wash);color:var(--primary-ink)}
+.badge.deep{background:var(--amber-wash);color:var(--amber)}
+.badge.done{background:var(--good);color:#fff}
+
+/* compact list view */
+.cards.list{grid-template-columns:1fr;gap:8px}
+.cards.list .card{flex-direction:row;align-items:center;padding:13px 18px;gap:16px}
+.cards.list .card::before{width:3px;height:auto;top:0;bottom:0;right:auto}
+.cards.list .ct{margin:0;padding:0;flex:1;min-width:0;font-size:15.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cards.list .cs,.cards.list .tags,.cards.list .pmini{display:none}
+.cards.list .meta{margin:0;flex:none;gap:14px}
+.cards.list .meta .qn{font-size:15px}
+.cards.list .badge{position:static;order:-1}
+
+.empty{display:none;text-align:center;color:var(--muted);font-family:var(--font-read);font-size:17px;padding:60px 20px}
+.empty.show{display:block}
+footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:13px;text-align:center}
 </style>
-<!-- PWA:met-prep -->
-<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="MET Prep">
-<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<script src="../take/theme.js"></script>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="topbar-inner">
-    <div class="brand">
-      <span class="brand-title">Sihan — Clinical Psych 2026</span>
-      <span class="brand-sub">M.A. Clinical Psychology (RCI) · Amity Noida · SGT · RML · IHBAS · CIP</span>
+<div class="wrap">
+  <nav class="topnav">
+    <a href="../">Dashboard</a>
+    <a href="../notes-app/">Notes</a>
+    <a href="../results/">My results</a>
+    <a href="../plan/">Plan</a>
+    <span class="sp"></span>
+    <span id="themeMount"></span>
+  </nav>
+
+  <header class="hero">
+    <div class="kicker">MET / RCI Clinical Psych 2026 · warm editorial</div>
+    <h1>Every mock, one calm place to <em>actually work</em>.</h1>
+    <p class="lede">Grouped by college so you find a paper fast, search and filter to what you haven't done, flag and bookmark hard questions, and after a run redo only the ones you got wrong. Answers save in your browser, so you can close it and pick up where you left off.</p>
+    <div class="feat">
+      <span>Search &amp; <b>filter</b></span>
+      <span>Flag + <b>bookmark</b></span>
+      <span>Redo your <b>wrong</b> ones</span>
+      <span>Section <b>breakdown</b></span>
+      <span>Resume <b>anytime</b></span>
     </div>
-    <nav class="nav">
-      <a href="../">Dashboard</a>
-      <a href="./" class="active">Tests</a>
-      <a href="../pyq-coverage/">PYQ Coverage</a>
-      <a href="../quiz/practice/">Practice</a>
-      <a href="../results/">My Results</a>
-      <a href="../notes-app/">Notes</a>
-      <a href="../checklist/">Checklist</a>
-      <a href="../admissions/">Admissions</a>
-      <a href="../plan/">Plan</a>
-      <a href="../downloads/">Get the app</a>
-    </nav>
-    <span class="countdown-chip" id="countdownChip">—</span>
+
+    <div class="resume" id="resume">
+      <div class="rl">
+        <div class="re">Pick up where you left off</div>
+        <div class="rt" id="resumeTitle"></div>
+        <div class="rp" id="resumeProg"></div>
+      </div>
+      <a class="rgo" id="resumeGo" href="#">Continue →</a>
+    </div>
+  </header>
+
+  <!-- Notes / cheatsheets / trackers — kept out of the mocks list -->
+  <section class="study-sec">
+    <h2>Notes, cheatsheets &amp; trackers</h2>
+    <p class="ssub">Pinned up top and kept out of the tests list, so you can grab a cheatsheet or open a tracker without scrolling past a wall of mocks.</p>
+    <div class="study-grid">
+      <a class="study-card" href="../notes-app/"><span class="ic">📖</span><span class="st">Notes for Exam app</span><span class="sb">The whole notes library as a book reader — subject books, exam-strategy shelves, gap-closers.</span><span class="sc">Open notes app →</span></a>
+      <a class="study-card" href="../notes/"><span class="ic">⚡</span><span class="st">Cheatsheets &amp; deep notes</span><span class="sb">Fast-reference sheets — biostats, therapy, biopsych, assessment, abnormal, development.</span><span class="sc">All cheatsheets →</span></a>
+      <a class="study-card" href="../admissions/"><span class="ic">🎯</span><span class="st">Admissions / RCI tracker</span><span class="sb">Live windows &amp; exam dates for Amity Noida, SGT, RML, IHBAS, CIP — auto-refreshed twice a day.</span><span class="sc">Open tracker →</span></a>
+      <a class="study-card" href="../news/"><span class="ic">📰</span><span class="st">Exam news board</span><span class="sb">Auto-polled notifications across the target colleges, so a window opening doesn't slip past.</span><span class="sc">Open news →</span></a>
+      <a class="study-card" href="../checklist/"><span class="ic">✅</span><span class="st">Prep checklist</span><span class="sb">The syllabus turned into a tick-off list, mapped onto the cheatsheets.</span><span class="sc">Open checklist →</span></a>
+      <a class="study-card" href="../database/"><span class="ic">🗄️</span><span class="st">Database &amp; Drive library</span><span class="sb">The shared Drive folder as the backbone — every paper sorted by college and by type.</span><span class="sc">Open database →</span></a>
+    </div>
+  </section>
+
+  <!-- controls -->
+  <div class="controls">
+    <div class="ctl-row">
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="searchBox" type="search" placeholder="Search mocks — college, year, topic…" autocomplete="off">
+        <button class="clr" id="searchClr" title="Clear">✕</button>
+      </label>
+      <div class="viewtog" id="viewTog">
+        <button data-v="cards" class="on">▦ Cards</button>
+        <button data-v="list">☰ List</button>
+      </div>
+      <label class="hidefin"><input type="checkbox" id="hideFin"> Hide finished <b id="hideFinN"></b></label>
+    </div>
+    <div class="ctl-row" style="margin-top:10px">
+      <div class="chips" id="statChips">
+        <button data-s="all" class="on">All <b id="cAll">0</b></button>
+        <button data-s="new">Not started <b id="cNew">0</b></button>
+        <button data-s="progress">In progress <b id="cProg">0</b></button>
+        <button data-s="done">Done <b id="cDone">0</b></button>
+        <button data-s="wrong">Has wrong <b id="cWrong">0</b></button>
+      </div>
+    </div>
   </div>
+
+  <main class="groups" id="library"></main>
+  <div class="empty" id="empty">No mocks match that. <button class="donebtn" id="resetFilters" style="margin-left:6px">Reset filters</button></div>
+  <footer>Warm editorial · untimed · portrait + landscape · answers saved locally in your browser.</footer>
 </div>
 
-<main>
-
-  <div class="page-hero">
-    <div class="crumbs">Tests</div>
-    <h1>Tests Library</h1>
-    <p>Every mock, grouped by college so you're not scrolling a wall of cards. Real past papers up top (Amity, IHBAS, RML, NIMHANS), then the full-length practice mocks, diagnostics and drills. Answers save in your browser, finished papers drop off the list on their own, and the dashboard reads it all back as section-wise scores.</p>
-    <div class="jump-row">
-      <a class="pill accent" href="#study">📒 Notes &amp; cheatsheets</a>
-      <a class="pill accent" href="#deep">⭐ Deep-explanation papers</a>
-      <a class="pill" href="#grp-amity">Amity</a>
-      <a class="pill" href="#grp-ihbas">IHBAS</a>
-      <a class="pill" href="#grp-rml">RML</a>
-      <a class="pill" href="#grp-pyq">NIMHANS &amp; PYQ</a>
-      <a class="pill" href="#grp-met">MET mocks</a>
-      <a class="pill" href="#grp-pep">Entrance prep</a>
-      <a class="pill" href="#grp-diag">Diagnostics</a>
-    </div>
-  </div>
-
-  <div class="newlook-banner">
-    <div class="nb-txt">
-      <b>✨ New look is live</b>
-      <span>Take any mock in the redesigned screen: five themes (light or dark), no clock, jump navigator, running score, cleaner explanations. Hit "✨ New look" on any card, or open the whole library in the new theme.</span>
-    </div>
-    <a class="nb-go" href="../take/">Open new-look library →</a>
-  </div>
-
-  <section id="study" class="study-sec">
-    <div class="section-head">
-      <h2 class="section-title">Notes, cheatsheets &amp; trackers</h2>
-      <span class="section-sub">Pinned up top and kept out of the tests list, so you can grab a cheatsheet or open a tracker without scrolling past a wall of mocks</span>
-    </div>
-    <div class="grid cols-3">
-      <a class="card link study-card" href="../notes-app/">
-        <div class="card-icon">📖</div>
-        <div class="card-title">Notes for Exam app</div>
-        <div class="card-body muted">The whole notes library as a book reader — from-scratch subject books, exam-strategy shelves, gap-closers. Portrait single-page, landscape two-up.</div>
-        <div class="card-cta">Open notes app →</div>
-      </a>
-      <a class="card link study-card" href="../notes/">
-        <div class="card-icon">⚡</div>
-        <div class="card-title">Cheatsheets &amp; deep notes</div>
-        <div class="card-body muted">The fast-reference sheets — biostats, psychotherapy, biopsych, assessment, abnormal, development — plus the full-depth reference pages behind each mock.</div>
-        <div class="card-cta">All cheatsheets →</div>
-      </a>
-      <a class="card link study-card" href="../admissions/">
-        <div class="card-icon">🎯</div>
-        <div class="card-title">Admissions / RCI tracker</div>
-        <div class="card-body muted">Live application windows and exam dates for the five — Amity Noida, SGT, RML, IHBAS, CIP — auto-refreshed twice a day. Fee / seats / hostel cells filling in.</div>
-        <div class="card-cta">Open tracker →</div>
-      </a>
-      <a class="card link study-card" href="../news/">
-        <div class="card-icon">📰</div>
-        <div class="card-title">Exam news board</div>
-        <div class="card-body muted">Auto-polled notifications and updates across the target colleges, so a window opening doesn't slip past.</div>
-        <div class="card-cta">Open news →</div>
-      </a>
-      <a class="card link study-card" href="../checklist/">
-        <div class="card-icon">✅</div>
-        <div class="card-title">Prep checklist</div>
-        <div class="card-body muted">The syllabus turned into a tick-off list — what's covered, what's still open, mapped onto the cheatsheets.</div>
-        <div class="card-cta">Open checklist →</div>
-      </a>
-      <a class="card link study-card" href="../database/">
-        <div class="card-icon">🗄️</div>
-        <div class="card-title">Database &amp; Drive library</div>
-        <div class="card-body muted">The shared Drive folder as the backbone — every paper and resource sorted by college and by type, with a how-to-add workflow.</div>
-        <div class="card-cta">Open database →</div>
-      </a>
-    </div>
-  </section>
-
-  <section id="deep">
-    <div class="section-head deep-head">
-      <h2 class="section-title">⭐ Deep explanations — the revamp papers</h2>
-      <span class="section-sub">Full worked answer under every single question · pinned here so you find them in one tap</span>
-    </div>
-    <div class="deep-banner">
-      These are the four you asked about. The "revamp" wasn't four <i>new</i> papers, it's the <b>deep explanations</b> added under every question of mocks you already had: why the right answer is right, the concept from scratch, and a trap line for each wrong option. They sit in the full list too under these exact names, so this is just the shortcut.
-    </div>
-    <div class="grid cols-2" id="deepGrid"></div>
-  </section>
-
-  <section>
-    <div class="section-head">
-      <h2 class="section-title">Mocks by college</h2>
-      <span class="section-sub">Real past papers first (Amity, IHBAS, RML, NIMHANS), then full-length practice, entrance-prep and diagnostics · every mock is +1/−0.25 unless noted</span>
-    </div>
-    <div class="done-bar">
-      <span class="dh">Done with a paper? Drop it off the list so you're not staring at tests you've already smashed.</span>
-      <label class="done-opt"><input type="checkbox" id="autoHideChk"> Auto-hide once I finish a paper</label>
-      <button class="done-show-btn" id="showFinishedBtn" type="button">Show finished (0)</button>
-      <span class="done-count" id="liveCount"></span>
-    </div>
-    <div id="groupsRoot"></div>
-  </section>
-
-  <section>
-    <div class="section-head">
-      <h2 class="section-title">Targeted retry</h2>
-      <span class="section-sub">Rebuilt from your saved attempts — pure remediation pool</span>
-    </div>
-    <div class="grid cols-2">
-      <a class="card link" href="../quiz/wrong-remix/">
-        <div class="card-head">
-          <div>
-            <div class="card-title">Wrong Answers Remix</div>
-            <div class="card-sub">Every Q you marked wrong across Mock 1, 2, 3, NIMHANS + PYQ Mock 2 — fresh shuffle</div>
-          </div>
-          <span class="badge accent">NEW</span>
-        </div>
-        <div class="card-body">
-          <span class="muted">Reads localStorage from the 5 source mocks, pulls every wrong-answered Q, reshuffles, runs as its own quiz. Separate storage so source-mock progress stays untouched. Re-shuffle button for a new order; reset to redo.</span>
-        </div>
-        <div class="pill-row">
-          <span class="pill">Wrong-only pool</span>
-          <span class="pill">Re-shuffle on demand</span>
-          <span class="pill">Per-source breakdown</span>
-        </div>
-        <div class="card-cta">Open remix →</div>
-      </a>
-    </div>
-  </section>
-
-  <section>
-    <div class="section-head">
-      <h2 class="section-title">Games</h2>
-      <span class="section-sub">Recall under pressure, play with a friend</span>
-    </div>
-    <div class="grid cols-2">
-      <a class="card link" href="../games/phobia-buzzer/">
-        <div class="card-head">
-          <div>
-            <div class="card-title">Phobia Buzzer — 2 Player · 4-option MCQ</div>
-            <div class="card-sub">Best of 10 · definition drops, both players see 4 options A-D, first correct tap wins</div>
-          </div>
-          <span class="badge accent">NEW</span>
-        </div>
-        <div class="card-body">
-          <span class="muted">59-phobia bank, fresh shuffle + fresh distractors every round (distractors pulled from the same topic group so options stay plausible). Wrong tap locks that player out for the round, the other still has a shot. Tie after 10 = sudden death. One laptop, two players, two button grids. Keyboard: P1 = Q W E R, P2 = U I O P.</span>
-        </div>
-        <div class="pill-row">
-          <span class="pill">4-option MCQ buzzer</span>
-          <span class="pill">Best of 10</span>
-          <span class="pill">Sudden death tiebreak</span>
-        </div>
-        <div class="card-cta">Open buzzer →</div>
-      </a>
-    </div>
-  </section>
-
-  <section>
-    <div class="section-head">
-      <h2 class="section-title">Topic-by-topic drill</h2>
-      <span class="section-sub">Short bursts, filterable by section, confidence-tracked</span>
-    </div>
-    <div class="grid cols-2">
-      <a class="card link" href="../quiz/">
-        <div class="card-head">
-          <div>
-            <div class="card-title">Mixed bank, 189 questions</div>
-            <div class="card-sub">PYQ-style, all 7 sections, confidence + guess flag</div>
-          </div>
-          <span class="badge accent">Drill</span>
-        </div>
-        <div class="card-body">
-          <span class="muted">Pick a section from the dropdown, work in 10-15 question batches. Backup code keeps progress safe if the browser clears.</span>
-        </div>
-        <div class="pill-row">
-          <span class="pill">Filter by section</span>
-          <span class="pill">Confidence tracked</span>
-          <span class="pill">Per-section stats</span>
-        </div>
-        <div class="card-cta" id="mixedScore">Open →</div>
-      </a>
-    </div>
-  </section>
-
-  <section>
-    <div class="section-head">
-      <h2 class="section-title">Backup all progress to a file</h2>
-      <span class="section-sub">One file covers every mock, the mixed bank, snapshots and journal · switch device or wipe browser safely</span>
-    </div>
-    <div class="card backup-card">
-      <div class="backup-counts" id="backupCounts">
-        <div><span class="n" id="bcMocks">—</span><span class="l">mocks with answers</span></div>
-        <div><span class="n" id="bcSnaps">—</span><span class="l">snapshots</span></div>
-        <div><span class="n" id="bcSize">—</span><span class="l">file size</span></div>
-      </div>
-      <div class="backup-row">
-        <button class="backup-btn" id="downloadBackupBtn">Download backup .json</button>
-        <label class="backup-file-label">
-          Restore from file
-          <input type="file" accept="application/json,.json" id="restoreFileInput">
-        </label>
-        <button class="backup-btn ghost" id="copyBackupBtn">Copy as code</button>
-      </div>
-      <div class="backup-status" id="backupStatus"></div>
-      <p class="muted" style="font-size:12px;margin:0;">Restoring overwrites whatever's in this browser. The download is named with today's date so you can keep multiple. The "code" button copies a base64 blob if you'd rather paste it somewhere instead of saving a file.</p>
-    </div>
-  </section>
-
-  <section>
-    <div class="section-head">
-      <h2 class="section-title">How to use these tests</h2>
-      <span class="section-sub">Working agreement, so the data is useful</span>
-    </div>
-    <div class="grid cols-3">
-      <div class="card">
-        <div class="card-title">Mocks, once a week</div>
-        <div class="card-body" style="margin-top:8px;">
-          Sit one full-length on a Sunday morning, 120 min, no breaks, no notes. Then debrief every wrong with the matching cheatsheet on the same day.
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">Mixed bank, daily</div>
-        <div class="card-body" style="margin-top:8px;">
-          20-30 questions a day, pick the section you're weakest on per the dashboard. Tag your guesses so the bank can show your real, non-fluked accuracy.
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">Backup before you switch device</div>
-        <div class="card-body" style="margin-top:8px;">
-          Progress is local to this browser. Use the <em>copy backup code</em> button on each quiz before clearing data or switching device.
-        </div>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<footer>Sihan MET 2026 + NIMHANS prep · all answers stored locally in your browser</footer>
-
+<script src="../take/data-registry.js"></script>
 <script>
-const MOCKS = [
-  {
-    id: "systems-theories",
-    title: "Systems & Theories Mock (Panwar bank)",
-    sub: "119 MCQs · Amit Panwar \"Systems & Theories of Psychology\" unit bank · common-section drilling · official key + full revamp depth · untimed Practice + timed Exam",
-    path: "../quiz/systems-theories/",
-    total: 119,
-    storageKey: "systems-theories-results-v1",
-    sections: { history: 19, psychodyn: 36, behavioural: 13, humanistic: 21, cognitive: 12, indian: 18 },
-    blurb: "The full Amit Panwar Systems & Theories of Psychology unit practice question bank, all 119 MCQs, built into a native mock that marks itself. Every question carries the book's own OFFICIAL answer and its baked-in solution (shown as 'Panwar key'), PLUS the full revamp depth layered on top: why the right option is right, the concept taught from scratch, and a per-distractor trap explaining why each wrong option is wrong. This is core common-section material — history & schools, psychodynamic (Freud/Adler/Jung/neo-Freudians), behavioural/learning, humanistic & Gestalt, cognitive & consciousness, and Indian psychology. Exactly the common-section drilling that decides the gap. Untimed Practice by default (instant reveal + explanation per question); flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. A few items where the printed key is academically debatable keep the official letter but flag the dispute. Independent storage.",
-    fresh: true,
-    deepExp: true,
-    tags: ["deep explanations", "systems & theories", "Panwar bank", "common section", "official key", "trap per wrong option", "untimed practice", "119 Q"]
-  },
-  {
-    id: "flight-mock-100",
-    title: "Flight Mock 100 — full paper, full-depth answers",
-    sub: "100 Q · the full flight paper · every MET / clinical-psych domain · untimed, marks itself · full revamp-depth answer under every Q",
-    path: "../quiz/flight-mock-100/",
-    total: 100,
-    storageKey: "flight-mock-100-results-v1",
-    sections: { general: 36, biopsych: 24, abnormal: 7, therapy: 6, biostats: 8, assessment: 7, dev: 9, social: 3 },
-    blurb: "The full Flight Mock built out to a proper saved mock so it lives with the rest and marks itself. Qs 1-15 are the inline flight set you got with no signal; 16-30 the follow-on flight set; 31-100 round it out to a full-length 100-question paper across every MET / clinical-psychology domain (history + learning, biopsychology + neuroscience, cognition + memory, intelligence, development, personality, abnormal + DSM-5, psychotherapy, stats + psychometrics, social). Every question carries a full revamp-depth answer underneath: why the right one is right, the concept taught from scratch, and a trap line for each wrong option — same standard as the Amity and IHBAS revamps. Defaults to untimed Practice (instant reveal + full explanation), no clock; flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. These are study questions across the standard syllabus, not a verbatim real paper, so treat any miss as a concept to lock. Independent storage.",
-    fresh: true,
-    tags: ["flight mock", "100 Q", "full-depth answers", "trap per wrong option", "untimed practice"]
-  },
-  {
-    id: "diagnostic-1",
-    title: "Gap Diagnostic — Common-Section Focus (60 Q)",
-    sub: "60 Q · diagnostic · common-section weighted · misses → final study material",
-    path: "../quiz/diagnostic-1/",
-    total: 60,
-    storageKey: "diagnostic-1-results-v1",
-    sections: { common: 44, mphil: 8, ugcnet: 8 },
-    blurb: "This one isn't a paper to grind, it's a diagnostic. 60 questions weighted hard into the COMMON section (44 of 60) because that's where the 18 points between you and 90 are leaking, not the two specific sections you already max. Sit it once. When you finish, the page compiles a 'final study material' sheet built only from what you missed (wrong, guessed, or skipped), grouped by topic with the weakest first and a full revision block under each. Revise that sheet, nothing else. +1 / −0.25, practice or timed exam mode, 'Copy study sheet' button to save the gap notes. Independent storage.",
-    fresh: true,
-    tags: ["diagnostic", "common-section weighted", "misses → study sheet", "+1 / −0.25", "60 Q"]
-  },
-  {
-    id: "sgt-pyq",
-    title: "SGT PYQ Master Mock",
-    sub: "100 genuine past-paper Qs · pulled from every real PYQ (Amity / IHBAS / RML / NIMHANS) · re-sorted into SGT's general-psych shape · untimed Practice by default",
-    path: "../quiz/sgt-pyq/",
-    total: 100,
-    storageKey: "sgt-pyq-results-v1",
-    sections: { biopsych: 16, abnormal: 16, assessment: 14, therapy: 14, dev: 12, research: 14, general: 14 },
-    blurb: "One SGT-shaped paper built purely from real past-paper questions already on the system: Amity 2023, IHBAS 2020 & 2024, RML 2020-2025 and NIMHANS 2025. Nothing synthesised. Filtered to the seven areas SGT tests as a general-psychology aptitude paper (SGT publishes no syllabus PDF) and re-balanced into 100 questions across biological/physiological, abnormal/clinical, assessment, therapy/counselling, developmental, research methods & statistics, and general/history & systems. Every card keeps its full deep explanation + per-distractor trap breakdown and shows the real paper it came from. Untimed Practice by default (instant reveal), flip to timed Exam mode any time. Independent storage.",
-    fresh: true,
-    deepExp: true,
-    tags: ["100% real PYQ", "10 papers merged", "SGT-shaped", "full explanations", "untimed + exam", "100 Q"]
-  },
-  {
-    id: "pyq-real-2025",
-    title: "Real PYQ Mock — NIMHANS 2025",
-    sub: "59 verbatim Qs · NIMHANS M.Phil 2025 · real options + official key · timed exam mode",
-    path: "../quiz/pyq-real-2025/",
-    total: 59,
-    storageKey: "pyq-real-2025-results-v1",
-    sections: { therapy: 14, biostats: 13, biopsych: 10, abnormal: 8, dev: 5, assessment: 4, general: 4, social: 1 },
-    blurb: "The NIMHANS M.Phil Clinical Psychology 2025 memory-based paper, built from the real questions: every stem and all four options verbatim, every answer the paper's official key, nothing synthesised. 59 questions kept after dropping any that repeated the NIMHANS 2024 mock or PYQ Mock 2, plus a couple whose printed key was missing or wrong. Timed exam mode (no answers until you finish, flag + jump grid), scored live +1 / −0.25. Independent storage.",
-    fresh: true,
-    tags: ["100% real PYQ", "official key", "real distractors", "NIMHANS 2025", "timed exam"]
-  },
-  {
-    id: "rml-2024",
-    title: "RML 2024 PYQ Mock (verbatim paper)",
-    sub: "100 verbatim Qs · ABVIMS / Dr RML Hospital M.Phil 2024 (CET-157) · official key · untimed Practice + timed Exam",
-    path: "../quiz/rml-2024/",
-    total: 100,
-    storageKey: "rml-2024-results-v1",
-    sections: { general: 38, biopsych: 18, abnormal: 14, therapy: 13, biostats: 6, assessment: 6, dev: 3, social: 2 },
-    blurb: "The full 2024 RML / ABVIMS (Dr RML Hospital, Delhi) M.Phil Clinical Psychology entrance paper, all 100 questions verbatim with the paper's official answer key (the source marks each correct option in bold). Nothing synthesised. This is the M.Phil (CET-157) paper, the best real depth-calibration for the RML MA route, pulled from your Drive library. Untimed Practice mode by default (instant reveal + explanation per question); flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. Independent storage.",
-    fresh: true,
-    deepExp: true,
-    tags: ["deep explanations", "100% real PYQ", "official key", "real distractors", "RML 2024", "untimed practice"]
-  },
-  {
-    id: "rml-2020",
-    title: "RML 2020 PYQ Mock (verbatim paper)",
-    sub: "100 verbatim Qs · ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2020 · expert-verified key · deep answers · untimed Practice + timed Exam",
-    path: "../quiz/rml-2020/",
-    total: 100,
-    storageKey: "rml-2020-results-v1",
-    sections: {"psychopathology": 19, "biopsych": 9, "social": 16, "stats": 8, "assessment": 9, "cognitive": 9, "systems": 10, "therapy": 8, "development": 9, "general": 3},
-    blurb: "The full 2020 RML paper (ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2020), all 100 questions verbatim with an expert-determined answer key (no official key was printed on this paper). Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. Independent storage.",
-    fresh: true,
-    deepExp: true,
-    tags: ["deep explanations", "100% real PYQ", "expert-verified key", "real distractors", "RML 2020", "untimed practice"]
-  },
-  {
-    id: "rml-2021",
-    title: "RML 2021 PYQ Mock (verbatim paper)",
-    sub: "100 verbatim Qs · ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2021 · expert-verified key · deep answers · untimed Practice + timed Exam",
-    path: "../quiz/rml-2021/",
-    total: 100,
-    storageKey: "rml-2021-results-v1",
-    sections: {"biopsych": 6, "social": 8, "development": 18, "cognitive": 3, "general": 4, "psychopathology": 13, "stats": 19, "assessment": 15, "therapy": 11, "systems": 3},
-    blurb: "The full 2021 RML paper (ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2021), all 100 questions verbatim with an expert-determined answer key (no official key was printed on this paper). Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. Independent storage.",
-    fresh: true,
-    deepExp: true,
-    tags: ["deep explanations", "100% real PYQ", "expert-verified key", "real distractors", "RML 2021", "untimed practice"]
-  },
-  {
-    id: "rml-2022",
-    title: "RML 2022 PYQ Mock (verbatim paper)",
-    sub: "100 verbatim Qs · GGSIPU M.Phil Clinical Psychology 2022 (RML prep paper) · official key · deep answers · untimed Practice + timed Exam",
-    path: "../quiz/rml-2022/",
-    total: 100,
-    storageKey: "rml-2022-results-v1",
-    sections: {"psychopathology": 15, "stats": 6, "development": 14, "biopsych": 7, "general": 10, "social": 8, "assessment": 19, "cognitive": 6, "therapy": 15},
-    blurb: "The full 2022 RML paper (GGSIPU M.Phil Clinical Psychology 2022 (RML prep paper)), all 100 questions verbatim with the paper's official printed answer key. Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. Independent storage.",
-    fresh: true,
-    deepExp: true,
-    tags: ["deep explanations", "100% real PYQ", "official key", "real distractors", "RML 2022", "untimed practice"]
-  },
-  {
-    id: "rml-2023",
-    title: "RML 2023 PYQ Mock (verbatim paper)",
-    sub: "70 verbatim Qs · ABVIMS / Dr RML Hospital Psychology CET 2023 (Code 135) · expert-verified key · deep answers · untimed Practice + timed Exam",
-    path: "../quiz/rml-2023/",
-    total: 70,
-    storageKey: "rml-2023-results-v1",
-    sections: {"stats": 21, "general": 17, "assessment": 3, "systems": 8, "cognitive": 9, "biopsych": 7, "development": 2, "social": 2, "psychopathology": 1},
-    blurb: "The full 2023 RML paper (ABVIMS / Dr RML Hospital Psychology CET 2023 (Code 135)), all 70 questions verbatim with an expert-determined answer key (no official key was printed on this paper). Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. Independent storage.",
-    fresh: true,
-    deepExp: true,
-    tags: ["deep explanations", "100% real PYQ", "expert-verified key", "real distractors", "RML 2023", "untimed practice"]
-  },
-  {
-    id: "rml-2025",
-    title: "RML 2025 PYQ Mock (verbatim paper)",
-    sub: "100 verbatim Qs · GGSIPU M.Phil Clinical Psychology 2025 (RML prep paper) · official key · deep answers · untimed Practice + timed Exam",
-    path: "../quiz/rml-2025/",
-    total: 100,
-    storageKey: "rml-2025-results-v1",
-    sections: {"biopsych": 18, "cognitive": 10, "psychopathology": 8, "stats": 12, "development": 8, "assessment": 22, "general": 20, "therapy": 1, "social": 1},
-    blurb: "The full 2025 RML paper (GGSIPU M.Phil Clinical Psychology 2025 (RML prep paper)), all 100 questions verbatim with the paper's official printed answer key. Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. Independent storage.",
-    fresh: true,
-    deepExp: true,
-    tags: ["deep explanations", "100% real PYQ", "official key", "real distractors", "RML 2025", "untimed practice"]
-  },
-  {
-    id: "rml-practice-1",
-    title: "RML Paper 1 Practice Mock (fresh)",
-    sub: "100 fresh practice Qs · RML CET-166 Paper-1 pattern · deep answers · untimed Practice + timed Exam",
-    path: "../quiz/rml-practice-1/",
-    total: 100,
-    storageKey: "rml-practice-1-results-v1",
-    sections: {"assessment": 16, "psychopathology": 15, "stats": 14, "biopsych": 12, "therapy": 12, "development": 10, "social": 8, "cognitive": 6, "systems": 4, "general": 3},
-    blurb: "A fresh 100-question practice paper written in the RML CET-166 Paper-1 pattern, calibrated to the coverage and difficulty of the six real RML previous-year papers. Original exam-realistic questions (not a transcribed PYQ), so use it as an extra full-length rehearsal after the real papers. Every question has a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default; flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. Independent storage.",
-    fresh: true,
-    deepExp: true,
-    tags: ["deep explanations", "fresh practice", "RML Paper 1", "real distractors", "untimed practice"]
-  },
-  {
-    id: "ihbas-2020",
-    title: "IHBAS 2020 PYQ Mock (real paper)",
-    sub: "92 real Qs · IHBAS Delhi M.Phil Clinical Psychology 2020 · verified key · untimed Practice + timed Exam",
-    path: "../quiz/ihbas-2020/",
-    total: 92,
-    storageKey: "ihbas-2020-results-v1",
-    sections: { general: 15, biopsych: 7, abnormal: 11, therapy: 22, biostats: 9, assessment: 7, dev: 10, social: 11 },
-    blurb: "The 2020 IHBAS (Institute of Human Behaviour & Allied Sciences, Delhi) M.Phil Clinical Psychology entrance paper, real questions transcribed from the previous-year paper in your Drive library. Every answer is verified against the paper's marked key and standard clinical-psychology sources, nothing invented. 8 of the original 100 dropped (one exact duplicate plus a few genuinely ambiguous items), so 92 verified questions. Therapy-heavy paper (22 Q), with a real Indian-psychology / Indian clinical-psych load (Erna Hoch, Malavika Kapur, IACP, ISAA vs CARS) that tracks the MET pattern. Untimed Practice mode by default (instant reveal + explanation); flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. Independent storage.",
-    fresh: true,
-    deepExp: true,
-    tags: ["deep explanations", "real PYQ", "verified key", "real distractors", "IHBAS 2020", "untimed practice"]
-  },
-  {
-    id: "ihbas-2024",
-    title: "IHBAS 2024 PYQ Mock (real paper)",
-    sub: "100 real Qs · IHBAS Delhi M.Phil Clinical Psychology, 20 Oct 2024 (Booklet A) · official key · untimed Practice + timed Exam",
-    path: "../quiz/ihbas-2024/",
-    total: 100,
-    storageKey: "ihbas-2024-results-v1",
-    sections: { general: 26, biopsych: 15, abnormal: 13, therapy: 10, biostats: 12, assessment: 5, dev: 5, social: 14 },
-    blurb: "The actual IHBAS M.Phil Clinical Psychology entrance held 20 Oct 2024 — Test Booklet Series A, all 100 questions transcribed verbatim from the official paper, every answer set from the official IHBAS answer key (Booklet A). No invented questions or distractors. The four booklets (A/B/C/D) and the official key are on your Resources page as direct downloads. Real exam: 100 MCQs, 90 min, NO negative marking; this mock defaults to untimed Practice (instant reveal + one-line rationale) and scores +1/−0.25/0 to stay comparable with your other mocks — for a true-to-exam number, read the raw 'right' count out of 100. A few items carry a ⚠ key-debate note where the official key is arguable (e.g. prosopagnosia, ISAA vs CARS); the official answer is kept so your score matches the real key. Independent storage.",
-    fresh: true,
-    deepExp: true,
-    tags: ["deep explanations", "100% real PYQ", "official key", "real distractors", "IHBAS 2024", "untimed practice"]
-  },
-  {
-    id: "amity-2023",
-    title: "Amity 2023 PYQ Mock (real paper)",
-    sub: "96 real Qs · Amity University M.A. Clinical Psychology entrance 2023 · Amit Panwar PYM reproduction · source key · untimed Practice + timed Exam",
-    path: "../quiz/amity-2023/",
-    total: 96,
-    storageKey: "amity-2023-results-v1",
-    sections: { general: 22, biopsych: 30, abnormal: 18, therapy: 7, biostats: 5, assessment: 6, dev: 6, social: 2 },
-    blurb: "The Amity University 2023 M.A. Clinical Psychology entrance, reproduced in the Psychologist Amit Panwar 'Previous Year Mock Test Series.' All 96 usable questions transcribed verbatim and every answer read off the option marked correct in that source PDF (highlighted key, page by page). 4 of the original 100 dropped — two exact duplicates, one duplicate-and-ambiguous, one whose mark missed a clear option. No invented questions or distractors. Defaults to untimed Practice (instant reveal + one-line rationale) and scores +1/−0.25/0 to stay comparable with your other mocks — read the raw 'right' count out of 96 for a clean number. A few items carry a ⚠ key-debate note where the source key is arguable (Q4 extinction, Q64 limbic, Q80 token economy); the source answer is kept so your score matches the paper. Amity also gates on the interview — pair this with the /amity/ prep. Independent storage.",
-    fresh: true,
-    deepExp: true,
-    tags: ["deep explanations", "100% real PYQ", "source key", "real distractors", "Amity 2023", "untimed practice"]
-  },
-  {
-    id: "amity-recall",
-    title: "Amity Recall PYQ Mock (your paper)",
-    sub: "17 recall Qs · Amity M.A. Clinical Psychology entrance · built off YOUR Master Concept List from the paper you sat · untimed Practice + timed Exam",
-    path: "../quiz/amity-recall/",
-    total: 17,
-    storageKey: "amity-recall-results-v1",
-    sections: { social: 5, general: 10, dev: 2 },
-    blurb: "A second Amity set, and the most authentic source you have: built straight off your own Master Concept List — the concepts you recalled from the Amity entrance you actually sat. Each of the 17 items takes one concept from that list and turns it into a clean MCQ with the answer, the concept written out in full, and a line on why each wrong option is a trap (the distractor the concept itself flagged). It is a recall reconstruction, not a verbatim photocopy, so the stems/options are mine while every fact, answer, and trap is yours off that list. Indian Psychology is weighted heavy on purpose — Amity leans on it harder than NIMHANS and it is the cluster that has cost you. Defaults to untimed Practice (instant reveal + full explanation under every Q) and scores +1/−0.25/0 to stay comparable; read the raw 'right' count out of 17. Pair with the verbatim Amity 2023 paper and the /amity/ interview prep. Independent storage.",
-    fresh: true,
-    deepExp: true,
-    tags: ["deep explanations", "your recall", "real paper concepts", "Indian psychology", "Amity", "untimed practice"]
-  },
-  {
-    id: "pep-mock-1",
-    title: "Psych Entrance Mock 1 — UGC-NET + MPhil Clinical (120 Q)",
-    sub: "120 Q · 120 min · +1 / −0.25 · MPhil-specific + UGC-NET + common",
-    path: "../quiz/pep-mock-1/",
-    total: 120,
-    storageKey: "pep-mock-1-results-v1",
-    sections: { mphil: 20, ugcnet: 20, common: 80 },
-    blurb: "The full 120-question Mock Test 1 from psychologyentranceprep.com, pulled straight off the site and rebuilt natively so it runs offline in the app (the original was a locked-in embedded Google form with no shareable link, but the questions were extractable, no screenshots needed). Three sections: 20 MPhil-specific (clinical ethics, law, psychopathology), 20 UGC-NET specific (Indian psychology, philosophy, Buddhism/Vedanta, gunas, Upanishads), and 80 common to both NET and MPhil clinical entrances (learning, cognition, perception, biopsych, assessment, stats, social). Every question has a worked explanation. Scored +1 / −0.25, target 90+/120. Independent storage, full analysis page, copy-to-WhatsApp export.",
-    fresh: true,
-    tags: ["120 Q", "UGC-NET + MPhil", "+1 / −0.25", "real paper"]
-  },
-  {
-    id: "pep-mock-2",
-    title: "Psych Entrance Mock 2 — UGC-NET + MPhil Clinical (120 Q)",
-    sub: "120 Q · 120 min · +1 / −0.25 · MPhil-specific + UGC-NET + common",
-    path: "../quiz/pep-mock-2/",
-    total: 120,
-    storageKey: "pep-mock-2-results-v1",
-    sections: { mphil: 20, ugcnet: 20, common: 80 },
-    blurb: "The full 120-question Mock Test 2 from psychologyentranceprep.com, rebuilt natively so it runs offline in the app (the original was a locked-in embedded Google form with no shareable link). Three sections: 20 MPhil-specific (clinical ethics, law, psychopathology), 20 UGC-NET specific (Indian psychology, philosophy of science, positive psych), and 80 common to both NET and MPhil clinical entrances (learning, cognition, perception, biopsych, assessment, stats, social). Every question has a worked explanation. Scored +1 / −0.25, target 90+/120. Independent storage, full analysis page, copy-to-WhatsApp export.",
-    fresh: true,
-    tags: ["120 Q", "UGC-NET + MPhil", "+1 / −0.25", "real paper"]
-  },
-  {
-    id: "met-mock-5",
-    title: "MET Mock 5 — 100 Q Fresh Full-Spectrum",
-    sub: "100 Q · 100 min · +1 / −0.25 · all 7 MET sections · fresh stems vs Mocks 1-4",
-    path: "../quiz/met-mock-5/",
-    total: 100,
-    storageKey: "met-mock-5-results-v1",
-    sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 },
-    blurb: "Newest 100-question MET-pattern mock. All-new stems with zero overlap against Mocks 1-4, so it's a clean attempt. +1/−0.25, target 68+/100. Same blueprint as Mocks 3-4 (Bio 18, Dev 14, Abnormal 18, Assessment 15, Therapy 14, Biostats 11, Language 10). Balanced answer key (a/b/c/d each exactly 25). Independent storage, full analysis page, copy-to-WhatsApp export.",
-    fresh: true,
-    tags: ["Full length", "MET +1 / −0.25", "100 Q", "fresh stems"]
-  },
-  {
-    id: "pyq-real-2024",
-    title: "Real PYQ Mock — NIMHANS 2024",
-    sub: "100 actual recalled Qs · NIMHANS M.Phil 2024 · real options + official key",
-    path: "../quiz/pyq-real-2024/",
-    total: 100,
-    storageKey: "pyq-real-2024-results-v1",
-    sections: { therapy: 19, biostats: 17, assessment: 17, biopsych: 16, dev: 11, abnormal: 8, general: 6, social: 6 },
-    blurb: "The full NIMHANS M.Phil Clinical Psychology 2024 paper, 100 questions reconstructed from candidate memory with the real four options and the official answer key. No synthesised distractors, so the traps are the ones NIMHANS actually set. Scored +1 / −0.25. Heavy on therapy, biostats, assessment and biopsych. Every Q tagged NIMHANS 2024 with a one-line rationale. Independent storage.",
-    fresh: false,
-    tags: ["100% real PYQ", "official key", "real distractors", "NIMHANS 2024"]
-  },
-  {
-    id: "met-mock-1",
-    title: "MET Mock 1",
-    sub: "100 Q · 120 min · +1 / −0.25",
-    path: "../quiz/met-mock-1/",
-    total: 100,
-    storageKey: "met-mock-1-results-v1",
-    sections: { biopsych: 15, dev: 15, abnormal: 15, assessment: 15, therapy: 15, biostats: 10, language: 15 },
-    blurb: "Full MET pattern, interleaved sections (bio→abn→dev→ass→the→lang→bst round-robin). Use this to time-pressure check across all seven syllabus areas in one sitting.",
-    fresh: false,
-    tags: ["MET pattern", "interleaved", "+1 / −0.25"]
-  },
-  {
-    id: "nimhans-mock-1",
-    title: "NIMHANS Mock 1 v2 — PYQs",
-    sub: "100 actual PYQs · 2023, 2024, 2025 · year-tagged",
-    path: "../quiz/nimhans-mock-1/",
-    total: 100,
-    storageKey: "nimhans-mock-1-results-v2",
-    sections: { biopsych: 15, dev: 10, abnormal: 15, assessment: 10, therapy: 10, biostats: 15, social: 10, general: 10, english: 5 },
-    blurb: "Every question is a real NIMHANS PYQ from the 2023, 2024 or 2025 M.Phil entrance papers. Repeats across years flagged green. Companion topic breakdown in Notes.",
-    fresh: false,
-    tags: ["100% PYQ", "year-tagged", "repeats flagged"]
-  },
-  {
-    id: "met-mock-2",
-    title: "MET Mock 2 — Full Length (180 Q)",
-    sub: "180 Q · 180 min · +1 / −0.25 · all 7 MET sections",
-    path: "../quiz/met-mock-2/",
-    total: 180,
-    storageKey: "met-mock-2-results-v1",
-    sections: { biopsych: 30, dev: 25, abnormal: 30, assessment: 25, therapy: 25, biostats: 20, language: 25 },
-    blurb: "Full-length MET-pattern paper. 180 Q across all 7 sections in MET-style weighting (Bio 30, Dev 25, Abnormal 30, Assessment 25, Therapy 25, Biostats 20, Language 25). Harder distractors than Mock 1 — fewer giveaways, more two-options-look-right traps. Same engine: section filter, per-Q notes, backup code, full analysis page.",
-    fresh: false,
-    tags: ["Full length", "MET +1 / −0.25", "180 Q", "harder distractors"]
-  },
-  {
-    id: "met-mock-4",
-    title: "MET Mock 4 — 100 Q Fresh Full-Spectrum",
-    sub: "100 Q · 100 min · +1 / −0.25 · all 7 MET sections · fresh stems vs Mocks 1-3",
-    path: "../quiz/met-mock-4/",
-    total: 100,
-    storageKey: "met-mock-4-results-v1",
-    sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 },
-    blurb: "Newest 100-question MET-pattern mock. Fresh stems vs Mocks 1-3 so it's a clean attempt. +1/−0.25, target 68+/100. Same blueprint as Mock 3 (Bio 18, Dev 14, Abnormal 18, Assessment 15, Therapy 14, Biostats 11, Language 10). Balanced answer key (a/b/c/d each exactly 25). Independent storage so previous mocks stay untouched.",
-    fresh: false,
-    tags: ["Full length", "MET +1 / −0.25", "100 Q", "fresh stems"]
-  },
-  {
-    id: "bio-testing-paper",
-    title: "Biopsych + Testing Paper (60 Q targeted)",
-    sub: "60 Q · ~60 min · +1 / −0.25 · 30 Bio + 30 Assessment",
-    path: "../quiz/bio-testing-paper/",
-    total: 60,
-    storageKey: "bio-testing-paper-results-v1",
-    sections: { biopsych: 30, assessment: 30 },
-    blurb: "Two-section targeted drill: 30 Biopsychology + 30 Psychological Assessment. Fresh stems, +1/−0.25, target 41+/60. Use this when you want hard reps on the two MET sections with the biggest depth-of-knowledge load (neuroanatomy, NTs, psychopharm + test names, MMPI scales, IRT/CTT, reliability/validity types). Independent storage, full analysis page, copy-to-WhatsApp export.",
-    fresh: false,
-    tags: ["Targeted", "Bio 30 + Assessment 30", "fresh stems", "+1 / −0.25"]
-  },
-  {
-    id: "met-mock-3",
-    title: "MET Mock 3 — 100 Q Tight Pace",
-    sub: "100 Q · 100 min · +1 / −0.25 · all 7 MET sections",
-    path: "../quiz/met-mock-3/",
-    total: 100,
-    storageKey: "met-mock-3-results-v1",
-    sections: { biopsych: 18, dev: 14, abnormal: 18, assessment: 15, therapy: 14, biostats: 11, language: 10 },
-    blurb: "100-question MET-pattern mock at 1 minute per question, +1/−0.25, target 68+/100. Zero stem overlap with Mock 1 or Mock 2. Blueprint: Bio 18, Dev 14, Abnormal 18, Assessment 15, Therapy 14, Biostats 11, Language 10. Answer letters shuffled to balanced ~25 each so the pattern can't be gamed.",
-    fresh: false,
-    tags: ["Full length", "MET +1 / −0.25", "100 Q", "fresh stems", "tight pace"]
-  },
-  {
-    id: "pyq-mock-2",
-    title: "PYQ Mock 2 — Pan-India",
-    sub: "100 PYQs · RML, IHBAS, JEMAS, NIMHANS, IMHANS, NFSU, AMITY, GMCH 2023-2025",
-    path: "../quiz/pyq-mock-2/",
-    total: 100,
-    storageKey: "pyq-mock-2-results-v1",
-    sections: { therapy: 18, abnormal: 15, biopsych: 13, dev: 12, biostats: 12, assessment: 10, social: 9, general: 8, english: 3 },
-    blurb: "Fresh PYQs pulled from 8 institutes across 2023-2025 — no overlap with Mock 1. Weighted toward your Mock 1 weak spots: therapy-heavy (18), bio (13), social (9), biostats (12). Each Q source-tagged so you can trace which paper it came from.",
-    fresh: false,
-    tags: ["100% PYQ", "8 institutes", "source-tagged", "remediation-weighted"]
-  }
-];
-
-function readJSON(key, fallback) {
-  try { const r = localStorage.getItem(key); return r ? JSON.parse(r) : fallback; }
-  catch { return fallback; }
+const DOTS={amity:"#B5623A",ihbas:"#5E7A4F",rml:"#C08A2E",pyq:"#3F6F8F",met:"#B0402F",pep:"#6A8AA0",diag:"#9A5A3A",sgt:"#7A5CA0"};
+const byId=Object.fromEntries(MOCKS.map(m=>[m.id,m]));
+// Groups + an "Other mocks" fallback so a mock that isn't in any group still shows (never silently dropped).
+const EGROUPS=(()=>{
+  const inG=new Set(GROUPS.flatMap(g=>g.members));
+  const orphans=MOCKS.filter(m=>!inG.has(m.id)).map(m=>m.id);
+  return orphans.length ? GROUPS.concat([{id:"other",title:"Other mocks",sub:"Not yet sorted into a college section.",members:orphans}]) : GROUPS;
+})();
+const DONE_KEY="take-done-v1";
+function doneSet(){try{return new Set(JSON.parse(localStorage.getItem(DONE_KEY))||[])}catch(e){return new Set()}}
+function saveDone(s){try{localStorage.setItem(DONE_KEY,JSON.stringify([...s]))}catch(e){}}
+function summary(id){try{return JSON.parse(localStorage.getItem("take-summary-"+id))}catch(e){return null}}
+/* status: new | progress | done  (+ hasWrong flag) */
+function statusOf(m){
+  const s=summary(m.id), tot=m.total||0, ans=s?s.answered||0:0;
+  const manualDone=doneSet().has(m.id);
+  const done = manualDone || (tot>0 && ans>=tot);
+  const status = done?"done":(ans>0?"progress":"new");
+  return {status, answered:ans, total:tot, wrong:s?s.wrong||0:0, ts:s?s.ts||0:0, manualDone};
 }
 
-function readMock(m) {
-  const raw = readJSON(m.storageKey, null);
-  if (!raw) return { answered: 0, correct: 0, wrong: 0 };
-  let answered = 0, correct = 0, wrong = 0;
-  for (const qid of Object.keys(raw)) {
-    const r = raw[qid];
-    if (!r || r.selected == null) continue;
-    answered++;
-    if (r.correct) correct++; else wrong++;
-  }
-  return { answered, correct, wrong };
+/* view + filter state (persisted where it makes sense) */
+function lp(k,d){try{return localStorage.getItem(k)||d}catch(e){return d}}
+function sp(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+let VIEW = lp("take-view-v1","cards");
+let HIDEFIN = lp("take-hidefin-v1","1")==="1";
+let STAT = "all";
+let QText = "";
+
+const root=document.getElementById("library");
+const emptyEl=document.getElementById("empty");
+
+function matchesSearch(m,g){
+  if(!QText) return true;
+  const hay=((m.title||"")+" "+(m.sub||"")+" "+((m.tags||[]).join(" "))+" "+(g.title||"")).toLowerCase();
+  return QText.split(/\s+/).every(t=>hay.includes(t));
+}
+function passStat(st){
+  if(STAT==="all") return true;
+  if(STAT==="wrong") return st.wrong>0;
+  return st.status===STAT;
 }
 
-/* ---- Done / hide state ---------------------------------------------- */
-const DONE_KEY = "tests-done-v1";          // { [mockId]: true } manually marked done
-const HIDE_SETTINGS_KEY = "tests-hide-settings-v1"; // { autoHide, showFinished }
-
-function readDone()      { return readJSON(DONE_KEY, {}) || {}; }
-function writeDone(d)    { localStorage.setItem(DONE_KEY, JSON.stringify(d)); }
-function readHideSettings() {
-  const s = readJSON(HIDE_SETTINGS_KEY, null) || {};
-  return { autoHide: s.autoHide !== false, showFinished: !!s.showFinished }; // autoHide defaults ON
-}
-function writeHideSettings(s) { localStorage.setItem(HIDE_SETTINGS_KEY, JSON.stringify(s)); }
-
-// A paper counts as "finished" if you marked it done, or auto-hide is on and you've answered every question.
-function isFinished(m, r, settings, done) {
-  if (done[m.id]) return true;
-  if (settings.autoHide && r.answered >= m.total && m.total > 0) return true;
-  return false;
-}
-
-// Order the pinned deep-explanation papers exactly as Sihan was told about them.
-const DEEP_ORDER = ["sgt-pyq", "systems-theories", "amity-recall", "amity-2023", "ihbas-2024", "ihbas-2020", "rml-2024"];
-
-// Mocks grouped by college / family so the list reads as sections, not one long dump.
-// `members` also fixes the order inside each group; anything not listed here is caught
-// by the "Other mocks" fallback in renderGroups so nothing silently disappears.
-const GROUPS = [
-  { id: "sgt", title: "SGT University",
-    sub: "SGT publishes no syllabus PDF, so this is a general-psych aptitude paper built purely from every real PYQ on the system, re-sorted into SGT's shape",
-    members: ["sgt-pyq"] },
-  { id: "amity", title: "Amity",
-    sub: "Real Amity M.A. Clinical Psychology entrance papers — pair with the /amity/ interview prep",
-    members: ["amity-2023", "amity-recall"] },
-  { id: "ihbas", title: "IHBAS",
-    sub: "IHBAS Delhi M.Phil Clinical Psychology entrances, real papers with verified keys",
-    members: ["ihbas-2024", "ihbas-2020"] },
-  { id: "rml", title: "RML",
-    sub: "ABVIMS / Dr RML Hospital + GGSIPU papers — the CET-166 depth-calibration set, 2020 through 2025",
-    members: ["rml-2020", "rml-2021", "rml-2022", "rml-2023", "rml-2024", "rml-2025"] },
-  { id: "pyq", title: "NIMHANS & pan-India PYQ",
-    sub: "Verbatim NIMHANS M.Phil papers plus the cross-institute PYQ banks",
-    members: ["pyq-real-2025", "pyq-real-2024", "nimhans-mock-1", "pyq-mock-2"] },
-  { id: "met", title: "MET-pattern mocks",
-    sub: "Full-length practice built to the MET blueprint — content carries to every RCI paper minus the Language block",
-    members: ["met-mock-5", "met-mock-4", "met-mock-3", "met-mock-2", "met-mock-1", "bio-testing-paper"] },
-  { id: "pep", title: "Entrance-prep mocks (UGC-NET + M.Phil)",
-    sub: "The psychologyentranceprep.com mock tests, rebuilt to run offline",
-    members: ["pep-mock-1", "pep-mock-2"] },
-  { id: "diag", title: "Diagnostics & common-section drills",
-    sub: "Sit-once diagnostics and the common-section banks that decide the gap — misses compile into a study sheet on the page",
-    members: ["diagnostic-1", "systems-theories", "flight-mock-100"] }
-];
-
-function buildCardEl(m, r, finished, done, pinned) {
-  const pct = r.answered ? Math.round((r.correct / r.answered) * 100) : null;
-  const manualDone = !!done[m.id];
-  const cardCls = "card link" + (m.fresh ? " fresh" : "") + (m.deepExp ? " deep" : "") + (finished ? " is-finished" : "");
-  const a = document.createElement("a");
-  a.className = cardCls;
-  a.href = m.path;
-  const badge = pinned
-    ? '<span class="badge deep">Deep ✓</span>'
-    : (m.fresh ? '<span class="badge good">NEW</span>' : '<span class="badge muted">Mock</span>');
-  a.innerHTML = `
-    <button type="button" class="done-toggle${manualDone ? ' is-done' : ''}" data-done-id="${m.id}">${manualDone ? '✓ Done' : (finished ? '✓ Finished' : 'Mark done')}</button>
-    <div class="card-head">
-      <div>
-        <div class="card-title">${m.title}</div>
-        <div class="card-sub">${m.sub}</div>
-      </div>
-      ${badge}
-    </div>
-    <div class="card-body">${m.blurb}</div>
-    <div style="display:flex;align-items:baseline;gap:10px;margin-top:14px;">
-      <div style="font-size:28px;font-weight:700;line-height:1;">${r.correct}</div>
-      <div style="color:var(--muted);font-size:13px;">correct of ${m.total}</div>
-      ${pct != null ? `<div style="margin-left:auto;color:${pct>=75?'var(--good)':pct>=50?'var(--warn)':'var(--bad)'};font-weight:600;font-size:13px;">${pct}% of ${r.answered} answered</div>` : ''}
-    </div>
-    <div class="bar ${pct==null?'':pct>=75?'good':pct>=50?'warn':'bad'}"><span style="width:${pct==null?0:Math.min(100,pct)}%"></span></div>
-    <div class="pill-row">${m.tags.map(t => `<span class="pill${t === 'deep explanations' ? ' deep-pill' : ''}">${t}</span>`).join("")}</div>
-    <div class="cta-row2">
-      <span class="card-cta">${finished ? "Revisit →" : (r.answered ? "Continue →" : "Open mock →")}</span>
-      <button type="button" class="take-new" data-take-id="${m.id}" title="Take it in the new look: five themes, no clock, jump navigator, running score">✨ New look</button>
-    </div>
-  `;
-  return a;
-}
-
-// Pinned shortcut row: always shows the four deep-explanation papers regardless of
-// auto-hide / done state, so they're findable in one tap.
-function renderDeep() {
-  const root = document.getElementById("deepGrid");
-  if (!root) return;
-  root.innerHTML = "";
-  const settings = readHideSettings();
-  const done = readDone();
-  for (const id of DEEP_ORDER) {
-    const m = MOCKS.find(x => x.id === id);
-    if (!m) continue;
-    const r = readMock(m);
-    const finished = isFinished(m, r, settings, done);
-    root.appendChild(buildCardEl(m, r, finished, done, true));
-  }
-}
-
-function renderGroups() {
-  const root = document.getElementById("groupsRoot");
-  root.innerHTML = "";
-  const settings = readHideSettings();
-  const done = readDone();
-  let finishedCount = 0, shownCount = 0;
-
-  // Build the render order: defined groups, then a fallback for any uncategorised mock.
-  const known = new Set(GROUPS.flatMap(g => g.members));
-  const groups = GROUPS.slice();
-  const leftover = MOCKS.filter(m => !known.has(m.id)).map(m => m.id);
-  if (leftover.length) {
-    groups.push({ id: "other", title: "Other mocks", sub: "", members: leftover });
-  }
-
-  for (const g of groups) {
-    const mocks = g.members.map(id => MOCKS.find(x => x.id === id)).filter(Boolean);
-    const cards = [];
-    let liveInGroup = 0, finishedInGroup = 0;
-    for (const m of mocks) {
-      const r = readMock(m);
-      const finished = isFinished(m, r, settings, done);
-      if (finished) { finishedCount++; finishedInGroup++; }
-      if (finished && !settings.showFinished) continue; // dropped off the list
-      cards.push(buildCardEl(m, r, finished, done, false));
-      shownCount++; liveInGroup++;
+function render(){
+  let out="", shown=0;
+  for(const g of EGROUPS){
+    const members=g.members.map(id=>byId[id]).filter(Boolean);
+    let cardsHtml="", gShown=0, gTot=0;
+    for(const m of members){
+      const st=statusOf(m);
+      if(!matchesSearch(m,g)) continue;
+      if(!passStat(st)) continue;
+      if(HIDEFIN && st.status==="done") continue;
+      gShown++; shown++; gTot+=(m.total||0);
+      const badge = st.status==="done" ? '<span class="badge done">Done ✓</span>'
+        : (m.deepExp?'<span class="badge deep">Deep ✓</span>':(m.fresh?'<span class="badge new">New</span>':''));
+      const tags=(m.tags||[]).slice(0,3).map(t=>`<i>${t}</i>`).join("");
+      const pct = st.total? Math.round(st.answered/st.total*100):0;
+      const pstat = st.status==="done" ? (st.manualDone?"Marked done":"All answered")
+        : st.status==="progress" ? `${st.answered}/${st.total} answered` : "Not started";
+      const wrongTag = st.wrong>0 ? ` · ${st.wrong} wrong` : "";
+      const doneLabel = st.manualDone ? "Reopen" : "Mark done";
+      cardsHtml+=`<div class="card ${st.status==="done"?"isdone":""}" data-id="${m.id}" data-href="../take/screen.html?m=${m.id}" style="--dot:${DOTS[g.id]||'var(--primary)'}">
+        ${badge}
+        <div class="ct">${m.title}</div>
+        <div class="cs">${m.sub||""}</div>
+        <div class="tags">${tags}</div>
+        <div class="pmini"><i style="width:${pct}%"></i></div>
+        <div class="meta">
+          <span class="qn">${m.total||"—"}<small> Qs</small></span>
+          <span class="pstat">${pstat}${wrongTag}</span>
+          <button class="donebtn" data-done="${m.id}">${doneLabel}</button>
+          <span class="go">Open →</span>
+        </div>
+      </div>`;
     }
-    if (!cards.length) continue; // whole group hidden -> skip its header too
-
-    const sec = document.createElement("section");
-    sec.id = "grp-" + g.id;
-    sec.className = "grp-sec";
-    const countLabel = finishedInGroup
-      ? `${liveInGroup} active · ${finishedInGroup} finished`
-      : `${liveInGroup} paper${liveInGroup === 1 ? "" : "s"}`;
-    const head = document.createElement("div");
-    head.className = "section-head";
-    head.innerHTML =
-      `<h2 class="section-title">${g.title}<span class="grp-count">${countLabel}</span></h2>` +
-      (g.sub ? `<span class="section-sub">${g.sub}</span>` : "");
-    const grid = document.createElement("div");
-    grid.className = "grid cols-2";
-    cards.forEach(c => grid.appendChild(c));
-    sec.appendChild(head);
-    sec.appendChild(grid);
-    root.appendChild(sec);
+    if(!gShown) continue;
+    out+=`<section class="grp" style="--dot:${DOTS[g.id]||'var(--primary)'}">
+      <div class="grp-head"><h2>${g.title}</h2><span class="count">${gShown} mock${gShown>1?"s":""} · ${gTot} Qs</span></div>
+      <p class="grp-sub">${g.sub}</p>
+      <div class="cards ${VIEW==="list"?"list":""}">${cardsHtml}</div>
+    </section>`;
   }
+  root.innerHTML=out;
+  emptyEl.classList.toggle("show",shown===0);
+}
 
-  if (!shownCount) {
-    const empty = document.createElement("div");
-    empty.style.cssText = "padding:22px;text-align:center;color:var(--muted);font-size:14px;border:1px dashed var(--border);border-radius:8px;";
-    empty.textContent = finishedCount
-      ? "All mocks marked finished — nice. Hit “Show finished” to revisit any of them."
-      : "No mocks to show.";
-    root.appendChild(empty);
+/* status counts (ignore search/hide-finished so the chips read the full picture) */
+function refreshCounts(){
+  let all=0,nw=0,pr=0,dn=0,wr=0,doneCount=0;
+  for(const g of EGROUPS) for(const id of g.members){
+    const m=byId[id]; if(!m) continue;
+    const st=statusOf(m); all++;
+    if(st.status==="new")nw++; else if(st.status==="progress")pr++; else {dn++;doneCount++;}
+    if(st.wrong>0)wr++;
   }
+  cAll.textContent=all; cNew.textContent=nw; cProg.textContent=pr; cDone.textContent=dn; cWrong.textContent=wr;
+  document.getElementById("hideFinN").textContent = doneCount?`(${doneCount})`:"";
+}
 
-  // sync controls
-  const autoChk = document.getElementById("autoHideChk");
-  if (autoChk) autoChk.checked = settings.autoHide;
-  const showBtn = document.getElementById("showFinishedBtn");
-  if (showBtn) {
-    showBtn.textContent = (settings.showFinished ? "Hide finished (" : "Show finished (") + finishedCount + ")";
-    showBtn.classList.toggle("on", settings.showFinished);
+/* resume strip = most recently touched in-progress mock */
+function refreshResume(){
+  let best=null;
+  for(const g of EGROUPS) for(const id of g.members){
+    const m=byId[id]; if(!m) continue;
+    const st=statusOf(m);
+    if(st.status==="progress" && st.ts && (!best||st.ts>best.ts)) best={m,st};
   }
-  const live = document.getElementById("liveCount");
-  if (live) live.textContent = finishedCount
-    ? `${shownCount} active · ${finishedCount} finished`
-    : `${shownCount} active`;
+  const box=document.getElementById("resume");
+  if(!best){box.classList.remove("show");return;}
+  document.getElementById("resumeTitle").textContent=best.m.title;
+  document.getElementById("resumeProg").textContent=`${best.st.answered} of ${best.st.total} answered${best.st.wrong?` · ${best.st.wrong} wrong so far`:""}`;
+  document.getElementById("resumeGo").href="../take/screen.html?m="+best.m.id;
+  box.classList.add("show");
 }
 
-function toggleDone(id) {
-  const done = readDone();
-  if (done[id]) delete done[id]; else done[id] = true;
-  writeDone(done);
-  refresh();
-}
+function refreshAll(){ refreshCounts(); refreshResume(); render(); }
 
-function renderDrillScores() {
-  const mixed = readJSON("sihan-met-quiz-results-v1", null);
-  let mAns = 0, mCorr = 0;
-  if (mixed) {
-    for (const id of Object.keys(mixed)) {
-      const r = mixed[id];
-      if (!r || r.selected == null) continue;
-      mAns++;
-      if (r.correct) mCorr++;
-    }
-  }
-  document.getElementById("mixedScore").textContent =
-    mAns ? `Continue → ${mCorr}/${mAns} so far` : "Open →";
-}
-
-function updateCountdown() {
-  const exam = new Date('2026-05-31T00:00:00+05:30');
-  const ms = exam - new Date();
-  const d = ms > 0 ? Math.floor(ms / 86400000) : 0;
-  document.getElementById("countdownChip").textContent = ms > 0 ? `${d} days to exam` : "Exam day!";
-}
-
-/* =====================================================================
-   BACKUP / RESTORE (covers everything the site stores in this browser)
-   ===================================================================== */
-const BACKUP_KEYS = [
-  "met-mock-1-results-v1",      "met-mock-1-notes-v1",      "met-mock-1-progress-v1",
-  "met-mock-2-results-v1",      "met-mock-2-notes-v1",      "met-mock-2-progress-v1",
-  "met-mock-3-results-v1",      "met-mock-3-notes-v1",      "met-mock-3-progress-v1",
-  "met-mock-4-results-v1",      "met-mock-4-notes-v1",      "met-mock-4-progress-v1",
-  "met-mock-5-results-v1",      "met-mock-5-notes-v1",      "met-mock-5-progress-v1",
-  "diagnostic-1-results-v1",    "diagnostic-1-notes-v1",    "diagnostic-1-progress-v1",
-  "pep-mock-1-results-v1",      "pep-mock-1-notes-v1",      "pep-mock-1-progress-v1",
-  "pep-mock-2-results-v1",      "pep-mock-2-notes-v1",      "pep-mock-2-progress-v1",
-  "bio-testing-paper-results-v1", "bio-testing-paper-notes-v1", "bio-testing-paper-progress-v1",
-  "nimhans-mock-1-results-v2",  "nimhans-mock-1-notes-v2",  "nimhans-mock-1-progress-v2",
-  "pyq-mock-2-results-v1",      "pyq-mock-2-notes-v1",      "pyq-mock-2-progress-v1",
-  "pyq-real-2024-results-v1",   "pyq-real-2024-notes-v1",   "pyq-real-2024-progress-v1",
-  "sihan-met-quiz-results-v1",  "sihan-met-quiz-notes-v1",  "sihan-met-quiz-progress-v1",
-  "results-history-v1",         "results-journal-v1",
-  "tests-done-v1",              "tests-hide-settings-v1"
-];
-
-function collectBackup() {
-  const data = {};
-  for (const k of BACKUP_KEYS) {
-    const raw = localStorage.getItem(k);
-    if (raw != null) data[k] = raw;
-  }
-  return { v: 1, app: "sihan-met-prep", ts: new Date().toISOString(), data };
-}
-
-function applyBackup(payload) {
-  if (!payload || typeof payload !== "object") throw new Error("not a valid backup file");
-  if (payload.app && payload.app !== "sihan-met-prep") throw new Error("backup is from a different app");
-  if (!payload.data || typeof payload.data !== "object") throw new Error("missing data block");
-  let restored = 0;
-  for (const k of Object.keys(payload.data)) {
-    if (!BACKUP_KEYS.includes(k)) continue;
-    const v = payload.data[k];
-    if (typeof v !== "string") continue;
-    try { JSON.parse(v); } catch { continue; }
-    localStorage.setItem(k, v);
-    restored++;
-  }
-  return restored;
-}
-
-function backupCounts() {
-  let mocks = 0;
-  for (const m of MOCKS) {
-    const r = readJSON(m.storageKey, null);
-    if (r && Object.values(r).some(v => v && v.selected != null)) mocks++;
-  }
-  const snaps = (readJSON("results-history-v1", []) || []).length;
-  let bytes = 0;
-  for (const k of BACKUP_KEYS) {
-    const raw = localStorage.getItem(k);
-    if (raw) bytes += raw.length + k.length;
-  }
-  return { mocks, snaps, bytes };
-}
-
-function fmtBytes(b) {
-  if (b < 1024) return b + " B";
-  if (b < 1024 * 1024) return (b / 1024).toFixed(1) + " KB";
-  return (b / 1024 / 1024).toFixed(2) + " MB";
-}
-
-function renderBackupCounts() {
-  const c = backupCounts();
-  document.getElementById("bcMocks").textContent = c.mocks;
-  document.getElementById("bcSnaps").textContent = c.snaps;
-  document.getElementById("bcSize").textContent = c.bytes ? fmtBytes(c.bytes) : "—";
-}
-
-function setStatus(msg, cls) {
-  const el = document.getElementById("backupStatus");
-  el.textContent = msg || "";
-  el.className = "backup-status" + (cls ? " " + cls : "");
-}
-
-function downloadBackup() {
-  const payload = collectBackup();
-  const keys = Object.keys(payload.data).length;
-  if (!keys) { setStatus("Nothing to back up yet, this browser is empty.", "err"); return; }
-  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const today = new Date().toISOString().slice(0, 10);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `sihan-met-prep-backup-${today}.json`;
-  document.body.appendChild(a); a.click(); a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-  setStatus(`Downloaded ${keys} keys, ${fmtBytes(blob.size)}.`, "ok");
-}
-
-function copyBackupCode() {
-  const payload = collectBackup();
-  const keys = Object.keys(payload.data).length;
-  if (!keys) { setStatus("Nothing to back up yet, this browser is empty.", "err"); return; }
-  const code = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
-  const done = () => setStatus(`Copied a ${fmtBytes(code.length)} code for ${keys} keys, paste it into "Restore from code" elsewhere.`, "ok");
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(code).then(done, () => prompt("Copy this backup code:", code));
-  } else { prompt("Copy this backup code:", code); done(); }
-}
-
-function restoreFromFile(file) {
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onerror = () => setStatus("Could not read that file.", "err");
-  reader.onload = () => {
-    let payload;
-    try { payload = JSON.parse(reader.result); }
-    catch {
-      try { payload = JSON.parse(decodeURIComponent(escape(atob(String(reader.result).trim())))); }
-      catch { setStatus("That file is not a valid backup, neither JSON nor a backup code.", "err"); return; }
-    }
-    if (!confirm("Restoring will OVERWRITE current progress in this browser. Continue?")) { setStatus("Restore cancelled.", ""); return; }
-    try {
-      const n = applyBackup(payload);
-      if (!n) { setStatus("Backup file had no matching keys, nothing restored.", "err"); return; }
-      setStatus(`Restored ${n} keys from ${file.name}. Refreshing scores...`, "ok");
-      refresh();
-    } catch (e) { setStatus("Restore failed: " + e.message, "err"); }
-  };
-  reader.readAsText(file);
-}
-
-function refresh() { renderDeep(); renderGroups(); renderDrillScores(); renderBackupCounts(); }
-
-renderDeep();
-renderGroups();
-renderDrillScores();
-renderBackupCounts();
-updateCountdown();
-
-document.getElementById("downloadBackupBtn").addEventListener("click", downloadBackup);
-document.getElementById("copyBackupBtn").addEventListener("click", copyBackupCode);
-document.getElementById("restoreFileInput").addEventListener("change", (e) => {
-  const f = e.target.files && e.target.files[0];
-  restoreFromFile(f);
-  e.target.value = "";
-});
-
-// Per-card "Mark done" button (delegated; cards are <a>, so stop the navigation)
-function wireDoneClicks(gridId) {
-  const grid = document.getElementById(gridId);
-  if (!grid) return;
-  grid.addEventListener("click", (e) => {
-    const take = e.target.closest("[data-take-id]");
-    if (take) {
-      e.preventDefault();
-      e.stopPropagation();
-      location.href = "../take/screen.html?m=" + encodeURIComponent(take.getAttribute("data-take-id"));
-      return;
-    }
-    const btn = e.target.closest("[data-done-id]");
-    if (!btn) return;
-    e.preventDefault();
+/* ---- wiring ---- */
+root.addEventListener("click",e=>{
+  const db=e.target.closest(".donebtn");
+  if(db){
     e.stopPropagation();
-    toggleDone(btn.getAttribute("data-done-id"));
-  });
-}
-wireDoneClicks("groupsRoot");
-wireDoneClicks("deepGrid");
-
-document.getElementById("autoHideChk").addEventListener("change", (e) => {
-  const s = readHideSettings();
-  s.autoHide = e.target.checked;
-  writeHideSettings(s);
-  refresh();
+    const id=db.dataset.done, s=doneSet();
+    if(s.has(id))s.delete(id); else s.add(id);
+    saveDone(s); refreshAll();
+    return;
+  }
+  const card=e.target.closest(".card");
+  if(card&&card.dataset.href) location.href=card.dataset.href;
 });
 
-document.getElementById("showFinishedBtn").addEventListener("click", () => {
-  const s = readHideSettings();
-  s.showFinished = !s.showFinished;
-  writeHideSettings(s);
-  refresh();
+const sb=document.getElementById("searchBox"), clr=document.getElementById("searchClr");
+sb.addEventListener("input",()=>{ QText=sb.value.trim().toLowerCase(); clr.style.display=sb.value?"block":"none"; render(); });
+clr.addEventListener("click",()=>{ sb.value="";QText="";clr.style.display="none";render();sb.focus(); });
+
+document.getElementById("statChips").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b)return;
+  STAT=b.dataset.s;
+  document.querySelectorAll("#statChips button").forEach(x=>x.classList.toggle("on",x===b));
+  render();
 });
 
-window.addEventListener("focus", refresh);
-window.addEventListener("storage", refresh);
-</script>
+document.getElementById("viewTog").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b)return;
+  VIEW=b.dataset.v; sp("take-view-v1",VIEW);
+  document.querySelectorAll("#viewTog button").forEach(x=>x.classList.toggle("on",x===b));
+  render();
+});
 
-<script>
-/* PWA:met-prep */
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", function () {
-    navigator.serviceWorker.register("/sihan-met-flashcards/sw.js").catch(function () {});
-  });
-}
-(function () {
-  var dp = null;
-  window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); dp = e; showBtn(); });
-  function showBtn() {
-    if (document.getElementById("pwaInstallBtn")) return;
-    var b = document.createElement("button");
-    b.id = "pwaInstallBtn"; b.textContent = "Install app";
-    b.style.cssText = "position:fixed;right:14px;bottom:14px;z-index:9999;background:#1f6feb;color:#fff;border:0;border-radius:8px;padding:10px 14px;font:600 14px system-ui,sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.4);cursor:pointer";
-    b.onclick = function () { if (!dp) return; dp.prompt(); dp.userChoice.finally(function(){ dp = null; b.remove(); }); };
-    (document.body || document.documentElement).appendChild(b);
-  }
-  window.addEventListener("appinstalled", function () { var b = document.getElementById("pwaInstallBtn"); if (b) b.remove(); });
-})();
+const hf=document.getElementById("hideFin");
+hf.checked=HIDEFIN;
+hf.addEventListener("change",()=>{ HIDEFIN=hf.checked; sp("take-hidefin-v1",HIDEFIN?"1":"0"); render(); });
+
+document.getElementById("resetFilters").addEventListener("click",()=>{
+  STAT="all"; QText=""; sb.value=""; clr.style.display="none";
+  document.querySelectorAll("#statChips button").forEach(x=>x.classList.toggle("on",x.dataset.s==="all"));
+  render();
+});
+
+/* init view toggle button state */
+document.querySelectorAll("#viewTog button").forEach(x=>x.classList.toggle("on",x.dataset.v===VIEW));
+refreshAll();
 </script>
-<script src="/sihan-met-flashcards/nav-toggle.js"></script>
-<!-- FS_MODE start -->
-<style id="fs-mode-style">
-  .fs-toggle{position:fixed;z-index:2147483000;bottom:14px;right:14px;width:46px;height:46px;border:0;border-radius:50%;
-    background:rgba(18,24,33,.74);color:#e6edf3;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;
-    cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 2px 12px rgba(0,0,0,.5);
-    padding:0;opacity:.5;transition:opacity .15s;-webkit-tap-highlight-color:transparent}
-  .fs-toggle:hover,.fs-toggle:active{opacity:1}
-  @media print{.fs-toggle{display:none}}
-  body.fs-active .topbar,
-  body.fs-active header,
-  body.fs-active nav,
-  body.fs-active .app-header,
-  body.fs-active .site-header,
-  body.fs-active footer{display:none !important}
-  body.fs-active{margin:0 !important;padding:0 !important;min-height:100vh}
-  body.fs-active main,
-  body.fs-active .wrap,
-  body.fs-active .container,
-  body.fs-active #app,
-  body.fs-active .app,
-  body.fs-active .page{max-width:100% !important;width:100% !important;margin:0 !important;
-    padding-left:12px !important;padding-right:12px !important;padding-top:10px !important;padding-bottom:14px !important}
-  @media (orientation:landscape){
-    body.fs-active main,
-    body.fs-active .wrap,
-    body.fs-active .container,
-    body.fs-active #app,
-    body.fs-active .app,
-    body.fs-active .page{padding-top:8px !important;padding-bottom:8px !important;
-      padding-left:18px !important;padding-right:18px !important}
-  }
-</style>
-<script>
-(function(){
-  if(window.__fsModeInit) return; window.__fsModeInit=true;
-  var ENTER='\u26F6', EXIT='\u2715';
-  function nativeOn(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
-  function reqNative(){var el=document.documentElement;var r=el.requestFullscreen||el.webkitRequestFullscreen;
-    if(r){try{var p=r.call(el);if(p&&p.catch)p.catch(function(){});}catch(e){}}}
-  function exitNative(){if(!nativeOn())return;var x=document.exitFullscreen||document.webkitExitFullscreen;
-    if(x){try{x.call(document);}catch(e){}}}
-  var btn=document.createElement('button');
-  btn.className='fs-toggle';btn.type='button';
-  function paint(){var on=document.body.classList.contains('fs-active');
-    btn.textContent=on?EXIT:ENTER;btn.setAttribute('aria-label',on?'Exit fullscreen':'Enter fullscreen');btn.title=on?'Exit fullscreen':'Fullscreen';}
-  function go(){document.body.classList.add('fs-active');reqNative();paint();}
-  function stop(){document.body.classList.remove('fs-active');exitNative();paint();}
-  function toggle(){document.body.classList.contains('fs-active')?stop():go();}
-  btn.addEventListener('click',toggle);
-  function mount(){if(!document.body)return;if(!btn.isConnected)document.body.appendChild(btn);paint();}
-  if(document.body){mount();}else{document.addEventListener('DOMContentLoaded',mount);}
-  function sync(){if(!nativeOn()&&document.body.classList.contains('fs-active')){document.body.classList.remove('fs-active');paint();}}
-  document.addEventListener('fullscreenchange',sync);
-  document.addEventListener('webkitfullscreenchange',sync);
-})();
-</script>
-<!-- FS_MODE end -->
 </body>
 </html>

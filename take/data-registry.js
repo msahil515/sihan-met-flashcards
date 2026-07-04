@@ -324,6 +324,19 @@ const MOCKS = [
     blurb: "Fresh PYQs pulled from 8 institutes across 2023-2025 — no overlap with Mock 1. Weighted toward your Mock 1 weak spots: therapy-heavy (18), bio (13), social (9), biostats (12). Each Q source-tagged so you can trace which paper it came from.",
     fresh: false,
     tags: ["100% PYQ", "8 institutes", "source-tagged", "remediation-weighted"]
+  },
+  {
+    id: "sgt-pyq",
+    title: "SGT PYQ Master Mock",
+    sub: "100 genuine past-paper Qs · pulled from every real PYQ (Amity / IHBAS / RML / NIMHANS) · re-sorted into SGT's general-psych shape · untimed Practice by default",
+    path: "../quiz/sgt-pyq/",
+    total: 100,
+    storageKey: "sgt-pyq-results-v1",
+    sections: { biopsych: 16, abnormal: 16, assessment: 14, therapy: 14, dev: 12, research: 14, general: 14 },
+    blurb: "One SGT-shaped paper built purely from real past-paper questions already on the system: Amity 2023, IHBAS 2020 & 2024, RML 2020-2025 and NIMHANS 2025. Nothing synthesised. Filtered to the seven areas SGT tests as a general-psychology aptitude paper (SGT publishes no syllabus PDF) and re-balanced into 100 questions across biological/physiological, abnormal/clinical, assessment, therapy/counselling, developmental, research methods & statistics, and general/history & systems. Every card keeps its full deep explanation + per-distractor trap breakdown and shows the real paper it came from. Untimed Practice by default (instant reveal), flip to timed Exam mode any time. Independent storage.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "10 papers merged", "SGT-shaped", "full explanations", "untimed + exam", "100 Q"]
   }
 ];
 
@@ -336,7 +349,7 @@ const GROUPS = [
     members: ["ihbas-2024", "ihbas-2020"] },
   { id: "rml", title: "RML",
     sub: "ABVIMS / Dr RML Hospital + GGSIPU papers — the CET-166 depth-calibration set, 2020 through 2025",
-    members: ["rml-2020", "rml-2021", "rml-2022", "rml-2023", "rml-2024", "rml-2025"] },
+    members: ["rml-2020", "rml-2021", "rml-2022", "rml-2023", "rml-2024", "rml-2025", "rml-practice-1"] },
   { id: "pyq", title: "NIMHANS & pan-India PYQ",
     sub: "Verbatim NIMHANS M.Phil papers plus the cross-institute PYQ banks",
     members: ["pyq-real-2025", "pyq-real-2024", "nimhans-mock-1", "pyq-mock-2"] },
@@ -348,7 +361,10 @@ const GROUPS = [
     members: ["pep-mock-1", "pep-mock-2"] },
   { id: "diag", title: "Diagnostics & common-section drills",
     sub: "Sit-once diagnostics and the common-section banks that decide the gap — misses compile into a study sheet on the page",
-    members: ["diagnostic-1", "systems-theories", "flight-mock-100"] }
+    members: ["diagnostic-1", "systems-theories", "flight-mock-100"] },
+  { id: "sgt", title: "SGT University",
+    sub: "SGT publishes no syllabus PDF, so this is a general-psych aptitude paper built purely from every real PYQ on the system, re-sorted into SGT's shape",
+    members: ["sgt-pyq"] }
 ];
 
 window.MOCKS = MOCKS; window.GROUPS = GROUPS;
