@@ -84,18 +84,19 @@
 
 <div class="wrap">
   <h1 style="margin:8px 0 2px;font-size:24px;">Progress board</h1>
-  <p class="lede">Every pending task, straight read, no inflating. <b>Two big builds first</b> (RML textbook + site revamp). Everything sitting at 0% is queued on purpose or waiting on something from you, not forgotten.</p>
-  <p class="stamp" id="stamp">Last updated 3 Jul 2026, 3 PM</p>
+  <p class="lede">Every pending task, straight read, no inflating. <b>The SGT drop just shipped</b> (book + PYQ mock + intelligence note). The site revamp is the big build still running. Everything at 0% is queued on purpose or waiting on something from you, not forgotten.</p>
+  <p class="stamp" id="stamp">Last updated 4 Jul 2026</p>
 
   <div class="roll">
-    <div class="box"><div class="n" id="rActive">5</div><div class="l">In progress</div></div>
+    <div class="box"><div class="n" id="rShipped">4</div><div class="l">Just shipped</div></div>
+    <div class="box"><div class="n" id="rActive">6</div><div class="l">In progress</div></div>
     <div class="box"><div class="n" id="rBlocked">3</div><div class="l">Waiting on you</div></div>
     <div class="box"><div class="n" id="rQueued">1</div><div class="l">Queued</div></div>
     <div class="box"><div class="n" id="rLive">1</div><div class="l">Live watch</div></div>
   </div>
 
   <div class="prio">
-    <b>How to read this:</b> the two builds are where the hours are going. Anything at 0% blocked has a one-line ask next to it. Send me that one thing and it moves off zero the same day.
+    <b>How to read this:</b> "Just shipped" is live now, go open it. In-progress is where the hours go. Anything at 0% blocked has a one-line ask next to it. Send me that one thing and it moves off zero the same day.
   </div>
 
   <div id="board"></div>
@@ -103,23 +104,35 @@
 
 <script>
 var TASKS = [
-  { group: "Building now", items: [
-    { t: "RML full textbook", pct: 60, tag: "building",
-      n: "Whole CET-166 syllabus from scratch, PYQ-weighted, in the notes app. Syllabus backbone mapped, high-yield sections drafted; still building the thinner topics out to full depth.",
-      link: "../notes-app/", linkText: "Notes app" },
-    { t: "MET site revamp, theme 1", pct: 85, tag: "building",
-      n: "Untimed engine live, 'No clock' tag dropped, and structured deep explanation now authored on EVERY Q across all mocks (761 questions, 2283 per-distractor traps just landed, no one-liners left). Remaining: final full-depth verification pass + rolling the same treatment across the other 4 themes.",
-      link: "../take/", linkText: "New look" },
-    { t: "Notes app: structured layout + theorist app-wide", pct: 40, tag: "building",
-      n: "Theorist named at every theory, structured layout on every note. New RML material already complies; sweeping the older notes into the same shape now." },
-    { t: "RCI tracker: fee / seats / hostel cells", pct: 50, tag: "building",
-      n: "Filling the fee, seats and hostel columns for the target colleges in chunks.",
-      link: "../admissions/", linkText: "Admissions" },
-    { t: "Tests deep pass", pct: 30, tag: "building",
-      n: "Deep structured answers + per-distractor traps now authored on pep 1/2, MET 1/3/4, bio, diagnostic and nimhans in the new engine. Left: porting the same depth into the classic deep quiz pages.",
-      link: "../tests/", linkText: "Tests" },
+  { group: "Just shipped (live now)", items: [
+    { t: "SGT book: full-depth study material, all areas", pct: 100, tag: "live",
+      n: "Done. SGT has no published syllabus, so I built the whole general-psychology core from scratch as one deep book: 14 chapters (7 core areas + learning, memory/cognition, motivation/emotion, social, personality, intelligence) plus the attack plan and interview section. Live on its own 'SGT University' shelf in the notes app.",
+      link: "../notes/sgt-study-material/", linkText: "Read it" },
+    { t: "SGT PYQ mock: 100 real PYQs, untimed", pct: 100, tag: "live",
+      n: "Done. 100 real past-paper questions merged from every live PYQ mock and re-sorted into SGT's general-psych shape, each carrying a source badge, deep explanation and per-distractor traps. Untimed, self-marking.",
+      link: "../quiz/sgt-pyq/", linkText: "Take it" },
+    { t: "SGT: official syllabus + fold into tracker", pct: 100, tag: "live",
+      n: "Resolved. There is no official SGT syllabus PDF to pull, they only say 'UGC guidelines' (I checked). So I folded that reality straight into the tracker and the book: written→interview two-stage, breadth-over-depth, ~11 Jul exam at Gurugram, no negative-marking guidance so answer everything.",
+      link: "../admissions/", linkText: "Tracker" },
+    { t: "Intelligence tests note: all tests + age ranges + Indian adaptations", pct: 100, tag: "live",
+      n: "Done. One deep reference covering every major test with author, year, scoring and age range, plus the Indian adaptations (Bhatia, Malin/MISIC, and the rest). Cross-linked and live in the notes.",
+      link: "../notes/intelligence-tests-deep/", linkText: "Read it" },
   ]},
-  { group: "Refocus", items: [
+  { group: "Building now", items: [
+    { t: "MET revamp theme 1: layout + deep explanations + untimed", pct: 85, tag: "building",
+      n: "Untimed engine live, 'No clock' tag dropped, and structured deep explanation now authored on EVERY Q across all mocks (761 questions, 2283 per-distractor traps, no one-liners left). Remaining: the S24 layout fix + final full-depth verification pass, then rolling the same treatment across the other 4 themes.",
+      link: "../take/", linkText: "New look" },
+    { t: "Kill the tests split: fold /take/ into the one tests page", pct: 35, tag: "building",
+      n: "For now the classic tests page carries a 'new look' banner and a per-card button that opens any mock in the new engine, so nothing is stranded. Still to do: collapse the two into one page so there is a single tests list, not a split.",
+      link: "../tests/", linkText: "Tests" },
+    { t: "Notes app: structured layout + theorist named at every theory", pct: 40, tag: "building",
+      n: "Theorist named at every theory, structured layout on every note. New RML and SGT material already comply; sweeping the older notes into the same shape now." },
+    { t: "RCI tracker: approved-list + fee / seats / hostel cells", pct: 50, tag: "building",
+      n: "Filling the RCI-approved flag plus the fee, seats and hostel columns for the target colleges in chunks.",
+      link: "../admissions/", linkText: "Admissions" },
+    { t: "Tests deep pass: pep + MET 1-4 + bio + diagnostic", pct: 30, tag: "building",
+      n: "Deep structured answers + per-distractor traps now authored on pep 1/2, MET 1/3/4, bio, diagnostic and nimhans in the new engine. Left: MET Mock 2 and porting the same depth into the classic deep quiz pages.",
+      link: "../tests/", linkText: "Tests" },
     { t: "Strip + refocus to Amity Noida / SGT / RML / IHBAS / CIP", pct: 20, tag: "building",
       n: "Dead NIMHANS / Manipal admin content archived. Full sweep to cut everything down to the five live targets still pending.",
       link: "../archive/", linkText: "Archive" },
@@ -132,9 +145,10 @@ var TASKS = [
     { t: "Study material for MD", pct: 0, tag: "blocked",
       n: "Blocked on one word: tell me what MD means (which exam / subject) and I start building." },
   ]},
-  { group: "Queued behind the two builds", items: [
+  { group: "Queued behind the revamp", items: [
     { t: "MET APK: refresh/sync button + daily rebuild", pct: 0, tag: "queued",
-      n: "In-app refresh button + a daily auto-rebuild off the live site. Not started, next after the builds." },
+      n: "In-app refresh button + a daily auto-rebuild off the live site. Not started, next after the revamp lands.",
+      link: "../downloads/", linkText: "Downloads" },
   ]},
   { group: "Live watch", items: [
     { t: "Watching IHBAS + CIP 2026 windows", pct: null, tag: "live",
