@@ -127,7 +127,7 @@ BOOKS = [
     # --- SGT ---
     dict(slug="sgt-study-material", shelf="sgt", kind="note", src="sgt-study-material", search_cap=40000,
          short="SGT Clinical Psychology, from scratch",
-         blurb="SGT publishes no syllabus, so this teaches the general-psychology core its MA Clinical entrance actually samples, taught from zero across seven areas: biopsychology, developmental, abnormal and clinical, assessment and testing, psychotherapy and counselling, statistics and research methodology, and general awareness (history and schools of psychology). Every theorist named in full, every test names its author, every therapy names its founder, plus a two-stage attack plan and an interview brief for the second gate."),
+         blurb="SGT publishes no syllabus, so this teaches the general-psychology core its MA Clinical entrance actually samples, taught from zero across fourteen chapters: biopsychology, developmental, abnormal and clinical, assessment and testing, psychotherapy and counselling, statistics and research methodology, general awareness (history and schools), and full stand-alone chapters on learning and conditioning, memory and cognition, motivation and emotion, social psychology, personality, and intelligence. Every theorist named in full, every test names its author, every therapy names its founder, plus a two-stage attack plan and an interview brief for the second gate."),
     # --- Quick Reference ---
     dict(slug="concepts", shelf="reference", kind="merged",
          short="Effects, Theories & Originators",
