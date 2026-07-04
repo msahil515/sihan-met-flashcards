@@ -555,6 +555,28 @@ const MOCKS = [
     companion: null
   },
   {
+    id: "sgt-pyq",
+    title: "SGT PYQ Master Mock (all real papers)",
+    short: "SGT PYQ Master",
+    path: "../../quiz/sgt-pyq/",
+    storageResults: "sgt-pyq-results-v1",
+    storageNotes: "sgt-pyq-notes-v1",
+    total: 100,
+    max: 100,
+    scoring: (right, wrong) => right - wrong * 0.25,
+    scoringLabel: "+1 right · −0.25 wrong · 0 blank",
+    sections: { biopsych: 16, abnormal: 16, assessment: 14, therapy: 14, dev: 12, research: 14, general: 14 },
+    bands: [
+      { min: 70, max: 100, name: "Strong", cls: "good", desc: "100 genuine past-paper Qs across the SGT areas. Above 70 means your general-psych base is broad and solid. Lock it and keep the −0.25 leak shut." },
+      { min: 60, max: 69.99, name: "On target", cls: "good", desc: "Serious-aspirant zone for a general aptitude paper. Patch your two weakest sections below, don't chase new topics." },
+      { min: 50, max: 59.99, name: "Borderline", cls: "warn", desc: "Stop guessing pure-noise items; the −0.25 adds up over 100 Q. That alone usually moves you up a band." },
+      { min: 40, max: 49.99, name: "Needs work", cls: "warn", desc: "A section or two is genuinely soft. Cheatsheets first, then re-sit this set." },
+      { min: -100, max: 39.99, name: "Baseline", cls: "bad", desc: "First cold sitting across every paper at once. The point is the gap map below, not the score. Revise the weakest section and re-attempt." }
+    ],
+    cutoff: 60, cutoffLabel: "working target ~60/100 (SGT publishes no official cutoff)",
+    companion: null
+  },
+  {
     id: "rml-2024",
     title: "RML 2024 PYQ Mock (verbatim paper)",
     short: "RML PYQ 2024",
@@ -843,7 +865,8 @@ const SECTION_LABELS = {
   psychopathology: "Psychopathology",
   development: "Developmental",
   stats: "Biostats / Methods",
-  systems: "Systems & Theories"
+  systems: "Systems & Theories",
+  research: "Research Methods / Stats"
 };
 
 const SECTION_NOTES = {
