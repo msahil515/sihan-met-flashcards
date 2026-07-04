@@ -33,6 +33,7 @@ SECTIONS = [
     ("systems",   "Systems & Theories",    "The whole history of psychology, every school taught from the ground up", "#0e7490", "#155e75"),
     ("amity",     "Amity",                 "Everything Amity MA Clinical in one book", "#b45309", "#78350f"),
     ("rml",       "RML — CET-166",         "The whole RML MA Clinical entrance syllabus taught from scratch", "#b91c1c", "#7f1d1d"),
+    ("sgt",       "SGT University",        "The general-psychology core the SGT MA Clinical entrance samples, taught from scratch", "#2f7fc9", "#1e4e7a"),
     ("reference", "Quick Reference",       "Effects, theorists, lookalikes, the one-page cram", "#7e22ce", "#581c87"),
     ("mocks",     "Mocks & Weak Spots",    "Every debrief reorganised by what kept costing marks", "#be123c", "#831843"),
     ("interview", "Interview Prep",        "Your own clinical voice, straight from your YD sessions", "#0f766e", "#134e4a"),
@@ -123,6 +124,10 @@ BOOKS = [
     dict(slug="rml-study-material", shelf="rml", kind="note", src="rml-study-material", search_cap=40000,
          short="RML Clinical Psychology, from scratch",
          blurb="The whole RML MA Clinical Psychology (CET-166) subject syllabus taught from zero across 12 sections, tuned to how the RML paper actually behaves: ICD-deep abnormal, who-developed-which-therapy and the acronyms, Indian psychology past and present, and the five carrying domains (stats, research methods, social, clinical, personality and developmental). Every theorist named in full, every test names its author, every therapy names its founder."),
+    # --- SGT ---
+    dict(slug="sgt-study-material", shelf="sgt", kind="note", src="sgt-study-material", search_cap=40000,
+         short="SGT Clinical Psychology, from scratch",
+         blurb="SGT publishes no syllabus, so this teaches the general-psychology core its MA Clinical entrance actually samples, taught from zero across seven areas: biopsychology, developmental, abnormal and clinical, assessment and testing, psychotherapy and counselling, statistics and research methodology, and general awareness (history and schools of psychology). Every theorist named in full, every test names its author, every therapy names its founder, plus a two-stage attack plan and an interview brief for the second gate."),
     # --- Quick Reference ---
     dict(slug="concepts", shelf="reference", kind="merged",
          short="Effects, Theories & Originators",
