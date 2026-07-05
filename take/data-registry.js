@@ -167,6 +167,19 @@ const MOCKS = [
     tags: ["deep explanations", "100% real PYQ", "official key", "real distractors", "IHBAS 2024", "untimed practice"]
   },
   {
+    id: "ihbas-2025",
+    title: "IHBAS 2025 PYQ Mock (real paper)",
+    sub: "100 real Qs · IHBAS Delhi M.Phil Clinical Psychology (MPCP) entrance 2025 · Series A · sourced answers · untimed Practice + timed Exam",
+    path: "../quiz/ihbas-2025/",
+    total: 100,
+    storageKey: "ihbas-2025-results-v1",
+    sections: { general: 12, biopsych: 16, abnormal: 27, therapy: 11, biostats: 8, assessment: 7, dev: 12, social: 7 },
+    blurb: "The 2025 IHBAS (Institute of Human Behaviour & Allied Sciences, Delhi) M.Phil Clinical Psychology (MPCP) entrance — Series A, all 100 questions transcribed verbatim from the actual question booklet in your Drive library. This paper carries no official published answer key, so every answer is set from standard clinical-psychology sources (DSM-5, ICD, and the canonical theorists) with a full worked explanation and a note on why each wrong option is wrong — no invented questions, no invented distractors. A few items carry a ⚠ key-debate note where the intended answer is genuinely arguable. Real exam: 100 MCQs; defaults to untimed Practice (instant reveal + explanation), flip to Exam mode for a timed run. Scored +1 / −0.25 / 0 to stay comparable with your other mocks. Independent storage.",
+    fresh: true,
+    deepExp: true,
+    tags: ["deep explanations", "real PYQ", "sourced answers", "real distractors", "IHBAS 2025", "untimed practice"]
+  },
+  {
     id: "amity-2023",
     title: "Amity 2023 PYQ Mock (real paper)",
     sub: "96 real Qs · Amity University M.A. Clinical Psychology entrance 2023 · Amit Panwar PYM reproduction · source key · untimed Practice + timed Exam",
@@ -346,7 +359,7 @@ const GROUPS = [
     members: ["amity-2023", "amity-recall"] },
   { id: "ihbas", title: "IHBAS",
     sub: "IHBAS Delhi M.Phil Clinical Psychology entrances, real papers with verified keys",
-    members: ["ihbas-2024", "ihbas-2020"] },
+    members: ["ihbas-2025", "ihbas-2024", "ihbas-2020"] },
   { id: "rml", title: "RML",
     sub: "ABVIMS / Dr RML Hospital + GGSIPU papers — the CET-166 depth-calibration set, 2020 through 2025",
     members: ["rml-2020", "rml-2021", "rml-2022", "rml-2023", "rml-2024", "rml-2025", "rml-practice-1"] },

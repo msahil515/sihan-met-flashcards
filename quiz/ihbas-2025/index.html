@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0d1117">
+<title>IHBAS 2025 PYQ Mock (Real Paper, 100 Q)</title>
+<style>
+  :root {
+    --bg: #0d1117; --panel: #161b22; --panel-2: #1f252d; --border: #30363d;
+    --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff; --accent-dim: #1f6feb;
+    --good: #3fb950; --bad: #f85149; --warn: #f0b429;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Text', sans-serif; line-height: 1.5; }
+  .app { max-width: min(1200px, 94vw); margin: 0 auto; padding: 16px; min-height: 100vh; }
+  nav { display: flex; gap: 8px; margin-bottom: 16px; font-size: 13px; flex-wrap: wrap; }
+  nav a { color: var(--accent); text-decoration: none; padding: 6px 10px;
+    border: 1px solid var(--accent-dim); border-radius: 6px; }
+  header { text-align: center; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  h1 { font-size: 18px; margin: 0 0 4px 0; font-weight: 600; letter-spacing: 0.5px; }
+  .subtitle { font-size: 12px; color: var(--muted); }
+  .blueprint { font-size: 11px; color: var(--accent); margin-top: 6px; }
+  .filters { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; margin-bottom: 16px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .filters label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  select { background: var(--panel-2); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 10px; font-size: 14px; font-family: inherit; flex: 1; min-width: 140px;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%238b949e' d='M2 4l4 4 4-4z'/></svg>");
+    background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+  .progress { font-size: 12px; color: var(--muted); text-align: center; margin-bottom: 10px; }
+  .progress-bar { height: 4px; background: var(--panel); border-radius: 2px; overflow: hidden; margin-bottom: 16px; }
+  .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s ease; }
+  .question-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px; margin-bottom: 12px; }
+  .section-tag { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--accent); background: rgba(88, 166, 255, 0.08); padding: 3px 8px; border-radius: 4px; margin-bottom: 10px; }
+  .question-text { font-size: 16px; line-height: 1.5; margin-bottom: 14px; white-space: pre-wrap; }
+  .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+  .option { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; font-size: 15px; cursor: pointer; transition: all 0.15s ease; display: flex; gap: 10px; align-items: flex-start; }
+  .option:hover:not(.disabled) { border-color: var(--accent-dim); background: rgba(31, 111, 235, 0.05); }
+  .option.selected { border-color: var(--accent); background: rgba(88, 166, 255, 0.08); }
+  .option.correct { border-color: var(--good); background: rgba(63, 185, 80, 0.1); }
+  .option.incorrect { border-color: var(--bad); background: rgba(248, 81, 73, 0.08); }
+  .option.disabled { cursor: default; }
+  .option-letter { font-weight: 600; color: var(--accent); flex-shrink: 0; width: 20px; }
+  .option.correct .option-letter { color: var(--good); }
+  .option.incorrect .option-letter { color: var(--bad); }
+  .guess-row { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 12px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+    font-size: 14px; cursor: pointer; user-select: none; }
+  .guess-row.checked { border-color: var(--warn); background: rgba(240, 180, 41, 0.06); }
+  .guess-checkbox { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 4px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.1s ease; }
+  .guess-row.checked .guess-checkbox { border-color: var(--warn); background: var(--warn); }
+  .guess-row.checked .guess-checkbox::after { content: "✓"; color: var(--bg); font-weight: 800; font-size: 14px; }
+  .guess-label { flex: 1; }
+  .guess-label small { display: block; color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .controls { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  button { background: var(--panel); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px; font-size: 14px; font-family: inherit; cursor: pointer;
+    transition: all 0.15s ease; font-weight: 500; }
+  button:hover:not(:disabled) { background: var(--panel-2); border-color: var(--accent-dim); }
+  button:active:not(:disabled) { transform: scale(0.98); }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-primary { border-color: var(--accent-dim); color: var(--accent); }
+  .btn-primary:hover:not(:disabled) { background: rgba(88, 166, 255, 0.08); }
+  .explanation { background: var(--panel-2); border-left: 3px solid var(--accent); border-radius: 6px;
+    padding: 12px 14px; margin-top: 14px; font-size: 14px; color: var(--text); display: none; }
+  .explanation.visible { display: block; }
+  .explanation strong { color: var(--accent); }
+  /* readable-notes explanation layout — bigger text, spaced blocks (2026-06-11) */
+  .explanation { font-size: 16px; line-height: 1.7; padding: 16px 18px; border-radius: 8px; }
+  .exp-verdict { font-size: 17px; font-weight: 700; letter-spacing: 0.2px; color: var(--accent);
+    margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .exp-verdict.ok { color: var(--good); }
+  .exp-verdict.bad { color: var(--bad); }
+  .exp-concept { font-size: 16px; line-height: 1.75; color: var(--text); }
+  .exp-concept strong { color: var(--accent); }
+  .notes-area { margin-top: 14px; border-top: 1px dashed var(--border); padding-top: 12px; }
+  .notes-label { display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .notes-saved { font-size: 11px; color: var(--good); opacity: 0; transition: opacity 0.2s ease;
+    text-transform: none; letter-spacing: 0; }
+  .notes-saved.visible { opacity: 1; }
+  .notes-textarea { width: 100%; min-height: 70px; background: var(--panel-2); color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-family: inherit;
+    font-size: 14px; line-height: 1.45; resize: vertical; box-sizing: border-box; }
+  .notes-textarea:focus { outline: none; border-color: var(--accent-dim); background: rgba(31, 111, 235, 0.04); }
+  .notes-textarea::placeholder { color: var(--muted); }
+  .has-note .section-tag::after { content: " · 📝 noted"; color: var(--good); font-weight: 500; }
+  .resume-banner { background: rgba(63, 185, 80, 0.08); border: 1px solid var(--good); border-radius: 8px;
+    padding: 10px 14px; margin-bottom: 12px; font-size: 13px; color: var(--text);
+    display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .resume-banner button { flex: 0 0 auto; padding: 6px 12px; font-size: 12px; }
+  .backup-area { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px; margin-top: 16px; }
+  .backup-area h3 { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .backup-note { font-size: 12px; color: var(--muted); margin: 0 0 10px 0; }
+  .backup-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .analysis-cta { background: linear-gradient(135deg, rgba(63,185,80,0.10), rgba(63,185,80,0.04));
+    border: 1px solid rgba(63,185,80,0.5); border-radius: 8px;
+    padding: 16px; margin-top: 20px; }
+  .analysis-cta h3 { font-size: 13px; color: var(--good); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .analysis-note { font-size: 13px; color: var(--muted); margin: 0 0 12px 0; line-height: 1.55; }
+  .analysis-btn { display: block; width: 100%; box-sizing: border-box; text-align: center;
+    background: rgba(63,185,80,0.18); color: var(--good); border: 1px solid var(--good);
+    border-radius: 8px; padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer;
+    text-decoration: none; transition: background 0.15s ease; }
+  .analysis-btn:hover { background: rgba(63,185,80,0.32); }
+  .export-area { background: var(--panel); border: 1px solid var(--accent); border-radius: 8px;
+    padding: 14px; margin-top: 16px; }
+  .export-area h3 { font-size: 13px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .export-note { font-size: 12px; color: var(--muted); margin: 0 0 10px 0; }
+  .export-btn { width: 100%; background: var(--accent-dim); color: white; border: 1px solid var(--accent);
+    border-radius: 8px; padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer; }
+  .export-btn:hover:not(:disabled) { background: var(--accent); }
+  .stats { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; margin-top: 16px; font-size: 13px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; }
+  .stat-item { padding: 4px; }
+  .stat-num { font-size: 20px; font-weight: 600; display: block; margin-bottom: 2px; }
+  .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-confident-right { color: var(--good); }
+  .stat-guessed-right { color: var(--warn); }
+  .stat-wrong { color: var(--bad); }
+  .stat-skipped { color: var(--muted); }
+  .scoreboard { background: var(--panel); border: 1px solid var(--accent-dim); border-radius: 8px;
+    padding: 12px; margin-top: 16px; text-align: center; font-size: 14px; }
+  .scoreboard .big { font-size: 28px; font-weight: 700; color: var(--accent); display: block; }
+  .scoreboard small { color: var(--muted); }
+  .review-area { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--muted); }
+  .review-area h3 { font-size: 14px; margin: 0 0 8px 0; color: var(--text); }
+  .review-list { list-style: none; padding: 0; margin: 0; }
+  .review-list li { padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .review-list li:last-child { border-bottom: none; }
+  .review-tag { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 3px;
+    margin-right: 6px; font-weight: 600; }
+  .review-tag.guessed { background: rgba(240, 180, 41, 0.15); color: var(--warn); }
+  .review-tag.wrong { background: rgba(248, 81, 73, 0.15); color: var(--bad); }
+  .review-tag.flagged { background: rgba(240, 180, 41, 0.15); color: var(--warn); }
+  .review-list li.review-clickable { cursor: pointer; }
+  .review-list li.review-clickable:hover { background: rgba(88,166,255,0.05); }
+  .review-q { color: var(--text); display: block; margin: 3px 0; }
+  .review-ans { font-size: 12px; color: var(--muted); display: block; }
+  .review-ans .rv-picked { color: var(--bad); font-weight: 600; }
+  .review-ans .rv-correct { color: var(--good); font-weight: 600; }
+  .review-rule { font-size: 12px; color: var(--muted); display: block; margin-top: 2px; font-style: italic; }
+  .traps { margin-top: 16px; border-top: 1px dashed var(--border); padding-top: 14px; }
+  .traps-h { font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--bad); font-weight: 700; margin-bottom: 10px; }
+  .trap { font-size: 15px; color: var(--muted); margin: 0 0 10px 0; line-height: 1.65;
+    background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--bad);
+    border-radius: 8px; padding: 11px 13px; }
+  .trap:last-child { margin-bottom: 0; }
+  .trap-opt { display: block; color: var(--text); font-weight: 700; margin-bottom: 5px; }
+  .reset-btn { margin-top: 12px; width: 100%; color: var(--muted); font-size: 12px; }
+  .section-scores { margin-top: 16px; background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px; }
+  .section-scores h3 { font-size: 13px; margin: 0 0 10px 0; color: var(--text); text-transform: uppercase; letter-spacing: 0.5px; }
+  .section-score-row { display: flex; align-items: center; gap: 10px; padding: 6px 0;
+    font-size: 13px; border-bottom: 1px solid var(--border); }
+  .section-score-row:last-child { border-bottom: none; }
+  .section-score-name { flex: 0 0 130px; color: var(--muted); font-size: 12px; }
+  .section-score-bar { flex: 1; height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; display: flex; }
+  .section-score-bar > span { display: block; height: 100%; }
+  .ssr-right { background: var(--good); }
+  .ssr-guessed { background: var(--warn); }
+  .ssr-wrong { background: var(--bad); }
+  .ssr-skipped { background: transparent; }
+  .section-score-num { flex: 0 0 90px; text-align: right; color: var(--text);
+    font-size: 12px; font-variant-numeric: tabular-nums; }
+  @media (max-width: 400px) {
+    .section-score-name { flex-basis: 100px; font-size: 11px; }
+    .section-score-num { flex-basis: 70px; font-size: 11px; }
+    .question-text { font-size: 15px; }
+    .option { font-size: 14px; padding: 10px; }
+    .controls { grid-template-columns: 1fr 1fr; }
+  }
+  /* ---- mode toggle ---- */
+  .mode-toggle { display: flex; gap: 0; background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 4px; margin-bottom: 12px; }
+  .mode-btn { flex: 1; background: transparent; border: 0; border-radius: 6px; padding: 10px;
+    font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; }
+  .mode-btn.active { background: var(--accent-dim); color: #fff; }
+  .mode-hint { font-size: 11px; color: var(--muted); text-align: center; margin: -4px 0 14px 0; }
+  /* ---- exam bar / timer ---- */
+  .exam-bar { position: sticky; top: 0; z-index: 50; background: var(--panel);
+    border: 1px solid var(--accent-dim); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35); }
+  .exam-timer { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--accent); letter-spacing: 1px; }
+  .exam-timer.warn { color: var(--warn); }
+  .exam-timer.danger { color: var(--bad); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
+  .exam-meta { font-size: 11px; color: var(--muted); }
+  .exam-finish-btn { flex: 0 0 auto; background: rgba(63,185,80,0.18); color: var(--good);
+    border: 1px solid var(--good); border-radius: 8px; padding: 9px 14px; font-size: 13px; font-weight: 600; }
+  .exam-finish-btn:hover { background: rgba(63,185,80,0.32); }
+  .exam-intro { background: var(--panel); border: 1px solid var(--accent-dim); border-radius: 10px;
+    padding: 16px; margin-bottom: 14px; }
+  .exam-intro h3 { margin: 0 0 6px 0; font-size: 14px; color: var(--accent); }
+  .exam-intro p { margin: 0 0 12px 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .exam-start-btn { width: 100%; background: var(--accent-dim); color: #fff; border: 1px solid var(--accent);
+    border-radius: 8px; padding: 13px; font-size: 15px; font-weight: 600; }
+  /* ---- flag + secondary controls ---- */
+  .secondary-controls { display: flex; gap: 8px; margin-top: 8px; }
+  .flag-btn { flex: 1; font-size: 13px; }
+  .flag-btn.flagged { border-color: var(--warn); color: var(--warn); background: rgba(240,180,41,0.08); }
+  .has-flag .section-tag::before { content: "🚩 "; }
+  /* ---- redo bar ---- */
+  .redo-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .redo-btn { flex: 1; min-width: 130px; font-size: 13px; }
+  .redo-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(88,166,255,0.08); }
+  .redo-clear { flex: 0 0 auto; color: var(--muted); font-size: 12px; }
+  /* ---- exam question navigator ---- */
+  .nav-grid-wrap { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; margin-bottom: 14px; }
+  .nav-grid-wrap h3 { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .nav-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(30px, 1fr)); gap: 5px; }
+  .nav-cell { aspect-ratio: 1; border: 1px solid var(--border); border-radius: 5px; background: var(--panel-2);
+    color: var(--muted); font-size: 11px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .nav-cell.answered { background: rgba(88,166,255,0.18); color: var(--accent); border-color: var(--accent-dim); }
+  .nav-cell.flagged { border-color: var(--warn); box-shadow: inset 0 0 0 1px var(--warn); }
+  .nav-cell.current { outline: 2px solid var(--accent); outline-offset: 1px; color: #fff; }
+  .nav-cell.correct { background: rgba(63,185,80,0.2); color: var(--good); border-color: var(--good); }
+  .nav-cell.wrong { background: rgba(248,81,73,0.2); color: var(--bad); border-color: var(--bad); }
+  /* ---- attempt history ---- */
+  .attempt-history { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px; margin-top: 16px; }
+  .attempt-history h3 { font-size: 13px; margin: 0 0 4px 0; color: var(--text); text-transform: uppercase; letter-spacing: 0.5px; }
+  .attempt-history .ah-note { font-size: 12px; color: var(--muted); margin: 0 0 12px 0; }
+  .ah-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .ah-row:last-child { border-bottom: none; }
+  .ah-when { flex: 0 0 92px; color: var(--muted); font-size: 11px; }
+  .ah-track { flex: 1; height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; }
+  .ah-fill { height: 100%; background: var(--accent); }
+  .ah-fill.up { background: var(--good); }
+  .ah-fill.down { background: var(--bad); }
+  .ah-score { flex: 0 0 96px; text-align: right; font-variant-numeric: tabular-nums; }
+  .ah-delta { font-size: 11px; margin-left: 6px; }
+  .ah-delta.up { color: var(--good); } .ah-delta.down { color: var(--bad); }
+  .ah-empty { font-size: 12px; color: var(--muted); }
+  footer { text-align: center; font-size: 10px; color: var(--muted); padding: 24px 0 8px 0; }
+</style>
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+</head>
+<body>
+<div class="app">
+  <nav><a href="../../">← Dashboard</a> <a href="../../tests/">Tests</a> <a href="../../results/">My Results</a> <a href="../../notes/">Notes</a> <a href="../../plan/">Plan</a></nav>
+  <header>
+    <h1>IHBAS 2025 PYQ Mock (Real Paper)</h1>
+    <div class="subtitle">100 real Qs · IHBAS, Delhi · M.Phil Clinical Psychology entrance 2025 · untimed Practice by default · +1 / −0.25 / 0 blank</div>
+    <div class="blueprint">Real questions from the <b>2025 IHBAS</b> (Institute of Human Behaviour &amp; Allied Sciences, Delhi) M.Phil Clinical Psychology (MPCP) entrance — Series A — all 100 questions transcribed verbatim from the actual question booklet in your <a href="../../resources/" style="color:inherit;">Drive library</a>. This paper carries no official answer key, so every answer is set from standard clinical-psychology sources (DSM-5, ICD, and the canonical theorists) with a full worked explanation and a note on why each wrong option is wrong — no invented questions, no invented distractors. A few items carry a ⚠ key-debate note where the intended answer is genuinely arguable. Real exam: 100 MCQs; this mock defaults to untimed Practice (instant reveal + explanation), flip to Exam mode for a timed run. Scored +1 / −0.25 / 0 blank. Independent storage.</div>
+  </header>
+
+  <div class="filters">
+    <label for="sectionSelect">Section</label>
+    <select id="sectionSelect">
+      <option value="all">All 100 questions</option>
+      <option value="general">General / Cognitive (12)</option>
+      <option value="biopsych">Neuropsych / Biopsych (16)</option>
+      <option value="abnormal">Abnormal / Psychopathology (27)</option>
+      <option value="therapy">Psychotherapy (11)</option>
+      <option value="biostats">Biostats / Research (8)</option>
+      <option value="assessment">Psychological Assessment (7)</option>
+      <option value="dev">Developmental (12)</option>
+      <option value="social">Social Psychology (7)</option>
+    </select>
+  </div>
+
+  <div class="mode-toggle">
+    <button class="mode-btn" data-action="setMode" data-mode="practice">📚 Practice</button>
+    <button class="mode-btn" data-action="setMode" data-mode="exam">⏱️ Exam mode</button>
+  </div>
+  <div class="mode-hint" id="modeHint"></div>
+
+  <div id="examIntro" class="exam-intro" style="display:none;"></div>
+  <div id="examBar" class="exam-bar" style="display:none;"></div>
+
+  <div id="redoBar" class="redo-bar" style="display:none;"></div>
+
+  <div id="resumeBanner" class="resume-banner" style="display:none;"></div>
+
+  <div class="progress" id="progress">0 / 0</div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div id="quizArea"></div>
+
+  <div id="navGridWrap" class="nav-grid-wrap" style="display:none;">
+    <h3>Jump to question <span id="navGridLegend" style="text-transform:none;letter-spacing:0;"></span></h3>
+    <div class="nav-grid" id="navGrid"></div>
+  </div>
+
+  <div class="scoreboard" id="scoreboard"></div>
+
+  <div class="stats" id="stats">
+    <div class="stat-item"><span class="stat-num stat-confident-right" id="statRight">0</span><span class="stat-label">Right (Solid)</span></div>
+    <div class="stat-item"><span class="stat-num stat-guessed-right" id="statGuessed">0</span><span class="stat-label">Right (Guessed)</span></div>
+    <div class="stat-item"><span class="stat-num stat-wrong" id="statWrong">0</span><span class="stat-label">Wrong</span></div>
+    <div class="stat-item"><span class="stat-num stat-skipped" id="statSkipped">0</span><span class="stat-label">Skipped</span></div>
+  </div>
+
+  <div class="section-scores">
+    <h3>Per-section breakdown</h3>
+    <div id="sectionScores"></div>
+  </div>
+
+  <div class="attempt-history" id="attemptHistory">
+    <h3>📈 Attempt history</h3>
+    <p class="ah-note">Every time you finish an exam-mode run, the score lands here so you can watch it climb.</p>
+    <div id="attemptHistoryList"></div>
+  </div>
+
+  <div class="review-area" id="reviewArea" style="display:none;">
+    <h3>Things to come back to</h3>
+    <ul class="review-list" id="reviewList"></ul>
+    <button class="reset-btn" data-action="reset">Reset all stats and start over</button>
+  </div>
+
+  <div class="analysis-cta">
+    <h3>📊 Full analysis</h3>
+    <p class="analysis-note">Score + estimated band, section-wise R/W/Skip with miss-rate, top-3 weakest topics linked to the exact cheatsheets, and per-question review with every distractor flagged and explained. Reads your saved answers from this browser.</p>
+    <a class="analysis-btn" href="../../results/analysis/?mock=ihbas-2025">Open full analysis →</a>
+  </div>
+
+  <div class="export-area">
+    <h3>📤 Send results to Sahil</h3>
+    <p class="export-note">One tap shows your full result as plain text (score, section breakdown, every wrong/guessed question, your notes). Tap <b>Copy</b>, then paste it straight to Sahil on WhatsApp. No file, no download.</p>
+    <button class="export-btn" data-action="showResultText">📋 Show &amp; copy result (plain text)</button>
+    <button class="export-btn" data-action="downloadResultsTxt" style="margin-top:8px; background:transparent; color:var(--muted); border-color:var(--border); font-weight:500;">Or save as a .txt file instead</button>
+  </div>
+
+  <div class="backup-area">
+    <h3>Backup / restore</h3>
+    <p class="backup-note">Backup IHBAS 2025 PYQ Mock progress separately. Paste a previous code to restore.</p>
+    <div class="backup-controls">
+      <button data-action="exportProgress">Copy backup code</button>
+      <button data-action="importProgress">Restore from code</button>
+    </div>
+  </div>
+
+  <footer>IHBAS 2025 PYQ Mock · Institute of Human Behaviour &amp; Allied Sciences, Delhi · M.Phil Clinical Psychology entrance 2025 · 100 real Qs · sourced answers · independent state. · full explanation + per-distractor trap under every Q</footer>
+</div>
+
+<script>
+// =====================================================================
+// QUESTION BANK -- IHBAS 2025 PYQ Mock, Institute of Human Behaviour &
+// Allied Sciences (IHBAS), Delhi. M.Phil Clinical Psychology entrance,
+// 2025 question paper. Real questions transcribed from the PYQ,
+// each answer verified against the paper's marked key and standard
+// clinical-psychology sources. 8 of the 100 items dropped (one exact
+// duplicate, the rest ambiguous/unverifiable). No invented questions.
+// =====================================================================
+const QUESTIONS = [
+  { id: "ihbas25_001", section: "abnormal",
+    q: "Conversion disorder differs from hypochondriasis in that :",
+    options: { a: "Conversion requires delusions, hypochondriasis requires hallucinations", b: "Conversion involves neurological-like symptoms without organic basis, while hypochondriasis involves fear of having a serious illness", c: "Conversion involves somatic preoccupation, hypochondriasis does not", d: "Hypochondriasis is always associated with depression, conversion is not" },
+    correct: "b",
+    traps: { a: "Neither conversion nor hypochondriasis is defined by delusions or hallucinations; these are psychotic features, not somatoform ones.", c: "Somatic preoccupation is actually the hallmark of hypochondriasis, so this reverses the true picture.", d: "Hypochondriasis is not 'always' associated with depression, and comorbid mood symptoms can occur with conversion too." },
+    explanation: "Conversion disorder (functional neurological symptom disorder) presents with pseudoneurological deficits (paralysis, blindness, seizures) incompatible with recognized organic disease, whereas hypochondriasis (illness anxiety disorder in DSM-5) is defined by preoccupation with and fear of having a serious illness. This is the core phenomenological distinction under both ICD-10 (F44 vs F45.2) and DSM classifications." },
+  { id: "ihbas25_002", section: "abnormal",
+    q: "A key of distinguishing feature of dementia vs. delirium is :",
+    options: { a: "Delusions in dementia but not delirium", b: "Onset gradual in delirium vs. acute in dementia", c: "Hallucinations in dementia but not delirium", d: "Impaired memory in dementia vs. fluctuating consciousness in delirium" },
+    correct: "d",
+    traps: { a: "Delusions can occur in both delirium and dementia, so they do not cleanly separate them.", b: "This reverses the truth: onset is acute in delirium and gradual in dementia.", c: "Hallucinations (often visual) are actually more characteristic of delirium, not exclusive to dementia." },
+    explanation: "The cardinal distinction is that delirium features an acutely disturbed, fluctuating level of consciousness and attention, whereas dementia is a chronic, insidious decline in memory and other cognition with a generally clear sensorium (until late stages). Clouding/fluctuation of consciousness is the defining marker of delirium in both ICD-10 and DSM-5." },
+  { id: "ihbas25_003", section: "abnormal",
+    q: "Cyclothymia is best defined as :",
+    options: { a: "Alternating manic and depressive episodes of equal severity", b: "A single hypomanic episode without depression", c: "Recurrent dysthymic episodes lasting 6 months", d: "At least 2 years of fluctuating hypomanic and depressive symptoms not meeting criteria for bipolar disorder" },
+    correct: "d",
+    traps: { a: "Full manic and major depressive episodes of that severity would indicate bipolar I disorder, not cyclothymia.", b: "A single hypomanic episode does not capture the chronic biphasic, subthreshold course required.", c: "This describes a dysthymia-like picture and uses the wrong duration; cyclothymia requires 2 years of both poles." },
+    explanation: "Cyclothymic disorder is defined by at least 2 years (1 year in children/adolescents) of numerous periods of hypomanic and depressive symptoms that never meet full criteria for a hypomanic, manic, or major depressive episode. It represents a chronic, low-grade instability of mood, per DSM-5 and ICD-10 (F34.0)." },
+  { id: "ihbas25_004", section: "abnormal",
+    q: "The term functional blindness refers to :",
+    options: { a: "Progressive loss due to optic nerve atrophy", b: "Color vision deficiency", c: "Blindness explained by psychological factors without organic damage", d: "Vision loss due to cortical lesion" },
+    correct: "c",
+    traps: { a: "Optic nerve atrophy is a demonstrable organic cause, the opposite of 'functional'.", b: "Color vision deficiency is a genuine (usually genetic) retinal/organic anomaly, not a psychogenic loss.", d: "A cortical lesion is a structural organic cause (cortical blindness), not functional." },
+    explanation: "Functional (psychogenic/hysterical) blindness is a conversion symptom in which vision loss occurs without any demonstrable organic lesion of the eye or visual pathways, and preserved pupillary reflexes and optokinetic responses confirm intact physiology. It is attributed to psychological factors rather than structural damage." },
+  { id: "ihbas25_005", section: "abnormal",
+    q: "The ICD-10 duration criterion for schizophrenia requires symptoms to persist for at least :",
+    options: { a: "6 months", b: "2 weeks", c: "3 months", d: "1 month" },
+    correct: "d",
+    traps: { a: "6 months is the DSM-5 (and DSM-IV) criterion, not the ICD-10 one.", b: "2 weeks is not the schizophrenia threshold; it echoes the duration used for a depressive episode.", c: "3 months is not a recognized duration criterion for schizophrenia in ICD-10." },
+    explanation: "Under ICD-10, characteristic schizophrenic symptoms must be present for most of the time during a period of at least one month for a diagnosis of schizophrenia. This contrasts with DSM-5, which requires 6 months of continuous disturbance (including prodromal/residual phases)." },
+  { id: "ihbas25_006", section: "general",
+    q: "Gestalt psychology emphasizes :",
+    options: { a: "Reinforcement and punishment", b: "Neurotransmitter balance", c: "Cognitive distortions", d: "The whole is greater than the sum of its parts" },
+    correct: "d",
+    traps: { a: "Reinforcement and punishment are central to behaviorism (Skinner), not Gestalt psychology.", b: "Neurotransmitter balance reflects a biological/biochemical model, unrelated to Gestalt perception.", c: "Cognitive distortions belong to Beck's cognitive therapy, not Gestalt psychology." },
+    explanation: "Gestalt psychology, founded by Wertheimer, Koffka, and Kohler, holds that perceptual experience is organized into wholes that cannot be reduced to the sum of individual sensory elements, captured in the maxim 'the whole is greater than the sum of its parts.' It gave rise to laws of perceptual organization such as proximity, similarity, and closure." },
+  { id: "ihbas25_007", section: "dev",
+    q: "According to Piaget, object permanence develops during :",
+    options: { a: "Sensorimotor stage", b: "Preoperational stage", c: "Concrete operational stage", d: "Formal operational stage" },
+    correct: "a",
+    traps: { b: "The preoperational stage is marked by symbolic thought and egocentrism, well after object permanence is established.", c: "The concrete operational stage introduces conservation and logical operations, far later than object permanence.", d: "The formal operational stage involves abstract and hypothetical reasoning in adolescence, unrelated to object permanence." },
+    explanation: "In Piaget's theory, object permanence, the understanding that objects continue to exist when out of sight, is acquired during the sensorimotor stage (birth to about 2 years), typically emerging around 8-12 months. It is a landmark achievement of that stage before the onset of symbolic thought." },
+  { id: "ihbas25_008", section: "general",
+    q: "In signal detection theory, the ability to distinguish a stimulus from background noise is :",
+    options: { a: "Sensitivity (d')", b: "Criterion (β)", c: "ROC curve", d: "JND" },
+    correct: "a",
+    traps: { b: "Criterion (β) reflects the observer's decision threshold or response bias, not discriminability.", c: "The ROC curve is a plot of hits against false alarms across criteria, a graphical summary rather than the discrimination measure itself.", d: "The JND (just noticeable difference) is a Fechnerian/classical psychophysics concept, not the SDT sensitivity index." },
+    explanation: "In signal detection theory, sensitivity is indexed by d' (d-prime), which measures the separation between the signal-plus-noise and noise-alone distributions, i.e., how well an observer can discriminate a true stimulus from background noise. It is independent of the observer's response bias." },
+  { id: "ihbas25_009", section: "general",
+    q: "The \"levels of processing\" model was proposed by :",
+    options: { a: "Atkinson & Shiffrin", b: "Craik & Lockhart", c: "Baddeley & Hitch", d: "Tulving" },
+    correct: "b",
+    traps: { a: "Atkinson & Shiffrin (1968) proposed the multi-store/modal model of memory (sensory, short-term, long-term stores), not levels of processing.", c: "Baddeley & Hitch (1974) proposed the working memory model with its phonological loop and visuospatial sketchpad.", d: "Tulving distinguished episodic vs semantic memory and encoding specificity, not the levels-of-processing model." },
+    explanation: "The levels-of-processing framework was proposed by Fergus Craik and Robert Lockhart (1972), arguing that memory retention depends on the depth of encoding, with semantic (deep) processing yielding better recall than shallow structural or phonological processing." },
+  { id: "ihbas25_010", section: "general",
+    q: "Latent learning was demonstrated by :",
+    options: { a: "Tolman", b: "Bandura", c: "Skinner", d: "Kohler" },
+    correct: "a",
+    traps: { b: "Bandura is known for observational/social learning and the Bobo doll studies, not latent learning.", c: "Skinner is associated with operant conditioning and reinforcement schedules.", d: "Kohler demonstrated insight learning in chimpanzees, a different Gestalt phenomenon." },
+    explanation: "Edward Tolman demonstrated latent learning in his classic rat-maze experiments, showing that learning can occur without reinforcement and remain hidden until there is an incentive to perform, supporting cognitive maps." },
+  { id: "ihbas25_011", section: "biopsych",
+    q: "Which system includes the brain and spinal cord?",
+    options: { a: "Peripheral nervous system", b: "Autonomic nervous system", c: "Somatic nervous system", d: "Central nervous system" },
+    correct: "d",
+    traps: { a: "The peripheral nervous system comprises the nerves outside the brain and spinal cord.", b: "The autonomic nervous system is a subdivision of the PNS controlling involuntary functions.", c: "The somatic nervous system is a PNS subdivision controlling voluntary skeletal muscle movement." },
+    explanation: "The central nervous system (CNS) consists of the brain and the spinal cord, serving as the primary processing and integration center of the body." },
+  { id: "ihbas25_012", section: "biostats",
+    q: "A researcher finds a correlation of r = -0.85 between stress and sleep quality. This indicates :",
+    options: { a: "A weak negative relationship", b: "A strong positive relationship", c: "A strong negative relationship", d: "No relationship" },
+    correct: "c",
+    traps: { a: "0.85 is a large magnitude, so the relationship is strong, not weak.", b: "The negative sign indicates an inverse relationship, not a positive one.", d: "An r near zero would indicate no relationship; -0.85 is far from zero." },
+    explanation: "A correlation of r = -0.85 is close to -1, indicating a strong inverse (negative) relationship: as stress increases, sleep quality decreases. The magnitude (0.85) reflects strength and the sign reflects direction." },
+  { id: "ihbas25_013", section: "abnormal",
+    q: "Which disorder is characterized by persistent sadness and loss of interest?",
+    options: { a: "Bipolar disorder", b: "Major depressive disorder", c: "Anxiety disorder", d: "OCD" },
+    correct: "b",
+    traps: { a: "Bipolar disorder involves alternating manic/hypomanic and depressive episodes, not persistent sadness alone.", c: "Anxiety disorders are marked by excessive fear and worry, not depressed mood and anhedonia.", d: "OCD is characterized by obsessions and compulsions, not persistent sadness and loss of interest." },
+    explanation: "Major depressive disorder is defined in DSM-5 by depressed mood and/or markedly diminished interest or pleasure (anhedonia) most of the day for at least two weeks, along with associated somatic and cognitive symptoms." },
+  { id: "ihbas25_014", section: "biopsych",
+    q: "Which gland is considered the \"master gland\" of the endocrine system?",
+    options: { a: "Adrenal gland", b: "Pineal gland", c: "Pituitary gland", d: "Thyroid gland" },
+    correct: "c",
+    traps: { a: "The adrenal glands secrete cortisol and adrenaline but are regulated by the pituitary's ACTH.", b: "The pineal gland secretes melatonin regulating circadian rhythm, not other glands.", d: "The thyroid regulates metabolism but is itself controlled by pituitary TSH." },
+    explanation: "The pituitary gland is called the master gland because it secretes hormones (e.g., TSH, ACTH, FSH, LH, GH) that regulate the activity of other endocrine glands, itself controlled by the hypothalamus." },
+  { id: "ihbas25_015", section: "general",
+    q: "Which of the following describes introversion?",
+    options: { a: "Enjoying large social gatherings", b: "Being talkative and outgoing", c: "Gaining energy from solitude", d: "Being aggressive and dominant" },
+    correct: "c",
+    traps: { a: "Enjoying large social gatherings reflects extraversion, not introversion.", b: "Being talkative and outgoing is a hallmark of extraversion.", d: "Aggressiveness and dominance relate to other traits (e.g., low agreeableness), not introversion." },
+    explanation: "Introversion, as described by Jung and elaborated in Eysenck's and the Big Five trait theories, is characterized by an inward orientation, a preference for solitude, and gaining energy from quiet or solitary activities rather than social stimulation." },
+  { id: "ihbas25_016", section: "dev",
+    q: "An adolescent struggling with role confusion is in Erikson's psychosocial stage of :",
+    options: { a: "Intimacy vs Isolation", b: "Identity vs Role Confusion", c: "Industry vs Inferiority", d: "Generativity vs Stagnation" },
+    correct: "b",
+    traps: { a: "Intimacy vs Isolation is the young-adulthood stage centered on forming close relationships.", c: "Industry vs Inferiority is the school-age (latency) stage focused on competence.", d: "Generativity vs Stagnation is the middle-adulthood stage focused on contributing to the next generation." },
+    explanation: "Erikson's fifth psychosocial stage, Identity vs Role Confusion, occurs during adolescence (roughly 12-18 years), when the individual works to form a coherent sense of self and identity, and failure results in role confusion." },
+  { id: "ihbas25_017", section: "assessment",
+    q: "Which of the following represents L-data in personality assessment?",
+    options: { a: "Performance on projective tests", b: "Self-report questionnaires", c: "Life record data such as school performance and criminal records", d: "Responses on Q-sort tasks" },
+    correct: "c",
+    traps: { a: "Projective test performance is a form of objective/T-data or clinical data, not L-data.", b: "Self-report questionnaires constitute Q-data in Cattell's scheme.", d: "Q-sort responses are self-descriptive (Q-data), not life-record data." },
+    explanation: "In Cattell's classification of personality data, L-data (life-record data) refers to information gathered from real-life records and observer ratings, such as school performance, work records, and criminal records, as opposed to Q-data (questionnaire) and T-data (objective test)." },
+  { id: "ihbas25_018", section: "biostats",
+    q: "In a regression formula Y = a + bX, the slope is represented by :",
+    options: { a: "a", b: "Y", c: "b", d: "X" },
+    correct: "c",
+    traps: { a: "'a' is the Y-intercept (the value of Y when X = 0), not the slope.", b: "Y is the predicted/dependent variable, not the slope.", d: "X is the independent/predictor variable, not the slope." },
+    explanation: "In the linear regression equation Y = a + bX, b is the slope (regression coefficient) indicating the change in Y per unit change in X, while a is the intercept, X is the predictor, and Y is the predicted outcome." },
+  { id: "ihbas25_019", section: "biostats",
+    q: "Which of the following is an example of interval scale measurement?",
+    options: { a: "Eye color", b: "Gender", c: "Temperature in Celsius", d: "Socioeconomic status categories" },
+    correct: "c",
+    traps: { a: "Eye color is a nominal (categorical) variable with no order.", b: "Gender is a nominal variable, involving unordered categories.", d: "Socioeconomic status categories are ordinal, having rank order but not equal intervals." },
+    explanation: "Temperature in Celsius is an interval scale: it has equal intervals between values but an arbitrary (non-absolute) zero point, so differences are meaningful but ratios are not. This follows Stevens' classification of measurement scales." },
+  { id: "ihbas25_020", section: "biopsych",
+    q: "The neocortex is primarily associated with :",
+    options: { a: "Basic reflexes", b: "Olfactory processing", c: "Autonomic regulation", d: "Higher cognitive functions" },
+    correct: "d",
+    traps: { a: "Basic reflexes are mediated largely by the spinal cord and brainstem, not the neocortex.", b: "Olfactory processing is handled by the older paleocortex/olfactory (piriform) cortex, not the neocortex.", c: "Autonomic regulation is governed by the hypothalamus and brainstem, not the neocortex." },
+    explanation: "The neocortex, the evolutionarily newest and most convoluted part of the cerebral cortex, is primarily responsible for higher-order cognitive functions such as perception, reasoning, language, and voluntary movement." },
+  { id: "ihbas25_021", section: "general",
+    q: "The \"parallel distributed processing\" model of memory emphasizes :",
+    options: { a: "Serial information processing", b: "Associative networks and simultaneous activation of nodes", c: "Central executive functioning only", d: "Sensory register as the primary memory system" },
+    correct: "b",
+    traps: { a: "Serial processing is the hallmark of the classic stage/information-processing models, the opposite of PDP's parallel emphasis.", c: "The central executive belongs to Baddeley's working-memory model, not to PDP connectionism.", d: "The sensory register is a component of the Atkinson-Shiffrin multi-store model, not the focus of PDP." },
+    explanation: "The parallel distributed processing (PDP) or connectionist model (Rumelhart & McClelland, 1986) holds that memory and cognition arise from patterns of simultaneous activation spreading across networks of interconnected nodes/units, not from step-by-step symbolic operations. Knowledge is stored in the weighted connections and processing occurs in parallel across the whole network." },
+  { id: "ihbas25_022", section: "social",
+    q: "Which phenomenon explains decreased effort in groups?",
+    options: { a: "Groupthink", b: "Social loafing", c: "Bystander effect", d: "Deindividuation" },
+    correct: "b",
+    traps: { a: "Groupthink is the tendency toward flawed consensus-seeking decisions, not reduced effort.", c: "The bystander effect concerns reduced helping in the presence of others, not task effort.", d: "Deindividuation is loss of self-awareness and restraint in crowds, not decreased effort." },
+    explanation: "Social loafing (Latane, Williams & Harkins, 1979) is the reduction in individual effort when people work in a group compared to working alone, because personal accountability is diffused. It was classically demonstrated with rope-pulling and shouting tasks (building on Ringelmann's findings)." },
+  { id: "ihbas25_023", section: "biopsych",
+    q: "Which lobe of the brain is responsible for vision?",
+    options: { a: "Frontal", b: "Temporal", c: "Occipital", d: "Parietal" },
+    correct: "c",
+    traps: { a: "The frontal lobe governs executive function, planning, and motor control, not vision.", b: "The temporal lobe processes audition and object/face recognition (the ventral 'what' stream), not primary vision.", d: "The parietal lobe handles somatosensory and spatial processing (the dorsal 'where' stream), not the primary visual area." },
+    explanation: "The occipital lobe houses the primary visual cortex (V1, Brodmann area 17) at the calcarine sulcus, the main cortical destination for visual input relayed from the retina via the lateral geniculate nucleus. Damage here produces cortical blindness or visual field defects." },
+  { id: "ihbas25_024", section: "biopsych",
+    q: "Broca's area is involved in :",
+    options: { a: "Speech production", b: "Speech comprehension", c: "Memory consolidation", d: "Motor coordination" },
+    correct: "a",
+    traps: { b: "Speech comprehension is the function of Wernicke's area in the superior temporal gyrus, not Broca's.", c: "Memory consolidation depends on the hippocampus and medial temporal structures, not Broca's area.", d: "General motor coordination is a cerebellar function, not that of Broca's area." },
+    explanation: "Broca's area, in the posterior inferior frontal gyrus (Brodmann areas 44/45) of the dominant (usually left) hemisphere, controls speech production and articulation. Its damage causes Broca's (expressive, non-fluent) aphasia with effortful, telegraphic speech but relatively preserved comprehension." },
+  { id: "ihbas25_025", section: "biopsych",
+    q: "The corpus callosum connects :",
+    options: { a: "Brainstem and cerebellum", b: "Left and right hemispheres", c: "Frontal and temporal lobes", d: "Thalamus and cortex" },
+    correct: "b",
+    traps: { a: "The brainstem and cerebellum are joined by the cerebellar peduncles, not the corpus callosum.", c: "Frontal and temporal lobes within a hemisphere are linked by association fibres such as the arcuate/uncinate fasciculus.", d: "Thalamus-to-cortex traffic travels via the internal capsule and thalamocortical radiations." },
+    explanation: "The corpus callosum is the largest white-matter commissure, a broad band of ~200 million axons connecting the left and right cerebral hemispheres and allowing interhemispheric communication. Its surgical section (commissurotomy) produces the classic split-brain syndrome studied by Sperry and Gazzaniga." },
+  { id: "ihbas25_026", section: "abnormal",
+    q: "A phobia is best described as a :",
+    options: { a: "Persistent irrational fear of a specific object or situation", b: "Mild stress reaction", c: "Personality disorder", d: "Temporary hallucination" },
+    correct: "a",
+    traps: { b: "A mild stress reaction is transient and adaptive, whereas a phobia is persistent, excessive, and impairing.", c: "A phobia is an anxiety disorder, not an enduring maladaptive personality pattern.", d: "Hallucinations are psychotic perceptual disturbances, unrelated to the fear response that defines a phobia." },
+    explanation: "A phobia is an anxiety disorder defined by a marked, persistent, and excessive or irrational fear cued by a specific object or situation, leading to avoidance and functional impairment (DSM-5 specific phobia criteria). The fear is out of proportion to the actual danger posed." },
+  { id: "ihbas25_027", section: "abnormal",
+    q: "Which version of the DSM is currently in use (as of 2025)?",
+    options: { a: "DSM-IV", b: "DSM-V", c: "DSM-III", d: "DSM-6" },
+    correct: "b",
+    traps: { a: "DSM-IV (1994) and its text revision DSM-IV-TR were superseded by DSM-5 in 2013.", c: "DSM-III (1980) is two editions out of date.", d: "There is no 'DSM-6'; the next major revision has not been published." },
+    explanation: "The current edition is the DSM-5 (published 2013 by the APA), with a text-revision DSM-5-TR released in 2022; it uses Arabic ('DSM-5') rather than Roman numerals. It remains in use as of 2025." },
+  { id: "ihbas25_028", section: "social",
+    q: "Which of the following is most likely to reduce prejudice?",
+    options: { a: "Segregation", b: "Minimal contact", c: "Competition", d: "Intergroup contact and cooperation" },
+    correct: "d",
+    traps: { a: "Segregation keeps groups apart and maintains or worsens prejudice.", b: "Minimal or superficial contact is insufficient and can even reinforce stereotypes; sustained cooperative contact is needed.", c: "Competition heightens intergroup conflict, as demonstrated in the Robbers Cave experiment." },
+    explanation: "Allport's (1954) contact hypothesis holds that prejudice is reduced by intergroup contact under conditions of equal status, common goals, cooperation, and institutional support, as shown in Sherif's Robbers Cave superordinate-goal studies. Cooperative interdependence is key to reducing intergroup hostility." },
+  { id: "ihbas25_029", section: "dev",
+    q: "The ability to adjust to new experiences by changing one's way of thinking is called:",
+    options: { a: "Assimilation", b: "Conservation", c: "Accommodation", d: "Habituation" },
+    correct: "c",
+    traps: { a: "Assimilation is fitting new experiences into existing schemas without changing them, the opposite of the described process.", b: "Conservation is the concrete-operational understanding that quantity stays constant despite changes in appearance.", d: "Habituation is a decrease in response to a repeated stimulus, a basic form of learning, not schema change." },
+    explanation: "In Piaget's theory, accommodation is modifying existing schemas (or creating new ones) to fit new information that does not match current cognitive structures. It works with assimilation to achieve equilibration and cognitive adaptation." },
+  { id: "ihbas25_030", section: "therapy",
+    q: "Which therapy focuses on changing maladaptive thought patterns?",
+    options: { a: "Humanistic therapy", b: "Cognitive-behavioural therapy (CBT)", c: "Psychoanalysis", d: "Play therapy" },
+    correct: "b",
+    traps: { a: "Humanistic therapy (e.g., Rogers) emphasises self-actualisation and unconditional positive regard, not restructuring thoughts.", c: "Psychoanalysis focuses on unconscious conflicts and insight, not directly on maladaptive thought patterns.", d: "Play therapy uses play as the medium for children to express emotions, not cognitive restructuring." },
+    explanation: "Cognitive-behavioural therapy (Beck, Ellis) targets maladaptive/distorted cognitions and the behaviours that maintain them, using cognitive restructuring to identify and modify dysfunctional automatic thoughts and beliefs. Changing thinking is its defining mechanism of change." },
+  { id: "ihbas25_031", section: "general",
+    q: "The Crespi effect in learning experiments refers to :",
+    options: { a: "Loss of previously learned behavior due to retroactive inhibition", b: "Increase in motivation when the magnitude of reinforcement increases", c: "Decrease in response strength after extinction training", d: "Sudden improvement in performance due to insight" },
+    correct: "b",
+    traps: { a: "Loss of learning from interference by later learning is retroactive inhibition, a memory phenomenon, not the Crespi effect.", c: "Decreased responding after non-reinforcement is extinction, unrelated to Crespi's magnitude shifts.", d: "Sudden insight-based improvement is Kohler's insight learning, not the Crespi effect." },
+    explanation: "Crespi (1942) showed that shifts in the amount (magnitude) of reward produce disproportionate changes in performance: rats abruptly increased running speed when reward was increased (positive contrast) and decreased when reward was reduced (negative contrast). It demonstrates incentive/motivational effects of reinforcement magnitude." },
+  { id: "ihbas25_032", section: "abnormal",
+    q: "Lewy body dementia is most characteristically associated with :",
+    options: { a: "Aphasia", b: "Auditory hallucinations", c: "Visual hallucinations", d: "Olfactory loss" },
+    correct: "c",
+    traps: { a: "Prominent aphasia points more to Alzheimer's or the primary progressive aphasias, not DLB.", b: "Auditory hallucinations are more typical of schizophrenia than of Lewy body dementia.", d: "Olfactory loss is an early feature of Parkinson's disease but is not the characteristic hallmark of DLB dementia." },
+    explanation: "Dementia with Lewy bodies is characterised by a core triad of fluctuating cognition, recurrent well-formed visual hallucinations, and spontaneous parkinsonism (McKeith criteria). Vivid, detailed visual hallucinations are among its most distinctive early features." },
+  { id: "ihbas25_033", section: "general",
+    q: "Physiognomy, an early approach to personality study, was based on :",
+    options: { a: "Brain localization of functions", b: "Dreams and unconscious motives", c: "Handwriting style analysis", d: "Facial features as indicators of character" },
+    correct: "d",
+    traps: { a: "Brain localization of function describes phrenology (Gall) and later cortical mapping, not physiognomy.", b: "Dreams and unconscious motives are the province of Freudian psychoanalysis, not physiognomy.", c: "Handwriting analysis is graphology, a separate pseudoscience from physiognomy." },
+    explanation: "Physiognomy is the pseudoscientific practice of judging character and personality from a person's outward appearance, especially the face, with roots traceable to Aristotle and popularized by Johann Kaspar Lavater in the 18th century. It assumes facial features are indicators of inner character, distinguishing it from phrenology (skull shape)." },
+  { id: "ihbas25_034", section: "abnormal",
+    q: "Eugen Bleuler's four A's of schizophrenia include :",
+    options: { a: "Attention, Affect, Ambivalence, Aphasia", b: "Affect, Amnesia, Autism, Anxiety", c: "Affect, Ambivalence, Autism, Association disturbances", d: "Affect, Anhedonia, Autism, Avolition" },
+    correct: "c",
+    traps: { a: "Attention and aphasia are not part of Bleuler's four A's; associations and ambivalence are the missing terms.", b: "Amnesia and anxiety are not Bleulerian primary symptoms of schizophrenia.", d: "Anhedonia and avolition are modern DSM negative symptoms, not Bleuler's original four A's." },
+    explanation: "Eugen Bleuler, who coined the term 'schizophrenia' (1911), described four fundamental ('primary') symptoms known as the four A's: loosening of Associations, Affective disturbance (blunting), Ambivalence, and Autism. Hallucinations and delusions he considered accessory (secondary) symptoms." },
+  { id: "ihbas25_035", section: "biopsych",
+    q: "The portion size effect refers to :",
+    options: { a: "Eating less when food is divided", b: "Preference for high-calorie foods", c: "Eating more when served larger portions", d: "Reducing consumption when others eat less" },
+    correct: "c",
+    traps: { a: "Dividing food into smaller units tends to slow intake (unit bias), which is a different phenomenon.", b: "A preference for high-calorie or palatable foods is a separate driver of overeating, not the portion size effect.", d: "Reducing intake to match others reflects social modeling of eating, not portion size." },
+    explanation: "The portion size effect is the well-documented tendency for people to consume more food and energy when served larger portions, largely independent of hunger or satiety cues (Rolls and colleagues). It reflects the influence of external/environmental cues on eating behavior." },
+  { id: "ihbas25_036", section: "biostats",
+    q: "ANOVA is used when :",
+    options: { a: "Two means are compared", b: "More than two means are compared", c: "Variances are unequal", d: "Correlation is tested" },
+    correct: "b",
+    traps: { a: "Comparing exactly two means is the job of a t-test, not ANOVA.", c: "Unequal variances (heteroscedasticity) is an assumption concern (Levene's test / Welch correction), not the purpose of ANOVA.", d: "Testing association between variables is correlation/regression, not ANOVA." },
+    explanation: "Analysis of Variance (ANOVA), developed by R.A. Fisher, tests whether the means of three or more groups differ significantly by partitioning total variance into between-group and within-group components (the F-ratio). Comparing only two means is typically done with a t-test." },
+  { id: "ihbas25_037", section: "biostats",
+    q: "The \"r\" in correlation measures :",
+    options: { a: "Mean", b: "Association", c: "Variance", d: "Ratio" },
+    correct: "b",
+    traps: { a: "The mean is a measure of central tendency, unrelated to what r quantifies.", c: "Variance measures dispersion of a single variable, not the association between two.", d: "Ratio refers to a scale of measurement, not the correlation coefficient." },
+    explanation: "Pearson's r is the correlation coefficient quantifying the strength and direction of the linear association between two continuous variables, ranging from -1 to +1. It measures how two variables covary, not central tendency or dispersion." },
+  { id: "ihbas25_038", section: "assessment",
+    q: "Cronbach's alpha assesses :",
+    options: { a: "Validity", b: "Reliability (internal consistency)", c: "Variance", d: "Regression" },
+    correct: "b",
+    traps: { a: "Validity concerns whether a test measures what it intends; alpha addresses reliability, not validity.", c: "Variance is a component within the alpha formula but is not what alpha assesses.", d: "Regression is a predictive modeling technique, unrelated to alpha's function." },
+    explanation: "Cronbach's alpha (Lee Cronbach, 1951) is a coefficient of internal consistency reliability, estimating how closely related a set of items are as a group within a scale. Values around 0.70 or higher are conventionally considered acceptable." },
+  { id: "ihbas25_039", section: "biostats",
+    q: "The Chi-square test is primarily used for :",
+    options: { a: "Parametric data", b: "Non-parametric categorical data", c: "Ratio data", d: "Interval data" },
+    correct: "b",
+    traps: { a: "Chi-square is a non-parametric test, so 'parametric data' is the opposite of its use.", c: "Ratio data are continuous; chi-square is designed for frequency counts of categories.", d: "Interval data are typically analyzed with parametric tests like t-tests or ANOVA." },
+    explanation: "The Chi-square test (Karl Pearson) is a non-parametric test used to assess associations or goodness-of-fit for categorical (nominal) data by comparing observed and expected frequencies. It makes no assumptions about the distribution of the underlying population." },
+  { id: "ihbas25_040", section: "biostats",
+    q: "Multicollinearity occurs when :",
+    options: { a: "Predictors are highly correlated", b: "Dependent variable is categorical", c: "Variances are equal", d: "Assumptions are violated" },
+    correct: "a",
+    traps: { b: "A categorical dependent variable calls for logistic regression; that is not multicollinearity.", c: "Equal variances describe homoscedasticity, a different regression assumption.", d: "Violated assumptions is too vague; multicollinearity is a specific problem among predictors." },
+    explanation: "Multicollinearity is a condition in multiple regression where two or more predictor (independent) variables are highly correlated with each other, inflating standard errors and making individual coefficient estimates unstable and hard to interpret. It is detected via tolerance and the Variance Inflation Factor (VIF)." },
+  { id: "ihbas25_041", section: "dev",
+    q: "What is the focus of Kohlberg's preconventional level of moral development?",
+    options: { a: "Social contract", b: "Avoiding punishment and gaining rewards", c: "Obeying laws", d: "Ethical principles" },
+    correct: "b",
+    traps: { a: "Social contract reasoning is Stage 5 of the postconventional level, not preconventional.", c: "Obeying laws to maintain social order is Stage 4 of the conventional level.", d: "Universal ethical principles define Stage 6 of the postconventional level." },
+    explanation: "In Lawrence Kohlberg's theory, the preconventional level (Stages 1 and 2) bases moral reasoning on external consequences to the self: obedience to avoid punishment (Stage 1) and instrumental exchange to gain rewards/self-interest (Stage 2). Morality is not yet internalized as societal or abstract principle." },
+  { id: "ihbas25_042", section: "dev",
+    q: "Which term refers to the biological unfolding of genetic potential?",
+    options: { a: "Maturation", b: "Socialization", c: "Accommodation", d: "Conditioning" },
+    correct: "a",
+    traps: { b: "Socialization is the process of acquiring norms and behaviors through social interaction, an environmental process.", c: "Accommodation is a Piagetian process of altering schemas to fit new information, not biological unfolding.", d: "Conditioning is a form of associative learning driven by experience, not genetics." },
+    explanation: "Maturation refers to the biologically driven, genetically programmed sequence of developmental changes that unfold relatively independent of environmental input (Arnold Gesell emphasized this concept). It contrasts with learning, which depends on experience." },
+  { id: "ihbas25_043", section: "therapy",
+    q: "A general of humanistic-experiential psychotherapy is :",
+    options: { a: "Promote fluid and integrative self-organization", b: "To understand and resolve deep seated psychological conflicts", c: "To change maladaptive behaviours", d: "To develop interpersonal skills" },
+    correct: "a",
+    traps: { b: "Resolving deep-seated unconscious conflicts is the aim of psychodynamic/psychoanalytic therapy.", c: "Changing maladaptive behaviors is the explicit goal of behavior therapy.", d: "Developing interpersonal skills is a focus of social skills training or interpersonal therapy, not the core aim here." },
+    explanation: "⚠ Key debate: Item wording ('A general of...') is garbled and options overlap; best fit for the humanistic-experiential tradition's growth/self-actualization aim is (A). Humanistic-experiential therapies (e.g., Rogers's person-centered, Gendlin's focusing, Greenberg's emotion-focused therapy) aim to foster growth, self-actualization, and a more fluid, integrated self-organization through experiential processing of emotion in the here-and-now. The goal is integration and self-determination rather than symptom removal or conflict resolution." },
+  { id: "ihbas25_044", section: "social",
+    q: "What does \"groupthink\" often lead to?",
+    options: { a: "Critical thinking", b: "Better decisions-making", c: "Poor decision-making", d: "Increased creativity" },
+    correct: "c",
+    traps: { a: "Groupthink suppresses critical thinking rather than promoting it.", b: "Groupthink degrades decision quality; it does not produce better decisions.", d: "Groupthink stifles dissent and creativity through conformity pressure." },
+    explanation: "Groupthink, a term coined by Irving Janis (1972), is a mode of thinking in highly cohesive groups where the drive for consensus overrides realistic appraisal of alternatives, producing poor, often defective decisions (e.g., the Bay of Pigs). Symptoms include illusion of invulnerability, self-censorship, and pressure toward conformity." },
+  { id: "ihbas25_045", section: "biopsych",
+    q: "The limbic system is primarily involved in :",
+    options: { a: "Motor control", b: "Sensory processing", c: "Emotion and memory", d: "Hormone regulation" },
+    correct: "c",
+    traps: { a: "Motor control is governed by the motor cortex, basal ganglia and cerebellum, not the limbic system.", b: "Primary sensory processing occurs in the thalamus and specific sensory cortices, not the limbic circuit.", d: "Hormone regulation is chiefly the hypothalamic-pituitary role; though the hypothalamus links to the limbic system, emotion and memory is the defining limbic function." },
+    explanation: "The limbic system (including the amygdala, hippocampus, cingulate gyrus and hypothalamus) is the brain's principal circuit for emotional processing and the formation of new memories. The amygdala mediates fear and emotional salience while the hippocampus is essential for consolidating declarative memory, per MacLean's original conception of the limbic lobe." },
+  { id: "ihbas25_046", section: "abnormal",
+    q: "Infantile autism was first described by :",
+    options: { a: "Hans Asperger", b: "Leo Kanner", c: "Eugen Bleuler", d: "Kurt Schneider" },
+    correct: "b",
+    traps: { a: "Hans Asperger independently described a milder 'autistic psychopathy' (Asperger's syndrome) in 1944, a year after Kanner, not infantile autism.", c: "Eugen Bleuler coined the term 'autism' but as a symptom of schizophrenia (withdrawal into fantasy), not the childhood disorder.", d: "Kurt Schneider is known for the first-rank symptoms of schizophrenia, unrelated to autism." },
+    explanation: "Leo Kanner first described 'early infantile autism' in his landmark 1943 paper 'Autistic Disturbances of Affective Contact,' documenting 11 children with extreme aloneness and insistence on sameness. This established autism as a distinct clinical entity." },
+  { id: "ihbas25_047", section: "abnormal",
+    q: "In narcolepsy, which of the following is most characteristically present?",
+    options: { a: "Both cataplexy and catalepsy equally", b: "Cataplexy – sudden loss of muscle tone triggered by emotions", c: "Neither cataplexy nor catalepsy", d: "Catalepsy – maintenance of imposed posture with waxy flexibility" },
+    correct: "b",
+    traps: { a: "Catalepsy is a feature of catatonia, not narcolepsy, so both are not present equally.", c: "Cataplexy is in fact the hallmark of narcolepsy type 1, so 'neither' is incorrect.", d: "Catalepsy with waxy flexibility (cerea flexibilitas) is a catatonic/schizophrenia sign, not a narcolepsy feature." },
+    explanation: "Narcolepsy type 1 is characterized by cataplexy, sudden bilateral loss of muscle tone triggered by strong emotions (especially laughter), caused by loss of hypocretin/orexin neurons in the lateral hypothalamus. The classic tetrad also includes excessive daytime sleepiness, sleep paralysis, and hypnagogic hallucinations." },
+  { id: "ihbas25_048", section: "general",
+    q: "Mischel's critique of personality traits mainly emphasized that :",
+    options: { a: "Situational factors often override traits in determining behavior", b: "Personality is entirely biologically based", c: "Traits are more important than situations in predicting behavior", d: "Traits cannot be measured reliably" },
+    correct: "a",
+    traps: { b: "Mischel stressed cognitive and situational variables, not a purely biological basis of personality.", c: "This is the opposite of Mischel's position; he argued situations often override traits.", d: "Mischel did not claim traits are unmeasurable, only that they show low cross-situational consistency in predicting behavior." },
+    explanation: "Walter Mischel's 1968 book 'Personality and Assessment' launched the person-situation debate, arguing that behavior is highly situation-specific and that trait scores rarely predict behavior above a correlation of about 0.30 ('personality coefficient'). He emphasized situational determinants, later refining this into his cognitive-affective personality system (CAPS)." },
+  { id: "ihbas25_049", section: "general",
+    q: "The term \"fictional finalism\" in Adlerian theory refers to :",
+    options: { a: "The influence of parental expectations", b: "An imagined goal that guides behavior", c: "A repressed unconscious conflict", d: "A biologically determined trait" },
+    correct: "b",
+    traps: { a: "Parental expectations relate to family constellation influences, not the concept of a guiding fictional goal.", c: "Repressed unconscious conflict is a Freudian psychoanalytic notion, not Adler's teleological fiction.", d: "Fictional finalism is a subjective imagined goal, the opposite of a biologically determined trait." },
+    explanation: "In Alfred Adler's individual psychology, fictional finalism (later 'guiding self-ideal') is an imagined central goal or fiction about the future toward which a person strives, giving direction and meaning to behavior. Adler borrowed the idea from Hans Vaihinger's philosophy of 'as if,' emphasizing teleological future-oriented striving over past causation." },
+  { id: "ihbas25_050", section: "general",
+    q: "The Jonah Complex refers to :",
+    options: { a: "Fear of aging", b: "Fear of realizing one's full potential", c: "Fear of social judgment", d: "Fear of early childhood trauma" },
+    correct: "b",
+    traps: { a: "Fear of aging is not the Jonah Complex; it is a general age-related anxiety.", c: "Fear of social judgment describes social anxiety, not Maslow's concept of avoiding one's potential.", d: "Fear of early childhood trauma is unrelated to Maslow's humanistic notion of evading growth." },
+    explanation: "The Jonah Complex, coined by Abraham Maslow, is the fear of one's own greatness, the evasion of one's destiny, or running away from one's best talents and full potential. It is named after the biblical Jonah who fled his calling, and represents a defense against self-actualization." },
+  { id: "ihbas25_051", section: "dev",
+    q: "Erikson's first psychosocial stage is :",
+    options: { a: "Trust vs. mistrust", b: "Autonomy vs. shame", c: "Initiative vs. guilt", d: "Industry vs. inferiority" },
+    correct: "a",
+    traps: { b: "Autonomy vs. shame and doubt is Erikson's second stage (toddlerhood), not the first.", c: "Initiative vs. guilt is the third stage (preschool years).", d: "Industry vs. inferiority is the fourth stage (school age)." },
+    explanation: "Erik Erikson's first psychosocial stage, occurring in infancy (birth to about 18 months), is basic trust versus mistrust, in which consistent, responsive caregiving fosters a sense of trust and the virtue of hope. Failure to receive reliable care leads to mistrust of the world." },
+  { id: "ihbas25_052", section: "dev",
+    q: "Piaget's preoperational stage age range :",
+    options: { a: "Birth–2", b: "2–7", c: "7–11", d: "12+" },
+    correct: "b",
+    traps: { a: "Birth to 2 is the sensorimotor stage, not preoperational.", c: "Ages 7–11 correspond to the concrete operational stage, when conservation is mastered.", d: "Age 12 and above is the formal operational stage of abstract reasoning." },
+    explanation: "In Piaget's theory of cognitive development, the preoperational stage spans roughly ages 2 to 7 years and is marked by symbolic thought, egocentrism, animism and lack of conservation. It follows the sensorimotor stage and precedes concrete operations." },
+  { id: "ihbas25_053", section: "dev",
+    q: "The term \"zone of proximal development\" was coined by :",
+    options: { a: "Piaget", b: "Vygotsky", c: "Erikson", d: "Skinner" },
+    correct: "b",
+    traps: { a: "Piaget emphasized stage-based individual cognitive construction, not the socially mediated ZPD.", c: "Erikson developed psychosocial stages, not concepts of learning zones.", d: "Skinner focused on operant conditioning and reinforcement, unrelated to the ZPD." },
+    explanation: "Lev Vygotsky introduced the zone of proximal development (ZPD), the gap between what a learner can do independently and what they can achieve with guidance from a more knowledgeable other. It underpins the concept of scaffolding in sociocultural learning theory." },
+  { id: "ihbas25_054", section: "dev",
+    q: "Attachment theory was developed by :",
+    options: { a: "Freud", b: "Bowlby", c: "Rogers", d: "Bandura" },
+    correct: "b",
+    traps: { a: "Freud emphasized the mother as a source of oral gratification (cupboard love), not Bowlby's ethological attachment bond.", c: "Rogers developed client-centered humanistic therapy, not attachment theory.", d: "Bandura is associated with social learning theory and observational modeling." },
+    explanation: "John Bowlby developed attachment theory, proposing that infants have an innate, evolutionarily adaptive drive to form a bond with a primary caregiver for protection and survival. His work integrated ethology and psychoanalysis, later extended empirically by Mary Ainsworth." },
+  { id: "ihbas25_055", section: "dev",
+    q: "\"Strange Situation\" experiment was done by :",
+    options: { a: "Mary Ainsworth", b: "Piaget", c: "Harlow", d: "Erikson" },
+    correct: "a",
+    traps: { b: "Piaget studied cognitive development, not attachment classification.", c: "Harlow conducted the rhesus monkey surrogate-mother (contact comfort) studies, a different attachment experiment.", d: "Erikson developed psychosocial stage theory, not the Strange Situation." },
+    explanation: "Mary Ainsworth devised the Strange Situation procedure, a structured laboratory paradigm of separations and reunions used to classify infant attachment as secure, anxious-avoidant, or anxious-resistant (with disorganized added later by Main and Solomon). It operationalized and extended Bowlby's attachment theory." },
+  { id: "ihbas25_056", section: "dev",
+    q: "Temperament is generally considered to be :",
+    options: { a: "Learned behaviour", b: "Genetically based", c: "Environmentally influenced", d: "A result of parenting" },
+    correct: "b",
+    traps: { a: "Temperament is innate rather than learned; learned behaviour describes acquired habits.", c: "While environment can modulate expression, temperament's defining feature is its genetic/constitutional origin, making this less precise than 'genetically based.'", d: "Temperament precedes and influences parenting responses rather than resulting from parenting." },
+    explanation: "Temperament refers to the biologically based, constitutional individual differences in reactivity and self-regulation that appear early in life and are relatively stable, as described by Thomas and Chess and by Rothbart. Twin studies show substantial heritability, distinguishing temperament from later personality shaped by experience." },
+  { id: "ihbas25_057", section: "biostats",
+    q: "Which of the following is most appropriate for measuring the relationship between two continuous variables?",
+    options: { a: "Chi-square test", b: "Independent t-test", c: "Pearson's correlation coefficient", d: "Mann-Whitney U test" },
+    correct: "c",
+    traps: { a: "The chi-square test assesses association between categorical variables, not continuous ones.", b: "The independent t-test compares means of two groups, not the relationship between two continuous variables.", d: "The Mann-Whitney U test is a nonparametric comparison of two independent groups, not a measure of correlation." },
+    explanation: "Pearson's product-moment correlation coefficient (r) measures the strength and direction of the linear relationship between two continuous, normally distributed variables. It is the standard parametric index of association for interval/ratio data." },
+  { id: "ihbas25_058", section: "abnormal",
+    q: "Which of the following best defines \"prognosis\"?",
+    options: { a: "History of the illness", b: "Likely outcome or course of the disorder", c: "Immediate symptoms", d: "Diagnostic criteria" },
+    correct: "b",
+    traps: { a: "The history of the illness is the anamnesis or course to date, not the predicted future outcome.", c: "Immediate symptoms describe the current clinical presentation, not the projected outcome.", d: "Diagnostic criteria define how a disorder is identified, whereas prognosis predicts its course." },
+    explanation: "Prognosis refers to the forecast of the probable course and outcome of a disorder, including likelihood of recovery, relapse or chronicity. It is distinct from diagnosis (identifying the condition) and etiology (its causes)." },
+  { id: "ihbas25_059", section: "therapy",
+    q: "Which of the below interventions is primary focus in positive psychology based intervention?",
+    options: { a: "Promoting hope", b: "Behaviour Therapy", c: "Psychoanalysis", d: "Dialectic Behaviour Therapy" },
+    correct: "a",
+    traps: { b: "Behaviour therapy targets maladaptive behaviors via conditioning, not the cultivation of positive strengths.", c: "Psychoanalysis focuses on uncovering unconscious conflicts, opposite to the positive psychology emphasis.", d: "Dialectical behaviour therapy treats emotion dysregulation (e.g., in borderline personality disorder), not the promotion of positive well-being per se." },
+    explanation: "Positive psychology interventions, following Seligman and Csikszentmihalyi, focus on building positive states and strengths such as hope, gratitude, optimism, and well-being rather than merely reducing pathology. Promoting hope directly reflects this strengths-based, flourishing-oriented aim." },
+  { id: "ihbas25_060", section: "abnormal",
+    q: "A child exhibits no eye contact, delayed language, and repetitive movements. These are characteristic of :",
+    options: { a: "ADHD", b: "Conduct disorder", c: "Autism spectrum disorder", d: "Specific learning disorder" },
+    correct: "c",
+    traps: { a: "ADHD is characterized by inattention, hyperactivity and impulsivity, not absent eye contact or repetitive movements.", b: "Conduct disorder involves persistent violation of rules and others' rights, not social-communication deficits.", d: "Specific learning disorder involves difficulties in reading, writing or math despite normal social communication." },
+    explanation: "The triad of impaired social communication (no eye contact), delayed language, and restricted, repetitive behaviors (stereotyped movements) are the core DSM-5 diagnostic features of autism spectrum disorder. These deficits in social interaction combined with repetitive behaviors are pathognomonic of ASD." },
+  { id: "ihbas25_061", section: "biopsych",
+    q: "During embryonic development, the nervous system begins forming at the :",
+    options: { a: "Zygote stage", b: "Morula stage", c: "Gastrula stage", d: "Blastocyst stage" },
+    correct: "c",
+    traps: { a: "The zygote is the single fertilized cell, far too early for any organ system or germ-layer differentiation.", b: "The morula is a solid ball of cells (~day 3-4) with no germ layers yet, so no nervous tissue can form.", d: "The blastocyst is a hollow ball with inner cell mass and trophoblast but still precedes germ-layer formation and neural induction." },
+    explanation: "The nervous system arises from the ectoderm during gastrulation, when the three germ layers form and neurulation begins (the neural plate folding into the neural tube). This occurs at the gastrula stage, roughly the third week of human development." },
+  { id: "ihbas25_062", section: "dev",
+    q: "According to Marcia's identity theory, an adolescent who explores options and makes commitments demonstrates :",
+    options: { a: "Identity foreclosure", b: "Identity diffusion", c: "Identity achievement", d: "Identity moratorium" },
+    correct: "c",
+    traps: { a: "Foreclosure is commitment WITHOUT exploration (adopting others' values without questioning).", b: "Diffusion is the absence of both exploration and commitment.", d: "Moratorium is active exploration WITHOUT yet having made a commitment (an ongoing crisis)." },
+    explanation: "James Marcia defined four identity statuses along the axes of exploration (crisis) and commitment. Identity achievement is the status marked by both high exploration AND firm commitment, the most mature outcome of Erikson's identity vs. role confusion stage." },
+  { id: "ihbas25_063", section: "biopsych",
+    q: "Masters and Johnson's sexual response cycle is distinct from Kaplan's model. Which of the following correctly reflects Masters and Johnson's sequence?",
+    options: { a: "Excitement → Plateau → Orgasm → Resolution", b: "Plateau → Excitement → Orgasm → Resolution", c: "Excitement → Desire → Plateau → Orgasm → Refractory", d: "Desire → Arousal → Plateau → Orgasm → Resolution" },
+    correct: "a",
+    traps: { b: "This reverses the correct order; excitement precedes plateau, not the other way around.", c: "Inserting Desire is Kaplan's contribution, not Masters and Johnson's; the refractory period is a sub-feature, not a listed phase.", d: "Beginning with Desire describes Kaplan's (or the DSM triphasic) model, precisely the model the question says is distinct from Masters and Johnson's." },
+    explanation: "Masters and Johnson (1966) described a four-phase linear cycle: Excitement, Plateau, Orgasm, and Resolution. Kaplan's model, by contrast, added a Desire phase at the front (Desire-Excitement-Orgasm), which is what distinguishes the two." },
+  { id: "ihbas25_064", section: "social",
+    q: "Match the theory/thinker with the concept :\n1. Fiedler\n2. Fritz Heider\n3. Freud\n4. Bandura\na) Implicit rules of attribution\nb) Contingency theory of leadership\nc) Unconscious conflict\nd) Social learning theory",
+    options: { a: "1-b, 2-a, 3-c, 4-d", b: "1-a, 2-c, 3-b, 4-d", c: "1-b, 2-d, 3-c, 4-a", d: "1-c, 2-b, 3-a, 4-d" },
+    correct: "a",
+    traps: { b: "This wrongly assigns attribution to Fiedler and leadership to Freud, both reversed.", c: "This gives Bandura attribution (a) and Fiedler social learning (d), both incorrect.", d: "This mismatches Freud with leadership and Fiedler with unconscious conflict." },
+    explanation: "Fiedler is known for the contingency theory of leadership (b); Fritz Heider founded attribution theory / implicit rules of attribution (a); Freud centered on unconscious conflict (c); and Bandura developed social learning theory (d). Thus 1-b, 2-a, 3-c, 4-d." },
+  { id: "ihbas25_065", section: "assessment",
+    q: "A high false positive rate in diagnosis means :",
+    options: { a: "Diagnosis is too strict", b: "Normal people are diagnosed as disordered", c: "Diagnosis has low reliability", d: "Disordered people go undetected" },
+    correct: "b",
+    traps: { a: "An overly strict (high-threshold) test would produce more false NEGATIVES, not false positives.", c: "Reliability concerns consistency; false-positive rate is a validity/specificity issue, not reliability.", d: "Disordered people going undetected describes false NEGATIVES (low sensitivity), the opposite error." },
+    explanation: "A false positive occurs when a test indicates a condition is present in someone who does not actually have it. A high false-positive rate therefore means healthy/normal individuals are incorrectly labeled as disordered, reflecting low specificity of the diagnostic test." },
+  { id: "ihbas25_066", section: "therapy",
+    q: "A hallmark of behavioral therapy is :",
+    options: { a: "Cognitive restructuring", b: "Dream analysis", c: "Classical/operant conditioning techniques", d: "Free association" },
+    correct: "c",
+    traps: { a: "Cognitive restructuring is the hallmark of cognitive therapy (Beck/Ellis), not pure behavior therapy.", b: "Dream analysis is a psychoanalytic technique introduced by Freud.", d: "Free association is another core psychoanalytic method, not behavioral." },
+    explanation: "Behavior therapy is founded on learning principles, applying classical conditioning (e.g., systematic desensitization) and operant conditioning (e.g., reinforcement, token economies) to modify maladaptive behavior. This distinguishes it from cognitive and psychodynamic approaches." },
+  { id: "ihbas25_067", section: "assessment",
+    q: "A structured interview commonly used in clinical psychology is :",
+    options: { a: "MMSE", b: "SCID", c: "WAIS", d: "TAT" },
+    correct: "b",
+    traps: { a: "The MMSE is a brief cognitive screening test for dementia, not a structured diagnostic interview.", c: "The WAIS is an intelligence test, not an interview.", d: "The TAT is a projective personality test using ambiguous pictures, not a structured interview." },
+    explanation: "The SCID (Structured Clinical Interview for DSM Disorders) is the standard structured diagnostic interview used to establish DSM diagnoses in clinical practice and research. It systematically walks through diagnostic criteria via standardized questions." },
+  { id: "ihbas25_068", section: "therapy",
+    q: "REBT was developed by :",
+    options: { a: "Aaron Beck", b: "Albert Ellis", c: "Carl Rogers", d: "Adler" },
+    correct: "b",
+    traps: { a: "Aaron Beck developed Cognitive Therapy, a related but distinct approach.", c: "Carl Rogers founded person-centered (client-centered) therapy.", d: "Alfred Adler developed individual psychology, not REBT." },
+    explanation: "Rational Emotive Behavior Therapy (REBT) was developed by Albert Ellis in the mid-1950s, built on his ABC model (Activating event-Belief-Consequence) targeting irrational beliefs. It is regarded as the first cognitive-behavioral therapy." },
+  { id: "ihbas25_069", section: "assessment",
+    q: "The MMPI is primarily designed to assess :",
+    options: { a: "Intelligence", b: "Personality and psychopathology", c: "Aptitude", d: "Interests" },
+    correct: "b",
+    traps: { a: "Intelligence is assessed by instruments like the WAIS or Stanford-Binet, not the MMPI.", c: "Aptitude testing (e.g., DAT) predicts future performance, a different domain.", d: "Interests are measured by inventories such as the Strong Interest Inventory." },
+    explanation: "The Minnesota Multiphasic Personality Inventory (MMPI), developed by Hathaway and McKinley, is an objective self-report inventory designed to assess personality structure and psychopathology across its clinical scales. It is empirically keyed to differentiate clinical groups." },
+  { id: "ihbas25_070", section: "therapy",
+    q: "Systematic desensitization was proposed by :",
+    options: { a: "Wolpe", b: "Skinner", c: "Pavlov", d: "Beck" },
+    correct: "a",
+    traps: { b: "Skinner developed operant conditioning principles but not systematic desensitization.", c: "Pavlov discovered classical conditioning, the underlying mechanism, but did not devise the therapeutic technique.", d: "Beck created cognitive therapy, unrelated to this counter-conditioning method." },
+    explanation: "Joseph Wolpe developed systematic desensitization in the 1950s, based on reciprocal inhibition: pairing a graded hierarchy of anxiety-provoking stimuli with a relaxation response so the two responses cannot coexist. It is a classic counter-conditioning technique for phobias." },
+  { id: "ihbas25_071", section: "abnormal",
+    q: "Which of the following is a negative symptom of schizophrenia?",
+    options: { a: "Flat affect", b: "Delusions", c: "Hallucinations", d: "Disorganized speech" },
+    correct: "a",
+    traps: { b: "Delusions are a positive symptom (an excess/distortion of normal function).", c: "Hallucinations are a positive symptom.", d: "Disorganized speech is a positive (disorganization) symptom, not a negative one." },
+    explanation: "Negative symptoms reflect a loss or reduction of normal functioning. Flat (blunted) affect, along with avolition, alogia, and anhedonia, is a core negative symptom of schizophrenia in the DSM-5 framework." },
+  { id: "ihbas25_072", section: "abnormal",
+    q: "Which of the following best distinguishes psychotic disorders from mood disorders with psychotic features?",
+    options: { a: "Presence of delusions only", b: "Mood congruence of psychotic symptoms", c: "Duration of depressive episodes", d: "Comorbidity with anxiety disorders" },
+    correct: "b",
+    traps: { a: "Delusions occur in both categories, so their mere presence does not distinguish them.", c: "Duration of depressive episodes speaks to mood-disorder subtyping, not to separating it from primary psychosis.", d: "Anxiety comorbidity is common across both and is not a distinguishing feature." },
+    explanation: "In mood disorders with psychotic features, the psychotic symptoms typically occur only during mood episodes and are often mood-congruent (themes matching the mood, e.g., guilt/worthlessness in depression). In primary psychotic disorders, psychosis can occur independent of mood and is frequently mood-incongruent, making mood congruence/temporal linkage the key differentiator." },
+  { id: "ihbas25_073", section: "therapy",
+    q: "In exposure therapy, \"habituation\" refers to :",
+    options: { a: "Reduction in anxiety through repeated encounter", b: "Increasing fear over time", c: "Avoiding feared stimuli", d: "Creating fear associations" },
+    correct: "a",
+    traps: { b: "Increasing fear over time is sensitization, the opposite of habituation.", c: "Avoiding feared stimuli is the maintaining factor exposure aims to eliminate, not habituation.", d: "Creating fear associations describes fear conditioning, how phobias are acquired, not extinguished." },
+    explanation: "Habituation is the gradual decline of a response (here, anxiety/fear) following repeated or prolonged exposure to a stimulus without reinforcement; it is the core learning mechanism of exposure-based treatments in the emotional-processing model (Foa & Kozak). Within-session and between-session habituation are treated as markers of therapeutic progress." },
+  { id: "ihbas25_074", section: "abnormal",
+    q: "The difference between malingering and factitious disorder lies in :",
+    options: { a: "The presence or absence of external rewards", b: "Whether the individual believes the symptoms are real", c: "The severity of symptoms", d: "Age of onset" },
+    correct: "a",
+    traps: { b: "In both conditions the symptoms are consciously feigned, so belief in their reality is not the distinguishing feature (that would separate them from somatic symptom disorder).", c: "Symptom severity does not distinguish the two; either can present severely.", d: "Age of onset is not a defining criterion separating malingering from factitious disorder." },
+    explanation: "In DSM-5, malingering involves the intentional production of symptoms motivated by clear external incentives (money, avoiding work/jail, drugs), whereas factitious disorder involves deception in the absence of obvious external rewards, the motivation being the internal need to assume the sick role. The presence versus absence of external incentive is the defining distinction." },
+  { id: "ihbas25_075", section: "therapy",
+    q: "Systematic desensitization technique is based upon the idea of :",
+    options: { a: "Reciprocal inhibition", b: "Law of effect", c: "Habituation", d: "Adaptation to stress" },
+    correct: "a",
+    traps: { b: "Thorndike's Law of Effect underlies operant conditioning, not the counterconditioning basis of desensitization.", c: "Habituation underlies flooding/prolonged exposure but is not the principle Wolpe invoked; desensitization works by pairing an antagonistic relaxation response.", d: "General adaptation to stress (Selye) is a physiological stress concept, not the mechanism of systematic desensitization." },
+    explanation: "Systematic desensitization, developed by Joseph Wolpe, rests on reciprocal inhibition: an anxiety response cannot coexist with an incompatible relaxation response, so pairing graded fear-hierarchy items with deep muscle relaxation inhibits the anxiety. It combines counterconditioning with a graduated exposure hierarchy." },
+  { id: "ihbas25_076", section: "biopsych",
+    q: "A progressive neurodegenerative disorder characterized by memory impairment, language difficulties, and visuospatial deficits, with an insidious onset and gradual progression, is :",
+    options: { a: "Lewy Body Dementia", b: "Vascular Dementia", c: "Alzheimer's Disease", d: "Frontotemporal Dementia" },
+    correct: "c",
+    traps: { a: "Lewy body dementia features fluctuating cognition, visual hallucinations, and parkinsonism rather than a purely gradual amnestic course.", b: "Vascular dementia classically shows stepwise deterioration linked to cerebrovascular events, not insidious gradual progression.", d: "Frontotemporal dementia presents earlier with behavioral/personality change or language variants, with memory relatively spared initially." },
+    explanation: "Alzheimer's disease is the prototypical neurodegenerative dementia with insidious onset and slow, gradual decline; early amnestic memory loss followed by language (aphasia) and visuospatial impairment reflects the temporoparietal spread of neurofibrillary tangles and amyloid plaques. This slow continuous course contrasts with the stepwise or fluctuating patterns of other dementias." },
+  { id: "ihbas25_077", section: "abnormal",
+    q: "The presence of delusions, hallucinations, disorganized thinking, and grossly disorganized or abnormal motor behavior, lasting for at least one month but less than six months, is indicative of :",
+    options: { a: "Schizoaffective Disorder", b: "Delusional Disorder", c: "Brief Psychotic Disorder", d: "Schizophrenia" },
+    correct: "d",
+    traps: { a: "Schizoaffective disorder additionally requires a major mood episode concurrent with psychosis, not described here.", b: "Delusional disorder involves non-bizarre delusions without the other prominent psychotic symptoms (hallucinations, disorganization).", c: "Brief psychotic disorder lasts at least 1 day but less than 1 month, shorter than the duration stated." },
+    explanation: "⚠ Key debate: Strictly, 1-6 months duration matches schizophreniform disorder, which is not an option; the stem's 1-month active-symptom threshold is the schizophrenia criterion, so (D) is the intended answer among the choices. Under DSM-5, a total illness duration of at least 1 month but less than 6 months with full psychotic symptoms defines schizophreniform disorder, but among the options given the 1-month active-phase threshold points to schizophrenia; schizophrenia requires the characteristic symptoms for at least 1 month (active phase) with continuous disturbance for 6 months. The 1-month active-phase criterion here is the schizophrenia symptom threshold." },
+  { id: "ihbas25_078", section: "biopsych",
+    q: "The arcuate nucleus, a hypothalamic region, plays a key role in :",
+    options: { a: "Fine motor coordination", b: "Long-term memory consolidation", c: "Appetite regulation and energy balance", d: "Circadian rhythm control" },
+    correct: "c",
+    traps: { a: "Fine motor coordination is governed by the cerebellum and basal ganglia, not the hypothalamus.", b: "Long-term memory consolidation depends on the hippocampus and medial temporal structures.", d: "Circadian rhythm control is the role of the suprachiasmatic nucleus, a different hypothalamic nucleus." },
+    explanation: "The arcuate nucleus of the hypothalamus contains two opposing neuronal populations, orexigenic NPY/AgRP neurons and anorexigenic POMC/CART neurons, that sense leptin, ghrelin and insulin to regulate appetite and energy homeostasis. It is a principal integrator of feeding signals." },
+  { id: "ihbas25_079", section: "biopsych",
+    q: "A male child presents with tall stature, small testes, and learning difficulties. Karyotype analysis shows an extra X chromosome. This condition is :",
+    options: { a: "Klinefelter syndrome", b: "Turner syndrome", c: "Prader-Willi syndrome", d: "Down syndrome" },
+    correct: "a",
+    traps: { b: "Turner syndrome (45,X) occurs in females with a missing X, causing short stature, not an extra X in a male.", c: "Prader-Willi syndrome results from a chromosome 15 deletion, not a sex-chromosome addition.", d: "Down syndrome is trisomy 21, unrelated to the X chromosome." },
+    explanation: "Klinefelter syndrome (47,XXY) is the classic sex-chromosome aneuploidy in phenotypic males, producing tall stature, small firm testes with hypogonadism, gynecomastia, and mild verbal/learning difficulties. The extra X chromosome is diagnostic." },
+  { id: "ihbas25_080", section: "biopsych",
+    q: "A child with hyperphagia, obesity, short stature, and hypotonia is found to have a deletion on chromosome 15 (15q11-q13). This syndrome is :",
+    options: { a: "Fragile X syndrome", b: "Turner syndrome", c: "Prader-Willi syndrome", d: "Klinefelter syndrome" },
+    correct: "c",
+    traps: { a: "Fragile X results from a CGG-repeat expansion in FMR1 on the X chromosome, not a chromosome 15 deletion.", b: "Turner syndrome is 45,X and lacks the hyperphagia/obesity picture.", d: "Klinefelter syndrome (47,XXY) involves tall stature and hypogonadism, not the 15q11-q13 deletion." },
+    explanation: "Prader-Willi syndrome arises from loss of paternally expressed genes at 15q11-q13 (paternal deletion or maternal uniparental disomy); it classically presents with neonatal hypotonia, then insatiable hyperphagia leading to obesity, short stature, and intellectual disability. The 15q11-q13 imprinting locus is the hallmark." },
+  { id: "ihbas25_081", section: "assessment",
+    q: "Y-BOCS is a scale for :",
+    options: { a: "Depression", b: "Bipolar disorder", c: "Schizophrenia", d: "OCD" },
+    correct: "d",
+    traps: { a: "Depression severity is measured by scales such as the Hamilton (HAM-D) or Beck Depression Inventory.", b: "Bipolar/mania is rated with the Young Mania Rating Scale (YMRS).", c: "Schizophrenia symptom severity is assessed with the PANSS or BPRS." },
+    explanation: "The Yale-Brown Obsessive Compulsive Scale (Y-BOCS), developed by Goodman and colleagues, is the standard clinician-rated instrument for measuring the severity of obsessions and compulsions in OCD. It rates time, interference, distress, resistance, and control separately for obsessions and compulsions." },
+  { id: "ihbas25_082", section: "biopsych",
+    q: "The suprachiasmatic nucleus (SCN) is crucial for :",
+    options: { a: "Memory consolidation", b: "Circadian rhythm regulation", c: "Language processing", d: "Pain perception" },
+    correct: "b",
+    traps: { a: "Memory consolidation is a hippocampal function.", c: "Language processing depends on Broca's and Wernicke's areas in the cortex.", d: "Pain perception involves the thalamus, somatosensory cortex, and spinothalamic pathways." },
+    explanation: "The suprachiasmatic nucleus of the hypothalamus is the master circadian pacemaker, entrained by light input via the retinohypothalamic tract, and it governs the roughly 24-hour sleep-wake and hormonal rhythms. Lesions of the SCN abolish circadian periodicity." },
+  { id: "ihbas25_083", section: "therapy",
+    q: "Which therapy focuses on \"empty chair technique\"?",
+    options: { a: "CBT", b: "Gestalt therapy", c: "Psychoanalysis", d: "DBT" },
+    correct: "b",
+    traps: { a: "CBT (Beck/Ellis) uses cognitive restructuring and behavioral experiments, not the empty chair.", c: "Psychoanalysis uses free association, dream analysis, and transference interpretation.", d: "DBT (Linehan) uses skills training in mindfulness, distress tolerance, and emotion regulation." },
+    explanation: "The empty chair technique is a signature experiential method of Gestalt therapy, developed by Fritz Perls, in which the client addresses an imagined person or a disowned part of the self seated in an empty chair to promote here-and-now awareness and integration. It facilitates dialogue with unfinished business." },
+  { id: "ihbas25_084", section: "social",
+    q: "According to social identity theory, prejudice arises primarily due to :",
+    options: { a: "Competition for scarce resources", b: "Cognitive dissonance", c: "Categorization into in-groups and out-groups", d: "Social facilitation" },
+    correct: "c",
+    traps: { a: "Competition for scarce resources is realistic conflict theory (Sherif), a different explanation of prejudice.", b: "Cognitive dissonance (Festinger) concerns attitude-behavior inconsistency, not intergroup prejudice.", d: "Social facilitation concerns performance changes in the presence of others, unrelated to prejudice." },
+    explanation: "Social identity theory (Tajfel & Turner) holds that people categorize themselves and others into in-groups and out-groups, and derive self-esteem from favorable in-group comparisons, producing in-group favoritism and out-group prejudice even without material conflict (as shown in the minimal group paradigm). Categorization, identification, and comparison are the core processes." },
+  { id: "ihbas25_085", section: "therapy",
+    q: "\"Third-wave CBT\" includes all EXCEPT :",
+    options: { a: "Acceptance and Commitment Therapy", b: "Dialectical Behavior Therapy", c: "Mindfulness-Based Cognitive Therapy", d: "Psychoanalysis" },
+    correct: "d",
+    traps: { a: "ACT (Hayes) is a defining third-wave therapy built on psychological flexibility and acceptance.", b: "DBT (Linehan) is a prototypical third-wave therapy combining acceptance and change.", c: "MBCT integrates mindfulness into cognitive therapy and is squarely third-wave." },
+    explanation: "Third-wave (or third-generation) cognitive-behavioural therapies emphasize acceptance, mindfulness, values and context rather than direct disputation of cognitions; canonical members are ACT (Hayes), DBT (Linehan) and MBCT (Segal, Williams & Teasdale). Psychoanalysis is a psychodynamic tradition predating even first-wave behaviour therapy, so it is the exception." },
+  { id: "ihbas25_086", section: "general",
+    q: "According to Wundt 'apperceptive mass' constitutes ___________ .",
+    options: { a: "Compound of elemental processes bound by association", b: "Sensation and pure perception", c: "Pure perception and preexisting ideas", d: "Sensation plus unconscious inference" },
+    correct: "a",
+    traps: { b: "Sensation and 'pure perception' describe passive receptive processes, not the active apperceptive synthesis Wundt emphasized.", c: "Herbart, not Wundt, framed the 'apperceptive mass' as preexisting ideas assimilating new ones.", d: "'Sensation plus unconscious inference' is Helmholtz's account of perception, not Wundt's apperceptive mass." },
+    explanation: "In Wundt's voluntarism, apperception is the active central process by which elemental mental contents (sensations and feelings) are synthesized into an organized, focused whole through 'creative synthesis'; the resulting apperceptive mass is a compound of elemental processes bound together by associative and apperceptive combination. This contrasts with mere passive perception." },
+  { id: "ihbas25_087", section: "assessment",
+    q: "Social Readjustment Rating Scale of Holms and Rahe focuses upon ___________ .",
+    options: { a: "Life Events", b: "Physiological reactions", c: "Cognitive Changes", d: "Daily Hassles" },
+    correct: "a",
+    traps: { b: "Physiological reactions are measured by psychophysiological indices, not the SRRS self-report checklist.", c: "Cognitive appraisal is central to Lazarus's model, not the event-count SRRS.", d: "The Daily Hassles Scale (Kanner & Lazarus) was developed as a critique/alternative to the SRRS's focus on major events." },
+    explanation: "Holmes and Rahe's Social Readjustment Rating Scale (1967) quantifies stress by assigning Life Change Units to major life events (e.g., death of spouse = 100), measuring cumulative readjustment demand. It is the classic life-events approach to stress measurement." },
+  { id: "ihbas25_088", section: "abnormal",
+    q: "Which of the following disorders often involves identity disturbance and fear of abandonment?",
+    options: { a: "Schizoid personality disorder", b: "Histrionic personality disorder", c: "Borderline personality disorder", d: "Antisocial personality disorder" },
+    correct: "c",
+    traps: { a: "Schizoid PD is marked by detachment and restricted emotion, not abandonment fears or identity instability.", b: "Histrionic PD centers on attention-seeking and excessive emotionality, not identity disturbance.", d: "Antisocial PD involves disregard for others' rights and rules, not fear of abandonment." },
+    explanation: "DSM-5 borderline personality disorder criteria explicitly include frantic efforts to avoid real or imagined abandonment and a markedly and persistently unstable self-image or sense of self (identity disturbance). These are hallmark features distinguishing BPD." },
+  { id: "ihbas25_089", section: "abnormal",
+    q: "From the perspective of learning theory 'compulsive acts' related to OCD are explained as patterns of ___________ behaviours.",
+    options: { a: "Performance", b: "Conditioning", c: "Escape", d: "Involuntary" },
+    correct: "c",
+    traps: { a: "'Performance' is not a learning-theory category explaining compulsions.", b: "Conditioning is the broad mechanism, but the specific pattern compulsions represent is escape/avoidance behaviour.", d: "Learning theory treats compulsions as reinforced operant behaviour, not truly involuntary reflexes." },
+    explanation: "⚠ Key debate: 'Conditioning' is defensible as the general mechanism, but the item asks what pattern the acts represent, which two-factor theory labels escape/avoidance. Mowrer's two-factor theory holds that obsessions acquire anxiety through classical conditioning, and compulsions are maintained by operant negative reinforcement because they escape/avoid the aversive anxiety. Thus compulsive acts are escape (avoidance) behaviours that reduce distress." },
+  { id: "ihbas25_090", section: "therapy",
+    q: "In the A-B-C-D-E model of cognitive behaviour therapy (RET) 'D' refers to ___________ .",
+    options: { a: "Drama", b: "Desensitization", c: "Discuss", d: "Disputing" },
+    correct: "d",
+    traps: { a: "'Drama' is unrelated to Ellis's ABCDE framework.", b: "Systematic desensitization is Wolpe's behavioural technique, not the 'D' of RET.", c: "'Discuss' is close in spirit but the precise term Ellis used is Disputing." },
+    explanation: "In Ellis's Rational Emotive Behaviour Therapy, the ABCDE model stands for Activating event, Beliefs, Consequences, Disputing (of irrational beliefs), and Effective new philosophy/Emotion. 'D' is the disputation of irrational beliefs, the core therapeutic step." },
+  { id: "ihbas25_091", section: "biopsych",
+    q: "The Mach bands phenomenon is best explained by :",
+    options: { a: "Rod-cone dichotomy in the fovea", b: "Opponent-process theory of color vision", c: "Lateral inhibition in the retina", d: "Temporal summation in photoreceptors" },
+    correct: "c",
+    traps: { a: "The rod-cone distinction concerns scotopic vs photopic sensitivity, not edge contrast enhancement.", b: "Opponent-process theory explains colour afterimages and hue antagonism, not luminance Mach bands.", d: "Temporal summation concerns integration over time, whereas Mach bands are a spatial contrast effect." },
+    explanation: "Mach bands are illusory bright and dark bands seen at luminance-gradient edges, caused by lateral inhibition among retinal neurons (horizontal and bipolar/ganglion cell interactions) that exaggerates contrast at borders. This edge-enhancement is the classic demonstration of lateral inhibition." },
+  { id: "ihbas25_092", section: "social",
+    q: "A teacher watches two students interact for less than a minute and correctly infers who is the class leader. This example best illustrates :",
+    options: { a: "Social facilitation", b: "Self-fulfilling prophecy", c: "Thin slicing", d: "Fundamental attribution error" },
+    correct: "c",
+    traps: { a: "Social facilitation is improved performance in the presence of others, not rapid accurate perception.", b: "A self-fulfilling prophecy involves expectations causing their own confirmation, not a quick accurate read.", d: "Fundamental attribution error is over-attributing behaviour to disposition, an error, whereas here the inference is correct." },
+    explanation: "Thin slicing (Ambady & Rosenthal; popularized by Gladwell) is the ability to draw accurate judgments about people or situations from very brief exposures to nonverbal behaviour. Correctly inferring the leader from under a minute of observation is a textbook thin-slice judgment." },
+  { id: "ihbas25_093", section: "social",
+    q: "\"Receiver-operant characteristics\" in communication studies refer to :",
+    options: { a: "Physiological thresholds of auditory perception", b: "Reinforcement controlling message recall", c: "Cognitive biases in message interpretation", d: "Factors in the audience influencing persuasion" },
+    correct: "d",
+    traps: { a: "Auditory thresholds belong to psychophysics/ROC in signal detection, not to communication receiver factors.", b: "Reinforcement of recall describes a learning process, not audience persuasion moderators.", c: "Message interpretation biases are cognitive processing effects, but the 'receiver' variable in persuasion research denotes audience characteristics affecting persuasion." },
+    explanation: "⚠ Key debate: The phrasing echoes signal-detection 'receiver operating characteristics', but in a communication-studies frame the intended answer is audience (receiver) factors in persuasion. In communication and persuasion research (the Yale approach), receiver characteristics are attributes of the audience, such as intelligence, self-esteem, involvement and initial attitude, that moderate how persuasive a message is. The item frames these audience factors as influencing persuasion." },
+  { id: "ihbas25_094", section: "abnormal",
+    q: "Which of the following is a key legal provision under the Mental Healthcare Act, 2017?",
+    options: { a: "Suicide attempts are decriminalized, recognizing mental illness as a contributing factor", b: "Electroconvulsive therapy (ECT) can be administered without consent in all cases", c: "Only psychiatrists can provide therapy; psychologists are excluded", d: "Mental health establishments are exempt from registration if government-run" },
+    correct: "a",
+    traps: { b: "The Act actually prohibits unmodified ECT and restricts ECT without consent, not permits it in all cases.", c: "The Act recognizes clinical psychologists as mental health professionals, not excludes them.", d: "All mental health establishments, including government-run ones, must register under the Act." },
+    explanation: "Section 115 of India's Mental Healthcare Act, 2017 presumes that a person attempting suicide has severe stress and shall not be prosecuted under Section 309 IPC, effectively decriminalizing suicide attempts. This is a landmark provision of the Act." },
+  { id: "ihbas25_095", section: "abnormal",
+    q: "Deja entendu refers to :",
+    options: { a: "Illusion of having seen something before", b: "Memory of past events with clarity", c: "Illusion of having heard something previously", d: "Repetitive involuntary speech" },
+    correct: "c",
+    traps: { a: "The illusion of having seen something before is deja vu, not deja entendu.", b: "Vivid recall of genuine past events is normal memory, not an illusory deja phenomenon.", d: "Repetitive involuntary speech describes palilalia/verbigeration, not deja entendu." },
+    explanation: "Deja entendu (French: 'already heard') is the illusory sense that one has already heard something, the auditory analogue of deja vu ('already seen'). It is one of the deja experiences described in psychopathology of memory." },
+  { id: "ihbas25_096", section: "abnormal",
+    q: "Delusion of persecution is most commonly seen in :",
+    options: { a: "OCD", b: "Bipolar disorder", c: "Schizophrenia", d: "Panic disorder" },
+    correct: "c",
+    traps: { a: "OCD features ego-dystonic obsessions with retained insight, not fixed persecutory delusions.", b: "Bipolar disorder can have mood-congruent delusions, but persecutory delusions are most characteristic of schizophrenia.", d: "Panic disorder involves acute anxiety and fear of catastrophe, not delusions." },
+    explanation: "Persecutory delusions, the fixed false belief of being conspired against, harassed or harmed, are the most common delusion type and are classically and most frequently seen in schizophrenia (especially paranoid presentations). Persecutory content dominates delusional experience in psychotic disorders." },
+  { id: "ihbas25_097", section: "abnormal",
+    q: "Anorexia nervosa is primarily characterized by :",
+    options: { a: "Obsession with cleanliness", b: "Fear of gaining weight and food restriction", c: "Repeated vomiting after bingeing", d: "Excessive exercise only" },
+    correct: "b",
+    traps: { a: "Obsession with cleanliness is an OCD theme, not the defining feature of anorexia.", c: "Repeated vomiting after binges characterizes bulimia nervosa, not the restricting presentation of anorexia.", d: "Excessive exercise may occur but is not the primary defining criterion, and 'only' is incorrect." },
+    explanation: "DSM-5 defines anorexia nervosa by restriction of energy intake leading to significantly low body weight, an intense fear of gaining weight or becoming fat, and disturbance in body-image experience. Food restriction driven by fear of weight gain is the core feature." },
+  { id: "ihbas25_098", section: "abnormal",
+    q: "The \"kindling hypothesis\" in mood disorders suggests :",
+    options: { a: "Each episode of depression lowers the threshold for future episodes", b: "Bipolar disorder is caused solely by genetics", c: "Antidepressants permanently cure depression", d: "Anxiety and depression are unrelated" },
+    correct: "a",
+    traps: { b: "Kindling is a neurobiological sensitization model, not a claim that bipolar disorder is purely genetic.", c: "The hypothesis concerns episode recurrence, not permanent cure by antidepressants.", d: "Kindling says nothing about anxiety and depression being unrelated (they are in fact often comorbid)." },
+    explanation: "Post's kindling hypothesis proposes that repeated affective episodes sensitize the brain so that successive episodes become progressively more autonomous, easier to trigger and less dependent on external stressors, lowering the threshold for recurrence. It parallels electrophysiological kindling models of seizures." },
+  { id: "ihbas25_099", section: "abnormal",
+    q: "The \"double-bind\" theory was proposed as an explanation for :",
+    options: { a: "Autism", b: "Schizophrenia", c: "PTSD", d: "Bipolar disorder" },
+    correct: "b",
+    traps: { a: "Early psychogenic theories of autism invoked the 'refrigerator mother', not the double-bind.", c: "PTSD is trauma-based and was not the target of double-bind theorizing.", d: "Bipolar disorder was not the disorder the double-bind theory sought to explain." },
+    explanation: "Gregory Bateson and colleagues (1956) proposed the double-bind theory, in which contradictory communications within the family (conflicting messages with no escape) were hypothesized to contribute to the development of schizophrenia. Though now discredited as a cause, it is historically tied to schizophrenia." },
+  { id: "ihbas25_100", section: "abnormal",
+    q: "Catatonia is classified in DSM-5 as :",
+    options: { a: "An independent disorder", b: "A specifier across several disorders", c: "A personality disorder", d: "A subtype of bipolar disorder" },
+    correct: "b",
+    traps: { a: "DSM-5 explicitly removed catatonia as a discrete subtype/disorder in favour of a cross-cutting specifier.", c: "Catatonia is a psychomotor syndrome, not a personality disorder.", d: "DSM-IV listed a catatonic type of schizophrenia, but DSM-5 does not treat catatonia as a bipolar subtype." },
+    explanation: "In DSM-5, catatonia is not a standalone diagnosis but is coded as a specifier that can be applied across multiple conditions (e.g., catatonia associated with another mental disorder, catatonia due to another medical condition, and unspecified catatonia). It thus cuts across psychotic, mood and medical disorders." },
+];
+
+const SECTION_LABELS = {
+  therapy: "Psychotherapy", biostats: "Biostats / Research", biopsych: "Neuropsych / Biopsych",
+  abnormal: "Abnormal", dev: "Developmental", assessment: "Psych Assessment",
+  general: "General / Cognitive", social: "Social Psychology"
+};
+
+const STORAGE_KEY = "ihbas-2025-results-v1";
+const STORAGE_KEY_NOTES = "ihbas-2025-notes-v1";
+const STORAGE_KEY_PROGRESS = "ihbas-2025-progress-v1";
+const STORAGE_KEY_FLAGS = "ihbas-2025-flags-v1";
+const STORAGE_KEY_EXAM = "ihbas-2025-exam-v1";
+const HISTORY_KEY = "results-history-v1";
+
+// Minutes per question in exam mode (IHBAS 100 Q, ~1 min/Q in the optional timed mode)
+const MIN_PER_Q = 1.0;
+
+const state = {
+  filtered: [], index: 0, selected: null, guessed: false, submitted: false,
+  results: {}, notes: {}, flags: {}, redo: "none",
+  mode: "practice",
+  exam: { running: false, finished: false, endTs: 0, durationSec: 0 },
+  progress: { lastIndex: 0, lastSection: "all", drafts: {} }
+};
+let examTick = null;
+
+function loadResults() {
+  try { const raw = localStorage.getItem(STORAGE_KEY); if (raw) state.results = JSON.parse(raw); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_NOTES); if (raw) state.notes = JSON.parse(raw); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_FLAGS); if (raw) state.flags = JSON.parse(raw); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_PROGRESS); if (raw) state.progress = Object.assign(state.progress, JSON.parse(raw)); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_EXAM); if (raw) state.exam = Object.assign(state.exam, JSON.parse(raw)); } catch {}
+  if (state.progress.mode === "exam" || state.progress.mode === "practice") state.mode = state.progress.mode;
+}
+function saveResults()  { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.results)); } catch {} }
+function saveNotes()    { try { localStorage.setItem(STORAGE_KEY_NOTES, JSON.stringify(state.notes)); } catch {} }
+function saveFlags()    { try { localStorage.setItem(STORAGE_KEY_FLAGS, JSON.stringify(state.flags)); } catch {} }
+function saveExam()     { try { localStorage.setItem(STORAGE_KEY_EXAM, JSON.stringify(state.exam)); } catch {} }
+function saveProgress() { state.progress.mode = state.mode; try { localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(state.progress)); } catch {} }
+function saveDraft(qid) { if (!qid) return; state.progress.drafts[qid] = { selected: state.selected, guessed: state.guessed }; saveProgress(); }
+
+let notesSaveTimer = null;
+function handleNotesInput(qid, text) {
+  if (text && text.trim()) state.notes[qid] = text; else delete state.notes[qid];
+  if (notesSaveTimer) clearTimeout(notesSaveTimer);
+  notesSaveTimer = setTimeout(() => {
+    saveNotes();
+    const tag = document.querySelector(".notes-saved");
+    if (tag) { tag.classList.add("visible"); setTimeout(() => tag.classList.remove("visible"), 1200); }
+    const card = document.querySelector(".question-card");
+    if (card) { if (state.notes[qid]) card.classList.add("has-note"); else card.classList.remove("has-note"); }
+  }, 400);
+}
+
+function escapeHtml(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+function currentQ() { return state.filtered[state.index]; }
+
+function applyFilter(opts) {
+  opts = opts || {};
+  const sel = document.getElementById("sectionSelect").value;
+  let pool = sel === "all" ? QUESTIONS : QUESTIONS.filter(q => q.section === sel);
+  if (state.redo === "wrong") {
+    pool = pool.filter(q => { const r = state.results[q.id]; return r && !r.correct; });
+  } else if (state.redo === "flagged") {
+    pool = pool.filter(q => state.flags[q.id]);
+  }
+  state.filtered = pool;
+  if (opts.preservePosition && sel === state.progress.lastSection && state.redo === "none") {
+    state.index = Math.min(state.progress.lastIndex || 0, state.filtered.length - 1);
+    if (state.index < 0) state.index = 0;
+  } else { state.index = 0; }
+  renderModeUI();
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = currentQ();
+  if (!q) {
+    document.getElementById("quizArea").innerHTML = "<div class='question-card'>No questions match this filter.</div>";
+    document.getElementById("progress").textContent = "0 / 0";
+    document.getElementById("progressFill").style.width = "0%";
+    renderStats();
+    return;
+  }
+  state.progress.lastIndex = state.index;
+  state.progress.lastSection = document.getElementById("sectionSelect").value;
+  saveProgress();
+
+  const examActive = state.mode === "exam" && state.exam.running && !state.exam.finished;
+  const reveal = (state.mode === "practice" && !!state.results[q.id]) ||
+                 (state.mode === "exam" && state.exam.finished && !!state.results[q.id]);
+
+  const result = state.results[q.id];
+  if (result) { state.selected = result.selected; state.guessed = !!result.guessed; }
+  else {
+    const draft = state.progress.drafts[q.id];
+    state.selected = draft ? draft.selected : null;
+    state.guessed = draft ? !!draft.guessed : false;
+  }
+  state.submitted = reveal; // "submitted" now means locked/revealed
+
+  document.getElementById("progress").textContent = `${state.index + 1} / ${state.filtered.length}`;
+  document.getElementById("progressFill").style.width = `${((state.index + 1) / state.filtered.length) * 100}%`;
+
+  const noteText = state.notes[q.id] || "";
+  const hasNote = !!(noteText && noteText.trim());
+  const hasFlag = !!state.flags[q.id];
+
+  const optionsHtml = ["a","b","c","d"].map(letter => {
+    let cls = "option";
+    if (reveal) {
+      cls += " disabled";
+      if (letter === q.correct) cls += " correct";
+      else if (letter === state.selected) cls += " incorrect";
+    } else if (state.selected === letter) cls += " selected";
+    return `<div class="${cls}" data-letter="${letter}" data-action="select">
+      <span class="option-letter">${letter.toUpperCase()}.</span>
+      <span>${escapeHtml(q.options[letter])}</span></div>`;
+  }).join("");
+
+  // Controls vary by mode
+  let controlsHtml;
+  if (examActive) {
+    controlsHtml = `<div class="controls" style="grid-template-columns:1fr 1fr;">
+        <button data-action="prev" ${state.index === 0 ? "disabled" : ""}>← Prev</button>
+        <button data-action="next" ${state.index === state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+      </div>`;
+  } else if (state.mode === "exam") { // exam finished review
+    controlsHtml = `<div class="controls" style="grid-template-columns:1fr 1fr;">
+        <button data-action="prev" ${state.index === 0 ? "disabled" : ""}>← Prev</button>
+        <button data-action="next" ${state.index === state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+      </div>`;
+  } else { // practice
+    controlsHtml = `<div class="controls">
+        <button data-action="prev" ${state.index === 0 ? "disabled" : ""}>← Prev</button>
+        <button class="btn-primary" data-action="submit" ${reveal || !state.selected ? "disabled" : ""}>
+          ${reveal ? "✓ Submitted" : "Submit"}</button>
+        <button data-action="next" ${state.index === state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+      </div>`;
+  }
+
+  // Guess row + notes only outside an active exam
+  const guessHtml = examActive ? "" : `<div class="guess-row ${state.guessed ? "checked" : ""}" data-action="toggleGuess">
+        <div class="guess-checkbox"></div>
+        <div class="guess-label">I'm guessing this one
+          <small>Helps you track which "rights" were lucky vs solid.</small></div>
+      </div>`;
+  const notesHtml = examActive ? "" : `<div class="notes-area">
+        <div class="notes-label"><span>Your notes</span><span class="notes-saved">saved</span></div>
+        <textarea class="notes-textarea" id="notesInput" data-qid="${q.id}"
+          placeholder="Anything you want to remember about this question — mnemonic, where it came from, why you missed it...">${escapeHtml(noteText)}</textarea>
+      </div>`;
+  let trapsHtml = "";
+  if (reveal && q.traps) {
+    const rows = ["a","b","c","d"]
+      .filter(l => l !== q.correct && q.options[l] && q.traps[l])
+      .map(l => `<div class="trap"><span class="trap-opt">${l.toUpperCase()}. ${escapeHtml(q.options[l])}</span> ${escapeHtml(q.traps[l])}</div>`)
+      .join("");
+    if (rows) trapsHtml = `<div class="traps"><div class="traps-h">Why the other options are traps</div>${rows}</div>`;
+  }
+  const explanationHtml = `<div class="explanation ${reveal ? "visible" : ""}">
+        ${reveal ? `<div class="exp-verdict ${state.selected === q.correct ? "ok" : "bad"}">${state.selected === q.correct ? "✓ Correct" : "✗ Wrong"} &nbsp;·&nbsp; Answer: ${q.correct.toUpperCase()}</div>
+        <div class="exp-concept">${escapeHtml(q.explanation)}</div>` : ""}
+        ${trapsHtml}
+      </div>`;
+
+  document.getElementById("quizArea").innerHTML = `
+    <div class="question-card${hasNote ? " has-note" : ""}${hasFlag ? " has-flag" : ""}">
+      <div class="section-tag">${SECTION_LABELS[q.section]}</div>
+      <div class="question-text">${escapeHtml(q.q)}</div>
+      <div class="options" id="options">${optionsHtml}</div>
+      ${guessHtml}
+      ${controlsHtml}
+      <div class="secondary-controls">
+        <button class="flag-btn ${hasFlag ? "flagged" : ""}" data-action="toggleFlag">
+          ${hasFlag ? "🚩 Flagged — come back to this" : "🚩 Flag for review"}</button>
+      </div>
+      ${explanationHtml}
+      ${notesHtml}
+    </div>`;
+  const notesEl = document.getElementById("notesInput");
+  if (notesEl) notesEl.addEventListener("input", e => handleNotesInput(e.target.dataset.qid, e.target.value));
+  renderNavGrid();
+  renderStats();
+}
+
+function updateSelectionVisual() {
+  document.querySelectorAll("#options .option").forEach(el => {
+    el.classList.toggle("selected", el.dataset.letter === state.selected);
+  });
+  const submitBtn = document.querySelector('[data-action="submit"]');
+  if (submitBtn) submitBtn.disabled = state.submitted || !state.selected;
+}
+function updateGuessVisual() {
+  const row = document.querySelector('[data-action="toggleGuess"]');
+  if (row) row.classList.toggle("checked", state.guessed);
+}
+
+function selectOption(letter) {
+  if (state.mode === "exam" && state.exam.finished) return; // locked after exam ends
+  if (state.submitted) return;
+  const q = currentQ(); if (!q) return;
+  state.selected = letter;
+  if (state.mode === "exam" && state.exam.running) {
+    // exam: record answer immediately, still editable until you finish
+    state.results[q.id] = { selected: letter, correct: letter === q.correct, guessed: false, section: q.section };
+    saveResults();
+    updateSelectionVisual();
+    renderNavGrid();
+  } else {
+    updateSelectionVisual();
+    saveDraft(q.id);
+  }
+}
+function toggleGuess() {
+  if (state.submitted) return;
+  state.guessed = !state.guessed; updateGuessVisual();
+  const q = currentQ(); if (q) saveDraft(q.id);
+}
+function toggleFlag() {
+  const q = currentQ(); if (!q) return;
+  if (state.flags[q.id]) delete state.flags[q.id]; else state.flags[q.id] = true;
+  saveFlags();
+  const btn = document.querySelector('[data-action="toggleFlag"]');
+  const card = document.querySelector(".question-card");
+  if (btn) {
+    const on = !!state.flags[q.id];
+    btn.classList.toggle("flagged", on);
+    btn.textContent = on ? "🚩 Flagged — come back to this" : "🚩 Flag for review";
+  }
+  if (card) card.classList.toggle("has-flag", !!state.flags[q.id]);
+  renderNavGrid();
+  renderModeUI();
+}
+function submitAnswer() {
+  if (state.submitted || !state.selected) return;
+  const q = currentQ();
+  state.results[q.id] = { selected: state.selected, correct: state.selected === q.correct, guessed: state.guessed, section: q.section };
+  saveResults(); state.submitted = true; renderQuestion();
+}
+function nextQuestion() { if (state.index < state.filtered.length - 1) { state.index++; renderQuestion(); } }
+function prevQuestion() { if (state.index > 0) { state.index--; renderQuestion(); } }
+
+document.querySelector(".app").addEventListener("click", function(ev) {
+  const t = ev.target.closest("[data-action]"); if (!t) return;
+  const a = t.dataset.action;
+  if (a === "select") selectOption(t.dataset.letter);
+  else if (a === "toggleGuess") toggleGuess();
+  else if (a === "toggleFlag") toggleFlag();
+  else if (a === "submit") submitAnswer();
+  else if (a === "next") nextQuestion();
+  else if (a === "prev") prevQuestion();
+  else if (a === "setMode") setMode(t.dataset.mode);
+  else if (a === "startExam") startExam();
+  else if (a === "finishExam") finishExam(false);
+  else if (a === "navJump") { state.index = parseInt(t.dataset.idx, 10) || 0; renderQuestion(); window.scrollTo({ top: 0, behavior: "smooth" }); }
+  else if (a === "redoWrong") setRedo("wrong");
+  else if (a === "redoFlagged") setRedo("flagged");
+  else if (a === "redoClear") setRedo("none");
+  else if (a === "reset") {
+    if (confirm("Reset IHBAS 2025 PYQ Mock answers, notes and flags? (Attempt history is kept.)")) {
+      state.results = {}; state.notes = {}; state.flags = {};
+      state.progress = { lastIndex: 0, lastSection: "all", drafts: {} };
+      state.redo = "none";
+      stopExamTimer(); state.exam = { running: false, finished: false, endTs: 0, durationSec: 0 };
+      saveResults(); saveNotes(); saveFlags(); saveProgress(); saveExam();
+      const sel = document.getElementById("sectionSelect"); if (sel) sel.value = "all";
+      applyFilter({ preservePosition: false });
+    }
+  }
+  else if (a === "exportProgress") exportProgress();
+  else if (a === "importProgress") importProgress();
+  else if (a === "exportForAnalysis") exportForAnalysis();
+  else if (a === "downloadResultsTxt") downloadResultsTxt();
+  else if (a === "showResultText") showResultText();
+  else if (a === "dismissResume") document.getElementById("resumeBanner").style.display = "none";
+});
+
+function showResumeBanner() {
+  const banner = document.getElementById("resumeBanner"); if (!banner) return;
+  const lastIdx = state.progress.lastIndex || 0;
+  const total = state.filtered.length;
+  const answered = Object.keys(state.results).length;
+  const drafted = Object.keys(state.progress.drafts).length;
+  if (lastIdx <= 0 && answered === 0 && drafted === 0) { banner.style.display = "none"; return; }
+  const pos = Math.min(lastIdx + 1, total);
+  banner.innerHTML = `<span>Resumed from question ${pos} of ${total} · ${answered} answered, ${drafted} drafts saved.</span><button data-action="dismissResume">Dismiss</button>`;
+  banner.style.display = "flex";
+}
+
+function exportProgress() {
+  const payload = { v: 1, paper: "ihbas-2025", ts: new Date().toISOString(),
+    results: state.results, notes: state.notes, progress: state.progress };
+  const code = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(code).then(
+      () => alert("IHBAS 2025 PYQ Mock backup code copied. Save it (WhatsApp to yourself works)."),
+      () => prompt("Copy this backup code somewhere safe:", code));
+  } else { prompt("Copy this backup code somewhere safe:", code); }
+}
+function buildResultsExport() {
+  let totalRight = 0, totalWrong = 0;
+  for (const q of QUESTIONS) {
+    const r = state.results[q.id]; if (!r) continue;
+    if (r.correct) totalRight++; else totalWrong++;
+  }
+  const blank = QUESTIONS.length - totalRight - totalWrong;
+  const score = totalRight * 1 - totalWrong * 0.25;
+  const maxScore = QUESTIONS.length * 1;
+
+  const bySection = {};
+  for (const q of QUESTIONS) {
+    if (!bySection[q.section]) bySection[q.section] = { total:0, solid:0, guessed:0, wrong:0, skip:0 };
+    const s = bySection[q.section];
+    s.total++;
+    const r = state.results[q.id];
+    if (!r) s.skip++;
+    else if (r.correct && !r.guessed) s.solid++;
+    else if (r.correct && r.guessed) s.guessed++;
+    else s.wrong++;
+  }
+
+  const ts = new Date().toISOString();
+  let out = `MET MOCK 2 — RESULTS EXPORT v1\n`;
+  out += `Generated: ${ts}\n`;
+  out += `Score: ${score}/${maxScore}  (${totalRight} right, ${totalWrong} wrong, ${blank} blank · +1/−0.25/0 · cut-off ~80%)\n\n`;
+
+  out += `SECTION BREAKDOWN\n=================\n`;
+  for (const sec of Object.keys(SECTION_LABELS)) {
+    const s = bySection[sec]; if (!s) continue;
+    const attempted = s.solid + s.guessed + s.wrong;
+    const got = s.solid + s.guessed;
+    const acc = attempted ? Math.round((got / attempted) * 100) : 0;
+    const name = (SECTION_LABELS[sec] + ":").padEnd(28);
+    out += `${name} ${got}/${s.total} (${acc}%)  solid ${s.solid}  guessed ${s.guessed}  wrong ${s.wrong}  skip ${s.skip}\n`;
+  }
+
+  const attentionItems = QUESTIONS.filter(q => {
+    const r = state.results[q.id];
+    const note = state.notes[q.id];
+    if (note && note.trim()) return true;
+    if (!r) return false;
+    if (!r.correct) return true;
+    if (r.correct && r.guessed) return true;
+    return false;
+  });
+
+  out += `\nQUESTIONS TO REVIEW (wrong, guessed, or with notes): ${attentionItems.length}\n`;
+  out += `=====================================================\n\n`;
+
+  attentionItems.forEach((q, i) => {
+    const r = state.results[q.id];
+    const note = state.notes[q.id];
+    let status;
+    if (!r) status = "SKIPPED (noted)";
+    else if (!r.correct) status = "WRONG";
+    else if (r.guessed) status = "GUESSED-RIGHT";
+    else status = "right";
+
+    out += `[${i+1}] ${q.id} | ${SECTION_LABELS[q.section]} | ${status}`;
+    if (r) {
+      const mark = r.correct ? "✓" : "✗";
+      out += ` | picked ${(r.selected || "?").toUpperCase()} ${mark} | correct ${q.correct.toUpperCase()}`;
+    } else {
+      out += ` | correct ${q.correct.toUpperCase()}`;
+    }
+    out += `\nQ: ${q.q}\n`;
+    out += `A. ${q.options.a}\nB. ${q.options.b}\nC. ${q.options.c}\nD. ${q.options.d}\n`;
+    if (q.explanation) out += `Explanation: ${q.explanation}\n`;
+    if (q.traps) {
+      ["a","b","c","d"].forEach(l => {
+        if (l !== q.correct && q.options[l] && q.traps[l]) out += `Trap ${l.toUpperCase()}: ${q.traps[l]}\n`;
+      });
+    }
+    if (note && note.trim()) out += `Sihan's note: ${note.trim()}\n`;
+    out += `\n`;
+  });
+
+  const skippedNoNote = QUESTIONS.filter(q => !state.results[q.id] && !(state.notes[q.id] && state.notes[q.id].trim()));
+  if (skippedNoNote.length) {
+    out += `SKIPPED (no note, ${skippedNoNote.length}): ${skippedNoNote.map(q => q.id).join(", ")}\n\n`;
+  }
+
+  out += `END EXPORT\n`;
+
+  try {
+    const snapKey = "results-history-v1";
+    const raw = localStorage.getItem(snapKey);
+    const history = raw ? JSON.parse(raw) : [];
+    history.push({ mock: "ihbas-2025", ts, score, max: maxScore, right: totalRight, wrong: totalWrong, blank, sections: bySection });
+    localStorage.setItem(snapKey, JSON.stringify(history));
+  } catch {}
+
+  return out;
+}
+function exportForAnalysis() {
+  const out = buildResultsExport();
+  const sizeKb = (out.length / 1024).toFixed(1);
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(out).then(
+      () => alert(`Copied ${sizeKb} KB to clipboard.\n\nPaste it to Sahil on WhatsApp, or open the My Results page to see history.`),
+      () => prompt("Copy this export and paste to Sahil on WhatsApp:", out));
+  } else {
+    prompt("Copy this export and paste to Sahil on WhatsApp:", out);
+  }
+}
+function showResultText() {
+  // Reliable "copy it out" path: render the per-mock result as plain text in an
+  // on-screen, selectable box with a Copy button. No file, no share sheet, and
+  // it still works where the clipboard API is blocked (falls back to selection).
+  var out = buildResultsExport();
+  var prev = document.getElementById("resultTextOverlay");
+  if (prev) prev.remove();
+  var ov = document.createElement("div");
+  ov.id = "resultTextOverlay";
+  ov.setAttribute("style", "position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:14px;");
+  var box = document.createElement("div");
+  box.setAttribute("style", "background:var(--card,#fff);color:var(--text,#111);border-radius:14px;max-width:680px;width:100%;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.4);");
+  var head = document.createElement("div");
+  head.setAttribute("style", "padding:14px 16px;font-weight:700;border-bottom:1px solid var(--border,#ddd);display:flex;justify-content:space-between;align-items:center;gap:8px;");
+  head.innerHTML = "<span>Your result — tap Copy, paste to Sahil</span>";
+  var closeX = document.createElement("button");
+  closeX.textContent = "✕";
+  closeX.setAttribute("style", "background:none;border:none;font-size:20px;line-height:1;cursor:pointer;color:var(--muted,#888);padding:2px 6px;");
+  closeX.onclick = function () { ov.remove(); };
+  head.appendChild(closeX);
+  var ta = document.createElement("textarea");
+  ta.readOnly = true;
+  ta.value = out;
+  ta.setAttribute("style", "flex:1;min-height:240px;width:100%;border:none;padding:14px 16px;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;resize:none;background:var(--bg,#fafafa);color:var(--text,#111);box-sizing:border-box;");
+  var bar = document.createElement("div");
+  bar.setAttribute("style", "padding:12px 16px;border-top:1px solid var(--border,#ddd);display:flex;gap:10px;");
+  var copyBtn = document.createElement("button");
+  copyBtn.textContent = "📋 Copy all";
+  copyBtn.setAttribute("style", "flex:1;padding:12px;border:none;border-radius:10px;background:var(--accent,#2d6cdf);color:#fff;font-weight:700;font-size:15px;cursor:pointer;");
+  function doCopy() {
+    ta.focus(); ta.select(); ta.setSelectionRange(0, ta.value.length);
+    var done = function () { copyBtn.textContent = "✓ Copied — now paste to Sahil"; setTimeout(function(){ copyBtn.textContent = "📋 Copy all"; }, 2500); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(out).then(done, function () { try { document.execCommand("copy"); done(); } catch (e) {} });
+    } else { try { document.execCommand("copy"); done(); } catch (e) {} }
+  }
+  copyBtn.onclick = doCopy;
+  var doneBtn = document.createElement("button");
+  doneBtn.textContent = "Close";
+  doneBtn.setAttribute("style", "padding:12px 18px;border:1px solid var(--border,#ddd);border-radius:10px;background:transparent;color:var(--text,#111);font-weight:600;cursor:pointer;");
+  doneBtn.onclick = function () { ov.remove(); };
+  bar.appendChild(copyBtn); bar.appendChild(doneBtn);
+  box.appendChild(head); box.appendChild(ta); box.appendChild(bar);
+  ov.appendChild(box);
+  ov.onclick = function (e) { if (e.target === ov) ov.remove(); };
+  document.body.appendChild(ov);
+  // Pre-select so even a manual long-press copy is one step.
+  setTimeout(function () { ta.focus(); ta.select(); }, 30);
+}
+function downloadResultsTxt() {
+  const out = buildResultsExport();
+  const slug = (location.pathname.replace(/\/index\.html$/, "").split("/").filter(Boolean).pop() || "quiz");
+  const stamp = new Date().toISOString().slice(0, 10);
+  const fname = slug + "-results-" + stamp + ".txt";
+  // On phones, hand the .txt to the native share sheet so it drops straight
+  // into WhatsApp: tap -> share -> WhatsApp -> send. No copy-paste, no doc.
+  try {
+    const file = new File([out], fname, { type: "text/plain" });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: fname }).catch(function () {});
+      return;
+    }
+  } catch (e) { /* not supported: fall through to a plain file download */ }
+  try {
+    const blob = new Blob([out], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = fname; a.style.display = "none";
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 150);
+  } catch (e) {
+    prompt("Copy this and paste into a text file (" + fname + "):", out);
+  }
+}
+
+function importProgress() {
+  const code = prompt("Paste an IHBAS 2025 PYQ Mock backup code. This will REPLACE current progress.");
+  if (!code) return;
+  try {
+    const payload = JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
+    if (payload.v !== 1) throw new Error("unknown version");
+    if (payload.results) state.results = payload.results;
+    if (payload.notes) state.notes = payload.notes;
+    if (payload.progress) state.progress = Object.assign({ lastIndex: 0, lastSection: "all", drafts: {} }, payload.progress);
+    saveResults(); saveNotes(); saveProgress();
+    const sel = document.getElementById("sectionSelect");
+    if (sel && state.progress.lastSection) sel.value = state.progress.lastSection;
+    applyFilter({ preservePosition: true }); showResumeBanner();
+    alert(`Restored ${Object.keys(state.results).length} answered, ${Object.keys(state.notes).length} notes, ${Object.keys(state.progress.drafts).length} drafts.`);
+  } catch (e) { alert("Could not restore: that does not look like a valid IHBAS 2025 PYQ Mock backup code."); }
+}
+
+document.getElementById("sectionSelect").addEventListener("change", () => applyFilter({ preservePosition: false }));
+
+function renderStats() {
+  // During a live exam, keep the score and breakdown hidden (just like the real thing).
+  if (state.mode === "exam" && state.exam.running && !state.exam.finished) {
+    const answered = state.filtered.filter(q => state.results[q.id]).length;
+    ["statRight","statGuessed","statWrong","statSkipped"].forEach(id => {
+      const el = document.getElementById(id); if (el) el.textContent = "–";
+    });
+    const sb = document.getElementById("scoreboard");
+    if (sb) sb.innerHTML = `<span class="big">🔒</span><small>Score hidden — ${answered}/${state.filtered.length} answered. Finish the exam to reveal.</small>`;
+    const ss = document.getElementById("sectionScores");
+    if (ss) ss.innerHTML = `<div style="font-size:12px;color:var(--muted);">Per-area breakdown unlocks when you finish.</div>`;
+    const ra = document.getElementById("reviewArea"); if (ra) ra.style.display = "none";
+    return;
+  }
+  let confidentRight = 0, guessedRight = 0, wrong = 0, skipped = 0;
+  const reviewItems = [];
+  state.filtered.forEach((q, idx) => {
+    const r = state.results[q.id];
+    const flagged = !!state.flags[q.id];
+    if (!r) skipped++;
+    else if (r.correct && !r.guessed) confidentRight++;
+    else if (r.correct && r.guessed) { guessedRight++; reviewItems.push({ q, r, idx, tag: "guessed", label: "right but guessed" }); }
+    else if (!r.correct) { wrong++; reviewItems.push({ q, r, idx, tag: "wrong", label: "wrong" }); }
+    // Flagged questions not already captured as wrong/guessed still deserve a row.
+    if (flagged && (!r || (r.correct && !r.guessed))) reviewItems.push({ q, r, idx, tag: "flagged", label: "flagged" });
+  });
+  document.getElementById("statRight").textContent = confidentRight;
+  document.getElementById("statGuessed").textContent = guessedRight;
+  document.getElementById("statWrong").textContent = wrong;
+  document.getElementById("statSkipped").textContent = skipped;
+
+  let totalRight = 0, totalWrong = 0;
+  for (const q of QUESTIONS) {
+    const r = state.results[q.id];
+    if (!r) continue;
+    if (r.correct) totalRight++; else totalWrong++;
+  }
+  const score = totalRight * 1 - totalWrong * 0.25;
+  const maxScore = QUESTIONS.length * 1;
+  const sb = document.getElementById("scoreboard");
+  if (sb) {
+    sb.innerHTML = `<span class="big">${score} / ${maxScore}</span>
+      <small>+1 right · −0.25 wrong · ${totalRight} right, ${totalWrong} wrong, ${QUESTIONS.length - totalRight - totalWrong} blank · working target ~60/100</small>`;
+  }
+
+  const bySection = {};
+  for (const q of QUESTIONS) {
+    if (!bySection[q.section]) bySection[q.section] = { total: 0, right: 0, guessed: 0, wrong: 0, skipped: 0 };
+    bySection[q.section].total++;
+    const r = state.results[q.id];
+    if (!r) bySection[q.section].skipped++;
+    else if (r.correct && !r.guessed) bySection[q.section].right++;
+    else if (r.correct && r.guessed) bySection[q.section].guessed++;
+    else if (!r.correct) bySection[q.section].wrong++;
+  }
+  let rows = "";
+  for (const sec of Object.keys(SECTION_LABELS)) {
+    const s = bySection[sec]; if (!s) continue;
+    const attempted = s.right + s.guessed + s.wrong;
+    const accuracy = attempted ? Math.round(((s.right + s.guessed) / attempted) * 100) : null;
+    rows += `<div class="section-score-row">
+      <div class="section-score-name">${SECTION_LABELS[sec]}</div>
+      <div class="section-score-bar">
+        <span class="ssr-right" style="flex: ${s.right};"></span>
+        <span class="ssr-guessed" style="flex: ${s.guessed};"></span>
+        <span class="ssr-wrong" style="flex: ${s.wrong};"></span>
+        <span class="ssr-skipped" style="flex: ${s.skipped};"></span>
+      </div>
+      <div class="section-score-num">${s.right + s.guessed}/${s.total}${accuracy !== null ? " · " + accuracy + "%" : ""}</div>
+    </div>`;
+  }
+  document.getElementById("sectionScores").innerHTML = rows;
+
+  const reviewArea = document.getElementById("reviewArea");
+  const reviewList = document.getElementById("reviewList");
+  if (reviewItems.length === 0) reviewArea.style.display = "none";
+  else {
+    reviewArea.style.display = "block";
+    reviewList.innerHTML = reviewItems.map(item => {
+      const q = item.q, r = item.r;
+      const qText = escapeHtml(q.q.substring(0, 110)) + (q.q.length > 110 ? "…" : "");
+      let ansLine;
+      if (r && !r.correct) {
+        ansLine = `<span class="review-ans">you picked <span class="rv-picked">${escapeHtml(q.options[r.selected] || "—")}</span> · answer <span class="rv-correct">${escapeHtml(q.options[q.correct])}</span></span>`;
+      } else if (r && r.correct) {
+        ansLine = `<span class="review-ans">answer <span class="rv-correct">${escapeHtml(q.options[q.correct])}</span></span>`;
+      } else {
+        ansLine = `<span class="review-ans">not answered · answer <span class="rv-correct">${escapeHtml(q.options[q.correct])}</span></span>`;
+      }
+      const rule = q.explanation ? `<span class="review-rule">${escapeHtml(q.explanation.substring(0, 160))}${q.explanation.length > 160 ? "…" : ""}</span>` : "";
+      let trapLine = "";
+      if (r && !r.correct && r.selected && q.traps && q.traps[r.selected]) {
+        trapLine = `<span class="review-rule">Your pick — ${escapeHtml(q.traps[r.selected])}</span>`;
+      }
+      return `<li class="review-clickable" data-action="navJump" data-idx="${item.idx}">
+        <span class="review-tag ${item.tag}">${item.label}</span>
+        <span class="review-q">${qText}</span>
+        ${ansLine}
+        ${trapLine}
+        ${rule}</li>`;
+    }).join("");
+  }
+}
+
+// =====================================================================
+// MODE / EXAM TIMER / FLAG-REDO / ATTEMPT HISTORY
+// =====================================================================
+function pad(n) { return n < 10 ? "0" + n : "" + n; }
+function formatTime(totalSec) {
+  if (totalSec < 0) totalSec = 0;
+  const h = Math.floor(totalSec / 3600);
+  const m = Math.floor((totalSec % 3600) / 60);
+  const s = totalSec % 60;
+  return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`;
+}
+
+function setMode(mode) {
+  if (mode !== "practice" && mode !== "exam") return;
+  if (mode === state.mode) return;
+  state.mode = mode;
+  state.redo = "none";
+  saveProgress();
+  if (mode === "practice") stopExamTimer();
+  else if (state.exam.running && state.exam.endTs > Date.now()) resumeExamTimer();
+  applyFilter({ preservePosition: true });
+}
+
+function setRedo(kind) {
+  state.redo = (state.redo === kind) ? "none" : kind;
+  applyFilter({ preservePosition: false });
+}
+
+function countScope() {
+  const sel = document.getElementById("sectionSelect").value;
+  const pool = sel === "all" ? QUESTIONS : QUESTIONS.filter(q => q.section === sel);
+  let wrong = 0, flagged = 0;
+  pool.forEach(q => {
+    const r = state.results[q.id];
+    if (r && !r.correct) wrong++;
+    if (state.flags[q.id]) flagged++;
+  });
+  return { total: pool.length, wrong, flagged };
+}
+
+function renderModeUI() {
+  document.querySelectorAll(".mode-btn").forEach(b => b.classList.toggle("active", b.dataset.mode === state.mode));
+  const hint = document.getElementById("modeHint");
+  const intro = document.getElementById("examIntro");
+  const bar = document.getElementById("examBar");
+  const navWrap = document.getElementById("navGridWrap");
+  const redoBar = document.getElementById("redoBar");
+  const examActive = state.mode === "exam" && state.exam.running && !state.exam.finished;
+  const examFinished = state.mode === "exam" && state.exam.finished;
+
+  if (state.mode === "practice") {
+    hint.textContent = "Answer one at a time, see the rule the moment you submit. No clock.";
+    intro.style.display = "none"; bar.style.display = "none"; navWrap.style.display = "none";
+  } else {
+    if (examActive) {
+      hint.textContent = "Timed run · +1 / −0.25 scoring · no answers shown until you finish. Flag and skip freely.";
+      intro.style.display = "none"; bar.style.display = "flex"; navWrap.style.display = "block";
+    } else if (examFinished) {
+      hint.textContent = "Exam finished — reviewing answers with the rule under each. Start a fresh run any time.";
+      intro.style.display = "block"; bar.style.display = "none"; navWrap.style.display = "block";
+      intro.innerHTML = `<h3>Exam finished</h3>
+        <p>Score and per-area breakdown are below. Tap a number in the grid to jump to any question, or use <b>Redo only wrong</b> to retry the misses.</p>
+        <button class="exam-start-btn" data-action="startExam">Start a fresh timed run</button>`;
+    } else {
+      const n = state.filtered.length;
+      const mins = Math.max(1, Math.round(n * MIN_PER_Q));
+      hint.textContent = "Timed run · +1 / −0.25 scoring · no answers shown until you finish.";
+      intro.style.display = "block"; bar.style.display = "none"; navWrap.style.display = "none";
+      intro.innerHTML = `<h3>⏱️ Exam mode — like the real thing</h3>
+        <p>${n} questions · ${mins} min on the clock · +1 right, −0.25 wrong, 0 blank. No feedback until you finish, just like the real paper. You can flag questions and jump around with the grid.</p>
+        <button class="exam-start-btn" data-action="startExam">Start ${mins}-minute timed run</button>`;
+    }
+  }
+
+  // Redo bar (both modes, when there's something to redo)
+  const c = countScope();
+  if (c.wrong === 0 && c.flagged === 0 && state.redo === "none") {
+    redoBar.style.display = "none";
+  } else {
+    redoBar.style.display = "flex";
+    redoBar.innerHTML =
+      `<button class="redo-btn ${state.redo === "wrong" ? "active" : ""}" data-action="redoWrong" ${c.wrong ? "" : "disabled"}>↻ Redo only wrong (${c.wrong})</button>
+       <button class="redo-btn ${state.redo === "flagged" ? "active" : ""}" data-action="redoFlagged" ${c.flagged ? "" : "disabled"}>🚩 Flagged only (${c.flagged})</button>
+       ${state.redo !== "none" ? `<button class="redo-btn redo-clear" data-action="redoClear">Show all again</button>` : ""}`;
+  }
+}
+
+function renderNavGrid() {
+  const navWrap = document.getElementById("navGridWrap");
+  if (navWrap.style.display === "none") return;
+  const grid = document.getElementById("navGrid");
+  const finished = state.mode === "exam" && state.exam.finished;
+  grid.innerHTML = state.filtered.map((q, i) => {
+    let cls = "nav-cell";
+    const r = state.results[q.id];
+    if (finished && r) cls += r.correct ? " correct" : " wrong";
+    else if (r) cls += " answered";
+    if (state.flags[q.id]) cls += " flagged";
+    if (i === state.index) cls += " current";
+    return `<div class="${cls}" data-action="navJump" data-idx="${i}">${i + 1}</div>`;
+  }).join("");
+  const legend = document.getElementById("navGridLegend");
+  if (legend) {
+    const answered = state.filtered.filter(q => state.results[q.id]).length;
+    legend.textContent = ` — ${answered}/${state.filtered.length} answered`;
+  }
+}
+
+function resumeExamTimer() { stopExamTimer(); examTick = setInterval(tickExam, 1000); tickExam(); }
+function stopExamTimer() { if (examTick) { clearInterval(examTick); examTick = null; } }
+
+function startExam() {
+  const n = state.filtered.length;
+  if (n === 0) { alert("No questions in this filter."); return; }
+  const mins = Math.max(1, Math.round(n * MIN_PER_Q));
+  if (!confirm(`Start a fresh ${mins}-minute run over these ${n} questions?\n\nThis clears your current answers for them (attempt history is kept).`)) return;
+  // fresh slate for the in-scope questions
+  state.filtered.forEach(q => { delete state.results[q.id]; delete state.progress.drafts[q.id]; });
+  saveResults(); saveProgress();
+  state.redo = "none";
+  state.exam = { running: true, finished: false, endTs: Date.now() + mins * 60 * 1000, durationSec: mins * 60 };
+  saveExam();
+  state.index = 0;
+  resumeExamTimer();
+  applyFilter({ preservePosition: false });
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function tickExam() {
+  const bar = document.getElementById("examBar");
+  const remaining = Math.round((state.exam.endTs - Date.now()) / 1000);
+  if (remaining <= 0) { finishExam(true); return; }
+  const answered = state.filtered.filter(q => state.results[q.id]).length;
+  let tcls = "exam-timer";
+  if (remaining <= 30) tcls += " danger"; else if (remaining <= 120) tcls += " warn";
+  bar.innerHTML = `<div>
+      <div class="${tcls}">${formatTime(remaining)}</div>
+      <div class="exam-meta">${answered}/${state.filtered.length} answered · +1 / −0.25 / 0</div>
+    </div>
+    <button class="exam-finish-btn" data-action="finishExam">Finish & score</button>`;
+}
+
+function finishExam(auto) {
+  if (!state.exam.running && state.exam.finished) return;
+  if (!auto && !confirm("Finish the exam and see your score?")) return;
+  stopExamTimer();
+  state.exam.running = false;
+  state.exam.finished = true;
+  saveExam();
+  const attempt = recordAttempt();
+  renderModeUI();
+  state.index = 0;
+  renderQuestion();
+  renderAttemptHistory();
+  const sb = document.getElementById("scoreboard");
+  if (sb) sb.scrollIntoView({ behavior: "smooth", block: "center" });
+  if (attempt) {
+    setTimeout(() => alert(`${auto ? "Time's up!\n\n" : ""}Score: ${attempt.score}/${attempt.max}\n${attempt.right} right · ${attempt.wrong} wrong · ${attempt.blank} blank\n\nThe rule is now under every question, and this attempt is saved in your history.`), 50);
+  }
+}
+
+function recordAttempt() {
+  let right = 0, wrong = 0;
+  const sections = {};
+  state.filtered.forEach(q => {
+    if (!sections[q.section]) sections[q.section] = { total: 0, solid: 0, guessed: 0, wrong: 0, skip: 0 };
+    sections[q.section].total++;
+    const r = state.results[q.id];
+    if (!r) { sections[q.section].skip++; }
+    else if (r.correct) { right++; sections[q.section].solid++; }
+    else { wrong++; sections[q.section].wrong++; }
+  });
+  const blank = state.filtered.length - right - wrong;
+  const score = right * 1 - wrong * 0.25;
+  const max = state.filtered.length * 1;
+  const sel = document.getElementById("sectionSelect").value;
+  const scope = sel === "all" ? "Full mock" : (SECTION_LABELS[sel] || sel);
+  const attempt = { mock: "ihbas-2025", mode: "exam", scope, ts: new Date().toISOString(),
+    score, max, right, wrong, blank, sections };
+  try {
+    const raw = localStorage.getItem(HISTORY_KEY);
+    const history = raw ? JSON.parse(raw) : [];
+    history.push(attempt);
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+  } catch {}
+  return attempt;
+}
+
+function renderAttemptHistory() {
+  const wrap = document.getElementById("attemptHistoryList");
+  if (!wrap) return;
+  let history = [];
+  try { const raw = localStorage.getItem(HISTORY_KEY); if (raw) history = JSON.parse(raw); } catch {}
+  const mine = history.filter(h => h.mock === "ihbas-2025");
+  if (mine.length === 0) {
+    wrap.innerHTML = `<div class="ah-empty">No timed runs yet. Switch to ⏱️ Exam mode and finish a run to start tracking your score over time.</div>`;
+    return;
+  }
+  const rows = mine.map((h, i) => {
+    const pct = h.max ? Math.round((h.score / h.max) * 100) : 0;
+    const fillPct = Math.max(0, Math.min(100, pct));
+    const prev = i > 0 ? mine[i - 1] : null;
+    let deltaHtml = "", dir = "";
+    if (prev) {
+      const d = h.score - prev.score;
+      if (d > 0) { dir = "up"; deltaHtml = `<span class="ah-delta up">▲ +${d}</span>`; }
+      else if (d < 0) { dir = "down"; deltaHtml = `<span class="ah-delta down">▼ ${d}</span>`; }
+      else deltaHtml = `<span class="ah-delta">±0</span>`;
+    }
+    const d = new Date(h.ts);
+    const when = `${d.getDate()}/${d.getMonth() + 1} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    const scope = h.scope && h.scope !== "Full mock" ? ` · ${h.scope}` : "";
+    return `<div class="ah-row">
+      <div class="ah-when">${when}${scope}</div>
+      <div class="ah-track"><div class="ah-fill ${dir}" style="width:${fillPct}%;"></div></div>
+      <div class="ah-score">${h.score}/${h.max}${deltaHtml}</div>
+    </div>`;
+  }).join("");
+  wrap.innerHTML = rows;
+}
+
+loadResults();
+if (state.progress.lastSection) {
+  const sel = document.getElementById("sectionSelect");
+  if ([...sel.options].some(o => o.value === state.progress.lastSection)) sel.value = state.progress.lastSection;
+}
+// resume a live exam timer if one was running and time remains
+if (state.mode === "exam" && state.exam.running && !state.exam.finished) {
+  if (state.exam.endTs > Date.now()) resumeExamTimer();
+  else { state.exam.running = false; state.exam.finished = true; saveExam(); }
+}
+applyFilter({ preservePosition: true });
+showResumeBanner();
+renderAttemptHistory();
+</script>
+<script>
+/* PWA:met-prep */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("/sihan-met-flashcards/sw.js").catch(function () {});
+  });
+}
+(function () {
+  var dp = null;
+  window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); dp = e; showBtn(); });
+  function showBtn() {
+    if (document.getElementById("pwaInstallBtn")) return;
+    var b = document.createElement("button");
+    b.id = "pwaInstallBtn"; b.textContent = "Install app";
+    b.style.cssText = "position:fixed;right:14px;bottom:14px;z-index:9999;background:#1f6feb;color:#fff;border:0;border-radius:8px;padding:10px 14px;font:600 14px system-ui,sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.4);cursor:pointer";
+    b.onclick = function () { if (!dp) return; dp.prompt(); dp.userChoice.finally(function(){ dp = null; b.remove(); }); };
+    (document.body || document.documentElement).appendChild(b);
+  }
+  window.addEventListener("appinstalled", function () { var b = document.getElementById("pwaInstallBtn"); if (b) b.remove(); });
+})();
+</script>
+<!-- FS_MODE start -->
+<style id="fs-mode-style">
+  .fs-toggle{position:fixed;z-index:2147483000;bottom:14px;right:14px;width:46px;height:46px;border:0;border-radius:50%;
+    background:rgba(18,24,33,.74);color:#e6edf3;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 2px 12px rgba(0,0,0,.5);
+    padding:0;opacity:.5;transition:opacity .15s;-webkit-tap-highlight-color:transparent}
+  .fs-toggle:hover,.fs-toggle:active{opacity:1}
+  @media print{.fs-toggle{display:none}}
+  body.fs-active .topbar,
+  body.fs-active header,
+  body.fs-active nav,
+  body.fs-active .app-header,
+  body.fs-active .site-header,
+  body.fs-active footer{display:none !important}
+  body.fs-active{margin:0 !important;padding:0 !important;min-height:100vh}
+  body.fs-active main,
+  body.fs-active .wrap,
+  body.fs-active .container,
+  body.fs-active #app,
+  body.fs-active .app,
+  body.fs-active .page{max-width:100% !important;width:100% !important;margin:0 !important;
+    padding-left:12px !important;padding-right:12px !important;padding-top:10px !important;padding-bottom:14px !important}
+  @media (orientation:landscape){
+    body.fs-active main,
+    body.fs-active .wrap,
+    body.fs-active .container,
+    body.fs-active #app,
+    body.fs-active .app,
+    body.fs-active .page{padding-top:8px !important;padding-bottom:8px !important;
+      padding-left:18px !important;padding-right:18px !important}
+  }
+</style>
+<script>
+(function(){
+  if(window.__fsModeInit) return; window.__fsModeInit=true;
+  var ENTER='\u26F6', EXIT='\u2715';
+  function nativeOn(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function reqNative(){var el=document.documentElement;var r=el.requestFullscreen||el.webkitRequestFullscreen;
+    if(r){try{var p=r.call(el);if(p&&p.catch)p.catch(function(){});}catch(e){}}}
+  function exitNative(){if(!nativeOn())return;var x=document.exitFullscreen||document.webkitExitFullscreen;
+    if(x){try{x.call(document);}catch(e){}}}
+  var btn=document.createElement('button');
+  btn.className='fs-toggle';btn.type='button';
+  function paint(){var on=document.body.classList.contains('fs-active');
+    btn.textContent=on?EXIT:ENTER;btn.setAttribute('aria-label',on?'Exit fullscreen':'Enter fullscreen');btn.title=on?'Exit fullscreen':'Fullscreen';}
+  function go(){document.body.classList.add('fs-active');reqNative();paint();}
+  function stop(){document.body.classList.remove('fs-active');exitNative();paint();}
+  function toggle(){document.body.classList.contains('fs-active')?stop():go();}
+  btn.addEventListener('click',toggle);
+  function mount(){if(!document.body)return;if(!btn.isConnected)document.body.appendChild(btn);paint();}
+  if(document.body){mount();}else{document.addEventListener('DOMContentLoaded',mount);}
+  function sync(){if(!nativeOn()&&document.body.classList.contains('fs-active')){document.body.classList.remove('fs-active');paint();}}
+  document.addEventListener('fullscreenchange',sync);
+  document.addEventListener('webkitfullscreenchange',sync);
+})();
+</script>
+<!-- FS_MODE end -->
+</body>
+</html>
