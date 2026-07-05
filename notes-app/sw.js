@@ -1,7 +1,7 @@
 /* Notes for Exam — service worker. Own cache, scoped to /notes-app/.
    Precaches the shell + every chapter page so the whole library works offline.
    CACHE name is stamped by build_notes_app.py on each build so updates self-apply. */
-var CACHE = "notes-for-exam-1638514cb9";
+var CACHE = "notes-for-exam-bccc311e93";
 var BASE = "/sihan-met-flashcards/notes-app/";
 var SHELL = [
   BASE,
