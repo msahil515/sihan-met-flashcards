@@ -113,6 +113,12 @@ button{font-family:inherit;cursor:pointer}
 .q-index b{color:var(--ink);font-size:22px}
 .sec-tag{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
   color:var(--primary-ink);background:var(--primary-wash);padding:5px 11px;border-radius:99px}
+.src-tag{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--good);background:var(--good-wash,rgba(22,120,80,.12));border:1px solid var(--good);
+  padding:4px 10px;border-radius:99px;white-space:nowrap}
+.src-tag::before{content:"\1F4C4  "}
+.exp-src{margin-top:12px;font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--muted)}
+.exp-src::before{content:"\1F4C4  "}
 .flag-pill{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;
   color:var(--muted);background:var(--surface-2);border:1px solid var(--line);padding:8px 13px;border-radius:99px;transition:.15s}
 .flag-pill:hover{color:var(--amber);border-color:var(--amber)}
@@ -371,6 +377,7 @@ button{font-family:inherit;cursor:pointer}
 <script src="data-deep.js"></script>
 <script src="data-deep-pyq.js?v=20260705-ihbas2025"></script>
 <script src="data-deep-authored.js?v=20260703-authored8"></script>
+<script src="data-src.js?v=20260705-sgtsrc"></script>
 <script src="data-all.js?v=20260705-ihbas2025"></script>
 <script>
 /* pick the mock from ?m=<id>; fall back to met-mock-2 (or first available) */
@@ -383,6 +390,13 @@ M.sub = M.sub || (M.questions.length + " questions · untimed");
 const Q = M.questions, SL = M.sectionLabels, N = Q.length;
 const KEY = "revamp-preview-" + MID + "-v1";
 const LETTERS = ["a","b","c","d"];
+
+/* Source-paper badge: merged mocks (e.g. sgt-pyq) pull each Q from a real past
+   paper. PREVIEW_SRC[mockId] is a normStem -> "Amity 2023" map, so the badge
+   survives data-all.js rebuilds / order drift. Single-source mocks have no map. */
+const SRC_MAP = (window.PREVIEW_SRC || {})[MID] || null;
+const normStem = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+function srcOf(q){ return SRC_MAP ? (SRC_MAP[normStem(q.q)] || null) : null; }
 
 let st = {i:0, answers:{}, flags:{}, marks:{}, revealed:{}, visited:{0:1}, filter:"all", wrongSet:null};
 try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.answers){st={...st,...s};st.marks=st.marks||{};if(st.filter==="marked"||st.filter==="wrong"){}else{st.filter="all";}}}catch(e){}
@@ -523,6 +537,7 @@ function renderQ(){
     <div class="eyebrow">
       <span class="q-index">Q<b>${st.i+1}</b> / ${N}</span>
       <span class="sec-tag">${SL[q.section]||q.section}</span>
+      ${srcOf(q)?`<span class="src-tag" title="Real past-paper question — source paper">${srcOf(q)}</span>`:""}
       <button class="mark-pill ${marked?"on":""}" id="markBtn" title="Bookmark this question to find it fast later">
         ${marked?"★ Saved":"☆ Bookmark"}
       </button>
@@ -536,6 +551,7 @@ function renderQ(){
     <div class="reveal ${revealed?"show":""}" id="revealBox">
       <div class="reveal-tag">Explanation</div>
       ${explainHTML(q, st.i)}
+      ${srcOf(q)?`<div class="exp-src">Real past-paper question · ${srcOf(q)}</div>`:""}
     </div>
     <div class="reader-foot">
       <button class="btn ghost" id="prevBtn" ${isFirst?"disabled":""}>← Previous</button>
@@ -675,7 +691,7 @@ function finish(){
     return `<div class="rev-item" data-state="${state}" data-flag="${fl?1:0}">
       <p class="rq"><b>Q${i+1} · ${SL[q.section]||q.section}${a==null?" · skipped":ok?"":" · missed"}${fl?" · flagged":""}</b>${q.q}</p>
       ${opts}
-      <div class="rev-note">${explainHTML(q, i)}</div></div>`;
+      <div class="rev-note">${explainHTML(q, i)}${srcOf(q)?`<div class="exp-src">Real past-paper question · ${srcOf(q)}</div>`:""}</div></div>`;
   }).join("");
 
   document.getElementById("quizStage").style.display="none";
