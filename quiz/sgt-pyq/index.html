@@ -41,6 +41,12 @@
     padding: 18px; margin-bottom: 12px; }
   .section-tag { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
     color: var(--accent); background: rgba(88, 166, 255, 0.08); padding: 3px 8px; border-radius: 4px; margin-bottom: 10px; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 10px; }
+  .card-tags .section-tag { margin-bottom: 0; }
+  .src-tag { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--good); background: rgba(63, 185, 80, 0.10); border: 1px solid rgba(63, 185, 80, 0.28);
+    padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .src-tag::before { content: "📄 "; }
   .question-text { font-size: 16px; line-height: 1.5; margin-bottom: 14px; white-space: pre-wrap; }
   .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
   .option { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
@@ -1140,7 +1146,10 @@ function renderQuestion() {
 
   document.getElementById("quizArea").innerHTML = `
     <div class="question-card${hasNote ? " has-note" : ""}${hasFlag ? " has-flag" : ""}">
-      <div class="section-tag">${SECTION_LABELS[q.section]}</div>
+      <div class="card-tags">
+        <span class="section-tag">${SECTION_LABELS[q.section]}</span>
+        ${q.src ? `<span class="src-tag" title="Source paper this question is from">${escapeHtml(q.src)}</span>` : ""}
+      </div>
       <div class="question-text">${escapeHtml(q.q)}</div>
       <div class="options" id="options">${optionsHtml}</div>
       ${guessHtml}
