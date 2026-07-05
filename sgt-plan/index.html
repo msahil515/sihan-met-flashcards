@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d1117">
+<title>SGT 6-Day Battle Plan — one spine, not ten</title>
+<link rel="stylesheet" href="../site.css">
+<style>
+  .day-card { display: flex; flex-direction: column; gap: 10px; }
+  .day-card h3 { margin: 0; font-size: 15px; font-weight: 600; }
+  .day-card .day-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 2px; }
+  .task-row {
+    display: grid;
+    grid-template-columns: 78px 1fr;
+    gap: 10px;
+    padding: 8px 10px;
+    background: var(--panel-2);
+    border-radius: 6px;
+    font-size: 13px;
+  }
+  .task-row .slot { color: var(--accent); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+  .task-row .task { color: var(--text); }
+  .task-row .task a { color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--accent); }
+  .day-card.this-day { border-color: var(--good); background: linear-gradient(135deg, rgba(63,185,80,0.08), rgba(88,166,255,0.04)); }
+  .day-card.exam-day { border-color: var(--bad); background: linear-gradient(135deg, rgba(248,81,73,0.10), rgba(88,166,255,0.04)); }
+  .day-card.mock-day { border-color: var(--warn, #d29922); }
+  .checklist { list-style: none; padding: 0; margin: 0; }
+  .checklist li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 13px;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist input[type=checkbox] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+    width: 16px; height: 16px;
+    flex-shrink: 0;
+  }
+  .checklist li.done span { text-decoration: line-through; color: var(--muted); }
+  .area-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
+  .area-chip { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 13px; }
+  .area-chip b { display: block; font-size: 13.5px; color: var(--text); }
+  .area-chip span { font-size: 11.5px; color: var(--muted); }
+  .spine { background: linear-gradient(135deg, rgba(31,111,235,0.14), rgba(163,113,247,0.08)); border: 1px solid var(--accent-dim); border-radius: 12px; padding: 16px 18px; font-size: 14px; line-height: 1.55; }
+  .spine b { color: var(--text); }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+  .cta { display: inline-block; padding: 11px 18px; border-radius: 9px; font-weight: 600; font-size: 14px; text-decoration: none; }
+  .cta.primary { background: #1f6feb; color: #fff; }
+  .cta.ghost { background: var(--panel-2); color: var(--text); border: 1px solid var(--border-strong); }
+</style>
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SGT Plan">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-title">Sihan, SGT 2026</span>
+      <span class="brand-sub">MA Clinical Psychology entrance</span>
+    </div>
+    <nav class="nav">
+      <a href="../">Dashboard</a>
+      <a href="../tests/">Tests</a>
+      <a href="../quiz/sgt-pyq/">SGT Mock</a>
+      <a href="../notes/sgt-study-material/">SGT Book</a>
+      <a href="./" class="active">Plan</a>
+    </nav>
+    <span class="countdown-chip" id="countdownChip">—</span>
+  </div>
+</div>
+
+<main>
+
+  <div class="page-hero">
+    <div class="crumbs">SGT · 5 → 11 July</div>
+    <h1>The 6-Day SGT Battle Plan</h1>
+    <p>You've been studying ten resources at once and that's the whole problem. The fix isn't more material, it's <b>one spine</b>. That spine is the SGT PYQ mock: 100 real past-paper questions that tell you exactly what SGT actually asks. You don't need all 30 theories of intelligence. You need the ones that show up. This plan turns "am I even ready" into a map in 90 minutes.</p>
+    <div class="cta-row">
+      <a class="cta primary" href="../quiz/sgt-pyq/">Take the SGT Mock now →</a>
+      <a class="cta ghost" href="../notes/sgt-study-material/">Open the SGT Book</a>
+    </div>
+    <div class="grid cols-4" style="margin-top:20px;">
+      <div class="bigstat">
+        <div class="bigstat-label">Days to exam</div>
+        <div class="bigstat-value" id="heroDays">—</div>
+        <div class="bigstat-sub">11 Jul 2026, IST</div>
+      </div>
+      <div class="bigstat">
+        <div class="bigstat-label">The spine</div>
+        <div class="bigstat-value">1</div>
+        <div class="bigstat-sub">SGT PYQ mock, 100 real Q</div>
+      </div>
+      <div class="bigstat">
+        <div class="bigstat-label">Areas to cover</div>
+        <div class="bigstat-value">7</div>
+        <div class="bigstat-sub">weakest first, not all blind</div>
+      </div>
+      <div class="bigstat">
+        <div class="bigstat-label">Tasks done</div>
+        <div class="bigstat-value" id="heroDone">—</div>
+        <div class="bigstat-sub" id="heroDoneSub">of total</div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">Why the mock is the whole plan</h2>
+    </div>
+    <div class="spine">
+      Confusion comes from not knowing <b>what you don't know</b>. A real past-paper mock, taken <b>cold</b> with no revision first, answers that in one sitting. Your score plus every flagged question <b>is</b> your "what I don't know" map. From then on you only study your misses, weakest area first, and you never re-read what you already got right. That's the difference between six panicked days and six focused ones.
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">Daily rhythm</h2>
+      <span class="section-sub">Same shape every day, the topic changes</span>
+    </div>
+    <div class="grid cols-3">
+      <div class="card">
+        <div class="card-title">Open with the map</div>
+        <div class="card-body" style="margin-top:6px;">
+          Start from your flagged misses, not the top of a book. The mock already told you where the holes are. Trust the map.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Weakest area first</div>
+        <div class="card-body" style="margin-top:6px;">
+          Read only the <a href="../notes/sgt-study-material/">SGT book</a> section for the area you bombed hardest. Full depth, every theorist named. Skip areas you already scored well in.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Log the trap</div>
+        <div class="card-body" style="margin-top:6px;">
+          For every miss write: <em>what I picked, what's right, what's the trap.</em> That log is your real revision sheet for the 10th.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">Day by day</h2>
+      <span class="section-sub">5 July → exam morning, 11 July</span>
+    </div>
+    <div class="grid cols-2" id="daysGrid"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">The 7 SGT areas</h2>
+      <span class="section-sub">This is the whole surface. Rank them by mock score, study bottom-up.</span>
+    </div>
+    <div class="area-grid">
+      <div class="area-chip"><b>Biological / Physiological</b><span>Neurons, NTs, brain, sleep, endocrine</span></div>
+      <div class="area-chip"><b>Abnormal / Clinical</b><span>Disorders, DSM-5 / ICD-11, symptoms</span></div>
+      <div class="area-chip"><b>Psychological Assessment</b><span>Intelligence, personality, projective tests</span></div>
+      <div class="area-chip"><b>Therapy / Counselling</b><span>CBT, psychodynamic, humanistic, schools</span></div>
+      <div class="area-chip"><b>Developmental</b><span>Piaget, Erikson, attachment, lifespan</span></div>
+      <div class="area-chip"><b>Research Methods / Statistics</b><span>Design, sampling, tests, measurement</span></div>
+      <div class="area-chip"><b>General / History &amp; Systems</b><span>Schools, founders, learning, memory, cognition</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">Master checklist</h2>
+      <span class="section-sub">Tick as each piece lands, saved on this device</span>
+    </div>
+    <div class="card">
+      <ul class="checklist" id="checklist"></ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">Send me your misses</h2>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        The mock flags tell me exactly which theories to widen. After you take it cold, send the flagged list on WhatsApp and I expand the <a href="../notes/sgt-study-material/">SGT book</a> on those tonight, full depth, every theorist named. The notes today cover the core, not the full syllabus. The misses are how I know what to add. Don't learn all 30 theories blind. Learn what gets asked.
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">Exam-day rules</h2>
+      <span class="section-sub">Decided now, not on the day</span>
+    </div>
+    <div class="grid cols-3">
+      <div class="card">
+        <div class="card-title">Two passes</div>
+        <div class="card-body" style="margin-top:6px;">
+          Pass one: answer everything you know cold, flag the rest. Pass two: spend the leftover time only on the flagged ones. Never read all 100 in order once.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Skip rule</div>
+        <div class="card-body" style="margin-top:6px;">
+          If a question runs long on the first pass, flag it and move. Time kills the score, not the hard question. Come back on pass two.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Walk in calm</div>
+        <div class="card-body" style="margin-top:6px;">
+          By the 11th you've already sat this paper twice and studied your exact holes. Nothing on it is new. Skim the trap log in the morning, nothing else goes in.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>Sihan SGT 2026 prep · one spine, not ten · the mock is the map</footer>
+
+<script>
+const examDate = new Date('2026-07-11T00:00:00+05:30');
+
+function updateCountdown() {
+  const ms = examDate - new Date();
+  const d = ms > 0 ? Math.floor(ms / 86400000) : 0;
+  document.getElementById("countdownChip").textContent = ms > 0 ? `${d} days to exam` : "Exam day!";
+  document.getElementById("heroDays").textContent = d;
+}
+
+const DAYS = [
+  {
+    label: "Sat 5 Jul · Today · 2 PM",
+    title: "Take the mock COLD",
+    cls: "this-day",
+    tasks: [
+      { s: "No revision", t: 'Do NOT revise first. Sit the <a href="../quiz/sgt-pyq/">SGT PYQ mock</a>, all 100 Q, in one go' },
+      { s: "Flag", t: 'Flag every Q you don’t know for sure. Don’t guess to feel better, the flags ARE the map' },
+      { s: "After", t: 'Read your score by area. Rank the 7 areas worst → best. Send me the flagged list on WhatsApp' }
+    ]
+  },
+  {
+    label: "Sun 6 Jul · Day 2",
+    title: "Study your misses — weakest area",
+    cls: "",
+    tasks: [
+      { s: "Only misses", t: 'Open the <a href="../notes/sgt-study-material/">SGT book</a> at your worst area only. Read the exact topics you flagged' },
+      { s: "Depth", t: 'Full depth on each missed concept, every theorist named. Skip what you already got right' },
+      { s: "Log", t: 'Trap log every miss: what I picked, what’s right, what’s the trap' }
+    ]
+  },
+  {
+    label: "Mon 7 Jul · Day 3",
+    title: "Study your misses — next weakest",
+    cls: "",
+    tasks: [
+      { s: "Only misses", t: 'Same drill, next weakest area from the mock. <a href="../notes/sgt-study-material/">SGT book</a>, flagged topics only' },
+      { s: "Widen", t: 'If I’ve expanded the book on your misses overnight, this is where you read the new depth' },
+      { s: "Retry", t: 'Re-open the mock on just the flagged Q from these two areas, confirm they now click' }
+    ]
+  },
+  {
+    label: "Tue 8 Jul · Day 4",
+    title: "Fast sweep — areas 1–4",
+    cls: "",
+    tasks: [
+      { s: "Blind spots", t: 'Now catch what the mock didn’t test. Fast-read Biological, Abnormal, Assessment, Therapy in the <a href="../notes/sgt-study-material/">SGT book</a>' },
+      { s: "Skim depth", t: 'You’re scanning for gaps, not re-learning. Slow down only where something looks new' },
+      { s: "Note", t: 'Jot any brand-new blind spot, add it to tomorrow’s list' }
+    ]
+  },
+  {
+    label: "Wed 9 Jul · Day 5",
+    title: "Fast sweep — areas 5–7",
+    cls: "",
+    tasks: [
+      { s: "Blind spots", t: 'Fast-read Developmental, Research/Stats, General/History &amp; Systems in the <a href="../notes/sgt-study-material/">SGT book</a>' },
+      { s: "Differentiate", t: 'Pin down the confusable pairs and the theorist → concept links, that’s where SGT sets traps' },
+      { s: "Clear", t: 'By tonight all 7 areas have been touched at least once' }
+    ]
+  },
+  {
+    label: "Thu 10 Jul · Day 6",
+    title: "Re-take the mock + revise shaky bits",
+    cls: "mock-day",
+    tasks: [
+      { s: "Re-take", t: 'Sit the full <a href="../quiz/sgt-pyq/">SGT PYQ mock</a> again, cover to cover. Compare the score to Day 1' },
+      { s: "Shaky only", t: 'Light revise only the questions that are still shaky. Everything solid, leave it alone' },
+      { s: "Logistics", t: 'Lay out ID, admit card, clothes. Confirm the centre and travel time. Early night' }
+    ]
+  },
+  {
+    label: "Fri 11 Jul · Exam",
+    title: "Walk in calm",
+    cls: "exam-day",
+    tasks: [
+      { s: "Wake", t: 'Skim the trap log only. Nothing new goes in today, you’ve already sat this paper twice' },
+      { s: "Go", t: 'Two passes, skip rule, answer what you know first. You know exactly what SGT asks now' },
+      { s: "Done", t: 'Walk out, don’t post-mortem it. It’s done' }
+    ]
+  }
+];
+
+const CHECKLIST = [
+  { id: "sgt-mock-cold", t: "Took SGT mock cold, all 100 Q" },
+  { id: "sgt-flags-sent", t: "Ranked areas worst → best, sent flags on WhatsApp" },
+  { id: "sgt-miss-1", t: "Studied weakest area misses (Day 2)" },
+  { id: "sgt-miss-2", t: "Studied next weakest area misses (Day 3)" },
+  { id: "sgt-retry-flags", t: "Re-checked flagged Q, they now click" },
+  { id: "sgt-sweep-1", t: "Fast swept areas 1–4 (Day 4)" },
+  { id: "sgt-sweep-2", t: "Fast swept areas 5–7 (Day 5)" },
+  { id: "sgt-retake", t: "Re-took the full mock (Day 6), score up" },
+  { id: "sgt-shaky", t: "Light-revised the shaky bits" },
+  { id: "sgt-logistics", t: "ID / admit card / centre + travel sorted" }
+];
+
+function renderDays() {
+  const root = document.getElementById("daysGrid");
+  root.innerHTML = "";
+  for (const day of DAYS) {
+    const card = document.createElement("div");
+    card.className = "card day-card" + (day.cls ? " " + day.cls : "");
+    let html = `
+      <div>
+        <div class="day-label">${day.label}</div>
+        <h3>${day.title}</h3>
+      </div>
+    `;
+    for (const row of day.tasks) {
+      html += `<div class="task-row"><div class="slot">${row.s}</div><div class="task">${row.t}</div></div>`;
+    }
+    card.innerHTML = html;
+    root.appendChild(card);
+  }
+}
+
+function renderChecklist() {
+  const root = document.getElementById("checklist");
+  root.innerHTML = "";
+  const saved = JSON.parse(localStorage.getItem("sihan-sgt-plan-checklist-v1") || "{}");
+  for (const item of CHECKLIST) {
+    const li = document.createElement("li");
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = !!saved[item.id];
+    if (saved[item.id]) li.classList.add("done");
+    cb.addEventListener("change", () => {
+      saved[item.id] = cb.checked;
+      localStorage.setItem("sihan-sgt-plan-checklist-v1", JSON.stringify(saved));
+      li.classList.toggle("done", cb.checked);
+      renderHero();
+    });
+    const span = document.createElement("span");
+    span.textContent = item.t;
+    li.appendChild(cb);
+    li.appendChild(span);
+    root.appendChild(li);
+  }
+}
+
+function renderHero() {
+  const saved = JSON.parse(localStorage.getItem("sihan-sgt-plan-checklist-v1") || "{}");
+  let done = 0;
+  for (const item of CHECKLIST) if (saved[item.id]) done++;
+  document.getElementById("heroDone").textContent = done;
+  document.getElementById("heroDoneSub").textContent = `of ${CHECKLIST.length} total`;
+}
+
+updateCountdown();
+renderDays();
+renderChecklist();
+renderHero();
+</script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("/sihan-met-flashcards/sw.js").catch(function () {});
+  });
+}
+</script>
+<script src="/sihan-met-flashcards/nav-toggle.js"></script>
+</body>
+</html>
