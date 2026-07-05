@@ -36,7 +36,7 @@ a:hover { text-decoration: underline; }
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(13, 17, 23, 0.92);
+  background: var(--panel);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
@@ -79,7 +79,7 @@ a:hover { text-decoration: underline; }
 main { max-width: min(1600px, 94vw); margin: 0 auto; padding: 28px 32px 60px; }
 
 .page-hero {
-  background: linear-gradient(135deg, rgba(31,111,235,0.18), rgba(63,185,80,0.08));
+  background: linear-gradient(135deg, var(--accent-soft), var(--panel-2));
   border: 1px solid var(--accent-dim);
   border-radius: 14px;
   padding: 24px 28px;
@@ -130,7 +130,7 @@ section { margin-bottom: 36px; }
 .card.link:hover { border-color: var(--accent-dim); transform: translateY(-1px); text-decoration: none; }
 .card.fresh {
   border-color: var(--good);
-  background: linear-gradient(135deg, rgba(63,185,80,0.10), rgba(88,166,255,0.05));
+  background: linear-gradient(135deg, var(--good-soft), var(--accent-soft));
 }
 .card-head {
   display: flex;

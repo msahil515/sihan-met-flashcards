@@ -6,8 +6,10 @@
 <script>document.documentElement.classList.add("gate-locked")</script>
 <script src="/sihan-met-flashcards/gate.js"></script>
 <script src="/sihan-met-flashcards/force-sync.js"></script>
+<script src="/sihan-met-flashcards/take/theme.js"></script>
+<link rel="stylesheet" href="/sihan-met-flashcards/revamp-skin.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0d1117">
+<meta name="theme-color" content="#F3EDE2">
 <title>Sihan — Clinical Psychology Prep 2026</title>
 <style>
   :root {
@@ -46,7 +48,7 @@
     position: sticky;
     top: 0;
     z-index: 10;
-    background: rgba(13, 17, 23, 0.92);
+    background: var(--panel);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
@@ -108,6 +110,63 @@
     font-weight: 600;
     white-space: nowrap;
   }
+  /* --- More dropdown (declutter) --- */
+  .nav-more { position: relative; display: inline-flex; }
+  .nav-more-btn {
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .nav-more-btn:hover,
+  .nav-more[data-open="1"] .nav-more-btn {
+    background: var(--panel);
+    border-color: var(--border);
+    color: var(--text);
+  }
+  .nav-more-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 460px;
+    max-width: min(560px, 92vw);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 16px 44px rgba(0,0,0,0.28);
+    padding: 14px 16px;
+    z-index: 30;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px 20px;
+  }
+  .nav-more-panel[hidden] { display: none; }
+  .nav-more-group { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .nav-more-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 5px;
+  }
+  .nav-more-group a {
+    color: var(--text);
+    padding: 6px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .nav-more-group a:hover { background: var(--panel-2); text-decoration: none; }
+  @media (max-width: 560px) {
+    .nav-more-panel { min-width: 0; width: min(92vw, 460px); grid-template-columns: 1fr 1fr; }
+  }
 
   main {
     max-width: min(1600px, 94vw);
@@ -115,7 +174,7 @@
     padding: 28px 32px 60px;
   }
   .hero {
-    background: linear-gradient(135deg, rgba(31,111,235,0.18), rgba(163,113,247,0.10));
+    background: linear-gradient(135deg, var(--accent-soft), var(--panel-2));
     border: 1px solid var(--accent-dim);
     border-radius: 14px;
     padding: 22px 26px;
@@ -343,7 +402,7 @@
   }
   .test-card.fresh {
     border-color: var(--good);
-    background: linear-gradient(135deg, rgba(63,185,80,0.10), rgba(88,166,255,0.06));
+    background: linear-gradient(135deg, var(--good-soft), var(--accent-soft));
   }
   .test-card.nimhans { border-color: var(--accent-dim); }
   .test-title-row {
@@ -548,24 +607,40 @@
     <nav class="nav">
       <a href="./" class="active">Dashboard</a>
       <a href="tests/">Tests</a>
-      <a href="pyq-coverage/">PYQ Coverage</a>
       <a href="quiz/practice/">Practice</a>
-      <a href="quiz/otta-mphil/">M.Phil QB</a>
-      <a href="results/">My Results</a>
-      <a href="progress/">Progress</a>
+      <a href="results/">Results</a>
       <a href="notes-app/">Notes</a>
-      <a href="checklist/">Checklist</a>
       <a href="admissions/">Admissions</a>
-      <a href="rml/">RML</a>
-      <a href="amity/">Amity</a>
-      <a href="dissertation/">Dissertation</a>
-      <a href="database/">Database</a>
-      <a href="resources/">Library</a>
-      <a href="news/">News</a>
-      <a href="plan/">Plan</a>
-      <a href="downloads/">Get the app</a>
-      <a href="archive/" class="ghost">Archive</a>
+      <div class="nav-more" id="navMore">
+        <button type="button" class="nav-more-btn" id="navMoreBtn" aria-haspopup="true" aria-expanded="false">More ▾</button>
+        <div class="nav-more-panel" id="navMorePanel" hidden>
+          <div class="nav-more-group">
+            <span class="nav-more-label">Study</span>
+            <a href="pyq-coverage/">PYQ Coverage</a>
+            <a href="quiz/otta-mphil/">M.Phil QB</a>
+            <a href="progress/">Progress</a>
+            <a href="checklist/">Checklist</a>
+            <a href="plan/">Plan</a>
+          </div>
+          <div class="nav-more-group">
+            <span class="nav-more-label">Reference</span>
+            <a href="notes/">All notes</a>
+            <a href="database/">Database</a>
+            <a href="resources/">Library</a>
+            <a href="news/">News</a>
+            <a href="dissertation/">Dissertation</a>
+            <a href="downloads/">Get the app</a>
+          </div>
+          <div class="nav-more-group">
+            <span class="nav-more-label">Colleges &amp; archive</span>
+            <a href="rml/">RML</a>
+            <a href="amity/">Amity</a>
+            <a href="archive/">Archive · NIMHANS + MET</a>
+          </div>
+        </div>
+      </div>
     </nav>
+    <span id="themeMount"></span>
     <span class="countdown-chip" id="countdownChip">Prep 2026</span>
   </div>
 </div>
@@ -1225,6 +1300,30 @@ if ("serviceWorker" in navigator) {
     (document.body || document.documentElement).appendChild(b);
   }
   window.addEventListener("appinstalled", function () { var b = document.getElementById("pwaInstallBtn"); if (b) b.remove(); });
+})();
+</script>
+<script>
+/* More dropdown (declutter) — toggle + outside-click / Esc to close. */
+(function () {
+  var wrap = document.getElementById("navMore");
+  if (!wrap) return;
+  var btn = document.getElementById("navMoreBtn");
+  var panel = document.getElementById("navMorePanel");
+  function open() { panel.hidden = false; wrap.setAttribute("data-open", "1"); btn.setAttribute("aria-expanded", "true"); }
+  function close() { panel.hidden = true; wrap.removeAttribute("data-open"); btn.setAttribute("aria-expanded", "false"); }
+  btn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    panel.hidden ? open() : close();
+  });
+  document.addEventListener("click", function (e) {
+    if (!wrap.contains(e.target)) close();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") close();
+  });
+  panel.addEventListener("click", function (e) {
+    if (e.target.tagName === "A") close();
+  });
 })();
 </script>
 <script src="/sihan-met-flashcards/nav-toggle.js"></script>

@@ -1,10 +1,12 @@
 /* MET 2026 prep - offline service worker
    Precaches the whole site so it works with no signal after one install.
    Bump CACHE on each deploy to refresh. */
-const CACHE = "met-prep-20260704-tests-take-merged";
+const CACHE = "met-prep-20260705-onelook-revamp";
 const BASE = "/sihan-met-flashcards/";
 const PRECACHE = [
   "/sihan-met-flashcards/",
+  "/sihan-met-flashcards/revamp-skin.css",
+  "/sihan-met-flashcards/take/theme.js",
   "/sihan-met-flashcards/checklist/",
   "/sihan-met-flashcards/downloads/",
   "/sihan-met-flashcards/downloads/backup/",

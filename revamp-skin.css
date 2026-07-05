@@ -1,0 +1,55 @@
+/* ============================================================
+   revamp-skin.css — one look across the whole site.
+
+   take/theme.js sets the shared design tokens (--bg, --surface,
+   --surface-2, --line, --ink, --ink-soft, --muted, --primary,
+   --primary-ink, --primary-wash, --amber, --amber-wash, --good,
+   --good-wash, --bad, --bad-wash) on html[data-theme][data-mode].
+
+   The dashboard/notes/tracker/results pages were built against
+   two older palettes (the GitHub-dark site.css names and the
+   warm-paper notes-style.css names). This file bridges those
+   legacy variable names onto the shared tokens, so loading
+   take/theme.js + this file recolors any page to the picked
+   theme — same palette + switcher the tests screen uses.
+
+   Load AFTER the page's own CSS. Selector html[data-theme] beats
+   the pages' :root blocks, and theme.js keeps ownership of the
+   tokens it sets directly (--bg/--muted/--good/--bad/--ink/...).
+   ============================================================ */
+
+html[data-theme] {
+  /* surfaces */
+  --panel: var(--surface);
+  --panel-2: var(--surface-2);
+  --panel-3: var(--surface-2);
+  --card: var(--surface);
+
+  /* lines */
+  --border: var(--line);
+  --border-strong: var(--line);
+
+  /* text */
+  --text: var(--ink);
+  --fg: var(--ink);
+
+  /* accent family */
+  --accent: var(--primary);
+  --accent-dim: var(--primary-ink);
+  --accent-soft: var(--primary-wash);
+
+  /* status washes (base hues come straight from theme.js) */
+  --good-soft: var(--good-wash);
+  --warn: var(--amber);
+  --warn-soft: var(--amber-wash);
+  --bad-soft: var(--bad-wash);
+
+  /* misc legacy accents */
+  --purple: var(--primary-ink);
+  --purple-soft: var(--primary-wash);
+}
+
+/* Smooth the flip between palettes/modes on the big surfaces. */
+html[data-theme] body {
+  transition: background-color .2s ease, color .2s ease;
+}

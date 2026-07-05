@@ -54,7 +54,7 @@ nav a {
   font-weight: 600;
 }
 nav a:hover {
-  background: rgba(61, 111, 208, 0.07);
+  background: var(--accent-soft, rgba(61,111,208,0.07));
 }
 h1 {
   font-family: var(--serif);
@@ -63,7 +63,7 @@ h1 {
   line-height: 1.22;
   letter-spacing: -.012em;
   margin-top: 0;
-  color: #14161b;
+  color: var(--text);
   border-bottom: 1px solid var(--border);
   padding-bottom: 16px;
 }
@@ -71,7 +71,7 @@ h2 {
   font-family: var(--serif);
   font-size: 23px;
   font-weight: 700;
-  color: #2b2f3a;
+  color: var(--text);
   margin-top: 40px;
   border-bottom: 1px solid var(--border);
   padding-bottom: 8px;
@@ -95,7 +95,7 @@ h4 {
 p { margin: 12px 0; }
 ul, ol { padding-left: 24px; }
 li { margin: 6px 0; }
-strong { color: #14161b; font-weight: 700; }
+strong { color: var(--text); font-weight: 700; }
 em { color: var(--text); font-style: italic; }
 code {
   background: var(--panel-2);
@@ -139,11 +139,11 @@ th, td {
 }
 th {
   background: var(--panel-2);
-  color: #14161b;
+  color: var(--text);
   font-weight: 700;
 }
 tr:nth-child(even) td {
-  background: rgba(241, 236, 225, 0.55);
+  background: var(--panel-2);
 }
 hr {
   border: 0;
