@@ -1,6 +1,19 @@
 // Full mock registry (MOCKS + GROUPS), ported verbatim from tests/index.html.
 const MOCKS = [
   {
+    id: "jemas-2025",
+    title: "JEMAS(PG) 2025 · Clinical Psychology",
+    sub: "6 real Qs · JEMAS(PG) 2025 CP · page 5 (Q15–20) · source-badged · untimed Practice",
+    path: "../quiz/jemas-2025/",
+    total: 6,
+    storageKey: "jemas-2025-results-v1",
+    sections: { psychodynamic: 1, personality: 3, biopsych: 1, general: 1 },
+    blurb: "The real JEMAS(PG) 2025 Clinical Psychology entrance paper, built into a native untimed mock. So far it covers page 5, questions 15\u201320 (6 items): defence mechanisms, Adlerian teleology, temperament, the trait definition, the hypothalamic satiety centre, and universality. Stems, options and keys were rebuilt faithfully from the page Sihan sent; every card carries a JEMAS(PG) 2025 source badge with its original question number, and each question has a full deep explanation plus a per-distractor trap breakdown. Untimed by design (instant reveal + explanation the moment you answer), scored +1 / \u22120.25 / 0. As the remaining JEMAS pages arrive they fold straight into this same mock. Independent storage.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real paper", "JEMAS(PG) 2025", "clinical psychology", "source-badged", "trap per wrong option", "untimed practice", "6 Q"]
+  },
+  {
     id: "systems-theories",
     title: "Systems & Theories Mock (Panwar bank)",
     sub: "119 MCQs · Amit Panwar \"Systems & Theories of Psychology\" unit bank · common-section drilling · official key + full revamp depth · untimed Practice + timed Exam",
@@ -375,6 +388,9 @@ const GROUPS = [
   { id: "diag", title: "Diagnostics & common-section drills",
     sub: "Sit-once diagnostics and the common-section banks that decide the gap — misses compile into a study sheet on the page",
     members: ["diagnostic-1", "systems-theories", "flight-mock-100"] },
+  { id: "jemas", title: "JEMAS(PG) — West Bengal",
+    sub: "The JEMAS(PG) Clinical Psychology entrance paper — real questions, source-badged, folded in page by page",
+    members: ["jemas-2025"] },
   { id: "sgt", title: "SGT University",
     sub: "SGT publishes no syllabus PDF, so this is a general-psych aptitude paper built purely from every real PYQ on the system, re-sorted into SGT's shape",
     members: ["sgt-pyq"] }

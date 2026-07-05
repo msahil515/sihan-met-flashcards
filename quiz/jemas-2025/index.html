@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Standalone native mock: renders directly. Also mirrored into the /take/ engine (m=jemas-2025). -->
+
+<meta charset="UTF-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0d1117">
+<title>JEMAS(PG) 2025 Clinical Psychology (real paper mock)</title>
+<style>
+  :root {
+    --bg: #0d1117; --panel: #161b22; --panel-2: #1f252d; --border: #30363d;
+    --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff; --accent-dim: #1f6feb;
+    --good: #3fb950; --bad: #f85149; --warn: #f0b429;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Text', sans-serif; line-height: 1.5; }
+  .app { max-width: min(1200px, 94vw); margin: 0 auto; padding: 16px; min-height: 100vh; }
+  nav { display: flex; gap: 8px; margin-bottom: 16px; font-size: 13px; flex-wrap: wrap; }
+  nav a { color: var(--accent); text-decoration: none; padding: 6px 10px;
+    border: 1px solid var(--accent-dim); border-radius: 6px; }
+  header { text-align: center; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  h1 { font-size: 18px; margin: 0 0 4px 0; font-weight: 600; letter-spacing: 0.5px; }
+  .subtitle { font-size: 12px; color: var(--muted); }
+  .blueprint { font-size: 11px; color: var(--accent); margin-top: 6px; }
+  .filters { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; margin-bottom: 16px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .filters label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  select { background: var(--panel-2); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 10px; font-size: 14px; font-family: inherit; flex: 1; min-width: 140px;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%238b949e' d='M2 4l4 4 4-4z'/></svg>");
+    background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+  .progress { font-size: 12px; color: var(--muted); text-align: center; margin-bottom: 10px; }
+  .progress-bar { height: 4px; background: var(--panel); border-radius: 2px; overflow: hidden; margin-bottom: 16px; }
+  .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s ease; }
+  .question-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px; margin-bottom: 12px; }
+  .section-tag { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--accent); background: rgba(88, 166, 255, 0.08); padding: 3px 8px; border-radius: 4px; margin-bottom: 10px; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 10px; }
+  .card-tags .section-tag { margin-bottom: 0; }
+  .src-tag { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--good); background: rgba(63, 185, 80, 0.10); border: 1px solid rgba(63, 185, 80, 0.28);
+    padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .src-tag::before { content: "📄 "; }
+  .question-text { font-size: 16px; line-height: 1.5; margin-bottom: 14px; white-space: pre-wrap; }
+  .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+  .option { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; font-size: 15px; cursor: pointer; transition: all 0.15s ease; display: flex; gap: 10px; align-items: flex-start; }
+  .option:hover:not(.disabled) { border-color: var(--accent-dim); background: rgba(31, 111, 235, 0.05); }
+  .option.selected { border-color: var(--accent); background: rgba(88, 166, 255, 0.08); }
+  .option.correct { border-color: var(--good); background: rgba(63, 185, 80, 0.1); }
+  .option.incorrect { border-color: var(--bad); background: rgba(248, 81, 73, 0.08); }
+  .option.disabled { cursor: default; }
+  .option-letter { font-weight: 600; color: var(--accent); flex-shrink: 0; width: 20px; }
+  .option.correct .option-letter { color: var(--good); }
+  .option.incorrect .option-letter { color: var(--bad); }
+  .guess-row { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 12px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+    font-size: 14px; cursor: pointer; user-select: none; }
+  .guess-row.checked { border-color: var(--warn); background: rgba(240, 180, 41, 0.06); }
+  .guess-checkbox { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 4px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.1s ease; }
+  .guess-row.checked .guess-checkbox { border-color: var(--warn); background: var(--warn); }
+  .guess-row.checked .guess-checkbox::after { content: "✓"; color: var(--bg); font-weight: 800; font-size: 14px; }
+  .guess-label { flex: 1; }
+  .guess-label small { display: block; color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .controls { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  button { background: var(--panel); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px; font-size: 14px; font-family: inherit; cursor: pointer;
+    transition: all 0.15s ease; font-weight: 500; }
+  button:hover:not(:disabled) { background: var(--panel-2); border-color: var(--accent-dim); }
+  button:active:not(:disabled) { transform: scale(0.98); }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-primary { border-color: var(--accent-dim); color: var(--accent); }
+  .btn-primary:hover:not(:disabled) { background: rgba(88, 166, 255, 0.08); }
+  .explanation { background: var(--panel-2); border-left: 3px solid var(--accent); border-radius: 6px;
+    padding: 12px 14px; margin-top: 14px; font-size: 14px; color: var(--text); display: none; }
+  .explanation.visible { display: block; }
+  .explanation strong { color: var(--accent); }
+  /* readable-notes explanation layout — bigger text, spaced blocks (2026-06-11) */
+  .explanation { font-size: 16px; line-height: 1.7; padding: 16px 18px; border-radius: 8px; }
+  .exp-verdict { font-size: 17px; font-weight: 700; letter-spacing: 0.2px; color: var(--accent);
+    margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .exp-verdict.ok { color: var(--good); }
+  .exp-verdict.bad { color: var(--bad); }
+  .exp-concept { font-size: 16px; line-height: 1.75; color: var(--text); }
+  .exp-concept strong { color: var(--accent); }
+  .notes-area { margin-top: 14px; border-top: 1px dashed var(--border); padding-top: 12px; }
+  .notes-label { display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .notes-saved { font-size: 11px; color: var(--good); opacity: 0; transition: opacity 0.2s ease;
+    text-transform: none; letter-spacing: 0; }
+  .notes-saved.visible { opacity: 1; }
+  .notes-textarea { width: 100%; min-height: 70px; background: var(--panel-2); color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-family: inherit;
+    font-size: 14px; line-height: 1.45; resize: vertical; box-sizing: border-box; }
+  .notes-textarea:focus { outline: none; border-color: var(--accent-dim); background: rgba(31, 111, 235, 0.04); }
+  .notes-textarea::placeholder { color: var(--muted); }
+  .has-note .section-tag::after { content: " · 📝 noted"; color: var(--good); font-weight: 500; }
+  .resume-banner { background: rgba(63, 185, 80, 0.08); border: 1px solid var(--good); border-radius: 8px;
+    padding: 10px 14px; margin-bottom: 12px; font-size: 13px; color: var(--text);
+    display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .resume-banner button { flex: 0 0 auto; padding: 6px 12px; font-size: 12px; }
+  .backup-area { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px; margin-top: 16px; }
+  .backup-area h3 { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .backup-note { font-size: 12px; color: var(--muted); margin: 0 0 10px 0; }
+  .backup-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .analysis-cta { background: linear-gradient(135deg, rgba(63,185,80,0.10), rgba(63,185,80,0.04));
+    border: 1px solid rgba(63,185,80,0.5); border-radius: 8px;
+    padding: 16px; margin-top: 20px; }
+  .analysis-cta h3 { font-size: 13px; color: var(--good); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .analysis-note { font-size: 13px; color: var(--muted); margin: 0 0 12px 0; line-height: 1.55; }
+  .analysis-btn { display: block; width: 100%; box-sizing: border-box; text-align: center;
+    background: rgba(63,185,80,0.18); color: var(--good); border: 1px solid var(--good);
+    border-radius: 8px; padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer;
+    text-decoration: none; transition: background 0.15s ease; }
+  .analysis-btn:hover { background: rgba(63,185,80,0.32); }
+  .export-area { background: var(--panel); border: 1px solid var(--accent); border-radius: 8px;
+    padding: 14px; margin-top: 16px; }
+  .export-area h3 { font-size: 13px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .export-note { font-size: 12px; color: var(--muted); margin: 0 0 10px 0; }
+  .export-btn { width: 100%; background: var(--accent-dim); color: white; border: 1px solid var(--accent);
+    border-radius: 8px; padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer; }
+  .export-btn:hover:not(:disabled) { background: var(--accent); }
+  .stats { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; margin-top: 16px; font-size: 13px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; }
+  .stat-item { padding: 4px; }
+  .stat-num { font-size: 20px; font-weight: 600; display: block; margin-bottom: 2px; }
+  .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-confident-right { color: var(--good); }
+  .stat-guessed-right { color: var(--warn); }
+  .stat-wrong { color: var(--bad); }
+  .stat-skipped { color: var(--muted); }
+  .scoreboard { background: var(--panel); border: 1px solid var(--accent-dim); border-radius: 8px;
+    padding: 12px; margin-top: 16px; text-align: center; font-size: 14px; }
+  .scoreboard .big { font-size: 28px; font-weight: 700; color: var(--accent); display: block; }
+  .scoreboard small { color: var(--muted); }
+  .review-area { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--muted); }
+  .review-area h3 { font-size: 14px; margin: 0 0 8px 0; color: var(--text); }
+  .review-list { list-style: none; padding: 0; margin: 0; }
+  .review-list li { padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .review-list li:last-child { border-bottom: none; }
+  .review-tag { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 3px;
+    margin-right: 6px; font-weight: 600; }
+  .review-tag.guessed { background: rgba(240, 180, 41, 0.15); color: var(--warn); }
+  .review-tag.wrong { background: rgba(248, 81, 73, 0.15); color: var(--bad); }
+  .review-tag.flagged { background: rgba(240, 180, 41, 0.15); color: var(--warn); }
+  .review-list li.review-clickable { cursor: pointer; }
+  .review-list li.review-clickable:hover { background: rgba(88,166,255,0.05); }
+  .review-q { color: var(--text); display: block; margin: 3px 0; }
+  .review-ans { font-size: 12px; color: var(--muted); display: block; }
+  .review-ans .rv-picked { color: var(--bad); font-weight: 600; }
+  .review-ans .rv-correct { color: var(--good); font-weight: 600; }
+  .review-rule { font-size: 12px; color: var(--muted); display: block; margin-top: 2px; font-style: italic; }
+  .traps { margin-top: 16px; border-top: 1px dashed var(--border); padding-top: 14px; }
+  .traps-h { font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--bad); font-weight: 700; margin-bottom: 10px; }
+  .trap { font-size: 15px; color: var(--muted); margin: 0 0 10px 0; line-height: 1.65;
+    background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--bad);
+    border-radius: 8px; padding: 11px 13px; }
+  .trap:last-child { margin-bottom: 0; }
+  .trap-opt { display: block; color: var(--text); font-weight: 700; margin-bottom: 5px; }
+  .reset-btn { margin-top: 12px; width: 100%; color: var(--muted); font-size: 12px; }
+  .section-scores { margin-top: 16px; background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px; }
+  .section-scores h3 { font-size: 13px; margin: 0 0 10px 0; color: var(--text); text-transform: uppercase; letter-spacing: 0.5px; }
+  .section-score-row { display: flex; align-items: center; gap: 10px; padding: 6px 0;
+    font-size: 13px; border-bottom: 1px solid var(--border); }
+  .section-score-row:last-child { border-bottom: none; }
+  .section-score-name { flex: 0 0 130px; color: var(--muted); font-size: 12px; }
+  .section-score-bar { flex: 1; height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; display: flex; }
+  .section-score-bar > span { display: block; height: 100%; }
+  .ssr-right { background: var(--good); }
+  .ssr-guessed { background: var(--warn); }
+  .ssr-wrong { background: var(--bad); }
+  .ssr-skipped { background: transparent; }
+  .section-score-num { flex: 0 0 90px; text-align: right; color: var(--text);
+    font-size: 12px; font-variant-numeric: tabular-nums; }
+  @media (max-width: 400px) {
+    .section-score-name { flex-basis: 100px; font-size: 11px; }
+    .section-score-num { flex-basis: 70px; font-size: 11px; }
+    .question-text { font-size: 15px; }
+    .option { font-size: 14px; padding: 10px; }
+    .controls { grid-template-columns: 1fr 1fr; }
+  }
+  /* ---- mode toggle ---- */
+  .mode-toggle { display: flex; gap: 0; background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 4px; margin-bottom: 12px; }
+  .mode-btn { flex: 1; background: transparent; border: 0; border-radius: 6px; padding: 10px;
+    font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; }
+  .mode-btn.active { background: var(--accent-dim); color: #fff; }
+  .mode-hint { font-size: 11px; color: var(--muted); text-align: center; margin: -4px 0 14px 0; }
+  /* ---- exam bar / timer ---- */
+  .exam-bar { position: sticky; top: 0; z-index: 50; background: var(--panel);
+    border: 1px solid var(--accent-dim); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35); }
+  .exam-timer { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--accent); letter-spacing: 1px; }
+  .exam-timer.warn { color: var(--warn); }
+  .exam-timer.danger { color: var(--bad); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
+  .exam-meta { font-size: 11px; color: var(--muted); }
+  .exam-finish-btn { flex: 0 0 auto; background: rgba(63,185,80,0.18); color: var(--good);
+    border: 1px solid var(--good); border-radius: 8px; padding: 9px 14px; font-size: 13px; font-weight: 600; }
+  .exam-finish-btn:hover { background: rgba(63,185,80,0.32); }
+  .exam-intro { background: var(--panel); border: 1px solid var(--accent-dim); border-radius: 10px;
+    padding: 16px; margin-bottom: 14px; }
+  .exam-intro h3 { margin: 0 0 6px 0; font-size: 14px; color: var(--accent); }
+  .exam-intro p { margin: 0 0 12px 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .exam-start-btn { width: 100%; background: var(--accent-dim); color: #fff; border: 1px solid var(--accent);
+    border-radius: 8px; padding: 13px; font-size: 15px; font-weight: 600; }
+  /* ---- flag + secondary controls ---- */
+  .secondary-controls { display: flex; gap: 8px; margin-top: 8px; }
+  .flag-btn { flex: 1; font-size: 13px; }
+  .flag-btn.flagged { border-color: var(--warn); color: var(--warn); background: rgba(240,180,41,0.08); }
+  .has-flag .section-tag::before { content: "🚩 "; }
+  /* ---- redo bar ---- */
+  .redo-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .redo-btn { flex: 1; min-width: 130px; font-size: 13px; }
+  .redo-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(88,166,255,0.08); }
+  .redo-clear { flex: 0 0 auto; color: var(--muted); font-size: 12px; }
+  /* ---- exam question navigator ---- */
+  .nav-grid-wrap { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; margin-bottom: 14px; }
+  .nav-grid-wrap h3 { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
+  .nav-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(30px, 1fr)); gap: 5px; }
+  .nav-cell { aspect-ratio: 1; border: 1px solid var(--border); border-radius: 5px; background: var(--panel-2);
+    color: var(--muted); font-size: 11px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .nav-cell.answered { background: rgba(88,166,255,0.18); color: var(--accent); border-color: var(--accent-dim); }
+  .nav-cell.flagged { border-color: var(--warn); box-shadow: inset 0 0 0 1px var(--warn); }
+  .nav-cell.current { outline: 2px solid var(--accent); outline-offset: 1px; color: #fff; }
+  .nav-cell.correct { background: rgba(63,185,80,0.2); color: var(--good); border-color: var(--good); }
+  .nav-cell.wrong { background: rgba(248,81,73,0.2); color: var(--bad); border-color: var(--bad); }
+  /* ---- attempt history ---- */
+  .attempt-history { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px; margin-top: 16px; }
+  .attempt-history h3 { font-size: 13px; margin: 0 0 4px 0; color: var(--text); text-transform: uppercase; letter-spacing: 0.5px; }
+  .attempt-history .ah-note { font-size: 12px; color: var(--muted); margin: 0 0 12px 0; }
+  .ah-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .ah-row:last-child { border-bottom: none; }
+  .ah-when { flex: 0 0 92px; color: var(--muted); font-size: 11px; }
+  .ah-track { flex: 1; height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; }
+  .ah-fill { height: 100%; background: var(--accent); }
+  .ah-fill.up { background: var(--good); }
+  .ah-fill.down { background: var(--bad); }
+  .ah-score { flex: 0 0 96px; text-align: right; font-variant-numeric: tabular-nums; }
+  .ah-delta { font-size: 11px; margin-left: 6px; }
+  .ah-delta.up { color: var(--good); } .ah-delta.down { color: var(--bad); }
+  .ah-empty { font-size: 12px; color: var(--muted); }
+  footer { text-align: center; font-size: 10px; color: var(--muted); padding: 24px 0 8px 0; }
+</style>
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+</head>
+<body>
+<div class="app">
+  <nav><a href="../../">← Dashboard</a> <a href="../../tests/">Tests</a> <a href="../../results/">My Results</a> <a href="../../notes/">Notes</a> <a href="../../plan/">Plan</a></nav>
+  <header>
+    <h1>JEMAS(PG) 2025 · Clinical Psychology</h1>
+    <div class="subtitle">Real JEMAS(PG) 2025 Clinical Psychology paper · page 5 (Q15–20) · source-badged on every card · untimed · +1 / −0.25 / 0 blank</div>
+    <div class="blueprint">This is a <b>native untimed mock</b> built from the real <b>JEMAS(PG) 2025 Clinical Psychology</b> question paper Sihan sent. So far it covers <b>page 5, questions 15–20</b> (6 items) — every card carries a <b>📄 JEMAS(PG) 2025 · CP</b> source badge with the original question number, and each question has a full deep explanation plus a per-distractor trap breakdown. The stems and options were rebuilt faithfully from page 5 and its answer key; as the remaining JEMAS pages come in, they get folded straight into this same mock so it grows into the full paper. Untimed by design: instant reveal + explanation the moment you answer.</div>
+  </header>
+
+  <div class="filters">
+    <label for="sectionSelect">Section</label>
+    <select id="sectionSelect">
+      <option value="all">All 6 questions</option>
+      <option value="psychodynamic">Psychodynamic & Defences (1)</option>
+      <option value="personality">Personality & Trait Theory (3)</option>
+      <option value="biopsych">Biological / Physiological (1)</option>
+      <option value="general">General / Foundations (1)</option>
+    </select>
+  </div>
+
+  <!-- untimed mock: exam-mode toggle removed; hint retained -->
+  <div class="mode-hint" id="modeHint"></div>
+
+  <div id="examIntro" class="exam-intro" style="display:none;"></div>
+  <div id="examBar" class="exam-bar" style="display:none;"></div>
+
+  <div id="redoBar" class="redo-bar" style="display:none;"></div>
+
+  <div id="resumeBanner" class="resume-banner" style="display:none;"></div>
+
+  <div class="progress" id="progress">0 / 0</div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div id="quizArea"></div>
+
+  <div id="navGridWrap" class="nav-grid-wrap" style="display:none;">
+    <h3>Jump to question <span id="navGridLegend" style="text-transform:none;letter-spacing:0;"></span></h3>
+    <div class="nav-grid" id="navGrid"></div>
+  </div>
+
+  <div class="scoreboard" id="scoreboard"></div>
+
+  <div class="stats" id="stats">
+    <div class="stat-item"><span class="stat-num stat-confident-right" id="statRight">0</span><span class="stat-label">Right (Solid)</span></div>
+    <div class="stat-item"><span class="stat-num stat-guessed-right" id="statGuessed">0</span><span class="stat-label">Right (Guessed)</span></div>
+    <div class="stat-item"><span class="stat-num stat-wrong" id="statWrong">0</span><span class="stat-label">Wrong</span></div>
+    <div class="stat-item"><span class="stat-num stat-skipped" id="statSkipped">0</span><span class="stat-label">Skipped</span></div>
+  </div>
+
+  <div class="section-scores">
+    <h3>Per-section breakdown</h3>
+    <div id="sectionScores"></div>
+  </div>
+
+  <div class="attempt-history" id="attemptHistory">
+    <h3>📈 Attempt history</h3>
+    <p class="ah-note">Every time you finish an exam-mode run, the score lands here so you can watch it climb.</p>
+    <div id="attemptHistoryList"></div>
+  </div>
+
+  <div class="review-area" id="reviewArea" style="display:none;">
+    <h3>Things to come back to</h3>
+    <ul class="review-list" id="reviewList"></ul>
+    <button class="reset-btn" data-action="reset">Reset all stats and start over</button>
+  </div>
+
+  <div class="analysis-cta">
+    <h3>📊 Full analysis</h3>
+    <p class="analysis-note">Score + estimated band, section-wise R/W/Skip with miss-rate, top-3 weakest topics linked to the exact cheatsheets, and per-question review with every distractor flagged and explained. Reads your saved answers from this browser.</p>
+    <a class="analysis-btn" href="../../results/analysis/?mock=jemas-2025">Open full analysis →</a>
+  </div>
+
+  <div class="export-area">
+    <h3>📤 Send results to Sahil</h3>
+    <p class="export-note">One tap shows your full result as plain text (score, section breakdown, every wrong/guessed question, your notes). Tap <b>Copy</b>, then paste it straight to Sahil on WhatsApp. No file, no download.</p>
+    <button class="export-btn" data-action="showResultText">📋 Show &amp; copy result (plain text)</button>
+    <button class="export-btn" data-action="downloadResultsTxt" style="margin-top:8px; background:transparent; color:var(--muted); border-color:var(--border); font-weight:500;">Or save as a .txt file instead</button>
+  </div>
+
+  <div class="backup-area">
+    <h3>Backup / restore</h3>
+    <p class="backup-note">Backup JEMAS(PG) 2025 CP progress separately. Paste a previous code to restore.</p>
+    <div class="backup-controls">
+      <button data-action="exportProgress">Copy backup code</button>
+      <button data-action="importProgress">Restore from code</button>
+    </div>
+  </div>
+
+  <footer>JEMAS(PG) 2025 · Clinical Psychology · real paper mock · page 5 (Q15–20) · source-badged on every card · full explanation + per-distractor trap under every Q · untimed · grows as more pages arrive</footer>
+</div>
+
+<script>
+// =====================================================================
+// QUESTION BANK - JEMAS(PG) 2025 Clinical Psychology, real paper.
+// Page 5, questions 15-20 (6 items). Stems, options and keys rebuilt
+// faithfully from the real JEMAS(PG) 2025 CP paper Sihan sent. Each item
+// keeps its full explanation + per-distractor trap; every card carries a
+// JEMAS(PG) 2025 source badge with the original question number. Grows as
+// the remaining JEMAS pages come in.
+// =====================================================================
+const QUESTIONS = [
+  { id: "jemas_15", section: "psychodynamic", src: "JEMAS(PG) 2025 · CP · Q15 (pg 5)",
+    q: "Which of the following is a mature defence mechanism?",
+    options: { a: "Altruism", b: "Repression", c: "Intellectualisation", d: "Rationalisation" },
+    correct: "a",
+    traps: { b: "Repression, the automatic pushing of unacceptable thoughts out of awareness, sits in Vaillant's neurotic tier, not the mature one.", c: "Intellectualisation (dealing with a conflict in abstract, emotionless, theoretical terms) is a neurotic defence, so it is not the mature option.", d: "Rationalisation (offering self-justifying but false reasons for one's behaviour) is a neurotic defence, not a mature one." },
+    explanation: "The correct answer is altruism. George Vaillant arranged the ego defence mechanisms into a developmental hierarchy running from pathological, through immature and neurotic, up to mature. The MATURE defences are the healthiest and most adaptive: altruism, sublimation, humour, suppression, and anticipation. Altruism is the constructive channelling of one's own needs into vicarious but genuinely helpful service to others, which is why it counts as mature rather than merely a reaction against a wish. Of the four options here only altruism belongs to that mature list. Repression and intellectualisation are neurotic-level defences and rationalisation is likewise a neurotic defence, all lower on Vaillant's ladder. So the one mature defence among the choices is altruism." },
+  { id: "jemas_16", section: "personality", src: "JEMAS(PG) 2025 · CP · Q16 (pg 5)",
+    q: "According to Alfred Adler's individual psychology, human behaviour is best characterised as:",
+    options: { a: "Purposeful and goal-directed", b: "Driven mainly by unconscious sexual and aggressive instincts", c: "A chain of stimulus-response connections shaped by reinforcement", d: "Unfolding through a fixed sequence of psychosocial stages" },
+    correct: "a",
+    traps: { b: "Instinct-driven, libido-based determinism is Freud's model, not Adler's; Adler broke with Freud precisely to stress purpose over drive.", c: "Stimulus-response conditioning is the behaviourist account (Watson, Skinner), not Adlerian teleology.", d: "Development through eight psychosocial stages is Erikson's theory, not Adler's." },
+    explanation: "The correct answer is that behaviour is purposeful and goal-directed. This is the heart of Adler's teleology: he held that people are pulled by future goals (the striving for superiority or mastery) rather than merely pushed by past causes. Key Adlerian ideas all follow from this: fictional finalism (we act as if guided by an imagined future ideal), the striving for superiority born out of compensation for felt inferiority, and the person's unique style of life. Option (d), development through psychosocial stages, is Erikson; option (b) is Freud's instinct model; option (c) is behaviourism. Only (a) captures Adler's core view that human behaviour is goal-directed and purposeful." },
+  { id: "jemas_17", section: "personality", src: "JEMAS(PG) 2025 · CP · Q17 (pg 5)",
+    q: "The biologically based, inborn and relatively stable style of emotional and behavioural reactivity is termed:",
+    options: { a: "Disposition", b: "Character", c: "Personality", d: "Temperament" },
+    correct: "d",
+    traps: { a: "Disposition is a broad, everyday term for a person's general tendency; it is not the specific construct for the inborn biological reactive style.", b: "Character refers to the learned, valued, and moral aspects of personality shaped by socialisation, not the biologically given baseline.", c: "Personality is the whole organised pattern of thinking, feeling and behaving, far broader than the innate reactive core the item describes." },
+    explanation: "The correct answer is temperament. Temperament is the biologically based, constitutional, and relatively stable foundation of an individual's characteristic emotional and behavioural reactivity and self-regulation, observable from early infancy (as in the Thomas and Chess easy/difficult/slow-to-warm-up typology). Character, by contrast, is the learned and value-laden part of personality acquired through socialisation, and personality is the whole integrated system. Disposition is too loose and general to be the technical term. Because the question specifies the inborn, biologically rooted reactive style, the precise answer is temperament." },
+  { id: "jemas_18", section: "personality", src: "JEMAS(PG) 2025 · CP · Q18 (pg 5)",
+    q: "In personality psychology, a trait is best defined as:",
+    options: { a: "A transient emotional state that shifts from moment to moment", b: "Specific attributes along which people differ consistently and stably", c: "The moral and ethical component of the self", d: "An unconscious conflict between competing drives" },
+    correct: "b",
+    traps: { a: "A transient, situation-bound feeling is a STATE, the conceptual opposite of a trait; traits are defined by their cross-situational consistency and stability over time.", c: "The moral and ethical component of the self is closer to 'character' or the superego, not the definition of a trait.", d: "An unconscious conflict between drives is a psychodynamic notion, not the trait-theory definition." },
+    explanation: "The correct answer is that a trait is a specific attribute along which people differ consistently and stably. In the trait tradition (Allport, Cattell, Eysenck, and the modern Big Five), a trait is an enduring dimension of individual difference: a relatively stable, consistent way of behaving, thinking, and feeling that a person carries across situations and time, and on which individuals can be placed and compared. The defining features are consistency (across situations) and stability (across time), which is exactly what option (b) states. This distinguishes a trait from a fleeting state (option a), from the moral 'character' component (option c), and from an unconscious drive conflict (option d)." },
+  { id: "jemas_19", section: "biopsych", src: "JEMAS(PG) 2025 · CP · Q19 (pg 5)",
+    q: "The satiety centre, whose activation signals the organism to stop eating, is located in the:",
+    options: { a: "Lateral hypothalamus", b: "Ventromedial hypothalamus", c: "Anterior hypothalamus", d: "Posterior hypothalamus" },
+    correct: "b",
+    traps: { a: "The lateral hypothalamus is the HUNGER (feeding) centre; its stimulation starts eating and its destruction causes aphagia, the exact opposite of satiety.", c: "The anterior hypothalamus is chiefly involved in thermoregulation (heat loss) and parasympathetic control, not the satiety signal.", d: "The posterior hypothalamus governs heat conservation and sympathetic arousal, not the stop-eating satiety signal." },
+    explanation: "The correct answer is the ventromedial hypothalamus (VMH). Classic dual-centre lesion and stimulation studies established two opposing hypothalamic feeding centres. The ventromedial hypothalamus is the SATIETY centre: stimulating it inhibits eating, and destroying it produces hyperphagia and obesity (the VMH syndrome). The lateral hypothalamus is the HUNGER or feeding centre: stimulating it drives eating, and lesioning it causes aphagia and starvation. The mnemonic Sihan can lock in is 'Ventromedial = Very Much Full (satiety); Lateral = Lacking food (hunger).' So the satiety centre is the ventromedial hypothalamus." },
+  { id: "jemas_20", section: "general", src: "JEMAS(PG) 2025 · CP · Q20 (pg 5)",
+    q: "A value or principle is described as universal when it:",
+    options: { a: "Holds for all cases, at all times, and in all places", b: "Applies only within one particular culture or historical era", c: "Holds only under controlled laboratory conditions", d: "Is accepted only when repeatedly verified by observation" },
+    correct: "a",
+    traps: { b: "Being bound to one culture or era makes something relative or particular, which is the direct opposite of universal.", c: "Holding only under controlled conditions describes a context-limited empirical finding, not a universal principle.", d: "Requiring repeated empirical verification describes an inductive, provisional truth; universality is a matter of scope (all cases, times, places), not of how it is tested." },
+    explanation: "The correct answer is that a value or principle is universal when it holds for all cases, at all times, and in all places. Universality is fundamentally a claim about scope: a universal proposition admits no exceptions across instances, across time, and across place or culture. Something confined to a single culture or era (option b) is by definition particular or relative, not universal; something true only under special conditions (option c) or only after repeated verification (option d) is context-bound or provisional. What makes a value universal is precisely that it applies to all, always, and everywhere, which is option (a)." },
+];
+
+const SECTION_LABELS = {
+  psychodynamic: "Psychodynamic & Defences", personality: "Personality & Trait Theory",
+  biopsych: "Biological / Physiological", general: "General / Foundations"
+};
+
+const STORAGE_KEY = "jemas-2025-results-v1";
+const STORAGE_KEY_NOTES = "jemas-2025-notes-v1";
+const STORAGE_KEY_PROGRESS = "jemas-2025-progress-v1";
+const STORAGE_KEY_FLAGS = "jemas-2025-flags-v1";
+const STORAGE_KEY_EXAM = "jemas-2025-exam-v1";
+const HISTORY_KEY = "results-history-v1";
+
+// Minutes per question in exam mode (RML 100 Q, ~1 min/Q in the optional timed mode)
+const MIN_PER_Q = 1.0;
+
+const state = {
+  filtered: [], index: 0, selected: null, guessed: false, submitted: false,
+  results: {}, notes: {}, flags: {}, redo: "none",
+  mode: "practice",
+  exam: { running: false, finished: false, endTs: 0, durationSec: 0 },
+  progress: { lastIndex: 0, lastSection: "all", drafts: {} }
+};
+let examTick = null;
+
+function loadResults() {
+  try { const raw = localStorage.getItem(STORAGE_KEY); if (raw) state.results = JSON.parse(raw); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_NOTES); if (raw) state.notes = JSON.parse(raw); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_FLAGS); if (raw) state.flags = JSON.parse(raw); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_PROGRESS); if (raw) state.progress = Object.assign(state.progress, JSON.parse(raw)); } catch {}
+  try { const raw = localStorage.getItem(STORAGE_KEY_EXAM); if (raw) state.exam = Object.assign(state.exam, JSON.parse(raw)); } catch {}
+  if (state.progress.mode === "exam" || state.progress.mode === "practice") state.mode = state.progress.mode;
+}
+function saveResults()  { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.results)); } catch {} }
+function saveNotes()    { try { localStorage.setItem(STORAGE_KEY_NOTES, JSON.stringify(state.notes)); } catch {} }
+function saveFlags()    { try { localStorage.setItem(STORAGE_KEY_FLAGS, JSON.stringify(state.flags)); } catch {} }
+function saveExam()     { try { localStorage.setItem(STORAGE_KEY_EXAM, JSON.stringify(state.exam)); } catch {} }
+function saveProgress() { state.progress.mode = state.mode; try { localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(state.progress)); } catch {} }
+function saveDraft(qid) { if (!qid) return; state.progress.drafts[qid] = { selected: state.selected, guessed: state.guessed }; saveProgress(); }
+
+let notesSaveTimer = null;
+function handleNotesInput(qid, text) {
+  if (text && text.trim()) state.notes[qid] = text; else delete state.notes[qid];
+  if (notesSaveTimer) clearTimeout(notesSaveTimer);
+  notesSaveTimer = setTimeout(() => {
+    saveNotes();
+    const tag = document.querySelector(".notes-saved");
+    if (tag) { tag.classList.add("visible"); setTimeout(() => tag.classList.remove("visible"), 1200); }
+    const card = document.querySelector(".question-card");
+    if (card) { if (state.notes[qid]) card.classList.add("has-note"); else card.classList.remove("has-note"); }
+  }, 400);
+}
+
+function escapeHtml(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+function currentQ() { return state.filtered[state.index]; }
+
+function applyFilter(opts) {
+  opts = opts || {};
+  const sel = document.getElementById("sectionSelect").value;
+  let pool = sel === "all" ? QUESTIONS : QUESTIONS.filter(q => q.section === sel);
+  if (state.redo === "wrong") {
+    pool = pool.filter(q => { const r = state.results[q.id]; return r && !r.correct; });
+  } else if (state.redo === "flagged") {
+    pool = pool.filter(q => state.flags[q.id]);
+  }
+  state.filtered = pool;
+  if (opts.preservePosition && sel === state.progress.lastSection && state.redo === "none") {
+    state.index = Math.min(state.progress.lastIndex || 0, state.filtered.length - 1);
+    if (state.index < 0) state.index = 0;
+  } else { state.index = 0; }
+  renderModeUI();
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = currentQ();
+  if (!q) {
+    document.getElementById("quizArea").innerHTML = "<div class='question-card'>No questions match this filter.</div>";
+    document.getElementById("progress").textContent = "0 / 0";
+    document.getElementById("progressFill").style.width = "0%";
+    renderStats();
+    return;
+  }
+  state.progress.lastIndex = state.index;
+  state.progress.lastSection = document.getElementById("sectionSelect").value;
+  saveProgress();
+
+  const examActive = state.mode === "exam" && state.exam.running && !state.exam.finished;
+  const reveal = (state.mode === "practice" && !!state.results[q.id]) ||
+                 (state.mode === "exam" && state.exam.finished && !!state.results[q.id]);
+
+  const result = state.results[q.id];
+  if (result) { state.selected = result.selected; state.guessed = !!result.guessed; }
+  else {
+    const draft = state.progress.drafts[q.id];
+    state.selected = draft ? draft.selected : null;
+    state.guessed = draft ? !!draft.guessed : false;
+  }
+  state.submitted = reveal; // "submitted" now means locked/revealed
+
+  document.getElementById("progress").textContent = `${state.index + 1} / ${state.filtered.length}`;
+  document.getElementById("progressFill").style.width = `${((state.index + 1) / state.filtered.length) * 100}%`;
+
+  const noteText = state.notes[q.id] || "";
+  const hasNote = !!(noteText && noteText.trim());
+  const hasFlag = !!state.flags[q.id];
+
+  const optionsHtml = ["a","b","c","d"].map(letter => {
+    let cls = "option";
+    if (reveal) {
+      cls += " disabled";
+      if (letter === q.correct) cls += " correct";
+      else if (letter === state.selected) cls += " incorrect";
+    } else if (state.selected === letter) cls += " selected";
+    return `<div class="${cls}" data-letter="${letter}" data-action="select">
+      <span class="option-letter">${letter.toUpperCase()}.</span>
+      <span>${escapeHtml(q.options[letter])}</span></div>`;
+  }).join("");
+
+  // Controls vary by mode
+  let controlsHtml;
+  if (examActive) {
+    controlsHtml = `<div class="controls" style="grid-template-columns:1fr 1fr;">
+        <button data-action="prev" ${state.index === 0 ? "disabled" : ""}>← Prev</button>
+        <button data-action="next" ${state.index === state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+      </div>`;
+  } else if (state.mode === "exam") { // exam finished review
+    controlsHtml = `<div class="controls" style="grid-template-columns:1fr 1fr;">
+        <button data-action="prev" ${state.index === 0 ? "disabled" : ""}>← Prev</button>
+        <button data-action="next" ${state.index === state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+      </div>`;
+  } else { // practice
+    controlsHtml = `<div class="controls">
+        <button data-action="prev" ${state.index === 0 ? "disabled" : ""}>← Prev</button>
+        <button class="btn-primary" data-action="submit" ${reveal || !state.selected ? "disabled" : ""}>
+          ${reveal ? "✓ Submitted" : "Submit"}</button>
+        <button data-action="next" ${state.index === state.filtered.length - 1 ? "disabled" : ""}>Next →</button>
+      </div>`;
+  }
+
+  // Guess row + notes only outside an active exam
+  const guessHtml = examActive ? "" : `<div class="guess-row ${state.guessed ? "checked" : ""}" data-action="toggleGuess">
+        <div class="guess-checkbox"></div>
+        <div class="guess-label">I'm guessing this one
+          <small>Helps you track which "rights" were lucky vs solid.</small></div>
+      </div>`;
+  const notesHtml = examActive ? "" : `<div class="notes-area">
+        <div class="notes-label"><span>Your notes</span><span class="notes-saved">saved</span></div>
+        <textarea class="notes-textarea" id="notesInput" data-qid="${q.id}"
+          placeholder="Anything you want to remember about this question — mnemonic, where it came from, why you missed it...">${escapeHtml(noteText)}</textarea>
+      </div>`;
+  let trapsHtml = "";
+  if (reveal && q.traps) {
+    const rows = ["a","b","c","d"]
+      .filter(l => l !== q.correct && q.options[l] && q.traps[l])
+      .map(l => `<div class="trap"><span class="trap-opt">${l.toUpperCase()}. ${escapeHtml(q.options[l])}</span> ${escapeHtml(q.traps[l])}</div>`)
+      .join("");
+    if (rows) trapsHtml = `<div class="traps"><div class="traps-h">Why the other options are traps</div>${rows}</div>`;
+  }
+  const explanationHtml = `<div class="explanation ${reveal ? "visible" : ""}">
+        ${reveal ? `<div class="exp-verdict ${state.selected === q.correct ? "ok" : "bad"}">${state.selected === q.correct ? "✓ Correct" : "✗ Wrong"} &nbsp;·&nbsp; Answer: ${q.correct.toUpperCase()}</div>
+        <div class="exp-concept">${escapeHtml(q.explanation)}</div>
+        <div class="exp-src" style="margin-top:10px;font-size:.82em;color:var(--muted);font-weight:600;letter-spacing:.02em;">📄 Real past-paper question · ${q.src ? escapeHtml(q.src) : ""}</div>` : ""}
+        ${trapsHtml}
+      </div>`;
+
+  document.getElementById("quizArea").innerHTML = `
+    <div class="question-card${hasNote ? " has-note" : ""}${hasFlag ? " has-flag" : ""}">
+      <div class="card-tags">
+        <span class="section-tag">${SECTION_LABELS[q.section]}</span>
+        ${q.src ? `<span class="src-tag" title="Source paper this question is from">${escapeHtml(q.src)}</span>` : ""}
+      </div>
+      <div class="question-text">${escapeHtml(q.q)}</div>
+      <div class="options" id="options">${optionsHtml}</div>
+      ${guessHtml}
+      ${controlsHtml}
+      <div class="secondary-controls">
+        <button class="flag-btn ${hasFlag ? "flagged" : ""}" data-action="toggleFlag">
+          ${hasFlag ? "🚩 Flagged — come back to this" : "🚩 Flag for review"}</button>
+      </div>
+      ${explanationHtml}
+      ${notesHtml}
+    </div>`;
+  const notesEl = document.getElementById("notesInput");
+  if (notesEl) notesEl.addEventListener("input", e => handleNotesInput(e.target.dataset.qid, e.target.value));
+  renderNavGrid();
+  renderStats();
+}
+
+function updateSelectionVisual() {
+  document.querySelectorAll("#options .option").forEach(el => {
+    el.classList.toggle("selected", el.dataset.letter === state.selected);
+  });
+  const submitBtn = document.querySelector('[data-action="submit"]');
+  if (submitBtn) submitBtn.disabled = state.submitted || !state.selected;
+}
+function updateGuessVisual() {
+  const row = document.querySelector('[data-action="toggleGuess"]');
+  if (row) row.classList.toggle("checked", state.guessed);
+}
+
+function selectOption(letter) {
+  if (state.mode === "exam" && state.exam.finished) return; // locked after exam ends
+  if (state.submitted) return;
+  const q = currentQ(); if (!q) return;
+  state.selected = letter;
+  if (state.mode === "exam" && state.exam.running) {
+    // exam: record answer immediately, still editable until you finish
+    state.results[q.id] = { selected: letter, correct: letter === q.correct, guessed: false, section: q.section };
+    saveResults();
+    updateSelectionVisual();
+    renderNavGrid();
+  } else {
+    updateSelectionVisual();
+    saveDraft(q.id);
+  }
+}
+function toggleGuess() {
+  if (state.submitted) return;
+  state.guessed = !state.guessed; updateGuessVisual();
+  const q = currentQ(); if (q) saveDraft(q.id);
+}
+function toggleFlag() {
+  const q = currentQ(); if (!q) return;
+  if (state.flags[q.id]) delete state.flags[q.id]; else state.flags[q.id] = true;
+  saveFlags();
+  const btn = document.querySelector('[data-action="toggleFlag"]');
+  const card = document.querySelector(".question-card");
+  if (btn) {
+    const on = !!state.flags[q.id];
+    btn.classList.toggle("flagged", on);
+    btn.textContent = on ? "🚩 Flagged — come back to this" : "🚩 Flag for review";
+  }
+  if (card) card.classList.toggle("has-flag", !!state.flags[q.id]);
+  renderNavGrid();
+  renderModeUI();
+}
+function submitAnswer() {
+  if (state.submitted || !state.selected) return;
+  const q = currentQ();
+  state.results[q.id] = { selected: state.selected, correct: state.selected === q.correct, guessed: state.guessed, section: q.section };
+  saveResults(); state.submitted = true; renderQuestion();
+}
+function nextQuestion() { if (state.index < state.filtered.length - 1) { state.index++; renderQuestion(); } }
+function prevQuestion() { if (state.index > 0) { state.index--; renderQuestion(); } }
+
+document.querySelector(".app").addEventListener("click", function(ev) {
+  const t = ev.target.closest("[data-action]"); if (!t) return;
+  const a = t.dataset.action;
+  if (a === "select") selectOption(t.dataset.letter);
+  else if (a === "toggleGuess") toggleGuess();
+  else if (a === "toggleFlag") toggleFlag();
+  else if (a === "submit") submitAnswer();
+  else if (a === "next") nextQuestion();
+  else if (a === "prev") prevQuestion();
+  else if (a === "setMode") setMode(t.dataset.mode);
+  else if (a === "startExam") startExam();
+  else if (a === "finishExam") finishExam(false);
+  else if (a === "navJump") { state.index = parseInt(t.dataset.idx, 10) || 0; renderQuestion(); window.scrollTo({ top: 0, behavior: "smooth" }); }
+  else if (a === "redoWrong") setRedo("wrong");
+  else if (a === "redoFlagged") setRedo("flagged");
+  else if (a === "redoClear") setRedo("none");
+  else if (a === "reset") {
+    if (confirm("Reset JEMAS(PG) 2025 CP answers, notes and flags? (Attempt history is kept.)")) {
+      state.results = {}; state.notes = {}; state.flags = {};
+      state.progress = { lastIndex: 0, lastSection: "all", drafts: {} };
+      state.redo = "none";
+      stopExamTimer(); state.exam = { running: false, finished: false, endTs: 0, durationSec: 0 };
+      saveResults(); saveNotes(); saveFlags(); saveProgress(); saveExam();
+      const sel = document.getElementById("sectionSelect"); if (sel) sel.value = "all";
+      applyFilter({ preservePosition: false });
+    }
+  }
+  else if (a === "exportProgress") exportProgress();
+  else if (a === "importProgress") importProgress();
+  else if (a === "exportForAnalysis") exportForAnalysis();
+  else if (a === "downloadResultsTxt") downloadResultsTxt();
+  else if (a === "showResultText") showResultText();
+  else if (a === "dismissResume") document.getElementById("resumeBanner").style.display = "none";
+});
+
+function showResumeBanner() {
+  const banner = document.getElementById("resumeBanner"); if (!banner) return;
+  const lastIdx = state.progress.lastIndex || 0;
+  const total = state.filtered.length;
+  const answered = Object.keys(state.results).length;
+  const drafted = Object.keys(state.progress.drafts).length;
+  if (lastIdx <= 0 && answered === 0 && drafted === 0) { banner.style.display = "none"; return; }
+  const pos = Math.min(lastIdx + 1, total);
+  banner.innerHTML = `<span>Resumed from question ${pos} of ${total} · ${answered} answered, ${drafted} drafts saved.</span><button data-action="dismissResume">Dismiss</button>`;
+  banner.style.display = "flex";
+}
+
+function exportProgress() {
+  const payload = { v: 1, paper: "jemas-2025", ts: new Date().toISOString(),
+    results: state.results, notes: state.notes, progress: state.progress };
+  const code = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(code).then(
+      () => alert("JEMAS(PG) 2025 CP backup code copied. Save it (WhatsApp to yourself works)."),
+      () => prompt("Copy this backup code somewhere safe:", code));
+  } else { prompt("Copy this backup code somewhere safe:", code); }
+}
+function buildResultsExport() {
+  let totalRight = 0, totalWrong = 0;
+  for (const q of QUESTIONS) {
+    const r = state.results[q.id]; if (!r) continue;
+    if (r.correct) totalRight++; else totalWrong++;
+  }
+  const blank = QUESTIONS.length - totalRight - totalWrong;
+  const score = totalRight * 1 - totalWrong * 0.25;
+  const maxScore = QUESTIONS.length * 1;
+
+  const bySection = {};
+  for (const q of QUESTIONS) {
+    if (!bySection[q.section]) bySection[q.section] = { total:0, solid:0, guessed:0, wrong:0, skip:0 };
+    const s = bySection[q.section];
+    s.total++;
+    const r = state.results[q.id];
+    if (!r) s.skip++;
+    else if (r.correct && !r.guessed) s.solid++;
+    else if (r.correct && r.guessed) s.guessed++;
+    else s.wrong++;
+  }
+
+  const ts = new Date().toISOString();
+  let out = `JEMAS(PG) 2025 CP - RESULTS EXPORT v1\n`;
+  out += `Generated: ${ts}\n`;
+  out += `Score: ${score}/${maxScore}  (${totalRight} right, ${totalWrong} wrong, ${blank} blank · +1/−0.25/0 · cut-off ~80%)\n\n`;
+
+  out += `SECTION BREAKDOWN\n=================\n`;
+  for (const sec of Object.keys(SECTION_LABELS)) {
+    const s = bySection[sec]; if (!s) continue;
+    const attempted = s.solid + s.guessed + s.wrong;
+    const got = s.solid + s.guessed;
+    const acc = attempted ? Math.round((got / attempted) * 100) : 0;
+    const name = (SECTION_LABELS[sec] + ":").padEnd(28);
+    out += `${name} ${got}/${s.total} (${acc}%)  solid ${s.solid}  guessed ${s.guessed}  wrong ${s.wrong}  skip ${s.skip}\n`;
+  }
+
+  const attentionItems = QUESTIONS.filter(q => {
+    const r = state.results[q.id];
+    const note = state.notes[q.id];
+    if (note && note.trim()) return true;
+    if (!r) return false;
+    if (!r.correct) return true;
+    if (r.correct && r.guessed) return true;
+    return false;
+  });
+
+  out += `\nQUESTIONS TO REVIEW (wrong, guessed, or with notes): ${attentionItems.length}\n`;
+  out += `=====================================================\n\n`;
+
+  attentionItems.forEach((q, i) => {
+    const r = state.results[q.id];
+    const note = state.notes[q.id];
+    let status;
+    if (!r) status = "SKIPPED (noted)";
+    else if (!r.correct) status = "WRONG";
+    else if (r.guessed) status = "GUESSED-RIGHT";
+    else status = "right";
+
+    out += `[${i+1}] ${q.id} | ${SECTION_LABELS[q.section]} | ${status}`;
+    if (r) {
+      const mark = r.correct ? "✓" : "✗";
+      out += ` | picked ${(r.selected || "?").toUpperCase()} ${mark} | correct ${q.correct.toUpperCase()}`;
+    } else {
+      out += ` | correct ${q.correct.toUpperCase()}`;
+    }
+    out += `\nQ: ${q.q}\n`;
+    out += `A. ${q.options.a}\nB. ${q.options.b}\nC. ${q.options.c}\nD. ${q.options.d}\n`;
+    if (q.explanation) out += `Explanation: ${q.explanation}\n`;
+    if (q.traps) {
+      ["a","b","c","d"].forEach(l => {
+        if (l !== q.correct && q.options[l] && q.traps[l]) out += `Trap ${l.toUpperCase()}: ${q.traps[l]}\n`;
+      });
+    }
+    if (note && note.trim()) out += `Sihan's note: ${note.trim()}\n`;
+    out += `\n`;
+  });
+
+  const skippedNoNote = QUESTIONS.filter(q => !state.results[q.id] && !(state.notes[q.id] && state.notes[q.id].trim()));
+  if (skippedNoNote.length) {
+    out += `SKIPPED (no note, ${skippedNoNote.length}): ${skippedNoNote.map(q => q.id).join(", ")}\n\n`;
+  }
+
+  out += `END EXPORT\n`;
+
+  try {
+    const snapKey = "results-history-v1";
+    const raw = localStorage.getItem(snapKey);
+    const history = raw ? JSON.parse(raw) : [];
+    history.push({ mock: "jemas-2025", ts, score, max: maxScore, right: totalRight, wrong: totalWrong, blank, sections: bySection });
+    localStorage.setItem(snapKey, JSON.stringify(history));
+  } catch {}
+
+  return out;
+}
+function exportForAnalysis() {
+  const out = buildResultsExport();
+  const sizeKb = (out.length / 1024).toFixed(1);
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(out).then(
+      () => alert(`Copied ${sizeKb} KB to clipboard.\n\nPaste it to Sahil on WhatsApp, or open the My Results page to see history.`),
+      () => prompt("Copy this export and paste to Sahil on WhatsApp:", out));
+  } else {
+    prompt("Copy this export and paste to Sahil on WhatsApp:", out);
+  }
+}
+function showResultText() {
+  // Reliable "copy it out" path: render the per-mock result as plain text in an
+  // on-screen, selectable box with a Copy button. No file, no share sheet, and
+  // it still works where the clipboard API is blocked (falls back to selection).
+  var out = buildResultsExport();
+  var prev = document.getElementById("resultTextOverlay");
+  if (prev) prev.remove();
+  var ov = document.createElement("div");
+  ov.id = "resultTextOverlay";
+  ov.setAttribute("style", "position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:14px;");
+  var box = document.createElement("div");
+  box.setAttribute("style", "background:var(--card,#fff);color:var(--text,#111);border-radius:14px;max-width:680px;width:100%;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.4);");
+  var head = document.createElement("div");
+  head.setAttribute("style", "padding:14px 16px;font-weight:700;border-bottom:1px solid var(--border,#ddd);display:flex;justify-content:space-between;align-items:center;gap:8px;");
+  head.innerHTML = "<span>Your result — tap Copy, paste to Sahil</span>";
+  var closeX = document.createElement("button");
+  closeX.textContent = "✕";
+  closeX.setAttribute("style", "background:none;border:none;font-size:20px;line-height:1;cursor:pointer;color:var(--muted,#888);padding:2px 6px;");
+  closeX.onclick = function () { ov.remove(); };
+  head.appendChild(closeX);
+  var ta = document.createElement("textarea");
+  ta.readOnly = true;
+  ta.value = out;
+  ta.setAttribute("style", "flex:1;min-height:240px;width:100%;border:none;padding:14px 16px;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;resize:none;background:var(--bg,#fafafa);color:var(--text,#111);box-sizing:border-box;");
+  var bar = document.createElement("div");
+  bar.setAttribute("style", "padding:12px 16px;border-top:1px solid var(--border,#ddd);display:flex;gap:10px;");
+  var copyBtn = document.createElement("button");
+  copyBtn.textContent = "📋 Copy all";
+  copyBtn.setAttribute("style", "flex:1;padding:12px;border:none;border-radius:10px;background:var(--accent,#2d6cdf);color:#fff;font-weight:700;font-size:15px;cursor:pointer;");
+  function doCopy() {
+    ta.focus(); ta.select(); ta.setSelectionRange(0, ta.value.length);
+    var done = function () { copyBtn.textContent = "✓ Copied — now paste to Sahil"; setTimeout(function(){ copyBtn.textContent = "📋 Copy all"; }, 2500); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(out).then(done, function () { try { document.execCommand("copy"); done(); } catch (e) {} });
+    } else { try { document.execCommand("copy"); done(); } catch (e) {} }
+  }
+  copyBtn.onclick = doCopy;
+  var doneBtn = document.createElement("button");
+  doneBtn.textContent = "Close";
+  doneBtn.setAttribute("style", "padding:12px 18px;border:1px solid var(--border,#ddd);border-radius:10px;background:transparent;color:var(--text,#111);font-weight:600;cursor:pointer;");
+  doneBtn.onclick = function () { ov.remove(); };
+  bar.appendChild(copyBtn); bar.appendChild(doneBtn);
+  box.appendChild(head); box.appendChild(ta); box.appendChild(bar);
+  ov.appendChild(box);
+  ov.onclick = function (e) { if (e.target === ov) ov.remove(); };
+  document.body.appendChild(ov);
+  // Pre-select so even a manual long-press copy is one step.
+  setTimeout(function () { ta.focus(); ta.select(); }, 30);
+}
+function downloadResultsTxt() {
+  const out = buildResultsExport();
+  const slug = (location.pathname.replace(/\/index\.html$/, "").split("/").filter(Boolean).pop() || "quiz");
+  const stamp = new Date().toISOString().slice(0, 10);
+  const fname = slug + "-results-" + stamp + ".txt";
+  // On phones, hand the .txt to the native share sheet so it drops straight
+  // into WhatsApp: tap -> share -> WhatsApp -> send. No copy-paste, no doc.
+  try {
+    const file = new File([out], fname, { type: "text/plain" });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: fname }).catch(function () {});
+      return;
+    }
+  } catch (e) { /* not supported: fall through to a plain file download */ }
+  try {
+    const blob = new Blob([out], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = fname; a.style.display = "none";
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 150);
+  } catch (e) {
+    prompt("Copy this and paste into a text file (" + fname + "):", out);
+  }
+}
+
+function importProgress() {
+  const code = prompt("Paste an JEMAS(PG) 2025 CP backup code. This will REPLACE current progress.");
+  if (!code) return;
+  try {
+    const payload = JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
+    if (payload.v !== 1) throw new Error("unknown version");
+    if (payload.results) state.results = payload.results;
+    if (payload.notes) state.notes = payload.notes;
+    if (payload.progress) state.progress = Object.assign({ lastIndex: 0, lastSection: "all", drafts: {} }, payload.progress);
+    saveResults(); saveNotes(); saveProgress();
+    const sel = document.getElementById("sectionSelect");
+    if (sel && state.progress.lastSection) sel.value = state.progress.lastSection;
+    applyFilter({ preservePosition: true }); showResumeBanner();
+    alert(`Restored ${Object.keys(state.results).length} answered, ${Object.keys(state.notes).length} notes, ${Object.keys(state.progress.drafts).length} drafts.`);
+  } catch (e) { alert("Could not restore: that does not look like a valid JEMAS(PG) 2025 CP backup code."); }
+}
+
+document.getElementById("sectionSelect").addEventListener("change", () => applyFilter({ preservePosition: false }));
+
+function renderStats() {
+  // During a live exam, keep the score and breakdown hidden (just like the real thing).
+  if (state.mode === "exam" && state.exam.running && !state.exam.finished) {
+    const answered = state.filtered.filter(q => state.results[q.id]).length;
+    ["statRight","statGuessed","statWrong","statSkipped"].forEach(id => {
+      const el = document.getElementById(id); if (el) el.textContent = "–";
+    });
+    const sb = document.getElementById("scoreboard");
+    if (sb) sb.innerHTML = `<span class="big">🔒</span><small>Score hidden — ${answered}/${state.filtered.length} answered. Finish the exam to reveal.</small>`;
+    const ss = document.getElementById("sectionScores");
+    if (ss) ss.innerHTML = `<div style="font-size:12px;color:var(--muted);">Per-area breakdown unlocks when you finish.</div>`;
+    const ra = document.getElementById("reviewArea"); if (ra) ra.style.display = "none";
+    return;
+  }
+  let confidentRight = 0, guessedRight = 0, wrong = 0, skipped = 0;
+  const reviewItems = [];
+  state.filtered.forEach((q, idx) => {
+    const r = state.results[q.id];
+    const flagged = !!state.flags[q.id];
+    if (!r) skipped++;
+    else if (r.correct && !r.guessed) confidentRight++;
+    else if (r.correct && r.guessed) { guessedRight++; reviewItems.push({ q, r, idx, tag: "guessed", label: "right but guessed" }); }
+    else if (!r.correct) { wrong++; reviewItems.push({ q, r, idx, tag: "wrong", label: "wrong" }); }
+    // Flagged questions not already captured as wrong/guessed still deserve a row.
+    if (flagged && (!r || (r.correct && !r.guessed))) reviewItems.push({ q, r, idx, tag: "flagged", label: "flagged" });
+  });
+  document.getElementById("statRight").textContent = confidentRight;
+  document.getElementById("statGuessed").textContent = guessedRight;
+  document.getElementById("statWrong").textContent = wrong;
+  document.getElementById("statSkipped").textContent = skipped;
+
+  let totalRight = 0, totalWrong = 0;
+  for (const q of QUESTIONS) {
+    const r = state.results[q.id];
+    if (!r) continue;
+    if (r.correct) totalRight++; else totalWrong++;
+  }
+  const score = totalRight * 1 - totalWrong * 0.25;
+  const maxScore = QUESTIONS.length * 1;
+  const sb = document.getElementById("scoreboard");
+  if (sb) {
+    sb.innerHTML = `<span class="big">${score} / ${maxScore}</span>
+      <small>+1 right · −0.25 wrong · ${totalRight} right, ${totalWrong} wrong, ${QUESTIONS.length - totalRight - totalWrong} blank · working target ~60/100</small>`;
+  }
+
+  const bySection = {};
+  for (const q of QUESTIONS) {
+    if (!bySection[q.section]) bySection[q.section] = { total: 0, right: 0, guessed: 0, wrong: 0, skipped: 0 };
+    bySection[q.section].total++;
+    const r = state.results[q.id];
+    if (!r) bySection[q.section].skipped++;
+    else if (r.correct && !r.guessed) bySection[q.section].right++;
+    else if (r.correct && r.guessed) bySection[q.section].guessed++;
+    else if (!r.correct) bySection[q.section].wrong++;
+  }
+  let rows = "";
+  for (const sec of Object.keys(SECTION_LABELS)) {
+    const s = bySection[sec]; if (!s) continue;
+    const attempted = s.right + s.guessed + s.wrong;
+    const accuracy = attempted ? Math.round(((s.right + s.guessed) / attempted) * 100) : null;
+    rows += `<div class="section-score-row">
+      <div class="section-score-name">${SECTION_LABELS[sec]}</div>
+      <div class="section-score-bar">
+        <span class="ssr-right" style="flex: ${s.right};"></span>
+        <span class="ssr-guessed" style="flex: ${s.guessed};"></span>
+        <span class="ssr-wrong" style="flex: ${s.wrong};"></span>
+        <span class="ssr-skipped" style="flex: ${s.skipped};"></span>
+      </div>
+      <div class="section-score-num">${s.right + s.guessed}/${s.total}${accuracy !== null ? " · " + accuracy + "%" : ""}</div>
+    </div>`;
+  }
+  document.getElementById("sectionScores").innerHTML = rows;
+
+  const reviewArea = document.getElementById("reviewArea");
+  const reviewList = document.getElementById("reviewList");
+  if (reviewItems.length === 0) reviewArea.style.display = "none";
+  else {
+    reviewArea.style.display = "block";
+    reviewList.innerHTML = reviewItems.map(item => {
+      const q = item.q, r = item.r;
+      const qText = escapeHtml(q.q.substring(0, 110)) + (q.q.length > 110 ? "…" : "");
+      let ansLine;
+      if (r && !r.correct) {
+        ansLine = `<span class="review-ans">you picked <span class="rv-picked">${escapeHtml(q.options[r.selected] || "—")}</span> · answer <span class="rv-correct">${escapeHtml(q.options[q.correct])}</span></span>`;
+      } else if (r && r.correct) {
+        ansLine = `<span class="review-ans">answer <span class="rv-correct">${escapeHtml(q.options[q.correct])}</span></span>`;
+      } else {
+        ansLine = `<span class="review-ans">not answered · answer <span class="rv-correct">${escapeHtml(q.options[q.correct])}</span></span>`;
+      }
+      const rule = q.explanation ? `<span class="review-rule">${escapeHtml(q.explanation.substring(0, 160))}${q.explanation.length > 160 ? "…" : ""}</span>` : "";
+      let trapLine = "";
+      if (r && !r.correct && r.selected && q.traps && q.traps[r.selected]) {
+        trapLine = `<span class="review-rule">Your pick — ${escapeHtml(q.traps[r.selected])}</span>`;
+      }
+      return `<li class="review-clickable" data-action="navJump" data-idx="${item.idx}">
+        <span class="review-tag ${item.tag}">${item.label}</span>
+        <span class="review-q">${qText}</span>
+        ${ansLine}
+        ${trapLine}
+        ${rule}</li>`;
+    }).join("");
+  }
+}
+
+// =====================================================================
+// MODE / EXAM TIMER / FLAG-REDO / ATTEMPT HISTORY
+// =====================================================================
+function pad(n) { return n < 10 ? "0" + n : "" + n; }
+function formatTime(totalSec) {
+  if (totalSec < 0) totalSec = 0;
+  const h = Math.floor(totalSec / 3600);
+  const m = Math.floor((totalSec % 3600) / 60);
+  const s = totalSec % 60;
+  return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`;
+}
+
+function setMode(mode) {
+  if (mode !== "practice" && mode !== "exam") return;
+  if (mode === state.mode) return;
+  state.mode = mode;
+  state.redo = "none";
+  saveProgress();
+  if (mode === "practice") stopExamTimer();
+  else if (state.exam.running && state.exam.endTs > Date.now()) resumeExamTimer();
+  applyFilter({ preservePosition: true });
+}
+
+function setRedo(kind) {
+  state.redo = (state.redo === kind) ? "none" : kind;
+  applyFilter({ preservePosition: false });
+}
+
+function countScope() {
+  const sel = document.getElementById("sectionSelect").value;
+  const pool = sel === "all" ? QUESTIONS : QUESTIONS.filter(q => q.section === sel);
+  let wrong = 0, flagged = 0;
+  pool.forEach(q => {
+    const r = state.results[q.id];
+    if (r && !r.correct) wrong++;
+    if (state.flags[q.id]) flagged++;
+  });
+  return { total: pool.length, wrong, flagged };
+}
+
+function renderModeUI() {
+  document.querySelectorAll(".mode-btn").forEach(b => b.classList.toggle("active", b.dataset.mode === state.mode));
+  const hint = document.getElementById("modeHint");
+  const intro = document.getElementById("examIntro");
+  const bar = document.getElementById("examBar");
+  const navWrap = document.getElementById("navGridWrap");
+  const redoBar = document.getElementById("redoBar");
+  const examActive = state.mode === "exam" && state.exam.running && !state.exam.finished;
+  const examFinished = state.mode === "exam" && state.exam.finished;
+
+  if (state.mode === "practice") {
+    hint.textContent = "Answer one at a time, see the rule the moment you submit. No clock.";
+    intro.style.display = "none"; bar.style.display = "none"; navWrap.style.display = "none";
+  } else {
+    if (examActive) {
+      hint.textContent = "Timed run · +1 / −0.25 scoring · no answers shown until you finish. Flag and skip freely.";
+      intro.style.display = "none"; bar.style.display = "flex"; navWrap.style.display = "block";
+    } else if (examFinished) {
+      hint.textContent = "Exam finished — reviewing answers with the rule under each. Start a fresh run any time.";
+      intro.style.display = "block"; bar.style.display = "none"; navWrap.style.display = "block";
+      intro.innerHTML = `<h3>Exam finished</h3>
+        <p>Score and per-area breakdown are below. Tap a number in the grid to jump to any question, or use <b>Redo only wrong</b> to retry the misses.</p>
+        <button class="exam-start-btn" data-action="startExam">Start a fresh timed run</button>`;
+    } else {
+      const n = state.filtered.length;
+      const mins = Math.max(1, Math.round(n * MIN_PER_Q));
+      hint.textContent = "Timed run · +1 / −0.25 scoring · no answers shown until you finish.";
+      intro.style.display = "block"; bar.style.display = "none"; navWrap.style.display = "none";
+      intro.innerHTML = `<h3>⏱️ Exam mode — like the real thing</h3>
+        <p>${n} questions · ${mins} min on the clock · +1 right, −0.25 wrong, 0 blank. No feedback until you finish, just like the real paper. You can flag questions and jump around with the grid.</p>
+        <button class="exam-start-btn" data-action="startExam">Start ${mins}-minute timed run</button>`;
+    }
+  }
+
+  // Redo bar (both modes, when there's something to redo)
+  const c = countScope();
+  if (c.wrong === 0 && c.flagged === 0 && state.redo === "none") {
+    redoBar.style.display = "none";
+  } else {
+    redoBar.style.display = "flex";
+    redoBar.innerHTML =
+      `<button class="redo-btn ${state.redo === "wrong" ? "active" : ""}" data-action="redoWrong" ${c.wrong ? "" : "disabled"}>↻ Redo only wrong (${c.wrong})</button>
+       <button class="redo-btn ${state.redo === "flagged" ? "active" : ""}" data-action="redoFlagged" ${c.flagged ? "" : "disabled"}>🚩 Flagged only (${c.flagged})</button>
+       ${state.redo !== "none" ? `<button class="redo-btn redo-clear" data-action="redoClear">Show all again</button>` : ""}`;
+  }
+}
+
+function renderNavGrid() {
+  const navWrap = document.getElementById("navGridWrap");
+  if (navWrap.style.display === "none") return;
+  const grid = document.getElementById("navGrid");
+  const finished = state.mode === "exam" && state.exam.finished;
+  grid.innerHTML = state.filtered.map((q, i) => {
+    let cls = "nav-cell";
+    const r = state.results[q.id];
+    if (finished && r) cls += r.correct ? " correct" : " wrong";
+    else if (r) cls += " answered";
+    if (state.flags[q.id]) cls += " flagged";
+    if (i === state.index) cls += " current";
+    return `<div class="${cls}" data-action="navJump" data-idx="${i}">${i + 1}</div>`;
+  }).join("");
+  const legend = document.getElementById("navGridLegend");
+  if (legend) {
+    const answered = state.filtered.filter(q => state.results[q.id]).length;
+    legend.textContent = ` — ${answered}/${state.filtered.length} answered`;
+  }
+}
+
+function resumeExamTimer() { stopExamTimer(); examTick = setInterval(tickExam, 1000); tickExam(); }
+function stopExamTimer() { if (examTick) { clearInterval(examTick); examTick = null; } }
+
+function startExam() {
+  const n = state.filtered.length;
+  if (n === 0) { alert("No questions in this filter."); return; }
+  const mins = Math.max(1, Math.round(n * MIN_PER_Q));
+  if (!confirm(`Start a fresh ${mins}-minute run over these ${n} questions?\n\nThis clears your current answers for them (attempt history is kept).`)) return;
+  // fresh slate for the in-scope questions
+  state.filtered.forEach(q => { delete state.results[q.id]; delete state.progress.drafts[q.id]; });
+  saveResults(); saveProgress();
+  state.redo = "none";
+  state.exam = { running: true, finished: false, endTs: Date.now() + mins * 60 * 1000, durationSec: mins * 60 };
+  saveExam();
+  state.index = 0;
+  resumeExamTimer();
+  applyFilter({ preservePosition: false });
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function tickExam() {
+  const bar = document.getElementById("examBar");
+  const remaining = Math.round((state.exam.endTs - Date.now()) / 1000);
+  if (remaining <= 0) { finishExam(true); return; }
+  const answered = state.filtered.filter(q => state.results[q.id]).length;
+  let tcls = "exam-timer";
+  if (remaining <= 30) tcls += " danger"; else if (remaining <= 120) tcls += " warn";
+  bar.innerHTML = `<div>
+      <div class="${tcls}">${formatTime(remaining)}</div>
+      <div class="exam-meta">${answered}/${state.filtered.length} answered · +1 / −0.25 / 0</div>
+    </div>
+    <button class="exam-finish-btn" data-action="finishExam">Finish & score</button>`;
+}
+
+function finishExam(auto) {
+  if (!state.exam.running && state.exam.finished) return;
+  if (!auto && !confirm("Finish the exam and see your score?")) return;
+  stopExamTimer();
+  state.exam.running = false;
+  state.exam.finished = true;
+  saveExam();
+  const attempt = recordAttempt();
+  renderModeUI();
+  state.index = 0;
+  renderQuestion();
+  renderAttemptHistory();
+  const sb = document.getElementById("scoreboard");
+  if (sb) sb.scrollIntoView({ behavior: "smooth", block: "center" });
+  if (attempt) {
+    setTimeout(() => alert(`${auto ? "Time's up!\n\n" : ""}Score: ${attempt.score}/${attempt.max}\n${attempt.right} right · ${attempt.wrong} wrong · ${attempt.blank} blank\n\nThe rule is now under every question, and this attempt is saved in your history.`), 50);
+  }
+}
+
+function recordAttempt() {
+  let right = 0, wrong = 0;
+  const sections = {};
+  state.filtered.forEach(q => {
+    if (!sections[q.section]) sections[q.section] = { total: 0, solid: 0, guessed: 0, wrong: 0, skip: 0 };
+    sections[q.section].total++;
+    const r = state.results[q.id];
+    if (!r) { sections[q.section].skip++; }
+    else if (r.correct) { right++; sections[q.section].solid++; }
+    else { wrong++; sections[q.section].wrong++; }
+  });
+  const blank = state.filtered.length - right - wrong;
+  const score = right * 1 - wrong * 0.25;
+  const max = state.filtered.length * 1;
+  const sel = document.getElementById("sectionSelect").value;
+  const scope = sel === "all" ? "Full mock" : (SECTION_LABELS[sel] || sel);
+  const attempt = { mock: "jemas-2025", mode: "exam", scope, ts: new Date().toISOString(),
+    score, max, right, wrong, blank, sections };
+  try {
+    const raw = localStorage.getItem(HISTORY_KEY);
+    const history = raw ? JSON.parse(raw) : [];
+    history.push(attempt);
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+  } catch {}
+  return attempt;
+}
+
+function renderAttemptHistory() {
+  const wrap = document.getElementById("attemptHistoryList");
+  if (!wrap) return;
+  let history = [];
+  try { const raw = localStorage.getItem(HISTORY_KEY); if (raw) history = JSON.parse(raw); } catch {}
+  const mine = history.filter(h => h.mock === "jemas-2025");
+  if (mine.length === 0) {
+    wrap.innerHTML = `<div class="ah-empty">No timed runs yet. Switch to ⏱️ Exam mode and finish a run to start tracking your score over time.</div>`;
+    return;
+  }
+  const rows = mine.map((h, i) => {
+    const pct = h.max ? Math.round((h.score / h.max) * 100) : 0;
+    const fillPct = Math.max(0, Math.min(100, pct));
+    const prev = i > 0 ? mine[i - 1] : null;
+    let deltaHtml = "", dir = "";
+    if (prev) {
+      const d = h.score - prev.score;
+      if (d > 0) { dir = "up"; deltaHtml = `<span class="ah-delta up">▲ +${d}</span>`; }
+      else if (d < 0) { dir = "down"; deltaHtml = `<span class="ah-delta down">▼ ${d}</span>`; }
+      else deltaHtml = `<span class="ah-delta">±0</span>`;
+    }
+    const d = new Date(h.ts);
+    const when = `${d.getDate()}/${d.getMonth() + 1} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    const scope = h.scope && h.scope !== "Full mock" ? ` · ${h.scope}` : "";
+    return `<div class="ah-row">
+      <div class="ah-when">${when}${scope}</div>
+      <div class="ah-track"><div class="ah-fill ${dir}" style="width:${fillPct}%;"></div></div>
+      <div class="ah-score">${h.score}/${h.max}${deltaHtml}</div>
+    </div>`;
+  }).join("");
+  wrap.innerHTML = rows;
+}
+
+loadResults();
+if (state.progress.lastSection) {
+  const sel = document.getElementById("sectionSelect");
+  if ([...sel.options].some(o => o.value === state.progress.lastSection)) sel.value = state.progress.lastSection;
+}
+// resume a live exam timer if one was running and time remains
+if (state.mode === "exam" && state.exam.running && !state.exam.finished) {
+  if (state.exam.endTs > Date.now()) resumeExamTimer();
+  else { state.exam.running = false; state.exam.finished = true; saveExam(); }
+}
+applyFilter({ preservePosition: true });
+showResumeBanner();
+renderAttemptHistory();
+</script>
+<script>
+/* PWA:met-prep */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("/sihan-met-flashcards/sw.js").catch(function () {});
+  });
+}
+(function () {
+  var dp = null;
+  window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); dp = e; showBtn(); });
+  function showBtn() {
+    if (document.getElementById("pwaInstallBtn")) return;
+    var b = document.createElement("button");
+    b.id = "pwaInstallBtn"; b.textContent = "Install app";
+    b.style.cssText = "position:fixed;right:14px;bottom:14px;z-index:9999;background:#1f6feb;color:#fff;border:0;border-radius:8px;padding:10px 14px;font:600 14px system-ui,sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.4);cursor:pointer";
+    b.onclick = function () { if (!dp) return; dp.prompt(); dp.userChoice.finally(function(){ dp = null; b.remove(); }); };
+    (document.body || document.documentElement).appendChild(b);
+  }
+  window.addEventListener("appinstalled", function () { var b = document.getElementById("pwaInstallBtn"); if (b) b.remove(); });
+})();
+</script>
+<!-- FS_MODE start -->
+<style id="fs-mode-style">
+  .fs-toggle{position:fixed;z-index:2147483000;bottom:14px;right:14px;width:46px;height:46px;border:0;border-radius:50%;
+    background:rgba(18,24,33,.74);color:#e6edf3;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 2px 12px rgba(0,0,0,.5);
+    padding:0;opacity:.5;transition:opacity .15s;-webkit-tap-highlight-color:transparent}
+  .fs-toggle:hover,.fs-toggle:active{opacity:1}
+  @media print{.fs-toggle{display:none}}
+  body.fs-active .topbar,
+  body.fs-active header,
+  body.fs-active nav,
+  body.fs-active .app-header,
+  body.fs-active .site-header,
+  body.fs-active footer{display:none !important}
+  body.fs-active{margin:0 !important;padding:0 !important;min-height:100vh}
+  body.fs-active main,
+  body.fs-active .wrap,
+  body.fs-active .container,
+  body.fs-active #app,
+  body.fs-active .app,
+  body.fs-active .page{max-width:100% !important;width:100% !important;margin:0 !important;
+    padding-left:12px !important;padding-right:12px !important;padding-top:10px !important;padding-bottom:14px !important}
+  @media (orientation:landscape){
+    body.fs-active main,
+    body.fs-active .wrap,
+    body.fs-active .container,
+    body.fs-active #app,
+    body.fs-active .app,
+    body.fs-active .page{padding-top:8px !important;padding-bottom:8px !important;
+      padding-left:18px !important;padding-right:18px !important}
+  }
+</style>
+<script>
+(function(){
+  if(window.__fsModeInit) return; window.__fsModeInit=true;
+  var ENTER='\u26F6', EXIT='\u2715';
+  function nativeOn(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function reqNative(){var el=document.documentElement;var r=el.requestFullscreen||el.webkitRequestFullscreen;
+    if(r){try{var p=r.call(el);if(p&&p.catch)p.catch(function(){});}catch(e){}}}
+  function exitNative(){if(!nativeOn())return;var x=document.exitFullscreen||document.webkitExitFullscreen;
+    if(x){try{x.call(document);}catch(e){}}}
+  var btn=document.createElement('button');
+  btn.className='fs-toggle';btn.type='button';
+  function paint(){var on=document.body.classList.contains('fs-active');
+    btn.textContent=on?EXIT:ENTER;btn.setAttribute('aria-label',on?'Exit fullscreen':'Enter fullscreen');btn.title=on?'Exit fullscreen':'Fullscreen';}
+  function go(){document.body.classList.add('fs-active');reqNative();paint();}
+  function stop(){document.body.classList.remove('fs-active');exitNative();paint();}
+  function toggle(){document.body.classList.contains('fs-active')?stop():go();}
+  btn.addEventListener('click',toggle);
+  function mount(){if(!document.body)return;if(!btn.isConnected)document.body.appendChild(btn);paint();}
+  if(document.body){mount();}else{document.addEventListener('DOMContentLoaded',mount);}
+  function sync(){if(!nativeOn()&&document.body.classList.contains('fs-active')){document.body.classList.remove('fs-active');paint();}}
+  document.addEventListener('fullscreenchange',sync);
+  document.addEventListener('webkitfullscreenchange',sync);
+})();
+</script>
+<!-- FS_MODE end -->
+</body>
+</html>
