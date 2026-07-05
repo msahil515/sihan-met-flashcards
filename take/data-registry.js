@@ -3,15 +3,15 @@ const MOCKS = [
   {
     id: "jemas-2025",
     title: "JEMAS(PG) 2025 · Clinical Psychology",
-    sub: "6 real Qs · JEMAS(PG) 2025 CP · page 5 (Q15–20) · source-badged · untimed Practice",
+    sub: "36 real Qs · JEMAS(PG) 2025 CP · pages 5,6,11,13,14 (Q15–28, Q59–66, Q75–88) · verbatim · source-badged · untimed Practice",
     path: "../quiz/jemas-2025/",
-    total: 6,
+    total: 36,
     storageKey: "jemas-2025-results-v1",
-    sections: { psychodynamic: 1, personality: 3, biopsych: 1, general: 1 },
-    blurb: "The real JEMAS(PG) 2025 Clinical Psychology entrance paper, built into a native untimed mock. So far it covers page 5, questions 15\u201320 (6 items): defence mechanisms, Adlerian teleology, temperament, the trait definition, the hypothalamic satiety centre, and universality. Stems, options and keys were rebuilt faithfully from the page Sihan sent; every card carries a JEMAS(PG) 2025 source badge with its original question number, and each question has a full deep explanation plus a per-distractor trap breakdown. Untimed by design (instant reveal + explanation the moment you answer), scored +1 / \u22120.25 / 0. As the remaining JEMAS pages arrive they fold straight into this same mock. Independent storage.",
+    sections: { psychodynamic: 2, personality: 6, biopsych: 2, research: 2, clinical: 11, development: 4, cognitive: 4, stats: 5 },
+    blurb: "The real JEMAS(PG) 2025 Clinical Psychology entrance paper, built into a native untimed mock. It now covers pages 5, 6, 11, 13 and 14 — questions 15–28, 59–66 and 75–88 (36 items) — transcribed verbatim off the booklet scans Sihan sent: defence mechanisms, Adler, temperament and traits, projective tests, the Rorschach, DSM-5 ASD and SLD, procedural-learning circuits, Piaget, validity and distributions, z-scores, learned helplessness, hallucination vs delusion, Schneider's first-rank symptoms, Sternberg, object permanence and more. There is no official answer key yet, so keys are authored from standard sources; Q64 and Q65 are flagged key-debate. Page 12 (Q67–74) landed cut off and is held back until a clean scan. Every card carries a JEMAS(PG) 2025 source badge with its original question number plus a full explanation and per-distractor trap. Untimed, scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
     deepExp: true,
-    tags: ["100% real paper", "JEMAS(PG) 2025", "clinical psychology", "source-badged", "trap per wrong option", "untimed practice", "6 Q"]
+    tags: ["100% real paper", "JEMAS(PG) 2025", "clinical psychology", "source-badged", "trap per wrong option", "untimed practice", "verbatim scan", "36 Q"]
   },
   {
     id: "systems-theories",
