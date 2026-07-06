@@ -332,6 +332,7 @@ button{font-family:inherit;cursor:pointer}
       <b id="runScoreVal">0</b><span>score so far</span>
     </div>
     <button class="btn" id="focusBtn" title="Toggle a wide, distraction-free reading column">⛶ Focus</button>
+    <button class="btn" id="resetBtn" title="Wipe your answers on this test and start over">↺ Reset</button>
     <span id="themeMount"></span>
     <button class="btn primary" id="finishBtn">Finish</button>
   </div>
@@ -641,6 +642,16 @@ document.getElementById("navClose").onclick=closeNav;
 scrim.onclick=closeNav;
 document.getElementById("prevBarBtn").onclick=()=>step(-1);
 document.getElementById("nextBarBtn").onclick=()=>step(1);
+
+/* reset the whole test: wipe this mock's saved answers/flags/marks and start over */
+document.getElementById("resetBtn").onclick=()=>{
+  if(!confirm("Reset this test? Your answers on this mock will be cleared and you start from question 1. Other tests are not affected.")) return;
+  try{localStorage.removeItem(KEY);}catch(e){}
+  try{localStorage.removeItem("take-summary-"+MID);}catch(e){}
+  st={i:0, answers:{}, flags:{}, marks:{}, revealed:{}, visited:{0:1}, filter:"all", wrongSet:null};
+  save(); renderQ(); syncNav(); updateProg();
+  window.scrollTo(0,0);
+};
 
 /* focus layout toggle — wide, navigator-free reading column, persisted */
 const FK="take-focus-v1";
