@@ -96,6 +96,11 @@ a{color:inherit} button{font-family:inherit;cursor:pointer}
   border:1px solid var(--line);background:var(--surface);border-radius:11px;padding:9px 13px;box-shadow:var(--shadow)}
 .hidefin input{accent-color:var(--primary);width:15px;height:15px}
 .hidefin b{color:var(--muted);font-weight:600}
+.resetbtn{border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);
+  font:600 12.5px/1 var(--font-ui);padding:9px 13px;border-radius:11px;box-shadow:var(--shadow);
+  display:inline-flex;align-items:center;gap:6px;cursor:pointer;transition:.13s}
+.resetbtn:hover{border-color:var(--primary);color:var(--primary)}
+.resetbtn svg{width:14px;height:14px}
 
 /* groups + cards */
 .groups{padding:8px 0 70px}
@@ -209,6 +214,10 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-s
         <button data-v="list">☰ List</button>
       </div>
       <label class="hidefin"><input type="checkbox" id="hideFin"> Hide finished <b id="hideFinN"></b></label>
+      <button class="resetbtn" id="resetProg" title="Clear all your attempts and done-marks on this device">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+        Reset progress
+      </button>
     </div>
     <div class="ctl-row" style="margin-top:10px">
       <div class="chips" id="statChips">
@@ -381,6 +390,15 @@ document.getElementById("viewTog").addEventListener("click",e=>{
 const hf=document.getElementById("hideFin");
 hf.checked=HIDEFIN;
 hf.addEventListener("change",()=>{ HIDEFIN=hf.checked; sp("take-hidefin-v1",HIDEFIN?"1":"0"); render(); });
+
+document.getElementById("resetProg").addEventListener("click",()=>{
+  if(!confirm("Reset all progress on this device?\n\nThis clears every mock's saved answers, scores, and \"done\" marks so the whole list goes back to Not started. Can't be undone."))return;
+  try{
+    localStorage.removeItem(DONE_KEY);
+    Object.keys(localStorage).filter(k=>k.indexOf("take-summary-")===0).forEach(k=>localStorage.removeItem(k));
+  }catch(e){}
+  refreshAll();
+});
 
 document.getElementById("resetFilters").addEventListener("click",()=>{
   STAT="all"; QText=""; sb.value=""; clr.style.display="none";
