@@ -106,26 +106,61 @@
 </style>
 <script src="/sihan-met-flashcards/take/theme.js"></script>
 <link rel="stylesheet" href="/sihan-met-flashcards/revamp-skin.css">
+<style>
+.scanbox{border-left:4px solid #b4653a}
+.unkbox{border:1px solid rgba(0,0,0,.14);border-radius:10px;padding:16px 18px;margin:18px 0}
+.unkbox h3{margin:0 0 6px;font-size:1.05rem}
+.unkbox>p{margin:0 0 14px;opacity:.85}
+.unkgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.unkgrid figure{margin:0}
+.unkgrid img{width:100%;border:1px solid rgba(0,0,0,.18);border-radius:6px;display:block;background:#fff}
+.unkgrid figcaption{font-size:.82rem;line-height:1.45;margin-top:7px;opacity:.9}
+</style>
 </head>
 <body>
 <div class="wrap">
 <nav><a href="../">&larr; Home</a> <a href="../tests/">Tests</a> <a href="../pyq-coverage/">25-Apr Batch</a> <a href="../database/">Database</a> <a href="../resources/">Drive Library</a></nav>
 
 <h1>PYQ library</h1>
-<p class="updated">Every past paper that exists anywhere in your material. College, year, <b>where it came from</b> (you, the Mimaansa Drive, or buried inside a file you sent), how many pages, whether there's an answer key, and whether it's built into a mock yet. Pulled out of the WhatsApp log and the Drive folder, then <b>every file actually opened and read</b>, not taken from the filename. Updated 26 July 2026, second pass.</p>
+<p class="updated">Every past paper that exists anywhere in your material. College, year, <b>where it came from</b> (you, the Mimaansa Drive, or buried inside a file you sent), how many pages, whether there's an answer key, and whether it's built into a mock yet. Pulled out of the WhatsApp log and the Drive folder, then <b>every file actually opened and read</b>, not taken from the filename. <b>Third pass, 26 July 2026:</b> every camera-scanned PDF opened and read page by page off the image, because a scan has no text layer and the filename is the only thing a search can see. Six papers turned out to have an answer key I said they didn't have, one I'd called built isn't, and three papers don't print the college anywhere.</p>
 
 <div class="stats">
   <div class="stat all"><div class="n">53</div><div class="l">real papers</div></div>
   <div class="stat all"><div class="n">16</div><div class="l">colleges</div></div>
-  <div class="stat built"><div class="n">14</div><div class="l">built into mocks</div></div>
+  <div class="stat built"><div class="n">13</div><div class="l">built into mocks</div></div>
   <div class="stat part"><div class="n">1</div><div class="l">built partly</div></div>
-  <div class="stat queue"><div class="n">38</div><div class="l">not built</div></div>
-  <div class="stat keyed"><div class="n">12</div><div class="l">unbuilt <i>and</i> keyed</div></div>
+  <div class="stat queue"><div class="n">39</div><div class="l">not built</div></div>
+  <div class="stat keyed"><div class="n">16</div><div class="l">unbuilt <i>and</i> keyed</div></div>
 </div>
 
 
+<div class="flagbox scanbox">
+<p><b>Third pass: the camera scans.</b> Everything up to now leaned on the text layer inside a PDF. <b>21 of your files don't have one</b> &ndash; they're photographs of paper, so nothing but the filename was ever readable. I opened all of them and read the pages off the image. That's where the misses were.</p>
+<p><b>1. "IHBAS 2024 april.pdf" is not part of the 2024 mock, and it has an official key.</b> I had it down as the same exam as the 112-page booklet, folded in. It isn't. Its questions are <b>nowhere</b> in that booklet &ndash; I checked every one. It's a separate 100-question sitting, header reads <b>MP&ndash;2024, Series D</b>, and its last page is the <b>signed final answer key for all 100</b>, with the rule for converting between series written under it: <i>Series A as it is; B &ndash; Q26 becomes Q1; C &ndash; Q56 becomes Q1; D &ndash; Q76 becomes Q1</i>. So this is a keyed, exact build that was never actually built. <b>Build queue #39, and it's my top pick now.</b></p>
+<p><b>2. RML 2025 has the university's own answer key sitting in it.</b> 18 pages: page 1 is the GGSIPU Controller of Examinations notice inviting objections to the CET held <b>09/11/2025</b>, pages 2&ndash;17 are the full 100-question M.Phil Clinical Psychology 2025 booklet (4 marks a question, no negative marking, 120 minutes), and <b>page 18 is the official key, all 100 answers in a table</b>. The live mock was built off answers I worked out myself. Say the word and I'll diff it against the real key.</p>
+<p><b>3. RML 2022 is a GGSIPU exam-portal sheet with the correct answers marked.</b> Test date 23/06/2022, centre Titiksha Public School, sectioned by subject. Every question shows a green tick against the <b>right</b> option, separately from the candidate's chosen option. Same for the live 2022 mock &ndash; it can be locked to this.</p>
+<p><b>4. I was wrong about NFSU 2020.</b> I'd written it off as "a candidate's response sheet, chosen options only, not a key". It's the same portal format as RML 2022: <b>the correct option is green-ticked on all 100 questions</b>. It's a fully keyed paper. What it isn't is identifiable &ndash; see below.</p>
+<p><b>5. JEPAS(PG) 2020 is solved.</b> Cover page confirms it: JEPAS(PG)&ndash;2020, M.Phil in Clinical Psychology, 90 minutes, 100 marks, quarter-mark negative, Set A. All 100 answers are highlighted in yellow through the copy. Keyed build.</p>
+<p><b>6. Smaller corrections off the images.</b> <b>IMHANS 2025</b> is <b>75 questions, not 100</b> (booklet 25035&ndash;A, 60 minutes), and the pencil ticks do run the whole way through. <b>KU 2023</b> is <b>70 questions</b>, ticked throughout. <b>RINPAS 2019</b> is a full 100, booklet B, code IR&ndash;1B/19, 2&frac12; hours, no negative marking. <b>NFSU 2024</b> is nine photos of the Panwar book &ndash; the <b>answer explanations are in the shot</b>, so it's keyed, but page 1 is cropped down the left column and page 9 is upside down, so it needs re-shooting or careful reading. <b>JEMAS 2022</b> is the same paper as the one in the compiled file, except this copy has all 100 answers circled in pen &ndash; the scan is the keyed copy.</p>
+<p><b>7. Two more files are not papers, confirmed by opening them.</b> <b>"NIMHANS 2023.pdf" (4 pages)</b> is a typed recall list &ndash; "Risk ratio 1 meaning", "MHA 2017, treatment of minors" &ndash; no options, no key. It is <i>not</i> the memory-based NIMHANS paper in the pack; different thing, same year. And <b>"CIP 2023"</b> is a recall list too, re-confirmed.</p>
+<p><b>8. Not papers, but worth having:</b> the three long unnamed PDFs you sent (dated 05 Feb, 25 May and 03 Jul 2026) are the <b>RCI List of Approved Institutions</b>, 113 / 123 / 123 pages, with programme, duration, approval extension <i>and seat intake</i> per institute. "College list.pdf" is the RCI <b>Centres of Excellence</b> table with institute codes and state. That's the source I need for the RCI tracker with the fee/seats cells &ndash; it was sitting in the scans the whole time.</p>
+</div>
+
+<div class="unkbox">
+<h3>Three papers don't print the college. Tell me what these are.</h3>
+<p>Each of these is a real, buildable exam. None of them names an institute anywhere in the file, so I'm not going to guess a name and put it on the site. Here's the page &ndash; you tell me and I build it under the right one.</p>
+<div class="unkgrid">
+  <figure><a href="scans/mp2024-header.jpg"><img src="scans/mp2024-header.jpg" alt="MP-2024 Series D header page"></a>
+    <figcaption><b>"MP&ndash;2024", Series D &middot; 100 Qs &middot; officially keyed</b><br>Filed as IHBAS April 2024. The 112-page IHBAS booklet uses the code <em>MPCP</em>, not <em>MP&ndash;2024</em>, and none of these questions appear in it, so it's a different exam. <a href="scans/mp2024-final-key.jpg">Its final key is here.</a></figcaption></figure>
+  <figure><a href="scans/unknown-2023-header.jpg"><img src="scans/unknown-2023-header.jpg" alt="Unnamed 2023 M.Phil CP entrance header"></a>
+    <figcaption><b>"Entrance Test 2023, M.Phil Clinical Psychology" &middot; 70 Qs &middot; ticked throughout</b><br>Filed as KU 2023. Kashmir? Kurukshetra? The header is the whole header &ndash; there's no letterhead, no code, no centre. Different paper from the unnamed 2021 one (queue #27).</figcaption></figure>
+  <figure><a href="scans/unknown-mphilcp-p1.jpg"><img src="scans/unknown-mphilcp-p1.jpg" alt="Unnamed M.Phil CP portal sheet"></a>
+    <figcaption><b>Exam-portal sheet, section "MPHIL CP" &middot; 100 Qs &middot; fully keyed</b><br>Filed as NFSU 2020, but NFSU doesn't run an M.Phil in Clinical Psychology. 34 pages and not one of them carries a name, date or centre. This is the best unbuilt paper on the list and I can't label it.</figcaption></figure>
+</div>
+</div>
+
 <div class="flagbox">
-<p><b>What this second pass turned up.</b> You said include every single one, so I went back through the WhatsApp log <i>and</i> the Mimaansa Drive and opened everything again, including the files I'd previously written off as "compilations". <b>13 more real papers came out, and 5 papers I'd marked as having no key actually have one.</b></p>
+<p><b>What the second pass turned up, earlier today.</b> You said include every single one, so I went back through the WhatsApp log <i>and</i> the Mimaansa Drive and opened everything again, including the files I'd previously written off as "compilations". <b>13 more real papers came out, and 5 papers I'd marked as having no key actually have one.</b></p>
 <p><b>1. "2010-2024 Q papers.pdf" is not a compilation, it's ten separate exams.</b> It's the <b>University of Jammu</b> (School of Education &amp; Behavioural Sciences) M.A. Psychology entrance, 60 questions and 70 minutes each, one paper per year: <b>2010, 2011, 2012, 2013, 2014, 2015, 2017, 2020, 2021, 2023</b>. The 2023 and 2021 ones have a clean text layer and build fast; the rest are scans. This was sitting in the "not exam papers" pile. It shouldn't have been.</p>
 <p><b>2. "Mphil past papers Compiled.pdf" is 478 pages and it hides three things.</b> Most of it is copies of papers I already had (GMCH 2023, the four IHBAS 2024 booklets twice over, JEMAS 2022 and 2023, the RINPAS booklet). But buried in it: a <b>second NFSU 2023 slot</b> (Slot 1, different questions from the Slot 3 dump), and a <b>70-question M.Phil Clinical Psychology 2021 paper whose cover page never names the college</b>. That one is clean text and easy to build &ndash; I just need you to tell me whose exam it is.</p>
 <p><b>3. There is a paper in the Drive you never sent me.</b> <b>LGBRIMH Tezpur 2025</b> (GURET), 9 pages, about 62 memory-based questions with answers written in. It's in there twice under two names; both files are identical. Only Drive-sourced paper in the whole list.</p>
@@ -135,12 +170,12 @@
 </div>
 
 <div class="queuebox">
-  <h2>Not built yet <span>: 38 papers. Send me a number and I build that one next.</span></h2>
-  <p class="qintro">Ordered by how cleanly they can be built, not by year. <b>Numbers 1&ndash;25 still mean exactly what they meant this morning</b> &ndash; nothing got renumbered. What changed is which group some of them sit in, because four papers turned out to have a printed answer key I'd missed. 26 onwards are the papers this second pass found.</p>
+  <h2>Not built yet <span>: 39 papers. Send me a number and I build that one next.</span></h2>
+  <p class="qintro">Ordered by how cleanly they can be built, not by year. <b>No number has ever been renumbered</b> &ndash; 21 still means what 21 meant this morning, so you can just reply with a number. What moved on the scan pass is which <i>group</i> five of them sit in: <b>20, 21, 22, 23 and 25 all turned out to carry answers</b>, so they came up out of the awkward-scans pile into the keyed pile. <b>39 is new</b>, and it goes straight to the top: it's a fully keyed 100-question paper I had wrongly recorded as already built.</p>
   <div id="queueRoot"></div>
 </div>
 
-<div class="callout"><b>My pick if you don't want to choose:</b> <b>1, then 2.</b> CIP 2020 is a live-target paper and the pack copy prints full answers with explanations, so it comes out exact. GMCH Chandigarh 2025 has the official key sitting right next to it, 100 questions, nothing to guess. After that the two Gurugram 2025 papers, because their keys are official university-issued. <b>New since this morning:</b> 18, 19 and 6 (RINPAS 2019, RINPAS 2024, GMCH 2023) all turned out to have full printed answers with explanations, so they're now exact builds too, not guesswork.</div>
+<div class="callout"><b>My pick if you don't want to choose:</b> <b>1, then 2.</b> CIP 2020 is a live-target paper and the pack copy prints full answers with explanations, so it comes out exact. GMCH Chandigarh 2025 has the official key sitting right next to it, 100 questions, nothing to guess. After that the two Gurugram 2025 papers, because their keys are official university-issued. <b>New on the third pass:</b> <b>39</b> jumps the queue &ndash; a 100-question paper with its own signed official key that I'd wrongly counted as already built. Then <b>25</b> and <b>22</b>, both fully keyed and both only readable off the image. <b>Earlier today:</b> 18, 19 and 6 (RINPAS 2019, RINPAS 2024, GMCH 2023) all turned out to have full printed answers with explanations, so they're now exact builds too, not guesswork.</div>
 
 <h3 class="sh">The full library</h3>
 <div class="filters">
@@ -148,6 +183,7 @@
   <button data-f="live">Built</button>
   <button data-f="queue">Not built</button>
   <button data-f="key">Has a key</button>
+  <button data-f="scan">From the scan pass</button>
   <button data-f="new">New / corrected today</button>
   <button data-f="target">Live targets only</button>
 </div>
@@ -231,6 +267,12 @@
 /* ---------- unbuilt build queue, ordered by how cleanly it can be built ---------- */
 const QUEUE = [
  {g:"Keyed: these get built exact", items:[
+  {n:39, t:"\"MP&ndash;2024\", Series D &ndash; the paper I wrongly counted as built", m:"28 pp scan &middot; 100 Qs &middot; <em>signed official final key for all 100 on the last page</em>, with the series conversion rule &middot; <b>NEW on the scan pass, and my top pick</b>"},
+  {n:25, t:"Exam-portal sheet, section \"MPHIL CP\" (filed as NFSU 2020)", m:"34 pp &middot; 100 Qs &middot; <em>correct option green-ticked on every question</em> &middot; questions are images &middot; <b>upgraded: I'd called this chosen-options-only. It isn't. But the college is not printed anywhere.</b>"},
+  {n:22, t:"JEPAS(PG) 2020, M.Phil Clinical Psychology, Set A", m:"12 pp &middot; 100 Qs &middot; 90 min &middot; quarter-mark negative &middot; <em>all 100 answers highlighted in yellow</em> &middot; <b>upgraded on the scan pass</b>"},
+  {n:23, t:"NFSU 2024, M.Sc Clinical / Forensic Psychology", m:"9 photos &middot; <em>answer explanations are in the shot</em> &middot; p1 cropped down the left column, p9 upside down &middot; <b>upgraded on the scan pass</b>"},
+  {n:20, t:"IMHANS Kozhikode 2025", m:"13 pp &middot; <b>75 Qs, not 100</b> &middot; booklet 25035&ndash;A, 60 min &middot; <em>pencilled ticks run the whole way through</em> &middot; <b>upgraded on the scan pass</b>"},
+  {n:21, t:"\"Entrance Test 2023, M.Phil Clinical Psychology\" (filed as KU 2023)", m:"9 pp &middot; <b>70 Qs</b> &middot; <em>ticked throughout in pen</em> &middot; <b>the paper never names the university &ndash; Kashmir or Kurukshetra?</b>"},
   {n:1, t:"CIP 2020", m:"12 pp (pack pp43&ndash;54) &middot; 100 Qs &middot; <em>full answers + explanations printed from p49</em> &middot; LIVE TARGET"},
   {n:2, t:"GMCH Chandigarh 2025", m:"26 pp &middot; 100 Qs &middot; <em>official 3-page answer key sent alongside it</em>"},
   {n:3, t:"Gurugram University 2025, M.Phil Clinical Psychology", m:"11 pp &middot; 60 Qs &middot; <em>official key, printed in the university's own notice</em>"},
@@ -258,13 +300,8 @@ const QUEUE = [
   {n:30, t:"University of Jammu M.A. Psychology 2021", m:"7 pp &middot; 60 Qs &middot; clean text (code SS-5456-A) &middot; <b>NEW</b>"}
  ]},
  {g:"Scans and awkward sources: slower, needs reading off images", items:[
-  {n:20, t:"IMHANS Kozhikode 2025", m:"13 pp &middot; scan, no text layer &middot; a few faint pencil ticks, not a key"},
-  {n:21, t:"KU 2023", m:"9 pp &middot; scan, no text layer &middot; pencil ticks by a candidate"},
-  {n:22, t:"JEPAS(PG) 2020", m:"12 pp &middot; official booklet scan, 90 minutes, 100 marks"},
-  {n:23, t:"NFSU 2024", m:"9 pp &middot; photographs of a coaching book's reproduction"},
   {n:24, t:"NFSU 2023, Slot 3", m:"35 pp &middot; online-exam dump, every question is an image"},
   {n:28, t:"NFSU 2023, Slot 1", m:"35 pp &middot; a <b>second, different slot</b> of the same exam day, buried in \"Mphil past papers Compiled.pdf\" &middot; <b>NEW</b>"},
-  {n:25, t:"NFSU 2020", m:"34 pp &middot; a candidate's response sheet. Questions are images; what's recorded is the candidate's chosen option, not the right one."},
   {n:31, t:"University of Jammu M.A. Psychology 2020, Series B", m:"18 pp &middot; scan &middot; <b>NEW</b>"},
   {n:32, t:"University of Jammu M.A. Psychology 2017", m:"scan &middot; <b>NEW</b>"},
   {n:33, t:"University of Jammu M.A. Psychology 2015", m:"scan &middot; <b>NEW</b>"},
@@ -275,7 +312,8 @@ const QUEUE = [
   {n:38, t:"University of Jammu M.A. Psychology 2010", m:"scan, oldest one in the set &middot; <b>NEW</b>"}
  ]},
  {g:"Not a paper", items:[
-  {n:"&bull;", t:"CIP 2023", m:"7 pp &middot; a recall list of topics that came in the exam, not the exam. Can become a topic set, never a real mock."}
+  {n:"&bull;", t:"CIP 2023", m:"7 pp &middot; a recall list of topics that came in the exam, not the exam. Can become a topic set, never a real mock."},
+  {n:"&bull;", t:"\"NIMHANS 2023.pdf\", the 4-page one", m:"a typed recall list, topics only, no options and no key &middot; <b>read on the scan pass</b> &middot; not the same as the memory-based NIMHANS 2023 paper, which is real and already built"}
  ]}
 ];
 
@@ -295,8 +333,8 @@ const DATA = [
      note:"100 Qs. Key is a separate 4-page file covering Sets A/B/C/D. 98 of the 100 answers in the live mock match Set A. <b>Q77 and Q86 do not</b> &ndash; the official key says C for both, the mock says D and A. Official key wins; those two need fixing in the mock."},
     {yr:"2024", nm:"IHBAS 2024 MPCP, booklet codes A / B / C / D", pg:"112", key:"off", src:["you","drive"], st:"live", href:"../quiz/ihbas-2024/",
      note:"You sent this same 112-page file four times under four names. Official 1-page key came with it. The four booklets also sit inside \"Mphil past papers Compiled.pdf\", twice over."},
-    {yr:"2024", nm:"IHBAS 2024, April sitting", pg:"28", key:"off", src:["you","drive"], st:"live", href:"../quiz/ihbas-2024/",
-     note:"Scan, no text layer. Same exam year, folded into the 2024 mock."},
+    {yr:"2024", nm:"\"MP&ndash;2024\", Series D &ndash; filed as IHBAS April 2024", pg:"28", key:"off", src:["you","drive"], st:"queue",
+     note:"<b>SCAN PASS &ndash; this was wrong, and it's the biggest miss on the page.</b> I had it as the same exam as the 112-page booklet, already folded into the 2024 mock. It is a <b>different exam</b>: I checked its questions against every page of that booklet and not one of them is in there, and the booklet codes itself <em>MPCP</em> while this one codes itself <em>MP&ndash;2024</em>. 100 questions, Series D. <b>Its last page is the signed final answer key for all 100</b>, with the series conversion written under it: Series A as printed, B starts at A's Q26, C at Q56, D at Q76. Keyed, exact, and never actually built. The college is not printed anywhere &ndash; see the three unnamed papers above. <b>Build queue #39.</b>"},
     {yr:"2020", nm:"IHBAS 2020", pg:"6", key:"copy", src:["you","drive"], st:"live", href:"../quiz/ihbas-2020/",
      note:"Coaching-book reproduction with the answers ticked in. 92 questions came out verified."},
     {yr:"n/a", nm:"\"IHBAS PY\" / \"IHBAS Entrance Exam Psychology Previous Question Paper\"", pg:"16", key:"none", src:["you","drive"], st:"flag",
@@ -329,11 +367,12 @@ const DATA = [
     {yr:"2024", nm:"JEMAS(PG) 2024", pg:"15", key:"none", src:["you","drive"], st:"queue", note:"Official booklet, QB No 4102800001, 100 Qs, 90 minutes."},
     {yr:"2023", nm:"JEMAS(PG) 2023", pg:"13", key:"none", src:["you","drive"], st:"queue", note:"Official booklet, 100 Qs, clean text. Sits inside \"Mphil past papers Compiled.pdf\" twice as well."},
     {yr:"2022", nm:"JEMAS(PG) 2022", pg:"8", key:"hand", src:["you","drive"], st:"queue",
-     note:"Coaching-book reproduction, and someone has circled the answers in blue pen right through it. <b>Build queue #5.</b>"},
+     note:"<b>SCAN PASS.</b> Photos of the Power Within Psychology \"Previous Year Papers Mock Test Series\" reproduction, from page 234 of that book. Full <b>100 questions</b>, answers circled in blue pen right through to Q100. Same exam as the clean-text copy inside \"Mphil past papers Compiled.pdf\" &ndash; but that copy carries no answers, so <b>this scan is the keyed one</b>. Build off the text, take the answers from here. <b>Build queue #5.</b>"},
     {yr:"2020", nm:"JEMAS(PG) 2020", pg:"7", key:"none", src:["you","drive"], st:"queue", note:"Full 100 Qs, clean text layer."}
   ]},
   {college:"IMHANS Kozhikode", sub:"Institute of Mental Health &amp; Neuro Sciences &middot; 5 papers, none built", rows:[
-    {yr:"2025", nm:"IMHANS 2025", pg:"13", key:"none", src:["you","drive"], st:"queue", note:"Booklet A, code 25035, 60 minutes. Scan with no text layer, a few faint pencil ticks."},
+    {yr:"2025", nm:"IMHANS 2025", pg:"13", key:"hand", src:["you","drive"], st:"queue",
+     note:"<b>SCAN PASS &ndash; count corrected.</b> Booklet 25035&ndash;A, 60 minutes, and it's <b>75 questions, not 100</b> &ndash; the last one is a match-the-following on non-parametric tests. The pencil ticks aren't \"a few\": they run the whole way through, so there's a full hand key. The institute isn't printed, but the booklet-code series (19034 / 21020 / 24036 / 25035) matches your other IMHANS papers, so the label holds. <b>Build queue #20.</b>"},
     {yr:"2024", nm:"IMHANS 2024", pg:"10", key:"none", src:["you","drive"], st:"queue", note:"Booklet A, code 24036, 60 minutes."},
     {yr:"2021", nm:"IMHANS 2021", pg:"11", key:"none", src:["you","drive"], st:"queue", note:"Booklet A, code 21020, 60 minutes."},
     {yr:"2020", nm:"IMHANS 2020", pg:"4", key:"none", src:["you","drive"], st:"queue", note:"Coaching-book extract, about 61 Qs, not the original booklet."},
@@ -341,28 +380,28 @@ const DATA = [
   ]},
   {college:"NFSU", sub:"National Forensic Sciences University &middot; 5 papers, none built", rows:[
     {yr:"2025", nm:"NFSU 2025", pg:"9", key:"none", src:["you","drive"], st:"queue", note:"Official M.Phil CP booklet, clean text."},
-    {yr:"2024", nm:"NFSU 2024, M.Sc Clinical / Forensic Psychology", pg:"9", key:"none", src:["you","drive"], st:"queue",
-     note:"Photographs of a coaching book's reproduction, taken at an angle."},
+    {yr:"2024", nm:"NFSU 2024, M.Sc Clinical / Forensic Psychology", pg:"9", key:"copy", src:["you","drive"], st:"queue",
+     note:"<b>SCAN PASS.</b> Nine phone photos of the Panwar \"Score Boosters: Previous Year Papers\" reproduction, from page 313 of that book. <b>The answer explanations are in the shot</b>, so it's keyed. But the capture is damaged: page 1 is cropped down the left column so the first questions lose their opening words, and page 9 is photographed upside down. Buildable, just slower &ndash; or re-shoot those two pages. <b>Build queue #23.</b>"},
     {yr:"2023", nm:"NFSU 2023, test held 01 Jul 2023, Slot 3", pg:"35", key:"none", src:["you","drive"], st:"queue",
-     note:"Online-exam dump. The wrapper is text but every question itself is an image."},
+     note:"NTA online-exam dump, header reads \"Test Date: 01 Jul 2023 &middot; Test Slot: Slot 3 &middot; (Exam No. 6) M.Sc. Clinical Psychology / M.Sc. Forensic Psychology\". The wrapper is text but every question is an image, and only option IDs are recorded, no answers."},
     {yr:"2023", nm:"NFSU 2023, test held 01 Jul 2023, <b>Slot 1</b>", pg:"35", key:"none", src:["in"], st:"queue",
      note:"<b>NEW &ndash; found today.</b> A <i>different slot</i> of the same exam day, sitting at pp146&ndash;180 of \"Mphil past papers Compiled.pdf\". Header reads \"Test Date: 01 Jul 2023, Test Slot: Slot 1, M.Phil. Clinical Psychology\". Different questions from the Slot 3 dump, so it's a second paper, not a copy. <b>Build queue #28.</b>"},
-    {yr:"2020", nm:"NFSU 2020", pg:"34", key:"hand", src:["you","drive"], st:"queue",
-     note:"A candidate's own response sheet. Questions are images; the only answers recorded are that candidate's chosen options, which is not the same as a key."}
+    {yr:"2020", nm:"Exam-portal sheet, section \"MPHIL CP\" &ndash; filed as NFSU 2020", pg:"34", key:"off", src:["you","drive"], st:"queue",
+     note:"<b>SCAN PASS &ndash; I was wrong about this one.</b> I'd called it a candidate's response sheet with chosen options only. It's the same portal format as RML 2022: <b>the correct option is green-ticked on all 100 questions</b>, separately from what the candidate picked. Fully keyed. Two problems: the questions are images, and <b>no page in the 34 carries an institute, a date or a centre</b>. NFSU doesn't run an M.Phil in Clinical Psychology, so the filename is probably wrong. Best unbuilt paper on this list and I can't put a name on it. <b>Build queue #25.</b>"}
   ]},
   {college:"RINPAS", sub:"Ranchi Institute of Neuro-Psychiatry &middot; 2 papers, both keyed, none built", rows:[
     {yr:"2024", nm:"RINPAS 2024, M.Phil / Ph.D Entrance Test", pg:"16 + 15", key:"copy", src:["you","pack"], st:"queue",
      note:"<b>Corrected today.</b> I had this as two separate half-things: an undated \"RINPAS Booklet\" and a 4-page partial in the pack. They're the same exam. The booklet (code HD&ndash;2A/7, subject code 23, 2 hrs, 200 marks) is the official paper, clean text, and it also sits inside \"Mphil past papers Compiled.pdf\". The pack copy runs pp16&ndash;30, not pp16&ndash;19, and it prints <b>answers with explanations for all 100</b>. So this is a keyed, exact build. <b>Build queue #19.</b>"},
     {yr:"2019", nm:"RINPAS 2019", pg:"12 + 12", key:"copy", src:["you","pack"], st:"queue",
-     note:"<b>Corrected today.</b> CamScanner scan plus pack pp31&ndash;42 &ndash; and pp37&ndash;42 of the pack are the <b>full answers with explanations</b>, which I'd missed by stopping the block at p38. Keyed, exact build. <b>Build queue #18.</b>"}
+     note:"<b>Corrected today.</b> <b>SCAN PASS:</b> the scan is booklet <b>B</b>, code IR&ndash;1B/19, \"Ph.D. / M.Phil. Entrance Test, 2019\", subject Clinical Psychology, 2&frac12; hours, 100 marks, no negative marking, and it runs a full 100 questions. CamScanner scan plus pack pp31&ndash;42 &ndash; and pp37&ndash;42 of the pack are the <b>full answers with explanations</b>, which I'd missed by stopping the block at p38. Keyed, exact build. <b>Build queue #18.</b>"}
   ]},
   {college:"JEPAS", sub:"Joint Entrance for Post Graduate Admission", rows:[
-    {yr:"2020", nm:"JEPAS(PG) 2020, M.Phil Clinical Psychology", pg:"12", key:"none", src:["you","drive"], st:"queue",
-     note:"Official booklet scan. 90 minutes, 100 marks, quarter-mark negative."}
+    {yr:"2020", nm:"JEPAS(PG) 2020, M.Phil Clinical Psychology, Set A", pg:"12", key:"copy", src:["you","drive"], st:"queue",
+     note:"<b>SCAN PASS &ndash; it's solved, and I'd marked it unkeyed.</b> Cover reads JEPAS(PG)&ndash;2020, Subject: M.Phil in Clinical Psychology, 90 minutes, full marks 100, quarter-mark negative for a wrong answer. <b>All 100 answers are highlighted in yellow</b>, right through to Q100. A separate exam from JEMAS(PG), however close the names look. Keyed, exact build. <b>Build queue #22.</b>"}
   ]},
   {college:"KU", sub:"", rows:[
-    {yr:"2023", nm:"KU 2023, M.Phil Clinical Psychology entrance", pg:"9", key:"hand", src:["you","drive"], st:"queue",
-     note:"Scan with no text layer. A candidate has pencilled ticks against answers, useful, but not authoritative."}
+    {yr:"2023", nm:"\"Entrance Test 2023, M.Phil Clinical Psychology\" &ndash; filed as KU 2023", pg:"9", key:"hand", src:["you","drive"], st:"queue",
+     note:"<b>SCAN PASS.</b> <b>70 questions</b>, ticked all the way through in pen, so a complete hand key &ndash; useful, not authoritative. The header I just quoted is the <i>entire</i> header: no letterhead, no booklet code, no centre, nothing naming a university. Not the same paper as the unnamed 2021 one at queue #27, and none of its questions appear in the compiled file. <b>Tell me whether KU is Kashmir or Kurukshetra and I build it under the right name.</b> <b>Build queue #21.</b>"}
   ]},
   {college:"PGIBAMS Raipur", sub:"Post Graduate Institute of Behavioural &amp; Medical Sciences, Chhattisgarh", rows:[
     {yr:"2023", nm:"PGIBAMS 2023, M.Phil Clinical Psychology", pg:"Word file", key:"none", src:["you","drive"], st:"queue",
@@ -391,11 +430,14 @@ const DATA = [
      note:"<b>NEW.</b> First 7 pages of \"Mphil past papers Compiled.pdf\". 70 questions, 1 hour, 70 marks, no negative marking, two OMR sheets (Q1&ndash;50 on the first, Q51&ndash;70 on the second). Clean text, so it's an easy build &ndash; but <b>the cover page never names the institute</b>, and its questions don't match any mock already on the site. <b>Tell me whose paper this is and I'll build it under the right name.</b> <b>Build queue #27.</b>"}
   ]},
   {college:"PGIMER Dr RML", sub:"Delhi &middot; full 6-year run, all built &middot; 2026 cycle archived", rows:[
-    {yr:"2025", nm:"RML 2025", pg:"18", key:"none", src:["you","drive"], st:"live", href:"../quiz/rml-2025/", note:"Scan. Answers worked out and written for the mock."},
+    {yr:"2025", nm:"RML 2025 / GGSIPU CET, exam held 09.11.2025", pg:"18", key:"off", src:["you","drive"], st:"live", href:"../quiz/rml-2025/",
+     note:"<b>SCAN PASS &ndash; it has the official key and I'd marked it as having none.</b> Page 1 is the GGSIPU Controller of Examinations notice inviting objections to the paper and key for the CET held 09/11/2025. Pages 2&ndash;17 are the full booklet: 100 questions, 4 marks each, <b>no negative marking</b>, 120 minutes. <b>Page 18 is the official answer key, all 100 in a table.</b> The live mock was built with answers I worked out myself. Say the word and I diff the mock against the real key."},
     {yr:"2024", nm:"RML 2024", pg:"12 + 15", key:"copy", src:["you","pack"], st:"live", href:"../quiz/rml-2024/",
      note:"<b>Corrected today.</b> Sent twice: standalone plus pack pp1&ndash;15 &ndash; and the pack copy prints <b>answers with explanations for all 100</b>, which I'd marked as no key. The live mock was built with answers I worked out. Worth re-checking the mock against the printed key; say the word and I'll do that diff."},
-    {yr:"2023", nm:"RML 2023", pg:"23", key:"none", src:["you","drive"], st:"live", href:"../quiz/rml-2023/", note:"70 Qs."},
-    {yr:"2022", nm:"RML 2022", pg:"35", key:"none", src:["you","drive"], st:"live", href:"../quiz/rml-2022/"},
+    {yr:"2023", nm:"RML 2023 / GGSIPU CET&ndash;2023, subject code 135", pg:"23", key:"none", src:["you","drive"], st:"live", href:"../quiz/rml-2023/",
+     note:"<b>SCAN PASS &ndash; confirmed off the cover.</b> Booklet series P, 70 questions in two compulsory sections (A: Q1&ndash;35, B: Q36&ndash;70), 2 hours, 70 marks, <b>no negative marking</b>, bilingual English/Hindi. The 70-question count on the live mock is right."},
+    {yr:"2022", nm:"RML 2022 / GGSIPU CET, test date 23.06.2022", pg:"35", key:"off", src:["you","drive"], st:"live", href:"../quiz/rml-2022/",
+     note:"<b>SCAN PASS.</b> This is the GGSIPU exam-portal sheet, centre Titiksha Public School, sectioned by subject (Research Methodology first). Every question carries a <b>green tick against the correct option</b>, recorded separately from the candidate's chosen option &ndash; so it's an official key, not somebody's attempt. The live mock can be locked to it."},
     {yr:"2021", nm:"RML 2021", pg:"8", key:"none", src:["you","drive"], st:"live", href:"../quiz/rml-2021/"},
     {yr:"2020", nm:"RML 2020", pg:"7", key:"none", src:["you","drive"], st:"live", href:"../quiz/rml-2020/"}
   ]},
@@ -403,7 +445,7 @@ const DATA = [
     {yr:"2025", nm:"NIMHANS 2025, memory based", pg:"17", key:"none", src:["you","drive"], st:"live", href:"../quiz/pyq-real-2025/"},
     {yr:"2024", nm:"NIMHANS 2024, memory based", pg:"18", key:"none", src:["you","drive"], st:"live", href:"../quiz/pyq-real-2024/"},
     {yr:"2023", nm:"NIMHANS 2023 + 2023 memory based", pg:"4 + 16 + 8", key:"copy", src:["you","pack"], st:"live", href:"../quiz/nimhans-mock-1/",
-     note:"Three copies of the same year: a 4-page scan, a 16-page memory-based write-up, and pack pp69&ndash;76 &ndash; and the pack copy ends with printed answers and explanations."}
+     note:"<b>SCAN PASS &ndash; the 4-page one is not a paper.</b> I read it: a typed recall list (\"Risk ratio 1 meaning\", \"MHA 2017, treatment of minors\", \"Marshmallow delayed gratification\"), topics only, no options, no key. Different thing from the memory-based paper, same year. What's real here is the 16-page memory-based write-up plus pack pp69&ndash;76, and the pack copy ends with printed answers and explanations."}
   ]},
   {college:"Amity", sub:"Noida / Jaipur &middot; MA Clinical Psychology &middot; 2026 cycle archived", rows:[
     {yr:"2023", nm:"Amity 2023", pg:"6", key:"copy", src:["you","drive"], st:"live", href:"../quiz/amity-2023/",
@@ -427,8 +469,9 @@ function render(){
       const nm  = r.href ? `<a href="${r.href}">${r.nm}</a>` : r.nm;
       const sub = r.note ? `<span class="sub">${r.note}</span>` : "";
       const keyed = (r.key==="off"||r.key==="copy"||r.key==="hand") ? 1 : 0;
-      const fresh = /<b>NEW|Corrected today|MISLABELLED/.test(r.note||"") ? 1 : 0;
-      return `<div class="row" data-st="${r.st}" data-key="${keyed}" data-new="${fresh}" data-src="${srcs.join(" ")}">`
+      const fresh = /<b>NEW|Corrected today|MISLABELLED|SCAN PASS/.test(r.note||"") ? 1 : 0;
+      const scanp = /SCAN PASS/.test(r.note||"") ? 1 : 0;
+      return `<div class="row" data-st="${r.st}" data-key="${keyed}" data-new="${fresh}" data-scan="${scanp}" data-src="${srcs.join(" ")}">`
            + `<span class="yr">${r.yr}</span>`
            + `<span class="nm">${nm}${sub}</span>`
            + `<span class="pg">${r.pg}</span>`
@@ -459,7 +502,8 @@ document.querySelector(".filters").addEventListener("click", e => {
         || (f==="live"  && (st==="live"||st==="part"))
         || (f==="queue" && st==="queue")
         || (f==="key"   && r.dataset.key==="1")
-        || (f==="new"   && r.dataset.new==="1");
+        || (f==="new"   && r.dataset.new==="1")
+        || (f==="scan"  && r.dataset.scan==="1");
       r.classList.toggle("hide", !show); if(show) any = true;
     });
     const okTarget = f!=="target" || c.dataset.target==="1";
