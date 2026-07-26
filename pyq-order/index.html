@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PYQ order: which paper to solve first, and why</title>
+<link rel="stylesheet" href="/sihan-met-flashcards/notes-style.css">
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<meta name="theme-color" content="#0d1117">
+<style>
+  .wrap{max-width:min(1020px,95vw)}
+  nav{font-family:var(--sans)}
+  .updated{font-family:var(--sans);font-size:12px;color:var(--muted);margin:-2px 0 12px}
+
+  .rules{border:1px solid rgba(210,153,34,.42);background:rgba(210,153,34,.08);border-radius:11px;
+    padding:14px 17px;margin:20px 0 6px;font-family:var(--sans);font-size:13.8px;color:var(--ink2);line-height:1.5}
+  .rules h2{margin:0 0 8px;font-size:15px;color:var(--text);letter-spacing:.02em}
+  .rules p{margin:0 0 9px} .rules p:last-child{margin:0}
+  .rules b{color:var(--text)}
+
+  .bar{font-family:var(--sans);margin:20px 0 4px}
+  .bar .lab{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-bottom:6px}
+  .bar .lab b{color:var(--text)}
+  .track{height:9px;border-radius:999px;background:var(--panel-2);border:1px solid var(--border);overflow:hidden}
+  .fill{height:100%;width:0;background:var(--accent);transition:width .25s ease}
+
+  .step{display:flex;gap:0;margin:16px 0;border:1px solid var(--border);border-radius:11px;
+    background:var(--panel);overflow:hidden;font-family:var(--sans)}
+  .step.done{opacity:.62}
+  .rail{flex:none;width:54px;background:var(--panel-2);border-right:1px solid var(--border);
+    display:flex;flex-direction:column;align-items:center;padding:13px 0;gap:9px}
+  .rail .n{font-size:23px;font-weight:800;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+  .rail input{width:17px;height:17px;accent-color:var(--accent);cursor:pointer}
+  .body{flex:1;min-width:0;padding:13px 16px 14px}
+  .body h3{margin:0 0 4px;font-size:17px;line-height:1.25;color:var(--text);font-family:var(--sans)}
+  .step.done .body h3{text-decoration:line-through}
+  .meta{font-size:11.8px;color:var(--muted);margin:0 0 9px;line-height:1.5}
+  .meta b{color:var(--ink2)}
+  .why{font-size:13.8px;color:var(--ink2);line-height:1.55;margin:0 0 9px}
+  .why b{color:var(--text)}
+  .watch{font-size:12.8px;color:var(--ink2);line-height:1.5;margin:0 0 11px;padding:9px 12px;
+    background:var(--panel-2);border-radius:8px;border-left:3px solid var(--accent-dim)}
+  .watch b{color:var(--text)}
+  .acts{display:flex;gap:7px;flex-wrap:wrap}
+  .acts a{display:inline-block;font-size:12.5px;font-weight:700;text-decoration:none;border-radius:999px;
+    padding:6px 13px;border:1px solid var(--border);background:var(--panel-2);color:var(--ink2)}
+  .acts a.go{background:var(--accent);border-color:var(--accent);color:#fff}
+  .acts a:hover{text-decoration:none;border-color:var(--accent)}
+
+  .chip{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.03em;color:#fff;border-radius:4px;
+    padding:3px 6px;white-space:nowrap;vertical-align:2px;margin-left:6px}
+  .c-live{background:#2f9e57} .c-wait{background:#d29922} .c-build{background:#c0392b}
+  .c-drill{background:#4d8fbf} .c-last{background:#6b7280}
+
+  h3.sh{font-family:var(--sans);margin:34px 0 6px;padding-bottom:6px;border-bottom:2px solid var(--accent-dim);font-size:19px}
+  .after{font-family:var(--sans);font-size:13.6px;color:var(--ink2);line-height:1.55}
+  .after ul{padding-left:18px;margin:8px 0 0}
+  .after li{margin:6px 0}
+  .after b{color:var(--text)}
+  .after a{color:var(--accent);text-decoration:none;font-weight:600}
+  .after a:hover{text-decoration:underline}
+  .note{font-family:var(--sans);font-size:13.4px;color:var(--ink2);background:var(--panel);
+    border:1px solid var(--border);border-radius:9px;padding:13px 16px;margin:16px 0;line-height:1.55}
+  .note b{color:var(--text)}
+  .reset{font-family:var(--sans);font-size:12.5px;font-weight:700;background:var(--panel);
+    border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:7px 13px;cursor:pointer;margin-top:14px}
+  @media(max-width:620px){
+    .rail{width:44px} .rail .n{font-size:20px}
+    .body{padding:12px 13px 13px} .body h3{font-size:15.5px}
+  }
+</style>
+<script src="/sihan-met-flashcards/take/theme.js"></script>
+<link rel="stylesheet" href="/sihan-met-flashcards/revamp-skin.css">
+</head>
+<body>
+<div class="wrap">
+<nav><a href="../">&larr; Home</a> <a href="../tests/">Tests</a> <a href="../pyq-list/">PYQ Library</a> <a href="../results/gap-map/">Gap Map</a> <a href="../syllabus/">Syllabus</a> <a href="../progress/">Progress</a></nav>
+
+<h1>PYQ order</h1>
+<p class="updated">Which past paper to sit first, second, third, and why that order. Built 26 July 2026. Your live set is <b>IHBAS, CIP, JSS, DIMHANS</b>, so everything is weighted toward IHBAS and CIP first, then the closed cycles as volume. Tick a step off when you've finished it <i>and</i> read every explanation on it; the ticks save on this device.</p>
+
+<div class="rules">
+  <h2>Two rules for the whole run</h2>
+  <p><b>1. Don't move to the next paper until you've read every explanation on the one you just did.</b> Including the ones you got right by guessing. A guessed right answer is a miss you didn't get charged for. Every mock on the site shows the full explanation plus a trap line under each wrong option, so this is reading, not hunting.</p>
+  <p><b>2. IHBAS has no negative marking.</b> On the three IHBAS papers you attempt all 100, never leave a blank. The site mocks are all scored +1 / &minus;0.25 so they stay comparable to each other, so your on-page score will read lower than the real exam would. Ignore the penalty on IHBAS papers and count attempted-and-right out of 100.</p>
+</div>
+
+<div class="bar">
+  <div class="lab"><span id="pcLab">0 of 7 done</span><b id="pcNum">0%</b></div>
+  <div class="track"><div class="fill" id="pcFill"></div></div>
+</div>
+
+<div class="step" data-k="1">
+  <div class="rail"><div class="n">1</div><input type="checkbox" title="Mark done"></div>
+  <div class="body">
+    <h3>IHBAS 2024<span class="chip c-live">START HERE</span></h3>
+    <p class="meta">100 Q &middot; real Booklet A, verbatim &middot; <b>official answer key</b> &middot; clean text layer &middot; full explanation + per-option trap on every question</p>
+    <p class="why">Top target, real paper, and the key is the institute's own, so nothing on it is my opinion. That combination exists on exactly one paper you own. <b>Sit it cold: full 100, no notes, one sitting.</b> Whatever it gives you is your true IHBAS baseline, and every later paper gets measured against it.</p>
+    <p class="watch"><b>Watch for:</b> about six items where the official key is academically debatable. They're flagged on the card and kept as the official letter anyway, because that's what the exam would have marked. Don't argue with them, just note them.</p>
+    <p class="acts"><a class="go" href="../quiz/ihbas-2024/">Open IHBAS 2024</a><a href="../take/screen.html?m=ihbas-2024">New look</a></p>
+  </div>
+</div>
+
+<div class="step" data-k="2">
+  <div class="rail"><div class="n">2</div><input type="checkbox" title="Mark done"></div>
+  <div class="body">
+    <h3>IHBAS 2025<span class="chip c-wait">2 ANSWERS PENDING</span></h3>
+    <p class="meta">100 Q &middot; Series A, verbatim off the booklet &middot; <b>98 of 100 confirmed against the official key</b> &middot; Q77 and Q86 still disagree</p>
+    <p class="why">Most recent IHBAS sitting, so it's the closest thing you have to the paper you'll actually face. I've now matched it against the official key: <b>98 of the 100 answers are right</b>. Two aren't. The key says C for Q77 and C for Q86; the mock currently says D and A, and their explanations argue for D and A, so fixing them means rewriting both explanations, not just flipping a letter. <b>You can sit this paper now</b>, it's 98% honest. Just treat Q77 and Q86 as unmarked until I've fixed them.</p>
+    <p class="watch"><b>Watch for:</b> B, C and D series are the same key rotated (question 18&ndash;26 shifts), so if you ever get a different series booklet, the answers still hold once you rotate.</p>
+    <p class="acts"><a class="go" href="../quiz/ihbas-2025/">Open IHBAS 2025</a><a href="../take/screen.html?m=ihbas-2025">New look</a></p>
+  </div>
+</div>
+
+<div class="step" data-k="3">
+  <div class="rail"><div class="n">3</div><input type="checkbox" title="Mark done"></div>
+  <div class="body">
+    <h3>IHBAS 2020<span class="chip c-live">LIVE</span></h3>
+    <p class="meta">92 Q &middot; from the Panwar IHBAS-2020 reproduction &middot; key vision-read off the marked copy &middot; 8 items dropped (one duplicate, rest unreadable)</p>
+    <p class="why">Third IHBAS paper, and the point of doing it right after the other two is the pattern, not the score. <b>Three sittings back to back tells you exactly what IHBAS repeats</b>, which topics it returns to every year, and how it likes to phrase a stem. That's the single most valuable thing on this list and you only get it by doing them consecutively.</p>
+    <p class="watch"><b>Do this after 1 and 2, not before.</b> If you space them out you lose the comparison and it becomes just another mock. When you finish, list the topics that showed up in two or more of the three; that list is your IHBAS revision priority.</p>
+    <p class="acts"><a class="go" href="../quiz/ihbas-2020/">Open IHBAS 2020</a><a href="../take/screen.html?m=ihbas-2020">New look</a></p>
+  </div>
+</div>
+
+<div class="step" data-k="4">
+  <div class="rail"><div class="n">4</div><input type="checkbox" title="Mark done"></div>
+  <div class="body">
+    <h3>CIP 2020<span class="chip c-build">NOT BUILT YET</span></h3>
+    <p class="meta">~100 Q &middot; pages 43&ndash;54 of the 76-page Panwar pack &middot; <b>prints full answers with explanations</b> &middot; queue #1 on the PYQ Library</p>
+    <p class="why">The only CIP paper you own, and CIP Ranchi is a live target. The pack copy carries full worked answers, so this comes out exact, no guessing on my side. <b>Say go and I build it.</b> It slots in here because it's a live college, but it goes after the IHBAS block so it doesn't break that three-paper comparison.</p>
+    <p class="watch"><b>Nothing to sit yet.</b> If you reach step 4 before it's built, skip ahead to 5 and come back. Don't stall the run waiting on me.</p>
+    <p class="acts"><a class="go" href="../pyq-list/">See it on the PYQ Library</a><a href="../syllabus/#cip">CIP syllabus</a></p>
+  </div>
+</div>
+
+<div class="step" data-k="5">
+  <div class="rail"><div class="n">5</div><input type="checkbox" title="Mark done"></div>
+  <div class="body">
+    <h3>SGT PYQ Master Mock<span class="chip c-drill">BEST GAP FINDER</span></h3>
+    <p class="meta">100 Q &middot; real past-paper questions pulled from across all ten PYQ mocks &middot; re-sorted into seven general-psych areas &middot; source badge on every card</p>
+    <p class="why">SGT's own cycle is closed, but this isn't an SGT paper, it's <b>100 real questions harvested from every PYQ on the site and re-sorted by subject area</b>. That shape is what makes it the best single diagnostic you own: your score per area tells you where the leak is, in one sitting, using questions that real examiners actually set. Every card names which paper it came from, so any miss traces straight back to a full paper you can go re-read.</p>
+    <p class="watch"><b>After this one, open the <a href="../results/gap-map/" style="color:var(--accent);text-decoration:none;font-weight:700">Gap Map</a>.</b> It reads every attempt on the device and ranks your weakest topics across all mocks at once. This is the point in the run where that page has enough data to be worth anything.</p>
+    <p class="acts"><a class="go" href="../quiz/sgt-pyq/">Open SGT PYQ Master</a><a href="../take/screen.html?m=sgt-pyq">New look</a><a href="../results/gap-map/">Gap Map</a></p>
+  </div>
+</div>
+
+<div class="step" data-k="6">
+  <div class="rail"><div class="n">6</div><input type="checkbox" title="Mark done"></div>
+  <div class="body">
+    <h3>RML 2020 to 2025<span class="chip c-drill">VOLUME</span></h3>
+    <p class="meta">6 papers &middot; 570 Q total &middot; 100 each except 2023 (70) &middot; all verbatim, full-depth answers</p>
+    <p class="why">Cycle's closed, so this is not a target, it's <b>the biggest practice bank on the site and the subject spread is the same general psychology IHBAS tests</b>. Six full papers in a row is where speed and recall get built. Order them newest first: 2025, 2024, 2023, 2022, 2021, 2020, because the recent ones are closest in style to what's still being set.</p>
+    <p class="watch"><b>One a day, not six in a week.</b> Rule 1 still applies: every explanation read before the next paper. Six papers with the explanations read beats twelve papers skimmed. The real RML paper was 4 marks a question with no negative marking, so again, on-site score reads lower than the real thing.</p>
+    <p class="acts"><a class="go" href="../quiz/rml-2025/">RML 2025</a><a href="../quiz/rml-2024/">2024</a><a href="../quiz/rml-2023/">2023</a><a href="../quiz/rml-2022/">2022</a><a href="../quiz/rml-2021/">2021</a><a href="../quiz/rml-2020/">2020</a><a href="../rml-latest/">RML hub</a></p>
+  </div>
+</div>
+
+<div class="step" data-k="7">
+  <div class="rail"><div class="n">7</div><input type="checkbox" title="Mark done"></div>
+  <div class="body">
+    <h3>Amity 2023 and JEMAS(PG) 2025<span class="chip c-last">LAST</span></h3>
+    <p class="meta">Amity: 96 Q, real paper, cycle closed &middot; JEMAS: 36 Q so far, verbatim, <b>no official key</b>, grows as pages arrive</p>
+    <p class="why">Last on purpose, for two different reasons. <b>Amity is a different flavour</b> of paper, M.A. entrance rather than M.Phil, heavier on Indian psychology, so it's useful breadth but it won't sharpen you for IHBAS. <b>JEMAS has no answer key yet</b>, so its answers are mine from standard sources, not an examiner's, and two items are already flagged as debatable. Fine as practice, wrong thing to build your confidence on.</p>
+    <p class="watch"><b>Send me the JEMAS key if you can get it</b> and it moves up the list. Same for the missing pages: page 12 (Q67&ndash;74) came through cut off, and Q1&ndash;14, Q29&ndash;58 and Q89 onward were never sent.</p>
+    <p class="acts"><a class="go" href="../quiz/amity-2023/">Amity 2023</a><a href="../quiz/jemas-2025/">JEMAS 2025</a><a href="../take/screen.html?m=jemas-2025">New look</a></p>
+  </div>
+</div>
+
+<h3 class="sh">What that adds up to</h3>
+<p class="after">Seven steps, <b>eleven papers, about 1,190 questions</b>, and all but one of them is a real exam somebody actually sat. At one paper a day with the explanations properly read, that's roughly a fortnight of work. Do not compress it. The reading is the part that moves your score.</p>
+
+<h3 class="sh">After the run, not during it</h3>
+<p class="after">These are all on the site and all worth doing, but they're built questions, not real papers, so they don't belong inside the PYQ run:</p>
+<ul class="after">
+  <li><b><a href="../quiz/systems-theories/">Systems &amp; Theories (119 Q)</a></b> &mdash; the Panwar unit bank with the book's own key. Straight common-section drilling, and the common section is where your gap has always been. Best single follow-up.</li>
+  <li><b><a href="../quiz/diagnostic-1/">Gap Diagnostic (60 Q)</a></b> &mdash; sit-once, common-section weighted, compiles your misses into a study sheet on the page.</li>
+  <li><b><a href="../quiz/pyq-real-2025/">NIMHANS 2025 (59 Q)</a></b> and <b><a href="../quiz/pyq-real-2024/">2024 (100 Q)</a></b> &mdash; real verbatim papers, but that cycle closed in June. Content still transfers.</li>
+  <li><b><a href="../quiz/pep-mock-1/">Pep mocks</a></b>, <b><a href="../quiz/met-mock-5/">MET mocks</a></b>, <b><a href="../quiz/flight-mock-100/">Flight Mock 100</a></b> &mdash; authored full-length practice. Use for pacing, not for pattern.</li>
+  <li><b><a href="../quiz/practice/">Practice mode</a></b> &mdash; a question you get right without guessing retires for good; guessed and missed ones stay in rotation. Run it in the gaps between papers.</li>
+</ul>
+
+<div class="note"><b>Papers not on this list at all.</b> Thirty-nine real past papers on the <a href="../pyq-list/" style="color:var(--accent);text-decoration:none;font-weight:700">PYQ Library</a> aren't built into mocks yet, sixteen of them with an answer key already in hand. That list is ordered by how cleanly each one builds. Reply with a number and I build that one, and if it's a live-target college it gets inserted into this run rather than added to the end.</div>
+
+<button class="reset" id="resetBtn">Clear all ticks</button>
+</div>
+
+<script>
+const KEY = "pyq-order-done-v1";
+const steps = [...document.querySelectorAll(".step")];
+let done = {};
+try { done = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e) { done = {}; }
+
+function paint(){
+  let n = 0;
+  for (const s of steps){
+    const on = !!done[s.dataset.k];
+    s.classList.toggle("done", on);
+    s.querySelector("input").checked = on;
+    if (on) n++;
+  }
+  const pc = Math.round(n / steps.length * 100);
+  document.getElementById("pcLab").textContent = n + " of " + steps.length + " done";
+  document.getElementById("pcNum").textContent = pc + "%";
+  document.getElementById("pcFill").style.width = pc + "%";
+}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(done)); } catch(e){} }
+
+for (const s of steps){
+  s.querySelector("input").addEventListener("change", e => {
+    if (e.target.checked) done[s.dataset.k] = 1; else delete done[s.dataset.k];
+    save(); paint();
+  });
+}
+document.getElementById("resetBtn").addEventListener("click", () => { done = {}; save(); paint(); });
+paint();
+</script>
+</body>
+</html>
