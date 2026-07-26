@@ -100,8 +100,8 @@ This board pulls its data on a schedule on its own, you don't have to ask it to.
 /* Embedded fallback so the board renders instantly and offline (PWA).
    Live data is fetched from news.json and overrides this on every load + every 5 min. */
 window.__NEWS_FALLBACK = {
-  "updated": "2026-06-21T22:10+05:30",
-  "note": "Live exam + admissions feed for the five live targets (Amity Noida, SGT, RML, IHBAS, CIP). Pinned items up top with countdowns; everything else newest-first. Each item carries its source so it's not just me saying it.",
+  "updated": "2026-07-26T11:15+05:30",
+  "note": "Live exam + admissions feed for the four live targets (IHBAS, CIP Ranchi, JSS Mysuru, DIMHANS Dharwad). SGT, Amity and RML closed for 2026 and moved to the Archive. Pinned items up top with countdowns; everything else newest-first. Each item carries its source so it's not just me saying it.",
   "pinned": [
     {
       "id": "sgt-2026",
@@ -117,6 +117,17 @@ window.__NEWS_FALLBACK = {
     }
   ],
   "feed": [
+    {
+      "id": "archive-sgt-amity-rml-2026",
+      "category": "Site",
+      "title": "SGT, Amity and RML archived — 2026 cycles closed, nothing deleted",
+      "date": "2026-07-26",
+      "body": "You said these three are done for this year, so their blocks came off the main view. Cycles closed, not dropped: the dashboard now names the live four (IHBAS, CIP, JSS Mysuru, DIMHANS Dharwad), the ten SGT/Amity/RML mocks moved into one collapsed 'Archived' block at the bottom of the Tests page, and every page, note and study book is indexed on the Archive page. Everything still opens, still scores, and every attempt you already logged is untouched. The SGT master mock is 100 real PYQs, so it is still worth sitting as general drill for the live four.",
+      "source": {
+        "label": "Open the archive",
+        "url": "https://msahil515.github.io/sihan-met-flashcards/archive/"
+      }
+    },
     {
       "id": "targets5-2026",
       "category": "Deadline",

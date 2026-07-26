@@ -147,6 +147,19 @@ a{color:inherit} button{font-family:inherit;cursor:pointer}
 .cards.list .meta .qn{font-size:15px}
 .cards.list .badge{position:static;order:-1}
 
+/* archived cycles — folded away at the bottom, nothing removed */
+.arcbox{margin-top:52px;border:1px dashed var(--line);border-radius:16px;background:var(--surface);overflow:hidden}
+.arcbox>summary{list-style:none;cursor:pointer;padding:18px 22px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.arcbox>summary::-webkit-details-marker{display:none}
+.arcbox>summary .at{font-family:var(--font-display);font-weight:600;font-size:19px;letter-spacing:-.01em}
+.arcbox>summary .ac{font-size:12px;font-weight:600;color:var(--muted);white-space:nowrap}
+.arcbox>summary .achev{margin-left:auto;font-size:12.5px;font-weight:600;color:var(--primary)}
+.arcbox[open]>summary .achev::after{content:" ▲"} .arcbox:not([open])>summary .achev::after{content:" ▼"}
+.arcbox>summary:hover{background:var(--surface-2)}
+.arcnote{font-family:var(--font-read);font-size:14.5px;color:var(--muted);margin:0;padding:0 22px 6px;max-width:78ch}
+.arcnote a{color:var(--primary);font-weight:600}
+.arcbody{padding:0 22px 26px}
+.arcbody .grp:first-child{margin-top:14px}
 .empty{display:none;text-align:center;color:var(--muted);font-family:var(--font-read);font-size:17px;padding:60px 20px}
 .empty.show{display:block}
 footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:13px;text-align:center}
@@ -194,10 +207,11 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-s
     <div class="study-grid">
       <a class="study-card" href="../notes-app/"><span class="ic">📖</span><span class="st">Notes for Exam app</span><span class="sb">The whole notes library as a book reader — subject books, exam-strategy shelves, gap-closers.</span><span class="sc">Open notes app →</span></a>
       <a class="study-card" href="../notes/"><span class="ic">⚡</span><span class="st">Cheatsheets &amp; deep notes</span><span class="sb">Fast-reference sheets — biostats, therapy, biopsych, assessment, abnormal, development.</span><span class="sc">All cheatsheets →</span></a>
-      <a class="study-card" href="../admissions/"><span class="ic">🎯</span><span class="st">Admissions / RCI tracker</span><span class="sb">Live windows &amp; exam dates for Amity Noida, SGT, RML, IHBAS, CIP — auto-refreshed twice a day.</span><span class="sc">Open tracker →</span></a>
+      <a class="study-card" href="../admissions/"><span class="ic">🎯</span><span class="st">Admissions / RCI tracker</span><span class="sb">Live windows &amp; exam dates for the live four — IHBAS, CIP, JSS Mysuru, DIMHANS Dharwad — auto-refreshed twice a day.</span><span class="sc">Open tracker →</span></a>
       <a class="study-card" href="../news/"><span class="ic">📰</span><span class="st">Exam news board</span><span class="sb">Auto-polled notifications across the target colleges, so a window opening doesn't slip past.</span><span class="sc">Open news →</span></a>
       <a class="study-card" href="../checklist/"><span class="ic">✅</span><span class="st">Prep checklist</span><span class="sb">The syllabus turned into a tick-off list, mapped onto the cheatsheets.</span><span class="sc">Open checklist →</span></a>
       <a class="study-card" href="../database/"><span class="ic">🗄️</span><span class="st">Database &amp; Drive library</span><span class="sb">The shared Drive folder as the backbone — every paper sorted by college and by type.</span><span class="sc">Open database →</span></a>
+      <a class="study-card" href="../archive/"><span class="ic">📦</span><span class="st">Archive — closed cycles</span><span class="sb">SGT, Amity, RML (plus NIMHANS + MET) — every page, mock and note from the shut cycles, indexed and still playable.</span><span class="sc">Open archive →</span></a>
     </div>
   </section>
 
@@ -281,7 +295,7 @@ function passStat(st){
 }
 
 function render(){
-  let out="", shown=0;
+  let out="", arcOut="", arcN=0, arcQ=0, shown=0;
   for(const g of EGROUPS){
     const members=g.members.map(id=>byId[id]).filter(Boolean);
     let cardsHtml="", gShown=0, gTot=0;
@@ -314,11 +328,25 @@ function render(){
       </div>`;
     }
     if(!gShown) continue;
-    out+=`<section class="grp" style="--dot:${DOTS[g.id]||'var(--primary)'}">
+    const sec=`<section class="grp" style="--dot:${DOTS[g.id]||'var(--primary)'}">
       <div class="grp-head"><h2>${g.title}</h2><span class="count">${gShown} mock${gShown>1?"s":""} · ${gTot} Qs</span></div>
       <p class="grp-sub">${g.sub}</p>
       <div class="cards ${VIEW==="list"?"list":""}">${cardsHtml}</div>
     </section>`;
+    if(g.archived){ arcOut+=sec; arcN+=gShown; arcQ+=gTot; } else out+=sec;
+  }
+  if(arcOut){
+    /* open it automatically when a search is running, so nothing hides from search */
+    const openAttr = QText ? " open" : "";
+    out+=`<details class="arcbox"${openAttr}>
+      <summary>
+        <span class="at">Archived — 2026 cycles closed</span>
+        <span class="ac">SGT · Amity · RML — ${arcN} mock${arcN>1?"s":""} · ${arcQ} Qs</span>
+        <span class="achev">Show</span>
+      </summary>
+      <p class="arcnote">You sat these, the cycles are shut for 2026 — so they're folded away instead of sitting at the top of your list. Nothing is deleted or locked: every mock below still opens, still scores, and every answer you already saved is intact. Full index on the <a href="../archive/">Archive page</a>.</p>
+      <div class="arcbody">${arcOut}</div>
+    </details>`;
   }
   root.innerHTML=out;
   emptyEl.classList.toggle("show",shown===0);
@@ -340,11 +368,12 @@ function refreshCounts(){
 /* resume strip = most recently touched in-progress mock */
 function refreshResume(){
   let best=null;
-  for(const g of EGROUPS) for(const id of g.members){
+  /* archived (closed-cycle) mocks don't drive the resume strip — they stay off the main view */
+  for(const g of EGROUPS){ if(g.archived) continue; for(const id of g.members){
     const m=byId[id]; if(!m) continue;
     const st=statusOf(m);
     if(st.status==="progress" && st.ts && (!best||st.ts>best.ts)) best={m,st};
-  }
+  }}
   const box=document.getElementById("resume");
   if(!best){box.classList.remove("show");return;}
   document.getElementById("resumeTitle").textContent=best.m.title;

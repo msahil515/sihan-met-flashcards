@@ -367,14 +367,14 @@ const MOCKS = [
 ];
 
 const GROUPS = [
-  { id: "amity", title: "Amity",
-    sub: "Real Amity M.A. Clinical Psychology entrance papers — pair with the /amity/ interview prep",
+  { id: "amity", archived: true, title: "Amity",
+    sub: "2026 cycle closed — kept live as drill. Real Amity M.A. Clinical Psychology entrance papers; the interview brief is on the /archive/ page",
     members: ["amity-2023", "amity-recall"] },
   { id: "ihbas", title: "IHBAS",
     sub: "IHBAS Delhi M.Phil Clinical Psychology entrances, real papers with verified keys",
     members: ["ihbas-2025", "ihbas-2024", "ihbas-2020"] },
-  { id: "rml", title: "RML",
-    sub: "ABVIMS / Dr RML Hospital + GGSIPU papers — the CET-166 depth-calibration set, 2020 through 2025",
+  { id: "rml", archived: true, title: "RML",
+    sub: "2026 cycle closed — kept live as drill. ABVIMS / Dr RML Hospital + GGSIPU papers, the CET-166 depth-calibration set, 2020 through 2025",
     members: ["rml-2020", "rml-2021", "rml-2022", "rml-2023", "rml-2024", "rml-2025", "rml-practice-1"] },
   { id: "pyq", title: "NIMHANS & pan-India PYQ",
     sub: "Verbatim NIMHANS M.Phil papers plus the cross-institute PYQ banks",
@@ -391,8 +391,8 @@ const GROUPS = [
   { id: "jemas", title: "JEMAS(PG) — West Bengal",
     sub: "The JEMAS(PG) Clinical Psychology entrance paper — real questions, source-badged, folded in page by page",
     members: ["jemas-2025"] },
-  { id: "sgt", title: "SGT University",
-    sub: "SGT publishes no syllabus PDF, so this is a general-psych aptitude paper built purely from every real PYQ on the system, re-sorted into SGT's shape",
+  { id: "sgt", archived: true, title: "SGT University",
+    sub: "2026 cycle closed — but this is 100 real PYQs re-sorted into a general-psych shape, so it is still the best all-round drill on the site for IHBAS / CIP / JSS / DIMHANS",
     members: ["sgt-pyq"] }
 ];
 
