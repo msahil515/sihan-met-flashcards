@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Every PYQ You've Sent Me — by college and year</title>
+<link rel="stylesheet" href="/sihan-met-flashcards/notes-style.css">
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<meta name="theme-color" content="#0d1117">
+<style>
+  .wrap{max-width:min(1050px,94vw)}
+  .lede{color:var(--ink2);font-size:15.5px;background:var(--panel-2);border:1px solid var(--border);
+    border-radius:8px;padding:14px 18px;margin:16px 0 6px;font-family:var(--sans)}
+  .updated{font-family:var(--sans);font-size:12px;color:var(--muted);margin:-2px 0 10px}
+  .stats{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 4px;font-family:var(--sans)}
+  .stat{flex:1;min-width:118px;background:var(--panel);border:1px solid var(--border);border-radius:9px;padding:12px 14px}
+  .stat .n{font-size:26px;font-weight:800;line-height:1}
+  .stat .l{font-size:12px;color:var(--muted);margin-top:5px}
+  .stat.all .n{color:var(--accent)} .stat.built .n{color:#2f9e57}
+  .stat.part .n{color:#d29922} .stat.queue .n{color:#8b949e}
+  .filters{display:flex;gap:7px;flex-wrap:wrap;margin:18px 0 2px;font-family:var(--sans)}
+  .filters button{background:var(--panel);border:1px solid var(--border);color:var(--ink2);border-radius:999px;
+    padding:6px 13px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:var(--sans)}
+  .filters button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  .college{margin:26px 0 0;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--panel)}
+  .college h2{margin:0;font-family:var(--sans);font-size:16.5px;padding:11px 14px;background:var(--panel-2);
+    border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+  .college h2 .sub{font-size:12px;font-weight:500;color:var(--muted)}
+  .college h2 .cnt{margin-left:auto;font-size:11.5px;color:var(--muted);font-weight:600}
+  .row{display:flex;align-items:center;gap:10px;padding:9px 14px;border-top:1px solid var(--border);
+    font-family:var(--sans);font-size:13.5px;line-height:1.35}
+  .college .row:first-of-type{border-top:0}
+  .row .yr{flex:none;min-width:52px;font-weight:800;font-variant-numeric:tabular-nums}
+  .row .nm{flex:1;color:var(--ink2)}
+  .row .nm a{color:var(--accent);text-decoration:none;font-weight:600}
+  .row .nm a:hover{text-decoration:underline}
+  .row .nm .sub{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
+  .row .sent{flex:none;font-size:11px;color:var(--muted);min-width:62px;text-align:right}
+  .tag{flex:none;font-size:10px;font-weight:800;letter-spacing:.03em;color:#fff;border-radius:4px;
+    padding:3px 7px;min-width:58px;text-align:center}
+  .t-live{background:#2f9e57} .t-part{background:#d29922} .t-queue{background:#4b5563} .t-flag{background:#c0392b}
+  .callout{font-family:var(--sans);font-size:13.5px;color:var(--ink2);background:rgba(210,153,34,.08);
+    border:1px solid rgba(210,153,34,.4);border-radius:9px;padding:13px 16px;margin:18px 0}
+  .callout b{color:var(--text)}
+  .flagbox{font-family:var(--sans);font-size:13.5px;color:var(--ink2);background:rgba(192,57,43,.07);
+    border:1px solid rgba(192,57,43,.35);border-radius:9px;padding:13px 16px;margin:18px 0}
+  .flagbox b{color:var(--text)}
+  .flagbox p{margin:0 0 8px} .flagbox p:last-child{margin:0}
+  h3.sh{font-family:var(--sans);margin:34px 0 6px;padding-bottom:6px;border-bottom:2px solid var(--accent-dim);font-size:19px}
+  .batch{font-family:var(--sans);font-size:13.5px;color:var(--ink2);margin:8px 0 0;padding-left:18px}
+  .batch li{margin:5px 0}
+  .refgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:6px;margin:10px 0 0;
+    padding:0;list-style:none;font-family:var(--sans);font-size:12.8px}
+  .refgrid li{background:var(--panel);border:1px solid var(--border);border-radius:7px;padding:8px 10px;color:var(--ink2)}
+  nav{font-family:var(--sans)}
+  .hide{display:none!important}
+</style>
+<script src="/sihan-met-flashcards/take/theme.js"></script>
+<link rel="stylesheet" href="/sihan-met-flashcards/revamp-skin.css">
+</head>
+<body>
+<div class="wrap">
+<nav><a href="../">&larr; Home</a> <a href="../tests/">Tests</a> <a href="../pyq-coverage/">25-Apr Batch</a> <a href="../database/">Database</a> <a href="../resources/">Drive Library</a></nav>
+
+<h1>Every PYQ you've sent me</h1>
+<p class="updated">By college and year. Pulled straight out of the WhatsApp log (every file you've ever sent, 22 Apr 2026 &rarr; today), not from memory. Updated 26 July 2026.</p>
+
+<div class="stats">
+  <div class="stat all"><div class="n">42</div><div class="l">real entrance papers you sent</div></div>
+  <div class="stat built"><div class="n">15</div><div class="l">built into full mocks</div></div>
+  <div class="stat part"><div class="n">1</div><div class="l">built partly (JEMAS 2025)</div></div>
+  <div class="stat queue"><div class="n">26</div><div class="l">not built yet</div></div>
+</div>
+<p class="updated">15 colleges. 3 batches: the 60-doc drop on 25 Apr, the IHBAS pack on 8 Jun, the 76-page <i>pyqs.pdf</i> on 11 Jun, plus the JEMAS booklet photos on 5 Jul.</p>
+
+<div class="filters">
+  <button data-f="all" class="on">All</button>
+  <button data-f="live">Built</button>
+  <button data-f="queue">Not built</button>
+  <button data-f="target">Live targets only</button>
+</div>
+
+<div id="root"></div>
+
+<div class="flagbox">
+<p><b>Three corrections, so the list is actually right:</b></p>
+<p>1. I earlier told you Amity 2023, IHBAS 2020 and RML 2020&ndash;2025 came off the Mimaansa Drive and not from you. Wrong. <b>You sent all eight of those on 25 April</b> yourself. They also happen to sit in the Drive, which is where I read the copies I built from, but they are your papers.</p>
+<p>2. <b>"IHBAS Entrance Exam Psychology Previous Question Paper"</b> (8 Jun) and <b>"IHBAS PY.pdf"</b> (25 Apr) are not IHBAS. Both are UGC-NET psychology papers, wrongly labelled. Not building either as IHBAS.</p>
+<p>3. The 76-page pack's page 39&ndash;54 block is labelled <b>CIP 2020</b>, but when I went back into it the pages read as a Panwar clinical-psych chapter with answers and solutions, not a dated CIP entrance. Your standalone <b>CIP 2020.pdf</b> from 25 April is the real one, and that is the source I'll build from.</p>
+</div>
+
+<div class="callout"><b>The gap that matters:</b> your four live targets are IHBAS, CIP, JSS and DIMHANS Dharwad. IHBAS is fully covered, four papers built. <b>CIP has two papers sitting unbuilt (2020 and 2023)</b> and that's the next build. <b>JSS and DIMHANS: you have sent zero papers for either.</b> If you can get hold of anything for those two, send it, there's nothing to work with right now.</div>
+
+<h3 class="sh">Where each batch came from</h3>
+<ul class="batch">
+  <li><b>25 Apr 2026 &mdash; 60 documents + 1 video.</b> The big drop. 34 real entrance papers across 15 colleges, plus 17 books/question banks and a syllabus. Full file-by-file diff on the <a href="../pyq-coverage/">25-Apr batch page</a>.</li>
+  <li><b>8 Jun 2026 &mdash; the IHBAS pack.</b> IHBAS 2024 MPCP + all four booklet codes A/B/C/D (112 pages) + the official answer key; IHBAS 2025 M.Phil paper (25 pages) + its answer sheet; plus the mislabelled UGC-NET file.</li>
+  <li><b>11 Jun 2026 &mdash; <i>pyqs.pdf</i>, 76 pages.</b> A compiled pack: RML 2024 (p1-15), RINPAS 2024 (p16-19), a DSM-5/bio topic bank (p20-30), RINPAS 2019 (p31-38), the block labelled CIP 2020 (p39-54, see correction 3), GMCH 2023 partial (p55-57), a clinical MCQ set (p58-68), NIMHANS 2023 memory-based (p69-76).</li>
+  <li><b>5 Jul 2026 &mdash; JEMAS(PG) 2025 CP booklet photos.</b> 14 images, of which 5 pages were readable and are built. Pages 1-4, 7-10, 12 and 15-on never arrived legibly, and there's still no answer key.</li>
+  <li><b>13 Jun / 17 Jun 2026 &mdash; the Panwar files.</b> Master Guide and the 119-question Systems &amp; Theories bank. Not PYQs, both already mined into notes and a mock.</li>
+</ul>
+
+<h3 class="sh">Sent, but not exam papers</h3>
+<p class="updated">Books, question banks, syllabi and admin docs. Mined for notes, never turned into a PYQ mock.</p>
+<ul class="refgrid">
+  <li>MPhil Question Bank &mdash; UPS Education</li>
+  <li>Panwar Master Guide (pwp.pdf)</li>
+  <li>Systems &amp; Theories 119-Q bank</li>
+  <li>Psycho Didi M.Phil notes</li>
+  <li>Ultimate Exhaustive M.Phil Syllabus</li>
+  <li>Amity RCI entrance syllabus</li>
+  <li>MPhil Syllabus</li>
+  <li>2010&ndash;2024 Q papers (compilation)</li>
+  <li>M.Phil past papers compiled</li>
+  <li>ICD-11 + glossary</li>
+  <li>Fish's Clinical Psychopathology</li>
+  <li>Kaplan &amp; Sadock pocket handbook</li>
+  <li>Kaplan &amp; Sadock study-guide MCQs</li>
+  <li>Praveen Tripathi &mdash; Review of Psychiatry</li>
+  <li>Robert Ewen &mdash; Personality</li>
+  <li>Graham Richards &mdash; Key Concepts</li>
+  <li>IPSKC 1000 MCQs in Psychiatry</li>
+  <li>McGraw-Hill 500 AP Psychology Qs</li>
+  <li>GRE Psychology practice book</li>
+  <li>Famous Studies in Psychology</li>
+  <li>Famous Psychologists &amp; contributions</li>
+  <li>History of Psychology mind map</li>
+  <li>Pinel Biopsychology (8th + 11th)</li>
+  <li>Barlow &amp; Durand Abnormal Psychology</li>
+  <li>Schultz Theories of Personality</li>
+  <li>Baron Social Psychology</li>
+  <li>Sharf Counselling &amp; Psychotherapy</li>
+  <li>AK Singh Tests &amp; Measurements</li>
+  <li>Cognitive Psych: a student's handbook</li>
+  <li>Mental Health Act</li>
+  <li>RCI new nomenclature / eligible institutes</li>
+  <li>College list, selection list, score sheet</li>
+</ul>
+
+<p class="updated" style="margin-top:28px">Straight answer: <b>42 real papers, 15 colleges</b>. 16 are on the site as mocks (15 full, JEMAS 2025 partial). 26 are still just PDFs. CIP 2020 and CIP 2023 are the two that actually matter for this cycle.</p>
+
+</div>
+
+<script>
+const DATA = [
+  {college:"IHBAS", sub:"Delhi &mdash; M.Phil Clinical Psychology &mdash; LIVE TARGET", target:true, rows:[
+    {yr:"2025", nm:"IHBAS M.Phil 2025, Series A", note:"100 Qs verbatim, answer sheet also sent", sent:"25 Apr + 8 Jun", st:"live", href:"../quiz/ihbas-2025/"},
+    {yr:"2024", nm:"IHBAS 2024 MPCP, booklet codes A / B / C / D", note:"112 pages + the official answer key", sent:"25 Apr + 8 Jun", st:"live", href:"../quiz/ihbas-2024/"},
+    {yr:"2024", nm:"IHBAS 2024 November sitting", note:"same exam year, folded into the 2024 mock", sent:"25 Apr", st:"live", href:"../quiz/ihbas-2024/"},
+    {yr:"2020", nm:"IHBAS 2020", note:"92 verified Qs", sent:"25 Apr", st:"live", href:"../quiz/ihbas-2020/"},
+    {yr:"&mdash;", nm:"\"IHBAS Entrance Exam Psychology Previous Question Paper\" / \"IHBAS PY\"", note:"NOT IHBAS. Both are 50-Q UGC-NET psychology papers, mislabelled", sent:"25 Apr + 8 Jun", st:"flag"}
+  ]},
+  {college:"CIP Ranchi", sub:"Central Institute of Psychiatry &mdash; LIVE TARGET", target:true, rows:[
+    {yr:"2023", nm:"CIP 2023", note:"unbuilt, in the build queue", sent:"25 Apr", st:"queue"},
+    {yr:"2020", nm:"CIP 2020", note:"unbuilt. This standalone file is the real CIP 2020, not the pack's p39-54 block", sent:"25 Apr", st:"queue"}
+  ]},
+  {college:"PGIMER Dr RML", sub:"Delhi &mdash; full 6-year run, all built", rows:[
+    {yr:"2025", nm:"RML 2025", sent:"25 Apr", st:"live", href:"../quiz/rml-2025/"},
+    {yr:"2024", nm:"RML 2024", note:"sent twice: standalone + pages 1-15 of the 76-page pack", sent:"25 Apr + 11 Jun", st:"live", href:"../quiz/rml-2024/"},
+    {yr:"2023", nm:"RML 2023", note:"70 Qs", sent:"25 Apr", st:"live", href:"../quiz/rml-2023/"},
+    {yr:"2022", nm:"RML 2022", sent:"25 Apr", st:"live", href:"../quiz/rml-2022/"},
+    {yr:"2021", nm:"RML 2021", sent:"25 Apr", st:"live", href:"../quiz/rml-2021/"},
+    {yr:"2020", nm:"RML 2020", sent:"25 Apr", st:"live", href:"../quiz/rml-2020/"}
+  ]},
+  {college:"NIMHANS", sub:"Bengaluru &mdash; memory-based reconstructions", rows:[
+    {yr:"2025", nm:"NIMHANS 2025, memory based", sent:"25 Apr", st:"live", href:"../quiz/pyq-real-2025/"},
+    {yr:"2024", nm:"NIMHANS 2024, memory based", sent:"25 Apr", st:"live", href:"../quiz/pyq-real-2024/"},
+    {yr:"2023", nm:"NIMHANS 2023 + NIMHANS 2023 memory based", note:"two files, both folded into Mock 1; the pack's p69-76 is the same paper again", sent:"25 Apr + 11 Jun", st:"live", href:"../quiz/nimhans-mock-1/"}
+  ]},
+  {college:"Amity", sub:"Noida / Jaipur &mdash; MA Clinical Psychology", rows:[
+    {yr:"2023", nm:"Amity 2023", note:"96 Qs. Also the base for the Amity recall mock", sent:"25 Apr", st:"live", href:"../quiz/amity-2023/"}
+  ]},
+  {college:"JEMAS (PG)", sub:"West Bengal &mdash; Clinical Psychology booklet", rows:[
+    {yr:"2025", nm:"JEMAS(PG) 2025, CP booklet", note:"36 of 100 Qs built from the readable photo pages. Missing Q1-14, 29-58, 67-74, 89+ and the answer key", sent:"5 Jul", st:"part", href:"../quiz/jemas-2025/"},
+    {yr:"2024", nm:"JEMAS 2024", sent:"25 Apr", st:"queue"},
+    {yr:"2023", nm:"JEMAS 2023", sent:"25 Apr", st:"queue"},
+    {yr:"2022", nm:"JEMAS 2022", sent:"25 Apr", st:"queue"},
+    {yr:"2020", nm:"JEMAS 2020", sent:"25 Apr", st:"queue"}
+  ]},
+  {college:"IMHANS", sub:"Kozhikode &mdash; 5 papers, none built", rows:[
+    {yr:"2025", nm:"IMHANS 2025", sent:"25 Apr", st:"queue"},
+    {yr:"2024", nm:"IMHANS 2024", sent:"25 Apr", st:"queue"},
+    {yr:"2021", nm:"IMHANS 2021", sent:"25 Apr", st:"queue"},
+    {yr:"2020", nm:"IMHANS 2020", sent:"25 Apr", st:"queue"},
+    {yr:"2019", nm:"IMHANS 2019", sent:"25 Apr", st:"queue"}
+  ]},
+  {college:"NFSU", sub:"National Forensic Sciences University", rows:[
+    {yr:"2025", nm:"NFSU 2025", sent:"25 Apr", st:"queue"},
+    {yr:"2024", nm:"NFSU 2024", sent:"25 Apr", st:"queue"},
+    {yr:"2023", nm:"NFSU 2023", sent:"25 Apr", st:"queue"},
+    {yr:"2020", nm:"NFSU 2020", sent:"25 Apr", st:"queue"}
+  ]},
+  {college:"RINPAS", sub:"Ranchi Institute of Neuro-Psychiatry", rows:[
+    {yr:"2024", nm:"RINPAS 2024", note:"pages 16-19 of the 76-page pack", sent:"11 Jun", st:"queue"},
+    {yr:"2019", nm:"RINPAS 2019", note:"sent twice: standalone + pages 31-38 of the pack", sent:"25 Apr + 11 Jun", st:"queue"},
+    {yr:"&mdash;", nm:"RINPAS Booklet", note:"no year printed", sent:"25 Apr", st:"queue"}
+  ]},
+  {college:"GMCH Chandigarh", sub:"Government Medical College &amp; Hospital", rows:[
+    {yr:"2025", nm:"GMCH 2025 paper + official answer key", note:"has its key, so it can be built properly", sent:"25 Apr", st:"queue"},
+    {yr:"2024", nm:"GMCH 2024", sent:"25 Apr", st:"queue"},
+    {yr:"2023", nm:"GMCH 2023", note:"pages 55-57 of the pack, partial only", sent:"11 Jun", st:"queue"}
+  ]},
+  {college:"GMCC", sub:"separate file from the GMCH set", rows:[
+    {yr:"2023", nm:"GMCC 2023", sent:"25 Apr", st:"queue"}
+  ]},
+  {college:"JEPAS", sub:"", rows:[
+    {yr:"2020", nm:"JEPAS 2020", sent:"25 Apr", st:"queue"}
+  ]},
+  {college:"KU", sub:"", rows:[
+    {yr:"2023", nm:"KU 2023", sent:"25 Apr", st:"queue"}
+  ]},
+  {college:"Gurugram University", sub:"", rows:[
+    {yr:"2025", nm:"Gurugram University 2025", note:"you sent it twice, same file", sent:"25 Apr", st:"queue"}
+  ]},
+  {college:"PGIBAMS", sub:"", rows:[
+    {yr:"2023", nm:"PGIBAMS 2023", note:".docx, not a PDF", sent:"25 Apr", st:"queue"}
+  ]}
+];
+
+const TAGS = {live:["t-live","BUILT"], part:["t-part","PARTIAL"], queue:["t-queue","NOT BUILT"], flag:["t-flag","MISLABELLED"]};
+
+function render(){
+  const root = document.getElementById("root");
+  root.innerHTML = DATA.map(c => {
+    const built = c.rows.filter(r => r.st==="live"||r.st==="part").length;
+    const papers = c.rows.filter(r => r.st!=="flag").length;
+    const rows = c.rows.map(r => {
+      const [cls,lbl] = TAGS[r.st];
+      const nm = r.href ? `<a href="${r.href}">${r.nm}</a>` : r.nm;
+      const sub = r.note ? `<span class="sub">${r.note}</span>` : "";
+      return `<div class="row" data-st="${r.st}"><span class="yr">${r.yr}</span>`
+           + `<span class="nm">${nm}${sub}</span>`
+           + `<span class="sent">${r.sent}</span><span class="tag ${cls}">${lbl}</span></div>`;
+    }).join("");
+    return `<div class="college" data-target="${c.target?1:0}"><h2>${c.college}`
+         + (c.sub?`<span class="sub">${c.sub}</span>`:"")
+         + `<span class="cnt">${built}/${papers} built</span></h2>${rows}</div>`;
+  }).join("");
+}
+render();
+
+document.querySelector(".filters").addEventListener("click", e => {
+  const b = e.target.closest("button[data-f]"); if(!b) return;
+  document.querySelectorAll(".filters button").forEach(x => x.classList.toggle("on", x===b));
+  const f = b.dataset.f;
+  document.querySelectorAll(".college").forEach(c => {
+    let any = false;
+    c.querySelectorAll(".row").forEach(r => {
+      const st = r.dataset.st;
+      const show = f==="all" || f==="target"
+        || (f==="live" && (st==="live"||st==="part"))
+        || (f==="queue" && st==="queue");
+      r.classList.toggle("hide", !show); if(show) any = true;
+    });
+    const okTarget = f!=="target" || c.dataset.target==="1";
+    c.classList.toggle("hide", !any || !okTarget);
+  });
+});
+</script>
+</body>
+</html>
