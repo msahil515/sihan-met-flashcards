@@ -1,7 +1,7 @@
 /* MET 2026 prep - offline service worker
    Precaches the whole site so it works with no signal after one install.
    Bump CACHE on each deploy to refresh. */
-const CACHE = "met-prep-20260726-archive-sgt-amity-rml";
+const CACHE = "met-prep-20260726-device-sync";
 const BASE = "/sihan-met-flashcards/";
 const PRECACHE = [
   "/sihan-met-flashcards/",
@@ -22,6 +22,8 @@ const PRECACHE = [
   "/sihan-met-flashcards/nav-toggle.js",
   "/sihan-met-flashcards/gate.js",
   "/sihan-met-flashcards/force-sync.js",
+  "/sihan-met-flashcards/sync.js",
+  "/sihan-met-flashcards/sync/",
   "/sihan-met-flashcards/notes-style.css",
   "/sihan-met-flashcards/notes/",
   "/sihan-met-flashcards/amity-syllabus/",

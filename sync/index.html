@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d1117">
+<title>Sync — one result history on every device</title>
+<link rel="stylesheet" href="../site.css">
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<style>
+  .wrap { max-width: 760px; margin: 0 auto; padding: 18px 16px 90px; }
+  h1 { margin: 8px 0 4px; font-size: 24px; }
+  .lede { color: var(--muted); font-size: 14px; margin: 0 0 20px; line-height: 1.55; }
+  .lede b { color: var(--text); }
+  .card {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px 16px; margin-bottom: 14px;
+  }
+  .card h2 { margin: 0 0 10px; font-size: 15px; font-weight: 650; }
+  .state-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); flex-shrink: 0; }
+  .dot.on { background: var(--good); box-shadow: 0 0 0 4px var(--good-soft); }
+  .dot.err { background: var(--bad); box-shadow: 0 0 0 4px var(--bad-soft); }
+  .dot.off { background: var(--muted); }
+  .state-txt { font-size: 16px; font-weight: 650; }
+  .state-sub { font-size: 12.5px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+  .code-box {
+    font: 800 30px/1.1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: 4px; color: var(--text); background: var(--panel-2);
+    border: 1px dashed var(--border-strong); border-radius: 10px;
+    padding: 16px 12px; text-align: center; margin: 14px 0 4px; user-select: all;
+  }
+  .code-hint { font-size: 12px; color: var(--muted); text-align: center; margin-bottom: 12px; }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  button, .btn {
+    background: var(--panel-2); color: var(--text); border: 1px solid var(--border-strong);
+    border-radius: 8px; padding: 10px 14px; font-size: 13.5px; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+  }
+  button:hover { background: var(--panel-3); }
+  button.primary { background: var(--accent-dim); border-color: var(--accent); color: #fff; }
+  button.danger { color: var(--bad); border-color: var(--bad); background: transparent; margin-left: auto; }
+  button:disabled { opacity: .5; cursor: default; }
+  input[type=text] {
+    background: var(--panel-2); color: var(--text); border: 1px solid var(--border-strong);
+    border-radius: 8px; padding: 11px 12px; font-size: 16px; font-weight: 600;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 2px;
+    text-transform: uppercase; width: 100%; max-width: 260px;
+  }
+  ul.plain { margin: 8px 0 0; padding-left: 18px; color: var(--muted); font-size: 13px; line-height: 1.65; }
+  ul.plain b { color: var(--text); font-weight: 600; }
+  .kv { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; padding: 7px 0; border-bottom: 1px solid var(--border); }
+  .kv:last-child { border-bottom: 0; }
+  .kv .k { color: var(--muted); }
+  .kv .v { font-weight: 600; font-variant-numeric: tabular-nums; text-align: right; }
+  .steps { counter-reset: s; margin: 10px 0 0; padding: 0; list-style: none; }
+  .steps li { counter-increment: s; position: relative; padding: 0 0 12px 30px; font-size: 13.5px; line-height: 1.6; color: var(--text); }
+  .steps li::before {
+    content: counter(s); position: absolute; left: 0; top: 0;
+    width: 21px; height: 21px; border-radius: 50%; background: var(--accent-soft); color: var(--accent);
+    font-size: 11.5px; font-weight: 800; display: flex; align-items: center; justify-content: center;
+  }
+  .steps li span { color: var(--muted); }
+  .note { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+  .note b { color: var(--text); }
+</style>
+<script src="/sihan-met-flashcards/take/theme.js"></script>
+<link rel="stylesheet" href="/sihan-met-flashcards/revamp-skin.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-title">Sihan, MET 2026</span>
+      <span class="brand-sub">MA Clinical Psychology</span>
+    </div>
+    <nav class="nav">
+      <a href="../">Dashboard</a>
+      <a href="../tests/">Tests</a>
+      <a href="../results/">My Results</a>
+      <a href="./" class="active">Sync</a>
+      <a href="../notes/">Notes</a>
+      <a href="../progress/">Progress</a>
+      <a href="../admissions/">Admissions</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+  <h1>Sync across devices</h1>
+  <p class="lede">Set the <b>same code</b> on your phone, tablet and laptop. Every mock you attempt on any of them lands in one combined history. No login, no account, nothing to remember after the first time.</p>
+
+  <!-- ========== STATUS ========== -->
+  <div class="card">
+    <div class="state-row">
+      <span class="dot off" id="dot"></span>
+      <span class="state-txt" id="stateTxt">Sync is off on this device</span>
+    </div>
+    <div class="state-sub" id="stateSub">Turn it on below, then use the same code on your other device.</div>
+
+    <div id="codeWrap" style="display:none;">
+      <div class="code-box" id="codeBox">————</div>
+      <div class="code-hint">Type this exact code on your other device</div>
+      <div id="stats"></div>
+      <div class="btns">
+        <button class="primary" id="syncBtn">Sync now</button>
+        <button id="copyBtn">Copy code</button>
+        <button class="danger" id="offBtn">Turn off</button>
+      </div>
+    </div>
+
+    <div id="setupWrap">
+      <div class="btns">
+        <button class="primary" id="newBtn">Turn on sync (make a code)</button>
+      </div>
+      <div style="margin-top:16px;">
+        <div class="note" style="margin-bottom:8px;"><b>Already made a code on your other device?</b> Type it here.</div>
+        <div class="btns" style="margin-top:0;">
+          <input type="text" id="codeInput" placeholder="XXXX-XXXX" autocomplete="off" autocapitalize="characters" spellcheck="false">
+          <button id="joinBtn">Connect</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== HOW ========== -->
+  <div class="card">
+    <h2>How to set it up, once</h2>
+    <ol class="steps">
+      <li>On this device, hit <b>Turn on sync</b>. You get an 8-character code.</li>
+      <li>Open this same page on the other device (phone or tablet) and type the code in the box. <span>Same code = same history.</span></li>
+      <li>That's it. From then on every mock you attempt syncs by itself: on page open, when you switch tabs, and every 90 seconds while you're on the site.</li>
+    </ol>
+  </div>
+
+  <!-- ========== WHAT ========== -->
+  <div class="card">
+    <h2>What gets synced</h2>
+    <ul class="plain">
+      <li><b>Every mock attempt</b>, question by question, on both engines (the classic quiz pages and the new /take/ engine).</li>
+      <li><b>Snapshots and score history</b> on My Results, so best scores and trends are one list, not two.</li>
+      <li><b>Your journal notes</b> per mock, and per-question notes inside a mock.</li>
+      <li><b>Mark-done flags</b> on the Tests page and the study-plan checklists.</li>
+    </ul>
+    <p class="note" style="margin:12px 0 0;"><b>It merges, it does not overwrite.</b> If you answered Q12 on the tablet and Q40 on the phone, you end up with both. Only if the exact same question was answered differently on both does the later answer win. A sync never deletes an attempt.</p>
+  </div>
+
+  <!-- ========== DETAIL ========== -->
+  <div class="card">
+    <h2>The boring details</h2>
+    <p class="note">
+      Your code never leaves the device. It gets hashed into a long random-looking slot name on a small free key-value host, and only that slot name goes over the wire. There's no account and no password, so treat the code like a house key: anyone who has it can see your results. It's mock scores, not bank details, but don't paste it in a group.
+    </p>
+    <p class="note" style="margin-top:10px;">
+      Sync needs internet. Attempts made offline sit safely on the device and go up the next time you open the site with signal. If the host is ever unreachable you lose nothing locally, and the manual <a href="../results/">backup code on My Results</a> still works as an offline fallback.
+    </p>
+  </div>
+</div>
+
+<script src="/sihan-met-flashcards/sync.js"></script>
+<script>
+(function () {
+  var S = window.SihanSync;
+  var $ = function (id) { return document.getElementById(id); };
+
+  function ago(iso) {
+    if (!iso) return "never";
+    var s = Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 1000));
+    if (s < 45) return "just now";
+    if (s < 3600) return Math.round(s / 60) + " min ago";
+    if (s < 86400) return Math.round(s / 3600) + " hr ago";
+    return Math.round(s / 86400) + " days ago";
+  }
+  function kv(k, v) { return '<div class="kv"><span class="k">' + k + '</span><span class="v">' + v + '</span></div>'; }
+
+  function render() {
+    var code = S.getCode();
+    var st = S.status() || {};
+    $("codeWrap").style.display = code ? "" : "none";
+    $("setupWrap").style.display = code ? "none" : "";
+
+    if (!code) {
+      $("dot").className = "dot off";
+      $("stateTxt").textContent = "Sync is off on this device";
+      $("stateSub").textContent = "Results are saved here only. Turn it on below, then use the same code on your other device.";
+      return;
+    }
+
+    $("codeBox").textContent = S.prettyCode(code);
+    var err = st.state === "error";
+    $("dot").className = "dot " + (err ? "err" : "on");
+    $("stateTxt").textContent = err ? "Sync is on, last try failed" : "Sync is on";
+    $("stateSub").textContent = err
+      ? (st.msg || "Could not reach the sync host") + ". It retries by itself, nothing is lost."
+      : "Last synced " + ago(st.at) + ".";
+
+    var devs = st.devices || {};
+    var names = Object.keys(devs).map(function (id) { return devs[id].name; });
+    var rows = kv("Items synced from this device", (st.pushed != null ? st.pushed : S.keys().length));
+    rows += kv("Pulled last sync", st.pulled != null ? st.pulled : 0);
+    if (names.length) rows += kv("Devices on this code", names.join(", "));
+    if (st.bytes) rows += kv("Payload size", st.bytes < 1024 ? st.bytes + " bytes" : Math.round(st.bytes / 1024) + " KB");
+    $("stats").innerHTML = rows;
+  }
+
+  $("newBtn").onclick = function () {
+    var c = S.setCode(S.makeCode());
+    if (!c) return;
+    render();
+    run("Setting up…");
+  };
+  $("joinBtn").onclick = function () {
+    var raw = S.normCode($("codeInput").value);
+    if (raw.length < 6) { alert("That code looks too short. It's 8 characters, like ABCD-2345."); return; }
+    S.setCode(raw);
+    render();
+    run("Pulling your history…");
+  };
+  $("codeInput").addEventListener("keydown", function (e) { if (e.key === "Enter") $("joinBtn").click(); });
+
+  $("syncBtn").onclick = function () { run("Syncing…"); };
+  $("copyBtn").onclick = function () {
+    var c = S.prettyCode(S.getCode());
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(c).then(function () { flash($("copyBtn"), "Copied"); }, function () { prompt("Your sync code:", c); });
+    } else { prompt("Your sync code:", c); }
+  };
+  $("offBtn").onclick = function () {
+    if (!confirm("Turn sync off on this device? Your results stay here, they just stop syncing.")) return;
+    S.clearCode();
+    render();
+  };
+
+  function flash(btn, txt) {
+    var old = btn.textContent;
+    btn.textContent = txt;
+    setTimeout(function () { btn.textContent = old; }, 1400);
+  }
+  function run(label) {
+    var b = $("syncBtn");
+    b.disabled = true;
+    var old = b.textContent;
+    b.textContent = label;
+    S.syncNow("manual").then(function () {
+      b.disabled = false; b.textContent = old;
+      render();
+    });
+  }
+
+  window.addEventListener("sihan-sync", render);
+  render();
+  if (S.getCode()) setInterval(render, 20000);
+})();
+</script>
+
+<script>
+/* PWA:met-prep */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("/sihan-met-flashcards/sw.js").catch(function () {});
+  });
+}
+</script>
+<script src="/sihan-met-flashcards/nav-toggle.js"></script>
+</body>
+</html>

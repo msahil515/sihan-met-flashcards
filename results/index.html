@@ -6,6 +6,7 @@
 <script>document.documentElement.classList.add("gate-locked")</script>
 <script src="/sihan-met-flashcards/gate.js"></script>
 <script src="/sihan-met-flashcards/force-sync.js"></script>
+<script src="/sihan-met-flashcards/sync.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0d1117">
 <title>My Results — MET 2026 + NIMHANS</title>
@@ -124,6 +125,7 @@
       <a href="../">Dashboard</a>
       <a href="../tests/">Tests</a>
       <a href="./" class="active">My Results</a>
+      <a href="../sync/">Sync</a>
       <a href="../notes/">Notes</a>
       <a href="../checklist/">Checklist</a>
       <a href="../plan/">Plan</a>
@@ -223,11 +225,24 @@ Biostats / Research:    14/15 (93%)  solid 12  guessed 2  wrong 1  skip 0
 
   <section>
     <div class="section-head">
+      <h2 class="section-title">Sync across devices</h2>
+      <span class="section-sub">One combined history on phone, tablet and laptop · automatic</span>
+    </div>
+    <div class="card" id="syncCard">
+      <p class="help-text" id="syncCardText">Set one short code on every device and every attempt lands in the same history, by itself. No login, nothing to remember after the first time.</p>
+      <div class="paste-controls">
+        <a href="../sync/" class="btn-link" id="syncCardBtn" style="display:inline-block;background:var(--accent-dim);border:1px solid var(--accent);color:#fff;font-weight:600;border-radius:6px;padding:9px 14px;font-size:13px;">Set up sync →</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
       <h2 class="section-title">Backup / restore history</h2>
-      <span class="section-sub">Move snapshots + journal notes between devices</span>
+      <span class="section-sub">Manual, offline fallback · works with no internet</span>
     </div>
     <div class="card">
-      <p class="help-text">Snapshots and journal notes are kept in this browser only. Use the buttons below to copy the whole thing as a code, then paste it on another device.</p>
+      <p class="help-text">The manual way, kept as a fallback for when there's no signal. Snapshots and journal notes are copied as one code you paste on the other device.</p>
       <div class="paste-controls">
         <button id="backupBtn">Copy backup code</button>
         <button class="ghost" id="restoreBtn">Restore from code</button>
@@ -779,8 +794,30 @@ function renderRemixSummary() {
   el.innerHTML = `<b style="color:var(--text);">${total}</b> wrong in pool · ${parts.join(" · ")}`;
 }
 
+/* Live state of the cross-device sync, so this page says whether the numbers
+   above are just this browser or the combined history. */
+function renderSyncCard() {
+  const txt = document.getElementById("syncCardText");
+  const btn = document.getElementById("syncCardBtn");
+  if (!txt || !window.SihanSync) return;
+  const code = SihanSync.getCode();
+  if (!code) {
+    btn.textContent = "Set up sync →";
+    return;
+  }
+  const st = SihanSync.status() || {};
+  const when = st.at ? new Date(st.at) : null;
+  const ago = when ? Math.max(0, Math.round((Date.now() - when.getTime()) / 60000)) : null;
+  const whenTxt = ago == null ? "not yet" : (ago < 1 ? "just now" : ago + " min ago");
+  txt.innerHTML = st.state === "error"
+    ? `Sync is <b style="color:var(--warn);">on</b> with code <b>${SihanSync.prettyCode(code)}</b>, but the last attempt failed (${escapeHtml(st.msg || "")}). It keeps retrying, nothing is lost.`
+    : `Sync is <b style="color:var(--good);">on</b> with code <b>${SihanSync.prettyCode(code)}</b>. Everything above is the combined history across your devices. Last synced ${whenTxt}.`;
+  btn.textContent = "Sync settings →";
+}
+
 function refresh() {
   updateCountdown();
+  renderSyncCard();
   renderHero();
   renderMocks();
   renderHistory();
@@ -801,6 +838,7 @@ refresh();
 setInterval(updateCountdown, 60 * 60 * 1000);
 window.addEventListener("focus", refresh);
 window.addEventListener("storage", refresh);
+window.addEventListener("sihan-sync", renderSyncCard);
 </script>
 <script>
 /* PWA:met-prep */
