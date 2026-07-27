@@ -30,6 +30,7 @@ SECTIONS = [
     ("strategy",  "Exam Strategy",        "What actually gets tested, the repeated questions, the high-yield map", "#9d174d", "#831843"),
     ("core",      "Core Subjects",        "The syllabus, one merged book per subject", "#1d4ed8", "#1e3a8a"),
     ("syllabus",  "Rodrick Sir's Syllabus","Every file in the shared Drive, built unit by unit to full depth, nothing left out", "#15803d", "#14532d"),
+    ("stats",     "Statistics & Psychometrics", "Statistics for the entrances built from scratch, with a diagram on every idea that has a shape", "#0f766e", "#134e4a"),
     ("systems",   "Systems & Theories",    "The whole history of psychology, every school taught from the ground up", "#0e7490", "#155e75"),
     ("amity",     "Amity",                 "Everything Amity MA Clinical in one book", "#b45309", "#78350f"),
     ("rml",       "RML — CET-166",         "The whole RML MA Clinical entrance syllabus taught from scratch", "#b91c1c", "#7f1d1d"),
@@ -110,6 +111,10 @@ BOOKS = [
     dict(slug="exam-papers", shelf="syllabus", kind="merged", search_cap=40000,
          short="UGC NET Psychology — Past Papers & Syllabus",
          blurb="The official ten-unit syllabus, how the exam works, and three past papers (2020, December 2019 and June 2019) reproduced question by question with the official answer key marked where it exists."),
+    # --- Statistics & Psychometrics ---
+    dict(slug="statistics", shelf="stats", kind="note", src="statistics", search_cap=40000,
+         short="Statistics, from scratch with diagrams",
+         blurb="The whole statistics syllabus these entrances test, built from zero to textbook depth across 17 sections with 27 computed diagrams: scales of measurement, central tendency and dispersion, skew and kurtosis, the normal curve and every standard score, sampling distributions and the central limit theorem, hypothesis testing with Type I and Type II error, power and effect size, the t tests, one-way and factorial and repeated-measures ANOVA with every post hoc test, ANCOVA, MANOVA and MANCOVA and the assumptions each one rests on, correlation in all its forms with partial and semi-partial, simple and multiple and logistic regression, the whole non-parametric family and when to switch, and the psychometrics side (reliability, validity, item analysis, item response theory, factor analysis, standardisation and norms). Ends with a which-test decision tree, a formula sheet, and a who-did-what index of sixty statisticians."),
     # --- Systems & Theories ---
     dict(slug="systems-theories", shelf="systems", kind="merged", search_cap=40000,
          short="Systems & Theories of Psychology",
