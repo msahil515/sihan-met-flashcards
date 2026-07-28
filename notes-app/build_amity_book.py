@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Assemble the single "Amity" book source for the Textbook Library app.
+Assemble the single "Amity" book source for the Library app.
 
 Sihan asked: "put every bit of study material relevant to amity studies in the
 notes for exam app under one book named as amity." Three live pages on the site

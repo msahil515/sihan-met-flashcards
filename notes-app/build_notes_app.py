@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Build the standalone "Textbook Library" app content bundle.
+Build the standalone "Library" app content bundle.
 
 Reads every notes/<slug>/index.html (and a couple of loose .html notes) from the
 flashcards site, strips the old chrome (gate, nav, install button, page-flip,
@@ -132,7 +132,7 @@ READER_TMPL = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{title} — Textbook Library</title>
+<title>{title} — Library</title>
 <link rel="stylesheet" href="../../notes-style.css">
 <link rel="stylesheet" href="/sihan-met-flashcards/notes/term-popover.css">
 <link rel="stylesheet" href="../reader.css">
@@ -244,7 +244,7 @@ def main():
 
     total_words = sum(c["words"] for c in chapters)
     manifest = {
-        "name": "Textbook Library",
+        "name": "Library",
         "chapters": len(chapters),
         "words": total_words,
         "shelves": shelves,

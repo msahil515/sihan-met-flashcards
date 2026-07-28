@@ -274,7 +274,7 @@ def write_notes_home(path: Path):
   .tb-grid .card-cta{{color:var(--accent); font-size:13px; font-weight:600; margin-top:10px}}
 </style></head>
 <body><main>
-<div class="page-hero"><div class="crumbs">Offline textbook library</div>
+<div class="page-hero"><div class="crumbs">Offline library</div>
 <h1>MET Notes</h1>
 <p>Every study note for the MET / NIMHANS 2026 prep, bundled offline. Start with
 the three core textbooks below, then drill the cheatsheets. The full set also

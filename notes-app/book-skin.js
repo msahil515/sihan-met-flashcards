@@ -1,4 +1,4 @@
-/* book-skin.js — turns the warm book skin on for the Textbook Library.
+/* book-skin.js — turns the warm book skin on for the Library.
 
    Sihan's call was "warm as the default, old look kept as an option", so:
    the skin is ON unless he has explicitly switched it off, and the switch

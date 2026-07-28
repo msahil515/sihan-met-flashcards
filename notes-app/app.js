@@ -1,4 +1,4 @@
-/* Textbook Library — single-page library + reader ("The Reading Desk").
+/* Library — single-page library + reader ("The Reading Desk").
    No framework. Loads manifest.json, renders an editorial library home and a
    desk-framed book reader (per-note pages live in content/<slug>.html).
    On wide screens the reader flanks the page with live rails: a scroll-spy
@@ -71,7 +71,7 @@
     var lastE = last && BYSLUG[last];
 
     var html = "";
-    html += '<div class="appbar"><span class="brand"><span class="mark">T</span> Textbook Library</span>' +
+    html += '<div class="appbar"><span class="brand"><span class="mark">L</span> Library</span>' +
       '<span class="spacer"></span>' +
       bookBtnHTML() +
       '<button class="iconbtn" id="topSearch" aria-label="Search">&#128269;</button>' +
@@ -80,8 +80,8 @@
 
     // masthead (title page)
     html += '<div class="masthead">' +
-      '<span class="eyebrow">The Textbook Library &middot; MET 2026 &amp; NIMHANS</span>' +
-      '<h1>Textbook Library</h1>' +
+      '<span class="eyebrow">The Library &middot; MET 2026 &amp; NIMHANS</span>' +
+      '<h1>Library</h1>' +
       '<p class="sub">Every subject written out as a full textbook, merged so each concept lives in one clean entry. Detail kept, nothing cut. Read it like print.</p>' +
       '<div class="rule"><span class="orn">&#10086;</span></div>' +
       '<div class="stats">' +
