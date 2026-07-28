@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<script src="/sihan-met-flashcards/sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Six areas, one syllabus — IHBAS, CIP, JSS and DIMHANS in one prep</title>
+<link rel="stylesheet" href="/sihan-met-flashcards/notes-style.css">
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<meta name="theme-color" content="#0d1117">
+<style>
+  .wrap{max-width:min(1020px,95vw)}
+  nav{font-family:var(--sans)}
+  .updated{font-family:var(--sans);font-size:12px;color:var(--muted);margin:-2px 0 12px}
+
+  .rules{border:1px solid rgba(210,153,34,.42);background:rgba(210,153,34,.08);border-radius:11px;
+    padding:14px 17px;margin:20px 0 6px;font-family:var(--sans);font-size:13.8px;color:var(--ink2);line-height:1.5}
+  .rules h2{margin:0 0 8px;font-size:15px;color:var(--text);letter-spacing:.02em}
+  .rules p{margin:0 0 9px} .rules p:last-child{margin:0}
+  .rules b{color:var(--text)}
+
+  .bar{font-family:var(--sans);margin:20px 0 4px}
+  .bar .lab{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-bottom:6px}
+  .bar .lab b{color:var(--text)}
+  .track{height:9px;border-radius:999px;background:var(--panel-2);border:1px solid var(--border);overflow:hidden}
+  .fill{height:100%;width:0;background:var(--accent);transition:width .25s ease}
+
+  .step{display:flex;gap:0;margin:16px 0;border:1px solid var(--border);border-radius:11px;
+    background:var(--panel);overflow:hidden;font-family:var(--sans)}
+  .step.done{opacity:.62}
+  .rail{flex:none;width:54px;background:var(--panel-2);border-right:1px solid var(--border);
+    display:flex;flex-direction:column;align-items:center;padding:13px 0;gap:9px}
+  .rail .n{font-size:23px;font-weight:800;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+  .rail .n.plus{font-size:19px;color:var(--muted)}
+  .rail input{width:17px;height:17px;accent-color:var(--accent);cursor:pointer}
+  .body{flex:1;min-width:0;padding:13px 16px 14px}
+  .body h3{margin:0 0 4px;font-size:17px;line-height:1.25;color:var(--text);font-family:var(--sans)}
+  .step.done .body h3{text-decoration:line-through}
+  .meta{font-size:11.8px;color:var(--muted);margin:0 0 9px;line-height:1.5}
+  .meta b{color:var(--ink2)}
+  .why{font-size:13.8px;color:var(--ink2);line-height:1.55;margin:0 0 9px}
+  .why b{color:var(--text)}
+  .watch{font-size:12.8px;color:var(--ink2);line-height:1.5;margin:0 0 11px;padding:9px 12px;
+    background:var(--panel-2);border-radius:8px;border-left:3px solid var(--accent-dim)}
+  .watch b{color:var(--text)}
+  .acts{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px}
+  .acts:last-child{margin-bottom:0}
+  .acts .lbl{font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--muted);
+    align-self:center;width:44px;flex:none;text-transform:uppercase}
+  .acts a{display:inline-block;font-size:12.5px;font-weight:700;text-decoration:none;border-radius:999px;
+    padding:6px 13px;border:1px solid var(--border);background:var(--panel-2);color:var(--ink2)}
+  .acts a.go{background:var(--accent);border-color:var(--accent);color:#fff}
+  .acts a:hover{text-decoration:none;border-color:var(--accent)}
+  .acts span.none{font-size:12.3px;color:var(--muted);align-self:center;font-style:italic}
+
+  .chip{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.03em;color:#fff;border-radius:4px;
+    padding:3px 6px;white-space:nowrap;vertical-align:2px;margin-left:6px}
+  .c-live{background:#2f9e57} .c-wait{background:#d29922} .c-build{background:#c0392b}
+  .c-drill{background:#4d8fbf} .c-last{background:#6b7280}
+
+  h3.sh{font-family:var(--sans);margin:34px 0 6px;padding-bottom:6px;border-bottom:2px solid var(--accent-dim);font-size:19px}
+  .after{font-family:var(--sans);font-size:13.6px;color:var(--ink2);line-height:1.55}
+  .after ul{padding-left:18px;margin:8px 0 0}
+  .after li{margin:6px 0}
+  .after b{color:var(--text)}
+  .after a{color:var(--accent);text-decoration:none;font-weight:600}
+  .after a:hover{text-decoration:underline}
+  .note{font-family:var(--sans);font-size:13.4px;color:var(--ink2);background:var(--panel);
+    border:1px solid var(--border);border-radius:9px;padding:13px 16px;margin:16px 0;line-height:1.55}
+  .note b{color:var(--text)}
+
+  .day{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0 0;font-family:var(--sans)}
+  .day .d{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:13px 15px}
+  .day .d .k{font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--accent);text-transform:uppercase}
+  .day .d h4{margin:5px 0 5px;font-size:14.5px;color:var(--text)}
+  .day .d p{margin:0;font-size:12.8px;color:var(--ink2);line-height:1.5}
+  .day .d.hero{border-color:var(--accent-dim);background:rgba(88,166,255,.07)}
+
+  table.cov{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13px;
+    background:var(--panel);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:12px}
+  table.cov th,table.cov td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border)}
+  table.cov th{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+  table.cov tr:last-child td{border-bottom:none}
+  table.cov td b{color:var(--text)}
+  .yes{color:#2f9e57;font-weight:800} .no{color:var(--muted);font-weight:700}
+
+  .reset{font-family:var(--sans);font-size:12.5px;font-weight:700;background:var(--panel);
+    border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:7px 13px;cursor:pointer;margin-top:14px}
+  @media(max-width:620px){
+    .rail{width:44px} .rail .n{font-size:20px}
+    .body{padding:12px 13px 13px} .body h3{font-size:15.5px}
+    .day{grid-template-columns:1fr}
+    .acts .lbl{width:100%;margin-bottom:-2px}
+  }
+</style>
+<script src="/sihan-met-flashcards/take/theme.js"></script>
+<link rel="stylesheet" href="/sihan-met-flashcards/revamp-skin.css">
+</head>
+<body>
+<div class="wrap">
+<nav><a href="../">&larr; Home</a> <a href="../tests/">Tests</a> <a href="../pyq-order/">PYQ Order</a> <a href="../notes/">All notes</a> <a href="../results/gap-map/">Gap Map</a> <a href="../syllabus/">Syllabus</a> <a href="../progress/">Progress</a></nav>
+
+<h1>Six areas, one syllabus</h1>
+<p class="updated">The whole prep for IHBAS, CIP Ranchi, JSS Mysuru and DIMHANS Dharwad on one page. Built 28 July 2026. Seven blocks, once clinical is counted properly. Tick one off when you've read it <i>and</i> drilled it; the ticks save on this device.</p>
+
+<div class="rules">
+  <h2>Three things before you start</h2>
+  <p><b>1. These are not four syllabi. They're one.</b> IHBAS, CIP, JSS and DIMHANS are all general-psychology MCQ papers built out of roughly the same areas. You study once and it counts for all four. Prepping them separately is how you burn three months doing the same reading three times.</p>
+  <p><b>2. Reading without testing is where people lose months.</b> One topic read properly, then 40 to 50 questions on that same topic the same day, then read every explanation, including the ones you got right. That's the loop. Everything below is built to feed it.</p>
+  <p><b>3. IHBAS has no negative marking.</b> You attempt all 100, you never leave a blank. The mocks on this site are scored +1 / &minus;0.25 so they stay comparable to each other, so an IHBAS mock will read lower here than the real paper would. On IHBAS papers, count attempted-and-right out of 100 and ignore the penalty.</p>
+</div>
+
+<div class="note" style="border-color:#c0392b;background:rgba(192,57,43,.09);margin-top:16px">
+  <p style="margin:0 0 8px"><b>One correction to what I sent you on WhatsApp.</b> I said abnormal and clinical sits on top for CIP and JSS but not IHBAS. That's wrong, and it's the kind of wrong that costs you a paper, so here it is properly.</p>
+  <p style="margin:0 0 8px">IHBAS publishes a fixed 100-question blueprint and it reads: <b>Clinical Psychology 25, Abnormal Psychology 15</b>, then ten each for General, Social, Physiological, Personality, Developmental and Statistics. That's <b>40 of 100 clinical and abnormal on your top target</b>. And it isn't just the blueprint: every question of the three real IHBAS papers on this site (2020, 2024, 2025, 292 questions) was tagged and counted, and the clinical-plus-abnormal block lands at 33 to 38 every single year. The blueprint holds.</p>
+  <p style="margin:0">So the order below is the one I gave you with abnormal and clinical moved into second place, where the marks actually are. Everything else stands. <a href="../syllabus/#ihbas">The full blueprint and the tagged counts are on the syllabus hub &rarr;</a></p>
+</div>
+
+<div class="bar">
+  <div class="lab"><span id="pcLab">0 of 7 done</span><b id="pcNum">0%</b></div>
+  <div class="track"><div class="fill" id="pcFill"></div></div>
+</div>
+
+<div class="step" data-k="1">
+  <div class="rail"><div class="n">1</div><input type="checkbox" title="Mark done"></div>
+  <div class="body">
+    <h3>Statistics &amp; research methods<span class="chip c-live">START HERE</span></h3>
+    <p class="meta">Descriptives &middot; normal curve &middot; z / t / F / chi-square &middot; correlation &amp; regression &middot; ANOVA &middot; non-parametrics &middot; sampling &middot; reliability &amp; validity &middot; research designs &middot; scales of measurement &middot; hypothesis &amp; error types &middot; <b>degrees of freedom</b></p>
+    <p class="why">Still first, and the correction below doesn't move it. It's 10 questions on the IHBAS blueprint and 9 on the real CIP 2020 paper, so it isn't the biggest block, but it is the <b>only area you can learn cold</b>: it doesn't depend on how much you remember from BA, the content doesn't move, and it repeats every single year in every one of the four papers. Every other area rewards memory. This one rewards two weeks of honest work. If you're going to be strong somewhere, be strong here, because it's the cheapest points on the paper.</p>
+    <p class="watch"><b>Watch for:</b> the exams love the small mechanical stuff, not the theory. Which test for which design, what df equals, what a scale of measurement permits, what happens to a correlation when you restrict range. Learn to answer those without thinking.</p>
+    <p class="acts"><span class="lbl">Read</span><a class="go" href="../notes/statistics/">Statistics book (17 sections, 27 diagrams)</a><a href="../notes/research-methodology/">Research methodology</a><a href="../notes/biostats-cheatsheet/">Biostats cheatsheet</a><a href="../notes/degrees-of-freedom/">Degrees of freedom</a><a href="../notes/psycho-didi-research/">Psycho Didi: research</a></p>
+    <p class="acts"><span class="lbl">Drill</span><a href="../quiz/diagnostic-1/">Diagnostic 1</a><a href="../quiz/ihbas-2024/">Stats items in IHBAS 2024</a><span class="none">no standalone stats mock yet, it's on the build list</span></p>
+  </div>
+</div>
+
+<div class="step" data-k="2">
+  <div class="rail"><div class="n">2</div><input type="checkbox" title="Mark done"></div>
+  <div class="body">
+    <h3>Abnormal &amp; clinical<span class="chip c-build">CORRECTED &middot; 35&ndash;40 Q ON IHBAS</span></h3>
+    <p class="meta">Classification (ICD-10/11, DSM-5-TR) &middot; the disorder groups &middot; first-rank symptoms &middot; differential diagnosis &middot; aetiology models &middot; psychotherapy schools and who founded them &middot; assessment &amp; the test batteries &middot; ethics</p>
+    <p class="why">I told you on WhatsApp this one sits on top for CIP and JSS but not IHBAS. <b>That was wrong and I'm not leaving it standing.</b> IHBAS publishes a fixed 100-question blueprint: Clinical 25 and Abnormal 15, so <b>40 of the 100 marks before you count anything else</b>. And it isn't just the blueprint saying it: all 292 questions across the three real IHBAS papers on this site were tagged and counted, and clinical + abnormal comes out at 33 to 38 every year. It is the biggest block on your top target, so it goes second, not last.</p>
+    <p class="watch"><b>Watch for:</b> the split moves and you can't predict it. Abnormal ran 11 &rarr; 13 &rarr; 27 across 2020, 2024, 2025 while clinical/therapy ran 22 &rarr; 10 &rarr; 11. The <i>block</i> is stable, the halves are not. Prepare both as one unit and don't bet on last year's split.</p>
+    <p class="acts"><span class="lbl">Read</span><a class="go" href="../notes/abnormal-barlow-durand/">Abnormal (Barlow &amp; Durand)</a><a href="../notes/icd/">ICD</a><a href="../notes/abnormal-psych-cheatsheet/">Abnormal cheatsheet</a><a href="../notes/assessment/">Assessment</a><a href="../notes/psychotherapy-cheatsheet/">Psychotherapy</a><a href="../notes/psycho-didi-psychopathology/">Psycho Didi: psychopathology</a><a href="../notes/psycho-didi-interventions/">Psycho Didi: interventions</a></p>
+    <p class="acts"><span class="lbl">Drill</span><a class="go" href="../quiz/ihbas-2025/">IHBAS 2025 (27 abnormal Q)</a><a href="../quiz/otta-mphil/">M.Phil question bank</a><a href="../quiz/rml-2024/">RML 2024</a></p>
+  </div>
+</div>
+
+<div class="step" data-k="3">
+  <div class="rail"><div class="n">3</div><input type="checkbox" title="Mark done"></div>
+  <div class="body">
+    <h3>Personality, systems &amp; theories<span class="chip c-drill">BIGGEST BANK</span></h3>
+    <p class="meta">Structuralism &middot; functionalism &middot; behaviourism &middot; Gestalt &middot; psychoanalysis &amp; neo-Freudians &middot; humanistic &middot; cognitive revolution &middot; trait theories (Allport, Cattell, Eysenck, Big Five) &middot; Rogers &middot; Kelly &middot; Bandura &middot; Indian approaches</p>
+    <p class="why">Third because it is <b>pure recall with a name attached to every idea</b>, which means it's testable the moment you've read it, and you already own the two things that make it work: the 119-question Systems &amp; Theories bank and the teaching notes written to match it. No sourcing, no gaps, nothing to wait on me for. Do this while the stats is still settling.</p>
+    <p class="watch"><b>Watch for:</b> the question almost always hangs on the name. Who said it, whose student they were, which school they broke from. If you can read a concept and say the theorist out loud before you look, you're done with this area.</p>
+    <p class="acts"><span class="lbl">Read</span><a class="go" href="../notes/theories/">Systems &amp; Theories notes</a><a href="../notes/personality/">Personality</a><a href="../notes/theorists/">Theorists</a><a href="../notes/originators/">Originators</a><a href="../notes/psycho-didi-history/">Psycho Didi: history</a><a href="../notes/psycho-didi-personality/">Psycho Didi: personality</a></p>
+    <p class="acts"><span class="lbl">Drill</span><a class="go" href="../quiz/systems-theories/">Systems &amp; Theories mock (119 Q)</a><a href="../notes-app/#/read/systems-theories-explained">Answer explanations book (all 119)</a></p>
+  </div>
+</div>
+
+<div class="step" data-k="4">
+  <div class="rail"><div class="n">4</div><input type="checkbox" title="Mark done"></div>
+  <div class="body">
+    <h3>Physiological &amp; biological<span class="chip c-live">FIXED CONTENT</span></h3>
+    <p class="meta">Neuron &amp; action potential &middot; synapse &middot; neurotransmitters &middot; brain lobes &amp; structures &middot; limbic system &middot; cranial nerves &middot; autonomic nervous system &middot; endocrine &amp; HPA axis &middot; sleep stages &middot; methods of studying the brain</p>
+    <p class="why">Fourth because the content <b>never changes</b> and it's dense enough to be worth real points. Brain parts, transmitters, hormones, sleep architecture: the same facts every year, phrased slightly differently. This is the area where a week of proper reading closes a gap permanently, unlike social or cognitive where the questions wander.</p>
+    <p class="watch"><b>Watch for:</b> transmitter-to-disorder and structure-to-deficit pairings. Damage here gives you what. Too much of this gives you what. Those two mappings are most of the biology questions on any of these papers.</p>
+    <p class="acts"><span class="lbl">Read</span><a class="go" href="../notes/biopsych-carlson/">Biopsych (Carlson depth)</a><a href="../notes/neurotransmitters/">Neurotransmitters</a><a href="../notes/action-potential/">Action potential</a><a href="../notes/cranial-nerves/">Cranial nerves</a><a href="../notes/hpa-axis/">HPA axis</a><a href="../notes/sleep/">Sleep</a><a href="../notes/biopsych-cheatsheet/">Cheatsheet</a><a href="../notes/psycho-didi-biology/">Psycho Didi: biology</a></p>
+    <p class="acts"><span class="lbl">Drill</span><a class="go" href="../quiz/bio-testing-paper/">Bio &amp; testing paper</a></p>
+  </div>
+</div>
+
+<div class="step" data-k="5">
+  <div class="rail"><div class="n">5</div><input type="checkbox" title="Mark done"></div>
+  <div class="body">
+    <h3>Developmental<span class="chip c-drill">CHEAP MARKS</span></h3>
+    <p class="meta">Piaget &middot; Erikson &middot; Kohlberg &middot; Vygotsky &middot; Freud's psychosexual stages &middot; attachment (Bowlby, Ainsworth) &middot; Bronfenbrenner &middot; motor &amp; language milestones &middot; adolescence &middot; ageing</p>
+    <p class="why">Fifth because it's <b>small, closed and stage-shaped</b>. Four or five theorists with numbered stages, plus a milestone table. You can hold the whole area in your head, and once the stage sequences are locked they don't leak. Do it after biology because it reads fast and gives you a quick win.</p>
+    <p class="watch"><b>Watch for:</b> stage-order and age-band questions, and the crossover items that give you a behaviour and ask whose stage it belongs to. Learn the four sequences side by side, not one theorist at a time, because the exam tests them against each other.</p>
+    <p class="acts"><span class="lbl">Read</span><a class="go" href="../notes/dev-psych-cheatsheet/">Developmental cheatsheet</a><a href="../notes/bronfenbrenner/">Bronfenbrenner</a><a href="../notes/high-yield-abnormal-dev/">High-yield abnormal + dev</a><a href="../notes/psycho-didi-developmental/">Psycho Didi: developmental</a></p>
+    <p class="acts"><span class="lbl">Drill</span><a href="../quiz/practice/">Practice bank</a><a href="../quiz/ihbas-2020/">Dev items in IHBAS 2020</a></p>
+  </div>
+</div>
+
+<div class="step" data-k="6">
+  <div class="rail"><div class="n">6</div><input type="checkbox" title="Mark done"></div>
+  <div class="body">
+    <h3>Social<span class="chip c-drill">NAME-HEAVY</span></h3>
+    <p class="meta">Attitudes &amp; attitude change &middot; cognitive dissonance &middot; conformity, compliance, obedience &middot; attribution theory &amp; biases &middot; prejudice &middot; group dynamics &amp; groupthink &middot; leadership &middot; prosocial behaviour &amp; bystander effect &middot; aggression &middot; the classic experiments</p>
+    <p class="why">Sixth because it's mostly <b>named studies and named effects</b>, which is fast to revise but easy to confuse under time pressure. Asch, Milgram, Sherif, Festinger, Zimbardo, Latan&eacute; and Darley: the exams ask for the finding and the name together. It's rewarding to revise late because it stays fresh.</p>
+    <p class="watch"><b>Watch for:</b> the effect-name traps. Fundamental attribution error against actor-observer bias, self-serving against self-handicapping, social loafing against social facilitation. The lookalikes page exists precisely for these.</p>
+    <p class="acts"><span class="lbl">Read</span><a class="go" href="../notes/social-psych/">Social psychology</a><a href="../notes/psycho-didi-social/">Psycho Didi: social</a><a href="../notes/effects/">Named effects</a><a href="../notes/phenomena/">Phenomena</a></p>
+    <p class="acts"><span class="lbl">Drill</span><a href="../quiz/practice/">Practice bank</a><a href="../quiz/wrong-remix/">Wrong remix</a></p>
+  </div>
+</div>
+
+<div class="step" data-k="7">
+  <div class="rail"><div class="n">7</div><input type="checkbox" title="Mark done"></div>
+  <div class="body">
+    <h3>General &amp; cognitive<span class="chip c-last">WIDEST, SO LAST</span></h3>
+    <p class="meta">Sensation &amp; perception &middot; attention &middot; learning &amp; conditioning &middot; memory models &amp; forgetting &middot; thinking &amp; problem solving &middot; language &middot; intelligence &amp; its tests &middot; motivation &middot; emotion theories &middot; consciousness</p>
+    <p class="why">Last, and that is not the same as least. It's the <b>widest of the non-clinical areas</b> (18 per 100 on the real IHBAS papers, 28 on CIP 2020), so it's also the one where reading cover-to-cover wastes the most time. By the time you get here you'll have three papers' worth of data telling you exactly which slices of it actually get asked, and you read those slices instead of all of it. Doing this area first is the classic mistake.</p>
+    <p class="watch"><b>Watch for:</b> conditioning terminology (schedules, negative reinforcement against punishment) and the memory models. Those two clusters carry more questions than the rest of the area combined.</p>
+    <p class="acts"><span class="lbl">Read</span><a class="go" href="../notes/general-psych/">General psychology</a><a href="../notes/cognitive/">Cognitive</a><a href="../notes/learning-conditioning/">Learning &amp; conditioning</a><a href="../notes/intelligence-tests/">Intelligence tests</a><a href="../notes/psycho-didi-cognitive/">Psycho Didi: cognitive</a></p>
+    <p class="acts"><span class="lbl">Drill</span><a class="go" href="../quiz/practice/">Practice bank</a><a href="../quiz/pyq-real-2025/">PYQ Real 2025</a></p>
+  </div>
+</div>
+
+<h3 class="sh">The daily shape</h3>
+<p class="after">Don't overthink it. One pass through this three times a day is the whole method, and the third box is the one everybody skips.</p>
+<div class="day">
+  <div class="d">
+    <div class="k">Step 1</div>
+    <h4>Read one topic properly</h4>
+    <p>One topic, from the notes above, read like you intend to be asked about it. Not the whole area, not three topics. One. If it takes 90 minutes, it takes 90 minutes.</p>
+  </div>
+  <div class="d">
+    <div class="k">Step 2</div>
+    <h4>40 to 50 questions, same topic, same day</h4>
+    <p>Same day is not a detail, it's the point. The questions are what convert reading into recall. Pull them from the drill links on that area's card.</p>
+  </div>
+  <div class="d hero">
+    <div class="k">Step 3 &middot; the whole thing</div>
+    <h4>Read every explanation</h4>
+    <p>Including the ones you got right. A right answer you guessed is a miss you didn't get charged for, and it will come back as a real miss in the exam. Every mock here prints the full explanation and a per-option trap line, so this is reading, not hunting.</p>
+  </div>
+</div>
+
+<h3 class="sh">Which paper, and when</h3>
+<p class="after">The reading order above tells you what to study. The paper order tells you when to test it. They're separate, and you run them at the same time.</p>
+<div class="note">
+  <p style="margin:0 0 8px"><b>IHBAS 2024 cold, first.</b> Before you sink a fortnight into any one of the six areas, sit the one paper you own that is real, verbatim, and carries the institute's own answer key. Full 100, no notes, one sitting. It tells you which of the six areas is leaking, so you don't spend three weeks perfecting the area that was already fine.</p>
+  <p style="margin:0 0 8px">Then <b>IHBAS 2025</b> (98 of 100 now matched to the official key, Q77 and Q86 still disputed), then <b>IHBAS 2020</b> back to back with the other two so you can see what IHBAS actually repeats. Then <b>CIP 2020</b> once you give me the go, it's queue #1 and the source pack prints full worked answers, so it comes out exact.</p>
+  <p style="margin:0"><b><a href="../pyq-order/">The full 7-step paper order is here &rarr;</a></b></p>
+</div>
+
+<h3 class="sh">How you'll know which area is leaking</h3>
+<p class="after">You don't guess at this, and you don't go by feel. Every attempt you log on this device gets joined back to the topic of each question, and the <a href="../results/gap-map/">Gap Map</a> ranks your leaks across every mock you've sat. Sit IHBAS 2024, open the gap map, and the top of that list is where the next fortnight goes, whatever this page says the order is. The order below is the default when you have no data. The gap map beats the default.</p>
+
+<h3 class="sh">What each paper actually asks</h3>
+<table class="cov">
+  <tr><th>Block</th><th>IHBAS blueprint</th><th>IHBAS, real papers</th><th>CIP 2020, real paper</th></tr>
+  <tr><td><b>Abnormal &amp; clinical</b></td><td>25 clinical + 15 abnormal = <b>40</b></td><td>33&ndash;38 (avg 32 + 7 assessment)</td><td>25 abnormal + 7 assessment + 2 therapy = <b>34</b></td></tr>
+  <tr><td><b>General &amp; cognitive</b></td><td>10 (+ 10 personality)</td><td>18</td><td><b>28</b></td></tr>
+  <tr><td><b>Physiological &amp; biological</b></td><td>10</td><td>13</td><td>15</td></tr>
+  <tr><td><b>Social</b></td><td>10</td><td>11</td><td>1</td></tr>
+  <tr><td><b>Statistics &amp; research methods</b></td><td>10</td><td>10</td><td>9</td></tr>
+  <tr><td><b>Developmental</b></td><td>10</td><td>9</td><td>5</td></tr>
+  <tr><td><b>Personality, systems &amp; theories</b></td><td>10</td><td>folded into general</td><td>8</td></tr>
+  <tr><td><b>Paper shape</b></td><td colspan="2">100 Q &middot; 90 min &middot; <span class="yes">no negative marking</span> &middot; no interview</td><td>100 Q &middot; 60 min &middot; no negative marking &middot; interview worth 50 vs CBT 100</td></tr>
+</table>
+<p class="after" style="margin-top:10px">JSS Mysuru is the only one of the four that prints an actual syllabus, nine named subjects, and it's 90 Q in 60 min with a 10-mark viva. DIMHANS Dharwad prints no syllabus and no past paper exists in your collection, so nothing about its shape is claimed here; it is also <b>Karnataka-domicile only</b>, which matters more than its syllabus does. All four run without negative marking except the DIMHANS M.Phil, which is &minus;0.25.</p>
+<p class="after" style="margin-top:8px"><small>Numbers are off the official IHBAS blueprint, the 292 tagged questions from IHBAS 2020/2024/2025, and the hand-classified real CIP 2020 paper. Sources and the per-year breakdown are on the <a href="../syllabus/">syllabus hub</a>; live dates and status for all four are on the <a href="../admissions/">admissions tracker</a>.</small></p>
+
+<button class="reset" id="resetBtn">Reset ticks</button>
+
+</div>
+<script>
+const KEY = "six-areas-done-v1";
+let done = {};
+try { done = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e){ done = {}; }
+const steps = Array.from(document.querySelectorAll(".step"));
+
+function paint(){
+  let n = 0;
+  for (const s of steps){
+    const on = !!done[s.dataset.k];
+    s.classList.toggle("done", on);
+    s.querySelector("input").checked = on;
+    if (on) n++;
+  }
+  const pc = Math.round(n / steps.length * 100);
+  document.getElementById("pcLab").textContent = n + " of " + steps.length + " done";
+  document.getElementById("pcNum").textContent = pc + "%";
+  document.getElementById("pcFill").style.width = pc + "%";
+}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(done)); } catch(e){} }
+
+for (const s of steps){
+  s.querySelector("input").addEventListener("change", e => {
+    if (e.target.checked) done[s.dataset.k] = 1; else delete done[s.dataset.k];
+    save(); paint();
+  });
+}
+document.getElementById("resetBtn").addEventListener("click", () => { done = {}; save(); paint(); });
+paint();
+</script>
+</body>
+</html>
