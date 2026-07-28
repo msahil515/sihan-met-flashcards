@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Build the "Notes for Exam" library from the CONSOLIDATED books.
+Build the "Textbook Library" from the CONSOLIDATED books.
 
 This replaces the old build_notes_app.py approach (which stapled every one of
 the ~44 notes/<slug>/index.html pages in as its own chapter). Sihan's ask:
@@ -121,7 +121,7 @@ BOOKS = [
          blurb="The full history-and-systems unit taught from the ground up to NIMHANS depth: structuralism, functionalism, Gestalt, behaviorism, psychoanalysis and the whole psychodynamic tree, humanistic and existential, the cognitive revolution, and Indian psychology, with every key theorist, date, and exam trap inline. Read top to bottom to see how each school answers the one before it. The companion notes to the 119-question Systems & Theories mock."),
     dict(slug="systems-theories-explained", shelf="systems", kind="merged", search_cap=40000,
          short="Systems & Theories — Answer Explanations",
-         blurb="Every one of the 119 Systems & Theories mock questions written out the way the test screen shows them: the correct answer and the theorist it belongs to up top, the concept built from scratch below, then each wrong option nailed to whose idea it actually is. The full-depth explanations, now readable straight through in the notes app, grouped by school."),
+         blurb="Every one of the 119 Systems & Theories mock questions written out the way the test screen shows them: the correct answer and the theorist it belongs to up top, the concept built from scratch below, then each wrong option nailed to whose idea it actually is. The full-depth explanations, now readable straight through in the textbook library, grouped by school."),
     # --- Amity ---
     dict(slug="amity", shelf="amity", kind="merged",
          short="Amity — MA Clinical Psychology",
@@ -234,7 +234,7 @@ READER_TMPL = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{title} — Notes for Exam</title>
+<title>{title} — Textbook Library</title>
 <link rel="stylesheet" href="../../notes-style.css">
 <link rel="stylesheet" href="/sihan-met-flashcards/notes/term-popover.css">
 <link rel="stylesheet" href="../book.css">
@@ -307,7 +307,7 @@ def main():
         ))
 
     total_words = sum(c["words"] for c in built)
-    manifest = dict(name="Notes for Exam", chapters=len(built),
+    manifest = dict(name="Textbook Library", chapters=len(built),
                     words=total_words, shelves=shelves)
     with open(os.path.join(ROOT, "manifest.json"), "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=1)

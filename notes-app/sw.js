@@ -1,13 +1,15 @@
-/* Notes for Exam — service worker. Own cache, scoped to /notes-app/.
+/* Textbook Library — service worker. Own cache, scoped to /notes-app/.
    Precaches the shell + every chapter page so the whole library works offline.
    CACHE name is stamped by build_notes_app.py on each build so updates self-apply. */
-var CACHE = "notes-for-exam-62fc91d0e9";
+var CACHE = "textbook-library-3280996b35";
 var BASE = "/sihan-met-flashcards/notes-app/";
 var SHELL = [
   BASE,
   BASE + "index.html",
   BASE + "app.css",
   BASE + "app.js",
+  BASE + "book-skin.css",
+  BASE + "book-skin.js",
   BASE + "reader.css",
   BASE + "book.css",
   BASE + "manifest.json",
@@ -46,7 +48,8 @@ self.addEventListener("activate", function (e) {
   e.waitUntil(
     caches.keys().then(function (keys) {
       return Promise.all(keys.map(function (k) {
-        if (k !== CACHE && k.indexOf("notes-for-exam-") === 0) return caches.delete(k);
+        // drop both the old "notes for exam" caches and superseded library ones
+        if (k !== CACHE && (k.indexOf("notes-for-exam-") === 0 || k.indexOf("textbook-library-") === 0)) return caches.delete(k);
       }));
     }).then(function () { return self.clients.claim(); })
   );

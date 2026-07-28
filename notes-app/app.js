@@ -1,4 +1,4 @@
-/* Notes for Exam — single-page library + reader ("The Reading Desk").
+/* Textbook Library — single-page library + reader ("The Reading Desk").
    No framework. Loads manifest.json, renders an editorial library home and a
    desk-framed book reader (per-note pages live in content/<slug>.html).
    On wide screens the reader flanks the page with live rails: a scroll-spy
@@ -47,6 +47,11 @@
   window.addEventListener("hashchange", route);
   postSyncToast();
 
+  /* book-skin.js needs to reach the live reader frame when the skin or the
+     device's light/dark setting changes mid-read. */
+  window.NFE = window.NFE || {};
+  window.NFE.frame = function () { return FRAME; };
+
   function route() {
     if (!DATA) return;
     closeSearch();
@@ -66,20 +71,21 @@
     var lastE = last && BYSLUG[last];
 
     var html = "";
-    html += '<div class="appbar"><span class="brand"><span class="mark">N</span> Notes for Exam</span>' +
+    html += '<div class="appbar"><span class="brand"><span class="mark">T</span> Textbook Library</span>' +
       '<span class="spacer"></span>' +
+      bookBtnHTML() +
       '<button class="iconbtn" id="topSearch" aria-label="Search">&#128269;</button>' +
       '<button class="iconbtn syncbtn" id="libSync" aria-label="Hard refresh to latest version" title="Hard refresh to latest">&#8635;</button></div>';
     html += '<div class="library">';
 
     // masthead (title page)
     html += '<div class="masthead">' +
-      '<span class="eyebrow">A Study Library &middot; MET 2026 &amp; NIMHANS</span>' +
-      '<h1>Notes for Exam</h1>' +
-      '<p class="sub">Every cheatsheet, primer, debrief and deep-dive from your prep, merged so each concept lives in one clean entry. Detail kept, nothing cut. Read it like a book.</p>' +
+      '<span class="eyebrow">The Textbook Library &middot; MET 2026 &amp; NIMHANS</span>' +
+      '<h1>Textbook Library</h1>' +
+      '<p class="sub">Every subject written out as a full textbook, merged so each concept lives in one clean entry. Detail kept, nothing cut. Read it like print.</p>' +
       '<div class="rule"><span class="orn">&#10086;</span></div>' +
       '<div class="stats">' +
-        '<span><b>' + DATA.chapters + '</b> Books</span>' +
+        '<span><b>' + DATA.chapters + '</b> Textbooks</span>' +
         '<span><b>' + Math.round(DATA.words / 1000) + 'k</b> Words</span>' +
         '<span><b>' + DATA.shelves.length + '</b> Sections</span>' +
       '</div></div>';
@@ -87,7 +93,7 @@
     // search
     html += '<div class="searchbar" id="openSearch">' +
       '<span class="sicon">&#128269;</span>' +
-      '<input type="search" placeholder="Search every book…" readonly>' +
+      '<input type="search" placeholder="Search every textbook…" readonly>' +
       '<span class="hint">/</span></div>';
 
     // continue
@@ -107,7 +113,7 @@
       html += '<section class="shelf">' +
         '<div class="shelf-head"><h2>' + esc(sh.name) + '</h2>' +
         '<span class="st">' + esc(sh.subtitle) + '</span>' +
-        '<span class="ct">' + sh.chapters.length + ' ' + (sh.chapters.length === 1 ? 'book' : 'books') + '</span></div>' +
+        '<span class="ct">' + sh.chapters.length + ' ' + (sh.chapters.length === 1 ? 'textbook' : 'textbooks') + '</span></div>' +
         '<div class="shelf-rule"></div>' +
         '<div class="shelf-row">';
       sh.chapters.forEach(function (c) {
@@ -192,6 +198,7 @@
       '<span class="spacer"></span>' +
       '<div class="fontctl"><button id="fsDown" aria-label="Smaller text">A&#8722;</button>' +
       '<button id="fsUp" aria-label="Larger text">A&#43;</button></div>' +
+      bookBtnHTML() +
       '<button class="iconbtn" id="readerSearch" aria-label="Search">&#128269;</button>' +
       '<button class="iconbtn syncbtn" id="reaSync" aria-label="Hard refresh to latest version" title="Hard refresh to latest">&#8635;</button>' +
       '</div>';
@@ -214,7 +221,7 @@
       '<div class="foot-mid">' +
         '<div class="pagelabel" id="pageLabel">&nbsp;</div>' +
         '<div class="progbar"><span id="progBar"></span></div>' +
-        '<div class="booklabel">Book ' + (RIDX + 1) + ' of ' + FLAT.length + ' &middot; ' + esc(e.short) + '</div>' +
+        '<div class="booklabel">Textbook ' + (RIDX + 1) + ' of ' + FLAT.length + ' &middot; ' + esc(e.short) + '</div>' +
       '</div>' +
       '<button class="foot-nav" id="nextBtn" ' + (NEXT ? '' : 'disabled') + '>' + (NEXT ? esc(NEXT.short) : 'End') + ' &#8250;</button>' +
       '</div>';
@@ -230,6 +237,7 @@
 
     FRAME = document.getElementById("reader");
     FRAME.addEventListener("load", function () {
+      if (window.BookSkin) window.BookSkin.applyTo(FRAME);
       applyFontSize(FRAME);
       buildContents(FRAME);
       wireFrameAnchors(FRAME);
@@ -858,7 +866,21 @@
   }
 
   /* ---------- shared wiring ---------- */
+  /* The warm-book / classic switch. Warm is the default (book-skin.js); this
+     is the escape hatch back to the old Reading Desk palette. Rendered into
+     both app bars, so it re-appears on every route. */
+  function bookBtnHTML() {
+    var lbl = window.BookSkin ? window.BookSkin.label() : "Classic";
+    return '<button class="bkbtn" id="bookBtn" type="button">' +
+      '<span class="dotmark"></span><span class="bklabel">' + lbl + '</span></button>';
+  }
+
   function wireCommon() {
+    var bk = document.getElementById("bookBtn");
+    if (bk && window.BookSkin) {
+      window.BookSkin.paintButtons();
+      bk.addEventListener("click", function () { window.BookSkin.toggle(); });
+    }
     var ts = document.getElementById("topSearch");
     if (ts) ts.addEventListener("click", openSearch);
     Array.prototype.forEach.call(document.querySelectorAll("[data-go]"), function (el) {

@@ -3,7 +3,7 @@
 Build the "Systems & Theories — Answer Explanations" merged book from the live
 119-question Systems & Theories mock (quiz/systems-theories/index.html).
 
-Sihan asked to put the test-screen explanation format into the notes app so it
+Sihan asked to put the test-screen explanation format into the textbook library so it
 reads the same way there: the correct answer + theorist up top, the concept
 built from scratch in chunks, then each wrong option nailed to who it belongs to.
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Build the standalone "Notes for Exam" app content bundle.
+Build the standalone "Textbook Library" app content bundle.
 
 Reads every notes/<slug>/index.html (and a couple of loose .html notes) from the
 flashcards site, strips the old chrome (gate, nav, install button, page-flip,
@@ -132,7 +132,7 @@ READER_TMPL = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{title} — Notes for Exam</title>
+<title>{title} — Textbook Library</title>
 <link rel="stylesheet" href="../../notes-style.css">
 <link rel="stylesheet" href="/sihan-met-flashcards/notes/term-popover.css">
 <link rel="stylesheet" href="../reader.css">
@@ -244,7 +244,7 @@ def main():
 
     total_words = sum(c["words"] for c in chapters)
     manifest = {
-        "name": "Notes for Exam",
+        "name": "Textbook Library",
         "chapters": len(chapters),
         "words": total_words,
         "shelves": shelves,
@@ -265,10 +265,10 @@ def main():
     sw_path = os.path.join(ROOT, "sw.js")
     if os.path.isfile(sw_path):
         sw = open(sw_path, encoding="utf-8").read()
-        sw = re.sub(r'var CACHE = "notes-for-exam-[^"]*";',
-                    f'var CACHE = "notes-for-exam-{stamp}";', sw)
+        sw = re.sub(r'var CACHE = "textbook-library-[^"]*";',
+                    f'var CACHE = "textbook-library-{stamp}";', sw)
         open(sw_path, "w", encoding="utf-8").write(sw)
-        print(f"stamped sw cache: notes-for-exam-{stamp}")
+        print(f"stamped sw cache: textbook-library-{stamp}")
 
     print(f"built {len(chapters)} chapters across {len(shelves)} shelves, "
           f"{total_words:,} words")

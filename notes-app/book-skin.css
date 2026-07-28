@@ -1,0 +1,260 @@
+/* ============================================================
+   book-skin.css — the warm book skin for the Textbook Library app.
+
+   Sihan's call: "Not notes. Textbook." The app is the textbook
+   library, and it should look like a shelf of matched textbooks
+   rather than a dashboard:
+
+     cream paper, off-white page cards, dark brown ink (never black),
+     muted tan borders, deep maroon + gold on the headings and the
+     book spines, serif body so it reads like print, and a dark mode
+     that is warm leather brown instead of cold grey.
+
+   Same --bk-* palette as notes/book-theme.css, so the app and the
+   67 chapter pages on the prep site are ONE look.
+
+   ON by default. book-skin.js writes html[data-book="on"] before
+   first paint; the "Classic" button in the app bar flips it off and
+   the old Reading Desk palette comes straight back (app.css is
+   untouched underneath — this file only remaps its tokens).
+   ============================================================ */
+
+/* ---------- 1. the palette ---------- */
+
+html[data-book="on"] {
+  /* cream paper + off-white leaves */
+  --bk-paper:      #EFE5CF;
+  --bk-paper-edge: #E6D9BC;
+  --bk-leaf:       #FBF6E9;
+  --bk-leaf-2:     #F4EBD8;
+
+  /* muted tan rules */
+  --bk-rule:       #DCCBA8;
+  --bk-rule-firm:  #C6B085;
+
+  /* dark brown ink, never black */
+  --bk-ink:        #33261A;
+  --bk-ink-2:      #5A4736;
+  --bk-ink-soft:   #877353;
+
+  /* deep maroon + gold: headings, spines, gilt */
+  --bk-maroon:     #7B2B2B;
+  --bk-maroon-2:   #5C1E1E;
+  --bk-gold:       #A8802C;
+  --bk-gold-2:     #C9A24D;
+  --bk-gold-soft:  #C6AC6D;
+
+  /* leather: the reader desk + dark furniture */
+  --bk-leather:    #2A211A;
+  --bk-leather-2:  #1E1712;
+  --bk-leather-ink:#F0E6D2;
+
+  /* ---- remap app.css's tokens onto the book palette ---- */
+  --paper:    var(--bk-paper);
+  --paper-2:  var(--bk-paper-edge);
+  --vellum:   var(--bk-leaf);
+  --ink:      var(--bk-ink);
+  --ink-2:    var(--bk-ink-2);
+  --ink-soft: var(--bk-ink-soft);
+  --rule:     var(--bk-rule);
+  --rule-soft:#E8DBC0;
+
+  --desk:     var(--bk-leather);
+  --desk-2:   var(--bk-leather-2);
+  --desk-ink: var(--bk-leather-ink);
+  --desk-soft:#CDBDA1;
+  --desk-rule:rgba(217, 174, 98, 0.20);
+
+  --gold:      var(--bk-gold);
+  --gold-2:    var(--bk-gold-2);
+  --gold-soft: var(--bk-gold-soft);
+
+  --shadow:    0 18px 44px rgba(74, 54, 22, 0.18);
+  --shadow-sm: 0 4px 14px rgba(74, 54, 22, 0.11);
+
+  /* the print serif, same stack the chapter pages use */
+  --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Hoefler Text', Charter, Georgia, 'Times New Roman', serif;
+
+  /* surfaces app.css hardcodes; named here so dark mode can move them */
+  --bk-card:      rgba(251, 246, 233, 0.78);
+  --bk-card-lift: #FDFAF1;
+  --bk-bar:       rgba(239, 229, 207, 0.90);
+  --bk-ledge:     linear-gradient(180deg, #7A5326, #5B3C1A 60%, #4A2F14);
+}
+
+/* ---------- 2. dark mode: warm leather brown, not cold grey ----------
+   The shell has no theme switch of its own, so it follows the device.
+   book-skin.js mirrors the OS setting into data-mode so the reader
+   iframe can be moved in lockstep. Both selectors carry the same
+   values so either route works on its own. */
+
+html[data-book="on"][data-mode="dark"],
+html[data-book="on"].bk-dark {
+  --bk-paper:      #1E1712;
+  --bk-paper-edge: #171109;
+  --bk-leaf:       #2A211A;
+  --bk-leaf-2:     #332920;
+
+  --bk-rule:       #46392B;
+  --bk-rule-firm:  #5C4B37;
+
+  --bk-ink:        #F0E6D2;
+  --bk-ink-2:      #CDBDA1;
+  --bk-ink-soft:   #9C8A6E;
+
+  /* gilt reads on leather where deep maroon would go muddy */
+  --bk-maroon:     #D9955F;
+  --bk-maroon-2:   #A9603A;
+  --bk-gold:       #D9AE62;
+  --bk-gold-2:     #EFCB88;
+  --bk-gold-soft:  #C9AE7C;
+
+  --bk-leather:    #221A14;
+  --bk-leather-2:  #17110C;
+
+  --rule-soft:     #3A2F24;
+  --desk-soft:     #B7A487;
+
+  --shadow:    0 18px 44px rgba(0, 0, 0, 0.46);
+  --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.34);
+
+  --bk-card:      rgba(42, 33, 26, 0.72);
+  --bk-card-lift: #33291F;
+  --bk-bar:       rgba(30, 23, 18, 0.92);
+  --bk-ledge:     linear-gradient(180deg, #4A3419, #33230F 60%, #241806);
+}
+
+/* ---------- 3. surfaces app.css paints with literal colours ---------- */
+
+html[data-book="on"] body {
+  background:
+    radial-gradient(1300px 520px at 50% -10%, var(--bk-leaf), transparent 70%),
+    linear-gradient(180deg, var(--bk-paper), var(--bk-paper-edge));
+  color: var(--bk-ink);
+}
+
+html[data-book="on"] .appbar { background: var(--bk-bar); }
+html[data-book="on"] .appbar .brand { color: var(--bk-ink); }
+html[data-book="on"] .appbar .brand .mark {
+  background:
+    radial-gradient(120% 120% at 30% 20%, #E8C97A, transparent 55%),
+    linear-gradient(135deg, var(--bk-gold-2), #7E5616);
+  color: #3A2607;
+}
+
+html[data-book="on"] .iconbtn,
+html[data-book="on"] .backbtn,
+html[data-book="on"] .searchbar,
+html[data-book="on"] .fontctl { background: var(--bk-card); }
+html[data-book="on"] .iconbtn:hover,
+html[data-book="on"] .backbtn:hover,
+html[data-book="on"] .searchbar:hover { background: var(--bk-card-lift); }
+html[data-book="on"] .sres:hover { background: var(--bk-card); }
+
+/* headings in deep maroon */
+html[data-book="on"] .masthead h1,
+html[data-book="on"] .shelf-head h2,
+html[data-book="on"] .continue .ttl,
+html[data-book="on"] .sres .tt { color: var(--bk-maroon); }
+
+html[data-book="on"] .shelf-rule {
+  background: linear-gradient(90deg, var(--bk-gold) 0, var(--bk-rule) 12%, var(--rule-soft) 100%);
+}
+
+/* continue-reading ribbon card */
+html[data-book="on"] .continue {
+  background: linear-gradient(180deg, var(--bk-leaf), var(--bk-leaf-2));
+}
+html[data-book="on"] .continue::before {
+  background: linear-gradient(180deg, var(--bk-maroon), var(--bk-maroon-2));
+}
+html[data-book="on"] .continue .go {
+  background: linear-gradient(180deg, var(--bk-maroon), var(--bk-maroon-2));
+  color: #F7EBD3;
+}
+
+html[data-book="on"] .shelf-row::after { background: var(--bk-ledge); }
+
+/* ---------- 4. the spines: a matched set, maroon cloth + gold foil ----------
+   app.js writes a per-shelf gradient inline on every cover, which is what made
+   the library read as a colour-coded dashboard. In book mode every volume is
+   bound the same way — deep maroon cloth, gold lettering, gilt rules — so the
+   shelves look like one textbook set. The shelf name stays, stamped in gold. */
+
+html[data-book="on"] .book {
+  background: linear-gradient(155deg, var(--bk-maroon) 0%, var(--bk-maroon-2) 88%) !important;
+  color: #F7ECD5;
+  border-left: 7px solid rgba(30, 8, 8, 0.55);
+  box-shadow: inset 8px 0 0 -6px var(--bk-gold-2), var(--shadow);
+}
+html[data-book="on"] .book:hover {
+  box-shadow: inset 8px 0 0 -6px var(--bk-gold-2), 0 26px 48px rgba(40, 16, 10, 0.34);
+}
+html[data-book="on"] .book .b-kicker { color: var(--bk-gold-2); opacity: 1; }
+html[data-book="on"] .book .b-rule {
+  background: linear-gradient(90deg, var(--bk-gold-2), rgba(201, 162, 77, 0.15));
+  width: 46px; height: 2px;
+}
+html[data-book="on"] .book .b-title { color: #FBF3E0; }
+html[data-book="on"] .book .b-foot {
+  border-top: 1px solid rgba(201, 162, 77, 0.35);
+  color: var(--bk-gold-soft); opacity: 1;
+}
+html[data-book="on"] .book::before {
+  background:
+    linear-gradient(180deg, var(--bk-leaf-2) 0 7px, transparent 7px),
+    linear-gradient(0deg, var(--bk-leaf-2) 0 7px, transparent 7px),
+    repeating-linear-gradient(90deg, rgba(251, 246, 233, 0.88) 0 1px, rgba(120, 95, 55, 0.26) 1px 2.5px);
+}
+/* the little cover on the continue card, bound to match */
+html[data-book="on"] .continue .cv {
+  background: linear-gradient(155deg, var(--bk-maroon), var(--bk-maroon-2)) !important;
+  border-left: 4px solid rgba(30, 8, 8, 0.5);
+  box-shadow: inset 5px 0 0 -3.5px var(--bk-gold-2), var(--shadow-sm);
+}
+
+/* ---------- 5. reader furniture ---------- */
+
+html[data-book="on"] .desk,
+html[data-book="on"] .openbook { background: var(--bk-leaf); }
+html[data-book="on"] .readerfoot { background: var(--bk-bar); }
+html[data-book="on"] .foot-nav { background: var(--bk-card); color: var(--bk-ink); }
+html[data-book="on"] .progbar { background: rgba(123, 43, 43, 0.16); }
+html[data-book="on"] .progbar span {
+  background: linear-gradient(90deg, var(--bk-maroon), var(--bk-gold));
+}
+html[data-book="on"] .pagelabel { color: var(--bk-ink-2); }
+html[data-book="on"] .searchpane .sheet { background: var(--bk-paper); }
+
+/* ---------- 6. the Classic / Book switch in the app bar ---------- */
+
+.bkbtn {
+  border: 1px solid var(--rule);
+  background: rgba(255, 255, 255, 0.7);
+  height: 40px; padding: 0 13px; border-radius: 11px;
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--sans); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ink-soft); box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+}
+html[data-book="on"] .bkbtn { background: var(--bk-card); color: var(--bk-ink-soft); }
+.bkbtn .dotmark {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: linear-gradient(150deg, #7B2B2B, #C9A24D);
+}
+@media (max-width: 720px) {
+  /* keep the word — a bare dot gives no clue what it switches */
+  .bkbtn { padding: 0 9px; font-size: 10px; gap: 5px; letter-spacing: 0.06em; }
+  .bkbtn .dotmark { width: 8px; height: 8px; }
+}
+@media (max-width: 380px) {
+  .bkbtn .bklabel { display: none; }
+  .bkbtn { padding: 0; width: 40px; justify-content: center; }
+  .bkbtn .dotmark { width: 13px; height: 13px; }
+}
+/* the reader bar is already full on a phone (back / contents / chapter crumb /
+   text size / search) — the switch lives on the library home there instead */
+@media (max-width: 720px) {
+  .reader .appbar .bkbtn { display: none; }
+}

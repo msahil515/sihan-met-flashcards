@@ -1,4 +1,4 @@
-/* Notes for Exam — in-frame reader page ("the vellum sheet").
+/* Textbook Library — in-frame reader page ("the vellum sheet").
    notes-style.css supplies the base paper/serif look + scoped classes
    (.trap, .recap, .nimhans, tables); book.css the merged-book callout
    vocabulary. This layer turns the page into a real printed book leaf:
@@ -200,3 +200,107 @@ body.nfe-reader.nfe-paged {
 .nfe-paged-article .toc { position: static !important; }
 .nfe-paged-article .acc-bar { display: none !important; }
 .nfe-paged-article details > summary { cursor: default; }
+
+/* ============================================================
+   BOOK SKIN — the warm textbook look, inside the reading frame.
+
+   The shell (book-skin.js) mirrors html[data-book] and html[data-mode]
+   onto this iframe's <html>, so the leaf moves with the app. Light is
+   cream paper + off-white leaves + dark brown ink + tan rules, with
+   deep maroon and gold on the headings. Dark is warm leather brown,
+   not cold grey.
+
+   This remaps notes-style.css's tokens (--bg/--panel/--text/--accent…)
+   as well as reader.css's own --leaf-*, so a chapter page is warm
+   whichever stylesheet painted the element.
+   ============================================================ */
+
+html[data-book="on"] {
+  --bk-maroon:  #7B2B2B;
+  --bk-gold:    #A8802C;
+  --bk-gold-2:  #C9A24D;
+
+  /* reader.css's leaf */
+  --leaf:      #F3EAD6;
+  --leaf-2:    #EFE5CF;
+  --leaf-ink:  #33261A;
+  --leaf-soft: #877353;
+  --leaf-rule: #DCCBA8;
+  --leaf-gold: #A8802C;
+
+  /* notes-style.css's page */
+  --bg:         #F3EAD6;
+  --panel:      #FBF6E9;
+  --panel-2:    #F4EBD8;
+  --border:     #DCCBA8;
+  --text:       #33261A;
+  --ink2:       #5A4736;
+  --muted:      #877353;
+  --accent:     #7B2B2B;
+  --accent-dim: #E3CBBF;
+  --good:       #4F6B3A;
+  --bad:        #A8382A;
+  --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Hoefler Text', Charter, Georgia, 'Times New Roman', serif;
+}
+
+html[data-book="on"] body.nfe-reader {
+  background:
+    repeating-linear-gradient(180deg, rgba(120, 96, 40, 0.022) 0 2px, transparent 2px 26px),
+    radial-gradient(120% 80% at 50% 0%, #FBF6E9 0%, var(--leaf) 46%, var(--leaf-2) 100%)
+    !important;
+}
+
+/* deep maroon on the chapter and section headings, gold on the eyebrow rules */
+html[data-book="on"] .nfe-article h1,
+html[data-book="on"] .nfe-article h2 { color: var(--bk-maroon); }
+html[data-book="on"] .nfe-article h3 { color: #4A3324; }
+html[data-book="on"] .nfe-article a  { color: #8A5A1B; }
+html[data-book="on"] .nfe-article h1,
+html[data-book="on"] .nfe-article h2 { border-bottom-color: var(--leaf-rule); }
+
+/* ---- dark: warm leather brown ---- */
+html[data-book="on"][data-mode="dark"] {
+  --bk-maroon:  #D9955F;
+  --bk-gold:    #D9AE62;
+  --bk-gold-2:  #EFCB88;
+
+  --leaf:      #221A14;
+  --leaf-2:    #1A140F;
+  --leaf-ink:  #F0E6D2;
+  --leaf-soft: #9C8A6E;
+  --leaf-rule: #46392B;
+  --leaf-gold: #D9AE62;
+
+  --bg:         #221A14;
+  --panel:      #2A211A;
+  --panel-2:    #332920;
+  --border:     #46392B;
+  --text:       #F0E6D2;
+  --ink2:       #CDBDA1;
+  --muted:      #9C8A6E;
+  --accent:     #D9955F;
+  --accent-dim: #4A3527;
+  --good:       #90AF74;
+  --bad:        #DE8A6D;
+}
+
+html[data-book="on"][data-mode="dark"] body.nfe-reader {
+  background:
+    repeating-linear-gradient(180deg, rgba(217, 174, 98, 0.025) 0 2px, transparent 2px 26px),
+    radial-gradient(120% 80% at 50% 0%, #2A211A 0%, var(--leaf) 46%, var(--leaf-2) 100%)
+    !important;
+}
+/* the frontispiece contents card is painted with literal cream in the light
+   layer above, so it needs its own leather value here */
+html[data-book="on"][data-mode="dark"] .nfe-article .booktoc {
+  background: linear-gradient(180deg, #332920, #2A211A);
+  border-color: var(--leaf-rule);
+  box-shadow: inset 0 1px 0 rgba(217, 174, 98, 0.10), 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+html[data-book="on"][data-mode="dark"] .nfe-article .booktoc a { color: var(--bk-gold-2); }
+html[data-book="on"][data-mode="dark"] .nfe-article h3 { color: #E3D3B4; }
+html[data-book="on"][data-mode="dark"] .nfe-article a  { color: var(--bk-gold-2); }
+html[data-book="on"][data-mode="dark"] .nfe-article,
+html[data-book="on"][data-mode="dark"] .nfe-article p,
+html[data-book="on"][data-mode="dark"] .nfe-article li { color: var(--text); }
+html[data-book="on"][data-mode="dark"] .nfe-article strong { color: #FFF4DE; }

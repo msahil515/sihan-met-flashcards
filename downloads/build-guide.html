@@ -189,7 +189,7 @@
 <p>Raw markdown isn't pleasant to revise from on a phone. The reader presents each notes file as a paginated book: single-page in portrait, two-page spread in landscape, swipe to turn pages, theme-aware.</p>
 
 <div class="prompt"><span class="lbl">Reader prompt</span>
-"Build a 'Notes for Exam' reader as a PWA at /notes-app/. It lists every notes file as a book on a shelf. Tapping one opens a paginated reader: one page in portrait, a two-page spread in landscape, both from the same code path using CSS column-width and a column count, not column-count:2. Pages turn by swiping. It must work offline. Generate it from the markdown files with a Python build script so I can rebuild after editing notes."</div>
+"Build a 'Textbook Library' reader as a PWA at /notes-app/. It lists every notes file as a book on a shelf. Tapping one opens a paginated reader: one page in portrait, a two-page spread in landscape, both from the same code path using CSS column-width and a column count, not column-count:2. Pages turn by swiping. It must work offline. Generate it from the markdown files with a Python build script so I can rebuild after editing notes."</div>
 
 <div class="callout gotcha"><b>Two real reader bugs, so you skip them:</b> (1) Page the spread by the article's measured content width (<code>clientWidth</code>-derived pitch), not the frame width, or deep pages drift out of the margins. (2) Do portrait single-page and landscape spread from <i>one</i> code path via column-width + a column-count variable; don't special-case with <code>column-count:2</code>. And whenever you edit the reader shell, bump the Service Worker cache name (see Ch. 9) or phones keep serving the old version.</div>
 
