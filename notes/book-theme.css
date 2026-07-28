@@ -1,0 +1,522 @@
+/* ============================================================
+   book-theme.css — the warm book skin for the notes library.
+
+   Sihan asked for the textbook library to stop looking like a
+   dashboard and start looking like a book: cream paper instead of
+   white, off-white page cards, dark brown ink instead of black,
+   muted tan rules, deep maroon + gold for headings and the shelf
+   spines, serif body copy, and a dark mode that is dark leather
+   brown rather than cold grey.
+
+   It is ON by default (book-theme.js sets html[data-book="on"]
+   before first paint); the toggle in the nav turns it off and the
+   old look comes straight back.
+
+   How it wins: the library index (notes/index.html, search.html)
+   is styled by site.css :root, and the 67 chapter pages are styled
+   by notes-style.css :root PLUS take/theme.js, which writes its
+   palette to html[data-theme=x][data-mode=y] — specificity (0,2,1)
+   — from an injected <style> that always lands after this file.
+   So the token mapping below is written at (0,3,1) to beat it,
+   with a plain html[data-book="on"] copy for the four pages that
+   never load theme.js.
+   ============================================================ */
+
+/* ---------- 1. the palette, as private --bk-* values ---------- */
+
+html[data-book="on"] {
+  /* cream paper + off-white leaves */
+  --bk-paper:      #EFE5CF;
+  --bk-paper-edge: #E6D9BC;
+  --bk-leaf:       #FBF6E9;
+  --bk-leaf-2:     #F4EBD8;
+
+  /* muted tan rules */
+  --bk-rule:       #DCCBA8;
+  --bk-rule-firm:  #C6B085;
+
+  /* dark brown ink, never black */
+  --bk-ink:        #33261A;
+  --bk-ink-2:      #5A4736;
+  --bk-ink-soft:   #877353;
+
+  /* deep maroon + gold: headings, spines, gilt */
+  --bk-maroon:     #7B2B2B;
+  --bk-maroon-2:   #5C1E1E;
+  --bk-maroon-wash:#F3E1DA;
+  --bk-gold:       #A8802C;
+  --bk-gold-2:     #C9A24D;
+  --bk-gold-wash:  #F5EACC;
+
+  /* status, kept in the same warm family */
+  --bk-good:       #4F6B3A;
+  --bk-good-wash:  #E7EEDA;
+  --bk-bad:        #A8382A;
+  --bk-bad-wash:   #F6E2DB;
+
+  --bk-shadow:     0 1px 2px rgba(74, 54, 22, 0.07), 0 10px 30px rgba(74, 54, 22, 0.08);
+  --bk-shadow-lift:0 2px 4px rgba(74, 54, 22, 0.10), 0 18px 40px rgba(74, 54, 22, 0.16);
+
+  --bk-serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Hoefler Text', Charter, Georgia, 'Times New Roman', serif;
+  --bk-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+/* ---------- 2. dark mode: dark leather brown, not cold grey ---------- */
+
+html[data-book="on"][data-mode="dark"] {
+  --bk-paper:      #1E1712;
+  --bk-paper-edge: #171109;
+  --bk-leaf:       #2A211A;
+  --bk-leaf-2:     #332920;
+
+  --bk-rule:       #46392B;
+  --bk-rule-firm:  #5C4B37;
+
+  --bk-ink:        #F0E6D2;
+  --bk-ink-2:      #CDBDA1;
+  --bk-ink-soft:   #9C8A6E;
+
+  /* gilt reads on leather where deep maroon would go muddy */
+  --bk-maroon:     #D9955F;
+  --bk-maroon-2:   #E9B48A;
+  --bk-maroon-wash:#3A281C;
+  --bk-gold:       #D9AE62;
+  --bk-gold-2:     #EFCB88;
+  --bk-gold-wash:  #3A2D16;
+
+  --bk-good:       #90AF74;
+  --bk-good-wash:  #26301B;
+  --bk-bad:        #DE8A6D;
+  --bk-bad-wash:   #37201A;
+
+  --bk-shadow:     0 1px 2px rgba(0,0,0,0.30), 0 10px 30px rgba(0,0,0,0.38);
+  --bk-shadow-lift:0 2px 6px rgba(0,0,0,0.36), 0 20px 46px rgba(0,0,0,0.50);
+}
+
+/* the library index never loads theme.js, so it has no data-mode:
+   follow the device there instead. */
+@media (prefers-color-scheme: dark) {
+  html[data-book="on"]:not([data-mode]) {
+    --bk-paper:      #1E1712;
+    --bk-paper-edge: #171109;
+    --bk-leaf:       #2A211A;
+    --bk-leaf-2:     #332920;
+    --bk-rule:       #46392B;
+    --bk-rule-firm:  #5C4B37;
+    --bk-ink:        #F0E6D2;
+    --bk-ink-2:      #CDBDA1;
+    --bk-ink-soft:   #9C8A6E;
+    --bk-maroon:     #D9955F;
+    --bk-maroon-2:   #E9B48A;
+    --bk-maroon-wash:#3A281C;
+    --bk-gold:       #D9AE62;
+    --bk-gold-2:     #EFCB88;
+    --bk-gold-wash:  #3A2D16;
+    --bk-good:       #90AF74;
+    --bk-good-wash:  #26301B;
+    --bk-bad:        #DE8A6D;
+    --bk-bad-wash:   #37201A;
+    --bk-shadow:     0 1px 2px rgba(0,0,0,0.30), 0 10px 30px rgba(0,0,0,0.38);
+    --bk-shadow-lift:0 2px 6px rgba(0,0,0,0.36), 0 20px 46px rgba(0,0,0,0.50);
+  }
+}
+
+/* ---------- 3. map every legacy token family onto the book palette ----------
+   site.css names, notes-style.css names, and the shared take/theme.js
+   tokens all point at the same --bk-* values, so one palette drives
+   the library index, the chapter pages and anything bridged through
+   revamp-skin.css. */
+
+html[data-book="on"],
+html[data-book="on"][data-theme][data-mode] {
+  /* surfaces */
+  --bg: var(--bk-paper);
+  --panel: var(--bk-leaf);
+  --panel-2: var(--bk-leaf-2);
+  --panel-3: var(--bk-leaf-2);
+  --card: var(--bk-leaf);
+  --surface: var(--bk-leaf);
+  --surface-2: var(--bk-leaf-2);
+
+  /* rules */
+  --border: var(--bk-rule);
+  --border-strong: var(--bk-rule-firm);
+  --line: var(--bk-rule);
+
+  /* ink */
+  --text: var(--bk-ink);
+  --fg: var(--bk-ink);
+  --ink: var(--bk-ink);
+  --ink2: var(--bk-ink-2);
+  --ink-soft: var(--bk-ink-2);
+  --muted: var(--bk-ink-soft);
+
+  /* accent = deep maroon */
+  --accent: var(--bk-maroon);
+  --accent-dim: var(--bk-maroon-2);
+  --accent-soft: var(--bk-maroon-wash);
+  --primary: var(--bk-maroon);
+  --primary-ink: var(--bk-maroon-2);
+  --primary-wash: var(--bk-maroon-wash);
+
+  /* gold does the work of the old amber/warn/purple */
+  --warn: var(--bk-gold);
+  --warn-soft: var(--bk-gold-wash);
+  --amber: var(--bk-gold);
+  --amber-wash: var(--bk-gold-wash);
+  --purple: var(--bk-gold);
+  --purple-soft: var(--bk-gold-wash);
+
+  --good: var(--bk-good);
+  --good-soft: var(--bk-good-wash);
+  --good-wash: var(--bk-good-wash);
+  --bad: var(--bk-bad);
+  --bad-soft: var(--bk-bad-wash);
+  --bad-wash: var(--bk-bad-wash);
+
+  --serif: var(--bk-serif);
+  --sans: var(--bk-sans);
+}
+
+/* ---------- 4. paper ---------- */
+
+html[data-book="on"] body {
+  background: var(--bk-paper);
+  /* a faint laid-paper grain: hairline chain lines + a warm bloom */
+  background-image:
+    repeating-linear-gradient(180deg, rgba(120, 96, 40, 0.022) 0 2px, transparent 2px 26px),
+    radial-gradient(1200px 640px at 82% -12%, var(--bk-leaf-2) 0, var(--bk-paper) 58%);
+  background-attachment: fixed;
+  color: var(--bk-ink);
+  font-family: var(--bk-serif);
+}
+
+/* ---------- 5. the masthead bar ---------- */
+
+html[data-book="on"] .topbar {
+  background: var(--bk-leaf);
+  border-bottom: 1px solid var(--bk-rule);
+  box-shadow: 0 1px 0 var(--bk-gold-wash);
+}
+html[data-book="on"] .brand-title {
+  font-family: var(--bk-serif);
+  font-size: 16px;
+  color: var(--bk-ink);
+  letter-spacing: 0.2px;
+}
+html[data-book="on"] .brand-sub {
+  font-family: var(--bk-sans);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  font-size: 10px;
+  color: var(--bk-ink-soft);
+}
+html[data-book="on"] .nav a,
+html[data-book="on"] nav a {
+  font-family: var(--bk-sans);
+  color: var(--bk-ink-2);
+}
+html[data-book="on"] .nav a.active {
+  background: var(--bk-maroon-wash);
+  color: var(--bk-maroon);
+  border-color: var(--bk-maroon);
+}
+html[data-book="on"] .countdown-chip {
+  background: var(--bk-gold-wash);
+  color: var(--bk-gold);
+  border-color: var(--bk-gold);
+  font-family: var(--bk-sans);
+}
+
+/* ---------- 6. the hero, set like a title page ---------- */
+
+html[data-book="on"] .nx-hero,
+html[data-book="on"] .page-hero {
+  background:
+    radial-gradient(900px 320px at 12% -20%, var(--bk-gold-wash), transparent 62%),
+    linear-gradient(160deg, var(--bk-leaf), var(--bk-leaf-2));
+  border: 1px solid var(--bk-rule);
+  border-top: 3px solid var(--bk-maroon);
+  box-shadow: var(--bk-shadow);
+}
+html[data-book="on"] .nx-hero .crumbs,
+html[data-book="on"] .page-hero .crumbs {
+  font-family: var(--bk-sans);
+  color: var(--bk-gold);
+  font-weight: 700;
+}
+html[data-book="on"] .nx-hero h1,
+html[data-book="on"] .page-hero h1 {
+  font-family: var(--bk-serif);
+  font-weight: 700;
+  color: var(--bk-maroon);
+  letter-spacing: 0.2px;
+  text-wrap: balance;
+}
+html[data-book="on"] .nx-hero p,
+html[data-book="on"] .page-hero p {
+  font-family: var(--bk-serif);
+  color: var(--bk-ink-2);
+  font-size: 15px;
+  line-height: 1.65;
+}
+/* a gilt ornament rule under the hero copy */
+html[data-book="on"] .nx-hero::after {
+  content: "";
+  position: absolute;
+  left: 28px; right: 28px; bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--bk-gold), var(--bk-rule) 34%, transparent);
+}
+html[data-book="on"] .nx-bigcount {
+  background: var(--bk-gold-wash);
+  border-color: var(--bk-gold);
+}
+html[data-book="on"] .nx-bigcount b { color: var(--bk-maroon); font-family: var(--bk-serif); }
+html[data-book="on"] .nx-bigcount span { color: var(--bk-ink-soft); font-family: var(--bk-sans); }
+
+/* catalogue lookup field */
+html[data-book="on"] .nx-search input {
+  background: var(--bk-leaf);
+  border: 1px solid var(--bk-rule-firm);
+  color: var(--bk-ink);
+  font-family: var(--bk-sans);
+}
+html[data-book="on"] .nx-search input:focus {
+  border-color: var(--bk-maroon);
+  background: var(--bk-leaf);
+  box-shadow: 0 0 0 3px var(--bk-maroon-wash);
+}
+html[data-book="on"] .nx-search-count { color: var(--bk-ink-soft); font-family: var(--bk-sans); }
+html[data-book="on"] .nx-search-all {
+  background: var(--bk-maroon-wash);
+  border-color: var(--bk-maroon);
+  color: var(--bk-maroon);
+  font-family: var(--bk-sans);
+}
+html[data-book="on"] .nx-search-all:hover { background: var(--bk-maroon); color: var(--bk-leaf); }
+
+/* jump chips */
+html[data-book="on"] .nx-jump a {
+  background: var(--bk-leaf);
+  border: 1px solid var(--bk-rule);
+  color: var(--bk-ink-2);
+  font-family: var(--bk-sans);
+  box-shadow: 0 1px 2px rgba(74, 54, 22, 0.05);
+}
+html[data-book="on"] .nx-jump a:hover {
+  border-color: var(--bk-gold);
+  color: var(--bk-maroon);
+  background: var(--bk-gold-wash);
+}
+
+/* ---------- 7. section heads: shelf labels with a gilt rule ---------- */
+
+html[data-book="on"] .section-head {
+  border-bottom: 1px solid var(--bk-rule);
+  padding-bottom: 8px;
+  position: relative;
+}
+html[data-book="on"] .section-head::after {
+  content: "";
+  position: absolute; left: 0; bottom: -1px;
+  width: 92px; height: 2px;
+  background: linear-gradient(90deg, var(--bk-gold), var(--bk-gold-2));
+}
+html[data-book="on"] .section-title {
+  font-family: var(--bk-serif);
+  font-size: 21px;
+  color: var(--bk-maroon);
+  letter-spacing: 0.2px;
+}
+html[data-book="on"] .section-sub,
+html[data-book="on"] .section-anchor {
+  font-family: var(--bk-sans);
+  color: var(--bk-ink-soft);
+}
+html[data-book="on"] .nx-secmark {
+  background: linear-gradient(90deg, var(--bk-maroon), var(--bk-gold)) !important;
+}
+
+/* ---------- 8. the shelf: every card is a cloth-bound spine ---------- */
+
+html[data-book="on"] .card {
+  background: var(--bk-leaf);
+  border: 1px solid var(--bk-rule);
+  border-left: 6px solid var(--bk-maroon);
+  border-radius: 3px 12px 12px 3px;
+  box-shadow: var(--bk-shadow);
+  position: relative;
+  overflow: hidden;
+  transition: transform .16s cubic-bezier(.2,.7,.3,1), box-shadow .16s ease, border-color .16s ease;
+}
+/* the gilt fillet running down the spine */
+html[data-book="on"] .card::after {
+  content: "";
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--bk-gold-2) 14%, var(--bk-gold-2) 86%, transparent);
+  opacity: 0.75;
+  pointer-events: none;
+}
+html[data-book="on"] .card:hover {
+  border-color: var(--bk-rule-firm);
+  border-left-color: var(--bk-maroon-2);
+}
+html[data-book="on"] .card.link:hover,
+html[data-book="on"] a.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--bk-shadow-lift);
+}
+/* the "start here" volumes get gold boards instead of maroon */
+html[data-book="on"] .card.fresh,
+html[data-book="on"] .nx-tile.start {
+  border-left-color: var(--bk-gold);
+  border-color: var(--bk-gold);
+}
+html[data-book="on"] .nx-tile { background: var(--bk-leaf); }
+html[data-book="on"] .nx-tile::before {
+  background: linear-gradient(135deg, rgba(168, 128, 44, 0.14), rgba(123, 43, 43, 0.07)) !important;
+}
+html[data-book="on"] .nx-tile.start::before {
+  background: linear-gradient(135deg, rgba(168, 128, 44, 0.18), rgba(123, 43, 43, 0.06)) !important;
+  opacity: 1;
+}
+html[data-book="on"] .nx-tile .nx-tt,
+html[data-book="on"] .card-title {
+  font-family: var(--bk-serif);
+  color: var(--bk-ink);
+  letter-spacing: 0.1px;
+}
+html[data-book="on"] .nx-tile .nx-ds,
+html[data-book="on"] .card-sub,
+html[data-book="on"] .card-body {
+  font-family: var(--bk-serif);
+  line-height: 1.6;
+}
+html[data-book="on"] .nx-tile .nx-ds { color: var(--bk-ink-2); }
+html[data-book="on"] .nx-tile .nx-go,
+html[data-book="on"] .card-cta {
+  font-family: var(--bk-sans);
+  color: var(--bk-maroon);
+  font-weight: 700;
+}
+
+/* badges + pills, printed rather than neon */
+html[data-book="on"] .badge,
+html[data-book="on"] .pill {
+  font-family: var(--bk-sans);
+  letter-spacing: 0.05em;
+}
+html[data-book="on"] .badge.good {
+  background: var(--bk-good-wash); color: var(--bk-good); border-color: var(--bk-good);
+}
+html[data-book="on"] .badge.accent {
+  background: var(--bk-maroon-wash); color: var(--bk-maroon); border-color: var(--bk-maroon);
+}
+html[data-book="on"] .badge.purple {
+  background: var(--bk-gold-wash); color: var(--bk-gold); border-color: var(--bk-gold);
+}
+
+/* the how-to strip reads as a printer's note */
+html[data-book="on"] .nx-howto {
+  background: var(--bk-leaf-2);
+  border: 1px solid var(--bk-rule);
+  border-left: 3px solid var(--bk-gold);
+  font-family: var(--bk-serif);
+  color: var(--bk-ink-2);
+}
+html[data-book="on"] .nx-howto b { color: var(--bk-maroon); }
+
+html[data-book="on"] .note-collapse > summary {
+  font-family: var(--bk-sans);
+  color: var(--bk-maroon);
+}
+html[data-book="on"] .note-collapse > summary:hover { color: var(--bk-ink); }
+
+html[data-book="on"] footer {
+  border-top: 1px solid var(--bk-rule);
+  color: var(--bk-ink-soft);
+  font-family: var(--bk-sans);
+}
+
+/* ---------- 9. the chapter pages (notes-style.css) ---------- */
+
+html[data-book="on"] .wrap {
+  background: var(--bk-leaf);
+  border: 1px solid var(--bk-rule);
+  box-shadow: var(--bk-shadow);
+}
+html[data-book="on"] .wrap h1,
+html[data-book="on"] .wrap h2 {
+  color: var(--bk-maroon);
+  border-bottom-color: var(--bk-rule);
+  font-family: var(--bk-serif);
+}
+html[data-book="on"] .wrap h3,
+html[data-book="on"] .wrap h4 {
+  color: var(--bk-ink);
+  font-family: var(--bk-serif);
+}
+/* a gilt hairline under the chapter title */
+html[data-book="on"] .wrap > h1:first-of-type {
+  border-bottom: 2px solid var(--bk-gold);
+}
+html[data-book="on"] .wrap p,
+html[data-book="on"] .wrap li,
+html[data-book="on"] .wrap td,
+html[data-book="on"] .wrap th { color: var(--bk-ink); }
+html[data-book="on"] .wrap a { color: var(--bk-maroon); }
+html[data-book="on"] .wrap nav a {
+  border-color: var(--bk-rule);
+  color: var(--bk-ink-2);
+}
+html[data-book="on"] .wrap nav a:hover {
+  background: var(--bk-gold-wash);
+  border-color: var(--bk-gold);
+  color: var(--bk-maroon);
+}
+
+/* ---------- 10. the Book / Classic toggle ---------- */
+
+.bk-toggle {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--bk-rule, #d0d7de);
+  background: var(--bk-leaf, #fff);
+  color: var(--bk-ink-2, #444);
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+html[data-book="on"] .bk-toggle {
+  border-color: var(--bk-gold);
+  background: var(--bk-gold-wash);
+  color: var(--bk-maroon);
+}
+.bk-toggle:hover { filter: brightness(0.97); }
+/* only used when a page has no nav to mount into; theme.js parks its
+   own control bottom-right, so this sits bottom-left. */
+.bk-toggle.bk-float {
+  position: fixed;
+  z-index: 209;
+  left: 14px;
+  bottom: 16px;
+  padding: 10px 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+
+@media (max-width: 720px) {
+  html[data-book="on"] .nx-hero h1 { font-size: 25px; }
+  html[data-book="on"] .card { border-left-width: 5px; }
+}
+
+@media print {
+  .bk-toggle { display: none !important; }
+}
