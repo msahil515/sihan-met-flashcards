@@ -16,12 +16,12 @@ const MOCKS = [
   {
     id: "systems-theories",
     title: "Systems & Theories Mock (Panwar bank)",
-    sub: "119 MCQs · Amit Panwar \"Systems & Theories of Psychology\" unit bank · common-section drilling · official key + full revamp depth · untimed Practice + timed Exam",
+    sub: "119 MCQs · Amit Panwar \"Systems & Theories of Psychology\" unit bank · common-section drilling · official key + full revamp depth · untimed Practice + Full run",
     path: "../quiz/systems-theories/",
     total: 119,
     storageKey: "systems-theories-results-v1",
     sections: { history: 19, psychodyn: 36, behavioural: 13, humanistic: 21, cognitive: 12, indian: 18 },
-    blurb: "The full Amit Panwar Systems & Theories of Psychology unit practice question bank, all 119 MCQs, built into a native mock that marks itself. Every question carries the book's own OFFICIAL answer and its baked-in solution (shown as 'Panwar key'), PLUS the full revamp depth layered on top: why the right option is right, the concept taught from scratch, and a per-distractor trap explaining why each wrong option is wrong. This is core common-section material — history & schools, psychodynamic (Freud/Adler/Jung/neo-Freudians), behavioural/learning, humanistic & Gestalt, cognitive & consciousness, and Indian psychology. Exactly the common-section drilling that decides the gap. Untimed Practice by default (instant reveal + explanation per question); flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. A few items where the printed key is academically debatable keep the official letter but flag the dispute. Independent storage.",
+    blurb: "The full Amit Panwar Systems & Theories of Psychology unit practice question bank, all 119 MCQs, built into a native mock that marks itself. Every question carries the book's own OFFICIAL answer and its baked-in solution (shown as 'Panwar key'), PLUS the full revamp depth layered on top: why the right option is right, the concept taught from scratch, and a per-distractor trap explaining why each wrong option is wrong. This is core common-section material — history & schools, psychodynamic (Freud/Adler/Jung/neo-Freudians), behavioural/learning, humanistic & Gestalt, cognitive & consciousness, and Indian psychology. Exactly the common-section drilling that decides the gap. Untimed Practice by default (instant reveal + explanation per question); flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. A few items where the printed key is academically debatable keep the official letter but flag the dispute. Independent storage.",
     fresh: true,
     deepExp: true,
     tags: ["deep explanations", "systems & theories", "Panwar bank", "common section", "official key", "trap per wrong option", "untimed practice", "119 Q"]
@@ -34,7 +34,7 @@ const MOCKS = [
     total: 100,
     storageKey: "flight-mock-100-results-v1",
     sections: { general: 36, biopsych: 24, abnormal: 7, therapy: 6, biostats: 8, assessment: 7, dev: 9, social: 3 },
-    blurb: "The full Flight Mock built out to a proper saved mock so it lives with the rest and marks itself. Qs 1-15 are the inline flight set you got with no signal; 16-30 the follow-on flight set; 31-100 round it out to a full-length 100-question paper across every MET / clinical-psychology domain (history + learning, biopsychology + neuroscience, cognition + memory, intelligence, development, personality, abnormal + DSM-5, psychotherapy, stats + psychometrics, social). Every question carries a full revamp-depth answer underneath: why the right one is right, the concept taught from scratch, and a trap line for each wrong option — same standard as the Amity and IHBAS revamps. Defaults to untimed Practice (instant reveal + full explanation), no clock; flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. These are study questions across the standard syllabus, not a verbatim real paper, so treat any miss as a concept to lock. Independent storage.",
+    blurb: "The full Flight Mock built out to a proper saved mock so it lives with the rest and marks itself. Qs 1-15 are the inline flight set you got with no signal; 16-30 the follow-on flight set; 31-100 round it out to a full-length 100-question paper across every MET / clinical-psychology domain (history + learning, biopsychology + neuroscience, cognition + memory, intelligence, development, personality, abnormal + DSM-5, psychotherapy, stats + psychometrics, social). Every question carries a full revamp-depth answer underneath: why the right one is right, the concept taught from scratch, and a trap line for each wrong option — same standard as the Amity and IHBAS revamps. Defaults to untimed Practice (instant reveal + full explanation), no clock; flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. These are study questions across the standard syllabus, not a verbatim real paper, so treat any miss as a concept to lock. Independent storage.",
     fresh: true,
     tags: ["flight mock", "100 Q", "full-depth answers", "trap per wrong option", "untimed practice"]
   },
@@ -46,31 +46,31 @@ const MOCKS = [
     total: 60,
     storageKey: "diagnostic-1-results-v1",
     sections: { common: 44, mphil: 8, ugcnet: 8 },
-    blurb: "This one isn't a paper to grind, it's a diagnostic. 60 questions weighted hard into the COMMON section (44 of 60) because that's where the 18 points between you and 90 are leaking, not the two specific sections you already max. Sit it once. When you finish, the page compiles a 'final study material' sheet built only from what you missed (wrong, guessed, or skipped), grouped by topic with the weakest first and a full revision block under each. Revise that sheet, nothing else. +1 / −0.25, practice or timed exam mode, 'Copy study sheet' button to save the gap notes. Independent storage.",
+    blurb: "This one isn't a paper to grind, it's a diagnostic. 60 questions weighted hard into the COMMON section (44 of 60) because that's where the 18 points between you and 90 are leaking, not the two specific sections you already max. Sit it once. When you finish, the page compiles a 'final study material' sheet built only from what you missed (wrong, guessed, or skipped), grouped by topic with the weakest first and a full revision block under each. Revise that sheet, nothing else. +1 / −0.25, practice or full-run mode, 'Copy study sheet' button to save the gap notes. Independent storage.",
     fresh: true,
     tags: ["diagnostic", "common-section weighted", "misses → study sheet", "+1 / −0.25", "60 Q"]
   },
   {
     id: "pyq-real-2025",
     title: "Real PYQ Mock — NIMHANS 2025",
-    sub: "59 verbatim Qs · NIMHANS M.Phil 2025 · real options + official key · timed exam mode",
+    sub: "59 verbatim Qs · NIMHANS M.Phil 2025 · real options + official key · untimed full run",
     path: "../quiz/pyq-real-2025/",
     total: 59,
     storageKey: "pyq-real-2025-results-v1",
     sections: { therapy: 14, biostats: 13, biopsych: 10, abnormal: 8, dev: 5, assessment: 4, general: 4, social: 1 },
-    blurb: "The NIMHANS M.Phil Clinical Psychology 2025 memory-based paper, built from the real questions: every stem and all four options verbatim, every answer the paper's official key, nothing synthesised. 59 questions kept after dropping any that repeated the NIMHANS 2024 mock or PYQ Mock 2, plus a couple whose printed key was missing or wrong. Timed exam mode (no answers until you finish, flag + jump grid), scored live +1 / −0.25. Independent storage.",
+    blurb: "The NIMHANS M.Phil Clinical Psychology 2025 memory-based paper, built from the real questions: every stem and all four options verbatim, every answer the paper's official key, nothing synthesised. 59 questions kept after dropping any that repeated the NIMHANS 2024 mock or PYQ Mock 2, plus a couple whose printed key was missing or wrong. Full run mode (no answers until you finish, flag + jump grid), scored live +1 / −0.25. Independent storage.",
     fresh: true,
-    tags: ["100% real PYQ", "official key", "real distractors", "NIMHANS 2025", "timed exam"]
+    tags: ["100% real PYQ", "official key", "real distractors", "NIMHANS 2025", "untimed full run"]
   },
   {
     id: "rml-2024",
     title: "RML 2024 PYQ Mock (verbatim paper)",
-    sub: "100 verbatim Qs · ABVIMS / Dr RML Hospital M.Phil 2024 (CET-157) · official key · untimed Practice + timed Exam",
+    sub: "100 verbatim Qs · ABVIMS / Dr RML Hospital M.Phil 2024 (CET-157) · official key · untimed Practice + Full run",
     path: "../quiz/rml-2024/",
     total: 100,
     storageKey: "rml-2024-results-v1",
     sections: { general: 38, biopsych: 18, abnormal: 14, therapy: 13, biostats: 6, assessment: 6, dev: 3, social: 2 },
-    blurb: "The full 2024 RML / ABVIMS (Dr RML Hospital, Delhi) M.Phil Clinical Psychology entrance paper, all 100 questions verbatim with the paper's official answer key (the source marks each correct option in bold). Nothing synthesised. This is the M.Phil (CET-157) paper, the best real depth-calibration for the RML MA route, pulled from your Drive library. Untimed Practice mode by default (instant reveal + explanation per question); flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. Independent storage.",
+    blurb: "The full 2024 RML / ABVIMS (Dr RML Hospital, Delhi) M.Phil Clinical Psychology entrance paper, all 100 questions verbatim with the paper's official answer key (the source marks each correct option in bold). Nothing synthesised. This is the M.Phil (CET-157) paper, the best real depth-calibration for the RML MA route, pulled from your Drive library. Untimed Practice mode by default (instant reveal + explanation per question); flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
     deepExp: true,
     tags: ["deep explanations", "100% real PYQ", "official key", "real distractors", "RML 2024", "untimed practice"]
@@ -78,12 +78,12 @@ const MOCKS = [
   {
     id: "rml-2020",
     title: "RML 2020 PYQ Mock (verbatim paper)",
-    sub: "100 verbatim Qs · ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2020 · expert-verified key · deep answers · untimed Practice + timed Exam",
+    sub: "100 verbatim Qs · ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2020 · expert-verified key · deep answers · untimed Practice + Full run",
     path: "../quiz/rml-2020/",
     total: 100,
     storageKey: "rml-2020-results-v1",
     sections: {"psychopathology": 19, "biopsych": 9, "social": 16, "stats": 8, "assessment": 9, "cognitive": 9, "systems": 10, "therapy": 8, "development": 9, "general": 3},
-    blurb: "The full 2020 RML paper (ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2020), all 100 questions verbatim with an expert-determined answer key (no official key was printed on this paper). Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. Independent storage.",
+    blurb: "The full 2020 RML paper (ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2020), all 100 questions verbatim with an expert-determined answer key (no official key was printed on this paper). Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
     deepExp: true,
     tags: ["deep explanations", "100% real PYQ", "expert-verified key", "real distractors", "RML 2020", "untimed practice"]
@@ -91,12 +91,12 @@ const MOCKS = [
   {
     id: "rml-2021",
     title: "RML 2021 PYQ Mock (verbatim paper)",
-    sub: "100 verbatim Qs · ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2021 · expert-verified key · deep answers · untimed Practice + timed Exam",
+    sub: "100 verbatim Qs · ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2021 · expert-verified key · deep answers · untimed Practice + Full run",
     path: "../quiz/rml-2021/",
     total: 100,
     storageKey: "rml-2021-results-v1",
     sections: {"biopsych": 6, "social": 8, "development": 18, "cognitive": 3, "general": 4, "psychopathology": 13, "stats": 19, "assessment": 15, "therapy": 11, "systems": 3},
-    blurb: "The full 2021 RML paper (ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2021), all 100 questions verbatim with an expert-determined answer key (no official key was printed on this paper). Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. Independent storage.",
+    blurb: "The full 2021 RML paper (ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2021), all 100 questions verbatim with an expert-determined answer key (no official key was printed on this paper). Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
     deepExp: true,
     tags: ["deep explanations", "100% real PYQ", "expert-verified key", "real distractors", "RML 2021", "untimed practice"]
@@ -104,12 +104,12 @@ const MOCKS = [
   {
     id: "rml-2022",
     title: "RML 2022 PYQ Mock (verbatim paper)",
-    sub: "100 verbatim Qs · GGSIPU M.Phil Clinical Psychology 2022 (RML prep paper) · official key · deep answers · untimed Practice + timed Exam",
+    sub: "100 verbatim Qs · GGSIPU M.Phil Clinical Psychology 2022 (RML prep paper) · official key · deep answers · untimed Practice + Full run",
     path: "../quiz/rml-2022/",
     total: 100,
     storageKey: "rml-2022-results-v1",
     sections: {"psychopathology": 15, "stats": 6, "development": 14, "biopsych": 7, "general": 10, "social": 8, "assessment": 19, "cognitive": 6, "therapy": 15},
-    blurb: "The full 2022 RML paper (GGSIPU M.Phil Clinical Psychology 2022 (RML prep paper)), all 100 questions verbatim with the paper's official printed answer key. Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. Independent storage.",
+    blurb: "The full 2022 RML paper (GGSIPU M.Phil Clinical Psychology 2022 (RML prep paper)), all 100 questions verbatim with the paper's official printed answer key. Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
     deepExp: true,
     tags: ["deep explanations", "100% real PYQ", "official key", "real distractors", "RML 2022", "untimed practice"]
@@ -117,12 +117,12 @@ const MOCKS = [
   {
     id: "rml-2023",
     title: "RML 2023 PYQ Mock (verbatim paper)",
-    sub: "70 verbatim Qs · ABVIMS / Dr RML Hospital Psychology CET 2023 (Code 135) · expert-verified key · deep answers · untimed Practice + timed Exam",
+    sub: "70 verbatim Qs · ABVIMS / Dr RML Hospital Psychology CET 2023 (Code 135) · expert-verified key · deep answers · untimed Practice + Full run",
     path: "../quiz/rml-2023/",
     total: 70,
     storageKey: "rml-2023-results-v1",
     sections: {"stats": 21, "general": 17, "assessment": 3, "systems": 8, "cognitive": 9, "biopsych": 7, "development": 2, "social": 2, "psychopathology": 1},
-    blurb: "The full 2023 RML paper (ABVIMS / Dr RML Hospital Psychology CET 2023 (Code 135)), all 70 questions verbatim with an expert-determined answer key (no official key was printed on this paper). Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. Independent storage.",
+    blurb: "The full 2023 RML paper (ABVIMS / Dr RML Hospital Psychology CET 2023 (Code 135)), all 70 questions verbatim with an expert-determined answer key (no official key was printed on this paper). Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
     deepExp: true,
     tags: ["deep explanations", "100% real PYQ", "expert-verified key", "real distractors", "RML 2023", "untimed practice"]
@@ -130,12 +130,12 @@ const MOCKS = [
   {
     id: "rml-2025",
     title: "RML 2025 PYQ Mock (verbatim paper)",
-    sub: "100 verbatim Qs · GGSIPU M.Phil Clinical Psychology 2025 (RML prep paper) · official key · deep answers · untimed Practice + timed Exam",
+    sub: "100 verbatim Qs · GGSIPU M.Phil Clinical Psychology 2025 (RML prep paper) · official key · deep answers · untimed Practice + Full run",
     path: "../quiz/rml-2025/",
     total: 100,
     storageKey: "rml-2025-results-v1",
     sections: {"biopsych": 18, "cognitive": 10, "psychopathology": 8, "stats": 12, "development": 8, "assessment": 22, "general": 20, "therapy": 1, "social": 1},
-    blurb: "The full 2025 RML paper (GGSIPU M.Phil Clinical Psychology 2025 (RML prep paper)), all 100 questions verbatim with the paper's official printed answer key. Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. Independent storage.",
+    blurb: "The full 2025 RML paper (GGSIPU M.Phil Clinical Psychology 2025 (RML prep paper)), all 100 questions verbatim with the paper's official printed answer key. Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
     deepExp: true,
     tags: ["deep explanations", "100% real PYQ", "official key", "real distractors", "RML 2025", "untimed practice"]
@@ -143,12 +143,12 @@ const MOCKS = [
   {
     id: "rml-practice-1",
     title: "RML Paper 1 Practice Mock (fresh)",
-    sub: "100 fresh practice Qs · RML CET-166 Paper-1 pattern · deep answers · untimed Practice + timed Exam",
+    sub: "100 fresh practice Qs · RML CET-166 Paper-1 pattern · deep answers · untimed Practice + Full run",
     path: "../quiz/rml-practice-1/",
     total: 100,
     storageKey: "rml-practice-1-results-v1",
     sections: {"assessment": 16, "psychopathology": 15, "stats": 14, "biopsych": 12, "therapy": 12, "development": 10, "social": 8, "cognitive": 6, "systems": 4, "general": 3},
-    blurb: "A fresh 100-question practice paper written in the RML CET-166 Paper-1 pattern, calibrated to the coverage and difficulty of the six real RML previous-year papers. Original exam-realistic questions (not a transcribed PYQ), so use it as an extra full-length rehearsal after the real papers. Every question has a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default; flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. Independent storage.",
+    blurb: "A fresh 100-question practice paper written in the RML CET-166 Paper-1 pattern, calibrated to the coverage and difficulty of the six real RML previous-year papers. Original exam-realistic questions (not a transcribed PYQ), so use it as an extra full-length rehearsal after the real papers. Every question has a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default; flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
     deepExp: true,
     tags: ["deep explanations", "fresh practice", "RML Paper 1", "real distractors", "untimed practice"]
@@ -156,12 +156,12 @@ const MOCKS = [
   {
     id: "ihbas-2020",
     title: "IHBAS 2020 PYQ Mock (real paper)",
-    sub: "92 real Qs · IHBAS Delhi M.Phil Clinical Psychology 2020 · verified key · untimed Practice + timed Exam",
+    sub: "92 real Qs · IHBAS Delhi M.Phil Clinical Psychology 2020 · verified key · untimed Practice + Full run",
     path: "../quiz/ihbas-2020/",
     total: 92,
     storageKey: "ihbas-2020-results-v1",
     sections: { general: 15, biopsych: 7, abnormal: 11, therapy: 22, biostats: 9, assessment: 7, dev: 10, social: 11 },
-    blurb: "The 2020 IHBAS (Institute of Human Behaviour & Allied Sciences, Delhi) M.Phil Clinical Psychology entrance paper, real questions transcribed from the previous-year paper in your Drive library. Every answer is verified against the paper's marked key and standard clinical-psychology sources, nothing invented. 8 of the original 100 dropped (one exact duplicate plus a few genuinely ambiguous items), so 92 verified questions. Therapy-heavy paper (22 Q), with a real Indian-psychology / Indian clinical-psych load (Erna Hoch, Malavika Kapur, IACP, ISAA vs CARS) that tracks the MET pattern. Untimed Practice mode by default (instant reveal + explanation); flip to Exam mode for a timed run. Scored +1 / −0.25 / 0. Independent storage.",
+    blurb: "The 2020 IHBAS (Institute of Human Behaviour & Allied Sciences, Delhi) M.Phil Clinical Psychology entrance paper, real questions transcribed from the previous-year paper in your Drive library. Every answer is verified against the paper's marked key and standard clinical-psychology sources, nothing invented. 8 of the original 100 dropped (one exact duplicate plus a few genuinely ambiguous items), so 92 verified questions. Therapy-heavy paper (22 Q), with a real Indian-psychology / Indian clinical-psych load (Erna Hoch, Malavika Kapur, IACP, ISAA vs CARS) that tracks the MET pattern. Untimed Practice mode by default (instant reveal + explanation); flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
     deepExp: true,
     tags: ["deep explanations", "real PYQ", "verified key", "real distractors", "IHBAS 2020", "untimed practice"]
@@ -169,7 +169,7 @@ const MOCKS = [
   {
     id: "ihbas-2024",
     title: "IHBAS 2024 PYQ Mock (real paper)",
-    sub: "100 real Qs · IHBAS Delhi M.Phil Clinical Psychology, 20 Oct 2024 (Booklet A) · official key · untimed Practice + timed Exam",
+    sub: "100 real Qs · IHBAS Delhi M.Phil Clinical Psychology, 20 Oct 2024 (Booklet A) · official key · untimed Practice + Full run",
     path: "../quiz/ihbas-2024/",
     total: 100,
     storageKey: "ihbas-2024-results-v1",
@@ -182,12 +182,12 @@ const MOCKS = [
   {
     id: "ihbas-2025",
     title: "IHBAS 2025 PYQ Mock (real paper)",
-    sub: "100 real Qs · IHBAS Delhi M.Phil Clinical Psychology (MPCP) entrance 2025 · Series A · sourced answers · untimed Practice + timed Exam",
+    sub: "100 real Qs · IHBAS Delhi M.Phil Clinical Psychology (MPCP) entrance 2025 · Series A · sourced answers · untimed Practice + Full run",
     path: "../quiz/ihbas-2025/",
     total: 100,
     storageKey: "ihbas-2025-results-v1",
     sections: { general: 12, biopsych: 16, abnormal: 27, therapy: 11, biostats: 8, assessment: 7, dev: 12, social: 7 },
-    blurb: "The 2025 IHBAS (Institute of Human Behaviour & Allied Sciences, Delhi) M.Phil Clinical Psychology (MPCP) entrance — Series A, all 100 questions transcribed verbatim from the actual question booklet in your Drive library. This paper carries no official published answer key, so every answer is set from standard clinical-psychology sources (DSM-5, ICD, and the canonical theorists) with a full worked explanation and a note on why each wrong option is wrong — no invented questions, no invented distractors. A few items carry a ⚠ key-debate note where the intended answer is genuinely arguable. Real exam: 100 MCQs; defaults to untimed Practice (instant reveal + explanation), flip to Exam mode for a timed run. Scored +1 / −0.25 / 0 to stay comparable with your other mocks. Independent storage.",
+    blurb: "The 2025 IHBAS (Institute of Human Behaviour & Allied Sciences, Delhi) M.Phil Clinical Psychology (MPCP) entrance — Series A, all 100 questions transcribed verbatim from the actual question booklet in your Drive library. This paper carries no official published answer key, so every answer is set from standard clinical-psychology sources (DSM-5, ICD, and the canonical theorists) with a full worked explanation and a note on why each wrong option is wrong — no invented questions, no invented distractors. A few items carry a ⚠ key-debate note where the intended answer is genuinely arguable. Real exam: 100 MCQs; defaults to untimed Practice (instant reveal + explanation), flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0 to stay comparable with your other mocks. Independent storage.",
     fresh: true,
     deepExp: true,
     tags: ["deep explanations", "real PYQ", "sourced answers", "real distractors", "IHBAS 2025", "untimed practice"]
@@ -195,7 +195,7 @@ const MOCKS = [
   {
     id: "amity-2023",
     title: "Amity 2023 PYQ Mock (real paper)",
-    sub: "96 real Qs · Amity University M.A. Clinical Psychology entrance 2023 · Amit Panwar PYM reproduction · source key · untimed Practice + timed Exam",
+    sub: "96 real Qs · Amity University M.A. Clinical Psychology entrance 2023 · Amit Panwar PYM reproduction · source key · untimed Practice + Full run",
     path: "../quiz/amity-2023/",
     total: 96,
     storageKey: "amity-2023-results-v1",
@@ -208,7 +208,7 @@ const MOCKS = [
   {
     id: "amity-recall",
     title: "Amity Recall PYQ Mock (your paper)",
-    sub: "17 recall Qs · Amity M.A. Clinical Psychology entrance · built off YOUR Master Concept List from the paper you sat · untimed Practice + timed Exam",
+    sub: "17 recall Qs · Amity M.A. Clinical Psychology entrance · built off YOUR Master Concept List from the paper you sat · untimed Practice + Full run",
     path: "../quiz/amity-recall/",
     total: 17,
     storageKey: "amity-recall-results-v1",
@@ -359,7 +359,7 @@ const MOCKS = [
     total: 100,
     storageKey: "sgt-pyq-results-v1",
     sections: { biopsych: 16, abnormal: 16, assessment: 14, therapy: 14, dev: 12, research: 14, general: 14 },
-    blurb: "One SGT-shaped paper built purely from real past-paper questions already on the system: Amity 2023, IHBAS 2020 & 2024, RML 2020-2025 and NIMHANS 2025. Nothing synthesised. Filtered to the seven areas SGT tests as a general-psychology aptitude paper (SGT publishes no syllabus PDF) and re-balanced into 100 questions across biological/physiological, abnormal/clinical, assessment, therapy/counselling, developmental, research methods & statistics, and general/history & systems. Every card keeps its full deep explanation + per-distractor trap breakdown and shows the real paper it came from. Untimed Practice by default (instant reveal), flip to timed Exam mode any time. Independent storage.",
+    blurb: "One SGT-shaped paper built purely from real past-paper questions already on the system: Amity 2023, IHBAS 2020 & 2024, RML 2020-2025 and NIMHANS 2025. Nothing synthesised. Filtered to the seven areas SGT tests as a general-psychology aptitude paper (SGT publishes no syllabus PDF) and re-balanced into 100 questions across biological/physiological, abnormal/clinical, assessment, therapy/counselling, developmental, research methods & statistics, and general/history & systems. Every card keeps its full deep explanation + per-distractor trap breakdown and shows the real paper it came from. Untimed Practice by default (instant reveal), flip to Full run mode any time. Independent storage.",
     fresh: true,
     deepExp: true,
     tags: ["100% real PYQ", "10 papers merged", "SGT-shaped", "full explanations", "untimed + exam", "100 Q"]

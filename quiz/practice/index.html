@@ -231,7 +231,7 @@
 </main>
 
 <footer>
-  Practice mode is for learning, not testing — drill an area until the rule sticks, then prove it on a timed <a href="../../tests/">mock</a>. Questions you get right on your own retire and stop repeating; misses and flagged guesses keep coming back until they don't. Progress saved locally in this browser. <a href="../../">Back to dashboard</a>
+  Practice mode is for learning, not testing — drill an area until the rule sticks, then prove it on a full <a href="../../tests/">mock</a>. Questions you get right on your own retire and stop repeating; misses and flagged guesses keep coming back until they don't. Progress saved locally in this browser. <a href="../../">Back to dashboard</a>
 </footer>
 
 <script src="../../nav-toggle.js"></script>
@@ -500,7 +500,7 @@ function renderQuestion() {
         '<p>You\'ve answered every question here right on your own. They\'re all retired — they won\'t come back unless you reset.</p>' +
         '<div class="actions">' +
         '<button class="btn" id="reviveBtn" type="button">↻ Bring them back</button>' +
-        '<a class="btn ghost" href="../../tests/">Prove it on a timed mock</a>' +
+        '<a class="btn ghost" href="../../tests/">Prove it on a full mock</a>' +
         '</div></div>';
       const rb = document.getElementById("reviveBtn");
       if (rb) rb.addEventListener("click", () => {
@@ -624,11 +624,11 @@ function renderDone() {
     '<h2>' + areaName + ' — set complete</h2>' +
     '<div class="big ' + cls + '">' + right + ' / ' + tot + '</div>' +
     '<p>' + pct + '% correct on this pass.</p>' +
-    '<p>' + (pct >= 75 ? "Solid. Lock it in on a timed mock." : pct >= 50 ? "Getting there — run it again and the explanations will stick." : "Re-drill this area, then check the linked cheatsheet.") + '</p>' +
+    '<p>' + (pct >= 75 ? "Solid. Lock it in on a full mock." : pct >= 50 ? "Getting there — run it again and the explanations will stick." : "Re-drill this area, then check the linked cheatsheet.") + '</p>' +
     '<div class="actions">' +
     '<button class="btn" id="againBtn" type="button">↻ Drill again</button>' +
     '<a class="btn ghost" href="../../notes/">Open notes</a>' +
-    '<a class="btn ghost" href="../../tests/">Timed mocks</a>' +
+    '<a class="btn ghost" href="../../tests/">Full mocks</a>' +
     '</div></div>';
   document.getElementById("againBtn").addEventListener("click", () => {
     buildQueue(); state.idx = 0; renderQuestion();

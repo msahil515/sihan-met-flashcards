@@ -94,7 +94,7 @@
       <div class="card-body">
         <ul style="margin:0;padding-left:18px;color:#c9d1d9;font-size:14px;line-height:1.7;">
           <li><b>Per-test detail</b> &mdash; for every mock you've touched: score, section-by-section breakdown, and each question you got wrong, guessed, or wrote a note on, with the question text, options, the correct answer, the explanation, and your own note.</li>
-          <li><b>Score history</b> &mdash; every timed run you've finished, with date, score and the section split, so you can see the trend.</li>
+          <li><b>Score history</b> &mdash; every scored run you've finished, with date, score and the section split, so you can see the trend.</li>
           <li><b>Notes journal</b> &mdash; the free-text journal notes you saved on the My Results page.</li>
           <li><b>Raw appendix</b> &mdash; anything else saved (e.g. the FITB and practice banks) dumped raw so nothing is lost.</li>
         </ul>
@@ -219,7 +219,7 @@
 
   function renderHistoryTimeline(history) {
     if (!Array.isArray(history) || history.length === 0) {
-      return "No timed runs recorded yet. (Score history fills in when you finish a run in Exam mode.)\n";
+      return "No scored runs recorded yet. (Score history fills in when you finish a Full run.)\n";
     }
     // group by mock, preserve chronological order within each
     const byMock = {};

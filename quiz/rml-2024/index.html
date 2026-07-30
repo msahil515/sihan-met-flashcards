@@ -195,15 +195,11 @@
     font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; }
   .mode-btn.active { background: var(--accent-dim); color: #fff; }
   .mode-hint { font-size: 11px; color: var(--muted); text-align: center; margin: -4px 0 14px 0; }
-  /* ---- exam bar / timer ---- */
+  /* ---- exam bar ---- */
   .exam-bar { position: sticky; top: 0; z-index: 50; background: var(--panel);
     border: 1px solid var(--accent-dim); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px;
     display: flex; align-items: center; justify-content: space-between; gap: 10px;
     box-shadow: 0 4px 14px rgba(0,0,0,0.35); }
-  .exam-timer { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--accent); letter-spacing: 1px; }
-  .exam-timer.warn { color: var(--warn); }
-  .exam-timer.danger { color: var(--bad); animation: pulse 1s infinite; }
-  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
   .exam-meta { font-size: 11px; color: var(--muted); }
   .exam-finish-btn { flex: 0 0 auto; background: rgba(63,185,80,0.18); color: var(--good);
     border: 1px solid var(--good); border-radius: 8px; padding: 9px 14px; font-size: 13px; font-weight: 600; }
@@ -270,7 +266,7 @@
   <header>
     <h1>RML 2024 PYQ Mock (Verbatim Paper)</h1>
     <div class="subtitle">100 verbatim Qs · ABVIMS / Dr RML Hospital, Delhi · M.Phil Clinical Psych 2024 (CET-157) · untimed Practice by default · +1 / −0.25 / 0 blank</div>
-    <div class="blueprint">All 100 questions from the 2024 RML / ABVIMS (Dr RML Hospital) M.Phil Clinical Psychology entrance, verbatim, with the paper's official answer key (the source marks each correct option in bold). No synthesised questions, no synthesised distractors. This is the M.Phil (CET-157) paper, the best real depth-calibration available for the RML MA route, pulled straight from your <a href="../../resources/" style="color:inherit;">Drive library</a>. Default mode is untimed Practice (instant reveal + explanation per question); flip to Exam mode for a timed run. One item (Q51, "arbitrary zero") keeps the paper's official key but is flagged in its explanation where that key is academically disputed.</div>
+    <div class="blueprint">All 100 questions from the 2024 RML / ABVIMS (Dr RML Hospital) M.Phil Clinical Psychology entrance, verbatim, with the paper's official answer key (the source marks each correct option in bold). No synthesised questions, no synthesised distractors. This is the M.Phil (CET-157) paper, the best real depth-calibration available for the RML MA route, pulled straight from your <a href="../../resources/" style="color:inherit;">Drive library</a>. Default mode is untimed Practice (instant reveal + explanation per question); flip to Full run for a scored, no-feedback pass. One item (Q51, "arbitrary zero") keeps the paper's official key but is flagged in its explanation where that key is academically disputed.</div>
   </header>
 
   <div class="filters">
@@ -290,7 +286,7 @@
 
   <div class="mode-toggle">
     <button class="mode-btn" data-action="setMode" data-mode="practice">📚 Practice</button>
-    <button class="mode-btn" data-action="setMode" data-mode="exam">⏱️ Exam mode</button>
+    <button class="mode-btn" data-action="setMode" data-mode="exam">📝 Full run</button>
   </div>
   <div class="mode-hint" id="modeHint"></div>
 
@@ -988,17 +984,14 @@ const STORAGE_KEY_FLAGS = "rml-2024-flags-v1";
 const STORAGE_KEY_EXAM = "rml-2024-exam-v1";
 const HISTORY_KEY = "results-history-v1";
 
-// Minutes per question in exam mode (RML 100 Q, ~1 min/Q in the optional timed mode)
-const MIN_PER_Q = 1.0;
 
 const state = {
   filtered: [], index: 0, selected: null, guessed: false, submitted: false,
   results: {}, notes: {}, flags: {}, redo: "none",
   mode: "practice",
-  exam: { running: false, finished: false, endTs: 0, durationSec: 0 },
+  exam: { running: false, finished: false },
   progress: { lastIndex: 0, lastSection: "all", drafts: {} }
 };
-let examTick = null;
 
 function loadResults() {
   try { const raw = localStorage.getItem(STORAGE_KEY); if (raw) state.results = JSON.parse(raw); } catch {}
@@ -1183,6 +1176,7 @@ function selectOption(letter) {
     saveResults();
     updateSelectionVisual();
     renderNavGrid();
+    renderExamBar();
   } else {
     updateSelectionVisual();
     saveDraft(q.id);
@@ -1228,7 +1222,7 @@ document.querySelector(".app").addEventListener("click", function(ev) {
   else if (a === "prev") prevQuestion();
   else if (a === "setMode") setMode(t.dataset.mode);
   else if (a === "startExam") startExam();
-  else if (a === "finishExam") finishExam(false);
+  else if (a === "finishExam") finishExam();
   else if (a === "navJump") { state.index = parseInt(t.dataset.idx, 10) || 0; renderQuestion(); window.scrollTo({ top: 0, behavior: "smooth" }); }
   else if (a === "redoWrong") setRedo("wrong");
   else if (a === "redoFlagged") setRedo("flagged");
@@ -1238,7 +1232,7 @@ document.querySelector(".app").addEventListener("click", function(ev) {
       state.results = {}; state.notes = {}; state.flags = {};
       state.progress = { lastIndex: 0, lastSection: "all", drafts: {} };
       state.redo = "none";
-      stopExamTimer(); state.exam = { running: false, finished: false, endTs: 0, durationSec: 0 };
+      state.exam = { running: false, finished: false };
       saveResults(); saveNotes(); saveFlags(); saveProgress(); saveExam();
       const sel = document.getElementById("sectionSelect"); if (sel) sel.value = "all";
       applyFilter({ preservePosition: false });
@@ -1579,16 +1573,9 @@ function renderStats() {
 }
 
 // =====================================================================
-// MODE / EXAM TIMER / FLAG-REDO / ATTEMPT HISTORY
+// MODE / FULL RUN / FLAG-REDO / ATTEMPT HISTORY
 // =====================================================================
 function pad(n) { return n < 10 ? "0" + n : "" + n; }
-function formatTime(totalSec) {
-  if (totalSec < 0) totalSec = 0;
-  const h = Math.floor(totalSec / 3600);
-  const m = Math.floor((totalSec % 3600) / 60);
-  const s = totalSec % 60;
-  return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`;
-}
 
 function setMode(mode) {
   if (mode !== "practice" && mode !== "exam") return;
@@ -1596,8 +1583,6 @@ function setMode(mode) {
   state.mode = mode;
   state.redo = "none";
   saveProgress();
-  if (mode === "practice") stopExamTimer();
-  else if (state.exam.running && state.exam.endTs > Date.now()) resumeExamTimer();
   applyFilter({ preservePosition: true });
 }
 
@@ -1629,26 +1614,26 @@ function renderModeUI() {
   const examFinished = state.mode === "exam" && state.exam.finished;
 
   if (state.mode === "practice") {
-    hint.textContent = "Answer one at a time, see the rule the moment you submit. No clock.";
+    hint.textContent = "Answer one at a time, see the rule the moment you submit.";
     intro.style.display = "none"; bar.style.display = "none"; navWrap.style.display = "none";
   } else {
     if (examActive) {
-      hint.textContent = "Timed run · +1 / −0.25 scoring · no answers shown until you finish. Flag and skip freely.";
+      hint.textContent = "Full run · +1 / −0.25 scoring · no answers shown until you finish. Flag and skip freely.";
       intro.style.display = "none"; bar.style.display = "flex"; navWrap.style.display = "block";
+      renderExamBar();
     } else if (examFinished) {
-      hint.textContent = "Exam finished — reviewing answers with the rule under each. Start a fresh run any time.";
+      hint.textContent = "Run finished — reviewing answers with the rule under each. Start a fresh run any time.";
       intro.style.display = "block"; bar.style.display = "none"; navWrap.style.display = "block";
-      intro.innerHTML = `<h3>Exam finished</h3>
+      intro.innerHTML = `<h3>Run finished</h3>
         <p>Score and per-area breakdown are below. Tap a number in the grid to jump to any question, or use <b>Redo only wrong</b> to retry the misses.</p>
-        <button class="exam-start-btn" data-action="startExam">Start a fresh timed run</button>`;
+        <button class="exam-start-btn" data-action="startExam">Start a fresh run</button>`;
     } else {
       const n = state.filtered.length;
-      const mins = Math.max(1, Math.round(n * MIN_PER_Q));
-      hint.textContent = "Timed run · +1 / −0.25 scoring · no answers shown until you finish.";
+      hint.textContent = "Full run · +1 / −0.25 scoring · no answers shown until you finish.";
       intro.style.display = "block"; bar.style.display = "none"; navWrap.style.display = "none";
-      intro.innerHTML = `<h3>⏱️ Exam mode — like the real thing</h3>
-        <p>${n} questions · ${mins} min on the clock · +1 right, −0.25 wrong, 0 blank. No feedback until you finish, just like the real paper. You can flag questions and jump around with the grid.</p>
-        <button class="exam-start-btn" data-action="startExam">Start ${mins}-minute timed run</button>`;
+      intro.innerHTML = `<h3>📝 Full run — like the real paper</h3>
+        <p>${n} questions · no clock · +1 right, −0.25 wrong, 0 blank. No feedback until you finish, just like the real paper. You can flag questions and jump around with the grid.</p>
+        <button class="exam-start-btn" data-action="startExam">Start a fresh run</button>`;
     }
   }
 
@@ -1686,44 +1671,35 @@ function renderNavGrid() {
   }
 }
 
-function resumeExamTimer() { stopExamTimer(); examTick = setInterval(tickExam, 1000); tickExam(); }
-function stopExamTimer() { if (examTick) { clearInterval(examTick); examTick = null; } }
 
 function startExam() {
   const n = state.filtered.length;
   if (n === 0) { alert("No questions in this filter."); return; }
-  const mins = Math.max(1, Math.round(n * MIN_PER_Q));
-  if (!confirm(`Start a fresh ${mins}-minute run over these ${n} questions?\n\nThis clears your current answers for them (attempt history is kept).`)) return;
+  if (!confirm(`Start a fresh run over these ${n} questions?\n\nThis clears your current answers for them (attempt history is kept).`)) return;
   // fresh slate for the in-scope questions
   state.filtered.forEach(q => { delete state.results[q.id]; delete state.progress.drafts[q.id]; });
   saveResults(); saveProgress();
   state.redo = "none";
-  state.exam = { running: true, finished: false, endTs: Date.now() + mins * 60 * 1000, durationSec: mins * 60 };
+  state.exam = { running: true, finished: false };
   saveExam();
   state.index = 0;
-  resumeExamTimer();
   applyFilter({ preservePosition: false });
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function tickExam() {
+function renderExamBar() {
   const bar = document.getElementById("examBar");
-  const remaining = Math.round((state.exam.endTs - Date.now()) / 1000);
-  if (remaining <= 0) { finishExam(true); return; }
+  if (!bar || state.mode !== "exam" || !state.exam.running || state.exam.finished) return;
   const answered = state.filtered.filter(q => state.results[q.id]).length;
-  let tcls = "exam-timer";
-  if (remaining <= 30) tcls += " danger"; else if (remaining <= 120) tcls += " warn";
   bar.innerHTML = `<div>
-      <div class="${tcls}">${formatTime(remaining)}</div>
       <div class="exam-meta">${answered}/${state.filtered.length} answered · +1 / −0.25 / 0</div>
     </div>
     <button class="exam-finish-btn" data-action="finishExam">Finish & score</button>`;
 }
 
-function finishExam(auto) {
+function finishExam() {
   if (!state.exam.running && state.exam.finished) return;
-  if (!auto && !confirm("Finish the exam and see your score?")) return;
-  stopExamTimer();
+  if (!confirm("Finish the run and see your score?")) return;
   state.exam.running = false;
   state.exam.finished = true;
   saveExam();
@@ -1735,7 +1711,7 @@ function finishExam(auto) {
   const sb = document.getElementById("scoreboard");
   if (sb) sb.scrollIntoView({ behavior: "smooth", block: "center" });
   if (attempt) {
-    setTimeout(() => alert(`${auto ? "Time's up!\n\n" : ""}Score: ${attempt.score}/${attempt.max}\n${attempt.right} right · ${attempt.wrong} wrong · ${attempt.blank} blank\n\nThe rule is now under every question, and this attempt is saved in your history.`), 50);
+    setTimeout(() => alert(`Score: ${attempt.score}/${attempt.max}\n${attempt.right} right · ${attempt.wrong} wrong · ${attempt.blank} blank\n\nThe rule is now under every question, and this attempt is saved in your history.`), 50);
   }
 }
 
@@ -1773,7 +1749,7 @@ function renderAttemptHistory() {
   try { const raw = localStorage.getItem(HISTORY_KEY); if (raw) history = JSON.parse(raw); } catch {}
   const mine = history.filter(h => h.mock === "rml-2024");
   if (mine.length === 0) {
-    wrap.innerHTML = `<div class="ah-empty">No timed runs yet. Switch to ⏱️ Exam mode and finish a run to start tracking your score over time.</div>`;
+    wrap.innerHTML = `<div class="ah-empty">No scored runs yet. Switch to 📝 Full run and finish one to start tracking your score over time.</div>`;
     return;
   }
   const rows = mine.map((h, i) => {
@@ -1803,11 +1779,6 @@ loadResults();
 if (state.progress.lastSection) {
   const sel = document.getElementById("sectionSelect");
   if ([...sel.options].some(o => o.value === state.progress.lastSection)) sel.value = state.progress.lastSection;
-}
-// resume a live exam timer if one was running and time remains
-if (state.mode === "exam" && state.exam.running && !state.exam.finished) {
-  if (state.exam.endTs > Date.now()) resumeExamTimer();
-  else { state.exam.running = false; state.exam.finished = true; saveExam(); }
 }
 applyFilter({ preservePosition: true });
 showResumeBanner();
