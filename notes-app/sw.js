@@ -1,7 +1,7 @@
 /* Library — service worker. Own cache, scoped to /notes-app/.
    Precaches the shell + every chapter page so the whole library works offline.
    CACHE name is stamped by build_notes_app.py on each build so updates self-apply. */
-var CACHE = "library-20260728-rename";
+var CACHE = "library-a355094f0d";
 var BASE = "/sihan-met-flashcards/notes-app/";
 var SHELL = [
   BASE,

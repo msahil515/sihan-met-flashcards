@@ -28,6 +28,7 @@ OUT_CONTENT = os.path.join(ROOT, "content")
 # ---- Shelves (display order) -------------------------------------------
 SECTIONS = [
     ("strategy",  "Exam Strategy",        "What actually gets tested, the repeated questions, the high-yield map", "#9d174d", "#831843"),
+    ("depth",     "Textbooks in Full Depth", "The actual textbooks rewritten as explanatory prose, chapter by chapter, nothing compressed into fragments", "#7c2d12", "#431407"),
     ("core",      "Core Subjects",        "The syllabus, one merged book per subject", "#1d4ed8", "#1e3a8a"),
     ("syllabus",  "Rodrick Sir's Syllabus","Every file in the shared Drive, built unit by unit to full depth, nothing left out", "#15803d", "#14532d"),
     ("stats",     "Statistics & Psychometrics", "Statistics for the entrances built from scratch, with a diagram on every idea that has a shape", "#0f766e", "#134e4a"),
@@ -49,6 +50,10 @@ BOOKS = [
     dict(slug="master-guide", shelf="strategy", kind="merged", search_cap=40000,
          short="Master Guide for Clinical Psychology (Amit Panwar)",
          blurb="The cheat-map of exactly what CIP, IHBAS, RML and NIMHANS test: the exam pattern analysis, the questions that actually repeat across papers, the high-yield strategy, plus an A–Z terminology glossary, 24 named therapies (founder · concepts · techniques) and 25 landmark experiments (who · year · where · what)."),
+    # --- Textbooks in Full Depth (the un-condensing pass) ---
+    dict(slug="pinel", shelf="depth", kind="merged", search_cap=40000,
+         short="Biopsychology — Pinel & Barnes",
+         blurb="All eighteen chapters of Pinel's Biopsychology written out as real explanatory prose rather than bullet fragments: every concept built from scratch in full sentences, every mechanism walked through step by step, the experiment or patient behind each claim named, the theorist named wherever there is one, and worked examples where a concept only clicks once you push a case through it. Same chapter order as the book, so it doubles as a map of it. Read a chapter cold and you finish it understanding the concept, not just recognising the words."),
     # --- Core Subjects (one merged book per subject) ---
     dict(slug="biopsychology", shelf="core", kind="merged",
          short="Biopsychology & Neuroscience",
