@@ -52,7 +52,7 @@ BOOKS = [
          blurb="The cheat-map of exactly what CIP, IHBAS, RML and NIMHANS test: the exam pattern analysis, the questions that actually repeat across papers, the high-yield strategy, plus an A–Z terminology glossary, 24 named therapies (founder · concepts · techniques) and 25 landmark experiments (who · year · where · what)."),
     # --- Textbooks in Full Depth (the un-condensing pass) ---
     dict(slug="pinel", shelf="depth", kind="merged", search_cap=40000,
-         short="Biopsychology — Pinel & Barnes",
+         short="Biopsychology (Pinel & Barnes), full depth",
          blurb="All eighteen chapters of Pinel's Biopsychology written out as real explanatory prose rather than bullet fragments: every concept built from scratch in full sentences, every mechanism walked through step by step, the experiment or patient behind each claim named, the theorist named wherever there is one, and worked examples where a concept only clicks once you push a case through it. Same chapter order as the book, so it doubles as a map of it. Read a chapter cold and you finish it understanding the concept, not just recognising the words."),
     # --- Core Subjects (one merged book per subject) ---
     dict(slug="biopsychology", shelf="core", kind="merged",
