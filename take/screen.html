@@ -296,6 +296,12 @@ button{font-family:inherit;cursor:pointer}
 .secrow .track{height:10px;border-radius:99px;background:var(--surface-2);overflow:hidden}
 .secrow .track>i{display:block;height:100%;border-radius:99px;background:var(--primary)}
 .secrow .pc{text-align:right;font-weight:700;font-size:13.5px;font-variant-numeric:tabular-nums}
+.send-block{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-top:22px}
+.send-block h3{font-family:var(--font-display);font-weight:600;margin:0 0 6px;font-size:18px}
+.send-block p{margin:0 0 16px;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.send-row{display:flex;gap:10px;flex-wrap:wrap}
+.send-note{margin-top:12px;font-size:13px;font-weight:600;color:var(--good);min-height:18px}
+.send-note.warn{color:var(--amber)}
 .rev-filters{display:flex;gap:8px;margin:26px 0 14px;flex-wrap:wrap}
 .rev-filters button{border:1px solid var(--line);background:var(--surface);color:var(--muted);
   font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:99px}
@@ -668,6 +674,74 @@ document.getElementById("focusBtn").onclick=()=>{
   applyFocus();
 };
 
+/* ---------- export the result so it can leave the device ----------
+   Two shapes off the same walk of the answer state:
+   compact  -> fits in a chat message, still names every single miss
+   full     -> same plus the question stem, for pasting into an analysis  */
+function plainText(html){
+  const d=document.createElement("div"); d.innerHTML=html||"";
+  return (d.textContent||"").replace(/\s+/g," ").trim();
+}
+function buildExport(full){
+  let right=0,wrong=0,skipped=0; const secAgg={}; const misses=[];
+  Q.forEach((q,i)=>{
+    const s=q.section; secAgg[s]=secAgg[s]||{n:0,c:0,w:0,b:0};
+    secAgg[s].n++;
+    const a=st.answers[i];
+    if(a==null){ skipped++; secAgg[s].b++; misses.push({i,a:null,q,s}); }
+    else if(a===q.correct){ right++; secAgg[s].c++; }
+    else { wrong++; secAgg[s].w++; misses.push({i,a,q,s}); }
+  });
+  const score=right-wrong*0.25, answered=right+wrong;
+  const L=[];
+  L.push(`${(M.fullTitle||M.title||"MOCK").toUpperCase()} — RESULTS EXPORT`);
+  L.push(`Mock id: ${MID}`);
+  L.push(`Generated: ${new Date().toISOString()}`);
+  L.push(`Score: ${score.toFixed(2).replace(/\.00$/,"")} / ${N} (${right} right, ${wrong} wrong, ${skipped} blank)`);
+  L.push(`Scoring: +1 / −0.25 · accuracy on attempted ${answered?Math.round(right/answered*100):0}%`);
+  L.push("");
+  L.push("SECTION SPLIT");
+  Object.keys(SL).filter(s=>secAgg[s]).forEach(s=>{
+    const g=secAgg[s];
+    L.push(`${SL[s]}: ${g.c}/${g.n} (${Math.round(g.c/g.n*100)}%) · ${g.w} wrong · ${g.b} blank`);
+  });
+  L.push("");
+  L.push(misses.length?`MISSED & BLANK — all ${misses.length}`:"MISSED & BLANK — none, clean run");
+  misses.forEach(m=>{
+    const picked = m.a==null ? "blank" : m.a;
+    L.push(`Q${m.i+1} · ${SL[m.s]||m.s} · ${picked} → ${m.q.correct}`);
+    if(full) L.push(`    ${plainText(m.q.q).slice(0,220)}`);
+  });
+  return L.join("\n");
+}
+function flashNote(msg,warn){
+  const n=document.getElementById("sendNote"); if(!n)return;
+  n.textContent=msg; n.className="send-note"+(warn?" warn":"");
+}
+function copyExport(){
+  const txt=buildExport(true);
+  const ok=()=>flashNote("Copied. Paste it straight into the chat.");
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(ok,()=>prompt("Copy your result:",txt));
+  } else prompt("Copy your result:",txt);
+}
+function sendExport(){
+  const txt=buildExport(false);
+  const wa=()=>{ window.open("https://wa.me/?text="+encodeURIComponent(txt),"_blank"); };
+  if(navigator.share){
+    navigator.share({text:txt}).catch(err=>{ if(!err||err.name!=="AbortError") wa(); });
+  } else wa();
+}
+function downloadExport(){
+  const blob=new Blob([buildExport(true)],{type:"text/plain"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=`${MID}-result.txt`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  flashNote("Saved as "+MID+"-result.txt");
+}
+
 /* ---------- results ---------- */
 function finish(){
   let right=0,wrong=0,skipped=0;
@@ -723,6 +797,16 @@ function finish(){
         <div class="stat a"><b>${flaggedCount()}</b><span>Flagged</span></div>
       </div>
     </div>
+    <div class="send-block">
+      <h3>Send this result for analysis</h3>
+      <p>Carries the score, the section split, and every question you missed or left blank — number, section, what you picked, what was right.</p>
+      <div class="send-row">
+        <button class="btn primary" id="sendResBtn">Send result</button>
+        <button class="btn" id="copyResBtn">Copy results for analysis</button>
+        <button class="btn" id="dlResBtn">Save as .txt</button>
+      </div>
+      <div class="send-note" id="sendNote"></div>
+    </div>
     <div class="sec-block"><h3>Section by section</h3>${secHtml}</div>
     <div class="rev-filters" id="revFilters">
       <button data-r="all" class="on">All ${N}</button>
@@ -760,6 +844,9 @@ function finish(){
       it.style.display=show?"":"none";
     });
   };
+  document.getElementById("sendResBtn").onclick=sendExport;
+  document.getElementById("copyResBtn").onclick=copyExport;
+  document.getElementById("dlResBtn").onclick=downloadExport;
   document.getElementById("backBtn2").onclick=backToQuiz;
   document.getElementById("restartBtn").onclick=()=>{
     if(!confirm("Clear all answers, flags and bookmarks and start "+M.title+" fresh?"))return;
