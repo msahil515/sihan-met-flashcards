@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<script src="/sihan-met-flashcards/sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RML 2020 — your 364 and the questions behind it</title>
+<link rel="stylesheet" href="/sihan-met-flashcards/notes-style.css">
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<meta name="theme-color" content="#0d1117">
+<style>
+  .wrap{max-width:min(1000px,96vw);padding-left:24px;padding-right:24px}
+  @media (max-width:600px){.wrap{padding-left:12px;padding-right:12px}}
+  .updated{font-family:var(--sans);font-size:12px;color:var(--muted);margin:6px 0 14px;line-height:1.7}
+  h2.sec{font-family:var(--sans);font-size:15px;margin:26px 0 4px;color:var(--text)}
+  .legend{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin:8px 0 4px;line-height:1.75}
+  .legend b{color:var(--text)}
+
+  /* verdict block */
+  .you{border:1px solid rgba(201,138,31,.45);background:rgba(201,138,31,.10);border-radius:10px;
+    padding:14px 18px;margin:14px 0 18px;font-family:var(--sans);font-size:15px;line-height:1.7}
+  .you b{color:var(--text)}
+  .you .big{font-size:21px;font-weight:800;color:#d8932a;font-variant-numeric:tabular-nums}
+  .you.good{border-color:rgba(46,160,67,.5);background:rgba(46,160,67,.09)}
+  .you.good .big{color:var(--good)}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;margin:10px 0 6px}
+  .card{border:1px solid var(--border);background:var(--panel-2);border-radius:9px;padding:10px 12px;font-family:var(--sans)}
+  .card-me{border-color:rgba(46,160,67,.55);background:rgba(46,160,67,.10)}
+  .card-cat{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .card-bar{font-size:24px;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums;margin:1px 0}
+  .card-me .card-bar{color:var(--good)}
+  .card-sub{font-size:10.5px;color:var(--muted)}
+  .why{border-left:3px solid var(--accent);background:rgba(61,111,208,.06);padding:11px 16px;margin:16px 0;
+    border-radius:0 6px 6px 0;font-family:var(--sans);font-size:13.5px;line-height:1.7}
+  .why b{color:var(--text)}
+  .math{font-family:var(--mono,monospace);font-size:12.5px;color:var(--text);background:var(--panel-2);
+    border:1px solid var(--border);border-radius:7px;padding:11px 13px;margin:10px 0;line-height:1.9;
+    white-space:pre;overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+  /* input panel */
+  .conv{border:1px solid var(--border);background:var(--panel-2);border-radius:11px;padding:14px 16px;margin:10px 0 6px;font-family:var(--sans)}
+  .conv-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .conv button{background:var(--accent);border:0;color:#fff;border-radius:7px;padding:9px 14px;
+    font-size:13px;font-weight:700;cursor:pointer;font-family:var(--sans)}
+  .conv button.ghost{background:var(--panel);border:1px solid var(--border);color:var(--muted);font-weight:600}
+  .conv textarea,.conv input[type=text]{width:100%;box-sizing:border-box;background:var(--panel);
+    border:1px solid var(--border);color:var(--text);border-radius:7px;padding:9px 11px;
+    font-size:13px;font-family:var(--mono,monospace);margin-top:9px;line-height:1.6}
+  .conv textarea{min-height:96px;resize:vertical}
+  .conv-note{font-size:12.5px;color:var(--muted);margin:10px 0 0;line-height:1.7}
+  .conv-note b{color:var(--text)}
+  .conv-note.warn{color:#e0a23a}
+  .tabs{display:inline-flex;border:1px solid var(--border);border-radius:7px;overflow:hidden;margin-bottom:4px}
+  .tabs button{background:var(--panel);border:0;color:var(--muted);padding:7px 13px;font-size:12.5px;
+    cursor:pointer;font-family:var(--sans);font-weight:600;border-radius:0}
+  .tabs button.on{background:var(--accent);color:#fff;font-weight:700}
+
+  /* miss cards */
+  .misses{margin:16px 0 0}
+  .miss{border:1px solid var(--border);background:var(--panel-2);border-radius:11px;
+    padding:15px 17px;margin:0 0 14px;font-family:var(--sans)}
+  .miss.blankq{border-color:rgba(201,138,31,.45)}
+  .mh{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:9px}
+  .mn{font-size:12.5px;font-weight:800;color:var(--text);background:var(--panel);border:1px solid var(--border);
+    border-radius:6px;padding:2px 8px;font-variant-numeric:tabular-nums}
+  .msec{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .mv{margin-left:auto;font-size:12px;color:var(--muted)}
+  .mv .bad{color:#e06c6c;font-weight:800}
+  .mv .ok{color:var(--good);font-weight:800}
+  .mq{font-size:15.5px;line-height:1.6;color:var(--text);margin:0 0 11px}
+  .mopts{display:flex;flex-direction:column;gap:6px;margin-bottom:13px}
+  .mo{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--border);background:var(--panel);
+    border-radius:8px;padding:8px 11px;font-size:14px;line-height:1.5;color:var(--muted)}
+  .mo .mk{flex:0 0 22px;height:22px;border-radius:6px;background:var(--panel-2);border:1px solid var(--border);
+    color:var(--muted);font-weight:800;font-size:11.5px;display:flex;align-items:center;justify-content:center}
+  .mo.right{border-color:rgba(46,160,67,.55);background:rgba(46,160,67,.10);color:var(--text)}
+  .mo.right .mk{background:var(--good);border-color:var(--good);color:#fff}
+  .mo.picked{border-color:rgba(224,108,108,.55);background:rgba(224,108,108,.09);color:var(--text)}
+  .mo.picked .mk{background:#c04a4a;border-color:#c04a4a;color:#fff}
+  .mo .mtag{margin-left:auto;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+  .mo.right .mtag{color:var(--good)}
+  .mo.picked .mtag{color:#e06c6c}
+
+  /* explanation */
+  .exp{border-top:1px solid var(--border);padding-top:13px}
+  .exp-answer{display:flex;flex-wrap:wrap;align-items:center;gap:11px;background:rgba(46,160,67,.09);
+    border:1px solid rgba(46,160,67,.35);border-radius:9px;padding:11px 13px;margin-bottom:13px}
+  .exp-answer .ak{flex:none;min-width:28px;height:28px;border-radius:7px;background:var(--good);color:#fff;
+    font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+  .exp-answer .abody{min-width:0;flex:1}
+  .exp-answer .alabel{display:block;font-size:10px;font-weight:700;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--muted)}
+  .exp-answer .atext{font-size:15.5px;line-height:1.35;color:var(--text);font-weight:600}
+  .exp-answer .exp-fig{width:100%;font-size:12.5px;color:var(--muted)}
+  .exp-answer .exp-fig strong{color:var(--good)}
+  .exp-sec{padding-top:14px;margin-top:14px;border-top:1px solid var(--border)}
+  .exp-sec:first-child{padding-top:0;margin-top:0;border-top:0}
+  .exp-sec .exp-h{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:7px}
+  .exp-sec p{font-size:15px;line-height:1.6;color:var(--muted);margin:0 0 9px}
+  .exp-sec p strong{color:var(--text)}
+  .exp-sec p:last-child{margin-bottom:0}
+  .exp-traps{display:flex;flex-direction:column;gap:9px}
+  .exp-trap{display:flex;gap:11px;align-items:flex-start;background:rgba(224,108,108,.07);
+    border:1px solid rgba(224,108,108,.28);border-radius:8px;padding:9px 11px}
+  .exp-trap .tk{flex:0 0 24px;height:24px;border-radius:6px;background:#c04a4a;color:#fff;font-weight:800;
+    font-size:11.5px;display:flex;align-items:center;justify-content:center}
+  .exp-trap .tb{min-width:0}
+  .exp-trap .to{font-weight:600;color:var(--text);font-size:14.5px;display:block;margin-bottom:4px}
+  .exp-trap .tw{font-size:14px;line-height:1.55;color:var(--muted);margin:0}
+  .exp-trap .tw strong{color:var(--text)}
+  .exp-trap .tflag{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.07em;
+    text-transform:uppercase;color:#e06c6c;margin-right:7px}
+
+  .tally{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 4px;font-family:var(--sans)}
+  .tp{font-size:12px;border:1px solid var(--border);background:var(--panel-2);border-radius:20px;
+    padding:3px 11px;color:var(--muted)}
+  .tp b{color:var(--text)}
+  .src{font-size:12px;color:var(--muted);font-family:var(--sans);line-height:1.7;margin:20px 0}
+</style></head>
+<body>
+<div class="wrap">
+<nav><a href="../">&larr; Home</a> <a href="../rml-2020-cutoff/">2020 cut-off</a> <a href="../rml-latest/">RML mocks</a> <a href="../take/screen.html?m=rml-2020">Retake RML 2020</a></nav>
+
+<h1>RML 2020 &mdash; your 364, and the nine questions behind it</h1>
+<p class="updated">You sent one number: <b>364</b>. Two things below. First, the answer to whether 364 is the &times;4 conversion or something the result screen printed &mdash; settled, with the arithmetic. Second, the actual nine questions you did not get right, pulled off this device, each one with the full answer and the trap you fell for. Nothing has to be sent to me for that second part; the page reads your own attempt out of this browser.</p>
+
+<h2 class="sec">1. Is 364 the &times;4 number?</h2>
+
+<div class="you good">
+<b>Yes. 364 is the conversion, not a screen number, and the conversion was done right.</b><br><br>
+<b>364 &divide; 4 = 91</b> exactly &mdash; a whole number of questions, which is what a real &times;4 conversion always produces.
+Our engine <b>cannot</b> print 364: it scores out of 100 and the largest number it can ever show is 100.00.
+So <b>91 right, 9 not right</b>, and on the real 2020 scale that is <span class="big">364 / 400</span>.
+</div>
+
+<div class="math" id="mathBlock"></div>
+
+<div class="why"><b>The check that proves the method was right, not just the number.</b>
+If you had multiplied the <em>engine score</em> by 4 instead of the raw correct count, you would not have landed on 364.
+The engine charges &minus;0.25 a wrong answer, so a 91-right run reads somewhere between <b>88.75</b> and <b>91.00</b> out of 100
+depending on how many of the nine were attempted-and-wrong versus left blank.
+Multiply those by 4 and you get <b>355</b> to <b>364</b> &mdash; and only the top of that range, the one that comes from
+multiplying the raw correct count, is divisible by 4. 364 is. The number is clean.</div>
+
+<div class="why"><b>Why the &minus;0.25 vanishes on the real paper.</b>
+RML 2020 was <b>100 questions &times; 4 marks = 400, no negative marking</b>. Every question is worth 4 whether you leave it blank
+or get it wrong &mdash; both pay zero. So on the real scale <code>marks = correct &times; 4</code>, full stop, and the wrong-versus-blank
+split does not change your 364 at all. It only matters for the coaching point: <b>a blank is strictly worse than a guess</b>
+on this paper. Nine blanks handed back 36 marks; nine guesses at chance would have brought roughly 2 of them back, for free.</div>
+
+<h2 class="sec">2. Where 364 puts you on the real 2020 list</h2>
+<div class="cards">
+  <div class="card card-me"><div class="card-cat">You</div><div class="card-bar">364</div><div class="card-sub">91 right &middot; rank #1</div></div>
+  <div class="card"><div class="card-cat">2020 top score</div><div class="card-bar">360</div><div class="card-sub">90 right &middot; 2-way tie</div></div>
+  <div class="card"><div class="card-cat">Safe band</div><div class="card-bar">348</div><div class="card-sub">87 right &middot; 12 at or above</div></div>
+  <div class="card"><div class="card-cat">UR cut-off</div><div class="card-bar">344</div><div class="card-sub">86 right &middot; coin flip</div></div>
+  <div class="card"><div class="card-cat">Field median</div><div class="card-bar">292</div><div class="card-sub">73 right &middot; 426 sat</div></div>
+</div>
+<p class="legend">The bot told you 364 clears the 348 figure people quote. It undersells it. <b>364 is above the actual 2020 top score of 360</b>
+&mdash; Shreya Jha and Gaura Lohani tied there and nobody in the field of 426 went higher. On the official GGSIPU CET-157 merit list a 364 finishes <b>#1</b>.
+The full list, the category cut-offs and the score-to-rank converter are on <a href="../rml-2020-cutoff/">the cut-off page</a>.</p>
+<p class="legend">Keep the caveat honest: this is our reconstruction of the 2020 paper against an expert-determined key (no official key was printed on it),
+sat untimed, at home. The real thing was 2&frac12; hours in a hall. It is not a rank, it is a ceiling reading &mdash; and the ceiling is high.</p>
+
+<h2 class="sec">3. The nine you did not get right</h2>
+<p class="legend">Three ways in, all of them ending in the same review below. If you took RML 2020 in <em>this</em> browser, the first one needs no input at all.</p>
+
+<div class="conv">
+  <div class="tabs">
+    <button data-t="auto" class="on">Off this device</button>
+    <button data-t="paste">Paste the export</button>
+    <button data-t="nums">Type the numbers</button>
+  </div>
+
+  <div id="pAuto">
+    <div class="conv-row"><button id="btnAuto">Pull my RML 2020 attempt</button>
+      <button id="btnClear" class="ghost">Clear</button></div>
+  </div>
+
+  <div id="pPaste" style="display:none">
+    <textarea id="taPaste" placeholder="Paste the whole &quot;Copy results for analysis&quot; text here — the MISSED &amp; BLANK block is all this needs."></textarea>
+    <div class="conv-row" style="margin-top:9px"><button id="btnPaste">Read it</button>
+      <button id="btnClear2" class="ghost">Clear</button></div>
+  </div>
+
+  <div id="pNums" style="display:none">
+    <input id="inNums" type="text" placeholder="12, 30, 41, 57, 63, 72, 84, 91, 96">
+    <div class="conv-row" style="margin-top:9px"><button id="btnNums">Show these</button>
+      <button id="btnClear3" class="ghost">Clear</button></div>
+  </div>
+
+  <div class="conv-note" id="note">Tap <b>Pull my RML 2020 attempt</b>. Everything stays on the device; nothing is uploaded.</div>
+</div>
+
+<div class="tally" id="tally" style="display:none"></div>
+<div class="conv-row" id="outRow" style="display:none;margin:12px 0 0"><button id="btnCopy">Copy this list for the chat</button></div>
+<div class="misses" id="misses"></div>
+
+<p class="src" id="srcNote">Questions, key and explanations are the same ones the RML 2020 mock serves, read straight out of the mock's own data
+so the numbering matches the paper. Your answers are read from <code>revamp-preview-rml-2020-v1</code>, the key the untimed
+<code>/take/</code> engine writes on this device. 2020 marks, ranks and cut-offs are from the official GGSIPU merit list for
+CET code 157 (9 Sept 2020, 426 candidates) and notification 237/2020 &mdash; sourced on <a href="../rml-2020-cutoff/">the cut-off page</a>.</p>
+
+</div>
+<script src="data.js"></script>
+<script>
+(function(){
+"use strict";
+const D = window.RML2020 || {questions:[],deep:[],sectionLabels:{}};
+const Q = D.questions, DEEP = D.deep || [], SL = D.sectionLabels || {};
+const N = Q.length;
+const LETTERS = ["a","b","c","d"];
+const STORE_KEY = "revamp-preview-rml-2020-v1";
+const SUM_KEY   = "take-summary-rml-2020";
+
+const esc = s => String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const secOf = i => SL[Q[i].section] || Q[i].section || "";
+
+/* ---------- explanation renderer (ported from take/screen.html) ---------- */
+const STOP_LEAD=/^(The|This|That|These|Those|Option|Options|Both|When|Because|While|Although|However|Since|Rather|Unlike|Its|Their|His|Her|Your|If|In|At|As|On|By|For|Not|Equal|Each|Every|Here|There|Latin|Greek|Thus|Hence)\b/;
+function boldFig(seg){
+  if(!seg || /[<>]/.test(seg)) return seg;
+  seg = seg.replace(/\b([A-Z][a-z]{2,}(?:'|’)s)\b/g,'<strong>$1</strong>');
+  seg = seg.replace(/\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2})\b/g,function(m){
+    return STOP_LEAD.test(m)?m:'<strong>'+m+'</strong>';});
+  return seg;
+}
+function findFigure(text){
+  if(!text) return null;
+  let m = String(text).match(/\b([A-Z][a-z]{2,})(?:'|’)s\b/);
+  if(m && !/^(This|That|These|Those|Option|Both|Here|There|Latin|Greek|Its|Their|Each|Every|Thus|Hence)$/.test(m[1])) return m[1];
+  m = String(text).match(/\b(?:by|after|per|from|of)\s+([A-Z][a-z]+\s+[A-Z][a-z]+)\b/);
+  if(m && !STOP_LEAD.test(m[1])) return m[1];
+  return null;
+}
+function paras(text){
+  if(!text) return [];
+  const parts = String(text).replace(/([.!?])\s+(?=[A-Z(<"'‘“])/g,'$1␟').split('␟');
+  const out=[]; for(let i=0;i<parts.length;i+=2) out.push(parts.slice(i,i+2).join(' ').trim());
+  return out.filter(Boolean);
+}
+function answerBlock(q, figSource){
+  const fig = findFigure(figSource);
+  return '<div class="exp-answer"><span class="ak">'+q.correct.toUpperCase()+'</span>'
+    +'<span class="abody"><span class="alabel">Correct answer</span>'
+    +'<span class="atext">'+esc(q.options[q.correct]||"")+'</span></span>'
+    +(fig?'<span class="exp-fig">Key figure &mdash; <strong>'+esc(fig)+'</strong></span>':'')+'</div>';
+}
+function explainHTML(q, idx){
+  const d = DEEP[idx] || null;
+  const deepOK = d && !(d.q && q.q && d.q.trim()!==q.q.trim()) && d.concept;
+  let h = '<div class="exp">';
+  if(deepOK){
+    h += answerBlock(q, d.concept);
+    let def=d.concept, why="";
+    const cut=d.concept.search(/[.!?]\s+Options?\s+[a-d]\b/);
+    if(cut>40){ def=d.concept.slice(0,cut+1).trim(); why=d.concept.slice(cut+1).trim(); }
+    h += '<div class="exp-sec"><div class="exp-h">The concept</div>'
+       + paras(def).map(p=>'<p>'+boldFig(esc(p))+'</p>').join("")+'</div>';
+    if(why) h += '<div class="exp-sec"><div class="exp-h">Why '+q.correct.toUpperCase()+' is right</div>'
+       + paras(why).map(p=>'<p>'+boldFig(esc(p))+'</p>').join("")+'</div>';
+    const traps=d.traps||{};
+    const wrong=LETTERS.filter(L=>q.options[L] && L!==q.correct && traps[L]);
+    if(wrong.length){
+      h += '<div class="exp-sec"><div class="exp-h">Why the other options are wrong</div><div class="exp-traps">';
+      h += wrong.map(L=>'<div class="exp-trap"><span class="tk">'+L.toUpperCase()+'</span>'
+        +'<span class="tb"><span class="to">'+esc(q.options[L])+'</span>'
+        +'<p class="tw"><span class="tflag">The trap</span>'+boldFig(esc(traps[L]))+'</p></span></div>').join("");
+      h += '</div></div>';
+    }
+  } else {
+    h += answerBlock(q, q.explanation||"");
+    const body=paras(q.explanation||"");
+    if(body.length) h += '<div class="exp-sec"><div class="exp-h">Why '+q.correct.toUpperCase()+' is right</div>'
+      + body.map(p=>'<p>'+boldFig(esc(p))+'</p>').join("")+'</div>';
+  }
+  return h+'</div>';
+}
+
+/* ---------- read the attempt off this device ---------- */
+function readAttempt(){
+  let st=null;
+  try{ st = JSON.parse(localStorage.getItem(STORE_KEY)); }catch(e){}
+  if(!st || !st.answers || !Object.keys(st.answers).length) return null;
+  const misses=[]; let right=0,wrong=0,blank=0;
+  for(let i=0;i<N;i++){
+    const a = st.answers[i];
+    if(a==null){ blank++; misses.push({i:i, picked:null}); }
+    else if(a===Q[i].correct){ right++; }
+    else { wrong++; misses.push({i:i, picked:a}); }
+  }
+  let ts=null; try{ const s=JSON.parse(localStorage.getItem(SUM_KEY)); if(s&&s.ts) ts=s.ts; }catch(e){}
+  return {misses:misses, right:right, wrong:wrong, blank:blank, ts:ts};
+}
+function whenStr(ts){
+  if(!ts) return "";
+  try{ return " (" + new Date(ts).toLocaleString(undefined,{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}) + ")"; }
+  catch(e){ return ""; }
+}
+
+/* ---------- parse the pasted export ---------- */
+/* export lines look like:  Q37 · Psychopathology · c → a     (or "blank → a") */
+function parseExport(txt){
+  const misses=[]; const seen={};
+  const re=/Q\s*(\d{1,3})\b[^\n]*?\b(blank|[a-d])\s*(?:→|->)\s*([a-d])\b/gi;
+  let m;
+  while((m=re.exec(txt))!==null){
+    const n=parseInt(m[1],10);
+    if(!(n>=1&&n<=N)||seen[n])continue;
+    seen[n]=1;
+    const p=m[2].toLowerCase();
+    misses.push({i:n-1, picked: p==="blank"?null:p});
+  }
+  if(misses.length) return misses;
+  // fall back: a bare "Q12" list with no picked→correct pairs
+  const re2=/\bQ\s*(\d{1,3})\b/gi;
+  while((m=re2.exec(txt))!==null){
+    const n=parseInt(m[1],10);
+    if(!(n>=1&&n<=N)||seen[n])continue;
+    seen[n]=1; misses.push({i:n-1, picked:undefined});
+  }
+  return misses;
+}
+function parseNums(txt){
+  const seen={}, out=[];
+  (String(txt).match(/\d{1,3}/g)||[]).forEach(s=>{
+    const n=parseInt(s,10);
+    if(n>=1&&n<=N&&!seen[n]){ seen[n]=1; out.push({i:n-1, picked:undefined}); }
+  });
+  return out;
+}
+
+/* ---------- render ---------- */
+const elMisses=document.getElementById("misses");
+const elNote=document.getElementById("note");
+const elTally=document.getElementById("tally");
+const elOutRow=document.getElementById("outRow");
+let CURRENT=[];
+
+function render(misses){
+  CURRENT = misses.slice().sort((a,b)=>a.i-b.i);
+  if(!CURRENT.length){ elMisses.innerHTML=""; elTally.style.display="none"; elOutRow.style.display="none"; return; }
+
+  const bySec={};
+  CURRENT.forEach(m=>{ const s=secOf(m.i); bySec[s]=(bySec[s]||0)+1; });
+  const nBlank=CURRENT.filter(m=>m.picked===null).length;
+  elTally.style.display="";
+  elTally.innerHTML='<span class="tp"><b>'+CURRENT.length+'</b> not right</span>'
+    +(nBlank?'<span class="tp"><b>'+nBlank+'</b> left blank</span>':'')
+    +Object.keys(bySec).sort((a,b)=>bySec[b]-bySec[a])
+        .map(s=>'<span class="tp">'+esc(s)+' <b>'+bySec[s]+'</b></span>').join("");
+  elOutRow.style.display="";
+
+  elMisses.innerHTML = CURRENT.map(m=>{
+    const q=Q[m.i];
+    const isBlank = m.picked===null;
+    const unknown = m.picked===undefined;
+    const verdict = isBlank ? '<span class="bad">Left blank</span> &middot; answer is <span class="ok">'+q.correct.toUpperCase()+'</span>'
+      : unknown ? 'Answer is <span class="ok">'+q.correct.toUpperCase()+'</span>'
+      : 'You said <span class="bad">'+m.picked.toUpperCase()+'</span> &middot; answer is <span class="ok">'+q.correct.toUpperCase()+'</span>';
+    const opts = LETTERS.filter(L=>q.options[L]).map(L=>{
+      const cls = L===q.correct ? " right" : (L===m.picked ? " picked" : "");
+      const tag = L===q.correct ? "Correct" : (L===m.picked ? "You picked" : "");
+      return '<div class="mo'+cls+'"><span class="mk">'+L.toUpperCase()+'</span>'
+        +'<span>'+esc(q.options[L])+'</span>'
+        +(tag?'<span class="mtag">'+tag+'</span>':'')+'</div>';
+    }).join("");
+    return '<div class="miss'+(isBlank?" blankq":"")+'">'
+      +'<div class="mh"><span class="mn">Q'+(m.i+1)+'</span><span class="msec">'+esc(secOf(m.i))+'</span>'
+      +'<span class="mv">'+verdict+'</span></div>'
+      +'<div class="mq">'+esc(q.q)+'</div>'
+      +'<div class="mopts">'+opts+'</div>'
+      + explainHTML(q, m.i)
+      +'</div>';
+  }).join("");
+}
+
+function copyText(){
+  if(!CURRENT.length) return;
+  const L=[];
+  L.push("RML 2020 — the "+CURRENT.length+" I did not get right");
+  L.push("");
+  CURRENT.forEach(m=>{
+    const q=Q[m.i];
+    const picked = m.picked===null ? "blank" : (m.picked===undefined ? "?" : m.picked);
+    L.push("Q"+(m.i+1)+" ["+secOf(m.i)+"] "+picked+" → "+q.correct);
+    L.push("   "+q.q);
+    L.push("   Answer: "+q.correct.toUpperCase()+". "+(q.options[q.correct]||""));
+    L.push("");
+  });
+  const txt=L.join("\n");
+  const ok=()=>{ elNote.className="conv-note"; elNote.innerHTML="Copied. Paste it straight into the chat."; };
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(ok,()=>window.prompt("Copy this:",txt));
+  } else window.prompt("Copy this:",txt);
+}
+
+/* ---------- the running-total maths line ---------- */
+(function(){
+  const el=document.getElementById("mathBlock");
+  el.innerHTML =
+     'result screen (our engine)  →  out of 100, −0.25 a wrong answer  →  max printable = 100.00\n'
+    +'364 ÷ 4 = 91                 →  91 correct, 9 not correct\n'
+    +'real 2020 paper             →  91 × 4 = 364 / 400   (no negative marking, blanks and wrongs both pay 0)\n'
+    +'same run on our engine      →  91 − 0.25 × (wrong ones) = 88.75 to 91.00 / 100';
+})();
+
+/* ---------- wiring ---------- */
+const panels={auto:document.getElementById("pAuto"),paste:document.getElementById("pPaste"),nums:document.getElementById("pNums")};
+document.querySelectorAll(".tabs button").forEach(b=>{
+  b.addEventListener("click",()=>{
+    document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));
+    Object.keys(panels).forEach(k=>{ panels[k].style.display = (k===b.dataset.t)?"":"none"; });
+  });
+});
+function clearAll(){
+  render([]); elNote.className="conv-note";
+  elNote.innerHTML="Tap <b>Pull my RML 2020 attempt</b>. Everything stays on the device; nothing is uploaded.";
+}
+["btnClear","btnClear2","btnClear3"].forEach(id=>document.getElementById(id).addEventListener("click",clearAll));
+
+function noAttemptMsg(){
+  elNote.className="conv-note warn";
+  elNote.innerHTML='No RML 2020 attempt in this browser — you took it somewhere else, or the storage was cleared. '
+    +'Use <b>Paste the export</b> (open the mock’s result screen on that device and hit "Copy results for analysis"), '
+    +'or <b>Type the numbers</b> if you only have the question numbers off a screenshot. '
+    +'Or <a href="../take/screen.html?m=rml-2020">open the mock</a> and run it here.';
+}
+function showAttempt(a){
+  elNote.className="conv-note";
+  elNote.innerHTML='Off this device'+whenStr(a.ts)+': <b>'+a.right+' right</b>, <b>'+a.wrong+' wrong</b>, <b>'+a.blank+' blank</b>'
+    +' — real 2020 score <b>'+(a.right*4)+' / 400</b>. The '+a.misses.length+' below are every one you did not get right.';
+  render(a.misses);
+}
+document.getElementById("btnAuto").addEventListener("click",()=>{
+  const a=readAttempt(); if(!a){ noAttemptMsg(); render([]); return; } showAttempt(a);
+});
+document.getElementById("btnPaste").addEventListener("click",()=>{
+  const misses=parseExport(document.getElementById("taPaste").value||"");
+  if(!misses.length){ elNote.className="conv-note warn";
+    elNote.innerHTML="Couldn’t find any question numbers in that. Paste the whole export — the lines that look like <code>Q37 · Psychopathology · c → a</code>."; render([]); return; }
+  elNote.className="conv-note";
+  elNote.innerHTML="Read <b>"+misses.length+"</b> question"+(misses.length===1?"":"s")+" out of that export.";
+  render(misses);
+});
+document.getElementById("btnNums").addEventListener("click",()=>{
+  const misses=parseNums(document.getElementById("inNums").value||"");
+  if(!misses.length){ elNote.className="conv-note warn";
+    elNote.innerHTML="Give me question numbers between 1 and "+N+", separated however you like."; render([]); return; }
+  elNote.className="conv-note";
+  elNote.innerHTML="Showing <b>"+misses.length+"</b> question"+(misses.length===1?"":"s")+". Your own picks aren’t in there, so only the correct answer is marked.";
+  render(misses);
+});
+document.getElementById("btnCopy").addEventListener("click",copyText);
+
+/* auto-pull on load if the attempt is sitting right there */
+(function(){ const a=readAttempt(); if(a) showAttempt(a); })();
+})();
+</script>
+</body>
+</html>
