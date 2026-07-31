@@ -74,6 +74,25 @@
     padding:1px 7px;border-radius:20px;margin-right:8px;vertical-align:1px}
   .off b.lab{background:rgba(46,160,67,.18);color:var(--good);border:1px solid rgba(46,160,67,.4)}
   .hear b.lab{background:rgba(201,138,31,.15);color:#d8932a;border:1px solid rgba(201,138,31,.45)}
+  .conv{border:1px solid var(--border);background:var(--panel-2);border-radius:11px;padding:14px 16px;margin:10px 0 6px;font-family:var(--sans)}
+  .conv-row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+  .conv-row label{display:flex;flex-direction:column;gap:4px;font-size:11px;letter-spacing:.04em;
+    text-transform:uppercase;color:var(--muted);font-weight:700}
+  .conv-row input{background:var(--panel);border:1px solid var(--border);color:var(--text);border-radius:7px;
+    padding:8px 10px;font-size:16px;font-weight:700;font-family:var(--sans);width:96px;font-variant-numeric:tabular-nums}
+  .conv-row input:disabled{color:var(--muted);font-weight:600}
+  .conv-row button{background:var(--accent);border:0;color:#fff;border-radius:7px;padding:9px 14px;
+    font-size:13px;font-weight:700;cursor:pointer;font-family:var(--sans)}
+  .conv-row button.ghost{background:var(--panel);border:1px solid var(--border);color:var(--muted);font-weight:600}
+  .conv-note{font-size:12px;color:var(--muted);margin:9px 0 0;line-height:1.6}
+  .conv-note b{color:var(--text)}
+  .v-in{border-color:rgba(46,160,67,.5)!important;background:rgba(46,160,67,.09)!important}
+  .v-in .big{color:var(--good)!important}
+  .v-out{border-color:rgba(180,60,60,.45)!important;background:rgba(180,60,60,.08)!important}
+  .v-out .big{color:#e06c6c!important}
+  .nb{font-size:12.5px;color:var(--muted);line-height:1.9;margin:10px 0 0}
+  .nb .me{color:#e0a23a;font-weight:800}
+  .nb code{font-family:var(--mono,monospace);color:var(--text);font-size:12px}
 </style></head>
 <body>
 <div class="wrap">
@@ -102,11 +121,28 @@ Translation: <b>348 is the score that actually buys safety, 344 is a coin flip, 
 <tbody><tr class=""><td class="sc">360</td><td>90</td><td>2</td><td>top 0.5%</td><td style="color:var(--muted);font-size:12px">top score (2-way tie)</td></tr><tr class=""><td class="sc">356</td><td>89</td><td>3</td><td>top 0.7%</td><td style="color:var(--muted);font-size:12px">rank 3</td></tr><tr class=""><td class="sc">352</td><td>88</td><td>5</td><td>top 1.2%</td><td style="color:var(--muted);font-size:12px">rank 4-5</td></tr><tr class=""><td class="sc">348</td><td>87</td><td>12</td><td>top 2.8%</td><td style="color:var(--muted);font-size:12px">the safe band</td></tr><tr class="hl"><td class="sc">344</td><td>86</td><td>21</td><td>top 4.9%</td><td style="color:var(--muted);font-size:12px"><b>the admission cut-off</b></td></tr><tr class=""><td class="sc">340</td><td>85</td><td>30</td><td>top 7.0%</td><td style="color:var(--muted);font-size:12px"></td></tr><tr class=""><td class="sc">336</td><td>84</td><td>46</td><td>top 10.8%</td><td style="color:var(--muted);font-size:12px"></td></tr><tr class=""><td class="sc">332</td><td>83</td><td>58</td><td>top 13.6%</td><td style="color:var(--muted);font-size:12px"></td></tr><tr class=""><td class="sc">328</td><td>82</td><td>72</td><td>top 16.9%</td><td style="color:var(--muted);font-size:12px"></td></tr><tr class=""><td class="sc">324</td><td>81</td><td>93</td><td>top 21.8%</td><td style="color:var(--muted);font-size:12px"></td></tr><tr class=""><td class="sc">320</td><td>80</td><td>112</td><td>top 26.3%</td><td style="color:var(--muted);font-size:12px"></td></tr><tr class=""><td class="sc">316</td><td>79</td><td>136</td><td>top 31.9%</td><td style="color:var(--muted);font-size:12px"></td></tr><tr class=""><td class="sc">308</td><td>77</td><td>163</td><td>top 38.3%</td><td style="color:var(--muted);font-size:12px"></td></tr><tr class=""><td class="sc">300</td><td>75</td><td>196</td><td>top 46.0%</td><td style="color:var(--muted);font-size:12px"></td></tr><tr class=""><td class="sc">296</td><td>74</td><td>210</td><td>top 49.3%</td><td style="color:var(--muted);font-size:12px"></td></tr><tr class=""><td class="sc">288</td><td>72</td><td>223</td><td>top 52.3%</td><td style="color:var(--muted);font-size:12px"></td></tr><tr class=""><td class="sc">280</td><td>70</td><td>244</td><td>top 57.3%</td><td style="color:var(--muted);font-size:12px"></td></tr><tr class=""><td class="sc">260</td><td>65</td><td>295</td><td>top 69.2%</td><td style="color:var(--muted);font-size:12px"></td></tr><tr class=""><td class="sc">240</td><td>60</td><td>338</td><td>top 79.3%</td><td style="color:var(--muted);font-size:12px"></td></tr><tr class=""><td class="sc">220</td><td>55</td><td>364</td><td>top 85.4%</td><td style="color:var(--muted);font-size:12px"></td></tr><tr class=""><td class="sc">200</td><td>50</td><td>386</td><td>top 90.6%</td><td style="color:var(--muted);font-size:12px">GGSIPU qualifying bar (UR 50%)</td></tr></tbody></table></div>
 <p class="legend">Field of 426 appeared. Mean <b>277.2</b> (69 right), median <b>292</b> (73 right). The 50% qualifying bar GGSIPU prints in its brochure (200/400 for UR, 180 for reserved) is meaningless in practice: <b>386 of 426 candidates cleared 200</b>. Qualifying is not the cut-off. The cut-off is 344.</p>
 
+<h2 class="sec">Your paper, on the real 2020 scale <span style="font-weight:400;color:var(--muted);font-size:12px">(converter &mdash; runs on this device, nothing leaves it)</span></h2>
+<p class="legend">Our mock scores <b>+1 / &minus;0.25 / 0</b> out of 100. The real 2020 paper scored <b>+4 / 0 / 0</b> out of 400. Same questions, different arithmetic, and the gap is not cosmetic &mdash; every wrong answer you gave cost you a quarter mark the real paper would have charged you nothing for, and every blank you left was four free marks handed back. Put in your numbers, or pull them off this device, and this converts you onto the 2020 scale and drops you into the 426-candidate list above.</p>
+<div class="conv">
+  <div class="conv-row">
+    <label>Correct <input id="cRight" type="number" min="0" max="100" step="1" placeholder="0"></label>
+    <label>Wrong <input id="cWrong" type="number" min="0" max="100" step="1" placeholder="0"></label>
+    <label>Left blank <input id="cBlank" type="number" disabled></label>
+    <button id="cAuto">Pull my attempt off this device</button>
+    <button id="cClear" class="ghost">Clear</button>
+  </div>
+  <div class="conv-note" id="cNote">Enter what the mock's result screen showed you &mdash; correct and wrong. Blanks fill themselves in.</div>
+</div>
+<div class="cards" id="cCards" style="display:none"></div>
+<div class="you" id="cVerdict" style="display:none"></div>
+<div class="nb" id="cNb" style="display:none"></div>
+
 <h2 class="sec">Official vs hearsay</h2>
 <div class="off"><b class="lab">Official</b> Everything above. Sources: GGSIPU <b>"Programme wise merit list of M.Phil. (Clinical Psychology), Programme code 157 (appeared candidates)"</b>, CET CBT held 09.09.2020, 7 pages, all 426 candidates with obtained marks out of 400 &mdash; and GGSIPU <b>Notification 237/2020 dated 08.01.2021</b>, the counselling merit list of 17 for code 157. I cross-matched the 17 names to their CET marks by roll number to get the cut-offs.</div>
 <div class="off"><b class="lab">Official</b> Exam pattern (100 Q &times; 4, no negative, 2&frac12; hrs), the 50%/45% qualifying bars, the <b>1 seat : 3 candidates</b> interview call ratio and the <b>90% CET / 10% interview + practical</b> weightage &mdash; all from the GGSIPU 2020 admission brochure for the programme.</div>
 <div class="hear"><b class="lab">Hearsay</b> Coaching sites (UPS Education, Best Psychology Coaching) float <b>"cut-off 348/400, 87%"</b> as a recent-year figure. It's in the right neighbourhood and it matches the 348 safe band above, but it is not sourced to any GGSIPU document and the year it refers to is vague. Treat it as folklore that happens to be roughly correct, not as a number to plan against.</div>
 <div class="hear"><b class="lab">Hearsay</b> Anything you'll read on Reddit or Quora about "the topper got X" for RML 2020. There is no such claim I could find backed by a document, and now there's no need for one &mdash; the real number is 360 and it's printed.</div>
+<div class="hear"><b class="lab">Forum dig &mdash; closed</b> I said the forum dig was still open because Reddit was blocking me. I went back at it on <b>31 July 2026</b>: Reddit's API returns <code>403</code> to automated reads, and a full web sweep of Reddit, Quora and the coaching blogs turns up exactly one recurring number &mdash; the same <b>"348/400, 87%"</b> line, recycled across UPS Education and Best Psychology Coaching, with no year attached and no document behind it. <b>Nothing new, and nothing sourced.</b> Calling it: the dig is closed. The GGSIPU merit list above outranks every word of it, and it says 360 top, 344 in.</div>
 
 <h2 class="sec">Everyone who sat RML 2020 &mdash; all 426, with marks</h2>
 <div class="controls">
@@ -180,6 +216,119 @@ document.getElementById("q").addEventListener("input",e=>{q=e.target.value.trim(
 document.querySelectorAll("thead th[data-k]").forEach(th=>th.addEventListener("click",()=>{
   const k=th.dataset.k;if(sortk===k)sortdir*=-1;else{sortk=k;sortdir=(typeof DATA[0][k]==="number")?-1:1;}render();}));
 render();
+
+/* ---------- mock (+1/-0.25) -> real 2020 (+4/0) converter ---------- */
+const TOTAL_Q=100, MARKS_PER_Q=4, FIELD=DATA.length;
+const elR=document.getElementById("cRight"), elW=document.getElementById("cWrong"),
+      elB=document.getElementById("cBlank"), elNote=document.getElementById("cNote"),
+      elCards=document.getElementById("cCards"), elV=document.getElementById("cVerdict"),
+      elNb=document.getElementById("cNb");
+
+function readAttempt(){
+  // 1. the live /take/ engine writes take-summary-<id> = {answered,total,right,wrong,ts}
+  try{
+    const s=JSON.parse(localStorage.getItem("take-summary-rml-2020"));
+    if(s&&typeof s.right==="number"&&(s.right+s.wrong)>0)
+      return {right:s.right,wrong:s.wrong,answered:s.right+s.wrong,ts:s.ts||null,key:"take-summary-rml-2020"};
+  }catch(e){}
+  // 2. fall back to the classic quiz page format, <id>-results-v<n>
+  let best=null;
+  for(let i=0;i<localStorage.length;i++){
+    const k=localStorage.key(i);
+    if(!k||!/^rml-2020-results-v\d+$/.test(k))continue;
+    let res;try{res=JSON.parse(localStorage.getItem(k));}catch(e){continue;}
+    if(!res||typeof res!=="object")continue;
+    let right=0,wrong=0;
+    for(const qid of Object.keys(res)){
+      const r=res[qid];
+      if(!r||r.selected==null)continue;
+      if(r.correct)right++;else wrong++;
+    }
+    if(right+wrong===0)continue;
+    if(!best||right+wrong>best.answered)best={right,wrong,answered:right+wrong,ts:null,key:k};
+  }
+  return best;
+}
+function whenStr(ts){
+  if(!ts)return"";
+  try{return" &middot; last touched "+new Date(ts).toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"});}catch(e){return"";}
+}
+
+function clampInt(v,hi){v=parseInt(v,10);if(!isFinite(v)||v<0)return 0;return Math.min(v,hi);}
+
+function compute(){
+  let right=clampInt(elR.value,TOTAL_Q);
+  let wrong=clampInt(elW.value,TOTAL_Q-right);
+  if(elW.value!==""&&wrong!==clampInt(elW.value,TOTAL_Q))elW.value=wrong;
+  const blank=TOTAL_Q-right-wrong;
+  elB.value=blank;
+  if(elR.value===""&&elW.value===""){elCards.style.display="none";elV.style.display="none";elNb.style.display="none";return;}
+
+  const score=right*MARKS_PER_Q;                       // real 2020 scale
+  const mock=right-0.25*wrong;                         // our marking
+  const above=DATA.filter(d=>d.marks>score).length;
+  const tied=DATA.filter(d=>d.marks===score);
+  const selAbove=DATA.filter(d=>d.marks>score&&d.sel).length;
+  const selTied=tied.filter(d=>d.sel).length;
+  const rankLo=above+1, rankHi=above+tied.length+1;
+  const rank=tied.length?`${rankLo}–${rankHi}`:`${rankLo}`;
+  const pct=(rankHi/(FIELD+1)*100);
+
+  elCards.style.display="";
+  elCards.innerHTML=`
+    <div class="card card-sihan"><div class="card-cat">Real 2020 score</div><div class="card-bar">${score}</div><div class="card-sub">/ 400 &middot; ${right} right &times; 4 &middot; no negative</div></div>
+    <div class="card"><div class="card-cat">Our mock scored it</div><div class="card-bar">${(Math.round(mock*100)/100)}</div><div class="card-sub">/ 100 &middot; ${wrong?"&minus;"+(Math.round(0.25*wrong*100)/100)+" of penalty the real paper never charged":"nothing wrong, nothing to penalise"}</div></div>
+    <div class="card"><div class="card-cat">CET rank</div><div class="card-bar">#${rank}</div><div class="card-sub">of ${FIELD+1} &middot; ${tied.length?tied.length+" others sat on exactly "+score+", so it's a band":"nobody else on this mark"}</div></div>
+    <div class="card"><div class="card-cat">Percentile</div><div class="card-bar">${pct<=50?"top "+(pct<10?pct.toFixed(1):Math.round(pct))+"%":Math.round(100-pct)+"%"}</div><div class="card-sub">${pct<=50?"of the 426 who sat it":"of the field finished below you"}</div></div>`;
+
+  let head,cls;
+  if(score>=356){head=`<b>Rank #${rank}. That's a seat, not a hope.</b>`;cls="v-in";}
+  else if(score>=348){head=`<b>In the safe band.</b> 348 and up is where the list stops being a lottery.`;cls="v-in";}
+  else if(score>=344){head=`<b>Coin flip.</b> 344 is exactly the cut-off mark, and nine people sat on it &mdash; two got in.`;cls="";}
+  else{head=`<b>Off the 2020 list.</b> The UR cut-off was 344.`;cls="v-out";}
+
+  const gaps=[];
+  for(const [target,label] of [[344,"the cut-off"],[348,"the safe band"],[360,"the top score"]]){
+    const need=Math.ceil((target-score)/MARKS_PER_Q);
+    if(need>0)gaps.push(`<b>${need}</b> more right to reach <b>${target}</b> (${label})`);
+  }
+
+  const blankLine=blank>0
+    ? `You left <b>${blank}</b> blank. On the real paper that is <b>${blank*MARKS_PER_Q} marks</b> handed back for nothing &mdash; there was no negative marking, so a blank is strictly worse than a guess. Guess all ${blank} at chance and you'd expect about <b>${Math.round(blank/4)}</b> more right, i.e. roughly <b>${score+Math.round(blank/4)*MARKS_PER_Q}/400</b>. On this paper you never leave one empty.`
+    : `You attempted all 100. Correct instinct for this paper &mdash; no negative marking means a blank is pure loss.`;
+
+  elV.style.display="";
+  elV.className="you "+cls;
+  elV.innerHTML=`${head} On the 2020 merit list you'd have finished <span class="big">#${rank}</span> of ${FIELD+1} with <span class="big">${score}/400</span>.
+  ${(selAbove+selTied>0&&above+tied.length<=60)?`Of the ${above+tied.length} candidates at or above this mark, <b>${selAbove+selTied}</b> of the 17 seats went to them.`:``}
+  ${score<200?`<br><br>Note: this is below the <b>200/400</b> qualifying bar (50%, UR). 386 of 426 cleared it, so it isn't the real hurdle, but you're under it.`:``}
+  ${gaps.length?`<br><br>${gaps.join(" &middot; ")}.`:`<br><br>Nobody in 2020 scored above 360.`}
+  <br><br>${blankLine}`;
+
+  const upper=DATA.filter(d=>d.marks>score).sort((a,b)=>a.marks-b.marks).slice(0,3).reverse();
+  const lower=DATA.filter(d=>d.marks<score).sort((a,b)=>b.marks-a.marks).slice(0,3);
+  const row=d=>`<div><code>${d.marks}</code> &middot; ${d.correct} right &middot; ${d.name} (${d.cat}) ${d.sel?'<span class="pill p-sel">IN &middot; #'+d.frank+'</span>':''}</div>`;
+  elNb.style.display="";
+  elNb.innerHTML=`<div style="margin-bottom:4px">Who you'd be sitting between:</div>`
+    +upper.map(row).join("")
+    +`<div class="me"><code>${score}</code> &middot; ${right} right &middot; you &middot; rank #${rank}</div>`
+    +lower.map(row).join("");
+}
+
+elR.addEventListener("input",compute);
+elW.addEventListener("input",compute);
+document.getElementById("cClear").addEventListener("click",()=>{elR.value="";elW.value="";
+  elNote.textContent="Enter what the mock's result screen showed you — correct and wrong. Blanks fill themselves in.";compute();});
+document.getElementById("cAuto").addEventListener("click",()=>{
+  const a=readAttempt();
+  if(!a){elNote.innerHTML="No RML 2020 attempt found in this browser. Either you took it on another device or in another browser — type the numbers in by hand, or open <a href=\"../take/screen.html?m=rml-2020\">the mock</a> and finish a run first.";return;}
+  elR.value=a.right;elW.value=a.wrong;
+  elNote.innerHTML=`Pulled from this device: <b>${a.right} right</b>, <b>${a.wrong} wrong</b>, <b>${TOTAL_Q-a.answered} never answered</b>${whenStr(a.ts)}.`;
+  compute();});
+
+(function(){const a=readAttempt();if(a){elR.value=a.right;elW.value=a.wrong;
+  elNote.innerHTML=`Found your RML 2020 attempt on this device: <b>${a.right} right</b>, <b>${a.wrong} wrong</b>, <b>${TOTAL_Q-a.answered} never answered</b>${whenStr(a.ts)}. Numbers below are yours, converted.`;
+  compute();}})();
 </script>
 </body>
 </html>
