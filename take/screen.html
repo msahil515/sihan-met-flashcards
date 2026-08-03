@@ -675,14 +675,21 @@ document.getElementById("focusBtn").onclick=()=>{
 };
 
 /* ---------- export the result so it can leave the device ----------
-   Two shapes off the same walk of the answer state:
+   Three shapes off the same walk of the answer state:
+   misses   -> score header + the miss list, nothing else; the shape that always survives
    compact  -> fits in a chat message, still names every single miss
-   full     -> same plus the question stem, for pasting into an analysis  */
+   full     -> same plus the question stem, for pasting into an analysis
+
+   The miss list is printed BEFORE the section split on purpose. A paste that gets chopped
+   loses its tail, and on 3 Aug 2026 an RML 2020 paste was cut off mid section-split and took
+   the miss list with it. The section percentages are re-derivable from the misses; the misses
+   are not re-derivable from anything. So the un-losable part goes first. */
 function plainText(html){
   const d=document.createElement("div"); d.innerHTML=html||"";
   return (d.textContent||"").replace(/\s+/g," ").trim();
 }
-function buildExport(full){
+function buildExport(mode){
+  const full = mode==="full";
   let right=0,wrong=0,skipped=0; const secAgg={}; const misses=[];
   Q.forEach((q,i)=>{
     const s=q.section; secAgg[s]=secAgg[s]||{n:0,c:0,w:0,b:0};
@@ -700,40 +707,47 @@ function buildExport(full){
   L.push(`Score: ${score.toFixed(2).replace(/\.00$/,"")} / ${N} (${right} right, ${wrong} wrong, ${skipped} blank)`);
   L.push(`Scoring: +1 / −0.25 · accuracy on attempted ${answered?Math.round(right/answered*100):0}%`);
   L.push("");
-  L.push("SECTION SPLIT");
-  Object.keys(SL).filter(s=>secAgg[s]).forEach(s=>{
-    const g=secAgg[s];
-    L.push(`${SL[s]}: ${g.c}/${g.n} (${Math.round(g.c/g.n*100)}%) · ${g.w} wrong · ${g.b} blank`);
-  });
-  L.push("");
   L.push(misses.length?`MISSED & BLANK — all ${misses.length}`:"MISSED & BLANK — none, clean run");
   misses.forEach(m=>{
     const picked = m.a==null ? "blank" : m.a;
     L.push(`Q${m.i+1} · ${SL[m.s]||m.s} · ${picked} → ${m.q.correct}`);
     if(full) L.push(`    ${plainText(m.q.q).slice(0,220)}`);
   });
+  if(mode!=="misses"){
+    L.push("");
+    L.push("SECTION SPLIT");
+    Object.keys(SL).filter(s=>secAgg[s]).forEach(s=>{
+      const g=secAgg[s];
+      L.push(`${SL[s]}: ${g.c}/${g.n} (${Math.round(g.c/g.n*100)}%) · ${g.w} wrong · ${g.b} blank`);
+    });
+  }
   return L.join("\n");
 }
 function flashNote(msg,warn){
   const n=document.getElementById("sendNote"); if(!n)return;
   n.textContent=msg; n.className="send-note"+(warn?" warn":"");
 }
-function copyExport(){
-  const txt=buildExport(true);
-  const ok=()=>flashNote("Copied. Paste it straight into the chat.");
+function copyBlob(txt,note){
+  const ok=()=>flashNote(note);
   if(navigator.clipboard&&navigator.clipboard.writeText){
     navigator.clipboard.writeText(txt).then(ok,()=>prompt("Copy your result:",txt));
   } else prompt("Copy your result:",txt);
 }
+function copyExport(){
+  copyBlob(buildExport("full"),"Copied. Paste it straight into the chat.");
+}
+function copyMisses(){
+  copyBlob(buildExport("misses"),"Copied just the wrong ones. Short enough that nothing gets cut off.");
+}
 function sendExport(){
-  const txt=buildExport(false);
+  const txt=buildExport("compact");
   const wa=()=>{ window.open("https://wa.me/?text="+encodeURIComponent(txt),"_blank"); };
   if(navigator.share){
     navigator.share({text:txt}).catch(err=>{ if(!err||err.name!=="AbortError") wa(); });
   } else wa();
 }
 function downloadExport(){
-  const blob=new Blob([buildExport(true)],{type:"text/plain"});
+  const blob=new Blob([buildExport("full")],{type:"text/plain"});
   const a=document.createElement("a");
   a.href=URL.createObjectURL(blob);
   a.download=`${MID}-result.txt`;
@@ -799,9 +813,10 @@ function finish(){
     </div>
     <div class="send-block">
       <h3>Send this result for analysis</h3>
-      <p>Carries the score, the section split, and every question you missed or left blank — number, section, what you picked, what was right.</p>
+      <p>Carries the score, every question you missed or left blank — number, section, what you picked, what was right — and the section split. The misses come first, so a paste that gets cut short still has them.</p>
       <div class="send-row">
         <button class="btn primary" id="sendResBtn">Send result</button>
+        <button class="btn" id="copyWrongBtn">Copy just my wrong ones</button>
         <button class="btn" id="copyResBtn">Copy results for analysis</button>
         <button class="btn" id="dlResBtn">Save as .txt</button>
       </div>
@@ -845,6 +860,7 @@ function finish(){
     });
   };
   document.getElementById("sendResBtn").onclick=sendExport;
+  document.getElementById("copyWrongBtn").onclick=copyMisses;
   document.getElementById("copyResBtn").onclick=copyExport;
   document.getElementById("dlResBtn").onclick=downloadExport;
   document.getElementById("backBtn2").onclick=backToQuiz;

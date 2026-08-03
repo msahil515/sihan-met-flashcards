@@ -290,6 +290,17 @@ function explainHTML(q, idx){
   return h+'</div>';
 }
 
+/* ---------- the run he actually sent (3 Aug 2026) ----------
+   Taken verbatim off the rml-2020-result.txt export he shared on WhatsApp, so this page
+   still shows his real misses on a device that never held the attempt. Every correct
+   answer below was checked against data.js before it was written down. */
+const SENT_ATTEMPT={
+  right:91, wrong:9, blank:0, ts:"2026-08-03T12:38:50.269Z",
+  misses:[{i:3,picked:"d"},{i:4,picked:"b"},{i:16,picked:"b"},{i:17,picked:"d"},
+          {i:23,picked:"c"},{i:31,picked:"b"},{i:46,picked:"d"},{i:81,picked:"d"},
+          {i:89,picked:"d"}]
+};
+
 /* ---------- read the attempt off this device ---------- */
 function readAttempt(){
   let st=null;
@@ -432,21 +443,18 @@ function clearAll(){
 }
 ["btnClear","btnClear2","btnClear3"].forEach(id=>document.getElementById(id).addEventListener("click",clearAll));
 
-function noAttemptMsg(){
-  elNote.className="conv-note warn";
-  elNote.innerHTML='No RML 2020 attempt in this browser — you took it somewhere else, or the storage was cleared. '
-    +'Use <b>Paste the export</b> (open the mock’s result screen on that device and hit "Copy results for analysis"), '
-    +'or <b>Type the numbers</b> if you only have the question numbers off a screenshot. '
-    +'Or <a href="../take/screen.html?m=rml-2020">open the mock</a> and run it here.';
-}
-function showAttempt(a){
+function showAttempt(a,fromSent){
   elNote.className="conv-note";
-  elNote.innerHTML='Off this device'+whenStr(a.ts)+': <b>'+a.right+' right</b>, <b>'+a.wrong+' wrong</b>, <b>'+a.blank+' blank</b>'
-    +' — real 2020 score <b>'+(a.right*4)+' / 400</b>. The '+a.misses.length+' below are every one you did not get right.';
+  elNote.innerHTML=(fromSent?'From the export you sent'+whenStr(a.ts):'Off this device'+whenStr(a.ts))
+    +': <b>'+a.right+' right</b>, <b>'+a.wrong+' wrong</b>, <b>'+a.blank+' blank</b>'
+    +' — real 2020 score <b>'+(a.right*4)+' / 400</b>. The '+a.misses.length+' below are every one you did not get right.'
+    +(fromSent?' Nothing to paste, nothing to re-send.':'');
   render(a.misses);
 }
 document.getElementById("btnAuto").addEventListener("click",()=>{
-  const a=readAttempt(); if(!a){ noAttemptMsg(); render([]); return; } showAttempt(a);
+  const a=readAttempt();
+  if(a){ showAttempt(a,false); return; }
+  showAttempt(SENT_ATTEMPT,true);
 });
 document.getElementById("btnPaste").addEventListener("click",()=>{
   const misses=parseExport(document.getElementById("taPaste").value||"");
@@ -466,8 +474,8 @@ document.getElementById("btnNums").addEventListener("click",()=>{
 });
 document.getElementById("btnCopy").addEventListener("click",copyText);
 
-/* auto-pull on load if the attempt is sitting right there */
-(function(){ const a=readAttempt(); if(a) showAttempt(a); })();
+/* auto-pull on load: this device first, otherwise the run he sent on 3 Aug */
+(function(){ const a=readAttempt(); if(a) showAttempt(a,false); else showAttempt(SENT_ATTEMPT,true); })();
 })();
 </script>
 </body>
