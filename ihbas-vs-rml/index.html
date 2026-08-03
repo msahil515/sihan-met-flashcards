@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<script src="/sihan-met-flashcards/sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IHBAS vs RML — what actually carries across</title>
+<link rel="stylesheet" href="/sihan-met-flashcards/notes-style.css">
+<script src="/sihan-met-flashcards/take/theme.js"></script>
+<link rel="stylesheet" href="/sihan-met-flashcards/revamp-skin.css">
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<meta name="theme-color" content="#0d1117">
+<style>
+  .wrap{max-width:min(1020px,96vw);padding-left:24px;padding-right:24px}
+  @media (max-width:600px){.wrap{padding-left:12px;padding-right:12px}}
+  nav{font-family:var(--sans)}
+  .updated{font-family:var(--sans);font-size:12px;color:var(--muted);margin:6px 0 16px;line-height:1.7}
+  .wrap p,.wrap li,.wrap td,.wrap th{font-family:var(--sans)}
+  .wrap>p{font-size:14.6px;line-height:1.72;color:var(--muted)}
+  .wrap>p b{color:var(--text)}
+  h2.sec{font-family:var(--sans);font-size:19px;margin:38px 0 6px;padding-bottom:6px;
+    border-bottom:2px solid var(--accent-dim);color:var(--text)}
+  h3.sub{font-family:var(--sans);font-size:15px;margin:24px 0 6px;color:var(--text)}
+
+  /* correction box */
+  .fix{border:1px solid rgba(192,57,43,.5);background:rgba(192,57,43,.10);border-radius:11px;
+    padding:15px 19px;margin:18px 0;font-family:var(--sans);font-size:14.4px;line-height:1.7;color:var(--muted)}
+  .fix h2{margin:0 0 4px;font-size:16px;color:var(--text);border:0;padding:0}
+  .fix p{margin:10px 0 0}
+  .fix p:first-of-type{margin-top:8px}
+  .fix b{color:var(--text)}
+  .fix .no{color:#e06c5c;font-weight:800}
+  .fix .yes{color:#57b06f;font-weight:800}
+
+  /* headline stat */
+  .you{border:1px solid rgba(201,138,31,.45);background:rgba(201,138,31,.10);border-radius:11px;
+    padding:15px 19px;margin:16px 0 20px;font-family:var(--sans);font-size:14.5px;line-height:1.72;color:var(--muted)}
+  .you b{color:var(--text)}
+  .you .big{font-size:23px;font-weight:800;color:#d8932a;font-variant-numeric:tabular-nums}
+
+  /* tables */
+  .tw{overflow-x:auto;margin:14px 0 6px;-webkit-overflow-scrolling:touch}
+  table.t{border-collapse:collapse;width:100%;font-size:13.6px;min-width:660px}
+  table.t th,table.t td{border:1px solid var(--border);padding:8px 10px;text-align:left;vertical-align:top;
+    line-height:1.55;color:var(--muted)}
+  table.t th{background:var(--panel-2);color:var(--text);font-weight:700;font-size:12.6px;
+    letter-spacing:.02em;white-space:nowrap}
+  table.t td b{color:var(--text)}
+  table.t td.n{text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap}
+  table.t tr.tot td{background:var(--panel-2);color:var(--text);font-weight:700}
+  table.t tr.only td{background:rgba(192,57,43,.09)}
+  .ok{color:#57b06f;font-weight:700}
+  .warn{color:#d8932a;font-weight:700}
+  .bad{color:#e06c5c;font-weight:700}
+  .cap{font-family:var(--sans);font-size:12.3px;color:var(--muted);line-height:1.65;margin:6px 0 0}
+  .cap b{color:var(--ink2)}
+
+  ul.tight{margin:10px 0 14px;padding-left:20px}
+  ul.tight li{font-size:14.5px;line-height:1.68;color:var(--muted);margin-bottom:7px}
+  ul.tight li b{color:var(--text)}
+
+  .note{font-family:var(--sans);font-size:14px;color:var(--muted);background:var(--panel);
+    border:1px solid var(--border);border-radius:10px;padding:14px 17px;margin:16px 0;line-height:1.7}
+  .note b{color:var(--text)}
+  .note.hit{border-left:3px solid var(--accent);border-radius:10px}
+
+  .acts{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px;font-family:var(--sans)}
+  .acts a{display:inline-block;font-size:13px;font-weight:700;text-decoration:none;border-radius:999px;
+    padding:7px 15px;border:1px solid var(--border);background:var(--panel-2);color:var(--ink2)}
+  .acts a.go{background:var(--accent);border-color:var(--accent);color:#fff}
+  .acts a:hover{text-decoration:none;border-color:var(--accent)}
+
+  .src{font-family:var(--sans);font-size:12.4px;color:var(--muted);line-height:1.7;
+    border-top:1px solid var(--border);padding-top:14px;margin-top:34px}
+  .src b{color:var(--ink2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="../">&larr; Home</a> <a href="../syllabus/">Syllabus hub</a> <a href="../six-areas/">Six areas plan</a> <a href="../rml-2020-nine/">RML 2020: the nine</a> <a href="../rml/">The RML brief</a> <a href="../tests/">Mocks</a></nav>
+
+<h1>IHBAS vs RML &mdash; what actually carries across</h1>
+<p class="updated">Built 3 Aug 2026 &middot; off your RML 2020 attempt (91 right, 9 wrong, 364/400) and the 292 real IHBAS questions already tagged on this site</p>
+
+<p>You said RML topics are very different from IHBAS. Half right, and the half that is wrong is the expensive half.
+This page does not argue about it. It puts the <b>official IHBAS blueprint</b>, the <b>292 tagged questions from three real
+IHBAS papers</b>, and the <b>real section split of your RML 2020 attempt</b> in the same table and lets the counts answer.</p>
+
+<div class="fix">
+<h2>Three corrections to what I told you on WhatsApp</h2>
+
+<p><b>1. <span class="no">Wrong:</span> &ldquo;IHBAS is the six-area general psych paper, roughly 10 each, and it is not DSM heavy.&rdquo;</b><br>
+<span class="yes">Right:</span> the official IHBAS blueprint is <b>Clinical Psychology 25 + Abnormal Psychology 15 = 40 of 100</b>,
+then six areas at 10 each for the remaining 60. All 292 questions across IHBAS 2020, 2024 and 2025 tag out at
+<b>33&ndash;38 for that clinical + abnormal block every single year</b>. IHBAS is not the less clinical paper of the two.
+On the counts below it is the <b>more</b> clinical one.</p>
+
+<p><b>2. <span class="no">Wrong:</span> &ldquo;RML, longer paper, 2.5 hrs.&rdquo;</b><br>
+<span class="yes">Right:</span> <b>2 hours</b>, 100 MCQs &times; 4 = 400 marks, no negative. That is still longer per question than
+IHBAS (72 s vs 54 s), but not by the margin I gave you.</p>
+
+<p><b>3. <span class="no">Wrong:</span> &ldquo;the social work strand cost you 3 Qs.&rdquo;</b><br>
+<span class="yes">Right:</span> <b>four of the nine.</b> Q4 and Q18 are social-work history, Q32 (case management) and Q82
+(group properties) are case-work systems. Same lineage, one gap, and it is the largest single cluster in your nine.</p>
+
+<p><b>And one thing I did not say at all.</b> The paper you sat is the RML <b>M.Phil</b> CET. <b>CET-166, the MA you actually
+applied to, is a different paper</b>: 70% test + 30% interview, with a Section A of general awareness, logical reasoning and
+research aptitude (~20 Q) that the M.Phil paper does not have. So RML 2020 is a fair content rehearsal and an unreliable
+format rehearsal. Details on <a href="../rml/">the RML brief</a>.</p>
+</div>
+
+<h2 class="sec">The two papers, side by side</h2>
+
+<div class="tw">
+<table class="t">
+<tr><th>&nbsp;</th><th>IHBAS</th><th>RML 2020 (M.Phil CET) &mdash; what you sat</th><th>RML CET-166 (MA) &mdash; what you applied to</th></tr>
+<tr><td><b>Questions</b></td><td>100 MCQ</td><td>100 MCQ</td><td>~70 reported: Section A ~20 + Section B ~50</td></tr>
+<tr><td><b>Marks</b></td><td>100 (1 each)</td><td>400 (4 each)</td><td>Not published</td></tr>
+<tr><td><b>Time</b></td><td>90 min &mdash; <b>54 s per question</b></td><td>120 min &mdash; 72 s per question</td><td>Confirm on the brochure</td></tr>
+<tr><td><b>Negative marking</b></td><td>None</td><td>None</td><td>None reported</td></tr>
+<tr><td><b>Selection</b></td><td><b>Written only.</b> No interview at all.</td><td>90% CET + 10% interview</td><td>70% test + 30% interview</td></tr>
+<tr><td><b>Syllabus published?</b></td><td><b>Yes</b> &mdash; a fixed blueprint with per-section counts</td><td>No</td><td>No &mdash; area list only</td></tr>
+<tr><td><b>Extra layer</b></td><td>None</td><td>None</td><td>General awareness / reasoning / research aptitude</td></tr>
+</table>
+</div>
+<p class="cap"><b>Read the last row twice.</b> IHBAS is the only one of the three where the written paper is the entire decision,
+so a mark on IHBAS is worth more than a mark anywhere else you are sitting.</p>
+
+<h2 class="sec">Where the questions actually come from</h2>
+
+<p>IHBAS column = all 292 questions from the three real IHBAS papers on this site, tagged by area and scaled to 100.
+RML column = the real section split of the RML 2020 paper. Both sum to 100, so you can read them straight against each other.</p>
+
+<div class="tw">
+<table class="t">
+<tr><th>Area</th><th>IHBAS<br>per 100 Q</th><th>RML 2020<br>per 100 Q</th><th>You, on RML 2020</th><th>Carries across?</th></tr>
+
+<tr><td><b>General / cognitive / learning</b><br><span style="font-size:12.4px">personality items tag in here too</span></td>
+<td class="n">18</td><td class="n">12</td><td class="n">11/12 &middot; 92%</td>
+<td><span class="ok">Yes</span> &mdash; and it is IHBAS's biggest non-clinical block, 50% bigger than RML's</td></tr>
+
+<tr><td><b>Abnormal &amp; psychopathology</b></td>
+<td class="n">17</td><td class="n">19</td><td class="n">18/19 &middot; 95%</td>
+<td><span class="ok">Yes</span> &mdash; near-identical weight on both. Your strongest heavy section</td></tr>
+
+<tr><td><b>Clinical / psychotherapy</b></td>
+<td class="n">15</td><td class="n">8</td><td class="n">7/8 &middot; 88%</td>
+<td><span class="warn">Yes, but doubled</span> &mdash; IHBAS asks ~2&times; what RML 2020 did</td></tr>
+
+<tr><td><b>Biopsychology / physiological</b></td>
+<td class="n">13</td><td class="n">9</td><td class="n"><span class="bad">7/9 &middot; 78%</span></td>
+<td><span class="warn">Yes</span> &mdash; heavier on IHBAS <i>and</i> your weakest carried area. The one real problem</td></tr>
+
+<tr><td><b>Social psychology</b></td>
+<td class="n">11</td><td class="n">16</td><td class="n">14/16 &middot; 88%</td>
+<td><span class="warn">Partly</span> &mdash; 2 of RML's 16 were social-work history, not social psych. On real social psych you were <b>14/14</b></td></tr>
+
+<tr><td><b>Statistics &amp; research methods</b></td>
+<td class="n">10</td><td class="n">8</td><td class="n"><span class="ok">8/8 &middot; 100%</span></td>
+<td><span class="ok">Yes</span> &mdash; clean, and it repeats on every paper you are sitting</td></tr>
+
+<tr><td><b>Developmental</b></td>
+<td class="n">9</td><td class="n">9</td><td class="n"><span class="ok">9/9 &middot; 100%</span></td>
+<td><span class="ok">Yes</span> &mdash; same weight to the question, clean</td></tr>
+
+<tr><td><b>Assessment / psychometrics</b></td>
+<td class="n">7</td><td class="n">9</td><td class="n"><span class="ok">9/9 &middot; 100%</span></td>
+<td><span class="ok">Yes</span> &mdash; clean</td></tr>
+
+<tr class="only"><td><b>Systems / case management / social work</b></td>
+<td class="n">0</td><td class="n">10</td><td class="n">8/10 &middot; 80%</td>
+<td><span class="bad">No &mdash; RML only.</span> Zero of it in the IHBAS blueprint, zero in 292 tagged IHBAS questions</td></tr>
+
+<tr class="tot"><td>Total</td><td class="n">100</td><td class="n">100</td><td class="n">91/100</td><td>&nbsp;</td></tr>
+</table>
+</div>
+<p class="cap"><b>The RML-only strand is bigger than one row.</b> Systems is 10 questions, plus roughly 2 of the 16 tagged
+Social were social-work history (Q4, Q18). Call it <b>12 of RML's 100</b> that IHBAS will never ask you.</p>
+
+<h2 class="sec">The claim that does not survive the table</h2>
+
+<p>&ldquo;RML leans clinical, IHBAS is the general psych paper.&rdquo; Add up the clinical block on each:</p>
+
+<div class="tw">
+<table class="t" style="min-width:520px">
+<tr><th>Clinical block</th><th>IHBAS per 100</th><th>RML 2020 per 100</th></tr>
+<tr><td>Abnormal &amp; psychopathology</td><td class="n">17</td><td class="n">19</td></tr>
+<tr><td>Clinical / psychotherapy</td><td class="n">15</td><td class="n">8</td></tr>
+<tr><td>Assessment / psychometrics</td><td class="n">7</td><td class="n">9</td></tr>
+<tr class="tot"><td>Block total</td><td class="n">39</td><td class="n">36</td></tr>
+</table>
+</div>
+
+<p><b>39 against 36.</b> They are the same paper on the thing you thought separated them. The difference is not
+<i>how much</i> clinical, it is <i>which half</i>: RML 2020 put 19 into abnormal and only 8 into therapy, IHBAS splits it
+17 / 15. So the part of the clinical block that genuinely changes when you move from RML to IHBAS is
+<b>psychotherapy and the therapy schools</b> &mdash; who founded what, named in full, roughly twice as often.</p>
+
+<div class="note hit"><b>And the split moves year to year even inside IHBAS.</b> Abnormal ran 11 &rarr; 13 &rarr; 27 across
+IHBAS 2020, 2024, 2025 while clinical/therapy ran 22 &rarr; 10 &rarr; 11. The <i>block</i> is stable at 33&ndash;38.
+Which half carries it is not predictable, so prepare both halves as one unit and never bet on last year's split.</div>
+
+<h2 class="sec">So what does your 364 actually predict</h2>
+
+<p>Take your accuracy in each section of RML 2020 and reweight it onto IHBAS's own per-100 distribution. Nothing else changes,
+just the number of questions each area is worth.</p>
+
+<div class="tw">
+<table class="t" style="min-width:600px">
+<tr><th>Area</th><th>IHBAS<br>weight</th><th>Your accuracy</th><th>Marks<br>earned</th><th>Marks<br>lost</th></tr>
+<tr><td>General / cognitive</td><td class="n">18</td><td class="n">92%</td><td class="n">16.5</td><td class="n">1.5</td></tr>
+<tr><td>Abnormal &amp; psychopathology</td><td class="n">17</td><td class="n">95%</td><td class="n">16.1</td><td class="n">0.9</td></tr>
+<tr><td>Clinical / psychotherapy</td><td class="n">15</td><td class="n">88%</td><td class="n">13.1</td><td class="n">1.9</td></tr>
+<tr><td><b>Biopsychology</b></td><td class="n">13</td><td class="n"><span class="bad">78%</span></td><td class="n">10.1</td><td class="n"><span class="bad">2.9</span></td></tr>
+<tr><td>Social psychology</td><td class="n">11</td><td class="n">88%</td><td class="n">9.6</td><td class="n">1.4</td></tr>
+<tr><td>Statistics &amp; research methods</td><td class="n">10</td><td class="n">100%</td><td class="n">10.0</td><td class="n">0</td></tr>
+<tr><td>Developmental</td><td class="n">9</td><td class="n">100%</td><td class="n">9.0</td><td class="n">0</td></tr>
+<tr><td>Assessment</td><td class="n">7</td><td class="n">100%</td><td class="n">7.0</td><td class="n">0</td></tr>
+<tr class="tot"><td>IHBAS-weighted total</td><td class="n">100</td><td class="n">&nbsp;</td><td class="n">91.5</td><td class="n">8.5</td></tr>
+</table>
+</div>
+
+<div class="you">
+<b>The same performance reads <span class="big">91&ndash;93</span> on IHBAS weighting.</b><br>
+91.5 straight. <b>92.8</b> if you drop the two social-work-history misses out of your social score, which is legitimate
+because IHBAS does not ask them &mdash; on real social psychology you went 14/14. And IHBAS has <b>no negative marking</b>,
+so unlike this site's engine (&minus;0.25) nothing gets clawed back for a wrong guess.
+</div>
+
+<div class="note"><b>The honest caveat, and it is not small.</b> RML 2020 asked <b>no personality theory at all</b> &mdash; its
+&ldquo;Systems&rdquo; section was case-management systems, not systems and theories of psychology. The IHBAS blueprint gives
+<b>Personality 10 of 100</b>. So this projection has <b>zero evidence behind roughly a tenth of the IHBAS paper</b>.
+Read 91&ndash;93 as your number on the 90 marks RML 2020 actually tested. Personality is an open question, not a strength.</div>
+
+<h2 class="sec">What is RML-only &mdash; do not file it as psychology revision</h2>
+
+<ul class="tight">
+<li><b>Social work history.</b> Q4 (who studied the effectiveness of social casework) and Q18 (first school of social work
+in India). Richmond, TISS, Delhi School of Social Work. Named-fact recall, not psychology.</li>
+<li><b>Case work and group work systems.</b> Q32 (desired outcomes of case management) and Q82 (common group properties).
+Both EXCEPT-framed, both from the casework literature.</li>
+<li><b>Section A of CET-166</b> &mdash; general awareness, logical reasoning, research aptitude, ~20 questions.
+The M.Phil paper you sat has none of it, and IHBAS has none of it either.</li>
+</ul>
+
+<p><b>Do not drop any of it.</b> That is still around 12 marks on the RML M.Phil paper and a whole section on CET-166.
+The point is only that it earns you nothing on IHBAS, CIP, JSS or DIMHANS, so it belongs in an RML box, not in the
+six-areas rotation. Everything on it is already written up in <a href="../rml-2020-nine/">the social-work primer</a>.</p>
+
+<h2 class="sec">What IHBAS will hit that RML 2020 barely touched</h2>
+
+<ul class="tight">
+<li><b>Psychotherapy and the therapy schools &mdash; 15 vs 8.</b> Roughly double. Who founded which therapy, with the
+theorist named in full, plus the mechanism. This is the single biggest content shift between the two papers.</li>
+<li><b>Personality &mdash; 10 vs 0.</b> Not a weakness, an unknown. You have no score on it from this paper at all.
+Fastest area to make testable: the 119-question Systems &amp; Theories bank already exists.</li>
+<li><b>Biopsychology &mdash; 13 vs 9, and you are at 78%.</b> Heavier weight on top of your worst carried accuracy.
+This is where the reweighting says you lose the most marks (2.9), more than any other area.</li>
+<li><b>Speed &mdash; 54 s vs 72 s per question.</b> IHBAS gives you 25% less time per question than the RML paper did,
+with no negative marking, so the correct strategy is different: never leave a blank, and never spend a third minute anywhere.</li>
+</ul>
+
+<h2 class="sec">What to do with this</h2>
+
+<ul class="tight">
+<li><b>Biopsych first.</b> Biggest reweighted leak, heavier on IHBAS than on RML, and it is fixed content that closes
+permanently. Q17 (long-term adiposity signalling) and Q47 (aphasia as the umbrella term) were both straight recall.</li>
+<li><b>Then therapy schools and personality</b>, because together they are 25 of the IHBAS 100 and RML 2020 gave you
+evidence on only 8 of those 25.</li>
+<li><b>Leave stats, developmental and assessment alone.</b> 100% on all three, and they carry across all four colleges.
+Re-drilling them is the most expensive way to feel productive.</li>
+<li><b>Keep the social-work material, in its own box.</b> RML only. It does not enter the six-areas rotation.</li>
+</ul>
+
+<div class="acts">
+<a class="go" href="../notes/biopsych-cheatsheet/">Biopsych cheatsheet</a>
+<a href="../take/screen.html?m=ihbas-2025">IHBAS 2025 mock</a>
+<a href="../take/screen.html?m=ihbas-2024">IHBAS 2024 mock</a>
+<a href="../take/screen.html?m=systems-theories">Systems &amp; Theories bank</a>
+<a href="../six-areas/">The six-areas plan</a>
+<a href="../syllabus/">Syllabus hub</a>
+</div>
+
+<p class="src"><b>Sources.</b> IHBAS pattern, blueprint and per-area counts: the official IHBAS blueprint plus all 292
+questions from IHBAS 2020 (92 Q), 2024 (100 Q, official key) and 2025 (100 Q), tagged by area on this site's
+<a href="../syllabus/">syllabus hub</a>. RML section counts and your per-section scores: your RML 2020 attempt of
+3 Aug 2026, read off the complete <code>rml-2020-result.txt</code> export (91 right, 9 wrong, 0 blank), cross-checked
+against <code>rml-2020-wrong/data.js</code>. RML exam pattern: <a href="../rml/">the RML brief</a> &mdash; the M.Phil CET
+figures (100 &times; 4, no negative, 2 hours) come from the GGSIPU cycle, and the CET-166 MA figures are reported rather
+than officially published, so confirm the MA's exact pattern on the CET-166 brochure before banking on it.
+The reweighting is arithmetic on those two columns and nothing else: it assumes your accuracy in an area stays the
+same when the number of questions in that area changes, which is an assumption, not a prediction.</p>
+
+</div>
+</body>
+</html>
