@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<script src="/sihan-met-flashcards/sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RML 2020: the nine, with the why</title>
+<link rel="stylesheet" href="/sihan-met-flashcards/notes-style.css">
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<meta name="theme-color" content="#0d1117">
+<style>
+  .wrap{max-width:min(1000px,96vw);padding-left:24px;padding-right:24px}
+  @media (max-width:600px){.wrap{padding-left:12px;padding-right:12px}}
+  .updated{font-family:var(--sans);font-size:12px;color:var(--muted);margin:6px 0 14px;line-height:1.7}
+  h2.sec{font-family:var(--sans);font-size:15px;margin:30px 0 4px;color:var(--text)}
+  h3.sub{font-family:var(--sans);font-size:14px;margin:24px 0 6px;color:var(--text)}
+  .legend{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin:8px 0 4px;line-height:1.75}
+  .legend b{color:var(--text)}
+  .wrap p,.wrap li{font-family:var(--sans)}
+  .wrap>p:not(.legend):not(.updated){font-size:14.5px;line-height:1.7;color:var(--muted)}
+  .wrap>p b,.wrap li b{color:var(--text)}
+  ul.tight{margin:8px 0 12px;padding-left:20px}
+  ul.tight li{font-size:14.5px;line-height:1.65;color:var(--muted);margin-bottom:6px}
+
+  .you{border:1px solid rgba(201,138,31,.45);background:rgba(201,138,31,.10);border-radius:10px;
+    padding:14px 18px;margin:14px 0 18px;font-family:var(--sans);font-size:14.5px;line-height:1.7;color:var(--muted)}
+  .you b{color:var(--text)}
+  .you .big{font-size:21px;font-weight:800;color:#d8932a;font-variant-numeric:tabular-nums}
+  .why{border-left:3px solid var(--accent);background:rgba(61,111,208,.06);padding:11px 16px;margin:16px 0;
+    border-radius:0 6px 6px 0;font-family:var(--sans);font-size:13.5px;line-height:1.7;color:var(--muted)}
+  .why b{color:var(--text)}
+
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 6px}
+  .chip{display:flex;flex-direction:column;gap:1px;border:1px solid var(--border);background:var(--panel-2);
+    border-radius:9px;padding:7px 12px;font-family:var(--sans);font-size:14px;font-weight:800;color:var(--text);
+    text-decoration:none;min-width:74px}
+  .chip span{font-size:10px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+  .chip.sw{border-color:rgba(201,138,31,.55);background:rgba(201,138,31,.11)}
+  .chip.psy{border-color:rgba(61,111,208,.45);background:rgba(61,111,208,.09)}
+
+  .miss{border:1px solid var(--border);background:var(--panel-2);border-radius:11px;
+    padding:15px 17px;margin:0 0 14px;font-family:var(--sans);scroll-margin-top:14px}
+  .mh{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:9px}
+  .mn{font-size:12.5px;font-weight:800;color:var(--text);background:var(--panel);border:1px solid var(--border);
+    border-radius:6px;padding:2px 8px;font-variant-numeric:tabular-nums}
+  .msec{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .mv{margin-left:auto;font-size:12px;color:var(--muted)}
+  .mv .bad{color:#e06c6c;font-weight:800}
+  .mv .ok{color:var(--good);font-weight:800}
+  .mq{font-size:15.5px;line-height:1.6;color:var(--text);margin:0 0 11px}
+  .mopts{display:flex;flex-direction:column;gap:6px;margin-bottom:13px}
+  .mo{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--border);background:var(--panel);
+    border-radius:8px;padding:8px 11px;font-size:14px;line-height:1.5;color:var(--muted)}
+  .mo .mk{flex:0 0 22px;height:22px;border-radius:6px;background:var(--panel-2);border:1px solid var(--border);
+    color:var(--muted);font-weight:800;font-size:11.5px;display:flex;align-items:center;justify-content:center}
+  .mo.right{border-color:rgba(46,160,67,.55);background:rgba(46,160,67,.10);color:var(--text)}
+  .mo.right .mk{background:var(--good);border-color:var(--good);color:#fff}
+  .mo.picked{border-color:rgba(224,108,108,.55);background:rgba(224,108,108,.09);color:var(--text)}
+  .mo.picked .mk{background:#c04a4a;border-color:#c04a4a;color:#fff}
+  .mo .mtag{margin-left:auto;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+  .mo.right .mtag{color:var(--good)}
+  .mo.picked .mtag{color:#e06c6c}
+
+  .exp{border-top:1px solid var(--border);padding-top:13px}
+  .exp-answer{display:flex;flex-wrap:wrap;align-items:center;gap:11px;background:rgba(46,160,67,.09);
+    border:1px solid rgba(46,160,67,.35);border-radius:9px;padding:11px 13px;margin-bottom:13px}
+  .exp-answer .ak{flex:none;min-width:28px;height:28px;border-radius:7px;background:var(--good);color:#fff;
+    font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+  .exp-answer .abody{min-width:0;flex:1}
+  .exp-answer .alabel{display:block;font-size:10px;font-weight:700;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--muted)}
+  .exp-answer .atext{font-size:15.5px;line-height:1.35;color:var(--text);font-weight:600}
+  .exp-sec{padding-top:14px;margin-top:14px;border-top:1px solid var(--border)}
+  .exp-sec .exp-h{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:7px}
+  .exp-sec p{font-size:15px;line-height:1.62;color:var(--muted);margin:0 0 9px}
+  .exp-sec p b,.exp-sec p strong{color:var(--text)}
+  .exp-sec p:last-child{margin-bottom:0}
+  .exp-traps{display:flex;flex-direction:column;gap:9px}
+  .exp-trap{display:flex;gap:11px;align-items:flex-start;background:rgba(224,108,108,.07);
+    border:1px solid rgba(224,108,108,.28);border-radius:8px;padding:9px 11px}
+  .exp-trap .tk{flex:0 0 24px;height:24px;border-radius:6px;background:#c04a4a;color:#fff;font-weight:800;
+    font-size:11.5px;display:flex;align-items:center;justify-content:center}
+  .exp-trap .tw{font-size:14px;line-height:1.55;color:var(--muted);margin:0}
+  .exp-trap .tw b,.exp-trap .tw strong{color:var(--text)}
+
+  .tl{margin:10px 0 14px;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+  .tlrow{display:flex;gap:12px;padding:10px 13px;border-bottom:1px solid var(--border);
+    font-family:var(--sans);font-size:14px;line-height:1.6;color:var(--muted);background:var(--panel-2)}
+  .tlrow:last-child{border-bottom:0}
+  .tlrow .tly{flex:0 0 52px;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums}
+  .tlrow b{color:var(--text)}
+
+  .who{margin:10px 0 14px;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+  .wrow{display:flex;flex-wrap:wrap;gap:4px 14px;padding:9px 13px;border-bottom:1px solid var(--border);
+    font-family:var(--sans);font-size:13.5px;line-height:1.55;color:var(--muted);background:var(--panel-2)}
+  .wrow:last-child{border-bottom:0}
+  .wrow .wn{flex:0 0 200px;font-weight:700;color:var(--text)}
+  @media (max-width:600px){.wrow .wn{flex:1 0 100%}}
+
+  .drill{display:flex;flex-direction:column;gap:8px;margin:12px 0 8px}
+  .dq{border:1px solid var(--border);background:var(--panel-2);border-radius:9px;overflow:hidden}
+  .dqq{display:block;width:100%;text-align:left;background:transparent;border:0;color:var(--text);
+    font-family:var(--sans);font-size:14.5px;line-height:1.55;padding:11px 13px;cursor:pointer;font-weight:600}
+  .dqa{display:none;padding:0 13px 12px;font-family:var(--sans);font-size:14px;line-height:1.6;color:var(--muted)}
+  .dq.open .dqa{display:block}
+  .dq.open .dqq{color:var(--good)}
+  .src{font-size:12px;color:var(--muted);font-family:var(--sans);line-height:1.7;margin:22px 0}
+</style></head>
+<body>
+<div class="wrap">
+<nav><a href="../">&larr; Home</a> <a href="../rml-2020-wrong/">My wrong ones</a> <a href="../rml-2020-cutoff/">2020 cut-off</a> <a href="../rml-latest/">RML mocks</a> <a href="../take/screen.html?m=rml-2020">Retake RML 2020</a></nav>
+
+<h1>RML 2020: the nine, with the why</h1>
+<p class="updated">91 right, 364 on the real paper's scoring. These are the nine that were not, each one taken apart properly:
+the answer, why it is the answer, why the option you chose pulled you, every option settled, and the form it will take when it comes back.
+Below them is a social-work primer from scratch, because <b>three of your nine came off the social-work syllabus</b> and a fourth
+(Q82) is social group work wearing a Systems tag. Built 3 August 2026.</p>
+
+<div class="you">
+<b>The pattern, in one line.</b><br><br>
+Your nine misses are not spread across psychology; they cluster. <span class="big">4 of 9</span> are social-work syllabus
+questions (Q4, Q18, Q32, and Q82 in all but its label). The remaining five are single, unrelated facts, and three of those five
+you lost to <b>option technique</b> rather than content: an EXCEPT you answered with the weakest option instead of the false one,
+a combined option you took because both halves felt partly true, and a fabricated word you picked because it sounded like a real one.
+Content gap: one syllabus. Technique gap: three habits, all fixable on this page.
+</div>
+
+<h2 class="sec">Jump to any of the nine</h2>
+<div class="chips">
+<a class="chip sw" href="#q4">Q4<span>Social work</span></a>
+<a class="chip sw" href="#q18">Q18<span>Social work</span></a>
+<a class="chip sw" href="#q32">Q32<span>Social work</span></a>
+<a class="chip psy" href="#q5">Q5<span>Psychopathology</span></a>
+<a class="chip psy" href="#q17">Q17<span>Biopsych</span></a>
+<a class="chip psy" href="#q24">Q24<span>Psychotherapy</span></a>
+<a class="chip psy" href="#q47">Q47<span>Biopsych</span></a>
+<a class="chip psy" href="#q82">Q82<span>Systems / group work</span></a>
+<a class="chip psy" href="#q90">Q90<span>General / history</span></a>
+</div>
+<p class="legend">Gold = social-work syllabus. Blue = psychology.</p>
+
+<h2 class="sec">The social-work three</h2>
+<p class="legend">These are the cheapest marks on the whole paper: pure recall, nothing to reason out. You lost twelve marks on the
+real scale to a syllabus you have never studied because nobody told you it was on a psychology paper. It is.</p>
+
+<div class="miss" id="q4">
+  <div class="mh">
+    <span class="mn">Q4</span>
+    <span class="msec">Social work</span>
+    <span class="mv">you <span class="bad">d</span> &rarr; key <span class="ok">a</span></span>
+  </div>
+  <p class="mq">Who studied the effectiveness of social case work?</p>
+  <div class="mopts">
+<div class="mo right"><span class="mk">a</span><span>Fischer Joel</span><span class="mtag">key</span></div>
+<div class="mo"><span class="mk">b</span><span>Epstein Irwin</span></div>
+<div class="mo"><span class="mk">c</span><span>Goyder John</span></div>
+<div class="mo picked"><span class="mk">d</span><span>Cohen Jacob</span><span class="mtag">you picked</span></div>
+  </div>
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">a</span>
+      <span class="abody"><span class="alabel">The answer</span>
+      <span class="atext">Joel Fischer, <i>Is Casework Effective? A Review</i> (Social Work, 1973).</span></span></div>
+
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>Fischer went looking for controlled studies of social casework, found eleven that met his bar, and reported that not one showed casework clients doing reliably better than untreated controls. In a few of them the treated group did <b>worse</b>. He published it in the profession's flagship journal and it detonated: the whole field had assumed casework helped and had never made itself prove it.</p>
+<p>What came out of that blast is the reason the name is on an entrance paper. Fischer's review is the hinge between old casework, which rested on the worker's judgement and the authority of Freud, and the <b>empirical practice / evidence-based practice</b> movement, which rests on measured outcomes. Every &ldquo;what are your outcome measures&rdquo; question in a modern viva traces back through him.</p>
+<p>Pair it with two neighbours so it never sits alone in your head. <b>Eysenck (1952)</b> did the same demolition job on psychotherapy twenty-one years earlier, same finding, same effect on the field. <b>Girls at Vocational High</b> (Meyer, Borgatta &amp; Jones, 1965) is the single most-cited negative casework trial and is part of Fischer's evidence base. Three names, one story: the profession was asked to prove itself and initially could not.</p>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+      <p>You picked <b>Jacob Cohen</b>. Understandable, because Cohen genuinely is the effectiveness-research name you already know: effect size, Cohen's <i>d</i>, Cohen's kappa, statistical power. But Cohen gave the field the <i>tools</i> for measuring whether something works, he never ran the casework review. The question says &ldquo;studied the effectiveness of social <b>case work</b>&rdquo;, and that specific job belongs to Fischer.</p>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">Every option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">b</span><div class="tb"><p class="tw"><b>Irwin Epstein</b> is a real social-work researcher, which is what makes him the strongest distractor. His territory is practice-based research and clinical data-mining, mining agency records for evidence. Do not confuse him with <b>Laura Epstein</b>, who built the task-centred casework model with William Reid.</p></div></div>
+<div class="exp-trap"><span class="tk">c</span><div class="tb"><p class="tw"><b>John Goyder</b> is a sociologist known for survey non-response and response rates. He is here purely as noise.</p></div></div>
+<div class="exp-trap"><span class="tk">d</span><div class="tb"><p class="tw"><b>Jacob Cohen</b>, statistician: effect size, power analysis, kappa. Effectiveness <i>measurement</i>, not the casework review.</p></div></div>
+      </div>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">When it comes back</div>
+      <p>Expect this same fact wearing other clothes: &ldquo;Who wrote <i>Is Casework Effective?</i>&rdquo;, &ldquo;The evidence-based practice movement in social work was triggered by&rdquo;, or a matching item pairing Fischer&ndash;casework, Eysenck&ndash;psychotherapy, Cohen&ndash;effect size.</p>
+    </div>
+  </div>
+</div>
+
+<div class="miss" id="q18">
+  <div class="mh">
+    <span class="mn">Q18</span>
+    <span class="msec">Social work</span>
+    <span class="mv">you <span class="bad">d</span> &rarr; key <span class="ok">a</span></span>
+  </div>
+  <p class="mq">The name of the first school of Social work in the country was</p>
+  <div class="mopts">
+<div class="mo right"><span class="mk">a</span><span>Sir Dorabji Tata Graduate School of Social Work</span><span class="mtag">key</span></div>
+<div class="mo"><span class="mk">b</span><span>Tata Institute of Social Profession</span></div>
+<div class="mo"><span class="mk">c</span><span>Tata Institute of Social Service</span></div>
+<div class="mo picked"><span class="mk">d</span><span>Tata Institute of Social Sciences</span><span class="mtag">you picked</span></div>
+  </div>
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">a</span>
+      <span class="abody"><span class="alabel">The answer</span>
+      <span class="atext">The Sir Dorabji Tata Graduate School of Social Work, Bombay, 1936.</span></span></div>
+
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>One institution, two names, and the question is built entirely on the gap between them. It opened in <b>1936</b> in Bombay as the <b>Sir Dorabji Tata Graduate School of Social Work</b>, paid for by the Sir Dorabji Tata Trust, with the American social worker <b>Clifford Manshardt</b> as its first director. In <b>1944</b> it was renamed the <b>Tata Institute of Social Sciences</b>. Same place, later name.</p>
+<p>The question asks what the first school <i>was called</i>, and the year that matters is 1936, when TISS did not exist under that name yet. Read the tense in these items: &ldquo;the name of the first school <b>was</b>&rdquo; is asking for the founding name, and any paper that bothers to list both the old and the new name is telling you it wants the old one.</p>
+<p>Round the fact out so you own the whole timeline rather than one date. Professional social work in India starts in 1936, but organised social service is older: the <b>Servants of India Society</b> (Gopal Krishna Gokhale, 1905) and the <b>Social Service League</b> in Bombay (1911) are the pre-professional ancestors. After TISS came the <b>Delhi School of Social Work</b> (1946, started by the YWCA, absorbed into Delhi University in 1961), and the profession organised itself through the Association of Schools of Social Work in India in 1960.</p>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+      <p>You picked <b>Tata Institute of Social Sciences</b>, and this is the good kind of wrong: you knew the institution. TISS is the right building, the right founders, the right city, the right lineage. It is just the name it took in 1944, eight years after it opened. The examiner wrote option (d) specifically to catch people who know the modern name, so knowing more than the minimum is exactly what cost you the mark.</p>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">Every option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">b</span><div class="tb"><p class="tw"><b>Tata Institute of Social Profession</b>: invented. No such body.</p></div></div>
+<div class="exp-trap"><span class="tk">c</span><div class="tb"><p class="tw"><b>Tata Institute of Social Service</b>: also invented, and deliberately close to the real name.</p></div></div>
+<div class="exp-trap"><span class="tk">d</span><div class="tb"><p class="tw"><b>Tata Institute of Social Sciences</b>: real, correct today, wrong for 1936. The trap.</p></div></div>
+      </div>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">When it comes back</div>
+      <p>Rehearse the pair as one unit: <b>1936 Sir Dorabji Tata Graduate School of Social Work &rarr; 1944 Tata Institute of Social Sciences, first director Clifford Manshardt</b>. Whichever half the paper asks for, you will have both.</p>
+    </div>
+  </div>
+</div>
+
+<div class="miss" id="q32">
+  <div class="mh">
+    <span class="mn">Q32</span>
+    <span class="msec">Social work</span>
+    <span class="mv">you <span class="bad">b</span> &rarr; key <span class="ok">a</span></span>
+  </div>
+  <p class="mq">The desired outcomes of case management consists of all of the following EXCEPT:</p>
+  <div class="mopts">
+<div class="mo right"><span class="mk">a</span><span>Cure of a primary condition</span><span class="mtag">key</span></div>
+<div class="mo picked"><span class="mk">b</span><span>Environmental accommodations</span><span class="mtag">you picked</span></div>
+<div class="mo"><span class="mk">c</span><span>Skill training and acquisitions</span></div>
+<div class="mo"><span class="mk">d</span><span>Empowerment</span></div>
+  </div>
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">a</span>
+      <span class="abody"><span class="alabel">The answer</span>
+      <span class="atext">Cure of a primary condition. Case management coordinates, it does not cure.</span></span></div>
+
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>Case management is what community mental health invented when the asylums emptied. Deinstitutionalisation put people with severe, chronic illness into a scattered mess of housing, welfare, clinic and vocational services, and somebody had to hold the pieces together. That somebody is the case manager, and the job is <b>assess, plan, link, monitor, advocate</b>: five functions, none of which is &ldquo;treat&rdquo;.</p>
+<p>So the goals follow the job. <b>Environmental accommodation</b>: bend the surroundings, the housing, the workplace, the benefits, so the person can function inside them. <b>Skill training and acquisition</b>: build what the person can do for themselves. <b>Empowerment</b>: hand back control and choice, the difference between a service user and a case file. Those three are the standard textbook triad and they are options (b), (c) and (d).</p>
+<p><b>Cure</b> breaks the logic on two counts. It is the wrong <i>actor</i>, since curative treatment is delivered by clinicians the case manager refers to, not by the case manager. And it is the wrong <i>population</i>, because case management exists for chronic, long-term, often incurable conditions. Its whole premise is that you optimise living <i>with</i> the condition. A model that promised cure would have no reason to exist.</p>
+<p>Names for the model column if they push further: the <b>broker</b> or generalist model (pure linkage), the <b>clinical / rehabilitation</b> model (the case manager also does therapeutic work), the <b>strengths</b> model (Rapp and Goscha, Kansas: start from what the person has, not what is broken), and <b>Assertive Community Treatment</b> (Stein and Test, Madison, 1980: a whole team, low caseload, care delivered where the person lives). ACT is the intensive end of the same idea.</p>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+      <p>You picked <b>environmental accommodations</b>, which reads as the odd one out only if you are hearing case management as a clinical activity. It is the opposite: modifying the environment is one of the most characteristic things a case manager does, arguably the thing that most distinguishes it from therapy. On an EXCEPT item, run the actual test: find the option that contradicts the <i>definition</i> of the thing. Cure contradicts coordination. Accommodation is coordination.</p>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">Every option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><div class="tb"><p class="tw"><b>Cure of a primary condition</b>: the exception. Wrong actor, wrong population.</p></div></div>
+<div class="exp-trap"><span class="tk">b</span><div class="tb"><p class="tw"><b>Environmental accommodations</b>: core, not exception. Housing, workplace, benefits, access.</p></div></div>
+<div class="exp-trap"><span class="tk">c</span><div class="tb"><p class="tw"><b>Skill training and acquisition</b>: core. Independence is the goal.</p></div></div>
+<div class="exp-trap"><span class="tk">d</span><div class="tb"><p class="tw"><b>Empowerment</b>: core. Self-determination is the profession's central value.</p></div></div>
+      </div>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">When it comes back</div>
+      <p>Any case-management item is testing one line: <b>coordination, not treatment; functioning, not cure.</b> Whatever option smells like a medical outcome is the exception.</p>
+    </div>
+  </div>
+</div>
+
+<h2 class="sec">The other six</h2>
+
+<div class="miss" id="q5">
+  <div class="mh">
+    <span class="mn">Q5</span>
+    <span class="msec">Psychopathology</span>
+    <span class="mv">you <span class="bad">b</span> &rarr; key <span class="ok">c</span></span>
+  </div>
+  <p class="mq">Clare complains about her job duties at work, rarely completes assigned tasks, and is regularly late for work. When she is fired, she claims it was due to her co-worker badmouthing her instead of blaming it on her poor work performance. Which defense mechanism explains Clare's reaction?</p>
+  <div class="mopts">
+<div class="mo"><span class="mk">a</span><span>Displacement</span></div>
+<div class="mo picked"><span class="mk">b</span><span>Denial</span><span class="mtag">you picked</span></div>
+<div class="mo right"><span class="mk">c</span><span>Rationalization</span><span class="mtag">key</span></div>
+<div class="mo"><span class="mk">d</span><span>Sublimation</span></div>
+  </div>
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">c</span>
+      <span class="abody"><span class="alabel">The answer</span>
+      <span class="atext">Rationalization. She accepts the outcome and falsifies the cause.</span></span></div>
+
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>Split the vignette into the two halves every defence-mechanism item hides. <b>What does she accept?</b> That she was fired; she is not turning up to work pretending she still has a job. <b>What does she distort?</b> The reason. The real cause is her own performance; she substitutes a co-worker's badmouthing, a version that is socially presentable and leaves her self-esteem intact.</p>
+<p>Accepting the fact and manufacturing a flattering explanation for it is the exact definition of <b>rationalization</b>. It is the ego's spin doctor: the reason it gives is plausible, articulate, and not the real one. Clinically it matters more than the flashier defences because it is nearly invisible from the inside, which is what lets a maladaptive pattern repeat forever with a fresh excuse each time.</p>
+<p>The social-psychology twin is worth carrying alongside it, because RML mixes the two vocabularies. The same move framed as attribution is <b>self-serving bias</b>: successes attributed internally, failures attributed externally. Add the <b>fundamental attribution error</b> (we explain <i>other</i> people's failures by their character while explaining our own by circumstance) and you can answer this vignette whichever language the paper asks it in.</p>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+      <p>You picked <b>denial</b>, and the two really are neighbours, so nail the boundary once. Denial refuses the <i>fact</i>: she would be insisting she was not fired, still setting the alarm, still showing up. Rationalization concedes the fact and rewrites the <i>cause</i>. Clare knows she was fired. Fact accepted, cause falsified &rarr; rationalization, every time.</p>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">Every option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><div class="tb"><p class="tw"><b>Displacement</b>: redirect the <i>feeling</i> onto a safer target. Fired, then screams at the dog. Clare is not moving an emotion, she is moving the blame.</p></div></div>
+<div class="exp-trap"><span class="tk">b</span><div class="tb"><p class="tw"><b>Denial</b>: refuse the fact itself. Wrong half of the vignette.</p></div></div>
+<div class="exp-trap"><span class="tk">c</span><div class="tb"><p class="tw"><b>Rationalization</b>: accept the fact, invent an acceptable cause. The answer.</p></div></div>
+<div class="exp-trap"><span class="tk">d</span><div class="tb"><p class="tw"><b>Sublimation</b>: channel the impulse into something constructive. The mature defence, and the one this same paper tests in Q1 with the kickboxing vignette. Nothing constructive is happening here.</p></div></div>
+      </div>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">When it comes back</div>
+      <p>Note what was <i>not</i> on the list: <b>projection</b>, attributing your own unacceptable trait to someone else, is the defence closest to blaming a colleague, and RML will offer it eventually. The tie-breaker: projection hands the other person <i>your trait</i> (&ldquo;he's the lazy one&rdquo;); rationalization hands them <i>the causal role</i> (&ldquo;he got me fired&rdquo;).</p>
+    </div>
+  </div>
+</div>
+
+<div class="miss" id="q17">
+  <div class="mh">
+    <span class="mn">Q17</span>
+    <span class="msec">Biopsych</span>
+    <span class="mv">you <span class="bad">b</span> &rarr; key <span class="ok">d</span></span>
+  </div>
+  <p class="mq">Long term regulation of body weight and fat has been associated with which of the following hormone:</p>
+  <div class="mopts">
+<div class="mo"><span class="mk">a</span><span>Hypothalamus</span></div>
+<div class="mo picked"><span class="mk">b</span><span>Oestrogen</span><span class="mtag">you picked</span></div>
+<div class="mo"><span class="mk">c</span><span>Cortisol</span></div>
+<div class="mo right"><span class="mk">d</span><span>Leptin</span><span class="mtag">key</span></div>
+  </div>
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">d</span>
+      <span class="abody"><span class="alabel">The answer</span>
+      <span class="atext">Leptin: the adiposity signal secreted by fat itself.</span></span></div>
+
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>Leptin is made by <b>adipose tissue</b>, which is the whole point: the tissue being regulated is the tissue doing the reporting. More fat means more leptin in the blood, and the brain reads that as &ldquo;stores are full&rdquo;. Lose fat and leptin falls, and the brain reads famine and turns hunger up. That is a closed feedback loop on total energy stores, which is precisely what &ldquo;long-term regulation of body weight and fat&rdquo; means.</p>
+<p>The circuit, because RML asks for mechanism at this level: leptin crosses to the <b>arcuate nucleus of the hypothalamus</b>, where it <i>inhibits</i> the hunger neurons (NPY/AgRP) and <i>excites</i> the satiety neurons (POMC/CART). It was found in 1994 by <b>Jeffrey Friedman</b>'s group, cloning the <i>ob</i> gene from the famously obese <i>ob/ob</i> mouse, which makes no leptin and eats as if permanently starving.</p>
+<p>Set that against the short-term signals so the timescale sorts the answer for you. <b>Ghrelin</b>, from the stomach, rises before meals and is the hunger hormone of the next hour. <b>CCK</b>, from the duodenum, says stop during this meal. <b>Insulin</b> is the other long-term adiposity signal alongside leptin. Long-term and fat-derived leaves exactly one answer.</p>
+<p>The clinical payoff, and a favourite second-step question: obese people have <i>high</i> leptin, not low. The system fails through <b>leptin resistance</b>, which is why injecting leptin does not cure common obesity. It also gave biology its answer to the willpower story: body weight is defended around a set point (Kennedy's lipostatic hypothesis, 1953), not simply chosen.</p>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+      <p>You picked <b>oestrogen</b>, which is a defensible near-miss, since oestrogen genuinely shapes where fat is deposited and its fall at menopause shifts fat centrally. But that is fat <i>distribution</i>, not the regulation of total fat mass, and oestrogen is a gonadal hormone reporting on reproductive state, not on energy stores. When a stem says &ldquo;long-term&rdquo; and &ldquo;fat&rdquo; in the same breath, it wants the hormone fat itself secretes.</p>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">Every option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><div class="tb"><p class="tw"><b>Hypothalamus</b>: not a hormone at all, it is the brain structure that <i>receives</i> leptin. The classic category error, and the option most people burn. Read the last word of the stem: &ldquo;which of the following <b>hormone</b>&rdquo;.</p></div></div>
+<div class="exp-trap"><span class="tk">b</span><div class="tb"><p class="tw"><b>Oestrogen</b>: affects fat distribution, does not regulate total adiposity.</p></div></div>
+<div class="exp-trap"><span class="tk">c</span><div class="tb"><p class="tw"><b>Cortisol</b>: stress hormone; chronic excess drives visceral fat (see Cushing's), but it is a stress-axis signal, not an adiposity signal.</p></div></div>
+<div class="exp-trap"><span class="tk">d</span><div class="tb"><p class="tw"><b>Leptin</b>: from adipose tissue, acts on the arcuate nucleus. The answer.</p></div></div>
+      </div>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">When it comes back</div>
+      <p>Carry the four-line table into the hall: <b>leptin</b> = fat, long-term, satiety. <b>Insulin</b> = pancreas, long-term. <b>Ghrelin</b> = stomach, short-term, hunger. <b>CCK</b> = gut, short-term, satiety. Also know the lesion pair: <b>ventromedial hypothalamus</b> damage &rarr; overeating (VMH = &ldquo;very much hungry&rdquo;), <b>lateral hypothalamus</b> damage &rarr; aphagia.</p>
+    </div>
+  </div>
+</div>
+
+<div class="miss" id="q24">
+  <div class="mh">
+    <span class="mn">Q24</span>
+    <span class="msec">Psychotherapy</span>
+    <span class="mv">you <span class="bad">c</span> &rarr; key <span class="ok">d</span></span>
+  </div>
+  <p class="mq">When crisis results in bereavement, all of the following approaches to bereavement should be considered EXCEPT:</p>
+  <div class="mopts">
+<div class="mo"><span class="mk">a</span><span>Bereavement is a normal process that will run its course</span></div>
+<div class="mo"><span class="mk">b</span><span>Complicated grieving requires intervention</span></div>
+<div class="mo picked"><span class="mk">c</span><span>Bereavement counselling, when needed, is best conducted one-by-one</span><span class="mtag">you picked</span></div>
+<div class="mo right"><span class="mk">d</span><span>Crisis related bereavement should always be considered traumatic grief</span><span class="mtag">key</span></div>
+  </div>
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">d</span>
+      <span class="abody"><span class="alabel">The answer</span>
+      <span class="atext">&ldquo;Should <b>always</b> be considered traumatic grief.&rdquo; The absolute is the giveaway.</span></span></div>
+
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>Grief work has one governing principle: <b>most grief is normal and does not need a clinician.</b> The great majority of bereaved people recover through their own support systems, and the evidence on routine counselling for uncomplicated grief is at best neutral, with some trials showing harm. That makes option (a) not merely acceptable but the default stance, and option (b) the necessary exception, since a minority develop complicated or prolonged grief and those people do need treatment.</p>
+<p>Option (d) demands the opposite: treat <i>every</i> crisis-related bereavement as traumatic grief. That over-diagnoses a normal process into a disorder, drags people into treatment that may impede their own recovery, and dilutes a term that exists to mark something specific. <b>Traumatic grief</b> belongs to sudden, violent, witnessed or otherwise horrifying deaths, where the trauma response tangles with the mourning. Crisis is not automatically trauma.</p>
+<p>The nomenclature is worth pinning because it changed recently and papers love new nomenclature. <b>DSM-5-TR (2022)</b> and <b>ICD-11</b> both now carry <b>Prolonged Grief Disorder</b>: symptoms beyond <b>12 months</b> for adults, <b>6 months</b> for children, with intense yearning or preoccupation plus functional impairment. It replaced DSM-5's provisional &ldquo;persistent complex bereavement disorder&rdquo;. <b>Holly Prigerson</b> did the work that separated it from depression.</p>
+<p>Models, in the order they arrived: <b>Lindemann</b> (1944, Coconut Grove fire) on acute grief; <b>K&uuml;bler-Ross</b>'s five stages (denial, anger, bargaining, depression, acceptance), written for the dying, borrowed for the bereaved, and much weaker as a description of mourning than its fame suggests; <b>Bowlby</b>'s four phases (numbness, yearning and searching, disorganisation and despair, reorganisation); <b>Worden</b>'s four <i>tasks</i>, which reframed the mourner as active rather than passing through stages; and <b>Stroebe and Schut</b>'s dual-process model, where healthy grieving oscillates between loss-oriented and restoration-oriented coping.</p>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+      <p>You picked <b>(c), counselling is best conducted one-by-one</b>, and you were right that it is the softest claim on the list, since group bereavement work is common and effective, so &ldquo;best&rdquo; is arguable. But EXCEPT items are not asking which option is weakest. They ask which one is <b>false</b>. Individual bereavement counselling is a perfectly standard modality, so (c) is defensible; (d) is flatly wrong. Arguable loses to wrong.</p>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">Every option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><div class="tb"><p class="tw">Normal, self-limiting process: the default and correct stance.</p></div></div>
+<div class="exp-trap"><span class="tk">b</span><div class="tb"><p class="tw">Complicated grief needs intervention: the correct exception to (a).</p></div></div>
+<div class="exp-trap"><span class="tk">c</span><div class="tb"><p class="tw">Individual counselling when needed: standard practice. Arguable, not false.</p></div></div>
+<div class="exp-trap"><span class="tk">d</span><div class="tb"><p class="tw">&ldquo;<b>Always</b> traumatic grief&rdquo;: the exception. Absolutes in clinical items are almost always the plant.</p></div></div>
+      </div>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">When it comes back</div>
+      <p>Build the habit: on any EXCEPT item, first scan for <b>always, never, all, only, must</b>. In a clinical stem those words are wrong far more often than they are right, and they will hand you several marks a paper.</p>
+    </div>
+  </div>
+</div>
+
+<div class="miss" id="q47">
+  <div class="mh">
+    <span class="mn">Q47</span>
+    <span class="msec">Biopsych</span>
+    <span class="mv">you <span class="bad">d</span> &rarr; key <span class="ok">b</span></span>
+  </div>
+  <p class="mq">The common term used to describe all types of language loss is:</p>
+  <div class="mopts">
+<div class="mo"><span class="mk">a</span><span>Dyslexia</span></div>
+<div class="mo right"><span class="mk">b</span><span>Aphasia</span><span class="mtag">key</span></div>
+<div class="mo"><span class="mk">c</span><span>Dsyphasia</span></div>
+<div class="mo picked"><span class="mk">d</span><span>Lexphasia</span><span class="mtag">you picked</span></div>
+  </div>
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">b</span>
+      <span class="abody"><span class="alabel">The answer</span>
+      <span class="atext">Aphasia. It is the umbrella; everything else is a branch.</span></span></div>
+
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p><b>Aphasia</b> is acquired loss or impairment of language from brain damage (stroke most often, then head injury and tumour), and it covers production and comprehension, speech and writing alike. The stem says &ldquo;the common term for <b>all types</b> of language loss&rdquo;, and umbrella is exactly the job aphasia does.</p>
+<p>Under the umbrella, the classic map: <b>Broca's aphasia</b> (Paul Broca, 1861, from patient Leborgne who could say only &ldquo;tan&rdquo;): left inferior frontal damage, non-fluent, effortful, agrammatic speech, comprehension largely intact, and the patient knows it, which is why it is the distressing one. <b>Wernicke's aphasia</b> (Carl Wernicke, 1874): left posterior superior temporal damage, fluent but empty speech full of neologisms, comprehension shot, and the patient often does not realise. <b>Conduction aphasia</b>: arcuate fasciculus, comprehension and fluency preserved but repetition fails. <b>Global aphasia</b>: both areas, everything gone. <b>Anomic aphasia</b>: word-finding only, the mildest.</p>
+<p>Then keep the neighbouring terms separate, because RML papers stack them as distractors: <b>dyslexia</b> is a developmental difficulty with reading; <b>alexia</b> is <i>acquired</i> loss of reading; <b>agraphia</b> is loss of writing; <b>dysarthria</b> is a motor-execution problem with the speech muscles, language intact; <b>aphonia</b> is loss of voice. Only aphasia is about language itself.</p>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+      <p>You picked <b>lexphasia</b>, and here is the blunt version: that word does not exist. It is a fabricated option, and the paper planted it next to a real-sounding root to see who picks on sound rather than knowledge. There is a free rule in that: <b>if you have never seen a term in any book, it is a distractor, not your gap.</b> Examiners do not test terminology so obscure that no textbook carries it.</p>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">Every option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><div class="tb"><p class="tw"><b>Dyslexia</b>: reading, developmental, not general language loss.</p></div></div>
+<div class="exp-trap"><span class="tk">b</span><div class="tb"><p class="tw"><b>Aphasia</b>: the umbrella term. The answer.</p></div></div>
+<div class="exp-trap"><span class="tk">c</span><div class="tb"><p class="tw"><b>Dsyphasia</b>: misspelt <i>dysphasia</i>, which is real and means partial language impairment, mostly British usage, now largely folded into &ldquo;aphasia&rdquo;. The best distractor here, because it is genuinely a language-loss word. It loses on scope: aphasia is the broad term the stem asks for.</p></div></div>
+<div class="exp-trap"><span class="tk">d</span><div class="tb"><p class="tw"><b>Lexphasia</b>: not a word.</p></div></div>
+      </div>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">When it comes back</div>
+      <p>Two rules earned from this one: the umbrella term beats the partial term when a stem says &ldquo;all types&rdquo;, and an unrecognisable word is a plant. Both are free marks for the rest of your papers.</p>
+    </div>
+  </div>
+</div>
+
+<div class="miss" id="q82">
+  <div class="mh">
+    <span class="mn">Q82</span>
+    <span class="msec">Systems / group work</span>
+    <span class="mv">you <span class="bad">d</span> &rarr; key <span class="ok">c</span></span>
+  </div>
+  <p class="mq">All of the following are common group properties EXCEPT:</p>
+  <div class="mopts">
+<div class="mo"><span class="mk">a</span><span>all groups have a purpose</span></div>
+<div class="mo"><span class="mk">b</span><span>all groups go through stages of development</span></div>
+<div class="mo right"><span class="mk">c</span><span>all groups have an analytic base</span><span class="mtag">key</span></div>
+<div class="mo picked"><span class="mk">d</span><span>all groups have criteria for their composition</span><span class="mtag">you picked</span></div>
+  </div>
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">c</span>
+      <span class="abody"><span class="alabel">The answer</span>
+      <span class="atext">&ldquo;All groups have an analytic base.&rdquo; That belongs to one <i>kind</i> of group, not to groups.</span></span></div>
+
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>The item turns on universal versus specialised. A <b>common property</b> is something you can assert about any group at all: a committee, a football team, a support circle, a therapy group. <b>Purpose</b> qualifies: a group with no reason to exist dissolves. <b>Stages of development</b> qualifies: every group forms, wrangles, settles and works, whatever theory you use to describe it. <b>Criteria for composition</b> qualifies: somebody or something decided who is in, whether that was a referral filter, a shared interest or a shared street.</p>
+<p>An <b>analytic base</b> is a psychoanalytic or otherwise formal theoretical framework underpinning the group's work. That is a feature of certain <i>treatment</i> groups (analytic group psychotherapy, for one) and of nothing else. Your ward's discharge-planning meeting has no analytic base and is still perfectly a group.</p>
+<p>Stage models, since (b) is where the examinable content lives: <b>Tuckman (1965)</b> gave forming, storming, norming, performing, with adjourning added in 1977 with Jensen. Social group work uses the <b>Boston model</b> (Garland, Jones and Kolodny): pre-affiliation, power and control, intimacy, differentiation, separation. Same shape, different vocabulary, and the Boston version is the one a social-work paper prefers.</p>
+<p>The names behind group work, if the paper pushes: <b>Grace Coyle</b> is the founder figure; <b>Gisela Konopka</b> extended it to disturbed and delinquent young people; <b>Robert Vinter</b> built the remedial/treatment model; <b>William Schwartz</b> the reciprocal or mediating model. Papell and Rothman classified those three as the <b>social goals, remedial and reciprocal</b> models. On the therapy side, <b>Yalom</b>'s therapeutic factors (universality, instillation of hope, cohesiveness, catharsis, interpersonal learning, altruism and the rest) are the group-psychotherapy answer, not the social-group-work one.</p>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+      <p>You picked <b>(d), criteria for composition</b>, presumably reading it as &ldquo;naturally occurring groups just happen, nobody selects them&rdquo;. But composition criteria need not be deliberate to exist: shared neighbourhood, shared workplace, shared diagnosis are all criteria. And weigh the alternative: even if (d) felt shaky, (c) requires <i>every</i> group on earth to rest on analytic theory, which is plainly false. On an EXCEPT item you pick the <b>most</b> false option, not the first shaky one.</p>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">Every option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><div class="tb"><p class="tw"><b>Purpose</b>: universal.</p></div></div>
+<div class="exp-trap"><span class="tk">b</span><div class="tb"><p class="tw"><b>Stages of development</b>: universal (Tuckman; Boston model).</p></div></div>
+<div class="exp-trap"><span class="tk">c</span><div class="tb"><p class="tw"><b>Analytic base</b>: the exception. Specific to analytic treatment groups.</p></div></div>
+<div class="exp-trap"><span class="tk">d</span><div class="tb"><p class="tw"><b>Criteria for composition</b>: universal; criteria can be imposed or natural.</p></div></div>
+      </div>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">When it comes back</div>
+      <p>This one is tagged Systems, but it is a <b>social group work</b> question in every respect. It is the fourth item on this paper drawn from the social-work syllabus, which is why the primer below covers group work properly.</p>
+    </div>
+  </div>
+</div>
+
+<div class="miss" id="q90">
+  <div class="mh">
+    <span class="mn">Q90</span>
+    <span class="msec">General / history</span>
+    <span class="mv">you <span class="bad">d</span> &rarr; key <span class="ok">a</span></span>
+  </div>
+  <p class="mq">What do Hermann Ebbinghaus, Francis Galton and Sigmund Freud share in common?</p>
+  <div class="mopts">
+<div class="mo right"><span class="mk">a</span><span>Each of them worked independently and were pioneers in the field of psychology</span><span class="mtag">key</span></div>
+<div class="mo"><span class="mk">b</span><span>Each of them founded a formal psychology laboratory</span></div>
+<div class="mo"><span class="mk">c</span><span>Each of them developed novel observational methods to study how the mind works</span></div>
+<div class="mo picked"><span class="mk">d</span><span>(a) and (c)</span><span class="mtag">you picked</span></div>
+  </div>
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">a</span>
+      <span class="abody"><span class="alabel">The answer</span>
+      <span class="atext">(a): independent pioneers. Not the combined option.</span></span></div>
+
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>What actually unites the three is that each opened a different frontier, alone, outside the Wundtian mainstream. <b>Ebbinghaus</b> (1885) proved higher mental processes could be measured, inventing nonsense syllables, the savings method, the forgetting curve and the learning curve, and he did it experimenting on himself, with no laboratory and no students. <b>Galton</b> founded the study of individual differences: anthropometric measurement, correlation and regression to the mean, the questionnaire, twin studies, and the phrase <i>nature versus nurture</i>. <b>Freud</b> built psychoanalysis and the study of the unconscious out of clinical case material. Three frontiers, three solo operators.</p>
+<p>Option (b) is false and its refutation is the single most examinable date in the history of psychology: the <b>first formal psychology laboratory was Wilhelm Wundt's, Leipzig, 1879</b>. In America the first is usually credited to G. Stanley Hall at Johns Hopkins, 1883. None of the three named men founded one.</p>
+<p>Option (c) is where the key gets strict, and you should know exactly why rather than just accept it. Ebbinghaus and Galton both built genuinely novel methods, but Freud's instrument was the clinical case study, an existing medical practice, not a new observational method in the experimental sense the option implies. Because (c) does not hold for all three, (d), which needs both (a) and (c), falls with it.</p>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+      <p>You picked <b>(d), (a) and (c)</b>, and this is the most instructive miss of the nine, because you did not fail on content. You recognised that both statements had merit and reached for the inclusive option. That instinct is right on a &ldquo;which of the following are true&rdquo; item and wrong here. A combined option is only correct if <b>every</b> component is true of <b>every</b> subject named. One weak link kills it. When (a) is broad, safe and true of all three, and (c) is arguable for one of them, the broad option wins.</p>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">Every option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><div class="tb"><p class="tw">Independent pioneers: true of all three, and the safest claim available. The answer.</p></div></div>
+<div class="exp-trap"><span class="tk">b</span><div class="tb"><p class="tw">Founded a formal laboratory: false. That is Wundt, Leipzig, 1879. (Galton's <b>anthropometric laboratory</b>, London 1884, is what makes this tempting: it was a measurement station in a health exhibition, not a psychology lab in Wundt's sense.)</p></div></div>
+<div class="exp-trap"><span class="tk">c</span><div class="tb"><p class="tw">Novel observational methods: true of Ebbinghaus and Galton, strained for Freud.</p></div></div>
+<div class="exp-trap"><span class="tk">d</span><div class="tb"><p class="tw">(a) and (c): dies with (c).</p></div></div>
+      </div>
+    </div>
+
+    <div class="exp-sec"><div class="exp-h">When it comes back</div>
+      <p>The rule to carry: on a combined option, <b>test the weakest component against the strictest subject.</b> If any pairing fails, the combined option fails. And when the paper offers you a broad, unfalsifiable-sounding statement next to a precise one, the broad statement is usually what the examiner wants.</p>
+    </div>
+  </div>
+</div>
+
+
+<h2 class="sec" id="primer">The social-work mini section</h2>
+<p class="legend">Written from scratch, because there is no point telling you three answers when the syllabus behind them is
+the thing that keeps showing up. Everything below is what an RML, IHBAS or TISS-flavoured paper can ask off the social-work
+side of a clinical psychology entrance. Read it once properly, then use the drill at the bottom.</p>
+
+<div class="why"><b>Why this is on your psychology paper at all.</b>
+RML's M.Phil / MA Clinical Psychology sits inside a hospital-and-college ecosystem where psychiatric social work is the sister
+discipline, taught in the same institutions, examined by overlapping faculty, and working the same wards. Their question banks
+are shared. So a paper that is 90% psychology carries a steady 4&ndash;8% social-work content: the history of the profession in India,
+the methods, casework theory, group work, case management, and community mental health. It is not a mistake in the paper and it
+will not stop. It is also the cheapest content on the paper, because it is pure recall with no reasoning load.</div>
+
+<h3 class="sub">1. What social work is, and how it divides</h3>
+<p>Social work is a profession that helps people function within their social environment, working on the person and the environment
+at once rather than on the person alone. That &ldquo;person-in-environment&rdquo; stance is the line that separates it from clinical psychology,
+and it is the answer to any &ldquo;what distinguishes social work&rdquo; item.</p>
+<p>Its methods split into <b>primary</b> and <b>secondary</b>, and this split is examinable on its own:</p>
+<ul class="tight">
+  <li><b>Primary method, social case work:</b> the one-to-one method, helping an individual or family with a specific problem.</li>
+  <li><b>Primary method, social group work:</b> using the group itself as the instrument of change.</li>
+  <li><b>Primary method, community organisation:</b> working with communities to identify needs and mobilise resources.</li>
+  <li><b>Secondary method, social welfare administration:</b> running the agencies and programmes.</li>
+  <li><b>Secondary method, social action:</b> pushing for structural and policy change.</li>
+  <li><b>Secondary method, social work research:</b> generating and testing the profession's evidence.</li>
+</ul>
+<p>Its core values, which papers ask as &ldquo;the principles of case work&rdquo;: individualisation, purposeful expression of feeling,
+controlled emotional involvement, acceptance, non-judgemental attitude, client self-determination, and confidentiality. That list of
+seven is <b>Felix Biestek</b>'s (1957), and it is worth knowing by his name.</p>
+
+<h3 class="sub">2. The Indian timeline: the one Q18 came from</h3>
+<div class="tl">
+  <div class="tlrow"><span class="tly">1905</span><span><b>Servants of India Society</b>, founded by <b>Gopal Krishna Gokhale</b>. Organised social service, pre-professional.</span></div>
+  <div class="tlrow"><span class="tly">1911</span><span><b>Social Service League</b>, Bombay. Labour welfare, night schools, cooperatives.</span></div>
+  <div class="tlrow"><span class="tly">1936</span><span><b>Sir Dorabji Tata Graduate School of Social Work</b>, Bombay: <b>the first school of social work in India</b>, funded by the Sir Dorabji Tata Trust, first director <b>Clifford Manshardt</b>.</span></div>
+  <div class="tlrow"><span class="tly">1944</span><span>Renamed the <b>Tata Institute of Social Sciences (TISS)</b>. Deemed university in 1964.</span></div>
+  <div class="tlrow"><span class="tly">1946</span><span><b>Delhi School of Social Work</b>, started by the YWCA of India; joined the University of Delhi in 1961.</span></div>
+  <div class="tlrow"><span class="tly">1960</span><span><b>Association of Schools of Social Work in India</b>: the profession organises itself.</span></div>
+</div>
+<p class="legend">For contrast, if a paper asks internationally: the first school of social work anywhere was the New York School of
+Philanthropy (1898, later Columbia). The profession's two roots are the <b>Charity Organisation Society</b> movement, which gave
+casework its investigative, individual focus, and the <b>settlement house</b> movement (Toynbee Hall, London; Hull House, Chicago,
+Jane Addams), which gave group work and community organisation theirs.</p>
+
+<h3 class="sub">3. Case work: the theory, then the reckoning</h3>
+<p><b>Mary Ellen Richmond</b> is where it starts. <i>Social Diagnosis</i> (1917) was the first attempt to give casework a systematic
+method: gather evidence, reason to a social diagnosis, then act. <i>What Is Social Case Work?</i> (1922) named it. She is the answer
+to &ldquo;mother of casework&rdquo; and to any question about the first casework text.</p>
+<p>After her, three schools, and papers ask you to attach names to them:</p>
+<ul class="tight">
+  <li><b>Diagnostic / psychosocial school</b>: Freudian in orientation, worker as expert diagnostician. <b>Gordon Hamilton</b>, <i>Theory and Practice of Social Case Work</i> (1940); <b>Florence Hollis</b>, <i>Casework: A Psychosocial Therapy</i> (1964).</li>
+  <li><b>Functional school</b>: grew from <b>Otto Rank</b>'s will psychology at Pennsylvania. <b>Jessie Taft</b> and <b>Virginia Robinson</b>. The agency's function and the conscious use of time and relationship drive the work, not diagnosis.</li>
+  <li><b>Problem-solving approach</b>: <b>Helen Harris Perlman</b>, <i>Social Casework: A Problem-Solving Process</i> (1957). The <b>four Ps</b>: a <b>Person</b> with a <b>Problem</b> comes to a <b>Place</b> where a <b>Process</b> is used to help. Later six, adding <b>Professional person</b> and <b>Provisions</b>.</li>
+</ul>
+<p>Then the reckoning, which is what Q4 is about. <b>Joel Fischer</b>'s <i>Is Casework Effective? A Review</i> (1973) assembled every
+controlled study of casework he could find and reported that clients receiving casework did no better than untreated controls, and in
+some studies worse. He was not alone: <b>Girls at Vocational High</b> (Meyer, Borgatta and Jones, 1965) had already produced a famous
+null result, and <b>Eysenck</b> (1952) had done the same demolition to psychotherapy twenty-one years earlier.</p>
+<p>The consequence is why the name is examinable. Out of that crisis came <b>empirical practice</b> and eventually <b>evidence-based
+practice</b>: measure outcomes, use methods with support, be accountable. The concrete product was the <b>task-centred model</b>
+(<b>William Reid</b> and <b>Laura Epstein</b>, 1972), which grew from Reid and Shyne's <i>Brief and Extended Casework</i> (1969),
+the study that found short, planned, time-limited work matched or beat open-ended work. Short, structured, measured, agreed tasks:
+casework's answer to Fischer.</p>
+
+<h3 class="sub">4. Group work: the theory behind Q82</h3>
+<p>Social group work uses the group as both the context and the means of help. Its founder figure is <b>Grace Coyle</b>
+(<i>Social Process in Organized Groups</i>, 1930), out of the settlement and recreation movements. <b>Gisela Konopka</b> carried it into
+work with emotionally disturbed and delinquent young people. <b>Robert Vinter</b> built the remedial or treatment model at Michigan;
+<b>William Schwartz</b> the reciprocal or mediating model, where the worker mediates between the individual and the group. <b>Papell and
+Rothman</b> classified the whole field into three: <b>social goals</b>, <b>remedial</b>, <b>reciprocal</b>.</p>
+<p><b>Properties common to all groups</b>: the exact list Q82 tests:</p>
+<ul class="tight">
+  <li><b>Purpose</b>: a reason to exist and something to work toward.</li>
+  <li><b>Composition criteria</b>: some basis, deliberate or natural, on which members are in.</li>
+  <li><b>Stages of development</b>: every group moves through phases.</li>
+  <li><b>Norms</b>: shared expectations about behaviour.</li>
+  <li><b>Roles</b>: differentiated positions members occupy.</li>
+  <li><b>Cohesion</b>: the pull that keeps members in.</li>
+  <li><b>Structure and communication patterns</b>: who talks to whom, and through whom.</li>
+</ul>
+<p><b>Not</b> a common property: an <b>analytic base</b>, a theoretical (usually psychoanalytic) framework underpinning the work. That
+belongs to particular treatment groups only. Also not universal: a professional worker, a fixed time limit, or a treatment goal.</p>
+<p><b>Stage models.</b> <b>Tuckman (1965)</b>: forming, storming, norming, performing, with <b>adjourning</b> added in 1977 with Jensen.
+The social-work version is the <b>Boston model</b> (Garland, Jones and Kolodny): <b>pre-affiliation, power and control, intimacy,
+differentiation, separation</b>. If the paper is social-work flavoured, it wants Boston.</p>
+<p><b>Yalom's therapeutic factors</b> are the group-<i>psychotherapy</i> answer and a different question: instillation of hope,
+universality, imparting information, altruism, corrective recapitulation of the primary family group, development of socialising
+techniques, imitative behaviour, interpersonal learning, group cohesiveness, catharsis, existential factors. Do not offer Yalom when
+the stem says &ldquo;group work&rdquo;, and do not offer Coyle when it says &ldquo;group psychotherapy&rdquo;.</p>
+
+<h3 class="sub">5. Case management: the theory behind Q32</h3>
+<p>Case management came out of <b>deinstitutionalisation</b>. Once long-stay psychiatric hospitals emptied from the 1960s onward,
+people with severe mental illness had to survive on a fragmented patchwork of housing, benefits, outpatient clinics and vocational
+services, with nobody responsible for the whole person. The case manager is that somebody.</p>
+<p><b>The five functions:</b> assessment, planning, linkage and referral, monitoring, advocacy. Notice that treatment is not one of them.</p>
+<p><b>Desired outcomes</b>: the list Q32 draws from:</p>
+<ul class="tight">
+  <li><b>Environmental accommodation</b>: adjust housing, work, benefits and access so the person can function.</li>
+  <li><b>Skill training and acquisition</b>: build competence and independence.</li>
+  <li><b>Empowerment</b>: restore control and self-determination.</li>
+  <li><b>Continuity of care</b>: one thread running through many services.</li>
+  <li><b>Improved functioning and quality of life</b>, and fewer hospitalisations.</li>
+</ul>
+<p><b>Never an outcome: cure of the primary condition.</b> Case management coordinates care rather than delivering curative treatment,
+and most of its clients have chronic conditions where cure is not on the table. Any option that sounds like a medical endpoint is the
+exception on an EXCEPT item.</p>
+<p><b>Models:</b> <b>broker / generalist</b> (pure linkage, large caseloads, no clinical work), <b>clinical / rehabilitation</b> (the case
+manager also does therapeutic and skills work), <b>strengths model</b> (<b>Rapp and Goscha</b>, Kansas: start from the person's
+assets and the community's resources, not from deficits), and <b>Assertive Community Treatment</b> (<b>Stein and Test</b>, Madison,
+Wisconsin, 1980: a multidisciplinary team, caseloads around 1:10, care delivered in the person's own setting, available around the
+clock). ACT is the most evidence-supported model and the one most likely to be named.</p>
+
+<h3 class="sub">6. The names, on one screen</h3>
+<div class="who">
+  <div class="wrow"><span class="wn">Mary Richmond</span><span><i>Social Diagnosis</i> (1917); <i>What Is Social Case Work?</i> (1922). Mother of casework.</span></div>
+  <div class="wrow"><span class="wn">Joel Fischer</span><span><i>Is Casework Effective?</i> (1973). Triggered evidence-based practice in social work.</span></div>
+  <div class="wrow"><span class="wn">Helen Harris Perlman</span><span>Problem-solving casework (1957). The four Ps.</span></div>
+  <div class="wrow"><span class="wn">Gordon Hamilton / Florence Hollis</span><span>Diagnostic, psychosocial school of casework.</span></div>
+  <div class="wrow"><span class="wn">Jessie Taft / Virginia Robinson</span><span>Functional school, out of Otto Rank.</span></div>
+  <div class="wrow"><span class="wn">Reid &amp; Epstein</span><span>Task-centred casework (1972); Reid &amp; Shyne's brief-vs-extended study (1969).</span></div>
+  <div class="wrow"><span class="wn">Felix Biestek</span><span>The seven principles of the casework relationship (1957).</span></div>
+  <div class="wrow"><span class="wn">Grace Coyle</span><span>Founder of social group work (1930).</span></div>
+  <div class="wrow"><span class="wn">Gisela Konopka</span><span>Group work with disturbed and delinquent youth.</span></div>
+  <div class="wrow"><span class="wn">Vinter / Schwartz</span><span>Remedial model / reciprocal-mediating model.</span></div>
+  <div class="wrow"><span class="wn">Papell &amp; Rothman</span><span>Social goals, remedial, reciprocal: the three models.</span></div>
+  <div class="wrow"><span class="wn">Tuckman</span><span>Forming, storming, norming, performing (1965); adjourning (1977).</span></div>
+  <div class="wrow"><span class="wn">Garland, Jones &amp; Kolodny</span><span>Boston model of group stages.</span></div>
+  <div class="wrow"><span class="wn">Rapp &amp; Goscha</span><span>Strengths model of case management.</span></div>
+  <div class="wrow"><span class="wn">Stein &amp; Test</span><span>Assertive Community Treatment (1980).</span></div>
+  <div class="wrow"><span class="wn">Clifford Manshardt</span><span>First director, Sir Dorabji Tata Graduate School of Social Work (1936).</span></div>
+  <div class="wrow"><span class="wn">Gopal Krishna Gokhale</span><span>Servants of India Society (1905).</span></div>
+  <div class="wrow"><span class="wn">Jane Addams</span><span>Hull House; the settlement movement.</span></div>
+</div>
+
+<h3 class="sub">7. How social-work items are written, and how to beat them</h3>
+<p>Three shapes cover almost all of them.</p>
+<p><b>The name item.</b> &ldquo;Who studied X?&rdquo; One real name from social work, one real name from statistics or sociology, two fillers.
+Pure recall, no reasoning to be done. The names table above is the whole preparation.</p>
+<p><b>The old-name / new-name item.</b> An institution or a term that was renamed, with both names on offer. Read the tense and the
+implied date in the stem. &ldquo;The first school <b>was</b> called&rdquo; wants the founding name; &ldquo;is known as&rdquo; wants the current one.</p>
+<p><b>The EXCEPT item.</b> Three properties of a thing plus one that belongs to a <i>subtype</i> of that thing, or one that contradicts the
+thing's definition. Two tests, in order: <b>(i)</b> scan for absolutes: <i>always, never, all, only, must</i>; <b>(ii)</b> ask which
+option contradicts the definition rather than which one merely feels shaky. Case management is coordination, so cure is out. Groups in
+general are not analytic, so analytic base is out. Both of your EXCEPT misses on this paper fall to the same two tests.</p>
+
+<h2 class="sec" id="drill">8. Drill: tap to reveal</h2>
+<p class="legend">Fourteen. Answer out loud first, then tap. If you miss more than two, the primer above needs one more pass.</p>
+<div class="drill">
+<div class="dq"><button class="dqq">1. Who wrote <i>Is Casework Effective?</i> and in what year?</button><div class="dqa">Joel Fischer, 1973, in the journal <i>Social Work</i>. He reviewed eleven controlled studies and found no reliable benefit.</div></div>
+<div class="dq"><button class="dqq">2. What was the first school of social work in India called when it opened, and when was it renamed?</button><div class="dqa">Sir Dorabji Tata Graduate School of Social Work, Bombay, 1936. Renamed Tata Institute of Social Sciences in 1944.</div></div>
+<div class="dq"><button class="dqq">3. Who was its first director?</button><div class="dqa">Clifford Manshardt, an American social worker.</div></div>
+<div class="dq"><button class="dqq">4. Who wrote <i>Social Diagnosis</i>, and why does it matter?</button><div class="dqa">Mary Richmond, 1917. First systematic method for casework; she followed it with <i>What Is Social Case Work?</i> in 1922. She is the mother of casework.</div></div>
+<div class="dq"><button class="dqq">5. Perlman's four Ps.</button><div class="dqa">Person, Problem, Place, Process. From <i>Social Casework: A Problem-Solving Process</i> (1957). Later extended with Professional person and Provisions.</div></div>
+<div class="dq"><button class="dqq">6. Name the three classical schools of casework.</button><div class="dqa">Diagnostic / psychosocial (Hamilton, Hollis), functional (Taft and Robinson, out of Otto Rank), and problem-solving (Perlman). Task-centred (Reid and Epstein, 1972) is the fourth and most research-driven.</div></div>
+<div class="dq"><button class="dqq">7. The five functions of case management.</button><div class="dqa">Assessment, planning, linkage, monitoring, advocacy. Not treatment.</div></div>
+<div class="dq"><button class="dqq">8. Three desired outcomes of case management, and the one that is never an outcome.</button><div class="dqa">Environmental accommodation, skill training and acquisition, empowerment. Never: cure of the primary condition.</div></div>
+<div class="dq"><button class="dqq">9. Name four case-management models.</button><div class="dqa">Broker/generalist, clinical/rehabilitation, strengths (Rapp and Goscha), and Assertive Community Treatment (Stein and Test, 1980).</div></div>
+<div class="dq"><button class="dqq">10. Four properties common to all groups.</button><div class="dqa">Purpose, stages of development, criteria for composition, plus norms and roles. Not an analytic base.</div></div>
+<div class="dq"><button class="dqq">11. Tuckman's stages, and the social-work alternative.</button><div class="dqa">Forming, storming, norming, performing, adjourning (1977). Social group work uses the Boston model: pre-affiliation, power and control, intimacy, differentiation, separation.</div></div>
+<div class="dq"><button class="dqq">12. Papell and Rothman's three models of group work, with a name for each.</button><div class="dqa">Social goals (Coyle), remedial (Vinter), reciprocal or mediating (Schwartz). Konopka extended group work to disturbed and delinquent youth.</div></div>
+<div class="dq"><button class="dqq">13. The methods of social work.</button><div class="dqa">Primary: casework, group work, community organisation. Secondary: social welfare administration, social action, social work research.</div></div>
+<div class="dq"><button class="dqq">14. Who founded the Servants of India Society and when?</button><div class="dqa">Gopal Krishna Gokhale, 1905. With the Social Service League (Bombay, 1911) it is the pre-professional root of Indian social work.</div></div>
+</div>
+
+
+<h2 class="sec">The three habits to take out of this</h2>
+<div class="why"><b>1. On EXCEPT, hunt the false one, not the weak one.</b>
+Q24 and Q82 both went the same way: you found the option you liked least and stopped. Scan the whole list for absolutes
+(<i>always, never, all, only</i>) first, then ask which option contradicts the <i>definition</i> of the thing being asked about.
+Arguable never beats wrong.</div>
+<div class="why"><b>2. On combined options, the weakest component decides.</b>
+Q90. &ldquo;(a) and (c)&rdquo; is only right if both are true of every subject named. One strained pairing sinks it. And when a broad,
+safe statement sits next to a precise one, the broad one is usually the key.</div>
+<div class="why"><b>3. A word you have never seen is a plant, not a gap.</b>
+Q47. <i>Lexphasia</i> is not a term in any textbook. Examiners do not test vocabulary that does not exist. If nothing you have read
+contains it, cross it out and choose among the rest.</div>
+
+<p class="src">Sources: the RML 2020 paper as reconstructed on this site, checked against your 3 August attempt (91 right, 9 wrong, 0 blank).
+Social-work content compiled from the standard casework, group work and case-management literature named throughout (Richmond, Perlman,
+Biestek, Fischer, Reid and Epstein, Coyle, Konopka, Vinter, Schwartz, Tuckman, Garland-Jones-Kolodny, Rapp and Goscha, Stein and Test),
+plus the TISS and Delhi School of Social Work institutional histories. Where a key is defensible rather than airtight (Q90), the page says so.</p>
+
+</div>
+<script>
+document.querySelectorAll(".dqq").forEach(function(b){
+  b.addEventListener("click", function(){ b.parentNode.classList.toggle("open"); });
+});
+</script>
+</body>
+</html>
