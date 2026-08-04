@@ -188,6 +188,19 @@ body.nfe-reader.nfe-paged {
   break-inside: avoid;
   -webkit-column-break-inside: avoid;
 }
+/* Figures are the exception to the rule above. A diagram sliced in half by a
+   page turn is unreadable, so inside the paged spread each figure is capped at
+   just under half a page and then kept whole. Tap it for the full-size crop. */
+.nfe-paged-article .bfig {
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+}
+.nfe-paged-article .bfig img {
+  width: auto;
+  max-width: 100%;
+  max-height: 36vh;
+  margin: 0 auto;
+}
 .nfe-paged-article p { orphans: 2; widows: 2; }
 /* tables split across pages rather than clip; keep them readable */
 .nfe-paged-article table { font-size: 0.8em; }
