@@ -163,3 +163,52 @@
   margin-bottom: 4px;
 }
 .nfe-article .trap strong { color: var(--accent); }
+
+/* ---- textbook figures (the "Textbooks in Full Depth" shelf) --------------
+   One or more real book figures sitting under the sub-heading they belong to.
+   Two side by side on a wide reader, stacked on a phone. Tap opens the full
+   image in a new tab, which is the only way to read the small panel labels. */
+.nfe-article .bfigs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;   /* a short figure must not stretch to a tall one */
+  gap: 18px;
+  margin: 18px 0 26px;
+}
+.nfe-article .bfig {
+  flex: 1 1 300px;
+  min-width: 0;
+  margin: 0;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+}
+.nfe-article .bfigs .bfig:only-child { flex-basis: 100%; }
+.nfe-article .bfig img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  background: #fff;
+}
+.nfe-article .bfig a { display: block; }
+.nfe-article .bfig figcaption {
+  font-family: var(--sans);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink2);
+  margin-top: 10px;
+}
+.nfe-article .bfig figcaption b { color: var(--text); font-weight: 700; }
+.nfe-article .bfig figcaption span {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  letter-spacing: .03em;
+  color: var(--muted);
+}
+@media (max-width: 640px) {
+  .nfe-article .bfigs { gap: 14px; }
+  .nfe-article .bfig { flex-basis: 100%; }
+}
