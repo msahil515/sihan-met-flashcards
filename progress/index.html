@@ -9,7 +9,7 @@
 <script src="/sihan-met-flashcards/sync.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0d1117">
-<title>Progress — what's done on each task</title>
+<title>Progress, where every open thing stands</title>
 <link rel="stylesheet" href="../site.css">
 <!-- PWA:met-prep -->
 <link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
@@ -87,19 +87,19 @@
 
 <div class="wrap">
   <h1 style="margin:8px 0 2px;font-size:24px;">Progress board</h1>
-  <p class="lede">Every pending task, straight read, no inflating. <b>The SGT drop just shipped</b> (book + PYQ mock + intelligence note). The site revamp is the big build still running. Everything at 0% is queued on purpose or waiting on something from you, not forgotten.</p>
-  <p class="stamp" id="stamp">Last updated 4 Jul 2026</p>
+  <p class="lede">Every open thing, straight read, no inflating. <b>13 items went live since the last board</b>: sync, untimed site-wide, the archive, Pinel at full depth, the stats book, the PYQ list, the syllabus hub. <b>Eight things are sitting on you</b>, and each is one line to unblock. Nothing at 0% is forgotten.</p>
+  <p class="stamp" id="stamp">Last updated 4 Aug 2026</p>
 
   <div class="roll">
-    <div class="box"><div class="n" id="rShipped">4</div><div class="l">Just shipped</div></div>
-    <div class="box"><div class="n" id="rActive">6</div><div class="l">In progress</div></div>
-    <div class="box"><div class="n" id="rBlocked">3</div><div class="l">Waiting on you</div></div>
-    <div class="box"><div class="n" id="rQueued">1</div><div class="l">Queued</div></div>
+    <div class="box"><div class="n" id="rShipped">13</div><div class="l">Live now</div></div>
+    <div class="box"><div class="n" id="rActive">7</div><div class="l">Building</div></div>
+    <div class="box"><div class="n" id="rBlocked">8</div><div class="l">Waiting on you</div></div>
+    <div class="box"><div class="n" id="rQueued">1</div><div class="l">Blocked elsewhere</div></div>
     <div class="box"><div class="n" id="rLive">1</div><div class="l">Live watch</div></div>
   </div>
 
   <div class="prio">
-    <b>How to read this:</b> "Just shipped" is live now, go open it. In-progress is where the hours go. Anything at 0% blocked has a one-line ask next to it. Send me that one thing and it moves off zero the same day.
+    <b>How to read this:</b> anything green is live, open it now. "Building" is where the hours are going. The eight under <b>Waiting on you</b> each need one word or one photo from you. Answer them in a single message and all eight move the same day.
   </div>
 
   <div id="board"></div>
@@ -107,55 +107,97 @@
 
 <script>
 var TASKS = [
-  { group: "Just shipped (live now)", items: [
-    { t: "SGT book: full-depth study material, all areas", pct: 100, tag: "live",
-      n: "Done. SGT has no published syllabus, so I built the whole general-psychology core from scratch as one deep book: 14 chapters (7 core areas + learning, memory/cognition, motivation/emotion, social, personality, intelligence) plus the attack plan and interview section. Live on its own 'SGT University' shelf in the Library.",
-      link: "../notes/sgt-study-material/", linkText: "Read it" },
-    { t: "SGT PYQ mock: 100 real PYQs, untimed", pct: 100, tag: "live",
-      n: "Done. 100 real past-paper questions merged from every live PYQ mock and re-sorted into SGT's general-psych shape, each carrying a source badge, deep explanation and per-distractor traps. Untimed, self-marking.",
-      link: "../quiz/sgt-pyq/", linkText: "Take it" },
-    { t: "SGT: official syllabus + fold into tracker", pct: 100, tag: "live",
-      n: "Resolved. There is no official SGT syllabus PDF to pull, they only say 'UGC guidelines' (I checked). So I folded that reality straight into the tracker and the book: written→interview two-stage, breadth-over-depth, ~11 Jul exam at Gurugram, no negative-marking guidance so answer everything.",
-      link: "../admissions/", linkText: "Tracker" },
-    { t: "Intelligence tests note: all tests + age ranges + Indian adaptations", pct: 100, tag: "live",
-      n: "Done. One deep reference covering every major test with author, year, scoring and age range, plus the Indian adaptations (Bhatia, Malin/MISIC, and the rest). Cross-linked and live in the notes.",
-      link: "../notes/intelligence-tests-deep/", linkText: "Read it" },
+  { group: "Live now, go open these", items: [
+    { t: "Result sync across devices", pct: 100, tag: "live",
+      n: "Built and live, no go-ahead needed any more. Open <b>/sync/</b> on the phone, get a code, punch it in on the laptop and both devices carry the same attempts, the same wrong-question pool and the same done-flags. Merge is order-independent, so it does not matter which device syncs first.",
+      link: "../sync/", linkText: "Sync" },
+    { t: "Timed settings removed site-wide", pct: 100, tag: "live",
+      n: "Every timer, countdown and clock setting is gone. All 28 classic quiz pages now redirect straight into the untimed engine, so there is one way to sit a paper and no clock anywhere on the site.",
+      link: "../take/", linkText: "Take a paper" },
+    { t: "SGT / Amity / RML archived off the main view", pct: 100, tag: "live",
+      n: "The three closed cycles are folded out of the dashboard, tests page and tracker. <b>Nothing was deleted</b>. Every mock, note and brief is indexed on the Archive page and still opens. The live set is IHBAS, CIP, JSS, DIMHANS.",
+      link: "../archive/", linkText: "Archive" },
+    { t: "Pinel at full depth, original figures", pct: 100, tag: "live",
+      n: "The un-condensing is done for book one: Pinel rebuilt as 18 full chapters, ~47,000 words, with the real figures rather than my redraws. It reads as the textbook, not a summary of it. Sitting on its own shelf in the Library.",
+      link: "../notes-app/", linkText: "Library" },
+    { t: "Statistics textbook with diagrams", pct: 100, tag: "live",
+      n: "From-scratch stats book, 17 sections, 27 hand-built diagrams. Starts below the level any entrance paper assumes and walks up, so you are not expected to already know it.",
+      link: "../notes/statistics/", linkText: "Read it" },
+    { t: "Library: renamed + warm book theme", pct: 100, tag: "live",
+      n: "The notes app is now called <b>Library</b> and wears the warm paper skin with the two-page spread on wide screens, one page on the phone.",
+      link: "../notes-app/", linkText: "Library" },
+    { t: "Master PYQ list, full sweep", pct: 100, tag: "live",
+      n: "Three passes across everything you have sent, including the camera scans. <b>53 papers</b> listed with source, whether a key exists, and whether it is already a mock on the site.",
+      link: "../pyq-list/", linkText: "PYQ list" },
+    { t: "Syllabus hunt: IHBAS, CIP, JSS, DIMHANS", pct: 100, tag: "live",
+      n: "One hub with all four. JSS's nine-subject syllabus quoted verbatim off the brochure, IHBAS's 100-question blueprint checked against 292 real questions from its own 2020/2024/2025 papers, CIP rebuilt from the real 2020 paper with all 100 items classified.",
+      link: "../syllabus/", linkText: "Syllabus hub" },
+    { t: "DIMHANS: RCI-approved course confirmed", pct: 100, tag: "live",
+      n: "Confirmed off the 25-05-2026 RCI list. Both DIMHANS Dharwad courses are on it, and the <b>Karnataka domicile requirement</b> is flagged, which is the thing that would actually stop you.",
+      link: "../syllabus/#dimhans", linkText: "DIMHANS" },
+    { t: "RML textbook expanded to full comprehensiveness", pct: 100, tag: "live",
+      n: "The CET-166 book is out of outline form. Full-depth sections across the paper, plus the social-work strand added as section 13 after four of your nine RML 2020 misses turned out to be social work.",
+      link: "../notes/rml-study-material/", linkText: "Read it" },
+    { t: "Psycho Didi shelf rebuilt", pct: 100, tag: "live",
+      n: "All 127 pages rebuilt as 12 proper chapters. Every diagram kept, and the thin bits written out to teaching depth instead of bullet stubs.",
+      link: "../notes-app/", linkText: "Library" },
+    { t: "RML 2020 cut-off, official numbers", pct: 75, tag: "live",
+      n: "Official numbers are up: top scored 360/400, UR cut-off 344, and the CET code is 157 not 166. <b>Still open:</b> the forum dig for who actually topped it; every lead so far is a dead ipu.ac.in link that serves a fake PDF.",
+      link: "../rml-2020-cutoff/", linkText: "Cut-off page" },
+    { t: "MET theme 1: deep answer on every Q + 'No clock' tag dropped", pct: 90, tag: "live",
+      n: "Structured deep explanation on every question across all mocks, plus per-distractor traps, and the 'No clock' tag is gone site-wide. The one piece left is the S24 layout fix, tracked separately below.",
+      link: "../take/", linkText: "New look" },
   ]},
   { group: "Building now", items: [
-    { t: "MET revamp theme 1: layout + deep explanations + untimed", pct: 85, tag: "building",
-      n: "Untimed engine live, 'No clock' tag dropped, and structured deep explanation now authored on EVERY Q across all mocks (761 questions, 2283 per-distractor traps, no one-liners left). Remaining: the S24 layout fix + final full-depth verification pass, then rolling the same treatment across the other 4 themes.",
+    { t: "MET theme 1: S24 layout fix", pct: 60, tag: "building",
+      n: "Reflowing the question and option blocks so nothing clips or wraps badly at S24 width. This is the last piece of theme 1.",
       link: "../take/", linkText: "New look" },
-    { t: "Kill the tests split: fold /take/ into the one tests page", pct: 35, tag: "building",
-      n: "For now the classic tests page carries a 'new look' banner and a per-card button that opens any mock in the new engine, so nothing is stranded. Still to do: collapse the two into one page so there is a single tests list, not a split.",
+    { t: "Tests deep pass: pep + MET 1-4 + bio + diagnostic", pct: 55, tag: "building",
+      n: "Deep answers are on all of them. What is still rolling is the <b>per-distractor trap</b> layer: done on the five real PYQ papers, still being authored on the constructed mocks.",
       link: "../tests/", linkText: "Tests" },
-    { t: "Library: structured layout + theorist named at every theory", pct: 40, tag: "building",
-      n: "Theorist named at every theory, structured layout on every note. New RML and SGT material already comply; sweeping the older notes into the same shape now." },
-    { t: "RCI tracker: approved-list + fee / seats / hostel cells", pct: 50, tag: "building",
-      n: "Filling the RCI-approved flag plus the fee, seats and hostel columns for the target colleges in chunks.",
-      link: "../admissions/", linkText: "Admissions" },
-    { t: "Tests deep pass: pep + MET 1-4 + bio + diagnostic", pct: 30, tag: "building",
-      n: "Deep structured answers + per-distractor traps now authored on pep 1/2, MET 1/3/4, bio, diagnostic and nimhans in the new engine. Left: MET Mock 2 and porting the same depth into the classic deep quiz pages.",
-      link: "../tests/", linkText: "Tests" },
-    { t: "Strip + refocus to Amity Noida / SGT / RML / IHBAS / CIP", pct: 20, tag: "building",
-      n: "Dead NIMHANS / Manipal admin content archived. Full sweep to cut everything down to the five live targets still pending.",
-      link: "../archive/", linkText: "Archive" },
-  ]},
-  { group: "Waiting on you", items: [
-    { t: "Results gap analysis", pct: 0, tag: "blocked",
-      n: "Fully blocked. Send your attempt result screenshots and this moves the same day." },
-    { t: "Common section: 32-miss breakdown", pct: 0, tag: "blocked",
-      n: "Need the 32 review questions you got wrong. Send those 32 and I build the per-miss breakdown page." },
-    { t: "Study material for MD", pct: 0, tag: "blocked",
-      n: "Blocked on one word: tell me what MD means (which exam / subject) and I start building." },
-  ]},
-  { group: "Queued behind the revamp", items: [
-    { t: "MET APK: refresh/sync button + daily rebuild", pct: 0, tag: "queued",
-      n: "In-app refresh button + a daily auto-rebuild off the live site. Not started, next after the revamp lands.",
+    { t: "Theorist named at every theory", pct: 45, tag: "building",
+      n: "Every theory carries the person and the year. New material already complies; sweeping the older notes and quiz explanations into the same shape.",
+      link: "../notes/theorists/", linkText: "Theorists" },
+    { t: "Declutter + full site rebuild, one look every page", pct: 50, tag: "building",
+      n: "Same shell, same type, same colours on every page, and dead pages folded into the Archive. Roughly half the site is converted.",
+      link: "../", linkText: "Dashboard" },
+    { t: "RCI tracker: fee / seats / hostel cells", pct: 55, tag: "building",
+      n: "Seats are in and are exact, straight off the 25-05-2026 RCI approval PDF, including the supernumerary EWS/PwD seats. <b>Fees and hostel are not in that PDF</b>, so those cells read 'unknown' rather than a guess, and get filled college by college off official portals.",
+      link: "../admissions/", linkText: "Tracker" },
+    { t: "Metro-city RCI shortlist, approved qualifications only", pct: 20, tag: "building",
+      n: "Filtering the RCI list down to metro-city institutes whose qualification is actually RCI-approved, so nothing that cannot license you ends up on the list. Source PDF is parsed, the shortlist page is not built yet.",
+      link: "../admissions/", linkText: "Tracker" },
+    { t: "MET prep app not self-updating", pct: 35, tag: "building",
+      n: "The APK caches too hard and sits on an old copy of the site. Fixing it in two parts: the service worker goes network-first and never caches a failed page, and the app rebuilds off the live site on a schedule so a fresh install is never stale.",
       link: "../downloads/", linkText: "Downloads" },
   ]},
+  { group: "Waiting on you (one line each and it moves)", items: [
+    { t: "Which book second: Eysenck or Schultz", pct: 0, tag: "blocked",
+      n: "Pinel is done. Say <b>Eysenck</b> or <b>Schultz</b> and the next full-depth rebuild starts on it." },
+    { t: "Stats alone, or stats + research methods in one book", pct: 0, tag: "blocked",
+      n: "The stats book is live. Say <b>stats alone</b> and I leave it, or <b>combined</b> and I fold research methods into the same book so designs, sampling and stats read as one thing." },
+    { t: "Library: warm as default, or switchable", pct: 0, tag: "blocked",
+      n: "Warm paper is on right now. Say <b>default</b> to lock it, or <b>switchable</b> and I put a warm/dark toggle in the Library toolbar." },
+    { t: "PYQ list: papers only, or banks + syllabi too", pct: 0, tag: "blocked",
+      n: "53 papers are on it. Say <b>papers only</b> and it stays a clean PYQ index, or <b>everything</b> and question banks and syllabi go on the same page." },
+    { t: "CIP 2020: give me the go", pct: 0, tag: "blocked",
+      n: "I have the full CIP 2020 paper and all 100 items are already classified for the syllabus hub. Say <b>go</b> and it becomes a real untimed mock with deep answers, same as IHBAS 2025." },
+    { t: "JEMAS(PG) 2025: key + page 12", pct: 0, tag: "blocked",
+      n: "36 questions are up verbatim. I need two things from you: the <b>official answer key</b>, and a <b>clean photo of page 12</b> (Q67–74). The one you sent is cut off at the margin, so those eight are held back.",
+      link: "../quiz/jemas-2025/", linkText: "JEMAS mock" },
+    { t: "Common section: the 32 wrong Qs", pct: 0, tag: "blocked",
+      n: "Both specific sections were 100%. The whole gap is the common section, 31 wrong. Send those 32 questions and you get a page breaking down every single miss." },
+    { t: "Study material for MD: what does MD mean", pct: 0, tag: "blocked",
+      n: "Still blocked on one word. Tell me which exam or subject <b>MD</b> is and I start building it the same day." },
+  ]},
+  { group: "Blocked, but not on you", items: [
+    { t: "Lock IHBAS 2025 answers against the official key", pct: 0, tag: "blocked",
+      n: "IHBAS has <b>not released a key</b> for the 2025 paper, I checked. All 100 answers are currently expert-set from DSM-5, ICD and the canonical theorists, with the genuinely arguable ones carrying a ⚠ key-debate flag so you know exactly which ones to not trust. The moment a real key surfaces I lock them against it.",
+      link: "../quiz/ihbas-2025/", linkText: "IHBAS 2025" },
+  ]},
   { group: "Live watch", items: [
-    { t: "Watching IHBAS + CIP 2026 windows", pct: null, tag: "live",
-      n: "Ongoing, live watch. Nothing dropped yet; you'll get pinged the day either window opens.",
+    { t: "IHBAS + CIP 2026 windows, and the RML/GGSIPU fallout", pct: null, tag: "live",
+      n: "Running twice a day, 8am and 3pm IST. Nothing has dropped yet. You get pinged the day either window opens or the RML/GGSIPU situation moves.",
       link: "../news/", linkText: "News board" },
   ]},
 ];
