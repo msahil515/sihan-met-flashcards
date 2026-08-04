@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<script src="/sihan-met-flashcards/sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What to watch &mdash; the video shortlist, SWAYAM and NPTEL mapped to your six areas</title>
+<link rel="stylesheet" href="/sihan-met-flashcards/notes-style.css">
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<meta name="theme-color" content="#0d1117">
+<style>
+  .wrap{max-width:min(1020px,95vw)}
+  nav{font-family:var(--sans)}
+  .updated{font-family:var(--sans);font-size:12px;color:var(--muted);margin:-2px 0 12px}
+
+  .rules{border:1px solid rgba(210,153,34,.42);background:rgba(210,153,34,.08);border-radius:11px;
+    padding:14px 17px;margin:20px 0 6px;font-family:var(--sans);font-size:13.8px;color:var(--ink2);line-height:1.5}
+  .rules h2{margin:0 0 8px;font-size:15px;color:var(--text);letter-spacing:.02em}
+  .rules p{margin:0 0 9px} .rules p:last-child{margin:0}
+  .rules b{color:var(--text)}
+
+  .step{display:flex;gap:0;margin:16px 0;border:1px solid var(--border);border-radius:11px;
+    background:var(--panel);overflow:hidden;font-family:var(--sans)}
+  .step.done{opacity:.62}
+  .rail{flex:none;width:54px;background:var(--panel-2);border-right:1px solid var(--border);
+    display:flex;flex-direction:column;align-items:center;padding:13px 0;gap:9px}
+  .rail .n{font-size:23px;font-weight:800;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+  .rail input{width:17px;height:17px;accent-color:var(--accent);cursor:pointer}
+  .step.skip .rail .n{color:var(--muted)}
+  .body{flex:1;min-width:0;padding:13px 16px 14px}
+  .body h3{margin:0 0 4px;font-size:17px;line-height:1.25;color:var(--text);font-family:var(--sans)}
+  .step.done .body h3{text-decoration:line-through}
+  .meta{font-size:11.8px;color:var(--muted);margin:0 0 9px;line-height:1.5}
+  .meta b{color:var(--ink2)}
+  .why{font-size:13.8px;color:var(--ink2);line-height:1.55;margin:0 0 9px}
+  .why b{color:var(--text)}
+  .watch{font-size:12.8px;color:var(--ink2);line-height:1.5;margin:0 0 11px;padding:9px 12px;
+    background:var(--panel-2);border-radius:8px;border-left:3px solid var(--accent-dim)}
+  .watch b{color:var(--text)}
+  .weeks{font-size:12.3px;color:var(--ink2);line-height:1.6;margin:0 0 11px;padding:10px 13px;
+    background:var(--panel-2);border-radius:8px;border:1px dashed var(--border)}
+  .weeks .wk{display:block;margin:0 0 3px}
+  .weeks .wk:last-child{margin:0}
+  .weeks .wk b{color:var(--text);display:inline-block;min-width:58px}
+  .weeks .hit{color:#2f9e57;font-weight:700}
+  .weeks .cut{color:var(--muted)}
+  .acts{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px}
+  .acts:last-child{margin-bottom:0}
+  .acts .lbl{font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--muted);
+    align-self:center;width:52px;flex:none;text-transform:uppercase}
+  .acts a{display:inline-block;font-size:12.5px;font-weight:700;text-decoration:none;border-radius:999px;
+    padding:6px 13px;border:1px solid var(--border);background:var(--panel-2);color:var(--ink2)}
+  .acts a.go{background:var(--accent);border-color:var(--accent);color:#fff}
+  .acts a:hover{text-decoration:none;border-color:var(--accent)}
+  .acts span.none{font-size:12.3px;color:var(--muted);align-self:center;font-style:italic}
+
+  .chip{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.03em;color:#fff;border-radius:4px;
+    padding:3px 6px;white-space:nowrap;vertical-align:2px;margin-left:6px}
+  .c-live{background:#2f9e57} .c-wait{background:#d29922} .c-build{background:#c0392b}
+  .c-drill{background:#4d8fbf} .c-last{background:#6b7280}
+
+  h3.sh{font-family:var(--sans);margin:34px 0 6px;padding-bottom:6px;border-bottom:2px solid var(--accent-dim);font-size:19px}
+  .after{font-family:var(--sans);font-size:13.6px;color:var(--ink2);line-height:1.55}
+  .after ul{padding-left:18px;margin:8px 0 0}
+  .after li{margin:6px 0}
+  .after b{color:var(--text)}
+  .after a{color:var(--accent);text-decoration:none;font-weight:600}
+  .after a:hover{text-decoration:underline}
+  .note{font-family:var(--sans);font-size:13.4px;color:var(--ink2);background:var(--panel);
+    border:1px solid var(--border);border-radius:9px;padding:13px 16px;margin:16px 0;line-height:1.55}
+  .note b{color:var(--text)}
+  .note a{color:var(--accent);text-decoration:none;font-weight:600}
+
+  table.cov{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13px;
+    background:var(--panel);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:12px}
+  table.cov th,table.cov td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+  table.cov th{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+  table.cov tr:last-child td{border-bottom:none}
+  table.cov td b{color:var(--text)}
+  .v-watch{color:#2f9e57;font-weight:800} .v-maybe{color:#d29922;font-weight:800}
+  .v-skip{color:var(--muted);font-weight:800} .v-none{color:#c0392b;font-weight:800}
+
+  .reset{font-family:var(--sans);font-size:12.5px;font-weight:700;background:var(--panel);
+    border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:7px 13px;cursor:pointer;margin-top:14px}
+  .bar{font-family:var(--sans);margin:20px 0 4px}
+  .bar .lab{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-bottom:6px}
+  .bar .lab b{color:var(--text)}
+  .track{height:9px;border-radius:999px;background:var(--panel-2);border:1px solid var(--border);overflow:hidden}
+  .fill{height:100%;width:0;background:var(--accent);transition:width .25s ease}
+  @media(max-width:620px){
+    .rail{width:44px} .rail .n{font-size:20px}
+    .body{padding:12px 13px 13px} .body h3{font-size:15.5px}
+    .acts .lbl{width:100%;margin-bottom:-2px}
+    .weeks .wk b{min-width:0;margin-right:5px}
+  }
+</style>
+<script src="/sihan-met-flashcards/take/theme.js"></script>
+<link rel="stylesheet" href="/sihan-met-flashcards/revamp-skin.css">
+</head>
+<body>
+<div class="wrap">
+<nav><a href="../">&larr; Home</a> <a href="../six-areas/">Six Areas</a> <a href="../notes/">All notes</a> <a href="../notes-app/">Library</a> <a href="../tests/">Tests</a> <a href="../pyq-order/">PYQ Order</a> <a href="../progress/">Progress</a></nav>
+
+<h1>What to watch</h1>
+<p class="updated">You asked for a Udemy course. This is the answer, built out properly: every free SWAYAM and NPTEL run that actually maps to your six areas, ranked watch / maybe / skip, with the real enrolment links. Built 4 August 2026. Every link on this page was opened and checked before it went up. Tick a course when you've finished it; the ticks save on this device.</p>
+
+<div class="rules">
+  <h2>The short version, before the list</h2>
+  <p><b>1. Udemy is the wrong shop.</b> Its psychology catalogue is practitioner training: CBT skills, counselling certificates, hypnotherapy, life coaching, "become a therapist in 6 hours". None of it is written to an Indian RCI entrance syllabus. The questions on your papers come out of Indian PG psychology curricula, and Udemy has no reason to teach to those. Twenty hours in, maybe three marks out.</p>
+  <p><b>2. The free Indian platforms are the real answer.</b> SWAYAM (the government's own platform, psychology courses run through CEC, the UGC's Consortium for Educational Communication) and NPTEL (the IIT and IISc consortium, which also publishes through SWAYAM). Indian syllabus, Indian PG level, taught by the same kind of faculty who set these papers. Free.</p>
+  <p><b>3. Only two of them are worth your hours.</b> Everything below is real and free, but "free" is not the constraint, your time is. Two courses earn their runtime. Two more are conditional. The rest you skip, and the page says exactly why for each one instead of leaving you to guess.</p>
+  <p><b>4. Video is the slowest way to learn biopsych, which is your weakest area.</b> You were at 78% on physiological in your RML 2020 breakdown, your thinnest section. The fix is not eight weeks of lectures. It's <a href="../notes-app/#/read/pinel">Pinel with the 310 figures</a>, which is already sitting in the Library. Reading beats watching when the content is anatomy, because you need to look at the same diagram nine times, and you can't scrub a lecture that fast.</p>
+</div>
+
+<h3 class="sh">The verdict, one line per area</h3>
+<p class="after">Your seven blocks from <a href="../six-areas/">Six Areas</a>, against what video actually exists for each of them. The column that matters is the last one.</p>
+<table class="cov">
+  <tr><th>Your block</th><th>Weight</th><th>Best free course</th><th>Verdict</th></tr>
+  <tr>
+    <td><b>Abnormal &amp; clinical</b></td>
+    <td>40 of 100 on IHBAS</td>
+    <td>NPTEL <i>Basics of Mental Health &amp; Clinical Psychiatry</i> (IIT KGP), then SWAYAM <i>Abnormal Psychology</i> (Padmaja)</td>
+    <td class="v-watch">WATCH BOTH</td>
+  </tr>
+  <tr>
+    <td><b>Assessment &amp; psychological testing</b></td>
+    <td>7 per 100 on the real papers</td>
+    <td>SWAYAM <i>Psychological Research</i> (KMV Jalandhar)</td>
+    <td class="v-maybe">MAYBE, one half of it</td>
+  </tr>
+  <tr>
+    <td><b>Statistics &amp; research methods</b></td>
+    <td>10 of 100, blueprint and actual</td>
+    <td>Same course, its methods half</td>
+    <td class="v-maybe">MAYBE, the book is faster</td>
+  </tr>
+  <tr>
+    <td><b>Physiological &amp; biological</b></td>
+    <td>13 per 100 actual &middot; your weakest at 78%</td>
+    <td>NPTEL <i>Introduction to Brain and Behaviour</i> (IIT K), SWAYAM <i>Biopsychology</i></td>
+    <td class="v-skip">SKIP, read Pinel</td>
+  </tr>
+  <tr>
+    <td><b>General &amp; cognitive</b></td>
+    <td>18 per 100 IHBAS, 28 on CIP 2020</td>
+    <td>NPTEL <i>Introduction to Cognitive Psychology</i> (IIT G)</td>
+    <td class="v-skip">SKIP for now, too wide</td>
+  </tr>
+  <tr>
+    <td><b>Developmental</b></td>
+    <td>9 per 100</td>
+    <td>SWAYAM <i>Developmental Psychology</i> (Manipur Univ.)</td>
+    <td class="v-skip">SKIP, smallest closed area</td>
+  </tr>
+  <tr>
+    <td><b>Social</b></td>
+    <td>11 per 100 IHBAS, 1 on CIP 2020</td>
+    <td>SWAYAM <i>Applied Social Psychology</i> (SPPU)</td>
+    <td class="v-skip">SKIP, wrong kind of social</td>
+  </tr>
+  <tr>
+    <td><b>Psychotherapy &amp; counselling</b></td>
+    <td>Big on RML CET-166 and Amity</td>
+    <td>SWAYAM <i>Counseling Psychology_PG</i> (Punjabi Univ.)</td>
+    <td class="v-skip">SKIP, your own manual is deeper</td>
+  </tr>
+  <tr>
+    <td><b>Personality, systems &amp; theories</b></td>
+    <td>10 of 100 blueprint, 8 on CIP 2020</td>
+    <td colspan="1">Nothing at PG level exists on either platform</td>
+    <td class="v-none">NO COURSE</td>
+  </tr>
+</table>
+
+<div class="bar">
+  <div class="lab"><span id="pcLab">0 of 2 watched</span><b id="pcNum">0%</b></div>
+  <div class="track"><div class="fill" id="pcFill"></div></div>
+</div>
+<p class="after" style="margin-top:6px"><small>The bar counts the two courses worth watching. The rest are on the page so you know they exist and why they're not worth the time, not so you can tick them.</small></p>
+
+<h3 class="sh">Watch these two</h3>
+
+<div class="step" data-k="1">
+  <div class="rail"><div class="n">1</div><input type="checkbox" title="Mark watched"></div>
+  <div class="body">
+    <h3>Basics of Mental Health &amp; Clinical Psychiatry<span class="chip c-live">WATCH FIRST</span></h3>
+    <p class="meta">NPTEL &middot; <b>IIT Kharagpur</b> &middot; Prof. Arijita Banerjee (MD, DNB physiology) and <b>Prof. Sumit Kumar</b> (Psychiatry) &middot; 8 weeks, 5 lectures a week, 40 lectures &middot; free to watch, certificate exam optional and paid</p>
+    <p class="why"><b>This is the single best thing on either platform for you, and the reason is the second lecturer.</b> NPTEL's own syllabus sheet says Prof. Sumit Kumar has previously been attached to <b>NIMHANS Bangalore, JSS Mysore Medical College, IHBAS Hospital Delhi</b>, KIMS Bhubaneswar and Tata Main Hospital Jamshedpur. Those are not random hospitals. NIMHANS, JSS and IHBAS are three of the institutions on your own target list. You are watching clinical psychiatry taught by someone out of the exact departments that write your papers. Nothing on Udemy is within a mile of that.</p>
+    <p class="why">The other reason: it does two of your blocks at once. Weeks 1 and 2 are pure neuroanatomy and neurotransmitters, which is your physiological block. Weeks 3 to 8 are psychopathology, disorders, drugs and therapies, which is your abnormal-and-clinical block, the 40 marks. And week 7 closes with psychological tests. It is 8 weeks, not 12, so it actually finishes.</p>
+    <p class="watch"><b>How to run it:</b> don't watch it end to end like a course. It's 40 short lectures. Watch the week that matches whatever topic you're reading that day, then go straight into 40 to 50 questions on that topic, same day, same loop as everything else. The lectures are a second pass over reading you've already done, not a replacement for it.</p>
+    <div class="weeks">
+      <span class="wk"><b>Week 1</b> <span class="hit">Neuro-anatomy, cerebellum, basal ganglia, thalamus &amp; hypothalamus, cerebral cortex</span></span>
+      <span class="wk"><b>Week 2</b> <span class="hit">Synapse &amp; neurotransmitters (x2), limbic system, physiology of emotion, reticular formation</span></span>
+      <span class="wk"><b>Week 3</b> <span class="hit">Electrical activity of brain, principles of personality development, descriptive psychopathology, schizophrenia, mood disorders 1</span></span>
+      <span class="wk"><b>Week 4</b> <span class="hit">Mood disorders 2, anxiety disorders (x2), eating disorders, physiology of sleep</span></span>
+      <span class="wk"><b>Week 5</b> <span class="hit">Sleep disorders, learning &amp; memory (x2), neurocognitive disorders (x2)</span></span>
+      <span class="wk"><b>Week 6</b> <span class="hit">Substance abuse (x2), physiology of sensations, psychosomatic illness, emergency psychiatry</span></span>
+      <span class="wk"><b>Week 7</b> <span class="hit">Psychiatric disorders of childhood, of adolescence, psychological therapies (x2), psychological tests</span></span>
+      <span class="wk"><b>Week 8</b> <span class="hit">Antipsychotics, antidepressants, mood stabilisers, antianxiety drugs, forensic psychiatry</span></span>
+    </div>
+    <p class="watch"><b>The bit nobody else teaches you:</b> week 8. Which drug class for which disorder is a real question type on these papers and it is not in most psychology textbooks, because it's a psychiatry topic. Watch week 8 even if you watch nothing else.</p>
+    <p class="acts"><span class="lbl">Enrol</span><a class="go" href="https://onlinecourses.nptel.ac.in/noc23_ge19/preview" target="_blank" rel="noopener">NPTEL course page</a><a href="https://nptel.ac.in/courses/127105233" target="_blank" rel="noopener">NPTEL listing</a><a href="https://archive.nptel.ac.in/content/syllabus_pdf/127105233.pdf" target="_blank" rel="noopener">Official syllabus PDF</a></p>
+    <p class="acts"><span class="lbl">Pair with</span><a href="../notes/abnormal-barlow-durand/">Abnormal (Barlow &amp; Durand)</a><a href="../notes/icd/">ICD</a><a href="../notes/neurotransmitters/">Neurotransmitters</a><a href="../notes/psychotherapy-cheatsheet/">Psychotherapy</a></p>
+    <p class="acts"><span class="lbl">Then drill</span><a class="go" href="../quiz/ihbas-2025/">IHBAS 2025 (27 abnormal Q)</a><a href="../quiz/otta-mphil/">M.Phil question bank</a></p>
+  </div>
+</div>
+
+<div class="step" data-k="2">
+  <div class="rail"><div class="n">2</div><input type="checkbox" title="Mark watched"></div>
+  <div class="body">
+    <h3>Abnormal Psychology<span class="chip c-live">WATCH SECOND</span></h3>
+    <p class="meta">SWAYAM / CEC &middot; Dr. G Padmaja &middot; host university listed as <b>EFL University, Hyderabad</b> &middot; 12-week run &middot; 7,186 learners enrolled &middot; free</p>
+    <p class="why">This is the one I named on WhatsApp and it holds up. Padmaja is an Associate Professor and current Head at the <b>Centre for Health Psychology, University of Hyderabad</b>, and has taught psychology for over two decades at UG, PG <i>and M.Phil</i> level. That last word is the whole point: an M.Phil clinical psychology teacher is teaching the block that is 40 of 100 marks on IHBAS and the psychopathology core of RML CET-166. The course does classification, the disorder groups, causal factors, clinical picture and the psychological interventions, which is the exact shape your papers ask in.</p>
+    <p class="why"><b>One correction to what I sent you.</b> I said University of Hyderabad. SWAYAM lists the <i>host university</i> for this run as the English and Foreign Languages University, Hyderabad; Padmaja herself is at University of Hyderabad. Same person, same course, different administrative host. Doesn't change anything, but I'm not leaving a wrong detail standing.</p>
+    <p class="watch"><b>Honest limit:</b> the "Course outline" tab on this run's preview page is empty, so I can't print you a verified week-by-week split like I did for the NPTEL one. Twelve weeks is what SWAYAM's listing and the course write-ups say. Treat the week numbers as approximate until you're inside it.</p>
+    <p class="watch"><b>Where it beats reading:</b> aetiology. The disorder facts you can memorise off a cheatsheet. The four theoretical perspectives on each disorder (biological, behavioural, cognitive, humanistic) are the part that turns into "which model explains X" questions, and hearing someone reason through them sticks better than reading four bullet points.</p>
+    <p class="acts"><span class="lbl">Enrol</span><a class="go" href="https://onlinecourses.swayam2.ac.in/cec23_hs20/preview" target="_blank" rel="noopener">SWAYAM course page</a><a href="https://onlinecourses.swayam2.ac.in/cec21_hs12/preview" target="_blank" rel="noopener">Earlier run (2021)</a></p>
+    <p class="acts"><span class="lbl">Pair with</span><a href="../notes/abnormal-barlow-durand/">Abnormal (Barlow &amp; Durand)</a><a href="../notes/abnormal-psych-cheatsheet/">Abnormal cheatsheet</a><a href="../notes-app/#/read/psycho-didi-psychopathology">Psycho Didi: psychopathology</a></p>
+    <p class="acts"><span class="lbl">Then drill</span><a class="go" href="../quiz/ihbas-2025/">IHBAS 2025</a><a href="../quiz/rml-2024/">RML 2024</a></p>
+  </div>
+</div>
+
+<h3 class="sh">Two you take only if a specific thing is true</h3>
+
+<div class="step skip" data-k="3">
+  <div class="rail"><div class="n">3</div></div>
+  <div class="body">
+    <h3>Psychological Research<span class="chip c-wait">CONDITIONAL</span></h3>
+    <p class="meta">SWAYAM / CEC &middot; Dr. Sharanjit Kaur &middot; Kanya Maha Vidyalaya, Jalandhar &middot; 532 learners enrolled &middot; free</p>
+    <p class="why">This is the only course on either platform that covers <b>psychological testing as a topic in its own right</b>. Its stated learning outcomes include what a psychological test is, the steps by which a test is standardised, and the uses of psychological testing, alongside observation, interview, case study, surveys, experimental and quasi-experimental designs, sampling, population against sample, hypothesis formulation and research ethics. That is two of your blocks in one run: assessment (7 per 100 on the real papers) and stats-and-methods (10 of 100 on the blueprint, and it holds in the actual papers).</p>
+    <p class="watch"><b>The condition:</b> take it only if you've already been through the <a href="../notes/statistics/">Statistics book</a> and the assessment notes and something still isn't landing. The stats book is 17 sections with 27 diagrams and it's written to your papers; this course is written to a general PG psychology syllabus. The book wins on speed. The course wins if you specifically need a person explaining test standardisation out loud, which is the one topic where the notes are thinner than the rest of the site.</p>
+    <p class="watch"><b>Skip half of it.</b> The qualitative research half (focus groups, narrative, thematic) is real academic content and near-zero on your papers. Your papers ask reliability, validity, which test for which design, degrees of freedom, scales of measurement. Watch those, leave the rest.</p>
+    <p class="acts"><span class="lbl">Enrol</span><a class="go" href="https://onlinecourses.swayam2.ac.in/cec25_hs54/preview" target="_blank" rel="noopener">SWAYAM course page</a><a href="https://onlinecourses.swayam2.ac.in/cec23_hs58/preview" target="_blank" rel="noopener">Earlier run (2023)</a></p>
+    <p class="acts"><span class="lbl">Pair with</span><a class="go" href="../notes/statistics/">Statistics book</a><a href="../notes/research-methodology/">Research methodology</a><a href="../notes/assessment/">Assessment</a><a href="../notes/degrees-of-freedom/">Degrees of freedom</a></p>
+  </div>
+</div>
+
+<div class="step skip" data-k="4">
+  <div class="rail"><div class="n">4</div></div>
+  <div class="body">
+    <h3>Introduction to Cognitive Psychology<span class="chip c-wait">CONDITIONAL, LATE</span></h3>
+    <p class="meta">NPTEL &middot; <b>IIT Guwahati</b> &middot; Prof. Naveen Kashyap &middot; 12 weeks &middot; free to watch</p>
+    <p class="why">General and cognitive is your widest non-clinical area: 18 per 100 on the real IHBAS papers and <b>28 on CIP 2020</b>. It's also the area where reading cover to cover wastes the most time, which is exactly why it sits last on <a href="../six-areas/">Six Areas</a>. This course is the good version of it: Kashyap has taught cognitive psychology, research methodology and advanced cognitive processes to UG and PG students at IIT Guwahati for over ten years, and the twelve weeks are clean, one construct per week.</p>
+    <p class="watch"><b>The condition:</b> don't touch this until you've sat IHBAS 2024 cold and opened the <a href="../results/gap-map/">Gap Map</a>. If cognitive is not in your top three leaks, twelve weeks here is twelve weeks you owed to abnormal. If it is, watch <i>only</i> the weeks the gap map points at. That's what the week list below is for.</p>
+    <div class="weeks">
+      <span class="wk"><b>Week 1</b> <span class="cut">History, theory and research in human cognition</span></span>
+      <span class="wk"><b>Week 2</b> <span class="hit">Object perception and recognition</span></span>
+      <span class="wk"><b>Week 3</b> <span class="hit">Attentional processes and cognition</span></span>
+      <span class="wk"><b>Week 4</b> <span class="hit">Memory introduction</span></span>
+      <span class="wk"><b>Week 5</b> <span class="hit">Long term memory</span></span>
+      <span class="wk"><b>Week 6</b> <span class="hit">Memory of general knowledge</span></span>
+      <span class="wk"><b>Week 7</b> <span class="cut">Concept formation</span></span>
+      <span class="wk"><b>Week 8</b> <span class="cut">Visual and spatial memory</span></span>
+      <span class="wk"><b>Week 9</b> <span class="cut">Human language skills</span></span>
+      <span class="wk"><b>Week 10</b> <span class="hit">Thought process and problem solving</span></span>
+      <span class="wk"><b>Week 11</b> <span class="cut">Reasoning</span></span>
+      <span class="wk"><b>Week 12</b> <span class="cut">Decision making</span></span>
+    </div>
+    <p class="watch"><b>Green is worth your time, grey is not.</b> Weeks 2 to 6 and week 10 are where your papers actually live: perception, attention, and the memory models. Weeks 7 to 9 and 11 to 12 are proper cognitive science and barely show up on an RCI entrance. The one thing this course does <i>not</i> cover, and your papers do, is <b>learning and conditioning</b>: schedules of reinforcement, negative reinforcement against punishment. That's the densest cluster in your general block and it isn't in these twelve weeks. Read <a href="../notes/learning-conditioning/">the conditioning notes</a> for it.</p>
+    <p class="acts"><span class="lbl">Enrol</span><a class="go" href="https://onlinecourses.nptel.ac.in/noc20_hs29/preview" target="_blank" rel="noopener">NPTEL course page</a><a href="https://nptel.ac.in/courses/109103134" target="_blank" rel="noopener">NPTEL listing</a><a href="https://archive.nptel.ac.in/content/syllabus_pdf/109103134.pdf" target="_blank" rel="noopener">Official syllabus PDF</a></p>
+    <p class="acts"><span class="lbl">Also</span><a href="https://onlinecourses.nptel.ac.in/noc23_hs121/preview" target="_blank" rel="noopener">Advanced Cognitive Processes (Prof. Ark Verma, IIT Kanpur)</a></p>
+    <p class="acts"><span class="lbl">Pair with</span><a href="../notes/cognitive/">Cognitive</a><a href="../notes/general-psych/">General psychology</a><a href="../notes/learning-conditioning/">Learning &amp; conditioning</a></p>
+  </div>
+</div>
+
+<h3 class="sh">Real courses, and you should still skip them</h3>
+<p class="after">These all exist, they're all free, and every link below is live. They're here so you don't go hunting for them later and think you found something I missed. Each one says why it loses to something you already have.</p>
+
+<div class="step skip" data-k="5">
+  <div class="rail"><div class="n">5</div></div>
+  <div class="body">
+    <h3>Introduction to Brain and Behaviour &middot; Biopsychology<span class="chip c-last">SKIP, READ PINEL</span></h3>
+    <p class="meta">NPTEL &middot; IIT Kanpur &middot; Prof. Ark Verma &middot; 8 weeks &middot; 1,580 enrolled &nbsp;|&nbsp; SWAYAM / CEC &middot; Dr. Hemlata Joshi &middot; JNV University, Jodhpur &middot; 1,107 enrolled</p>
+    <p class="why"><b>Physiological is your weakest area, 78% on your RML 2020 breakdown, and video is the wrong tool for it.</b> That's not a knock on either course. Verma's eight weeks are genuinely good cognitive neuroscience (history and structure of the nervous system, methods, then the neural basis of sensation, object recognition, attention, memory, language and cognitive control). Joshi's SWAYAM run is closer to your syllabus: emergence, nature, scope and methods of biopsychology, neurons, neural conduction and synaptic transmission, CNS and PNS, and the endocrine system.</p>
+    <p class="why">The problem is what your papers ask. They ask transmitter-to-disorder pairings and structure-to-deficit pairings: damage here gives you what, too much of this gives you what. Learning that means staring at the same labelled diagram until it's automatic. <b>You cannot scrub a lecture at the speed you can flip back to a figure.</b> <a href="../notes-app/#/read/pinel">Pinel is in the Library with 310 real figures and all 9 tables</a>, 18 chapters, and it is the faster instrument for this specific job. Verma's course is also cognitive neuroscience, not the endocrine-and-sleep material your blueprint wants.</p>
+    <p class="watch"><b>If you want one exception:</b> weeks 1 and 2 of the IIT Kharagpur psychiatry course above (course 1 on this page) are neuroanatomy and neurotransmitters, and you're watching that course anyway. That's your biopsych video, and it's ten lectures, not sixteen.</p>
+    <p class="acts"><span class="lbl">Links</span><a href="https://onlinecourses.nptel.ac.in/noc25_hs39/preview" target="_blank" rel="noopener">NPTEL, Brain and Behaviour</a><a href="https://archive.nptel.ac.in/content/syllabus_pdf/109104171.pdf" target="_blank" rel="noopener">Its syllabus PDF</a><a href="https://onlinecourses.swayam2.ac.in/cec22_ed18/preview" target="_blank" rel="noopener">SWAYAM, Biopsychology</a></p>
+    <p class="acts"><span class="lbl">Read this</span><a class="go" href="../notes-app/#/read/pinel">Pinel, full depth, 310 figures</a><a href="../notes/biopsych-carlson/">Biopsych (Carlson depth)</a><a href="../notes/neurotransmitters/">Neurotransmitters</a><a href="../notes/hpa-axis/">HPA axis</a><a href="../notes/sleep/">Sleep</a></p>
+  </div>
+</div>
+
+<div class="step skip" data-k="6">
+  <div class="rail"><div class="n">6</div></div>
+  <div class="body">
+    <h3>Counseling Psychology (PG)<span class="chip c-last">SKIP, YOUR MANUAL IS DEEPER</span></h3>
+    <p class="meta">SWAYAM / CEC &middot; Dr Mamta Sharma, Professor of Psychology &middot; Punjabi University, Patiala &middot; 2,528 learners &middot; explicitly written at M.A. / M.Sc. / PG level</p>
+    <p class="why">On paper this is the right level: SWAYAM states it's part of the approved curriculum transacted in most Indian universities and taught at PG level, and it covers the basic process, skills and approaches of counselling. For the therapy block on RML CET-166 and Amity, that's the right target.</p>
+    <p class="why"><b>You skip it because you already sent me something better.</b> The AccAED <i>Certification in Professional Counselling</i> manual you sent on 4 August is 1,412 pages and runs about fifty therapy modalities, each in four parts: introduction, how it works, step-by-step process, then case studies. ACT, CBT, DBT, REBT, EMDR, Gestalt, existential, logotherapy, IPT, motivational interviewing, narrative, schema, sensorimotor, SFBT, somatic experiencing, transactional analysis, psychodrama, plus the expressive therapies, then the population chapters and session planning, ethics, therapeutic relationship, supervision. A one-semester survey course cannot go that deep on fifty approaches. <b>That manual is queued to go into the Library as its own shelf, full depth, theorist named at every approach.</b> I still need one answer from you: the full 1,412 pages, or a high-yield cut first covering only the approaches these exams actually ask.</p>
+    <p class="acts"><span class="lbl">Links</span><a href="https://onlinecourses.swayam2.ac.in/cec25_hs52/preview" target="_blank" rel="noopener">SWAYAM, Counseling Psychology (PG)</a><a href="https://onlinecourses.swayam2.ac.in/cec26_hs27/preview" target="_blank" rel="noopener">SWAYAM, Counselling Psychology (SPPU)</a></p>
+    <p class="acts"><span class="lbl">Read this</span><a class="go" href="../notes/psychotherapy-cheatsheet/">Psychotherapy cheatsheet</a><a href="../notes-app/#/read/therapy">Therapy shelf</a><a href="../notes-app/#/read/psycho-didi-interventions">Psycho Didi: interventions</a></p>
+  </div>
+</div>
+
+<div class="step skip" data-k="7">
+  <div class="rail"><div class="n">7</div></div>
+  <div class="body">
+    <h3>Developmental Psychology<span class="chip c-last">SKIP, SMALLEST CLOSED AREA</span></h3>
+    <p class="meta">SWAYAM / CEC &middot; Dr. Koijam Sobita Devi, Dept. of Teacher Education, Manipur University &middot; 1,363 learners</p>
+    <p class="why">The content is right. SWAYAM's own description names Piaget's cognitive development, Freud's psychosexual theory, Vygotsky's socio-cultural theory, Erikson's psychosocial theory, Kohlberg's moral development and Bronfenbrenner's ecological theory, and it explicitly handles the Indian socio-cultural context, which most Western textbooks don't.</p>
+    <p class="why"><b>You skip it on arithmetic.</b> Developmental is 9 per 100 on the real papers and it's the most closed area on your syllabus: four or five theorists with numbered stages plus a milestone table. You can hold the entire area in your head. Spending a twelve-week run on 9 marks, when the same content fits on <a href="../notes/dev-psych-cheatsheet/">one cheatsheet</a>, is the trade going the wrong way. And the exam tests the four stage sequences <i>against each other</i>, which is a side-by-side table job, not a lecture job.</p>
+    <p class="acts"><span class="lbl">Links</span><a href="https://onlinecourses.swayam2.ac.in/cec24_hs87/preview" target="_blank" rel="noopener">SWAYAM course page</a></p>
+    <p class="acts"><span class="lbl">Read this</span><a class="go" href="../notes/dev-psych-cheatsheet/">Developmental cheatsheet</a><a href="../notes/bronfenbrenner/">Bronfenbrenner</a><a href="../notes-app/#/read/psycho-didi-developmental">Psycho Didi: developmental</a></p>
+  </div>
+</div>
+
+<div class="step skip" data-k="8">
+  <div class="rail"><div class="n">8</div></div>
+  <div class="body">
+    <h3>Applied Social Psychology<span class="chip c-last">SKIP, WRONG KIND OF SOCIAL</span></h3>
+    <p class="meta">SWAYAM / CEC &middot; Rujuta Dhananjay Deshmankar &middot; Savitribai Phule Pune University &middot; 2,029 learners</p>
+    <p class="why"><b>Read the word "applied" carefully, because it's the whole reason this is a skip.</b> SWAYAM's description is explicit: the course applies social psychology to environment, population diversity, the legal system, work, health, sports and media, and covers the design, implementation and evaluation of programmatic interventions. That's an excellent course and it is not your paper.</p>
+    <p class="why">Your papers ask <b>classic experimental social psychology</b>: Asch, Milgram, Sherif, Festinger, Zimbardo, Latan&eacute; and Darley, and they want the finding and the name together. They also love the lookalike traps, fundamental attribution error against actor-observer bias, self-serving against self-handicapping, social loafing against social facilitation. An applied course does not drill named classic studies, and social is 11 per 100 on IHBAS and <b>1 question on the whole CIP 2020 paper</b>. Not worth a semester.</p>
+    <p class="acts"><span class="lbl">Links</span><a href="https://onlinecourses.swayam2.ac.in/cec25_hs88/preview" target="_blank" rel="noopener">SWAYAM course page</a></p>
+    <p class="acts"><span class="lbl">Read this</span><a class="go" href="../notes/social-psych/">Social psychology</a><a href="../notes/effects/">Named effects</a><a href="../notes-app/#/read/lookalikes">Lookalikes</a></p>
+  </div>
+</div>
+
+<div class="step skip" data-k="9">
+  <div class="rail"><div class="n">9</div></div>
+  <div class="body">
+    <h3>Personality, systems &amp; theories<span class="chip c-build">NOTHING EXISTS</span></h3>
+    <p class="meta">Searched SWAYAM and NPTEL. No PG-level course on either platform covers this block.</p>
+    <p class="why"><b>I looked and there isn't one, so I'm telling you instead of padding the list.</b> What SWAYAM has is <i>Personality Development</i>, which is a soft-skills and employability course, not trait theory, and general psychology surveys that give personality one week out of twelve (Freud, Jung, type A/B, trait theory, Big Five). NPTEL's <i>Introduction to Psychology</i> (Prof. Braj Bhushan, IIT Kanpur) gives it week 7 of 8. That's a single lecture on a block that's 10 of 100 on the IHBAS blueprint and 8 on CIP 2020.</p>
+    <p class="why">You don't need one anyway, and this is the one block where that's flatly true. You own the <a href="../quiz/systems-theories/">119-question Systems &amp; Theories bank</a>, the <a href="../notes/theories/">matching teaching notes</a>, and <a href="../notes-app/#/read/systems-theories-explained">all 119 answers written out in full</a>. This area is pure recall with a name attached to every idea, which makes it the most testable block you have and the least in need of a lecturer. If you can read a concept and say the theorist out loud before you look, you're finished with it.</p>
+    <p class="acts"><span class="lbl">If curious</span><a href="https://nptel.ac.in/courses/109104105" target="_blank" rel="noopener">NPTEL Intro to Psychology (Braj Bhushan)</a><a href="https://archive.nptel.ac.in/content/syllabus_pdf/109104105.pdf" target="_blank" rel="noopener">Its syllabus PDF</a></p>
+    <p class="acts"><span class="lbl">Read this</span><a class="go" href="../notes/theories/">Systems &amp; Theories notes</a><a href="../notes/personality/">Personality</a><a href="../notes/theorists/">Theorists</a><a href="../quiz/systems-theories/">The 119-Q mock</a></p>
+  </div>
+</div>
+
+<h3 class="sh">How SWAYAM and NPTEL actually work</h3>
+<div class="note">
+  <p style="margin:0 0 9px"><b>Both are free to watch.</b> Enrolment costs nothing on either platform. What costs money is the <i>certificate</i>, which requires registering for and sitting a proctored exam in person. NPTEL prints that fee at Rs 1,000. <b>You do not want the certificate.</b> It adds nothing to an RCI entrance application, it costs money, and sitting a proctored exam for a course you're using as revision is time taken from the papers that matter. Enrol, watch, ignore the exam.</p>
+  <p style="margin:0 0 9px"><b>SWAYAM runs on semester cycles.</b> Course IDs are stamped with the year (cec23, cec24, cec25, cec26), and runs open around January and July. If a run has closed, the preview page stays up and the course reappears in a later cycle, often under a new ID. That's why several cards above give you an earlier run as a second link: if the current one is closed, the old one usually still has its material visible.</p>
+  <p style="margin:0 0 9px"><b>NPTEL is the more durable of the two.</b> Its lectures go onto NPTEL's YouTube channels and its archive, so the videos outlive the run. That's another point in favour of course 1 on this page: it isn't going anywhere.</p>
+  <p style="margin:0"><b>You'll need a free account</b> on swayam.gov.in to open SWAYAM course material. NPTEL previews and syllabus PDFs open without one.</p>
+</div>
+
+<h3 class="sh">If you only have ten hours</h3>
+<p class="after">Because you probably do, and a twelve-week run is not ten hours.</p>
+<div class="note">
+  <p style="margin:0 0 8px"><b>Hours 1 to 3.</b> <a href="https://onlinecourses.nptel.ac.in/noc23_ge19/preview" target="_blank" rel="noopener">IIT Kharagpur psychiatry</a>, weeks 3 and 4. Descriptive psychopathology, schizophrenia, mood disorders, anxiety disorders, eating disorders. That's the densest stretch of the biggest block on your biggest target.</p>
+  <p style="margin:0 0 8px"><b>Hours 4 and 5.</b> Same course, week 8. The drug classes. Antipsychotics, antidepressants, mood stabilisers, antianxiety, then forensic psychiatry. This is the material that is genuinely not in your psychology notes, and it gets asked.</p>
+  <p style="margin:0 0 8px"><b>Hours 6 and 7.</b> Same course, weeks 1 and 2. Neuroanatomy and neurotransmitters. This is your 78% area getting its one video pass, and then you go back to <a href="../notes-app/#/read/pinel">Pinel</a> for the figures.</p>
+  <p style="margin:0 0 8px"><b>Hours 8 to 10.</b> Not video. <b>Sit <a href="../quiz/ihbas-2024/">IHBAS 2024</a> cold, full 100, one sitting</b>, then open the <a href="../results/gap-map/">Gap Map</a>. Three hours of that will tell you more about where your marks are leaking than any thirty hours of lectures, and it decides whether you ever watch course 3 or 4 on this page at all.</p>
+  <p style="margin:0"><b>Then stop watching.</b> Everything on this page is a second pass over reading you've already done. It is not a substitute for the loop: one topic read properly, 40 to 50 questions on that same topic the same day, then read every explanation including the ones you got right by guessing. Video is the easiest thing on your desk to do and the least productive per hour. That's exactly why it feels like studying.</p>
+</div>
+
+<h3 class="sh">What I checked, so you can trust the list</h3>
+<p class="after">Every course URL on this page was opened and returned a live page before it went up (a deliberately fake course ID returns 404 on both platforms, so a 200 means the course is really there). Instructor names, institutions and enrolment counts are read off the live SWAYAM and NPTEL course pages, not off a course-aggregator site. The week-by-week plans for the IIT Kharagpur psychiatry course, the IIT Guwahati cognitive course and the IIT Kanpur brain-and-behaviour course are taken verbatim from NPTEL's own official syllabus PDFs, linked on each card. Where a course's outline was not published (the SWAYAM abnormal psychology run), the card says so instead of guessing. The per-area question counts are the ones on <a href="../six-areas/">Six Areas</a>: the official IHBAS blueprint, the 292 tagged questions from the real IHBAS 2020, 2024 and 2025 papers, and the hand-classified CIP 2020 paper. The 78% physiological figure is from your own RML 2020 section breakdown.</p>
+
+<button class="reset" id="resetBtn">Reset ticks</button>
+
+</div>
+<script>
+const KEY = "what-to-watch-done-v1";
+let done = {};
+try { done = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e){ done = {}; }
+const steps = Array.from(document.querySelectorAll(".step")).filter(s => s.querySelector("input"));
+
+function paint(){
+  let n = 0;
+  for (const s of steps){
+    const on = !!done[s.dataset.k];
+    s.classList.toggle("done", on);
+    s.querySelector("input").checked = on;
+    if (on) n++;
+  }
+  const pc = steps.length ? Math.round(n / steps.length * 100) : 0;
+  document.getElementById("pcLab").textContent = n + " of " + steps.length + " watched";
+  document.getElementById("pcNum").textContent = pc + "%";
+  document.getElementById("pcFill").style.width = pc + "%";
+}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(done)); } catch(e){} }
+
+for (const s of steps){
+  s.querySelector("input").addEventListener("change", e => {
+    if (e.target.checked) done[s.dataset.k] = 1; else delete done[s.dataset.k];
+    save(); paint();
+  });
+}
+document.getElementById("resetBtn").addEventListener("click", () => { done = {}; save(); paint(); });
+paint();
+</script>
+</body>
+</html>
