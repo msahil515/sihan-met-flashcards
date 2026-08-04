@@ -258,6 +258,7 @@ PLAN = [
         ("7.13", "One common induction method for the rubberhand illusion. The participant\u2019s hand is hidden from view by a screen, and a rubber hand is placed next to their hidden hand but in clear sight."),
     ]),
     ("Pain, and the descending system that controls it", [
+        ("7.14", "Location of the anterior cingulate cortex in the cingulate gyrus."),
         ("7.15", "The thermal grid illusion. Pain is perceived when one\u2019s hand is placed on a grid of metal rods that alternate between cool and warm."),
         ("7.16", "When experienced as part of a ritual, normally excruciating conditions (e.g., walking on hot coals) often produce little pain."),
         ("7.17", "Basbaum and Fields\u2019s (1978) model of the descending analgesia circuit."),
@@ -553,11 +554,44 @@ PLAN = [
     ]),
 ]
 
-BLOCK = ('<figure class="bfig" id="fig-{sid}">'
-         '<a href="../figs/pinel/f_{sid}.jpg" target="_blank" rel="noopener">'
-         '<img src="../figs/pinel/f_{sid}.jpg" loading="lazy" alt="Pinel Figure {num}: {alt}"></a>'
-         '<figcaption><b>{cap}</b> <span>{credit} &middot; Fig&nbsp;{num}</span></figcaption>'
+BLOCK = ('<figure class="bfig" id="{kind}-{sid}">'
+         '<a href="../figs/pinel/{pfx}_{sid}.jpg" target="_blank" rel="noopener">'
+         '<img src="../figs/pinel/{pfx}_{sid}.jpg" loading="lazy" alt="Pinel {word} {num}: {alt}"></a>'
+         '<figcaption><b>{cap}</b> <span>{credit} &middot; {abbr}&nbsp;{num}</span></figcaption>'
          '</figure>')
+
+# The numbered TABLES, cropped in the same pass (see /tmp/sweep_pinel.py). They
+# were never in the `Figure N.M` inventory, so the 309-figure pass could not see
+# them; they are keyed "T<n>.<m>" here and share the whole placement pipeline.
+TABLE_PLAN = [
+    ("The founding text: Hebb, 1949", [
+        ("T1.1", "Nobel prizes specifically related to the nervous system or behavior."),
+    ]),
+    ("The six divisions of biopsychology", [
+        ("T1.2", "The six major divisions of biopsychology with examples of how they have approached the study of memory."),
+    ]),
+    ("Measuring sleep: three signals and five stages", [
+        ("T14.1", "Summary of the various sleep-stage terms."),
+    ]),
+    ("Why do we sleep? Two theories and three bodies of evidence", [
+        ("T14.2", "Average number of hours slept per day by various mammalian species."),
+    ]),
+    ("Drugs, and the disorders", [
+        ("T14.3", "Summary of the drugs that affect sleep."),
+    ]),
+    ("What the hemispheres actually differ in", [
+        ("T16.1", "Abilities that display some degree of cerebral lateralization."),
+    ]),
+    ("Darwin, and the three classical theories", [
+        ("T17.1", "Biopsychological investigation of emotion: six early landmarks."),
+    ]),
+    ("The search for the emotional brain", [
+        ("T17.2", "Categories of aggressive and defensive behaviors in rats."),
+    ]),
+    ("Clinical trials: how to read the evidence", [
+        ("T18.1", "Phases of drug development."),
+    ]),
+]
 
 
 STOP = set("""a an the of and or to in on at by for with from as is are was were be been being it its
@@ -628,6 +662,23 @@ def choose(figs, cands):
     return list(reversed(picks))
 
 
+def merged_plan():
+    """PLAN with the tables folded in under the same heading, so a section that
+    has both lays them out in one pass instead of two that fight each other."""
+    tbl = {}
+    for heading, items in TABLE_PLAN:
+        tbl.setdefault(heading, []).extend(items)
+    out, seen = [], set()
+    for heading, figs in PLAN:
+        seen.add(heading)
+        out.append((heading, list(figs) + tbl.get(heading, [])))
+    for heading, items in TABLE_PLAN:
+        if heading not in seen:
+            seen.add(heading)
+            out.append((heading, list(items)))
+    return out
+
+
 def main():
     with open(BOOK, encoding="utf-8") as f:
         doc = f.read()
@@ -636,16 +687,22 @@ def main():
     doc = re.sub(r'<div class="bfigs">.*?</div>\n?', '', doc, flags=re.S)
 
     placed, missing_file, missing_anchor = 0, [], []
-    for heading, figs in PLAN:
+    for heading, figs in merged_plan():
         usable = []
         for num, cap in figs:
-            sid = num.replace(".", "_")
-            if not os.path.isfile(os.path.join(FIGDIR, f"f_{sid}.jpg")):
+            is_tbl = num.startswith("T")
+            n = num[1:] if is_tbl else num
+            sid = n.replace(".", "_")
+            pfx = "t" if is_tbl else "f"
+            if not os.path.isfile(os.path.join(FIGDIR, f"{pfx}_{sid}.jpg")):
                 missing_file.append(num)
                 continue
             alt = re.sub(r'<[^>]+>', '', cap).rstrip('.')
-            usable.append((num, cap, BLOCK.format(sid=sid, num=num, cap=cap,
-                                                  alt=alt, credit=CREDIT)))
+            usable.append((num, cap, BLOCK.format(
+                sid=sid, num=n, cap=cap, alt=alt, credit=CREDIT, pfx=pfx,
+                kind="tbl" if is_tbl else "fig",
+                word="Table" if is_tbl else "Figure",
+                abbr="Table" if is_tbl else "Fig")))
         if not usable:
             continue
 
@@ -681,7 +738,7 @@ def main():
     with open(BOOK, "w", encoding="utf-8") as f:
         f.write(doc)
 
-    print(f"placed {placed} figures across {len(PLAN)} anchors")
+    print(f"placed {placed} figures+tables across {len(merged_plan())} anchors")
     if missing_file:
         print("MISSING IMAGE FILES:", missing_file)
     if missing_anchor:
