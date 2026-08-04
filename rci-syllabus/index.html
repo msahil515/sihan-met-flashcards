@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<script src="/sihan-met-flashcards/sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCI Syllabus — the course vs the six entrances</title>
+<link rel="stylesheet" href="/sihan-met-flashcards/notes-style.css">
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<meta name="theme-color" content="#0d1117">
+<style>
+  .wrap{max-width:min(1200px,96vw);padding-left:24px;padding-right:24px}
+  @media (max-width:600px){.wrap{padding-left:12px;padding-right:12px}}
+  .lede{color:var(--ink2);font-size:16px;background:var(--panel-2);border:1px solid var(--border);
+    border-radius:8px;padding:14px 18px;margin:18px 0 6px}
+  .updated{font-family:var(--sans);font-size:12px;color:var(--muted);margin:6px 0}
+  .why{border-left:3px solid var(--accent);background:rgba(61,111,208,.06);padding:11px 16px;margin:16px 0;
+    border-radius:0 6px 6px 0;font-family:var(--sans);font-size:14.5px;line-height:1.65}
+  .flag{background:rgba(192,57,43,.06);border:1px solid rgba(192,57,43,.2);border-radius:7px;
+    padding:11px 15px;margin:14px 0;font-family:var(--sans);font-size:13.5px;line-height:1.65}
+  .ok{background:rgba(26,127,55,.07);border:1px solid rgba(26,127,55,.25);border-radius:7px;
+    padding:11px 15px;margin:14px 0;font-family:var(--sans);font-size:13.5px;line-height:1.65}
+  .src{font-size:12.5px;color:var(--muted);font-family:var(--sans);line-height:1.7;margin:16px 0}
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0 8px;
+    border:1px solid var(--border);border-radius:10px}
+  table.t{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:13.5px}
+  table.t th,table.t td{padding:8px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--border)}
+  table.t thead th{background:var(--panel-2);color:var(--text);font-size:11px;letter-spacing:.03em;
+    text-transform:uppercase;border-bottom:2px solid var(--accent-dim);white-space:nowrap}
+  table.t td.num{font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+  table.t th.num{text-align:right}
+  table.t tbody tr:last-child td{border-bottom:none}
+  table.t tr.tot td{font-weight:800;background:var(--panel-2)}
+  table.t td.hi{background:rgba(61,111,208,.09);font-weight:700}
+  table.t td.zero{color:var(--muted)}
+  table.t th.stick,table.t td.stick{position:sticky;left:0;background:var(--panel);z-index:1}
+  table.t thead th.stick{background:var(--panel-2);z-index:2}
+  .col{border:1px solid var(--border);border-radius:12px;padding:18px 22px;margin:26px 0}
+  .col h2{margin:0 0 2px;font-size:23px}
+  .col .kicker{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin:0 0 14px;letter-spacing:.02em}
+  .col h3{font-family:var(--sans);font-size:14px;letter-spacing:.04em;text-transform:uppercase;
+    color:var(--accent);margin:22px 0 8px}
+  .badge{display:inline-block;font-family:var(--sans);font-size:10.5px;font-weight:800;padding:2px 7px;
+    border-radius:5px;vertical-align:middle;margin-left:7px;letter-spacing:.03em}
+  .b-off{background:rgba(26,127,55,.14);color:#1a7f37;border:1px solid rgba(26,127,55,.32)}
+  .b-der{background:rgba(201,138,31,.14);color:#a96f12;border:1px solid rgba(201,138,31,.32)}
+  .b-gap{background:rgba(192,57,43,.12);color:#c0392b;border:1px solid rgba(192,57,43,.3)}
+  blockquote.q{margin:10px 0;padding:10px 16px;border-left:3px solid var(--accent-dim);
+    background:var(--panel-2);border-radius:0 6px 6px 0;font-size:14.5px;line-height:1.65;color:var(--ink2)}
+  .kv{display:grid;grid-template-columns:max-content 1fr;gap:5px 16px;font-family:var(--sans);
+    font-size:13.5px;margin:10px 0;line-height:1.55}
+  .kv dt{color:var(--muted)}
+  .kv dd{margin:0;color:var(--text)}
+  .toc{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0 4px;font-family:var(--sans);font-size:13.5px}
+  .toc a{border:1px solid var(--border);border-radius:20px;padding:6px 15px;font-weight:700;text-decoration:none}
+  ul.tight{margin:8px 0;padding-left:20px;font-size:14.5px;line-height:1.7}
+  ul.tight li{margin:3px 0}
+  .papergrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin:14px 0}
+  .paper{border:1px solid var(--border);border-radius:10px;padding:14px 16px;background:var(--panel-2)}
+  .paper h4{font-family:var(--sans);font-size:15px;margin:0 0 3px}
+  .paper .pm{font-family:var(--sans);font-size:11.5px;color:var(--muted);margin:0 0 9px;letter-spacing:.02em}
+  .paper ol{margin:0;padding-left:19px;font-size:13.5px;line-height:1.6}
+  .paper ol li{margin:3px 0}
+  .new{color:#1a7f37;font-weight:700}
+</style>
+<script src="/sihan-met-flashcards/take/theme.js"></script>
+<link rel="stylesheet" href="/sihan-met-flashcards/revamp-skin.css">
+</head>
+<body>
+<div class="wrap">
+<nav><a href="../">← Home</a> <a href="../syllabus/">Entrance syllabus hub</a> <a href="../admissions/">Admissions</a> <a href="../six-areas/">Six areas</a> <a href="../tests/">Tests</a> <a href="../notes/">Notes</a></nav>
+
+<h1>The RCI Syllabus, and the six entrances</h1>
+<p class="updated">RCI curriculum · IHBAS · NIMHANS · CIP Ranchi · RML · DIMHANS · JSS &nbsp;·&nbsp; built 4 Aug 2026</p>
+
+<div class="lede">You asked for the RCI M.Phil Clinical Psychology syllabus for IHBAS, NIMHANS and the rest. There is no single answer to that, because <b>two different documents both get called "the syllabus"</b> and only one of them changes your prep. <b>(1) The course syllabus</b> is written centrally by the Rehabilitation Council of India and is the <i>same at every approved centre in the country</i> — six papers, fixed marks, fixed clinical hours. It tells you what you will study once you are in. It is quoted here off RCI's own two PDFs, verbatim. <b>(2) The entrance syllabus</b> is written by each institute separately, and they diverge hard — that is exactly the RML-vs-IHBAS thing you noticed. That is the one worth your time, and it is laid out side by side below, all six colleges, counted off real papers rather than described.</div>
+
+<div class="toc">
+<a href="#matrix">The six, side by side</a>
+<a href="#weights">Where the questions actually come from</a>
+<a href="#overlap">Overlap and gaps</a>
+<a href="#rci">The RCI course syllabus</a>
+<a href="#changed">M.Phil → MA: what changed</a>
+<a href="#institutes">Institute by institute</a>
+<a href="#sources">Sources</a>
+</div>
+
+<div class="why"><b>Short version, before anything else.</b> One syllabus covers 90–100% of every one of these papers, so you are not preparing six subjects, you are preparing one and then patching a small residue per college. The residue is small and named: RML's social-work / case-management strand (~12 of 100), NIMHANS' thin English-and-reasoning tail (~3), and CET-166's Section A of general awareness and reasoning. Everything else is the same eight areas in different proportions. The single biggest structural fact on this page is not a topic at all: <b>the new RCI MA rules make the interview worth 30%</b>, up from nothing at IHBAS and NIMHANS today.</div>
+
+<h2 id="matrix">The six, side by side</h2>
+<p>Pattern, selection weightage, and whether the college publishes a syllabus at all. RML is listed twice on purpose: the paper you actually sat in 2020 is the M.Phil CET, and CET-166 (the MA) is a different animal.</p>
+
+<div class="tablewrap">
+<table class="t">
+<thead><tr>
+<th class="stick">College</th><th>Course</th><th class="num">Qs</th><th class="num">Time</th><th>Negative</th><th>Selection split</th><th>Syllabus published?</th><th>Stipend</th>
+</tr></thead>
+<tbody>
+<tr><td class="stick"><b>IHBAS</b> Delhi</td><td>M.Phil / MA Cl.Psy (RCI)</td><td class="num">100</td><td class="num">90 min</td><td>None</td><td class="hi">Written only — no interview</td><td>Yes — a fixed per-section blueprint</td><td>₹25,000/mo</td></tr>
+<tr><td class="stick"><b>NIMHANS</b> Bengaluru</td><td>M.Clin.Psy / MA Cl.Psy (RCI)</td><td class="num">100</td><td class="num">90 min</td><td class="hi">−0.25</td><td class="hi">Written only — no interview</td><td>No — area list only</td><td>₹25,000/mo + ₹15,000/yr</td></tr>
+<tr><td class="stick"><b>CIP</b> Ranchi</td><td>M.Phil Cl.Psy (Stream A)</td><td class="num">100</td><td class="num">60 min</td><td>None</td><td>CBT 100 : interview 50 (33%)</td><td>No — scheme only ("MA/M.Sc standard")</td><td>₹25,000/mo</td></tr>
+<tr><td class="stick"><b>RML</b> Delhi — CET-166</td><td>MA Cl.Psy (RCI)</td><td class="num">~70 rep.</td><td class="num">n/p</td><td>None reported</td><td class="hi">70% test : 30% interview</td><td>No — area list only</td><td>Not published</td></tr>
+<tr><td class="stick"><b>RML</b> Delhi — M.Phil CET</td><td>M.Phil Cl.Psy (legacy)</td><td class="num">100</td><td class="num">120 min</td><td>None</td><td>90% CET : 10% interview</td><td>No</td><td>Yes (hospital)</td></tr>
+<tr><td class="stick"><b>JSS</b> Mysuru</td><td>MA Cl.Psy (RCI) + PDCP</td><td class="num">90</td><td class="num">60 min</td><td>None</td><td>Merit + viva 10 marks</td><td class="hi">Yes — nine named subjects</td><td>None (₹4.73 L/yr fee)</td></tr>
+<tr><td class="stick"><b>DIMHANS</b> Dharwad</td><td>M.Phil Cl.Psy</td><td class="num">100</td><td class="num">90 min</td><td class="hi">−0.25</td><td>Written + interview</td><td>No — nothing published</td><td>Karnataka domicile only</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="flag"><b>The row that should change how you sit these.</b> Negative marking exists on exactly two of them — <b>NIMHANS and DIMHANS, both −0.25</b>. IHBAS, CIP, JSS and both RML papers have none. So "leave nothing blank" is correct advice on four of these papers and wrong advice on two. Same person, same syllabus, opposite guessing rule depending on which hall you are sitting in. Get that wrong and it is worth several marks.</div>
+
+<h2 id="weights">Where the questions actually come from</h2>
+<p>This is the part that no brochure will give you. Four of the six have enough real papers on this site to count rather than guess, so every number below is <b>a count of actual questions, scaled to a 100-question paper</b>, not an estimate:</p>
+<ul class="tight">
+  <li><b>IHBAS</b> — all 292 questions from the three real IHBAS papers here (2020, 2024, 2025) tagged by area.</li>
+  <li><b>NIMHANS</b> — 300 questions across the 2023, 2024 and 2025 papers, rolling three-year average.</li>
+  <li><b>CIP</b> — the real CIP 2020 paper, all 100 items classified by hand. One paper only; read it as one paper.</li>
+  <li><b>RML</b> — the true section split of the RML 2020 M.Phil paper.</li>
+  <li><b>JSS</b> — no counts possible; it publishes nine named subjects and no past paper is in your collection, so its column says which subjects are <i>named</i>, not how heavily they are asked.</li>
+  <li><b>DIMHANS</b> — nothing. No published syllabus, no past paper anywhere. That column is honestly empty.</li>
+</ul>
+
+<div class="tablewrap">
+<table class="t">
+<thead><tr>
+<th class="stick">Area</th><th class="num">IHBAS<br>292 real Q</th><th class="num">NIMHANS<br>300 real Q</th><th class="num">CIP 2020<br>100 real Q</th><th class="num">RML 2020<br>100 real Q</th><th>JSS<br>official list</th><th>DIMHANS</th><th class="num">Mean<br>of the four</th>
+</tr></thead>
+<tbody>
+<tr><td class="stick">Abnormal &amp; psychopathology</td><td class="num hi">17</td><td class="num hi">15</td><td class="num hi">25</td><td class="num hi">19</td><td>Named</td><td class="zero">—</td><td class="num"><b>19</b></td></tr>
+<tr><td class="stick">General / cognitive / learning</td><td class="num">18</td><td class="num">8</td><td class="num hi">28</td><td class="num">12</td><td>Named</td><td class="zero">—</td><td class="num"><b>16.5</b></td></tr>
+<tr><td class="stick">Biopsychology / physiological</td><td class="num">13</td><td class="num">13</td><td class="num">15</td><td class="num">9</td><td>Named</td><td class="zero">—</td><td class="num"><b>12.5</b></td></tr>
+<tr><td class="stick">Clinical / psychotherapy</td><td class="num">15</td><td class="num hi">18</td><td class="num">2</td><td class="num">8</td><td>Named</td><td class="zero">—</td><td class="num"><b>10.75</b></td></tr>
+<tr><td class="stick">Statistics &amp; research methods</td><td class="num">10</td><td class="num">12</td><td class="num">9</td><td class="num">8</td><td>Named</td><td class="zero">—</td><td class="num"><b>9.75</b></td></tr>
+<tr><td class="stick">Social psychology</td><td class="num">11</td><td class="num">9</td><td class="num">1</td><td class="num hi">16</td><td>Named</td><td class="zero">—</td><td class="num"><b>9.25</b></td></tr>
+<tr><td class="stick">Developmental</td><td class="num">9</td><td class="num">12</td><td class="num">5</td><td class="num">9</td><td>Named</td><td class="zero">—</td><td class="num"><b>8.75</b></td></tr>
+<tr><td class="stick">Assessment / psychometrics</td><td class="num">7</td><td class="num">10</td><td class="num">7</td><td class="num">9</td><td>Named</td><td class="zero">—</td><td class="num"><b>8.25</b></td></tr>
+<tr><td class="stick">Personality <span style="color:var(--muted);font-weight:400">(see note)</span></td><td class="num zero">in General</td><td class="num zero">in General</td><td class="num">8</td><td class="num">0</td><td>Named</td><td class="zero">—</td><td class="num"><b>2</b></td></tr>
+<tr><td class="stick">Systems / case mgmt / social work</td><td class="num zero">0</td><td class="num zero">0</td><td class="num zero">0</td><td class="num hi">10</td><td class="zero">Not named</td><td class="zero">—</td><td class="num"><b>2.5</b></td></tr>
+<tr><td class="stick">English / reasoning / GK</td><td class="num zero">0</td><td class="num">3</td><td class="num zero">0</td><td class="num zero">0</td><td class="zero">Not named</td><td class="zero">—</td><td class="num"><b>0.75</b></td></tr>
+<tr class="tot"><td class="stick">Total</td><td class="num">100</td><td class="num">100</td><td class="num">100</td><td class="num">100</td><td>9 subjects</td><td class="zero">no data</td><td class="num">100</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="flag"><b>Do not read the Personality row as "personality is not asked."</b> It is a tagging artefact and I am not hiding it. On the IHBAS and NIMHANS counts, personality items were tagged into General/cognitive; on the CIP count they were kept as their own row. IHBAS's <i>published</i> blueprint in fact reserves a separate <b>Personality: 10</b>, which is almost exactly the gap between IHBAS's General reading 18 here and the blueprint's General of 10. So the honest reading is: personality is worth roughly 8–10 marks on every one of these papers, it is just buried inside somebody else's column. Prepare it as a full area.</div>
+
+<h2 id="overlap">Overlap and gaps — the actual answer</h2>
+
+<div class="ok"><b>The overlap.</b> Eight areas — abnormal, general/cognitive, biopsych, clinical/therapy, stats and research methods, social, developmental, assessment — account for <b>100% of the IHBAS paper, 97% of NIMHANS, 100% of CIP</b> (its Personality 8 is part of the same core) <b>and 90% of RML 2020</b>. Those same eight are eight of JSS's nine named subjects. So a single body of preparation is worth 90 to 100 marks out of every 100 on every college on this page. That is the whole finding: <b>you are preparing one subject, not six.</b></div>
+
+<p>The gaps are small, specific and worth naming precisely, because each one is cheap to close once you know it exists:</p>
+
+<div class="tablewrap">
+<table class="t">
+<thead><tr><th class="stick">The gap</th><th class="num">Size</th><th>Whose paper</th><th>What to do about it</th></tr></thead>
+<tbody>
+<tr><td class="stick"><b>Social work, systems and case management</b></td><td class="num">~12 / 100</td><td>RML only</td><td>Zero of it in the IHBAS blueprint and zero across 292 tagged IHBAS questions. It is the single largest college-specific block on this page, and it is the one that cost you four of your nine misses on RML 2020. Already broken down on <a href="../rml-2020-nine/">the nine, with the why</a>.</td></tr>
+<tr><td class="stick"><b>General awareness, logical reasoning, research aptitude</b></td><td class="num">~20 marks of ~70</td><td>RML CET-166 (the MA)</td><td>Section A exists only on CET-166 and on no other paper here. Research aptitude overlaps your stats prep completely; the reasoning and GK layer is thin, factual and worth a couple of timed sets, not a course. <a href="../rml/">RML brief</a>.</td></tr>
+<tr><td class="stick"><b>English / verbal reasoning tail</b></td><td class="num">~3 / 100</td><td>NIMHANS only</td><td>Three marks. A ten-minute weekly drill, and nothing more than that. Do not let it eat prep time.</td></tr>
+<tr><td class="stick"><b>Indian psychology, past and present</b></td><td class="num">variable</td><td>RML heavily, Amity heavily, others lightly</td><td>The one topic where RML and Amity go deeper than IHBAS or NIMHANS. Both ends get asked: the classical frameworks and the modern Indian history (first departments, RCI, the Acts). Covered in the <a href="../notes/rml-study-material/">RML study material</a>.</td></tr>
+<tr><td class="stick"><b>Nothing at all</b></td><td class="num">?</td><td>DIMHANS</td><td>No syllabus, no paper, and Karnataka domicile required for both its courses. Until a notification PDF or a recalled paper arrives, the honest position is that prepping the core eight is the best available proxy — plus <b>do not blind-guess</b>, because of the −0.25.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="why"><b>The one real divergence inside the shared core.</b> It is not "how much clinical", which is near-identical everywhere (39 per 100 on IHBAS against 36 on RML 2020). It is <b>which half of the clinical block carries it</b>. CIP 2020 put 25 into abnormal and 2 into therapy. NIMHANS puts 18 into therapy, the most of any of them. IHBAS splits it 17/15. So the movable part is <b>psychotherapy and the therapy schools — who founded what, named in full</b>. That is the one sub-area whose weight genuinely triples or collapses depending on which college's hall you are in, which is the argument for preparing abnormal and therapy as a single unit and never betting on last year's split.</div>
+
+<h2 id="rci">The RCI course syllabus <span class="badge b-off">OFFICIAL</span></h2>
+<p class="updated">Rehabilitation Council of India · quoted off RCI's own guideline PDFs</p>
+
+<p>This is the part that is genuinely centralised. RCI writes one curriculum and every approved centre — IHBAS, NIMHANS, CIP, RML, DIMHANS, JSS, all of them — teaches it. The current live document is the <b>MA in Clinical Psychology (RCI Regulated Programme), effective 2025-26</b>, which replaces the M.Phil. Both documents are covered here because the M.Phil version is still running in the centres that have not converted yet.</p>
+
+<blockquote class="q">"With the implementation of NEP 2020 there has been marked shift in higher education including professional education. One of the changes mandated by UGC is to discontinue all M.Phil. programmes including M.Phil. in Clinical Psychology. It has therefore, necessitated the present programme in place of M.Phil. Clinical Psychology. It is being nomenclated as 'M.A. (Clinical Psychology) 2 year programme, RCI regulated'." — RCI, MA Clinical Psychology Guidelines &amp; Syllabus, 2025, preface</blockquote>
+
+<h3>The six papers</h3>
+<p>Two years, three theory papers a year, plus practicals, case submissions and a thesis. Every paper is 3 hours, 70 marks final assessment + 30 internal = 100.</p>
+
+<div class="papergrid">
+  <div class="paper">
+    <h4>Year 1 · Paper I — Psychosocial Foundations of Behavior and Psychopathology</h4>
+    <p class="pm">3 hr · 70 + 30 = 100 marks · 12 units</p>
+    <ol>
+      <li>Introduction: scope of clinical psychology, the profession and practice</li>
+      <li>Mental health and illness: care past and present, stigma and attitude</li>
+      <li>Epidemiology: Indian studies, socio-cultural correlates</li>
+      <li>Self and relationships: self-concept, self-image, self-regulation</li>
+      <li>Family influences: early deprivation, trauma, neglect and abuse, attachment</li>
+      <li>Societal influences: discrimination by race, gender, ethnicity; social class</li>
+      <li>Disability: definition, classification, psychosocial models</li>
+      <li>Rehabilitation: approaches and interventions</li>
+      <li><span class="new">Rights issue: UNCRPD, empowerment, rights of the disabled</span></li>
+      <li>Introduction to psychopathology: normality and abnormality</li>
+      <li>Psychological theories: psychodynamic, behavioural, cognitive, humanistic</li>
+      <li>Indian thoughts: concepts of mental health and illness, nosology, taxonomy</li>
+    </ol>
+  </div>
+  <div class="paper">
+    <h4>Year 1 · Paper II — Psychiatry</h4>
+    <p class="pm">3 hr · 70 + 30 = 100 marks · 6 units (was 11 in the M.Phil)</p>
+    <ol>
+      <li>Psychoses and neurotic disorders: schizophrenia, affective, delusional</li>
+      <li>Disorders of personality and behaviour</li>
+      <li>Organic mental disorders: dementia, delirium</li>
+      <li>Behavioural, emotional and developmental disorders of childhood</li>
+      <li>Neurobiology of mental disorders and current therapeutics</li>
+      <li>Liaison psychiatry and subspecialties</li>
+    </ol>
+  </div>
+  <div class="paper">
+    <h4>Year 1 · Paper III — Statistics and Research Methodology</h4>
+    <p class="pm">3 hr · 70 + 30 = 100 marks · 6 units (was 12)</p>
+    <ol>
+      <li>Introduction: hypothesis testing, significance, sample</li>
+      <li>Epidemiological studies: rates, prevalence, incidence</li>
+      <li>Analysis of variance: fixed, random and mixed effects models</li>
+      <li>Multivariate analysis: multiple regression, logistic regression, PLS</li>
+      <li>Qualitative research: methods and analysis</li>
+      <li><span class="new">AI: machine learning, neural networks for prediction, and applications</span></li>
+    </ol>
+  </div>
+  <div class="paper">
+    <h4>Year 2 · Paper I — Biological Determinants of Behavior and Neuropsychology</h4>
+    <p class="pm">3 hr · 70 + 30 = 100 marks · two blocks</p>
+    <ol>
+      <li>Anatomical subdivisions of the brain, surface and interior structures</li>
+      <li>Biochemistry of the brain, medical genetics</li>
+      <li>Neurobiology of sensory-motor systems</li>
+      <li>Psychopharmacology: principles, sites of drug action</li>
+      <li>Neuropsychology: structure-function, frontal and temporal lobe syndromes</li>
+      <li>Parietal and occipital lobe syndromes</li>
+      <li>Neuropsychological assessment: principles, approaches, indications</li>
+      <li>Neuropsychological rehabilitation</li>
+    </ol>
+  </div>
+  <div class="paper">
+    <h4>Year 2 · Paper II — Behavioral Medicine</h4>
+    <p class="pm">3 hr · 70 + 30 = 100 marks · 7 units</p>
+    <ol>
+      <li>Introduction: psycho-behavioural influence on neuroendocrine systems</li>
+      <li>Central nervous system: disturbance in major CNS conditions</li>
+      <li>Cardiovascular system: personality, lifestyle, health practice</li>
+      <li>Respiratory system</li>
+      <li>Genitourinary / renal / reproductive: sexual and psychosocial issues</li>
+      <li>Gastrointestinal system and dermatology</li>
+      <li>Oncology and pain</li>
+    </ol>
+  </div>
+  <div class="paper">
+    <h4>Year 2 · Paper III — Psychotherapy and Counseling</h4>
+    <p class="pm">3 hr · 70 + 30 = 100 marks · 7 units</p>
+    <ol>
+      <li>Introduction: training of therapists, ethical and legal issues, rights</li>
+      <li>Affective psychotherapies: psychodynamic, historical and empirical status</li>
+      <li>Behaviour therapies: indications and empirical status</li>
+      <li>Cognitive therapies: REBT and the rest, indications and empirical status</li>
+      <li>Systemic and physiological therapies: family therapy and others</li>
+      <li>Counselling and psychoeducation: behavioural, cognitive, humanistic</li>
+      <li>Psychotherapy research: treatment effects, comparators</li>
+    </ol>
+  </div>
+</div>
+
+<h3>Marks, and where they sit</h3>
+<div class="tablewrap">
+<table class="t">
+<thead><tr><th class="stick">Component</th><th>Year 1</th><th class="num">Marks</th><th>Year 2</th><th class="num">Marks</th></tr></thead>
+<tbody>
+<tr><td class="stick">Theory Paper I</td><td>Psychosocial Foundations &amp; Psychopathology</td><td class="num">100</td><td>Biological Determinants &amp; Neuropsychology</td><td class="num">100</td></tr>
+<tr><td class="stick">Theory Paper II</td><td>Psychiatry</td><td class="num">100</td><td>Behavioral Medicine</td><td class="num">100</td></tr>
+<tr><td class="stick">Theory Paper III</td><td>Statistics &amp; Research Methodology</td><td class="num">100</td><td>Psychotherapy &amp; Counseling</td><td class="num">100</td></tr>
+<tr><td class="stick">Practical + viva</td><td>Psychological Assessments &amp; Clinical Placement I</td><td class="num">100</td><td>Psychological Therapy &amp; Clinical Placement II</td><td class="num">200</td></tr>
+<tr><td class="stick">Submission</td><td>Five full-length psychodiagnostic reports</td><td class="num">100</td><td>Five full-length psychotherapy reports</td><td class="num">100</td></tr>
+<tr><td class="stick">Thesis</td><td>—</td><td class="num">—</td><td>Research thesis</td><td class="num">100</td></tr>
+<tr class="tot"><td class="stick">Total</td><td></td><td class="num">500</td><td></td><td class="num">700</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-family:var(--sans);font-size:13.5px;line-height:1.7">Pass mark is <b>50% in each</b> theory paper, each practical and viva, each submission and the thesis — separately, not in aggregate. 75%+ overall is a distinction, 60–75% is First Class, and the merit class is only awarded if both parts are cleared in the first attempt. No more than three attempts at either part. <b>Only 300 of the 1,200 marks in the whole degree are the classic Year-2 theory papers.</b> Half the degree is practicals, case records and a thesis.</p>
+
+<h3>The clinical work that is actually mandated</h3>
+<p>This is the bit that makes the course what it is, and it is a fixed floor, not a suggestion. By the end of the two years:</p>
+<div class="tablewrap">
+<table class="t">
+<thead><tr><th class="stick">Requirement</th><th class="num">By end of Year 1</th><th class="num">By end of Year 2</th></tr></thead>
+<tbody>
+<tr><td class="stick">Detailed case histories</td><td class="num">50</td><td class="num">70</td></tr>
+<tr><td class="stick">Clinical interviews</td><td class="num">40</td><td class="num">60</td></tr>
+<tr><td class="stick">Full-length psychodiagnostics</td><td class="num">40</td><td class="num">50</td></tr>
+<tr><td class="stick">Neuropsychological assessments</td><td class="num">5</td><td class="num">10</td></tr>
+<tr><td class="stick">Psychological therapies</td><td class="num">—</td><td class="num">200 hrs</td></tr>
+<tr><td class="stick">Behaviour therapies</td><td class="num">—</td><td class="num">200 hrs</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-family:var(--sans);font-size:13.5px;line-height:1.7">Of the therapy hours, no fewer than 50 hours each in: therapies with children; individual therapies with adults; family/marital/group/sex therapy; and psychological or neuropsychological rehabilitation. A supervised logbook has to be produced to the examiners. And the reason the seat counts are so brutally small is in the same document: a centre needs a <b>minimum turnover of 250 cases a month for an intake of four candidates</b>, and one extra seat per additional 50 cases a month. That is why IHBAS has 11 seats and CIP has 21 — the ceiling is the hospital's caseload, not the classroom.</p>
+
+<h2 id="changed">M.Phil → MA: what actually changed <span class="badge b-off">OFFICIAL</span></h2>
+<p>Both RCI documents were read side by side. The content is close to identical; the structural changes are what matter to you.</p>
+
+<div class="tablewrap">
+<table class="t">
+<thead><tr><th class="stick">&nbsp;</th><th>M.Phil Clinical Psychology (2017 syllabus)</th><th>MA Clinical Psychology, RCI regulated (2025 syllabus)</th></tr></thead>
+<tbody>
+<tr><td class="stick"><b>Who can sit it</b></td><td>2-year M.A./M.Sc. Psychology, 55% (50% SC/ST)</td><td class="hi">4-year B.A./B.Sc. Psychology, 55%. A 3-year graduate must clear the fourth-year bridge or the first year of a Master's</td></tr>
+<tr><td class="stick"><b>Selection weightage</b></td><td>"an entrance examination, consisting of a written test and interview" — <i>no weightage prescribed</i></td><td class="hi">"The weightage of entrance test shall be 70% whereas the interview will be of 30%" — prescribed centrally</td></tr>
+<tr><td class="stick"><b>Year 1 papers</b></td><td>I Psychosocial Foundations · II Statistics &amp; Research Methodology · III Psychiatry</td><td>I Psychosocial Foundations · II <b>Psychiatry</b> · III <b>Statistics &amp; Research Methodology</b> (II and III swap)</td></tr>
+<tr><td class="stick"><b>Year 2 papers</b></td><td>I Biological Foundations of Behavior · II Psychotherapy &amp; Counseling · III Behavioral Medicine</td><td>I Biological Determinants of Behavior <b>and Neuropsychology</b> · II <b>Behavioral Medicine</b> · III <b>Psychotherapy &amp; Counseling</b></td></tr>
+<tr><td class="stick"><b>Research</b></td><td>"Dissertation", 100 marks</td><td>"Research Thesis", 100 marks</td></tr>
+<tr><td class="stick"><b>Practicals</b></td><td>Psychological Assessments / Therapies + viva</td><td>Same, now explicitly including <b>Clinical Placement I and II</b></td></tr>
+<tr><td class="stick"><b>Notable new content</b></td><td>Paper I Unit IX was Policies and Acts (Mental Health Act 1987 etc.)</td><td class="hi">Paper I Unit IX is now <b>Rights / UNCRPD</b>. Stats gains a unit on <b>AI, machine learning and neural networks</b>. Psychiatry compresses 11 units to 6, Stats 12 to 6</td></tr>
+<tr><td class="stick"><b>Marks total</b></td><td>500 + 700 = 1,200</td><td>Unchanged — 500 + 700 = 1,200</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="flag"><b>The 70/30 rule is the thing to watch, and it has not landed everywhere yet.</b> RCI's MA document prescribes 70% written and 30% interview. Right now <b>only RML's CET-166 actually matches it</b>. IHBAS and NIMHANS still select on the written paper alone with no interview, CIP runs 100 CBT against a 50-mark interview, JSS adds a 10-mark viva. Those are the institutes' own current published patterns and they govern the exam you will actually sit — but as each converts its M.Phil to the RCI MA, the interview is contractually supposed to become worth <b>30% of the decision</b>. On a paper where you are scoring 91, a 30% interview is a bigger swing than any topic on this page. Check the interview weightage on every notification before you sit it, and treat <a href="../notes/therapy-style/">the therapy-style profile</a> and <a href="../dissertation/">dissertation prep</a> as scoring prep, not decoration.</div>
+
+<h2 id="institutes">Institute by institute</h2>
+<p>The four colleges you are actually sitting already have their entrance syllabus broken down in full on the <a href="../syllabus/">Entrance Syllabus Hub</a> — IHBAS's published blueprint checked against 292 real questions, CIP rebuilt from the real 2020 paper, JSS's nine official subjects quoted verbatim, and DIMHANS with its domicile problem. That page is not duplicated here. What follows is the two that were missing from it, plus a pointer for each of the rest.</p>
+
+<div class="col" id="nimhans">
+<h2>NIMHANS, Bengaluru</h2>
+<p class="kicker">National Institute of Mental Health &amp; Neurosciences · M.Phil Clinical Psychology, now the Master in Clinical Psychology (M.Clin.Psy, RCI) · Institute of National Importance</p>
+
+<h3>Exam pattern <span class="badge b-off">OFFICIAL</span></h3>
+<dl class="kv">
+<dt>Questions</dt><dd>100 multiple-choice</dd>
+<dt>Duration</dt><dd>90 minutes</dd>
+<dt>Marking</dt><dd>+1 correct, <b>−0.25 incorrect</b>, 0 unanswered</dd>
+<dt>Interview</dt><dd><b>None.</b> Selection is on the entrance test plus verification of original documents on the day of admission</dd>
+<dt>Seats</dt><dd>32 — 23 All-India institute stipendiary, 6 Karnataka domicile, 3 foreign/sponsored</dd>
+<dt>Fee</dt><dd>₹24,800</dd>
+<dt>Stipend</dt><dd>₹25,000/month plus a ₹15,000/year contingency grant</dd>
+<dt>Eligibility</dt><dd>4-year Psychology graduation, or 3-year Psychology graduation plus a Master's in Psychology / Clinical / Applied Psychology. Age 32 or below at course commencement</dd>
+<dt>2026 cycle</dt><dd>Applications 2–31 Mar 2026 · entrance 29–31 May 2026 · course starts 1 Jul 2026</dd>
+</dl>
+
+<h3>Published syllabus <span class="badge b-gap">GAP</span></h3>
+<p>NIMHANS does not publish a topic-level syllabus. The prospectus names the branches the paper draws on — social, developmental and abnormal psychology, psychological assessment and research methodology — and nothing more granular than that. Anyone selling you a "NIMHANS syllabus PDF" is selling you a reconstruction, the same as the one below, just without telling you.</p>
+
+<h3>Syllabus reconstructed from 300 real questions <span class="badge b-der">FROM PAST PAPERS</span></h3>
+<p>Three memory-based papers — 2023, 2024 and 2025 — tagged by area and averaged. This is the same method used for IHBAS and CIP on the hub page.</p>
+<div class="tablewrap">
+<table class="t">
+<thead><tr><th class="stick">Area</th><th class="num">Per 100 Q</th><th>What it actually asks</th></tr></thead>
+<tbody>
+<tr><td class="stick">Therapy / behaviour change</td><td class="num hi">18</td><td>Reinforcement and conditioning, schedules, the Premack principle, the schools of therapy with founders. The heaviest single area, and heavier here than on any other paper on this page</td></tr>
+<tr><td class="stick">Abnormal / psychopathology</td><td class="num">15</td><td>Personality disorders, the delusional syndromes (Capgras, Fregoli, Othello, de Clérambault, Cotard), schizophrenia, folie à deux</td></tr>
+<tr><td class="stick">Biopsych / neuropsych</td><td class="num">13</td><td>Aphasias, amnesia (H.M.), endocrine, extrapyramidal side effects, the reticular activating system</td></tr>
+<tr><td class="stick">Developmental</td><td class="num">12</td><td>Erikson and Piaget dominate; Bronfenbrenner and Marcia secondary</td></tr>
+<tr><td class="stick">Research / biostatistics</td><td class="num">12</td><td>Sampling, factor analysis, study designs, Type I and II error</td></tr>
+<tr><td class="stick">Assessment</td><td class="num">10</td><td>Wechsler subtests, Rorschach scoring systems, the Indian batteries (Bhatia, MISIC, Binet-Kamat)</td></tr>
+<tr><td class="stick">Social</td><td class="num">9</td><td>Bystander effect, just-world hypothesis, attribution biases, Type A and Type D</td></tr>
+<tr><td class="stick">General / cognitive</td><td class="num">8</td><td>Memory models, defence mechanisms, Indian psychology, heuristics</td></tr>
+<tr><td class="stick">English / reasoning</td><td class="num">3</td><td>Light. A ten-minute weekly drill, nothing more</td></tr>
+<tr class="tot"><td class="stick">Total</td><td class="num">100</td><td></td></tr>
+</tbody>
+</table>
+</div>
+<div class="why"><b>What makes NIMHANS different from the other five.</b> Two things, and only two. First, <b>therapy is the top area</b> at 18 — on CIP the same area was 2. If you prepare for CIP and walk into NIMHANS you have under-prepared the single biggest block. Second, it is one of only two papers here with <b>negative marking</b>, and it is also the one with no interview, so the written score is the entire decision <i>and</i> wrong answers cost you. That combination makes NIMHANS the paper where guessing discipline is worth the most marks. Everything else about it is the standard core.</div>
+<p style="font-family:var(--sans);font-size:13.5px">Drill it: <a href="../notes/nimhans-pyq-breakdown/">the full NIMHANS PYQ breakdown</a> with the tier-1 lockdown list · <a href="../nimhans-cutoff/">cut-off and rank page</a> · <a href="../nimhans-mclinpsy-2026/">M.Clin.Psy 2026 rank</a></p>
+</div>
+
+<div class="col" id="rml">
+<h2>RML, Delhi — and which paper is which</h2>
+<p class="kicker">ABVIMS &amp; Dr. Ram Manohar Lohia Hospital · degree awarded through GGSIPU · two separate RCI clinical trainings that get confused constantly</p>
+
+<div class="flag"><b>RML runs two programmes and they are not the same exam.</b> The <b>legacy M.Phil</b> CET is 100 MCQs × 4 marks, 120 minutes, no negative, 90% CET + 10% interview, ~13 seats. <b>CET-166</b> is the new RCI MA — reported as ~70 marks split into a Section A of general awareness, logical reasoning and research aptitude (~20) plus a Section B of subject psychology (~50), with 70% test + 30% interview. The 2020 paper you sat is the M.Phil one. It is a fair <i>content</i> rehearsal for CET-166 and an unreliable <i>format</i> rehearsal.</div>
+
+<h3>Published syllabus <span class="badge b-gap">GAP</span></h3>
+<p>GGSIPU publishes no numbered CET-166 syllabus. What is confirmed is the area list: general psychology, clinical psychology, child/developmental psychology, research methods, assessment and tests, counselling and psychotherapy, social, personality, biopsychology, Indian psychology. The depth comes from how the RML/IPU clinical papers have actually behaved, and all six real RML papers (2020 through 2025) are live as mocks on this site with per-distractor explanations.</p>
+
+<h3>How the RML paper behaves <span class="badge b-der">FROM PAST PAPERS</span></h3>
+<ul class="tight">
+  <li><b>Clinical and therapy are factual and founder-driven.</b> Who developed which therapy, plus the acronyms themselves — REBT, DBT, ACT, EMDR, IPT, MI. The paper rewards the name, not the concept.</li>
+  <li><b>Abnormal goes deliberately beyond DSM.</b> In-depth, factual, and fond of disorders current DSM has dropped. A DSM-only revision misses exactly what they fish for; lean on ICD and the classic eponyms.</li>
+  <li><b>Indian psychology, both ends of the timeline.</b> The classical frameworks <i>and</i> the modern history — first departments, RCI, the Acts. Revising only the Vedantic side is the standard trap.</li>
+  <li><b>The social-work and case-management strand.</b> 10 of 100 on the 2020 paper, plus roughly 2 more inside the Social block. RML only — no other college on this page asks it.</li>
+</ul>
+<p style="font-family:var(--sans);font-size:13.5px">Full breakdown: <a href="../rml/">the RML brief</a> · <a href="../ihbas-vs-rml/">IHBAS vs RML, counted</a> · <a href="../rml-2020-nine/">the nine misses, with the why</a> · <a href="../notes/rml-study-material/">RML study material from scratch</a> · <a href="../rml-latest/">all six RML mocks</a></p>
+</div>
+
+<div class="col">
+<h2>The other four, in one line each</h2>
+<p class="kicker">Full treatment on the <a href="../syllabus/">Entrance Syllabus Hub</a> — this is the pointer, not a duplicate</p>
+<dl class="kv">
+<dt><b>IHBAS</b></dt><dd>The only college here that effectively hands you a syllabus: a fixed 100-question blueprint — Clinical 25, Abnormal 15, then ten each for General, Social, Physiological, Personality, Developmental and Stats. Checked against 292 real questions and it holds. No interview, no negative marking. <a href="../syllabus/#ihbas">Full section →</a></dd>
+<dt><b>CIP Ranchi</b></dt><dd>Publishes only the words "MA/M.Sc. standard" and a scheme of examination. Syllabus rebuilt from the real CIP 2020 paper, all 100 items classified. 100 questions in 60 minutes, the tightest clock of the six, and the interview is worth 50 against the CBT's 100. <a href="../syllabus/#cip">Full section →</a></dd>
+<dt><b>JSS Mysuru</b></dt><dd>The only genuinely published syllabus — nine named subjects, quoted verbatim off the JSS AHER brochure. 90 questions, 60 minutes, viva 10 marks. The real headline is the fee: ₹4.73 lakh a year and no stipend, against IHBAS and CIP which are near-free and pay ₹25,000 a month for the same RCI licence. <a href="../syllabus/#jss">Full section →</a></dd>
+<dt><b>DIMHANS Dharwad</b></dt><dd>Publishes nothing, and both its courses require a Karnataka domicile certificate. Read that before spending a day on it. −0.25 negative marking is the only behavioural change to your prep. <a href="../syllabus/#dimhans">Full section →</a></dd>
+</dl>
+</div>
+
+<h2 id="sources">Sources and honesty notes</h2>
+<div class="src">
+<p><b>RCI course curriculum.</b> Two primary documents, both downloaded from RCI's own government CDN and read end to end: <i>M. Phil. Clinical Psychology — Guidelines &amp; Syllabus</i>, effective 2017-18, Rehabilitation Council of India, New Delhi, 2016 (43 pp), and <i>Master of Arts in Clinical Psychology, RCI Regulated Programme — Guidelines &amp; Syllabus</i>, effective 2025-26, "in place of present M.Phil. Clinical Psychology", RCI 2025 (40 pp). Every paper title, unit list, marks figure, pass rule, clinical-work minimum, eligibility clause and the 70/30 weightage on this page is read directly off those two PDFs, not off a summary. The preface quotation and the 70/30 clause are verbatim.</p>
+<p><b>NIMHANS.</b> Pattern, seats, fee, stipend, eligibility and 2026 dates from the NIMHANS admission material as reported by UPS Education, cross-checked against the NIMHANS admission portal. The per-area weighting is computed from 300 real questions across the 2023, 2024 and 2025 papers compiled in your own collection, not from any published NIMHANS document — NIMHANS publishes no topic list.</p>
+<p><b>IHBAS, CIP, JSS, DIMHANS.</b> Carried over unchanged from the <a href="../syllabus/">Entrance Syllabus Hub</a> built 26 Jul, where each is sourced in full: JSS off the official AHER brochure, CIP off the official Stream A prospectus, IHBAS off its admission material plus 292 tagged questions from the three real papers on this site, DIMHANS off its notifications (its own site refuses connections from outside India).</p>
+<p><b>RML.</b> CET-166 pattern and weightage from the GGSIPU/ABVIMS admission material and the RML brief already on this site; the behaviour notes and the 2020 section split are from the six real RML papers live as mocks here.</p>
+<p><b>Method note.</b> Official is tagged <span class="badge b-off">OFFICIAL</span>, reconstructed-from-real-papers is tagged <span class="badge b-der">FROM PAST PAPERS</span>, and what is genuinely unavailable is tagged <span class="badge b-gap">GAP</span> rather than filled with a plausible guess. Every per-area number is a count of real questions scaled to 100, not an estimate. The CIP column is one paper and is labelled as one paper. The Personality row is a tagging artefact and says so on the page rather than in a footnote.</p>
+</div>
+
+</div>
+</body>
+</html>
