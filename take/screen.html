@@ -136,6 +136,15 @@ button{font-family:inherit;cursor:pointer}
 .pass-bar span{font-size:12.5px;color:var(--ink-soft)}
 .pass-bar .exit{margin-left:auto;border:1px solid var(--bad);background:transparent;color:var(--bad);
   font-weight:600;font-size:12.5px;padding:6px 12px;border-radius:9px}
+/* read-aloud pills: one on the question, one on the explanation */
+.speak-pill{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;
+  color:var(--muted);background:var(--surface-2);border:1px solid var(--line);padding:8px 13px;border-radius:99px;transition:.15s}
+.speak-pill:hover{color:var(--primary);border-color:var(--primary)}
+.speak-pill.on{color:#fff;background:var(--primary);border-color:var(--primary)}
+.speak-pill + .mark-pill{margin-left:0}
+.reveal-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.reveal-head .reveal-tag{margin-bottom:0}
+.reveal-head .speak-pill{font-size:12px;padding:6px 12px}
 .stem{font-family:var(--font-read);font-size:24px;line-height:1.42;font-weight:400;
   color:var(--ink);letter-spacing:-.005em;margin:0 0 26px}
 @media(max-width:560px){.stem{font-size:20.5px}}
@@ -339,6 +348,7 @@ button{font-family:inherit;cursor:pointer}
     </div>
     <button class="btn" id="focusBtn" title="Toggle a wide, distraction-free reading column">⛶ Focus</button>
     <button class="btn" id="resetBtn" title="Wipe your answers on this test and start over">↺ Reset</button>
+    <span id="speakMount"></span>
     <span id="themeMount"></span>
     <button class="btn primary" id="finishBtn">Finish</button>
   </div>
@@ -387,6 +397,7 @@ button{font-family:inherit;cursor:pointer}
 <script src="data-deep-jemas.js?v=20260705-jemas"></script>
 <script src="data-src.js?v=20260705-sgtsrc"></script>
 <script src="data-all.js?v=20260705-ihbas2025"></script>
+<script src="speak.js?v=20260805-readaloud"></script>
 <script>
 /* pick the mock from ?m=<id>; fall back to met-mock-2 (or first available) */
 const ALL = window.PREVIEW_MOCKS || {};
@@ -398,6 +409,12 @@ M.sub = M.sub || (M.questions.length + " questions · untimed");
 const Q = M.questions, SL = M.sectionLabels, N = Q.length;
 const KEY = "revamp-preview-" + MID + "-v1";
 const LETTERS = ["a","b","c","d"];
+
+/* read-aloud engine (take/speak.js). If the file is missing — an old
+   offline copy, a stripped standalone build — everything below still runs,
+   the pills just never appear. */
+const Speak = window.Speak || {ok:false,say(){},stop(){},speaking(){return"";},
+  onstate(){},text(s){return String(s||"");},auto(){return false},gestured(){return false},mount(){}};
 
 /* Source-paper badge: merged mocks (e.g. sgt-pyq) pull each Q from a real past
    paper. PREVIEW_SRC[mockId] is a normStem -> "Amity 2023" map, so the badge
@@ -517,9 +534,50 @@ function exitPass(){ st.wrongSet=null; st.filter="all";
   document.querySelectorAll("#navFilters button").forEach(x=>x.classList.toggle("on",x.dataset.f==="all"));
   save(); renderQ(); syncNav(); }
 
+/* ---------- read aloud ----------
+   Speak.say() is the whole engine (take/speak.js); this half just decides
+   WHAT gets read and keeps the two pills labelled right. Question text =
+   stem + every option, spelled out ("Option A. ..."). Explanation text =
+   whatever is currently rendered inside the reveal box, which already
+   includes the correct answer and the per-option traps. */
+function qSpeech(q){
+  let t = "Question " + (st.i+1) + ". " + Speak.text(q.q);
+  LETTERS.forEach(L=>{ if(q.options[L]) t += " Option " + L.toUpperCase() + ". " + Speak.text(q.options[L]) + "."; });
+  return t;
+}
+function expSpeech(){
+  const box=document.getElementById("revealBox");
+  if(!box) return "";
+  const clone=box.cloneNode(true);
+  clone.querySelectorAll(".speak-pill,.reveal-tag,.alabel").forEach(n=>n.remove());
+  // the bare letter chips (A/B/C/D badges) would be read as loose letters,
+  // so turn each one into a spoken sentence before the text is extracted
+  clone.querySelectorAll(".ak").forEach(n=>{n.textContent="Option "+n.textContent.trim()+" is correct. ";});
+  clone.querySelectorAll(".tk").forEach(n=>{n.textContent="Option "+n.textContent.trim()+". ";});
+  clone.querySelectorAll(".exp-h,.tflag,.exp-fig").forEach(n=>{n.textContent=n.textContent.trim().replace(/[.:]?$/,". ");});
+  return Speak.text(clone.innerHTML);
+}
+function paintSpeakBtns(){
+  const live = Speak.ok ? Speak.speaking() : "";
+  const qb=document.getElementById("readQBtn");
+  if(qb){ const on=live==="q"; qb.classList.toggle("on",on); qb.innerHTML=on?"■ Stop":"🔊 Listen"; }
+  const eb=document.getElementById("readExpBtn");
+  if(eb){ const on=live==="exp"; eb.classList.toggle("on",on); eb.innerHTML=on?"■ Stop":"🔊 Read this out"; }
+}
+function toggleRead(tag){
+  if(Speak.speaking()===tag){ Speak.stop(); return; }
+  Speak.say(tag==="q" ? qSpeech(Q[st.i]) : expSpeech(), tag);
+}
+let lastRendered=-1, lastAutoRead=-1;
+
 /* ---------- render question ---------- */
 function renderQ(){
   const q = Q[st.i]; st.visited[st.i]=1;
+  /* moving to another question always kills the voice so it never talks
+     over itself; a re-render of the SAME question (answer picked, flag
+     toggled) leaves it alone */
+  if(Speak.ok && st.i!==lastRendered) Speak.stop();
+  lastRendered=st.i;
   const sel = st.answers[st.i]||null;
   const revealed = !!st.revealed[st.i];
   const flagged = !!st.flags[st.i];
@@ -546,6 +604,7 @@ function renderQ(){
       <span class="q-index">Q<b>${st.i+1}</b> / ${N}</span>
       <span class="sec-tag">${SL[q.section]||q.section}</span>
       ${srcOf(q)?`<span class="src-tag" title="Real past-paper question — source paper">${srcOf(q)}</span>`:""}
+      ${Speak.ok?`<button class="speak-pill" id="readQBtn" title="Read the question and all four options out loud">🔊 Listen</button>`:""}
       <button class="mark-pill ${marked?"on":""}" id="markBtn" title="Bookmark this question to find it fast later">
         ${marked?"★ Saved":"☆ Bookmark"}
       </button>
@@ -557,7 +616,10 @@ function renderQ(){
     <p class="stem">${q.q}</p>
     <div class="opts">${optHtml}</div>
     <div class="reveal ${revealed?"show":""}" id="revealBox">
-      <div class="reveal-tag">Explanation</div>
+      <div class="reveal-head">
+        <div class="reveal-tag">Explanation</div>
+        ${Speak.ok?`<button class="speak-pill" id="readExpBtn" title="Read the whole explanation out loud">🔊 Read this out</button>`:""}
+      </div>
       ${explainHTML(q, st.i)}
       ${srcOf(q)?`<div class="exp-src">Real past-paper question · ${srcOf(q)}</div>`:""}
     </div>
@@ -584,6 +646,17 @@ function renderQ(){
   const sk=document.getElementById("skipBtn"); if(sk) sk.onclick=()=>step(1);
   const nx=document.getElementById("nextBtn"); if(nx) nx.onclick=()=>step(1);
   const tf=document.getElementById("toFinishBtn"); if(tf) tf.onclick=finish;
+  if(Speak.ok){
+    const rq=document.getElementById("readQBtn"); if(rq) rq.onclick=()=>toggleRead("q");
+    const re=document.getElementById("readExpBtn"); if(re) re.onclick=()=>toggleRead("exp");
+    paintSpeakBtns();
+    /* auto-read (off by default): fires once per question, never on a
+       re-render, and only after the first tap — browsers block speech
+       that was not started by a user gesture */
+    if(Speak.auto() && Speak.gestured() && st.i!==lastAutoRead && !Speak.speaking()){
+      lastAutoRead=st.i; toggleRead("q");
+    }
+  }
 }
 function go(i){ if(i<0||i>=N) return; st.i=i; save(); renderQ(); syncNav();
   document.getElementById("reader").scrollIntoView({behavior:"smooth",block:"start"}); }
@@ -758,6 +831,7 @@ function downloadExport(){
 
 /* ---------- results ---------- */
 function finish(){
+  Speak.stop();
   let right=0,wrong=0,skipped=0;
   const secAgg={};
   Q.forEach((q,i)=>{
@@ -890,6 +964,8 @@ document.addEventListener("keydown",e=>{
   else if(e.key==="ArrowLeft")step(-1);
   else if(e.key.toLowerCase()==="f"){st.flags[st.i]=!st.flags[st.i];save();renderQ();syncNav();}
   else if(e.key.toLowerCase()==="b"){st.marks[st.i]=!st.marks[st.i];save();renderQ();syncNav();}
+  else if(e.key.toLowerCase()==="r"&&Speak.ok){toggleRead("q");}
+  else if(e.key==="Escape"&&Speak.ok){Speak.stop();}
 });
 
 /* keep scroll-padding-top matched to the real sticky-bar height so a
@@ -900,6 +976,7 @@ function syncTopbarOffset(){
 }
 
 /* init */
+if(Speak.ok){ Speak.mount("speakMount"); Speak.onstate(paintSpeakBtns); }
 document.getElementById("mockTitle").textContent=M.title;
 document.getElementById("mockSub").textContent=M.sub;
 applyFocus();

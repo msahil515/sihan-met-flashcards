@@ -1,0 +1,268 @@
+/* ============================================================
+   Read-aloud for the MET-prep test engine.
+
+   Browser speech (SpeechSynthesis) only — no network, no keys,
+   works offline once Android/Chrome has the voice downloaded.
+
+   Exposes window.Speak:
+     Speak.ok                  -> is speech supported here
+     Speak.say(text)           -> stop whatever is talking, read this
+     Speak.stop()              -> silence
+     Speak.speaking()          -> "" | the tag passed to say()
+     Speak.say(text, "q")      -> tag it so the UI knows which
+                                  button is the live one
+     Speak.onstate(fn)         -> called whenever start/stop happens
+     Speak.text(html)          -> HTML -> speakable plain text
+     Speak.auto()              -> auto-read every question? (bool)
+     Speak.rate()              -> current speed multiplier
+     Speak.mount("speakMount") -> settings button + panel
+
+   Two things make this behave on Android Chrome:
+     1. long text is split into ~170-char chunks and spoken one
+        after another (a single long utterance gets cut off after
+        ~15s on Chrome), and
+     2. speech only ever starts from a real tap, or after one.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  var synth = window.speechSynthesis;
+  var OK = !!(synth && window.SpeechSynthesisUtterance);
+  var K = "met-speak-v1";
+
+  var prefs = { rate: 1.2, auto: 0, voice: "" };
+  try {
+    var raw = localStorage.getItem(K);
+    if (raw) { var p = JSON.parse(raw); for (var k in prefs) if (p[k] !== undefined) prefs[k] = p[k]; }
+  } catch (e) {}
+  function savePrefs() { try { localStorage.setItem(K, JSON.stringify(prefs)); } catch (e) {} }
+
+  /* ---------- voices ---------- */
+  var voices = [];
+  function loadVoices() {
+    if (!OK) return;
+    var all = synth.getVoices() || [];
+    voices = all.filter(function (v) { return /^en/i.test(v.lang || ""); });
+    if (!voices.length) voices = all;
+  }
+  function pickVoice() {
+    if (!voices.length) loadVoices();
+    if (!voices.length) return null;
+    var i;
+    if (prefs.voice) {
+      for (i = 0; i < voices.length; i++) if (voices[i].voiceURI === prefs.voice) return voices[i];
+    }
+    var order = [/en[-_]IN/i, /en[-_]GB/i, /en[-_]US/i, /^en/i];
+    for (var o = 0; o < order.length; o++)
+      for (i = 0; i < voices.length; i++) if (order[o].test(voices[i].lang || "")) return voices[i];
+    return voices[0];
+  }
+  if (OK) {
+    loadVoices();
+    try { synth.addEventListener("voiceschanged", function () { loadVoices(); refreshPanel(); }); } catch (e) {}
+  }
+
+  /* ---------- HTML -> speakable text ---------- */
+  var scratch = null;
+  function text(html) {
+    if (html == null) return "";
+    var s = String(html);
+    // block-ish tags become sentence breaks so it doesn't run words together
+    s = s.replace(/<\s*(br|\/p|\/div|\/li|\/h[1-6])[^>]*>/gi, ". ");
+    if (!scratch) scratch = document.createElement("div");
+    scratch.innerHTML = s;
+    var out = scratch.textContent || "";
+    out = out.replace(/_{2,}/g, " blank ")        // fill-in-the-blank rules
+             .replace(/→/g, " leads to ")     // →
+             .replace(/(?:\s*\.){2,}/g, ". ")   // empty tags leave ". ." runs
+             .replace(/\s+/g, " ")
+             .replace(/^[.\s]+/, "")
+             .replace(/[.\s]+$/, ".")
+             .trim();
+    return out;
+  }
+
+  /* ---------- chunking ---------- */
+  function chunk(str, max) {
+    var words = str.split(" "), out = [], cur = "";
+    for (var i = 0; i < words.length; i++) {
+      var w = words[i];
+      if (cur && (cur.length + 1 + w.length) > max) { out.push(cur); cur = w; }
+      else cur = cur ? cur + " " + w : w;
+      if (/[.?!]$/.test(w) && cur.length > max * 0.55) { out.push(cur); cur = ""; }
+    }
+    if (cur) out.push(cur);
+    return out;
+  }
+
+  /* ---------- engine ---------- */
+  var listeners = [];
+  var liveTag = "";      // "" when silent
+  var token = 0;         // invalidates callbacks from a cancelled run
+  var gestured = false;  // has the user tapped anything yet
+
+  function fire() { listeners.forEach(function (fn) { try { fn(liveTag); } catch (e) {} }); }
+
+  function stop() {
+    token++;
+    liveTag = "";
+    if (OK) { try { synth.cancel(); } catch (e) {} }
+    fire();
+  }
+
+  function runChunks(parts, mine) {
+    if (mine !== token) return;
+    if (!parts.length) { liveTag = ""; fire(); return; }
+    var u = new SpeechSynthesisUtterance(parts[0]);
+    var v = pickVoice();
+    if (v) { u.voice = v; u.lang = v.lang; } else { u.lang = "en-IN"; }
+    u.rate = Math.max(0.5, Math.min(2, prefs.rate));
+    u.pitch = 1;
+    u.onend = function () { runChunks(parts.slice(1), mine); };
+    u.onerror = function () { if (mine === token) { liveTag = ""; fire(); } };
+    try { synth.speak(u); } catch (e) { liveTag = ""; fire(); }
+  }
+
+  function say(str, tag) {
+    if (!OK) return;
+    var body = String(str || "").trim();
+    stop();
+    if (!body) return;
+    gestured = true;
+    liveTag = tag || "on";
+    var mine = token;
+    fire();
+    // Android Chrome drops an utterance queued in the same tick as cancel()
+    setTimeout(function () {
+      if (mine !== token) return;
+      try { if (synth.paused) synth.resume(); } catch (e) {}
+      runChunks(chunk(body, 170), mine);
+    }, 70);
+  }
+
+  /* ---------- settings panel ---------- */
+  var RATES = [0.8, 1, 1.2, 1.4, 1.6, 1.8];
+  var panel = null, mountBtn = null;
+
+  function chipCss(on) {
+    return "flex:1;min-width:0;border:1px solid var(--line,#ddd);border-radius:9px;padding:8px 0;cursor:pointer;" +
+      "font:700 12.5px/1 var(--font-ui,system-ui,sans-serif);" +
+      "background:" + (on ? "var(--ink,#111)" : "var(--surface,#fff)") + ";color:" + (on ? "var(--surface,#fff)" : "var(--muted,#888)") + ";";
+  }
+
+  function buildPanel() {
+    var wrap = document.createElement("div");
+    wrap.id = "speakPanel";
+    wrap.style.cssText = "position:fixed;z-index:211;right:14px;bottom:74px;width:270px;max-width:calc(100vw - 28px);" +
+      "background:var(--surface,#fff);color:var(--ink,#111);border:1px solid var(--line,#ddd);border-radius:16px;" +
+      "box-shadow:0 12px 40px rgba(0,0,0,.28);padding:14px;display:none;font-family:var(--font-ui,system-ui,sans-serif)";
+
+    var head = '<div style="font:700 11px/1 var(--font-ui,system-ui,sans-serif);letter-spacing:.09em;' +
+      'text-transform:uppercase;color:var(--muted,#888);margin-bottom:9px">Read aloud</div>';
+
+    if (!OK) {
+      wrap.innerHTML = head + '<div style="font:500 13px/1.5 var(--font-ui,system-ui,sans-serif);color:var(--muted,#888)">' +
+        "This browser has no speech engine. Open the site in Chrome on Android and it will work.</div>";
+      return wrap;
+    }
+
+    var speed = '<div style="font:600 12px/1 var(--font-ui,system-ui,sans-serif);color:var(--muted,#888);margin-bottom:7px">Speed</div>' +
+      '<div style="display:flex;gap:5px;margin-bottom:14px">' +
+      RATES.map(function (r) {
+        return '<button data-rate="' + r + '" style="' + chipCss(Math.abs(prefs.rate - r) < 0.001) + '">' + r + "×</button>";
+      }).join("") + "</div>";
+
+    var auto = '<button id="spkAuto" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;cursor:pointer;' +
+      "border:1px solid " + (prefs.auto ? "var(--primary,#088)" : "var(--line,#ddd)") + ";" +
+      "background:" + (prefs.auto ? "var(--primary-wash,#eef)" : "transparent") + ';border-radius:12px;padding:10px 11px;margin-bottom:12px">' +
+      '<span style="flex:none;width:34px;height:20px;border-radius:99px;position:relative;background:' +
+      (prefs.auto ? "var(--primary,#088)" : "var(--line,#ccc)") + '"><i style="position:absolute;top:2px;' +
+      (prefs.auto ? "left:16px" : "left:2px") + ';width:16px;height:16px;border-radius:99px;background:#fff"></i></span>' +
+      '<span style="min-width:0"><span style="display:block;font:600 13px/1.2 var(--font-ui,system-ui,sans-serif);color:var(--ink,#111)">' +
+      "Auto-read every question</span>" +
+      '<span style="display:block;font:500 11px/1.35 var(--font-ui,system-ui,sans-serif);color:var(--muted,#888);margin-top:2px">' +
+      (prefs.auto ? "Starts talking as each question loads" : "Off — it only reads when you tap") + "</span></span></button>";
+
+    var vsel = "";
+    if (voices.length > 1) {
+      vsel = '<div style="font:600 12px/1 var(--font-ui,system-ui,sans-serif);color:var(--muted,#888);margin-bottom:6px">Voice</div>' +
+        '<select id="spkVoice" style="width:100%;border:1px solid var(--line,#ddd);border-radius:10px;padding:8px 9px;' +
+        'background:var(--surface,#fff);color:var(--ink,#111);font:500 12.5px/1.2 var(--font-ui,system-ui,sans-serif)">' +
+        '<option value="">Automatic</option>' +
+        voices.map(function (v) {
+          return '<option value="' + v.voiceURI.replace(/"/g, "&quot;") + '"' + (prefs.voice === v.voiceURI ? " selected" : "") +
+            ">" + (v.name || v.voiceURI) + " (" + (v.lang || "") + ")</option>";
+        }).join("") + "</select>";
+    }
+
+    var test = '<button id="spkTest" style="width:100%;margin-top:12px;border:1px solid var(--line,#ddd);border-radius:10px;' +
+      'padding:9px 0;cursor:pointer;background:var(--surface-2,#f2f2f2);color:var(--ink,#111);' +
+      'font:600 12.5px/1 var(--font-ui,system-ui,sans-serif)">Test the voice</button>';
+
+    wrap.innerHTML = head + speed + auto + vsel + test;
+    return wrap;
+  }
+
+  function bindPanel() {
+    if (!panel) return;
+    panel.querySelectorAll("[data-rate]").forEach(function (b) {
+      b.onclick = function () { prefs.rate = parseFloat(b.getAttribute("data-rate")); savePrefs(); refreshPanel(); };
+    });
+    var a = panel.querySelector("#spkAuto");
+    if (a) a.onclick = function () { prefs.auto = prefs.auto ? 0 : 1; savePrefs(); refreshPanel(); fire(); };
+    var v = panel.querySelector("#spkVoice");
+    if (v) v.onchange = function () { prefs.voice = v.value; savePrefs(); };
+    var t = panel.querySelector("#spkTest");
+    if (t) t.onclick = function () { say("This is how the questions will sound at " + prefs.rate + " times speed.", "test"); };
+  }
+  function refreshPanel() {
+    if (!panel) return;
+    var np = buildPanel();
+    np.style.display = panel.style.display;
+    panel.replaceWith(np);
+    panel = np;
+    bindPanel();
+  }
+  function togglePanel() {
+    if (!panel) { panel = buildPanel(); document.body.appendChild(panel); bindPanel(); }
+    panel.style.display = (panel.style.display === "block") ? "none" : "block";
+  }
+
+  function mount(hostId) {
+    var host = document.getElementById(hostId || "speakMount");
+    if (!host) return;
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "btn";
+    btn.id = "speakSettingsBtn";
+    btn.title = "Read-aloud settings: speed, auto-read, voice";
+    btn.innerHTML = '🔊 <span style="font-weight:600">Read aloud</span>';
+    host.appendChild(btn);
+    mountBtn = btn;
+    btn.addEventListener("click", function (e) { e.stopPropagation(); gestured = true; togglePanel(); });
+    document.addEventListener("click", function (e) {
+      if (panel && panel.style.display === "block" && !panel.contains(e.target) && e.target !== btn && !btn.contains(e.target))
+        panel.style.display = "none";
+    });
+  }
+
+  /* speech dies with the page anyway, but Chrome can keep talking on a
+     back-navigation if we do not cancel explicitly */
+  window.addEventListener("pagehide", stop);
+  window.addEventListener("beforeunload", stop);
+  document.addEventListener("visibilitychange", function () { if (document.hidden) stop(); });
+  document.addEventListener("pointerdown", function () { gestured = true; }, true);
+
+  window.Speak = {
+    ok: OK,
+    say: say,
+    stop: stop,
+    speaking: function () { return liveTag; },
+    onstate: function (fn) { listeners.push(fn); },
+    text: text,
+    auto: function () { return !!prefs.auto; },
+    rate: function () { return prefs.rate; },
+    gestured: function () { return gestured; },
+    mount: mount
+  };
+})();
