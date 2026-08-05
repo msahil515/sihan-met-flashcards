@@ -397,7 +397,7 @@ button{font-family:inherit;cursor:pointer}
 <script src="data-deep-jemas.js?v=20260705-jemas"></script>
 <script src="data-src.js?v=20260705-sgtsrc"></script>
 <script src="data-all.js?v=20260705-ihbas2025"></script>
-<script src="speak.js?v=20260805-readaloud"></script>
+<script src="speak.js?v=20260805-qonly-samsung"></script>
 <script>
 /* pick the mock from ?m=<id>; fall back to met-mock-2 (or first available) */
 const ALL = window.PREVIEW_MOCKS || {};
@@ -536,14 +536,17 @@ function exitPass(){ st.wrongSet=null; st.filter="all";
 
 /* ---------- read aloud ----------
    Speak.say() is the whole engine (take/speak.js); this half just decides
-   WHAT gets read and keeps the two pills labelled right. Question text =
-   stem + every option, spelled out ("Option A. ..."). Explanation text =
-   whatever is currently rendered inside the reveal box, which already
-   includes the correct answer and the per-option traps. */
+   WHAT gets read and keeps the two pills labelled right.
+
+   Question text = the STEM ONLY. Sihan asked for question-only on 5 Aug 2026:
+   he skims the four options faster than a voice reads them, and hearing
+   "Option A ... Option B ..." made every question three times as long. Do not
+   put the options back without him asking.
+
+   Explanation text = whatever is currently rendered inside the reveal box,
+   which already includes the correct answer and the per-option traps. */
 function qSpeech(q){
-  let t = "Question " + (st.i+1) + ". " + Speak.text(q.q);
-  LETTERS.forEach(L=>{ if(q.options[L]) t += " Option " + L.toUpperCase() + ". " + Speak.text(q.options[L]) + "."; });
-  return t;
+  return "Question " + (st.i+1) + ". " + Speak.text(q.q);
 }
 function expSpeech(){
   const box=document.getElementById("revealBox");
@@ -604,7 +607,7 @@ function renderQ(){
       <span class="q-index">Q<b>${st.i+1}</b> / ${N}</span>
       <span class="sec-tag">${SL[q.section]||q.section}</span>
       ${srcOf(q)?`<span class="src-tag" title="Real past-paper question — source paper">${srcOf(q)}</span>`:""}
-      ${Speak.ok?`<button class="speak-pill" id="readQBtn" title="Read the question and all four options out loud">🔊 Listen</button>`:""}
+      ${Speak.ok?`<button class="speak-pill" id="readQBtn" title="Read the question out loud (question only, not the options). Tap again to stop.">🔊 Listen</button>`:""}
       <button class="mark-pill ${marked?"on":""}" id="markBtn" title="Bookmark this question to find it fast later">
         ${marked?"★ Saved":"☆ Bookmark"}
       </button>

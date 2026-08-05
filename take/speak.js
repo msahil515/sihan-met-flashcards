@@ -18,10 +18,23 @@
      Speak.mount("speakMount") -> settings button + panel
 
    Two things make this behave on Android Chrome:
-     1. long text is split into ~170-char chunks and spoken one
-        after another (a single long utterance gets cut off after
-        ~15s on Chrome), and
+     1. long text is split into ~170-char chunks, all queued at
+        once (a single long utterance gets cut off after ~15s on
+        Chrome), and
      2. speech only ever starts from a real tap, or after one.
+
+   Three more make it behave in SAMSUNG INTERNET, which is what he
+   actually uses:
+     3. the first speak() must run inside the tap's own task. Any
+        setTimeout between the tap and speak() loses the gesture and
+        Samsung silently refuses. So cancel() (and its 70ms Chrome
+        gap) is only used when something is already talking.
+     4. its voice list arrives late, sometimes only after the first
+        utterance. We poll getVoices() until it fills, and when it
+        is still empty we leave lang unset instead of forcing en-IN
+        — a language the engine does not have reads as silence.
+     5. onend is not reliable there, so a watchdog advances the
+        chunk queue when the engine has clearly stopped talking.
    ============================================================ */
 (function () {
   "use strict";
@@ -29,12 +42,16 @@
   var synth = window.speechSynthesis;
   var OK = !!(synth && window.SpeechSynthesisUtterance);
   var K = "met-speak-v1";
+  var SAMSUNG = /SamsungBrowser/i.test(navigator.userAgent || "");
 
   var prefs = { rate: 1.2, auto: 0, voice: "" };
   try {
     var raw = localStorage.getItem(K);
     if (raw) { var p = JSON.parse(raw); for (var k in prefs) if (p[k] !== undefined) prefs[k] = p[k]; }
   } catch (e) {}
+  // Samsung Internet blocks speech that is not started by a tap, so auto-read
+  // there would just fail silently. Force it off rather than lie about it.
+  if (SAMSUNG) prefs.auto = 0;
   function savePrefs() { try { localStorage.setItem(K, JSON.stringify(prefs)); } catch (e) {} }
 
   /* ---------- voices ---------- */
@@ -57,9 +74,22 @@
       for (i = 0; i < voices.length; i++) if (order[o].test(voices[i].lang || "")) return voices[i];
     return voices[0];
   }
+  /* Chrome fills getVoices() almost at once and fires voiceschanged. Samsung
+     Internet does neither reliably: the list can stay empty for a second or
+     two, and on some One UI builds it only fills after the first utterance.
+     So poll for ~6s from load instead of trusting the event. */
+  var voiceTries = 0;
+  function warmVoices() {
+    if (!OK) return;
+    loadVoices();
+    if (voices.length) { refreshPanel(); return; }
+    if (voiceTries++ > 24) return;
+    setTimeout(warmVoices, 250);
+  }
   if (OK) {
     loadVoices();
     try { synth.addEventListener("voiceschanged", function () { loadVoices(); refreshPanel(); }); } catch (e) {}
+    if (!voices.length) setTimeout(warmVoices, 200);
   }
 
   /* ---------- HTML -> speakable text ---------- */
@@ -106,38 +136,84 @@
   function stop() {
     token++;
     liveTag = "";
-    if (OK) { try { synth.cancel(); } catch (e) {} }
+    // cancel() on an idle engine is a no-op on Chrome but can wedge Samsung's,
+    // so only reach for it when something is actually queued or talking
+    if (OK && busy()) { try { synth.cancel(); } catch (e) {} }
     fire();
   }
 
-  function runChunks(parts, mine) {
+  function busy() {
+    try { return !!(synth.speaking || synth.pending); } catch (e) { return false; }
+  }
+
+  /* Speak every chunk of one run. All of them are queued in the SAME task, on
+     purpose: the old build chained chunk N+1 off chunk N's onend, which only
+     works if the browser keeps user activation alive for the whole page (Chrome
+     does). Samsung Internet is stricter, so anything queued from a later timer
+     can be refused and the question stops dead after the first ~170 chars.
+     Queue them all inside the tap and the engine plays them back to back. */
+  function runChunks(parts, mine, retry) {
     if (mine !== token) return;
     if (!parts.length) { liveTag = ""; fire(); return; }
-    var u = new SpeechSynthesisUtterance(parts[0]);
+    if (!voices.length) loadVoices();   // Samsung sometimes fills the list only now
+    var rate = Math.max(0.5, Math.min(2, prefs.rate));
     var v = pickVoice();
-    if (v) { u.voice = v; u.lang = v.lang; } else { u.lang = "en-IN"; }
-    u.rate = Math.max(0.5, Math.min(2, prefs.rate));
-    u.pitch = 1;
-    u.onend = function () { runChunks(parts.slice(1), mine); };
-    u.onerror = function () { if (mine === token) { liveTag = ""; fire(); } };
-    try { synth.speak(u); } catch (e) { liveTag = ""; fire(); }
+
+    var settled = false, started = false, waited = 0, wd = 0;
+    function finish() {
+      if (settled) return;
+      settled = true;
+      if (wd) clearInterval(wd);
+      if (mine === token) { liveTag = ""; fire(); }
+    }
+
+    for (var i = 0; i < parts.length; i++) {
+      var u = new SpeechSynthesisUtterance(parts[i]);
+      // No voice resolved: leave lang alone. Forcing a tag the engine does not
+      // ship (en-IN on most Samsung builds) makes it stay silent instead of
+      // falling back to the default voice.
+      if (v) { u.voice = v; u.lang = v.lang; }
+      u.rate = rate;
+      u.pitch = 1;
+      u.onstart = function () { started = true; };
+      if (i === parts.length - 1) { u.onend = finish; u.onerror = finish; }
+      try { synth.speak(u); } catch (e) { finish(); return; }
+    }
+
+    /* watchdog: Samsung drops onend often enough that the pills would stay
+       stuck on "Stop" forever, so poll the engine as well */
+    wd = setInterval(function () {
+      if (settled || mine !== token) { clearInterval(wd); return; }
+      waited += 150;
+      if (busy()) { started = true; return; }
+      if (started) { finish(); return; }      // it spoke and stopped, onend never came
+      // Never started. On Chrome that means cancel() ate the utterances queued
+      // in the same tick, so re-issue once (we queue in the gesture's own task
+      // for Samsung's sake, which is exactly when that bug bites).
+      if (retry && waited >= 750) {
+        settled = true; clearInterval(wd);
+        runChunks(parts, mine, false);
+      } else if (waited >= 4000) finish();    // give up, reset the UI
+    }, 150);
   }
 
   function say(str, tag) {
     if (!OK) return;
     var body = String(str || "").trim();
-    stop();
-    if (!body) return;
+    var wasBusy = busy();
+    token++;                               // invalidate anything in flight
+    liveTag = "";
+    if (wasBusy) { try { synth.cancel(); } catch (e) {} }
+    if (!body) { fire(); return; }
     gestured = true;
     liveTag = tag || "on";
     var mine = token;
     fire();
-    // Android Chrome drops an utterance queued in the same tick as cancel()
-    setTimeout(function () {
-      if (mine !== token) return;
-      try { if (synth.paused) synth.resume(); } catch (e) {}
-      runChunks(chunk(body, 170), mine);
-    }, 70);
+    try { if (synth.paused) synth.resume(); } catch (e) {}
+    // Always start inside the tap's own task: Samsung Internet only permits
+    // speech begun in the gesture, and a setTimeout here loses it. When we did
+    // have to cancel first, the watchdog re-issues once for Chrome's sake.
+    runChunks(chunk(body, 170), mine, wasBusy);
   }
 
   /* ---------- settings panel ---------- */
@@ -172,7 +248,19 @@
         return '<button data-rate="' + r + '" style="' + chipCss(Math.abs(prefs.rate - r) < 0.001) + '">' + r + "×</button>";
       }).join("") + "</div>";
 
-    var auto = '<button id="spkAuto" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;cursor:pointer;' +
+    var note = "";
+    if (SAMSUNG) {
+      note = '<div style="border:1px solid var(--line,#ddd);border-radius:12px;padding:10px 11px;margin-bottom:12px;' +
+        'font:500 11.5px/1.45 var(--font-ui,system-ui,sans-serif);color:var(--muted,#888)">' +
+        '<b style="color:var(--ink,#111)">Samsung Internet · tap to play</b><br>' +
+        "Auto-read is off here. This browser blocks speech that starts on its own, so it would fail silently. " +
+        "Tap 🔊 Listen to play, tap again to stop.<br>" +
+        "If the voice sounds robotic, open this same page in Chrome once and compare. Samsung ships its own engine " +
+        "and on some One UI builds it is noticeably worse." +
+        "</div>";
+    }
+
+    var auto = SAMSUNG ? "" : '<button id="spkAuto" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;cursor:pointer;' +
       "border:1px solid " + (prefs.auto ? "var(--primary,#088)" : "var(--line,#ddd)") + ";" +
       "background:" + (prefs.auto ? "var(--primary-wash,#eef)" : "transparent") + ';border-radius:12px;padding:10px 11px;margin-bottom:12px">' +
       '<span style="flex:none;width:34px;height:20px;border-radius:99px;position:relative;background:' +
@@ -199,7 +287,7 @@
       'padding:9px 0;cursor:pointer;background:var(--surface-2,#f2f2f2);color:var(--ink,#111);' +
       'font:600 12.5px/1 var(--font-ui,system-ui,sans-serif)">Test the voice</button>';
 
-    wrap.innerHTML = head + speed + auto + vsel + test;
+    wrap.innerHTML = head + speed + note + auto + vsel + test;
     return wrap;
   }
 
