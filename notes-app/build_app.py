@@ -30,6 +30,7 @@ SECTIONS = [
     ("strategy",  "Exam Strategy",        "What actually gets tested, the repeated questions, the high-yield map", "#9d174d", "#831843"),
     ("depth",     "Textbooks in Full Depth", "The actual textbooks rewritten as explanatory prose, chapter by chapter, nothing compressed into fragments", "#7c2d12", "#431407"),
     ("core",      "Core Subjects",        "The syllabus, one merged book per subject", "#1d4ed8", "#1e3a8a"),
+    ("dsm",       "DSM-5-TR",             "Every disorder in plain language, with comorbidity and differential under each one", "#1e40af", "#172554"),
     ("syllabus",  "Rodrick Sir's Syllabus","Every file in the shared Drive, built unit by unit to full depth, nothing left out", "#15803d", "#14532d"),
     ("stats",     "Statistics & Psychometrics", "Statistics for the entrances built from scratch, with a diagram on every idea that has a shape", "#0f766e", "#134e4a"),
     ("systems",   "Systems & Theories",    "The whole history of psychology, every school taught from the ground up", "#0e7490", "#155e75"),
@@ -73,6 +74,10 @@ BOOKS = [
     dict(slug="abnormal-barlow-durand", shelf="core", kind="note", src="abnormal-barlow-durand",
          short="Abnormal Psychology — Barlow & Durand",
          blurb="The actual textbook on the shelf: Barlow & Durand's integrative approach, disorder by disorder, opening each with a clinical case, with side-by-side DSM-5-TR vs ICD-11 criteria boxes and the triple-vulnerability model."),
+    # --- DSM-5-TR ---
+    dict(slug="dsm5tr", shelf="dsm", kind="merged", search_cap=40000,
+         short="DSM-5-TR, the Exam Cut",
+         blurb="The whole manual cut down to what the entrances test, disorder by disorder, in plain language instead of manual English: the criteria as sentences you can actually hold, the numbers that carry the mark (duration, onset age, symptom counts, exclusion clauses), and then a Comorbidity line and a Differential line under every single disorder, because the stem never asks for a definition, it describes a person and asks which of four neighbouring diagnoses fits. Includes what changed in the 2022 Text Revision, the ICD-11 contrast wherever the two systems disagree, a number sheet with every duration, age and cut-off in one table, and the differential pairs examiners keep reusing."),
     dict(slug="personality", shelf="core", kind="note", src="personality",
          short="Personality",
          blurb="Trait, type, psychodynamic, humanistic and behavioural theories of personality, the full deep dive."),
@@ -194,6 +199,9 @@ BOOKS = [
          short="Cheat Sheets",
          blurb="The rapid-revision recall bank: who-did-what for theories, tests, therapies and experiments, the named effects, a compressed DSM table and the full discipline timeline, all as scannable tables."),
     # --- Interview Prep ---
+    dict(slug="manipal-viva", shelf="interview", kind="merged", search_cap=40000,
+         short="The Full Manipal Viva Sheet",
+         blurb="All 112 viva questions with the model answer written word for word, in the order a clinical psychology panel actually walks through them: openers, core definitions, MSE and assessment, psychometrics, psychopathology, therapy schools, ethics, research and the dissertation, and the closing questions. Every answer is built to one shape, definition then theorist then example then stop, because that is what gets marked in an oral. Drill mode hides every answer so you can say it out loud first and tap the card to check yourself."),
     dict(slug="therapy-style", shelf="interview", kind="note", src="therapy-style",
          short="Your Therapeutic Style",
          blurb="Interview-ready profile built only from your own YD sessions: 14 named techniques with the real mechanics, the most-difficult-case walkthrough, and answers you can give out loud."),

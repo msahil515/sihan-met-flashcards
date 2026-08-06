@@ -625,6 +625,9 @@
       if (t === "A" || t === "BUTTON" || t === "INPUT" || t === "SELECT" ||
           t === "TEXTAREA" || t === "SUMMARY" || t === "LABEL") return true;
       if (node.getAttribute && node.getAttribute("role")) return true;
+      /* a book can opt a block out of page-turn taps (the viva sheet's drill
+         cards are tap-to-reveal, so an edge tap must not also turn the page) */
+      if (node.hasAttribute && node.hasAttribute("data-notap")) return true;
       node = node.parentNode;
     }
     return false;
