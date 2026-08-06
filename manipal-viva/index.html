@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<script src="/sihan-met-flashcards/sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manipal Viva Sheet — 112 questions with model answers</title>
+<link rel="stylesheet" href="/sihan-met-flashcards/notes-style.css">
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<meta name="theme-color" content="#0d1117">
+<style>
+  .lede{color:var(--ink2);font-size:16px;background:var(--panel-2);border:1px solid var(--border);
+    border-radius:8px;padding:14px 18px;margin:18px 0 6px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px;font-family:var(--sans);font-size:13px}
+  .chip{background:var(--panel-2);border:1px solid var(--border);border-radius:20px;padding:4px 12px;color:var(--ink2)}
+  .chip b{color:#14161b}
+  .toc{font-family:var(--sans);font-size:14px;background:var(--panel-2);border:1px solid var(--border);
+    border-radius:8px;padding:14px 18px;margin:18px 0}
+  .toc a{display:inline-block;margin:3px 14px 3px 0;color:var(--accent);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  .yr{margin-top:40px;border-top:3px solid var(--accent-dim);padding-top:6px}
+  .qa{background:var(--panel-2);border:1px solid var(--border);border-radius:8px;padding:4px 18px 14px;margin:16px 0}
+  .qa .q{font-family:var(--sans);font-weight:700;color:#14161b;margin:14px 0 6px;font-size:15.5px}
+  .qa .q::before{content:attr(data-n) "  ";color:var(--accent);font-weight:800}
+  .qa .a{margin:0 0 6px;line-height:1.62}
+  .qa .a::before{content:"Say:  ";font-family:var(--sans);font-weight:700;color:#1f6b3a;font-size:12px;letter-spacing:.03em;text-transform:uppercase}
+  .qa .push{margin:0 0 6px;line-height:1.6;font-size:15px;color:var(--ink2);
+    border-left:2px solid var(--accent-dim);padding-left:12px}
+  .qa .push::before{content:"Then they push:  ";font-family:var(--sans);font-weight:700;color:#1d4e89;font-size:11.5px;letter-spacing:.03em;text-transform:uppercase}
+  .qa .why{margin:0 0 10px;font-size:13.5px;color:var(--muted);line-height:1.55}
+  .qa .why::before{content:"Why this works:  ";font-family:var(--sans);font-weight:700;color:#8a6a1d;font-size:11.5px;letter-spacing:.03em;text-transform:uppercase}
+  .trap{border-left:3px solid #c0392b;background:rgba(192,57,43,.06);padding:10px 16px;margin:14px 0;border-radius:0 6px 6px 0}
+  .trap b{color:#8a1d1d}
+  .clin-focus{border-left:3px solid var(--accent);background:rgba(61,111,208,.06);padding:10px 16px;margin:16px 0;border-radius:0 6px 6px 0}
+  .verify{border-left:3px solid #8a6a1d;background:rgba(230,180,40,.09);padding:10px 16px;margin:16px 0;border-radius:0 6px 6px 0}
+  .verify b{color:#8a6a1d}
+  table.nums{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:13.5px;margin:14px 0}
+  table.nums th,table.nums td{border:1px solid var(--border);padding:7px 10px;text-align:left;vertical-align:top}
+  table.nums th{background:var(--panel-2);color:#14161b}
+  .src{font-size:13px;color:var(--muted)}
+  .bar{position:sticky;top:0;z-index:20;background:var(--panel-2);border:1px solid var(--border);
+    border-radius:8px;padding:10px 14px;margin:16px 0;font-family:var(--sans);font-size:14px;
+    display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .bar button{font:inherit;font-size:14px;font-weight:700;padding:7px 14px;border:1px solid var(--border);
+    border-radius:6px;background:#fff;color:#14161b;cursor:pointer}
+  .bar button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .bar span.hint{color:var(--muted);font-size:13px}
+  body.drill .qa .a,body.drill .qa .push,body.drill .qa .why{display:none}
+  body.drill .qa.open .a,body.drill .qa.open .push,body.drill .qa.open .why{display:block}
+  body.drill .qa{cursor:pointer}
+  body.drill .qa .q::after{content:"   tap to reveal";font-family:var(--sans);font-weight:500;
+    font-size:11.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+  body.drill .qa.open .q::after{content:""}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="../manipal/">← Manipal sheet</a> <a href="../dissertation/">Dissertation</a> <a href="../notes/therapy-style/">Therapy style</a> <a href="../">Home</a></nav>
+
+<h1>The Full Manipal Viva Sheet</h1>
+<p style="color: var(--muted); font-size: 14px; margin-top:-6px;">112 questions with model answers, word for word, in the order a clinical psychology panel actually walks through them. Built 6 Aug 2026 for the MAHE / MCHP <b>M.A. Clinical Psychology</b> department session on <b>7 August 2026</b>, App No 126202084. This is the answers page. The logistics, the slot finder and tonight's checklist are on the <a href="../manipal/">Manipal sheet</a>.</p>
+
+<div class="meta-row">
+  <span class="chip">Questions <b>112</b></span>
+  <span class="chip">Format <b>Q → model answer → the follow-up</b></span>
+  <span class="chip">Answer length <b>20 to 40 seconds</b></span>
+  <span class="chip">Drill mode <b>hides every answer</b></span>
+</div>
+
+<div class="lede">
+Every answer here is built to one shape, because that shape is what gets marked: <b>definition, then theorist, then example</b>. Say the definition in one clean sentence. Name who it comes from. Give one concrete instance, preferably from a real client or your own data. Then stop talking. A panel asking a viva question wants to know whether you own the concept, not whether you can talk for two minutes about it. The commonest way to lose marks in an oral is to answer correctly and then keep going until you say something wrong.
+</div>
+
+<div class="bar">
+  <button id="drillBtn">Drill mode: off</button>
+  <button id="allBtn">Reveal all</button>
+  <span class="hint">Drill mode hides every answer. Read the question, say it out loud, then tap the card to check yourself.</span>
+</div>
+
+<div class="toc">
+Jump to:
+<a href="#shape">0 · The shape of an answer</a>
+<a href="#open">1 · Openers</a>
+<a href="#defs">2 · Core definitions</a>
+<a href="#mse">3 · MSE and assessment</a>
+<a href="#psycho">4 · Psychometrics</a>
+<a href="#path">5 · Psychopathology</a>
+<a href="#therapy">6 · Therapy schools</a>
+<a href="#dev">7 · Development and psychodynamics</a>
+<a href="#ethics">8 · Ethics and law</a>
+<a href="#stats">9 · Stats and methods</a>
+<a href="#diss">10 · Dissertation defence</a>
+<a href="#vign">11 · Vignettes</a>
+<a href="#curve">12 · Curveballs and the close</a>
+</div>
+
+<h2 id="shape" class="yr">0 · The shape of an answer</h2>
+
+<table class="nums">
+<tr><th>Question type</th><th>Structure</th><th>Length</th></tr>
+<tr><td>"What is X?"</td><td>Definition in one sentence → theorist and year → one example → stop.</td><td>15 to 20 seconds</td></tr>
+<tr><td>"Difference between X and Y?"</td><td>Name the dimension they differ on first, then one line each. Never list X fully then Y fully.</td><td>20 seconds</td></tr>
+<tr><td>"How would you manage this case?"</td><td>Safety first → what you would rule out → assessment → provisional formulation → intervention → supervision.</td><td>45 to 60 seconds</td></tr>
+<tr><td>"Why do you think that?"</td><td>Give the reasoning, then name what would change your mind. Panels mark for the second half.</td><td>20 seconds</td></tr>
+<tr><td>Something you do not know</td><td>"I'm not certain, sir. My understanding is ___, but I'd want to check that before I state it." Then stop.</td><td>8 seconds</td></tr>
+</table>
+
+<div class="clin-focus">
+<b>Your three anchors.</b> The M.Sc (you have the theory), the 250+ YourDOST clients across roughly 473 sessions (you are not theory-only), the dissertation with 214 participants analysed in SPSS by you (you can do research). Any question you have not prepared for, walk it back to one of those three. You are never empty-handed.
+</div>
+
+<h2 id="open" class="yr">1 · Openers</h2>
+
+<div class="qa">
+<p class="q" data-n="Q1">Tell us about yourself.</p>
+<p class="a">"Good morning sir, good morning ma'am. I'm Mohammed Sihan. I did my M.Sc in Clinical Psychology at Jain Deemed-to-be University, Bangalore, 2022 to 2024. Alongside and since, I've been working as a counsellor on YourDOST, an online mental health platform, where I've carried over 250 individual clients across roughly 473 sessions, mostly anxiety, low mood, relationship distress and academic stress. My dissertation was a quantitative study on pornography consumption in relation to personality, aggression and sexual compulsivity in Indian young adults, 214 participants, Spearman correlations and logistic regression in SPSS. What I want next is structured clinical training under supervision, in a hospital setting, with real assessment and real diagnostic work. That's why I applied here."</p>
+<p class="why">Forty-five seconds, all evidence, and it ends by handing them the next question. You control the follow-up instead of waiting for it.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q2">Why clinical psychology?</p>
+<p class="a">"Three reasons, one personal, one academic, one professional. Personally, the work I've done on YourDOST is the only work I've done where I finish a session more awake than I started it. Academically, my M.Sc pulled me towards psychopathology and assessment specifically, the diagnostic side rather than the purely supportive side. Professionally, I keep running out of road with real clients: I can stabilise someone and do CBT work on a thought loop, but when there's an obsessive-compulsive presentation or a possible bipolar pattern underneath, my role is to refer, not to assess and formulate. I don't want to keep stopping at the referral."</p>
+<p class="why">One personal line, one academic, one professional, and no sob story. The third reason is the one only somebody with real caseload hours can give.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q3">Why Manipal? Why this department?</p>
+<p class="a">"Because of the setting. MAHE is one of the few places where clinical psychology training sits inside a full teaching hospital system, so it isn't classroom-only, there's actual patient contact and multidisciplinary work alongside psychiatry. Second, MCHP has a long-standing training tradition and dedicated faculty in the department, so supervision isn't an afterthought. Third, the structure of this programme specifically: a two-year MA with supervised practicum and a dissertation, on the RCI track, rather than a degree that leaves me academically qualified and professionally unlicensed. I sat the MET, I'm in the interview band, this is my first choice."</p>
+<p class="why">Concrete without faking insider knowledge. Do not invent faculty names, centre names or accreditation claims. Vague-but-true beats specific-but-wrong when you are talking to the people who run the department.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q4">You already have an M.Sc in Clinical Psychology. Why a second master's?</p>
+<p class="a">"The M.Sc gave me the academic base and the research training, and I've used both, I ran a full quantitative dissertation off it. What it didn't give me was supervised clinical practice inside a hospital, and that's the piece the RCI-recognised route provides. I'm not repeating a degree, I'm adding the supervised clinical training and the professional recognition my present qualification doesn't carry."</p>
+<p class="why">Own it in the first sentence. Any hesitation here reads as "he couldn't get in anywhere else."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q5">What have you read recently?</p>
+<p class="a">"Marsha Linehan's <i>Building a Life Worth Living</i>. It's her memoir, and what struck me is that DBT came out of her own experience of being on the wrong side of the treatment, being the patient nobody could hold. It changed how I think about validation. Before that I read it as a technique you apply before you get to the change work. She writes it as the thing that makes change possible at all, and I notice the difference in my own sessions when I skip it."</p>
+<p class="why">Name one real book, one sentence on why, and make the why about your practice. Do not name a textbook, and do not name something you have not actually read, because the next question is always "what did you make of it?"</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q6">What are your strengths?</p>
+<p class="a">"Two. First, volume of contact hours, over 250 clients, which means I've built the reflex of sitting with distress without rushing to fix it. Second, I'm comfortable with data. I did my own SPSS analysis rather than handing it to someone, so when I read a paper I read the method section, not just the abstract."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q7">What is your weakness?</p>
+<p class="a">"My clinical exposure is heavily weighted to online counselling with a relatively high-functioning population. I haven't worked on a ward, and I haven't sat with severe mental illness in an acute phase. I know the psychopathology academically, but I haven't seen most of it. That's precisely the gap this programme fills, and it's the honest answer rather than saying I work too hard."</p>
+<p class="why">A real weakness that the programme fixes. Never give a disguised strength, panels have heard "I'm a perfectionist" a hundred times and it costs you credibility for the rest of the interview.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q8">Where do you see yourself in five years?</p>
+<p class="a">"Working as a clinical psychologist in a hospital or an institutional setting, RCI registered, with a caseload that includes assessment and not only therapy. I'd like to still be doing research alongside it, in behavioural addiction and impulse control, which is where my dissertation sat. Longer term I'd want to supervise, but I'm aware that's a decade of clinical hours away, not five years."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q9">What if you don't get in here?</p>
+<p class="a">"I'd reapply. I've also sat for the other RCI-track entrances this cycle, so I have parallel options, but the plan doesn't change: supervised clinical training, then registration. I've built a year of preparation around this and I'd spend another one on it if I had to."</p>
+<p class="why">No desperation, no bluffing that you have nowhere else to go, and no implying you have a better offer. Steady is the right register.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q10">Why should we take you over the other candidates?</p>
+<p class="a">"I won't compare myself to people I haven't met, sir. What I'd say is that I come in with three things already done: a master's in this exact subject, a completed quantitative dissertation I analysed myself, and 250-plus clients of real contact hours. Most applicants have one of those. So I need the clinical supervision from you, not the basics."</p>
+</div>
+
+<h2 id="defs" class="yr">2 · Core definitions</h2>
+
+<p>These are the ones they actually ask. Definition, theorist, example, in that order, every time.</p>
+
+<div class="qa">
+<p class="q" data-n="Q11">Define clinical psychology.</p>
+<p class="a">"Clinical psychology is the branch of psychology concerned with the assessment, diagnosis, formulation, treatment and prevention of psychological distress and mental disorder. The term was coined by Lightner Witmer in 1896, who opened the first psychological clinic at the University of Pennsylvania, and he later founded the journal <i>The Psychological Clinic</i>. In practice it's the discipline that takes a presenting complaint, converts it into a formulation using psychological science, and treats it, for example doing an ERP-based intervention for an obsessive-compulsive presentation rather than only offering support."</p>
+<p class="why">Definition, theorist and year, then an example. That is the template for the whole section, and using it consistently is itself a signal you have been trained.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q12">Clinical psychology versus counselling psychology versus psychiatry.</p>
+<p class="a">"The dimension is severity and role, not subject matter. Psychiatry is medical, an MD, so prescribing and physical treatments are theirs. Clinical psychology works with diagnosable mental disorder using psychological assessment and psychotherapy, and in India it's an RCI-registered profession. Counselling psychology traditionally works with adjustment, developmental and situational problems in a relatively better-functioning population. The overlap is large in practice and the boundary is about severity, setting and statutory scope of practice."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q13">How do you define abnormality?</p>
+<p class="a">"There's no single criterion, so the working answer is the four Ds. Deviance, behaviour that departs markedly from cultural and statistical norms. Distress, subjective suffering. Dysfunction, interference with occupational, social or personal functioning. And danger, risk to self or others. No one of them is sufficient on its own, a religious ascetic is deviant without being disordered, and dysfunction is usually the most clinically useful of the four. Context and culture qualify all of them."</p>
+<p class="why">Say all four, they mark for all four. The qualifier at the end, that no single D is sufficient and culture qualifies them, is what turns a memorised list into an answer.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q14">What is a case formulation?</p>
+<p class="a">"A formulation is a working hypothesis that explains why this person has this problem now, linking predisposing, precipitating, perpetuating and protective factors to the presenting complaint. The 4 Ps. Predisposing is vulnerability, temperament, family history, early adversity. Precipitating is the trigger, the exam failure, the loss. Perpetuating is what's maintaining it now, avoidance, safety behaviours, family accommodation. Protective is what's working, intelligence, a supportive partner, insight. Unlike a diagnosis, which classifies, a formulation explains, and it's directly testable, if the formulation is right the intervention it implies should work."</p>
+<p class="why">This is the single most useful thing you can say in a clinical viva, and it is the answer that separates people who have been supervised from people who have only read. If a vignette comes up, formulate before you diagnose.</p>
+<p class="push">"Diagnosis or formulation, which matters more?" — "They do different jobs. Diagnosis gives you shared language, an evidence base and access to services. Formulation gives you the individual mechanism and tells you what to actually do on Tuesday. Two people with the same diagnosis can need opposite interventions, which is why the formulation is what I'd treat from."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q15">Difference between a sign and a symptom.</p>
+<p class="a">"A symptom is subjective, what the patient reports, for example 'I feel low'. A sign is objective, what the clinician observes, for example psychomotor retardation or a flat affect. A syndrome is a cluster of signs and symptoms that run together, and a disorder is a syndrome plus distress or impairment plus a defined course."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q16">Mood versus affect.</p>
+<p class="a">"Mood is subjective and sustained, the pervasive emotional climate the patient reports, the weather over a season. Affect is observed and momentary, what I see in the room, the weather today. So I record mood in the patient's own words and I describe affect on range, reactivity, appropriateness and intensity. A patient can report a depressed mood while showing a constricted affect, and that mismatch is itself clinical information."</p>
+<p class="why">The season-and-day image is worth using out loud. It signals you understand the distinction rather than having memorised the sentence.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q17">Insight and how you grade it.</p>
+<p class="a">"Insight is the patient's awareness that they are ill and that their experiences are a product of illness, plus their willingness to accept treatment. It isn't binary, it's graded: from complete denial of illness, through slight awareness with simultaneous denial, awareness but blamed on external factors, awareness that it's due to something unknown in the self, intellectual insight, up to true emotional insight where the understanding actually changes behaviour. Clinically the last step is the one that predicts adherence."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q18">Insight versus judgement.</p>
+<p class="a">"Insight is understanding of one's own illness. Judgement is the capacity to make appropriate decisions and act on them, and it's assessed as personal, social and test judgement. A patient can have preserved judgement in ordinary situations while having no insight into a delusion, and the two are recorded separately in the MSE for that reason."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q19">Illusion, hallucination, delusion.</p>
+<p class="a">"An illusion is a misperception of a real external stimulus, seeing a rope as a snake. A hallucination is a perception in the absence of any external stimulus, occurring in the external world, with the full force of a real perception and not under voluntary control, that's Esquirol's classic definition. A delusion isn't a perceptual disturbance at all, it's a disorder of thought content, a fixed false belief held with conviction against contrary evidence and not explained by the person's culture or religion."</p>
+<p class="push">"What about a pseudohallucination?" — "It's experienced in inner subjective space rather than the external world, and the person usually retains some awareness of its unreal quality. Classic example is a hallucinated voice heard 'inside the head' rather than through the ears."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q20">Disorder of thought: form, content, possession.</p>
+<p class="a">"Thought is examined on three axes. Form is how thinking is organised, so circumstantiality, tangentiality, derailment or loosening of associations, flight of ideas, thought block, neologisms. Content is what's being thought, so delusions, overvalued ideas, obsessions, phobias, suicidal ideation. Possession is whether the thoughts are experienced as the person's own and under their control, which covers thought insertion, withdrawal and broadcasting, and obsessions where ownership is retained but control is lost."</p>
+<p class="why">Most candidates only know form and content. Naming possession as the third axis, and placing thought insertion there rather than under content, is a trained answer.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q21">Obsession versus delusion.</p>
+<p class="a">"On insight and ownership. An obsession is ego-dystonic, the person recognises it as their own thought, finds it senseless and resists it. A delusion is ego-syntonic, held with full conviction as true, and not resisted. The boundary blurs in OCD with poor or absent insight, which DSM-5-TR now specifies with an insight qualifier."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q22">What is comorbidity, and why does it matter clinically?</p>
+<p class="a">"The co-occurrence of two or more disorders in the same person, and it's the rule rather than the exception, depression with anxiety being the commonest pair. It matters because it worsens prognosis, complicates the treatment sequence, and often reflects a shared underlying vulnerability rather than two separate illnesses, which is the argument behind dimensional models like HiTOP and ICD-11's dimensional approach to personality disorder."</p>
+</div>
+
+<h2 id="mse" class="yr">3 · MSE and assessment</h2>
+
+<div class="qa">
+<p class="q" data-n="Q23">Take me through the mental status examination.</p>
+<p class="a">"The MSE is a systematic cross-sectional description of the patient's mental functioning at the time of the interview. It's to psychiatry what the physical examination is to medicine, a snapshot of now, not a history. In order: appearance and behaviour, including general appearance, attitude, psychomotor activity, rapport and eye contact. Then speech, on rate, volume, tone, and relevance. Then mood and affect. Then thought, examined on form, content and possession. Then perception, hallucinations, illusions, depersonalisation and derealisation. Then cognition, which is orientation, attention and concentration, memory, intelligence and abstraction. Then judgement, and finally insight."</p>
+<p class="why">Say it in order, without hesitation. Fumbling the order of the MSE in front of a clinical psychology panel is the single most avoidable loss in the whole viva.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q24">How do you test attention and concentration at the bedside?</p>
+<p class="a">"Digit span forward and backward, serial sevens or serial threes if the patient's education makes sevens unfair, spelling a word backwards, and naming the days or months in reverse. I'd interpret them against the patient's education, because serial sevens fail for arithmetic reasons in someone with limited schooling and that isn't inattention."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q25">How do you assess memory in an MSE?</p>
+<p class="a">"By time frame. Immediate retention and recall with digit span or three-word registration. Recent memory with events of the last few days and recall of those three words after five minutes. Remote memory with personal and historical information from years back. In an amnestic or dementing process recent memory goes first while remote memory is relatively preserved, and that gradient is itself diagnostic."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q26">What goes into a full psychodiagnostic assessment?</p>
+<p class="a">"Referral question first, because it determines everything else. Then a clinical interview and history, the MSE, then psychological testing chosen to answer the referral question, usually an intelligence test, a personality measure, symptom rating scales, and neuropsychological screening where organicity is a question. Then integration into a report with a formulation and recommendations. A battery is never a fixed list, it's assembled around the question being asked."</p>
+<p class="why">"It depends on the referral question" is the sentence that tells them you have thought about assessment as a clinical act rather than a set of tests.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q27">Which intelligence tests would you use, in India?</p>
+<p class="a">"For adults, the WAIS-IV, and in Indian settings the Binet-Kamat Test and Bhatia's Battery of Performance Tests, which is especially useful where language or literacy is a barrier. For children, the WISC and Malin's Intelligence Scale for Indian Children, the Seguin Form Board for a quick performance estimate, the Vineland Social Maturity Scale for adaptive functioning, and the Developmental Screening Test. The WAIS gives four index scores: verbal comprehension, perceptual reasoning, working memory and processing speed."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q28">Objective versus projective tests.</p>
+<p class="a">"Objective tests use structured stimuli and fixed response formats with standardised scoring, so the MMPI-2, 16PF, NEO-PI-R, EPQ. Projective tests use ambiguous stimuli on the projective hypothesis, that the person imposes their own needs and conflicts on the ambiguity, so the Rorschach, TAT, sentence completion, Draw-A-Person. The trade-off is that objective tests have stronger psychometrics but are open to faking and response sets, projective tests are harder to fake but have weaker reliability and validity, which is why the Rorschach needed a standardised system like Exner's."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q29">What does the Rorschach actually measure?</p>
+<p class="a">"Perceptual-cognitive process rather than content alone, how the person organises ambiguous stimuli. Ten inkblots, five achromatic and five with colour. Scoring on location, determinants, form quality, content and popularity, and it's the structural summary that's interpreted, not any single response. Exner's Comprehensive System was the attempt to give it defensible psychometrics."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q30">Name the tests for organicity.</p>
+<p class="a">"As a screen, the Bender Visual Motor Gestalt Test, and the MMSE as a bedside cognitive screen. For a full picture, the PGI Battery of Brain Dysfunction and the NIMHANS Neuropsychological Battery, which is the standard Indian battery and assesses attention, executive function, learning and memory, and visuospatial function. A screen tells me whether to investigate, it doesn't tell me where the lesion is."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q31">Which rating scales do you know, and what for?</p>
+<p class="a">"Depression, BDI as a self-report and HAM-D as a clinician-rated scale. Anxiety, BAI and HAM-A. OCD, the Y-BOCS, which is the standard for severity and treatment response. Psychosis, PANSS and BPRS. Mania, the Young Mania Rating Scale. For diagnosis specifically rather than severity, the SCID as the full structured interview and the MINI as the brief one."</p>
+<p class="push">"Rating scale or diagnosis, what's the difference?" — "A rating scale quantifies severity and tracks change, it doesn't diagnose. You can score high on the BDI in a grief reaction. Diagnosis comes from the clinical interview against criteria, the scale monitors it."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q32">What is standardisation, and what are norms?</p>
+<p class="a">"Standardisation is administering and scoring a test under uniform, specified conditions so that scores are comparable across people. Norms are the distribution of scores from a defined reference sample, which is what makes an individual score interpretable at all. This is exactly why using an American norm set on an Indian population is a problem, and why the Indian adaptations, MISIC and Binet-Kamat, exist."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q33">How would you break bad news, or give feedback on a test result?</p>
+<p class="a">"Feedback is part of the assessment, not an afterthought. I'd start from what they came in worried about, use plain language and no jargon, give the finding in one sentence, check what they've understood rather than assuming, name what it does and doesn't mean, and end on what happens next so they don't leave with a label and no plan. With a child I'd do it with the parents and separately in age-appropriate terms with the child."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q34">What is rapport, and how do you build it in the first five minutes?</p>
+<p class="a">"A working relationship in which the patient feels safe enough to disclose accurately. Practically: open with their concern rather than my checklist, use their words back to them, allow silences, keep the first questions open, and be explicit about confidentiality and its limits at the start. In assessment specifically, rapport is a validity issue, not a courtesy, an unrapportful examiner gets an underestimate of ability."</p>
+</div>
+
+<h2 id="psycho" class="yr">4 · Psychometrics: reliability and validity</h2>
+
+<div class="qa">
+<p class="q" data-n="Q35">What is reliability?</p>
+<p class="a">"Reliability is the consistency of a measure, the degree to which it produces stable, repeatable scores free of random error. In classical test theory an observed score is a true score plus error, and reliability is the proportion of observed variance that is true score variance. It's estimated in four ways: test-retest for stability across time, parallel or alternate forms for equivalence, split-half where you correlate two halves and correct with the Spearman-Brown formula because halving a test shortens it, and internal consistency, where KR-20 is used for dichotomously scored items and Cronbach's alpha is the general case. Inter-rater reliability, Cohen's kappa, applies where scoring involves judgement."</p>
+<p class="why">Naming Spearman-Brown as a correction for length, and KR-20 as the dichotomous special case of alpha, is the detail that separates a memorised list from an understood one.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q36">What is validity?</p>
+<p class="a">"Validity is whether a test measures what it claims to measure, and whether the inferences drawn from its scores are justified. Content validity, does the item pool cover the whole construct. Criterion validity, does it relate to an external standard, which splits into concurrent, measured at the same time, and predictive, measured later. Construct validity, does it behave the way the theory says it should, which splits into convergent, correlating with measures of the same construct, and discriminant, not correlating with measures of different ones. Face validity is whether it merely looks appropriate, which is a matter of acceptability, not evidence."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q37">Relationship between reliability and validity.</p>
+<p class="a">"A test can be reliable without being valid, but it can never be valid without being reliable. A scale that reads three kilos heavy every time is perfectly reliable and completely invalid. Reliability sets the ceiling on validity, because a test can't correlate with anything more strongly than it correlates with itself."</p>
+<p class="why">Have the weighing-scale example ready. It is the fastest way to prove you understand rather than recall, and this exact question comes up constantly.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q38">What is Cronbach's alpha and what is an acceptable value?</p>
+<p class="a">"A coefficient of internal consistency, the average of all possible split-half correlations, so it estimates how far the items measure a single underlying construct. Above 0.7 is generally acceptable, above 0.8 good, and for a clinical decision-making instrument you'd want above 0.9. It's inflated by test length, so a very high alpha on a long scale can mean redundant items rather than a good scale. My dissertation used the BFI-10, which has only two items per trait, so its internal consistency is inherently low, and I reported that as a limitation."</p>
+<p class="why">Bringing your own instrument in, with its psychometric weakness named before they find it, converts a textbook answer into a research answer.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q39">Sensitivity and specificity.</p>
+<p class="a">"Sensitivity is the proportion of true cases the test correctly identifies, so it rules disorder out when negative. Specificity is the proportion of non-cases correctly identified, so it rules disorder in when positive. They trade off against each other as you move the cut-off. For a screening instrument you want high sensitivity, because missing a case is costlier than a false alarm you can rule out later, and for a confirmatory test you want high specificity."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q40">What is a standardised score? Z-scores, T-scores, IQ.</p>
+<p class="a">"A score expressed in standard deviation units from the mean of a reference group, so it can be compared across tests. A Z-score has mean 0 and SD 1. A T-score has mean 50 and SD 10, which is what the MMPI uses. Deviation IQ has mean 100 and SD 15, so 130 is two SDs above the mean, roughly the 98th percentile. Percentile ranks are ordinal, not equal-interval, which is why you don't average them."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q41">What is item analysis?</p>
+<p class="a">"The evaluation of individual items during test construction, mainly on two indices: item difficulty, the proportion who answer correctly, and item discrimination, how well the item separates high scorers from low scorers on the total test. You keep items with moderate difficulty and high discrimination, and you drop items everyone gets right, because they add length and no information."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q42">What are response sets, and how do tests control for them?</p>
+<p class="a">"Systematic response tendencies unrelated to item content: social desirability, acquiescence, faking good or bad, and extreme or midpoint responding. Controls include validity scales, the MMPI's L, F and K scales being the classic case, reverse-scored items to catch acquiescence, forced-choice formats, and building rapport plus assuring confidentiality so the person has less reason to distort."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q43">What is test bias, and is it the same as unfairness?</p>
+<p class="a">"No. Bias is a psychometric property, systematic error where a test measures differently across groups, so items function differentially or the test predicts less accurately for one group. Unfairness is about the use of the score. A test can be psychometrically unbiased and still be used unfairly. In India the practical issue is language, education and urban-rural difference in the norm sample, which is why translated tests need re-standardisation and not just translation."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q44">What is the difference between a screening tool and a diagnostic tool?</p>
+<p class="a">"A screening tool is brief, high sensitivity, applied to a population to identify who needs further assessment, and it never diagnoses, the GHQ or a PHQ-9 for example. A diagnostic tool is longer, more specific, applied to a suspected case, and it's assessed against criteria, like the SCID. Treating a screen as a diagnosis is one of the commonest errors in practice."</p>
+</div>
+
+<h2 id="path" class="yr">5 · Psychopathology</h2>
+
+<div class="qa">
+<p class="q" data-n="Q45">Core features of schizophrenia.</p>
+<p class="a">"Delusions, hallucinations, disorganised speech, grossly disorganised or catatonic behaviour, and negative symptoms. DSM-5-TR requires two or more for a significant portion of one month, at least one being from the first three, with continuous disturbance for at least six months including prodromal or residual periods, plus functional decline, and with schizoaffective and mood disorders and substance causes excluded."</p>
+<p class="push">"And the ICD-11 difference?" — "ICD-11 requires one month of symptoms and doesn't impose the six-month total duration, and it's dropped the classical subtypes, paranoid, hebephrenic, catatonic, in favour of symptom dimension specifiers."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q46">Positive versus negative symptoms.</p>
+<p class="a">"Positive symptoms are additions to normal experience, hallucinations, delusions, thought disorder. Negative symptoms are losses, the five As: affective flattening, alogia, avolition, anhedonia, asociality. Positive symptoms respond well to antipsychotics, negative symptoms respond poorly and are the stronger predictor of long-term disability and functional outcome, which is where psychosocial rehabilitation does the work."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q47">Schizophrenia, schizoaffective disorder, or mood disorder with psychotic features?</p>
+<p class="a">"On the temporal relationship between the psychosis and the mood episode. If psychosis occurs only during mood episodes, it's a mood disorder with psychotic features. Schizoaffective requires a mood episode concurrent with the psychosis, plus at least two weeks of delusions or hallucinations in the absence of a prominent mood episode. If mood symptoms are brief relative to the total duration of psychosis, it's schizophrenia."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q48">Bipolar I versus bipolar II.</p>
+<p class="a">"Bipolar I requires at least one manic episode, a week or any duration if hospitalisation is needed, with marked impairment, and a depressive episode is common but not required for the diagnosis. Bipolar II requires at least one hypomanic episode, minimum four days, plus at least one major depressive episode, and by definition never a full manic episode. Hypomania is a change observable to others but without marked impairment or psychosis, and if there's psychosis it's mania by definition."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q49">Criteria for a major depressive episode.</p>
+<p class="a">"Five or more symptoms during the same two-week period, representing a change from previous functioning, and at least one must be depressed mood or loss of interest and pleasure. The rest: significant weight or appetite change, insomnia or hypersomnia, psychomotor agitation or retardation, fatigue, worthlessness or excessive guilt, reduced concentration or indecisiveness, and recurrent thoughts of death or suicidal ideation. With distress or impairment, and not attributable to a substance or a medical condition."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q50">Grief or depression?</p>
+<p class="a">"In grief the dysphoria comes in waves tied to reminders of the loss, self-esteem is generally preserved, and the person can still experience pleasure between waves. In a depressive episode the mood is persistent and pervasive, self-esteem is low with worthlessness and guilt not specific to the loss, and anhedonia is continuous. DSM-5 removed the bereavement exclusion precisely because a genuine depressive episode can be precipitated by a loss and shouldn't go untreated."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q51">GAD versus panic disorder.</p>
+<p class="a">"GAD is excessive, uncontrollable, free-floating worry across several domains, more days than not for at least six months, with three of six symptoms: restlessness, fatigue, poor concentration, irritability, muscle tension, sleep disturbance. Panic disorder is recurrent unexpected panic attacks, an abrupt surge peaking within minutes with four or more of thirteen physical and cognitive symptoms, followed by at least a month of persistent worry about further attacks or a maladaptive change in behaviour. GAD is anticipatory and chronic, panic is paroxysmal and about the attack itself."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q52">Explain OCD and its treatment.</p>
+<p class="a">"Obsessions are recurrent, intrusive, unwanted, ego-dystonic thoughts, images or urges that cause marked anxiety, and compulsions are repetitive behaviours or mental acts performed to reduce that anxiety or prevent a feared outcome, not connected realistically to what they're meant to prevent. Time-consuming, more than an hour a day, or causing marked distress or impairment. The treatment of choice is exposure and response prevention, exposing to the trigger while preventing the compulsion, so the anxiety habituates and the belief that the compulsion prevented the outcome is disconfirmed. SSRIs at higher doses than for depression are the pharmacological arm, and combined treatment for severe cases."</p>
+<p class="push">"Why must the response be prevented, why not just expose?" — "Because the compulsion is a safety behaviour. If it's allowed, the person attributes the non-occurrence of the feared outcome to the compulsion, so the belief survives the exposure. Preventing the response is what makes the exposure informative."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q53">OCD versus OCPD.</p>
+<p class="a">"On ego-syntonicity. OCD is ego-dystonic, an Axis-I style symptom disorder, the person doesn't want the obsessions and resists them. OCPD is ego-syntonic, a pervasive personality pattern of perfectionism, orderliness, control and rigidity that the person sees as correct and doesn't want to change. They can co-occur, but they're not on a continuum."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q54">PTSD.</p>
+<p class="a">"Exposure to actual or threatened death, serious injury or sexual violence, directly, as a witness, by learning of it happening to a close other, or through repeated exposure to aversive details in the course of duty. Then four symptom clusters: intrusion, that's flashbacks, nightmares, intrusive memories; avoidance of internal and external reminders; negative alterations in cognition and mood; and alterations in arousal and reactivity, hypervigilance, startle, irritability, sleep disturbance. More than one month, with impairment. Under a month it's acute stress disorder. ICD-11 also recognises complex PTSD, which adds affect dysregulation, negative self-concept and relational difficulties after prolonged, repeated trauma."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q55">The personality disorder clusters.</p>
+<p class="a">"Cluster A, odd and eccentric: paranoid, schizoid, schizotypal. Cluster B, dramatic, emotional and erratic: antisocial, borderline, histrionic, narcissistic. Cluster C, anxious and fearful: avoidant, dependent, obsessive-compulsive personality disorder. All of them require an enduring, pervasive, inflexible pattern deviating from cultural expectation, onset by adolescence or early adulthood, and impairment, which is why you're cautious about diagnosing one in an acute episode or in an adolescent."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q56">Delirium versus dementia.</p>
+<p class="a">"Onset, course, attention and consciousness. Delirium is acute in onset, hours to days, fluctuates over the day with nocturnal worsening, attention and level of consciousness are impaired, it's usually reversible and it's a medical emergency with an underlying physical cause. Dementia, major neurocognitive disorder, is insidious in onset, progressive, consciousness is clear until very late, attention is relatively preserved early, and memory and other cognitive domains decline. The two co-occur often, delirium superimposed on dementia, and that's the presentation people miss."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q57">Somatic symptom disorder versus conversion versus factitious versus malingering.</p>
+<p class="a">"On symptom production and motivation. In somatic symptom disorder and conversion disorder the symptoms are not consciously produced and there's no external incentive, conversion specifically involving neurological symptoms incompatible with recognised disease. In factitious disorder symptoms are consciously produced, but the motivation is psychological, to occupy the sick role. In malingering symptoms are consciously produced for an external incentive, compensation, avoiding work or legal consequences, and it isn't a psychiatric diagnosis at all."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q58">Neurosis versus psychosis, if they ask it the old way.</p>
+<p class="a">"The classical distinction is on reality testing and insight. Neurotic conditions preserve both, the person knows something is wrong with them. Psychotic conditions lose reality testing, insight is impaired, and there's usually a break with consensual reality through delusions or hallucinations. Both terms were dropped from DSM-III onwards in favour of descriptive categories, but they're still used clinically as shorthand in India."</p>
+<p class="why">Answer the old distinction properly, then note it is superseded. Refusing to answer because "that's outdated" reads as evasive, and knowing why it was dropped is the actual mark.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q59">DSM-5-TR versus ICD-11.</p>
+<p class="a">"DSM is the American Psychiatric Association's manual, criteria-based with explicit symptom counts and durations, dominant in research. ICD is the WHO's classification, part of a whole-medicine coding system, used for official morbidity statistics, and it's what India works with legally and administratively. ICD-11 is written as clinical descriptions and diagnostic requirements rather than rigid counts, gives the clinician more latitude, has moved personality disorder to a fully dimensional severity model, and has added complex PTSD, prolonged grief disorder and gaming disorder."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q60">Categorical versus dimensional models of psychopathology.</p>
+<p class="a">"A categorical model treats disorder as present or absent, which suits communication, service eligibility and clinical decisions, but forces artificial thresholds and produces heavy comorbidity and huge within-category heterogeneity. A dimensional model treats symptoms as continua, which fits the data better and handles subthreshold cases, but is harder to use for a yes-or-no clinical decision. The field is moving to hybrids, ICD-11 personality disorder and DSM-5's alternative model are exactly that."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q61">What is the diathesis-stress model?</p>
+<p class="a">"That disorder arises from the interaction of a predisposing vulnerability, genetic, biological or psychological, with environmental stress. Neither alone is sufficient in most cases, a high diathesis needs little stress to precipitate an episode and a low diathesis needs a great deal. It's the model underneath the 4 Ps formulation, predisposing factors are the diathesis, precipitating factors are the stress, and it's why I'd never explain a presentation with only one of the two."</p>
+</div>
+
+<h2 id="therapy" class="yr">6 · Therapy schools</h2>
+
+<div class="qa">
+<p class="q" data-n="Q62">Rogers' core conditions.</p>
+<p class="a">"Carl Rogers, person-centred therapy, 1957. He specified six necessary and sufficient conditions for therapeutic change, of which three are the therapist-offered core conditions: empathy, an accurate understanding of the client's internal frame of reference as if it were your own without losing the 'as if'; unconditional positive regard, a non-judgemental prizing of the person independent of their behaviour; and congruence or genuineness, the therapist being integrated and real in the relationship rather than performing a role. The claim is strong, that these are not just helpful but necessary and sufficient, no technique required, and it's why he's the origin of the whole common-factors literature."</p>
+<p class="why">The words "necessary and sufficient" are what they are listening for. Add that the client must perceive the conditions, which is the part almost everybody drops.</p>
+<p class="push">"Do you agree they're sufficient?" — "Necessary, yes, in my own work nothing lands without them. Sufficient, I'd say not universally. For a specific phobia or OCD, the relationship makes the exposure possible but it's the exposure that does the work. Rogers' conditions are the floor, not the whole building."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q63">Beck's cognitive model.</p>
+<p class="a">"Aaron Beck, cognitive therapy for depression, 1960s. The cognitive triad is a negative view of the self, of the world or current experience, and of the future. Underneath sit schemas, core beliefs laid down early and activated by stress, which generate systematically distorted information processing, so the cognitive distortions: arbitrary inference, selective abstraction, overgeneralisation, magnification and minimisation, personalisation, dichotomous thinking. At the surface are negative automatic thoughts, which are what the patient reports and what you work with first. Technique goes from the surface inwards: thought records and behavioural experiments before schema-level work."</p>
+<p class="push">"Give me an example from your own work." — "A student came in convinced she'd failed a viva because she stumbled once. That's arbitrary inference and selective abstraction: one moment taken as the whole event. The automatic thought was 'I've ruined it', the core belief underneath was 'I'm not good enough to be here'. We worked the automatic thought with evidence-for and evidence-against before we ever touched the belief."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q64">Ellis and the ABC model.</p>
+<p class="a">"Albert Ellis, Rational Emotive Behaviour Therapy, 1955, the first cognitive therapy. A is the Activating event, B is the Belief about it, C is the emotional and behavioural Consequence. The central claim is that A doesn't cause C, B does, so the same rejection produces disappointment in one person and devastation in another. Therapy adds D, Disputing the irrational belief, and E, the Effective new philosophy. The irrational beliefs are absolutistic demands, the musts and shoulds, plus awfulising, low frustration tolerance and global self-rating."</p>
+<p class="push">"Beck and Ellis, how do they differ?" — "Ellis is more philosophical and directive, he disputes the belief head on as irrational. Beck is more empirical and collaborative, he treats the thought as a hypothesis and tests it with the patient through evidence and behavioural experiments. Collaborative empiricism versus disputation."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q65">Wolpe and systematic desensitisation.</p>
+<p class="a">"Joseph Wolpe, 1958, out of his work on experimental neurosis in cats. The principle is reciprocal inhibition: if a response antagonistic to anxiety can be made to occur in the presence of the anxiety-evoking stimulus, the bond between the stimulus and the anxiety is weakened. Three steps: train deep muscle relaxation, construct a graded hierarchy of feared situations rated on subjective units of distress, then pair each step of the hierarchy with relaxation, moving up only when the lower step evokes no anxiety. It can be done in imagination or in vivo, in vivo being more effective."</p>
+<p class="push">"How does it differ from flooding?" — "Graded and paired with relaxation versus immediate, prolonged exposure to the most feared stimulus with no relaxation and no escape. Flooding works by extinction rather than reciprocal inhibition, it's faster and much more aversive, so dropout is higher."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q66">Linehan and DBT.</p>
+<p class="a">"Marsha Linehan, developed for chronically suicidal women with borderline personality disorder. It rests on a biosocial theory: an emotionally vulnerable temperament transacting over time with an invalidating environment produces pervasive emotion dysregulation. The core dialectic is acceptance and change, the therapist validates the person's experience as it is while working towards change, and it's synthesised through mindfulness drawn from Zen. Four skills modules: mindfulness, distress tolerance, emotion regulation, interpersonal effectiveness. Delivery is four-pronged, individual therapy, skills group, phone coaching between sessions, and a consultation team for the therapist. Targets are hierarchical: life-threatening behaviours first, then therapy-interfering behaviours, then quality-of-life-interfering behaviours."</p>
+<p class="why">The biosocial theory and the target hierarchy are what mark this out from a memorised four-module list. The therapist consultation team is a nice detail, it shows you know DBT treats therapist burnout as part of the model.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q67">What is your therapeutic approach?</p>
+<p class="a">"Integrative, with a cognitive-behavioural spine and a person-centred relational base. Practically I'm state-driven rather than modality-driven: I read where the client is before I pick a technique. Flooded, I go to containment and grounding and I don't try to restructure anything. Stuck on a thought, that's where CBT or ACT-style work goes. Ambivalent about change, motivational interviewing, roll with the resistance rather than argue it. Functionally stuck, behavioural activation and problem-solving. Self-critical, compassion-focused work. Validate first, stabilise before exploring."</p>
+<p class="why">This is your real, documented style off your own sessions, not a school you are performing. Panels detect a borrowed answer in one follow-up, and they always ask the follow-up.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q68">What are the common factors in psychotherapy?</p>
+<p class="a">"The elements shared across all effective therapies that account for a substantial part of outcome regardless of school: the therapeutic alliance, empathy, positive regard, goal consensus and collaboration, therapist genuineness, and client expectancy or hope. The alliance, Bordin's version, has three components, agreement on goals, agreement on tasks, and the affective bond. It's one of the most robust predictors of outcome in the literature, which is why the 'which school is best' argument is less useful than it sounds."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q69">Transference and countertransference.</p>
+<p class="a">"Transference is the client's unconscious redirection onto the therapist of feelings and patterns originally belonging to significant early figures, and Freud moved from seeing it as an obstacle to seeing it as the main working material. Countertransference is the therapist's emotional reaction to the client, classically the therapist's own unresolved conflicts, but in the modern totalistic view it's a source of information about what the client evokes in others. Practically, I treat my reaction as data, and I take it to supervision rather than acting on it."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q70">What is behaviour therapy built on?</p>
+<p class="a">"Learning theory, and the assumption that maladaptive behaviour is learned and can therefore be unlearned. Classical conditioning gives you the acquisition of phobias, Watson and Rayner's Little Albert, and Mowrer's two-factor theory explains their maintenance, acquired by classical conditioning and maintained by operant avoidance because avoidance is negatively reinforced. Operant conditioning gives you contingency management, token economies, shaping and extinction. Techniques: systematic desensitisation, exposure and response prevention, flooding, aversion therapy, behavioural activation, social skills training."</p>
+<p class="why">Two-factor theory is the answer to "why doesn't the phobia just extinguish on its own?", and it directly justifies exposure. Have it ready, it makes several answers hang together.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q71">What is third-wave CBT?</p>
+<p class="a">"Approaches that target the person's relationship to their thoughts rather than the content of the thoughts. ACT, Steven Hayes, psychological flexibility through acceptance, defusion, contact with the present, self-as-context, values and committed action. MBCT, Segal, Williams and Teasdale, mindfulness to prevent depressive relapse by interrupting rumination. DBT sits here too. The shift is from disputing a thought to changing how tightly you hold it."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q72">Which therapy for which disorder?</p>
+<p class="a">"Panic disorder, CBT with interoceptive exposure. Specific phobia, exposure or systematic desensitisation. Social anxiety, CBT with behavioural experiments. OCD, ERP plus an SSRI. PTSD, trauma-focused CBT, prolonged exposure or EMDR. Depression, CBT, behavioural activation or IPT. Borderline personality disorder, DBT. Schizophrenia, antipsychotics as the base plus psychoeducation, family intervention to lower expressed emotion, social skills training, and CBT for psychosis. Substance use, motivational interviewing plus relapse prevention. Insomnia, CBT-I."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q73">What is expressed emotion, and why does it matter?</p>
+<p class="a">"A measure of the family's emotional climate towards the patient, on criticism, hostility and emotional over-involvement. High expressed emotion households predict significantly higher relapse rates in schizophrenia, independent of medication, and the finding replicates across cultures including in India. It matters because it's modifiable, family psychoeducation aimed at reducing expressed emotion is one of the best-evidenced psychosocial interventions in psychosis."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q74">Group therapy: what does it give you that individual therapy doesn't?</p>
+<p class="a">"Yalom's therapeutic factors, and the ones that are specifically group phenomena are universality, the discovery that you're not alone in this; altruism, being useful to someone else; interpersonal learning; and the corrective recapitulation of the primary family group, where the group becomes a live arena to rework family patterns. Instillation of hope through seeing someone further along also works far more powerfully in a group than from a therapist saying it."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q75">What is psychosocial rehabilitation?</p>
+<p class="a">"The set of interventions that restore functioning and community participation in people with severe mental illness, as distinct from symptom reduction. Components: psychoeducation, social skills training, cognitive retraining, vocational training and supported employment, family intervention, and case management with community follow-up. It matters most where negative symptoms and cognitive deficits, not positive symptoms, are driving the disability, and in the Indian setting the District Mental Health Programme is the delivery arm."</p>
+</div>
+
+<h2 id="dev" class="yr">7 · Development and psychodynamics</h2>
+
+<div class="qa">
+<p class="q" data-n="Q76">Freud's structural model.</p>
+<p class="a">"Id, ego, superego. The id is present from birth, entirely unconscious, the reservoir of drives, operating on the pleasure principle and primary process thinking, demanding immediate gratification. The ego develops from the id in contact with reality, operates on the reality principle and secondary process thinking, and mediates between the id, the superego and external reality. The superego is the internalised moral standard, formed through resolution of the Oedipus complex and identification with the same-sex parent, containing the conscience and the ego ideal. Anxiety is the ego's signal that it's being overwhelmed, and defence mechanisms are the ego's response."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q77">Name the defence mechanisms.</p>
+<p class="a">"Repression is the primary one, exclusion of unacceptable material from consciousness. Denial, refusal to accept an external reality. Projection, attributing your own unacceptable impulse to someone else. Reaction formation, behaving in the opposite way to the unacceptable impulse. Displacement, redirecting the impulse onto a safer target. Rationalisation, a plausible but false justification after the fact. Regression, returning to an earlier developmental level under stress. Intellectualisation and isolation of affect, separating the thought from its feeling. Sublimation, channelling the impulse into a socially valued activity, which is the one mature defence in Freud's scheme. Anna Freud systematised the list in 1936."</p>
+<p class="why">Crediting Anna Freud for the systematisation is a small detail that lands well, and finishing on sublimation as the mature defence gives the list a point rather than just an ending.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q78">Psychosexual stages.</p>
+<p class="a">"Oral, birth to about one, pleasure centred on the mouth, fixation gives dependency or oral aggression. Anal, one to three, on bowel control, fixation gives anal-retentive orderliness and obstinacy or anal-expulsive messiness. Phallic, three to six, the Oedipus complex in boys with castration anxiety, and Electra with penis envy in girls in the later formulation, resolved by identification with the same-sex parent, which forms the superego. Latency, six to puberty, drives quiescent, energy into school and same-sex friendship. Genital, from puberty, mature sexuality. Fixation occurs through excessive gratification or frustration at a stage, and it explains later character."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q79">Erikson's eight stages.</p>
+<p class="a">"Erik Erikson, psychosocial rather than psychosexual, extending across the whole lifespan, with each stage a crisis whose resolution yields a virtue. Trust versus mistrust, infancy, virtue hope. Autonomy versus shame and doubt, toddlerhood, will. Initiative versus guilt, preschool, purpose. Industry versus inferiority, school age, competence. Identity versus role confusion, adolescence, fidelity. Intimacy versus isolation, young adulthood, love. Generativity versus stagnation, middle adulthood, care. Ego integrity versus despair, old age, wisdom. His two central contributions are lifespan development and the identity crisis of adolescence."</p>
+<p class="why">If they only want two, give trust versus mistrust and identity versus role confusion, then offer the rest. Volunteering the whole eight when they asked for two is exactly the over-answering that invites a harder follow-up.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q80">Freud versus Erikson.</p>
+<p class="a">"Three differences. Freud's stages are psychosexual and driven by libidinal zones, Erikson's are psychosocial and driven by the demands of social relationships. Freud ends at puberty, Erikson runs to death. And Freud's ego serves the id, Erikson's ego is autonomous and adaptive in its own right, which makes him an ego psychologist rather than a drive theorist."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q81">Piaget's stages.</p>
+<p class="a">"Sensorimotor, birth to two, knowledge through sensation and action, with object permanence the key achievement. Preoperational, two to seven, symbolic thought and language, but egocentrism, animism, centration and no conservation. Concrete operational, seven to eleven, logical operations on concrete material, so conservation, reversibility, classification and seriation appear. Formal operational, eleven onwards, abstract and hypothetico-deductive reasoning. The mechanism throughout is adaptation: assimilation, fitting new information into an existing schema, and accommodation, altering the schema to fit the information, with equilibration as the drive that balances them."</p>
+<p class="push">"Give me an example of assimilation and accommodation." — "A child with a schema for 'dog' sees a cow and calls it a dog, that's assimilation, forcing the new input into the existing schema. When they learn cows are a separate category and split the schema, that's accommodation."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q82">Vygotsky, and how he differs from Piaget.</p>
+<p class="a">"Vygotsky's sociocultural theory holds that development is fundamentally social, that higher mental functions appear first between people, on the interpsychological plane, and only then within the child, on the intrapsychological plane. The zone of proximal development is the distance between what a child can do alone and what they can do with a more capable other, and scaffolding is the graded support that's withdrawn as competence grows. Language is the primary mediating tool and private speech becomes inner speech. The difference from Piaget is direction: for Piaget development precedes and limits learning, for Vygotsky learning leads development. Piaget's child is a solitary scientist, Vygotsky's is an apprentice."</p>
+<p class="why">The solitary-scientist versus apprentice line is compact and it makes the contrast land. The ZPD also connects straight to supervision, which is worth saying if the conversation is about training.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q83">Attachment theory.</p>
+<p class="a">"John Bowlby: attachment is an innate biological system with the survival function of keeping the infant close to a caregiver, activated by threat and terminated by proximity. Out of the interaction the child builds internal working models of self and others that carry into adult relationships. Mary Ainsworth operationalised it with the Strange Situation, a structured sequence of separations and reunions, and classified reunion behaviour into secure, insecure-avoidant and insecure-ambivalent or resistant. Mary Main later added the disorganised category, which shows contradictory, fearful behaviour towards the caregiver and is the one most associated with unresolved trauma in the parent and with later psychopathology. The reunion is what's coded, not the separation."</p>
+<p class="why">"The reunion is what is coded" is a small correction most candidates get wrong, and it shows you understand the paradigm rather than the labels.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q84">Kohlberg's moral development.</p>
+<p class="a">"Three levels of two stages each, assessed through moral dilemmas like Heinz. Pre-conventional, punishment and obedience then instrumental exchange, morality is external consequences. Conventional, good boy or good girl interpersonal conformity then law and order, morality is social approval and rules. Post-conventional, social contract then universal ethical principles, morality is self-chosen principle. Gilligan's criticism is that the sample was male and the scheme privileges an ethic of justice over an ethic of care."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q85">Classical versus operant conditioning.</p>
+<p class="a">"Classical, Pavlov, is learning by association between stimuli, the response is elicited and involuntary: an unconditioned stimulus produces an unconditioned response, pairing a neutral stimulus with it makes it a conditioned stimulus producing a conditioned response, with acquisition, extinction, spontaneous recovery, generalisation and discrimination. Operant, Thorndike's law of effect and then Skinner, is learning by consequence, the response is emitted and voluntary: positive and negative reinforcement both increase behaviour, positive and negative punishment both decrease it. The reinforcement schedules are fixed and variable, ratio and interval, and variable ratio produces the highest, most extinction-resistant responding, which is the schedule a slot machine and a notification feed both run on."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q86">Models of memory.</p>
+<p class="a">"Atkinson and Shiffrin's multi-store model, sensory to short-term to long-term, with rehearsal as the transfer mechanism. Baddeley and Hitch replaced short-term memory with working memory: the central executive, the phonological loop, the visuospatial sketchpad, and the episodic buffer added later. Tulving divided long-term memory into episodic, semantic and procedural, and declarative versus non-declarative cuts across it. Forgetting by decay, interference which is proactive and retroactive, retrieval failure, and motivated forgetting."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q87">Theories of intelligence.</p>
+<p class="a">"Spearman's two-factor theory, a general factor g plus specific factors s. Thurstone's seven primary mental abilities against it. Cattell's fluid intelligence, reasoning in novel situations, which declines with age, versus crystallised, accumulated knowledge, which doesn't. Guilford's structure of intellect. Gardner's multiple intelligences, criticised for calling talents intelligences. Sternberg's triarchic theory, componential, experiential and contextual, which is where practical intelligence comes from. Clinically, the fluid-crystallised split is the most useful, because a gap between them in an adult raises the question of acquired impairment."</p>
+<p class="why">Ending on the clinical use of the distinction is what turns a list into an answer for a clinical psychology panel.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q88">Theories of emotion.</p>
+<p class="a">"James-Lange, the physiological response comes first and the emotion is the perception of it, we're afraid because we run. Cannon-Bard, the physiological response and the emotional experience occur simultaneously via the thalamus, because visceral changes are too slow and too undifferentiated. Schachter-Singer two-factor, emotion requires physiological arousal plus a cognitive label drawn from context, the adrenaline study. Lazarus, cognitive appraisal comes first, primary appraisal of threat then secondary appraisal of coping resources, and that's the version that carries into stress and coping work."</p>
+</div>
+
+<h2 id="ethics" class="yr">8 · Ethics and law</h2>
+
+<div class="qa">
+<p class="q" data-n="Q89">What is informed consent?</p>
+<p class="a">"Consent is valid when three conditions hold: capacity, that the person can understand, retain, weigh and communicate a decision; adequate information, the nature and purpose of the assessment or therapy, what it involves, risks, alternatives, confidentiality and its limits, fees and the right to withdraw; and voluntariness, free of coercion. It's an ongoing process, not a signature at intake, and I'd revisit it whenever the plan changes. For a minor, guardian consent plus the child's assent in age-appropriate language. In research, add anonymity, data handling and a debrief, which is exactly what my dissertation had to include given the topic."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q90">What are the limits of confidentiality?</p>
+<p class="a">"Confidentiality is the default and I state it and its limits at the start, as part of consent. It breaks in four situations: serious risk of harm to the client, serious risk of harm to an identifiable other, child sexual abuse where reporting is mandatory under POCSO and failure to report is itself an offence, and a court order. Even then I disclose the minimum necessary, to the right person, and wherever possible I tell the client what I'm disclosing and why rather than going behind them. In a training setting there's also disclosure to a supervisor, which the client is told about at the outset."</p>
+<p class="why">The structure is what is marked: default, stated up front, four specific exceptions, minimum necessary, told to the client. Adding supervision as a disclosed limit is a trainee-specific detail panels notice.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q91">Duty to warn.</p>
+<p class="a">"It comes from Tarasoff v. Regents of the University of California, where the court held that a therapist has a duty to protect an identifiable third party from a serious threat disclosed by a client, the line being 'the protective privilege ends where the public peril begins'. India has no Tarasoff statute, but the ethical principle holds, harm prevention outweighs confidentiality where the risk is serious, credible and directed at an identifiable person, and in practice I'd act through my supervisor rather than unilaterally."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q92">Tell us about the Mental Healthcare Act 2017.</p>
+<p class="a">"It replaced the Mental Health Act 1987 and it's rights-based rather than custodial, enacted to align India with the UN Convention on the Rights of Persons with Disabilities. Key provisions: a right of access to mental healthcare from services run or funded by government; the advance directive, so a person may state in advance how they wish or do not wish to be treated; the nominated representative to act on their behalf; Central and State Mental Health Authorities, and Mental Health Review Boards to review admissions and directives. It presumes capacity to make treatment decisions unless demonstrated otherwise, restricts admission without consent to defined supported-admission provisions with review, prohibits cruel or degrading treatment including seclusion and chaining, and restricts ECT, which may not be given without anaesthesia and muscle relaxants and not to minors except with board and guardian approval. And Section 115 presumes a person who attempts suicide is under severe stress and is not to be prosecuted, which effectively decriminalised attempted suicide, with a duty of care on the government to provide treatment."</p>
+<p class="why">This is the single most likely law question for an Indian clinical psychology panel, and most candidates can only say "it decriminalised suicide". Advance directive, nominated representative, review boards, presumption of capacity, ECT restrictions: that is what a prepared answer sounds like.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q93">What is the RCI, and why does it matter to you?</p>
+<p class="a">"The Rehabilitation Council of India, a statutory body under the RCI Act 1992, which regulates the training of rehabilitation professionals including clinical psychologists, prescribes and monitors the course curriculum and standards, and maintains the Central Rehabilitation Register. Practising as a clinical psychologist in India without being on that register isn't permitted, however good the training. It matters to me because I want to work in a hospital as a clinical psychologist, and that route runs through an RCI-recognised programme, which is why I'm applying to this one rather than to any master's in psychology."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q94">RPwD Act 2016.</p>
+<p class="a">"The Rights of Persons with Disabilities Act 2016, which replaced the Persons with Disabilities Act 1995 and gave effect to the UNCRPD. It expanded the list of recognised disabilities from seven to twenty-one, and that list includes mental illness, specific learning disabilities, autism spectrum disorder and intellectual disability, all of which are ours. It provides for non-discrimination, accessibility, reasonable accommodation, four per cent reservation in government employment and five per cent in higher education for benchmark disability, and disability certification, where the psychological assessment of intellectual disability and specific learning disability sits directly with us."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q95">What are the core ethical principles?</p>
+<p class="a">"Autonomy, respect for the person's right to decide for themselves. Beneficence, acting for their benefit. Non-maleficence, first do no harm. Justice, fair access and fair treatment. Fidelity, keeping the trust and the commitments of the relationship. Layered on top: competence, practise only within the limits of your training and seek supervision; avoiding dual relationships; and accurate representation of your qualifications."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q96">Why is a dual relationship a problem?</p>
+<p class="a">"Because it compromises objectivity and it compromises the client's freedom to disagree or to leave. If I'm also someone's teacher, employer, relative or friend, there's a power differential running in two directions and the therapeutic frame can't hold. In practice: I don't take on friends or family as clients, I refer instead, and where a small community makes overlap unavoidable, I take it to supervision and document it rather than deciding alone."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q97">You're a trainee and your supervisor tells you to do something you think is wrong. What do you do?</p>
+<p class="a">"I'd raise it directly with the supervisor first, and ask for the reasoning, because most of the time the gap is my inexperience rather than their error. If I still thought it was unethical after that, I wouldn't do it, and I'd escalate within the department. What I wouldn't do is either carry it out silently or go around them without speaking to them first. The patient's safety comes above the hierarchy, but the hierarchy exists for a reason and I'd use it before I bypassed it."</p>
+<p class="why">This question tests whether you can hold a boundary without being combative. The answer they want is: talk first, refuse if it is genuinely unethical, escalate properly.</p>
+</div>
+
+<h2 id="stats" class="yr">9 · Stats and research methods</h2>
+
+<div class="qa">
+<p class="q" data-n="Q98">What is a p value?</p>
+<p class="a">"The probability of obtaining a result at least as extreme as the one observed, assuming the null hypothesis is true. It is not the probability that the null hypothesis is true, and it's not the size or importance of the effect, which is why effect size and confidence intervals should be reported alongside it. Below the alpha level, conventionally 0.05, you reject the null."</p>
+<p class="why">Volunteer what a p value is not. Panels ask this specifically to see whether you will misstate it, and the correction is the mark.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q99">Type I and Type II error, and power.</p>
+<p class="a">"Type I error is rejecting a true null hypothesis, a false positive, and its probability is alpha. Type II is failing to reject a false null, a false negative, probability beta. Power is 1 minus beta, the probability of detecting an effect that's really there, and it's a function of sample size, effect size and alpha. Lowering alpha reduces Type I at the cost of Type II. In clinical research the consequences are asymmetric, a Type I error puts an ineffective treatment into practice."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q100">Parametric versus non-parametric tests, with the pairs.</p>
+<p class="a">"Parametric tests assume normally distributed data, homogeneity of variance, interval or ratio measurement and independence, and they test parameters of the distribution. Non-parametric tests make no distributional assumption and generally work on ranks, so they're used with ordinal data, small samples or violated normality, at the cost of some power. The pairs: independent t-test to Mann-Whitney U, paired t-test to Wilcoxon signed-rank, one-way ANOVA to Kruskal-Wallis, repeated-measures ANOVA to Friedman, Pearson to Spearman, and chi-square is non-parametric to begin with."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q101">Correlation is not causation. So what would establish causation?</p>
+<p class="a">"Three conditions: covariation between the variables, temporal precedence with the cause preceding the effect, and elimination of plausible alternative explanations, which is what randomisation and control are for. A correlational design gives you the first only. This is exactly why my dissertation reports 'predicted' and 'associated with' and never 'caused', it's cross-sectional, so temporal precedence isn't established."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q102">Sampling methods.</p>
+<p class="a">"Probability sampling, where every unit has a known non-zero chance of selection, so simple random, systematic, stratified where you sample within subgroups to preserve their proportions, and cluster. Non-probability, where it isn't known, so convenience, purposive, quota and snowball. Probability sampling is what licenses generalisation to the population. Mine was convenience through social media, and I've reported that as a limitation on external validity rather than defended it."</p>
+</div>
+
+<h2 id="diss" class="yr">10 · Dissertation defence</h2>
+
+<p>The full sheet is at <a href="../dissertation/">/dissertation/</a>, every number there comes off your own Results tables. This is the compressed defence. Lead with the pitch, then stop and let them pick where to dig.</p>
+
+<div class="qa">
+<p class="q" data-n="Q103">Tell us about your dissertation.</p>
+<p class="a">"We studied how pornography consumption relates to personality, aggression and sexual compulsivity in young adults in India. Quantitative, cross-sectional survey design, 214 participants aged 18 to 28, recruited online, using the BFI-10 for the Big Five, the Buss-Perry Aggression Questionnaire short form, and the Sexual Compulsivity Scale, with a screening section on consumption habits. Analysed in SPSS with Spearman's rank correlation and logistic regression. The findings: men were about 2.75 times more likely to consume, sexual compulsivity was the strongest predictor of both whether and how often, higher neuroticism predicted lower consumption, and aggression and sexual compulsivity were positively correlated. So impulse control and personality, rather than aggression on its own, tracked the consumption pattern."</p>
+</div>
+
+<table class="nums">
+<tr><th>They ask</th><th>You say</th></tr>
+<tr><td>Why Spearman and not Pearson?</td><td>Ordinal data and non-normal distributions. Spearman works on ranks, assumes only a monotonic relationship, not normality or linearity.</td></tr>
+<tr><td>Why logistic regression?</td><td>The outcome was categorical. Binary logistic for consumed or not, ordinal logistic for frequency. Linear regression on a categorical outcome would violate its assumptions and can predict impossible values.</td></tr>
+<tr><td>What does Exp(B) = 2.752 mean?</td><td>The odds ratio. Being male multiplied the odds of consumption by about 2.75, holding the other predictors constant. Odds, not probability, and say it that way.</td></tr>
+<tr><td>Why is neuroticism predicting <i>lower</i> consumption?</td><td>Report it as found rather than explaining it away. Possible reading: higher neuroticism carrying more guilt, shame and anxiety around the behaviour, plus greater self-report suppression on a taboo topic. Name it as a hypothesis for a follow-up, not a conclusion.</td></tr>
+<tr><td>Biggest limitation?</td><td>Convenience sampling through social media, so not representative; self-report on a taboo topic, so under-reporting is likely; cross-sectional, so no causal claim; and the BFI-10 has two items per trait, so low internal consistency.</td></tr>
+<tr><td>Your role, on a shared dissertation?</td><td>Name your part concretely: design, data collection, the SPSS analysis, the write-up. Don't claim all of it, don't disappear into "we".</td></tr>
+<tr><td>Ethics of studying this topic?</td><td>Adults 18 and over only, informed consent, complete anonymity with no identifying data collected, right to withdraw, and a written debrief with support contacts. Volunteer this before they ask.</td></tr>
+<tr><td>What would you do differently?</td><td>A full-length personality measure, a stratified or probability sample, and at minimum two time points so something directional can be said.</td></tr>
+<tr><td>Where would you take it next?</td><td>Towards the clinical end: whether the sexual compulsivity finding holds in a help-seeking sample, and whether it behaves like other behavioural addictions on impulse-control measures. That's the line I'd want to continue here.</td></tr>
+</table>
+
+<h2 id="vign" class="yr">11 · Vignettes</h2>
+
+<div class="trap">
+<b>Never diagnose a vignette in one line.</b> The structure that gets marks: safety first, then what you would rule out, then what you would assess, then a provisional impression stated as provisional, then management, then supervision. "It's depression" is a weaker answer than the same conclusion arrived at properly.
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q104">A 22-year-old is brought in by family. Six months of withdrawal, talking to himself, has stopped attending college and says his neighbours are recording him. How do you proceed?</p>
+<p class="a">"First I'd check safety, risk to himself, risk to others, and whether he's eating and sleeping. Then history: onset and course, whether the belief is fixed, whether there are hallucinations and in which modality, substance use particularly cannabis, any head injury or medical illness, family history, and premorbid functioning. On examination, a full MSE with particular attention to thought form, content and possession, perception, and insight. I'd want organic causes and substance-induced psychosis ruled out with a medical review before I settled on anything. My provisional impression from what you've given me would be a first-episode psychosis, possibly schizophrenia given the six-month duration, but I'd hold that as provisional. Management is joint with psychiatry, antipsychotic medication as the base, then psychoeducation for him and the family, work on expressed emotion, and psychosocial rehabilitation once he's stabilised. And this is a case I'd be discussing in supervision at every stage."</p>
+<p class="why">Every element they are marking is in there: risk, history, rule-outs, MSE, provisional language, multidisciplinary management, supervision. Use this same skeleton for any vignette they throw.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q105">A client tells you mid-session that they're thinking of ending their life.</p>
+<p class="a">"I stay with it rather than moving off it, and I ask directly. Asking about suicide does not plant the idea. Then I assess properly: are there thoughts, is there a plan, is there access to means, is there intent and a timeframe, past attempts, level of hopelessness, and what support exists around them right now. Then I act on that assessment. I don't hold serious risk alone in confidence, this is one of the recognised limits. I'd involve my supervisor immediately, do safety planning with the client, work on restricting access to means, involve a support person with as much of the client's agreement as I can get, and arrange psychiatric assessment where there's intent or a plan. With the family I'd use the Mental Healthcare Act framing directly, that a person who attempts suicide is presumed to be under severe stress and needs care, not punishment."</p>
+<p class="why">Risk questions are pass or fail. They are not testing your empathy here, they are testing whether you assess, whether you escalate, and whether you know you are not the last line alone.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q106">A mother brings a 9-year-old: not reading at grade level, teachers say he is careless and restless.</p>
+<p class="a">"Two hypotheses are live and they co-occur often, a specific learning disorder and ADHD, and they need separating. I'd take a developmental history including milestones and birth history, get school reports and samples of his written work, and rule out the basics first, vision, hearing and school attendance, because those are the cheapest explanations. Assessment: an intelligence test, MISIC or WISC, to establish that the reading difficulty is unexpected relative to ability, a curriculum-based reading and spelling assessment, and behavioural rating scales completed by both parents and teachers, because ADHD requires impairment in more than one setting. Provisionally I'd be thinking specific learning disorder with reading impairment, possibly with co-occurring ADHD. Management would be remedial education, parent and teacher psychoeducation to reframe 'careless' as a difficulty rather than laziness, classroom accommodation, and certification under the RPwD Act 2016 where he meets criteria, which opens up exam accommodations."</p>
+</div>
+
+<h2 id="curve" class="yr">12 · Curveballs and the close</h2>
+
+<div class="qa">
+<p class="q" data-n="Q107">You don't know the answer.</p>
+<p class="a">"I'm not certain of that, sir. My understanding is [reason from a principle you do know], but I'd want to check it before I state it as fact."</p>
+<p class="why">Panels forgive a gap. They do not forgive a confident wrong answer, and on a recorded session it sits there permanently. One clean admission early also makes everything else you say more credible.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q108">They challenge an answer you know is right.</p>
+<p class="a">"That may well be, sir. My understanding was ___ , from ___ , but I'd take your correction on it." Then stop and let it go.</p>
+<p class="why">Sometimes it is a stress test, not a correction. Hold your reasoning once, politely, then yield. Arguing a second time costs more than being wrong ever would.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q109">Do you think online therapy actually works?</p>
+<p class="a">"The evidence for internet-delivered CBT on depression and anxiety is reasonably strong and broadly comparable to face-to-face for those presentations, particularly when there's therapist support rather than a pure self-help format. What it doesn't handle well is acute risk, severe mental illness, and anything needing physical or formal assessment. My own view, from 250-odd clients on it: the reach is real, especially for people who would never walk into a clinic, but I've also had sessions where I couldn't see enough of the person to be confident about risk, and that limitation is exactly why I want hospital-based training."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q110">What's the biggest problem with mental health in India?</p>
+<p class="a">"The treatment gap, and it's a workforce problem before it's an awareness problem. The National Mental Health Survey 2015-16 is the standard citation, and it found a large treatment gap across disorders, worse for common mental disorders than for severe ones. The delivery structures exist, the National Mental Health Programme since 1982, the District Mental Health Programme as its arm, and Tele-MANAS since 2022, but there aren't enough trained clinical psychologists on the register to staff them, which is the reason RCI-recognised training seats matter as much as they do."</p>
+<p class="why">Say "a large treatment gap" rather than quoting a precise percentage you are not certain of. Naming the survey correctly is what is being marked, not the decimal.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q111">Are you aware this is a demanding course? Can you cope?</p>
+<p class="a">"Yes. I've been carrying a client load alongside a full master's and a dissertation for two years, so I know what the load looks like. What I'd add is that I use supervision and I keep my own supports, because in this field burnout isn't a character failure, it's an occupational hazard you manage deliberately."</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="Q112">Do you have any questions for us?</p>
+<p class="a">"Two, sir. First, how are the clinical postings structured across the two years, which settings do we rotate through? Second, how does supervision work, individual or group, and how early do we start seeing patients?"</p>
+<p class="why">"No sir" is a wasted opportunity. Two questions maximum, both about training. Never fees, never hostels, never results. If the RCI position of the programme is still unclear to you, that is the strongest third question you can ask, and asking is confident where guessing is fatal.</p>
+</div>
+
+<div class="verify">
+<b>Two things to verify on the MAHE / MCHP site before you say them out loud.</b> The exact clinical posting arrangement for this MA, which hospital and which departments, and the RCI position of the MA Cl.Psy at MAHE and what it qualifies you for on completion. If the site does not say it plainly, do not assert it, turn it into your question for them at the end. You are talking to the department that runs the programme, so guessing is the one avoidable failure mode.
+</div>
+
+<div class="clin-focus" style="margin-top:26px">
+<b>Last thing.</b> A master's in this subject, a completed quantitative dissertation you analysed yourself, and 250-plus real clients behind you. Most people in that lobby have one of the three. Go in and be accurate rather than impressive, because to this particular panel accurate <i>is</i> impressive. Definition, theorist, example. Then stop talking.
+</div>
+
+<p class="src" style="margin-top:30px">Built 6 Aug 2026 for the MAHE department session on 7 Aug 2026. Companion pages: <a href="../manipal/">Manipal logistics + strategy sheet</a>, <a href="../dissertation/">dissertation defence sheet</a>, <a href="../notes/therapy-style/">your therapeutic style</a>, <a href="../rci-syllabus/">RCI syllabus</a>.</p>
+
+</div>
+
+<script>
+(function(){
+  var LS = "manipalViva.drill";
+  var body = document.body,
+      drillBtn = document.getElementById("drillBtn"),
+      allBtn = document.getElementById("allBtn"),
+      cards = Array.prototype.slice.call(document.querySelectorAll(".qa"));
+
+  function setDrill(on){
+    body.classList.toggle("drill", on);
+    drillBtn.classList.toggle("on", on);
+    drillBtn.textContent = "Drill mode: " + (on ? "on" : "off");
+    allBtn.style.display = on ? "" : "none";
+    if(!on) cards.forEach(function(c){ c.classList.remove("open"); });
+    try{ localStorage.setItem(LS, on ? "1" : "0"); }catch(e){}
+  }
+
+  drillBtn.addEventListener("click", function(){ setDrill(!body.classList.contains("drill")); });
+
+  allBtn.addEventListener("click", function(){
+    var anyClosed = cards.some(function(c){ return !c.classList.contains("open"); });
+    cards.forEach(function(c){ c.classList.toggle("open", anyClosed); });
+    allBtn.textContent = anyClosed ? "Hide all" : "Reveal all";
+  });
+
+  cards.forEach(function(c){
+    c.addEventListener("click", function(){
+      if(!body.classList.contains("drill")) return;
+      c.classList.toggle("open");
+    });
+  });
+
+  var saved = "0";
+  try{ saved = localStorage.getItem(LS) || "0"; }catch(e){}
+  setDrill(saved === "1");
+})();
+</script>
+
+</body>
+</html>
