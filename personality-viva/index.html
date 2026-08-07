@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<script src="/sihan-met-flashcards/sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personality: the whole answer</title>
+<link rel="stylesheet" href="/sihan-met-flashcards/notes-style.css">
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<meta name="theme-color" content="#0d1117">
+<style>
+  .lede{color:var(--ink2);font-size:16px;background:var(--panel-2);border:1px solid var(--border);
+    border-radius:8px;padding:14px 18px;margin:18px 0 6px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px;font-family:var(--sans);font-size:13px}
+  .chip{background:var(--panel-2);border:1px solid var(--border);border-radius:20px;padding:4px 12px;color:var(--ink2)}
+  .chip b{color:#14161b}
+  .toc{font-family:var(--sans);font-size:14px;background:var(--panel-2);border:1px solid var(--border);
+    border-radius:8px;padding:14px 18px;margin:18px 0}
+  .toc a{display:inline-block;margin:3px 14px 3px 0;color:var(--accent);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  .yr{margin-top:40px;border-top:3px solid var(--accent-dim);padding-top:6px}
+  .qa{background:var(--panel-2);border:1px solid var(--border);border-radius:8px;padding:4px 18px 14px;margin:16px 0}
+  .qa .q{font-family:var(--sans);font-weight:700;color:#14161b;margin:14px 0 6px;font-size:15.5px}
+  .qa .q::before{content:attr(data-n) "  ";color:var(--accent);font-weight:800}
+  .qa .a{margin:0 0 6px;line-height:1.62}
+  .qa .a::before{content:"Say:  ";font-family:var(--sans);font-weight:700;color:#1f6b3a;font-size:12px;letter-spacing:.03em;text-transform:uppercase}
+  .qa .push{margin:0 0 6px;line-height:1.6;font-size:15px;color:var(--ink2);
+    border-left:2px solid var(--accent-dim);padding-left:12px}
+  .qa .push::before{content:"Then they push:  ";font-family:var(--sans);font-weight:700;color:#1d4e89;font-size:11.5px;letter-spacing:.03em;text-transform:uppercase}
+  .qa .why{margin:0 0 10px;font-size:13.5px;color:var(--muted);line-height:1.55}
+  .qa .why::before{content:"Why this works:  ";font-family:var(--sans);font-weight:700;color:#8a6a1d;font-size:11.5px;letter-spacing:.03em;text-transform:uppercase}
+  .trap{border-left:3px solid #c0392b;background:rgba(192,57,43,.06);padding:10px 16px;margin:14px 0;border-radius:0 6px 6px 0}
+  .trap b{color:#8a1d1d}
+  .clin-focus{border-left:3px solid var(--accent);background:rgba(61,111,208,.06);padding:10px 16px;margin:16px 0;border-radius:0 6px 6px 0}
+  .verify{border-left:3px solid #8a6a1d;background:rgba(230,180,40,.09);padding:10px 16px;margin:16px 0;border-radius:0 6px 6px 0}
+  .verify b{color:#8a6a1d}
+  table.nums{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:13.5px;margin:14px 0}
+  table.nums th,table.nums td{border:1px solid var(--border);padding:7px 10px;text-align:left;vertical-align:top}
+  table.nums th{background:var(--panel-2);color:#14161b}
+  .src{font-size:13px;color:var(--muted)}
+  .bar{position:sticky;top:0;z-index:20;background:var(--panel-2);border:1px solid var(--border);
+    border-radius:8px;padding:10px 14px;margin:16px 0;font-family:var(--sans);font-size:14px;
+    display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .bar button{font:inherit;font-size:14px;font-weight:700;padding:7px 14px;border:1px solid var(--border);
+    border-radius:6px;background:#fff;color:#14161b;cursor:pointer}
+  .bar button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .bar span.hint{color:var(--muted);font-size:13px}
+  body.drill .qa .a,body.drill .qa .push,body.drill .qa .why{display:none}
+  body.drill .qa.open .a,body.drill .qa.open .push,body.drill .qa.open .why{display:block}
+  body.drill .qa{cursor:pointer}
+  body.drill .qa .q::after{content:"   tap to reveal";font-family:var(--sans);font-weight:500;
+    font-size:11.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+  body.drill .qa.open .q::after{content:""}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="../manipal-viva/">← Viva sheet</a> <a href="../manipal/">Manipal sheet</a> <a href="../dissertation/">Dissertation</a> <a href="../">Home</a></nav>
+
+<h1>Personality: the whole answer</h1>
+<p style="color: var(--muted); font-size: 14px; margin-top:-6px;">The Allport line word for word, the two splits they push you on, the ten theorists in order, and the hook back into your own data. Built 7 Aug 2026. This is the long version of card <a href="../manipal-viva/#bank">Q11 on the viva sheet</a>, for when the panel decides personality is the topic they are going to spend ten minutes on.</p>
+
+<div class="meta-row">
+  <span class="chip">Cards <b>31</b></span>
+  <span class="chip">Format <b>Q → say this → the follow-up</b></span>
+  <span class="chip">Anchor <b>Allport 1937, verbatim</b></span>
+  <span class="chip">Drill mode <b>hides every answer</b></span>
+</div>
+
+<div class="lede">
+Personality is the safest question on the sheet and the easiest one to talk yourself out of. It is safe because there is a quotable definition everyone on the panel knows, so getting it word for word buys you instant credit. It is dangerous because it is the one topic where a candidate, having answered correctly, keeps going and starts listing theories until they say something they cannot defend. So the plan is fixed: <b>quote Allport, stop, and let them choose the direction</b>. Everything below is what you say once they choose.
+</div>
+
+<div class="bar">
+  <button id="drillBtn">Drill mode: off</button>
+  <button id="allBtn">Reveal all</button>
+  <span class="hint">Drill mode hides every answer. Read the question, say it out loud, then tap the card to check yourself.</span>
+</div>
+
+<div class="toc">
+Jump to:
+<a href="#line">1 · The line, word by word</a>
+<a href="#reserve">2 · Definitions in reserve</a>
+<a href="#traittype">3 · Trait vs type</a>
+<a href="#nomo">4 · Nomothetic vs idiographic</a>
+<a href="#trace">5 · The trace: ten theorists</a>
+<a href="#mischel">6 · The person–situation debate</a>
+<a href="#bio">7 · The biology of personality</a>
+<a href="#measure">8 · Measuring personality</a>
+<a href="#hook">9 · Your dissertation hook</a>
+<a href="#rapid">10 · Rapid-fire and traps</a>
+</div>
+
+<h2 id="line" class="yr">1 · The line, word by word</h2>
+
+<div class="clin-focus">
+<b>Say this and nothing else, first.</b> "Personality is the dynamic organisation within the individual of those psychophysical systems that determine his characteristic behaviour and thought." Gordon Allport, 1937, revised 1961. Then stop. Do not append a list of theorists. The pause is doing work: it tells the panel you have a definition rather than a monologue, and it hands them the next move, which is always a question you have already prepared.
+</div>
+
+<p>Allport wrote this after reviewing about fifty existing definitions of personality and concluding that none of them carried its weight. Every clause in it was chosen against a rival position he was rejecting, which is exactly why the panel likes it: it is a definition you can defend one word at a time. Learn the defence of each word, because "why that definition?" is the commonest follow-up in the country.</p>
+
+<table class="nums">
+<tr><th>Word</th><th>What it is doing</th><th>What it is rejecting</th></tr>
+<tr><td><b>Dynamic</b></td><td>Personality is active, motivational and changing, not a fixed inventory. It develops across the lifespan.</td><td>Static, typological views that fix you at birth or at a body type.</td></tr>
+<tr><td><b>Organisation</b></td><td>It is a structured, integrated system. The parts relate to each other; personality is not the sum of separate traits.</td><td>The atomistic list-of-traits view, and the behaviourist view of personality as a bundle of unconnected habits.</td></tr>
+<tr><td><b>Within the individual</b></td><td>It is located inside the person, not in the observer's judgement and not in the reputation others give you.</td><td>The "personality is your social stimulus value" definition, that is, personality as the impression you make on others.</td></tr>
+<tr><td><b>Psychophysical systems</b></td><td>Mind and body together. Traits have a physical substrate, habits, neural and endocrine systems; personality is not purely mental and not purely biological.</td><td>Cartesian dualism, and any purely mentalistic or purely physiological account.</td></tr>
+<tr><td><b>Determine</b></td><td>Personality causes behaviour, it is not merely a description of it. Traits do real motivational work.</td><td>Purely descriptive taxonomies that summarise behaviour without explaining it.</td></tr>
+<tr><td><b>Characteristic</b></td><td>Unique to the person and consistent for them across time and situations. This is where Allport's idiographic commitment sits.</td><td>The nomothetic-only assumption that a person is fully described by their position on everyone's shared dimensions.</td></tr>
+<tr><td><b>Behaviour and thought</b></td><td>Both overt action and covert cognition. The 1961 revision widened this from the 1937 "unique adjustments to his environment".</td><td>The behaviourist restriction to observable action only.</td></tr>
+</table>
+
+<div class="verify">
+<b>Get the two versions right if they test you on it.</b> The 1937 wording ends "...that determine his unique adjustments to his environment." The 1961 revision ends "...that determine his characteristic behaviour and thought." Quote 1961, which is the version in every Indian textbook and every question bank. If a panellist quotes the 1937 ending at you, do not argue: say "yes, that is the original 1937 wording, he revised the ending in 1961 to characteristic behaviour and thought, and the reason he gave was that adjustment was too narrow, it left out spontaneous and creative behaviour that is not adaptive at all." That answer wins the exchange.
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P1">Define personality.</p>
+<p class="a">"Personality is the dynamic organisation within the individual of those psychophysical systems that determine his characteristic behaviour and thought. That is Allport, 1961."</p>
+<p class="push">They will ask you to unpack it, and the unpacking is the real question. "Dynamic, so it changes and it motivates. Organisation, so it is an integrated system, not a list. Within the individual, so it is in the person, not in other people's impression of them. Psychophysical, so mind and body together. Determine, so it causes behaviour rather than just describing it. And characteristic, which is the word that makes it a definition of an individual rather than of a population."</p>
+<p class="why">One sentence, one attribution, then silence. Any candidate can name five theorists. Far fewer can say a definition cleanly and then stop, and that stop is what reads as trained.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P2">Where does the word personality come from?</p>
+<p class="a">"From the Latin <i>persona</i>, the mask worn by an actor in classical theatre. That etymology carries the field's oldest tension: personality as the mask, the outward appearance you present, versus personality as what is behind the mask, the real structure of the person. Allport's definition deliberately takes the second side, which is why he says <i>within the individual</i>."</p>
+<p class="push">If they push it towards Jung: the persona is also Jung's technical term for the archetype of the social mask, the face we present to the world, and Jung's point is that identifying too completely with the persona is itself a pathology, because the person loses contact with the rest of the psyche.</p>
+<p class="why">The etymology is a thirty-second answer that lets you land Allport and Jung in the same breath, and it is a favourite opener because it is easy for a panel to ask and revealing to hear answered badly.</p>
+</div>
+
+<h2 id="reserve" class="yr">2 · Definitions in reserve</h2>
+
+<p>Allport is the one you quote. These four are what you produce if a panellist says "any other definition?", which is either a genuine question or a test of whether you have only memorised one line.</p>
+
+<table class="nums">
+<tr><th>Theorist</th><th>Definition</th><th>What it emphasises</th></tr>
+<tr><td><b>Eysenck</b> (1947, 1970)</td><td>"A more or less stable and enduring organisation of a person's character, temperament, intellect and physique, which determines his unique adjustment to the environment."</td><td>Stability and biology. Note it names four sectors: character (conative, will), temperament (affective, emotion), intellect (cognitive), physique (bodily constitution).</td></tr>
+<tr><td><b>Cattell</b> (1950)</td><td>"That which permits a prediction of what a person will do in a given situation."</td><td>Prediction. Purely operational and unashamedly so, which fits a man who let factor analysis decide what the variables were.</td></tr>
+<tr><td><b>Guilford</b></td><td>"A person's unique pattern of traits."</td><td>Uniqueness of the pattern, not of the traits themselves. Everyone has the same dimensions; nobody has the same profile.</td></tr>
+<tr><td><b>Mischel</b> (social-cognitive)</td><td>The distinctive pattern of behaviour, thoughts and emotions that characterises a person's adaptation to the situations of their life, including the person's stable <i>if–then</i> signatures.</td><td>Person <i>and</i> situation. Consistency is in the pattern of when a behaviour appears, not in its raw frequency.</td></tr>
+</table>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P3">Personality, temperament, character. Are these the same thing?</p>
+<p class="a">"No, and the distinction is worth being precise about. <b>Temperament</b> is the biologically based, largely inherited, emotionally reactive core, visible in infancy, before learning has had time to do much: activity level, emotional reactivity, soothability, approach or withdrawal. <b>Character</b> is the evaluative, learned, moral dimension, the part of personality we judge as good or bad, and it is shaped by socialisation and values. <b>Personality</b> is the superordinate term: the whole organised system, temperament plus character plus everything learned on top."</p>
+<p class="push">Give the empirical anchor: Thomas and Chess's New York Longitudinal Study, nine dimensions of infant temperament collapsing into three types, the easy child, the difficult child, and the slow-to-warm-up child, roughly forty, ten and fifteen percent, with the rest not classifiable. Their central concept is <b>goodness of fit</b>: outcome depends not on the temperament itself but on the match between the child's temperament and the demands and style of the caregiving environment, which is why a difficult temperament is a risk factor and not a destiny. Add Kagan on behavioural inhibition if they want more, and Cloninger's Temperament and Character Inventory as the model that formally separates four temperament dimensions from three character dimensions.</p>
+<p class="why">This is a definitional-precision question. Panels use it to check whether you use technical words carelessly, which in a clinical report is a real problem, not a semantic one.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P4">Is personality stable?</p>
+<p class="a">"Stable in rank order, not fixed in level. Rank-order stability, whether people keep their relative standing on a trait, rises steadily with age: it is around .3 in childhood, about .5 by the college years, and plateaus near .7 after fifty. That is Roberts and DelVecchio's meta-analysis. Mean-level change is a separate question and it does happen, in a systematic direction: across adulthood people tend to rise on conscientiousness and agreeableness and fall on neuroticism, which the literature calls the maturity principle. So the honest answer is that personality is highly stable but not immutable, and it is most plastic in young adulthood."</p>
+<p class="push">If they push on how change happens: life roles do it. Getting a stable job, a stable partnership, or becoming a parent predicts increases in conscientiousness, which is the social investment principle. And personality change is a legitimate treatment outcome, not a side effect. Roberts' meta-analysis of clinical trials found meaningful reductions in trait neuroticism after therapy, sustained at follow-up, with the largest effects in anxiety disorders. That matters clinically because it means when you treat a patient's anxiety you may be moving the trait, not just the state.</p>
+<p class="why">"Is personality stable" sounds like a yes-or-no question and is not. Splitting it into rank-order and mean-level stability is the answer of someone who has read the literature rather than a chapter summary.</p>
+</div>
+
+<h2 id="traittype" class="yr">3 · Trait vs type</h2>
+
+<div class="clin-focus">
+<b>The one line.</b> Type theories put people into discrete categories, you are either A or B. Trait theories place everyone on continuous dimensions, so it is a question of how much, not which box. Types classify, traits describe. The evidence went to traits, because behaviour is graded and the distributions are continuous with no natural cut-points in them.
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P5">What is the difference between a trait approach and a type approach?</p>
+<p class="a">"A <b>type</b> is a discrete category with qualitatively different members: you belong to it or you do not, so Sheldon's endomorph, mesomorph and ectomorph, Jung's introvert and extravert as types, or Type A and Type B personality. A <b>trait</b> is a continuous dimension on which everyone has a score, so extraversion runs from very low to very high and most people are in the middle. The consequence is statistical: type theories predict a bimodal or multimodal distribution with people clustering in categories, trait theories predict a normal distribution. When the actual data were examined, personality scores came out continuous and normally distributed, with no natural gaps to cut at. So the trait model won on the shape of the data, not on preference."</p>
+<p class="push">The subtlety that gets you the extra mark: types are not simply wrong, they are a coarser description. Every type can be re-expressed as an extreme region of one or more trait dimensions, and the reverse is not true, so the trait model is the more general one and the type model is the special case. Say the practical cost as well: dichotomising a continuous variable throws away information and loses statistical power, which is exactly the criticism levelled at the Myers-Briggs, where nearly half of people retested change at least one letter because their score sat near the arbitrary cut.</p>
+<p class="why">Framing it as distribution shape, and then explaining that types are a lossy special case of traits, is a genuinely graduate-level answer to what looks like a textbook question.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P6">Name the type theories.</p>
+<p class="a">"In historical order. <b>Hippocrates and Galen</b>, the four humours: sanguine from blood, phlegmatic from phlegm, choleric from yellow bile, melancholic from black bile. It is the oldest typology and it survives because Eysenck later mapped his two dimensions onto exactly those four quadrants. <b>Kretschmer</b>, body build and psychosis: pyknic, short and round, associated with manic depression; asthenic or leptosomic, tall and thin, associated with schizophrenia; athletic; and dysplastic. <b>Sheldon</b>, somatotypes, the version most often asked: endomorphy, soft and round, paired with viscerotonia, relaxed and sociable and food-loving; mesomorphy, muscular, paired with somatotonia, assertive and energetic and risk-taking; ectomorphy, thin and fragile, paired with cerebrotonia, restrained and inhibited and solitary. <b>Jung</b>, introvert and extravert. <b>Friedman and Rosenman</b>, Type A and Type B. And <b>Temoshok</b>, Type C, the cancer-prone pattern."</p>
+<p class="push">If they ask what happened to Sheldon: his correlations between body type and temperament were around .8, which is implausibly high, and the reason is that he rated both the physiques and the temperaments himself, so the finding is a rater-halo artefact rather than a relationship in the world. Independently rated replications collapsed to around .2 to .3. Say that plainly. Knowing why a classic finding failed is worth more than knowing the finding.</p>
+<p class="why">The Sheldon critique is the single most quotable "and here is why it did not hold up" in the personality syllabus, and volunteering it unprompted marks you as someone who evaluates evidence rather than reciting it.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P7">Tell me about Type A personality.</p>
+<p class="a">"Friedman and Rosenman, cardiologists, 1959. Type A is a behaviour pattern characterised by time urgency, competitiveness, achievement striving and hostility, and it was identified because their waiting-room chairs were worn out at the front edge, which is a real story and worth telling. The Western Collaborative Group Study followed about three thousand men for eight and a half years and found Type A men had roughly twice the incidence of coronary heart disease. Type B is the relaxed, non-competitive, non-hostile counterpart."</p>
+<p class="push">Then give the modern correction, because a good panel is waiting for it. The global Type A construct did not replicate well in later studies. What survived is the <b>hostility</b> component, specifically cynical hostility and anger, which remains an independent predictor of coronary events; time urgency and achievement striving on their own do not predict much. So the current position is that the toxic element of Type A is hostility, not busyness. If they want the extensions: Type C, Temoshok, the emotionally suppressed and appeasing pattern proposed as cancer-prone and evidentially weak; and Type D, Denollet, distressed, meaning high negative affectivity plus social inhibition, which has decent evidence as a prognostic factor in existing cardiac disease.</p>
+<p class="why">Type A is a stock question. Answering with the original study and then the failure of the global construct, landing on hostility, converts a textbook question into a demonstration that you track how findings change.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P8">If traits won, why does DSM still use categories for personality disorders?</p>
+<p class="a">"History and clinical convenience, and the DSM itself concedes the point. DSM-5-TR Section II keeps the ten categorical personality disorders in three clusters, A odd and eccentric, B dramatic and erratic, C anxious and fearful, because clinicians, services and insurers are built around categories. But the same manual carries, in Section III as an emerging model, the Alternative Model for Personality Disorders, which is explicitly hybrid: Criterion A is level of personality functioning on self and interpersonal dimensions, Criterion B is five pathological trait domains, negative affectivity, detachment, antagonism, disinhibition and psychoticism, and those five map recognisably onto maladaptive poles of the Big Five. So the dimensional model is already in the book, sitting beside the categorical one."</p>
+<p class="push">ICD-11 went further and is the cleaner example: it abolished the specific personality disorder categories altogether, apart from retaining a borderline pattern qualifier, and replaced them with a severity rating, mild, moderate or severe, plus five trait domain qualifiers, negative affectivity, detachment, dissociality, disinhibition and anankastia. Say the reason out loud: the categorical system had very high comorbidity, most patients met criteria for several disorders at once, poor coverage, with personality disorder not otherwise specified being the commonest diagnosis given, and arbitrary thresholds. That is the trait-versus-type argument playing out in real nosology, which is the best possible example to offer a clinical panel.</p>
+<p class="why">This is where the abstract distinction becomes clinical, and it is exactly the bridge a clinical psychology panel wants to see you cross unprompted.</p>
+</div>
+
+<div class="trap">
+<b>Trap.</b> Do not say "the Big Five are types". They are dimensions. Nobody "is an O" or "is a conscientious type". The correct phrasing is "scored high on conscientiousness". A panellist who hears you type-ify the Big Five will conclude you have not understood the distinction you just explained to them.
+</div>
+
+<h2 id="nomo" class="yr">4 · Nomothetic vs idiographic</h2>
+
+<div class="clin-focus">
+<b>The one line.</b> Nomothetic seeks general laws across many people, so it compares individuals on shared dimensions using groups and statistics. Idiographic studies the single individual in depth on their own terms, using case study, diaries, letters and interview. Allport argued for both, and leaned idiographic; the field went nomothetic because it is the tractable one.
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P9">Explain nomothetic versus idiographic.</p>
+<p class="a">"The terms come from the philosopher Wilhelm Windelband, and Allport imported them into psychology. <b>Nomothetic</b>, from <i>nomos</i>, law, is the search for general laws that apply across people: you take a large sample, measure everyone on the same dimensions, and use statistics to find relationships. Cattell's 16PF, Eysenck's dimensions and the Big Five are all nomothetic instruments, and so is my own dissertation. <b>Idiographic</b>, from <i>idios</i>, one's own, is the intensive study of the individual case in their own terms, using case study, personal documents, letters, diaries and interview, to describe the organisation unique to that person. Allport's own position was that psychology needs both, and he complained that the field had become almost entirely nomothetic. His personal dispositions and his Letters from Jenny study are the idiographic side worked out in practice."</p>
+<p class="push">Then close the false dichotomy, because that is the mark of a good answer. The two are complementary, not rival: nomothetic work tells you the base rates, the norms and the general laws, and idiographic work tells you how those laws are instantiated in this person. Clinical psychology does both every single day. Your psychometrics are nomothetic, you score a patient against a normative sample. Your <b>formulation</b> is idiographic, you build an account of this person's difficulties that would not fit anyone else. If they want the sharpest example: a WAIS-IV IQ of 82 is a nomothetic statement, and the account of why <i>this</i> patient's processing speed collapsed after <i>their</i> head injury is idiographic.</p>
+<p class="why">The psychometrics-are-nomothetic, formulation-is-idiographic line is the single most useful sentence in this section for a clinical panel, because it shows you know where the distinction actually lives in your working week.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P10">What was Allport's own contribution to trait theory?</p>
+<p class="a">"Three things. First, the definition. Second, the trait taxonomy: he distinguished <b>common traits</b>, on which people can be compared, from <b>personal dispositions</b>, which are unique to the individual, and he graded the personal dispositions by how pervasive they are. A <b>cardinal</b> trait is so dominant that almost every act can be traced to it and it is rare, which is why we use names as adjectives, Machiavellian, narcissistic, quixotic. <b>Central</b> traits are the five to ten characteristics you would use in a reference letter, honest, anxious, ambitious. <b>Secondary</b> traits are situation-specific preferences and attitudes, so food preferences, discomfort in crowds. Third, <b>functional autonomy</b>: a motive that began as a means to some other end can become an end in itself, independent of its origin, so the man who started working to feed his family and keeps working obsessively after he is rich. That was his direct attack on Freud, because it says adult motives need not be explained by childhood ones."</p>
+<p class="push">The other Allport term worth having is the <b>proprium</b>, his word for the self, developing across seven aspects from bodily sense in infancy through self-identity, self-esteem, self-extension, self-image, rational coping and finally propriate striving in adolescence, which is the pursuit of long-term goals that unify the personality. And his mature-personality criteria, extension of the sense of self, warm relating, emotional security and self-acceptance, realistic perception, self-objectification with insight and humour, and a unifying philosophy of life. Panels ask for those because they are a rare positive-psychology moment in an old syllabus.</p>
+<p class="why">Cardinal, central and secondary is a guaranteed short-answer item in every entrance paper. Functional autonomy is the one that separates candidates, because it is the concept that explains <i>why</i> Allport is a trait theorist and not a psychodynamic one.</p>
+</div>
+
+<div class="verify">
+<b>The Allport story they might tell you.</b> Allport as a young man visited Freud in Vienna, and to break the silence described a boy on the tram with an obvious dirt phobia. Freud looked at him and asked, "And was that little boy you?" Allport took it as evidence that psychoanalysis dives for depth before it has established the surface, and he spent a career insisting that conscious, present motives are worth studying in their own right. If a panellist tells that story, the answer they want is "that is where functional autonomy comes from."
+</div>
+<h2 id="trace" class="yr">5 · The trace: ten theorists in order</h2>
+
+<p>If they say "trace the development of personality theory", this is the running order. Ten names, each in one breath: <b>who, what school, the two constructs that are theirs, and the one criticism</b>. Do not stop at each name for a paragraph. Move. If they want depth on one, they will interrupt you, and the interruption is the good outcome, because it means you get to answer the question they actually care about.</p>
+
+<table class="nums">
+<tr><th>#</th><th>Theorist</th><th>School</th><th>The two constructs</th></tr>
+<tr><td>1</td><td>Freud</td><td>Psychoanalytic</td><td>Id, ego, superego · psychosexual stages</td></tr>
+<tr><td>2</td><td>Jung</td><td>Analytical</td><td>Collective unconscious · archetypes</td></tr>
+<tr><td>3</td><td>Adler</td><td>Individual psychology</td><td>Inferiority feelings · striving for superiority</td></tr>
+<tr><td>4</td><td>Allport</td><td>Trait (idiographic)</td><td>Cardinal, central, secondary · functional autonomy</td></tr>
+<tr><td>5</td><td>Cattell</td><td>Trait (factor-analytic)</td><td>Surface vs source traits · 16PF</td></tr>
+<tr><td>6</td><td>Eysenck</td><td>Biological trait</td><td>E, N, P · cortical arousal</td></tr>
+<tr><td>7</td><td>Costa &amp; McCrae</td><td>Five-Factor Model</td><td>OCEAN · NEO-PI-R</td></tr>
+<tr><td>8</td><td>Rogers</td><td>Humanistic</td><td>Self-concept and congruence · unconditional positive regard</td></tr>
+<tr><td>9</td><td>Bandura</td><td>Social cognitive</td><td>Reciprocal determinism · self-efficacy</td></tr>
+<tr><td>10</td><td>Mischel</td><td>Social cognitive / interactionist</td><td>Person–situation debate · CAPS and if–then signatures</td></tr>
+</table>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P11">Freud.</p>
+<p class="a">"Psychoanalytic. Structurally, personality is the id, the ego and the superego. The <b>id</b> is present from birth, entirely unconscious, contains the drives, and runs on the pleasure principle and primary process thinking, which is wish-fulfilling and unconcerned with reality. The <b>ego</b> emerges in the first year, works on the reality principle and secondary process thinking, and is the executive that negotiates between the id, the superego and the external world. The <b>superego</b> forms around age five with the resolution of the Oedipus complex through identification with the same-sex parent, and it has two parts, the conscience, which punishes with guilt, and the ego-ideal, which rewards with pride. Developmentally, personality is laid down through the psychosexual stages, oral, anal, phallic, latency and genital, and <b>fixation</b> at a stage from either frustration or overindulgence produces the adult character type: oral dependency, anal retentiveness, phallic vanity."</p>
+<p class="push">Two follow-ups are near-certain. <b>Defence mechanisms</b>: the ego's unconscious strategies for managing anxiety, repression being the primary one on which all others depend, plus denial, projection, reaction formation, displacement, regression, rationalisation, intellectualisation and sublimation, sublimation being the only one Freud regarded as fully adaptive, and note that the systematic catalogue is Anna Freud's, 1936, not her father's. <b>The three anxieties</b>: reality anxiety from real external threat, neurotic anxiety from fear the id will overwhelm the ego, moral anxiety from the superego. And the criticism, which you volunteer: the theory is not falsifiable in Popper's sense, the evidence base is a small number of case studies of wealthy Viennese patients, the psychosexual stage sequence has no empirical support, and there is a well-documented androcentrism, the penis-envy account being the standard example.</p>
+<p class="why">Structural plus developmental plus one honest criticism, in about forty seconds, is the whole of Freud at viva level. The commonest failure is spending three minutes on the Oedipus complex and never reaching anyone else.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P12">Jung.</p>
+<p class="a">"Analytical psychology. Jung broke with Freud in 1913, mainly over libido, which Jung widened from sexual energy to a general psychic life energy. His signature contribution is the structure of the unconscious: below the <b>personal unconscious</b>, which holds repressed and forgotten material organised into emotionally charged <b>complexes</b>, lies the <b>collective unconscious</b>, inherited and universal across humanity, made up of <b>archetypes</b>, which are innate predispositions to perceive and respond in patterned ways. The main archetypes are the <b>persona</b>, the social mask; the <b>shadow</b>, the disowned and usually projected part; the <b>anima</b> and <b>animus</b>, the contrasexual image in the man and the woman; and the <b>self</b>, the archetype of unity and the goal of development. The lifelong process of integrating all of this is <b>individuation</b>, which he located in the second half of life, and that emphasis on midlife development is one of his lasting contributions."</p>
+<p class="push">Jung's attitudes and functions, because this is where the exam questions live. Two attitudes, <b>introversion</b>, energy directed inward, and <b>extraversion</b>, energy directed outward, which is Jung's coinage. Four functions in two pairs: thinking and feeling are the rational or judging pair, sensing and intuition the irrational or perceiving pair. Two attitudes by four functions gives eight psychological types, and that scheme is what Myers and Briggs later built the MBTI on. Say the criticism in the same breath: the MBTI has poor test-retest reliability, roughly half of respondents change at least one letter on retest, it forces dichotomies on continuous distributions, and it is not used in serious research, so it is a popular instrument rather than a validated one.</p>
+<p class="why">Being able to name where the MBTI comes from and why researchers do not use it is a small, specific piece of expertise that panels notice, because most candidates know only one half of it.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P13">Adler.</p>
+<p class="a">"Individual psychology, and the name matters: <i>individual</i> as in indivisible, because Adler insisted the person is a unified whole and rejected Freud's division of the psyche into warring parts. His motivational engine is that everyone begins in a state of helplessness that produces <b>inferiority feelings</b>, which are normal and are the spur to development; the person compensates by <b>striving for superiority</b>, which he later reframed more positively as striving for completion or perfection. When compensation fails you get an <b>inferiority complex</b>, chronic discouragement and avoidance of life tasks, and when it overshoots you get a <b>superiority complex</b>, which is inflated boasting concealing the same inferiority. The organising concept is the <b>style of life</b>, the unique pattern of goals and strategies laid down by about age five, and its health is measured by <b>social interest</b>, <i>Gemeinschaftsgefühl</i>, the capacity to feel connected to and to contribute to the community. For Adler, low social interest is the common factor in all maladjustment."</p>
+<p class="push">Two Adlerian specifics they like: <b>birth order</b>, with the firstborn as the dethroned child who tends to be conservative and authority-oriented, the second born as competitive and pace-setting, the youngest as pampered, and the only child as socially precocious with adults; and <b>fictional finalism</b>, taken from Vaihinger, the idea that we are pulled by subjective, self-created goals about the future rather than pushed by the past, which is Adler's reversal of Freud's causality. Say his influence out loud, because it is larger than his fame: Adler prefigures cognitive therapy in treating beliefs and goals as the target, and his emphasis on encouragement, social embeddedness and future goals runs directly into Beck, Ellis and modern strengths-based practice.</p>
+<p class="why">Naming Adler as the ancestor of cognitive therapy is the connection that turns three names in a list into a history of ideas, and it also tees up your own therapeutic style if they turn that way.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P14">Allport.</p>
+<p class="a">"The first trait theorist proper, and the bridge out of psychoanalysis. He gave the field its definition, the taxonomy of cardinal, central and secondary dispositions, functional autonomy, and the insistence that idiographic study is real science. He and Odbert did the <b>lexical</b> spadework in 1936, going through an unabridged English dictionary and extracting about eighteen thousand trait-relevant words, roughly four and a half thousand of which described stable traits. That list is the raw material Cattell then factor-analysed, so Allport is the origin of the whole factor-analytic tradition even though he personally distrusted it."</p>
+<p class="push">The criticism to volunteer: Allport's personal dispositions, by being unique to each individual, make comparison across people impossible, which is a problem for a science built on comparison, and his rejection of factor analysis meant his own taxonomy was never empirically derived. He named the traits from language and judgement rather than from data. That is precisely the gap Cattell walked into.</p>
+<p class="why">Handing off from Allport to Cattell through the lexical hypothesis makes your trace a causal chain rather than a list, and the panel hears the difference immediately.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P15">Cattell.</p>
+<p class="a">"Trait theory done by factor analysis. Cattell took Allport and Odbert's list, cut it to about 171 clusters and then 35 to 46 variables, gathered three kinds of data, <b>L-data</b> from life records and ratings, <b>Q-data</b> from questionnaires, and <b>T-data</b> from objective tests, and factor-analysed them. His central distinction is <b>surface traits</b> versus <b>source traits</b>: surface traits are clusters of behaviour that visibly go together, source traits are the underlying factors that cause those clusters, and only source traits are the real structural units. He extracted sixteen source traits, which became the <b>16PF</b>, published in 1949. He also split abilities into <b>fluid intelligence</b>, reasoning independent of experience and culturally minimal, and <b>crystallised intelligence</b>, accumulated knowledge and skill, which is his best-surviving contribution."</p>
+<p class="push">Cattell's other distinctions, in case they want them: <b>constitutional</b> traits from biology versus <b>environmental-mould</b> traits from experience; and by modality, <b>ability</b> traits, how well you do it, <b>temperament</b> traits, the style with which you do it, and <b>dynamic</b> traits, why you do it, which subdivide into <b>ergs</b>, innate drives, and <b>sentiments</b>, learned attitudes organised around objects, all assembled in the <b>dynamic lattice</b> by subsidiation. The criticism to give: sixteen factors have proved hard to replicate, most re-analyses of his own data recover fewer, and second-order factor analysis of the 16PF itself yields about five factors, which is one of the historical routes to the Big Five. And say the meta-point: Cattell and Eysenck disagreed about the <i>number</i> of factors, not about the method or the model, and the disagreement is a rotation problem, how finely you slice the same variance.</p>
+<p class="why">"The disagreement is about level of abstraction, not about substance" is the sentence that resolves the Cattell-versus-Eysenck question every panel asks, and very few candidates get there.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P16">Eysenck.</p>
+<p class="a">"Biologically grounded trait theory, and the most testable of the lot. Eysenck argued for very few, very broad, biologically based dimensions, arranged hierarchically: specific responses at the bottom, then habitual responses, then traits, then types or superfactors at the top. He began with two, <b>extraversion–introversion</b> and <b>neuroticism–stability</b>, and added <b>psychoticism</b> later, which is tough-mindedness, aggression, impulsivity and lack of empathy rather than psychosis. The instruments run EPI, two dimensions, then EPQ and EPQ-R with all three. The reason he matters is that he specified physiology, so the theory makes predictions you can test: <b>extraversion is a matter of cortical arousal</b> via the ascending reticular activating system, with introverts chronically <i>higher</i> in baseline arousal, therefore already near their optimum and seeking less stimulation, and extraverts chronically under-aroused, therefore stimulus-hungry. <b>Neuroticism</b> is the lability of the limbic or visceral brain, so how easily the autonomic system is triggered and how slowly it settles."</p>
+<p class="push">The two payoffs they like. First, the classical link: crossing extraversion and neuroticism gives four quadrants that map onto Galen's humours, stable extravert is sanguine, unstable extravert choleric, stable introvert phlegmatic, unstable introvert melancholic. Second, the evidence: the lemon-drop test, where introverts salivate more to lemon juice on the tongue, is the most-cited demonstration, and there is broadly supportive work on vigilance, caffeine and preferred noise levels for study. The criticisms, given honestly: the arousal account has not held up cleanly, the modern revision from Gray locates the difference in reactivity to reward and punishment rather than in baseline arousal level; psychoticism is the weakest scale, skewed and with lower reliability, and looks like a conflation of low agreeableness and low conscientiousness; and three factors is widely regarded as too few, which is what the Big Five corrected.</p>
+<p class="why">Eysenck is the theorist to be strongest on for an Indian clinical panel, because he is where personality meets biology, and because "extraversion equals under-arousal, introversion equals over-arousal" is counter-intuitive enough that getting the direction right is itself a signal.</p>
+</div>
+
+<div class="trap">
+<b>The direction trap.</b> Introverts are <i>more</i> cortically aroused at baseline, which is why they avoid extra stimulation. Extraverts are <i>less</i> aroused, which is why they seek it. Candidates reverse this under pressure roughly half the time. Rehearse the sentence "introverts are already over-aroused, so they withdraw" until it is automatic.
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P17">Costa and McCrae.</p>
+<p class="a">"The Five-Factor Model, the current consensus. Five broad dimensions, OCEAN: <b>openness to experience</b>, imagination, aesthetic sensitivity, intellectual curiosity; <b>conscientiousness</b>, organisation, dependability, self-discipline, achievement striving; <b>extraversion</b>, sociability, assertiveness, positive emotionality; <b>agreeableness</b>, trust, altruism, compliance, tender-mindedness; and <b>neuroticism</b>, the tendency to experience negative affect, anxiety, hostility, vulnerability. Costa and McCrae's instrument is the <b>NEO-PI-R</b>, 240 items, and it is hierarchical, with six facets nested under each of the five domains, so thirty facets in all, which is what makes it clinically useful rather than just descriptive. The current version is the NEO-PI-3."</p>
+<p class="push">Why it became the consensus, which is the real question. Three independent lines converged on the same five. The <b>lexical</b> tradition running from Allport and Odbert through Cattell to Tupes and Christal in 1961, then Norman in 1963, who is often credited with the label, and Goldberg, who coined "Big Five". The <b>questionnaire</b> tradition, where second-order factoring of the 16PF and extension of Eysenck's model both landed near five. And <b>cross-cultural replication</b>, McCrae and Costa's work across more than fifty cultures recovering the same structure. Add the supporting evidence: heritability of roughly forty to sixty percent per factor, rank-order stability rising to about .7 after age fifty, and predictive validity for real outcomes, conscientiousness predicting job performance across essentially every occupation, Barrick and Mount, and conscientiousness predicting longevity, Friedman's re-analysis of the Terman cohort. The criticisms to volunteer: it is descriptive rather than explanatory, it says <i>what</i> the dimensions are and not <i>why</i>; the factors are not perfectly orthogonal; openness is the least stable across cultures; and it may miss culturally specific dimensions, with the honesty-humility factor of the HEXACO model, Ashton and Lee, being the strongest live challenger.</p>
+<p class="why">"Three independent methods converged on the same answer" is the strongest single argument in personality psychology, and it is the answer to "why should I believe the Big Five", which is the question underneath the question.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P18">Rogers.</p>
+<p class="a">"Humanistic, phenomenological. For Rogers the organising construct is the <b>self-concept</b>, the organised, consistent set of perceptions and beliefs about oneself, which develops out of interaction and, critically, out of how one has been regarded. The single motive in the system is the <b>actualising tendency</b>, an innate drive towards growth and fulfilment of potential. Psychological health is <b>congruence</b>, a good match between the self-concept, actual experience, and the ideal self; distress arises from <b>incongruence</b>, which is defended against by denial and distortion of experience. The mechanism by which incongruence is installed is <b>conditions of worth</b>: when regard from others is conditional, the child learns to disown the experiences that would cost them that regard, and those disowned experiences become the incongruent material. Therapy therefore works by supplying what was missing, the three core conditions, <b>unconditional positive regard</b>, <b>empathy</b>, and <b>congruence</b> or genuineness in the therapist. The end point is the <b>fully functioning person</b>: openness to experience, existential living, organismic trust, experiential freedom and creativity."</p>
+<p class="push">Rogers' empirical seriousness is worth a sentence, because people mistake humanism for anti-science. He was the first to audio-record and transcribe therapy sessions for research, he ran Q-sort studies of the gap between the self and the ideal self before and after therapy, and he is the origin of the "necessary and sufficient conditions" paper, 1957, that generated decades of process research. That is why his core conditions ended up as the common-factors backbone of psychotherapy outcome research rather than staying a school-specific doctrine. Criticism: the actualising tendency is an assumption rather than a finding, the theory is weak on development and on psychopathology, and "necessary and sufficient" has not held up, the conditions look necessary but not sufficient for most presentations.</p>
+<p class="why">If your therapeutic style comes up later, this is the card it connects to. Saying that Rogers pioneered recorded-session research pre-empts the lazy assumption that you like him because he is comfortable.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P19">Bandura.</p>
+<p class="a">"Social cognitive theory, and the move that makes personality a process rather than a structure. His core structural claim is <b>reciprocal determinism</b>, sometimes called triadic reciprocal causation: personal factors, that is cognition, affect and biology, behaviour, and the environment all influence each other bidirectionally. So you are neither driven by internal traits alone nor shaped by the environment alone; you select and create environments that then act back on you. <b>Observational learning</b> is the acquisition mechanism, and it needs four subprocesses, attention, retention, reproduction and motivation, which is why the Bobo doll children could reproduce aggression they had never been reinforced for. And <b>self-efficacy</b>, from 1977, is the belief in one's capability to execute the actions required for a given attainment. It is task-specific, not global, and it is built from four sources in descending order of power: mastery experiences, vicarious experience, verbal persuasion and physiological or affective states."</p>
+<p class="push">The distinctions they test. <b>Self-efficacy is not self-esteem</b>: efficacy is a judgement of capability on a specific task, esteem is a global judgement of self-worth, and you can have high efficacy for something you do not value. <b>Self-efficacy is not outcome expectancy</b>: efficacy is "can I do it", outcome expectancy is "if I do it, will it produce the result", and the distinction matters clinically because the intervention differs. Add the applied point: self-efficacy is the mediator through which most successful behaviour-change interventions work, and the four sources map directly onto technique, so behavioural experiments are mastery, group work is vicarious, therapist encouragement is persuasion, and interoceptive work reduces the misreading of physiological states. Mention <b>self-regulation</b> and <b>moral disengagement</b> if they want later Bandura.</p>
+<p class="why">Self-efficacy is the single most clinically applied construct in this whole list, and being crisp about how it differs from self-esteem is a fast way to show you use the term precisely rather than loosely.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P20">Mischel.</p>
+<p class="a">"Mischel is the critic who reshaped the field. In <i>Personality and Assessment</i>, 1968, he reviewed the evidence for cross-situational consistency of behaviour and found that correlations between a trait measure and behaviour in any single situation rarely exceeded about .30, the so-called <b>personality coefficient</b>. His conclusion was that trait scores predict far less single-instance behaviour than the field assumed, and that situations matter more than trait psychology allowed. That started the <b>person–situation debate</b>, which ran for roughly two decades. His constructive answer came later: the <b>Cognitive-Affective Personality System</b>, with Shoda, in which personality consists of stable networks of encodings, expectancies, values, goals, and self-regulatory plans, and consistency shows up not in average behaviour but in stable <b>if–then situation–behaviour signatures</b>. He is also the marshmallow-test author, delay of gratification, and the later work on hot and cool systems came out of the same interest in self-regulation."</p>
+<p class="push">The resolution, which is the part that matters. Four moves settled the debate. <b>Aggregation</b>, Epstein: single acts are unreliable, but aggregate behaviour across many occasions and trait correlations rise sharply, from .30 to .60 and above; comparing a trait score to one act is like judging a test from one item. <b>Trait relevance and situational strength</b>, Mischel's own distinction between strong situations, a funeral or a red light, where norms compress everyone's behaviour, and weak situations, an unstructured party, where traits express themselves freely; traits predict best in weak situations. <b>Interactionism</b>, the mainstream settlement: behaviour is a function of person and situation and their interaction. And <b>the signature</b>: the person who is aggressive with peers but not with adults is not inconsistent, they are consistently that pattern. So the field now holds both, and the modern framing is that the person-situation debate was resolved in favour of interactionism, not in favour of either side.</p>
+<p class="why">Naming the .30 coefficient and then explaining aggregation is the highest-value pair of facts in the section, because it explains both why the criticism was fair and why traits survived it.</p>
+</div>
+
+<h2 id="mischel" class="yr">6 · The person–situation debate, in full</h2>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P21">Do traits actually predict behaviour?</p>
+<p class="a">"Yes, but at the right level of measurement. A single trait score predicting a single act in a single situation gives you about .30, which is Mischel's personality coefficient and it is genuinely modest. Aggregate that behaviour over many occasions and the correlation rises to .60 and beyond, because you have removed situational noise the same way adding items removes item-specific error from a test. So traits predict <i>patterns</i> of behaviour well and <i>single instances</i> poorly. Clinically that is exactly the right conclusion: I should not predict what a patient will do on Tuesday from a personality profile, but I can predict their characteristic style over months, and that is what the profile is for."</p>
+<p class="push">If they want the effect-size defence: Funder and Ozer pointed out that .30 is not small by the standards of the rest of psychology or of medicine, and that many celebrated situational effects, including the classic social psychology demonstrations, correspond to effects of similar or smaller magnitude. So the argument that situations beat traits was partly an artefact of comparing an experimentally amplified situational manipulation against a correlational trait effect. And the outcome literature is strong: conscientiousness predicts job performance across occupations and predicts longevity; neuroticism predicts psychopathology across essentially every disorder category and predicts poorer treatment outcome.</p>
+<p class="why">This is the question underneath the whole trait section. Being able to say "yes, at the aggregate level, and here is why .30 is not embarrassing" is the difference between defending trait theory and merely believing in it.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P22">So which matters more, the person or the situation?</p>
+<p class="a">"That question is now regarded as badly posed, and saying so is the correct answer. Behaviour is a joint function of the person and the situation, and the interesting variance is in the interaction term. Situational strength moderates it: in strong situations with clear norms and constraints, individual differences are suppressed and almost everyone behaves alike; in weak, ambiguous, unstructured situations, traits express themselves and the person variable dominates. And the relationship is not one-way, because people select, evoke and manipulate their situations, which is Buss's three mechanisms of person-environment correspondence, and it is also Bandura's reciprocal determinism. So the extravert is not just responding to parties, they are choosing to be at one."</p>
+<p class="push">The clinical translation, which is what a clinical panel is after: a formulation that is all person becomes character assassination, and a formulation that is all situation ignores why this person and not their sibling. Good formulation is interactionist by construction, which is exactly what the five-P framework encodes, predisposing, precipitating, perpetuating, protective and presenting.</p>
+<p class="why">Rejecting the framing of the question, politely and with a reason, is a strong move in a viva, and this is one of the few places where the literature genuinely licenses it.</p>
+</div>
+
+<h2 id="bio" class="yr">7 · The biology of personality</h2>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P23">Is personality inherited?</p>
+<p class="a">"Substantially. Twin and adoption studies converge on heritability of roughly forty to sixty percent for each of the Big Five, with the rest attributable mostly to non-shared environment. The striking and consistent finding is that the <b>shared</b> family environment contributes close to zero to adult personality, which is counter-intuitive and is one of the most replicated results in behaviour genetics: siblings raised together are barely more alike in personality than siblings raised apart, once genes are accounted for. The Minnesota Study of Twins Reared Apart is the classic source. What that does <i>not</i> mean is that parenting is irrelevant; it means the aspects of environment that shape personality are the ones that differ between siblings within the same home, and that gene–environment correlation and interaction blur the two categories anyway."</p>
+<p class="push">Add the molecular caveat, because it is the honest current position. Candidate-gene findings in personality, the 5-HTTLPR serotonin transporter and neuroticism being the famous one, have largely failed to replicate, and the field has moved to genome-wide association studies which show personality traits to be highly <b>polygenic</b>, with thousands of variants of individually tiny effect. So a heritability of fifty percent is a population statistic about variance, not a statement that half of any individual's personality is genetic, and it says nothing about malleability. Say that last point explicitly, because conflating heritability with immutability is the standard error.</p>
+<p class="why">"Heritability is a property of a population, not of a person, and it does not imply unchangeability" is a graduate-level sentence and it defuses the eugenics-adjacent version of this question cleanly.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P24">What are the biological theories of personality?</p>
+<p class="a">"Three worth naming. <b>Eysenck's arousal theory</b>: extraversion reflects baseline cortical arousal through the ascending reticular activating system, introverts over-aroused and stimulus-avoidant, extraverts under-aroused and stimulus-seeking, with neuroticism reflecting limbic lability. <b>Gray's Reinforcement Sensitivity Theory</b>, which is the biologically better-supported revision: two, later three, motivational systems, the <b>Behavioural Activation System</b>, sensitive to reward, dopaminergic, underlying impulsivity and approach, the <b>Behavioural Inhibition System</b>, sensitive to punishment, novelty and conflict, septo-hippocampal and serotonergic-noradrenergic, underlying anxiety, and the <b>Fight-Flight-Freeze System</b> for immediate aversive threat. Gray's key move was to rotate Eysenck's axes about thirty degrees, so that impulsivity and anxiety, rather than extraversion and neuroticism, are the biologically primary dimensions. <b>Cloninger's psychobiological model</b>: four heritable temperament dimensions each tied to a neurotransmitter, novelty seeking to dopamine, harm avoidance to serotonin, reward dependence to noradrenaline, and persistence, plus three character dimensions that develop, self-directedness, cooperativeness and self-transcendence, measured by the TCI."</p>
+<p class="push">The clinical payoff, if they want it: RST maps onto psychopathology cleanly, with a hyperactive BIS underlying anxiety disorders and a hyperactive BAS underlying impulse-control problems, substance use and the manic pole of bipolar disorder, and that is a mechanistic account rather than a descriptive one. Cloninger's harm avoidance behaves like a trait marker for anxiety and depression, and low self-directedness is the dimension that best flags personality disorder in his system.</p>
+<p class="why">Most candidates can name Eysenck's arousal theory. Naming Gray's rotation and what it fixed is the answer that gets a follow-up question rather than a nod, and follow-ups are how you spend your time on ground you own.</p>
+</div>
+
+<h2 id="measure" class="yr">8 · Measuring personality</h2>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P25">How do you assess personality?</p>
+<p class="a">"Four families. <b>Self-report inventories</b>, which is where most of the psychometric quality is: MMPI-2 and MMPI-2-RF, 567 items, empirically keyed, ten clinical scales plus validity scales, and it is the standard for psychopathology rather than normal personality; the 16PF; the EPQ-R; the NEO-PI-R or NEO-PI-3 and the shorter BFI-44 and BFI-10 for the Big Five; the MCMI-IV for personality disorders; the PID-5 for the DSM-5 alternative model. <b>Projective techniques</b>, which rest on the projective hypothesis that ambiguous stimuli pull out unconscious material: the Rorschach, ten inkblots, scored these days by the Exner Comprehensive System or R-PAS; the TAT, Murray and Morgan, thirty-one cards, story-telling, scored for need, press and thema; the Children's Apperception Test; the Rosenzweig Picture-Frustration Study; Sentence Completion, the Rotter Incomplete Sentences Blank; and the expressive drawing tests, Draw-a-Person and House-Tree-Person. <b>Behavioural assessment</b>, direct observation, self-monitoring, functional analysis. And <b>informant reports</b>, which add real incremental validity because self and other see different slices."</p>
+<p class="push">The comparison they are fishing for. Self-report is objective in scoring, standardised, normed and reliable, but is vulnerable to <b>social desirability</b>, faking good and faking bad, acquiescence and extreme-response sets, and limited insight. Projectives are harder to fake and access material a person cannot or will not report, but have poor inter-rater reliability and contested validity, weak norms, and are time-expensive; the Rorschach's validity is respectable for thought disorder and psychotic-process indicators and poor for most specific diagnoses, which is the balanced position to state. Say the defences built into self-report, because it shows technical knowledge: the MMPI's L, F and K scales, the ? cannot-say count, the F-K index, and forced-choice item formats, and note that the MMPI was <b>empirically keyed</b>, meaning items were retained purely because they discriminated criterion groups, regardless of whether they made theoretical sense.</p>
+<p class="why">Listing the tools is table stakes. The marks are in the trade-off, so lead with the families and then spend your time on the strengths and weaknesses comparison, which is what the question is really for.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P26">What is the projective hypothesis, and do you use projectives?</p>
+<p class="a">"The projective hypothesis is that when a person is asked to structure an ambiguous, unstructured stimulus, they impose their own needs, conflicts, defences and ways of organising experience on it, so the response reveals personality structure that direct questioning would not reach. The term traces to Frank, 1939, and the mechanism borrows Freud's defence of projection. In practice I would use them as a supplementary and hypothesis-generating source within a battery, never as a standalone basis for a diagnosis, and I would be explicit in the report about which conclusions rest on which data. The defensible use is process and thought organisation, not diagnostic labelling."</p>
+<p class="push">If they press on validity, do not defend projectives beyond the evidence. The honest summary is that the Rorschach has acceptable validity for a small number of indices, particularly perceptual and thought-disorder indicators such as the Perceptual-Thinking Index, and weak validity for most personality and diagnostic inferences; the TAT is best treated as a structured interview stimulus and a source of achievement- and affiliation-motive coding rather than a scored test; and drawing tests have essentially no support for specific sign interpretation. Then land the professional point: an ethical report distinguishes findings from hypotheses, and the RCI ethical code as well as ordinary competence standards require that you use instruments within their demonstrated validity.</p>
+<p class="why">Panels ask this to see whether you will defend a weak instrument out of loyalty. Saying "supplementary, hypothesis-generating, never standalone" is the answer that is both honest and employable.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P27">Which Big Five instrument would you actually pick, and why?</p>
+<p class="a">"It depends on what the score has to carry. For clinical or individual assessment, the <b>NEO-PI-3</b>, 240 items, because the thirty facets give you the resolution to say something specific, for instance that a patient's high neuroticism is loaded on vulnerability and self-consciousness rather than on angry hostility, which changes the formulation. For a research survey where personality is one of several constructs and fatigue is a real threat to data quality, a short form, the <b>BFI-44</b> or the <b>BFI-10</b>, which is what I used. The trade is resolution and reliability against completion rate, and the correct choice is determined by the design, not by preference."</p>
+<p class="push">Be able to defend the short form on its own terms, because this is where your own study gets attacked. Two items per trait gives low internal consistency by definition, so alpha is the wrong statistic for it, and Rammstedt and John reported test-retest reliability and convergent validity against the full BFI instead, in the region of .75 mean retest, which is the appropriate defence. Then concede the cost without being asked: reduced reliability attenuates correlations, so a short form biases estimates towards the null, meaning a non-significant personality finding in my data is weaker evidence of no effect than it would be with a full-length measure.</p>
+<p class="why">"Attenuation biases me towards the null, so my null results are less informative than my significant ones" is the strongest single methodological sentence available to you on this topic, and it turns a limitation into evidence of understanding.</p>
+</div>
+<h2 id="hook" class="yr">9 · Your dissertation hook</h2>
+
+<div class="clin-focus">
+<b>Why this section exists.</b> Personality is not an abstract topic for you. You measured it, in 214 people, and two of the five factors came out significant. So the moment a panellist asks about personality, you have a legitimate route from the textbook answer into your own data, and candidates who can do that are remembered. The move is: give the Allport definition, answer whatever theory question follows, and then, at the first natural opening, say <b>"in my own study we used the five-factor model, and..."</b>. From there you are on ground nobody in the room knows better than you.
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P28">Which model of personality did you use, and why?</p>
+<p class="a">"The five-factor model, OCEAN, measured with the BFI-10. We chose the five-factor framework for three reasons. It has the strongest cross-cultural replication of any personality model, recovered across more than fifty cultures, so it travels to an Indian sample better than the alternatives. It is the current consensus structure, which means my results are directly comparable with the existing literature on personality and problematic sexual behaviour. And it has short validated measures, which mattered because our survey was already long and on a sensitive topic, so cutting participant burden protected the completion rate and the data quality."</p>
+<p class="push">"Why not Cattell's 16PF or Eysenck?" "Two reasons, one theoretical and one practical. Theoretically, sixteen factors have not replicated well, and second-order factoring of the 16PF itself converges on about five, so the five-factor solution is the level of abstraction the data actually support. Eysenck's three are defensible and biologically better grounded, but psychoticism is the weakest of his scales and three factors would have collapsed the distinction between conscientiousness and agreeableness, which is precisely the distinction my hypotheses were about, since I predicted conscientiousness would relate to perceived control. Practically, the 16PF is a long proprietary instrument and the EPQ-R is 100 items; the BFI-10 takes under a minute. For a survey design with a sensitive topic, that is the deciding constraint."</p>
+<p class="why">Naming a theoretical reason and a practical reason, in that order, is how you answer any "why this instrument" question. Giving only the practical reason sounds like convenience; giving only the theoretical one sounds like you did not think about your participants.</p>
+</div>
+
+<div class="verify">
+<b>Get the attribution exactly right, because this is a trap you can walk into.</b> The <b>five-factor model</b> is Costa and McCrae's, and their instrument is the NEO-PI-R. But the instrument <i>you</i> used, the <b>BFI-10</b>, is <b>Rammstedt and John, 2007</b>, a short form of John's Big Five Inventory, which comes out of the lexical–Goldberg tradition, not out of Costa and McCrae's questionnaire tradition. They measure the same five factors and correlate strongly, but they are different instruments from different lineages. So the correct sentence is: <b>"we used the five-factor model, Costa and McCrae's framework, measured with the BFI-10, Rammstedt and John 2007."</b> If you say "we used Costa and McCrae's Big Five" and a psychometrically literate panellist asks "so you administered the NEO?", you have to backtrack. Say both names from the start and there is nothing to catch you on.
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P29">What did personality actually do in your data?</p>
+<p class="a">"Two of the five factors were significant and three were not. <b>Neuroticism</b>: higher neuroticism predicted <i>lower</i> consumption. Spearman's rho was −.240, significant at the .01 level, and in the binary logistic regression B was −.465, p &lt; .001, Exp(B) = .628, so each unit increase in neuroticism multiplied the odds of ever having consumed by about .63, roughly thirty-seven percent lower odds. <b>Conscientiousness</b> was the trait that mattered for control rather than for consumption: B = −.349, p = .009 in the ordinal model for perceived control, which we read as higher conscientiousness going with a greater sense of control over consumption. <b>Extraversion, agreeableness and openness</b> were non-significant throughout. So the personality story in my data is narrow and specific: emotional stability related to whether people consumed at all, self-discipline related to how in control they felt, and the three interpersonal and experiential traits did nothing."</p>
+<p class="push">Why the null results are not a failure, and volunteer this before they frame it as one. Three of five being non-significant is the expected pattern in this literature, not an anomaly; the traits with a theoretical route to impulse-regulated behaviour are conscientiousness and neuroticism, and those are the two that moved. And there is a measurement caveat that runs the right way: the BFI-10 has two items per trait, so it is a low-reliability measure, and attenuation from unreliability biases correlations towards zero. That means my null findings for extraversion, agreeableness and openness are weak evidence of absence, and I would not claim those traits are irrelevant, only that this design could not detect them.</p>
+<p class="why">Reporting three nulls confidently, and then explaining why the nulls are less informative than the significant results, is the most defensible thing you can say about your own data. It is also true, which is why it holds up under pressure.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P30">Higher neuroticism predicted <i>less</i> consumption. That is the opposite of what I would expect. Explain it.</p>
+<p class="a">"Agreed, it is counter-intuitive, and I flagged it as the finding that most needs interpretation rather than defending. There are three readings and I would not claim to have separated them. First, <b>affective deterrence</b>: high-neuroticism individuals experience more anticipatory guilt, shame and anxiety around a stigmatised behaviour, and in a conservative cultural context that may suppress the behaviour rather than drive it. Second, <b>differential under-reporting</b>: high-neuroticism respondents may be more sensitive to the social undesirability of the disclosure, so what I measured could be a reporting difference rather than a behavioural one, and my design cannot distinguish those two. Third, <b>sample and context</b>: much of the literature suggesting a positive neuroticism link is in clinical or help-seeking samples, where the behaviour is already problematic, whereas mine is a non-clinical convenience sample of Indian young adults, and the relationship need not be the same at the non-clinical end. Laier and Brand's work on affect regulation is where I would look for the mechanism."</p>
+<p class="push">If they push harder, concede the design limit rather than inventing a mechanism. It is cross-sectional, so I cannot speak to direction, and it is self-report on a taboo behaviour, so the measurement error is almost certainly not random. The way to test the under-reporting account would be to include a social desirability scale, such as the Marlowe-Crowne, which I did not, and that is a concrete design improvement rather than a vague one.</p>
+<p class="why">This is the single most likely place for the panel to attack your data, because the finding is surprising. Having three named readings, ranked, plus the specific instrument you would add to test between them, converts an attack into a demonstration.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="P31">Connect your personality finding to the clinical picture.</p>
+<p class="a">"The clinical reading of my data is that the risk marker is impulse regulation, not personality breadth and not consumption volume. Sexual compulsivity was the dominant predictor across all three outcomes, whether people consumed, how often, and how much control they felt they had. Personality entered only where you would predict it to: conscientiousness, which is the self-discipline and impulse-control factor, was the trait that related to perceived control, and that is theoretically coherent rather than incidental. So the screening implication is that you assess dysregulation and its correlates, not use, and if you were going to use a personality measure as an adjunct, the facets worth looking at are the conscientiousness self-discipline facet and the neuroticism impulsiveness facet, not the broad domain scores."</p>
+<p class="push">If they ask what you would do differently, give the facet answer: a domain-level Big Five score is too coarse for this question, because neuroticism contains both anxiety and impulsiveness and those two facets should behave differently with respect to compulsive behaviour, so a facet-level instrument such as the NEO-PI-3 would let you test that directly. That is a real, specific next study, not a generic "larger sample" answer.</p>
+<p class="why">Ending on a concrete next study, at facet level with a named instrument and a named prediction, is what a research-oriented department is listening for. "Bigger sample, longitudinal design" is the answer everyone gives and it lands as filler.</p>
+</div>
+
+<h2 id="rapid" class="yr">10 · Rapid-fire and traps</h2>
+
+<table class="nums">
+<tr><th>They ask</th><th>You say</th></tr>
+<tr><td>Define personality</td><td>Dynamic organisation within the individual of those psychophysical systems that determine his characteristic behaviour and thought. Allport, 1961.</td></tr>
+<tr><td>Origin of the word</td><td>Latin <i>persona</i>, the actor's mask.</td></tr>
+<tr><td>Trait vs type</td><td>Continuous dimensions vs discrete categories. Traits describe, types classify. Data are continuous, so traits won.</td></tr>
+<tr><td>Nomothetic vs idiographic</td><td>General laws across people vs the individual case in depth. Windelband's terms, imported by Allport. Psychometrics is nomothetic, formulation is idiographic.</td></tr>
+<tr><td>Allport's trait levels</td><td>Cardinal, central, secondary.</td></tr>
+<tr><td>Allport's motivational concept</td><td>Functional autonomy: a motive can outlive its origin.</td></tr>
+<tr><td>Allport's self</td><td>The proprium, seven aspects, ending in propriate striving.</td></tr>
+<tr><td>Cattell's key distinction</td><td>Surface traits vs source traits. Only source traits are structural. 16PF, 1949.</td></tr>
+<tr><td>Cattell's data types</td><td>L-data, Q-data, T-data.</td></tr>
+<tr><td>Cattell on intelligence</td><td>Fluid vs crystallised.</td></tr>
+<tr><td>Eysenck's dimensions</td><td>Extraversion, neuroticism, psychoticism. EPI has two, EPQ-R has three.</td></tr>
+<tr><td>Eysenck's biology</td><td>Extraversion = cortical arousal via the ARAS; introverts over-aroused. Neuroticism = limbic lability.</td></tr>
+<tr><td>Eysenck's hierarchy</td><td>Specific response → habitual response → trait → type.</td></tr>
+<tr><td>Gray's systems</td><td>BAS reward, BIS punishment and conflict, FFFS threat. A thirty-degree rotation of Eysenck's axes.</td></tr>
+<tr><td>Cloninger</td><td>Four temperament dimensions tied to neurotransmitters plus three character dimensions. TCI.</td></tr>
+<tr><td>Big Five</td><td>OCEAN. Costa and McCrae, NEO-PI-R, thirty facets under five domains.</td></tr>
+<tr><td>Who coined "Big Five"</td><td>Goldberg. Norman, 1963, is the usual citation for the five-factor structure; Tupes and Christal, 1961, found it first.</td></tr>
+<tr><td>Big Five heritability</td><td>Roughly 40 to 60 percent per factor; shared environment near zero.</td></tr>
+<tr><td>The Big Five's live rival</td><td>HEXACO, Ashton and Lee, which adds honesty-humility as a sixth factor.</td></tr>
+<tr><td>Rogers</td><td>Self-concept, congruence, conditions of worth, unconditional positive regard, fully functioning person.</td></tr>
+<tr><td>Bandura</td><td>Reciprocal determinism; self-efficacy from four sources, mastery first.</td></tr>
+<tr><td>Mischel</td><td>1968 critique, the .30 personality coefficient, then CAPS and if–then signatures.</td></tr>
+<tr><td>Resolution of the debate</td><td>Interactionism, plus aggregation, plus situational strength.</td></tr>
+<tr><td>Jung's types</td><td>Two attitudes by four functions = eight types. Basis of the MBTI, which is unreliable on retest.</td></tr>
+<tr><td>Sheldon</td><td>Endomorph–viscerotonia, mesomorph–somatotonia, ectomorph–cerebrotonia. His .8 correlations were a rater artefact.</td></tr>
+<tr><td>Kretschmer</td><td>Pyknic with manic depression, asthenic with schizophrenia, athletic, dysplastic.</td></tr>
+<tr><td>Type A</td><td>Friedman and Rosenman, 1959. Only the hostility component survived.</td></tr>
+<tr><td>Personality disorders, ICD-11</td><td>Categories abolished except a borderline qualifier; severity plus five trait domains.</td></tr>
+<tr><td>DSM-5-TR Section III</td><td>AMPD: Criterion A functioning, Criterion B five pathological trait domains.</td></tr>
+<tr><td>Projective hypothesis</td><td>Ambiguous stimuli pull out unconscious structure. Frank, 1939.</td></tr>
+<tr><td>Your model</td><td>Five-factor model, Costa and McCrae's framework, BFI-10 by Rammstedt and John, 2007.</td></tr>
+<tr><td>Your finding</td><td>Neuroticism predicted lower consumption; conscientiousness predicted greater perceived control; E, A and O non-significant.</td></tr>
+</table>
+
+<div class="trap">
+<b>Trap 1 — answering "what is personality" with a list of theories.</b> The question asks for a definition. Give Allport's, in one sentence, with the attribution, and stop. If you begin "there are many approaches, psychoanalytic, trait, humanistic...", you have already told the panel you do not have the definition.
+</div>
+
+<div class="trap">
+<b>Trap 2 — reversing the arousal direction.</b> Introverts are <i>over</i>-aroused at baseline and therefore avoid stimulation. Extraverts are <i>under</i>-aroused and therefore seek it. Half of all candidates say this backwards under pressure.
+</div>
+
+<div class="trap">
+<b>Trap 3 — calling the Big Five types.</b> They are continuous dimensions. Say "scored high on conscientiousness", never "is a conscientious type", and never "is an introvert type" when you mean low on extraversion.
+</div>
+
+<div class="trap">
+<b>Trap 4 — attributing the BFI to Costa and McCrae.</b> The five-factor <i>model</i> is theirs; the <b>BFI-10</b> instrument is Rammstedt and John, 2007. Name both, in that order, every time you describe your method.
+</div>
+
+<div class="trap">
+<b>Trap 5 — treating heritability as destiny.</b> Forty to sixty percent heritability is a statement about variance in a population, not about how much of any one person's personality is fixed, and it implies nothing about whether the trait can change. Neuroticism demonstrably falls with successful treatment.
+</div>
+
+<div class="trap">
+<b>Trap 6 — overclaiming from your own nulls.</b> Extraversion, agreeableness and openness were non-significant in your data. That is not evidence that they do not matter, because a two-item-per-trait measure attenuates correlations towards zero. Say "this design could not detect an effect", not "there was no effect".
+</div>
+
+<div class="clin-focus" style="margin-top:26px">
+<b>The thirty-second version, if they give you no time at all.</b> "Personality is the dynamic organisation within the individual of those psychophysical systems that determine his characteristic behaviour and thought, that is Allport. The field moved from types, which are categories, to traits, which are continuous dimensions, because the distributions turned out to be continuous. It moved from many factors to five, Cattell's sixteen to Eysenck's three to Costa and McCrae's five, which is now the consensus because the lexical work, the questionnaire work and the cross-cultural replications all converged on the same five. And it moved from asking whether the person or the situation matters to accepting that behaviour is the interaction of both, which is Mischel's legacy. In my own study I used the five-factor model, and neuroticism and conscientiousness were the two that behaved as predicted."
+</div>
+
+<p class="src" style="margin-top:30px">Built 7 Aug 2026 for the MAHE / MCHP M.A. Clinical Psychology session. Companion pages: <a href="../manipal-viva/">the full 141-question viva sheet</a>, <a href="../manipal/">the Manipal logistics sheet</a>, <a href="../dissertation/">the dissertation defence sheet</a>, <a href="../notes/personality/">personality notes</a>, <a href="../notes/theorists/">theorists index</a>.</p>
+
+</div>
+
+<script>
+(function(){
+  var LS = "personalityViva.drill";
+  var body = document.body,
+      drillBtn = document.getElementById("drillBtn"),
+      allBtn = document.getElementById("allBtn"),
+      cards = Array.prototype.slice.call(document.querySelectorAll(".qa"));
+
+  function setDrill(on){
+    body.classList.toggle("drill", on);
+    drillBtn.classList.toggle("on", on);
+    drillBtn.textContent = "Drill mode: " + (on ? "on" : "off");
+    allBtn.style.display = on ? "" : "none";
+    if(!on) cards.forEach(function(c){ c.classList.remove("open"); });
+    try{ localStorage.setItem(LS, on ? "1" : "0"); }catch(e){}
+  }
+
+  drillBtn.addEventListener("click", function(){ setDrill(!body.classList.contains("drill")); });
+
+  allBtn.addEventListener("click", function(){
+    var anyClosed = cards.some(function(c){ return !c.classList.contains("open"); });
+    cards.forEach(function(c){ c.classList.toggle("open", anyClosed); });
+    allBtn.textContent = anyClosed ? "Hide all" : "Reveal all";
+  });
+
+  cards.forEach(function(c){
+    c.addEventListener("click", function(){
+      if(!body.classList.contains("drill")) return;
+      c.classList.toggle("open");
+    });
+  });
+
+  var saved = "0";
+  try{ saved = localStorage.getItem(LS) || "0"; }catch(e){}
+  setDrill(saved === "1");
+})();
+</script>
+
+</body>
+</html>
