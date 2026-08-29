@@ -1,7 +1,7 @@
 /* MET 2026 prep - offline service worker
    Precaches the whole site so it works with no signal after one install.
    Bump CACHE on each deploy to refresh. */
-const CACHE = "met-prep-20260806-manipal-viva-2";
+const CACHE = "met-prep-20260829-pinel-atlas";
 const BASE = "/sihan-met-flashcards/";
 const PRECACHE = [
   "/sihan-met-flashcards/",
@@ -32,6 +32,7 @@ const PRECACHE = [
   "/sihan-met-flashcards/dissertation/",
   "/sihan-met-flashcards/manipal/",
   "/sihan-met-flashcards/manipal-viva/",
+  "/sihan-met-flashcards/pinel-figures/",
   "/sihan-met-flashcards/rml/",
   "/sihan-met-flashcards/notes/rml-study-material/",
   "/sihan-met-flashcards/notes/sgt-study-material/",
