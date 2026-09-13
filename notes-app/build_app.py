@@ -29,6 +29,7 @@ OUT_CONTENT = os.path.join(ROOT, "content")
 SECTIONS = [
     ("strategy",  "Exam Strategy",        "What actually gets tested, the repeated questions, the high-yield map", "#9d174d", "#831843"),
     ("depth",     "Textbooks in Full Depth", "The actual textbooks rewritten as explanatory prose, chapter by chapter, nothing compressed into fragments", "#7c2d12", "#431407"),
+    ("coursework","MA Coursework",        "Your own MA course papers, built off the course reading list and taught from scratch", "#4d7c0f", "#365314"),
     ("core",      "Core Subjects",        "The syllabus, one merged book per subject", "#1d4ed8", "#1e3a8a"),
     ("dsm",       "DSM-5-TR",             "Every disorder in plain language, with comorbidity and differential under each one", "#1e40af", "#172554"),
     ("syllabus",  "Rodrick Sir's Syllabus","Every file in the shared Drive, built unit by unit to full depth, nothing left out", "#15803d", "#14532d"),
@@ -58,6 +59,10 @@ BOOKS = [
     dict(slug="eysenck", shelf="depth", kind="merged", search_cap=40000,
          short="Cognitive Psychology (Eysenck & Keane), full depth",
          blurb="Book 2 of the un-condensing shelf. Eysenck and Keane's Cognitive Psychology: A Student's Handbook written out as real explanatory prose rather than bullet fragments, same house style as the Pinel: every concept built from scratch, every mechanism walked step by step, the experiment or patient behind each claim named, the theorist named wherever there is one, and a worked example closing each chapter that pushes a real case through the machinery. Part I is up now (the four approaches, then visual perception, object and face recognition, motion and action, attention and performance); memory, language, thinking and reasoning, emotion and consciousness are being written and ship in tranches."),
+    # --- MA Coursework ---
+    dict(slug="clinical-positive-foundations", shelf="coursework", kind="note", src="clinical-positive-foundations", search_cap=40000,
+         short="Foundations of Clinical Psychology and Positive Psychology",
+         blurb="The course paper built off its four references (Pomerantz, Trull and Phares, the Oxford Handbook of Positive Psychology, Baumgardner and Crothers) and taught from scratch in sixteen chapters. Part I is clinical psychology: what it is, its history in the West and in India, the models, abnormality and diagnosis, the interview and mental status examination, assessment, psychotherapy and its evidence, ethics and Indian law, and the specialties and culture. Part II is positive psychology: its origins, happiness and well-being, positive emotions, character strengths and flow, optimism, hope and resilience, relationships and meaning, and positive psychology in the clinic with Indian perspectives on well-being. Full prose, no abbreviations, every theorist named, and every chapter ends with a recap, its names and the long-answer questions it answers."),
     # --- Core Subjects (one merged book per subject) ---
     dict(slug="biopsychology", shelf="core", kind="merged",
          short="Biopsychology & Neuroscience",
