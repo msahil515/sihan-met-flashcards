@@ -94,6 +94,24 @@ button{font-family:inherit;cursor:pointer}
   #themeMount button{padding:8px 12px}
   .btn.primary#finishBtn{padding:8px 13px}
 }
+/* ---- S24 pass: the sticky bar was eating 168px of a 780px screen because the
+   control row wrapped onto THREE lines (progress / score+reset / aloud+theme+finish).
+   Fold it back to one line: the progress bar becomes a hairline on the bar's own
+   bottom edge (zero height), the duplicate "1 / 100" count goes (the reader eyebrow
+   already says Q1 / 100), and Reset + Read aloud go icon-only. ~90px instead of 168,
+   which is ~10% of the screen handed back to the question. syncTopbarOffset() picks
+   the new height up on its own, so Next/jump no longer parks the stem under the bar. */
+@media(max-width:560px){
+  .topbar-controls{gap:8px;justify-content:flex-end}
+  .prog{position:absolute;left:0;right:0;bottom:0;flex:none;min-width:0;gap:0}
+  .prog-rail{height:3px;border-radius:0;background:transparent}
+  .prog-rail>i{border-radius:0}
+  .prog-num{display:none}                /* dupe of the Q n / N in the reader eyebrow */
+  .run-score{margin-right:auto}
+  #resetBtn span,#speakSettingsBtn span{display:none}   /* icon-only ↺ and 🔊 */
+  #resetBtn,#speakSettingsBtn{padding:8px 11px;font-size:15px;line-height:1}
+}
+}
 
 /* ---------- Layout ---------- */
 .stage{max-width:1240px;margin:0 auto;padding:22px 18px 40px;
@@ -328,6 +346,34 @@ button{font-family:inherit;cursor:pointer}
   margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
 .tag-you{font-family:var(--font-ui);font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:6px;margin-left:auto;align-self:center}
 .tag-you.no{background:var(--bad);color:#fff} .tag-you.ok{background:var(--good);color:#fff}
+/* ---- S24 width pass. Lives at the END of the stylesheet on purpose: media
+   queries add no specificity, so the base .stage/.reader/.stem/.opt rules further
+   down the sheet would otherwise win. Nested padding (stage 18 + card 18 + option 18)
+   was eating ~90px of a 360px screen, so a four-line option wrapped to six. ---- */
+@media(max-width:400px){
+  .stage{padding:14px 10px 96px}
+  .reader{padding:18px 14px 20px}
+  .stem{font-size:20px;margin:0 0 22px}
+  .opt{padding:14px 13px;gap:11px;font-size:17px}
+  .opt .key{width:26px;height:26px;font-size:13px}
+  .eyebrow{gap:8px;margin-bottom:16px}
+  .speak-pill,.mark-pill,.flag-pill{font-size:11.5px;padding:7px 10px;gap:5px}
+  /* last few px so the control row stays on ONE line at 360 */
+  .topbar-controls{gap:7px}
+  .run-score{padding:4px 8px}
+  .btn.primary#finishBtn{padding:8px 12px}
+  .results{padding:20px 12px 60px}
+  .score-card{padding:26px 18px}
+  .sec-block,.send-block{padding:18px 14px}
+  .secrow{grid-template-columns:96px 1fr 40px;gap:10px}
+}
+/* Samsung's larger "display size" settings hand the page a ~320-340px viewport
+   even on an S24. Drop the score caption there so the bar still holds one line. */
+@media(max-width:344px){
+  .run-score span{display:none}
+  .run-score{padding:4px 7px}
+  .back{padding:7px 6px}
+}
 </style>
 <script src="theme.js"></script>
 </head>
@@ -347,7 +393,7 @@ button{font-family:inherit;cursor:pointer}
       <b id="runScoreVal">0</b><span>score so far</span>
     </div>
     <button class="btn" id="focusBtn" title="Toggle a wide, distraction-free reading column">⛶ Focus</button>
-    <button class="btn" id="resetBtn" title="Wipe your answers on this test and start over">↺ Reset</button>
+    <button class="btn" id="resetBtn" title="Wipe your answers on this test and start over" aria-label="Reset this test">↺ <span>Reset</span></button>
     <span id="speakMount"></span>
     <span id="themeMount"></span>
     <button class="btn primary" id="finishBtn">Finish</button>
