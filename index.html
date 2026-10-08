@@ -2,7 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<style>html.gate-locked body{display:none!important}</style>
+<style>html.gate-locked body{display:none!important}
+  /* declutter: clamp long card copy, collapse long grids, fold callouts */
+  .resource-desc { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+  .grid.collapsed > :nth-child(n+7) { display:none; }
+  .show-all { margin:12px 0 0; background:transparent; color:var(--accent); border:1px solid var(--border); border-radius:8px; padding:8px 14px; font:600 13.5px inherit; cursor:pointer; }
+  .show-all:hover { background:var(--accent-soft); }
+  details.callout.fold > summary { cursor:pointer; list-style:revert; }
+</style>
 <script>document.documentElement.classList.add("gate-locked")</script>
 <script src="/sihan-met-flashcards/gate.js"></script>
 <script src="/sihan-met-flashcards/force-sync.js"></script>
@@ -616,41 +623,41 @@
         <button type="button" class="nav-more-btn" id="navMoreBtn" aria-haspopup="true" aria-expanded="false">More ▾</button>
         <div class="nav-more-panel" id="navMorePanel" hidden>
           <div class="nav-more-group">
-            <span class="nav-more-label">Study</span>
+            <span class="nav-more-label">Plan</span>
             <a href="six-areas/">Six Areas</a>
-            <a href="what-to-watch/">What to Watch</a>
-            <a href="clinical-refs/">Clinical psych references</a>
+            <a href="syllabus/">Syllabus hub</a>
             <a href="rci-syllabus/">RCI syllabus &amp; the six</a>
             <a href="ihbas-vs-rml/">IHBAS vs RML</a>
+            <a href="progress/">Progress</a>
+          </div>
+          <div class="nav-more-group">
+            <span class="nav-more-label">Papers</span>
             <a href="pyq-order/">PYQ Order</a>
             <a href="pyq-list/">PYQ Library</a>
-            <a href="pyq-coverage/">PYQ Coverage</a>
             <a href="quiz/otta-mphil/">M.Phil QB</a>
-            <a href="progress/">Progress</a>
-            <a href="checklist/">Checklist</a>
-            <a href="plan/">Plan</a>
+            <a href="results/gap-map/">Gap map</a>
+          </div>
+          <div class="nav-more-group">
+            <span class="nav-more-label">Viva prep</span>
+            <a href="manipal-viva/">Viva sheet (179 model answers)</a>
+            <a href="personality-viva/">Personality: the whole answer</a>
+            <a href="dissertation/">Dissertation defence</a>
+            <a href="notes/therapy-style/">Your therapeutic style</a>
           </div>
           <div class="nav-more-group">
             <span class="nav-more-label">Reference</span>
             <a href="notes/">All notes</a>
             <a href="pinel-figures/">Pinel diagrams</a>
+            <a href="clinical-refs/">Clinical psych references</a>
+            <a href="what-to-watch/">What to Watch</a>
             <a href="database/">Database</a>
-            <a href="resources/">Library</a>
+            <a href="resources/">Drive library</a>
             <a href="news/">News</a>
-            <a href="manipal/">Manipal interview (7 Aug)</a>
-            <a href="manipal-viva/">Manipal viva sheet (179 Qs)</a>
-            <a href="personality-viva/">Personality: the whole answer</a>
-            <a href="dissertation/">Dissertation</a>
-            <a href="downloads/">Get the app</a>
-            <a href="sync/">Sync devices</a>
           </div>
           <div class="nav-more-group">
-            <span class="nav-more-label">Colleges &amp; archive</span>
-            <a href="syllabus/">Syllabus hub</a>
-            <a href="rci-syllabus/">RCI syllabus (course + all six)</a>
-            <a href="rml-2020-cutoff/">RML 2020 cut-off</a>
-            <a href="rml-2020-wrong/">RML 2020 · my wrong ones</a>
-            <a href="rml-2020-nine/">RML 2020 · the nine, with the why</a>
+            <span class="nav-more-label">App</span>
+            <a href="downloads/">Get the app</a>
+            <a href="sync/">Sync devices</a>
             <a href="archive/">Archive · closed cycles</a>
           </div>
         </div>
@@ -666,7 +673,7 @@
   <div class="hero">
     <div class="hero-left">
       <h1>Clinical Psychology Prep 2026</h1>
-      <p>The whole site, pointed at the live four: IHBAS, CIP, JSS Mysuru, DIMHANS Dharwad. SGT, Amity and RML are done for 2026 and folded into the <a href="archive/" style="color:var(--accent);">Archive</a> — every page and mock still there, just off the front. Breadth over everything, then depth on therapies, tests and research. Open this daily, drill the heaviest area you are weakest in.</p>
+      <p>Pointed at the live four: IHBAS, CIP, JSS Mysuru, DIMHANS Dharwad. Breadth over everything, then depth on therapies, tests and research. Open this daily, drill the heaviest area you are weakest in.</p>
     </div>
     <div class="hero-stats">
       <div class="stat">
@@ -682,14 +689,10 @@
     </div>
   </div>
 
-  <div class="callout" style="border-left:4px solid var(--bad);">
-    <b>Tomorrow: Manipal MAHE interview, 7 Aug.</b> MA Clinical Psychology at MCHP, over MS Teams, App No 126202084. Slot depends on your MET rank: 82&ndash;105 at 8:30 AM, 107&ndash;130 at 11:00 AM. Camera on throughout, registered full name, logged in 15 minutes early, and the whole session is recorded. The full sheet is up: slot finder, tonight's checklist, model answers in your own words, and the content spine in case it runs as a departmental test. <a href="manipal/" style="color:var(--accent);"><b>Open the Manipal sheet →</b></a> &middot; <a href="dissertation/" style="color:var(--accent);">Dissertation defence →</a> &middot; <a href="manipal-viva/" style="color:var(--accent);"><b>Full viva sheet, 179 model answers →</b></a>
-  </div>
-
   <div class="callout" style="border-left:4px solid var(--accent);">
-    <b>Current focus — the live four.</b> You called it on 26 Jul: <b>SGT, Amity and RML are done for 2026</b>. Cycles closed, not dropped — every page, mock and note is intact in the <a href="archive/" style="color:var(--accent);">Archive</a> and the ten mocks are still playable from the folded block at the bottom of Tests. NIMHANS and Manipal/MET closed back in June. What's left to actually sit:
+    <b>Current focus: the live four.</b> SGT, Amity, RML, NIMHANS and Manipal are closed for 2026 and sit in the <a href="archive/" style="color:var(--accent);">Archive</a>, nothing deleted, every mock still playable from the folded block at the bottom of Tests. What's left to actually sit:
     <ul style="margin:8px 0 0; padding-left:18px; line-height:1.7;">
-      <li><b>IHBAS Delhi</b> — three real papers live as mocks (2020, 2024, 2025) and the 100-question blueprint checked against 292 of its own questions. 2026 notification not out; expect Aug. <a href="quiz/ihbas-2025/" style="color:var(--accent);">Latest mock →</a> · <a href="syllabus/#ihbas" style="color:var(--accent);">syllabus →</a></li>
+      <li><b>IHBAS Delhi</b> — three real papers live as mocks (2020, 2024, 2025) and the 100-question blueprint checked against 292 of its own questions. Next notification not out yet, watched twice a day. <a href="quiz/ihbas-2025/" style="color:var(--accent);">Latest mock →</a> · <a href="syllabus/#ihbas" style="color:var(--accent);">syllabus →</a></li>
       <li><b>CIP Ranchi</b> — syllabus rebuilt from the real CIP 2020 paper, all 100 items classified. CBT historically ~Feb, next cycle late 2026 / early 2027. <a href="syllabus/#cip" style="color:var(--accent);">Syllabus →</a></li>
       <li><b>JSS Mysuru</b> — the only one with a hard published date: <b>16 Oct 2026</b> test + viva, official nine-subject syllabus quoted verbatim off the brochure. <a href="syllabus/#jss" style="color:var(--accent);">Syllabus →</a></li>
       <li><b>DIMHANS Dharwad</b> — both courses mapped, Karnataka-domicile requirement flagged. Confirming which one is the RCI-approved course before anything else gets built. <a href="syllabus/#dimhans" style="color:var(--accent);">Syllabus →</a></li>
@@ -697,9 +700,10 @@
     <div style="margin-top:9px;color:var(--muted);font-size:13.5px">Backup list: a metro-city RCI approved-qualifications shortlist is being built off the <a href="admissions/" style="color:var(--accent);">tracker</a> so there's somewhere to go if none of the four open in time.</div>
   </div>
 
-  <div class="callout">
-    <b>How these exams run.</b> RCI MA Clinical Psychology entrances, mostly written-MCQ with the standard <b>+1 / −0.25</b> marking (RML's CET-166 adds a 30% interview). Broad and factual: theorist-to-concept, test-to-subtest, therapy-to-founder, brain-area-to-function, DSM/ICD detail, research-design recall. The four heaviest baskets are Research &amp; Statistics, Psychotherapy, Assessment/Psychometrics and Biopsychology. Weights below are estimated from past papers, not an official blueprint.
-  </div>
+  <details class="callout fold">
+    <summary><b>How these exams run</b></summary>
+    <div style="margin-top:8px">RCI MA Clinical Psychology entrances, mostly written-MCQ with the standard <b>+1 / −0.25</b> marking (RML's CET-166 adds a 30% interview). Broad and factual: theorist-to-concept, test-to-subtest, therapy-to-founder, brain-area-to-function, DSM/ICD detail, research-design recall. The four heaviest baskets are Research &amp; Statistics, Psychotherapy, Assessment/Psychometrics and Biopsychology. Weights below are estimated from past papers, not an official blueprint.</div>
+  </details>
 
   <section>
     <div class="section-head">
@@ -728,9 +732,10 @@
   <section>
     <div class="section-head">
       <h2 class="section-title">Study materials</h2>
-      <span class="section-sub">Cheatsheets, deep references, primers · <a href="notes/" style="color:var(--accent);">all notes →</a></span>
+      <span class="section-sub">The ones that matter for the live four · <a href="notes/" style="color:var(--accent);">all notes →</a></span>
     </div>
     <div class="grid cols-3" id="resourcesGrid"></div>
+    <button type="button" class="show-all" id="resourcesMore" hidden></button>
   </section>
 
   <section>
@@ -739,12 +744,13 @@
       <span class="section-sub">Recent additions to the prep set</span>
     </div>
     <div class="grid cols-2" id="newsGrid"></div>
+    <button type="button" class="show-all" id="newsMore" hidden></button>
   </section>
 
 </main>
 
 <footer>
-  Sihan Clinical Psych 2026 prep · built for desktop and mobile · progress saved locally in your browser · <a href="archive/">NIMHANS + MET archive</a>
+  Sihan Clinical Psych 2026 prep · built for desktop and mobile · progress saved locally in your browser · <a href="archive/">Archive: closed cycles</a>
   <br>
   <button class="reset" id="resetBtn">Reset all local progress</button>
 </footer>
@@ -968,15 +974,14 @@ const MOCKS = [
 ];
 
 const RESOURCES = [
+  { tag: "Plan",        title: "Six Areas, One Syllabus &mdash; the whole prep on one page", desc: "IHBAS, CIP, JSS and DIMHANS are not four syllabi, they are one general-psychology paper asked four ways, so you study once and it counts for all four. This is the running order: stats and research methods first because it is the only area you can learn cold, then abnormal and clinical second because the IHBAS blueprint is 25 clinical + 15 abnormal and the three real IHBAS papers confirm 33-38 every year, then personality and systems, physiological, developmental, social, and general/cognitive last because it is the widest and the papers tell you which slices to read. Every block links straight to the notes that cover it and the mock that drills it. Plus the daily loop (one topic, 40-50 questions same day, read every explanation including the guessed-right ones) and the real per-area counts for IHBAS and CIP side by side.", href: "six-areas/", fresh: true },
   { tag: "Books",       title: "Foundations of clinical psychology: the four references", desc: "The four references you forwarded, Pomerantz, Trull and Phares, the Oxford Handbook of Positive Psychology and Baumgardner and Crothers. None of them are in anything you've sent me, so this is each one with the correct citation, what to search, and every legal way to get it. Two you can read free today on Internet Archive: the Snyder and Lopez Handbook (2002 first edition) and Phares and Trull 5th edition. Pomerantz is library or buy, Baumgardner and Crothers is about Rs 462 on Amazon.in. Also carries two corrections to what I said on WhatsApp.", href: "clinical-refs/", fresh: true },
   { tag: "Diagrams",    title: "Pinel Diagram Atlas &mdash; all 310 figures + 9 tables", desc: "You asked for Pinel especially with the diagrams. This is every diagram in the book on one page, lifted straight out of Biopsychology 11th ed, none of them redrawn: 310 numbered figures and all 9 numbered tables, 319 crops, grouped by chapter in the book's own numbering. Each one carries its caption and the sub-section of the full-depth book it belongs to, so you can go diagram-first (find the picture of the synapse, then read the prose around it) instead of scrolling 47,000 words looking for it. Search matches the caption, the section and the figure number, so \"hippocamp\", \"3.17\" and \"sleep\" all work. Tap any image for it full size. The book itself, with every figure sitting next to the paragraph it belongs to, is still in the Library under Textbooks in Full Depth.", href: "pinel-figures/", fresh: true },
   { tag: "Interview",   title: "Personality: the whole answer", desc: "The long version of the personality question, for when the panel decides that is the topic. Allport's definition quoted word for word and then defended one word at a time, dynamic through characteristic, with what each word was rejecting and the difference between the 1937 and 1961 endings. Four more definitions in reserve, Eysenck, Cattell, Guilford, Mischel. Trait versus type done properly: types are discrete categories, traits are continuous dimensions, and traits won on the shape of the distributions, plus every type theory from the four humours through Kretschmer, Sheldon, Jung and Type A, including why Sheldon's correlations of .8 were a rater artefact. Nomothetic versus idiographic, Windelband's terms, Allport's own position, and the line that lands it for a clinical panel: psychometrics is nomothetic, formulation is idiographic. Then the trace, ten theorists in running order, Freud, Jung, Adler, Allport, Cattell, Eysenck, Costa and McCrae, Rogers, Bandura, Mischel, each with the two constructs that are theirs and the criticism you volunteer before they extract it. The person-situation debate in full with the .30 personality coefficient and how aggregation answered it. The biology: Eysenck's arousal, Gray's BIS and BAS, Cloninger. Assessment: the four families, self-report versus projective, and the honest position on the Rorschach. And the hook into your own data, neuroticism predicting lower consumption, conscientiousness predicting perceived control, three factors non-significant, with the exact way to say all of it. Ends with a 33-row rapid-fire table, six traps, and a 30-second version. Drill mode hides every answer.", href: "personality-viva/" },
-  { tag: "Interview",   title: "Manipal MAHE: The Full Viva Sheet, 179 model answers", desc: "The answers page for today. 179 questions in the order a clinical psychology panel actually walks through them, each with a model answer written to be said out loud in 20 to 40 seconds, and on the hard ones the follow-up they push with and how to take it. Openers: why clinical psychology in one personal, one academic and one professional line, why Manipal, why a second master's, what have you read recently. The Definitions Bank: the 29 general concepts, personality through conformity, each as a one-line definition with the theorist attached and the follow-up they always push with. Core definitions: clinical psychology and Witmer 1896, the four Ds, the 4 Ps formulation, thought on form content and possession, mood versus affect, insight graded. The MSE in order, assessment batteries, feedback and rapport. Psychometrics done properly: reliability with Spearman-Brown and KR-20, validity with all its subtypes, the reliable-but-not-valid line, alpha, sensitivity and specificity, standardised scores, test bias. Psychopathology, therapy schools with Rogers, Beck, Ellis, Wolpe and Linehan at depth, development and psychodynamics, ethics and law with the Mental Healthcare Act 2017 in full, stats, the dissertation defence, three worked vignettes and the curveballs. Plus drill mode: it hides every answer so you say it out loud first and tap to check yourself.", href: "manipal-viva/" },
-  { tag: "Interview",   title: "Manipal MAHE &mdash; Interview + Departmental Test (7 Aug 2026)", desc: "Everything for tomorrow's MS Teams session at MCHP Manipal, in one page. Type your MET rank and it tells you your slot (82-105 is 8:30 AM, 107-130 is 11:00 AM, and 106 is in a gap the mail never printed, so call them). Tonight's checklist, ticked off and saved on the device: Teams installed, link clicked once, display name set to MOHAMMED SIHAN exactly, camera and mic tested inside Teams, lighting in front of you, hotspot backup, documents on the desk. Then the interview itself with model answers in your own words, not a script: tell me about yourself, why clinical psychology, why Manipal, why a second master's, strengths and weaknesses, five years, what if you don't get in. Your dissertation compressed to eight rapid-fire defences. Your therapeutic style and a suicide-risk answer built off your own YourDOST work. Then the content spine in case it runs as a test: psychopathology definitions, assessment batteries, therapy schools with founders and techniques, ethics with the Mental Healthcare Act 2017 in full, stats and research methods, and the developmental, learning, memory and biopsych one-liners. Plus six traps and what to ask them at the end.", href: "manipal/" },
+  { tag: "Interview",   title: "Viva Sheet: 179 model answers", desc: "Built for the Manipal panel, works for any clinical viva, JSS included. 179 questions in the order a clinical psychology panel actually walks through them, each with a model answer written to be said out loud in 20 to 40 seconds, and on the hard ones the follow-up they push with and how to take it. Openers: why clinical psychology in one personal, one academic and one professional line, why Manipal, why a second master's, what have you read recently. The Definitions Bank: the 29 general concepts, personality through conformity, each as a one-line definition with the theorist attached and the follow-up they always push with. Core definitions: clinical psychology and Witmer 1896, the four Ds, the 4 Ps formulation, thought on form content and possession, mood versus affect, insight graded. The MSE in order, assessment batteries, feedback and rapport. Psychometrics done properly: reliability with Spearman-Brown and KR-20, validity with all its subtypes, the reliable-but-not-valid line, alpha, sensitivity and specificity, standardised scores, test bias. Psychopathology, therapy schools with Rogers, Beck, Ellis, Wolpe and Linehan at depth, development and psychodynamics, ethics and law with the Mental Healthcare Act 2017 in full, stats, the dissertation defence, three worked vignettes and the curveballs. Plus drill mode: it hides every answer so you say it out loud first and tap to check yourself.", href: "manipal-viva/" },
   { tag: "Video",     title: "What to Watch &mdash; the free course shortlist, ranked", desc: "You asked which Udemy course to take. Answer: none of them, and here is why plus what to watch instead. Udemy's psychology catalogue is practitioner training (CBT skills, counselling certificates, hypnotherapy, life coaching) and none of it is written to an Indian RCI entrance syllabus. What is: SWAYAM (the UGC's own platform, psychology runs through CEC) and NPTEL (the IIT consortium). Free, Indian syllabus, PG level. This page has every run that maps to your six areas with the real enrolment links, ranked watch / maybe / skip, and it says why for the skips instead of leaving you to guess. Two are worth your hours. The first is NPTEL's Basics of Mental Health &amp; Clinical Psychiatry out of IIT Kharagpur, because NPTEL's own syllabus sheet says the psychiatry lecturer has been attached to NIMHANS Bangalore, JSS Mysore Medical College and IHBAS Delhi, three of your target institutions, and it covers neuroanatomy in weeks 1-2 and the whole psychopathology block plus the drug classes after that. The second is SWAYAM's Abnormal Psychology under Dr G. Padmaja, who teaches at M.Phil level. Everything else you skip: biopsych because Pinel with the 310 figures beats video for anatomy, counselling because your own 1,412-page manual is deeper, developmental because it is 9 marks and fits on one cheatsheet, applied social because it is the wrong kind of social. Full verified week-by-week plans, the ten-hour version if that is all you have, and the honest note that personality and systems has no course on either platform.", href: "what-to-watch/", fresh: true },
   { tag: "Syllabus",  title: "The RCI Syllabus, and the six entrances", desc: "You asked for the RCI M.Phil syllabus for IHBAS, NIMHANS and the rest. There is no single answer, because two different documents both get called the syllabus. The course syllabus is written centrally by RCI and is identical at every approved centre in the country, so it tells you what you will study, not what you will be asked. The entrance syllabus is written by each institute separately and they diverge hard. Both are on this page. RCI's own two PDFs were downloaded and read end to end, so the six papers, the unit lists, the 1,200 marks, the pass rules and the mandated clinical work (70 case histories, 60 interviews, 50 psychodiagnostics, 200 hours of psychological therapy and 200 of behaviour therapy) are quoted off the source, not off a summary. Then all six entrances side by side: pattern, negative marking, selection split and per-area weighting counted off real papers, 292 IHBAS questions, 300 NIMHANS, CIP 2020 and RML 2020. NIMHANS and RML were missing from the hub page and are built out in full here. The finding: one syllabus covers 90 to 100 percent of every one of these papers, and the gaps are small and named.", href: "rci-syllabus/", fresh: true },
   { tag: "Analysis",    title: "IHBAS vs RML &mdash; what actually carries across", desc: "You said RML topics are very different from IHBAS. Half right, and the half that is wrong is the expensive half. The official IHBAS blueprint, the 292 tagged questions from IHBAS 2020/2024/2025, and the real section split of your RML 2020 attempt in one table. The headline: the clinical block is 39 per 100 on IHBAS against 36 on RML 2020, so they are the same paper on the thing you thought separated them. What genuinely does not carry is the social work and case management strand, about 12 of RML's 100, zero on IHBAS. What changes is psychotherapy (15 vs 8) and personality (10 vs 0, untested by RML). Reweight your 364 onto IHBAS's own distribution and it reads 91-93, with biopsych the single biggest leak at 2.9 marks. Also corrects three things I got wrong on WhatsApp, including the claim that IHBAS is not DSM heavy.", href: "ihbas-vs-rml/", fresh: true },
-  { tag: "Plan",        title: "Six Areas, One Syllabus &mdash; the whole prep on one page", desc: "IHBAS, CIP, JSS and DIMHANS are not four syllabi, they are one general-psychology paper asked four ways, so you study once and it counts for all four. This is the running order: stats and research methods first because it is the only area you can learn cold, then abnormal and clinical second because the IHBAS blueprint is 25 clinical + 15 abnormal and the three real IHBAS papers confirm 33-38 every year, then personality and systems, physiological, developmental, social, and general/cognitive last because it is the widest and the papers tell you which slices to read. Every block links straight to the notes that cover it and the mock that drills it. Plus the daily loop (one topic, 40-50 questions same day, read every explanation including the guessed-right ones) and the real per-area counts for IHBAS and CIP side by side.", href: "six-areas/", fresh: true },
   { tag: "Archive",     title: "Archive — SGT, Amity &amp; RML (2026 cycles closed)", desc: "You said on 26 Jul that SGT, Amity and RML are done for this year, so their blocks came off the front — not deleted, moved. This page indexes every one of them: the SGT master mock + from-scratch study book + 6-day plan, both Amity mocks + the Amity brief + syllabus map + study pack, and the whole RML set (the expanded CET-166 textbook and all six PYQ papers 2020-2025). Everything still opens, still scores, and every attempt you already logged is untouched. NIMHANS and Manipal/MET are on the same page from June.", href: "archive/", fresh: true },
   { tag: "Interview",   title: "Your Dissertation — Interview Prep Sheet", desc: "Built straight off your final draft of the porn/personality/aggression study (Vaz, Debbarma & Sihan, Jain Univ, guided by Swathi P.S). The exact questions a panel will fire at your own work, Amity especially, each with a tight answer: why this topic, why the BFI-10 / Buss-Perry SF / Sexual Compulsivity Scale, why Spearman not Pearson, why logistic regression, what you actually found (every stat lifted from your Results tables, not invented), which hypotheses held and which didn't, limitations, and the ethics of studying a taboo topic. Plus an Exp(B)/p-value/Cronbach drill and the five traps people fumble on. Know it cold and you walk in ahead.", href: "dissertation/" },
   { tag: "Library",     title: "Mimaansa Drive Library — 69 files, sorted", desc: "The full shared 'Mphil Clinical Psychology- Mimaansa' folder laid out clean: 48 previous-year papers grouped by institute (RML, NIMHANS, IHBAS, IMHANS, CIP, RINPAS, JEMAS, NFSU, GMCH, LGBRIMH + more, 2019-2025) and 21 core resources (textbooks, MCQ banks, syllabus, mind maps). RML's six papers pinned first since June 7 closes first. Every file links straight into Drive.", href: "resources/" },
@@ -999,6 +1004,7 @@ const RESOURCES = [
 ];
 
 const NEWS = [
+  { date: "2026-10-08", title: "Declutter: one look on every page, a shorter front page (NEW)", desc: "Every standalone page now wears the same shell and the same theme switcher as the tests screen, 28 more pages converted. The front page lost the stale Manipal banner, the More menu went from 30 links to five tidy groups, and the long grids show six cards with a Show all button. Closed-cycle pages moved to the Archive, nothing deleted.", href: "archive/" },
   { date: "2026-09-13", title: "Foundations of clinical psychology: the four references (NEW)", desc: "You forwarded four references for foundations of clinical psychology. Built as a page: correct citation for each, what to search, and every legal way to get them. Two are free to borrow on Internet Archive right now, the Snyder and Lopez Handbook of Positive Psychology (first edition) and Phares and Trull 5th edition. Two corrections to what I told you on WhatsApp: Internet Archive does not lend the Trull and Phares 6th edition (print-disabled only), and on the Oxford Handbook edition your forward names, Lopez is listed first, not Snyder.", href: "clinical-refs/" },
   { date: "2026-08-07", title: "Perceived control: what measured it and what tested it (NEW)", desc: "You asked what tested perceived control. New section 11c on the viva sheet, and the first thing on it is the answer you must not get wrong: perceived control was not a separate published scale. It came from the consumption and screening section you built yourself, a self-report item on how much control you feel over your use, scored on an ordered scale. So say \u201ca self-report item from the screening section I constructed\u201d and do not name a scale for it. The test was ordinal logistic regression in SPSS, the same as frequency, because the outcome is ordered categories and not a continuous score, which is also the answer to why not linear regression: ordinal outcome, ordinal logistic. What came out: sexual compulsivity significantly predicted lower perceived control, p = .002; conscientiousness significantly predicted it, B = \u2212.349, p = .009; aggression small but significant at p = .038; the other four traits not significant. There is a checked-in-yellow warning on the conscientiousness sign, because the B is negative and it only reads as more conscientious equals more control if that item is scored as loss of control, so check your methods chapter and until then say significance only, not direction. Thirteen cards in all, including the two hardest questions on this variable, whether compulsivity predicting control is circular, and how you defend a single item with no alpha. Plus the two corrections off your own draft: the compulsivity scale is the Sexual Compulsivity Scale, Kalichman and Rompa 1995, alpha .85 to .91, and the Big Five measure is the BFI-10, Rammstedt and John 2007, not Costa and McCrae.", href: "manipal-viva/#perceived" },
   { date: "2026-08-07", title: "Personality: the whole answer, on its own page (NEW)", desc: "You asked about personality, so here is the full version rather than one card. The anchor is Allport, quoted word for word, dynamic organisation within the individual of those psychophysical systems that determine his characteristic behaviour and thought, and then every word of it defended, because why that definition is the follow-up they always ask. The two splits they push you on, done at length. Trait versus type: types are boxes, traits are continuous dimensions, everyone sits somewhere on the scale, and traits won because the distributions came out continuous with no natural cut-points, which is also why DSM-5-TR Section III and ICD-11 are moving personality disorders to dimensions. Nomothetic versus idiographic: general laws across people versus the single case in depth, Allport argued both and leaned idiographic, and the clinical line is that your psychometrics are nomothetic and your formulation is idiographic. Then the trace, ten theorists in the order to say them, Freud, Jung, Adler, Allport, Cattell, Eysenck, Costa and McCrae, Rogers, Bandura, Mischel, each in one breath with the two constructs and the criticism. Plus the person-situation debate, the biology of personality, how personality is measured, and your own viva hook with the real numbers from your data. One correction worth reading: the five-factor model is Costa and McCrae, but the BFI-10 you actually administered is Rammstedt and John 2007, so say both names or a psychometrically literate panellist will catch it.", href: "personality-viva/" },
@@ -1258,9 +1264,24 @@ function SECTION_LABEL(key) {
   return labels[key] || key;
 }
 
+const HOME_SHOW = 6;
+function wireShowAll(btnId, rootId, total, label) {
+  const btn = document.getElementById(btnId), root = document.getElementById(rootId);
+  if (total <= HOME_SHOW) { btn.hidden = true; return; }
+  btn.hidden = false;
+  const set = (open) => {
+    root.classList.toggle("collapsed", !open);
+    btn.textContent = open ? "Show fewer" : `Show all ${total} ${label}`;
+    btn.dataset.open = open ? "1" : "";
+  };
+  set(false);
+  btn.onclick = () => set(!btn.dataset.open);
+}
+
 function renderResources() {
   const root = document.getElementById("resourcesGrid");
   root.innerHTML = "";
+  wireShowAll("resourcesMore", "resourcesGrid", RESOURCES.length, "study materials");
   for (const r of RESOURCES) {
     const a = document.createElement("a");
     a.className = "resource-card";
@@ -1278,6 +1299,7 @@ function renderNews() {
   const root = document.getElementById("newsGrid");
   root.innerHTML = "";
   const sorted = [...NEWS].sort((a,b) => b.date.localeCompare(a.date));
+  wireShowAll("newsMore", "newsGrid", sorted.length, "updates");
   for (const n of sorted) {
     const a = document.createElement("a");
     a.className = "resource-card";
