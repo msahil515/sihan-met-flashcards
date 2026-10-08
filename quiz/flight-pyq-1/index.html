@@ -33,16 +33,16 @@
   .opt.sel{border-color:var(--accent);background:rgba(88,166,255,.12)}
   .opt .letter{flex:0 0 auto;width:24px;height:24px;border-radius:6px;border:1px solid var(--border);
     display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--muted)}
-  .opt.sel .letter{background:var(--accent);color:#0d1117;border-color:var(--accent)}
+  .opt.sel .letter{background:var(--accent);color:var(--bg);border-color:var(--accent)}
   .opt .txt{flex:1}
-  .bar{position:fixed;left:0;right:0;bottom:0;background:rgba(13,17,23,.95);
+  .bar{position:fixed;left:0;right:0;bottom:0;background: var(--panel);
     border-top:1px solid var(--border);padding:12px 16px;backdrop-filter:blur(8px)}
   .bar .inner{max-width:760px;margin:0 auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
   .count{color:var(--muted);font-size:14px;margin-right:auto}
   .count b{color:var(--text)}
   button{font:inherit;font-size:15px;font-weight:600;border:none;border-radius:9px;
     padding:11px 16px;cursor:pointer}
-  .primary{background:var(--accent);color:#0d1117}
+  .primary{background:var(--accent);color:var(--bg)}
   .ghost{background:var(--panel2);color:var(--text);border:1px solid var(--border)}
   .out{background:var(--panel);border:1px solid var(--accent-dim);border-radius:12px;
     padding:16px;margin-top:8px;display:none}
@@ -54,6 +54,8 @@
   .miss{color:var(--muted);font-size:13.5px}
   footer{text-align:center;color:var(--muted);font-size:12.5px;margin-top:26px}
 </style>
+<script src="/sihan-met-flashcards/take/theme.js"></script>
+<link rel="stylesheet" href="/sihan-met-flashcards/revamp-skin.css">
 </head>
 <body>
 <div class="wrap">
