@@ -314,13 +314,36 @@ def patch_dex(path: Path):
                  (b"com.sihan.metprep", b"com.sihan.notes26")):
         assert len(o) == len(n)
         data[:] = data.replace(o, n)
-    # Recompute SHA-1 signature over bytes[32:], then adler32 over bytes[12:].
-    sig = hashlib.sha1(bytes(data[32:])).digest()
-    data[12:32] = sig
-    csum = zlib.adler32(bytes(data[12:])) & 0xffffffff
-    data[8:12] = csum.to_bytes(4, "little")
+    _fix_dex_checksums(data)
     path.write_bytes(bytes(data))
     print("  classes.dex: package renamed + checksum/signature recomputed")
+
+
+def _fix_dex_checksums(data: bytearray):
+    # Recompute SHA-1 signature over bytes[32:], then adler32 over bytes[12:].
+    data[12:32] = hashlib.sha1(bytes(data[32:])).digest()
+    data[8:12] = (zlib.adler32(bytes(data[12:])) & 0xffffffff).to_bytes(4, "little")
+
+
+# The wrapper's onCreate called settings.setCacheMode(v1) with v1 == 1, i.e.
+# LOAD_CACHE_ELSE_NETWORK: the WebView used ANY cached copy of a live-site file
+# without asking the server, so the app sat on old JS/CSS/pages. Re-point the
+# argument register to v2 (== 0 at that point, LOAD_NORMAL = normal HTTP cache
+# rules). Bytes are the `invoke-virtual {v0, v1}, setCacheMode` instruction.
+CACHE_MODE_OLD = bytes.fromhex("6e200e001000")   # setCacheMode(v1 = 1)
+CACHE_MODE_NEW = bytes.fromhex("6e200e002000")   # setCacheMode(v2 = 0)
+
+
+def patch_cache_mode(path: Path):
+    data = bytearray(path.read_bytes())
+    if CACHE_MODE_NEW in data and CACHE_MODE_OLD not in data:
+        print("  classes.dex: cache mode already normal")
+        return
+    assert data.count(CACHE_MODE_OLD) == 1, "setCacheMode instruction not found exactly once"
+    data[:] = data.replace(CACHE_MODE_OLD, CACHE_MODE_NEW)
+    _fix_dex_checksums(data)
+    path.write_bytes(bytes(data))
+    print("  classes.dex: WebView cache mode LOAD_CACHE_ELSE_NETWORK -> normal")
 
 
 def patch_arsc(path: Path):
@@ -391,6 +414,7 @@ def build(kind: str):
     workdir = WORKBASE / f"_work_{kind}"
     extract_template(workdir)
     assets = workdir / "assets"
+    patch_cache_mode(workdir / "classes.dex")
     if kind == "full":
         build_assets_full(assets)
         out = ROOT / "downloads" / "MET-Prep.apk"

@@ -1,7 +1,8 @@
 /* MET 2026 prep - offline service worker
    Precaches the whole site so it works with no signal after one install.
-   Bump CACHE on each deploy to refresh. */
-const CACHE = "met-prep-20260913-clinical-positive-notes";
+   Network-first for pages/code/data, so a deploy is picked up on next open;
+   the cache is the offline fallback. Bump CACHE when this file's logic changes. */
+const CACHE = "met-prep-20261008-live-first";
 const BASE = "/sihan-met-flashcards/";
 const PRECACHE = [
   "/sihan-met-flashcards/",
@@ -171,26 +172,27 @@ self.addEventListener("fetch", (e) => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
-  // Navigations: serve cache first (offline-friendly), refresh in background.
+  // Navigations: NETWORK-FIRST. A live page must always beat a stale cache, and
+  // we never cache a non-200 (the old handler cached 404s and served them
+  // forever, the "HPA Axis page 404s though it exists" bug). cache:"no-cache"
+  // makes the browser revalidate with GitHub Pages instead of trusting its own
+  // HTTP cache, so a fresh deploy shows up on the very next open.
+  // Offline only: cache, then BASE.
   if (req.mode === "navigate") {
-    // NETWORK-FIRST: a live page must always beat a stale cache, and we never
-    // cache a non-200. The old cache-first handler stored whatever came back —
-    // including 404s — so a page opened during a transient 404 (e.g. the notes/
-    // nav gap earlier) kept serving that dead 404 even after it went live. That
-    // was the "HPA Axis page 404s though it exists" bug. Offline: cache, then BASE.
-    e.respondWith(
-      fetch(req).then((res) => {
-        if (res && res.status === 200) {
-          const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put(req, copy));
-        }
-        return res;
-      }).catch(() => caches.match(req).then((cached) => cached || caches.match(BASE)))
-    );
+    e.respondWith(networkFirst(req).catch(() =>
+      caches.match(req, {ignoreSearch: true}).then((cached) => cached || caches.match(BASE))));
     return;
   }
 
-  // Assets (css/js/png/etc): stale-while-revalidate.
+  // Code and data (js/css/json/html) change with every deploy: network-first too,
+  // cache is the offline fallback only.
+  if (req.destination === "script" || req.destination === "style" ||
+      /\.(js|css|json|html?|webmanifest)$/.test(url.pathname)) {
+    e.respondWith(networkFirst(req));
+    return;
+  }
+
+  // Heavy, rarely-changing files (images/fonts/pdf): stale-while-revalidate.
   e.respondWith(
     caches.match(req).then((cached) => {
       const net = fetch(req).then((res) => {
@@ -204,3 +206,18 @@ self.addEventListener("fetch", (e) => {
     })
   );
 });
+
+// Fetch fresh (revalidating past the HTTP cache), store only a 200, and fall
+// back to the SW cache when the network is unreachable.
+function networkFirst(req) {
+  return fetch(req, {cache: "no-cache"}).then((res) => {
+    if (res && res.status === 200) {
+      const copy = res.clone();
+      caches.open(CACHE).then((c) => c.put(req, copy));
+    }
+    return res;
+  }).catch(() => caches.match(req).then((cached) => {
+    if (cached) return cached;
+    throw new Error("offline and not cached");
+  }));
+}
