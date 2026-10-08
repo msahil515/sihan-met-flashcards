@@ -347,7 +347,7 @@ const MOCKS = [
     total: 100,
     storageKey: "pyq-mock-2-results-v1",
     sections: { therapy: 18, abnormal: 15, biopsych: 13, dev: 12, biostats: 12, assessment: 10, social: 9, general: 8, english: 3 },
-    blurb: "Fresh PYQs pulled from 8 institutes across 2023-2025 — no overlap with Mock 1. Weighted toward your Mock 1 weak spots: therapy-heavy (18), bio (13), social (9), biostats (12). Each Q source-tagged so you can trace which paper it came from.",
+    blurb: "Fresh PYQs pulled from 8 institutes across 2023-2025 — no overlap with Mock 1. Weighted toward your Mock 1 weak spots: therapy-heavy (18), bio (13), social (9), biostats (12). Stems are reworded PYQ-pattern items; source tags audited Oct 2026 against the papers on file (20 retagged, 12 not found in any held paper). Every Q now has a from-scratch concept + why each wrong option is wrong.",
     fresh: false,
     tags: ["100% PYQ", "8 institutes", "source-tagged", "remediation-weighted"]
   },
