@@ -2,7 +2,7 @@
    Precaches the whole site so it works with no signal after one install.
    Network-first for pages/code/data, so a deploy is picked up on next open;
    the cache is the offline fallback. Bump CACHE when this file's logic changes. */
-const CACHE = "met-prep-20261008-live-first";
+const CACHE = "met-prep-20261014-ihbas24-topics";
 const BASE = "/sihan-met-flashcards/";
 const PRECACHE = [
   "/sihan-met-flashcards/",
@@ -43,6 +43,7 @@ const PRECACHE = [
   "/sihan-met-flashcards/news/news.json",
   "/sihan-met-flashcards/admissions/",
   "/sihan-met-flashcards/archive/",
+  "/sihan-met-flashcards/ihbas-2024-topics/",
   "/sihan-met-flashcards/rml-2020-cutoff/",
   "/sihan-met-flashcards/rml-2020-wrong/",
   "/sihan-met-flashcards/rml-2020-wrong/data.js",
