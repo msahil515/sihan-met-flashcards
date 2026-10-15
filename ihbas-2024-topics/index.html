@@ -2604,6 +2604,14 @@ Tap a rating on each one, and tap <b>&#9998;</b> to leave a comment on any topic
     if (e.key === CKEY && !(document.activeElement && document.activeElement.dataset.cn)){ C = loadC(); renderList(); }
   });
   all();
+  // Deep links: #zeros opens every topic rated 0 and jumps to the first; #tN opens topic N.
+  (function(){
+    var h = location.hash.slice(1), els = [];
+    if (h === "zeros") T.slice().sort(function(a, b){ return rank(a) - rank(b); }).forEach(function(t){ if (R[t.n] === 0) els.push(document.getElementById("t" + t.n)); });
+    else if (/^t\d+$/.test(h) && document.getElementById(h)) els.push(document.getElementById(h));
+    els.forEach(function(el){ var p = el.parentElement; if (p.classList.contains("skip")) p.open = true; el.open = true; });
+    if (els.length) els[0].scrollIntoView();
+  })();
 })();
 </script>
 </body>
