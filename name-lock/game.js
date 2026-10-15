@@ -11,6 +11,11 @@
   function G(){ var P = A.P(); var g = P.g = P.g || {};
     g.xp = g.xp || 0; g.days = g.days || {}; g.th = g.th || {}; g.boss = g.boss || {};
     g.bdg = g.bdg || {}; g.best = g.best || {}; g.st = g.st || {}; g.q = g.q || {};
+    /* synced state is rendered into HTML: keep every counter numeric */
+    g.xp = +g.xp || 0;
+    [g.best, g.st].forEach(function(o){ for (var k in o) o[k] = +o[k] || 0; });
+    for (var a in g.boss){ var b = g.boss[a] || {}; g.boss[a] = {w: +b.w || 0, bl: +b.bl || 0, tries: +b.tries || 0}; }
+    for (var t in g.days){ var r = g.days[t] || {}; g.days[t] = {a: +r.a || 0, x: +r.x || 0}; }
     return g; }
   function today(d){ d = d ? new Date(d) : new Date();
     return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); }
