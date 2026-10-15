@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<script src="/sihan-met-flashcards/sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Name Lock: effects, biases, phenomena, experiments, terms</title>
+<link rel="stylesheet" href="/sihan-met-flashcards/notes-style.css">
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<meta name="theme-color" content="#0d1117">
+<style>
+  .wrap{max-width:min(860px,96vw);padding-left:20px;padding-right:20px}
+  @media (max-width:600px){.wrap{padding-left:12px;padding-right:12px}}
+  .wrap p,.wrap li,.wrap button,.wrap input{font-family:var(--sans)}
+  .lead{font-size:14.5px;line-height:1.65;color:var(--muted)}
+  .lead b{color:var(--text)}
+  .tabs{position:sticky;top:0;z-index:5;background:var(--bg,#0d1117);border-bottom:1px solid var(--border);
+    display:flex;gap:4px;overflow-x:auto;padding:8px 0;margin:0 0 12px;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs button{flex:none;border:1px solid var(--border);background:var(--panel-2);color:var(--muted);border-radius:8px;
+    padding:7px 12px;font-size:13.5px;font-weight:700;cursor:pointer}
+  .tabs button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:6px 0 14px}
+  @media (max-width:520px){.tiles{grid-template-columns:repeat(2,1fr)}}
+  .tile{border:1px solid var(--border);background:var(--panel-2);border-radius:10px;padding:10px 12px;font-family:var(--sans)}
+  .tile b{display:block;font-size:22px;color:var(--text);font-variant-numeric:tabular-nums}
+  .tile span{font-size:12px;color:var(--muted)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px}
+  .chip{border:1px solid var(--border);background:var(--panel);color:var(--muted);border-radius:999px;padding:5px 11px;
+    font-size:13px;font-weight:700;cursor:pointer;font-family:var(--sans)}
+  .chip.on{border-color:var(--accent);color:var(--accent);background:var(--accent-soft,transparent)}
+  .modes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+  @media (max-width:600px){.modes{grid-template-columns:1fr}}
+  .mode{text-align:left;border:1px solid var(--border);background:var(--panel-2);border-radius:10px;padding:12px;cursor:pointer;color:var(--text)}
+  .mode b{display:block;font-size:15px;margin-bottom:3px}
+  .mode span{font-size:12.5px;color:var(--muted);line-height:1.45}
+  .mode:hover{border-color:var(--accent)}
+  h2.sec{font-family:var(--sans);font-size:15px;margin:22px 0 8px;color:var(--text)}
+  .card{border:1px solid var(--border);background:var(--panel-2);border-radius:12px;padding:16px;margin:8px 0;font-family:var(--sans)}
+  .prompt-k{font-size:11px;letter-spacing:.07em;text-transform:uppercase;font-weight:800;color:var(--muted);margin-bottom:6px}
+  .prompt{font-size:18px;line-height:1.5;color:var(--text);font-weight:600}
+  .prompt.small{font-size:15.5px;font-weight:500}
+  .opts{display:flex;flex-direction:column;gap:7px;margin-top:14px}
+  .opt{text-align:left;border:1px solid var(--border);background:var(--panel);color:var(--text);border-radius:9px;
+    padding:10px 12px;font-size:14.5px;line-height:1.45;cursor:pointer}
+  .opt.ok{border-color:#2ea043;background:rgba(46,160,67,.15)}
+  .opt.bad{border-color:#c04a4a;background:rgba(192,74,74,.15)}
+  .opt:disabled{cursor:default}
+  .reveal{margin-top:14px;border-top:1px solid var(--border);padding-top:12px}
+  .nm{font-size:17px;font-weight:800;color:var(--text)}
+  .meta{font-size:12.5px;color:var(--muted);margin:2px 0 8px}
+  .cat{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;border-radius:5px;
+    padding:1px 6px;color:#fff;vertical-align:2px;margin-right:4px}
+  .c-effect{background:#3d6fd0}.c-bias{background:#c04a4a}.c-phenomenon{background:#7a5bd0}
+  .c-experiment{background:#2e8f6e}.c-term{background:#b0761f}.c-law{background:#5a6b80}
+  .fld{font-size:14px;line-height:1.6;color:var(--text);margin:6px 0}
+  .fld i{font-style:normal;font-weight:800;color:var(--muted);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;margin-right:6px}
+  .roots{border-left:3px solid #b0761f;padding:4px 10px;background:rgba(176,118,31,.08);border-radius:0 6px 6px 0}
+  .look{border-left:3px solid #c04a4a;padding:4px 10px;background:rgba(192,74,74,.07);border-radius:0 6px 6px 0}
+  .pyq{font-size:12.5px;color:var(--muted);margin-top:8px;line-height:1.55}
+  .pyq b{color:var(--text)}
+  .lk{color:var(--accent);cursor:pointer;text-decoration:underline}
+  .row2{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap}
+  .btn{border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:8px;padding:8px 14px;font-weight:800;font-size:14px;cursor:pointer}
+  .btn.ghost{background:transparent;color:var(--accent)}
+  .prog{font-size:12.5px;color:var(--muted);font-family:var(--sans)}
+  .search{width:100%;box-sizing:border-box;border:1px solid var(--border);background:var(--panel);color:var(--text);
+    border-radius:9px;padding:10px 12px;font-size:15px;margin:4px 0 8px}
+  .li{border:1px solid var(--border);background:var(--panel-2);border-radius:9px;margin:0 0 6px;font-family:var(--sans)}
+  .li summary{cursor:pointer;padding:9px 12px;font-size:14.5px;color:var(--text);list-style:none}
+  .li summary::-webkit-details-marker{display:none}
+  .li summary small{color:var(--muted);font-size:12px}
+  .li .body{padding:0 12px 10px}
+  .duel{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+  .duel .opt{text-align:center;font-weight:700}
+  .empty{color:var(--muted);font-size:14px;font-family:var(--sans);padding:14px 0;line-height:1.6}
+  .miss-src{font-size:12px;color:var(--muted)}
+  .hide{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="../">&larr; Home</a> <a href="../results/gap-map/">Gap map</a> <a href="../notes/originators/">Originators</a> <a href="../tests/">Tests</a></nav>
+<h1>Name Lock</h1>
+<p class="lead">Every named thing an MCQ can ask about: <b>effects, biases, phenomena, experiments, laws and terms</b>. Each card has the name, who did it and when, what it means in plain words, and the <b>lookalike</b> it gets confused with. Built off every PYQ on the site, wrong options included, and anything you miss in a mock lands in <b>My misses</b> on its own.</p>
+
+<div class="tabs" id="tabs">
+  <button data-t="home" class="on">Drill</button>
+  <button data-t="duels">Lookalike duels</button>
+  <button data-t="misses">My misses</button>
+  <button data-t="roots">Term breakdown</button>
+  <button data-t="browse">All cards</button>
+</div>
+
+<!-- DRILL -->
+<section id="t-home">
+  <div class="tiles" id="tiles"></div>
+  <div class="prog">Pick what to drill:</div>
+  <div class="chips" id="chips"></div>
+  <div id="drill-start">
+    <div class="modes">
+      <button class="mode" data-m="name"><b>1. Name &rarr; meaning</b><span>See the name, pick what it means.</span></button>
+      <button class="mode" data-m="desc"><b>2. Description &rarr; name it</b><span>See the meaning, pick the name. The lookalike is always one of the options.</span></button>
+      <button class="mode" data-m="who"><b>3. Who did it</b><span>See the name and meaning, pick the person.</span></button>
+    </div>
+    <p class="lead">20 cards a round. Spaced repetition: a miss comes back next round, a hit waits 1, then 3, 7, 16, 35 days. Cards due first, then your misses, then new ones.</p>
+  </div>
+  <div id="drill" class="hide"></div>
+</section>
+
+<!-- DUELS -->
+<section id="t-duels" class="hide">
+  <p class="lead">Two names that trap you, side by side. Read the description, pick which one it is, then read the tell that separates them.</p>
+  <div class="chips" id="duel-chips"></div>
+  <div id="duel"></div>
+</section>
+
+<!-- MISSES -->
+<section id="t-misses" class="hide">
+  <p class="lead">Two feeds land here: any card you get wrong in a drill, and any mock or PYQ question you got wrong on this device (or a synced one) whose question or options name a card. It refreshes every time you open the page. Get a card right twice in a row in a drill and it leaves the list.</p>
+  <div class="row2"><button class="btn" id="drill-misses">Drill my misses</button></div>
+  <div id="misses"></div>
+</section>
+
+<!-- ROOTS -->
+<section id="t-roots" class="hide">
+  <p class="lead">Terms split into their roots, then the plain meaning and the lookalike. Learn the roots once and a term you have never seen can be decoded in the exam hall.</p>
+  <input class="search" id="roots-q" placeholder="Search a term or a root (e.g. gnosis, phasia)">
+  <div id="roots"></div>
+</section>
+
+<!-- BROWSE -->
+<section id="t-browse" class="hide">
+  <input class="search" id="q" placeholder="Search names, people, meanings...">
+  <div class="chips" id="b-chips"></div>
+  <div class="prog" id="b-count"></div>
+  <div id="list"></div>
+</section>
+</div>
+
+<script src="data.js"></script>
+<script>
+(function(){
+  var CARDS = window.NL_CARDS || [], PYQ = window.NL_PYQ || {}, MOCKS = window.NL_MOCKS || {};
+  var BY = {}; CARDS.forEach(function(c){ BY[c.id] = c; });
+  var CATS = [["all","All"],["effect","Effects"],["bias","Biases"],["phenomenon","Phenomena"],["experiment","Experiments"],["law","Laws"],["term","Terms"],["pyq","Seen in PYQs"],["miss","My misses"]];
+  var CATNAME = {effect:"Effect",bias:"Bias",phenomenon:"Phenomenon",experiment:"Experiment",law:"Law / principle",term:"Term"};
+  var KEY = "namelock-progress-v1";   /* syncs: matches sync.js -progress-vN */
+  var DAY = 864e5, GAPS = [0, 1, 3, 7, 16, 35];
+
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ return {}; } }
+  var P = load(); P.c = P.c || {}; P.m = P.m || {};
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(P)); } catch(e){} }
+  function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  function shuffle(a){ for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function st(id){ return P.c[id] || null; }
+
+  /* ---------- misses feed: scan every take/ engine attempt on this device ---------- */
+  function scanMocks(){
+    var qmap = {};   /* mock -> qIndex -> [cardIds] */
+    Object.keys(PYQ).forEach(function(cid){ PYQ[cid].forEach(function(h){
+      (qmap[h[0]] = qmap[h[0]] || {}); (qmap[h[0]][h[1]] = qmap[h[0]][h[1]] || []).push(cid);
+    }); });
+    for (var i = 0; i < localStorage.length; i++){
+      var k = localStorage.key(i), m = k && k.match(/^revamp-preview-(.+)-v1$/);
+      if (!m || !qmap[m[1]] || !MOCKS[m[1]]) continue;
+      var s; try { s = JSON.parse(localStorage.getItem(k)); } catch(e){ continue; }
+      if (!s || !s.answers) continue;
+      var keyc = MOCKS[m[1]].k;
+      Object.keys(s.answers).forEach(function(qi){
+        if (!qmap[m[1]][qi] || s.answers[qi] === keyc[qi]) return;
+        qmap[m[1]][qi].forEach(function(cid){
+          var tag = m[1] + ":" + qi, e = P.m[cid];
+          if (!e){ P.m[cid] = e = {src: [], t: Date.now()}; }
+          if (e.src.indexOf(tag) < 0){ e.src.push(tag); e.done = false; e.ok = 0; }
+        });
+      });
+    }
+    save();
+  }
+  function missIds(){ return Object.keys(P.m).filter(function(id){ return BY[id] && !P.m[id].done; }); }
+  function addMiss(id, tag){ var e = P.m[id] || (P.m[id] = {src: [], t: Date.now()}); e.done = false; e.ok = 0; if (tag && e.src.indexOf(tag) < 0) e.src.push(tag); }
+  function srcLabel(tag){ var p = tag.split(":"); if (p[0] === "drill") return "Name Lock drill"; var mk = MOCKS[p[0]]; return (mk ? mk.t : p[0]) + " Q" + (+p[1] + 1); }
+
+  /* ---------- card render ---------- */
+  function pyqLine(c){
+    var hits = PYQ[c.id] || []; if (!hits.length) return "";
+    var by = {}; hits.forEach(function(h){ var mk = MOCKS[h[0]]; if (!mk) return;
+      var r = h[2] === "a" ? "answer" : h[2] === "o" ? "wrong option" : "in the question";
+      (by[mk.t] = by[mk.t] || []).push("Q" + (h[1] + 1) + " (" + r + ")"); });
+    var real = hits.filter(function(h){ return MOCKS[h[0]] && MOCKS[h[0]].p; }).length;
+    return '<div class="pyq"><b>' + (real ? "Asked in " + real + " real PYQ question" + (real > 1 ? "s" : "") : "Seen in your mocks") + ':</b> ' +
+      Object.keys(by).map(function(t){ return esc(t) + " " + by[t].join(", "); }).join(" &middot; ") + '</div>';
+  }
+  function lookLink(c){
+    var l = resolveLook(c);
+    return l ? '<span class="lk" data-open="' + l.id + '">' + esc(c.look) + '</span>' : esc(c.look);
+  }
+  function cardHtml(c){
+    var h = '<div class="nm"><span class="cat c-' + c.cat + '">' + CATNAME[c.cat] + '</span>' + esc(c.name) + '</div>';
+    var who = [c.who, c.year].filter(Boolean).join(", ");
+    if (who) h += '<div class="meta">' + esc(who) + '</div>';
+    if (c.roots) h += '<div class="fld roots"><i>Breakdown</i>' + esc(c.roots) + '</div>';
+    h += '<div class="fld"><i>Means</i>' + esc(c.def) + '</div>';
+    if (c.detail) h += '<div class="fld"><i>Detail</i>' + esc(c.detail) + '</div>';
+    if (c.example) h += '<div class="fld"><i>Example</i>' + esc(c.example) + '</div>';
+    if (c.look) h += '<div class="fld look"><i>Lookalike</i>' + lookLink(c) + (c.tell ? '<br>' + esc(c.tell) : '') + '</div>';
+    return h + pyqLine(c);
+  }
+  function norm(s){ return String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim(); }
+  function resolveLook(c){ return (c.lookId && BY[c.lookId]) || null; }   /* resolved at build time */
+
+  /* ---------- pools ---------- */
+  function pool(cat){
+    if (cat === "miss") return missIds().map(function(id){ return BY[id]; });
+    if (cat === "pyq") return CARDS.filter(function(c){ return (PYQ[c.id] || []).some(function(h){ return MOCKS[h[0]] && MOCKS[h[0]].p; }); });
+    return cat === "all" ? CARDS.slice() : CARDS.filter(function(c){ return c.cat === cat; });
+  }
+
+  /* ---------- tiles + chips ---------- */
+  var CUR = "all";
+  function tiles(){
+    var now = Date.now(), seen = 0, due = 0, locked = 0;
+    CARDS.forEach(function(c){ var s = st(c.id); if (!s) return; seen++; if (s.d <= now) due++; if (s.b >= 3) locked++; });
+    document.getElementById("tiles").innerHTML =
+      '<div class="tile"><b>' + CARDS.length + '</b><span>cards</span></div>' +
+      '<div class="tile"><b>' + due + '</b><span>due now</span></div>' +
+      '<div class="tile"><b>' + locked + '</b><span>locked in (3+ hits)</span></div>' +
+      '<div class="tile"><b>' + missIds().length + '</b><span>in My misses</span></div>';
+  }
+  function chips(el, cur, cb, cats){
+    el.innerHTML = (cats || CATS).map(function(x){ var n = pool(x[0]).length;
+      return '<button class="chip' + (x[0] === cur ? " on" : "") + '" data-c="' + x[0] + '">' + x[1] + ' <small>' + n + '</small></button>'; }).join("");
+    el.onclick = function(e){ var b = e.target.closest(".chip"); if (b) cb(b.dataset.c); };
+  }
+  function drawChips(){ chips(document.getElementById("chips"), CUR, function(c){ CUR = c; drawChips(); }); }
+
+  /* ---------- drill ---------- */
+  var D = null;
+  function pickRound(cat, n){
+    var now = Date.now(), cs = pool(cat), mi = {}; missIds().forEach(function(id){ mi[id] = 1; });
+    var due = [], miss = [], fresh = [];
+    cs.forEach(function(c){ var s = st(c.id);
+      if (s && s.d <= now) due.push(c); else if (mi[c.id]) miss.push(c); else if (!s) fresh.push(c); });
+    due.sort(function(a, b){ return st(a.id).d - st(b.id).d; });
+    var r = due.concat(shuffle(miss), shuffle(fresh)).slice(0, n);
+    if (r.length < n){ var rest = shuffle(cs.filter(function(c){ return r.indexOf(c) < 0; })); r = r.concat(rest.slice(0, n - r.length)); }
+    return shuffle(r);
+  }
+  function distract(c, field, n){
+    var out = [], seen = {}; seen[norm(c[field])] = 1;
+    function add(x){ if (!x || x.id === c.id || !x[field]) return; var k = norm(x[field]); if (seen[k]) return;
+      if (field === "who" && (norm(c.who).indexOf(k) >= 0 || k.indexOf(norm(c.who)) >= 0)) return;
+      seen[k] = 1; out.push(x); }
+    add(resolveLook(c));
+    CARDS.forEach(function(x){ var l = resolveLook(x); if (l && l.id === c.id) add(x); });
+    shuffle(CARDS.filter(function(x){ return x.cat === c.cat && x.area === c.area; })).forEach(add);
+    shuffle(CARDS.filter(function(x){ return x.cat === c.cat; })).forEach(add);
+    shuffle(CARDS.slice()).forEach(add);
+    return out.slice(0, n);
+  }
+  function startDrill(mode, cat){
+    var cs = pickRound(cat, 20);
+    if (mode === "who") cs = cs.filter(function(c){ return c.who; });
+    if (!cs.length){ alert("Nothing in that pile yet."); return; }
+    D = {mode: mode, cat: cat, cards: cs, i: 0, right: 0, wrongs: []};
+    document.getElementById("drill-start").classList.add("hide");
+    document.getElementById("drill").classList.remove("hide");
+    drawQ();
+  }
+  function drawQ(){
+    var el = document.getElementById("drill");
+    if (D.i >= D.cards.length){
+      el.innerHTML = '<div class="card"><div class="nm">Round done: ' + D.right + ' / ' + D.cards.length + '</div>' +
+        (D.wrongs.length ? '<div class="fld">Missed (now in My misses): ' + D.wrongs.map(function(c){ return '<span class="lk" data-open="' + c.id + '">' + esc(c.name) + '</span>'; }).join(", ") + '</div>' : '<div class="fld">Clean round.</div>') +
+        '<div class="row2"><button class="btn" id="again">Another round</button><button class="btn ghost" id="back">Back</button></div></div>';
+      document.getElementById("again").onclick = function(){ startDrill(D.mode, D.cat); };
+      document.getElementById("back").onclick = endDrill;
+      tiles(); drawChips(); return;
+    }
+    var c = D.cards[D.i], field = D.mode === "name" ? "def" : D.mode === "desc" ? "name" : "who";
+    var opts = shuffle([c].concat(distract(c, field, 3)));
+    var head = D.mode === "name" ? '<div class="prompt-k">What does this mean?</div><div class="prompt"><span class="cat c-' + c.cat + '">' + CATNAME[c.cat] + '</span>' + esc(c.name) + '</div>'
+      : D.mode === "desc" ? '<div class="prompt-k">Name it (' + CATNAME[c.cat].toLowerCase() + ')</div><div class="prompt small">' + esc(c.def) + '</div>'
+      : '<div class="prompt-k">Who did it?</div><div class="prompt"><span class="cat c-' + c.cat + '">' + CATNAME[c.cat] + '</span>' + esc(c.name) + '</div><div class="fld" style="color:var(--muted)">' + esc(c.def) + '</div>';
+    el.innerHTML = '<div class="prog">' + (D.i + 1) + ' / ' + D.cards.length + ' &middot; ' + D.right + ' right</div><div class="card">' + head +
+      '<div class="opts">' + opts.map(function(o){ return '<button class="opt" data-id="' + o.id + '">' + esc(o[field]) + '</button>'; }).join("") + '</div><div id="rv"></div></div>' +
+      '<div class="row2"><button class="btn ghost" id="quit">End round</button></div>';
+    document.getElementById("quit").onclick = endDrill;
+    el.querySelector(".opts").onclick = function(e){
+      var b = e.target.closest(".opt"); if (!b || b.disabled) return;
+      var ok = b.dataset.id === c.id;
+      el.querySelectorAll(".opt").forEach(function(x){ x.disabled = true; if (x.dataset.id === c.id) x.classList.add("ok"); });
+      if (!ok) b.classList.add("bad");
+      grade(c, ok);
+      var picked = BY[b.dataset.id];
+      document.getElementById("rv").innerHTML = '<div class="reveal">' + (ok ? "" : '<div class="fld" style="color:#c04a4a"><b>You picked ' + esc(picked[field === "def" ? "name" : field]) + (field === "def" ? " (that is what " + esc(picked.name) + " means)" : field === "who" ? " (that is " + esc(picked.name) + ")" : "") + '.</b></div>') +
+        cardHtml(c) + '<div class="row2"><button class="btn" id="nx">Next</button></div></div>';
+      document.getElementById("nx").onclick = function(){ D.i++; drawQ(); window.scrollTo(0, 0); };
+    };
+  }
+  function grade(c, ok){
+    var s = P.c[c.id] || {b: 0, d: 0, n: 0, w: 0};
+    s.n++;
+    if (ok){ s.b = Math.min(s.b + 1, GAPS.length - 1); D.right++;
+      var e = P.m[c.id]; if (e && !e.done){ e.ok = (e.ok || 0) + 1; if (e.ok >= 2) e.done = true; } }
+    else { s.b = 0; s.w++; addMiss(c.id, "drill:0"); D.wrongs.push(c); }
+    s.d = Date.now() + GAPS[s.b] * DAY;
+    P.c[c.id] = s; save();
+  }
+  function endDrill(){ document.getElementById("drill").classList.add("hide"); document.getElementById("drill-start").classList.remove("hide"); tiles(); drawChips(); }
+  document.querySelectorAll(".mode").forEach(function(b){ b.onclick = function(){ startDrill(b.dataset.m, CUR); }; });
+
+  /* ---------- duels ---------- */
+  var PAIRS = [], DCAT = "all";
+  (function(){ var seen = {}; CARDS.forEach(function(c){ var l = resolveLook(c); if (!l) return;
+    var k = [c.id, l.id].sort().join("|"); if (seen[k]) return; seen[k] = 1; PAIRS.push([c, l]); }); })();
+  function duelPool(){ return PAIRS.filter(function(p){ return DCAT === "all" || p[0].cat === DCAT || p[1].cat === DCAT; }); }
+  function drawDuelChips(){
+    var el = document.getElementById("duel-chips"), cats = CATS.slice(0, 7);
+    el.innerHTML = cats.map(function(x){ var n = PAIRS.filter(function(p){ return x[0] === "all" || p[0].cat === x[0] || p[1].cat === x[0]; }).length;
+      return '<button class="chip' + (x[0] === DCAT ? " on" : "") + '" data-c="' + x[0] + '">' + x[1] + ' <small>' + n + '</small></button>'; }).join("");
+    el.onclick = function(e){ var b = e.target.closest(".chip"); if (b){ DCAT = b.dataset.c; drawDuelChips(); duel(); } };
+  }
+  var DS = {n: 0, r: 0};
+  function duel(){
+    var ps = duelPool(), el = document.getElementById("duel");
+    if (!ps.length){ el.innerHTML = '<div class="empty">No pairs in this pile.</div>'; return; }
+    var p = ps[Math.floor(Math.random() * ps.length)], t = Math.random() < .5 ? p[0] : p[1], o = t === p[0] ? p[1] : p[0];
+    var two = shuffle([p[0], p[1]]);
+    el.innerHTML = '<div class="prog">' + DS.r + ' / ' + DS.n + ' right this session &middot; ' + ps.length + ' pairs</div><div class="card"><div class="prompt-k">Which one is this?</div><div class="prompt small">' + esc(t.def) + '</div>' +
+      '<div class="duel">' + two.map(function(c){ return '<button class="opt" data-id="' + c.id + '">' + esc(c.name) + '</button>'; }).join("") + '</div><div id="drv"></div></div>';
+    el.querySelector(".duel").onclick = function(e){
+      var b = e.target.closest(".opt"); if (!b || b.disabled) return;
+      var ok = b.dataset.id === t.id; DS.n++; if (ok) DS.r++; else addMiss(t.id, "drill:0");
+      save();
+      el.querySelectorAll(".opt").forEach(function(x){ x.disabled = true; if (x.dataset.id === t.id) x.classList.add("ok"); });
+      if (!ok) b.classList.add("bad");
+      var tell = t.tell || o.tell || "";
+      document.getElementById("drv").innerHTML = '<div class="reveal"><div class="fld look"><i>The tell</i>' + esc(tell) + '</div>' +
+        '<div class="fld"><b>' + esc(t.name) + '</b>' + (t.who ? ' (' + esc([t.who, t.year].filter(Boolean).join(", ")) + ')' : '') + ': ' + esc(t.def) + '</div>' +
+        '<div class="fld"><b>' + esc(o.name) + '</b>' + (o.who ? ' (' + esc([o.who, o.year].filter(Boolean).join(", ")) + ')' : '') + ': ' + esc(o.def) + '</div>' +
+        '<div class="row2"><button class="btn" id="dnx">Next duel</button></div></div>';
+      document.getElementById("dnx").onclick = duel;
+    };
+  }
+
+  /* ---------- misses ---------- */
+  function drawMisses(){
+    var ids = missIds().sort(function(a, b){ return P.m[b].src.length - P.m[a].src.length; });
+    var el = document.getElementById("misses");
+    if (!ids.length){ el.innerHTML = '<div class="empty">Nothing yet. Take any mock on the site (or drill here) and the names you miss show up on their own.</div>'; return; }
+    el.innerHTML = '<div class="prog">' + ids.length + ' cards</div>' + ids.map(function(id){ var c = BY[id], e = P.m[id];
+      return '<details class="li"><summary><span class="cat c-' + c.cat + '">' + CATNAME[c.cat] + '</span><b>' + esc(c.name) + '</b> <small class="miss-src">' +
+        e.src.map(srcLabel).filter(function(v, i, a){ return a.indexOf(v) === i; }).map(esc).join(" &middot; ") + '</small></summary><div class="body">' + cardHtml(c) + '</div></details>'; }).join("");
+  }
+  document.getElementById("drill-misses").onclick = function(){ if (!missIds().length) return; show("home"); CUR = "miss"; drawChips(); startDrill("desc", "miss"); };
+
+  /* ---------- roots + browse ---------- */
+  function listHtml(cs){
+    return cs.map(function(c){ return '<details class="li" id="c-' + c.id + '"><summary><span class="cat c-' + c.cat + '">' + CATNAME[c.cat] + '</span><b>' + esc(c.name) + '</b> <small>' +
+      esc([c.who, c.year].filter(Boolean).join(", ")) + '</small></summary><div class="body">' + cardHtml(c) + '</div></details>'; }).join("");
+  }
+  function match(c, q){ return !q || norm([c.name, c.who, c.year, c.def, c.roots, c.look, (c.aliases || []).join(" ")].join(" ")).indexOf(q) >= 0; }
+  function drawRoots(){
+    var q = norm(document.getElementById("roots-q").value);
+    var cs = CARDS.filter(function(c){ return c.roots && match(c, q); }).sort(function(a, b){ return a.name.localeCompare(b.name); });
+    document.getElementById("roots").innerHTML = '<div class="prog">' + cs.length + ' terms</div>' + listHtml(cs);
+  }
+  var BCAT = "all";
+  function drawList(){
+    var q = norm(document.getElementById("q").value);
+    var cs = pool(BCAT).filter(function(c){ return match(c, q); }).sort(function(a, b){ return a.name.localeCompare(b.name); });
+    document.getElementById("b-count").textContent = cs.length + " cards";
+    document.getElementById("list").innerHTML = listHtml(cs);
+    chips(document.getElementById("b-chips"), BCAT, function(c){ BCAT = c; drawList(); });
+  }
+  document.getElementById("q").oninput = drawList;
+  document.getElementById("roots-q").oninput = drawRoots;
+
+  /* ---------- tabs + cross-links ---------- */
+  function show(t){
+    document.querySelectorAll("#tabs button").forEach(function(b){ b.classList.toggle("on", b.dataset.t === t); });
+    document.querySelectorAll("section").forEach(function(s){ s.classList.toggle("hide", s.id !== "t-" + t); });
+    if (t === "duels"){ drawDuelChips(); duel(); }
+    if (t === "misses") drawMisses();
+    if (t === "roots") drawRoots();
+    if (t === "browse") drawList();
+  }
+  document.getElementById("tabs").onclick = function(e){ var b = e.target.closest("button"); if (b) show(b.dataset.t); };
+  document.addEventListener("click", function(e){
+    var l = e.target.closest("[data-open]"); if (!l) return;
+    var id = l.dataset.open; BCAT = "all"; document.getElementById("q").value = BY[id].name; show("browse");
+    var d = document.getElementById("c-" + id); if (d){ d.open = true; d.scrollIntoView({block: "start"}); }
+  });
+  window.addEventListener("storage", function(e){ if (e.key === KEY){ P = load(); P.c = P.c || {}; P.m = P.m || {}; tiles(); } });
+
+  scanMocks(); tiles(); drawChips();
+})();
+</script>
+<script src="/sihan-met-flashcards/nav-toggle.js"></script>
+</body>
+</html>
