@@ -1,6 +1,19 @@
 // Full mock registry (MOCKS + GROUPS), ported verbatim from tests/index.html.
 const MOCKS = [
   {
+    id: "jss-pyq",
+    title: "JSS PYQ Mock (27 Oct entrance)",
+    sub: "90 real past-paper Qs · JSS's 9 published subjects × 10 · same length as the real paper · source-badged · untimed Practice",
+    path: "../take/screen.html?m=jss-pyq",
+    total: 90,
+    storageKey: "jss-pyq-results-v1",
+    sections: { general: 10, assessment: 10, social: 10, personality: 10, physio: 10, dev: 10, clinical: 10, disorders: 10, research: 10 },
+    blurb: "Built for the JSS AHER entrance on 27 Oct: 90 questions, the same count as the real paper, ten from each of the nine subjects JSS prints in its brochure (General Psychology / Theories, Psychological Assessment, Social, Personality, Physiological, Developmental, Clinical, Psychiatric Disorders, Research Methodology). There are no JSS past papers on the site, so every question is a genuine past-paper item pulled from the papers already here: IHBAS 2020, 2024 and 2025, NIMHANS 2024 and 2025, Amity 2023, JEMAS 2025 and RML 2021 to 2025. Nothing synthesised, and picked to avoid the SGT PYQ Master Mock so it is fresh. Every card shows the paper it came from, the full explanation and a trap line for each wrong option. JSS itself has no negative marking, so in the real hall attempt all 90; the site still scores +1 / −0.25 like every other mock. Sit it once in 60 minutes to feel the pace, then go back through in Practice. Independent storage.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "JSS syllabus", "90 Q", "source-badged", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "jemas-2025",
     title: "JEMAS(PG) 2025 · Clinical Psychology",
     sub: "36 real Qs · JEMAS(PG) 2025 CP · pages 5,6,11,13,14 (Q15–28, Q59–66, Q75–88) · verbatim · source-badged · untimed Practice",
@@ -367,6 +380,9 @@ const MOCKS = [
 ];
 
 const GROUPS = [
+  { id: "jss", title: "JSS Mysuru (27 Oct)",
+    sub: "JSS AHER MA Clinical Psychology entrance: 90 MCQs, 60 minutes, no negative marking, nine published subjects",
+    members: ["jss-pyq"] },
   { id: "amity", archived: true, title: "Amity",
     sub: "2026 cycle closed — kept live as drill. Real Amity M.A. Clinical Psychology entrance papers; the interview brief is on the /archive/ page",
     members: ["amity-2023", "amity-recall"] },
