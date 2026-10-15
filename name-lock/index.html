@@ -88,24 +88,90 @@
   .empty{color:var(--muted);font-size:14px;font-family:var(--sans);padding:14px 0;line-height:1.6}
   .miss-src{font-size:12px;color:var(--muted)}
   .hide{display:none!important}
+  /* game layer */
+  #g-hud{display:flex;gap:8px;align-items:center;margin:4px 0 10px;font-family:var(--sans)}
+  #g-hud button{border:1px solid var(--border);background:var(--panel-2);color:var(--text);border-radius:8px;padding:6px 10px;font-size:13.5px;cursor:pointer;white-space:nowrap}
+  #g-hud .g-lv b{color:#f2c94c}
+  #g-hud .g-st{color:var(--muted)} #g-hud .g-st.lit{color:#f08c3a;border-color:#f08c3a}
+  .g-bar{flex:1;position:relative;height:30px;border:1px solid var(--border);border-radius:8px;background:var(--panel);overflow:hidden;cursor:pointer;min-width:90px}
+  .g-bar i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#b8860b,#f2c94c);opacity:.55;transition:width .4s}
+  .g-bar span{position:relative;display:block;text-align:center;line-height:28px;font-size:12.5px;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums}
+  .g-top{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 0}
+  @media (max-width:560px){.g-top{grid-template-columns:1fr}}
+  .g-card{border:1px solid var(--border);background:var(--panel-2);border-radius:12px;padding:12px 14px;font-family:var(--sans)}
+  .g-k{font-size:11px;letter-spacing:.07em;text-transform:uppercase;font-weight:800;color:var(--muted)}
+  .g-big{font-size:22px;font-weight:800;color:var(--text);margin:2px 0 6px;font-family:var(--sans)}
+  .g-sm{font-size:12.5px;color:var(--muted);font-weight:400;font-family:var(--sans);line-height:1.5}
+  .g-pbar{height:8px;border-radius:99px;background:var(--panel);border:1px solid var(--border);overflow:hidden;margin:4px 0}
+  .g-pbar i{display:block;height:100%;background:#2ea043;transition:width .4s}
+  .g-quests{display:grid;gap:6px}
+  .g-q{display:grid;grid-template-columns:1fr 110px 52px;gap:10px;align-items:center;border:1px solid var(--border);background:var(--panel-2);border-radius:10px;padding:9px 12px;font-family:var(--sans);font-size:14px;color:var(--text)}
+  .g-q span{font-size:12.5px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+  .g-q.done{border-color:#2ea043} .g-q.done b{color:#2ea043}
+  .g-act{text-align:left;border:1px solid var(--border);background:var(--panel-2);border-radius:12px;padding:12px 14px;cursor:pointer;color:var(--text);font-family:var(--sans)}
+  .g-act b{display:block;font-size:15px;margin-bottom:3px} .g-act span{font-size:12.5px;color:var(--muted);line-height:1.45}
+  .g-act.rev{border-color:#c04a4a} .g-act:disabled{opacity:.55;cursor:default}
+  .g-map{display:flex;flex-direction:column;gap:0;position:relative;margin:4px 0}
+  .g-node{display:flex;align-items:center;gap:12px;text-align:left;border:1px solid var(--border);background:var(--panel-2);border-radius:12px;padding:10px 12px;margin:0 0 6px;cursor:pointer;color:var(--text);font-family:var(--sans)}
+  .g-node:nth-child(even){margin-left:22px} .g-node:nth-child(even){margin-right:-0px}
+  .g-node .g-dot{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;background:var(--panel);border:2px solid var(--border)}
+  .g-node.open{border-color:#f2c94c} .g-node.open .g-dot{border-color:#f2c94c;color:#f2c94c}
+  .g-node.won .g-dot{background:#2ea043;border-color:#2ea043;color:#fff}
+  .g-node.shut{opacity:.5;cursor:default}
+  .g-nt{flex:1} .g-nt b{display:block;font-size:14.5px} .g-nt small{font-size:12px;color:var(--muted)}
+  .g-hearts{color:#e5534b;font-size:17px;letter-spacing:2px;white-space:nowrap}
+  .g-dex{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin:4px 0 6px}
+  .g-tc{text-align:left;border:1px solid var(--border);background:var(--panel-2);border-radius:10px;padding:9px 10px;cursor:pointer;color:var(--text);font-family:var(--sans);min-height:58px}
+  .g-tc b{display:block;font-size:13.5px;line-height:1.3} .g-tc small{font-size:11.5px;color:var(--muted)}
+  .g-tc.locked{opacity:.6;border-style:dashed} .g-tc.locked b{color:var(--muted)}
+  .g-tc.ok.common{border-color:#5a6b80} .g-tc.ok.rare{border-color:#3d6fd0;background:rgba(61,111,208,.1)}
+  .g-tc.ok.legendary{border-color:#f2c94c;background:rgba(242,201,76,.12)}
+  .g-tc.cracked{border-color:#c04a4a;background:repeating-linear-gradient(135deg,rgba(192,74,74,.12) 0 6px,transparent 6px 14px)} .g-tc.cracked small{color:#e5534b;font-weight:800}
+  .g-badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:6px}
+  .g-bdg{border:1px dashed var(--border);border-radius:10px;padding:9px 11px;font-family:var(--sans);opacity:.6}
+  .g-bdg b{display:block;font-size:13.5px;color:var(--text)} .g-bdg span{font-size:12px;color:var(--muted)}
+  .g-bdg.on{opacity:1;border-style:solid;border-color:#f2c94c;background:rgba(242,201,76,.1)}
+  .g-rh{display:flex;gap:12px;align-items:center;font-family:var(--sans);font-size:14px;color:var(--muted);margin:4px 0 6px}
+  .g-rh b{color:var(--text);font-size:16px;flex:1}
+  .g-clock{font-size:20px;font-weight:800;color:#f08c3a;font-variant-numeric:tabular-nums}
+  .g-hp{position:relative;height:14px;border-radius:99px;background:var(--panel);border:1px solid var(--border);overflow:hidden;margin-bottom:8px}
+  .g-hp i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#c04a4a,#e5534b);transition:width .45s}
+  .g-hp span{position:relative;display:block;text-align:center;font-size:10px;line-height:12px;font-weight:800;color:#fff;letter-spacing:.06em;text-transform:uppercase}
+  .g-hit{color:#2ea043;font-weight:800;font-family:var(--sans);margin-bottom:6px} .g-miss{color:#e5534b;font-weight:800;font-family:var(--sans);margin-bottom:6px}
+  .g-best{font-size:14px;color:var(--muted);font-family:var(--sans);margin:6px 0;line-height:1.55} .g-best b{color:var(--text)}
+  .g-combo{font-family:var(--sans);font-size:13.5px;margin-bottom:8px;padding:6px 10px;border-radius:8px}
+  .g-combo.on{background:rgba(242,201,76,.14);color:var(--text)} .g-combo.on b{color:#f2c94c;font-size:16px} .g-combo.off{background:rgba(192,74,74,.1);color:var(--muted)}
+  #g-toasts{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:10000;display:flex;flex-direction:column;gap:6px;align-items:center;pointer-events:none;width:min(420px,92vw)}
+  .g-toast{background:#1c2330;color:#e6edf3;border:1px solid #3a4556;border-radius:10px;padding:9px 14px;font:14px/1.4 var(--sans,system-ui);box-shadow:0 6px 24px rgba(0,0,0,.35);animation:gIn .25s ease-out;transition:opacity .4s,transform .4s;text-align:center}
+  .g-toast.good{border-color:#2ea043} .g-toast.bad{border-color:#c04a4a} .g-toast.big{border-color:#f2c94c;font-size:16px}
+  .g-toast.out{opacity:0;transform:translateY(8px)}
+  @keyframes gIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 </style>
 </head>
 <body>
 <div class="wrap">
 <nav><a href="../">&larr; Home</a> <a href="../results/gap-map/">Gap map</a> <a href="../notes/originators/">Originators</a> <a href="../tests/">Tests</a></nav>
 <h1>Name Lock</h1>
-<p class="lead">Every named thing an MCQ can ask about: <b>effects, biases, phenomena, experiments, laws and terms</b>. Each card has the name, who did it and when, what it means in plain words, and the <b>lookalike</b> it gets confused with. Built off every PYQ on the site, wrong options included, and anything you miss in a mock lands in <b>My misses</b> on its own.</p>
+<div id="g-hud"></div>
+<p class="lead">Every named thing an MCQ can ask about: <b>effects, biases, phenomena, experiments, laws and terms</b>. Each card has the name, who did it and when, what it means in plain words, and the <b>lookalike</b> it gets confused with. Built off every PYQ on the site, wrong options included, and anything you miss in a mock lands in <b>My misses</b> on its own. <b>Play</b> turns it into a game: XP and levels from Intern to NIMHANS Topper, a daily streak, a theorist collection, a boss for every area, combo duels, daily quests, a revenge round for the week's misses and badges. Untimed except the optional speed round.</p>
 
 <div class="tabs" id="tabs">
-  <button data-t="home" class="on">Drill</button>
+  <button data-t="play" class="on">Play</button>
+  <button data-t="home">Drill</button>
   <button data-t="duels">Lookalike duels</button>
   <button data-t="misses">My misses</button>
   <button data-t="roots">Term breakdown</button>
   <button data-t="browse">All cards</button>
 </div>
 
+<!-- PLAY (game hub) -->
+<section id="t-play">
+  <div id="g-hub"></div>
+  <div id="g-run" class="hide"></div>
+</section>
+
 <!-- DRILL -->
-<section id="t-home">
+<section id="t-home" class="hide">
   <div class="tiles" id="tiles"></div>
   <div class="prog">Pick what to drill:</div>
   <div class="chips" id="chips"></div>
@@ -184,14 +250,14 @@
         qmap[m[1]][qi].forEach(function(cid){
           var tag = m[1] + ":" + qi, e = P.m[cid];
           if (!e){ P.m[cid] = e = {src: [], t: Date.now()}; }
-          if (e.src.indexOf(tag) < 0){ e.src.push(tag); e.done = false; e.ok = 0; }
+          if (e.src.indexOf(tag) < 0){ e.src.push(tag); e.done = false; e.ok = 0; e.lt = Date.now(); }
         });
       });
     }
     save();
   }
   function missIds(){ return Object.keys(P.m).filter(function(id){ return BY[id] && !P.m[id].done; }); }
-  function addMiss(id, tag){ var e = P.m[id] || (P.m[id] = {src: [], t: Date.now()}); e.done = false; e.ok = 0; if (tag && e.src.indexOf(tag) < 0) e.src.push(tag); }
+  function addMiss(id, tag){ var e = P.m[id] || (P.m[id] = {src: [], t: Date.now()}); e.done = false; e.ok = 0; e.lt = Date.now(); if (tag && e.src.indexOf(tag) < 0) e.src.push(tag); }
   function srcLabel(tag){ var p = tag.split(":"); if (p[0] === "drill") return "Name Lock drill"; var mk = MOCKS[p[0]]; return (mk ? mk.t : p[0]) + " Q" + (+p[1] + 1); }
 
   /* ---------- card render ---------- */
@@ -271,11 +337,11 @@
     shuffle(CARDS.slice()).forEach(add);
     return out.slice(0, n);
   }
-  function startDrill(mode, cat){
-    var cs = pickRound(cat, 20);
+  function startDrill(mode, cat, list){
+    var cs = list ? shuffle(list.slice()).slice(0, 20) : pickRound(cat, 20);
     if (mode === "who") cs = cs.filter(function(c){ return c.who; });
     if (!cs.length){ alert("Nothing in that pile yet."); return; }
-    D = {mode: mode, cat: cat, cards: cs, i: 0, right: 0, wrongs: []};
+    D = {mode: mode, cat: cat, list: list, cards: cs, i: 0, right: 0, wrongs: []};
     document.getElementById("drill-start").classList.add("hide");
     document.getElementById("drill").classList.remove("hide");
     drawQ();
@@ -285,8 +351,9 @@
     if (D.i >= D.cards.length){
       el.innerHTML = '<div class="card"><div class="nm">Round done: ' + D.right + ' / ' + D.cards.length + '</div>' +
         (D.wrongs.length ? '<div class="fld">Missed (now in My misses): ' + D.wrongs.map(function(c){ return '<span class="lk" data-open="' + c.id + '">' + esc(c.name) + '</span>'; }).join(", ") + '</div>' : '<div class="fld">Clean round.</div>') +
+        (window.NLG ? NLG.roundEnd(D.right, D.cards.length) : '') +
         '<div class="row2"><button class="btn" id="again">Another round</button><button class="btn ghost" id="back">Back</button></div></div>';
-      document.getElementById("again").onclick = function(){ startDrill(D.mode, D.cat); };
+      document.getElementById("again").onclick = function(){ startDrill(D.mode, D.cat, D.list); };
       document.getElementById("back").onclick = endDrill;
       tiles(); drawChips(); return;
     }
@@ -311,14 +378,21 @@
       document.getElementById("nx").onclick = function(){ D.i++; drawQ(); window.scrollTo(0, 0); };
     };
   }
-  function grade(c, ok){
-    var s = P.c[c.id] || {b: 0, d: 0, n: 0, w: 0};
+  /* spaced-repetition update; returns true when this hit clears the card from My misses */
+  function srs(c, ok){
+    var s = P.c[c.id] || {b: 0, d: 0, n: 0, w: 0}, cleared = false;
     s.n++;
-    if (ok){ s.b = Math.min(s.b + 1, GAPS.length - 1); D.right++;
-      var e = P.m[c.id]; if (e && !e.done){ e.ok = (e.ok || 0) + 1; if (e.ok >= 2) e.done = true; } }
-    else { s.b = 0; s.w++; addMiss(c.id, "drill:0"); D.wrongs.push(c); }
+    if (ok){ s.b = Math.min(s.b + 1, GAPS.length - 1);
+      var e = P.m[c.id]; if (e && !e.done){ e.ok = (e.ok || 0) + 1; if (e.ok >= 2){ e.done = true; cleared = true; } } }
+    else { s.b = 0; s.w++; addMiss(c.id, "drill:0"); }
     s.d = Date.now() + GAPS[s.b] * DAY;
     P.c[c.id] = s; save();
+    return cleared;
+  }
+  function grade(c, ok){
+    var cleared = srs(c, ok);
+    if (ok) D.right++; else D.wrongs.push(c);
+    if (window.NLG) NLG.answer({c: c, ok: ok, src: "drill", mode: D.mode, cleared: cleared});
   }
   function endDrill(){ document.getElementById("drill").classList.add("hide"); document.getElementById("drill-start").classList.remove("hide"); tiles(); drawChips(); }
   document.querySelectorAll(".mode").forEach(function(b){ b.onclick = function(){ startDrill(b.dataset.m, CUR); }; });
@@ -348,8 +422,8 @@
       save();
       el.querySelectorAll(".opt").forEach(function(x){ x.disabled = true; if (x.dataset.id === t.id) x.classList.add("ok"); });
       if (!ok) b.classList.add("bad");
-      var tell = t.tell || o.tell || "";
-      document.getElementById("drv").innerHTML = '<div class="reveal"><div class="fld look"><i>The tell</i>' + esc(tell) + '</div>' +
+      var tell = t.tell || o.tell || "", gx = window.NLG ? NLG.duel(t, ok) : "";
+      document.getElementById("drv").innerHTML = '<div class="reveal">' + gx + '<div class="fld look"><i>The tell</i>' + esc(tell) + '</div>' +
         '<div class="fld"><b>' + esc(t.name) + '</b>' + (t.who ? ' (' + esc([t.who, t.year].filter(Boolean).join(", ")) + ')' : '') + ': ' + esc(t.def) + '</div>' +
         '<div class="fld"><b>' + esc(o.name) + '</b>' + (o.who ? ' (' + esc([o.who, o.year].filter(Boolean).join(", ")) + ')' : '') + ': ' + esc(o.def) + '</div>' +
         '<div class="row2"><button class="btn" id="dnx">Next duel</button></div></div>';
@@ -391,9 +465,12 @@
   document.getElementById("roots-q").oninput = drawRoots;
 
   /* ---------- tabs + cross-links ---------- */
+  var CURTAB = "play";
   function show(t){
     document.querySelectorAll("#tabs button").forEach(function(b){ b.classList.toggle("on", b.dataset.t === t); });
     document.querySelectorAll("section").forEach(function(s){ s.classList.toggle("hide", s.id !== "t-" + t); });
+    CURTAB = t;
+    if (t === "play" && window.NLG) NLG.draw();
     if (t === "duels"){ drawDuelChips(); duel(); }
     if (t === "misses") drawMisses();
     if (t === "roots") drawRoots();
@@ -405,11 +482,17 @@
     var id = l.dataset.open; BCAT = "all"; document.getElementById("q").value = BY[id].name; show("browse");
     var d = document.getElementById("c-" + id); if (d){ d.open = true; d.scrollIntoView({block: "start"}); }
   });
-  window.addEventListener("storage", function(e){ if (e.key === KEY){ P = load(); P.c = P.c || {}; P.m = P.m || {}; tiles(); } });
+  window.addEventListener("storage", function(e){ if (e.key === KEY){ P = load(); P.c = P.c || {}; P.m = P.m || {}; tiles(); if (window.NLG){ NLG.hud(); if (CURTAB === "play") NLG.draw(); } } });
 
   scanMocks(); tiles(); drawChips();
+
+  /* hooks for the game layer (game.js) */
+  window.NL_API = {CARDS: CARDS, BY: BY, PYQ: PYQ, MOCKS: MOCKS, CATNAME: CATNAME, P: function(){ return P; }, save: save, esc: esc, norm: norm,
+    shuffle: shuffle, distract: distract, cardHtml: cardHtml, missIds: missIds, srs: srs, show: show, cur: function(){ return CURTAB; },
+    drillCards: function(cs, mode){ show("home"); startDrill(mode, "all", cs); window.scrollTo(0, 0); }};
 })();
 </script>
+<script src="game.js"></script>
 <script src="/sihan-met-flashcards/nav-toggle.js"></script>
 </body>
 </html>
