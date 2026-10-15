@@ -15,7 +15,7 @@ var $ = function(s, r){ return (r || document).querySelector(s); };
 function load(){ try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ return {}; } }
 var P = load(); P.c = P.c || {}; P.m = P.m || {};
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(P)); } catch(e){} }
-var S = {sound: true, haptics: true, onboarded: false};
+var S = {sound: true, haptics: true, onboarded: false, name: "Sihan"};
 try { Object.assign(S, JSON.parse(localStorage.getItem(SKEY)) || {}); } catch(e){}
 function saveS(){ localStorage.setItem(SKEY, JSON.stringify(S)); }
 
@@ -48,9 +48,13 @@ var LOGO = '<svg viewBox="0 0 108 108"><rect width="108" height="108" rx="24" fi
 
 /* ================= feel: sound + haptics + confetti ================= */
 var AC = null;
+function ac(){
+  if (!S.sound) return null;
+  try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === "suspended") AC.resume(); } catch(e){ return null; }
+  return AC;
+}
 function tone(notes, type, vol){
-  if (!S.sound) return;
-  try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === "suspended") AC.resume(); } catch(e){ return; }
+  if (!ac()) return;
   var t = AC.currentTime;
   notes.forEach(function(n){ var o = AC.createOscillator(), g = AC.createGain();
     o.type = type || "sine"; o.frequency.value = n[0];
@@ -67,8 +71,22 @@ var SFX = {
   win: function(){ tone([[392, 0, .14], [523, .12, .14], [659, .24, .14], [784, .36, .14], [1047, .5, .55]], "square", .06); },
   lose: function(){ tone([[392, 0, .25], [330, .22, .25], [262, .44, .5]], "triangle", .14); },
   badge: function(){ tone([[988, 0, .1], [1319, .1, .32]], "sine", .14); },
-  crack: function(){ tone([[160, 0, .3], [120, .1, .3]], "sawtooth", .05); }
+  crack: function(){ tone([[160, 0, .3], [120, .1, .3]], "sawtooth", .05); },
+  whistle: function(long){ tone(long ? [[2900, 0, .2], [2900, .28, .2], [2900, .56, .7]] : [[2900, 0, .16], [2900, .22, .45]], "sine", .07); },
+  goal: function(){ crowd(2.2, .3); tone([[523, .05, .14], [659, .17, .14], [784, .29, .3]], "square", .05); },
+  concede: function(){ crowd(.9, .1, 500); tone([[220, 0, .3], [175, .2, .4]], "triangle", .14); },
+  pack: function(){ tone([[330, 0, .2], [440, .25, .2], [554, .5, .2], [659, .75, .2], [880, 1.0, .25]], "sine", .1); setTimeout(function(){ crowd(1.4, .22, 1400); SFX.win(); }, 1250); }
 };
+/* crowd roar: band-passed noise with a slow swell, so goals sound like a stadium */
+function crowd(dur, vol, f){
+  if (!ac()) return;
+  var t = AC.currentTime, n = Math.floor(AC.sampleRate * dur), b = AC.createBuffer(1, n, AC.sampleRate), d = b.getChannelData(0);
+  for (var i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
+  var src = AC.createBufferSource(), bp = AC.createBiquadFilter(), g = AC.createGain();
+  src.buffer = b; bp.type = "bandpass"; bp.frequency.value = f || 1000; bp.Q.value = .6;
+  g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + .18); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  src.connect(bp); bp.connect(g); g.connect(AC.destination); src.start(t); src.stop(t + dur + .05);
+}
 function buzz(p){
   if (!S.haptics) return;
   try { if (window.NLNative) NLNative.vibrate(p.join(",")); else if (navigator.vibrate) navigator.vibrate(p); } catch(e){}
@@ -149,18 +167,33 @@ CARDS.forEach(function(c){
   CARD_TH[c.id] = ks;
 });
 var TH_LIST = Object.keys(TH).map(function(k){ return TH[k]; }).sort(function(a, b){ return b.cards.length - a.cards.length || a.name.localeCompare(b.name); });
-function rarity(t){ return t.cards.length >= 5 ? "legendary" : t.cards.length >= 2 ? "rare" : "common"; }
+/* FUT-style tiers: how much of the deck a person owns decides bronze/silver/gold */
+function rarity(t){ return t.cards.length >= 5 ? "gold" : t.cards.length >= 2 ? "silver" : "bronze"; }
+var POS = {history: "HIS", perception: "PER", positive: "POS", learning: "LRN", memory: "MEM", cognitive: "COG", biological: "BIO",
+  developmental: "DEV", personality: "PRS", social: "SOC", clinical: "CLN", research: "RES"};
+function thPos(t){ var n = {}, best = null; t.cards.forEach(function(id){ var a = BY[id].area; n[a] = (n[a] || 0) + 1; if (!best || n[a] > n[best]) best = a; });
+  return POS[best] || String(best || "GEN").slice(0, 3).toUpperCase(); }
+/* stats off your own answers: MST = share of their cards locked in (box 3+), ACC = hit rate on their cards */
+function thStats(t){ var n = 0, w = 0, lk = 0, pq = 0;
+  t.cards.forEach(function(id){ var s = P.c[id]; if (s){ n += s.n; w += s.w; if (s.b >= 3) lk++; } if (hasRealPyq(BY[id])) pq++; });
+  var base = {gold: 75 + Math.min(t.cards.length - 5, 8), silver: 65 + (t.cards.length - 2) * 2, bronze: 58}[rarity(t)], mst = lk / t.cards.length;
+  return {ovr: Math.min(99, base + Math.round(mst * 16)), acc: n ? Math.round((n - w) * 100 / n) : 0, mst: Math.round(mst * 100), pyq: pq, crd: t.cards.length}; }
+function thShiny(k){ return thState(k) === "ok" && thStats(TH[k]).mst === 100; }
+function squadOvr(){ var r = TH_LIST.filter(function(t){ return thState(t.k) !== "locked"; }).map(function(t){ return thStats(t).ovr; }).sort(function(a, b){ return b - a; }).slice(0, 11);
+  return r.length ? Math.round(r.reduce(function(a, b){ return a + b; }, 0) / r.length) : 0; }
 var UNLOCK = 3;
 function thState(k){ var s = G().th[k]; return !s || (s.r || 0) < UNLOCK ? "locked" : s.cr ? "cracked" : "ok"; }
 function thUnlocked(){ return TH_LIST.filter(function(t){ return thState(t.k) !== "locked"; }).length; }
 function initials(name){ var p = name.replace(/[^A-Za-zÀ-ÿ\s\-]/g, "").split(/\s+/).filter(Boolean); return ((p.length > 1 ? p[0][0] : "") + p[p.length - 1][0]).toUpperCase(); }
 function hue(s){ var h = 0; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 360; return h; }
 function tcHtml(t, big){
-  var s = thState(t.k), r = (G().th[t.k] || {}).r || 0, h = hue(t.k), shown = s !== "locked" || r > 0 || big;
+  var s = thState(t.k), r = (G().th[t.k] || {}).r || 0, h = hue(t.k), shown = s !== "locked" || r > 0 || big, x = thStats(t), sh = thShiny(t.k);
   var stars = ""; for (var i = 0; i < UNLOCK; i++) stars += i < Math.min(r, UNLOCK) ? "★" : "☆";
-  return '<button class="tc ' + rarity(t) + ' ' + s + '" data-th="' + t.k + '"><span class="av" style="background:linear-gradient(150deg,hsl(' + h + ',62%,58%),hsl(' + ((h + 40) % 360) + ',58%,38%))">' +
-    (s === "locked" && !big ? "?" : esc(initials(t.name))) + '</span><b>' + (shown ? esc(t.name) : "???") + '</b>' +
-    '<span class="stars">' + (s === "locked" ? stars : "") + '</span><span class="rr">' + (s === "cracked" ? "Cracked" : rarity(t)) + ' · ' + t.cards.length + '</span></button>';
+  var attrs = big ? '<span class="attrs">' + [[x.crd, "CRD"], [x.acc, "ACC"], [x.pyq, "PYQ"], [x.mst, "MST"]].map(function(a){ return '<i><b>' + a[0] + '</b>' + a[1] + '</i>'; }).join("") + '</span>' : '';
+  return '<button class="tc ' + rarity(t) + ' ' + s + (sh ? " shiny" : "") + (big ? " bigc" : "") + '" data-th="' + t.k + '"><span class="ovr"><b>' + (s === "locked" && !big ? "?" : x.ovr) + '</b><small>' + thPos(t) + '</small></span>' +
+    '<span class="av" style="background:linear-gradient(150deg,hsl(' + h + ',62%,58%),hsl(' + ((h + 40) % 360) + ',58%,38%))">' +
+    (s === "locked" && !big ? "?" : esc(initials(t.name))) + '</span><b class="nm">' + (shown ? esc(t.name) : "???") + '</b>' + attrs +
+    '<span class="stars">' + (s === "locked" ? stars : "") + '</span><span class="rr">' + (s === "cracked" ? "Cracked" : sh ? "Shiny " + rarity(t) : rarity(t)) + '</span></button>';
 }
 
 /* ================= bosses ================= */
@@ -212,7 +245,7 @@ var BADGES = [
   ["first", "🎉", "First Blood", "Get your first card right", function(){ return (G().st.right || 0) >= 1; }],
   ["perfect", "💯", "Flawless Lesson", "Finish a lesson with zero mistakes", function(){ return (G().st.perfect || 0) >= 1; }],
   ["boss1", "🗡️", "Boss Slayer", "Beat your first boss", function(){ return bossWins() >= 1; }],
-  ["flawless", "🛡️", "Untouchable", "Beat a boss with all 3 hearts", function(){ return MAP.some(function(m){ return (G().boss[m[0]] || {}).bl === 3; }); }],
+  ["flawless", "🛡️", "Untouchable", "Beat a boss with a clean sheet", function(){ return MAP.some(function(m){ return (G().boss[m[0]] || {}).bl === 3; }); }],
   ["map", "🗺️", "Map Cleared", "Beat every area boss", function(){ return bossWins() >= MAP.length - 1; }],
   ["final", "👑", "NIMHANS Ready", "Beat the Final Boss", function(){ return !!(G().boss.all || {}).w; }],
   ["combo10", "🔥", "Combo Breaker", "10 duels right in a row", function(){ return (G().best.combo || 0) >= 10; }],
@@ -244,11 +277,15 @@ function flushCeleb(){
   if ($("#modal").classList.contains("on") || !CQ.length) return;
   var c = CQ.shift(), h = "";
   if (c.t === "level"){ var i = lvInfo(G().xp);
-    h = '<div class="k">Level up</div><div class="crest">' + i.l + '</div><h2>' + i.rank + '</h2><p>You reached level ' + i.l + '. ' + (i.hi != null ? (i.hi - G().xp) + ' XP to the next one.' : 'Max level. Nothing left to prove.') + '</p>';
+    h = '<div class="k">Level up</div><div class="walkout lv"><div class="rays"></div><div class="crest">' + i.l + '</div></div><h2>' + i.rank + '</h2><p>You reached level ' + i.l + '. ' + (i.hi != null ? (i.hi - G().xp) + ' XP to the next one.' : 'Max level. Nothing left to prove.') + '</p>';
     SFX.level(); buzz(HAP.big); confetti(200); }
   else if (c.t === "theorist"){ var t = TH[c.k];
-    h = '<div class="k">New theorist unlocked</div>' + tcHtml(t, true) + '<h2>' + esc(t.name) + '</h2><p>' + plural(t.cards.length, "card") + ' in the deck. Miss one later and this card cracks until you fix it.</p>';
-    SFX.badge(); buzz(HAP.big); confetti(90); }
+    h = '<div class="k">Pack opened</div><div class="walkout ' + rarity(t) + '"><div class="rays"></div><div class="pack"><b>NL</b><span>' + rarity(t) + ' pack</span></div>' + tcHtml(t, true) + '</div>' +
+      '<div class="reveal"><h2>' + esc(t.name) + '</h2><p>' + rarity(t).toUpperCase() + ' · ' + plural(t.cards.length, "card") + ' in the deck. Lock in all of them and this card goes shiny. Miss one later and it cracks until you fix it.</p></div>';
+    SFX.pack(); buzz([30, 120, 30, 120, 30, 600, 80]); setTimeout(function(){ confetti(rarity(t) === "gold" ? 220 : 110); }, 1300); }
+  else if (c.t === "shiny"){ var t2 = TH[c.k];
+    h = '<div class="k">Card upgraded</div><div class="walkout shine"><div class="rays"></div>' + tcHtml(t2, true) + '</div><h2>' + esc(t2.name) + ' is shiny</h2><p>Every one of their ' + plural(t2.cards.length, "card") + ' is locked in. Rated ' + thStats(t2).ovr + '.</p>';
+    SFX.win(); buzz(HAP.big); confetti(200); }
   else if (c.t === "badge"){ var b = c.b;
     h = '<div class="k">Badge earned</div><div class="big">' + b[1] + '</div><h2>' + b[2] + '</h2><p>' + b[3] + '</p>';
     SFX.badge(); buzz(HAP.big); confetti(110); }
@@ -259,7 +296,7 @@ function flushCeleb(){
     h = '<div class="k">Daily quests</div><div class="big">📜</div><h2>All 3 done</h2><p>+' + QUEST_ALL_XP + ' XP bonus. New quests at midnight.</p>';
     SFX.win(); buzz(HAP.big); confetti(160); }
   var m = $("#modal");
-  m.innerHTML = '<div class="mbox">' + h + '<button class="btn gold" id="m-ok">Continue</button></div>';
+  m.innerHTML = '<div class="mbox' + (c.t === "theorist" ? " packed" : "") + '">' + h + '<button class="btn gold" id="m-ok">Continue</button></div>';
   m.classList.add("on");
   $("#m-ok").onclick = closeModal;
 }
@@ -297,6 +334,7 @@ function answer(ev){
       t.r = (t.r || 0) + 1;
       if (t.cr){ t.cr = 0; toast("🛠️ <b>" + esc(name) + "</b> card repaired", "good"); }
       else if (t.r === UNLOCK) celebrate({t: "theorist", k: k});
+      if (!t.sh && thShiny(k)){ t.sh = 1; celebrate({t: "shiny", k: k}); }
     } else if (t.r >= UNLOCK && !t.cr){ t.cr = 1; SFX.crack(); toast("💥 <b>" + esc(name) + "</b> card cracked. Get one of theirs right to fix it.", "bad"); }
   });
   if (dayRec().a === goal()){
@@ -416,23 +454,25 @@ function startLesson(o){
   if (o.mode === "who") cards = cards.filter(function(c){ return c.who; });
   if (o.kind !== "duel" && (!cards || !cards.length)){ toast("Nothing in that pile yet.", "bad"); return; }
   L = {kind: o.kind, title: o.title, mode: o.mode || "mix", cards: cards, ix: o.ix, cat: o.cat, i: 0, right: 0, wrongs: [], hits: [],
-    lives: (o.kind === "boss" || o.kind === "revenge") ? 3 : null, xp: 0, t0: Date.now(), combo: 0, best: 0, total: o.kind === "duel" ? 15 : cards.length, q: null};
+    lives: o.kind === "revenge" ? 3 : null, xp: 0, t0: Date.now(), combo: 0, best: 0, total: o.kind === "duel" ? 15 : cards.length, q: null, ev: [], run: 0, bestRun: 0, pen: 0};
   if (o.kind === "boss"){ var b = G().boss[MAP[o.ix][0]] || (G().boss[MAP[o.ix][0]] = {}); b.tries = (b.tries || 0) + 1; save(); }
   holdCeleb = true;
   clearScreens();
   var el = pushScreen("lesson", '<div class="lhead"><button class="x" id="l-x">' + IC.x + '</button><div class="lprog"><i style="width:0"></i></div><div id="l-side"></div></div>' +
-    (o.kind === "boss" ? '<div class="boss-strip"><div class="be">' + MAP[o.ix][3] + '</div><div class="bt"><b>' + MAP[o.ix][1] + '</b><div class="hp"><i style="width:100%"></i></div></div></div>' : '') +
+    (o.kind === "boss" ? '<div class="sb"><div class="tm me"><span class="crest">' + level(G().xp) + '</span><b>' + esc(pname()) + '</b></div><div class="sc"><b id="sb-a">0</b><i>:</i><b id="sb-b">0</b><small id="sb-m">KICK OFF</small></div>' +
+      '<div class="tm bo"><b>' + MAP[o.ix][1].replace(/ Boss$/, "") + '</b><span class="be">' + MAP[o.ix][3] + '</span></div></div>' : '') +
     '<div class="scroll" id="l-body"></div><div class="lfoot" id="l-foot"></div>', quitAsk);
   $("#l-x", el).onclick = quitAsk;
+  if (o.kind === "boss"){ SFX.whistle(); buzz([40, 80, 120]); }
   if (o.kind === "speed"){ L.end = Date.now() + 60000; clearInterval(timer); timer = setInterval(tick, 200); }
   nextQ();
 }
 function quitAsk(){
   if (!L) { popScreen(); return; }
   if (L.done){ endLesson(); return; }
-  openSheet('<div class="center" style="padding:6px 4px 0"><div class="hero-e" style="font-size:64px">' + (L.kind === "boss" ? "🏃" : "😢") + '</div><h1>' + (L.kind === "boss" ? "Run from the boss?" : "Quit this lesson?") + '</h1><p>' +
+  openSheet('<div class="center" style="padding:6px 4px 0"><div class="hero-e" style="font-size:64px">' + (L.kind === "boss" ? "🏳️" : "😢") + '</div><h1>' + (L.kind === "boss" ? "Leave the match?" : "Quit this lesson?") + '</h1><p>' +
     (L.i ? "XP you earned so far stays. Progress in this round is lost." : "You have not started yet.") + '</p></div>' +
-    '<button class="btn" id="q-stay" style="margin-top:14px">Keep going</button><button class="btn ghost" id="q-quit" style="margin-top:10px">' + (L.kind === "boss" ? "Run away" : "Quit") + '</button>');
+    '<button class="btn" id="q-stay" style="margin-top:14px">Keep going</button><button class="btn ghost" id="q-quit" style="margin-top:10px">' + (L.kind === "boss" ? "Forfeit" : "Quit") + '</button>');
   $("#q-stay").onclick = closeSheet;
   $("#q-quit").onclick = function(){ closeSheet(); endLesson(); };
 }
@@ -465,10 +505,13 @@ function buildQ(){
 }
 function nextQ(){
   if (!L) return;
+  if (L.kind === "boss" && L.i >= L.total && L.right === L.wrongs.length && !L.pen){
+    L.pen = 1; L.total++; SFX.whistle(true); buzz(HAP.big); stingerText("PENALTIES", "Sudden death. Score this one to win."); $("#sb-m").textContent = "PENS"; }
   if (L.kind !== "speed" && (L.lives === 0 || L.i >= L.total)) return finish();
   var q = L.q = buildQ(), c = q.c, pill = '<span class="pill p-' + c.cat + '">' + CATNAME[c.cat] + '</span>';
   $("#l-side").innerHTML = side();
   if (L.kind !== "speed") $("#lesson .lprog i").style.width = (L.i * 100 / L.total) + "%";
+  if (L.kind === "boss" && !L.pen) $("#sb-m").textContent = matchMin(L.i + 1) + "'";
   var k, card;
   if (q.mode === "duel"){ k = "Which one is this?"; card = pill + '<div class="qd">' + esc(c.def) + '</div>'; }
   else if (q.mode === "name"){ k = "What does this mean?"; card = pill + '<div class="qn">' + esc(c.name) + '</div>'; }
@@ -501,9 +544,15 @@ function grade(btn){
   if (ok){ L.right++; L.hits.push(c); } else { L.wrongs.push(c); if (L.lives != null) L.lives--; }
   var xp = answer({c: c, ok: ok, src: L.kind === "lesson" ? "drill" : L.kind, mode: q.mode, mult: mult, combo: L.kind === "duel" ? L.combo : null, cleared: cleared});
   L.xp += xp;
-  if (ok){ SFX.ok(); buzz(HAP.ok); flash("ok"); if (L.kind === "duel" && L.combo >= 3){ SFX.combo(L.combo); floatText(L.combo + " in a row!"); } }
+  if (L.kind === "boss"){} else if (ok){ SFX.ok(); buzz(HAP.ok); flash("ok"); if (L.kind === "duel" && L.combo >= 3){ SFX.combo(L.combo); floatText(L.combo + " in a row!"); } }
   else { SFX.bad(); buzz(HAP.bad); flash("bad"); }
-  if (L.kind === "boss"){ var hp = $("#lesson .hp i"); hp.style.width = ((L.total - L.right) * 100 / L.total) + "%"; if (ok){ var be = $("#lesson .boss-strip .be"); be.classList.remove("hit"); void be.offsetWidth; be.classList.add("hit"); } }
+  if (L.kind === "boss"){ flash(ok ? "ok" : "bad"); }
+  if (L.kind === "boss"){
+    L.run = ok ? L.run + 1 : 0; L.bestRun = Math.max(L.bestRun, L.run);
+    L.ev.push({m: L.pen ? "P" : matchMin(L.i + 1), me: ok, c: c});
+    var sb = $(ok ? "#sb-a" : "#sb-b"); sb.textContent = ok ? L.right : L.wrongs.length; sb.classList.remove("pop"); void sb.offsetWidth; sb.classList.add("pop");
+    if (ok){ SFX.goal(); buzz(HAP.big); stingerText("GOAL!", c.name + (L.run >= 3 ? " · hat-trick run " + L.run : "")); }
+    else { SFX.concede(); stingerText("CONCEDED", "The boss scores", true); } }
   $("#l-side").innerHTML = side();
   if (!ok && $("#l-hearts")) $("#l-hearts").classList.add("hit");
   if (L.kind === "duel" && ok && $("#l-combo")) $("#l-combo").classList.add("pop");
@@ -526,7 +575,7 @@ function feedback(ok, q, btn, xp){
     if (c.look && c.tell) why += '<div class="f tell"><i>Do not confuse with ' + esc(c.look) + '</i>' + esc(c.tell) + '</div>';
   }
   var praise = ["Nice!", "Locked in!", "Correct!", "Sharp!", "You got it!"][Math.floor(Math.random() * 5)];
-  var last = L.lives === 0 || L.i + 1 >= L.total;
+  var last = L.lives === 0 || (L.i + 1 >= L.total && !(L.kind === "boss" && !L.pen && L.right === L.wrongs.length));
   $("#l-foot").insertAdjacentHTML("beforeend", '<div class="fb ' + (ok ? "ok" : "bad") + '"><h3><span class="ic">' + (ok ? "✓" : "✕") + '</span>' + (ok ? praise : L.lives === 0 ? "Out of hearts" : "Not quite") +
     (xp ? '<span class="xp">+' + xp + ' XP</span>' : '') + '</h3>' + (ok ? '' : '<div class="ans">Correct answer: ' + esc(c[q.field]) + '</div>') +
     '<div class="why">' + why + '</div><button class="btn ' + (ok ? "ok" : "bad") + '" id="l-next">' + (last ? "Finish" : "Continue") + '</button></div>');
@@ -545,12 +594,7 @@ function finish(){
     if (nb && L.right) { SFX.win(); confetti(); }
     again = "Go again";
   } else if (L.kind === "boss"){
-    var m = MAP[L.ix], bs = g.boss[m[0]] || (g.boss[m[0]] = {}), win = L.lives > 0, first = !bs.w;
-    again = "Fight again";
-    if (win){ bs.w = (bs.w || 0) + 1; bs.bl = Math.max(bs.bl || 0, L.lives); bump("boss"); var bx = 100 + 50 * L.lives; addXP(bx); L.xp += bx; questTick({c: {}, bossWin: true});
-      hero = m[3]; title = m[1] + " defeated!"; sub = (first && MAP[L.ix + 1] ? MAP[L.ix + 1][1] + " is now open. " : "") + (L.lives < 3 ? "Win with all 3 hearts for Untouchable." : "Flawless.");
-      SFX.win(); buzz(HAP.big); confetti(240); }
-    else { hero = "💀"; cls = "bad"; title = m[1] + " won this time"; sub = "Your misses are saved. Drill them and come back."; SFX.lose(); }
+    return fullTime();
   } else if (L.kind === "revenge"){
     var rw = L.lives > 0; again = "Again";
     if (rw){ L.hits.forEach(function(c){ if (P.m[c.id]) P.m[c.id].done = true; }); bump("rev"); addXP(75); L.xp += 75; hero = "⚔️"; title = "Revenge served"; sub = plural(L.hits.length, "card") + " cleared from your misses. +75 XP."; SFX.win(); confetti(); }
@@ -576,6 +620,49 @@ function finish(){
   $("#r-again").onclick = function(){ again2(spec); };
   holdCeleb = false; setTimeout(flushCeleb, 900);
 }
+/* ---- match helpers ---- */
+function pname(){ return (S.name || "Sihan").trim() || "Sihan"; }
+function matchMin(i){ return Math.round(i * 90 / Math.max(L.total - L.pen, 1)); }
+function stingerText(big, small, bad){
+  var f = document.createElement("div"); f.className = "stinger" + (bad ? " bad" : "");
+  f.innerHTML = '<div class="band"></div><b>' + esc(big) + '</b>' + (small ? '<span>' + esc(small) + '</span>' : '');
+  $("#lesson").appendChild(f); setTimeout(function(){ f.remove(); }, 1500);
+}
+function wipe(cb){
+  var w = document.createElement("div"); w.className = "wipe"; $("#app").appendChild(w);
+  setTimeout(cb, 330); setTimeout(function(){ w.remove(); }, 900);
+}
+function bossOvr(ix){ return 68 + ix * 2 + (MAP[ix][0] === "all" ? 5 : 0); }
+function fullTime(){
+  var g = G(), m = MAP[L.ix], bs = g.boss[m[0]] || (g.boss[m[0]] = {}), a = L.right, b = L.wrongs.length, win = a > b, first = !bs.w, cs = Math.max(0, 3 - b);
+  if (win){ bs.w = (bs.w || 0) + 1; bs.bl = Math.max(bs.bl || 0, cs); bump("boss"); var bx = 100 + 50 * cs; addXP(bx); L.xp += bx; questTick({c: {}, bossWin: true}); }
+  badgeCheck(); save();
+  SFX.whistle(true); setTimeout(function(){ if (win){ SFX.win(); crowd(2.6, .3); buzz(HAP.big); confetti(260); } else SFX.lose(); }, 900);
+  /* player of the match: the theorist you scored most with */
+  var pc = {}, potm = null;
+  L.hits.forEach(function(c){ (CARD_TH[c.id] || []).forEach(function(k){ pc[k] = (pc[k] || 0) + 1; if (!potm || pc[k] > pc[potm]) potm = k; }); });
+  var acc = (a + b) ? Math.round(a * 100 / (a + b)) : 0, poss = Math.round(35 + acc * .3);
+  var tl = L.ev.map(function(e){ return '<div class="ev ' + (e.me ? "me" : "bo") + '"><span class="mn">' + e.m + (e.m === "P" ? "" : "'") + '</span><span class="eb">' + (e.me ? "⚽ " : "") + esc(e.c.name) + (e.me ? "" : " ✕") + '</span></div>'; }).join("");
+  function bar(k, x, y, u){ var t = (x + y) || 1; return '<div class="ms"><div class="msh"><b>' + x + (u || "") + '</b><span>' + k + '</span><b>' + y + (u || "") + '</b></div><div class="msb"><i style="width:' + (x * 100 / t) + '%"></i><i style="width:' + (y * 100 / t) + '%"></i></div></div>'; }
+  var spec = {kind: "boss", ix: L.ix};
+  var h = '<div class="scroll"><div class="ft">' +
+    '<div class="ft-k">' + (L.pen ? "Full time · after penalties" : "Full time") + '</div>' +
+    '<div class="ft-sb"><div class="tm"><span class="crest">' + level(g.xp) + '</span><b>' + esc(pname()) + '</b></div><div class="ft-sc"><b>' + a + '</b><i>:</i><b>' + b + '</b></div><div class="tm"><span class="be">' + m[3] + '</span><b>' + m[1].replace(/ Boss$/, "") + '</b></div></div>' +
+    '<div class="ft-res ' + (win ? "w" : "l") + '">' + (win ? (b === 0 ? "Clean sheet win" : "You win") : "Boss wins") + '</div>' +
+    '<p class="ft-sub">' + (win ? (first && MAP[L.ix + 1] ? MAP[L.ix + 1][1] + " is now unlocked. " : "") + (b === 0 ? "Untouchable." : "Keep a clean sheet for the max bonus.") : "Your misses are saved. Drill them and take the rematch.") + '</p>' +
+    '<div class="ft-sec">Match stats</div>' + bar("Goals", a, b) + bar("Possession", poss, 100 - poss, "%") + bar("Accuracy", acc, 100 - acc, "%") +
+    '<div class="ft-row"><div><b data-count="' + L.xp + '">0</b><span>XP earned</span></div><div><b>' + L.bestRun + '</b><span>best run</span></div><div><b>' + fmtTime(Date.now() - L.t0) + '</b><span>match time</span></div></div>' +
+    (potm ? '<div class="ft-sec">Player of the match</div><div class="potm">' + tcHtml(TH[potm], true) + '</div>' : '') +
+    '<div class="ft-sec">Timeline</div><div class="tl">' + tl + '</div>' +
+    (L.wrongs.length ? '<div class="missed" style="margin:16px auto 0"><div class="k">Goals conceded on</div>' + L.wrongs.filter(function(c, i, x){ return x.indexOf(c) === i; }).map(function(c){ return '<button class="chip" data-card="' + c.id + '">' + esc(c.name) + '</button>'; }).join("") + '</div>' : '') +
+    '</div></div><div class="lfoot"><button class="btn' + (win ? " gold" : "") + '" id="r-done">Continue</button><button class="btn ghost" id="r-again" style="margin-top:10px">Rematch</button></div>';
+  var el = $("#lesson"); el.innerHTML = h; el.classList.add("ftime");
+  var cnt = $("[data-count]", el), target = L.xp, t0 = performance.now();
+  (function up(t){ var p = Math.min(1, (t - t0) / 1100); cnt.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(up); })(t0);
+  $("#r-done").onclick = endLesson;
+  $("#r-again").onclick = function(){ again2(spec); };
+  holdCeleb = false; setTimeout(flushCeleb, 2200);
+}
 function again2(s){
   if (s.kind === "boss") return startBoss(s.ix, true);
   if (s.kind === "revenge") return startRevenge();
@@ -588,13 +675,16 @@ function startDaily(){ startLesson({kind: "lesson", mode: "mix", cards: pickRoun
 function startRevenge(){ var rp = revengePool(); if (!rp.length){ toast("Nothing missed this week. Nice.", "good"); return; }
   startLesson({kind: "revenge", mode: "mix", cards: shuffle(rp.map(function(id){ return BY[id]; })).slice(0, 10)}); }
 function startBoss(ix, direct){
-  if (direct) return startLesson({kind: "boss", ix: ix, mode: "mix", cards: pickBoss(ix)});
-  var m = MAP[ix], b = G().boss[m[0]] || {}, n = m[0] === "all" ? CARDS.length : CARDS.filter(function(c){ return c.area === m[0]; }).length;
-  var el = pushScreen("boss", '<div class="lhead"><button class="x" id="b-x">' + IC.x + '</button></div><div class="scroll"><div class="center"><div class="boss-hero' + (b.w ? " won" : "") + '">' + m[3] + '</div>' +
-    '<h1>' + m[1] + '</h1><p>' + m[2] + '. Drawn from ' + n + ' cards, weighted toward the ones you are shaky on.</p>' +
-    '<div class="rules"><div><b>' + (m[0] === "all" ? 15 : 10) + '</b>questions</div><div><b>❤️ 3</b>hearts</div><div><b>+' + (100 + 150) + '</b>max XP</div></div>' +
-    (b.w ? '<p style="margin-top:12px">Beaten ' + b.w + 'x · best ' + b.bl + ' heart' + (b.bl > 1 ? "s" : "") + ' left</p>' : b.tries ? '<p style="margin-top:12px">' + plural(b.tries, "attempt") + ' so far</p>' : '') +
-    '</div></div><div class="lfoot"><button class="btn" id="b-go">' + (b.w ? "Fight again" : "Start the fight") + '</button></div>', popScreen);
+  if (direct) return wipe(function(){ startLesson({kind: "boss", ix: ix, mode: "mix", cards: pickBoss(ix)}); });
+  var m = MAP[ix], b = G().boss[m[0]] || {}, n = m[0] === "all" ? CARDS.length : CARDS.filter(function(c){ return c.area === m[0]; }).length, q = m[0] === "all" ? 15 : 10;
+  var el = pushScreen("boss", '<div class="lhead"><button class="x" id="b-x">' + IC.x + '</button><b class="vs-k">' + (ix === MAP.length - 1 ? "Final" : "Season match " + (ix + 1) + " of " + (MAP.length - 1)) + '</b></div><div class="scroll"><div class="vs">' +
+    '<div class="vs-side me"><div class="crest">' + level(G().xp) + '</div><b>' + esc(pname()) + '</b><span>' + rank(level(G().xp)) + '</span><em>' + (squadOvr() || "--") + ' <small>SQUAD</small></em></div>' +
+    '<div class="vs-mid">VS</div>' +
+    '<div class="vs-side bo"><div class="boss-hero' + (b.w ? " won" : "") + '">' + m[3] + '</div><b>' + m[1] + '</b><span>' + m[2] + '</span><em>' + bossOvr(ix) + ' <small>OVR</small></em></div></div>' +
+    '<div class="rules"><div><b>' + q + '</b>questions = 90 min</div><div><b>⚽</b>right = your goal</div><div><b>🥅</b>miss = boss goal</div></div>' +
+    '<p class="vs-p">Outscore the boss to win. Level at full time goes to sudden-death penalties. Drawn from ' + n + ' cards, weighted toward the ones you are shaky on. Clean sheet = +250 XP.</p>' +
+    (b.w ? '<p class="vs-p">Won ' + b.w + 'x' + (b.bl === 3 ? ' · clean sheet' : '') + '</p>' : b.tries ? '<p class="vs-p">' + plural(b.tries, "attempt") + ' so far</p>' : '') +
+    '</div><div class="lfoot"><button class="btn gold" id="b-go">' + (b.w ? "Rematch" : "Kick off") + '</button></div>', popScreen);
   $("#b-x", el).onclick = popScreen;
   $("#b-go", el).onclick = function(){ startBoss(ix, true); };
 }
@@ -630,13 +720,21 @@ function ring(a, n){ var C = 2 * Math.PI * 37, p = Math.min(1, a / n);
   return '<div class="ring' + (a >= n ? " done" : "") + '"><svg viewBox="0 0 84 84"><circle class="tr" cx="42" cy="42" r="37"/><circle class="fg" cx="42" cy="42" r="37" stroke-dasharray="' + C + '" stroke-dashoffset="' + (C * (1 - p)) + '"/></svg><b>' + (a >= n ? "✓" : Math.min(a, n)) + '</b></div>'; }
 function tabHome(){
   var g = G(), d = dayRec(), s = streak(), n = goal(), q = g.q[today()] || {}, cb = curBoss();
-  var h = hudHtml() + '<div class="panel goal">' + ring(d.a, n) + '<div class="goal-t"><div class="k">Daily goal · ' + n + ' answers</div><div class="v">' +
-    (d.a >= n ? "Goal done. " + (s > 1 ? s + " day streak." : "Streak started.") : (n - d.a) + " to go" + (s ? " to keep your " + s + " day streak" : " to start a streak")) +
-    '</div><button class="btn sm" id="h-go">' + (d.a ? "Continue" : "Start lesson") + '</button></div></div>';
-  h += '<h2 class="sh">Daily quests<small>+' + QUEST_XP + ' XP each, +' + QUEST_ALL_XP + ' for all three</small></h2><div class="panel">' + todaysQuests().map(function(Q){
+  var i = lvInfo(g.xp), sq = squadOvr(), nb = cb >= 0 ? MAP[cb] : null;
+  /* EA-style front menu: player banner, then big tiles */
+  var h = '<div class="menu-top"><div class="pban"><div class="crest">' + i.l + '</div><div class="pb-t"><b>' + esc(pname()) + '</b><span>' + i.rank + ' · Level ' + i.l + '</span>' +
+    '<div class="xpbar"><i style="width:' + i.pct + '%"></i><span>' + g.xp + (i.hi != null ? ' / ' + i.hi : '') + ' XP</span></div></div>' +
+    '<div class="pb-r"><div class="streak' + (dayDone(d) ? " lit" : "") + '"><span class="fl">🔥</span>' + s + '</div><div class="sq"><b>' + (sq || "--") + '</b><small>SQUAD</small></div></div></div></div>';
+  h += '<div class="tiles-m">' +
+    '<button class="mt big kick" id="h-go"><span class="mt-k">Kick off</span><b>' + (d.a ? "Continue today" : "Daily lesson") + '</b><span>' + (d.a >= n ? "Goal done. " + (s > 1 ? s + " day streak." : "Streak started.") : (n - d.a) + " answers to " + (s ? "keep your " + s + " day streak" : "start a streak")) + '</span>' + ring(d.a, n) + '</button>' +
+    '<button class="mt season" id="h-boss"><span class="mt-k">Season</span><b>' + (nb ? "vs " + nb[1].replace(/ Boss$/, "") : "Season won") + '</b><span>' + bossWins() + ' / ' + MAP.length + ' matches won</span><i class="mt-e">' + (nb ? nb[3] : "🏆") + '</i></button>' +
+    '<button class="mt ut" data-tab="collection"><span class="mt-k">Ultimate Team</span><b>' + thUnlocked() + ' / ' + TH_LIST.length + '</b><span>theorist cards</span><i class="mt-e">🃏</i></button>' +
+    '<button class="mt train" data-tab="practice"><span class="mt-k">Training</span><b>Skill games</b><span>Duels, speed, revenge</span><i class="mt-e">⚡</i></button>' +
+    '<button class="mt prof" data-tab="me"><span class="mt-k">Profile</span><b>' + Object.keys(g.bdg).length + ' badges</b><span>Stats + streak</span><i class="mt-e">🏅</i></button></div>';
+  h += '<h2 class="sh">Daily objectives<small>+' + QUEST_XP + ' XP each, +' + QUEST_ALL_XP + ' for all three</small></h2><div class="panel">' + todaysQuests().map(function(Q){
     var v = Math.min(q[Q.id] || 0, Q.n), done = v >= Q.n;
     return '<div class="quest' + (done ? " done" : "") + '"><div class="qi">' + (done ? "✅" : Q.e) + '</div><div class="qb"><b>' + Q.t + '</b><div class="pbar gold"><i style="width:' + (v * 100 / Q.n) + '%"></i></div></div><span class="qn">' + v + '/' + Q.n + '</span></div>'; }).join("") + '</div>';
-  h += '<div class="path"><div class="unit"><b>Boss map</b><span>' + bossWins() + ' of ' + MAP.length + ' beaten. Each boss opens the next.</span></div>' + MAP.map(function(m, ix){
+  h += '<div class="path"><div class="unit"><b>Season map</b><span>' + bossWins() + ' of ' + MAP.length + ' won. Each win opens the next match.</span></div>' + MAP.map(function(m, ix){
     var b = g.boss[m[0]] || {}, open = bossOpen(ix), st = b.w ? "won" : open ? "open" : "shut", off = Math.round(Math.sin(ix * 0.9) * 70);
     return '<div class="node-wrap"><button class="node ' + st + (ix === cb ? " cur" : "") + '" data-boss="' + ix + '" style="transform:translateX(' + off + 'px)">' + (ix === cb ? '<span class="bubble">' + (b.tries ? "FIGHT" : "START") + '</span>' : '') +
       (open || b.w ? m[3] : "🔒") + (b.w ? '<span class="crown">' + (b.bl === 3 ? "👑" : "✓") + '</span>' : '') + '</button><span class="node-l" style="transform:translateX(' + off + 'px)">' + m[1] + '</span></div>'; }).join("") + '</div>';
@@ -664,16 +762,16 @@ function tabPractice(){
 }
 function dexHtml(){
   var q = norm(THQ), ts = TH_LIST.filter(function(t){ var s = thState(t.k);
-    if (THF === "legendary" ? rarity(t) !== "legendary" : THF !== "all" && s !== THF) return false;
+    if (THF === "gold" ? rarity(t) !== "gold" : THF === "shiny" ? !thShiny(t.k) : THF !== "all" && s !== THF) return false;
     return !q || norm(t.name).indexOf(q) >= 0; });
   return '<div class="dex">' + ts.slice(0, THN).map(function(t){ return tcHtml(t); }).join("") + '</div>' +
     (ts.length > THN ? '<button class="btn ghost" id="c-more" style="margin-top:14px">Show more (' + (ts.length - THN) + ')</button>' : ts.length ? '' : '<div class="empty">None here yet.</div>');
 }
 function tabCollection(){
   var unl = thUnlocked(), cr = TH_LIST.filter(function(t){ return thState(t.k) === "cracked"; }).length;
-  var h = hudHtml() + '<h2 class="sh" style="margin-top:12px">Theorist collection<small>Get 3 of a person\'s cards right to unlock them</small></h2>' +
+  var h = hudHtml() + '<h2 class="sh" style="margin-top:12px">Ultimate Team<small>3 rights opens a theorist\'s pack. Lock in all their cards to make them shiny. Squad rating ' + squadOvr() + '</small></h2>' +
     '<div class="dexbar"><div class="pbar gold"><i style="width:' + (unl * 100 / TH_LIST.length) + '%"></i></div><b>' + unl + ' / ' + TH_LIST.length + '</b></div>' +
-    '<div class="chips" id="c-f">' + [["all", "All"], ["ok", "Unlocked"], ["cracked", "Cracked" + (cr ? " " + cr : "")], ["locked", "Locked"], ["legendary", "Legendary"]].map(function(x){
+    '<div class="chips" id="c-f">' + [["all", "All"], ["ok", "Unlocked"], ["cracked", "Cracked" + (cr ? " " + cr : "")], ["locked", "Locked"], ["gold", "Gold"], ["shiny", "Shiny"]].map(function(x){
       return '<button class="chip' + (THF === x[0] ? " on" : "") + '" data-f="' + x[0] + '">' + x[1] + '</button>'; }).join("") + '</div>' +
     '<input class="search" id="c-q" placeholder="Find a theorist" value="' + esc(THQ) + '" autocomplete="off" style="margin:4px 0 14px">' +
     '<div id="c-dex">' + dexHtml() + '</div>';
@@ -681,33 +779,35 @@ function tabCollection(){
 }
 function tabMe(){
   var g = G(), i = lvInfo(g.xp), st = g.st, B = g.best, acc = st.ans ? Math.round((st.right || 0) * 100 / st.ans) : 0;
-  var h = '<div class="prof"><div class="crest">' + i.l + '</div><div><h1>' + i.rank + '</h1><p>Level ' + i.l + ' · ' + g.xp + ' XP' + (i.hi != null ? ' · ' + (i.hi - g.xp) + ' to level ' + (i.l + 1) : '') + '</p></div></div>' +
+  var h = '<div class="prof"><div class="crest">' + i.l + '</div><div><h1>' + esc(pname()) + '</h1><p>' + i.rank + ' · Squad ' + (squadOvr() || "--") + '</p><p>Level ' + i.l + ' · ' + g.xp + ' XP' + (i.hi != null ? ' · ' + (i.hi - g.xp) + ' to level ' + (i.l + 1) : '') + '</p></div></div>' +
     '<div class="pbar gold" style="margin:6px 0 4px"><i style="width:' + i.pct + '%"></i></div>';
   var cal = "", d = new Date(); d.setDate(d.getDate() - 27);
   for (var k = 0; k < 28; k++){ var r = g.days[today(d)], t = today(d) === today();
     cal += '<i class="' + (dayDone(r) ? "f" : r && r.a ? "p" : "") + (t ? " t" : "") + '">' + d.getDate() + '</i>'; d.setDate(d.getDate() + 1); }
   h += '<h2 class="sh">Streak<small>' + plural(streak(), "day") + ' now · longest ' + (B.streak || 0) + '</small></h2><div class="panel"><div class="cal">' + cal + '</div></div>';
   h += '<h2 class="sh">Stats</h2><div class="tiles">' + [["⭐", g.xp, "total XP"], ["🎯", acc + "%", "accuracy"], ["✅", st.right || 0, "right answers"], ["👑", bossWins() + "/" + MAP.length, "bosses beaten"],
-    ["🔥", B.combo || 0, "best combo"], ["⚡", B.speed || 0, "best speed"], ["🃏", thUnlocked(), "theorists"], ["📈", B.dayxp || 0, "best XP day"]]
+    ["🔥", B.combo || 0, "best combo"], ["⚡", B.speed || 0, "best speed"], ["🃏", thUnlocked(), "theorists"], ["✨", TH_LIST.filter(function(t){ return thShiny(t.k); }).length, "shiny cards"], ["🏟️", squadOvr() || "--", "squad rating"], ["📈", B.dayxp || 0, "best XP day"]]
     .map(function(t){ return '<div class="tile"><span class="ti">' + t[0] + '</span><div><b>' + t[1] + '</b><span>' + t[2] + '</span></div></div>'; }).join("") + '</div>';
   var have = BADGES.filter(function(b){ return g.bdg[b[0]]; }).length;
   h += '<h2 class="sh">Badges<small>' + have + ' of ' + BADGES.length + '</small></h2><div class="badges">' + BADGES.map(function(b){
     return '<button class="bdg' + (g.bdg[b[0]] ? " on" : "") + '" data-bdg="' + b[0] + '"><span class="be">' + b[1] + '</span><b>' + b[2] + '</b></button>'; }).join("") + '</div>';
   h += '<h2 class="sh">Settings</h2><div class="panel" style="padding:4px 14px">' +
+    '<button class="set" id="s-name"><span class="si">✏️</span>Player name<span class="sv">' + esc(pname()) + ' ›</span></button>' +
     '<button class="set" id="s-goal"><span class="si">🎯</span>Daily goal<span class="sv">' + goal() + ' answers ›</span></button>' +
     '<button class="set" id="s-sound"><span class="si">🔊</span>Sound effects<span class="tog' + (S.sound ? " on" : "") + '"></span></button>' +
     '<button class="set" id="s-hap"><span class="si">📳</span>Haptics<span class="tog' + (S.haptics ? " on" : "") + '"></span></button>' +
     '<button class="set" id="s-reset" style="color:var(--bad)"><span class="si">🗑️</span>Reset progress</button></div>' +
-    '<div class="ver">Name Lock 1.0 · ' + CARDS.length + ' cards · ' + TH_LIST.length + ' theorists · works offline</div>';
+    '<div class="ver">Name Lock 2.0 · ' + CARDS.length + ' cards · ' + TH_LIST.length + ' theorists · works offline</div>';
   return h;
 }
-var TABS = [["home", "Learn", IC.home], ["practice", "Practice", IC.practice], ["collection", "Collection", IC.cards], ["me", "Profile", IC.me]];
+var TABS = [["home", "Home", IC.home], ["practice", "Training", IC.practice], ["collection", "Squad", IC.cards], ["me", "Profile", IC.me]];
+function tabIx(t){ for (var i = 0; i < TABS.length; i++) if (TABS[i][0] === t) return i; return 0; }
 function drawTabbar(){ $("#tabbar").innerHTML = TABS.map(function(t){ return '<button data-tab="' + t[0] + '" class="' + (TAB === t[0] ? "on" : "") + '"><span class="tb-ic">' + t[2] + '</span>' + t[1] + '</button>'; }).join(""); }
 function showTab(t, keepScroll){
-  var tv = $("#tabview"), y = tv.scrollTop;
+  var tv = $("#tabview"), y = tv.scrollTop, dir = tabIx(t) >= tabIx(TAB) ? "r" : "l";
   TAB = t; drawTabbar();
   var fn = {home: tabHome, practice: tabPractice, collection: tabCollection, me: tabMe}[t];
-  tv.innerHTML = '<div class="tabpage' + (keepScroll ? '" style="animation:none' : '') + '">' + fn() + '</div>';
+  tv.innerHTML = '<div class="tabpage ' + dir + (keepScroll ? '" style="animation:none' : '') + '">' + fn() + '</div>';
   tv.scrollTop = keepScroll ? y : 0;
   bindTab();
 }
@@ -720,9 +820,11 @@ function goalSheet(){
   $("#sheet .goals").onclick = function(e){ var b = e.target.closest("[data-g]"); if (!b) return; setGoal(+b.dataset.g); closeSheet(); refreshTab(); toast("Daily goal set to " + b.dataset.g, "good"); };
 }
 function bindTab(){
-  var tv = $("#tabview");
+  var tv = $("#tabview"), cb = curBoss();
   if (TAB === "home"){
-    $("#h-go").onclick = startDaily;
+    $("#h-go").onclick = function(){ wipe(startDaily); };
+    $("#h-boss").onclick = function(){ if (cb >= 0) startBoss(cb); else toast("Every match won. Replay any from the map.", "gold"); };
+    tv.querySelector(".tiles-m").onclick = function(e){ var b = e.target.closest("[data-tab]"); if (b) showTab(b.dataset.tab); };
     tv.querySelector(".path").onclick = function(e){ var b = e.target.closest("[data-boss]"); if (!b) return; var ix = +b.dataset.boss;
       if (!bossOpen(ix)){ buzz(HAP.bad); toast("🔒 Beat " + MAP[ix - 1][1] + " first", "bad"); return; } startBoss(ix); };
   }
@@ -743,6 +845,9 @@ function bindTab(){
   }
   if (TAB === "me"){
     $("#s-goal").onclick = goalSheet;
+    $("#s-name").onclick = function(){
+      openSheet('<h2 class="sh" style="margin-top:0">Player name<small>Shows on your banner and the match scoreboard</small></h2><input class="search" id="nm-in" maxlength="16" value="' + esc(pname()) + '" style="background-image:none;padding-left:14px"><button class="btn" id="nm-ok" style="margin-top:14px">Save</button>');
+      $("#nm-ok").onclick = function(){ S.name = $("#nm-in").value.trim().slice(0, 16) || "Sihan"; saveS(); closeSheet(); refreshTab(); toast("Name saved", "good"); }; };
     $("#s-sound").onclick = function(){ S.sound = !S.sound; saveS(); refreshTab(); };
     $("#s-hap").onclick = function(){ S.haptics = !S.haptics; saveS(); buzz(HAP.ok); refreshTab(); };
     $("#s-reset").onclick = function(){
