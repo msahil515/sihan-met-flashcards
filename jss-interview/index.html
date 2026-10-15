@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<script src="/sihan-met-flashcards/sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSS Interview Prep: viva 27 to 28 Oct 2026</title>
+<link rel="stylesheet" href="/sihan-met-flashcards/notes-style.css">
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<meta name="theme-color" content="#0d1117">
+<style>
+  .lede{color:var(--ink2);font-size:16px;background:var(--panel-2);border:1px solid var(--border);
+    border-radius:8px;padding:14px 18px;margin:18px 0 6px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px;font-family:var(--sans);font-size:13px}
+  .chip{background:var(--panel-2);border:1px solid var(--border);border-radius:20px;padding:4px 12px;color:var(--ink2)}
+  .chip b{color:#14161b}
+  .toc{font-family:var(--sans);font-size:14px;background:var(--panel-2);border:1px solid var(--border);
+    border-radius:8px;padding:14px 18px;margin:18px 0}
+  .toc a{display:inline-block;margin:3px 14px 3px 0;color:var(--accent);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  .yr{margin-top:40px;border-top:3px solid var(--accent-dim);padding-top:6px}
+  .qa{background:var(--panel-2);border:1px solid var(--border);border-radius:8px;padding:4px 18px 14px;margin:16px 0}
+  .qa .q{font-family:var(--sans);font-weight:700;color:#14161b;margin:14px 0 6px;font-size:15.5px}
+  .qa .q::before{content:attr(data-n) "  ";color:var(--accent);font-weight:800}
+  .qa .a{margin:0 0 6px;line-height:1.62}
+  .qa .a::before{content:"Say:  ";font-family:var(--sans);font-weight:700;color:#1f6b3a;font-size:12px;letter-spacing:.03em;text-transform:uppercase}
+  .qa .push{margin:0 0 6px;line-height:1.6;font-size:15px;color:var(--ink2);
+    border-left:2px solid var(--accent-dim);padding-left:12px}
+  .qa .push::before{content:"Then they push:  ";font-family:var(--sans);font-weight:700;color:#1d4e89;font-size:11.5px;letter-spacing:.03em;text-transform:uppercase}
+  .qa .why{margin:0 0 10px;font-size:13.5px;color:var(--muted);line-height:1.55}
+  .qa .why::before{content:"Why this works:  ";font-family:var(--sans);font-weight:700;color:#8a6a1d;font-size:11.5px;letter-spacing:.03em;text-transform:uppercase}
+  .trap{border-left:3px solid #c0392b;background:rgba(192,57,43,.06);padding:10px 16px;margin:14px 0;border-radius:0 6px 6px 0}
+  .trap b{color:#8a1d1d}
+  .clin-focus{border-left:3px solid var(--accent);background:rgba(61,111,208,.06);padding:10px 16px;margin:16px 0;border-radius:0 6px 6px 0}
+  .verify{border-left:3px solid #8a6a1d;background:rgba(230,180,40,.09);padding:10px 16px;margin:16px 0;border-radius:0 6px 6px 0}
+  .verify b{color:#8a6a1d}
+  table.nums{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:13.5px;margin:14px 0}
+  table.nums th,table.nums td{border:1px solid var(--border);padding:7px 10px;text-align:left;vertical-align:top}
+  table.nums th{background:var(--panel-2);color:#14161b}
+  .src{font-size:13px;color:var(--muted)}
+  .bar{position:sticky;top:0;z-index:20;background:var(--panel-2);border:1px solid var(--border);
+    border-radius:8px;padding:10px 14px;margin:16px 0;font-family:var(--sans);font-size:14px;
+    display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .bar button{font:inherit;font-size:14px;font-weight:700;padding:7px 14px;border:1px solid var(--border);
+    border-radius:6px;background:#fff;color:#14161b;cursor:pointer}
+  .bar button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .bar span.hint{color:var(--muted);font-size:13px}
+  body.drill .qa .a,body.drill .qa .push,body.drill .qa .why,body.drill .qa table{display:none}
+  body.drill .qa.open .a,body.drill .qa.open .push,body.drill .qa.open .why{display:block}
+  body.drill .qa.open table{display:table}
+  body.drill .qa{cursor:pointer}
+  body.drill .qa .q::after{content:"   tap to reveal";font-family:var(--sans);font-weight:500;
+    font-size:11.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+  body.drill .qa.open .q::after{content:""}
+</style>
+<script src="/sihan-met-flashcards/take/theme.js"></script>
+<link rel="stylesheet" href="/sihan-met-flashcards/revamp-skin.css">
+</head>
+<body>
+<div class="wrap">
+<nav><a href="../manipal-viva/">Full viva sheet</a> <a href="../dissertation/">Dissertation</a> <a href="../syllabus/#jss">JSS syllabus</a> <a href="../notes/therapy-style/">Therapy style</a> <a href="../">Home</a></nav>
+
+<h1>JSS Interview Prep</h1>
+<p style="color: var(--muted); font-size: 14px; margin-top:-6px;">M.A. Clinical Psychology (RCI) / PDCP, JSS Academy of Higher Education &amp; Research, JSS Medical College, Mysuru. Written test <b>27 Oct 2026, 10 to 11 AM</b> (report 9 AM). Viva <b>27 Oct afternoon and 28 Oct</b>, in person. Built 15 Oct 2026, twelve days out. You said the interview was the bigger problem last year, so this page is built around that.</p>
+
+<div class="meta-row">
+  <span class="chip">Questions <b>78</b></span>
+  <span class="chip">Viva <b>10 marks, in person</b></span>
+  <span class="chip">Seats <b>10 MA + 10 PDCP</b></span>
+  <span class="chip">Drill mode <b>hides every answer</b></span>
+</div>
+
+<div class="lede">
+<b>Why 10 marks is not small.</b> JSS ranks on the written score plus the viva, and the written paper is 90 one-mark questions with no negative marking. With ten seats per course, the people around the cut-off are separated by a handful of marks, and the viva is the only part of the selection where the gap can be 5 or 6 marks between two candidates in ten minutes. A strong viva moves you several places on the merit list. A weak one undoes a week of MCQ practice. That is why the interview gets the most attention for the next twelve days.
+</div>
+
+<div class="bar">
+  <button id="drillBtn">Drill mode: off</button>
+  <button id="allBtn">Reveal all</button>
+  <span class="hint">Drill mode hides every answer. Say it out loud first, then tap the card to check yourself.</span>
+</div>
+
+<div class="toc">
+Jump to:
+<a href="#lastyear">0 · What goes wrong, and the fix</a>
+<a href="#plan">1 · The 12 days</a>
+<a href="#mock">2 · Mock interviews on WhatsApp</a>
+<a href="#open">3 · Openers: you, why clinical, why JSS</a>
+<a href="#diss">4 · Dissertation, the hard pushes</a>
+<a href="#clin">5 · Your clinical work</a>
+<a href="#vign">6 · Case vignettes</a>
+<a href="#ethics">7 · Ethics</a>
+<a href="#law">8 · RCI, MHCA and the law</a>
+<a href="#concepts">9 · Standard viva concepts</a>
+<a href="#day">10 · In the room</a>
+<a href="#close">11 · Your questions for them</a>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="lastyear" class="yr">0 · What goes wrong in an interview, and the fix for each</h2>
+
+<p>Interviews go wrong in one of three ways. Which one it was last year decides where your twelve days go, so read all three and be honest about which sounds like you. Most people are two of them.</p>
+
+<table class="nums">
+<tr><th>Failure</th><th>What it looks like in the room</th><th>Why it happens</th><th>The fix</th></tr>
+<tr><td><b>A. Blanking on concepts</b></td><td>"Define reliability." You know it, you have read it ten times, and nothing comes out. Or it comes out as a ramble with no first sentence.</td><td>You studied by <b>reading</b>, which builds recognition. A viva tests <b>recall out loud</b>, a different skill. Recognition feels like knowing until someone asks.</td><td>Drill mode on this page and the <a href="../manipal-viva/">full viva sheet</a>, every day, out loud, not in your head. The first sentence of every definition memorised word for word. Section 9 is the minimum set.</td></tr>
+<tr><td><b>B. The dissertation</b></td><td>"Why Spearman?" "What does your odds ratio mean?" "What was your role?" Hesitation on your own work reads worse than a gap on a textbook question.</td><td>You wrote it two years ago and have not said it out loud since. Panels assume you own it, so any wobble reads as "did he actually do this".</td><td>The 30-second pitch said out loud twice a day until it is automatic. The eight pushes in section 4. The full <a href="../dissertation/">dissertation sheet</a> read once end to end.</td></tr>
+<tr><td><b>C. Nerves and how you came across</b></td><td>Talking too fast, too long, or too little. Agreeing with every challenge. Losing the thread mid-answer. Looking at the table.</td><td>Arousal past the peak of the Yerkes-Dodson curve, plus no rehearsal under observation. Practice alone does not transfer to being watched.</td><td>Rehearse being watched: the WhatsApp mocks in section 2, and at least three answers recorded on your phone camera and played back. The in-room routine in section 10.</td></tr>
+</table>
+
+<div class="clin-focus">
+<b>The one rule that fixes most of A and C together:</b> answer in the shape <b>first sentence, one example, stop</b>. The first sentence is the definition or your position. The example is from a real client or your own data. Then you stop and let them ask the next thing. Candidates lose more viva marks by talking past a correct answer into a wrong one than by not knowing.
+</div>
+
+<!-- ============================================================ -->
+<h2 id="plan" class="yr">1 · The 12 days</h2>
+
+<p>The written paper is still 90 of the 100 marks, so it does not get dropped. The split below gives the mornings to the written paper (JSS's nine subjects, see the <a href="../syllabus/">syllabus hub</a> and <a href="../six-areas/">six-areas plan</a>) and a fixed daily interview block.</p>
+
+<table class="nums">
+<tr><th>Day</th><th>Date</th><th>Interview block (45 to 60 min)</th></tr>
+<tr><td>1</td><td>Thu 15 Oct</td><td>Read section 0 and decide which of A, B, C you are. Section 3 openers out loud. Record "tell us about yourself" on your phone and watch it once.</td></tr>
+<tr><td>2</td><td>Fri 16 Oct</td><td>Section 4, dissertation. Pitch twice out loud. Read the <a href="../dissertation/">dissertation sheet</a> end to end.</td></tr>
+<tr><td>3</td><td>Sat 17 Oct</td><td><b>WhatsApp mock 1</b>: openers + why JSS. Section 5, clinical work.</td></tr>
+<tr><td>4</td><td>Sun 18 Oct</td><td>Section 9 concepts in drill mode, all of them, out loud. Mark every one you hesitated on.</td></tr>
+<tr><td>5</td><td>Mon 19 Oct</td><td>Section 6 vignettes 1 to 6. Say the six-step skeleton for each before revealing.</td></tr>
+<tr><td>6</td><td>Tue 20 Oct</td><td><b>WhatsApp mock 2</b>: dissertation, full grilling.</td></tr>
+<tr><td>7</td><td>Wed 21 Oct</td><td>Section 6 vignettes 7 to 12. Section 7 ethics.</td></tr>
+<tr><td>8</td><td>Thu 22 Oct</td><td>Section 8, RCI and MHCA. <b>WhatsApp mock 3</b>: vignettes.</td></tr>
+<tr><td>9</td><td>Fri 23 Oct</td><td>Drill mode across this whole page, only the cards you marked. <b>WhatsApp mock 4</b>: ethics and law.</td></tr>
+<tr><td>10</td><td>Sat 24 Oct</td><td><b>WhatsApp mock 5</b>: full panel, mixed, 20 questions. Re-record "tell us about yourself" and compare it with day 1.</td></tr>
+<tr><td>11</td><td>Sun 25 Oct</td><td>Light. Openers and the pitch once each. Section 10, pack the documents.</td></tr>
+<tr><td>12</td><td>Mon 26 Oct</td><td>Travel to Mysuru if you are not local. Openers once. Nothing new. Sleep.</td></tr>
+<tr><td>Exam</td><td>Tue 27 Oct</td><td>Written 10 to 11 AM. Viva that afternoon or on 28 Oct, check your hall ticket and the notice board.</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="mock" class="yr">2 · Mock interviews on WhatsApp</h2>
+
+<p>Message <b>"JSS mock"</b> plus the round you want (for example <b>"JSS mock 2, dissertation"</b>). How it runs:</p>
+<ul>
+<li>One question at a time, the way a panel asks it. No list of questions up front.</li>
+<li>Type your answer the way you would say it, in full sentences, not notes. Keep it to what you would say in 30 to 45 seconds.</li>
+<li>Then the push: the follow-up a panel would actually ask, including when your answer was right. Sometimes a deliberate challenge to an answer that was correct, to see whether you hold it or fold.</li>
+<li>At the end, a short scorecard: what landed, what to cut, which cards on this page to drill before the next round.</li>
+</ul>
+<table class="nums">
+<tr><th>Round</th><th>Covers</th></tr>
+<tr><td>1</td><td>Openers: about you, why clinical psychology, why JSS, why a second master's, the fee and Kannada questions</td></tr>
+<tr><td>2</td><td>Dissertation, full grilling</td></tr>
+<tr><td>3</td><td>Case vignettes</td></tr>
+<tr><td>4</td><td>Ethics, RCI, MHCA</td></tr>
+<tr><td>5</td><td>Full panel, mixed, 20 questions, including concept quick-fire</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="open" class="yr">3 · Openers: you, why clinical psychology, why JSS</h2>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J1">Tell us about yourself.</p>
+<p class="a">"Good afternoon sir, good afternoon ma'am. I'm Mohammed Sihan. I did my M.Sc in Clinical Psychology at Jain Deemed-to-be University, Bangalore, from 2022 to 2024. Alongside and since then I've been working as a counsellor on YourDOST, an online mental health platform, where I've seen over 250 individual clients across roughly 473 sessions, mostly anxiety, low mood, relationship distress and academic stress. My dissertation was a quantitative study on pornography consumption in relation to personality, aggression and sexual compulsivity in young adults, 214 participants, analysed in SPSS. What I need now is supervised clinical training inside a hospital, with real assessment and diagnostic work, on an RCI-recognised programme. That's why I'm here."</p>
+<p class="push">"You said 'online'. Have you seen any patient face to face?" Answer it straight: "Not in a hospital setting, sir. My face-to-face exposure was the M.Sc practicum. That gap is the reason I'm applying."</p>
+<p class="why">Forty-five seconds: training, hours, research, then why here. It ends on the reason you applied, which hands them the next question instead of leaving them to pick one.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J2">Why clinical psychology?</p>
+<p class="a">"Three reasons. Academically, my M.Sc pulled me towards psychopathology and assessment, the diagnostic side, more than the purely supportive side. Professionally, I keep reaching the limit of my role with real clients: I can stabilise someone and do CBT work on anxiety, but when there's an obsessive-compulsive picture or a possible bipolar pattern underneath, my job right now is to refer, not to assess and formulate. And personally, it's the one kind of work where I finish the day more engaged than I started it. I don't want to keep stopping at the referral."</p>
+<p class="why">One academic, one professional, one personal line, no sob story. The middle reason only works because you have caseload hours, so it is the one that sticks.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J3">Why JSS?</p>
+<p class="a">"Because the training sits inside a medical college and a teaching hospital. At JSS the clinical psychology programme is part of JSS Medical College, so trainees work alongside psychiatry and the other departments of JSS Hospital, with real inpatients and outpatients, not a classroom programme with a placement attached. Second, the intake is small, ten seats, which means supervision is close rather than one supervisor for a whole batch. Third, it's an RCI-recognised programme, so it ends in registration, which my present degree doesn't. And Mysuru draws patients from a large rural and semi-urban catchment, which is a different population from the urban, mostly high-functioning clients I've seen online."</p>
+<p class="push">"What do you know about our department?" Say what you know is true, then turn it: "I know it sits with psychiatry in the medical college. What I'd like to understand better is how the postings rotate across the two years." Do not invent faculty names or numbers.</p>
+<p class="why">Every claim there is structural and checkable: medical college setting, ten seats, RCI, the catchment. Vague-but-true beats specific-but-wrong in front of the people who run the department.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J4">You already have an M.Sc in Clinical Psychology. Why this course?</p>
+<p class="a">"The M.Sc gave me the theory and the research training, and I've used both. What it didn't give me was supervised clinical practice in a hospital and RCI recognition. Without RCI registration I can't practise as a clinical psychologist in India, however much I know. So I'm not repeating a degree, I'm adding the supervised training and the licence that my present qualification doesn't carry."</p>
+<p class="why">Own it in the first sentence. Any hesitation here reads as "he couldn't get anywhere else".</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J5">Why the MA and not the PDCP? (or, if you applied to the PDCP: why the diploma?)</p>
+<p class="a">If MA: "The MA is the full two-year RCI clinical psychology programme, which is the route to working as a clinical psychologist in a hospital. That's the role I want, so that's the programme I applied for." If PDCP: "The PDCP is the RCI professional diploma for people who already hold a master's in psychology, which is my position, so it's the direct route from where I am to supervised clinical training and registration."</p>
+<p class="push">"Do you know what the PDCP qualifies you for compared to the MA?" If you are not sure of the exact RCI registration category for each, say so and ask them, see the yellow box in section 11.</p>
+<p class="why">Know which one you applied to before you walk in. Fumbling this is the single most avoidable mistake on the page.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J6">The course costs about ₹4.7 lakh a year and there is no stipend. Can you manage it?</p>
+<p class="a">"Yes, sir. It's been planned for before I applied."</p>
+<p class="why">One line, calm, nothing more. Only say it if it is true. If it is not settled, say "We've planned for the first year and I'm arranging the second", which is still a straight answer. Do not ask about fee concessions in the interview.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J7">Do you speak Kannada? Most of our patients do.</p>
+<p class="a">If yes: "Yes, sir, I can take a history in Kannada." If partly or no: "Not fluently yet, sir. I speak English, Hindi [add Malayalam, Urdu, whatever is true]. I'd start learning clinical Kannada from the first week, history-taking phrases and the MSE questions first, and I'd use an interpreter or a co-therapist until then. I know a history taken through a language gap loses things, so I'd treat it as a priority, not an extra."</p>
+<p class="why">This is a practical question at a Karnataka teaching hospital, not a trick. The answer they want is a plan, not an apology.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J8">Where else have you applied?</p>
+<p class="a">"I've sat the other RCI-track entrances this cycle, IHBAS and CIP among them. JSS is one of the programmes I'd join without hesitation if selected."</p>
+<p class="why">Honest, not desperate, and it does not imply a better offer. Do not rank colleges out loud.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J9">You interviewed last year and were not selected. What did you do since then?</p>
+<p class="a">"I kept working with clients on YourDOST, so my hours went up. I also went back to the core subjects properly: psychopathology, assessment and psychometrics, and research methods. And honestly, sir, I worked on how I answer, because last year I knew more than I managed to say. I've practised answering out loud, under questioning."</p>
+<p class="why">Only if they ask, and only if it was a panel that would know. If it was a different college, use the same structure: what you did in the year, then one honest line about the interview itself. Admitting the specific thing you fixed reads as insight, which is a clinical skill.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J10">What is your biggest weakness?</p>
+<p class="a">"My clinical exposure is weighted towards online counselling with a fairly high-functioning population. I haven't worked on a ward and I haven't sat with severe mental illness in an acute phase. I know the psychopathology from the books, but I haven't seen most of it in front of me. That's exactly what this programme fixes."</p>
+<p class="why">A real weakness that the course fixes. Never a disguised strength like perfectionism.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J11">What have you read recently?</p>
+<p class="a">"Marsha Linehan's memoir, Building a Life Worth Living. What stayed with me is that DBT came out of her own experience as the patient nobody could hold. It changed how I see validation: I used to treat it as the step before the real work, and she writes it as the thing that makes change possible at all."</p>
+<p class="why">Only name a book you have actually read, because the next question is always "what did you make of it". Swap in your own if Linehan is not true.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J12">Where do you see yourself in five years?</p>
+<p class="a">"Working as an RCI-registered clinical psychologist in a hospital or institutional setting, with assessment as well as therapy in my caseload, and still doing research, in behavioural addiction and impulse control, where my dissertation sat."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J13">Why should we select you?</p>
+<p class="a">"I can't compare myself with candidates I haven't met, sir. What I can say is I come in with three things already done: a master's in this subject, a quantitative dissertation I analysed myself, and over 250 clients of real contact hours. So what I need from you is the supervised hospital training, not the basics."</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="diss" class="yr">4 · Dissertation, the hard pushes</h2>
+
+<p>The full sheet with every number off your own Results tables is at <a href="../dissertation/">/dissertation/</a>. This is what a medical-college panel is most likely to push on. Lead with the pitch, then let them choose where to dig.</p>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J14">Tell us about your dissertation, in 30 seconds.</p>
+<p class="a">"We studied how pornography consumption relates to personality, aggression and sexual compulsivity in Indian young adults. Cross-sectional survey, 214 participants aged 18 to 28, using the BFI-10, the Buss-Perry Aggression Questionnaire short form and the Sexual Compulsivity Scale, analysed in SPSS with Spearman's correlation and logistic regression. Men were about 2.75 times more likely to consume, sexual compulsivity was the strongest predictor of both whether and how often, and higher neuroticism predicted lower consumption. So impulse control, rather than aggression on its own, tracked the behaviour."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J15">Why this topic? Isn't it an odd choice for a clinical student?</p>
+<p class="a">"It's under-studied in India because it's taboo, and most of what exists treats it morally rather than empirically. We approached it the way you'd approach any behaviour with addictive potential: which traits and which impulse-control patterns relate to it. Clinically that matters because if compulsivity predicts problematic use, you screen for compulsivity, which is what our result supports."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J16">Why Spearman and not Pearson?</p>
+<p class="a">"The data were ordinal Likert scores and not normally distributed. Spearman works on ranks and assumes only a monotonic relationship, so it doesn't need normality or linearity."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J17">Exp(B) for sex was 2.752. What does that mean, exactly?</p>
+<p class="a">"It's an odds ratio. Being male multiplied the odds of having consumed pornography by about 2.75, holding the other predictors constant. Odds, not probability: it doesn't mean men were 2.75 times as likely in the everyday sense."</p>
+<p class="why">Saying "odds" correctly is the whole mark. Most candidates say "2.75 times more likely" and stop.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J18">Correlation is not causation. So what can you actually conclude?</p>
+<p class="a">"Association only. It's cross-sectional, one time point, so I can't say compulsivity causes consumption or the other way round, and there could be a third variable driving both. What I can say is that compulsivity is the variable to screen on, and that a longitudinal design is needed to say anything about direction."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J19">What was your role? There were three of you.</p>
+<p class="a">Name your part concretely: which of the design, the scale selection, the data collection, the SPSS analysis and the write-up were yours. Then: "We split the work, but I can take you through any part of it, including the analysis."</p>
+<p class="why">Don't claim all of it and don't hide behind "we". Then make sure the last sentence is true: read the analysis chapter before the 27th.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J20">What's your biggest limitation?</p>
+<p class="a">"Convenience sampling through social media, so it isn't representative. Self-report on a taboo topic, so under-reporting is likely. Cross-sectional, so no causal claim. And the BFI-10 has two items per trait, so internal consistency is low for each trait."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J21">How did you handle the ethics of a sensitive topic?</p>
+<p class="a">"Adults 18 and over only, informed consent at the start, complete anonymity with no identifying data collected, the right to withdraw, and a written debrief with support contacts at the end, in case the questions stirred anything up."</p>
+<p class="why">Volunteer this before they ask if you get the chance. It is the question a medical panel cares about most on this topic.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="clin" class="yr">5 · Your clinical work</h2>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J22">Tell us about a difficult case.</p>
+<p class="a">Pick one real YourDOST client tonight and fix it in this shape, de-identified: "A young adult [age band only] presenting with [problem], [duration]. What made it difficult was [risk, resistance, a dependency on me, a family situation]. What I did was [assessment, the approach, supervision or referral]. The outcome was [honest outcome]. What I learned was [one line]."</p>
+<p class="why">The panel marks two things: that you de-identify without being told, and the last line. Choose a case where you referred or used supervision, because knowing your limit is the competence they are selecting for. Never invent a case, the follow-ups find it out.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J23">Which therapeutic approach do you use?</p>
+<p class="a">"Mostly CBT, because most of my clients come with anxiety and low mood, where the evidence for it is strongest, and it suits a time-limited online format. I use a person-centred stance underneath it, especially in the first sessions, because without the alliance the techniques don't land. Where someone's distress is about emotion regulation more than distorted thinking, I borrow DBT skills, mainly distress tolerance."</p>
+<p class="push">"What is the cognitive triad?" "Beck: a negative view of the self, the world and the future." Have the next layer ready: schemas, automatic thoughts, cognitive distortions with two examples.</p>
+<p class="why">The full picture of how you work is on the <a href="../notes/therapy-style/">therapy-style page</a>.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J24">Have you ever had a client at risk of suicide? What did you do?</p>
+<p class="a">Answer from what actually happened, in this order: "I asked directly about thoughts, plan, means, intent and protective factors. I [did safety planning / involved the platform's escalation protocol / informed a support person / referred to psychiatry]. And I took it to supervision the same day."</p>
+<p class="why">If you have never had one, say so, then describe what you would do using J36. Never claim a risk case you did not handle.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J25">What is the difference between counselling and clinical psychology?</p>
+<p class="a">"Counselling mostly works with adjustment problems and distress in people who are functioning, and it's largely supportive and developmental. Clinical psychology works with diagnosable mental disorders across the whole severity range, and it includes formal psychological assessment, diagnosis, formulation and evidence-based treatment, usually within a multidisciplinary team. That's the shift I'm trying to make, from the first to the second."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J26">What does a clinical psychologist do in a hospital team that a psychiatrist does not?</p>
+<p class="a">"Psychological assessment: intelligence, personality, neuropsychological testing, and certification work like intellectual disability assessment. Psychotherapy as a primary treatment rather than an add-on. A psychological formulation of why this person, why now. And research. The psychiatrist leads on medical diagnosis and medication; the psychologist adds the testing, the formulation and the therapy, and the two work on the same patient."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J27">What psychological tests have you administered yourself?</p>
+<p class="a">List only the tests you actually administered and scored during the M.Sc practicum, and for each be ready with what it measures and one fact (age range, subtests, or scoring). Then: "Tests I know but haven't administered under supervision yet are [WAIS, Rorschach, etc.], which is one of the things I'd expect to learn here."</p>
+<p class="why">Claiming a test you have not given is the fastest way to lose a panel, because the next question is how you scored it.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="vign" class="yr">6 · Case vignettes</h2>
+
+<div class="trap">
+<b>The skeleton, every time.</b> 1 Safety and risk. 2 What you would rule out (organic, substance, medical). 3 History and MSE, naming the parts that matter for this case. 4 Assessment tools. 5 Provisional impression, said as provisional. 6 Management with the team, and supervision. A medical-college panel marks the rule-outs and the risk step hardest. "It's depression" in one line loses marks even when it is right.
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J28">A 68-year-old man is brought by his son: forgetting things for six months, withdrawn, not eating well, says "I'm useless now".</p>
+<p class="a">"Two things are live: a dementia and a depression presenting with cognitive complaints, sometimes called pseudodementia, and they can co-exist. First risk: suicide risk is high in older men, so I'd ask directly, and check nutrition. Rule out the reversible causes with the physician: thyroid, B12, anaemia, infection, medication side effects, and a hearing or vision problem. History: onset, whether it was gradual or followed a loss, whether he complains about his memory himself, which is more typical of depression, or whether the family noticed it, which is more typical of dementia. MSE with a cognitive screen like the MMSE or MoCA, and a depression measure like the Geriatric Depression Scale. Provisional: depression with cognitive symptoms, dementia to be ruled out. If the depression is treated and the cognition recovers, that answers it."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J29">A 26-year-old woman washes her hands for up to four hours a day, says she knows it is excessive but cannot stop. Her hands are raw.</p>
+<p class="a">"This fits obsessive-compulsive disorder, with contamination obsessions and washing compulsions, and with good insight since she sees it as excessive. Risk: check for depression and suicidal ideation, which commonly co-occur, and medical attention for her skin. Rule out: whether there are other OCD themes, tics, and whether any belief is held with delusional conviction. Assessment: Y-BOCS for severity. Management: exposure and response prevention, building a hierarchy of contamination exposures and preventing the wash, with an SSRI through psychiatry if it's severe. Involve the family, because family accommodation, helping her avoid or reassuring her, keeps it going."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J30">A 40-year-old man drinks daily for ten years. He has tremors in the morning that settle after a drink. Family wants him to stop.</p>
+<p class="a">"Morning tremor relieved by drinking is withdrawal, so this is alcohol dependence, and the first step is medical: if he stops abruptly he's at risk of withdrawal seizures and delirium tremens, so detoxification must be medically supervised, with thiamine to prevent Wernicke's encephalopathy. Assessment: quantity and pattern, last drink, past withdrawal complications, liver status, the AUDIT, and comorbid depression and suicide risk. Then the psychological work: motivational interviewing, because readiness is the thing that predicts whether he stays stopped, using the stages of change from Prochaska and DiClemente. Then relapse prevention, Marlatt's model, high-risk situations and coping, and work with the family including support for them."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J31">A 19-year-old woman from a village has episodes where she falls, does not respond, and her body shakes. They start after arguments at home. Medical tests are normal so far.</p>
+<p class="a">"I'd be thinking of a dissociative or functional seizure, what ICD-11 calls dissociative neurological symptom disorder, but epilepsy has to be ruled out properly first with neurology and an EEG, ideally video-EEG, because the two can co-exist. Features that point towards functional seizures: eyes closed during the episode, gradual onset, side-to-side head movement, a clear emotional trigger, no injury or incontinence, but none of these is decisive alone. History: what is happening at home, any abuse or a conflict she can't voice, and screen for depression and risk. Management: explain the diagnosis to her and the family as real and not 'acting', because labelling it as faking makes it worse; then psychotherapy for the stressors and family work."</p>
+<p class="why">Do not say "hysteria" or "pseudoseizure". Using the current term and refusing the "she is pretending" framing is what they listen for.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J32">A woman two weeks after delivery has not slept for three days, is confused at times, and says the baby is not hers.</p>
+<p class="a">"This is a psychiatric emergency: likely postpartum psychosis. Risk first, to her and to the baby, including infanticide and suicide, so she shouldn't be left alone with the baby until she's assessed. Rule out organic causes: infection, thyroid, anaemia, and delirium. Immediate psychiatric admission, with a mother-and-baby arrangement where possible. Postpartum psychosis is closely tied to bipolar disorder, so ask about a personal or family history. Under the Mental Healthcare Act, if she lacks capacity, admission can be done as a supported admission with review. Then psychoeducation for the family, and planning for future pregnancies because the recurrence risk is high."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J33">A 16-year-old student cuts her forearms. Her parents found out and brought her in. She says it "helps when things get too much".</p>
+<p class="a">"Non-suicidal self-injury used for emotion regulation, but I'd never assume it's non-suicidal without asking, so assess suicidal ideation directly, the method, frequency, wound care and medical attention. Then what it's doing for her: relief from overwhelming emotion, as she describes. Screen for depression, abuse, bullying and substance use. She's a minor, so I'd explain confidentiality and its limits to her at the start, in front of her parents: what we talk about stays private unless there's serious risk. Management: DBT-informed skills, distress tolerance and emotion regulation, a safety plan, and parent sessions on responding without panic or punishment."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J34">A 23-year-old has slept two hours a night for a week, has spent his savings, talks very fast, and says he will be a billionaire this year.</p>
+<p class="a">"Manic episode, pointing to bipolar I disorder if it's lasted a week or needed admission. Risk: reckless spending, driving, sexual risk, and possible aggression. Rule out substance-induced mania, particularly stimulants and cannabis, steroids, and thyroid disease. MSE: pressure of speech, flight of ideas, grandiosity, and whether it reaches delusional intensity, insight usually poor. Management through psychiatry with a mood stabiliser, possibly admission. Psychologically, after stabilisation: psychoeducation, mood charting, early warning signs, regular sleep, and family work, because relapse prevention is where we add the most."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J35">A 3-year-old has no words, poor eye contact, lines up toys and does not respond to his name.</p>
+<p class="a">"Autism spectrum disorder is the main hypothesis. Rule out hearing loss first with an audiological assessment, and consider intellectual disability and a language disorder. Developmental history, milestones, birth history, regression. Assessment: an observational measure such as CARS, and in India the Indian Scale for Assessment of Autism, ISAA, which is the instrument used for disability certification. Intellectual and adaptive assessment as well, for example the VSMS. Management: early intervention as soon as possible, speech and occupational therapy, a parent-mediated behavioural programme, and certification under the RPwD Act 2016 for benefits and school support."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J36">A client tells you she has been thinking of ending her life and has saved up tablets.</p>
+<p class="a">"Saved tablets means a plan and means, so this is high risk and I act in this session. Ask directly about intent and timeframe, past attempts, and what's stopping her. Asking does not plant the idea. I don't keep this confidential, it's a recognised limit. I tell her I'm worried and what I'm going to do, involve my supervisor immediately, work on removing the means, which means the tablets, with her agreement, involve a support person, and arrange an urgent psychiatric assessment. Safety plan before she leaves. And document all of it."</p>
+<p class="why">Risk vignettes are pass or fail. They are checking that you assess, escalate and remove means, and that you know you are not holding it alone.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J37">A 45-year-old man has been to emergency four times with chest pain and breathlessness. Every ECG is normal. He is sure he will die.</p>
+<p class="a">"Panic disorder is the leading hypothesis, but cardiac and other medical causes need to be properly closed off with the physician first, and I'd rely on their clearance rather than my judgement. Then: sudden surges of fear peaking within minutes, with the catastrophic misinterpretation of bodily sensations, which is Clark's cognitive model. Check for agoraphobic avoidance and for depression, and alcohol or caffeine use. Management: psychoeducation on the panic cycle, CBT with interoceptive exposure, deliberately bringing on the sensations so he learns they aren't dangerous, and stopping the safety behaviours like repeat ECGs."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J38">A 12-year-old is referred "for an IQ certificate" because he is failing in school.</p>
+<p class="a">"I'd assess, not just test. History: development, schooling, where exactly he struggles, vision and hearing, attendance. Intelligence with a standardised Indian-normed test, such as the MISIC or the Binet-Kamat, and adaptive behaviour with the VSMS, because intellectual disability needs both: deficits in intellectual functioning and in adaptive functioning, with onset in the developmental period. If his IQ comes out average, the question becomes specific learning disorder, and I'd do a curriculum-based reading, writing and maths assessment. Then feedback to the parents in plain language, and certification under the RPwD Act if he meets criteria."</p>
+<p class="push">"What are the IQ ranges for the severity levels?" Mild about 50 to 69, moderate 35 to 49, severe 20 to 34, profound below 20. Then add: DSM-5-TR sets severity by adaptive functioning, not IQ alone.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J39">A man is convinced his wife is having an affair. He checks her phone and follows her. She has come to the clinic scared.</p>
+<p class="a">"I'd think of delusional jealousy, delusional disorder of the jealous type, which is sometimes called Othello syndrome, and rule out alcohol dependence, which commonly causes it, and organic causes. The first issue is her safety: this presentation carries a real risk of violence to the partner, so assess risk with her directly and safety-plan with her. If he's seen, assess the fixity of the belief and what evidence he relies on. Management through psychiatry with antipsychotics, and given the risk, I'd discuss duty to protect with my supervisor."</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="ethics" class="yr">7 · Ethics</h2>
+
+<p>More ethics answers, informed consent, confidentiality limits, Tarasoff, dual relationships, the supervisor dilemma, are on the <a href="../manipal-viva/#ethics">full viva sheet, section 9</a>. These are the ones that sheet does not have.</p>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J40">The family of an adult patient asks you what he has told you in therapy.</p>
+<p class="a">"Without his consent, I don't share it. He's an adult with capacity, and the Mental Healthcare Act gives him a right to confidentiality. What I can do is listen to the family, because they often have important information, explain in general terms how they can support him, and ask him whether he'd like a joint session. If there's serious risk, that's different and I'd involve them."</p>
+<p class="why">Indian families expect to be told, and panels know it. The answer they want respects that without breaking confidentiality: listen to the family, don't report to them.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J41">A client gives you an expensive gift at the end of therapy.</p>
+<p class="a">"A small token at termination, like a card or sweets, I'd usually accept graciously, because refusing can hurt the relationship and it's culturally appropriate. An expensive gift I'd decline kindly and explain why, because it changes the relationship. Either way I'd note it and take it to supervision, and I'd think about what the gift means for the client."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J42">A client tells you they are attracted to you.</p>
+<p class="a">"I'd acknowledge it calmly and without shaming, and restate the boundary clearly: the relationship stays professional. It can be useful material, what it means for them. I'd take it to supervision. A sexual or romantic relationship with a client is never acceptable, and if the boundary couldn't be held, I'd transfer the client."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J43">A client sends you a friend request on Instagram.</p>
+<p class="a">"I don't accept it, and I raise it in the next session rather than ignoring it, explaining that it's about protecting their confidentiality and the therapy, not rejecting them. I keep my personal profiles private as a rule."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J44">You realise you scored a test wrongly, and the report has already gone to the psychiatrist.</p>
+<p class="a">"I tell my supervisor straight away, correct the scoring, and send a corrected report to the psychiatrist with a clear note of what changed, so no decision is made on wrong data. If the error could have changed the client's treatment, the client is told. Hiding it is never an option, the harm from an uncorrected report is far worse than the embarrassment."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J45">You notice a colleague coming to work smelling of alcohol.</p>
+<p class="a">"Patient safety comes first. I'd speak to the colleague privately first if it's safe to, out of concern, not accusation. If it continues, or patients are at risk now, I'd report it to the supervisor or head of department. Ignoring it to protect a colleague isn't acceptable."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J46">A 15-year-old tells you she is being sexually abused by a relative and asks you not to tell anyone.</p>
+<p class="a">"I can't keep this one, and I tell her honestly and gently why: it's to keep her safe. Under POCSO, reporting child sexual abuse is mandatory and not reporting is itself an offence. I'd inform my supervisor immediately and report to the police or the Special Juvenile Police Unit as the Act requires, ensure her immediate safety, and involve the child welfare system. I'd tell her what will happen next and stay with her through it, because the disclosure itself is the most fragile point."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J47">A patient who has capacity refuses the treatment his family insists on.</p>
+<p class="a">"If he has capacity, it's his decision, and the Mental Healthcare Act presumes capacity unless it's shown otherwise. Capacity is decision-specific: can he understand the information, appreciate how it applies to him, weigh it, and communicate a choice. If he can, we respect the refusal, keep talking, and keep the door open. If he can't, the Act's supported admission and nominated representative provisions apply, not the family's say-so alone."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J48">Your research supervisor suggests dropping a few participants to make the result significant.</p>
+<p class="a">"I wouldn't do it. Excluding data to reach significance is research misconduct, it's p-hacking. Exclusions have to be decided on criteria set in advance, like incomplete responses, and reported. I'd raise it respectfully and propose reporting the non-significant result honestly, because a null result is still a result."</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="law" class="yr">8 · RCI, MHCA and the law</h2>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J49">What is the RCI?</p>
+<p class="a">"The Rehabilitation Council of India, a statutory body under the RCI Act 1992, under the Ministry of Social Justice and Empowerment. It regulates and monitors the training of rehabilitation professionals, clinical psychologists included, sets the curriculum and standards, recognises the institutions and courses, and maintains the Central Rehabilitation Register. Practising as a clinical psychologist without being on the register is not permitted under the Act."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J50">The M.Phil in Clinical Psychology is being replaced. By what, and why?</p>
+<p class="a">"The RCI is moving clinical psychology training from the two-year M.Phil to a professional MA in Clinical Psychology, partly in line with the National Education Policy 2020 discontinuing the M.Phil. The new MA is RCI-recognised and leads to registration, and courses like this one at JSS are part of that change. The admission structure also changes, with an interview component alongside the written entrance."</p>
+<p class="why">Say it at that level of detail. Do not quote a specific RCI circular number or date out loud unless you have it in front of you.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J51">Tell us about the Mental Healthcare Act 2017.</p>
+<p class="a">"It replaced the Mental Health Act 1987 and it's rights-based, aligned with the UN Convention on the Rights of Persons with Disabilities. The main provisions: a right to access mental healthcare from government-run or government-funded services; advance directives, so a person can say in advance how they want to be treated or not; a nominated representative; a presumption of capacity; confidentiality as a right; Mental Health Review Boards to review admissions; supported admission in place of involuntary admission; restrictions on ECT, which can't be given without anaesthesia and muscle relaxants, or to minors without approval; a ban on chaining; and Section 115, which presumes that a person who attempts suicide is under severe stress and shouldn't be punished, which effectively decriminalised attempted suicide."</p>
+<p class="push">"How does the Act define a clinical psychologist?" "As a person with a recognised qualification in clinical psychology from an RCI-approved institution, which is why RCI recognition decides who can work under the Act."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J52">The MHCA sections a panel might name.</p>
+<table class="nums">
+<tr><th>Provision</th><th>Section</th></tr>
+<tr><td>Advance directive</td><td>5</td></tr>
+<tr><td>Nominated representative</td><td>14</td></tr>
+<tr><td>Right to access mental healthcare</td><td>18</td></tr>
+<tr><td>Right to confidentiality</td><td>23</td></tr>
+<tr><td>Independent admission</td><td>85 to 86</td></tr>
+<tr><td>Admission of a minor</td><td>87</td></tr>
+<tr><td>Supported admission, up to 30 days / beyond 30 days</td><td>89 / 90</td></tr>
+<tr><td>Emergency treatment, up to 72 hours</td><td>94</td></tr>
+<tr><td>Prohibited procedures (ECT without anaesthesia and muscle relaxant, ECT for minors without approval, sterilisation as treatment, chaining)</td><td>95</td></tr>
+<tr><td>Restraint and seclusion</td><td>97</td></tr>
+<tr><td>Attempted suicide, presumption of severe stress</td><td>115</td></tr>
+</table>
+<p class="why">If you cannot remember a number in the room, say the provision without the number. A correct provision with no section number scores; a wrong number costs you.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J53">What is supported admission, and how is it different from the old involuntary admission?</p>
+<p class="a">"Under the MHCA, a person with a severe mental illness who has recently threatened or attempted harm to themselves or others, or is unable to care for themselves, and who can't make the treatment decision even with support, can be admitted on the application of the nominated representative, after examination by a psychiatrist and a second mental health professional. Up to 30 days under Section 89, beyond that under Section 90 with Review Board oversight. The difference from the old Act is the language and the structure: it's built around capacity and support, with review and the person's own advance directive taken into account."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J54">What does the RPwD Act 2016 have to do with clinical psychology?</p>
+<p class="a">"It replaced the 1995 Act and expanded recognised disabilities from seven to twenty-one, including mental illness, intellectual disability, specific learning disabilities and autism spectrum disorder. Certifying intellectual disability, specific learning disability and autism involves psychological assessment, so it's directly our work. It also gives reservations in education and government jobs for benchmark disabilities of 40 per cent or more, and reasonable accommodation."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J55">What does POCSO require of you?</p>
+<p class="a">"The Protection of Children from Sexual Offences Act 2012 makes reporting of child sexual abuse mandatory for anyone who knows of it, professionals included, to the police or the Special Juvenile Police Unit, and failing to report is itself an offence. It also requires child-friendly procedures during the investigation and trial."</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J56">What is the mental health situation in India, in numbers?</p>
+<p class="a">"The National Mental Health Survey 2015-16, done by NIMHANS across twelve states, found a current prevalence of mental disorders of about 10.6 per cent in adults and lifetime prevalence of about 13.7 per cent, with a treatment gap of roughly 70 to over 80 per cent depending on the disorder. The delivery structures are the National Mental Health Programme from 1982, the District Mental Health Programme, and Tele-MANAS since 2022, but there aren't enough trained professionals to staff them."</p>
+<p class="why">If the exact decimals do not come, "about one in ten adults, and most of them untreated" is safe. Naming the survey and NIMHANS is what earns the mark.</p>
+</div>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J57">What is Tele-MANAS?</p>
+<p class="a">"The national tele-mental health programme launched in October 2022, a 24-hour helpline on 14416 that connects callers to trained counsellors and refers on to specialists, run with NIMHANS as the nodal centre. It's the closest thing in the public system to the online work I've been doing."</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="concepts" class="yr">9 · Standard viva concepts: first sentence only</h2>
+
+<p>The minimum set. Each card is the first sentence you say, then stop and let them push. The longer answers, with the follow-ups, are in the <a href="../manipal-viva/#bank">Definitions Bank</a> and the <a href="../manipal-viva/#defs">core definitions</a> on the full viva sheet.</p>
+
+<div class="qa" data-notap><p class="q" data-n="J58">What is clinical psychology?</p><p class="a">"The branch of psychology that applies psychological science to the assessment, diagnosis, formulation and treatment of mental disorders and distress. Lightner Witmer opened the first psychological clinic in 1896 at the University of Pennsylvania."</p></div>
+
+<div class="qa" data-notap><p class="q" data-n="J59">What is abnormality? How do you define it?</p><p class="a">"No single criterion works, so we use several together, often summarised as the four Ds: deviance from norms, distress, dysfunction in daily life, and danger to self or others."</p></div>
+
+<div class="qa" data-notap><p class="q" data-n="J60">What are the components of the MSE?</p><p class="a">"General appearance and behaviour, speech, mood and affect, thought (form, stream, content and possession), perception, cognition (orientation, attention, memory, intelligence, abstraction), judgement, and insight."</p></div>
+
+<div class="qa" data-notap><p class="q" data-n="J61">Mood versus affect.</p><p class="a">"Mood is the sustained emotional state the patient reports, like the climate. Affect is the moment-to-moment emotional expression the examiner observes, like the weather."</p></div>
+
+<div class="qa" data-notap><p class="q" data-n="J62">Delusion. Then hallucination versus illusion.</p><p class="a">"A delusion is a fixed false belief, held with conviction despite evidence to the contrary, not explained by the person's culture or education. A hallucination is a perception without an external stimulus. An illusion is a misperception of a real stimulus."</p></div>
+
+<div class="qa" data-notap><p class="q" data-n="J63">What is insight, and how is it graded?</p><p class="a">"The patient's awareness that they are ill and need treatment. Graded on six levels, from complete denial of illness up to true emotional insight, where awareness leads to a change in behaviour."</p></div>
+
+<div class="qa" data-notap><p class="q" data-n="J64">What is a case formulation?</p><p class="a">"A hypothesis about why this person has this problem now, usually built with the 4 Ps: predisposing, precipitating, perpetuating and protective factors, which then guides treatment."</p></div>
+
+<div class="qa" data-notap><p class="q" data-n="J65">Reliability, and its types.</p><p class="a">"Consistency of measurement. Test-retest for stability over time, parallel forms, split-half corrected with Spearman-Brown, internal consistency with Cronbach's alpha or KR-20 for dichotomous items, and inter-rater reliability."</p></div>
+
+<div class="qa" data-notap><p class="q" data-n="J66">Validity, and its types.</p><p class="a">"Whether a test measures what it claims to measure. Content validity, criterion validity (concurrent and predictive), and construct validity (convergent and discriminant). Face validity is how it looks, not real validity. A test can be reliable without being valid, but not valid without being reliable."</p></div>
+
+<div class="qa" data-notap><p class="q" data-n="J67">What is standardisation? What are norms?</p><p class="a">"Standardisation is uniform administration and scoring, so results are comparable. Norms are the scores of a representative reference group, which let you interpret an individual score, for example as a percentile or a standard score."</p></div>
+
+<div class="qa" data-notap><p class="q" data-n="J68">Name Indian intelligence and developmental tests.</p><p class="a">"The Binet-Kamat Test, Malin's Intelligence Scale for Indian Children (MISIC), Bhatia's Battery of Performance Tests, the Vineland Social Maturity Scale in Malin's Indian adaptation for adaptive functioning, the Developmental Screening Test, and for adults, WAPIS. Raven's Progressive Matrices as a non-verbal measure."</p></div>
+
+<div class="qa" data-notap><p class="q" data-n="J69">Projective tests. What is the projective hypothesis?</p><p class="a">"That when people respond to ambiguous stimuli, they project their own needs, conflicts and ways of perceiving onto them. The Rorschach inkblots, ten cards, and the TAT by Murray and Morgan, which asks for stories to pictures, are the main ones; also sentence completion and draw-a-person."</p></div>
+
+<div class="qa" data-notap><p class="q" data-n="J70">Defence mechanisms. Give three with examples.</p><p class="a">"Unconscious processes that protect the ego from anxiety, described by Sigmund Freud and systematised by Anna Freud. Denial, refusing to accept a diagnosis. Projection, attributing your own unacceptable feelings to someone else. Displacement, shouting at your family after being humiliated at work. Mature ones include sublimation and humour."</p></div>
+
+<div class="qa" data-notap><p class="q" data-n="J71">Transference and countertransference.</p><p class="a">"Transference is the client redirecting feelings from significant past relationships onto the therapist. Countertransference is the therapist's own emotional reaction to the client, which is useful information if you notice it and dangerous if you act on it, so it goes to supervision."</p></div>
+
+<div class="qa" data-notap><p class="q" data-n="J72">Classical versus operant conditioning.</p><p class="a">"Classical, Pavlov: a neutral stimulus paired with one that produces a response comes to produce it alone, so it's learning by association of stimuli. Operant, Skinner: behaviour is shaped by its consequences, reinforcement increases it and punishment decreases it. Classical is involuntary responses, operant is voluntary behaviour."</p></div>
+
+<div class="qa" data-notap><p class="q" data-n="J73">Negative reinforcement versus punishment.</p><p class="a">"Negative reinforcement increases behaviour by removing something unpleasant, like taking a painkiller to stop a headache. Punishment decreases behaviour. The commonest viva trap is calling negative reinforcement a punishment."</p></div>
+
+<div class="qa" data-notap><p class="q" data-n="J74">Attachment styles.</p><p class="a">"From Bowlby's attachment theory and Ainsworth's Strange Situation: secure, anxious-ambivalent, and anxious-avoidant, with disorganised added later by Main and Solomon. Adult attachment patterns map onto them."</p></div>
+
+<div class="qa" data-notap><p class="q" data-n="J75">Piaget's stages, and Erikson's stages, one line each.</p><p class="a">"Piaget: sensorimotor, preoperational, concrete operational, formal operational. Erikson's eight psychosocial stages: trust versus mistrust, autonomy versus shame and doubt, initiative versus guilt, industry versus inferiority, identity versus role confusion, intimacy versus isolation, generativity versus stagnation, integrity versus despair."</p></div>
+
+<div class="qa" data-notap><p class="q" data-n="J76">Type I versus Type II error. What is a p-value?</p><p class="a">"Type I is rejecting a true null hypothesis, a false positive, with probability alpha. Type II is failing to reject a false null, a false negative, with probability beta; power is one minus beta. The p-value is the probability of getting a result at least this extreme if the null hypothesis were true. It is not the probability that the null is true."</p></div>
+
+<div class="qa" data-notap><p class="q" data-n="J77">Stress-vulnerability model.</p><p class="a">"Zubin and Spring, 1977: each person has a level of vulnerability, biological and psychological, and illness appears when stress exceeds that threshold. It's why we treat both: reduce vulnerability with medication and skills, reduce stress with family work and support."</p></div>
+
+<!-- ============================================================ -->
+<h2 id="day" class="yr">10 · In the room</h2>
+
+<table class="nums">
+<tr><th>Thing</th><th>What to do</th></tr>
+<tr><td>Where and when</td><td>JSS Medical College, Mysuru. Report 9:00 AM on 27 Oct. Written 10 to 11 AM. Viva on 27 Oct afternoon or on 28 Oct. Check the hall ticket and the notice board for your slot, and plan to stay overnight if you are not local.</td></tr>
+<tr><td>Bring</td><td>Hall ticket, photo ID, application printout, M.Sc and undergraduate marksheets and degree certificates (originals and two sets of photocopies), passport photos, a bound copy of your dissertation, black ball pens for the OMR, water.</td></tr>
+<tr><td>Dress</td><td>Full formal. Plain shirt, trousers, formal shoes. Nothing that needs adjusting while you sit.</td></tr>
+<tr><td>Walking in</td><td>Knock or wait to be called. "Good afternoon sir, good afternoon ma'am." Wait to be offered the chair. Sit back, both feet down, hands loose on the table or your lap.</td></tr>
+<tr><td>Before every answer</td><td>Breathe, and take one second. A one-second pause reads as thinking. Starting immediately and then backtracking reads as panic.</td></tr>
+<tr><td>Eyes</td><td>To the person who asked while you start, then include the others. Not the table, not the ceiling.</td></tr>
+<tr><td>Pace</td><td>Slower than feels natural. Nerves speed you up by about a third. If you hear yourself rushing, finish the sentence and pause.</td></tr>
+<tr><td>Length</td><td>20 to 40 seconds for most answers. Stop at the end of the example. Silence after your answer is their job to fill, not yours.</td></tr>
+<tr><td>Don't know</td><td>"I'm not certain, sir. My understanding is ___, but I'd want to check that." Then stop. Once, cleanly, is fine.</td></tr>
+<tr><td>Challenged on a right answer</td><td>"My understanding was ___, from ___, but I'd take your correction." Hold once, politely, then let it go. Sometimes it is a stress test, not a correction.</td></tr>
+<tr><td>Blanking mid-answer</td><td>"Sorry sir, let me put that more clearly." Restart with the first sentence. Better than ploughing on.</td></tr>
+<tr><td>Before you go in</td><td>Physiological sigh twice: two short inhales through the nose, one long exhale through the mouth. It brings the heart rate down faster than any amount of telling yourself to calm down.</td></tr>
+<tr><td>Leaving</td><td>"Thank you sir, thank you ma'am." Stand, push the chair back in, walk out. No post-mortem in the corridor with other candidates.</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="close" class="yr">11 · Your questions for them</h2>
+
+<div class="qa" data-notap>
+<p class="q" data-n="J78">Do you have any questions for us?</p>
+<p class="a">"Two, sir. How are the clinical postings structured across the two years, which departments and settings do we rotate through? And how does supervision work, individual or group, and how early do trainees start seeing patients?"</p>
+<p class="why">Two questions, both about training. Never fees, hostel or results.</p>
+</div>
+
+<div class="verify">
+<b>Check these before you say them in the room.</b> (1) Which course you applied to, MA or PDCP, and what each one leads to on the RCI register, from the JSS brochure or the RCI site. If you cannot confirm it, make it your third question for them rather than guessing. (2) Whether your hall ticket gives a viva slot or says it will be announced on the day. (3) Anything about the department itself, faculty names, hospital size, specialty clinics: only say it if you have read it on the JSS AHER site. Specific and wrong is far worse than general and true in front of the people who run it.
+</div>
+
+<div class="clin-focus" style="margin-top:26px">
+<b>Last thing.</b> A master's in this subject, a dissertation you analysed yourself, and 250-plus real clients. Most people waiting outside that room have one of the three. Walk in and be accurate rather than impressive. First sentence, one example, then stop.
+</div>
+
+<p class="src" style="margin-top:30px">Built 15 Oct 2026 for the JSS AHER viva on 27 to 28 Oct 2026. Exam facts from the JSS AHER brochure and the 23 Sep 2026 postponement notice, as on the <a href="../syllabus/">syllabus hub</a>. Companion pages: <a href="../manipal-viva/">full viva sheet</a>, <a href="../dissertation/">dissertation defence</a>, <a href="../notes/therapy-style/">your therapeutic style</a>, <a href="../rci-syllabus/">RCI syllabus</a>.</p>
+
+</div>
+
+<script>
+(function(){
+  var LS = "jssInterview.drill";
+  var body = document.body,
+      drillBtn = document.getElementById("drillBtn"),
+      allBtn = document.getElementById("allBtn"),
+      cards = Array.prototype.slice.call(document.querySelectorAll(".qa"));
+
+  function setDrill(on){
+    body.classList.toggle("drill", on);
+    drillBtn.classList.toggle("on", on);
+    drillBtn.textContent = "Drill mode: " + (on ? "on" : "off");
+    allBtn.style.display = on ? "" : "none";
+    if(!on) cards.forEach(function(c){ c.classList.remove("open"); });
+    try{ localStorage.setItem(LS, on ? "1" : "0"); }catch(e){}
+  }
+
+  drillBtn.addEventListener("click", function(){ setDrill(!body.classList.contains("drill")); });
+
+  allBtn.addEventListener("click", function(){
+    var anyClosed = cards.some(function(c){ return !c.classList.contains("open"); });
+    cards.forEach(function(c){ c.classList.toggle("open", anyClosed); });
+    allBtn.textContent = anyClosed ? "Hide all" : "Reveal all";
+  });
+
+  cards.forEach(function(c){
+    c.addEventListener("click", function(){
+      if(!body.classList.contains("drill")) return;
+      c.classList.toggle("open");
+    });
+  });
+
+  var saved = "0";
+  try{ saved = localStorage.getItem(LS) || "0"; }catch(e){}
+  setDrill(saved === "1");
+})();
+</script>
+
+</body>
+</html>
