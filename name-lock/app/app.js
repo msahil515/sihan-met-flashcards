@@ -734,7 +734,7 @@ function tabHome(){
   h += '<h2 class="sh">Daily objectives<small>+' + QUEST_XP + ' XP each, +' + QUEST_ALL_XP + ' for all three</small></h2><div class="panel">' + todaysQuests().map(function(Q){
     var v = Math.min(q[Q.id] || 0, Q.n), done = v >= Q.n;
     return '<div class="quest' + (done ? " done" : "") + '"><div class="qi">' + (done ? "✅" : Q.e) + '</div><div class="qb"><b>' + Q.t + '</b><div class="pbar gold"><i style="width:' + (v * 100 / Q.n) + '%"></i></div></div><span class="qn">' + v + '/' + Q.n + '</span></div>'; }).join("") + '</div>';
-  h += '<div class="path"><div class="unit"><b>Season map</b><span>' + bossWins() + ' of ' + MAP.length + ' won. Each win opens the next match.</span></div>' + MAP.map(function(m, ix){
+  h += '<div class="path"><div class="unit"><a class="wlink" href="worlds.html#skip">🪐 Worlds</a><b>Season map</b><span>' + bossWins() + ' of ' + MAP.length + ' won. Each win opens the next match.</span></div>' + MAP.map(function(m, ix){
     var b = g.boss[m[0]] || {}, open = bossOpen(ix), st = b.w ? "won" : open ? "open" : "shut", off = Math.round(Math.sin(ix * 0.9) * 70);
     return '<div class="node-wrap"><button class="node ' + st + (ix === cb ? " cur" : "") + '" data-boss="' + ix + '" style="transform:translateX(' + off + 'px)">' + (ix === cb ? '<span class="bubble">' + (b.tries ? "FIGHT" : "START") + '</span>' : '') +
       (open || b.w ? m[3] : "🔒") + (b.w ? '<span class="crown">' + (b.bl === 3 ? "👑" : "✓") + '</span>' : '') + '</button><span class="node-l" style="transform:translateX(' + off + 'px)">' + m[1] + '</span></div>'; }).join("") + '</div>';
@@ -885,11 +885,16 @@ window.nlBack = function(){
   if (sheetOpen()){ closeSheet(); return true; }
   if (STACK.length){ var top = STACK[STACK.length - 1]; if (top.id === "onb") return false; (top.onBack || popScreen)(); return true; }
   if (TAB !== "home"){ showTab("home"); return true; }
-  return false;
+  location.href = "worlds.html#skip"; return true;
 };
 
 /* ================= boot ================= */
 showTab("home");
+/* arriving from the world select: land on the season map */
+if (location.hash === "#map"){ history.replaceState(null, "", location.pathname); requestAnimationFrame(function(){
+  var p = $(".path"), sc = p && p.parentNode;
+  while (sc && sc !== document.body && !(sc.scrollHeight > sc.clientHeight && /auto|scroll/.test(getComputedStyle(sc).overflowY))) sc = sc.parentNode;
+  if (p && sc && sc !== document.body) sc.scrollTop += p.getBoundingClientRect().top - sc.getBoundingClientRect().top - 8; }); }
 if (!S.onboarded && !G().xp) onboarding();
 document.addEventListener("visibilitychange", function(){ if (!document.hidden && !STACK.length) refreshTab(); });
 window.NLAPP = {G: G, P: function(){ return P; }, TH: TH_LIST, start: startLesson, _cur: function(){ return L && L.q && L.q.c.id; }};

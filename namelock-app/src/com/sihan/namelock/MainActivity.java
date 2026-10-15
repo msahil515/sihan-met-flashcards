@@ -23,7 +23,7 @@ import java.io.InputStream;
    Everything is served from the APK, so it runs with no network at all. */
 public class MainActivity extends Activity {
     private static final String HOST = "appassets.androidplatform.net";
-    private static final String START = "https://" + HOST + "/index.html";
+    private static final String START = "https://" + HOST + "/worlds.html";
     private WebView web;
 
     @Override
@@ -63,7 +63,7 @@ public class MainActivity extends Activity {
     private WebResourceResponse serve(Uri uri) {
         if (!HOST.equals(uri.getHost())) return null;
         String path = uri.getPath();
-        if (path == null || path.equals("/")) path = "/index.html";
+        if (path == null || path.equals("/")) path = "/worlds.html";
         try {
             InputStream in = getAssets().open("www" + path);
             return new WebResourceResponse(mime(path), "utf-8", in);

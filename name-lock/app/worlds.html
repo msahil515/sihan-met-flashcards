@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#05060d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Name Lock: Worlds</title>
+<link rel="icon" href="icon.svg">
+<link rel="stylesheet" href="worlds.css">
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div id="tint"></div>
+
+<div id="ui">
+  <header id="top">
+    <div id="prof">
+      <div class="crest" id="p-lv">1</div>
+      <div class="pt">
+        <b id="p-name">Sihan</b><span id="p-rank">Intern</span>
+        <div class="xpbar"><i id="p-xpf"></i><span id="p-xp">0 XP</span></div>
+      </div>
+      <div class="streak" id="p-st"><span class="fl">🔥</span><b id="p-stn">0</b></div>
+    </div>
+    <button id="mute" aria-label="Mute"></button>
+  </header>
+
+  <div id="track"></div>
+
+  <footer id="foot">
+    <button class="arr" id="prev" aria-label="Previous world">‹</button>
+    <div id="dots"></div>
+    <button class="arr" id="next" aria-label="Next world">›</button>
+  </footer>
+</div>
+
+<div id="intro">
+  <canvas id="neuro"></canvas>
+  <div id="logo"><b>NAME LOCK</b><span>choose your world</span></div>
+  <div id="skip">tap to skip</div>
+</div>
+
+<div id="flash"></div>
+<div id="toast"></div>
+
+<script src="worlds.js"></script>
+</body>
+</html>
