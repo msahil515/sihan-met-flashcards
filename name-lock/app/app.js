@@ -428,6 +428,7 @@ function cardSheet(c){
   h += '<div class="f"><i>Means</i>' + esc(c.def) + '</div>';
   if (c.detail) h += '<div class="f"><i>Detail</i>' + esc(c.detail) + '</div>';
   if (c.example) h += '<div class="f"><i>Example</i>' + esc(c.example) + '</div>';
+  if (c.src) h += '<div class="f"><i>Source</i>' + esc(c.src) + '</div>';
   if (c.look) h += '<div class="f look"><i>Lookalike</i>' + (l ? '<button class="lk" data-card="' + l.id + '">' + esc(c.look) + '</button>' : esc(c.look)) + (c.tell ? '<br>' + esc(c.tell) : '') + '</div>';
   openSheet(h + '<button class="btn" id="sh-drill" style="margin-top:8px">Drill this card</button></div>');
   $("#sh-drill").onclick = function(){ closeSheet(); var cs = [c]; if (l) cs.push(l); startLesson({kind: "drill", title: c.name, mode: "mix", cards: cs.concat(distractCards(c, 3))}); };

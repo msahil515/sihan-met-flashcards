@@ -282,6 +282,7 @@
     h += '<div class="fld"><i>Means</i>' + esc(c.def) + '</div>';
     if (c.detail) h += '<div class="fld"><i>Detail</i>' + esc(c.detail) + '</div>';
     if (c.example) h += '<div class="fld"><i>Example</i>' + esc(c.example) + '</div>';
+    if (c.src) h += '<div class="fld"><i>Source</i>' + esc(c.src) + '</div>';
     if (c.look) h += '<div class="fld look"><i>Lookalike</i>' + lookLink(c) + (c.tell ? '<br>' + esc(c.tell) : '') + '</div>';
     return h + pyqLine(c);
   }
