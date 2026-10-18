@@ -277,12 +277,48 @@
       (closed.length ? '<details class="closed"><summary>Closed cycles (still playable)<small>' + closed.map(function (g) { return g.title; }).join(", ") +
         "</small></summary>" + closed.map(groupHTML).join("") + "</details>" : "") +
       '<div class="toggles"><button class="tg' + (meta.sound ? " on" : "") + '" id="tgS">Sound ' + (meta.sound ? "on" : "off") + '</button><button class="tg' +
-      (meta.haptic ? " on" : "") + '" id="tgH">Vibration ' + (meta.haptic ? "on" : "off") + "</button></div>" +
+      (meta.haptic ? " on" : "") + '" id="tgH">Vibration ' + (meta.haptic ? "on" : "off") + '</button></div><div class="toggles" style="margin-top:8px"><button class="tg' + (syncCode() ? " on" : "") + '" id="tgY">Sync ' + (syncCode() || "off") + " ›</button></div>" +
       '<div class="foot">' + nM + " mocks · " + nQ.toLocaleString() + " questions · untimed · +1 / −0.25</div></div></div>";
     app.innerHTML = h;
     document.getElementById("tgS").onclick = function () { meta.sound = !meta.sound; saveMeta(); home(); };
     document.getElementById("tgH").onclick = function () { meta.haptic = !meta.haptic; saveMeta(); home(); };
+    document.getElementById("tgY").onclick = syncSheet;
   }
+
+  /* ---------- cross-device sync (../sync.js, same code as /sync/ on the site) ---------- */
+  function syncCode() { var Y = window.SihanSync, c = Y && Y.getCode(); return c ? Y.prettyCode(c) : ""; }
+  function syncSheet() {
+    var Y = window.SihanSync; if (!Y) { toast("Sync isn't loaded. Open the app once with internet."); return; }
+    closeSheet();
+    var c = Y.getCode(), st = Y.status(), when = st.at ? new Date(st.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }) : "";
+    var bg = document.createElement("div"); bg.className = "sheet-bg"; bg.onclick = closeSheet;
+    var sh = document.createElement("div"); sh.className = "sheet";
+    sh.innerHTML = "<h3>Sync with my other device</h3><p class=\"hint\" style=\"margin:0 4px 12px\">Same code on your phone and tab = same XP, streak, level, bests and every answer.</p>" +
+      (c ? '<p class="hint" style="margin:0 4px 12px">This device is on <b>' + Y.prettyCode(c) + "</b>. " + (st.state === "ok" ? "Last synced " + when + "." : st.state === "error" ? "Last try failed: " + esc(st.msg) + "." : "") + "</p>" +
+        '<button class="btn" id="syNow">Sync now</button><button class="btn" id="syOff">Turn sync off here</button>'
+      : '<p class="hint" style="margin:0 4px 12px">Got a code already (from /sync/ on the site or your other device)? Type it in. First device? Make a new one.</p>' +
+        '<input id="syIn" maxlength="9" placeholder="ABCD-EFGH" autocapitalize="characters" style="width:100%;box-sizing:border-box;padding:13px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--s1);color:var(--tx);font:800 17px inherit;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px">' +
+        '<button class="btn" id="syOk">Link this device</button><button class="btn" id="syNew">Make a new code</button>');
+    app.appendChild(bg); app.appendChild(sh);
+    function link(code) {
+      if (!Y.setCode(code)) { toast("Code needs 6+ letters"); return; }
+      toast("Syncing…");
+      Y.syncNow("setup").then(function (s) { Y.start(); home(); syncSheet(); toast(s.state === "ok" ? "Linked. Same code on your other device." : "Sync failed: " + s.msg); });
+    }
+    if (c) {
+      document.getElementById("syNow").onclick = function () { toast("Syncing…"); Y.syncNow("manual").then(function (s) { toast(s.state === "ok" ? "Synced" : "Sync failed: " + s.msg); closeSheet(); home(); }); };
+      document.getElementById("syOff").onclick = function () { Y.clearCode(); closeSheet(); home(); toast("Sync off on this device. Progress stays here."); };
+    } else {
+      document.getElementById("syOk").onclick = function () { link(document.getElementById("syIn").value); };
+      document.getElementById("syNew").onclick = function () { link(Y.makeCode()); };
+    }
+  }
+  /* the other device's progress just landed: reload XP/streak so the next save can't write a stale copy back */
+  window.addEventListener("sihan-sync", function (e) {
+    if (!e.detail || !e.detail.pulled) return;
+    meta = Object.assign({ xp: 0, days: {}, best: {}, last: null, sound: true, haptic: true, bestCombo: 0 }, load("tapp-meta-v1") || {});
+    if (cur.s === "home" || cur.s === "lobby") render();
+  });
 
   /* ---------- lobby ---------- */
   function lobby() {

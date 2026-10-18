@@ -876,6 +876,7 @@ function tabMe(){
   h += '<h2 class="sh">Settings</h2><div class="panel" style="padding:4px 14px">' +
     '<button class="set" id="s-name"><span class="si">✏️</span>Player name<span class="sv">' + esc(pname()) + ' ›</span></button>' +
     '<button class="set" id="s-goal"><span class="si">🎯</span>Daily goal<span class="sv">' + goal() + ' answers ›</span></button>' +
+    '<button class="set" id="s-sync"><span class="si">🔄</span>Sync with my other device<span class="sv">' + syncLabel() + ' ›</span></button>' +
     '<button class="set" id="s-sound"><span class="si">🔊</span>Sound effects<span class="tog' + (S.sound ? " on" : "") + '"></span></button>' +
     '<button class="set" id="s-hap"><span class="si">📳</span>Haptics<span class="tog' + (S.haptics ? " on" : "") + '"></span></button>' +
     '<button class="set" id="s-reset" style="color:var(--bad)"><span class="si">🗑️</span>Reset progress</button></div>' +
@@ -894,6 +895,30 @@ function showTab(t, keepScroll){
   bindTab();
 }
 function refreshTab(){ showTab(TAB, true); }
+/* ================= cross-device sync (../../sync.js, same code as /sync/ on the site) ================= */
+function syncLabel(){ var Y = window.SihanSync, c = Y && Y.getCode(); return c ? Y.prettyCode(c) : "Off"; }
+function syncSheet(){
+  var Y = window.SihanSync; if (!Y){ toast("Sync isn't loaded. Open the app once with internet.", "bad"); return; }
+  var c = Y.getCode(), st = Y.status(), when = st.at ? new Date(st.at).toLocaleTimeString([], {hour: "numeric", minute: "2-digit"}) : "";
+  openSheet('<h2 class="sh" style="margin-top:0">Sync<small>Same code on your phone and tab = same XP, streak, levels, bosses and misses</small></h2>' +
+    (c ? '<p style="margin:0 0 10px">This device is on <b>' + Y.prettyCode(c) + '</b>. ' + (st.state === "ok" ? "Last synced " + when + "." : st.state === "error" ? "Last try failed: " + esc(st.msg) + "." : "") + '</p>' +
+      '<button class="btn" id="sy-now">Sync now</button><button class="btn bad" id="sy-off" style="margin-top:10px">Turn sync off here</button>'
+    : '<p style="margin:0 0 10px">Got a code already (from /sync/ on the site or your other device)? Type it in. First device? Make a new one.</p>' +
+      '<input class="search" id="sy-in" maxlength="9" placeholder="ABCD-EFGH" autocapitalize="characters" style="background-image:none;padding-left:14px;text-transform:uppercase;letter-spacing:.12em">' +
+      '<button class="btn" id="sy-ok" style="margin-top:14px">Link this device</button><button class="btn" id="sy-new" style="margin-top:10px;filter:saturate(.4)">Make a new code</button>'));
+  function go(code){ if (!Y.setCode(code)){ toast("Code needs 6+ letters", "bad"); return; }
+    toast("Syncing…"); Y.syncNow("setup").then(function(s){ Y.start(); refreshTab(); syncSheet(); toast(s.state === "ok" ? "Linked. Same code on your other device." : "Sync failed: " + esc(s.msg), s.state === "ok" ? "good" : "bad"); }); }
+  if (c){ $("#sy-now").onclick = function(){ toast("Syncing…"); Y.syncNow("manual").then(function(s){ toast(s.state === "ok" ? "Synced" : "Sync failed: " + esc(s.msg), s.state === "ok" ? "good" : "bad"); closeSheet(); refreshTab(); }); };
+    $("#sy-off").onclick = function(){ Y.clearCode(); closeSheet(); refreshTab(); toast("Sync off on this device. Progress stays here.", "good"); }; }
+  else { $("#sy-ok").onclick = function(){ go($("#sy-in").value); };
+    $("#sy-new").onclick = function(){ go(Y.makeCode()); }; }
+}
+/* the other device's progress just landed in localStorage: swap the in-memory copy so the next save can't write stale state over it */
+window.addEventListener("sihan-sync", function(e){
+  if (!e.detail || !e.detail.pulled) return;
+  P = load(); P.c = P.c || {}; P.m = P.m || {}; G();
+  if (!STACK.length) refreshTab();
+});
 function setGoal(n){ G().goal = n; save(); }
 function goalSheet(){
   var G0 = goal();
@@ -930,6 +955,7 @@ function bindTab(){
     $("#s-name").onclick = function(){
       openSheet('<h2 class="sh" style="margin-top:0">Player name<small>Shows on your banner and the match scoreboard</small></h2><input class="search" id="nm-in" maxlength="16" value="' + esc(pname()) + '" style="background-image:none;padding-left:14px"><button class="btn" id="nm-ok" style="margin-top:14px">Save</button>');
       $("#nm-ok").onclick = function(){ S.name = $("#nm-in").value.trim().slice(0, 16) || "Sihan"; saveS(); closeSheet(); refreshTab(); toast("Name saved", "good"); }; };
+    $("#s-sync").onclick = syncSheet;
     $("#s-sound").onclick = function(){ S.sound = !S.sound; saveS(); refreshTab(); };
     $("#s-hap").onclick = function(){ S.haptics = !S.haptics; saveS(); buzz(HAP.ok); refreshTab(); };
     $("#s-reset").onclick = function(){

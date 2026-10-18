@@ -66,6 +66,8 @@
       || k === "results-history-v1"                              /* snapshot history */
       || k === "results-journal-v1"                              /* per-mock journal */
       || k === "tests-done-v1"                                   /* mark-done on tests/ */
+      || k === "tapp-meta-v1"                                    /* Tests app XP/streak/bests */
+      || /^tapp-run-.+-v\d+$/.test(k)                            /* Tests app per-mock run */
       || /^sihan-.*-checklist-v\d+$/.test(k);                    /* study-plan checklists */
   }
   function syncKeys() {
@@ -223,15 +225,23 @@
     var as = stableStringify(a), bs = stableStringify(b);
     return bs > as ? b : a;
   }
-  function mergeObj(l, r, mode) {
+  /* opt.maxNum: both sides numbers -> keep the bigger one (XP, day counts,
+     bests, boss wins). Max is commutative, so the two devices still agree, and
+     an XP total can never be dragged back down by an older device.
+     opt.pickArr: arrays resolve like a single value instead of unioning (a
+     redo list that shrank must stay shrunk). */
+  var NOT_MAX = { goal: 1, cr: 1 }; /* settings + the "card cracked" flag go by last edit */
+  function mergeObj(l, r, mode, opt) {
     var out = {}, k;
+    opt = opt || {};
     for (k in l) if (Object.prototype.hasOwnProperty.call(l, k)) out[k] = l[k];
     for (k in r) {
       if (!Object.prototype.hasOwnProperty.call(r, k)) continue;
       if (!(k in out)) { out[k] = r[k]; continue; }
       if (stableStringify(out[k]) === stableStringify(r[k])) continue;
-      if (isObj(out[k]) && isObj(r[k])) { out[k] = mergeObj(out[k], r[k], mode); continue; }
-      if (Array.isArray(out[k]) && Array.isArray(r[k])) { out[k] = unionArray(out[k], r[k]); continue; }
+      if (isObj(out[k]) && isObj(r[k])) { out[k] = mergeObj(out[k], r[k], mode, opt); continue; }
+      if (opt.maxNum && !NOT_MAX[k] && typeof out[k] === "number" && typeof r[k] === "number") { out[k] = Math.max(out[k], r[k]); continue; }
+      if (Array.isArray(out[k]) && Array.isArray(r[k]) && !opt.pickArr) { out[k] = unionArray(out[k], r[k]); continue; }
       out[k] = pickVal(out[k], r[k], mode);
     }
     return out;
@@ -263,6 +273,14 @@
     if (Array.isArray(l) && Array.isArray(r)) merged = unionArray(l, r);
     else if (/^take-summary-/.test(key)) merged = pickSummary(l, r);
     else if (/^revamp-preview-/.test(key)) merged = mergeTakeState(l, r, mode);
+    else if (key === "tapp-meta-v1" && isObj(l) && isObj(r)) merged = mergeObj(l, r, mode, { maxNum: true });
+    else if (/^tapp-run-/.test(key) && isObj(l) && isObj(r)) merged = mergeObj(l, r, mode, { pickArr: true });
+    else if (key === "namelock-progress-v1" && isObj(l) && isObj(r)) {
+      /* P.c (spaced repetition) + P.m (misses) merge per card as usual;
+         P.g (XP, streak days, levels, bosses, bests) keeps the higher number */
+      merged = mergeObj(l, r, mode);
+      if (isObj(l.g) && isObj(r.g)) merged.g = mergeObj(l.g, r.g, mode, { maxNum: true });
+    }
     else if (isObj(l) && isObj(r)) merged = mergeObj(l, r, mode);
     else merged = pickVal(l, r, mode);
     return stableStringify(merged);
@@ -386,6 +404,7 @@
   function notifyPulled(n) {
     /* pages that render from localStorage already listen for "storage" */
     try { window.dispatchEvent(new Event("storage")); } catch (e) {}
+    if (window.SIHAN_SYNC_QUIET) return; /* the game apps reload their own state */
     if (!document.body || document.getElementById("syncToast")) return;
     var t = document.createElement("div");
     t.id = "syncToast";
@@ -411,8 +430,10 @@
     lastPush = now();
     syncNow(reason);
   }
+  var booted = false;
   function boot() {
-    if (!getCode()) return;
+    if (booted || !getCode()) return;
+    booted = true;
     setTimeout(function () { maybeSync("load"); }, 800);
     setInterval(function () { if (!document.hidden) maybeSync("poll"); }, POLL_MS);
     document.addEventListener("visibilitychange", function () {
@@ -433,6 +454,7 @@
     prettyCode: prettyCode,
     normCode: normCode,
     syncNow: syncNow,
+    start: boot, /* attach the timers after a code is set without a reload */
     status: status,
     keys: syncKeys,
     device: device,

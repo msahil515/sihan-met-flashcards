@@ -1,9 +1,9 @@
 /* Name Lock web app (iPhone/iPad "Add to Home Screen") - offline service worker.
    Network-first so a deploy shows up on next open; the cache is the offline fallback.
    Never caches a non-200. Not registered inside the Android APK (window.NLNative). */
-const CACHE = "namelock-app-20261018-neon";
+const CACHE = "namelock-app-20261018-sync";
 const FILES = ["worlds.html", "worlds.css", "worlds.js", "index.html", "app.css", "app.js", "pwa.js",
-  "icon.svg", "manifest.webmanifest", "icons/icon-180.png", "icons/icon-192.png", "icons/icon-512.png", "../data.js"];
+  "icon.svg", "manifest.webmanifest", "icons/icon-180.png", "icons/icon-192.png", "icons/icon-512.png", "../data.js", "../../sync.js"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));

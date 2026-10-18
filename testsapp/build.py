@@ -58,6 +58,7 @@ def main():
         (res / f"mipmap-{name}").mkdir()
         legacy_icon(px * 4).resize((px, px), Image.LANCZOS).save(res / f"mipmap-{name}" / "ic_launcher.png")
     shutil.copytree(ROOT / "tests-app", assets)
+    shutil.copy2(ROOT / "sync.js", assets / "sync.js")  # ../sync.js resolves to the asset root
     (assets / "take").mkdir()
     for f in sorted((ROOT / "take").glob("data-*.js")) + [ROOT / "take" / "speak.js"]:
         if f.name != "data-mock.js":  # not loaded by take/screen.html either
