@@ -15,7 +15,14 @@
   /* ---------- storage ---------- */
   function load(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }
   function store(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
-  var meta = Object.assign({ xp: 0, days: {}, best: {}, last: null, sound: true, haptic: true, bestCombo: 0 }, load("tapp-meta-v1") || {});
+  /* meta can arrive from another device via sync, and it goes into innerHTML: keep the numbers numbers */
+  function loadMeta() {
+    var m = Object.assign({ xp: 0, days: {}, best: {}, last: null, sound: true, haptic: true, bestCombo: 0 }, load("tapp-meta-v1") || {});
+    m.xp = +m.xp || 0; m.bestCombo = +m.bestCombo || 0;
+    ["days", "best"].forEach(function (f) { var o = m[f] && typeof m[f] === "object" ? m[f] : {}; m[f] = {}; for (var k in o) m[f][k] = +o[k] || 0; });
+    return m;
+  }
+  var meta = loadMeta();
   function saveMeta() { store("tapp-meta-v1", meta); }
   function runKey(id) { return "tapp-run-" + id + "-v1"; }
   function getRun(id) { return Object.assign({ i: 0, ans: {}, mode: "practice", done: false, redo: null, xp: 0 }, load(runKey(id)) || {}); }
@@ -316,7 +323,7 @@
   /* the other device's progress just landed: reload XP/streak so the next save can't write a stale copy back */
   window.addEventListener("sihan-sync", function (e) {
     if (!e.detail || !e.detail.pulled) return;
-    meta = Object.assign({ xp: 0, days: {}, best: {}, last: null, sound: true, haptic: true, bestCombo: 0 }, load("tapp-meta-v1") || {});
+    meta = loadMeta();
     if (cur.s === "home" || cur.s === "lobby") render();
   });
 
