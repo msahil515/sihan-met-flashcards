@@ -79,6 +79,93 @@
     else fallback();
   }
 
+
+  /* ---------- live starfield + confetti (neon game skin) ---------- */
+  var CALM = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var FX = (function () {
+    var sky = document.getElementById("sky"), fxc = document.getElementById("fx");
+    var sx = sky.getContext("2d"), fx = fxc.getContext("2d"), W = 0, H = 0, DPR = Math.min(2, window.devicePixelRatio || 1);
+    var stars = [], bits = [], warp = 0, shoot = null, fxOn = false;
+    var HUES = ["#22e5ff", "#ff3df2", "#a78bfa", "#ffd23f", "#39ff88", "#ffffff"];
+    function size() {
+      W = window.innerWidth; H = window.innerHeight;
+      [sky, fxc].forEach(function (c) { c.width = W * DPR; c.height = H * DPR; c.getContext("2d").setTransform(DPR, 0, 0, DPR, 0, 0); });
+      var n = Math.round(Math.min(220, W * H / 3200));
+      stars = [];
+      for (var i = 0; i < n; i++) stars.push({ x: Math.random() * W, y: Math.random() * H, z: 0.3 + Math.random() * 1.7, t: Math.random() * 6.3, c: Math.random() < 0.18 ? HUES[i % 3] : "#fff" });
+    }
+    function drawSky(dt) {
+      sx.clearRect(0, 0, W, H);
+      var sp = (0.012 + warp * 0.5) * dt;
+      warp = Math.max(0, warp - dt * 0.0012);
+      for (var i = 0; i < stars.length; i++) {
+        var s = stars[i];
+        s.y += sp * s.z; s.t += dt * 0.002 * s.z;
+        if (s.y > H + 4) { s.y = -4; s.x = Math.random() * W; }
+        var a = 0.35 + 0.65 * Math.abs(Math.sin(s.t)), r = s.z * 0.8;
+        sx.globalAlpha = a; sx.fillStyle = s.c;
+        if (warp > 0.05) { sx.fillRect(s.x - r / 2, s.y - warp * 18 * s.z, r, warp * 18 * s.z + r); }
+        else { sx.beginPath(); sx.arc(s.x, s.y, r, 0, 6.283); sx.fill(); }
+      }
+      if (!shoot && Math.random() < dt / 7000) shoot = { x: Math.random() * W * 0.8, y: Math.random() * H * 0.4, l: 0 };
+      if (shoot) {
+        shoot.l += dt * 0.9;
+        var g = sx.createLinearGradient(shoot.x + shoot.l - 90, shoot.y + (shoot.l - 90) * 0.45, shoot.x + shoot.l, shoot.y + shoot.l * 0.45);
+        g.addColorStop(0, "rgba(34,229,255,0)"); g.addColorStop(1, "rgba(255,255,255,.95)");
+        sx.globalAlpha = 1; sx.strokeStyle = g; sx.lineWidth = 2; sx.beginPath();
+        sx.moveTo(shoot.x + shoot.l - 90, shoot.y + (shoot.l - 90) * 0.45); sx.lineTo(shoot.x + shoot.l, shoot.y + shoot.l * 0.45); sx.stroke();
+        if (shoot.l > W) shoot = null;
+      }
+      sx.globalAlpha = 1;
+    }
+    function drawFx(dt) {
+      fx.clearRect(0, 0, W, H);
+      for (var i = bits.length - 1; i >= 0; i--) {
+        var b = bits[i];
+        b.vy += 0.0009 * dt; b.vx *= 0.995; b.x += b.vx * dt; b.y += b.vy * dt; b.r += b.vr * dt; b.life -= dt;
+        if (b.life <= 0 || b.y > H + 20) { bits.splice(i, 1); continue; }
+        fx.save(); fx.globalAlpha = Math.min(1, b.life / 400); fx.translate(b.x, b.y); fx.rotate(b.r);
+        fx.fillStyle = b.c; fx.shadowColor = b.c; fx.shadowBlur = 8;
+        fx.fillRect(-b.w / 2, -b.h / 2, b.w, b.h * Math.abs(Math.cos(b.r * 2)) + 1); fx.restore();
+      }
+      if (!bits.length) { fx.clearRect(0, 0, W, H); fxOn = false; }
+    }
+    var last = 0;
+    function frame(t) {
+      var dt = Math.min(50, t - (last || t)); last = t;
+      if (!document.hidden) { drawSky(dt); if (fxOn) drawFx(dt); }
+      requestAnimationFrame(frame);
+    }
+    size(); window.addEventListener("resize", size);
+    if (CALM) drawSky(0); else requestAnimationFrame(frame);
+    function confetti(n, x, y) {
+      if (CALM) return;
+      x = x == null ? W / 2 : x; y = y == null ? H * 0.35 : y;
+      for (var i = 0; i < n; i++) {
+        var a = Math.random() * 6.283, v = 0.25 + Math.random() * 0.75;
+        bits.push({ x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 0.55, r: Math.random() * 6, vr: (Math.random() - 0.5) * 0.02,
+          w: 5 + Math.random() * 6, h: 8 + Math.random() * 8, c: HUES[i % HUES.length], life: 1600 + Math.random() * 1200 });
+      }
+      fxOn = true;
+    }
+    return { confetti: confetti, boost: function (k) { warp = Math.min(1.4, warp + (k || 1)); } };
+  })();
+  function flash(kind) {
+    var el = document.createElement("div"); el.className = "flash " + kind;
+    document.body.appendChild(el); setTimeout(function () { el.remove(); }, 520);
+  }
+  function banner(big, small) {
+    var el = document.createElement("div"); el.className = "banner"; el.innerHTML = big + (small ? "<small>" + small + "</small>" : "");
+    document.body.appendChild(el); setTimeout(function () { el.remove(); }, 1350);
+  }
+  function levelUp() {
+    var el = document.createElement("div"); el.className = "lvup";
+    el.innerHTML = '<div class="lv-card"><div class="lv-k">LEVEL UP</div><div class="lv-n">' + level() + '</div><div class="lv-t">' + title() + '</div><div class="lv-s">tap to keep going</div></div>';
+    el.onclick = function () { el.remove(); };
+    document.body.appendChild(el); setTimeout(function () { el.remove(); }, 2600);
+    FX.confetti(140); FX.boost(1.2); buzz([30, 50, 30, 50, 80]);
+  }
+
   /* ---------- explanation renderer (ported from take/screen.html) ---------- */
   var STOP_LEAD = /^(The|This|That|These|Those|Option|Options|Both|When|Because|While|Although|However|Since|Rather|Unlike|Its|Their|His|Her|Your|If|In|At|As|On|By|For|Not|Equal|Each|Every|Here|There|Latin|Greek|Thus|Hence)\b/;
   function boldFig(seg) {
@@ -179,8 +266,9 @@
     var nQ = 0, nM = 0; GROUPS.forEach(function (g) { g.members.forEach(function (id) { nM++; nQ += P[id].questions.length; }); });
     var last = meta.last && P[meta.last] ? meta.last : null;
     var h = '<div class="screen">' + hud() + '<div class="scroll">' +
-      '<div class="today"><div class="ring"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="none" stroke="#212830" stroke-width="7"/>' +
-      '<circle cx="32" cy="32" r="26" fill="none" stroke="' + (frac >= 1 ? "#3ddc84" : "#14b8a6") + '" stroke-width="7" stroke-linecap="round" stroke-dasharray="' + C +
+      '<div class="hero">MOCK <span>ARENA</span></div><div class="hero-s">' + nM + " missions · pick one, rack up XP</div>" +
+      '<div class="today"><div class="ring"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="7"/>' +
+      '<circle cx="32" cy="32" r="26" fill="none" stroke="' + (frac >= 1 ? "#39ff88" : "#22e5ff") + '" stroke-width="7" stroke-linecap="round" stroke-dasharray="' + C +
       '" stroke-dashoffset="' + C * (1 - frac) + '"/></svg><b>' + done + "</b></div>" +
       '<div class="today-t"><h3>' + (frac >= 1 ? "Daily goal done" : "Daily goal: " + DAILY_GOAL + " questions") + "</h3><p>" +
       (frac >= 1 ? "Streak safe for today. Keep the combo going." : (DAILY_GOAL - done) + " to go today") + "</p></div></div>" +
@@ -310,19 +398,26 @@
     r.ans[r.i] = k;
     if (fresh) { meta.days[today()] = (meta.days[today()] || 0) + 1; }
     if (!practice) { saveRun(id, r); saveMeta(); buzz([12]); play(); return; }
-    var ok = k === q.correct, gain = 0;
+    var ok = k === q.correct, gain = 0, lvBefore = level();
     if (ok) {
       combo++; gain = 10 + (combo >= 3 ? 5 : 0) + (combo >= 10 ? 5 : 0);
       meta.xp += gain; r.xp = (r.xp || 0) + gain; meta.bestCombo = Math.max(meta.bestCombo || 0, combo);
     } else combo = 0;
-    var lvBefore = level();
     saveRun(id, r); saveMeta();
     play();
     var opts = document.getElementById("opts");
     var hit = opts.querySelector('[data-k="' + k + '"]');
-    if (ok) { hit.classList.add("pop"); buzz([18]); tone(combo >= 3 ? [660, 880, 1100] : [660, 880]); floater("+" + gain + " XP" + (combo >= 3 ? "  🔥" + combo : "")); }
-    else { opts.classList.add("shake"); buzz([40, 60, 40]); tone([300, 220]); }
-    if (level() > lvBefore) setTimeout(function () { toast("Level up! Level " + level() + " · " + title()); tone([523, 659, 784, 1047]); }, 700);
+    if (ok) {
+      hit.classList.add("pop"); buzz([18]); tone(combo >= 3 ? [660, 880, 1100] : [660, 880]); floater("+" + gain + " XP" + (combo >= 3 ? "  🔥" + combo : ""));
+      flash("ok"); FX.boost(0.6);
+      var rc = hit.getBoundingClientRect(); FX.confetti(combo >= 3 ? 34 : 18, rc.left + rc.width / 2, rc.top + rc.height / 2);
+      if (combo === 3 || combo === 5 || combo % 10 === 0) {
+        banner("COMBO x" + combo, combo >= 10 ? "UNSTOPPABLE" : combo >= 5 ? "ON FIRE" : "HEATING UP");
+        FX.confetti(combo >= 5 ? 110 : 60); tone([784, 988, 1175, 1568]); buzz([20, 30, 20, 30, 40]);
+      }
+    }
+    else { opts.classList.add("shake"); flash("bad"); buzz([40, 60, 40]); tone([300, 220]); }
+    if (level() > lvBefore) setTimeout(function () { levelUp(); tone([523, 659, 784, 1047]); }, 700);
     var ps = document.getElementById("ps"), after = document.getElementById("after");
     setTimeout(function () { ps.scrollTo({ top: Math.max(0, after.offsetTop - 160), behavior: "smooth" }); }, 250);
   }
@@ -339,6 +434,9 @@
     saveRun(id, r); saveMeta(); combo = 0;
     go("finish", id);
     tone([523, 659, 784, 1047]); buzz([20, 40, 20, 40, 60]);
+    var st = starsFor(pct);
+    FX.confetti(60 + st * 70); FX.boost(1);
+    if (st) setTimeout(function () { FX.confetti(st * 60, window.innerWidth * 0.2, window.innerHeight * 0.3); FX.confetti(st * 60, window.innerWidth * 0.8, window.innerHeight * 0.3); }, 450);
   }
 
   /* ---------- question grid sheet ---------- */
@@ -440,5 +538,5 @@
   }
 
   render();
-  window.TAPP = { go: go, getRun: getRun, meta: function () { return meta; } };
+  window.TAPP = { go: go, fx: FX, getRun: getRun, meta: function () { return meta; } };
 })();
