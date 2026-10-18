@@ -292,6 +292,29 @@ function bossOpen(i){ return i === 0 || !!(G().boss[MAP[i - 1][0]] || {}).w; }
 function bossWins(){ return MAP.filter(function(m){ return (G().boss[m[0]] || {}).w; }).length; }
 function curBoss(){ for (var i = 0; i < MAP.length; i++) if (!(G().boss[MAP[i][0]] || {}).w) return i; return -1; }
 
+/* ================= Biopsych world: Pinel levels, boss ix = BIO0 + i ================= */
+var BIO0 = 100;
+var BIO = [
+  ["pinel-1", "Origins Boss", "Ch 1-2 · Biopsych, evolution, genes", "🧬", [1, 2]],
+  ["pinel-2", "Neuron Boss", "Ch 3-4 · Anatomy, conduction, synapses", "⚡", [3, 4]],
+  ["pinel-3", "Lab and Vision Boss", "Ch 5-6 · Methods, the visual system", "👁️", [5, 6]],
+  ["pinel-4", "Sensorimotor Boss", "Ch 7-8 · Senses, attention, movement", "🖐️", [7, 8]],
+  ["pinel-5", "Plasticity Boss", "Ch 9-10 · Development, brain damage", "🌱", [9, 10]],
+  ["pinel-6", "H.M. Boss", "Ch 11-12 · Memory, amnesia, hunger", "🧠", [11, 12]],
+  ["pinel-7", "Hormone and Sleep Boss", "Ch 13-14 · Hormones, sex, sleep", "🌙", [13, 14]],
+  ["pinel-8", "Split Brain Boss", "Ch 15-16 · Addiction, lateralization, language", "💊", [15, 16]],
+  ["pinel-9", "Amygdala Boss", "Ch 17-18 · Emotion, stress, disorders", "😱", [17, 18]],
+  ["pinel-final", "Pinel Final Boss", "15 from all 18 chapters", "👑", [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]]
+];
+function bossDef(ix){ return ix >= BIO0 ? BIO[ix - BIO0] : MAP[ix]; }
+function pinelCh(c){ var m = /Pinel ch (\d+)/.exec(c.src || ""); return m ? +m[1] : 0; }
+function bossPool(ix){ var m = bossDef(ix);
+  if (ix >= BIO0) return CARDS.filter(function(c){ return m[4].indexOf(pinelCh(c)) >= 0; });
+  return m[0] === "all" ? CARDS.slice() : CARDS.filter(function(c){ return c.area === m[0]; }); }
+function bossQ(ix){ var k = bossDef(ix)[0]; return k === "all" || k === "pinel-final" ? 15 : 10; }
+function bioOpen(i){ return i === 0 || !!(G().boss[BIO[i - 1][0]] || {}).w; }
+function bioWins(){ return BIO.filter(function(m){ return (G().boss[m[0]] || {}).w; }).length; }
+
 /* ================= quests ================= */
 function hasRealPyq(c){ return (PYQ[c.id] || []).some(function(h){ return MOCKS[h[0]] && MOCKS[h[0]].p; }); }
 var QUESTS = [
@@ -469,8 +492,7 @@ var PAIRS = [];
 function revengePool(){ var cut = Date.now() - 7 * DAY;
   return missIds().filter(function(id){ var e = P.m[id]; return (e.lt || e.t || 0) >= cut; }); }
 function pickBoss(ix){
-  var area = MAP[ix][0], n = area === "all" ? 15 : 10;
-  var cs = area === "all" ? CARDS.slice() : CARDS.filter(function(c){ return c.area === area; });
+  var n = bossQ(ix), cs = bossPool(ix);
   var weak = shuffle(cs.filter(function(c){ var s = P.c[c.id]; return s && s.b < 2; })).slice(0, Math.ceil(n / 3));
   var rest = shuffle(cs.filter(function(c){ return weak.indexOf(c) < 0; }));
   return shuffle(weak.concat(rest).slice(0, n));
@@ -531,13 +553,13 @@ function startLesson(o){
   if (o.mode === "who") cards = cards.filter(function(c){ return c.who; });
   if (o.kind !== "duel" && (!cards || !cards.length)){ toast("Nothing in that pile yet.", "bad"); return; }
   L = {kind: o.kind, title: o.title, mode: o.mode || "mix", cards: cards, ix: o.ix, cat: o.cat, i: 0, right: 0, wrongs: [], hits: [],
-    lives: o.kind === "revenge" ? 3 : null, xp: 0, t0: Date.now(), combo: 0, best: 0, total: o.kind === "duel" ? 15 : cards.length, q: null, ev: [], run: 0, bestRun: 0, pen: 0};
-  if (o.kind === "boss"){ var b = G().boss[MAP[o.ix][0]] || (G().boss[MAP[o.ix][0]] = {}); b.tries = (b.tries || 0) + 1; save(); }
+    bio: o.bio || (o.kind === "boss" && o.ix >= BIO0), lives: o.kind === "revenge" ? 3 : null, xp: 0, t0: Date.now(), combo: 0, best: 0, total: o.kind === "duel" ? 15 : cards.length, q: null, ev: [], run: 0, bestRun: 0, pen: 0};
+  if (o.kind === "boss"){ var b = G().boss[bossDef(o.ix)[0]] || (G().boss[bossDef(o.ix)[0]] = {}); b.tries = (b.tries || 0) + 1; save(); }
   holdCeleb = true;
   clearScreens();
   var el = pushScreen("lesson", '<div class="lhead"><button class="x" id="l-x">' + IC.x + '</button><div class="lprog"><i style="width:0"></i></div><div id="l-side"></div></div>' +
     (o.kind === "boss" ? '<div class="sb"><div class="tm me"><span class="crest">' + level(G().xp) + '</span><b>' + esc(pname()) + '</b></div><div class="sc"><b id="sb-a">0</b><i>:</i><b id="sb-b">0</b><small id="sb-m">KICK OFF</small></div>' +
-      '<div class="tm bo"><b>' + MAP[o.ix][1].replace(/ Boss$/, "") + '</b><span class="be">' + MAP[o.ix][3] + '</span></div></div>' : '') +
+      '<div class="tm bo"><b>' + bossDef(o.ix)[1].replace(/ Boss$/, "") + '</b><span class="be">' + bossDef(o.ix)[3] + '</span></div></div>' : '') +
     '<div class="scroll" id="l-body"></div><div class="lfoot" id="l-foot"></div>', quitAsk);
   LFX.skin(el);
   $("#l-x", el).onclick = quitAsk;
@@ -554,7 +576,7 @@ function quitAsk(){
   $("#q-stay").onclick = closeSheet;
   $("#q-quit").onclick = function(){ closeSheet(); endLesson(); };
 }
-function endLesson(){ clearInterval(timer); L = null; holdCeleb = false; clearScreens(); setTimeout(flushCeleb, 350); }
+function endLesson(){ var bio = L && L.bio; clearInterval(timer); L = null; holdCeleb = false; clearScreens(); if (bio) openBio(); setTimeout(flushCeleb, 350); }
 function tick(){
   if (!L || L.kind !== "speed"){ clearInterval(timer); return; }
   var left = Math.max(0, Math.ceil((L.end - Date.now()) / 1000)), el = $("#l-clock");
@@ -697,7 +719,7 @@ function finish(){
   var el = $("#lesson"); el.innerHTML = h; LFX.skin(el); el.style.animation = "none"; void el.offsetWidth; el.style.animation = "";
   var cnt = $("[data-count]", el), target = L.xp, t0 = performance.now();
   (function up(t){ var p = Math.min(1, (t - t0) / 900); cnt.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(up); })(t0);
-  var spec = {kind: L.kind, ix: L.ix, mode: L.mode, cat: L.cat, title: L.title, cards: L.cards};
+  var spec = {kind: L.kind, ix: L.ix, bio: L.bio, mode: L.mode, cat: L.cat, title: L.title, cards: L.cards};
   $("#r-done").onclick = endLesson;
   $("#r-again").onclick = function(){ again2(spec); };
   holdCeleb = false; setTimeout(flushCeleb, 900);
@@ -714,9 +736,9 @@ function wipe(cb){
   var w = document.createElement("div"); w.className = "wipe"; $("#app").appendChild(w);
   setTimeout(cb, 330); setTimeout(function(){ w.remove(); }, 900);
 }
-function bossOvr(ix){ return 68 + ix * 2 + (MAP[ix][0] === "all" ? 5 : 0); }
+function bossOvr(ix){ var k = bossDef(ix)[0]; return ix >= BIO0 ? 72 + (ix - BIO0) * 2 + (k === "pinel-final" ? 5 : 0) : 68 + ix * 2 + (k === "all" ? 5 : 0); }
 function fullTime(){
-  var g = G(), m = MAP[L.ix], bs = g.boss[m[0]] || (g.boss[m[0]] = {}), a = L.right, b = L.wrongs.length, win = a > b, first = !bs.w, cs = Math.max(0, 3 - b);
+  var g = G(), m = bossDef(L.ix), nx = bossDef(L.ix + 1), bs = g.boss[m[0]] || (g.boss[m[0]] = {}), a = L.right, b = L.wrongs.length, win = a > b, first = !bs.w, cs = Math.max(0, 3 - b);
   if (win){ bs.w = (bs.w || 0) + 1; bs.bl = Math.max(bs.bl || 0, cs); bump("boss"); var bx = 100 + 50 * cs; addXP(bx); L.xp += bx; questTick({c: {}, bossWin: true}); }
   badgeCheck(); save();
   SFX.whistle(true); setTimeout(function(){ if (win){ SFX.win(); crowd(2.6, .3); buzz(HAP.big); confetti(260); } else SFX.lose(); }, 900);
@@ -731,7 +753,7 @@ function fullTime(){
     '<div class="ft-k">' + (L.pen ? "Full time · after penalties" : "Full time") + '</div>' +
     '<div class="ft-sb"><div class="tm"><span class="crest">' + level(g.xp) + '</span><b>' + esc(pname()) + '</b></div><div class="ft-sc"><b>' + a + '</b><i>:</i><b>' + b + '</b></div><div class="tm"><span class="be">' + m[3] + '</span><b>' + m[1].replace(/ Boss$/, "") + '</b></div></div>' +
     '<div class="ft-res ' + (win ? "w" : "l") + '">' + (win ? (b === 0 ? "Clean sheet win" : "You win") : "Boss wins") + '</div>' +
-    '<p class="ft-sub">' + (win ? (first && MAP[L.ix + 1] ? MAP[L.ix + 1][1] + " is now unlocked. " : "") + (b === 0 ? "Untouchable." : "Keep a clean sheet for the max bonus.") : "Your misses are saved. Drill them and take the rematch.") + '</p>' +
+    '<p class="ft-sub">' + (win ? (first && nx ? nx[1] + " is now unlocked. " : "") + (b === 0 ? "Untouchable." : "Keep a clean sheet for the max bonus.") : "Your misses are saved. Drill them and take the rematch.") + '</p>' +
     '<div class="ft-sec">Match stats</div>' + bar("Goals", a, b) + bar("Possession", poss, 100 - poss, "%") + bar("Accuracy", acc, 100 - acc, "%") +
     '<div class="ft-row"><div><b data-count="' + L.xp + '">0</b><span>XP earned</span></div><div><b>' + L.bestRun + '</b><span>best run</span></div><div><b>' + fmtTime(Date.now() - L.t0) + '</b><span>match time</span></div></div>' +
     (potm ? '<div class="ft-sec">Player of the match</div><div class="potm">' + tcHtml(TH[potm], true) + '</div>' : '') +
@@ -751,24 +773,40 @@ function again2(s){
   if (s.kind === "speed") return startLesson({kind: "speed", cards: shuffle(CARDS.slice())});
   if (s.kind === "lesson") return startDaily();
   if (s.kind === "duel") return startLesson({kind: "duel", cat: s.cat, cards: []});
-  startLesson({kind: s.kind, mode: s.mode, cat: s.cat, title: s.title, cards: s.cat ? pickRound(s.cat, 15) : shuffle(s.cards.slice())});
+  startLesson({kind: s.kind, bio: s.bio, mode: s.mode, cat: s.cat, title: s.title, cards: s.cat ? pickRound(s.cat, 15) : shuffle(s.cards.slice())});
 }
 function startDaily(){ startLesson({kind: "lesson", mode: "mix", cards: pickRound("all", 10)}); }
 function startRevenge(){ var rp = revengePool(); if (!rp.length){ toast("Nothing missed this week. Nice.", "good"); return; }
   startLesson({kind: "revenge", mode: "mix", cards: shuffle(rp.map(function(id){ return BY[id]; })).slice(0, 10)}); }
 function startBoss(ix, direct){
   if (direct) return wipe(function(){ startLesson({kind: "boss", ix: ix, mode: "mix", cards: pickBoss(ix)}); });
-  var m = MAP[ix], b = G().boss[m[0]] || {}, n = m[0] === "all" ? CARDS.length : CARDS.filter(function(c){ return c.area === m[0]; }).length, q = m[0] === "all" ? 15 : 10;
-  var el = pushScreen("boss", '<div class="lhead"><button class="x" id="b-x">' + IC.x + '</button><b class="vs-k">' + (ix === MAP.length - 1 ? "Final" : "Season match " + (ix + 1) + " of " + (MAP.length - 1)) + '</b></div><div class="scroll"><div class="vs">' +
+  var m = bossDef(ix), b = G().boss[m[0]] || {}, pl = bossPool(ix), n = pl.length, q = bossQ(ix), bio = ix >= BIO0;
+  var el = pushScreen("boss", '<div class="lhead"><button class="x" id="b-x">' + IC.x + '</button><b class="vs-k">' + (bio ? (ix - BIO0 === BIO.length - 1 ? "Biopsych final" : "Biopsych level " + (ix - BIO0 + 1) + " of " + (BIO.length - 1)) : ix === MAP.length - 1 ? "Final" : "Season match " + (ix + 1) + " of " + (MAP.length - 1)) + '</b></div><div class="scroll"><div class="vs">' +
     '<div class="vs-side me"><div class="crest">' + level(G().xp) + '</div><b>' + esc(pname()) + '</b><span>' + rank(level(G().xp)) + '</span><em>' + (squadOvr() || "--") + ' <small>SQUAD</small></em></div>' +
     '<div class="vs-mid">VS</div>' +
     '<div class="vs-side bo"><div class="boss-hero' + (b.w ? " won" : "") + '">' + m[3] + '</div><b>' + m[1] + '</b><span>' + m[2] + '</span><em>' + bossOvr(ix) + ' <small>OVR</small></em></div></div>' +
     '<div class="rules"><div><b>' + q + '</b>questions = 90 min</div><div><b>⚽</b>right = your goal</div><div><b>🥅</b>miss = boss goal</div></div>' +
     '<p class="vs-p">Outscore the boss to win. Level at full time goes to sudden-death penalties. Drawn from ' + n + ' cards, weighted toward the ones you are shaky on. Clean sheet = +250 XP.</p>' +
     (b.w ? '<p class="vs-p">Won ' + b.w + 'x' + (b.bl === 3 ? ' · clean sheet' : '') + '</p>' : b.tries ? '<p class="vs-p">' + plural(b.tries, "attempt") + ' so far</p>' : '') +
-    '</div><div class="lfoot"><button class="btn gold" id="b-go">' + (b.w ? "Rematch" : "Kick off") + '</button></div>', popScreen);
+    '</div><div class="lfoot"><button class="btn gold" id="b-go">' + (b.w ? "Rematch" : "Kick off") + '</button>' +
+    (bio ? '<button class="btn ghost" id="b-warm" style="margin-top:10px">Warm up: drill these chapters</button>' : '') + '</div>', popScreen);
   $("#b-x", el).onclick = popScreen;
   $("#b-go", el).onclick = function(){ startBoss(ix, true); };
+  if (bio) $("#b-warm", el).onclick = function(){ startLesson({kind: "drill", bio: true, mode: "mix", title: m[1].replace(/ Boss$/, "") + " warm-up", cards: shuffle(pl.slice()).slice(0, 15)}); };
+}
+function openBio(){
+  var g = G(), cur = -1, w = bioWins();
+  for (var i = 0; i < BIO.length; i++) if (!(g.boss[BIO[i][0]] || {}).w){ cur = i; break; }
+  var el = pushScreen("bio", '<div class="lhead"><button class="x" id="bio-x">' + IC.x + '</button><b style="font-size:19px;font-weight:900">🧠 Biopsych world</b></div><div class="scroll" style="padding:0 16px"><div class="path">' +
+    '<div class="unit bio"><a class="wlink" href="worlds.html#skip">🪐 Worlds</a><b>Pinel, all 18 chapters</b><span>' + w + ' of ' + BIO.length + ' won. ' + bossPool(BIO0 + BIO.length - 1).length + ' Pinel cards. Each win opens the next level.</span></div>' +
+    BIO.map(function(m, i){
+      var b = g.boss[m[0]] || {}, open = bioOpen(i), st = b.w ? "won" : open ? "open" : "shut", off = Math.round(Math.sin(i * 0.9) * 70);
+      return '<div class="node-wrap"><button class="node ' + st + (i === cur ? " cur" : "") + '" data-bio="' + i + '" style="transform:translateX(' + off + 'px)">' + (i === cur ? '<span class="bubble">' + (b.tries ? "FIGHT" : "START") + '</span>' : '') +
+        (open || b.w ? m[3] : "🔒") + (b.w ? '<span class="crown">' + (b.bl === 3 ? "👑" : "✓") + '</span>' : '') + '</button><span class="node-l" style="transform:translateX(' + off + 'px)">' + m[1] + ' · ' + m[2].split(" · ")[0] + '</span></div>'; }).join("") +
+    '</div></div>', popScreen);
+  $("#bio-x", el).onclick = popScreen;
+  $(".path", el).onclick = function(e){ var b = e.target.closest("[data-bio]"); if (!b) return; var i = +b.dataset.bio;
+    if (!bioOpen(i)){ buzz(HAP.bad); toast("🔒 Beat " + BIO[i - 1][1] + " first", "bad"); return; } startBoss(BIO0 + i); };
 }
 
 /* ================= library ================= */
@@ -1003,6 +1041,7 @@ if (location.hash === "#map"){ history.replaceState(null, "", location.pathname)
   var p = $(".path"), sc = p && p.parentNode;
   while (sc && sc !== document.body && !(sc.scrollHeight > sc.clientHeight && /auto|scroll/.test(getComputedStyle(sc).overflowY))) sc = sc.parentNode;
   if (p && sc && sc !== document.body) sc.scrollTop += p.getBoundingClientRect().top - sc.getBoundingClientRect().top - 8; }); }
+if (location.hash === "#bio"){ history.replaceState(null, "", location.pathname); openBio(); }
 if (!S.onboarded && !G().xp) onboarding();
 document.addEventListener("visibilitychange", function(){ if (!document.hidden && !STACK.length) refreshTab(); });
 window.NLAPP = {G: G, P: function(){ return P; }, TH: TH_LIST, start: startLesson, _cur: function(){ return L && L.q && L.q.c.id; }};

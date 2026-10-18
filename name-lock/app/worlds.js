@@ -30,17 +30,22 @@ var MAP = [["history","Structuralism","🏛️"],["perception","Gestalt","👁�
 function won(k){ return !!(boss[k] && +boss[k].w); }
 var wins = MAP.filter(function(m){ return won(m[0]); }).length;
 var nextB = MAP.filter(function(m){ return !won(m[0]); })[0];
+/* Biopsych levels mirror BIO in app.js */
+var BIO = [["pinel-1","Origins","🧬"],["pinel-2","Neuron","⚡"],["pinel-3","Lab and Vision","👁️"],["pinel-4","Sensorimotor","🖐️"],["pinel-5","Plasticity","🌱"],
+  ["pinel-6","H.M.","🧠"],["pinel-7","Hormone and Sleep","🌙"],["pinel-8","Split Brain","💊"],["pinel-9","Amygdala","😱"],["pinel-final","Pinel Final","👑"]];
+var bioW = BIO.filter(function(m){ return won(m[0]); }).length;
+var nextBio = BIO.filter(function(m){ return !won(m[0]); })[0];
 
 var WORLDS = [
   {id: "wsw", kick: "WORLD 1", name: "Who Said What", tag: "A city of theorist statues",
     c: ["#fff3c4", "#ffc93c", "#7a4306"], pc: "#ffc93c", pd: "#a87a06", spin: 48, built: true, open: true,
     prog: wins / MAP.length, best: +best.combo ? best.combo + " in a row" : "--", next: nextB ? nextB[2] + " " + nextB[1] : "All won 🏆"},
   {id: "bio", kick: "WORLD 2", name: "Biopsych", tag: "A glowing brain with pulsing neurons",
-    c: ["#ffd9f7", "#e548d3", "#35106a"], pc: "#ff5fe0", pd: "#a3249a", spin: 40, built: false, open: won("biological") || DEMO,
-    lockText: "Beat the Broca Boss to unlock", prog: 0, best: "--", next: "Neuron Boss"},
+    c: ["#ffd9f7", "#e548d3", "#35106a"], pc: "#ff5fe0", pd: "#a3249a", spin: 40, built: true, open: true,
+    lockText: "", prog: bioW / BIO.length, best: +best.combo ? best.combo + " in a row" : "--", next: nextBio ? nextBio[2] + " " + nextBio[1] : "All won 🏆"},
   {id: "stats", kick: "WORLD 3", name: "Stats and Research", tag: "A lab world of data towers and graphs",
-    c: ["#d6fbff", "#38c6ff", "#0a2a66"], pc: "#3de0ff", pd: "#1a78a8", spin: 56, built: false, open: false,
-    lockText: "Beat the Biopsych boss to unlock", prog: 0, best: "--", next: "Normal Curve Boss"}
+    c: ["#d6fbff", "#38c6ff", "#0a2a66"], pc: "#3de0ff", pd: "#1a78a8", spin: 56, built: false, open: won("pinel-final") || DEMO,
+    lockText: "Beat the Pinel Final Boss to unlock", prog: 0, best: "--", next: "Normal Curve Boss"}
 ];
 if (!seen.wsw){ seen.wsw = 1; localStorage.setItem(SEEN, JSON.stringify(seen)); }
 
@@ -236,7 +241,7 @@ function dive(i){
   var w = WORLDS[i];
   document.body.classList.add("diving"); $("#flash").style.background = w.pc; $("#flash").classList.add("on");
   WARP.on = true; whoosh(); stopAmb(); buzz([15, 40, 25, 40, 70]);
-  setTimeout(function(){ location.href = "index.html#map"; }, 1150);
+  setTimeout(function(){ location.href = "index.html#" + (w.id === "bio" ? "bio" : "map"); }, 1150);
 }
 window.addEventListener("pageshow", function(e){ if (e.persisted){ document.body.classList.remove("diving"); $("#flash").classList.remove("on"); WARP.on = false; WARP.v = 0; } });
 
