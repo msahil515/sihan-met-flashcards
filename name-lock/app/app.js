@@ -108,6 +108,82 @@ function confetti(n){
     if (t - t0 < 2800) requestAnimationFrame(f); else cv.remove();
   })(t0);
 }
+/* ---- neon answer screen (same skin as the Tests app): starfield behind, confetti on top ---- */
+var LFX = (function(){
+  var CALM = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var HUES = ["#22e5ff", "#ff3df2", "#a78bfa", "#ffd23f", "#39ff88", "#ffffff"];
+  var sky, fxc, sx, fx, W = 0, H = 0, DPR = Math.min(2, window.devicePixelRatio || 1), stars = [], bits = [], warp = 0, shoot = null, run = false, last = 0;
+  function size(){
+    var el = $("#lesson"); if (!el || !sky) return;
+    W = el.clientWidth; H = el.clientHeight;
+    [sky, fxc].forEach(function(c){ c.width = W * DPR; c.height = H * DPR; c.getContext("2d").setTransform(DPR, 0, 0, DPR, 0, 0); });
+    stars = [];
+    for (var i = 0, n = Math.round(Math.min(200, W * H / 3200)); i < n; i++) stars.push({x: Math.random() * W, y: Math.random() * H, z: .3 + Math.random() * 1.7, t: Math.random() * 6.3, c: Math.random() < .18 ? HUES[i % 3] : "#fff"});
+  }
+  function drawSky(dt){
+    sx.clearRect(0, 0, W, H);
+    var sp = (.012 + warp * .5) * dt; warp = Math.max(0, warp - dt * .0012);
+    for (var i = 0; i < stars.length; i++){
+      var s = stars[i]; s.y += sp * s.z; s.t += dt * .002 * s.z;
+      if (s.y > H + 4){ s.y = -4; s.x = Math.random() * W; }
+      var r = s.z * .8; sx.globalAlpha = .35 + .65 * Math.abs(Math.sin(s.t)); sx.fillStyle = s.c;
+      if (warp > .05) sx.fillRect(s.x - r / 2, s.y - warp * 18 * s.z, r, warp * 18 * s.z + r);
+      else { sx.beginPath(); sx.arc(s.x, s.y, r, 0, 6.283); sx.fill(); }
+    }
+    if (!shoot && Math.random() < dt / 7000) shoot = {x: Math.random() * W * .8, y: Math.random() * H * .4, l: 0};
+    if (shoot){
+      shoot.l += dt * .9;
+      var x0 = shoot.x + shoot.l - 90, y0 = shoot.y + (shoot.l - 90) * .45, x1 = shoot.x + shoot.l, y1 = shoot.y + shoot.l * .45, g = sx.createLinearGradient(x0, y0, x1, y1);
+      g.addColorStop(0, "rgba(34,229,255,0)"); g.addColorStop(1, "rgba(255,255,255,.95)");
+      sx.globalAlpha = 1; sx.strokeStyle = g; sx.lineWidth = 2; sx.beginPath(); sx.moveTo(x0, y0); sx.lineTo(x1, y1); sx.stroke();
+      if (shoot.l > W) shoot = null;
+    }
+    sx.globalAlpha = 1;
+  }
+  function drawFx(dt){
+    fx.clearRect(0, 0, W, H);
+    for (var i = bits.length - 1; i >= 0; i--){
+      var b = bits[i]; b.vy += .0009 * dt; b.vx *= .995; b.x += b.vx * dt; b.y += b.vy * dt; b.r += b.vr * dt; b.life -= dt;
+      if (b.life <= 0 || b.y > H + 20){ bits.splice(i, 1); continue; }
+      fx.save(); fx.globalAlpha = Math.min(1, b.life / 400); fx.translate(b.x, b.y); fx.rotate(b.r);
+      fx.fillStyle = b.c; fx.shadowColor = b.c; fx.shadowBlur = 8;
+      fx.fillRect(-b.w / 2, -b.h / 2, b.w, b.h * Math.abs(Math.cos(b.r * 2)) + 1); fx.restore();
+    }
+  }
+  function frame(t){
+    if (!sky || !sky.isConnected){ run = false; sky = null; bits = []; return; }
+    var dt = Math.min(50, t - (last || t)); last = t;
+    if (!document.hidden){ drawSky(dt); if (bits.length) drawFx(dt); }
+    requestAnimationFrame(frame);
+  }
+  window.addEventListener("resize", size);
+  /* (re)attach the background layers; call after every innerHTML write to #lesson */
+  function skin(el){
+    el.classList.add("neon");
+    el.insertAdjacentHTML("afterbegin", '<div class="nebula"></div><canvas class="lsky"></canvas><canvas class="lfx"></canvas>');
+    sky = $(".lsky", el); fxc = $(".lfx", el); sx = sky.getContext("2d"); fx = fxc.getContext("2d"); bits = [];
+    size();
+    if (CALM){ drawSky(0); return; }
+    if (!run){ run = true; last = 0; requestAnimationFrame(frame); }
+  }
+  /* burst of neon confetti from the centre of an element (or the screen) */
+  function burst(n, from){
+    if (CALM || !fxc) return;
+    var x = W / 2, y = H * .35;
+    if (from){ var a = from.getBoundingClientRect(), o = fxc.getBoundingClientRect(); x = a.left - o.left + a.width / 2; y = a.top - o.top + a.height / 2; }
+    for (var i = 0; i < n; i++){
+      var an = Math.random() * 6.283, v = .25 + Math.random() * .75;
+      bits.push({x: x, y: y, vx: Math.cos(an) * v, vy: Math.sin(an) * v - .55, r: Math.random() * 6, vr: (Math.random() - .5) * .02,
+        w: 5 + Math.random() * 6, h: 8 + Math.random() * 8, c: HUES[i % HUES.length], life: 1600 + Math.random() * 1200});
+    }
+  }
+  function banner(big, small){
+    var el = $("#lesson"); if (!el) return;
+    var b = document.createElement("div"); b.className = "nbanner"; b.innerHTML = esc(big) + (small ? '<small>' + esc(small) + '</small>' : '');
+    el.appendChild(b); setTimeout(function(){ b.remove(); }, 1300);
+  }
+  return {skin: skin, burst: burst, banner: banner, boost: function(k){ warp = Math.min(1.4, warp + (k || 1)); }};
+})();
 function toast(html, kind){
   var box = $("#toasts"), d = document.createElement("div");
   d.className = "toast " + (kind || ""); d.innerHTML = html; box.appendChild(d);
@@ -463,6 +539,7 @@ function startLesson(o){
     (o.kind === "boss" ? '<div class="sb"><div class="tm me"><span class="crest">' + level(G().xp) + '</span><b>' + esc(pname()) + '</b></div><div class="sc"><b id="sb-a">0</b><i>:</i><b id="sb-b">0</b><small id="sb-m">KICK OFF</small></div>' +
       '<div class="tm bo"><b>' + MAP[o.ix][1].replace(/ Boss$/, "") + '</b><span class="be">' + MAP[o.ix][3] + '</span></div></div>' : '') +
     '<div class="scroll" id="l-body"></div><div class="lfoot" id="l-foot"></div>', quitAsk);
+  LFX.skin(el);
   $("#l-x", el).onclick = quitAsk;
   if (o.kind === "boss"){ SFX.whistle(); buzz([40, 80, 120]); }
   if (o.kind === "speed"){ L.end = Date.now() + 60000; clearInterval(timer); timer = setInterval(tick, 200); }
@@ -543,6 +620,10 @@ function grade(btn){
     if (setBest("combo", L.combo) && L.combo >= 3) toast("🔥 New best combo: <b>" + L.combo + "</b>", "gold"); L.best = Math.max(L.best, L.combo); }
   else cleared = srs(c, ok);
   if (ok){ L.right++; L.hits.push(c); } else { L.wrongs.push(c); if (L.lives != null) L.lives--; }
+  L.streak = ok ? (L.streak || 0) + 1 : 0;
+  if (ok){ LFX.boost(.6); LFX.burst(L.streak >= 3 ? 34 : 18, $("#l-body .opt.ok")); }
+  if (ok && L.kind !== "boss" && L.kind !== "duel" && (L.streak === 3 || L.streak === 5 || L.streak % 10 === 0)){
+    LFX.banner(L.streak >= 10 ? "UNSTOPPABLE" : L.streak >= 5 ? "ON FIRE" : "COMBO", L.streak + " in a row"); LFX.burst(L.streak >= 5 ? 90 : 50); LFX.boost(1); }
   var xp = answer({c: c, ok: ok, src: L.kind === "lesson" ? "drill" : L.kind, mode: q.mode, mult: mult, combo: L.kind === "duel" ? L.combo : null, cleared: cleared});
   L.xp += xp;
   if (L.kind === "boss"){} else if (ok){ SFX.ok(); buzz(HAP.ok); flash("ok"); if (L.kind === "duel" && L.combo >= 3){ SFX.combo(L.combo); floatText(L.combo + " in a row!"); } }
@@ -613,7 +694,7 @@ function finish(){
     '<div class="rs o"><div class="rk">' + (L.kind === "speed" ? "Right" : "Accuracy") + '</div><div class="rv">' + (L.kind === "speed" ? L.right : acc + "%") + '</div></div>' +
     '<div class="rs b"><div class="rk">Time</div><div class="rv">' + fmtTime(Date.now() - L.t0) + '</div></div></div>' + miss + '</div></div>' +
     '<div class="lfoot"><button class="btn" id="r-done">Continue</button><button class="btn ghost" id="r-again" style="margin-top:10px">' + again + '</button></div>';
-  var el = $("#lesson"); el.innerHTML = h; el.style.animation = "none"; void el.offsetWidth; el.style.animation = "";
+  var el = $("#lesson"); el.innerHTML = h; LFX.skin(el); el.style.animation = "none"; void el.offsetWidth; el.style.animation = "";
   var cnt = $("[data-count]", el), target = L.xp, t0 = performance.now();
   (function up(t){ var p = Math.min(1, (t - t0) / 900); cnt.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(up); })(t0);
   var spec = {kind: L.kind, ix: L.ix, mode: L.mode, cat: L.cat, title: L.title, cards: L.cards};
@@ -657,7 +738,7 @@ function fullTime(){
     '<div class="ft-sec">Timeline</div><div class="tl">' + tl + '</div>' +
     (L.wrongs.length ? '<div class="missed" style="margin:16px auto 0"><div class="k">Goals conceded on</div>' + L.wrongs.filter(function(c, i, x){ return x.indexOf(c) === i; }).map(function(c){ return '<button class="chip" data-card="' + c.id + '">' + esc(c.name) + '</button>'; }).join("") + '</div>' : '') +
     '</div></div><div class="lfoot"><button class="btn' + (win ? " gold" : "") + '" id="r-done">Continue</button><button class="btn ghost" id="r-again" style="margin-top:10px">Rematch</button></div>';
-  var el = $("#lesson"); el.innerHTML = h; el.classList.add("ftime");
+  var el = $("#lesson"); el.innerHTML = h; LFX.skin(el); el.classList.add("ftime");
   var cnt = $("[data-count]", el), target = L.xp, t0 = performance.now();
   (function up(t){ var p = Math.min(1, (t - t0) / 1100); cnt.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(up); })(t0);
   $("#r-done").onclick = endLesson;

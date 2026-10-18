@@ -488,3 +488,80 @@ h2.sh small{display:block;font-size:13px;font-weight:700;color:var(--mu);margin-
 .mbox.packed .reveal,.mbox.packed #m-ok{animation:fadeUp .4s 1.6s both}
 .mbox .walkout .tc{width:170px}
 .unit .wlink{float:right;margin-left:10px;padding:6px 10px;border-radius:12px;background:rgba(255,255,255,.18);color:#fff;font-size:12px;font-weight:900;text-decoration:none}
+
+/* ================= 3.3: neon answer screen (same skin as the Tests app) ================= */
+#lesson.neon{--nc:#22e5ff;--nm:#ff3df2;--ng:#39ff88;--nr:#ff3b6b;--np:#a78bfa;--nl:rgba(150,128,255,.22);--ns:rgba(22,14,56,.74);
+  isolation:isolate;background:#07041a}
+#lesson.neon>.nebula{position:absolute;inset:-30%;z-index:-1;pointer-events:none;
+  background:radial-gradient(38% 30% at 22% 26%,rgba(255,61,242,.30),transparent 70%),radial-gradient(40% 34% at 80% 70%,rgba(34,229,255,.26),transparent 70%),
+    radial-gradient(44% 36% at 60% 18%,rgba(124,58,237,.34),transparent 72%),radial-gradient(36% 30% at 28% 84%,rgba(57,255,136,.12),transparent 70%),
+    linear-gradient(160deg,#0b0430 0%,#07041a 50%,#020b24 100%);animation:ndrift 26s ease-in-out infinite alternate}
+@keyframes ndrift{0%{transform:none}50%{transform:translate3d(4%,-3%,0) rotate(8deg) scale(1.08)}100%{transform:translate3d(-4%,3%,0) rotate(-6deg) scale(1.04)}}
+#lesson.neon>.lsky,#lesson.neon>.lfx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#lesson.neon>.lsky{z-index:-1} #lesson.neon>.lfx{z-index:8}
+/* top bar */
+#lesson.neon .lhead{background:rgba(7,4,26,.45);border-bottom:1px solid var(--nl);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding-bottom:12px;margin-bottom:4px}
+#lesson.neon .x{color:#b0a9e0}
+#lesson.neon .lprog{background:rgba(255,255,255,.07);border:1px solid var(--nl)}
+#lesson.neon .lprog i{background:linear-gradient(90deg,var(--nc),var(--nm));box-shadow:0 0 12px var(--nc)}
+#lesson.neon .hearts span:not(.lost){filter:drop-shadow(0 0 6px rgba(255,59,107,.9))}
+#lesson.neon .combo{color:#ff8a00;text-shadow:0 0 10px #ff8a00}
+#lesson.neon .clock{color:var(--nc);text-shadow:0 0 10px var(--nc)} #lesson.neon .clock.low{color:var(--nr);text-shadow:0 0 10px var(--nr)}
+#lesson.neon .sb{background:rgba(7,4,26,.7);border:1.5px solid rgba(34,229,255,.45);box-shadow:0 0 16px rgba(34,229,255,.25)}
+#lesson.neon .sb .sc{background:linear-gradient(100deg,var(--nc),#7c5cff 60%,var(--nm));color:#fff;text-shadow:0 0 6px rgba(0,0,0,.4)}
+/* question */
+#lesson.neon .qk{color:#fff;text-shadow:0 0 14px rgba(34,229,255,.6)}
+#lesson.neon .qcard{background:var(--ns);border:1.5px solid rgba(255,61,242,.5);box-shadow:0 0 20px rgba(255,61,242,.18),inset 0 0 26px rgba(255,61,242,.07);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+#lesson.neon .qcard .qn{color:#fff;text-shadow:0 0 10px rgba(255,61,242,.55)}
+#lesson.neon .qcard .qd{color:#e6e1ff} #lesson.neon .qcard .qs{color:#b0a9e0}
+#lesson.neon .pill{box-shadow:0 0 10px currentColor}
+/* options */
+#lesson.neon .opt{background:var(--ns);border:1.5px solid rgba(140,118,255,.32);box-shadow:0 4px 0 rgba(104,84,214,.4);color:#f4f1ff;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:noptIn .35s cubic-bezier(.2,.9,.3,1.2) both}
+#lesson.neon .opt:nth-child(2){animation-delay:.05s} #lesson.neon .opt:nth-child(3){animation-delay:.1s} #lesson.neon .opt:nth-child(4){animation-delay:.15s}
+@keyframes noptIn{from{opacity:0;transform:translateX(-14px)}}
+#lesson.neon .opt:active{transform:translateY(3px);border-color:var(--nc);box-shadow:0 0 18px rgba(34,229,255,.5)}
+#lesson.neon .opt.sel{border-color:var(--np);background:rgba(167,139,250,.16);box-shadow:0 4px 0 #6d3fe0,0 0 18px rgba(167,139,250,.5);color:#fff;animation:none}
+#lesson.neon .opt.ok{border-color:var(--ng);background:rgba(57,255,136,.13);box-shadow:0 4px 0 #10a957,0 0 22px rgba(57,255,136,.5);color:#d9ffe9;animation:popin .35s}
+#lesson.neon .opt.bad{border-color:var(--nr);background:rgba(255,59,107,.13);box-shadow:0 4px 0 #b0163f,0 0 22px rgba(255,59,107,.5);color:#ffd6e0;animation:shake .4s}
+#lesson.neon .opt:disabled:not(.ok):not(.bad){opacity:.42}
+/* footer + feedback panel */
+#lesson.neon .lfoot{background:rgba(7,4,26,.72);border-top:1px solid var(--nl);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+#lesson.neon .fb{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+#lesson.neon .fb.ok{background:rgba(6,34,24,.94);border-top:2px solid var(--ng);box-shadow:0 -6px 30px rgba(57,255,136,.28)}
+#lesson.neon .fb.bad{background:rgba(40,6,22,.94);border-top:2px solid var(--nr);box-shadow:0 -6px 30px rgba(255,59,107,.28)}
+#lesson.neon .fb.ok h3{color:var(--ng);text-shadow:0 0 12px rgba(57,255,136,.7)} #lesson.neon .fb.bad h3{color:#ff7a9a;text-shadow:0 0 12px rgba(255,59,107,.7)}
+#lesson.neon .fb.ok h3 .ic{background:var(--ng);color:#032a16;box-shadow:0 0 14px var(--ng)} #lesson.neon .fb.bad h3 .ic{background:var(--nr);box-shadow:0 0 14px var(--nr)}
+#lesson.neon .fb h3 .xp{color:#ffd23f;text-shadow:0 0 10px rgba(255,210,63,.8)}
+#lesson.neon .fb .why .f i{color:var(--nc);opacity:1;text-shadow:0 0 8px rgba(34,229,255,.5)}
+#lesson.neon .fb .why .tell{background:rgba(255,210,63,.07);border:1px solid rgba(255,210,63,.3)} #lesson.neon .fb .why .tell i{color:#ffd23f;text-shadow:none}
+#lesson.neon .btn{background:linear-gradient(100deg,var(--nc),#7c5cff 60%,var(--nm));box-shadow:0 4px 0 #4b2bb0,0 0 22px rgba(124,92,255,.45);text-shadow:0 1px 4px rgba(0,0,0,.45)}
+#lesson.neon .btn:active{box-shadow:0 0 0 #4b2bb0,0 0 30px rgba(255,61,242,.6)}
+#lesson.neon .btn.ok{background:linear-gradient(100deg,#39ff88,#00d1a0);box-shadow:0 4px 0 #10a957,0 0 22px rgba(57,255,136,.45);color:#032a16;text-shadow:none}
+#lesson.neon .btn.bad{background:linear-gradient(100deg,#ff3b6b,#ff3df2);box-shadow:0 4px 0 #b0163f,0 0 22px rgba(255,59,107,.45)}
+#lesson.neon .btn.gold{background:linear-gradient(100deg,#ffe066,#ffb000);box-shadow:0 4px 0 #c99a00,0 0 22px rgba(255,210,63,.45);color:#2e2000;text-shadow:none}
+#lesson.neon .btn.ghost{background:rgba(22,14,56,.7);border:1.5px solid var(--nl);box-shadow:0 4px 0 rgba(104,84,214,.35);color:#f4f1ff;text-shadow:none}
+#lesson.neon .btn:disabled{background:rgba(22,14,56,.7);border:1.5px solid var(--nl);color:#7a72ad;box-shadow:none;text-shadow:none}
+#lesson.neon .flashbg.ok{background:radial-gradient(circle at 50% 55%,rgba(57,255,136,.35),transparent 65%)}
+#lesson.neon .flashbg.bad{background:radial-gradient(circle at 50% 55%,rgba(255,59,107,.38),transparent 65%)}
+#lesson.neon .cflash{color:#ffd23f;text-shadow:0 0 10px rgba(255,210,63,.9),0 0 26px rgba(255,138,0,.6)}
+/* streak banner */
+.nbanner{position:absolute;left:50%;top:30%;z-index:9;pointer-events:none;transform:translate(-50%,-50%);text-align:center;white-space:nowrap;
+  font-size:44px;font-weight:900;font-style:italic;letter-spacing:.02em;color:#fff;
+  text-shadow:0 0 8px #ff3df2,0 0 22px #ff3df2,0 0 44px rgba(255,61,242,.7);animation:nbIn 1.3s cubic-bezier(.2,1.4,.4,1) forwards}
+.nbanner small{display:block;font-size:15px;font-style:normal;letter-spacing:.2em;color:#22e5ff;text-shadow:0 0 10px #22e5ff;text-transform:uppercase}
+@keyframes nbIn{0%{opacity:0;transform:translate(-50%,-50%) scale(.3) rotate(-8deg)}25%{opacity:1;transform:translate(-50%,-50%) scale(1.15) rotate(-3deg)}
+  70%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(-3deg)}100%{opacity:0;transform:translate(-50%,-62%) scale(1.05) rotate(-3deg)}}
+/* results + full time */
+#lesson.neon .center h1{color:#fff;text-shadow:0 0 8px #ff3df2,0 0 24px rgba(255,61,242,.7)}
+#lesson.neon .center h1.gold{text-shadow:0 0 8px #ffd23f,0 0 24px rgba(255,138,0,.7)} #lesson.neon .center h1.ok{text-shadow:0 0 8px #39ff88,0 0 24px rgba(57,255,136,.7)}
+#lesson.neon .center h1.bad{color:#ff7a9a;text-shadow:0 0 10px rgba(255,59,107,.8)}
+#lesson.neon .center p,#lesson.neon .ft-sub{color:#b0a9e0}
+#lesson.neon .rs{box-shadow:0 0 16px currentColor} #lesson.neon .rs .rv{background:rgba(7,4,26,.8)}
+#lesson.neon .rs.g{color:rgba(255,210,63,.35)} #lesson.neon .rs.o{color:rgba(57,255,136,.35)} #lesson.neon .rs.b{color:rgba(74,163,255,.35)}
+#lesson.neon .rs.g .rv{color:#ffd23f} #lesson.neon .rs.o .rv{color:#39ff88} #lesson.neon .rs.b .rv{color:#4aa3ff}
+#lesson.neon .ft-sb{background:rgba(7,4,26,.7);border:1.5px solid rgba(34,229,255,.45);box-shadow:0 0 22px rgba(34,229,255,.25)}
+#lesson.neon .ft-row div{background:var(--ns);border:1.5px solid var(--nl)}
+#lesson.neon .missed .chip{background:rgba(255,59,107,.1);box-shadow:0 0 10px rgba(255,59,107,.3)}
+@media (prefers-reduced-motion:reduce){#lesson.neon>.nebula{animation:none}}
