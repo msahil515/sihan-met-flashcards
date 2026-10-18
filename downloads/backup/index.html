@@ -9,7 +9,7 @@
 <script src="/sihan-met-flashcards/sync.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0d1117">
-<title>Full Backup — MET 2026 + NIMHANS</title>
+<title>Full Backup — Clinical Psych 2026</title>
 <link rel="stylesheet" href="/sihan-met-flashcards/site.css">
 <!-- PWA:met-prep -->
 <link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
@@ -23,42 +23,44 @@
 <style>
   .backup-btn{display:block;width:100%;box-sizing:border-box;margin:0;padding:16px 18px;
     font-size:17px;font-weight:700;border:0;border-radius:10px;cursor:pointer;
-    background:#1f6feb;color:#fff;box-shadow:0 2px 12px rgba(31,111,235,.35);
+    background:var(--primary);color:#fff;box-shadow:0 2px 12px rgba(31,111,235,.35);
     transition:background .12s, transform .05s;}
-  .backup-btn:hover{background:#1a5fd0;}
+  .backup-btn:hover{background:var(--primary-ink);}
   .backup-btn:active{transform:translateY(1px);}
-  .backup-btn[disabled]{background:#30363d;color:#8b949e;cursor:default;box-shadow:none;}
-  .backup-btn.secondary{background:#21262d;color:#e6edf3;border:1px solid #30363d;
+  .backup-btn[disabled]{background:var(--line);color:var(--muted);cursor:default;box-shadow:none;}
+  .backup-btn.secondary{background:var(--surface-2);color:var(--ink);border:1px solid var(--line);
     box-shadow:none;font-size:15px;padding:12px 16px;margin-top:10px;font-weight:600;}
-  .backup-btn.secondary:hover{background:#2a313a;}
-  #bkStatus{margin-top:14px;font-size:13px;color:#8b949e;line-height:1.5;min-height:18px;}
-  #bkStatus .ok{color:#3fb950;}
-  #bkStatus .warn{color:#d29922;}
-  #bkStatus .err{color:#f85149;}
-  .bk-bar{height:6px;border-radius:4px;background:#21262d;overflow:hidden;margin-top:10px;display:none;}
-  .bk-bar > i{display:block;height:100%;width:0;background:#1f6feb;transition:width .2s;}
+  .backup-btn.secondary:hover{background:var(--line);}
+  #bkStatus{margin-top:14px;font-size:13px;color:var(--muted);line-height:1.5;min-height:18px;}
+  #bkStatus .ok{color:var(--good);}
+  #bkStatus .warn{color:var(--amber);}
+  #bkStatus .err{color:var(--bad);}
+  .bk-bar{height:6px;border-radius:4px;background:var(--surface-2);overflow:hidden;margin-top:10px;display:none;}
+  .bk-bar > i{display:block;height:100%;width:0;background:var(--primary);transition:width .2s;}
   #bkPreview{margin-top:14px;display:none;}
-  #bkPreview textarea{width:100%;box-sizing:border-box;height:180px;background:#0d1117;color:#c9d1d9;
-    border:1px solid #30363d;border-radius:8px;padding:10px;font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
+  #bkPreview textarea{width:100%;box-sizing:border-box;height:180px;background:var(--bg);color:var(--ink);
+    border:1px solid var(--line);border-radius:8px;padding:10px;font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
     white-space:pre;}
 </style>
+<script src="/sihan-met-flashcards/take/theme.js"></script>
+<link rel="stylesheet" href="/sihan-met-flashcards/revamp-skin.css">
 </head>
 <body>
 
 <div class="topbar">
   <div class="topbar-inner">
     <div class="brand">
-      <span class="brand-title">Sihan, MET 2026</span>
-      <span class="brand-sub">MA Clinical Psychology, Manipal</span>
+      <span class="brand-title">Sihan — Clinical Psych 2026</span>
+      <span class="brand-sub">M.A. / M.Phil Clinical Psychology (RCI) · IHBAS · CIP · JSS Mysuru · DIMHANS Dharwad</span>
     </div>
     <nav class="nav">
       <a href="/sihan-met-flashcards/">Dashboard</a>
       <a href="/sihan-met-flashcards/tests/">Tests</a>
-      <a href="/sihan-met-flashcards/results/">My Results</a>
-      <a href="/sihan-met-flashcards/notes/">Notes</a>
-      <a href="/sihan-met-flashcards/checklist/">Checklist</a>
-      <a href="/sihan-met-flashcards/plan/">Plan</a>
-      <a href="/sihan-met-flashcards/downloads/" class="active">Downloads</a>
+      <a href="/sihan-met-flashcards/quiz/practice/">Practice</a>
+      <a href="/sihan-met-flashcards/results/">Results</a>
+      <a href="/sihan-met-flashcards/notes-app/">Library</a>
+      <a href="/sihan-met-flashcards/admissions/">Admissions</a>
+      <a href="/sihan-met-flashcards/progress/">Progress</a>
     </nav>
     <span class="countdown-chip" id="countdownChip">—</span>
   </div>
@@ -78,7 +80,7 @@
         <div class="card-title">Download everything</div>
       </div>
       <div class="card-body">
-        <p style="margin:0 0 14px;color:#8b949e;font-size:14px;">
+        <p style="margin:0 0 14px;color:var(--muted);font-size:14px;">
           This reads your saved data straight out of this browser. It works offline. Do it on the device (and browser) where you actually take the mocks, your data lives per device. Big runs can take 10&ndash;20 seconds while it gathers every test.
         </p>
         <button id="bkDownload" class="backup-btn">Download full backup (.txt)</button>
@@ -459,7 +461,7 @@ function updateCountdown() {
   const exam = new Date('2026-05-31T00:00:00+05:30');
   const ms = exam - new Date();
   const d = ms > 0 ? Math.floor(ms / 86400000) : 0;
-  document.getElementById("countdownChip").textContent = ms > 0 ? `${d} days to exam` : "Exam day!";
+  document.getElementById("countdownChip").textContent = "Prep 2026";
 }
 updateCountdown();
 </script>

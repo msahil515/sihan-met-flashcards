@@ -74,15 +74,17 @@
 <div class="topbar">
   <div class="topbar-inner">
     <div class="brand">
-      <span class="brand-title">Sihan, SGT 2026</span>
-      <span class="brand-sub">MA Clinical Psychology entrance</span>
+      <span class="brand-title">Sihan — Clinical Psych 2026</span>
+      <span class="brand-sub">M.A. / M.Phil Clinical Psychology (RCI) · IHBAS · CIP · JSS Mysuru · DIMHANS Dharwad</span>
     </div>
     <nav class="nav">
-      <a href="../">Dashboard</a>
-      <a href="../tests/">Tests</a>
-      <a href="../quiz/sgt-pyq/">SGT Mock</a>
-      <a href="../notes/sgt-study-material/">SGT Book</a>
-      <a href="./" class="active">Plan</a>
+      <a href="/sihan-met-flashcards/">Dashboard</a>
+      <a href="/sihan-met-flashcards/tests/">Tests</a>
+      <a href="/sihan-met-flashcards/quiz/practice/">Practice</a>
+      <a href="/sihan-met-flashcards/results/">Results</a>
+      <a href="/sihan-met-flashcards/notes-app/">Library</a>
+      <a href="/sihan-met-flashcards/admissions/">Admissions</a>
+      <a href="/sihan-met-flashcards/progress/">Progress</a>
     </nav>
     <span class="countdown-chip" id="countdownChip">—</span>
   </div>
@@ -240,7 +242,7 @@ const examDate = new Date('2026-07-11T00:00:00+05:30');
 function updateCountdown() {
   const ms = examDate - new Date();
   const d = ms > 0 ? Math.floor(ms / 86400000) : 0;
-  document.getElementById("countdownChip").textContent = ms > 0 ? `${d} days to exam` : "Exam day!";
+  document.getElementById("countdownChip").textContent = "Prep 2026";
   document.getElementById("heroDays").textContent = d;
 }
 
