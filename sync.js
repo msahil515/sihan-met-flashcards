@@ -68,6 +68,7 @@
       || k === "tests-done-v1"                                   /* mark-done on tests/ */
       || k === "tapp-meta-v1"                                    /* Tests app XP/streak/bests */
       || /^tapp-run-.+-v\d+$/.test(k)                            /* Tests app per-mock run */
+      || k === "tapp-revenge-v1"                                 /* Tests app Revenge mode misses + ladder */
       || /^sihan-.*-checklist-v\d+$/.test(k);                    /* study-plan checklists */
   }
   function syncKeys() {

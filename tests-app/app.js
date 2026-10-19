@@ -233,11 +233,12 @@
   var cur = { s: "home", id: null };
   function go(s, id) { if (window.Speak && Speak.stop) Speak.stop(); cur = { s: s, id: id || cur.id }; render(); }
   function render() {
-    ({ home: home, lobby: lobby, play: play, finish: finish, review: review })[cur.s]();
+    ({ home: home, lobby: lobby, play: play, finish: finish, review: review, revenge: function () { window.REVENGE.enter(); } })[cur.s]();
   }
   window.nlBack = function () {
     var sh = app.querySelector(".sheet");
     if (sh) { closeSheet(); return true; }
+    if (cur.s === "revenge") { if (!window.REVENGE.back()) go("home"); return true; }
     var up = { lobby: "home", play: "lobby", finish: "lobby", review: "finish" }[cur.s];
     if (!up) return false;
     go(up); return true;
@@ -279,6 +280,7 @@
       '" stroke-dashoffset="' + C * (1 - frac) + '"/></svg><b>' + done + "</b></div>" +
       '<div class="today-t"><h3>' + (frac >= 1 ? "Daily goal done" : "Daily goal: " + DAILY_GOAL + " questions") + "</h3><p>" +
       (frac >= 1 ? "Streak safe for today. Keep the combo going." : (DAILY_GOAL - done) + " to go today") + "</p></div></div>" +
+      (window.REVENGE ? window.REVENGE.cta() : "") +
       (last ? '<div class="cont"><button class="btn" data-go="play" data-id="' + last + '">Continue: ' + esc(title_of(last)) + "</button></div>" : "") +
       open.map(groupHTML).join("") +
       (closed.length ? '<details class="closed"><summary>Closed cycles (still playable)<small>' + closed.map(function (g) { return g.title; }).join(", ") +
@@ -587,6 +589,14 @@
     });
   }
 
+  /* XP from outside a mock run (Revenge mode): counts toward the daily goal, fires level-up */
+  function gain(n) {
+    var lvBefore = level();
+    meta.xp += n; meta.days[today()] = (meta.days[today()] || 0) + 1; saveMeta();
+    if (level() > lvBefore) setTimeout(function () { levelUp(); tone([523, 659, 784, 1047]); }, 700);
+  }
+  window.TAPP = { go: go, fx: FX, getRun: getRun, meta: function () { return meta; },
+    P: P, DEEP: DEEP, app: app, load: load, store: store, esc: esc, explainHTML: explainHTML, boldFig: boldFig, title_of: title_of, hud: hud,
+    toast: toast, flash: flash, banner: banner, tone: tone, buzz: buzz, floater: floater, gain: gain, closeSheet: closeSheet };
   render();
-  window.TAPP = { go: go, fx: FX, getRun: getRun, meta: function () { return meta; } };
 })();
