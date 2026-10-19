@@ -29,6 +29,7 @@
       if (!isObj(o)) { delete s.it[k]; continue; }
       ["t", "b", "d", "w", "r", "x", "f"].forEach(function (f) { o[f] = +o[f] || 0; });
       o.p = String(o.p || "").toLowerCase();
+      if (L.indexOf(o.p) < 0) delete s.it[k]; /* synced data reaches innerHTML: only a-d survive */
     }
     return s;
   }
