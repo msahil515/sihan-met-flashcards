@@ -37,6 +37,8 @@ public class MainActivity extends Activity {
     private WebView web;
     private PermissionRequest camReq;
     private String pendingCode;
+    /* set by LinkActivity (signature-protected), never read from an intent here */
+    static String handoff;
     private boolean loaded;
 
     @Override
@@ -87,7 +89,6 @@ public class MainActivity extends Activity {
             }
         });
         setContentView(web);
-        pendingCode = cleanCode(getIntent().getStringExtra(SYNC_EXTRA));
         if (state != null) web.restoreState(state);
         else web.loadUrl(START);
     }
@@ -123,19 +124,19 @@ public class MainActivity extends Activity {
         camReq = null;
     }
 
-    /* the sister app sent its sync code: take it on and sync straight away */
+    /* the sister app sent its sync code (via LinkActivity): take it on and sync straight away */
     @Override
-    protected void onNewIntent(Intent i) {
-        super.onNewIntent(i);
-        setIntent(i);
-        String c = cleanCode(i.getStringExtra(SYNC_EXTRA));
+    protected void onResume() {
+        super.onResume();
+        String c = cleanCode(handoff);
+        handoff = null;
         if (c != null) {
             pendingCode = c;
             if (loaded) adoptPending();
         }
     }
 
-    private static String cleanCode(String c) {
+    static String cleanCode(String c) {
         if (c == null) return null;
         c = c.toUpperCase().replaceAll("[^A-Z0-9]", "");
         return c.length() >= 6 ? c : null;
@@ -173,23 +174,33 @@ public class MainActivity extends Activity {
     }
 
     private class Bridge {
-        @JavascriptInterface
-        public String otherApp() {
+        /* only a sister app signed with the same key counts */
+        private boolean otherOk() {
             try {
                 getPackageManager().getPackageInfo(OTHER_PKG, 0);
-                return OTHER_NAME;
+                return getPackageManager().checkSignatures(getPackageName(), OTHER_PKG) == PackageManager.SIGNATURE_MATCH;
             } catch (Exception e) {
-                return "";
+                return false;
             }
         }
 
         @JavascriptInterface
+        public String otherApp() {
+            return otherOk() ? OTHER_NAME : "";
+        }
+
+        @JavascriptInterface
         public void linkOther(String code) {
-            Intent i = getPackageManager().getLaunchIntentForPackage(OTHER_PKG);
-            if (i == null) return;
+            if (!otherOk()) return;
+            Intent i = new Intent();
+            i.setClassName(OTHER_PKG, OTHER_PKG + ".LinkActivity");
             i.putExtra(SYNC_EXTRA, code);
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(i);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            try {
+                startActivity(i);
+            } catch (Exception e) {
+                Toast.makeText(MainActivity.this, "Update " + OTHER_NAME + " first", Toast.LENGTH_LONG).show();
+            }
         }
 
         @JavascriptInterface
