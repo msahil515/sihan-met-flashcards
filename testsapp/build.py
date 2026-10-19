@@ -9,11 +9,14 @@ so the app's "../take/..." script paths resolve both on the site and in the APK.
 
 Needs: JDK, Android build-tools 34 + platforms;android-34 (homebrew
 android-commandlinetools), Pillow, and the shared keystore from build_apk.py.
-Usage: python3 testsapp/build.py
+Usage: python3 testsapp/build.py          (phone, portrait-locked)
+       python3 testsapp/build.py --tab    (tab: downloads/Tests-Tab.apk, same package,
+       rotates with the device incl. keyboard dock, so it installs over the phone build)
 """
 import os
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 
 from PIL import Image, ImageDraw
@@ -26,8 +29,9 @@ JAR = SDK / "platforms" / "android-34" / "android.jar"
 KEYSTORE = Path(os.environ.get("SIHAN_MET_KEYSTORE", Path.home() / ".sihan-met-keystore" / "sihan-met.jks"))
 KS_PASS = os.environ.get("SIHAN_MET_KS_PASS", "sihanmet2026")
 KS_ALIAS = os.environ.get("SIHAN_MET_KS_ALIAS", "sihanmet")
-OUT = ROOT / "downloads" / "Tests.apk"
-W = Path("/tmp/tests-apk-build")
+TAB = "--tab" in sys.argv
+OUT = ROOT / "downloads" / ("Tests-Tab.apk" if TAB else "Tests.apk")
+W = Path("/tmp/tests-apk-build" + ("-tab" if TAB else ""))
 
 
 def run(*cmd):
@@ -64,9 +68,18 @@ def main():
         if f.name != "data-mock.js":  # not loaded by take/screen.html either
             shutil.copy2(f, assets / "take" / f.name)
 
+    manifest = HERE / "AndroidManifest.xml"
+    if TAB:  # only difference from the phone build: free rotation, no restart on keyboard dock
+        m = manifest.read_text()
+        m = m.replace('screenOrientation="portrait"', 'screenOrientation="fullSensor"')
+        m = m.replace('keyboardHidden|', 'keyboardHidden|keyboard|navigation|')
+        assert "fullSensor" in m and "|keyboard|" in m
+        manifest = W / "AndroidManifest.xml"
+        manifest.write_text(m)
+
     print("[1/4] resources")
     run(BT / "aapt2", "compile", "--dir", res, "-o", W / "res.zip")
-    run(BT / "aapt2", "link", "-o", W / "base.apk", "-I", JAR, "--manifest", HERE / "AndroidManifest.xml",
+    run(BT / "aapt2", "link", "-o", W / "base.apk", "-I", JAR, "--manifest", manifest,
         "-A", W / "assets", W / "res.zip")
 
     print("[2/4] java -> dex")
