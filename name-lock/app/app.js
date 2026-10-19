@@ -936,20 +936,26 @@ function refreshTab(){ showTab(TAB, true); }
 /* ================= cross-device sync (../../sync.js, same code as /sync/ on the site) ================= */
 function syncLabel(){ var Y = window.SihanSync, c = Y && Y.getCode(); return c ? Y.prettyCode(c) : "Off"; }
 function syncSheet(){
-  var Y = window.SihanSync; if (!Y){ toast("Sync isn't loaded. Open the app once with internet.", "bad"); return; }
-  var c = Y.getCode(), st = Y.status(), when = st.at ? new Date(st.at).toLocaleTimeString([], {hour: "numeric", minute: "2-digit"}) : "";
+  var Y = window.SihanSync, Q = window.SihanQR; if (!Y){ toast("Sync isn't loaded. Open the app once with internet.", "bad"); return; }
+  var c = Y.getCode(), st = Y.status(), when = st.at ? new Date(st.at).toLocaleTimeString([], {hour: "numeric", minute: "2-digit"}) : "", other = Q ? Q.otherApp() : "";
   openSheet('<h2 class="sh" style="margin-top:0">Sync<small>Same code on your phone and tab = same XP, streak, levels, bosses and misses</small></h2>' +
     (c ? '<p style="margin:0 0 10px">This device is on <b>' + Y.prettyCode(c) + '</b>. ' + (st.state === "ok" ? "Last synced " + when + "." : st.state === "error" ? "Last try failed: " + esc(st.msg) + "." : "") + '</p>' +
+      (Q ? '<div id="sy-qr"></div><p style="margin:10px 0 14px;text-align:center;color:var(--mu);font-weight:700;font-size:14px">On your other device: Sync › <b>Scan QR</b>, point it here. Done once, linked for good.</p>' : '') +
+      (other ? '<button class="btn" id="sy-oth" style="margin-bottom:10px">Link ' + esc(other) + ' on this device too</button>' : '') +
       '<button class="btn" id="sy-now">Sync now</button><button class="btn bad" id="sy-off" style="margin-top:10px">Turn sync off here</button>'
-    : '<p style="margin:0 0 10px">Got a code already (from /sync/ on the site or your other device)? Type it in. First device? Make a new one.</p>' +
+    : (Q && Q.canScan() ? '<p style="margin:0 0 10px">Already synced on your other device? Open Sync there, it shows a QR. Scan it from here.</p><button class="btn" id="sy-scan" style="margin-bottom:16px">📷 Scan QR</button>' : '') +
+      '<p style="margin:0 0 10px">Or type the code. First device? Make a new one.</p>' +
       '<input class="search" id="sy-in" maxlength="9" placeholder="ABCD-EFGH" autocapitalize="characters" style="background-image:none;padding-left:14px;text-transform:uppercase;letter-spacing:.12em">' +
       '<button class="btn" id="sy-ok" style="margin-top:14px">Link this device</button><button class="btn" id="sy-new" style="margin-top:10px;filter:saturate(.4)">Make a new code</button>'));
   function go(code){ if (!Y.setCode(code)){ toast("Code needs 6+ letters", "bad"); return; }
     toast("Syncing…"); Y.syncNow("setup").then(function(s){ Y.start(); refreshTab(); syncSheet(); toast(s.state === "ok" ? "Linked. Same code on your other device." : "Sync failed: " + esc(s.msg), s.state === "ok" ? "good" : "bad"); }); }
-  if (c){ $("#sy-now").onclick = function(){ toast("Syncing…"); Y.syncNow("manual").then(function(s){ toast(s.state === "ok" ? "Synced" : "Sync failed: " + esc(s.msg), s.state === "ok" ? "good" : "bad"); closeSheet(); refreshTab(); }); };
+  if (c){ if (Q) Q.render($("#sy-qr"), c);
+    if (other) $("#sy-oth").onclick = function(){ Q.linkOther(c); };
+    $("#sy-now").onclick = function(){ toast("Syncing…"); Y.syncNow("manual").then(function(s){ toast(s.state === "ok" ? "Synced" : "Sync failed: " + esc(s.msg), s.state === "ok" ? "good" : "bad"); closeSheet(); refreshTab(); }); };
     $("#sy-off").onclick = function(){ Y.clearCode(); closeSheet(); refreshTab(); toast("Sync off on this device. Progress stays here.", "good"); }; }
   else { $("#sy-ok").onclick = function(){ go($("#sy-in").value); };
-    $("#sy-new").onclick = function(){ go(Y.makeCode()); }; }
+    $("#sy-new").onclick = function(){ go(Y.makeCode()); };
+    if ($("#sy-scan")) $("#sy-scan").onclick = function(){ Q.scan().then(function(code){ if (code) go(code); }, function(e){ toast(esc(e.message), "bad"); }); }; }
 }
 /* the other device's progress just landed in localStorage: swap the in-memory copy so the next save can't write stale state over it */
 window.addEventListener("sihan-sync", function(e){

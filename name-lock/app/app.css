@@ -568,3 +568,38 @@ h2.sh small{display:block;font-size:13px;font-weight:700;color:var(--mu);margin-
 
 /* Biopsych world banner */
 .unit.bio{background:linear-gradient(135deg,#e548d3,#6a1fa8);box-shadow:0 4px 0 #4a0f78}
+
+/* ---------- tab: use the whole screen (Tab S11 Ultra is ~925px wide upright, ~1480px sideways) ---------- */
+@media (min-width:760px){
+  #app{max-width:none}
+  .tabpage{padding:0 32px 32px}
+  .hud{margin:0 -32px 8px;padding:14px 32px 12px}
+  .tiles-m{grid-template-columns:repeat(3,1fr)} .tiles{grid-template-columns:repeat(5,1fr)}
+  .cal{max-width:440px;margin:0 auto}
+  .modes{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+  .dex{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  .lhead{padding:16px 32px 10px}
+  .lfoot{padding-left:32px;padding-right:32px}
+  .lib-top{padding:8px 32px 0}
+  #sheet{left:max(0px,calc(50% - 360px));right:max(0px,calc(50% - 360px))}
+  .qbody{padding:18px 32px 28px}
+  .qk{font-size:26px}
+  .qcard{padding:20px 22px}
+  .qcard .qn{font-size:28px} .qcard .qd{font-size:20px} .qcard .qs{font-size:16.5px}
+  .opt{font-size:18px;padding:16px 18px}
+  .fb{padding:20px 32px calc(18px + var(--safe-b))}
+  .fb .why{font-size:16px} .fb .ans{font-size:16.5px}
+}
+/* sideways: question on the left, options on the right, and the answer panel splits into
+   verdict | explanation so it only takes the bottom of the screen and the options stay visible */
+@media (min-width:1100px){
+  .qbody{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:32px;align-items:start}
+  .qk{grid-column:1/-1}
+  .qcard{grid-column:1;margin-bottom:0}
+  .opts,.opts.two{grid-column:2}
+  .fb{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);grid-template-rows:auto auto 1fr auto;column-gap:32px;max-height:46vh}
+  .fb h3{grid-column:1;grid-row:1}
+  .fb .ans{grid-column:1;grid-row:2}
+  .fb .why{grid-column:2;grid-row:1/5;margin:0;max-height:calc(46vh - 40px)}
+  .fb .btn{grid-column:1;grid-row:4;align-self:end}
+}

@@ -5,7 +5,7 @@ runs the Name Lock game fully offline. Unlike build_apk.py this compiles a real
 wrapper from source (MainActivity.java + res/), so it gets its own icon, splash,
 haptics bridge and back-button handling.
 
-Bundled payload (assets/www): name-lock/app/* + name-lock/data.js + sync.js.
+Bundled payload (assets/www): name-lock/app/* + name-lock/data.js + sync.js + syncqr.js/qrlib.js.
 
 Needs: JDK, Android build-tools 34 + platforms;android-34 (homebrew
 android-commandlinetools), Pillow, and the shared keystore from build_apk.py.
@@ -65,6 +65,8 @@ def main():
     shutil.copytree(ROOT / "name-lock" / "app", assets)
     shutil.copy2(ROOT / "name-lock" / "data.js", assets / "data.js")
     shutil.copy2(ROOT / "sync.js", assets / "sync.js")  # ../../sync.js resolves to the asset root
+    for f in ("syncqr.js", "qrlib.js"):  # QR sync link, next to sync.js
+        shutil.copy2(ROOT / f, assets / f)
 
     manifest = HERE / "AndroidManifest.xml"
     if TAB:  # only difference from the phone build: free rotation, no restart on keyboard dock

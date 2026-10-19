@@ -270,3 +270,28 @@ details.closed h2.sh{font-size:16px;margin-top:14px}
   .pfoot{padding-left:13px;padding-right:13px;gap:8px}
   .pfoot .nav{width:48px}
 }
+
+/* ---------- tab: use the whole screen (Tab S11 Ultra is ~925px wide upright, ~1480px sideways) ---------- */
+@media (min-width:760px){
+  #app{max-width:none}
+  .hud,.ptop{padding-left:28px;padding-right:28px}
+  .scroll{padding:0 28px 32px}
+  .scroll.narrow{padding-left:max(28px,calc(50% - 400px));padding-right:max(28px,calc(50% - 400px))}
+  .mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));column-gap:12px}
+  .qcard{font-size:21px;padding:20px 22px}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .opt{font-size:17.5px;padding:15px 16px}
+  .exp-answer .atext{font-size:17.5px}
+  .exp-sec p{font-size:17px}
+  .exp-trap .to,.exp-trap .tw{font-size:15.5px}
+  .pfoot{padding-left:28px;padding-right:28px}
+  .sheet{left:max(0px,calc(50% - 400px));right:max(0px,calc(50% - 400px))}
+}
+/* sideways, once answered: question + options on the left, the full explanation on the right */
+@media (min-width:1100px){
+  #ps:has(#after:not(:empty)){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);grid-template-rows:auto auto auto 1fr;column-gap:28px;align-content:start}
+  #ps:has(#after:not(:empty)) > *{grid-column:1}
+  #ps:has(#after:not(:empty)) .opts{grid-template-columns:1fr}
+  #ps:has(#after:not(:empty)) > #after{grid-column:2;grid-row:1/5}
+  #after .verdict{margin-top:4px}
+}

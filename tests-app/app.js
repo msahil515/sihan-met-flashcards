@@ -265,7 +265,7 @@
       '%"></i></span></span><span class="stars">' + starHTML(st) + "</span></button>";
   }
   function groupHTML(g) {
-    return '<h2 class="sh">' + esc(g.title) + '</h2><p class="gsub">' + esc(g.sub) + "</p>" + g.members.map(mockCard).join("");
+    return '<h2 class="sh">' + esc(g.title) + '</h2><p class="gsub">' + esc(g.sub) + "</p><div class=\"mgrid\">" + g.members.map(mockCard).join("") + "</div>";
   }
   function home() {
     var done = meta.days[today()] || 0, frac = Math.min(1, done / DAILY_GOAL), C = 2 * Math.PI * 26;
@@ -295,15 +295,18 @@
   /* ---------- cross-device sync (../sync.js, same code as /sync/ on the site) ---------- */
   function syncCode() { var Y = window.SihanSync, c = Y && Y.getCode(); return c ? Y.prettyCode(c) : ""; }
   function syncSheet() {
-    var Y = window.SihanSync; if (!Y) { toast("Sync isn't loaded. Open the app once with internet."); return; }
+    var Y = window.SihanSync, Q = window.SihanQR; if (!Y) { toast("Sync isn't loaded. Open the app once with internet."); return; }
     closeSheet();
-    var c = Y.getCode(), st = Y.status(), when = st.at ? new Date(st.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }) : "";
+    var c = Y.getCode(), st = Y.status(), when = st.at ? new Date(st.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }) : "", other = Q ? Q.otherApp() : "";
     var bg = document.createElement("div"); bg.className = "sheet-bg"; bg.onclick = closeSheet;
-    var sh = document.createElement("div"); sh.className = "sheet";
+    var sh = document.createElement("div"); sh.className = "sheet"; sh.style.overflowY = "auto";
     sh.innerHTML = "<h3>Sync with my other device</h3><p class=\"hint\" style=\"margin:0 4px 12px\">Same code on your phone and tab = same XP, streak, level, bests and every answer.</p>" +
       (c ? '<p class="hint" style="margin:0 4px 12px">This device is on <b>' + Y.prettyCode(c) + "</b>. " + (st.state === "ok" ? "Last synced " + when + "." : st.state === "error" ? "Last try failed: " + esc(st.msg) + "." : "") + "</p>" +
+        (Q ? '<div id="syQr"></div><p class="hint" style="margin:10px 4px 14px;text-align:center">On your other device: Sync › <b>Scan QR</b>, point it here. Done once, linked for good.</p>' : "") +
+        (other ? '<button class="btn" id="syOth">Link ' + esc(other) + " on this device too</button>" : "") +
         '<button class="btn" id="syNow">Sync now</button><button class="btn" id="syOff">Turn sync off here</button>'
-      : '<p class="hint" style="margin:0 4px 12px">Got a code already (from /sync/ on the site or your other device)? Type it in. First device? Make a new one.</p>' +
+      : (Q && Q.canScan() ? '<p class="hint" style="margin:0 4px 12px">Already synced on your other device? Open Sync there, it shows a QR. Scan it from here.</p><button class="btn" id="syScan" style="margin-bottom:16px">📷 Scan QR</button>' : "") +
+        '<p class="hint" style="margin:0 4px 12px">Or type the code. First device? Make a new one.</p>' +
         '<input id="syIn" maxlength="9" placeholder="ABCD-EFGH" autocapitalize="characters" style="width:100%;box-sizing:border-box;padding:13px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--s1);color:var(--tx);font:800 17px inherit;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px">' +
         '<button class="btn" id="syOk">Link this device</button><button class="btn" id="syNew">Make a new code</button>');
     app.appendChild(bg); app.appendChild(sh);
@@ -313,11 +316,15 @@
       Y.syncNow("setup").then(function (s) { Y.start(); home(); syncSheet(); toast(s.state === "ok" ? "Linked. Same code on your other device." : "Sync failed: " + s.msg); });
     }
     if (c) {
+      if (Q) Q.render(document.getElementById("syQr"), c);
+      if (other) document.getElementById("syOth").onclick = function () { Q.linkOther(c); };
       document.getElementById("syNow").onclick = function () { toast("Syncing…"); Y.syncNow("manual").then(function (s) { toast(s.state === "ok" ? "Synced" : "Sync failed: " + s.msg); closeSheet(); home(); }); };
       document.getElementById("syOff").onclick = function () { Y.clearCode(); closeSheet(); home(); toast("Sync off on this device. Progress stays here."); };
     } else {
       document.getElementById("syOk").onclick = function () { link(document.getElementById("syIn").value); };
       document.getElementById("syNew").onclick = function () { link(Y.makeCode()); };
+      var scanB = document.getElementById("syScan");
+      if (scanB) scanB.onclick = function () { Q.scan().then(function (code) { if (code) link(code); }, function (e) { toast(e.message); }); };
     }
   }
   /* the other device's progress just landed: reload XP/streak so the next save can't write a stale copy back */
@@ -331,7 +338,7 @@
   function lobby() {
     var id = cur.id, M = P[id], R = REG[id] || {}, r = getRun(id), sc = score(id, r);
     var wrongN = sc.wrong;
-    var h = '<div class="screen"><div class="ptop"><button class="xbtn" data-go="home">‹</button><div style="flex:1"></div></div><div class="scroll">' +
+    var h = '<div class="screen"><div class="ptop"><button class="xbtn" data-go="home">‹</button><div style="flex:1"></div></div><div class="scroll narrow">' +
       '<h1 class="lob-h">' + esc(title_of(id)) + '</h1><p class="lob-s">' + esc(R.sub || M.sub || "") + "</p>" +
       (R.blurb ? '<div class="blurb clip" id="blurb">' + esc(R.blurb) + "</div>" : "") +
       '<div class="stats"><div class="stat"><b>' + sc.answered + "/" + sc.N + '</b><span>Answered</span></div><div class="stat"><b>' + fmt(sc.marks) +
@@ -519,7 +526,7 @@
       var x = secs[s], p = Math.round(100 * x.r / x.n);
       return '<div class="secrow' + (p < 50 ? " weak" : "") + '"><div class="sl"><span>' + esc(labels[s] || s) + "</span><span>" + x.r + "/" + x.n + '</span></div><div class="sb"><i style="width:' + p + '%"></i></div></div>';
     }).join("") + "</div>" : "";
-    app.innerHTML = '<div class="screen"><div class="ptop"><button class="xbtn" data-go="home">✕</button><div style="flex:1"></div></div><div class="scroll">' +
+    app.innerHTML = '<div class="screen"><div class="ptop"><button class="xbtn" data-go="home">✕</button><div style="flex:1"></div></div><div class="scroll narrow">' +
       '<div class="fin-stars">' + starHTML(st) + '</div><div class="fin-h">' + head + '</div><div class="fin-s">' + esc(title_of(id)) + "</div>" +
       '<div class="big">' + fmt(sc.marks) + "<small> / " + sc.N + "</small></div>" +
       '<div class="stats"><div class="stat"><b style="color:var(--ok)">' + sc.right + '</b><span>Right</span></div><div class="stat"><b style="color:var(--bad)">' + sc.wrong +
@@ -561,7 +568,7 @@
     var items = Q.map(function (q, i) { return { q: q, i: i, a: r.ans[i] }; }).filter(function (x) {
       return rvFilter === "all" ? true : rvFilter === "miss" ? x.a !== x.q.correct : x.a === x.q.correct;
     });
-    app.innerHTML = '<div class="screen"><div class="ptop"><button class="xbtn" data-go="lobby" data-id="' + id + '">‹</button><div style="flex:1;font-weight:900">Review</div></div><div class="scroll">' +
+    app.innerHTML = '<div class="screen"><div class="ptop"><button class="xbtn" data-go="lobby" data-id="' + id + '">‹</button><div style="flex:1;font-weight:900">Review</div></div><div class="scroll narrow">' +
       '<div class="seg"><button data-f="miss" class="' + (rvFilter === "miss" ? "on" : "") + '">Missed</button><button data-f="right" class="' + (rvFilter === "right" ? "on" : "") +
       '">Right</button><button data-f="all" class="' + (rvFilter === "all" ? "on" : "") + '">All</button></div><p class="hint">' + items.length + " questions. Tap one to open the explanation.</p>" +
       items.map(function (x) {
