@@ -822,6 +822,114 @@ function openBio(){
     if (!bioOpen(i)){ buzz(HAP.bad); toast("🔒 Beat " + BIO[i - 1][1] + " first", "bad"); return; } startBoss(BIO0 + i); };
 }
 
+/* ================= viva worlds (viva.js): the panel asks, you say it out loud, reveal, rate yourself ================= */
+var VIVA = window.NL_VIVA || {}, V = null;
+function vivaKey(w, i){ return w + "-" + VIVA[w].levels[i].k; }
+function vivaSt(id){ var g = G(), v = g.v || (g.v = {}); return v[id] || (v[id] = {n: 0, k: 0, m: 0}); }
+function vivaAll(w){ var a = []; VIVA[w].levels.forEach(function(l){ if (l.cards) a = a.concat(l.cards); }); return a; }
+function vivaNailed(w){ var v = G().v || {}; return vivaAll(w).filter(function(c){ return v[c.id] && +v[c.id].k; }).length; }
+/* Panel Final: the cards you missed most come first, never-seen next, solid ones last */
+function vivaFinal(w, n){ var v = G().v || {};
+  return vivaAll(w).map(function(c){ var s = v[c.id]; return [c, (s ? (+s.m || 0) - (+s.k || 0) : 0) + Math.random() * .9]; })
+    .sort(function(a, b){ return b[1] - a[1]; }).slice(0, n).map(function(x){ return x[0]; }); }
+function vivaAnsHtml(c, cls){
+  return '<div class="f say"><i>Say it like this</i>' + esc(c.a) + '</div>' +
+    (c.n ? '<div class="f num"><i>Key numbers</i>' + esc(c.n) + '</div>' : '') +
+    (c.t ? '<div class="f trap"><i>Trap</i>' + esc(c.t) + '</div>' : '') +
+    (c.f ? '<div class="f fu"><i>They follow up</i><b>' + esc(c.f) + '</b><br>' + esc(c.fa) + '</div>' : ''); }
+function openViva(w){
+  var W = VIVA[w], g = G(), cur = -1; if (!W) return;
+  var won = W.levels.filter(function(l, i){ var b = g.boss[vivaKey(w, i)]; if (cur < 0 && !(b && b.w)) cur = i; return b && b.w; }).length;
+  var el = pushScreen("viva", '<div class="lhead"><button class="x" id="vw-x">' + IC.x + '</button><b style="font-size:19px;font-weight:900">' + W.icon + ' ' + esc(W.name) + ' world</b></div><div class="scroll" style="padding:0 16px"><div class="path">' +
+    '<div class="unit ' + w + '"><a class="wlink" href="worlds.html#skip">🪐 Worlds</a><b>' + esc(W.unit) + '</b><span>' + esc(W.blurb) + ' ' + won + ' of ' + W.levels.length + ' levels cleared, ' + vivaNailed(w) + ' of ' + vivaAll(w).length + ' answers nailed. Every level is open.</span></div>' +
+    W.levels.map(function(l, i){
+      var b = g.boss[vivaKey(w, i)] || {}, off = Math.round(Math.sin(i * 0.9) * 70);
+      return '<div class="node-wrap"><button class="node ' + (b.w ? "won" : "open") + (i === cur ? " cur" : "") + '" data-v="' + i + '" style="transform:translateX(' + off + 'px)">' + (i === cur ? '<span class="bubble">' + (b.tries ? "GO" : "START") + '</span>' : '') +
+        l.icon + (b.w ? '<span class="crown">' + (b.bl === 3 ? "👑" : "✓") + '</span>' : '') + '</button><span class="node-l" style="transform:translateX(' + off + 'px)">' + esc(l.name) + ' · ' + (l.final || l.cards.length) + ' Qs</span></div>'; }).join("") +
+    '</div></div>', popScreen);
+  $("#vw-x", el).onclick = popScreen;
+  $(".path", el).onclick = function(e){ var b = e.target.closest("[data-v]"); if (b) vivaSheet(w, +b.dataset.v); };
+}
+function vivaSheet(w, i){
+  var l = VIVA[w].levels[i], b = G().boss[vivaKey(w, i)] || {};
+  openSheet('<div class="cd"><h2>' + l.icon + ' ' + esc(l.name) + '</h2><div class="who">' + esc(l.sub) + ' · ' + plural(l.final || l.cards.length, "question") + (b.w ? ' · cleared ' + b.w + 'x' : '') + '</div>' +
+    '<p class="vp">The panel asks. Say your answer out loud, then check the model answer and rate yourself. Shaky or blanked ones come back at the end until you nail them.</p>' +
+    '<button class="btn" id="vs-go">' + (b.w ? "Run it again" : "Start") + '</button>' + (l.cards ? '<button class="btn ghost" id="vs-read" style="margin-top:10px">Read all the answers first</button>' : '') + '</div>');
+  $("#vs-go").onclick = function(){ closeSheet(); wipe(function(){ startViva(w, i); }); };
+  if (l.cards) $("#vs-read").onclick = function(){
+    $("#sheet").innerHTML = '<div class="cd"><h2>' + l.icon + ' ' + esc(l.name) + '</h2><div class="who">' + plural(l.cards.length, "question") + ', read them, then test yourself</div>' +
+      l.cards.map(function(c){ return '<div class="vread"><h3>' + esc(c.q) + '</h3>' + vivaAnsHtml(c) + '</div>'; }).join("") + '<button class="btn" id="vs-go2" style="margin-top:16px">Start</button></div>';
+    $("#sheet").scrollTop = 0;
+    $("#vs-go2").onclick = function(){ closeSheet(); wipe(function(){ startViva(w, i); }); }; };
+}
+function startViva(w, i){
+  var l = VIVA[w].levels[i], cards = l.final ? vivaFinal(w, l.final) : l.cards.slice(), b = G().boss[vivaKey(w, i)] || (G().boss[vivaKey(w, i)] = {});
+  b.tries = (+b.tries || 0) + 1; save();
+  V = {w: w, i: i, l: l, q: cards, total: cards.length, done: 0, first: 0, miss: {}, xp: 0, t0: Date.now()};
+  holdCeleb = true;
+  var el = pushScreen("lesson", '<div class="lhead"><button class="x" id="v-x">' + IC.x + '</button><div class="lprog"><i style="width:0"></i></div><div id="l-side"></div></div>' +
+    '<div class="scroll" id="l-body"></div><div class="lfoot" id="l-foot"></div>', vivaQuit);
+  LFX.skin(el);
+  $("#v-x", el).onclick = vivaQuit;
+  vivaNext();
+}
+function vivaNext(){
+  if (!V.q.length) return vivaFinish();
+  var c = V.q[0];
+  $("#lesson .lprog i").style.width = (V.done * 100 / V.total) + "%";
+  $("#l-side").innerHTML = '<span class="vleft">' + V.q.length + ' left</span>';
+  $("#l-body").innerHTML = '<div class="qbody"><div class="vk">' + V.l.icon + ' ' + esc(V.l.name) + (V.miss[c.id] ? ' · second go' : '') + '</div><div class="qk">' + esc(c.q) + '</div>' +
+    '<div class="qcard vhint">🎤 Say your answer out loud first, like you are in the room. Then check it.</div><div id="v-ans"></div></div>';
+  $("#l-body").scrollTop = 0;
+  $("#l-foot").innerHTML = '<button class="btn" id="v-show">Show model answer</button>';
+  $("#v-show").onclick = function(){
+    $("#l-body .vhint").remove();
+    $("#v-ans").innerHTML = '<div class="qcard va">' + vivaAnsHtml(c) + '</div>';
+    $("#l-foot").innerHTML = '<div class="vk" style="text-align:center">How did you do?</div><div class="rate3"><button class="btn bad" data-r="0">Blanked</button><button class="btn ghost" data-r="1">Shaky</button><button class="btn ok" data-r="2">Nailed it</button></div>';
+    $("#l-foot .rate3").onclick = function(e){ var b = e.target.closest("[data-r]"); if (b) vivaRate(+b.dataset.r); };
+  };
+}
+function vivaRate(r){
+  var c = V.q.shift(), s = vivaSt(c.id), ok = r === 2, again = V.miss[c.id];
+  s.n = (+s.n || 0) + 1;
+  if (ok){ s.k = (+s.k || 0) + 1; V.done++; if (!again) V.first++; }
+  else { s.m = (+s.m || 0) + 1; V.miss[c.id] = 1; V.q.push(c); }
+  V.xp += answer({c: {id: "v:" + c.id}, ok: ok, src: "viva", mode: "viva", mult: again ? .5 : 1});
+  if (ok){ SFX.ok(); buzz(HAP.ok); flash("ok"); LFX.boost(.6); LFX.burst(18); }
+  else { SFX.bad(); buzz(HAP.bad); flash("bad"); toast((r ? "Shaky" : "Blanked") + ". It comes back at the end.", "bad"); }
+  vivaNext();
+}
+function vivaFinish(){
+  var g = G(), b = g.boss[vivaKey(V.w, V.i)], clean = V.first === V.total, bx = clean ? 75 : 50;
+  b.w = (+b.w || 0) + 1; if (clean) b.bl = 3;
+  addXP(bx); V.xp += bx; V.fin = true; badgeCheck(); save();
+  SFX.win(); buzz(HAP.big); confetti(clean ? 200 : 120);
+  var missed = (V.l.cards || vivaAll(V.w)).filter(function(c){ return V.miss[c.id]; });
+  var el = $("#lesson");
+  el.innerHTML = '<div class="scroll"><div class="center"><div class="hero-e">' + (clean ? "💯" : V.l.icon) + '</div><h1 class="gold">' + esc(V.l.name) + ' cleared</h1>' +
+    '<p>' + (clean ? "Every answer nailed first time." : V.first + " of " + V.total + " nailed first time, the rest on the second go.") + '</p>' +
+    '<div class="rstats"><div class="rs g"><div class="rk">Total XP</div><div class="rv">' + V.xp + '</div></div><div class="rs o"><div class="rk">First time</div><div class="rv">' + Math.round(V.first * 100 / V.total) + '%</div></div>' +
+    '<div class="rs b"><div class="rk">Time</div><div class="rv">' + fmtTime(Date.now() - V.t0) + '</div></div></div>' +
+    (missed.length ? '<div class="missed"><div class="k">Say these again tonight</div>' + missed.map(function(c){ return '<button class="chip" data-vc="' + c.id + '">' + esc(c.q) + '</button>'; }).join("") + '</div>' : '') +
+    '</div></div><div class="lfoot"><button class="btn" id="r-done">Continue</button><button class="btn ghost" id="r-again" style="margin-top:10px">Run it again</button></div>';
+  LFX.skin(el);
+  var all = vivaAll(V.w);
+  el.querySelector(".scroll").onclick = function(e){ var x = e.target.closest("[data-vc]"); if (!x) return;
+    var c = all.filter(function(y){ return y.id === x.dataset.vc; })[0]; openSheet('<div class="cd"><h2 style="font-size:21px">' + esc(c.q) + '</h2>' + vivaAnsHtml(c) + '</div>'); };
+  var w = V.w, i = V.i;
+  $("#r-done").onclick = endViva;
+  $("#r-again").onclick = function(){ popScreen(); V = null; startViva(w, i); };
+  holdCeleb = false; setTimeout(flushCeleb, 900);
+}
+function vivaQuit(){
+  if (!V || V.fin) return endViva();
+  openSheet('<div class="center" style="padding:6px 4px 0"><div class="hero-e" style="font-size:64px">🚪</div><h1>Leave this round?</h1><p>Your ratings so far are saved. The level only clears when every answer is nailed.</p></div>' +
+    '<button class="btn" id="q-stay" style="margin-top:14px">Keep going</button><button class="btn ghost" id="q-quit" style="margin-top:10px">Leave</button>');
+  $("#q-stay").onclick = closeSheet;
+  $("#q-quit").onclick = function(){ closeSheet(); endViva(); };
+}
+function endViva(){ var w = V ? V.w : "dis"; V = null; holdCeleb = false; clearScreens(); openViva(w); setTimeout(flushCeleb, 350); }
+
 /* ================= library ================= */
 function openLibrary(cat){
   var LC = cat || "all";
@@ -1066,6 +1174,7 @@ if (location.hash === "#map"){ history.replaceState(null, "", location.pathname)
   while (sc && sc !== document.body && !(sc.scrollHeight > sc.clientHeight && /auto|scroll/.test(getComputedStyle(sc).overflowY))) sc = sc.parentNode;
   if (p && sc && sc !== document.body) sc.scrollTop += p.getBoundingClientRect().top - sc.getBoundingClientRect().top - 8; }); }
 if (location.hash === "#bio"){ history.replaceState(null, "", location.pathname); openBio(); }
+if (VIVA[location.hash.slice(1)]){ var vw = location.hash.slice(1); history.replaceState(null, "", location.pathname); openViva(vw); }
 if (!S.onboarded && !G().xp) onboarding();
 document.addEventListener("visibilitychange", function(){ if (!document.hidden && !STACK.length) refreshTab(); });
 window.NLAPP = {G: G, P: function(){ return P; }, TH: TH_LIST, start: startLesson, _cur: function(){ return L && L.q && L.q.c.id; }};

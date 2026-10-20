@@ -35,6 +35,12 @@ var BIO = [["pinel-1","Origins","🧬"],["pinel-2","Neuron","⚡"],["pinel-3","L
   ["pinel-6","H.M.","🧠"],["pinel-7","Hormone and Sleep","🌙"],["pinel-8","Split Brain","💊"],["pinel-9","Amygdala","😱"],["pinel-final","Pinel Final","👑"]];
 var bioW = BIO.filter(function(m){ return won(m[0]); }).length;
 var nextBio = BIO.filter(function(m){ return !won(m[0]); })[0];
+/* Dissertation levels come from viva.js (same keys as app.js: "dis-" + level key) */
+var DISL = ((window.NL_VIVA || {}).dis || {levels: []}).levels, gv = g.v || {};
+var DIS = DISL.map(function(l){ return ["dis-" + l.k, l.name, l.icon]; });
+var disW = DIS.filter(function(m){ return won(m[0]); }).length;
+var nextDis = DIS.filter(function(m){ return !won(m[0]); })[0];
+var disT = 0, disN = 0; DISL.forEach(function(l){ (l.cards || []).forEach(function(c){ disT++; if (gv[c.id] && +gv[c.id].k) disN++; }); });
 
 var WORLDS = [
   {id: "wsw", kick: "WORLD 1", name: "Who Said What", tag: "A city of theorist statues",
@@ -43,7 +49,10 @@ var WORLDS = [
   {id: "bio", kick: "WORLD 2", name: "Biopsych", tag: "A glowing brain with pulsing neurons",
     c: ["#ffd9f7", "#e548d3", "#35106a"], pc: "#ff5fe0", pd: "#a3249a", spin: 40, built: true, open: true,
     lockText: "", prog: bioW / BIO.length, best: +best.combo ? best.combo + " in a row" : "--", next: nextBio ? nextBio[2] + " " + nextBio[1] : "All won 🏆"},
-  {id: "stats", kick: "WORLD 3", name: "Stats and Research", tag: "A lab world of data towers and graphs",
+  {id: "dis", kick: "WORLD 3", name: "Dissertation", tag: "Your own study, the way a viva panel walks it",
+    c: ["#e3ffef", "#2fd47f", "#08402e"], pc: "#4dffa6", pd: "#16935a", spin: 60, built: true, open: true,
+    lockText: "", prog: DIS.length ? disW / DIS.length : 0, best: disN + "/" + disT, bestK: "Nailed", next: nextDis ? nextDis[2] + " " + nextDis[1] : "All cleared 🏆", nextK: "Next level"},
+  {id: "stats", kick: "WORLD 4", name: "Stats and Research", tag: "A lab world of data towers and graphs",
     c: ["#d6fbff", "#38c6ff", "#0a2a66"], pc: "#3de0ff", pd: "#1a78a8", spin: 56, built: false, open: won("pinel-final") || DEMO,
     lockText: "Beat the Pinel Final Boss to unlock", prog: 0, best: "--", next: "Normal Curve Boss"}
 ];
@@ -70,6 +79,7 @@ function tone(f, type, t, peak, dur, dest){ var o = AC.createOscillator(), gn = 
 var MOODS = [
   {pad: [110, 164.81, 220, 277.18], type: "triangle", cut: 900, lfo: .07, step: 1.6, notes: [440, 554.37, 659.25, 739.99, 880], voice: "sine", vol: .05, dur: 2.2},
   {pad: [73.42, 110, 146.83, 220], type: "sine", cut: 1400, lfo: 1.05, step: .32, notes: [880, 1174.66, 1318.51, 1760, 2349.32], voice: "sine", vol: .025, dur: .18, sparse: .55},
+  {pad: [98, 146.83, 196, 293.66], type: "sine", cut: 1100, lfo: .09, step: 1.3, notes: [587.33, 659.25, 783.99, 880, 987.77], voice: "triangle", vol: .03, dur: 1.6},
   {pad: [65.41, 130.81, 196, 261.63], type: "sawtooth", cut: 520, lfo: .12, step: .25, notes: [523.25, 659.25, 783.99, 1046.5, 783.99, 659.25], voice: "square", vol: .012, dur: .12, seq: true}
 ];
 function startAmb(ix){
@@ -154,6 +164,15 @@ function surface(w){
     pts.forEach(function(p){ var dl = (r() * 2.4).toFixed(2);
       h += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="9" fill="#ff8af0" opacity=".5" class="pulse" style="animation-delay:-' + dl + 's"/>' +
         '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="3.4" fill="#fff" class="pulse" style="animation-delay:-' + dl + 's"/>'; });
+  } else if (w.id === "dis"){
+    /* a library planet: shelves of book spines */
+    for (var sy = -84; sy <= 96; sy += 30){
+      h += '<rect x="-200" y="' + sy + '" width="400" height="3" fill="#06281d" opacity=".55"/>';
+      for (var bk = -200; bk < 196;){ var bw = 5 + r() * 7, bt = 14 + r() * 12;
+        h += '<rect x="' + bk.toFixed(1) + '" y="' + (sy - bt).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + bt.toFixed(1) + '" rx="1" fill="' + ["#0b5a45", "#06281d", "#e3ffef", "#1f9d6b"][Math.floor(r() * 4)] + '" opacity="' + (.35 + r() * .35).toFixed(2) + '"/>';
+        bk += bw + 1.5 + (r() < .12 ? 8 : 0); }
+    }
+    for (var di = 0; di < 14; di++) h += '<circle cx="' + (-200 + r() * 400).toFixed(1) + '" cy="' + (-96 + r() * 190).toFixed(1) + '" r="1.3" fill="#eafff3" class="blink" style="animation-delay:-' + (r() * 2).toFixed(2) + 's"/>';
   } else {
     for (var gx = -200; gx < 200; gx += 25) h += '<rect x="' + gx + '" y="-100" width=".8" height="200" fill="#d6fbff" opacity=".14"/>';
     for (var gy = -100; gy <= 100; gy += 25) h += '<rect x="-200" y="' + gy + '" width="400" height=".8" fill="#d6fbff" opacity=".14"/>';
@@ -182,6 +201,8 @@ function skyline(w){
     h += '<g transform="rotate(' + s[0] + ')"><rect x="-6" y="' + (-98 - s[1]) + '" width="12" height="' + s[1] + '" fill="#06204d" stroke="#9ef0ff" stroke-width="1"/>' +
       '<rect x="-2" y="' + (-98 - s[1] + 6) + '" width="4" height="' + (s[1] - 10) + '" fill="#9ef0ff" opacity=".35"/>' +
       '<circle cy="' + (-101 - s[1]) + '" r="2.6" fill="#ff4d6d" class="blink"/></g>'; });
+  else if (w.id === "dis") h += '<g transform="translate(0 -108)"><path d="M-26 0L0-11L26 0L0 11z" fill="#06281d" stroke="#b9ffd9" stroke-width="1.2"/>' +
+    '<path d="M-14 4v9q14 8 28 0v-9" fill="#06281d" stroke="#b9ffd9" stroke-width="1.2"/><path d="M18 2v14" stroke="#ffd23f" stroke-width="1.6"/><circle cx="18" cy="17" r="2.4" fill="#ffd23f"/></g>';
   else h += '<g opacity=".9"><circle r="112" fill="none" stroke="#ff9cf0" stroke-width="1" stroke-dasharray="2 9" opacity=".6"/></g>';
   return h;
 }
@@ -209,7 +230,7 @@ function planetSvg(w){
 var track = $("#track"), dots = $("#dots");
 function chips(w){
   if (!w.open) return '<div class="chip"><b>🔒</b><small>Locked</small></div><div class="chip"><b>--</b><small>Best</small></div><div class="chip"><b>' + w.next + '</b><small>Boss</small></div>';
-  return '<div class="chip"><b>' + Math.round(w.prog * 100) + '%</b><small>Done</small></div><div class="chip"><b>' + w.best + '</b><small>Best combo</small></div><div class="chip"><b>' + w.next + '</b><small>Next boss</small></div>';
+  return '<div class="chip"><b>' + Math.round(w.prog * 100) + '%</b><small>Done</small></div><div class="chip"><b>' + w.best + '</b><small>' + (w.bestK || "Best combo") + '</small></div><div class="chip"><b>' + w.next + '</b><small>' + (w.nextK || "Next boss") + '</small></div>';
 }
 function btnText(w){ return !w.open ? "🔒 " + w.lockText : w.built ? "Enter world" : "Being built, next up"; }
 WORLDS.forEach(function(w, i){
@@ -241,7 +262,7 @@ function dive(i){
   var w = WORLDS[i];
   document.body.classList.add("diving"); $("#flash").style.background = w.pc; $("#flash").classList.add("on");
   WARP.on = true; whoosh(); stopAmb(); buzz([15, 40, 25, 40, 70]);
-  setTimeout(function(){ location.href = "index.html#" + (w.id === "bio" ? "bio" : "map"); }, 1150);
+  setTimeout(function(){ location.href = "index.html#" + (w.id === "bio" || w.id === "dis" ? w.id : "map"); }, 1150);
 }
 window.addEventListener("pageshow", function(e){ if (e.persisted){ document.body.classList.remove("diving"); $("#flash").classList.remove("on"); WARP.on = false; WARP.v = 0; } });
 
