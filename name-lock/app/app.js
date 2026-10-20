@@ -835,6 +835,7 @@ function vivaFinal(w, n){ var v = G().v || {};
 function vivaAnsHtml(c, cls){
   return '<div class="f say"><i>Say it like this</i>' + esc(c.a) + '</div>' +
     (c.n ? '<div class="f num"><i>Key numbers</i>' + esc(c.n) + '</div>' : '') +
+    (c.h ? '<div class="f tip"><i>How to land it</i>' + esc(c.h) + '</div>' : '') +
     (c.t ? '<div class="f trap"><i>Trap</i>' + esc(c.t) + '</div>' : '') +
     (c.f ? '<div class="f fu"><i>They follow up</i><b>' + esc(c.f) + '</b><br>' + esc(c.fa) + '</div>' : ''); }
 function openViva(w){

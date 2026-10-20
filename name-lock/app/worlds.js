@@ -41,6 +41,12 @@ var DIS = DISL.map(function(l){ return ["dis-" + l.k, l.name, l.icon]; });
 var disW = DIS.filter(function(m){ return won(m[0]); }).length;
 var nextDis = DIS.filter(function(m){ return !won(m[0]); })[0];
 var disT = 0, disN = 0; DISL.forEach(function(l){ (l.cards || []).forEach(function(c){ disT++; if (gv[c.id] && +gv[c.id].k) disN++; }); });
+/* JSS Interview levels, same pattern ("jss-" + level key) */
+var JSSL = ((window.NL_VIVA || {}).jss || {levels: []}).levels;
+var JSS = JSSL.map(function(l){ return ["jss-" + l.k, l.name, l.icon]; });
+var jssW = JSS.filter(function(m){ return won(m[0]); }).length;
+var nextJss = JSS.filter(function(m){ return !won(m[0]); })[0];
+var jssT = 0, jssN = 0; JSSL.forEach(function(l){ (l.cards || []).forEach(function(c){ jssT++; if (gv[c.id] && +gv[c.id].k) jssN++; }); });
 
 var WORLDS = [
   {id: "wsw", kick: "WORLD 1", name: "Who Said What", tag: "A city of theorist statues",
@@ -52,7 +58,10 @@ var WORLDS = [
   {id: "dis", kick: "WORLD 3", name: "Dissertation", tag: "Your own study, the way a viva panel walks it",
     c: ["#e3ffef", "#2fd47f", "#08402e"], pc: "#4dffa6", pd: "#16935a", spin: 60, built: true, open: true,
     lockText: "", prog: DIS.length ? disW / DIS.length : 0, best: disN + "/" + disT, bestK: "Nailed", next: nextDis ? nextDis[2] + " " + nextDis[1] : "All cleared 🏆", nextK: "Next level"},
-  {id: "stats", kick: "WORLD 4", name: "Stats and Research", tag: "A lab world of data towers and graphs",
+  {id: "jss", kick: "WORLD 4", name: "JSS Interview", tag: "The panel room: openers, your work, cases, ethics, law",
+    c: ["#ffe6d6", "#ff7a3d", "#4a1608"], pc: "#ff9a5c", pd: "#b4441c", spin: 52, built: true, open: true,
+    lockText: "", prog: JSS.length ? jssW / JSS.length : 0, best: jssN + "/" + jssT, bestK: "Nailed", next: nextJss ? nextJss[2] + " " + nextJss[1] : "All cleared 🏆", nextK: "Next level"},
+  {id: "stats", kick: "WORLD 5", name: "Stats and Research", tag: "A lab world of data towers and graphs",
     c: ["#d6fbff", "#38c6ff", "#0a2a66"], pc: "#3de0ff", pd: "#1a78a8", spin: 56, built: false, open: won("pinel-final") || DEMO,
     lockText: "Beat the Pinel Final Boss to unlock", prog: 0, best: "--", next: "Normal Curve Boss"}
 ];
@@ -80,6 +89,7 @@ var MOODS = [
   {pad: [110, 164.81, 220, 277.18], type: "triangle", cut: 900, lfo: .07, step: 1.6, notes: [440, 554.37, 659.25, 739.99, 880], voice: "sine", vol: .05, dur: 2.2},
   {pad: [73.42, 110, 146.83, 220], type: "sine", cut: 1400, lfo: 1.05, step: .32, notes: [880, 1174.66, 1318.51, 1760, 2349.32], voice: "sine", vol: .025, dur: .18, sparse: .55},
   {pad: [98, 146.83, 196, 293.66], type: "sine", cut: 1100, lfo: .09, step: 1.3, notes: [587.33, 659.25, 783.99, 880, 987.77], voice: "triangle", vol: .03, dur: 1.6},
+  {pad: [87.31, 130.81, 174.61, 261.63], type: "triangle", cut: 1000, lfo: .08, step: 1.1, notes: [523.25, 587.33, 698.46, 783.99, 880], voice: "sine", vol: .03, dur: 1.4},
   {pad: [65.41, 130.81, 196, 261.63], type: "sawtooth", cut: 520, lfo: .12, step: .25, notes: [523.25, 659.25, 783.99, 1046.5, 783.99, 659.25], voice: "square", vol: .012, dur: .12, seq: true}
 ];
 function startAmb(ix){
@@ -173,6 +183,15 @@ function surface(w){
         bk += bw + 1.5 + (r() < .12 ? 8 : 0); }
     }
     for (var di = 0; di < 14; di++) h += '<circle cx="' + (-200 + r() * 400).toFixed(1) + '" cy="' + (-96 + r() * 190).toFixed(1) + '" r="1.3" fill="#eafff3" class="blink" style="animation-delay:-' + (r() * 2).toFixed(2) + 's"/>';
+  } else if (w.id === "jss"){
+    /* the panel room: long tables, rows of chairs, the odd nameplate */
+    for (var ty = -80; ty <= 90; ty += 34){
+      h += '<rect x="-200" y="' + ty + '" width="400" height="7" rx="2" fill="#4a1608" opacity=".55"/>';
+      for (var cx2 = -196 + (ty % 68 ? 14 : 0); cx2 < 196; cx2 += 28){
+        h += '<rect x="' + cx2 + '" y="' + (ty - 9) + '" width="9" height="8" rx="2" fill="' + ["#ffe6d6", "#b4441c", "#4a1608"][Math.floor(r() * 3)] + '" opacity="' + (.35 + r() * .35).toFixed(2) + '"/>';
+        if (r() < .3) h += '<rect x="' + (cx2 + 11) + '" y="' + (ty - 4) + '" width="10" height="4" fill="#ffd23f" opacity=".6"/>'; }
+    }
+    for (var ji = 0; ji < 14; ji++) h += '<circle cx="' + (-200 + r() * 400).toFixed(1) + '" cy="' + (-96 + r() * 190).toFixed(1) + '" r="1.3" fill="#fff1e8" class="blink" style="animation-delay:-' + (r() * 2).toFixed(2) + 's"/>';
   } else {
     for (var gx = -200; gx < 200; gx += 25) h += '<rect x="' + gx + '" y="-100" width=".8" height="200" fill="#d6fbff" opacity=".14"/>';
     for (var gy = -100; gy <= 100; gy += 25) h += '<rect x="-200" y="' + gy + '" width="400" height=".8" fill="#d6fbff" opacity=".14"/>';
@@ -203,6 +222,9 @@ function skyline(w){
       '<circle cy="' + (-101 - s[1]) + '" r="2.6" fill="#ff4d6d" class="blink"/></g>'; });
   else if (w.id === "dis") h += '<g transform="translate(0 -108)"><path d="M-26 0L0-11L26 0L0 11z" fill="#06281d" stroke="#b9ffd9" stroke-width="1.2"/>' +
     '<path d="M-14 4v9q14 8 28 0v-9" fill="#06281d" stroke="#b9ffd9" stroke-width="1.2"/><path d="M18 2v14" stroke="#ffd23f" stroke-width="1.6"/><circle cx="18" cy="17" r="2.4" fill="#ffd23f"/></g>';
+  else if (w.id === "jss") h += '<g transform="translate(0 -100)"><rect x="-22" y="-26" width="44" height="26" rx="2" fill="#4a1608" stroke="#ffd2b8" stroke-width="1.2"/>' +
+    '<rect x="-4" y="-40" width="8" height="14" fill="#ff5a5f"/><rect x="-7" y="-36" width="14" height="6" fill="#ff5a5f"/>' +
+    '<rect x="-16" y="-20" width="7" height="6" fill="#ffd23f" opacity=".7"/><rect x="9" y="-20" width="7" height="6" fill="#ffd23f" opacity=".7"/><rect x="-4" y="-12" width="8" height="12" fill="#ffd2b8" opacity=".6"/></g>';
   else h += '<g opacity=".9"><circle r="112" fill="none" stroke="#ff9cf0" stroke-width="1" stroke-dasharray="2 9" opacity=".6"/></g>';
   return h;
 }
@@ -262,7 +284,7 @@ function dive(i){
   var w = WORLDS[i];
   document.body.classList.add("diving"); $("#flash").style.background = w.pc; $("#flash").classList.add("on");
   WARP.on = true; whoosh(); stopAmb(); buzz([15, 40, 25, 40, 70]);
-  setTimeout(function(){ location.href = "index.html#" + (w.id === "bio" || w.id === "dis" ? w.id : "map"); }, 1150);
+  setTimeout(function(){ location.href = "index.html#" + (w.id === "bio" || w.id === "dis" || w.id === "jss" ? w.id : "map"); }, 1150);
 }
 window.addEventListener("pageshow", function(e){ if (e.persisted){ document.body.classList.remove("diving"); $("#flash").classList.remove("on"); WARP.on = false; WARP.v = 0; } });
 
