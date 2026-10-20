@@ -32,6 +32,8 @@ SECTIONS = [
     ("coursework","MA Coursework",        "Your own MA course papers, built off the course reading list and taught from scratch", "#4d7c0f", "#365314"),
     ("core",      "Core Subjects",        "The syllabus, one merged book per subject", "#1d4ed8", "#1e3a8a"),
     ("dsm",       "DSM-5-TR",             "Every disorder in plain language, with comorbidity and differential under each one", "#1e40af", "#172554"),
+    ("tests",     "Psychological Tests",  "Every test the entrances ask about: authors, versions, item counts, subtests, Indian adaptations", "#a16207", "#713f12"),
+    ("requested", "Requested Topics",     "Topics you asked for by name, each taught from scratch with a self-check at the end", "#4338ca", "#312e81"),
     ("syllabus",  "Rodrick Sir's Syllabus","Every file in the shared Drive, built unit by unit to full depth, nothing left out", "#15803d", "#14532d"),
     ("stats",     "Statistics & Psychometrics", "Statistics for the entrances built from scratch, with a diagram on every idea that has a shape", "#0f766e", "#134e4a"),
     ("systems",   "Systems & Theories",    "The whole history of psychology, every school taught from the ground up", "#0e7490", "#155e75"),
@@ -63,6 +65,14 @@ BOOKS = [
     dict(slug="clinical-positive-foundations", shelf="coursework", kind="note", src="clinical-positive-foundations", search_cap=40000,
          short="Foundations of Clinical Psychology and Positive Psychology",
          blurb="The course paper built off its four references (Pomerantz, Trull and Phares, the Oxford Handbook of Positive Psychology, Baumgardner and Crothers) and taught from scratch in sixteen chapters. Part I is clinical psychology: what it is, its history in the West and in India, the models, abnormality and diagnosis, the interview and mental status examination, assessment, psychotherapy and its evidence, ethics and Indian law, and the specialties and culture. Part II is positive psychology: its origins, happiness and well-being, positive emotions, character strengths and flow, optimism, hope and resilience, relationships and meaning, and positive psychology in the clinic with Indian perspectives on well-being. Full prose, no abbreviations, every theorist named, and every chapter ends with a recap, its names and the long-answer questions it answers."),
+    # --- Psychological Tests ---
+    dict(slug="psych-tests", shelf="tests", kind="merged", search_cap=60000,
+         short="Psychological Tests: authors, versions, items, subtests",
+         blurb="One table per test for every instrument the Indian entrances ask about: intelligence (Wechsler, Stanford-Binet, Raven's, Bhatia, MISIC, Binet-Kamat), developmental and social maturity scales (VSMS, DST, Vineland, Bayley), objective personality inventories (MMPI family, MCMI-IV, 16PF, EPQ-R, NEO, BFI, MBTI, CPI), aptitude, interest and attitude measures, projective techniques (Rorschach with Exner and R-PAS, TAT, CAT, Rotter, Rosenzweig, DAP, HTP), neuropsychological batteries (Bender, Halstead-Reitan, Luria-Nebraska, NIMHANS, PGI-BBD, WCST, WMS-IV, MMSE, MoCA), clinical rating scales (BPRS, PANSS, SANS, SAPS, HAM-D, BDI-II, Y-BOCS, YMRS, CARS, ISAA, GHQ, SCL-90-R) and structured interviews with the MSE. Each gives author and year, current and earlier versions, publisher, age range, item count, subtests, scoring, Indian adaptation and the exam trap, with uncertain counts marked as uncertain."),
+    # --- Requested Topics ---
+    dict(slug="requested-topics", shelf="requested", kind="merged", search_cap=40000,
+         short="Requested Topics: diathesis-stress, Bleuler's four A's, planned behaviour, brain scans",
+         blurb="Four topics you asked for, each taught from scratch: the diathesis-stress model from Meehl's schizotaxia through Zubin and Spring to differential susceptibility; Bleuler's four A's against Kraepelin's dementia praecox and Schneider's first-rank symptoms; the theory of planned behaviour grown out of the theory of reasoned action, with its path diagram; and every kind of brain scan (CT, MRI, fMRI and BOLD, DTI, PET, SPECT, EEG and ERPs, MEG, fNIRS, angiography) with what each measures, its resolution and the traps. Each chapter ends with a self-check in MCQ form."),
     # --- Core Subjects (one merged book per subject) ---
     dict(slug="biopsychology", shelf="core", kind="merged",
          short="Biopsychology & Neuroscience",
