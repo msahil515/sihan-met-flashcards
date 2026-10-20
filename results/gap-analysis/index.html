@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<script src="/sihan-met-flashcards/sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d1117">
+<title>Gap analysis: every paper you've sat, every miss</title>
+<link rel="stylesheet" href="../../site.css">
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<style>
+  .wrap{max-width:900px;margin:0 auto;padding:18px 16px 90px}
+  .lede{color:var(--muted);font-size:14.5px;line-height:1.7;margin:4px 0 16px}
+  .lede b{color:var(--text)}
+  h2.sec{font-size:16px;margin:34px 0 10px;color:var(--text);scroll-margin-top:14px}
+  h2.sec .cnt{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-left:6px}
+  h3.sub{font-size:13px;margin:20px 0 6px;color:var(--text);text-transform:uppercase;letter-spacing:.05em}
+  .roll{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0 6px}
+  .roll .box{flex:1;min-width:120px;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:11px 13px}
+  .roll .n{font-size:22px;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums}
+  .roll .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+  .you{border:1px solid var(--accent-dim);background:var(--accent-soft);border-radius:10px;padding:13px 16px;margin:16px 0;
+    font-size:14.5px;line-height:1.7;color:var(--text)}
+  .you ol{margin:6px 0 0;padding-left:20px} .you li{margin:0 0 7px}
+  .tbl{width:100%;border-collapse:collapse;font-size:13.5px;margin:6px 0 10px}
+  .tbl th,.tbl td{border-bottom:1px solid var(--border);padding:8px 8px;text-align:left;vertical-align:top;color:var(--muted);line-height:1.55}
+  .tbl th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .tbl td:first-child{color:var(--text);font-weight:600}
+  .tbl td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .tbl td b{color:var(--text)}
+  .tbl tr.tot td{color:var(--text);font-weight:700}
+  .tbl a,.diagbox a,.drill a,.blk a,.note a,.you a{color:var(--accent);text-decoration:none}
+  .tscroll{overflow-x:auto}
+  .diagbox{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:10px 0}
+  .diagbox>div{border:1px solid var(--border);background:var(--panel);border-radius:10px;padding:11px 13px;font-size:13.5px;line-height:1.6;color:var(--muted)}
+  .diagbox b{color:var(--text)}
+  .diagbox .big{display:block;font-size:20px;font-weight:800;color:var(--text)}
+  .diagbox .gap{border-color:var(--accent-dim)} .diagbox .trp{border-color:var(--purple)} .diagbox .tec{border-color:var(--good)} .diagbox .key{border-color:var(--warn)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0}
+  .chip{display:inline-flex;flex-direction:column;gap:1px;border:1px solid var(--border);background:var(--panel-2);border-radius:8px;
+    padding:4px 8px;font-size:12.5px;font-weight:800;color:var(--text);text-decoration:none;min-width:52px}
+  .chip span{font-size:9px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+  .chip.gap{border-color:var(--accent-dim)} .chip.trp{border-color:var(--purple)} .chip.tec{border-color:var(--good)} .chip.key{border-color:var(--warn)}
+  .legend{font-size:12.5px;color:var(--muted);line-height:1.7;margin:6px 0}
+  .note{border:1px solid var(--warn);background:var(--warn-soft);border-radius:10px;padding:12px 15px;margin:10px 0;font-size:14px;line-height:1.65;color:var(--text)}
+  .drill{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+  .drill a{display:inline-block;border:1px solid var(--accent-dim);background:var(--accent-soft);border-radius:9px;padding:10px 14px;font-weight:700;font-size:14px}
+  .blk{border:1px solid var(--border);background:var(--panel);border-radius:12px;padding:16px 18px;margin:0 0 18px;scroll-margin-top:14px}
+  .blk h2{font-size:17px;margin:0 0 4px;color:var(--text)}
+  .blk .why{font-size:14px;line-height:1.65;color:var(--muted);margin:4px 0 10px}
+  .blk .why b{color:var(--text)}
+  .blk p{font-size:14.5px;line-height:1.7;color:var(--muted);margin:0 0 10px}
+  .blk p b{color:var(--text)}
+  .rule{border-left:3px solid var(--good);background:var(--good-soft);border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0;font-size:14.5px;line-height:1.65;color:var(--muted)}
+  .rule b{color:var(--text)}
+  .ty{margin-top:12px;border-top:1px solid var(--border);padding-top:10px}
+  .ty .h{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .ty details{border:1px solid var(--border);background:var(--panel-2);border-radius:8px;padding:8px 12px;margin:0 0 6px;font-size:14px;line-height:1.55;color:var(--text)}
+  .ty summary{cursor:pointer}
+  .ty details p{margin:6px 0 0;font-size:14px;color:var(--muted)}
+  .ty details p b{color:var(--text)}
+  .src{font-size:12px;color:var(--muted);line-height:1.7;margin:26px 0}
+  @media (max-width:600px){
+    .stack thead{display:none}
+    .stack,.stack tbody,.stack tr,.stack td{display:block;width:auto}
+    .stack tr{border:1px solid var(--border);border-radius:9px;background:var(--panel-2);padding:8px 11px;margin:0 0 8px}
+    .stack td,.stack td:first-child{border:0;padding:3px 0}
+    .stack td::before{display:block;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:1px}
+    .st-b td:nth-child(2)::before{content:"Lock this"} .st-b td:nth-child(3)::before{content:"The neighbour they plant"}
+    .st-c td:nth-child(2)::before{content:"Techniques that belong"} .st-c td:nth-child(3)::before{content:"Classic plant from elsewhere"}
+    .st-d td:nth-child(2)::before{content:"Keyed"} .st-d td:nth-child(3)::before{content:"Neighbour that pulled you"} .st-d td:nth-child(4)::before{content:"Tell them apart"}
+    .st-f td:nth-child(2)::before{content:"What it means"} .st-f td:nth-child(3)::before{content:"Lookalike"}
+  }
+</style>
+<script src="/sihan-met-flashcards/take/theme.js"></script>
+<link rel="stylesheet" href="/sihan-met-flashcards/revamp-skin.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-title">Sihan — Clinical Psych 2026</span>
+      <span class="brand-sub">M.A. / M.Phil Clinical Psychology (RCI) · IHBAS · CIP · JSS Mysuru · DIMHANS Dharwad</span>
+    </div>
+    <nav class="nav">
+      <a href="/sihan-met-flashcards/">Dashboard</a>
+      <a href="/sihan-met-flashcards/tests/">Tests</a>
+      <a href="/sihan-met-flashcards/quiz/practice/">Practice</a>
+      <a href="/sihan-met-flashcards/results/">Results</a>
+      <a href="/sihan-met-flashcards/notes-app/">Library</a>
+      <a href="/sihan-met-flashcards/admissions/">Admissions</a>
+      <a href="/sihan-met-flashcards/progress/">Progress</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+<h1 style="margin:8px 0 2px;font-size:24px;">Gap analysis: every paper you've sat, every miss</h1>
+<p class="lede">This covers every attempt where your answers reached me question by question: <b>RML 2020</b> (3 Aug), <b>IHBAS 2024</b> (14 Oct),
+the <b>JSS PYQ Mock</b> (19 Oct) and <b>MET Mock 1</b> (16 May). That's 343 questions answered and 39 wrong. Each miss is sorted by JSS subject and by why it
+went. Then the misses are joined into gaps that run across papers, and each gap gets its own study block below. The blocks cover the whole
+neighbourhood of what you missed, not just the one fact.</p>
+
+<div class="roll">
+  <div class="box"><div class="n">343</div><div class="l">Answered</div></div>
+  <div class="box"><div class="n">39</div><div class="l">Wrong</div></div>
+  <div class="box"><div class="n">88.6%</div><div class="l">Right</div></div>
+  <div class="box"><div class="n">22 / 39</div><div class="l">Not a knowledge gap</div></div>
+</div>
+
+<div class="you"><b>What the 39 say, in five lines.</b>
+<ol>
+<li><b>Name-to-idea questions are your biggest leak.</b> The three real papers had 23 questions that only ask which person goes with which idea.
+You missed 8 of them (35%). On the other 267 questions you missed 27 (10%). So a who-question is about 3.5 times as likely to cost you as anything else.
+William James alone cost you two (IHBAS Q73, JSS Q46).</li>
+<li><b>More than half are not missing knowledge.</b> 13 went to a close neighbour that looked right, and 9 to option-reading slips: fake first names,
+EXCEPT stems, &ldquo;both&rdquo; options, a mirror term. That's 22 of 39. On the site's +1 / &minus;0.25 scoring the 9 slips alone cost 11.25 marks.</li>
+<li><b>General / Theories and Clinical tie at 9 misses each</b>, almost half of everything. In Clinical the problem isn't disorders (IHBAS abnormal 13/13,
+RML psychopathology 18/19). It's who said what in therapy, and which technique belongs to which school.</li>
+<li><b>Your JSS mock is the lowest of the three real papers (78%).</b> It's the one shaped like the 27 Oct paper, and 10 of its 20 misses sit in gaps 1 to 3 below.</li>
+<li><b>Fixes stick.</b> You missed the Titchener question on IHBAS 2024 (Q9, 14 Oct). It came back as JSS Q10 on 19 Oct and you got it.</li>
+</ol></div>
+
+<div class="drill">
+  <a href="#map">Jump to the gap map</a>
+  <a href="#A">Start with block A (slips, cheapest marks)</a>
+  <a href="../../take/screen.html?m=jss-mock-2">JSS Mock 2</a>
+</div>
+
+<h2 class="sec" id="papers">The papers <span class="cnt">4 with every answer</span></h2>
+<div class="tscroll"><table class="tbl">
+<thead><tr><th>Paper</th><th>Date</th><th>Right</th><th>Wrong</th><th>Blank</th><th>Accuracy</th><th>Score</th><th>Full breakdown</th></tr></thead>
+<tbody>
+<tr><td>RML 2020 PYQ (verbatim paper)</td><td class="num">3 Aug</td><td class="num">91</td><td class="num">9</td><td class="num">0</td><td class="num">91%</td><td class="num">364 / 400</td><td><a href="../../rml-2020-nine/">All 9 misses</a></td></tr>
+<tr><td>IHBAS 2024 PYQ (Oct 2024 paper)</td><td class="num">14 Oct</td><td class="num">94</td><td class="num">6</td><td class="num">0</td><td class="num">94%</td><td class="num">94 / 100</td><td><a href="../../ihbas-2024-topics/">84-topic sheet</a></td></tr>
+<tr><td>JSS PYQ Mock (90 real PYQs, JSS syllabus)</td><td class="num">19 Oct</td><td class="num">70</td><td class="num">20</td><td class="num">0</td><td class="num">78%</td><td class="num">65 / 90</td><td><a href="../../jss-misses/">All 20 misses</a></td></tr>
+<tr><td>MET Mock 1 (early practice mock, not a PYQ)</td><td class="num">16 May</td><td class="num">49</td><td class="num">4</td><td class="num">47</td><td class="num">92% of attempted</td><td class="num">192 / 400</td><td>In the tables below</td></tr>
+</tbody></table></div>
+<p class="legend">Scores are as each paper is marked: RML out of 400 (4 per question, no negative), IHBAS raw (no negative on the real exam), the JSS mock on the site's +1 / &minus;0.25.
+The <b>MET 2026</b> exam itself (May) isn't in the tallies: both specific sections were 100%, and the common section had 31 wrong, but those questions were never recalled.</p>
+
+<div class="note"><b>Not in here yet:</b> IHBAS 2025, JSS Mock 2 and anything else you've sat since, because the results never reached me. When you finish one, tap
+<b>Save as .txt</b> on the result screen and send the file on WhatsApp. It gets folded into this page.</div>
+
+<h2 class="sec" id="subjects">Misses by JSS subject <span class="cnt">all four papers</span></h2>
+<div class="tscroll"><table class="tbl">
+<thead><tr><th>JSS subject</th><th>RML 20</th><th>IHBAS 24</th><th>JSS mock</th><th>MET M1</th><th>Total</th><th>What they were</th></tr></thead>
+<tbody>
+<tr><td>General Psychology / Theories</td><td class="num">1</td><td class="num">4</td><td class="num">4</td><td class="num">0</td><td class="num"><b>9</b></td><td>6 on history and who-founded-what (James twice, Titchener, Fredrickson, Lazarus, the Ebbinghaus/Galton/Freud item), plus working memory, concept formation, induction</td></tr>
+<tr><td>Clinical Psychology</td><td class="num">3</td><td class="num">0</td><td class="num">5</td><td class="num">1</td><td class="num"><b>9</b></td><td>5 on therapy origins and which technique belongs to which school, 2 defence mechanisms, 2 EXCEPT items (bereavement, case management)</td></tr>
+<tr><td>Social Psychology</td><td class="num">3</td><td class="num">0</td><td class="num">2</td><td class="num">0</td><td class="num">5</td><td>2 Indian social-work history (RML only), group-work EXCEPT, halo effect, Eagly</td></tr>
+<tr><td>Physiological Psychology</td><td class="num">2</td><td class="num">0</td><td class="num">1</td><td class="num">1</td><td class="num">4</td><td>Leptin, aphasia, PKU, corticospinal crossing</td></tr>
+<tr><td>Developmental Psychology</td><td class="num">0</td><td class="num">0</td><td class="num">1</td><td class="num">2</td><td class="num">3</td><td>Ainsworth, Thomas and Chess, helicopter parenting</td></tr>
+<tr><td>Research Methodology</td><td class="num">0</td><td class="num">1</td><td class="num">2</td><td class="num">0</td><td class="num">3</td><td>Relative frequency, &ldquo;literature&rdquo;, risk ratio of 1</td></tr>
+<tr><td>Psychological Assessment</td><td class="num">0</td><td class="num">1</td><td class="num">1</td><td class="num">0</td><td class="num">2</td><td>SLD age under RPwD, Rorschach location</td></tr>
+<tr><td>Personality</td><td class="num">0</td><td class="num">0</td><td class="num">2</td><td class="num">0</td><td class="num">2</td><td>Reciprocal determinism, MMPI construction</td></tr>
+<tr><td>Psychiatric Abnormalities / Disorders</td><td class="num">0</td><td class="num">0</td><td class="num">2</td><td class="num">0</td><td class="num">2</td><td>Fetishism, who coined &ldquo;ambivalence&rdquo;</td></tr>
+<tr class="tot"><td>Total</td><td class="num">9</td><td class="num">6</td><td class="num">20</td><td class="num">4</td><td class="num">39</td><td></td></tr>
+</tbody></table></div>
+<p class="legend">RML and IHBAS use their own section names. Each miss is placed under the JSS subject its content belongs to, so the RML defence-mechanism item sits
+in Clinical next to the JSS one. Where you were clean: IHBAS biopsych 15/15, social 14/14, abnormal 13/13, therapy 10/10; RML assessment 9/9, stats 8/8,
+cognitive 9/9, development 9/9; JSS assessment, physio and developmental 9/10 each.</p>
+
+<h2 class="sec" id="why">Why each one went <span class="cnt">39 misses</span></h2>
+<div class="diagbox">
+  <div class="gap"><span class="big">15</span><b>Knowledge gap.</b> You didn't have the fact. JSS 8, IHBAS 4, RML 2, MET 1.</div>
+  <div class="trp"><span class="big">13</span><b>Close neighbour.</b> You knew the area, and the option next door pulled you. JSS 5, RML 3, MET 3, IHBAS 2.</div>
+  <div class="tec"><span class="big">9</span><b>Option-reading slip.</b> A rule would have saved it. JSS 5, RML 4.</div>
+  <div class="key"><span class="big">2</span><b>Disputed key.</b> JSS Q52 and Q79; the key itself is arguable (both covered on the <a href="../../jss-misses/#q52">JSS misses page</a>).</div>
+</div>
+<p class="legend">Labels for the JSS 20 match the <a href="../../jss-misses/">JSS misses page</a>. RML, IHBAS and MET were labelled the same way: a miss is a slip only when a stated rule (blocks A1 to A5) would have struck your pick without knowing the content.</p>
+
+<h2 class="sec" id="map">The gap map <span class="cnt">ranked for 27 Oct</span></h2>
+<p class="legend">Chip border = why it went: blue gap, purple neighbour, green slip, amber disputed key. Tap a chip for that question's full breakdown. A miss can feed more than one gap.</p>
+<div class="tscroll"><table class="tbl">
+<thead><tr><th>#</th><th>Gap</th><th>Misses feeding it</th><th>Study</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><b>Option-reading slips</b><br>9 misses, 11.25 marks, no reading needed</td><td><div class="chips">
+<a class="chip tec" href="../../jss-misses/#q46">Q46<span>JSS</span></a><a class="chip tec" href="../../jss-misses/#q80">Q80<span>JSS</span></a><a class="chip tec" href="../../jss-misses/#q76">Q76<span>JSS</span></a><a class="chip tec" href="../../jss-misses/#q87">Q87<span>JSS</span></a><a class="chip tec" href="../../jss-misses/#q82">Q82<span>JSS</span></a><a class="chip tec" href="../../rml-2020-nine/#q47">Q47<span>RML</span></a><a class="chip tec" href="../../rml-2020-nine/#q24">Q24<span>RML</span></a><a class="chip tec" href="../../rml-2020-nine/#q32">Q32<span>RML</span></a><a class="chip tec" href="../../rml-2020-nine/#q82">Q82<span>RML</span></a>
+</div></td><td><a href="#A">Block A</a></td></tr>
+<tr><td>2</td><td><b>Name to idea</b><br>8 of 23 missed (35%), 3 more close to it</td><td><div class="chips">
+<a class="chip trp" href="../../ihbas-2024-topics/#t3">Q9<span>IHBAS</span></a><a class="chip gap" href="../../ihbas-2024-topics/#t2">Q73<span>IHBAS</span></a><a class="chip gap" href="../../ihbas-2024-topics/#t10">Q56<span>IHBAS</span></a><a class="chip gap" href="../../jss-misses/#q25">Q25<span>JSS</span></a><a class="chip tec" href="../../jss-misses/#q46">Q46<span>JSS</span></a><a class="chip gap" href="../../jss-misses/#q75">Q75<span>JSS</span></a><a class="chip tec" href="../../jss-misses/#q80">Q80<span>JSS</span></a><a class="chip gap" href="../../rml-2020-nine/#q4">Q4<span>RML</span></a><a class="chip trp" href="../../rml-2020-nine/#q90">Q90<span>RML</span></a><a class="chip gap" href="../../jss-misses/#q34">Q34<span>JSS</span></a><a class="chip trp" href="../../jss-misses/#q67">Q67<span>JSS</span></a>
+</div></td><td><a href="#B">Block B</a></td></tr>
+<tr><td>3</td><td><b>Therapy schools: who and which technique</b><br>7 misses, the whole Clinical leak</td><td><div class="chips">
+<a class="chip gap" href="../../jss-misses/#q25">Q25<span>JSS</span></a><a class="chip gap" href="../../jss-misses/#q34">Q34<span>JSS</span></a><a class="chip gap" href="../../jss-misses/#q88">Q88<span>JSS</span></a><a class="chip key" href="../../jss-misses/#q52">Q52<span>JSS</span></a><a class="chip trp" href="#C">Empty chair<span>MET M1</span></a><a class="chip tec" href="../../rml-2020-nine/#q24">Q24<span>RML</span></a><a class="chip tec" href="../../rml-2020-nine/#q32">Q32<span>RML</span></a>
+</div></td><td><a href="#C">Block C</a></td></tr>
+<tr><td>4</td><td><b>Close neighbours</b><br>13 traps across every subject</td><td><div class="chips">
+<a class="chip trp" href="../../jss-misses/#q37">Q37<span>JSS</span></a><a class="chip trp" href="../../jss-misses/#q39">Q39<span>JSS</span></a><a class="chip trp" href="../../jss-misses/#q67">Q67<span>JSS</span></a><a class="chip trp" href="../../jss-misses/#q32">Q32<span>JSS</span></a><a class="chip trp" href="../../jss-misses/#q27">Q27<span>JSS</span></a><a class="chip trp" href="../../ihbas-2024-topics/#t3">Q9<span>IHBAS</span></a><a class="chip trp" href="../../ihbas-2024-topics/#t41">Q38<span>IHBAS</span></a><a class="chip trp" href="../../rml-2020-nine/#q5">Q5<span>RML</span></a><a class="chip trp" href="../../rml-2020-nine/#q18">Q18<span>RML</span></a><a class="chip trp" href="../../rml-2020-nine/#q90">Q90<span>RML</span></a><a class="chip trp" href="#C">Empty chair<span>MET M1</span></a><a class="chip trp" href="#D">Ainsworth<span>MET M1</span></a><a class="chip trp" href="#D">Thomas-Chess<span>MET M1</span></a>
+</div></td><td><a href="#D">Block D</a></td></tr>
+<tr><td>5</td><td><b>Stress and positive psychology</b><br>2 misses, and you rated both topics 0</td><td><div class="chips">
+<a class="chip gap" href="../../ihbas-2024-topics/#t10">Q56<span>IHBAS</span></a><a class="chip gap" href="../../ihbas-2024-topics/#t11">Q89<span>IHBAS</span></a>
+</div></td><td><a href="#E">Block E</a></td></tr>
+<tr><td>6</td><td><b>Research terms and stats</b><br>4 misses</td><td><div class="chips">
+<a class="chip trp" href="../../jss-misses/#q27">Q27<span>JSS</span></a><a class="chip gap" href="../../jss-misses/#q45">Q45<span>JSS</span></a><a class="chip tec" href="../../jss-misses/#q82">Q82<span>JSS</span></a><a class="chip trp" href="../../ihbas-2024-topics/#t41">Q38<span>IHBAS</span></a>
+</div></td><td><a href="#F">Block F</a></td></tr>
+<tr><td>7</td><td><b>Biopsych and development recall</b><br>7 misses, all one-fact items</td><td><div class="chips">
+<a class="chip gap" href="../../rml-2020-nine/#q17">Q17<span>RML</span></a><a class="chip tec" href="../../rml-2020-nine/#q47">Q47<span>RML</span></a><a class="chip trp" href="../../jss-misses/#q32">Q32<span>JSS</span></a><a class="chip gap" href="#D">Corticospinal<span>MET M1</span></a><a class="chip tec" href="../../jss-misses/#q87">Q87<span>JSS</span></a><a class="chip trp" href="#D">Ainsworth<span>MET M1</span></a><a class="chip trp" href="#D">Thomas-Chess<span>MET M1</span></a>
+</div></td><td><a href="#D">Block D</a></td></tr>
+<tr><td>8</td><td><b>India-specific facts</b><br>3 misses (2 are RML-only social work)</td><td><div class="chips">
+<a class="chip gap" href="../../ihbas-2024-topics/#t40">Q96<span>IHBAS</span></a><a class="chip gap" href="../../rml-2020-nine/#q4">Q4<span>RML</span></a><a class="chip trp" href="../../rml-2020-nine/#q18">Q18<span>RML</span></a>
+</div></td><td><a href="#G">Block G</a></td></tr>
+</tbody></table></div>
+
+<!-- ============================ STUDY BLOCKS ============================ -->
+
+<h2 class="sec">Study blocks <span class="cnt">built off your 39</span></h2>
+
+<div class="blk" id="A">
+<h2>A. Option-reading slips: five rules</h2>
+<p class="why">9 misses where a rule would have struck your pick without knowing the content: <b>JSS Q46, Q76, Q80, Q82, Q87</b> and <b>RML Q24, Q32, Q47, Q82</b>.
+These are the cheapest marks on this page.</p>
+
+<div class="rule"><b>A1. A famous surname with the wrong first name, or a word that doesn't exist, is a plant.</b> Real names: Wilhelm Wundt, Erich Fromm, Donald Winnicott,
+Gerald Klerman. You took <b>&ldquo;William Wundt&rdquo;</b> for functionalism (JSS Q46), even though you'd got IHBAS Q11 right five days earlier: functionalism = James.
+You also took <b>&ldquo;Richmond Fromm&rdquo;</b> (JSS Q80), <b>&ldquo;Charles Winnicot&rdquo;</b> (JSS Q25) and <b>&ldquo;Lexphasia&rdquo;</b>, which isn't a term (RML Q47).
+Strike these first, then choose among what's left.</div>
+
+<div class="rule"><b>A2. EXCEPT / NOT / &ldquo;would not&rdquo;: mark every option true or false, then pick the false one.</b> The false one usually carries an absolute or an odd word.
+RML Q24: &ldquo;crisis-related bereavement should <b>always</b> be considered traumatic grief&rdquo; was the false one. RML Q32: case management aims at functioning,
+not the &ldquo;<b>cure</b> of a primary condition&rdquo;. RML Q82: &ldquo;all groups have an <b>analytic base</b>&rdquo; is the odd jargon. Same rule on JSS Q88, where analysis of transference is Freud's, not Adler's.</div>
+
+<div class="rule"><b>A3. A combo option (&ldquo;both a and b&rdquo;, &ldquo;(a) and (c)&rdquo;) is only as true as its weaker half.</b> JSS Q76: a and b were the same wrong idea said twice
+(the rational method), so &ldquo;both&rdquo; was doubly wrong. The MMPI is empirical criterion keying. RML Q90: you took &ldquo;(a) and (c)&rdquo;, but (c) isn't true of all three people,
+so the combo is dead even though (a) is right.</div>
+
+<div class="rule"><b>A4. If you can defend two single options and &ldquo;All of the above&rdquo; is there, take it.</b> JSS Q87: anxiety, unfulfilled wishes and personality are all named causes of helicopter parenting.</div>
+
+<div class="rule"><b>A5. Mirror terms get flipped under pressure.</b> Before you tap, say the definition to yourself for any pair that is the same idea reversed: inductive/deductive (JSS Q82),
+escape/avoidance, positive/negative reinforcement, primary/secondary appraisal, proactive/retroactive interference.</div>
+
+<div class="ty"><div class="h">Test yourself</div>
+<details><summary>&ldquo;The Art of Loving&rdquo; was written by: a) Richmond Fromm b) Erich Fromm c) Erik Erikson d) Both a and b</summary><p><b>b.</b> a is the planted first name, and d is dead because a is false (A1 + A3).</p></details>
+<details><summary>Which is NOT a goal of psychiatric rehabilitation? a) Better social functioning b) Vocational skills c) Complete removal of all symptoms d) Independent living</summary><p><b>c.</b> Rehabilitation targets functioning in spite of symptoms; &ldquo;complete removal of all&rdquo; is the absolute (A2).</p></details>
+<details><summary>Moving from a general theory to a specific, testable prediction is: a) Inductive b) Deductive c) Abductive d) Heuristic</summary><p><b>b.</b> Deductive = top-down, general to specific. Inductive = bottom-up, specific to general (A5).</p></details>
+</div>
+</div>
+
+<div class="blk" id="B">
+<h2>B. Name to idea: the people who cost you, and their neighbours</h2>
+<p class="why">You missed <b>8 of the 23</b> name-to-idea questions in the three real papers: IHBAS Q9, Q56, Q73; JSS Q25, Q46, Q75, Q80; RML Q4. Three more are close to it
+(RML Q90, JSS Q34, JSS Q67). <b>&#9733;</b> = a question you missed. Learn each row as a pair: the name with the idea, and the neighbour the paper will put next to it.</p>
+
+<h3 class="sub">History and schools</h3>
+<div class="tscroll"><table class="tbl stack st-b">
+<thead><tr><th>Person</th><th>Lock this</th><th>The neighbour they plant</th></tr></thead>
+<tbody>
+<tr><td>William James &#9733;&#9733;</td><td><b>Functionalism</b>; <b>stream of consciousness</b>; <i>Principles of Psychology</i> (1890); James-Lange theory of emotion; the self as I and Me</td><td>Wundt (elements of consciousness, the view James attacked); the fake &ldquo;William Wundt&rdquo; (IHBAS Q73, JSS Q46)</td></tr>
+<tr><td>Wilhelm Wundt</td><td>First psychology lab, Leipzig, <b>1879</b>; voluntarism; trained introspection; <i>Principles of Physiological Psychology</i> (1873-74)</td><td>Gets credited with structuralism; that name and system are Titchener's</td></tr>
+<tr><td>Edward Titchener &#9733;</td><td><b>Structuralism</b> (he named it); perception = a complex of <b>sensory and imaginal</b> processes; the stimulus error</td><td>Bruner, your pick on IHBAS Q9. &ldquo;Sensory and imaginal&rdquo; is structuralist vocabulary.</td></tr>
+<tr><td>Jerome Bruner</td><td><b>New Look</b> in perception: need and value shape what you see (Bruner and Goodman 1947, poor children overestimated coin sizes); scaffolding (Wood, Bruner and Ross 1976); enactive, iconic, symbolic modes</td><td>IHBAS Q10 &ldquo;economic deprivation affects perception&rdquo; is Bruner, and you got that one</td></tr>
+<tr><td>John Dewey, James Angell, Harvey Carr</td><td>Chicago functionalism; Dewey's reflex arc paper (1896)</td><td>Their ideas get pinned on James, and vice versa</td></tr>
+<tr><td>Ebbinghaus, Galton, Freud &#9733;</td><td>Independent pioneers of three different fields: memory (nonsense syllables, forgetting curve, 1885), individual differences (anthropometric lab 1884, nature and nurture, word association), psychoanalysis (free association)</td><td>&ldquo;Each founded a formal lab&rdquo; is false, and so is any combo with it (RML Q90)</td></tr>
+<tr><td>John Locke</td><td><b>Tabula rasa</b>, the mind as a blank slate</td><td>Rousseau (the noble savage); Descartes (innate ideas)</td></tr>
+<tr><td>N. N. Sengupta</td><td>First psychology department and lab in India, <b>Calcutta University, 1915</b></td><td>You got this on IHBAS Q42; keep it</td></tr>
+</tbody></table></div>
+
+<h3 class="sub">Clinical and therapy</h3>
+<div class="tscroll"><table class="tbl stack st-b">
+<thead><tr><th>Person</th><th>Lock this</th><th>The neighbour they plant</th></tr></thead>
+<tbody>
+<tr><td>Jerome Frank &#9733;</td><td><i>Persuasion and Healing</i> (1961): every therapy works through <b>common factors</b> (a trusting relationship, a healing setting, a believable explanation, a ritual that builds hope); demoralization</td><td>&ldquo;Charles Winnicot&rdquo; (fake; Donald Winnicott is the good-enough mother, transitional object, holding environment); &ldquo;Jeff Klerman&rdquo; (Gerald Klerman, IPT) (JSS Q25)</td></tr>
+<tr><td>Saul Rosenzweig</td><td>Common factors first, 1936; the &ldquo;Dodo bird verdict&rdquo; (everyone has won)</td><td>Gets swapped with Frank</td></tr>
+<tr><td>Marsha Linehan &#9733;</td><td><b>DBT</b> for borderline PD; <b>core mindfulness</b> comes from <b>Zen Buddhism</b>; dialectic = acceptance with change</td><td>Stoicism (that's CBT's and REBT's root) (JSS Q34)</td></tr>
+<tr><td>Alfred Adler &#9733;</td><td>Individual psychology: inferiority complex, style of life, birth order, social interest; techniques in block C</td><td>Transference analysis is Freud's (JSS Q88)</td></tr>
+<tr><td>Fritz Perls &#9733;</td><td>Gestalt therapy: empty chair, here and now</td><td>Rogers (person-centred), your pick on MET Mock 1</td></tr>
+<tr><td>Gerald Klerman and Myrna Weissman</td><td>Interpersonal therapy (IPT) for depression</td><td>Shows up mangled as &ldquo;Jeff Klerman&rdquo;</td></tr>
+</tbody></table></div>
+
+<h3 class="sub">Psychiatry</h3>
+<div class="tscroll"><table class="tbl stack st-b">
+<thead><tr><th>Person</th><th>Lock this</th><th>The neighbour they plant</th></tr></thead>
+<tbody>
+<tr><td>Eugen Bleuler &#9733;</td><td>Coined <b>schizophrenia</b> (1908), <b>ambivalence</b> and <b>autism</b>; the 4 As: associations, affect, ambivalence, autism</td><td>Kraepelin; the fake &ldquo;Richmond Fromm&rdquo; (JSS Q80)</td></tr>
+<tr><td>Emil Kraepelin</td><td>Dementia praecox, split from manic-depressive insanity; the father of modern classification</td><td>Gets credited with Bleuler's terms</td></tr>
+<tr><td>Kurt Schneider</td><td>First-rank symptoms of schizophrenia</td><td>Bleuler's 4 As (fundamental) versus Schneider's first-rank (diagnostic)</td></tr>
+<tr><td>Jacques Lacan</td><td>The &ldquo;French Freud&rdquo;; the mirror stage</td><td>You got this on JSS Q22</td></tr>
+</tbody></table></div>
+
+<h3 class="sub">Social and personality</h3>
+<div class="tscroll"><table class="tbl stack st-b">
+<thead><tr><th>Person</th><th>Lock this</th><th>The neighbour they plant</th></tr></thead>
+<tbody>
+<tr><td>Alice Eagly &#9733;</td><td><b>Social role theory</b> of gender differences (1987): differences come from the roles men and women are put in</td><td>David Buss (evolutionary account of sex differences, mate preferences) (JSS Q75)</td></tr>
+<tr><td>Albert Bandura</td><td><b>Reciprocal determinism</b> (person, behaviour and environment shape each other) = <b>social cognitive</b> theory; self-efficacy; Bobo doll</td><td>Humanistic, your pick on JSS Q67</td></tr>
+<tr><td>Edward Thorndike</td><td>Named the <b>halo effect</b> (1920, officers rating soldiers); law of effect; puzzle box</td><td>Asch (primacy in impression formation)</td></tr>
+<tr><td>Leon Festinger</td><td>Cognitive dissonance (1957); social comparison (1954)</td><td>Heider (balance theory)</td></tr>
+<tr><td>Henri Tajfel and John Turner</td><td>Social identity theory; minimal group paradigm</td><td>You rated this 1 on the IHBAS sheet</td></tr>
+<tr><td>Joel Fischer &#9733;</td><td>&ldquo;Is Casework Effective?&rdquo; (1973), the review that pushed social work towards evidence (RML only)</td><td>Jacob Cohen (effect size) (RML Q4)</td></tr>
+</tbody></table></div>
+<p>For every remaining name the site has, the <a href="../../notes/originators/">Originators sheet</a> lists who gave what by area, and Name Lock drills the same pairs as a game.</p>
+
+<div class="ty"><div class="h">Test yourself</div>
+<details><summary>&ldquo;Perception is a complex of sensory and imaginal processes.&rdquo; Whose definition?</summary><p><b>Titchener.</b> Structuralist vocabulary (sensations plus images). Bruner would talk about need and value.</p></details>
+<details><summary>Who coined &ldquo;stream of consciousness&rdquo;, and in which book?</summary><p><b>William James</b>, <i>Principles of Psychology</i>, 1890.</p></details>
+<details><summary>Common factors in psychotherapy: name the two people and their dates.</summary><p><b>Saul Rosenzweig (1936)</b>, the Dodo bird verdict, and <b>Jerome Frank</b>, <i>Persuasion and Healing</i> (1961).</p></details>
+<details><summary>Which tradition do DBT's core mindfulness skills come from?</summary><p><b>Zen Buddhism</b> (Linehan).</p></details>
+<details><summary>&ldquo;Ambivalence&rdquo; and &ldquo;autism&rdquo; as clinical terms were coined by?</summary><p><b>Eugen Bleuler.</b></p></details>
+<details><summary>Social role theory of gender: who, and what is the rival account?</summary><p><b>Alice Eagly.</b> The rival is the evolutionary account (David Buss).</p></details>
+</div>
+</div>
+
+<div class="blk" id="C">
+<h2>C. Therapy schools: who, and which technique belongs where</h2>
+<p class="why">Your Clinical misses are not about disorders. They're <b>JSS Q25, Q34, Q52, Q88</b>, <b>RML Q24, Q32</b> and the <b>empty chair</b> on MET Mock 1:
+who started a therapy, and which technique belongs to it. The papers test this by putting a technique from the next school over among the options.</p>
+<div class="tscroll"><table class="tbl stack st-c">
+<thead><tr><th>School (founder)</th><th>Techniques that belong</th><th>Classic plant from elsewhere</th></tr></thead>
+<tbody>
+<tr><td>Psychoanalysis (Freud)</td><td>Free association, dream analysis, interpretation, analysis of <b>transference</b> and resistance</td><td>Encouragement (Adler)</td></tr>
+<tr><td>Individual psychology (Adler) &#9733;</td><td><b>Encouragement</b>, acting <b>&ldquo;as if&rdquo;</b>, the <b>push-button</b> technique, spitting in the client's soup, catching oneself, early recollections, lifestyle assessment, family constellation</td><td><b>Analysis of transference</b> (Freud), the JSS Q88 answer</td></tr>
+<tr><td>Person-centred (Rogers)</td><td>Empathy, unconditional positive regard, congruence, reflection; non-directive</td><td>Empty chair (Gestalt), your MET Mock 1 pick</td></tr>
+<tr><td>Gestalt (Fritz Perls) &#9733;</td><td><b>Empty chair</b>, two-chair (top dog and underdog), here and now, &ldquo;I&rdquo; statements, unfinished business</td><td>Reflection of feeling (Rogers)</td></tr>
+<tr><td>Behaviour therapy &#9733;</td><td><b>Extinction</b> (withhold the reinforcer: ignoring tantrums), shaping, token economy (Ayllon and Azrin 1968), systematic desensitisation (Wolpe 1958), flooding, aversion</td><td>JSS Q52: the paper keys &ldquo;operant escape&rdquo;, the textbook says extinction; your &ldquo;avoidance&rdquo; is wrong under either key</td></tr>
+<tr><td>REBT (Ellis) / CBT (Beck)</td><td>Ellis: ABCDE, disputing irrational beliefs, &ldquo;musts&rdquo;. Beck: cognitive triad, automatic thoughts, Socratic questioning, cognitive restructuring</td><td>Roots in Stoicism (Epictetus), not Zen</td></tr>
+<tr><td>DBT (Linehan) &#9733;</td><td>Four skill modules: <b>core mindfulness</b>, distress tolerance, emotion regulation, interpersonal effectiveness</td><td>Mindfulness from Zen, not Stoicism (JSS Q34)</td></tr>
+<tr><td>Logotherapy (Frankl)</td><td>Paradoxical intention, dereflection, meaning</td><td>Paradoxical intention gets pinned on behaviour therapy</td></tr>
+<tr><td>IPT (Klerman and Weissman)</td><td>Four problem areas: grief, role disputes, role transitions, interpersonal deficits</td><td>&ldquo;Jeff Klerman&rdquo;</td></tr>
+<tr><td>Common factors (Frank) &#9733;</td><td>Relationship, healing setting, rationale, ritual</td><td>&ldquo;Charles Winnicot&rdquo; (JSS Q25)</td></tr>
+</tbody></table></div>
+
+<h3 class="sub">Bereavement and case management (RML Q24, Q32)</h3>
+<p><b>Bereavement.</b> Normal grief is a process that runs its course and doesn't need treatment. Complicated (prolonged) grief does need intervention: DSM-5-TR's prolonged grief
+disorder needs at least 12 months since the death in adults (6 months in children). Counselling can be one-to-one or in groups. Crisis-related bereavement is <b>not always</b>
+traumatic grief, and that &ldquo;always&rdquo; made it the EXCEPT answer. Models: Kübler-Ross's five stages (1969: denial, anger, bargaining, depression, acceptance);
+Worden's four tasks of mourning (accept the loss, work through the pain, adjust to a world without the person, find an enduring connection while moving on); Bowlby's phases.</p>
+<p><b>Case management</b> links a person with chronic illness to services and keeps the care going. Its goals are functioning, skills, empowerment, environmental accommodations and
+continuity of care. <b>Cure of the primary condition</b> is not one of them.</p>
+
+<div class="ty"><div class="h">Test yourself</div>
+<details><summary>Acting &ldquo;as if&rdquo;, the push-button technique, spitting in the soup: which school?</summary><p><b>Adlerian.</b> Transference analysis is the odd one out (Freud).</p></details>
+<details><summary>Empty chair and two-chair work belong to?</summary><p><b>Gestalt (Fritz Perls).</b></p></details>
+<details><summary>A parent stops attending to a child's whining and it fades. Principle?</summary><p><b>Extinction</b>: the reinforcer (attention) is withheld.</p></details>
+<details><summary>Name DBT's four skill modules.</summary><p><b>Core mindfulness, distress tolerance, emotion regulation, interpersonal effectiveness.</b></p></details>
+<details><summary>IPT's four problem areas?</summary><p><b>Grief, role disputes, role transitions, interpersonal deficits.</b></p></details>
+</div>
+</div>
+
+<div class="blk" id="D">
+<h2>D. Close neighbours: learn the pair, not the single fact</h2>
+<p class="why">13 misses went to the option next door. You knew the area, so reading more won't fix it. What fixes it is knowing exactly what separates the two.
+The biopsych and development recall items are here too, because each has a lookalike.</p>
+
+<h3 class="sub">Cognition and history</h3>
+<div class="tscroll"><table class="tbl stack st-d">
+<thead><tr><th>Item</th><th>Keyed</th><th>Neighbour that pulled you</th><th>Tell them apart</th></tr></thead>
+<tbody>
+<tr><td>JSS Q37</td><td><b>Episodic buffer</b> (Baddeley, added 2000): binds loop, sketchpad and long-term memory into one episode</td><td>Central executive</td><td>Integrates or binds = buffer. Controls or allocates attention, stores nothing = executive.</td></tr>
+<tr><td>IHBAS Q9</td><td><b>Titchener</b></td><td>Bruner</td><td>Sensory + imaginal = structuralism. Need, value, motive = New Look.</td></tr>
+<tr><td>RML Q90</td><td>(a) independent pioneers</td><td>(a) and (c)</td><td>A combo dies if one half is false (rule A3).</td></tr>
+<tr><td>JSS Q55</td><td>Observation, discrimination, generalisation, abstraction</td><td>Lists with &ldquo;assimilation&rdquo;</td><td>Assimilation is Piaget, not a concept-formation stage. There's no official key; this is the most printed order.</td></tr>
+</tbody></table></div>
+
+<h3 class="sub">Social and personality</h3>
+<div class="tscroll"><table class="tbl stack st-d">
+<thead><tr><th>Item</th><th>Keyed</th><th>Neighbour that pulled you</th><th>Tell them apart</th></tr></thead>
+<tbody>
+<tr><td>JSS Q39</td><td><b>Halo effect</b>: one overall impression colours ratings of specific traits</td><td>First impression anchors later judgments</td><td>Halo = global to specific traits. Primacy = order of information. Self-serving bias = credit for success, blame outside for failure. False consensus = others share my views.</td></tr>
+<tr><td>JSS Q67</td><td><b>Social cognitive</b> (Bandura)</td><td>Humanistic</td><td>Reciprocal determinism = person, behaviour, environment loop = Bandura. Humanistic = self-actualisation, Rogers and Maslow.</td></tr>
+<tr><td>JSS Q76</td><td><b>Empirical criterion keying</b>: items kept if they separate patient groups from controls (Hathaway and McKinley 1943)</td><td>Both a and b (the rational method)</td><td>Rational = write items to fit a trait. Empirical = keep whatever discriminates. Factor analytic = 16PF (Cattell).</td></tr>
+<tr><td>RML Q18</td><td><b>Sir Dorabji Tata Graduate School of Social Work</b> (Bombay, 1936)</td><td>Tata Institute of Social Sciences</td><td>TISS is the 1944 rename, so it can't be the name the first school opened under.</td></tr>
+</tbody></table></div>
+
+<h3 class="sub">Clinical, disorders and assessment</h3>
+<div class="tscroll"><table class="tbl stack st-d">
+<thead><tr><th>Item</th><th>Keyed</th><th>Neighbour that pulled you</th><th>Tell them apart</th></tr></thead>
+<tbody>
+<tr><td>RML Q5</td><td><b>Rationalization</b>: a plausible but false excuse for a failure you accept happened</td><td>Denial</td><td>Denial refuses the fact itself. Clare accepts she was fired and invents a better reason. Projection = your own impulse seen in others; displacement = feeling redirected to a safer target.</td></tr>
+<tr><td>JSS Q79</td><td>Paper key: <b>denial</b></td><td>Projection</td><td>Disputed: &ldquo;inner world distorting the outer&rdquo; is close to the broad sense of projection. Know both.</td></tr>
+<tr><td>JSS Q53</td><td><b>Fetishism</b>: inanimate objects (or a non-genital body part)</td><td>Frotteurism</td><td>Frotteurism = touching or rubbing a non-consenting person. Voyeurism = watching an unsuspecting person. Necrophilia = corpses.</td></tr>
+<tr><td>JSS Q56</td><td>Rorschach <b>location</b> = whole or part</td><td>Colour/movement</td><td>Location = where on the blot (W whole, D common detail, Dd unusual detail, S white space). Determinants = why it looks like that (form, colour, movement, shading). Content = what it is.</td></tr>
+</tbody></table></div>
+
+<h3 class="sub">Biopsych and development</h3>
+<div class="tscroll"><table class="tbl stack st-d">
+<thead><tr><th>Item</th><th>Keyed</th><th>Neighbour that pulled you</th><th>Tell them apart</th></tr></thead>
+<tbody>
+<tr><td>RML Q17</td><td><b>Leptin</b>: made by fat cells, the long-term body-fat signal to the hypothalamus</td><td>Oestrogen</td><td>Ghrelin = short-term hunger, from the stomach. CCK = short-term satiety, from the gut. &ldquo;Hypothalamus&rdquo; is a brain area, not a hormone.</td></tr>
+<tr><td>RML Q47</td><td><b>Aphasia</b>: the umbrella term for language loss after brain damage</td><td>&ldquo;Lexphasia&rdquo; (not a word)</td><td>Dyslexia = reading. Dysphasia = partial impairment. Agnosia = recognition. Apraxia = skilled movement.</td></tr>
+<tr><td>JSS Q32</td><td>PKU: phenylalanine fails to become <b>tyrosine</b> (phenylalanine hydroxylase)</td><td>Tryptophan</td><td>Tyrosine is the route to dopamine and noradrenaline. Tryptophan is the route to serotonin. PKU is autosomal recessive and managed with a low-phenylalanine diet.</td></tr>
+<tr><td>MET Mock 1</td><td>Corticospinal tract crosses at the <b>pyramids of the medulla</b></td><td>Spinal cord at entry</td><td>About 85 to 90% cross there and form the lateral corticospinal tract. The rest run uncrossed (anterior tract) and cross at their spinal level.</td></tr>
+<tr><td>MET Mock 1</td><td>Ainsworth <b>resistant / ambivalent</b>: distressed, can't be comforted, resists and clings at reunion</td><td>Avoidant</td><td>Avoidant = little distress, ignores the caregiver at reunion. Disorganised (Main and Solomon) = contradictory, freezing. Reunion behaviour decides the style.</td></tr>
+<tr><td>MET Mock 1</td><td>Thomas and Chess <b>slow-to-warm-up</b> (about 15%): mild, withdraws from new things, adapts gradually</td><td>Difficult</td><td>Difficult (about 10%) = intense, irregular, negative, slow to adapt. Easy is about 40%; the rest don't fit one type.</td></tr>
+<tr><td>JSS Q87</td><td>Helicopter parenting: <b>all of the above</b></td><td>Parents' personality traits</td><td>Rule A4: two defensible singles means the &ldquo;all&rdquo; option.</td></tr>
+</tbody></table></div>
+</div>
+
+<div class="blk" id="E">
+<h2>E. Stress and positive psychology</h2>
+<p class="why">IHBAS <b>Q56</b> (Fredrickson) and <b>Q89</b> (secondary appraisal) came from here, and you rated both topics <b>0</b> on the IHBAS sheet (topics 10 and 11).
+Both topics are name-heavy, so they're worth a fixed table.</p>
+<h3 class="sub">Stress</h3>
+<div class="tscroll"><table class="tbl">
+<thead><tr><th>Who</th><th>What</th></tr></thead>
+<tbody>
+<tr><td>Walter Cannon</td><td>Fight-or-flight; named homeostasis</td></tr>
+<tr><td>Hans Selye</td><td>General Adaptation Syndrome: alarm, resistance, exhaustion; eustress and distress</td></tr>
+<tr><td>Holmes and Rahe (1967)</td><td>Social Readjustment Rating Scale, life change units (death of a spouse = 100)</td></tr>
+<tr><td>Kanner, Coyne, Schaefer and Lazarus (1981)</td><td>Hassles and Uplifts scales: small daily stressors versus big life events</td></tr>
+<tr><td>Lazarus and Folkman (1984) &#9733;</td><td><b>Transactional model.</b> Primary appraisal = is this a threat, a harm or a challenge? <b>Secondary appraisal = do I have the resources to cope?</b> Then reappraisal. Coping is problem-focused (change the situation) or emotion-focused (change how you feel).</td></tr>
+<tr><td>Sterling and Eyer (1988); McEwen</td><td>Allostasis (stability through change); allostatic load = the wear from it. You got this one (IHBAS Q44).</td></tr>
+<tr><td>Friedman and Rosenman; Denollet</td><td>Type A behaviour and heart disease; Type D (distressed) personality</td></tr>
+<tr><td>Suzanne Kobasa</td><td>Hardiness: commitment, control, challenge</td></tr>
+<tr><td>Organisational stressors</td><td>Task demands, role demands (role conflict, ambiguity, overload), interpersonal demands. Family and money problems are not organisational.</td></tr>
+</tbody></table></div>
+<h3 class="sub">Positive psychology</h3>
+<div class="tscroll"><table class="tbl">
+<thead><tr><th>Who</th><th>What</th></tr></thead>
+<tbody>
+<tr><td>Martin Seligman</td><td>Launched positive psychology as APA president (1998); learned helplessness; PERMA; with Christopher Peterson, the VIA: 24 character strengths under 6 virtues</td></tr>
+<tr><td>Barbara Fredrickson &#9733;</td><td><b>Broaden-and-build theory</b>: positive emotions widen what you notice and try, and that builds lasting resources</td></tr>
+<tr><td>Mihaly Csikszentmihalyi</td><td><b>Flow</b>: full absorption when challenge matches skill</td></tr>
+<tr><td>Fred Bryant and Joseph Veroff</td><td><b>Savoring</b>: deliberately enhancing the enjoyment of positive experiences</td></tr>
+<tr><td>Ed Diener</td><td>Subjective well-being; Satisfaction With Life Scale</td></tr>
+<tr><td>Carol Ryff</td><td>Psychological well-being, 6 dimensions</td></tr>
+<tr><td>C. R. Snyder</td><td>Hope theory: pathways and agency</td></tr>
+</tbody></table></div>
+<div class="ty"><div class="h">Test yourself</div>
+<details><summary>&ldquo;Do I have what it takes to handle this?&rdquo; is which appraisal?</summary><p><b>Secondary appraisal</b> (Lazarus). Primary = is it a threat at all?</p></details>
+<details><summary>Broaden-and-build versus flow: who goes with which?</summary><p><b>Fredrickson</b> = broaden-and-build. <b>Csikszentmihalyi</b> = flow.</p></details>
+<details><summary>Selye's three stages, in order?</summary><p><b>Alarm, resistance, exhaustion.</b></p></details>
+<details><summary>Role ambiguity is which kind of stressor?</summary><p><b>Organisational</b> (a role demand).</p></details>
+</div>
+</div>
+
+<div class="blk" id="F">
+<h2>F. Research terms and stats</h2>
+<p class="why"><b>JSS Q27, Q45, Q82</b> and <b>IHBAS Q38</b>. Stats on the whole is strong (RML 8/8, IHBAS biostats 11/12). These four are vocabulary items, not calculations.</p>
+<div class="tscroll"><table class="tbl stack st-f">
+<thead><tr><th>Term</th><th>What it means</th><th>Lookalike</th></tr></thead>
+<tbody>
+<tr><td>Literature &#9733;</td><td>The body of prior work on a research problem, hence &ldquo;review of literature&rdquo;</td><td>Archive, repository: places where documents are kept</td></tr>
+<tr><td>Risk ratio &#9733;</td><td>Incidence in the exposed &divide; incidence in the unexposed. <b>1 = no difference.</b> 2 = double the risk. Below 1 = protective.</td><td>Odds ratio: the case-control version</td></tr>
+<tr><td>Inductive &#9733;</td><td>Specific observations to a general rule (bottom-up)</td><td>Deductive: general theory to a specific prediction</td></tr>
+<tr><td>Relative frequency &#9733;</td><td>f &divide; N. Use it to compare distributions whose totals differ.</td><td>Cumulative frequency: a running total, used for percentiles and the ogive</td></tr>
+<tr><td>Frequency polygon / ogive</td><td>Polygon plots at interval midpoints; ogive plots cumulative frequency at upper limits</td><td>Histogram (bars touch, continuous data) versus bar graph (gaps, categories)</td></tr>
+</tbody></table></div>
+<div class="ty"><div class="h">Test yourself</div>
+<details><summary>A cohort study finds a risk ratio of 0.5. Meaning?</summary><p><b>Half the risk in the exposed group</b>, a protective association.</p></details>
+<details><summary>Class A has 40 students and class B has 120. Which frequency lets you compare their score spreads?</summary><p><b>Relative frequency</b> (f/N).</p></details>
+</div>
+</div>
+
+<div class="blk" id="G">
+<h2>G. India-specific facts</h2>
+<p class="why"><b>IHBAS Q96</b> (RPwD) is the one that matters for IHBAS and CIP. <b>RML Q4 and Q18</b> are social-work history and only RML asks it. The interview side
+(RCI, MHCA) is in the <a href="../../name-lock/app/index.html#jss">JSS Interview world</a>.</p>
+<div class="tscroll"><table class="tbl">
+<thead><tr><th>Fact</th><th>Lock this</th></tr></thead>
+<tbody>
+<tr><td>RPwD Act 2016 &#9733;</td><td><b>21</b> specified disabilities (the 1995 PwD Act had 7); benchmark disability = 40% or more; includes specific learning disability, autism spectrum disorder, intellectual disability and mental illness. Under the assessment guidelines, <b>SLD is assessed only from age 8</b>.</td></tr>
+<tr><td>ISAA</td><td>Indian Scale for Assessment of Autism, the tool named in the disability guidelines. Answer it whenever &ldquo;Indian&rdquo; and &ldquo;autism&rdquo; meet in a stem.</td></tr>
+<tr><td>First school of social work &#9733;</td><td>Sir Dorabji Tata Graduate School of Social Work, Bombay, <b>1936</b>; renamed Tata Institute of Social Sciences in 1944</td></tr>
+<tr><td>First psychology department</td><td>Calcutta University, 1915 (N. N. Sengupta)</td></tr>
+<tr><td>RCI Act 1992</td><td>Rehabilitation Council of India; a clinical psychologist must hold RCI registration to practise</td></tr>
+<tr><td>Mental Healthcare Act 2017</td><td>Rights-based; advance directives; nominated representative; Section 115 presumes severe stress in a suicide attempt, so it isn't punished</td></tr>
+</tbody></table></div>
+<div class="ty"><div class="h">Test yourself</div>
+<details><summary>How many disabilities does the RPwD Act 2016 list, and what's the benchmark?</summary><p><b>21</b>; benchmark = <b>40% or more</b>.</p></details>
+<details><summary>Minimum age for assessing SLD under the RPwD guidelines?</summary><p><b>8 years.</b></p></details>
+</div>
+</div>
+
+<h2 class="sec" id="drill">Drill it</h2>
+<div class="drill">
+  <a href="../../tests-app/">Revenge mode (Tests app)</a>
+  <a href="../../name-lock/app/">Name Lock (who-gave-what)</a>
+  <a href="../../notes/originators/">Originators sheet</a>
+  <a href="../../take/screen.html?m=jss-mock-2">JSS Mock 2</a>
+  <a href="../gap-map/">Gap Map (reads this device)</a>
+</div>
+<p class="legend">Revenge mode already has your 20 JSS misses loaded with full lessons. Name Lock's who mode is the fastest fix for gap 2. The Gap Map reads attempts saved on the
+device you open it on; this page is the written analysis across everything you've sent.</p>
+
+<p class="src">Sources: your RML 2020 result file (3 Aug 2026, 91 right, 9 wrong), your IHBAS 2024 attempt and topic ratings (14 Oct, 94 right, 6 wrong), your JSS PYQ Mock result
+(19 Oct, 70 right, 20 wrong) and your MET Mock 1 results (16 May, 49 right, 4 wrong, 47 blank), all sent on WhatsApp. Stems and keys come from the site's question banks
+(rml-2020-wrong/data.js, take/data-all.js, take/data-jss.js). The name-to-idea count is every question in those three real papers that only asks which person goes with
+which idea (RML 4, IHBAS 11, JSS 8), checked one by one. Question numbers are as on the test screen.</p>
+</div>
+</body>
+</html>
