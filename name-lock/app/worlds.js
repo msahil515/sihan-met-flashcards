@@ -58,7 +58,7 @@ var WORLDS = [
   {id: "dis", kick: "WORLD 3", name: "Dissertation", tag: "Your own study, the way a viva panel walks it",
     c: ["#e3ffef", "#2fd47f", "#08402e"], pc: "#4dffa6", pd: "#16935a", spin: 60, built: true, open: true,
     lockText: "", prog: DIS.length ? disW / DIS.length : 0, best: disN + "/" + disT, bestK: "Nailed", next: nextDis ? nextDis[2] + " " + nextDis[1] : "All cleared 🏆", nextK: "Next level"},
-  {id: "jss", kick: "WORLD 4", name: "JSS Interview", tag: "The panel room: openers, your work, cases, ethics, law",
+  {id: "jss", kick: "WORLD 4", name: "JSS Interview", tag: "The panel room: openers, your work, cases, ethics, law, definitions",
     c: ["#ffe6d6", "#ff7a3d", "#4a1608"], pc: "#ff9a5c", pd: "#b4441c", spin: 52, built: true, open: true,
     lockText: "", prog: JSS.length ? jssW / JSS.length : 0, best: jssN + "/" + jssT, bestK: "Nailed", next: nextJss ? nextJss[2] + " " + nextJss[1] : "All cleared 🏆", nextK: "Next level"},
   {id: "stats", kick: "WORLD 5", name: "Stats and Research", tag: "A lab world of data towers and graphs",
