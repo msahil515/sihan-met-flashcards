@@ -393,14 +393,14 @@
     var el = document.getElementById("g-run");
     if (R.kind !== "speed" && (R.lives <= 0 || R.i >= R.cards.length)) return finish();
     if (R.kind === "speed" && R.i >= R.cards.length) R.i = 0;
-    var c = R.cards[R.i], modes = c.who ? ["name", "desc", "who"] : ["name", "desc"];
+    var c = R.cards[R.i], modes = c.wl ? ["name", "desc", "who"] : ["name", "desc"];
     var mode = R.kind === "speed" ? "desc" : modes[Math.floor(Math.random() * modes.length)];
-    var field = mode === "name" ? "def" : mode === "desc" ? "name" : "who";
+    var field = mode === "name" ? "qd" : mode === "desc" ? "name" : "wl";
     var opts = A.shuffle([c].concat(A.distract(c, field, 3)));
     var cat = '<span class="cat c-' + c.cat + '">' + A.CATNAME[c.cat] + '</span>';
     var prompt = mode === "name" ? '<div class="prompt-k">What does this mean?</div><div class="prompt">' + cat + A.esc(c.name) + '</div>'
-      : mode === "desc" ? '<div class="prompt-k">Name it (' + A.CATNAME[c.cat].toLowerCase() + ')</div><div class="prompt small">' + A.esc(c.def) + '</div>'
-      : '<div class="prompt-k">Who did it?</div><div class="prompt">' + cat + A.esc(c.name) + '</div>';
+      : mode === "desc" ? '<div class="prompt-k">Name it (' + A.CATNAME[c.cat].toLowerCase() + ')</div><div class="prompt small">' + A.esc(c.qd) + '</div>'
+      : '<div class="prompt-k">Who did it?</div><div class="prompt">' + cat + A.esc(c.qw) + '</div><div class="fld" style="color:var(--muted)">' + A.esc(c.qwd) + '</div>';
     el.innerHTML = head() + '<div class="card">' + prompt + '<div class="opts">' + opts.map(function(o){ return '<button class="opt" data-id="' + o.id + '">' + A.esc(o[field]) + '</button>'; }).join("") +
       '</div><div id="g-rv"></div></div><div class="row2"><button class="btn ghost" id="g-quit">' + (R.kind === "speed" ? "Stop" : "Run away") + '</button></div>';
     if (R.kind === "speed") tick();

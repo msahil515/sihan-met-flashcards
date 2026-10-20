@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<script src="/sihan-met-flashcards/sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d1117">
+<title>JSS mock: your 20 misses, full breakdown</title>
+<link rel="stylesheet" href="../site.css">
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<style>
+  .wrap{max-width:900px;margin:0 auto;padding:18px 16px 90px}
+  .lede{color:var(--muted);font-size:14.5px;line-height:1.7;margin:4px 0 16px}
+  .lede b{color:var(--text)}
+  h2.sec{font-size:16px;margin:34px 0 10px;color:var(--text);scroll-margin-top:14px}
+  h2.sec .cnt{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-left:6px}
+  .roll{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0 6px}
+  .roll .box{flex:1;min-width:120px;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:11px 13px}
+  .roll .n{font-size:22px;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums}
+  .roll .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+  .you{border:1px solid var(--accent-dim);background:var(--accent-soft);border-radius:10px;padding:13px 16px;margin:16px 0;
+    font-size:14.5px;line-height:1.7;color:var(--text)}
+  .tbl{width:100%;border-collapse:collapse;font-size:13.5px;margin:6px 0 10px}
+  .tbl th,.tbl td{border-bottom:1px solid var(--border);padding:8px 8px;text-align:left;vertical-align:top;color:var(--muted)}
+  .tbl th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .tbl td:first-child{color:var(--text);font-weight:600}
+  .tbl td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .tbl a,.diagbox a,.keybox a,.drill a{color:var(--accent);text-decoration:none}
+  .tscroll{overflow-x:auto}
+  .diagbox{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:10px 0}
+  .diagbox>div{border:1px solid var(--border);background:var(--panel);border-radius:10px;padding:11px 13px;font-size:13.5px;line-height:1.6;color:var(--muted)}
+  .diagbox b{color:var(--text)}
+  .diagbox .big{display:block;font-size:20px;font-weight:800;color:var(--text)}
+  .keybox{border:1px solid var(--warn);background:var(--warn-soft);border-radius:10px;padding:12px 15px;margin:10px 0;
+    font-size:14px;line-height:1.65;color:var(--text)}
+  .drill{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+  .drill a{display:inline-block;border:1px solid var(--accent-dim);background:var(--accent-soft);border-radius:9px;padding:10px 14px;font-weight:700;font-size:14px}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 4px}
+  .chip{display:flex;flex-direction:column;gap:1px;border:1px solid var(--border);background:var(--panel-2);border-radius:9px;
+    padding:6px 10px;font-size:13.5px;font-weight:800;color:var(--text);text-decoration:none;min-width:70px}
+  .chip span{font-size:9.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+  .chip.gap{border-color:var(--accent-dim)} .chip.trp{border-color:var(--purple)} .chip.tec{border-color:var(--good)} .chip.key{border-color:var(--warn)}
+  .legend{font-size:12.5px;color:var(--muted);line-height:1.7;margin:6px 0}
+  .cat{font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:5px}
+  .cat.gap{background:var(--accent-soft);color:var(--accent)} .cat.trp{background:var(--purple-soft);color:var(--purple)}
+  .cat.tec{background:var(--good-soft);color:var(--good)} .cat.key{background:var(--warn-soft);color:var(--warn)}
+
+  .miss{border:1px solid var(--border);background:var(--panel);border-radius:11px;padding:15px 17px;margin:0 0 16px;scroll-margin-top:14px}
+  .mh{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:9px}
+  .mn{font-size:12.5px;font-weight:800;color:var(--text);background:var(--panel-2);border:1px solid var(--border);border-radius:6px;padding:2px 8px}
+  .msec{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .mv{margin-left:auto;font-size:12px;color:var(--muted)}
+  .mv .bad{color:var(--bad);font-weight:800} .mv .ok{color:var(--good);font-weight:800}
+  .mq{font-size:15.5px;line-height:1.6;color:var(--text);margin:0 0 11px}
+  .mopts{display:flex;flex-direction:column;gap:6px;margin-bottom:13px}
+  .mo{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--border);background:var(--panel-2);border-radius:8px;
+    padding:8px 11px;font-size:14px;line-height:1.5;color:var(--muted)}
+  .mo .mk{flex:0 0 22px;height:22px;border-radius:6px;background:var(--panel-3);border:1px solid var(--border);color:var(--muted);
+    font-weight:800;font-size:11.5px;display:flex;align-items:center;justify-content:center}
+  .mo.right{border-color:var(--good);background:var(--good-soft);color:var(--text)}
+  .mo.right .mk{background:var(--good);border-color:var(--good);color:#fff}
+  .mo.picked{border-color:var(--bad);background:var(--bad-soft);color:var(--text)}
+  .mo.picked .mk{background:var(--bad);border-color:var(--bad);color:#fff}
+  .mo .mtag{margin-left:auto;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+  .mo.right .mtag{color:var(--good)} .mo.picked .mtag{color:var(--bad)}
+  .keyflag{border:1px solid var(--warn);background:var(--warn-soft);border-radius:8px;padding:9px 12px;margin:0 0 12px;font-size:13.5px;line-height:1.6;color:var(--text)}
+  .exp{border-top:1px solid var(--border);padding-top:13px}
+  .exp-answer{display:flex;align-items:center;gap:11px;background:var(--good-soft);border:1px solid var(--good);border-radius:9px;padding:10px 13px;margin-bottom:6px}
+  .exp-answer .ak{flex:none;min-width:28px;height:28px;border-radius:7px;background:var(--good);color:#fff;font-weight:800;font-size:13px;
+    display:flex;align-items:center;justify-content:center}
+  .exp-answer .alabel{display:block;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+  .exp-answer .atext{font-size:15px;line-height:1.4;color:var(--text);font-weight:600}
+  .exp-sec{padding-top:13px;margin-top:13px;border-top:1px solid var(--border)}
+  .exp-h{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+  .exp-sec p{font-size:15px;line-height:1.65;color:var(--muted);margin:0 0 9px}
+  .exp-sec p b,.exp-sec p i{color:var(--text)}
+  .exp-sec p.diag{font-size:13.5px}
+  .exp-traps{display:flex;flex-direction:column;gap:8px}
+  .exp-trap{display:flex;gap:11px;align-items:flex-start;background:var(--panel-2);border:1px solid var(--border);border-radius:8px;padding:9px 11px}
+  .exp-trap .tk{flex:0 0 24px;height:24px;border-radius:6px;background:var(--panel-3);color:var(--text);font-weight:800;font-size:11.5px;
+    display:flex;align-items:center;justify-content:center}
+  .exp-trap .tw{font-size:14px;line-height:1.55;color:var(--muted);margin:0}
+  .exp-trap .tw b{color:var(--text)}
+  .hook{margin-top:14px;border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 8px 8px 0;padding:10px 14px;
+    font-size:14.5px;line-height:1.55;color:var(--text);font-weight:600}
+  .hook span{display:block;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+  .habits p{font-size:14.5px;line-height:1.7;color:var(--muted)}
+  .habits b{color:var(--text)}
+  .src{font-size:12px;color:var(--muted);line-height:1.7;margin:26px 0}
+</style>
+<script src="/sihan-met-flashcards/take/theme.js"></script>
+<link rel="stylesheet" href="/sihan-met-flashcards/revamp-skin.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-title">Sihan — Clinical Psych 2026</span>
+      <span class="brand-sub">M.A. / M.Phil Clinical Psychology (RCI) · IHBAS · CIP · JSS Mysuru · DIMHANS Dharwad</span>
+    </div>
+    <nav class="nav">
+      <a href="/sihan-met-flashcards/">Dashboard</a>
+      <a href="/sihan-met-flashcards/tests/">Tests</a>
+      <a href="/sihan-met-flashcards/quiz/practice/">Practice</a>
+      <a href="/sihan-met-flashcards/results/">Results</a>
+      <a href="/sihan-met-flashcards/notes-app/">Library</a>
+      <a href="/sihan-met-flashcards/admissions/">Admissions</a>
+      <a href="/sihan-met-flashcards/progress/">Progress</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+<h1 style="margin:8px 0 2px;font-size:24px;">JSS mock: your 20 misses, full breakdown</h1>
+<p class="lede">Your JSS PYQ Mock run on 19 October, for the JSS AHER entrance on <b>27 October</b>. Every question you got wrong is below with the
+full stem and options, your pick against the key, why the key is right, why your pick pulled you, the concept taught from scratch, every
+other option settled, and a one-line hook. Grouped by the nine JSS brochure subjects.</p>
+
+<div class="roll">
+  <div class="box"><div class="n">65 / 90</div><div class="l">Score (+1 / &minus;0.25)</div></div>
+  <div class="box"><div class="n">70</div><div class="l">Right</div></div>
+  <div class="box"><div class="n">20</div><div class="l">Wrong</div></div>
+  <div class="box"><div class="n">0</div><div class="l">Skipped</div></div>
+</div>
+
+<div class="you"><b>The pattern, in one line.</b> These 20 are not one weak subject. Clinical Psychology is the only real cluster (5 of 10 lost).
+Everywhere else it is one or two per subject, and <b>only 8 of the 20 were true knowledge gaps</b>. Five fell to a close neighbour that looked right, five to option-reading habits you can fix this week (fake first names, &ldquo;both a and b&rdquo;, &ldquo;All of the above&rdquo;, a reversal), and two have keys that look off. Fixing the five technique misses alone is worth about 6.25 marks with no new reading.</div>
+
+<div class="drill">
+  <a href="../tests-app/">Drill these in Revenge mode (Tests app)</a>
+  <a href="../take/screen.html?m=jss-pyq">Retake the JSS PYQ Mock</a>
+  <a href="../jss-interview/">JSS interview prep</a>
+</div>
+<p class="legend">Revenge mode is on the Tests app home screen, under the daily goal. All 20 of these are already loaded there with the same lessons.</p>
+
+<h2 class="sec">By subject</h2>
+<div class="tscroll"><table class="tbl">
+<thead><tr><th>JSS subject</th><th>Missed</th><th>Right</th><th>Questions</th><th>Pattern</th></tr></thead>
+<tbody>
+<tr><td>General Psychology / Theories</td><td class="num">4 / 10</td><td class="num">6</td><td><a href="#q37">Q37</a>, <a href="#q46">Q46</a>, <a href="#q55">Q55</a>, <a href="#q82">Q82</a></td><td>Trap 1, Technique 2, Knowledge gap 1</td></tr>
+<tr><td>Psychological Assessment</td><td class="num">1 / 10</td><td class="num">9</td><td><a href="#q56">Q56</a></td><td>Knowledge gap 1</td></tr>
+<tr><td>Social Psychology</td><td class="num">2 / 10</td><td class="num">8</td><td><a href="#q39">Q39</a>, <a href="#q75">Q75</a></td><td>Trap 1, Knowledge gap 1</td></tr>
+<tr><td>Personality</td><td class="num">2 / 10</td><td class="num">8</td><td><a href="#q67">Q67</a>, <a href="#q76">Q76</a></td><td>Trap 1, Technique 1</td></tr>
+<tr><td>Physiological Psychology</td><td class="num">1 / 10</td><td class="num">9</td><td><a href="#q32">Q32</a></td><td>Trap 1</td></tr>
+<tr><td>Developmental Psychology</td><td class="num">1 / 10</td><td class="num">9</td><td><a href="#q87">Q87</a></td><td>Technique 1</td></tr>
+<tr><td>Clinical Psychology</td><td class="num">5 / 10</td><td class="num">5</td><td><a href="#q25">Q25</a>, <a href="#q34">Q34</a>, <a href="#q52">Q52</a>, <a href="#q79">Q79</a>, <a href="#q88">Q88</a></td><td>Knowledge gap 3, Disputed key 2</td></tr>
+<tr><td>Psychiatric Abnormalities / Disorders</td><td class="num">2 / 10</td><td class="num">8</td><td><a href="#q53">Q53</a>, <a href="#q80">Q80</a></td><td>Knowledge gap 1, Technique 1</td></tr>
+<tr><td>Research Methodology</td><td class="num">2 / 10</td><td class="num">8</td><td><a href="#q27">Q27</a>, <a href="#q45">Q45</a></td><td>Trap 1, Knowledge gap 1</td></tr>
+</tbody></table></div>
+
+<h2 class="sec">Diagnosis: why each one went</h2>
+<div class="diagbox">
+  <div><span class="big">8</span><b>Knowledge gap.</b> You did not have the fact. Fix: read the from-scratch section once, then Revenge flip cards. <a href="#q25">Q25</a>, <a href="#q34">Q34</a>, <a href="#q45">Q45</a>, <a href="#q53">Q53</a>, <a href="#q55">Q55</a>, <a href="#q56">Q56</a>, <a href="#q75">Q75</a>, <a href="#q88">Q88</a></div>
+  <div><span class="big">5</span><b>Trap.</b> You knew the neighbourhood and a close neighbour pulled you. Fix: learn the pair, not the single fact. <a href="#q27">Q27</a>, <a href="#q32">Q32</a>, <a href="#q37">Q37</a>, <a href="#q39">Q39</a>, <a href="#q67">Q67</a></div>
+  <div><span class="big">5</span><b>Technique.</b> An option-reading rule would have saved it. Fix: the four habits at the bottom. <a href="#q46">Q46</a>, <a href="#q76">Q76</a>, <a href="#q80">Q80</a>, <a href="#q82">Q82</a>, <a href="#q87">Q87</a></div>
+  <div><span class="big">2</span><b>Disputed key.</b> The key itself is arguable. See below. <a href="#q52">Q52</a>, <a href="#q79">Q79</a></div>
+</div>
+<p class="legend">The label is the main reason; several overlap. Q25 and Q80 are gap and technique together (you did not know the author,
+and you then took a fake first name the technique rule would have struck out).</p>
+
+<h2 class="sec">Two keys that look off</h2>
+<div class="keybox"><b><a href="#q52">Q52</a>, ignoring tantrums.</b> The paper keys (c) operant escape. The textbook answer is (b) extinction:
+withholding the attention that was reinforcing the tantrum. The site's own explanation says so. But you picked (d) operant avoidance,
+which is wrong under <b>either</b> key, so this mark was lost regardless. Learn it as extinction.</div>
+<div class="keybox"><b><a href="#q79">Q79</a>, inner world distorting perception of the outer world.</b> The paper keys (d) denial. You picked
+(a) projection, and that is defensible: the stem is close to the broad meaning of projection behind projective tests. If the key is wrong,
+this was a right answer marked wrong (+1.25 on your score, 66.25). Know both: refusing a painful fact is denial; inner states colouring
+perception is projection. If this exact stem appears on JSS, the setter's answer was denial.</div>
+<p class="legend">Also worth knowing: <a href="#q55" style="color:var(--accent)">Q55</a> (concept formation stages) has no official key anywhere. The site's
+key is the most widely printed order. Your pick dropped abstraction and added Piaget's assimilation, so it is wrong on every version seen.</p>
+
+<h2 class="sec">Jump to any of the 20</h2>
+<div class="chips">
+<a class="chip gap" href="#q25">Q25<span>Clinical Psychology</span></a>
+<a class="chip trp" href="#q27">Q27<span>Research Methodology</span></a>
+<a class="chip trp" href="#q32">Q32<span>Physiological Psychology</span></a>
+<a class="chip gap" href="#q34">Q34<span>Clinical Psychology</span></a>
+<a class="chip trp" href="#q37">Q37<span>General Psychology</span></a>
+<a class="chip trp" href="#q39">Q39<span>Social Psychology</span></a>
+<a class="chip gap" href="#q45">Q45<span>Research Methodology</span></a>
+<a class="chip tec" href="#q46">Q46<span>General Psychology</span></a>
+<a class="chip key" href="#q52">Q52<span>Clinical Psychology</span></a>
+<a class="chip gap" href="#q53">Q53<span>Psychiatric Abnormalities</span></a>
+<a class="chip gap" href="#q55">Q55<span>General Psychology</span></a>
+<a class="chip gap" href="#q56">Q56<span>Psychological Assessment</span></a>
+<a class="chip trp" href="#q67">Q67<span>Personality</span></a>
+<a class="chip gap" href="#q75">Q75<span>Social Psychology</span></a>
+<a class="chip tec" href="#q76">Q76<span>Personality</span></a>
+<a class="chip key" href="#q79">Q79<span>Clinical Psychology</span></a>
+<a class="chip tec" href="#q80">Q80<span>Psychiatric Abnormalities</span></a>
+<a class="chip tec" href="#q82">Q82<span>General Psychology</span></a>
+<a class="chip tec" href="#q87">Q87<span>Developmental Psychology</span></a>
+<a class="chip gap" href="#q88">Q88<span>Clinical Psychology</span></a>
+</div>
+<p class="legend">Border colour = diagnosis: blue gap, purple trap, green technique, amber disputed key.</p>
+
+<h2 class="sec" id="s-general">General Psychology / Theories <span class="cnt">4 missed</span></h2>
+
+<div class="miss" id="q37">
+  <div class="mh">
+    <span class="mn">Q37</span>
+    <span class="msec">General Psychology / Theories</span>
+    <span class="cat trp">Trap</span>
+    <span class="mv">you <span class="bad">a</span> &rarr; key <span class="ok">b</span></span>
+  </div>
+  <p class="mq">In Baddeley&#x27;s model of working memory, the subsystem responsible for integrating information from the phonological loop, visuospatial sketchpad, and long-term memory into a single, coherent episode is the:</p>
+  <div class="mopts">
+<div class="mo picked"><span class="mk">a</span><span>Central Executive</span><span class="mtag">you picked</span></div>
+<div class="mo right"><span class="mk">b</span><span>Episodic Buffer</span><span class="mtag">key</span></div>
+<div class="mo"><span class="mk">c</span><span>Visuospatial Sketchpad</span></div>
+<div class="mo"><span class="mk">d</span><span>Phonological Loop</span></div>
+  </div>
+  
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">b</span>
+      <span class="abody"><span class="alabel">The answer</span><span class="atext">The episodic buffer.</span></span></div>
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>Alan Baddeley and Graham Hitch proposed working memory in 1974 with three parts. In 2000 Baddeley added the episodic buffer ("The episodic buffer: a new component of working memory?", <i>Trends in Cognitive Sciences</i>) precisely to explain where information from the phonological loop, the visuospatial sketchpad and long-term memory gets <b>bound into one coherent episode</b>. The stem quotes that definition almost word for word.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+<p>You picked <b>(a) Central Executive</b>. The central executive &quot;coordinates&quot; everything, so &quot;integrating&quot; sounds like its job. But the executive only directs attention; it has no storage. The place where the bound episode is actually held is the episodic buffer. Keyword rule: &quot;integrate into a coherent episode&quot; = episodic buffer; &quot;control, attention, switching, inhibition&quot; = central executive.</p>
+<p class="diag"><b>Diagnosis: Trap.</b> Gave the binding job to the controller.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Learn it from scratch</div>
+<p>Atkinson and Shiffrin (1968) pictured short-term memory as one passive box between the senses and long-term memory. Baddeley and Hitch (1974) replaced it with working memory: an active workspace with several parts.</p><p>The three original parts: the central executive (an attention controller: it focuses, switches and divides attention, but stores nothing itself); the phonological loop (a phonological store plus articulatory rehearsal; it explains the word-length effect, the phonological similarity effect and why articulatory suppression wrecks verbal recall); and the visuospatial sketchpad (visual and spatial images; Logie split it into a visual cache and an inner scribe).</p><p>The problem: where do sound, sight and stored knowledge get bound into one scene, and how do amnesic patients recall a whole paragraph immediately when the loop only holds a few words? In 2000 Baddeley added a fourth part, the episodic buffer: a limited-capacity (about 4 chunks), multimodal store that binds information from the loop, the sketchpad and long-term memory into single coherent episodes, available to conscious awareness.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Every other option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><p class="tw"><b>Central Executive</b> (you picked): The central executive is the attentional control system that allocates resources and coordinates the subsystems, but it does the directing rather than the actual binding and storage of an integrated multimodal episode.</p></div>
+<div class="exp-trap"><span class="tk">c</span><p class="tw"><b>Visuospatial Sketchpad</b>: The visuospatial sketchpad is a slave system that holds and manipulates only visual and spatial information, so it cannot integrate verbal, visual, and long-term memory contents together.</p></div>
+<div class="exp-trap"><span class="tk">d</span><p class="tw"><b>Phonological Loop</b>: The phonological loop is a slave system dedicated to verbal and acoustic information, storing and rehearsing sound-based material, so it too handles only one modality rather than binding across them.</p></div>
+      </div>
+    </div>
+    <div class="hook"><span>Memory hook</span>The executive is the manager who decides. The buffer is the meeting room where everything is put together. Added in 2000.</div>
+  </div>
+</div>
+
+<div class="miss" id="q46">
+  <div class="mh">
+    <span class="mn">Q46</span>
+    <span class="msec">General Psychology / Theories</span>
+    <span class="cat tec">Technique</span>
+    <span class="mv">you <span class="bad">b</span> &rarr; key <span class="ok">a</span></span>
+  </div>
+  <p class="mq">Functionalism is how people work, play, and adapt to their surroundings. This viewpoint was given by:</p>
+  <div class="mopts">
+<div class="mo right"><span class="mk">a</span><span>William James</span><span class="mtag">key</span></div>
+<div class="mo picked"><span class="mk">b</span><span>William Wundt</span><span class="mtag">you picked</span></div>
+<div class="mo"><span class="mk">c</span><span>Charles Darwin</span></div>
+<div class="mo"><span class="mk">d</span><span>John B. Watson</span></div>
+  </div>
+  
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">a</span>
+      <span class="abody"><span class="alabel">The answer</span><span class="atext">William James.</span></span></div>
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>William James (1842 to 1910), Harvard, <i>The Principles of Psychology</i> (1890), is the leading figure of functionalism: the mind studied for what it does, how it helps the organism adapt. The Chicago school formalised it (John Dewey 1896, James Rowland Angell 1906, Harvey A. Carr).</p><p>Wilhelm Wundt (1832 to 1920) founded the Leipzig laboratory in 1879; his work became structuralism under Edward Bradford Titchener. Charles Darwin (<i>On the Origin of Species</i>, 1859) inspired functionalism but was not a psychologist. John Broadus Watson founded behaviourism in 1913.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+<p>You picked <b>(b) William Wundt</b>. The option says &quot;William Wundt&quot;. His real first name is Wilhelm. Sharing &quot;William&quot; with William James makes it feel right, but Wundt is structure (what), James is function (why). Wrong first name on a famous surname is a distractor flag, the same trick as &quot;Charles Winnicot&quot; and &quot;Richmond Fromm&quot; in this paper.</p>
+<p class="diag"><b>Diagnosis: Technique.</b> Wrong-first-name decoy (&quot;William&quot; Wundt).</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Learn it from scratch</div>
+<p>The first two schools of psychology asked opposite questions.</p><p>Structuralism asked WHAT the mind is made of. Wilhelm Wundt opened the first psychology lab at Leipzig in 1879 and is the father of experimental psychology (he called his own system voluntarism). His student Edward Titchener took it to Cornell and named it structuralism: break consciousness into elements (sensations, images, feelings) by trained introspection.</p><p>Functionalism asked WHY: what is the mind FOR, and how does it help us adapt? William James at Harvard (Principles of Psychology, 1890; stream of consciousness; habit; the James-Lange theory of emotion) is its leading figure. The Chicago school made it formal: John Dewey&#x27;s 1896 reflex arc paper, James Rowland Angell&#x27;s 1906 &quot;The province of functional psychology&quot;, Harvey Carr. Columbia added Cattell, Thorndike and Woodworth. Darwin&#x27;s natural selection inspired the whole idea of mind as an adaptation, which is why functionalism led into applied work: education, individual differences, testing.</p><p>Behaviourism (John B. Watson, 1913) then threw out consciousness entirely.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Every other option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">b</span><p class="tw"><b>William Wundt</b> (you picked): William Wundt founded experimental psychology and structuralism, which analyzed the contents of consciousness through introspection, the opposite emphasis from functionalism.</p></div>
+<div class="exp-trap"><span class="tk">c</span><p class="tw"><b>Charles Darwin</b>: Charles Darwin&#x27;s evolutionary theory inspired functionalism&#x27;s focus on adaptation, but Darwin was a naturalist, not the founder of the functionalist school of psychology.</p></div>
+<div class="exp-trap"><span class="tk">d</span><p class="tw"><b>John B. Watson</b>: John B. Watson founded behaviorism, which rejected the study of consciousness entirely and focused on observable behavior, not the adaptive functions of mind.</p></div>
+      </div>
+    </div>
+    <div class="hook"><span>Memory hook</span>Wundt asks what. James asks why.</div>
+  </div>
+</div>
+
+<div class="miss" id="q55">
+  <div class="mh">
+    <span class="mn">Q55</span>
+    <span class="msec">General Psychology / Theories</span>
+    <span class="cat gap">Knowledge gap</span>
+    <span class="mv">you <span class="bad">d</span> &rarr; key <span class="ok">a</span></span>
+  </div>
+  <p class="mq">Concept formation stages include the following:</p>
+  <div class="mopts">
+<div class="mo right"><span class="mk">a</span><span>Observation, Discrimination, Generalization, Abstraction</span><span class="mtag">key</span></div>
+<div class="mo"><span class="mk">b</span><span>Abstraction, Generalisation, Discrimination, Assimilation</span></div>
+<div class="mo"><span class="mk">c</span><span>Observation, Generalisation, Discrimination, Abstraction</span></div>
+<div class="mo picked"><span class="mk">d</span><span>Observation, Assimilation, Generalisation, Discrimination</span><span class="mtag">you picked</span></div>
+  </div>
+  <div class="keyflag"><b>Key note.</b> No official key exists for this one. The site&#x27;s key (A) is the most widely printed sequence, and the site&#x27;s explanation flags it as debatable.</div>
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">a</span>
+      <span class="abody"><span class="alabel">The answer</span><span class="atext">Observation, Discrimination, Generalization, Abstraction.</span></span></div>
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>The sequence in Indian general psychology texts: you first <b>observe</b> many instances, then <b>discriminate</b> instances from non-instances, then <b>generalise</b> across the instances that share the critical features, and finally <b>abstract</b> the rule itself. Starts with observation, ends with abstraction.</p><p>Your option (d) is the only one that drops abstraction and imports assimilation, Jean Piaget's term (1936 onwards) for fitting new experience into an existing schema. That is a cognitive-development process, not a concept-formation stage. Option (c) has the right words in the wrong middle order, which is the closest distractor.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+<p>You picked <b>(d) Observation, Assimilation, Generalisation, Discrimination</b>. &quot;Assimilation&quot; is a famous learning word from Piaget (fitting new information into an existing schema), so it sounds like it belongs in any list about learning concepts. It is not a concept-formation stage, and its presence is the giveaway that D is wrong. D also drops abstraction, the final stage.</p>
+<p class="diag"><b>Diagnosis: Knowledge gap.</b> Took the list with Piaget&#x27;s word in it.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Learn it from scratch</div>
+<p>A concept is a mental category that groups things by shared features, so you can recognise a new example without learning it from scratch.</p><p>The textbook stage list this question uses (common in Indian general psychology texts) goes: Observation (meet many examples) then Discrimination (notice how examples differ from non-examples) then Generalization (treat all members with the key features as the same) then Abstraction (pull out the common rule itself, e.g. &quot;mammal&quot; whatever the size or habitat). Texts word this slightly differently, so hold on to two anchors: it starts with observation and ends with abstraction.</p><p>Wider theory worth knowing: Clark Hull (1920) showed concept learning as gradual, using Chinese characters. Bruner, Goodnow and Austin (A Study of Thinking, 1956) described concept types (conjunctive, disjunctive, relational) and strategies (simultaneous scanning, successive scanning, conservative focusing, focus gambling). Eleanor Rosch (1975) showed real concepts work by prototypes, best examples, not strict rules.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Every other option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">b</span><p class="tw"><b>Abstraction, Generalisation, Discrimination, Assimilation</b>: This reverses the natural order, starting with abstraction, which is actually the culminating stage rather than the first.</p></div>
+<div class="exp-trap"><span class="tk">c</span><p class="tw"><b>Observation, Generalisation, Discrimination, Abstraction</b>: Placing generalization before discrimination is out of sequence; the learner must first tell instances apart before grouping them correctly.</p></div>
+<div class="exp-trap"><span class="tk">d</span><p class="tw"><b>Observation, Assimilation, Generalisation, Discrimination</b> (you picked): Substituting &#x27;assimilation&#x27; and dropping abstraction breaks the standard concept-formation sequence used in learning psychology.</p></div>
+      </div>
+    </div>
+    <div class="hook"><span>Memory hook</span>O-D-G-A: Only Dogs Get Applause.</div>
+  </div>
+</div>
+
+<div class="miss" id="q82">
+  <div class="mh">
+    <span class="mn">Q82</span>
+    <span class="msec">General Psychology / Theories</span>
+    <span class="cat tec">Technique</span>
+    <span class="mv">you <span class="bad">a</span> &rarr; key <span class="ok">b</span></span>
+  </div>
+  <p class="mq">Which method is characterized by moving from specific observations to broader generalizations?</p>
+  <div class="mopts">
+<div class="mo picked"><span class="mk">a</span><span>Deductive reasoning</span><span class="mtag">you picked</span></div>
+<div class="mo right"><span class="mk">b</span><span>Inductive reasoning</span><span class="mtag">key</span></div>
+<div class="mo"><span class="mk">c</span><span>Experimental design</span></div>
+<div class="mo"><span class="mk">d</span><span>Qualitative analysis</span></div>
+  </div>
+  
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">b</span>
+      <span class="abody"><span class="alabel">The answer</span><span class="atext">Inductive reasoning.</span></span></div>
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>Specific observations to broad generalisation is induction (Francis Bacon, <i>Novum Organum</i>, 1620). General premise to specific conclusion is deduction (Aristotle's syllogism). Karl Popper (<i>The Logic of Scientific Discovery</i>, 1934, English 1959) argued science should run deductively: derive a hypothesis from theory and try to falsify it, because David Hume (1739) showed induction can never prove a general rule.</p><p>Experimental design and qualitative analysis are research approaches, not directions of reasoning.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+<p>You picked <b>(a) Deductive reasoning</b>. A pure reversal trap: the two terms are mirror images, and under exam pressure the brain flips them.</p>
+<p class="diag"><b>Diagnosis: Technique.</b> Reversal slip under time pressure.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Learn it from scratch</div>
+<p>Reasoning runs in two directions.</p><p>Deduction goes from general to specific. If the premises are true, the conclusion must be true. The classic syllogism: all men are mortal; Socrates is a man; so Socrates is mortal. Research version: the hypothetico-deductive method (theory, then hypothesis, then test), which Karl Popper tied to falsification.</p><p>Induction goes from specific to general. You see many cases, spot a pattern and generalise. Its conclusions are only probable: one new case can overturn them (David Hume&#x27;s problem of induction; Francis Bacon championed it). Research version: quantitative work mostly tests theory deductively, while qualitative work mostly builds theory inductively, e.g. grounded theory (Glaser and Strauss, 1967).</p><p>A third type, abduction (Charles Peirce), is inference to the best explanation.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Every other option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><p class="tw"><b>Deductive reasoning</b> (you picked): Deductive reasoning moves from broad generalisations to specific predictions, the reverse direction.</p></div>
+<div class="exp-trap"><span class="tk">c</span><p class="tw"><b>Experimental design</b>: Experimental design is a research strategy for testing causal hypotheses, not a description of the inductive direction of inference.</p></div>
+<div class="exp-trap"><span class="tk">d</span><p class="tw"><b>Qualitative analysis</b>: Qualitative analysis often uses induction but is a category of analysis, not the name of the reasoning direction the question defines.</p></div>
+      </div>
+    </div>
+    <div class="hook"><span>Memory hook</span>INduction: from INdividual cases INto a rule. DEduction: DEscend from the rule DOwn to the case.</div>
+  </div>
+</div>
+<h2 class="sec" id="s-assessment">Psychological Assessment <span class="cnt">1 missed</span></h2>
+
+<div class="miss" id="q56">
+  <div class="mh">
+    <span class="mn">Q56</span>
+    <span class="msec">Psychological Assessment</span>
+    <span class="cat gap">Knowledge gap</span>
+    <span class="mv">you <span class="bad">d</span> &rarr; key <span class="ok">a</span></span>
+  </div>
+  <p class="mq">Location in Rorschach Inkblot Test is concerned with</p>
+  <div class="mopts">
+<div class="mo right"><span class="mk">a</span><span>Whole/Part</span><span class="mtag">key</span></div>
+<div class="mo"><span class="mk">b</span><span>Fantasy/Emotion</span></div>
+<div class="mo"><span class="mk">c</span><span>Colour/Movement</span></div>
+<div class="mo picked"><span class="mk">d</span><span>Figure/Landscape</span><span class="mtag">you picked</span></div>
+  </div>
+  
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">a</span>
+      <span class="abody"><span class="alabel">The answer</span><span class="atext">Whole / Part.</span></span></div>
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>Hermann Rorschach (1884 to 1922) published <i>Psychodiagnostik</i> in 1921. Every response is scored for <b>Location</b> (where on the blot: W whole, D common detail, Dd unusual detail, S white space), <b>Determinants</b> (what made it look that way: form, movement, colour, shading) and <b>Content</b> (what it is: human, animal, landscape). John E. Exner Jr.'s Comprehensive System (1974) standardised this scoring.</p><p>So location is literally whole versus part. Colour and movement (c) are determinants; figure and landscape (d) are contents; fantasy and emotion (b) are interpretive inferences, not a scoring category.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+<p>You picked <b>(d) Figure/Landscape</b>. &quot;Figure/Landscape&quot; sounds like what you see in the blot. That is the Content category (landscape is literally a content code, Ls). Location only ever means the place on the card: whole or part.</p>
+<p class="diag"><b>Diagnosis: Knowledge gap.</b> Rorschach scoring categories not separated.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Learn it from scratch</div>
+<p>Hermann Rorschach, a Swiss psychiatrist, published Psychodiagnostik in 1921. The test has 10 inkblot cards: 5 achromatic (I, IV, V, VI, VII), 2 black with red (II, III) and 3 fully coloured (VIII, IX, X). It is given in two phases: the response phase (&quot;What might this be?&quot;) and then the inquiry (where did you see it and what made it look like that).</p><p>Every response is scored on several categories. Location is WHERE on the blot the response was seen: W (whole blot), D (common detail), Dd (unusual detail), S (white space). Exner&#x27;s system adds Developmental Quality for how well the parts are put together.</p><p>Determinants are WHY it looked that way: Form (F), Movement (M human, FM animal, m inanimate), Colour (FC, CF, C), Achromatic colour (C&#x27;), Shading (texture T, vista V, diffuse Y), Form dimension (FD) and reflections. Content is WHAT it is: H human, A animal, An anatomy, Ls landscape, Na nature and so on. Popular (P) marks responses most people give, and Form Quality marks how well the percept fits the blot.</p><p>Scoring systems: Beck, Klopfer, Exner&#x27;s Comprehensive System (1974, the standard for decades) and R-PAS (Meyer and colleagues, 2011). Rough interpretation: many W = integrating and ambitious; mostly D = practical; many Dd = obsessive detail focus; S = oppositional tendency; M = inner life and imagination; C = emotional reactivity.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Every other option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">b</span><p class="tw"><b>Fantasy/Emotion</b>: Fantasy/emotion is thematic content, not the Location code.</p></div>
+<div class="exp-trap"><span class="tk">c</span><p class="tw"><b>Colour/Movement</b>: Colour and Movement are Determinants (how the percept was formed), a different scoring category.</p></div>
+<div class="exp-trap"><span class="tk">d</span><p class="tw"><b>Figure/Landscape</b> (you picked): Figure/Landscape is not a Rorschach location category.</p></div>
+      </div>
+    </div>
+    <div class="hook"><span>Memory hook</span>Location = Where. Determinants = Why it looked so. Content = What it is. W, D, Dd and S are all places.</div>
+  </div>
+</div>
+<h2 class="sec" id="s-social">Social Psychology <span class="cnt">2 missed</span></h2>
+
+<div class="miss" id="q39">
+  <div class="mh">
+    <span class="mn">Q39</span>
+    <span class="msec">Social Psychology</span>
+    <span class="cat trp">Trap</span>
+    <span class="mv">you <span class="bad">d</span> &rarr; key <span class="ok">a</span></span>
+  </div>
+  <p class="mq">The &quot;halo effect&quot; is a cognitive bias in which:</p>
+  <div class="mopts">
+<div class="mo right"><span class="mk">a</span><span>A person&#x27;s overall impression of another influences ratings of specific traits.</span><span class="mtag">key</span></div>
+<div class="mo"><span class="mk">b</span><span>Individuals take credit for success but blame external factors for failure.</span></div>
+<div class="mo"><span class="mk">c</span><span>People overestimate the extent to which others share their opinions.</span></div>
+<div class="mo picked"><span class="mk">d</span><span>A person&#x27;s initial impression anchors all subsequent judgments.</span><span class="mtag">you picked</span></div>
+  </div>
+  
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">a</span>
+      <span class="abody"><span class="alabel">The answer</span><span class="atext">A person's overall impression of another influences ratings of specific traits.</span></span></div>
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>Edward Lee Thorndike named the halo effect in 1920 ("A constant error in psychological ratings", <i>Journal of Applied Psychology</i>) after officers' ratings of soldiers correlated too highly across unrelated traits. The defining feature is a <b>global</b> impression spilling over onto <b>specific</b> trait ratings.</p><p>Options b, c and d are three other named biases: self-serving bias (b), false consensus (c, Lee Ross, David Greene and Pamela House, 1977) and anchoring or primacy (d).</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+<p>You picked <b>(d) A person&#x27;s initial impression anchors all subsequent judgments.</b>. Option D describes first impressions controlling later judgments, which is how people loosely talk about the halo, and it is very close to Asch&#x27;s primacy effect. The difference: the halo spreads sideways, from one overall impression to other traits. Primacy and anchoring work across time, from what came first to what comes later.</p>
+<p class="diag"><b>Diagnosis: Trap.</b> Took the anchoring / primacy description.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Learn it from scratch</div>
+<p>This sits under impression formation: how we build a picture of another person from bits of information.</p><p>Edward Thorndike named the halo effect in 1920 (&quot;A constant error in psychological ratings&quot;). Army officers rating soldiers on physique, intelligence, leadership and character gave ratings that correlated far too highly: a soldier who looked good was rated good at everything. One global impression spreads to separate, specific traits. The negative version is the horn effect. Dion, Berscheid and Walster (1972) showed the attractiveness form of it: &quot;what is beautiful is good&quot;.</p><p>Close neighbours to keep apart: Asch (1946) central traits (swapping warm for cold changed the whole impression) and the primacy effect (the order intelligent, industrious, impulsive, critical, stubborn, envious beats the reverse); Kelley (1950) warm-cold guest lecturer study; anchoring (Tversky and Kahneman, 1974), where estimates stay too close to a first number; self-serving bias; false consensus effect (Ross, Greene and House, 1977).</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Every other option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">b</span><p class="tw"><b>Individuals take credit for success but blame external factors for failure.</b>: Taking credit for success but blaming external factors for failure describes the self-serving bias, an attributional bias protecting self-esteem, not the halo effect.</p></div>
+<div class="exp-trap"><span class="tk">c</span><p class="tw"><b>People overestimate the extent to which others share their opinions.</b>: Overestimating how much others share one&#x27;s opinions describes the false consensus effect (Lee Ross and colleagues, 1977), a distinct social-cognitive bias about perceived agreement, not a global impression coloring trait ratings.</p></div>
+<div class="exp-trap"><span class="tk">d</span><p class="tw"><b>A person&#x27;s initial impression anchors all subsequent judgments.</b> (you picked): The idea that an initial impression anchors all subsequent judgments describes the anchoring effect (or a primacy effect), which concerns numerical or sequential anchoring rather than one overall impression spreading to specific traits.</p></div>
+      </div>
+    </div>
+    <div class="hook"><span>Memory hook</span>A halo spreads sideways (trait to trait). An anchor holds you in place (first to later).</div>
+  </div>
+</div>
+
+<div class="miss" id="q75">
+  <div class="mh">
+    <span class="mn">Q75</span>
+    <span class="msec">Social Psychology</span>
+    <span class="cat gap">Knowledge gap</span>
+    <span class="mv">you <span class="bad">a</span> &rarr; key <span class="ok">b</span></span>
+  </div>
+  <p class="mq">Who proposed the social role theory of gender?</p>
+  <div class="mopts">
+<div class="mo picked"><span class="mk">a</span><span>Buss</span><span class="mtag">you picked</span></div>
+<div class="mo right"><span class="mk">b</span><span>Alice Eagly</span><span class="mtag">key</span></div>
+<div class="mo"><span class="mk">c</span><span>Mehta and Strough</span></div>
+<div class="mo"><span class="mk">d</span><span>Anderson</span></div>
+  </div>
+  
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">b</span>
+      <span class="abody"><span class="alabel">The answer</span><span class="atext">Alice H. Eagly.</span></span></div>
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>Alice H. Eagly proposed social role theory in <i>Sex Differences in Social Behavior: A Social-Role Interpretation</i> (1987): the gendered division of labour creates role expectations (communal for women, agentic for men), and those expectations produce the behavioural differences. With Wendy Wood she extended it into the biosocial construction model (1999, 2002).</p><p>David M. Buss is the opposite camp, evolutionary psychology (37-culture mate-preference study, 1989). Craig A. Anderson is aggression research (General Aggression Model, with Brad Bushman, 2002). Mehta and Strough published on sex segregation in friendships, not this theory.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+<p>You picked <b>(a) Buss</b>. Buss is the name most tied to &quot;sex differences&quot; research, so it came up first. But Buss is the evolutionary side, the very theory social role theory was built to argue against.</p>
+<p class="diag"><b>Diagnosis: Knowledge gap.</b> Knew the field, not the author.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Learn it from scratch</div>
+<p>Two big explanations of sex differences in behaviour compete, and exams love pairing each with its author.</p><p>Evolutionary account: David Buss (his 1989 study of mate preferences across 37 cultures; sexual strategies theory with David Schmitt, 1993). Differences are inherited adaptations to ancestral pressures, building on Robert Trivers&#x27; parental investment theory (1972).</p><p>Social role theory: Alice Eagly (Sex Differences in Social Behavior: A Social-Role Interpretation, 1987; later the biosocial construction model with Wendy Wood, 1999). A society&#x27;s division of labour puts men and women into different roles (provider and leader versus homemaker and carer). Those roles create gender roles: communal traits expected of women, agentic traits expected of men. People learn the skills and beliefs their roles need, and onlookers then read the differences as inborn. Eagly and Karau&#x27;s role congruity theory (2002) explains prejudice against women leaders.</p><p>Other gender theories: Sandra Bem&#x27;s gender schema theory (1981) and her Bem Sex Role Inventory (1974, androgyny); Kohlberg&#x27;s cognitive-developmental account of gender constancy.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Every other option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><p class="tw"><b>Buss</b> (you picked): David Buss is associated with the evolutionary psychology account of sex differences, the rival to social role theory.</p></div>
+<div class="exp-trap"><span class="tk">c</span><p class="tw"><b>Mehta and Strough</b>: Mehta and Strough studied gender segregation across the lifespan, not the origin of social role theory.</p></div>
+<div class="exp-trap"><span class="tk">d</span><p class="tw"><b>Anderson</b>: Anderson is not the originator of this theory and is a distractor name here.</p></div>
+      </div>
+    </div>
+    <div class="hook"><span>Memory hook</span>Eagly looks down at society&#x27;s roles. Buss looks back at evolution.</div>
+  </div>
+</div>
+<h2 class="sec" id="s-personality">Personality <span class="cnt">2 missed</span></h2>
+
+<div class="miss" id="q67">
+  <div class="mh">
+    <span class="mn">Q67</span>
+    <span class="msec">Personality</span>
+    <span class="cat trp">Trap</span>
+    <span class="mv">you <span class="bad">c</span> &rarr; key <span class="ok">b</span></span>
+  </div>
+  <p class="mq">The concept of &quot;reciprocal determinism&quot; is central to which personality theory?</p>
+  <div class="mopts">
+<div class="mo"><span class="mk">a</span><span>Psychodynamic theory</span></div>
+<div class="mo right"><span class="mk">b</span><span>Social cognitive theory</span><span class="mtag">key</span></div>
+<div class="mo picked"><span class="mk">c</span><span>Humanistic theory</span><span class="mtag">you picked</span></div>
+<div class="mo"><span class="mk">d</span><span>Biological theory</span></div>
+  </div>
+  
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">b</span>
+      <span class="abody"><span class="alabel">The answer</span><span class="atext">Social cognitive theory (Albert Bandura).</span></span></div>
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>Albert Bandura (1925 to 2021), Stanford, introduced reciprocal determinism in 1978 ("The self system in reciprocal determinism", <i>American Psychologist</i>) and made it the backbone of social cognitive theory in <i>Social Foundations of Thought and Action</i> (1986). Person, behaviour and environment each influence the other two, in both directions.</p><p>No other school uses the term. Psychodynamic theory is driven from within (Sigmund Freud), biological theory from the body (Hans Eysenck's arousal model), humanistic theory from the self's growth (Carl Rogers, Abraham Maslow).</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+<p>You picked <b>(c) Humanistic theory</b>. Humanistic theory also says people are not passive products of their environment, and it talks a lot about the self, so &quot;people shape their surroundings&quot; felt humanistic. But humanistic means Rogers and Maslow: self-actualisation, unconditional positive regard, congruence, the hierarchy of needs. The person-behaviour-environment triangle is Bandura&#x27;s alone.</p>
+<p class="diag"><b>Diagnosis: Trap.</b> Heard &quot;agency&quot; and went humanistic.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Learn it from scratch</div>
+<p>Albert Bandura (Stanford) grew social learning theory into social cognitive theory (Social Foundations of Thought and Action, 1986).</p><p>Reciprocal determinism (his 1978 paper &quot;The self system in reciprocal determinism&quot;) says three things keep influencing each other in both directions: Person factors (thoughts, beliefs, expectations, biology), Behaviour, and Environment. It is a triangle with two-way arrows. Compare: Skinner runs one way (environment shapes behaviour); trait theory runs one way (person drives behaviour).</p><p>The rest of Bandura you should own: observational learning (Bobo doll studies, 1961, 1963, 1965) with four processes: attention, retention, reproduction, motivation; self-efficacy (1977), built from four sources: mastery experiences, vicarious experience, verbal persuasion, and physiological and emotional states; self-regulation; human agency; moral disengagement.</p><p>Same family: Julian Rotter&#x27;s locus of control and Walter Mischel&#x27;s cognitive-affective personality system (CAPS).</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Every other option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><p class="tw"><b>Psychodynamic theory</b>: Psychodynamic theory, from Sigmund Freud, centres on unconscious drives and psychosexual stages, not reciprocal determinism.</p></div>
+<div class="exp-trap"><span class="tk">c</span><p class="tw"><b>Humanistic theory</b> (you picked): Humanistic theory, from Carl Rogers and Abraham Maslow, emphasises self-actualisation and free will, not the triadic reciprocal model.</p></div>
+<div class="exp-trap"><span class="tk">d</span><p class="tw"><b>Biological theory</b>: Biological theory attributes personality to genetics and physiology, not to the interaction of behaviour, cognition, and environment.</p></div>
+      </div>
+    </div>
+    <div class="hook"><span>Memory hook</span>Reciprocal = the P-B-E triangle with arrows both ways = Bandura.</div>
+  </div>
+</div>
+
+<div class="miss" id="q76">
+  <div class="mh">
+    <span class="mn">Q76</span>
+    <span class="msec">Personality</span>
+    <span class="cat tec">Technique</span>
+    <span class="mv">you <span class="bad">d</span> &rarr; key <span class="ok">c</span></span>
+  </div>
+  <p class="mq">Which of the following statements is TRUE with respect to Minnesota Multiphasic Personality Inventory (MMPI)?</p>
+  <div class="mopts">
+<div class="mo"><span class="mk">a</span><span>It utilizes rational method of test construction</span></div>
+<div class="mo"><span class="mk">b</span><span>It is constructed by assuming specific personality traits and formulating questions to answer them</span></div>
+<div class="mo right"><span class="mk">c</span><span>It is derived by finding items that discriminate between criterion and control groups</span><span class="mtag">key</span></div>
+<div class="mo picked"><span class="mk">d</span><span>It is true with respect to both a and b</span><span class="mtag">you picked</span></div>
+  </div>
+  
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">c</span>
+      <span class="abody"><span class="alabel">The answer</span><span class="atext">It is derived by finding items that discriminate between criterion and control groups.</span></span></div>
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>Starke R. Hathaway and J. Charnley McKinley (University of Minnesota, 1943) built the MMPI by <b>empirical criterion keying</b>: they wrote about 1,000 items, gave them to diagnosed psychiatric groups and to normal controls (the "Minnesota normals"), and kept only the items that separated the groups, whatever the items seemed to be about.</p><p>Options a and b both describe the rational (theoretical) method, the approach the MMPI was built to replace. So a is false, b is false, and "both a and b" is doubly false.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+<p>You picked <b>(d) It is true with respect to both a and b</b>. &quot;Both a and b&quot; feels safe when two statements sound reasonable. Here a and b are the same idea said twice: both describe the rational method. When two options are near-synonyms and they describe the opposite of the real method, both are out, and so is &quot;both&quot;.</p>
+<p class="diag"><b>Diagnosis: Technique.</b> Took &quot;both a and b&quot; when a and b were the same wrong idea.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Learn it from scratch</div>
+<p>There are four main ways to build a personality test.</p><p>1. Rational (theoretical, deductive): decide the trait first and write items that obviously fit it. Examples: Woodworth Personal Data Sheet (1917), Edwards Personal Preference Schedule (from Murray&#x27;s needs), MBTI (from Jung). 2. Empirical criterion keying: write a huge item pool and keep only the items that a criterion group (say, diagnosed depressed patients) answers differently from normal controls, whatever the item seems to be about. Examples: MMPI, Strong Vocational Interest Blank, Gough&#x27;s CPI. 3. Factor analytic: let correlations group the items. Examples: Cattell&#x27;s 16PF, Eysenck&#x27;s EPQ, Costa and McCrae&#x27;s NEO-PI-R. 4. Mixed or sequential: Jackson&#x27;s PRF, Millon&#x27;s MCMI.</p><p>MMPI facts: Hathaway and McKinley, University of Minnesota, 1943; true/false format. Versions: MMPI-2 (1989, 567 items), MMPI-A (adolescents, 478 items), MMPI-2-RF (2008, 338 items), MMPI-3 (2020, 335 items). Ten clinical scales: 1 Hs hypochondriasis, 2 D depression, 3 Hy hysteria, 4 Pd psychopathic deviate, 5 Mf masculinity-femininity, 6 Pa paranoia, 7 Pt psychasthenia, 8 Sc schizophrenia, 9 Ma hypomania, 0 Si social introversion. Validity scales: ? (cannot say), L, F, K, later VRIN, TRIN, F-back. On the MMPI-2 a T-score of 65 or more is clinically significant.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Every other option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><p class="tw"><b>It utilizes rational method of test construction</b>: The MMPI used the empirical, not the rational, method of construction, so this is false.</p></div>
+<div class="exp-trap"><span class="tk">b</span><p class="tw"><b>It is constructed by assuming specific personality traits and formulating questions to answer them</b>: Assuming traits in advance and writing items to fit them is the rational (deductive) approach, which the MMPI deliberately rejected.</p></div>
+<div class="exp-trap"><span class="tk">d</span><p class="tw"><b>It is true with respect to both a and b</b> (you picked): Since both a and b describe the rational method the MMPI did not use, this combined option is also false.</p></div>
+      </div>
+    </div>
+    <div class="hook"><span>Memory hook</span>MMPI kept the items patients answered differently: chosen by data, not by meaning.</div>
+  </div>
+</div>
+<h2 class="sec" id="s-physio">Physiological Psychology <span class="cnt">1 missed</span></h2>
+
+<div class="miss" id="q32">
+  <div class="mh">
+    <span class="mn">Q32</span>
+    <span class="msec">Physiological Psychology</span>
+    <span class="cat trp">Trap</span>
+    <span class="mv">you <span class="bad">c</span> &rarr; key <span class="ok">b</span></span>
+  </div>
+  <p class="mq">In Phenylketonuria (PKU), the body fails to convert phenylalanine into which substance due to a deficiency of phenylalanine hydroxylase?</p>
+  <div class="mopts">
+<div class="mo"><span class="mk">a</span><span>Urea</span></div>
+<div class="mo right"><span class="mk">b</span><span>Tyrosine</span><span class="mtag">key</span></div>
+<div class="mo picked"><span class="mk">c</span><span>Tryptophan</span><span class="mtag">you picked</span></div>
+<div class="mo"><span class="mk">d</span><span>Histidine</span></div>
+  </div>
+  
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">b</span>
+      <span class="abody"><span class="alabel">The answer</span><span class="atext">Tyrosine.</span></span></div>
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>Phenylalanine hydroxylase has one job: phenylalanine to tyrosine. In PKU the enzyme is missing, so phenylalanine builds up (and spills into phenylpyruvic acid, which Asbj&oslash;rn F&oslash;lling found in urine in 1934) and tyrosine runs short. Less tyrosine means less melanin (fair hair and skin) and a weaker catecholamine supply.</p><p>Robert Guthrie's blood-spot screening test (1963) is why PKU is now caught at birth and treated with diet.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+<p>You picked <b>(c) Tryptophan</b>. Tryptophan is also an amino acid that turns into a neurotransmitter, so it sits in the same box in your head. Both have a &quot;hydroxylase&quot; enzyme too. But tryptophan feeds serotonin, a separate chain. Phenylalanine only ever goes to tyrosine.</p>
+<p class="diag"><b>Diagnosis: Trap.</b> Swapped in the neighbouring amino acid.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Learn it from scratch</div>
+<p>Two amino acid chains feed the brain&#x27;s neurotransmitters, and this question is about keeping them apart.</p><p>Chain 1 (catecholamines): phenylalanine, via the enzyme phenylalanine hydroxylase, becomes tyrosine. Tyrosine, via tyrosine hydroxylase, becomes L-DOPA, then dopamine, then norepinephrine, then epinephrine. Tyrosine is also the starting point for melanin, the skin and hair pigment.</p><p>Chain 2 (indoleamines): tryptophan, via tryptophan hydroxylase, becomes 5-HTP, then serotonin, then melatonin.</p><p>Phenylketonuria (PKU) is a break in chain 1. It is autosomal recessive (PAH gene, chromosome 12), first described by the Norwegian doctor Asbjorn Folling in 1934, who found phenylpyruvic acid in the urine of two intellectually disabled siblings. Without the enzyme, phenylalanine piles up to toxic levels and tyrosine runs short. Untreated it causes intellectual disability, seizures, a musty smell and fair skin and hair (less melanin). Newborns are screened with the Guthrie heel-prick test, and a low-phenylalanine diet from birth prevents the damage.</p><p>Psychology&#x27;s favourite point about PKU: it is a genetic disorder whose outcome is changed by the environment (diet). So high heritability does not mean unchangeable.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Every other option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><p class="tw"><b>Urea</b>: Urea is the nitrogen-containing waste product excreted by the urea cycle in the liver; it is unrelated to the phenylalanine hydroxylase reaction blocked in PKU.</p></div>
+<div class="exp-trap"><span class="tk">c</span><p class="tw"><b>Tryptophan</b> (you picked): Tryptophan is a separate essential amino acid and the precursor of serotonin; it is not the product that phenylalanine is converted into.</p></div>
+<div class="exp-trap"><span class="tk">d</span><p class="tw"><b>Histidine</b>: Histidine is another amino acid entirely and plays no role in the phenylalanine-to-tyrosine metabolic pathway that is disrupted in PKU.</p></div>
+      </div>
+    </div>
+    <div class="hook"><span>Memory hook</span>P then T then D: Phenylalanine, Tyrosine, DOPA, Dopamine. Tryptophan is a trip to sleep: serotonin, then melatonin.</div>
+  </div>
+</div>
+<h2 class="sec" id="s-dev">Developmental Psychology <span class="cnt">1 missed</span></h2>
+
+<div class="miss" id="q87">
+  <div class="mh">
+    <span class="mn">Q87</span>
+    <span class="msec">Developmental Psychology</span>
+    <span class="cat tec">Technique</span>
+    <span class="mv">you <span class="bad">c</span> &rarr; key <span class="ok">d</span></span>
+  </div>
+  <p class="mq">Helicopter Parenting is the result of:</p>
+  <div class="mopts">
+<div class="mo"><span class="mk">a</span><span>Parental anxiety</span></div>
+<div class="mo"><span class="mk">b</span><span>Parental unfulfilled wishes</span></div>
+<div class="mo picked"><span class="mk">c</span><span>Parents&#x27; personality traits</span><span class="mtag">you picked</span></div>
+<div class="mo right"><span class="mk">d</span><span>All of above</span><span class="mtag">key</span></div>
+  </div>
+  
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">d</span>
+      <span class="abody"><span class="alabel">The answer</span><span class="atext">All of the above.</span></span></div>
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>Helicopter parenting is multiply determined. Parental anxiety (fear of failure or harm), unfulfilled wishes (living through the child) and the parent's own traits (neuroticism, perfectionism, need for control) are all named causes in the literature. The term traces to Haim G. Ginott's <i>Between Parent and Teenager</i> (1969) and was popularised by Foster Cline and Jim Fay (1990).</p><p>Once you can defend two of the first three options, "All of the above" is the key.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+<p>You picked <b>(c) Parents&#x27; personality traits</b>. Personality traits really are a cause, so it felt right. Exam rule: when you can defend two or more options and &quot;All of the above&quot; is there, it is almost always the key.</p>
+<p class="diag"><b>Diagnosis: Technique.</b> Defended one cause while &quot;All of the above&quot; sat there.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Learn it from scratch</div>
+<p>Parenting styles: Diana Baumrind (1966, 1971) described authoritative (high warmth, high control), authoritarian (low warmth, high control) and permissive (high warmth, low control). Maccoby and Martin (1983) added neglectful or uninvolved (low warmth, low control).</p><p>Helicopter parenting is over-involvement that does not fit the child&#x27;s age: hovering, solving problems the child could solve, managing their life. The image comes from Haim Ginott&#x27;s Between Parent and Teenager (1969: &quot;Mother hovers over me like a helicopter&quot;), and Cline and Fay popularised the term in 1990. Research (for example Padilla-Walker and Nelson, 2012) treats it as separate from ordinary behavioural control.</p><p>Its causes are several at once: parental anxiety (fear of failure, harm or an uncertain economy), unfulfilled wishes and regret (living through the child, overcompensating), the parent&#x27;s own traits (neuroticism, perfectionism, need for control), and pressure from other parents. The effects on young adults are lower self-efficacy, more anxiety and depression, and poorer coping. Cousins: snowplough or lawnmower parenting, and tiger parenting (Amy Chua, 2011).</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Every other option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><p class="tw"><b>Parental anxiety</b>: Parental anxiety is a genuine cause but only one of several, so selecting it alone is incomplete.</p></div>
+<div class="exp-trap"><span class="tk">b</span><p class="tw"><b>Parental unfulfilled wishes</b>: Unfulfilled parental wishes contribute through vicarious living, but again this is only one contributing factor, not the whole picture.</p></div>
+<div class="exp-trap"><span class="tk">c</span><p class="tw"><b>Parents&#x27; personality traits</b> (you picked): Parents&#x27; personality traits such as perfectionism and high control needs matter, yet they too are just one strand of a multiply determined pattern.</p></div>
+      </div>
+    </div>
+    <div class="hook"><span>Memory hook</span>If you can defend two options, the answer is &quot;All&quot;.</div>
+  </div>
+</div>
+<h2 class="sec" id="s-clinical">Clinical Psychology <span class="cnt">5 missed</span></h2>
+
+<div class="miss" id="q25">
+  <div class="mh">
+    <span class="mn">Q25</span>
+    <span class="msec">Clinical Psychology</span>
+    <span class="cat gap">Knowledge gap</span>
+    <span class="mv">you <span class="bad">c</span> &rarr; key <span class="ok">b</span></span>
+  </div>
+  <p class="mq">&#x27;Healing and Persuasion&#x27; is the work of:</p>
+  <div class="mopts">
+<div class="mo"><span class="mk">a</span><span>Alfred Pritz</span></div>
+<div class="mo right"><span class="mk">b</span><span>Jerome Frank</span><span class="mtag">key</span></div>
+<div class="mo picked"><span class="mk">c</span><span>Charles Winnicot</span><span class="mtag">you picked</span></div>
+<div class="mo"><span class="mk">d</span><span>Jeff Klerman</span></div>
+  </div>
+  
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">b</span>
+      <span class="abody"><span class="alabel">The answer</span><span class="atext">Jerome D. Frank, Persuasion and Healing (1961).</span></span></div>
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>Jerome David Frank (1909 to 2005), psychiatrist at Johns Hopkins, wrote <i>Persuasion and Healing: A Comparative Study of Psychotherapy</i> in 1961. The paper flips the title to "Healing and Persuasion"; it is the same book. It is the founding text of the common factors view: therapies work largely through what they share (a confiding relationship, a healing setting, a rationale, a ritual), not through their brand-specific techniques.</p><p>Two of the three distractors are planted with wrong first names. "Charles Winnicot" is Donald Woods Winnicott (1896 to 1971). "Jeff Klerman" is Gerald L. Klerman (1928 to 1992), who built Interpersonal Psychotherapy (IPT) with Myrna Weissman (manual 1984). Alfred Pritz is a real person (founder of the World Council for Psychotherapy, 1995, and of Sigmund Freud University in Vienna) but wrote nothing by this name.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+<p>You picked <b>(c) Charles Winnicot</b>. Winnicott is a real, big therapy name, so it felt familiar. But the option says &quot;Charles Winnicot&quot;: wrong first name and a missing t. The real one is Donald Winnicott, the British paediatrician and analyst of the good-enough mother, the transitional object, the holding environment and the true and false self. A famous surname with the wrong first name is almost always a distractor.</p>
+<p class="diag"><b>Diagnosis: Knowledge gap.</b> Did not know the book; then took a misspelt famous name.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Learn it from scratch</div>
+<p>Psychotherapy research has one big question running through it: do therapies work because of their special techniques, or because of things every therapy shares? This question is called the common factors debate.</p><p>Jerome Frank (1909 to 2005) was an American psychiatrist at Johns Hopkins. In 1961 he published Persuasion and Healing (revised 1973, and again in 1991 with his daughter Julia Frank). He compared psychotherapy with faith healing, shamanism, religious conversion and the placebo effect, and found the same four ingredients in all of them: (1) an emotionally charged, confiding relationship with a helper; (2) a healing setting that society recognises; (3) a rationale or &quot;myth&quot; that explains the person&#x27;s suffering; and (4) a ritual or procedure that both patient and healer believe in.</p><p>His central idea is demoralization. People come to therapy because they feel helpless and hopeless, and every therapy works partly by remoralizing them: restoring hope and a sense of mastery. This is the root of the common factors model, alongside Saul Rosenzweig&#x27;s 1936 &quot;Dodo bird verdict&quot; (all therapies roughly tie, &quot;everybody has won and all must have prizes&quot;) and Bruce Wampold&#x27;s later work.</p><p>The question flips the title to &quot;Healing and Persuasion&quot;. Same book. Learn it as: Frank = Persuasion and Healing = common factors = remoralization.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Every other option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><p class="tw"><b>Alfred Pritz</b>: Alfred Pritz is an Austrian psychotherapy figure associated with the World Council for Psychotherapy and the professionalisation of the field, not the author of Persuasion and Healing.</p></div>
+<div class="exp-trap"><span class="tk">c</span><p class="tw"><b>Charles Winnicot</b> (you picked): Charles Winnicot is a distractor; the real Donald Winnicott was a British object relations analyst known for the good enough mother and transitional objects, not this book.</p></div>
+<div class="exp-trap"><span class="tk">d</span><p class="tw"><b>Jeff Klerman</b>: Jeff (Gerald) Klerman, with Weissman, developed Interpersonal Psychotherapy for depression, a specific manualised treatment, not the common factors thesis of this work.</p></div>
+      </div>
+    </div>
+    <div class="hook"><span>Memory hook</span>Frank talk persuades and heals: Frank wrote Persuasion and Healing.</div>
+  </div>
+</div>
+
+<div class="miss" id="q34">
+  <div class="mh">
+    <span class="mn">Q34</span>
+    <span class="msec">Clinical Psychology</span>
+    <span class="cat gap">Knowledge gap</span>
+    <span class="mv">you <span class="bad">c</span> &rarr; key <span class="ok">b</span></span>
+  </div>
+  <p class="mq">In Dialectical Behavior Therapy (DBT), the &quot;core mindfulness&quot; skills are primarily derived from which tradition?</p>
+  <div class="mopts">
+<div class="mo"><span class="mk">a</span><span>Stoicism</span></div>
+<div class="mo right"><span class="mk">b</span><span>Zen Buddhism</span><span class="mtag">key</span></div>
+<div class="mo picked"><span class="mk">c</span><span>Psychoanalysis</span><span class="mtag">you picked</span></div>
+<div class="mo"><span class="mk">d</span><span>Existentialism</span></div>
+  </div>
+  
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">b</span>
+      <span class="abody"><span class="alabel">The answer</span><span class="atext">Zen Buddhism.</span></span></div>
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>Marsha M. Linehan (born 1943), University of Washington, built DBT for chronically suicidal women with borderline personality disorder; the treatment manual and skills manual came out in 1993. Core mindfulness is the first and central skills module, and Linehan took it directly from Zen practice, which she trained in herself.</p><p>The "dialectical" in the name is from Hegelian dialectics (thesis, antithesis, synthesis: acceptance and change held together), which is why philosophy options look tempting. The mindfulness skills are Zen.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+<p>You picked <b>(c) Psychoanalysis</b>. &quot;Dialectical&quot; sounds like philosophy, and psychoanalysis is the oldest &quot;deep&quot; therapy, so it feels like a safe default. But DBT is a CBT-family therapy, and psychoanalysis is about unconscious conflict, not training present-moment awareness.</p>
+<p class="diag"><b>Diagnosis: Knowledge gap.</b> Did not know DBT&#x27;s root.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Learn it from scratch</div>
+<p>Marsha Linehan (University of Washington) built Dialectical Behavior Therapy in the late 1980s for chronically suicidal women with borderline personality disorder. Her manual came out in 1993. Standard CBT pushed hard for change and these patients felt invalidated; pure acceptance did not stop the self-harm.</p><p>&quot;Dialectical&quot; means holding two opposites together: acceptance and change. DBT teaches four skill modules: core mindfulness, distress tolerance, emotion regulation and interpersonal effectiveness. It runs in four modes: individual therapy, group skills training, phone coaching and a therapist consultation team.</p><p>Mindfulness is the base module and it comes from Zen Buddhism, which Linehan practised herself. The &quot;what&quot; skills are observe, describe and participate. The &quot;how&quot; skills are non-judgmentally, one-mindfully and effectively. Wise Mind is the overlap of emotion mind and reasonable mind.</p><p>Other mindfulness-based therapies: MBSR (Jon Kabat-Zinn, 1979) and MBCT (Segal, Williams and Teasdale) also draw on Buddhist meditation. CBT and REBT have a different root: Stoic philosophy (Epictetus: we are disturbed not by things but by our views of them).</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Every other option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><p class="tw"><b>Stoicism</b>: Stoicism is the philosophical root of cognitive therapy&#x27;s reframing of thoughts, not the source of DBT&#x27;s mindfulness practices.</p></div>
+<div class="exp-trap"><span class="tk">c</span><p class="tw"><b>Psychoanalysis</b> (you picked): Psychoanalysis focuses on uncovering unconscious conflicts and early experience, not on present-moment, non-judgmental awareness training.</p></div>
+<div class="exp-trap"><span class="tk">d</span><p class="tw"><b>Existentialism</b>: Existentialism deals with meaning, freedom, and responsibility in life; it is not the contemplative tradition behind DBT&#x27;s mindfulness skills.</p></div>
+      </div>
+    </div>
+    <div class="hook"><span>Memory hook</span>DBT mindfulness = Zen. CBT reframing = Stoics.</div>
+  </div>
+</div>
+
+<div class="miss" id="q52">
+  <div class="mh">
+    <span class="mn">Q52</span>
+    <span class="msec">Clinical Psychology</span>
+    <span class="cat key">Disputed key</span>
+    <span class="mv">you <span class="bad">d</span> &rarr; key <span class="ok">c</span></span>
+  </div>
+  <p class="mq">A parent deliberately ignores a child&#x27;s temper tantrums in an attempt to discourage them. The parent&#x27;s strategy is in accordance with:</p>
+  <div class="mopts">
+<div class="mo"><span class="mk">a</span><span>Negative reinforcement</span></div>
+<div class="mo"><span class="mk">b</span><span>Extinction</span></div>
+<div class="mo right"><span class="mk">c</span><span>Operant escape</span><span class="mtag">key</span></div>
+<div class="mo picked"><span class="mk">d</span><span>Operant avoidance</span><span class="mtag">you picked</span></div>
+  </div>
+  <div class="keyflag"><b>Key note.</b> Disputed key: the paper keys C (operant escape). The textbook answer is B, extinction, and the site&#x27;s explanation says the same. Learn it as extinction. If this exact question appears on JSS, know that this paper-setter keyed escape.</div>
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">c</span>
+      <span class="abody"><span class="alabel">The answer</span><span class="atext">Paper key: (c) operant escape. Textbook answer: (b) extinction.</span></span></div>
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>Burrhus Frederic Skinner (1904 to 1990; <i>The Behavior of Organisms</i>, 1938) defined extinction as withholding the reinforcer that maintains a behaviour so the behaviour weakens. A tantrum kept alive by attention, met with planned ignoring, is the standard textbook example of extinction. That is why the site's explanation and the Revenge note both say: learn it as extinction.</p><p>The paper keys operant escape, which is a form of negative reinforcement (a response ends an aversive state already present), and it <b>increases</b> behaviour. It does not describe a parent withholding attention. Note that your pick, (d) operant avoidance, is wrong under both readings, so this miss is real whichever key is right.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+<p>You picked <b>(d) Operant avoidance</b>. &quot;Deliberately ignores&quot; sounds like the parent is avoiding the child, so &quot;avoidance&quot; jumped out. But operant avoidance is the learner making a response that prevents something unpleasant, and it strengthens behaviour. Ignoring is the parent giving no response at all, which weakens it.</p>
+<p class="diag"><b>Diagnosis: Disputed key.</b> Disputed key; your pick was wrong under either reading.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Learn it from scratch</div>
+<p>Operant conditioning (B. F. Skinner) has five outcomes. Learn them as a grid: add or remove, pleasant or unpleasant.</p><p>Positive reinforcement: add something pleasant, behaviour goes up (praise for homework). Negative reinforcement: remove something unpleasant, behaviour goes up. It has two subtypes: escape (the unpleasant thing is already there and the response ends it: taking a painkiller for a headache) and avoidance (the response stops it before it starts: leaving early to dodge traffic).</p><p>Positive punishment: add something unpleasant, behaviour goes down (a scolding). Negative punishment: remove something pleasant, behaviour goes down (time-out, response cost, losing phone time).</p><p>Extinction: stop delivering the reinforcer that was keeping a behaviour going, and the behaviour fades. Tantrums are usually kept going by attention, so planned ignoring removes the reinforcer: that is the textbook example of extinction. Expect an extinction burst (it gets worse before it gets better) and possibly spontaneous recovery later.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Every other option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><p class="tw"><b>Negative reinforcement</b>: Negative reinforcement INCREASES a behavior by removing an aversive stimulus; here the parent is trying to decrease the tantrum, not strengthen it, so this is the wrong process.</p></div>
+<div class="exp-trap"><span class="tk">b</span><p class="tw"><b>Extinction</b>: Extinction is actually the textbook-correct description of ignoring a previously reinforced behavior to weaken it; the source unusually keys (c), but conceptually (b) fits best.</p></div>
+<div class="exp-trap"><span class="tk">d</span><p class="tw"><b>Operant avoidance</b> (you picked): Operant avoidance is a negative-reinforcement subtype where a response prevents an aversive event from occurring; it increases behavior and does not describe a parent passively withholding attention.</p></div>
+      </div>
+    </div>
+    <div class="hook"><span>Memory hook</span>Ignore it and it goes extinct.</div>
+  </div>
+</div>
+
+<div class="miss" id="q79">
+  <div class="mh">
+    <span class="mn">Q79</span>
+    <span class="msec">Clinical Psychology</span>
+    <span class="cat key">Disputed key</span>
+    <span class="mv">you <span class="bad">a</span> &rarr; key <span class="ok">d</span></span>
+  </div>
+  <p class="mq">Any distorting or selective effect of a person’s inner world on his perception or conception of the outer world is termed:</p>
+  <div class="mopts">
+<div class="mo picked"><span class="mk">a</span><span>Projection</span><span class="mtag">you picked</span></div>
+<div class="mo"><span class="mk">b</span><span>Introjection</span></div>
+<div class="mo"><span class="mk">c</span><span>Empathy</span></div>
+<div class="mo right"><span class="mk">d</span><span>Denial</span><span class="mtag">key</span></div>
+  </div>
+  <div class="keyflag"><b>Key note.</b> Disputed key: the paper keys D (denial), but the wording is close to the broad meaning of projection. Know both. If the stem is about refusing to accept a painful fact, it is denial. If it is about inner states colouring how the outside world is perceived, the textbook term is projection. For JSS, remember this paper keyed denial.</div>
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">d</span>
+      <span class="abody"><span class="alabel">The answer</span><span class="atext">Paper key: (d) denial. Strong textbook case for (a) projection.</span></span></div>
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>The wording "any distorting or selective effect of a person's inner world on his perception or conception of the outer world" is close to the broad, perceptual meaning of projection: Lawrence K. Frank's projective hypothesis (1939), the reason the Rorschach and TAT are called projective tests. Several dictionary definitions of projection read almost exactly like this stem.</p><p>The paper keys denial. Anna Freud (<i>The Ego and the Mechanisms of Defence</i>, 1936) and George E. Vaillant (<i>Adaptation to Life</i>, 1977) define denial as refusing to acknowledge a painful external reality. That does distort perception of the outer world, which is the best case for the key. Honest verdict: your answer is defensible and the key is arguable. Know both, and if this exact stem appears on JSS, the paper-setter's answer was denial.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+<p>You picked <b>(a) Projection</b>. Your reasoning was sound: &quot;the inner world shaping how the outer world is seen&quot; is the broad meaning of projection, the one behind projective tests. The paper&#x27;s key goes with denial instead.</p>
+<p class="diag"><b>Diagnosis: Disputed key.</b> Disputed key; your reasoning was defensible.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Learn it from scratch</div>
+<p>Defence mechanisms were first described by Sigmund Freud and organised by Anna Freud (The Ego and the Mechanisms of Defence, 1936). They work unconsciously to cut anxiety from conflict between id, superego and reality.</p><p>George Vaillant (1977) ranked them by maturity. Psychotic level: denial of external reality, distortion, delusional projection. Immature: projection, acting out, passive aggression, schizoid fantasy, hypochondriasis. Neurotic: repression, displacement, reaction formation, intellectualisation, isolation of affect. Mature: sublimation, humour, altruism, suppression, anticipation.</p><p>The three in this question. Denial: refusing to accept an outside reality that is too painful (&quot;the diagnosis is wrong&quot;). Projection: putting your own unacceptable feelings onto someone else (&quot;he hates me&quot; when you hate him). Introjection: taking another person&#x27;s attitudes or qualities into yourself (a child taking on a parent&#x27;s voice as conscience).</p><p>Projection also has a broad meaning: L. K. Frank&#x27;s projective hypothesis (1939) says our inner needs shape how we see ambiguous things. That is the whole basis of projective tests such as the Rorschach and TAT.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Every other option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><p class="tw"><b>Projection</b> (you picked): Projection attributes one&#x27;s own unacceptable feelings to other people; it distorts perception but in a specific outward-blaming way rather than the broad selective filtering described.</p></div>
+<div class="exp-trap"><span class="tk">b</span><p class="tw"><b>Introjection</b>: Introjection takes external objects or attitudes into the self, the opposite direction of flow from the inner world distorting the outer.</p></div>
+<div class="exp-trap"><span class="tk">c</span><p class="tw"><b>Empathy</b>: Empathy is the accurate sharing of another&#x27;s emotional state, not a distortion of reality, so it is not a defence mechanism at all.</p></div>
+      </div>
+    </div>
+    <div class="hook"><span>Memory hook</span>Denial: &quot;it isn&#x27;t happening.&quot; Projection: &quot;it&#x27;s you, not me.&quot; Introjection: &quot;your voice is now in my head.&quot;</div>
+  </div>
+</div>
+
+<div class="miss" id="q88">
+  <div class="mh">
+    <span class="mn">Q88</span>
+    <span class="msec">Clinical Psychology</span>
+    <span class="cat gap">Knowledge gap</span>
+    <span class="mv">you <span class="bad">b</span> &rarr; key <span class="ok">d</span></span>
+  </div>
+  <p class="mq">Which of the following technique or techniques would not typically be included within the repertoire of an Adlerian counsellor?</p>
+  <div class="mopts">
+<div class="mo"><span class="mk">a</span><span>Acting &quot;as if&quot;</span></div>
+<div class="mo picked"><span class="mk">b</span><span>Push button</span><span class="mtag">you picked</span></div>
+<div class="mo"><span class="mk">c</span><span>Encouragement</span></div>
+<div class="mo right"><span class="mk">d</span><span>Analysis of transference</span><span class="mtag">key</span></div>
+  </div>
+  
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">d</span>
+      <span class="abody"><span class="alabel">The answer</span><span class="atext">Analysis of transference.</span></span></div>
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>Alfred Adler (1870 to 1937) left Freud's circle in 1911 and founded Individual Psychology. Adlerian counselling is collaborative, present- and future-focused, and built on encouragement. Acting "as if", encouragement and Harold H. Mosak's push-button technique are all standard Adlerian tools.</p><p>Analysis of transference is Sigmund Freud's: the patient's feelings toward early figures are relived toward the analyst and interpreted. Adlerians do not build therapy around it, which makes it the "would not typically be included" option.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+<p>You picked <b>(b) Push button</b>. &quot;Push button&quot; sounds like a gimmick, not a real therapy technique, so it looked like the odd one out. It is actually Harold Mosak&#x27;s Adlerian technique. On &quot;which is NOT Adlerian&quot; questions, look for the Freudian one.</p>
+<p class="diag"><b>Diagnosis: Knowledge gap.</b> Did not know push-button is Adlerian.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Learn it from scratch</div>
+<p>Alfred Adler broke from Freud in 1911 and founded Individual Psychology. His core ideas: inferiority feelings and compensation, striving for superiority (significance), social interest (Gemeinschaftsgefuhl), style of life, fictional finalism (borrowed from Vaihinger&#x27;s philosophy of &quot;as if&quot;), birth order and family constellation, and early recollections. Rudolf Dreikurs added the four mistaken goals of misbehaviour: attention, power, revenge, display of inadequacy.</p><p>Adlerian therapy has four phases: building the relationship, assessment (lifestyle analysis), insight and interpretation, and reorientation. It is collaborative and looks at the present and the future.</p><p>Adlerian techniques: encouragement (the central one), acting as if (behave as though you were already the person you want to be), the push-button technique (Harold Mosak: picture a pleasant memory, then an unpleasant one, notice the feelings follow, so you can &quot;push the button&quot; for the feeling you choose), spitting in the client&#x27;s soup (exposing the hidden payoff of a behaviour so it loses its appeal), catching oneself, paradoxical intention, task setting, and &quot;The Question&quot; (what would be different if you were well?).</p><p>Analysis of transference belongs to Freud&#x27;s psychoanalysis, together with free association, dream analysis and the analysis of resistance.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Every other option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><p class="tw"><b>Acting &quot;as if&quot;</b>: Acting &#x27;as if&#x27;, having clients behave as though they were the person they wish to be, is a classic Adlerian technique.</p></div>
+<div class="exp-trap"><span class="tk">b</span><p class="tw"><b>Push button</b> (you picked): The push-button technique, in which clients generate pleasant and unpleasant images to see they can control feelings, is Adlerian.</p></div>
+<div class="exp-trap"><span class="tk">c</span><p class="tw"><b>Encouragement</b>: Encouragement is central to Adlerian counselling, aimed at building courage and social interest.</p></div>
+      </div>
+    </div>
+    <div class="hook"><span>Memory hook</span>Adler looks forward (goals: as if, push button, encouragement). Freud looks back (transference).</div>
+  </div>
+</div>
+<h2 class="sec" id="s-disorders">Psychiatric Abnormalities / Disorders <span class="cnt">2 missed</span></h2>
+
+<div class="miss" id="q53">
+  <div class="mh">
+    <span class="mn">Q53</span>
+    <span class="msec">Psychiatric Abnormalities / Disorders</span>
+    <span class="cat gap">Knowledge gap</span>
+    <span class="mv">you <span class="bad">c</span> &rarr; key <span class="ok">b</span></span>
+  </div>
+  <p class="mq">A condition characterised by recurrent intense sexually arousing fantasies and urges involving the use of an inanimate object to obtain sexual gratification:</p>
+  <div class="mopts">
+<div class="mo"><span class="mk">a</span><span>Necrophilia</span></div>
+<div class="mo right"><span class="mk">b</span><span>Fetishism</span><span class="mtag">key</span></div>
+<div class="mo picked"><span class="mk">c</span><span>Frotteurism</span><span class="mtag">you picked</span></div>
+<div class="mo"><span class="mk">d</span><span>Voyeurism</span></div>
+  </div>
+  
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">b</span>
+      <span class="abody"><span class="alabel">The answer</span><span class="atext">Fetishism (fetishistic disorder).</span></span></div>
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>The stem's defining phrase is "use of an inanimate object". In DSM-5-TR (2022) that is fetishistic disorder: recurrent, intense sexual arousal from non-living objects or a highly specific non-genital body part, for at least 6 months, with distress or impairment. Alfred Binet coined "fetishism" in the sexual sense in 1887; Richard von Krafft-Ebing (<i>Psychopathia Sexualis</i>, 1886) catalogued the paraphilias.</p><p>Necrophilia's target is a corpse, frotteurism's a non-consenting person in a crowd, voyeurism's an unsuspecting person undressing. None of them is an object.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+<p>You picked <b>(c) Frotteurism</b>. Frotteurism has a physical, touch-based feel that can blur into &quot;using something&quot;. But its target is a person in a crowd. An inanimate object is only fetishism.</p>
+<p class="diag"><b>Diagnosis: Knowledge gap.</b> Paraphilia labels not locked.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Learn it from scratch</div>
+<p>Paraphilic disorders (DSM-5-TR): recurrent, intense sexual arousal to atypical objects, situations or targets for at least 6 months, plus distress or impairment, or acting on it with a non-consenting person. DSM lists eight.</p><p>Group 1, unusual activity preferences. Courtship disorders: voyeuristic (watching an unsuspecting person undress or have sex), exhibitionistic (exposing one&#x27;s genitals to a stranger), frotteuristic (touching or rubbing against a non-consenting person, usually in a crowd). Algolagnic disorders: sexual masochism (being humiliated, bound or made to suffer) and sexual sadism (another person&#x27;s suffering).</p><p>Group 2, unusual target preferences: pedophilic (prepubescent children), fetishistic (non-living objects, or a highly specific non-genital body part, with specifiers for body parts or non-living objects), transvestic (cross-dressing).</p><p>Fetishistic disorder excludes clothing used only for cross-dressing (that is transvestic) and devices made for genital stimulation such as vibrators. Necrophilia (corpses), zoophilia (animals) and telephone scatologia fall under &quot;other specified paraphilic disorder&quot;.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Every other option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><p class="tw"><b>Necrophilia</b>: Necrophilia is sexual arousal involving corpses, a dead human body, not the use of an inanimate object as described in the question.</p></div>
+<div class="exp-trap"><span class="tk">c</span><p class="tw"><b>Frotteurism</b> (you picked): Frotteurism is arousal from touching or rubbing against a nonconsenting person, usually in a crowd, which involves a person rather than an inanimate object.</p></div>
+<div class="exp-trap"><span class="tk">d</span><p class="tw"><b>Voyeurism</b>: Voyeurism is arousal from secretly watching an unsuspecting person who is naked or engaged in sexual activity, again involving a person, not an object.</p></div>
+      </div>
+    </div>
+    <div class="hook"><span>Memory hook</span>Frotteur comes from French frotter, to rub: you rub a person. Fetish comes from Portuguese feitico, a charm: an object.</div>
+  </div>
+</div>
+
+<div class="miss" id="q80">
+  <div class="mh">
+    <span class="mn">Q80</span>
+    <span class="msec">Psychiatric Abnormalities / Disorders</span>
+    <span class="cat tec">Technique</span>
+    <span class="mv">you <span class="bad">c</span> &rarr; key <span class="ok">b</span></span>
+  </div>
+  <p class="mq">The term ‘Ambivalence’ was coined by:</p>
+  <div class="mopts">
+<div class="mo"><span class="mk">a</span><span>Kraepelin</span></div>
+<div class="mo right"><span class="mk">b</span><span>Eugen Bleuler</span><span class="mtag">key</span></div>
+<div class="mo picked"><span class="mk">c</span><span>Richmond Fromm</span><span class="mtag">you picked</span></div>
+<div class="mo"><span class="mk">d</span><span>Sigmund Freud</span></div>
+  </div>
+  
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">b</span>
+      <span class="abody"><span class="alabel">The answer</span><span class="atext">Eugen Bleuler.</span></span></div>
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>Eugen Bleuler (1857 to 1939), director of the Burgh&ouml;lzli in Zurich, introduced "ambivalence" around 1910 and made it one of the four fundamental symptoms (the 4 A's) in <i>Dementia Praecox or the Group of Schizophrenias</i> (1911). He also coined "schizophrenia" (1908) and "autism".</p><p>Emil Kraepelin named dementia praecox (1893 to 1899) but not ambivalence. Sigmund Freud borrowed the word from Bleuler. "Richmond Fromm" does not exist: Erich Fromm is a neo-Freudian with no link to the term.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+<p>You picked <b>(c) Richmond Fromm</b>. &quot;Richmond Fromm&quot; copies Erich Fromm with the wrong first name, the same trick as &quot;Charles Winnicot&quot; and &quot;William Wundt&quot; in this paper. Erich Fromm (Escape from Freedom, The Art of Loving) was a neo-Freudian; he coined nothing about schizophrenia.</p>
+<p class="diag"><b>Diagnosis: Technique.</b> Took a fabricated name (&quot;Richmond&quot; Fromm).</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Learn it from scratch</div>
+<p>Emil Kraepelin (1893, refined by 1899) split the major psychoses by course: dementia praecox (early onset, deteriorating) versus manic-depressive insanity (episodic, with recovery).</p><p>Eugen Bleuler, director of the Burgholzli clinic in Zurich, coined &quot;schizophrenia&quot; in 1908 and wrote Dementia Praecox or the Group of Schizophrenias (1911). The name means a splitting of mental functions (thought from emotion from behaviour), not multiple personality, and he did not think it always deteriorated.</p><p>His fundamental symptoms are the 4 A&#x27;s: loosened Associations, Affective flattening or inappropriateness, Ambivalence (contradictory feelings, wishes or ideas held at the same time; he described affective, volitional and intellectual kinds), and Autism (withdrawal into an inner world). Bleuler coined both &quot;ambivalence&quot; and &quot;autism&quot;. Hallucinations, delusions and catatonia were only accessory symptoms to him.</p><p>Kurt Schneider (1959) later listed the first-rank symptoms: audible thoughts, voices arguing or commenting, thought insertion, withdrawal and broadcasting, delusional perception, and made (passivity) experiences. Freud borrowed &quot;ambivalence&quot; for psychoanalysis, which is why his name tempts people.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Every other option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><p class="tw"><b>Kraepelin</b>: Kraepelin coined dementia praecox and built the classification of psychoses, but the specific term ambivalence was Bleuler&#x27;s contribution.</p></div>
+<div class="exp-trap"><span class="tk">c</span><p class="tw"><b>Richmond Fromm</b> (you picked): Richmond Fromm is not a recognised originator of this term; Erich Fromm worked on humanistic and social psychoanalysis, not ambivalence.</p></div>
+<div class="exp-trap"><span class="tk">d</span><p class="tw"><b>Sigmund Freud</b>: Sigmund Freud used ambivalence in his writing, but he did not coin the term; it originated with Bleuler.</p></div>
+      </div>
+    </div>
+    <div class="hook"><span>Memory hook</span>Bleuler coined the A-words: Ambivalence and Autism are both his.</div>
+  </div>
+</div>
+<h2 class="sec" id="s-research">Research Methodology <span class="cnt">2 missed</span></h2>
+
+<div class="miss" id="q27">
+  <div class="mh">
+    <span class="mn">Q27</span>
+    <span class="msec">Research Methodology</span>
+    <span class="cat trp">Trap</span>
+    <span class="mv">you <span class="bad">b</span> &rarr; key <span class="ok">c</span></span>
+  </div>
+  <p class="mq">A body of prior work related to a research problem is referred to as:</p>
+  <div class="mopts">
+<div class="mo"><span class="mk">a</span><span>Archive</span></div>
+<div class="mo picked"><span class="mk">b</span><span>Repository</span><span class="mtag">you picked</span></div>
+<div class="mo right"><span class="mk">c</span><span>Literature</span><span class="mtag">key</span></div>
+<div class="mo"><span class="mk">d</span><span>None of the above</span></div>
+  </div>
+  
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">c</span>
+      <span class="abody"><span class="alabel">The answer</span><span class="atext">Literature.</span></span></div>
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>"A body of prior work related to a research problem" is the definition of the literature. The review of literature is the second step of the research process, after identifying the problem and before framing the hypothesis.</p><p>Archive and repository are both <b>places</b> (a records store, a database of papers). The literature is the <b>content</b>. "None of the above" is wrong because one of the above is exactly right.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+<p>You picked <b>(b) Repository</b>. &quot;Repository&quot; sounds technical and research-y. Repositories are real (an institutional repository, or Shodhganga for Indian theses), but a repository is the place where papers are stored. The literature is the body of work itself. Archive is the same trap: a place that keeps records.</p>
+<p class="diag"><b>Diagnosis: Trap.</b> Picked the place where work is kept, not the work itself.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Learn it from scratch</div>
+<p>Every research project starts by finding out what is already known about the problem. Everything already published on it (theories, studies, reviews, books, theses) is called the literature. Reading it and writing a critical summary is the review of literature, usually chapter 2 of a thesis.</p><p>The research process in order: identify the problem, review the literature, frame the hypothesis, choose the design and sample, collect data, analyse, report. The review comes second because it tells you what gap exists, stops you from repeating work already done, sharpens your hypothesis, shows you which tools and methods have worked, and gives you the theoretical framework.</p><p>Types of review: a narrative review (the classic summary), a systematic review (a fixed, reproducible search, reported with the PRISMA guidelines) and a meta-analysis (statistically pooling effect sizes; Gene Glass coined the term in 1976). Sources are primary (the original study) or secondary (someone else describing it).</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Every other option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><p class="tw"><b>Archive</b>: An archive is a repository of original records or documents; it is a place where material is stored, not the body of scholarly prior work on a problem.</p></div>
+<div class="exp-trap"><span class="tk">b</span><p class="tw"><b>Repository</b> (you picked): A repository likewise denotes a storage location or database for files and data, not the synthesised corpus of prior research itself.</p></div>
+<div class="exp-trap"><span class="tk">d</span><p class="tw"><b>None of the above</b>: None of the above is wrong because literature is precisely the correct and standard term for the body of prior work.</p></div>
+      </div>
+    </div>
+    <div class="hook"><span>Memory hook</span>The shelf is the repository. What sits on the shelf is the literature.</div>
+  </div>
+</div>
+
+<div class="miss" id="q45">
+  <div class="mh">
+    <span class="mn">Q45</span>
+    <span class="msec">Research Methodology</span>
+    <span class="cat gap">Knowledge gap</span>
+    <span class="mv">you <span class="bad">a</span> &rarr; key <span class="ok">c</span></span>
+  </div>
+  <p class="mq">In a cohort study investigating the association between a new psychological intervention and relapse rates in schizophrenia, the risk ratio is calculated as 1.0. This finding indicates that:</p>
+  <div class="mopts">
+<div class="mo picked"><span class="mk">a</span><span>The incidence of relapse in the exposed group is double that of the unexposed group.</span><span class="mtag">you picked</span></div>
+<div class="mo"><span class="mk">b</span><span>The intervention has a significant protective effect against relapse.</span></div>
+<div class="mo right"><span class="mk">c</span><span>There is no difference in the risk of relapse between the intervention and control groups.</span><span class="mtag">key</span></div>
+<div class="mo"><span class="mk">d</span><span>The odds of exposure are equal in both the relapse and non-relapse groups.</span></div>
+  </div>
+  
+  <div class="exp">
+    <div class="exp-answer"><span class="ak">c</span>
+      <span class="abody"><span class="alabel">The answer</span><span class="atext">There is no difference in the risk of relapse between the groups.</span></span></div>
+    <div class="exp-sec"><div class="exp-h">Why it is the answer</div>
+<p>Risk ratio = incidence in the exposed divided by incidence in the unexposed. A ratio of 1.0 means the two incidences are equal, which is the null value: no association, the intervention neither helped nor harmed.</p><p>Option d describes an <b>odds ratio</b> of 1 in a case-control study (odds of exposure in cases versus controls), a different design and a different statistic.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Your pick, and why it pulled</div>
+<p>You picked <b>(a) The incidence of relapse in the exposed group is double that of the unexposed group.</b>. You likely read 1.0 as &quot;one extra&quot; or 100% more. A ratio of 1 means the top and bottom are the same number. Double would be 2.0.</p>
+<p class="diag"><b>Diagnosis: Knowledge gap.</b> Misread what a ratio of 1 means.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Learn it from scratch</div>
+<p>A cohort study starts with two groups, exposed and unexposed (here: got the intervention or not), follows them forward and counts new cases (incidence) of the outcome (relapse).</p><p>Risk ratio (relative risk) = incidence in the exposed group divided by incidence in the unexposed group. Example: 30 of 100 relapse with the intervention and 30 of 100 without. 0.30 divided by 0.30 = 1.0.</p><p>Read any ratio against 1. RR = 1: no difference, no association. RR above 1: higher risk in the exposed (2.0 = double). RR below 1: protective (0.5 = half the risk). Significance comes from the 95% confidence interval: if it includes 1, the result is not significant.</p><p>The odds ratio is the case-control version. Case-control studies start from the outcome and look back at exposure, so they cannot measure incidence and use odds instead. Related numbers: attributable risk = incidence exposed minus incidence unexposed; number needed to treat = 1 divided by the absolute risk reduction.</p>
+    </div>
+    <div class="exp-sec"><div class="exp-h">Every other option, settled</div>
+      <div class="exp-traps">
+<div class="exp-trap"><span class="tk">a</span><p class="tw"><b>The incidence of relapse in the exposed group is double that of the unexposed group.</b> (you picked): A doubled incidence of relapse in the exposed group would give a risk ratio of 2.0, not 1.0, so this option describes a strong harmful association rather than the null value.</p></div>
+<div class="exp-trap"><span class="tk">b</span><p class="tw"><b>The intervention has a significant protective effect against relapse.</b>: A significant protective effect would require a risk ratio meaningfully below 1.0 (for example 0.5), because protection means the exposed group relapses less often than the unexposed group.</p></div>
+<div class="exp-trap"><span class="tk">d</span><p class="tw"><b>The odds of exposure are equal in both the relapse and non-relapse groups.</b>: Equal odds of exposure among cases and non-cases describes an odds ratio of 1.0 from a case-control design, which is a related but different measure computed from a different study logic than the risk ratio in a cohort study.</p></div>
+      </div>
+    </div>
+    <div class="hook"><span>Memory hook</span>Ratio 1 = 1 to 1 = the same. Like a 1:1 scale model: nothing changed.</div>
+  </div>
+</div>
+
+<h2 class="sec">The four habits to take into 27 October</h2>
+<div class="habits">
+<p><b>1. A famous surname with the wrong first name is a plant.</b> &ldquo;Charles Winnicot&rdquo; (Donald Winnicott), &ldquo;William Wundt&rdquo; (Wilhelm),
+&ldquo;Richmond Fromm&rdquo; (Erich), even &ldquo;Jeff Klerman&rdquo; (Gerald). This one paper used the trick four times and it cost you Q25, Q46 and Q80.
+Strike them first, then choose among the rest.</p>
+<p><b>2. &ldquo;Both a and b&rdquo; is only as true as its weaker half.</b> Q76: a and b were the same wrong idea said twice. If you can falsify either half, the combined option is dead.</p>
+<p><b>3. If you can defend two options and &ldquo;All of the above&rdquo; is there, take it.</b> Q87.</p>
+<p><b>4. Direction words get flipped under pressure.</b> Q82 (inductive versus deductive) was a slip, not a gap. On any pair of mirror terms
+(induction/deduction, escape/avoidance, positive/negative), say the definition to yourself before you tap.</p>
+</div>
+
+<p class="src">Sources: your JSS PYQ Mock result sent on WhatsApp on 19 October 2026 (65 / 90, 70 right, 20 wrong, 0 skipped), the question
+bank and explanations in take/data-jss.js, and the 20 from-scratch lessons in the Tests app Revenge mode. Question numbers are 1-based as on
+the test screen. Where a key is arguable (Q52, Q79, Q55), the page says so rather than picking a side for you.</p>
+</div>
+</body>
+</html>

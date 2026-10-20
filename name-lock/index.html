@@ -220,6 +220,8 @@
 <script>
 (function(){
   var CARDS = window.NL_CARDS || [], PYQ = window.NL_PYQ || {}, MOCKS = window.NL_MOCKS || {};
+  // question-side text with giveaways blanked (built in data.js as qw/qwd/qd/wl); default to the plain text
+  CARDS.forEach(function(c){ if (!c.qw) c.qw = c.name; if (!c.qwd) c.qwd = c.def; if (!c.qd) c.qd = c.def; });
   var BY = {}; CARDS.forEach(function(c){ BY[c.id] = c; });
   var CATS = [["all","All"],["effect","Effects"],["bias","Biases"],["phenomenon","Phenomena"],["experiment","Experiments"],["law","Laws"],["term","Terms"],["pyq","Seen in PYQs"],["miss","My misses"]];
   var CATNAME = {effect:"Effect",bias:"Bias",phenomenon:"Phenomenon",experiment:"Experiment",law:"Law / principle",term:"Term"};
@@ -329,7 +331,7 @@
   function distract(c, field, n){
     var out = [], seen = {}; seen[norm(c[field])] = 1;
     function add(x){ if (!x || x.id === c.id || !x[field]) return; var k = norm(x[field]); if (seen[k]) return;
-      if (field === "who" && (norm(c.who).indexOf(k) >= 0 || k.indexOf(norm(c.who)) >= 0)) return;
+      if (field === "wl" && (norm(c.wl).indexOf(k) >= 0 || k.indexOf(norm(c.wl)) >= 0)) return;
       seen[k] = 1; out.push(x); }
     add(resolveLook(c));
     CARDS.forEach(function(x){ var l = resolveLook(x); if (l && l.id === c.id) add(x); });
@@ -340,7 +342,7 @@
   }
   function startDrill(mode, cat, list){
     var cs = list ? shuffle(list.slice()).slice(0, 20) : pickRound(cat, 20);
-    if (mode === "who") cs = cs.filter(function(c){ return c.who; });
+    if (mode === "who") cs = cs.filter(function(c){ return c.wl; });
     if (!cs.length){ alert("Nothing in that pile yet."); return; }
     D = {mode: mode, cat: cat, list: list, cards: cs, i: 0, right: 0, wrongs: []};
     document.getElementById("drill-start").classList.add("hide");
@@ -358,11 +360,11 @@
       document.getElementById("back").onclick = endDrill;
       tiles(); drawChips(); return;
     }
-    var c = D.cards[D.i], field = D.mode === "name" ? "def" : D.mode === "desc" ? "name" : "who";
+    var c = D.cards[D.i], field = D.mode === "name" ? "qd" : D.mode === "desc" ? "name" : "wl";
     var opts = shuffle([c].concat(distract(c, field, 3)));
     var head = D.mode === "name" ? '<div class="prompt-k">What does this mean?</div><div class="prompt"><span class="cat c-' + c.cat + '">' + CATNAME[c.cat] + '</span>' + esc(c.name) + '</div>'
-      : D.mode === "desc" ? '<div class="prompt-k">Name it (' + CATNAME[c.cat].toLowerCase() + ')</div><div class="prompt small">' + esc(c.def) + '</div>'
-      : '<div class="prompt-k">Who did it?</div><div class="prompt"><span class="cat c-' + c.cat + '">' + CATNAME[c.cat] + '</span>' + esc(c.name) + '</div><div class="fld" style="color:var(--muted)">' + esc(c.def) + '</div>';
+      : D.mode === "desc" ? '<div class="prompt-k">Name it (' + CATNAME[c.cat].toLowerCase() + ')</div><div class="prompt small">' + esc(c.qd) + '</div>'
+      : '<div class="prompt-k">Who did it?</div><div class="prompt"><span class="cat c-' + c.cat + '">' + CATNAME[c.cat] + '</span>' + esc(c.qw) + '</div><div class="fld" style="color:var(--muted)">' + esc(c.qwd) + '</div>';
     el.innerHTML = '<div class="prog">' + (D.i + 1) + ' / ' + D.cards.length + ' &middot; ' + D.right + ' right</div><div class="card">' + head +
       '<div class="opts">' + opts.map(function(o){ return '<button class="opt" data-id="' + o.id + '">' + esc(o[field]) + '</button>'; }).join("") + '</div><div id="rv"></div></div>' +
       '<div class="row2"><button class="btn ghost" id="quit">End round</button></div>';
@@ -374,7 +376,7 @@
       if (!ok) b.classList.add("bad");
       grade(c, ok);
       var picked = BY[b.dataset.id];
-      document.getElementById("rv").innerHTML = '<div class="reveal">' + (ok ? "" : '<div class="fld" style="color:#c04a4a"><b>You picked ' + esc(picked[field === "def" ? "name" : field]) + (field === "def" ? " (that is what " + esc(picked.name) + " means)" : field === "who" ? " (that is " + esc(picked.name) + ")" : "") + '.</b></div>') +
+      document.getElementById("rv").innerHTML = '<div class="reveal">' + (ok ? "" : '<div class="fld" style="color:#c04a4a"><b>You picked ' + esc(picked[field === "qd" ? "name" : field]) + (field === "qd" ? " (that is what " + esc(picked.name) + " means)" : field === "wl" ? " (that is " + esc(picked.name) + ")" : "") + '.</b></div>') +
         cardHtml(c) + '<div class="row2"><button class="btn" id="nx">Next</button></div></div>';
       document.getElementById("nx").onclick = function(){ D.i++; drawQ(); window.scrollTo(0, 0); };
     };

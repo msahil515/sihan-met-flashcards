@@ -4,6 +4,8 @@
 (function(){
 "use strict";
 var CARDS = window.NL_CARDS || [], PYQ = window.NL_PYQ || {}, MOCKS = window.NL_MOCKS || {};
+// question-side text with giveaways blanked (built in data.js as qw/qwd/qd/wl); default to the plain text
+CARDS.forEach(function(c){ if (!c.qw) c.qw = c.name; if (!c.qwd) c.qwd = c.def; if (!c.qd) c.qd = c.def; });
 var BY = {}; CARDS.forEach(function(c){ BY[c.id] = c; });
 var CATNAME = {effect: "Effect", bias: "Bias", phenomenon: "Phenomenon", experiment: "Experiment", law: "Law", term: "Term"};
 var CATS = [["all", "All"], ["effect", "Effects"], ["bias", "Biases"], ["phenomenon", "Phenomena"], ["experiment", "Experiments"], ["law", "Laws"], ["term", "Terms"], ["pyq", "In PYQs"]];
@@ -477,7 +479,7 @@ function resolveLook(c){ return (c.lookId && BY[c.lookId]) || null; }
 function distract(c, field, n){
   var out = [], seen = {}; seen[norm(c[field])] = 1;
   function add(x){ if (!x || x.id === c.id || !x[field]) return; var k = norm(x[field]); if (seen[k]) return;
-    if (field === "who" && (norm(c.who).indexOf(k) >= 0 || k.indexOf(norm(c.who)) >= 0)) return;
+    if (field === "wl" && (norm(c.wl).indexOf(k) >= 0 || k.indexOf(norm(c.wl)) >= 0)) return;
     seen[k] = 1; out.push(x); }
   add(resolveLook(c));
   CARDS.forEach(function(x){ var l = resolveLook(x); if (l && l.id === c.id) add(x); });
@@ -550,16 +552,17 @@ document.addEventListener("click", function(e){
 var L = null, timer = null;
 function startLesson(o){
   var cards = o.cards;
-  if (o.mode === "who") cards = cards.filter(function(c){ return c.who; });
+  if (o.mode === "who") cards = cards.filter(function(c){ return c.wl; });
   if (o.kind !== "duel" && (!cards || !cards.length)){ toast("Nothing in that pile yet.", "bad"); return; }
   L = {kind: o.kind, title: o.title, mode: o.mode || "mix", cards: cards, ix: o.ix, cat: o.cat, i: 0, right: 0, wrongs: [], hits: [],
     bio: o.bio || (o.kind === "boss" && o.ix >= BIO0), lives: o.kind === "revenge" ? 3 : null, xp: 0, t0: Date.now(), combo: 0, best: 0, total: o.kind === "duel" ? 15 : cards.length, q: null, ev: [], run: 0, bestRun: 0, pen: 0};
   if (o.kind === "boss"){ var b = G().boss[bossDef(o.ix)[0]] || (G().boss[bossDef(o.ix)[0]] = {}); b.tries = (b.tries || 0) + 1; save(); }
   holdCeleb = true;
   clearScreens();
-  var el = pushScreen("lesson", '<div class="lhead"><button class="x" id="l-x">' + IC.x + '</button><div class="lprog"><i style="width:0"></i></div><div id="l-side"></div></div>' +
+  // boss: the scoreboard sits IN the top bar (in place of the progress bar) so it never eats a row and covers the question
+  var el = pushScreen("lesson", '<div class="lhead' + (o.kind === "boss" ? ' hasb' : '') + '"><button class="x" id="l-x">' + IC.x + '</button><div class="lprog"><i style="width:0"></i></div>' +
     (o.kind === "boss" ? '<div class="sb"><div class="tm me"><span class="crest">' + level(G().xp) + '</span><b>' + esc(pname()) + '</b></div><div class="sc"><b id="sb-a">0</b><i>:</i><b id="sb-b">0</b><small id="sb-m">KICK OFF</small></div>' +
-      '<div class="tm bo"><b>' + bossDef(o.ix)[1].replace(/ Boss$/, "") + '</b><span class="be">' + bossDef(o.ix)[3] + '</span></div></div>' : '') +
+      '<div class="tm bo"><b>' + bossDef(o.ix)[1].replace(/ Boss$/, "") + '</b><span class="be">' + bossDef(o.ix)[3] + '</span></div></div>' : '') + '<div id="l-side"></div></div>' +
     '<div class="scroll" id="l-body"></div><div class="lfoot" id="l-foot"></div>', quitAsk);
   LFX.skin(el);
   $("#l-x", el).onclick = quitAsk;
@@ -599,8 +602,9 @@ function buildQ(){
   }
   var c = L.cards[L.i % L.cards.length], mode = L.mode;
   if (L.kind === "speed") mode = "desc";
-  else if (mode === "mix"){ var ms = c.who ? ["name", "desc", "who"] : ["name", "desc"]; mode = ms[Math.floor(Math.random() * ms.length)]; }
-  var field = mode === "name" ? "def" : mode === "desc" ? "name" : "who";
+  else if (mode === "mix"){ var ms = c.wl ? ["name", "desc", "who"] : ["name", "desc"]; mode = ms[Math.floor(Math.random() * ms.length)]; }
+  var field = mode === "name" ? "qd" : mode === "desc" ? "name" : "wl";
+  if (mode === "who" && !c.wl){ mode = "desc"; field = "name"; }
   return {c: c, mode: mode, field: field, opts: shuffle([c].concat(distract(c, field, 3)))};
 }
 function nextQ(){
@@ -613,10 +617,10 @@ function nextQ(){
   if (L.kind !== "speed") $("#lesson .lprog i").style.width = (L.i * 100 / L.total) + "%";
   if (L.kind === "boss" && !L.pen) $("#sb-m").textContent = matchMin(L.i + 1) + "'";
   var k, card;
-  if (q.mode === "duel"){ k = "Which one is this?"; card = pill + '<div class="qd">' + esc(c.def) + '</div>'; }
+  if (q.mode === "duel"){ k = "Which one is this?"; card = pill + '<div class="qd">' + esc(c.qd) + '</div>'; }
   else if (q.mode === "name"){ k = "What does this mean?"; card = pill + '<div class="qn">' + esc(c.name) + '</div>'; }
-  else if (q.mode === "desc"){ k = "Name the " + CATNAME[c.cat].toLowerCase(); card = '<div class="qd" style="margin-top:0">' + esc(c.def) + '</div>'; }
-  else { k = "Who is behind this?"; card = pill + '<div class="qn">' + esc(c.name) + '</div><div class="qs">' + esc(c.def) + '</div>'; }
+  else if (q.mode === "desc"){ k = "Name the " + CATNAME[c.cat].toLowerCase(); card = '<div class="qd" style="margin-top:0">' + esc(c.qd) + '</div>'; }
+  else { k = "Who is behind this?"; card = pill + '<div class="qn">' + esc(c.qw) + '</div><div class="qs">' + esc(c.qwd) + '</div>'; }
   $("#l-body").innerHTML = '<div class="qbody"><div class="qk">' + k + '</div><div class="qcard">' + card + '</div><div class="opts' + (q.mode === "duel" ? " two" : "") + '">' +
     q.opts.map(function(o){ return '<button class="opt" data-id="' + o.id + '">' + esc(o[q.field]) + '</button>'; }).join("") + '</div></div>';
   $("#l-body").scrollTop = 0;
@@ -634,6 +638,7 @@ function nextQ(){
 }
 function flash(kind){ var f = document.createElement("div"); f.className = "flashbg " + kind; $("#lesson").appendChild(f); setTimeout(function(){ f.remove(); }, 400); }
 function floatText(t){ var f = document.createElement("div"); f.className = "cflash"; f.textContent = t; $("#lesson").appendChild(f); setTimeout(function(){ f.remove(); }, 1000); }
+var UNMASK = {qd: "def", wl: "who"};  // after answering, show the full text, not the blanked question copy
 function grade(btn){
   var q = L.q, c = q.c, ok = btn.dataset.id === c.id, cleared = false, mult = 1;
   document.querySelectorAll("#l-body .opt").forEach(function(x){ x.disabled = true; x.classList.remove("sel"); if (x.dataset.id === c.id) x.classList.add("ok", "flash"); });
@@ -672,7 +677,7 @@ function feedback(ok, q, btn, xp){
       '<div class="f"><b>' + esc(c.name) + '</b>' + (c.who ? ' (' + esc(c.who) + ')' : '') + ': ' + esc(c.def) + '</div>' +
       '<div class="f"><b>' + esc(o.name) + '</b>' + (o.who ? ' (' + esc(o.who) + ')' : '') + ': ' + esc(o.def) + '</div>';
   } else {
-    if (!ok && picked) why += '<div class="f"><i>You picked</i>' + esc(picked[q.field]) + (q.field === "name" ? "" : " (that is " + esc(picked.name) + ")") + '</div>';
+    if (!ok && picked) why += '<div class="f"><i>You picked</i>' + esc(picked[UNMASK[q.field] || q.field]) + (q.field === "name" ? "" : " (that is " + esc(picked.name) + ")") + '</div>';
     if (c.roots) why += '<div class="f"><i>Breakdown</i>' + esc(c.roots) + '</div>';
     why += '<div class="f"><i>' + esc(c.name) + (who ? ' · ' + esc(who) : '') + '</i>' + esc(c.def) + '</div>';
     if (c.example) why += '<div class="f"><i>Example</i>' + esc(c.example) + '</div>';
@@ -681,7 +686,7 @@ function feedback(ok, q, btn, xp){
   var praise = ["Nice!", "Locked in!", "Correct!", "Sharp!", "You got it!"][Math.floor(Math.random() * 5)];
   var last = L.lives === 0 || (L.i + 1 >= L.total && !(L.kind === "boss" && !L.pen && L.right === L.wrongs.length));
   $("#l-foot").insertAdjacentHTML("beforeend", '<div class="fb ' + (ok ? "ok" : "bad") + '"><h3><span class="ic">' + (ok ? "✓" : "✕") + '</span>' + (ok ? praise : L.lives === 0 ? "Out of hearts" : "Not quite") +
-    (xp ? '<span class="xp">+' + xp + ' XP</span>' : '') + '</h3>' + (ok ? '' : '<div class="ans">Correct answer: ' + esc(c[q.field]) + '</div>') +
+    (xp ? '<span class="xp">+' + xp + ' XP</span>' : '') + '</h3>' + (ok ? '' : '<div class="ans">Correct answer: ' + esc(c[UNMASK[q.field] || q.field]) + '</div>') +
     '<div class="why">' + why + '</div><button class="btn ' + (ok ? "ok" : "bad") + '" id="l-next">' + (last ? "Finish" : "Continue") + '</button></div>');
   $("#l-next").onclick = function(){ L.i++; nextQ(); };
 }
