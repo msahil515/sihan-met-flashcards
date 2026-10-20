@@ -65,7 +65,7 @@ def main():
     shutil.copytree(ROOT / "name-lock" / "app", assets)
     shutil.copy2(ROOT / "name-lock" / "data.js", assets / "data.js")
     shutil.copy2(ROOT / "sync.js", assets / "sync.js")  # ../../sync.js resolves to the asset root
-    for f in ("syncqr.js", "qrlib.js"):  # QR sync link, next to sync.js
+    for f in ("syncqr.js", "qrlib.js", "study.js"):  # QR sync link + the shared "To study" list, next to sync.js
         shutil.copy2(ROOT / f, assets / f)
 
     manifest = HERE / "AndroidManifest.xml"

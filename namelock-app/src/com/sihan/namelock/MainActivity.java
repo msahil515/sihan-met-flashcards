@@ -73,7 +73,13 @@ public class MainActivity extends Activity {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView v, WebResourceRequest r) {
-                return !HOST.equals(r.getUrl().getHost());
+                if (HOST.equals(r.getUrl().getHost())) return false;
+                /* live-site links (the "To study" notes links) open in the browser */
+                String sc = r.getUrl().getScheme();
+                if ("https".equals(sc) || "http".equals(sc)) {
+                    try { startActivity(new Intent(Intent.ACTION_VIEW, r.getUrl())); } catch (Exception e) {}
+                }
+                return true;
             }
         });
         /* camera for the sync QR scanner (getUserMedia) */

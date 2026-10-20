@@ -44,8 +44,13 @@ var IC = {
   practice: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4.5 13.2c-.4.5 0 1.3.7 1.3H11l-1 7.5 8.5-11.2c.4-.5 0-1.3-.7-1.3H12z"/></svg>',
   cards: '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="5" width="12" height="16" rx="2.5" transform="rotate(-8 9 13)" opacity=".55"/><rect x="9" y="3" width="12" height="16" rx="2.5"/></svg>',
   me: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.5"/><path d="M3.5 20.5c0-4.2 3.8-7 8.5-7s8.5 2.8 8.5 7c0 .6-.4 1-1 1h-15c-.6 0-1-.4-1-1z"/></svg>',
-  x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>'
+  x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+  study: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 2.5h11A1.5 1.5 0 0 1 19 4v17.2c0 .8-.9 1.2-1.5.7L12 17.6l-5.5 4.3c-.6.5-1.5.1-1.5-.7V4a1.5 1.5 0 0 1 1.5-1.5z"/></svg>'
 };
+/* "Study this": the shared To study list (../../study.js), same one the Tests app writes to */
+var SL = window.StudyList;
+function studyItem(c){ return {id: "c:" + c.id, t: c.name, a: SL.areaOf(c.area), f: "Name Lock · " + CATNAME[c.cat] + (c.who ? " · " + c.who : ""), q: c.def, r: "c:" + c.id, n: c.name}; }
+function studyBtn(c){ return SL ? SL.buttonHTML("c:" + c.id) : ""; }
 var LOGO = '<svg viewBox="0 0 108 108"><rect width="108" height="108" rx="24" fill="#5B4BDB"/><path d="M0 70L108 40V84a24 24 0 0 1-24 24H24A24 24 0 0 1 0 84z" fill="#4E3FCC"/><path d="M42 50V41a12 12 0 0 1 24 0v9" stroke="#fff" stroke-width="7" stroke-linecap="round" fill="none"/><rect x="32" y="48" width="44" height="33" rx="7" fill="#FFC93C"/><path d="M54 57a5 5 0 0 1 2.5 9.33V72h-5v-5.67A5 5 0 0 1 54 57z" fill="#3B2DB0"/></svg>';
 
 /* ================= feel: sound + haptics + confetti ================= */
@@ -523,7 +528,7 @@ function pyqCount(c){ return (PYQ[c.id] || []).filter(function(h){ return MOCKS[
 function cardSheet(c){
   var who = [c.who, c.year].filter(Boolean).join(", "), l = resolveLook(c), pq = pyqCount(c);
   var h = '<div class="cd"><span class="pill p-' + c.cat + '">' + CATNAME[c.cat] + '</span>' + (pq ? '<span class="pyq">📝 ' + pq + ' PYQ' + (pq > 1 ? "s" : "") + '</span>' : '') +
-    '<h2>' + esc(c.name) + '</h2>' + (who ? '<div class="who">' + esc(who) + '</div>' : '<div class="who"></div>');
+    '<h2>' + esc(c.name) + '</h2>' + (who ? '<div class="who">' + esc(who) + '</div>' : '<div class="who"></div>') + (SL ? '<div style="margin:2px 0 10px">' + studyBtn(c) + '</div>' : '');
   if (c.roots) h += '<div class="f roots"><i>Breakdown</i>' + esc(c.roots) + '</div>';
   h += '<div class="f"><i>Means</i>' + esc(c.def) + '</div>';
   if (c.detail) h += '<div class="f"><i>Detail</i>' + esc(c.detail) + '</div>';
@@ -544,6 +549,9 @@ function theoristSheet(t){
   $("#sh-train").onclick = function(){ closeSheet(); startLesson({kind: "drill", title: t.name, mode: "who", cards: shuffle(t.cards.map(function(id){ return BY[id]; }))}); };
 }
 document.addEventListener("click", function(e){
+  var sb = e.target.closest("[data-study]");
+  if (sb && SL){ var c = BY[sb.dataset.study.slice(2)]; if (!c) return;
+    var on = SL.toggle(studyItem(c)); SL.paintButtons(); buzz(HAP.tap); toast(on ? "Added to To study: <b>" + esc(c.name) + "</b>" : "Taken off To study", on ? "good" : ""); return; }
   var b = e.target.closest("[data-card]"); if (b && !b.closest(".opts")){ cardSheet(BY[b.dataset.card]); return; }
   var t = e.target.closest("[data-th]"); if (t && !t.closest(".mbox") && !t.closest(".th-big")) theoristSheet(TH[t.dataset.th]);
 });
@@ -687,7 +695,7 @@ function feedback(ok, q, btn, xp){
   var last = L.lives === 0 || (L.i + 1 >= L.total && !(L.kind === "boss" && !L.pen && L.right === L.wrongs.length));
   $("#l-foot").insertAdjacentHTML("beforeend", '<div class="fb ' + (ok ? "ok" : "bad") + '"><h3><span class="ic">' + (ok ? "✓" : "✕") + '</span>' + (ok ? praise : L.lives === 0 ? "Out of hearts" : "Not quite") +
     (xp ? '<span class="xp">+' + xp + ' XP</span>' : '') + '</h3>' + (ok ? '' : '<div class="ans">Correct answer: ' + esc(c[UNMASK[q.field] || q.field]) + '</div>') +
-    '<div class="why">' + why + '</div><button class="btn ' + (ok ? "ok" : "bad") + '" id="l-next">' + (last ? "Finish" : "Continue") + '</button></div>');
+    '<div class="why">' + why + '</div>' + (SL ? '<div style="margin:0 0 10px">' + studyBtn(c) + '</div>' : '') + '<button class="btn ' + (ok ? "ok" : "bad") + '" id="l-next">' + (last ? "Finish" : "Continue") + '</button></div>');
   $("#l-next").onclick = function(){ L.i++; nextQ(); };
 }
 function fmtTime(ms){ var s = Math.round(ms / 1000); return Math.floor(s / 60) + ":" + ("0" + s % 60).slice(-2); }
@@ -926,13 +934,14 @@ function tabMe(){
     '<div class="ver">Name Lock 2.0 · ' + CARDS.length + ' cards · ' + TH_LIST.length + ' theorists · works offline</div>';
   return h;
 }
-var TABS = [["home", "Home", IC.home], ["practice", "Training", IC.practice], ["collection", "Squad", IC.cards], ["me", "Profile", IC.me]];
+function tabStudy(){ return '<div id="nl-stl" style="padding-top:12px"></div>'; }
+var TABS = [["home", "Home", IC.home], ["practice", "Training", IC.practice], ["collection", "Squad", IC.cards]].concat(SL ? [["study", "To study", IC.study]] : []).concat([["me", "Profile", IC.me]]);
 function tabIx(t){ for (var i = 0; i < TABS.length; i++) if (TABS[i][0] === t) return i; return 0; }
 function drawTabbar(){ $("#tabbar").innerHTML = TABS.map(function(t){ return '<button data-tab="' + t[0] + '" class="' + (TAB === t[0] ? "on" : "") + '"><span class="tb-ic">' + t[2] + '</span>' + t[1] + '</button>'; }).join(""); }
 function showTab(t, keepScroll){
   var tv = $("#tabview"), y = tv.scrollTop, dir = tabIx(t) >= tabIx(TAB) ? "r" : "l";
   TAB = t; drawTabbar();
-  var fn = {home: tabHome, practice: tabPractice, collection: tabCollection, me: tabMe}[t];
+  var fn = {home: tabHome, practice: tabPractice, collection: tabCollection, study: tabStudy, me: tabMe}[t];
   tv.innerHTML = '<div class="tabpage ' + dir + (keepScroll ? '" style="animation:none' : '') + '">' + fn() + '</div>';
   tv.scrollTop = keepScroll ? y : 0;
   bindTab();
@@ -968,6 +977,7 @@ window.addEventListener("sihan-sync", function(e){
   P = load(); P.c = P.c || {}; P.m = P.m || {}; G();
   if (!STACK.length) refreshTab();
 });
+window.addEventListener("study-change", function(){ if (TAB === "study" && !STACK.length) refreshTab(); });
 function setGoal(n){ G().goal = n; save(); }
 function goalSheet(){
   var G0 = goal();
@@ -993,6 +1003,9 @@ function bindTab(){
       if (m === "duel") return startLesson({kind: "duel", cat: PCAT, cards: []});
       if (m === "miss") return startLesson({kind: "drill", mode: "desc", cat: "miss", cards: pickRound("miss", 15)});
       startLesson({kind: "drill", mode: m, cat: PCAT, cards: pickRound(PCAT, 15)}); };
+  }
+  if (TAB === "study"){
+    SL.render($("#nl-stl"), {canOpen: function(x){ return /^c:/.test(x.r) && !!BY[x.r.slice(2)]; }, open: function(x){ cardSheet(BY[x.r.slice(2)]); }});
   }
   if (TAB === "collection"){
     $("#c-f").onclick = function(e){ var b = e.target.closest(".chip"); if (b){ THF = b.dataset.f; THN = 60; refreshTab(); } };

@@ -229,21 +229,43 @@
   var normStem = function (s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim(); };
   function srcOf(id, q) { var m = SRCS[id]; return m ? (m[normStem(q.q)] || null) : null; }
 
+  /* ---------- "Study this" (../study.js, the list Name Lock shares) ---------- */
+  var SL = window.StudyList, SI = {};
+  function autoTopic(q) {
+    var a = strip(q.options[q.correct] || "");
+    if (a && a.split(/\s+/).length <= 6 && !/^(all|none|both|only|neither)\b|above|\ba and b\b|^(true|false)$/i.test(a)) return a;
+    var w = strip(q.q).split(/\s+/);
+    return w.slice(0, 9).join(" ") + (w.length > 9 ? "…" : "");
+  }
+  function studyBtn(id, q, idx) {
+    if (!SL) return "";
+    var sid = "m:" + id + ":" + idx, lab = (P[id].sectionLabels || {})[q.section] || q.section || "";
+    SI[sid] = { id: sid, t: q.topic || autoTopic(q), a: SL.areaOf((q.section || "") + " " + lab), f: title_of(id) + " · Q" + (idx + 1), q: strip(q.q), r: sid };
+    return SL.buttonHTML(sid);
+  }
+
   /* ---------- navigation ---------- */
   var cur = { s: "home", id: null };
   function go(s, id) { if (window.Speak && Speak.stop) Speak.stop(); cur = { s: s, id: id || cur.id }; render(); }
   function render() {
-    ({ home: home, lobby: lobby, play: play, finish: finish, review: review, revenge: function () { window.REVENGE.enter(); } })[cur.s]();
+    ({ home: home, lobby: lobby, play: play, finish: finish, review: review, study: study, revenge: function () { window.REVENGE.enter(); } })[cur.s]();
   }
   window.nlBack = function () {
     var sh = app.querySelector(".sheet");
     if (sh) { closeSheet(); return true; }
     if (cur.s === "revenge") { if (!window.REVENGE.back()) go("home"); return true; }
-    var up = { lobby: "home", play: "lobby", finish: "lobby", review: "finish" }[cur.s];
+    var up = { lobby: "home", play: "lobby", finish: "lobby", review: "finish", study: "home" }[cur.s];
     if (!up) return false;
     go(up); return true;
   };
   app.addEventListener("click", function (e) {
+    var sb = e.target.closest("[data-study]");
+    if (sb && SL) {
+      var it = SI[sb.getAttribute("data-study")]; if (!it) return;
+      var on = SL.toggle(it); SL.paintButtons(app); buzz([12]);
+      toast(on ? "Added to To study: " + it.t : "Taken off To study");
+      return;
+    }
     var b = e.target.closest("[data-go]");
     if (b) go(b.getAttribute("data-go"), b.getAttribute("data-id"));
   });
@@ -281,6 +303,7 @@
       '<div class="today-t"><h3>' + (frac >= 1 ? "Daily goal done" : "Daily goal: " + DAILY_GOAL + " questions") + "</h3><p>" +
       (frac >= 1 ? "Streak safe for today. Keep the combo going." : (DAILY_GOAL - done) + " to go today") + "</p></div></div>" +
       (window.REVENGE ? window.REVENGE.cta() : "") +
+      (SL ? '<div class="cont"><button class="btn ghost" data-go="study">📌 To study · ' + SL.counts().open + " open</button></div>" : "") +
       (last ? '<div class="cont"><button class="btn" data-go="play" data-id="' + last + '">Continue: ' + esc(title_of(last)) + "</button></div>" : "") +
       open.map(groupHTML).join("") +
       (closed.length ? '<details class="closed"><summary>Closed cycles (still playable)<small>' + closed.map(function (g) { return g.title; }).join(", ") +
@@ -333,7 +356,7 @@
   window.addEventListener("sihan-sync", function (e) {
     if (!e.detail || !e.detail.pulled) return;
     meta = loadMeta();
-    if (cur.s === "home" || cur.s === "lobby") render();
+    if (cur.s === "home" || cur.s === "lobby" || cur.s === "study") render();
   });
 
   /* ---------- lobby ---------- */
@@ -400,7 +423,7 @@
       '%"></i></div>' + (practice ? '<div class="combo' + (combo >= 3 ? " hot" : "") + '">🔥 ' + combo + "</div>" : '<div class="score">' + score(id, r).answered + "/" + N + "</div>") + "</div>" +
       '<div class="scroll" id="ps"><div class="qmeta"><span class="chip qn">' + (list ? "Redo " + (pos + 1) + "/" + len + " · " : "") + "Q" + (r.i + 1) + " of " + N + "</span>" +
       (sec ? '<span class="chip">' + esc(sec) + "</span>" : "") + (src ? '<span class="chip src">' + esc(src) + "</span>" : "") +
-      (window.Speak && Speak.ok ? '<button class="chip spk" id="spk">🔊 Listen</button>' : "") + "</div>" +
+      (window.Speak && Speak.ok ? '<button class="chip spk" id="spk">🔊 Listen</button>' : "") + studyBtn(id, q, r.i) + "</div>" +
       '<div class="qcard">' + q.q + '</div><div class="opts' + (shown ? " locked" : "") + '" id="opts">' + opts + '</div><div id="after">' + (shown ? afterHTML(id, q, r.i, a) : "") + "</div></div>" +
       '<div class="pfoot"><button class="nav" id="pPrev">‹</button><button class="grid" id="pGrid">☰ ' + (r.i + 1) + '</button><button class="btn' + (shown ? (a === q.correct ? " ok" : " bad") : a != null ? "" : " ghost") +
       '" id="pNext">' + nextLbl + "</button></div></div>";
@@ -538,8 +561,15 @@
       '<button class="btn gold" id="fCopy">Copy results</button>' +
       '<button class="btn" data-go="review" data-id="' + id + '">Review every answer</button>' +
       (sc.wrong ? '<button class="btn bad" id="fRedo">Redo the ' + sc.wrong + " wrong</button>" : "") +
+      (SL && sc.wrong ? '<button class="btn ghost" id="fStudy">📌 Put the ' + sc.wrong + " wrong ones in To study</button>" : "") +
       '<button class="btn ghost" data-go="home">Back to all tests</button></div></div>';
     document.getElementById("fCopy").onclick = function () { copyText(resultText(id)); };
+    var fs = document.getElementById("fStudy");
+    if (fs) fs.onclick = function () {
+      var n = 0;
+      Q.forEach(function (q, i) { if (r.ans[i] == null || r.ans[i] === q.correct) return; studyBtn(id, q, i); var sid = "m:" + id + ":" + i; if (!SL.has(sid)) { SL.add(SI[sid]); n++; } });
+      toast(n ? n + " topics added to To study" : "Already all in To study"); fs.remove();
+    };
     var fr = document.getElementById("fRedo");
     if (fr) fr.onclick = function () {
       var list = [];
@@ -563,6 +593,26 @@
     return out.join("\n");
   }
 
+  /* ---------- To study (shared with Name Lock via study.js + sync) ---------- */
+  function study() {
+    app.innerHTML = '<div class="screen"><div class="ptop"><button class="xbtn" data-go="home">‹</button><div style="flex:1"></div></div><div class="scroll narrow" id="stl"></div></div>';
+    SL.render(document.getElementById("stl"), {
+      canOpen: function (x) { var m = /^m:(.+):(\d+)$/.exec(x.r); return !!(m && P[m[1]] && P[m[1]].questions[+m[2]]); },
+      open: function (x) { var m = /^m:(.+):(\d+)$/.exec(x.r); questionSheet(m[1], +m[2]); }
+    });
+  }
+  function questionSheet(id, i) {
+    var q = P[id].questions[i];
+    closeSheet();
+    var bg = document.createElement("div"); bg.className = "sheet-bg"; bg.onclick = closeSheet;
+    var sh = document.createElement("div"); sh.className = "sheet"; sh.style.overflowY = "auto";
+    sh.innerHTML = '<p class="hint" style="margin:0 4px 8px">' + esc(title_of(id)) + " · Q" + (i + 1) + '</p><div class="qcard">' + q.q + "</div>" +
+      L.filter(function (k) { return q.options[k] != null; }).map(function (k) { return '<div class="opt' + (k === q.correct ? " right" : " fade") + '"><span class="k">' + k + '</span><span class="ot">' + q.options[k] + "</span></div>"; }).join("") +
+      explainHTML(id, q, i);
+    app.appendChild(bg); app.appendChild(sh);
+  }
+  window.addEventListener("study-change", function () { if (cur.s === "home") home(); });
+
   /* ---------- review ---------- */
   var rvFilter = "miss";
   function review() {
@@ -584,7 +634,8 @@
         var body = d.querySelector(".rbody");
         if (!d.open || body.innerHTML) return;
         var i = +d.getAttribute("data-i"), q = Q[i], a = r.ans[i];
-        body.innerHTML = '<div class="ryou">' + (a == null ? "You skipped this one" : a === q.correct ? "You got it right" : "You picked <b>" + a.toUpperCase() + ") " + q.options[a] + "</b>") + "</div>" + explainHTML(id, q, i);
+        body.innerHTML = '<div class="ryou">' + (a == null ? "You skipped this one" : a === q.correct ? "You got it right" : "You picked <b>" + a.toUpperCase() + ") " + q.options[a] + "</b>") + "</div>" +
+          (SL ? '<div style="margin:0 0 10px">' + studyBtn(id, q, i) + "</div>" : "") + explainHTML(id, q, i);
       });
     });
   }

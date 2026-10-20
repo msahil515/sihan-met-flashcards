@@ -60,6 +60,9 @@
     var m = h.match(/^#\/read\/([a-z0-9\-.]+)/i);
     if (m && BYSLUG[m[1]]) { renderReader(m[1]); }
     else { renderLibrary(); }
+    /* #/search/<topic>: the "To study" list in the Tests app and Name Lock links here */
+    var sq = h.match(/^#\/search\/(.+)$/);
+    if (sq) { openSearch(); try { input.value = decodeURIComponent(sq[1]); } catch (e) { input.value = sq[1]; } runSearch(input.value); }
   }
 
   function go(slug) { location.hash = "#/read/" + slug; }
@@ -832,19 +835,23 @@
     if (!q) { results.innerHTML = '<div class="searchempty">Type to search.</div>'; return; }
     if (!SEARCH) { results.innerHTML = '<div class="searchempty">Loading index…</div>'; return; }
     var terms = q.split(/\s+/);
-    var hits = [];
+    var hits = [], part = [], need = Math.max(1, Math.ceil(terms.length / 2));
     SEARCH.forEach(function (it) {
       var hay = (it.title + " " + it.text).toLowerCase();
-      var score = 0, ok = true;
+      var score = 0, ok = true, got = 0;
       terms.forEach(function (t) {
         var ti = it.title.toLowerCase().indexOf(t);
         var bi = hay.indexOf(t);
-        if (bi === -1) ok = false;
+        if (bi === -1) ok = false; else got++;
         if (ti !== -1) score += 10;
         if (bi !== -1) score += 1;
       });
       if (ok) hits.push({ it: it, score: score, pos: hay.indexOf(terms[0]) });
+      else if (got) part.push({ it: it, score: score + 100 * got, got: got, pos: 0 });
     });
+    /* no page has every word (long topic names): fall back to the pages with most of them */
+    if (!hits.length) hits = part.filter(function (h) { return h.got >= need; });
+    if (!hits.length) hits = part;
     if (!hits.length) { results.innerHTML = '<div class="searchempty">No matches for &ldquo;' + esc(q) + '&rdquo;.</div>'; return; }
     hits.sort(function (a, b) { return b.score - a.score; });
     var sm = {}; FLAT.forEach(function (e) { sm[e.slug] = e.sectionName; });

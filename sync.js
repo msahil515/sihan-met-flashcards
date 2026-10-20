@@ -69,6 +69,7 @@
       || k === "tapp-meta-v1"                                    /* Tests app XP/streak/bests */
       || /^tapp-run-.+-v\d+$/.test(k)                            /* Tests app per-mock run */
       || k === "tapp-revenge-v1"                                 /* Tests app Revenge mode misses + ladder */
+      || k === "study-topics-v1"                                 /* "To study" list, Tests app + Name Lock (study.js) */
       || /^sihan-.*-checklist-v\d+$/.test(k);                    /* study-plan checklists */
   }
   function syncKeys() {
@@ -255,6 +256,21 @@
     });
     return out;
   }
+  /* "To study" list: each topic is one unit and the later edit (u) wins, so a
+     tick, a rename or a removal (x = 1 tombstone) on one device sticks on the
+     other instead of being field-merged back; equal u falls to pickVal's tie */
+  function mergeStudy(l, r, mode) {
+    var out = mergeObj(l, r, mode), li = isObj(l.it) ? l.it : {}, ri = isObj(r.it) ? r.it : {}, it = {}, k;
+    for (k in li) if (Object.prototype.hasOwnProperty.call(li, k)) it[k] = li[k];
+    for (k in ri) {
+      if (!Object.prototype.hasOwnProperty.call(ri, k)) continue;
+      if (!(k in it)) { it[k] = ri[k]; continue; }
+      var a = it[k], b = ri[k], au = (a && +a.u) || 0, bu = (b && +b.u) || 0;
+      it[k] = au !== bu ? (bu > au ? b : a) : pickVal(a, b, "tie");
+    }
+    out.it = it;
+    return out;
+  }
   /* take-summary-*: derived counts — the more-attempted one is the truth */
   function pickSummary(l, r) {
     var la = (l && l.answered) || 0, ra = (r && r.answered) || 0;
@@ -282,6 +298,7 @@
       merged = mergeObj(l, r, mode);
       if (isObj(l.g) && isObj(r.g)) merged.g = mergeObj(l.g, r.g, mode, { maxNum: true });
     }
+    else if (key === "study-topics-v1" && isObj(l) && isObj(r)) merged = mergeStudy(l, r, mode);
     else if (isObj(l) && isObj(r)) merged = mergeObj(l, r, mode);
     else merged = pickVal(l, r, mode);
     return stableStringify(merged);
