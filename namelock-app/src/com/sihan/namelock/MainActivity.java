@@ -40,10 +40,12 @@ public class MainActivity extends Activity {
     /* set by LinkActivity (signature-protected), never read from an intent here */
     static String handoff;
     private boolean loaded;
+    private Ota ota;
 
     @Override
     protected void onCreate(Bundle state) {
         super.onCreate(state);
+        ota = new Ota(this, "namelock");
         Window w = getWindow();
         w.setStatusBarColor(Color.parseColor("#12141c"));
         w.setNavigationBarColor(Color.parseColor("#12141c"));
@@ -95,6 +97,7 @@ public class MainActivity extends Activity {
             }
         });
         setContentView(web);
+        ota.checkAsync();
         if (state != null) web.restoreState(state);
         else web.loadUrl(START);
     }
@@ -104,7 +107,7 @@ public class MainActivity extends Activity {
         String path = uri.getPath();
         if (path == null || path.equals("/")) path = "/worlds.html";
         try {
-            InputStream in = getAssets().open("www" + path);
+            InputStream in = ota.open(path);
             return new WebResourceResponse(mime(path), "utf-8", in);
         } catch (Exception e) {
             return new WebResourceResponse("text/plain", "utf-8", 404, "Not Found", new java.util.HashMap<>(), null);

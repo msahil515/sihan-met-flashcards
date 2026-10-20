@@ -21,6 +21,9 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+import ota  # noqa: E402
+
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 SDK = Path(os.environ.get("ANDROID_HOME", "/opt/homebrew/share/android-commandlinetools"))
@@ -61,14 +64,10 @@ def main():
     for name, px in (("mdpi", 48), ("hdpi", 72), ("xhdpi", 96), ("xxhdpi", 144), ("xxxhdpi", 192)):
         (res / f"mipmap-{name}").mkdir()
         legacy_icon(px * 4).resize((px, px), Image.LANCZOS).save(res / f"mipmap-{name}" / "ic_launcher.png")
-    shutil.copytree(ROOT / "tests-app", assets)
-    shutil.copy2(ROOT / "sync.js", assets / "sync.js")  # ../sync.js resolves to the asset root
-    for f in ("syncqr.js", "qrlib.js", "study.js"):  # QR sync link + the shared "To study" list, next to sync.js
-        shutil.copy2(ROOT / f, assets / f)
-    (assets / "take").mkdir()
-    for f in sorted((ROOT / "take").glob("data-*.js")) + [ROOT / "take" / "speak.js"]:
-        if f.name != "data-mock.js":  # not loaded by take/screen.html either
-            shutil.copy2(f, assets / "take" / f.name)
+    for a, src in ota.payload("tests"):  # same file list the live-site OTA manifest uses
+        (assets / a).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, assets / a)
+    (W / "assets" / "ota-base.json").write_text(ota.dump(ota.manifest("tests")))  # what this APK ships with
 
     manifest = HERE / "AndroidManifest.xml"
     if TAB:  # only difference from the phone build: free rotation, no restart on keyboard dock

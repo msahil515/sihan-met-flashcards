@@ -1,0 +1,52 @@
+name: OTA manifests
+
+# Keeps downloads/ota/{tests,namelock}.json in step with the app content, so the
+# installed Tests and Name Lock apps pull new mocks/cards on their next launch
+# without a new APK. Runs on every push that touches files the apps bundle.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tests-app/**'
+      - 'take/**'
+      - 'name-lock/app/**'
+      - 'name-lock/data.js'
+      - 'sync.js'
+      - 'syncqr.js'
+      - 'qrlib.js'
+      - 'study.js'
+      - 'ota.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ota-manifest
+  cancel-in-progress: false
+
+jobs:
+  manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Rebuild manifests
+        run: python3 ota.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "sihan-ota-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add downloads/ota
+          if git diff --cached --quiet; then
+            echo "Manifests already current."
+          else
+            git commit -m "OTA manifests: $(TZ=Asia/Kolkata date '+%-d %b %Y %H:%M IST')"
+            git pull --rebase origin main
+            git push
+          fi
