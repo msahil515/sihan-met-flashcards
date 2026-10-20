@@ -208,15 +208,15 @@ const MOCKS = [
   {
     id: "ihbas-2025",
     title: "IHBAS 2025 PYQ Mock (real paper)",
-    sub: "100 real Qs · IHBAS Delhi M.Phil Clinical Psychology (MPCP) entrance 2025 · Series A · sourced answers · untimed Practice + Full run",
+    sub: "100 real Qs · IHBAS Delhi M.Phil Clinical Psychology (MPCP) entrance 2025 · Series A · official key · untimed Practice + Full run",
     path: "../quiz/ihbas-2025/",
     total: 100,
     storageKey: "ihbas-2025-results-v1",
     sections: { general: 12, biopsych: 16, abnormal: 27, therapy: 11, biostats: 8, assessment: 7, dev: 12, social: 7 },
-    blurb: "The 2025 IHBAS (Institute of Human Behaviour & Allied Sciences, Delhi) M.Phil Clinical Psychology (MPCP) entrance — Series A, all 100 questions transcribed verbatim from the actual question booklet in your Drive library. This paper carries no official published answer key, so every answer is set from standard clinical-psychology sources (DSM-5, ICD, and the canonical theorists) with a full worked explanation and a note on why each wrong option is wrong — no invented questions, no invented distractors. A few items carry a ⚠ key-debate note where the intended answer is genuinely arguable. Real exam: 100 MCQs; defaults to untimed Practice (instant reveal + explanation), flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0 to stay comparable with your other mocks. Independent storage.",
+    blurb: "The 2025 IHBAS (Institute of Human Behaviour & Allied Sciences, Delhi) M.Phil Clinical Psychology (MPCP) entrance — Series A, all 100 questions transcribed verbatim from the actual question booklet in your Drive library. Every answer matches the official IHBAS Set A answer key (100/100), with a full worked explanation and a note on why each wrong option is wrong — no invented questions, no invented distractors. A few items carry a ⚠ key-debate note where the official answer is genuinely arguable. Real exam: 100 MCQs; defaults to untimed Practice (instant reveal + explanation), flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0 to stay comparable with your other mocks. Independent storage.",
     fresh: true,
     deepExp: true,
-    tags: ["deep explanations", "real PYQ", "sourced answers", "real distractors", "IHBAS 2025", "untimed practice"]
+    tags: ["deep explanations", "100% real PYQ", "official key", "real distractors", "IHBAS 2025", "untimed practice"]
   },
   {
     id: "amity-2023",
