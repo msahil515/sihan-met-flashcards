@@ -1,6 +1,19 @@
 // Full mock registry (MOCKS + GROUPS), ported verbatim from tests/index.html.
 const MOCKS = [
   {
+    id: "jss-mock-2",
+    title: "JSS Mock 2 (hard + high yield)",
+    sub: "90 real past-paper Qs · JSS's 9 subjects × 10 · the hardest, highest-yield items · mostly concept, almost no who-said-what · results by subject · untimed Practice",
+    path: "../take/screen.html?m=jss-mock-2",
+    total: 90,
+    storageKey: "jss-mock-2-results-v1",
+    sections: { general: 10, assessment: 10, social: 10, personality: 10, physio: 10, dev: 10, clinical: 10, disorders: 10, research: 10 },
+    blurb: "The second JSS AHER mock, built for the 27 Oct entrance and made to be harder than the first. All 90 are genuine past-paper questions from the real papers already on the site (NIMHANS 2024 and 2025, RML 2020 to 2025, IHBAS 2020, Amity 2023, JEMAS(PG) 2025). Nothing synthesised, and none repeat from JSS Mock 1 or the SGT PYQ Master Mock. IHBAS 2024 and 2025 were left out because you have already sat both. Every one of the 800 candidate questions was rated for difficulty and yield, the top ten per subject were kept, and anything with a doubtful key was dropped. They lean on application and fine distinctions (scenario stems, NOT/EXCEPT items, close distractors), with no pure who-proposed-it recall. Ten from each of JSS's nine published subjects, so your result splits by subject and shows what to study. Every card carries its source paper, the concept from scratch and why each wrong option is wrong, plus a Study this button. JSS has no negative marking, so attempt all 90 in the hall; the site still scores +1 / −0.25. Independent storage.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "JSS syllabus", "hard + high yield", "90 Q", "source-badged", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "jss-pyq",
     title: "JSS PYQ Mock (27 Oct entrance)",
     sub: "90 real past-paper Qs · JSS's 9 published subjects × 10 · same length as the real paper · source-badged · untimed Practice",
@@ -382,7 +395,7 @@ const MOCKS = [
 const GROUPS = [
   { id: "jss", title: "JSS Mysuru (27 Oct)",
     sub: "JSS AHER MA Clinical Psychology entrance: 90 MCQs, 60 minutes, no negative marking, nine published subjects",
-    members: ["jss-pyq"] },
+    members: ["jss-mock-2", "jss-pyq"] },
   { id: "amity", archived: true, title: "Amity",
     sub: "2026 cycle closed — kept live as drill. Real Amity M.A. Clinical Psychology entrance papers; the interview brief is on the /archive/ page",
     members: ["amity-2023", "amity-recall"] },
