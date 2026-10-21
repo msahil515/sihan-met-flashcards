@@ -91,6 +91,16 @@ def _copy(src: Path, dst: Path):
         shutil.copy2(src, dst)
 
 
+# Too big to bundle (GitHub refuses files over 100 MB). Pages that use these show
+# a pointer to the online Library in their place (see notes/psycho_didi_figs.py).
+LIVE_ONLY = ("notes/psycho-didi-figs",)
+
+
+def drop_live_only(assets: Path):
+    for rel in LIVE_ONLY:
+        shutil.rmtree(assets / rel, ignore_errors=True)
+
+
 def build_assets_full(assets: Path):
     """Whole site: copy everything except git/build cruft and nested APKs."""
     assets.mkdir(parents=True, exist_ok=True)
@@ -103,6 +113,7 @@ def build_assets_full(assets: Path):
     dl = assets / "downloads"
     for junk in set(dl.glob("*.apk")):
         junk.unlink()
+    drop_live_only(assets)
 
 
 def build_assets_notes(assets: Path):
@@ -113,6 +124,7 @@ def build_assets_notes(assets: Path):
             _copy(ROOT / name, assets / name)
     _copy(ROOT / "icons", assets / "icons")
     _copy(ROOT / "notes", assets / "notes")
+    drop_live_only(assets)
     # Offline compiled notes (epub/pdf) are notes too; keep them, drop apks.
     dl_src, dl_dst = ROOT / "downloads", assets / "downloads"
     dl_dst.mkdir(parents=True, exist_ok=True)
