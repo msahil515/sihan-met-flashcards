@@ -644,6 +644,7 @@
             <a href="quiz/otta-mphil/">M.Phil QB</a>
             <a href="results/gap-map/">Gap map</a>
             <a href="results/gap-analysis/">Gap analysis (all papers)</a>
+            <a href="recall-14/">Your 14 recall Qs + reliability drill</a>
           </div>
           <div class="nav-more-group">
             <span class="nav-more-label">Viva prep</span>
@@ -846,6 +847,18 @@ const MOCKS = [
     nimhans: true
   },
   {
+    id: "recall-14",
+    title: "Recall 14 + Reliability Drill",
+    path: "take/screen.html?m=recall-14",
+    total: 32,
+    storageKey: "recall-14-results-v1",
+    scoring: { plus: 1, minus: 0.25 },
+    sections: { recall: 14, drill: 18 },
+    meta: "Your 14 recall Qs from 5 Aug + 18 worked formula Qs: Spearman-Brown, Rulon, KR-20/21, speed tests, variance, SEM, attenuation · why page with a formula sheet at recall-14/",
+    fresh: true,
+    nimhans: false
+  },
+  {
     id: "jss-mock-2",
     title: "JSS Mock 2 (hard + high yield)",
     path: "take/screen.html?m=jss-mock-2",
@@ -1046,6 +1059,7 @@ const RESOURCES = [
 ];
 
 const NEWS = [
+  { date: "2026-10-20", title: "Your 14 recall questions + a reliability formula drill", desc: "The 14 you typed from memory on 5 Aug, each with the answer, the concept and why every wrong option is wrong. Six of them were reliability and variance, so 18 drill questions follow with real numbers: Spearman-Brown up and down, length needed, Rulon with variances and SDs, KR-20, KR-21, speed tests, SEM, attenuation. Formula sheet on the page, or take all 32 as a mock.", href: "recall-14/" },
   { date: "2026-10-20", title: "JSS Mock 2: 90 hard, high-yield real PYQs", desc: "Harder than the first one. 800 real past-paper questions rated for difficulty and yield, the top ten in each of JSS's nine subjects kept, doubtful keys dropped, no pure who-proposed-it recall. None repeat from JSS Mock 1 or SGT, and IHBAS 2024/2025 are left out since you have sat both. Result splits by subject.", href: "take/screen.html?m=jss-mock-2" },
   { date: "2026-10-18", title: "Site revamp done: same home, cleaned up, one look everywhere", desc: "You picked option b, so the home keeps everything it had. Syllabus areas and mocks now show six with a Show all button, the old NEW tags are gone and the focus box is tidier. Every remaining page (Results, Notes, Downloads, Practice, Sync, the RML pages, the IHBAS topic list, the backup page) now has the same header, nav and theme switcher as the home.", href: "progress/" },
   { date: "2026-10-15", title: "JSS PYQ Mock: 90 questions for the 27th", desc: "Pointed at JSS. Same length as the real paper, 90 questions, ten from each of the nine subjects JSS prints in its brochure. No JSS papers exist on the site yet, so every question is a real past-paper item from IHBAS, NIMHANS, Amity, JEMAS and RML, none repeated from the SGT mock. Source badge, full explanation and traps on every card. JSS has no negative marking, so attempt everything on the day.", href: "take/screen.html?m=jss-pyq" },

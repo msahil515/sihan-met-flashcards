@@ -1,6 +1,19 @@
 // Full mock registry (MOCKS + GROUPS), ported verbatim from tests/index.html.
 const MOCKS = [
   {
+    id: "recall-14",
+    title: "Recall 14 + Reliability Drill",
+    sub: "32 Q · your 14 recall Qs from 5 Aug + 18 worked formula Qs (Spearman-Brown, Rulon, KR-20/21, speed tests, variance, SEM) · untimed Practice",
+    path: "../take/screen.html?m=recall-14",
+    total: 32,
+    storageKey: "recall-14-results-v1",
+    sections: { recall: 14, drill: 18 },
+    blurb: "The 14 questions you typed from memory on 5 Aug (Müller-Lyer, VMH and amygdala lesions, variance, non-linear transformations, Spearman-Brown, KR-20, Rulon, speed tests, circumstantiality, the RPwD Act, advance directives, ADHD under RPwD, emotion regulation). You sent no options, so the stems are yours and the four options are rebuilt to test the same point. Six of the 14 were reliability and variance, so 18 drill questions follow with real numbers: split-half step-up, lengthening and shortening, the length needed for a target, Rulon with variances and with SDs, KR-20, item pq, KR-21, KR-21 vs KR-20, alpha, timed halves for speed tests, sample variance, variance after a linear transformation, SEM, correction for attenuation and stanines. Every number was checked by computer. Every card has the concept from scratch, the working, and why each wrong option is wrong. The same questions are on the why page (/recall-14/) with a formula sheet. Independent storage.",
+    fresh: true,
+    deepExp: true,
+    tags: ["your recall set", "reliability formulas", "worked numbers", "32 Q", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "jss-mock-2",
     title: "JSS Mock 2 (hard + high yield)",
     sub: "90 real past-paper Qs · JSS's 9 subjects × 10 · the hardest, highest-yield items · mostly concept, almost no who-said-what · results by subject · untimed Practice",
@@ -416,7 +429,7 @@ const GROUPS = [
     members: ["pep-mock-1", "pep-mock-2"] },
   { id: "diag", title: "Diagnostics & common-section drills",
     sub: "Sit-once diagnostics and the common-section banks that decide the gap — misses compile into a study sheet on the page",
-    members: ["diagnostic-1", "systems-theories", "flight-mock-100"] },
+    members: ["recall-14", "diagnostic-1", "systems-theories", "flight-mock-100"] },
   { id: "jemas", title: "JEMAS(PG) — West Bengal",
     sub: "The JEMAS(PG) Clinical Psychology entrance paper — real questions, source-badged, folded in page by page",
     members: ["jemas-2025"] },

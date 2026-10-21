@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<script src="/sihan-met-flashcards/sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d1117">
+<title>Your 14 recall questions: the why page + reliability drill</title>
+<link rel="stylesheet" href="../site.css">
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<style>
+  .wrap{max-width:900px;margin:0 auto;padding:18px 16px 90px}
+  .lede{color:var(--muted);font-size:14.5px;line-height:1.7;margin:4px 0 16px}
+  .lede b{color:var(--text)}
+  h2.sec{font-size:16px;margin:34px 0 10px;color:var(--text);scroll-margin-top:14px}
+  h2.sec .cnt{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-left:6px}
+  .drill{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+  .drill a,.drill button{display:inline-block;border:1px solid var(--accent-dim);background:var(--accent-soft);border-radius:9px;padding:10px 14px;
+    font-weight:700;font-size:14px;color:var(--accent);text-decoration:none;font-family:inherit;cursor:pointer}
+  .note{border:1px solid var(--warn);background:var(--warn-soft);border-radius:10px;padding:12px 15px;margin:10px 0;font-size:14px;line-height:1.65;color:var(--text)}
+  .fsheet{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin:10px 0}
+  .fsheet>div{border:1px solid var(--border);background:var(--panel);border-radius:10px;padding:11px 13px;font-size:13.5px;line-height:1.6;color:var(--muted)}
+  .fsheet b{color:var(--text)}
+  .fsheet .f{display:block;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px;color:var(--text);background:var(--panel-2);
+    border-radius:6px;padding:5px 8px;margin:5px 0;overflow-x:auto;white-space:nowrap}
+  details.qq{border:1px solid var(--border);background:var(--panel);border-radius:12px;padding:12px 15px;margin:0 0 10px}
+  details.qq[open]{border-color:var(--accent-dim)}
+  details.qq summary{cursor:pointer;list-style:none;font-size:15px;line-height:1.55;color:var(--text)}
+  details.qq summary::-webkit-details-marker{display:none}
+  .qn{display:inline-block;min-width:30px;font-weight:800;color:var(--accent)}
+  .tp{display:block;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:0 0 3px}
+  ol.opts{list-style:none;margin:8px 0 2px;padding:0}
+  ol.opts li{font-size:14px;line-height:1.5;color:var(--muted);margin:0 0 3px}
+  ol.opts li b{color:var(--text);margin-right:6px}
+  .hint{font-size:11.5px;color:var(--muted);margin-top:4px}
+  details.qq[open] .hint{display:none}
+  .ans{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--good);background:var(--good-soft);border-radius:9px;padding:9px 12px;margin:12px 0 10px}
+  .ans .k{flex:none;min-width:28px;height:28px;border-radius:7px;background:var(--good);color:#04120a;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .ans .t{font-size:15px;line-height:1.45;color:var(--text);font-weight:600}
+  .h{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:12px 0 6px}
+  .body p{font-size:14.5px;line-height:1.7;color:var(--muted);margin:0 0 9px}
+  .trap{display:flex;gap:10px;border-left:3px solid var(--bad);background:var(--bad-soft);border-radius:0 8px 8px 0;padding:8px 12px;margin:0 0 7px}
+  .trap .k{flex:none;font-weight:800;color:var(--bad)}
+  .trap .o{display:block;font-size:13.5px;color:var(--text);font-weight:600;margin-bottom:2px}
+  .trap p{margin:0;font-size:14px;line-height:1.6;color:var(--muted)}
+  .src{font-size:12px;color:var(--muted);line-height:1.7;margin:26px 0}
+</style>
+<script src="/sihan-met-flashcards/take/theme.js"></script>
+<link rel="stylesheet" href="/sihan-met-flashcards/revamp-skin.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-title">Sihan — Clinical Psych 2026</span>
+      <span class="brand-sub">M.A. / M.Phil Clinical Psychology (RCI) · IHBAS · CIP · JSS Mysuru · DIMHANS Dharwad</span>
+    </div>
+    <nav class="nav">
+      <a href="/sihan-met-flashcards/">Dashboard</a>
+      <a href="/sihan-met-flashcards/tests/">Tests</a>
+      <a href="/sihan-met-flashcards/quiz/practice/">Practice</a>
+      <a href="/sihan-met-flashcards/results/">Results</a>
+      <a href="/sihan-met-flashcards/notes-app/">Library</a>
+      <a href="/sihan-met-flashcards/admissions/">Admissions</a>
+      <a href="/sihan-met-flashcards/progress/">Progress</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+<h1 style="margin:8px 0 2px;font-size:24px;">Your 14 recall questions: the why page</h1>
+<p class="lede">The 14 questions you typed from memory on <b>5 Aug</b>, each with the answer, the concept from scratch and why every wrong option is wrong.
+Six of the 14 were reliability and variance, so there is also an <b>18-question formula drill</b>: Spearman-Brown, Rulon, KR-20 and KR-21, speed tests,
+variance, SEM and attenuation, every one worked step by step. Tap a question to open it.</p>
+
+<div class="drill">
+  <a href="../take/screen.html?m=recall-14">Take all 32 as a mock</a>
+  <a href="../tests-app/">Tests app (under Diagnostics)</a>
+  <button type="button" id="openAll">Open all answers</button>
+</div>
+
+<div class="note">The stems are yours. You sent no options, so each question's four options are rebuilt to test the same point, with the traps papers
+usually plant. Your item 14 came through cut off at &ldquo;Emotional Regulatio&rdquo;, so it is the emotion-regulation question papers ask most
+(Gross's process model). Tell me which exam and year this set was from and I'll file it with the real papers.</div>
+
+<h2 class="sec" id="formulas">Formula sheet <span class="cnt">every one the drill uses</span></h2>
+<div class="fsheet">
+  <div><b>Spearman-Brown</b> (Spearman, Brown, 1910)
+    <span class="f">r_new = k·r / (1 + (k − 1)·r)</span>
+    <span class="f">split-half: r_full = 2r / (1 + r)</span>
+    <span class="f">length needed: k = r_t(1 − r) / (r(1 − r_t))</span>
+    Halves must be parallel (equal means and variances). Unequal variances: it overestimates.</div>
+  <div><b>Rulon</b> (1939) and <b>Flanagan</b> (1937)
+    <span class="f">Rulon: r = 1 − σ²_d / σ²_x</span>
+    <span class="f">Flanagan: r = 2(1 − (σ²_a + σ²_b) / σ²_x)</span>
+    d = odd half minus even half. Already full length: <b>never</b> step up. No equal-variance assumption. Given SDs? Square them first.</div>
+  <div><b>KR-20</b> (Kuder and Richardson, 1937)
+    <span class="f">KR-20 = (k / (k − 1))(1 − Σpq / σ²)</span>
+    <span class="f">item variance = pq, max .25 at p = .50</span>
+    Right/wrong items, one trait, power test. Equals alpha when items are 0/1.</div>
+  <div><b>KR-21</b> and <b>alpha</b> (Cronbach, 1951)
+    <span class="f">KR-21 = (k / (k − 1))(1 − M(k − M) / (k·σ²))</span>
+    <span class="f">α = (k / (k − 1))(1 − Σσ²_i / σ²_x)</span>
+    KR-21 assumes equal difficulty, so it comes out <b>lower</b> than KR-20 when difficulties vary.</div>
+  <div><b>Speed tests</b>
+    Split-half in one sitting, KR-20, KR-21 and alpha are all <b>spuriously high</b> (near 1).
+    Use test-retest, alternate forms, or two <b>separately timed</b> halves stepped up with Spearman-Brown.</div>
+  <div><b>Variance</b>
+    <span class="f">σ² = Σ(X − M)² / N = ΣX²/N − M²</span>
+    <span class="f">sample estimate: s² = SS / (N − 1)</span>
+    Add c: no change. Multiply by c: variance × c², SD × c.</div>
+  <div><b>SEM</b> and <b>attenuation</b> (Spearman, 1904)
+    <span class="f">SEM = SD·√(1 − r)</span>
+    <span class="f">r_true = r_xy / √(r_xx·r_yy)</span>
+    95% band = ±1.96 SEM. Validity can never exceed √(reliability).</div>
+  <div><b>Linear vs non-linear</b>
+    Linear (shape kept): z, X − M, 50 + 10z. Non-linear (normalising, via percentiles): percentile ranks, stanines, stens, normalised or McCall's T.
+    Stanines 1 to 9: 4, 7, 12, 17, <b>20</b>, 17, 12, 7, 4 %.</div>
+</div>
+
+<h2 class="sec" id="recall">Your 14 <span class="cnt">5 Aug recall set</span></h2>
+<div id="recallList"></div>
+
+<h2 class="sec" id="drill">Reliability + variance drill <span class="cnt">18 questions</span></h2>
+<div id="drillList"></div>
+
+<p class="src">Source: your WhatsApp message of 5 Aug 2026 (14 items, no exam named). Answers follow the standard texts: Anastasi and Urbina's
+Psychological Testing, Garrett's Statistics in Psychology and Education, Pinel's Biopsychology, Fish's Clinical Psychopathology, Gross (1998), and the
+bare Acts (RPwD Act 2016, Mental Healthcare Act 2017). Every number in the drill was checked by computer. The mock and this page read the same question
+file, so they always match.</p>
+</div>
+
+<script src="../take/data-recall14.js?v=20261020-recall14"></script>
+<script>
+(function(){
+  var M = window.PREVIEW_MOCKS["recall-14"], D = window.PREVIEW_DEEP["recall-14"];
+  var esc = function(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); };
+  function paras(t){
+    var parts = String(t).replace(/([.!?])\s+(?=[A-Z(“"'])/g,"$1␟").split("␟"), out = [];
+    for (var i = 0; i < parts.length; i += 2) out.push(parts.slice(i, i + 2).join(" "));
+    return out.map(function(p){ return "<p>" + esc(p) + "</p>"; }).join("");
+  }
+  var counts = { recall: 0, drill: 0 };
+  M.questions.forEach(function(q, i){
+    var d = D[i], n = ++counts[q.section], L = "abcd".split("").filter(function(l){ return q.options[l]; });
+    var h = '<details class="qq" id="' + q.section + "-" + n + '"><summary><span class="tp">' + esc(q.topic) + "</span>"
+      + '<span class="qn">' + n + ".</span>" + esc(q.q)
+      + '<ol class="opts">' + L.map(function(l){ return "<li><b>" + l.toUpperCase() + "</b>" + esc(q.options[l]) + "</li>"; }).join("") + "</ol>"
+      + '<div class="hint">Tap to see the answer and why</div></summary>'
+      + '<div class="ans"><span class="k">' + q.correct.toUpperCase() + '</span><span class="t">' + esc(q.options[q.correct]) + "</span></div>"
+      + '<div class="h">The concept</div><div class="body">' + paras(d.concept) + "</div>"
+      + '<div class="h">Why the other options are wrong</div>'
+      + L.filter(function(l){ return l !== q.correct; }).map(function(l){
+          return '<div class="trap"><span class="k">' + l.toUpperCase() + '</span><div><span class="o">' + esc(q.options[l]) + "</span><p>" + esc(d.traps[l]) + "</p></div></div>";
+        }).join("")
+      + "</details>";
+    document.getElementById(q.section === "recall" ? "recallList" : "drillList").insertAdjacentHTML("beforeend", h);
+  });
+  var btn = document.getElementById("openAll"), open = false;
+  btn.addEventListener("click", function(){
+    open = !open;
+    document.querySelectorAll("details.qq").forEach(function(x){ x.open = open; });
+    btn.textContent = open ? "Close all answers" : "Open all answers";
+  });
+  if (location.hash) { var t = document.getElementById(location.hash.slice(1)); if (t && t.tagName === "DETAILS") t.open = true; }
+})();
+</script>
+</body>
+</html>
