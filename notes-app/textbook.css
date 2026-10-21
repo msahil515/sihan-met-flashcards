@@ -1,0 +1,101 @@
+/* The Final Exam Textbook in the Library reader (books final-*).
+   Same chapter HTML as the A4 print editions (tb-* classes); this sheet styles it for the
+   tablet reader in Day and Night. Colours follow the subject accent (--accent). */
+.nfe-article .tb-opener { margin: 0 0 1.4em; }
+.nfe-article .tb-ch + .tb-ch .tb-opener { break-before: column; -webkit-column-break-before: always; }
+.nfe-article .tb-cht { font-family: "Cabin", system-ui, sans-serif; font-weight: 700; font-size: 1.75em; line-height: 1.15; margin: .2em 0 .6em; border: 0; }
+.nfe-article .tb-chn { display: block; font-size: .5em; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: .35em; }
+.nfe-article .tb-chn::after { content: ""; display: block; width: 3.2em; height: .32em; background: var(--accent); margin-top: .45em; border-radius: 1px; }
+.nfe-article h3.tb-s { font-family: "Cabin", system-ui, sans-serif; font-size: 1.28em; margin: 1.6em 0 .55em; padding-top: .55em; border-top: 1px solid rgba(127,127,127,.35); }
+.nfe-article h3.tb-s .tb-sn { color: var(--accent); margin-right: .45em; }
+.nfe-article h3.tb-endh { border-top: 2px solid var(--accent); }
+.nfe-article h4.tb-ss { font-family: "Cabin", system-ui, sans-serif; font-size: 1.06em; color: var(--accent); margin: 1.25em 0 .35em; }
+.nfe-article p.tb-open { font-size: 1.04em; }
+.nfe-article .tb-body > p.tb-open:first-child::first-letter { font-family: "Cabin", sans-serif; font-weight: 700; float: left; font-size: 3.1em; line-height: .9; margin: .06em .12em 0 0; color: var(--accent); }
+.nfe-article b.kt { color: var(--accent); }
+
+.nfe-article .tb-box, .nfe-article .tb-scan { margin: 1.1em 0; padding: .75em .95em .55em; border-radius: 4px; font-size: .95em; break-inside: avoid; -webkit-column-break-inside: avoid; }
+.nfe-article .tb-box p:last-child, .nfe-article .tb-scan p:last-child { margin-bottom: .15em; }
+.nfe-article .tb-bh { font-family: "Cabin", system-ui, sans-serif; font-weight: 700; font-size: .74em; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .35em; }
+.nfe-article .tb-inthis { background: rgba(127,127,127,.09); border-top: 3px solid var(--accent); border-radius: 0 0 4px 4px; }
+.nfe-article .tb-inthis ol { list-style: none; padding: 0; margin: .2em 0 0; }
+.nfe-article .tb-inthis li { margin: 0 0 .5em; }
+.nfe-article .tb-inthis li b { color: var(--accent); margin-right: .3em; }
+.nfe-article .tb-box.trap  { background: rgba(192,70,45,.10);  border-left: 4px solid #C0462D; } .nfe-article .tb-box.trap  .tb-bh { color: #C0462D; }
+.nfe-article .tb-box.study { background: rgba(36,79,140,.10);  border-top: 2px solid #3A6BB0; border-bottom: 2px solid #3A6BB0; } .nfe-article .tb-box.study .tb-bh { color: #3A6BB0; }
+.nfe-article .tb-box.clin  { background: rgba(106,58,124,.10); border: 1.5px dashed #8A5A9C; } .nfe-article .tb-box.clin  .tb-bh { color: #8A5A9C; }
+.nfe-article .tb-box.key   { background: rgba(183,121,31,.12); border-left: 4px double #B7791F; } .nfe-article .tb-box.key   .tb-bh { color: #B7791F; }
+.nfe-article .tb-box.india { background: rgba(62,124,69,.10);  border-left: 4px solid #3E7C45; } .nfe-article .tb-box.india .tb-bh { color: #4E9455; }
+.nfe-article .tb-box.case  { background: rgba(127,127,127,.08); border-top: 2px solid var(--accent); } .nfe-article .tb-box.case .tb-bh { color: var(--accent); }
+.nfe-article .tb-scan { background: rgba(91,107,115,.10); border: 1.5px solid rgba(91,107,115,.6); }
+.nfe-article .tb-scan ol { padding-left: 1.4em; margin: .2em 0 .4em; }
+.nfe-article .tb-scan .blank { display: inline-block; width: 5.5em; border-bottom: 1.5px solid currentColor; opacity: .7; }
+.nfe-article .tb-scan .tb-ans { font-size: .88em; opacity: .85; border-top: 1px solid rgba(127,127,127,.35); padding-top: .4em; margin-top: .4em; }
+
+.nfe-article table.tb-t { font-family: "Cabin", system-ui, sans-serif; font-size: .86em; line-height: 1.38; border-collapse: collapse; margin: 1em 0 1.3em; }
+.nfe-article table.tb-t caption { caption-side: top; text-align: left; font-family: "Literata", Georgia, serif; font-size: 1.04em; margin-bottom: .4em; }
+.nfe-article table.tb-t caption b { font-family: "Cabin", sans-serif; color: var(--accent); margin-right: .25em; }
+.nfe-article table.tb-t th { text-align: left; vertical-align: bottom; background: rgba(127,127,127,.14); border-bottom: 1.5px solid rgba(127,127,127,.7); padding: .4em .5em; }
+.nfe-article table.tb-t td { vertical-align: top; border-bottom: 1px solid rgba(127,127,127,.28); padding: .35em .5em; }
+
+.nfe-article figure.tb-fig { margin: 1.2em 0; break-inside: avoid; -webkit-column-break-inside: avoid; }
+.nfe-article figure.tb-fig svg { display: block; width: 100%; height: auto; max-height: 62vh; background: #FCFBF7; border-radius: 6px; padding: .5em; box-sizing: border-box; }
+.nfe-article figure.tb-fig figcaption { font-size: .86em; line-height: 1.4; margin-top: .45em; }
+.nfe-article figure.tb-fig figcaption b { font-family: "Cabin", sans-serif; color: var(--accent); margin-right: .25em; }
+.nfe-article .tb-fig svg text { font-family: "Cabin", system-ui, sans-serif; font-size: 13px; fill: #1a1a1a; stroke: none; }
+.nfe-article .tb-fig svg text.tm { fill: #555; font-size: 12px; }
+.nfe-article .tb-fig svg text.tb { font-weight: 700; }
+.nfe-article .tb-fig svg .f0 { fill: #fff; }
+.nfe-article .tb-fig svg .f1 { fill: #D6E8F7; } .nfe-article .tb-fig svg .f2 { fill: #FCE0CC; } .nfe-article .tb-fig svg .f3 { fill: #D9EFDC; }
+.nfe-article .tb-fig svg .f4 { fill: #EADCF3; } .nfe-article .tb-fig svg .f5 { fill: #FFF1BF; } .nfe-article .tb-fig svg .f6 { fill: #E7E9EC; }
+.nfe-article .tb-fig svg .f0, .nfe-article .tb-fig svg .f1, .nfe-article .tb-fig svg .f2, .nfe-article .tb-fig svg .f3, .nfe-article .tb-fig svg .f4, .nfe-article .tb-fig svg .f5, .nfe-article .tb-fig svg .f6 { stroke: #3a3a3a; stroke-width: 1; }
+.nfe-article .tb-fig svg .fs { fill: #1F5F99; stroke: none; }
+.nfe-article .tb-fig svg .s1, .nfe-article .tb-fig svg .s2, .nfe-article .tb-fig svg .s3, .nfe-article .tb-fig svg .s4 { fill: none; stroke-width: 2.4; }
+.nfe-article .tb-fig svg .s1 { stroke: #1F5F99; } .nfe-article .tb-fig svg .s2 { stroke: #C2410C; } .nfe-article .tb-fig svg .s3 { stroke: #15803D; } .nfe-article .tb-fig svg .s4 { stroke: #7E22CE; }
+.nfe-article .tb-fig svg .ln { stroke: #222; fill: none; stroke-width: 1.4; }
+.nfe-article .tb-fig svg .gr { stroke: #B5B5B5; fill: none; stroke-width: .8; }
+.nfe-article .tb-fig svg line:not([class]), .nfe-article .tb-fig svg path:not([class]), .nfe-article .tb-fig svg polyline:not([class]) { stroke: #222; fill: none; stroke-width: 1.4; }
+.nfe-article .tb-fig svg rect:not([class]), .nfe-article .tb-fig svg circle:not([class]), .nfe-article .tb-fig svg ellipse:not([class]), .nfe-article .tb-fig svg polygon:not([class]) { fill: none; stroke: #222; stroke-width: 1.2; }
+
+.nfe-article p.tb-sump b { font-family: "Cabin", sans-serif; color: var(--accent); }
+.nfe-article ol.tb-pyq { padding-left: 1.5em; }
+.nfe-article ol.tb-pyq li { margin-bottom: .9em; }
+.nfe-article ol.tb-pyq p { margin: 0 0 .25em; }
+.nfe-article ol.tb-pyq .src { font-family: "Cabin", sans-serif; font-size: .8em; opacity: .75; }
+.nfe-article ol.tb-pyq .opts { opacity: .8; font-size: .94em; }
+.nfe-article ol.tb-pyq .a b { font-family: "Cabin", sans-serif; color: var(--accent); }
+.nfe-article .tb-pdfs { display: flex; gap: .6em; flex-wrap: wrap; margin: .8em 0 1.2em; }
+.nfe-article .tb-pdfs a { font-family: "Cabin", system-ui, sans-serif; font-weight: 700; font-size: .9em; padding: .55em .9em; border-radius: 6px; border: 1.5px solid var(--accent); color: var(--accent); text-decoration: none; }
+
+/* Importance colour code (added at build from the question maps): High red, Medium amber, Lower grey */
+.nfe-article .tb-hy { display: inline-block; font-family: "Cabin", system-ui, sans-serif; font-weight: 700; font-size: .62em; line-height: 1; letter-spacing: .07em; text-transform: uppercase; padding: .38em .6em .32em; border: 1px solid; border-radius: 4px; margin-left: .7em; white-space: nowrap; vertical-align: .3em; }
+.nfe-article .tb-hy.hy3 { background: #C62828; border-color: #C62828; color: #fff; }
+.nfe-article .tb-hy.hy2 { background: #F6B40E; border-color: #F6B40E; color: #3A2900; }
+.nfe-article .tb-hy.hy1 { background: rgba(127,127,127,.12); border-color: rgba(127,127,127,.55); color: inherit; opacity: .85; }
+.nfe-article .booktoc .tb-hy { font-size: .58em; vertical-align: .15em; margin-left: .5em; }
+.nfe-article .tb-hyd { display: inline-block; white-space: nowrap; margin-left: .45em; vertical-align: .12em; line-height: 0; }
+.nfe-article .tb-hyd i { display: inline-block; width: .42em; height: .42em; border-radius: 50%; background: currentColor; margin-right: .16em; }
+.nfe-article .tb-hyd.hy3 { color: #C62828; } .nfe-article .tb-hyd.hy2 { color: #E39A00; } .nfe-article .tb-hyd.hy1 { color: #8A9AA3; }
+.nfe-article .tb-inthis li .tb-hyd { margin: 0 .45em 0 0; }
+.nfe-article p.tb-wt { font-family: "Cabin", system-ui, sans-serif; font-size: .88em; margin: .7em 0 .1em; padding-top: .55em; border-top: 1px solid rgba(127,127,127,.35); }
+.nfe-article p.tb-wt b { color: var(--accent); }
+html[data-book="on"][data-mode="dark"] .nfe-article .tb-hy.hy3 { background: #E0574B; border-color: #E0574B; color: #1A0E0C; }
+html[data-book="on"][data-mode="dark"] .nfe-article .tb-hy.hy2 { background: #F2C14E; border-color: #F2C14E; color: #241A00; }
+html[data-book="on"][data-mode="dark"] .nfe-article .tb-hyd.hy3 { color: #E8786D; }
+html[data-book="on"][data-mode="dark"] .nfe-article .tb-hyd.hy2 { color: #F2C14E; }
+
+/* High-yield sheet at the end of each chapter */
+.nfe-article h3.tb-endh[id$="-hy"] { border-top: 3px solid #C62828; }
+html[data-book="on"][data-mode="dark"] .nfe-article h3.tb-endh[id$="-hy"] { border-top-color: #E0574B; }
+.nfe-article p.tb-hyi { font-style: italic; opacity: .8; }
+.nfe-article ol.tb-hys { list-style: none; counter-reset: hy; padding: 0; margin: .3em 0 1em; }
+.nfe-article ol.tb-hys li { counter-increment: hy; position: relative; padding: .45em 0 .45em 2em; border-bottom: 1px solid rgba(127,127,127,.28); break-inside: avoid; -webkit-column-break-inside: avoid; }
+.nfe-article ol.tb-hys li::before { content: counter(hy); position: absolute; left: 0; top: .45em; font-family: "Cabin", sans-serif; font-weight: 700; color: var(--accent); }
+.nfe-article .tb-hyn { display: inline-block; font-family: "Cabin", sans-serif; font-weight: 700; font-size: .68em; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; margin-left: .4em; padding: .2em .45em; border: 1px solid rgba(127,127,127,.55); border-radius: 3px; opacity: .85; }
+
+/* "In this book": chapters one per row, their sections in two columns underneath (no doubled list numbers) */
+.nfe-article .booktoc > ol { columns: 1; list-style: none; padding-left: 0; }
+.nfe-article .booktoc > ol > li { margin: .7em 0 .1em; font-weight: 700; break-inside: avoid; -webkit-column-break-inside: avoid; }
+.nfe-article .booktoc ol ol { columns: 2; column-gap: 28px; list-style: none; padding-left: 1.1em; margin: .25em 0 .4em; font-weight: 400; }
+.nfe-article .booktoc ol ol li { break-inside: avoid; -webkit-column-break-inside: avoid; line-height: 1.45; margin-bottom: .3em; }
+@media (max-width: 600px) { .nfe-article .booktoc ol ol { columns: 1; } }

@@ -93,7 +93,7 @@ def _copy(src: Path, dst: Path):
 
 # Too big to bundle (GitHub refuses files over 100 MB). Pages that use these show
 # a pointer to the online Library in their place (see notes/psycho_didi_figs.py).
-LIVE_ONLY = ("notes/psycho-didi-figs",)
+LIVE_ONLY = ("notes/psycho-didi-figs", "downloads/final-textbook")  # final-textbook: ~50 MB of A4 print PDFs per book
 
 
 def drop_live_only(assets: Path):

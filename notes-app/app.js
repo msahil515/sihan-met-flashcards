@@ -35,6 +35,10 @@
      hide it. acc = cover colour, ink = the same hue dark enough for text on
      paper, night = light enough for text on the night page. */
   var SUBJECTS = [
+    { key: "final", name: "Final Textbook", short: "Final",
+      acc: "#155F6B", ink: "#155F6B", night: "#74C3CE",
+      sub: "The exam textbook by JSS subject, with A4 PDFs to print",
+      books: [] },  /* filled in shelve() from the "final" shelf: one book per chapter */
     { key: "biopsych", name: "Biopsych", short: "Biopsych",
       acc: "#C0462D", ink: "#A3361F", night: "#EC8E76",
       sub: "Neurons, the brain, neurotransmitters, sensation",
@@ -74,7 +78,7 @@
 
   /* the line printed at the foot of each cover: which set the book came from */
   var SERIES = {
-    depth: "Full depth", core: "Core notes", syllabus: "Rodrick Sir", psychodidi: "Psycho Didi",
+    final: "Final textbook", depth: "Full depth", core: "Core notes", syllabus: "Rodrick Sir", psychodidi: "Psycho Didi",
     reference: "Quick reference", strategy: "Exam strategy", coursework: "MA coursework",
     dsm: "DSM-5-TR", tests: "Test bank", requested: "You asked", stats: "From scratch",
     systems: "Systems and theories", amity: "Amity", rml: "RML CET-166", sgt: "SGT",
@@ -85,6 +89,9 @@
     var all = SUBJECTS.concat([ARCHIVE]);
     function put(g, e) { e.group = g.key; e.acc = g.acc; g.list.push(e); }
     all.forEach(function (g) { GROUPS[g.key] = g; g.list = []; });
+    DATA.shelves.forEach(function (sh) {
+      if (sh.key === "final") GROUPS.final.books = sh.chapters.map(function (c) { return c.slug; });
+    });
     all.forEach(function (g) {
       g.books.forEach(function (slug) { var e = BYSLUG[slug]; if (e && !e.group) put(g, e); });
     });
@@ -379,7 +386,7 @@
       '<p>' + esc(g.sub) + '</p>' +
       '<span class="fan">' + fan + (g.list.length > 5 ? '<span class="more">+' + (g.list.length - 5) + ' more</span>' : '') + '</span>' +
       '<span class="bar"><b style="width:' + pct + '%"></b></span>' +
-      '<span class="subj-f"><span>' + g.list.length + ' books</span><span>' + fmtTime(mins) + '</span></span></a>';
+      '<span class="subj-f"><span>' + g.list.length + (g.list.length === 1 ? ' book' : ' books') + '</span><span>' + fmtTime(mins) + '</span></span></a>';
   }
 
   /* ---------- a subject: book list + the chosen book's page ---------- */

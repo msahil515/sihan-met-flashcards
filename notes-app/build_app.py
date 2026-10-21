@@ -28,6 +28,7 @@ OUT_CONTENT = os.path.join(ROOT, "content")
 
 # ---- Shelves (display order) -------------------------------------------
 SECTIONS = [
+    ("final",     "Final Exam Textbook",  "One textbook for the JSS entrance, by subject, written Pinel style from every paper and syllabus, with A4 PDFs to print", "#155F6B", "#0F4650"),
     ("strategy",  "Exam Strategy",        "What actually gets tested, the repeated questions, the high-yield map", "#9d174d", "#831843"),
     ("depth",     "Textbooks in Full Depth", "The actual textbooks rewritten as explanatory prose, chapter by chapter, nothing compressed into fragments", "#7c2d12", "#431407"),
     ("coursework","MA Coursework",        "Your own MA course papers, built off the course reading list and taught from scratch", "#4d7c0f", "#365314"),
@@ -51,6 +52,10 @@ SECTIONS = [
 # kind "merged"  -> merged/<slug>.html (inner article HTML, uses book.css classes)
 # kind "note"    -> notes/<src>/index.html (or notes/<src>.html), chrome stripped
 BOOKS = [
+    # --- Final Exam Textbook: one book per chapter, listed in merged/final-books.json by /tmp/fx_book/build/ship.py ---
+    *[dict(slug=x["slug"], shelf="final", kind="merged", css="textbook.css", search_cap=60000, short=x["short"], blurb=x["blurb"])
+      for x in (json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "merged", "final-books.json")))
+                if os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), "merged", "final-books.json")) else [])],
     # --- Exam Strategy ---
     dict(slug="master-guide", shelf="strategy", kind="merged", search_cap=40000,
          short="Master Guide for Clinical Psychology (Amit Panwar)",
@@ -270,7 +275,7 @@ READER_TMPL = """<!DOCTYPE html>
 <link rel="stylesheet" href="../../notes-style.css">
 <link rel="stylesheet" href="/sihan-met-flashcards/notes/term-popover.css">
 <link rel="stylesheet" href="../book.css">
-<link rel="stylesheet" href="../reader.css">
+<link rel="stylesheet" href="../reader.css">{extra_css}
 <style>
 {styles}
 </style>
@@ -312,7 +317,8 @@ def main():
             if not title:
                 title = b["short"]
 
-        out = READER_TMPL.format(title=html.escape(title), styles=styles, content=content)
+        extra_css = ('\n<link rel="stylesheet" href="../%s">' % b["css"]) if b.get("css") else ""
+        out = READER_TMPL.format(title=html.escape(title), styles=styles, content=content, extra_css=extra_css)
         with open(os.path.join(OUT_CONTENT, slug + ".html"), "w", encoding="utf-8") as f:
             f.write(out)
 
