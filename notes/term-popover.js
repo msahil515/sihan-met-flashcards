@@ -1,432 +1,165 @@
-/* term-popover.js — tap a bolded term or abbreviation to see its definition.
-   Auto-picks every <b>/<strong>, plus common abbreviations (SMA, preSMA, fMRI,
-   NMDA, AMPA, HPA, BDNF, KF rings, etc.). Tap anywhere outside the popover to
-   close. Built 2026-05-28 for the rizzolatti page + every notes/ page.
+/* term-popover.js — tap an underlined term or abbreviation to see its definition.
+   Tap anywhere outside the popover to close.
 
-   Definitions come from ONE source: the curated built-in TERM_DEFS glossary
-   below (plus its ALIASES). A bolded word is only made tappable/underlined if
-   it actually resolves to a real definition here — so tapping always returns
-   the real definition of that exact term, never the surrounding sentence and
-   never a blank card. (Reworked 2026-06-17: the old on-page-sentence fallback
-   was dumping nearby text instead of a definition; it has been removed.) */
+   Definitions come only from the glossary in term-glossary.js, loaded from the
+   same folder. A bolded term, or an abbreviation in running text, is underlined
+   only when the glossary has it AND one of its senses fits where it appears
+   (page path, nearest heading, paragraph). So a tap always shows the real
+   definition of that exact term in that sense, and anything else stays plain.
+   (Rebuilt 2026-10-21, T088: the old 214-entry neuro dictionary and the fixed
+   abbreviation list that gave ERP, OR, AP etc. one meaning everywhere are gone.) */
 (function () {
   "use strict";
   if (window.__tpLoaded) return;
   window.__tpLoaded = true;
-
-  /* -------------------- 1. DEFINITIONS DICTIONARY -------------------- */
-
-  var TERM_DEFS = {
-    /* Neuroanatomy */
-    "sma": "Supplementary motor area. Medial premotor cortex (BA 6). Plans internally-generated, well-learned movement sequences. Lesion → akinesia, motor neglect, alien hand.",
-    "presma": "Pre-supplementary motor area. Rostral to SMA proper. Selects between competing motor plans, inhibits prepotent responses, big in stop-signal task and Libet readiness-potential studies.",
-    "m1": "Primary motor cortex (BA 4). Precentral gyrus. Direct projections to spinal motor neurons via corticospinal tract; somatotopic motor homunculus.",
-    "s1": "Primary somatosensory cortex (BA 1/2/3). Postcentral gyrus. Sensory homunculus.",
-    "v1": "Primary visual cortex (BA 17). Striate cortex. Calcarine fissure. Retinotopic.",
-    "a1": "Primary auditory cortex (BA 41/42). Heschl's gyrus, superior temporal lobe. Tonotopic.",
-    "ifg": "Inferior frontal gyrus. Houses Broca's area (BA 44/45) on the left and parts of the human mirror-neuron system.",
-    "ipl": "Inferior parietal lobule. Supramarginal + angular gyri. Part of the human mirror system, also implicated in apraxia and theory-of-mind tasks.",
-    "sts": "Superior temporal sulcus. Biological-motion processing, theory of mind, voice perception, audiovisual integration.",
-    "mfg": "Middle frontal gyrus. DLPFC sits here. Working memory, executive control.",
-    "dlpfc": "Dorsolateral prefrontal cortex (BA 9/46). Working memory, planning, cognitive control. Hypoactive in schizophrenia (hypofrontality) and depression.",
-    "vmpfc": "Ventromedial prefrontal cortex. Value, social emotion, Damasio's somatic-marker hypothesis. Phineas Gage lesion zone.",
-    "ofc": "Orbitofrontal cortex. Reward valuation, reversal learning, impulse control. Lesion → disinhibition, pseudopsychopathic syndrome.",
-    "acc": "Anterior cingulate cortex. Conflict monitoring, error detection (ERN), pain affect.",
-    "pcc": "Posterior cingulate cortex. Core node of the default-mode network. Self-referential thought.",
-    "dmn": "Default-mode network. PCC + mPFC + angular gyrus + lateral temporal. Active at rest, deactivates during goal-directed task. Disrupted in Alzheimer's, schizophrenia, depression.",
-    "vta": "Ventral tegmental area. Origin of the mesolimbic dopamine pathway (→ NAcc, reward) and mesocortical pathway (→ PFC). All drugs of abuse converge here.",
-    "snc": "Substantia nigra pars compacta. Origin of the nigrostriatal dopamine pathway (→ dorsal striatum). Degenerates in Parkinson's disease.",
-    "nacc": "Nucleus accumbens. Ventral striatum. Final common reward node; activity tracks prediction-error signals.",
-    "pag": "Periaqueductal grey. Midbrain. Endogenous opioid analgesia, defensive freezing/fight-or-flight.",
-    "lc": "Locus coeruleus. Pontine noradrenergic nucleus. Arousal, vigilance, REM-off cell group.",
-    "drn": "Dorsal raphe nucleus. Main source of cortical serotonin.",
-    "scn": "Suprachiasmatic nucleus. Hypothalamic master circadian pacemaker, entrained by retinohypothalamic light input.",
-    "pvn": "Paraventricular nucleus of the hypothalamus. Releases CRH (HPA axis) and oxytocin/vasopressin.",
-    "arc": "Arcuate nucleus of the hypothalamus. Two opposing neuron populations: POMC (anorexigenic) and NPY/AgRP (orexigenic). Hunger control hub.",
-    "lh": "Lateral hypothalamus. Hunger-on centre (orexin/hypocretin neurons). Lesion → aphagia.",
-    "vmh": "Ventromedial hypothalamus. Satiety centre. Lesion → hyperphagia, obesity (VMH syndrome).",
-    "mtl": "Medial temporal lobe. Hippocampus + entorhinal/perirhinal/parahippocampal cortex. Declarative memory, lesion → anterograde amnesia (H.M.).",
-    "ca1": "CA1 region of the hippocampus. Receives Schaffer collaterals from CA3; classic site of NMDA-dependent long-term potentiation.",
-    "ca3": "CA3 region of the hippocampus. Recurrent collaterals; pattern completion.",
-    "dg": "Dentate gyrus. Hippocampal input region. One of the few adult neurogenic sites.",
-    "ec": "Entorhinal cortex. Gateway to the hippocampus; grid cells.",
-
-    /* Neurotransmitters & molecules */
-    "nmda": "N-methyl-D-aspartate receptor. Glutamate-gated cation channel that needs both ligand and depolarisation to open (Mg²⁺ block); coincidence detector for Hebbian LTP.",
-    "ampa": "α-amino-3-hydroxy-5-methyl-4-isoxazolepropionic acid receptor. Fast glutamate ionotropic receptor; insertion of AMPA receptors is the expression mechanism of LTP.",
-    "gaba": "γ-aminobutyric acid. Main inhibitory neurotransmitter. GABA-A is a Cl⁻ channel (benzodiazepine, barbiturate, alcohol target); GABA-B is metabotropic (baclofen).",
-    "glu": "Glutamate. Main excitatory neurotransmitter in the CNS. Acts on NMDA, AMPA, kainate, and metabotropic mGluR receptors.",
-    "5-ht": "5-hydroxytryptamine. Serotonin. Raphe nuclei. Mood, sleep, appetite, aggression. SSRIs.",
-    "da": "Dopamine. Catecholamine. Reward prediction error (mesolimbic), motor control (nigrostriatal), executive function (mesocortical), prolactin inhibition (tuberoinfundibular).",
-    "ne": "Norepinephrine (noradrenaline). Locus coeruleus. Arousal, vigilance, fight-or-flight (with adrenal medulla).",
-    "ach": "Acetylcholine. Basal forebrain → cortex (memory, lost in Alzheimer's), pedunculopontine → thalamus (REM), and at the neuromuscular junction.",
-    "bdnf": "Brain-derived neurotrophic factor. Neurotrophin that supports neuronal survival, synaptic plasticity (drives late-phase LTP), and adult neurogenesis. Low in depression; SSRI/ketamine/exercise raise it.",
-    "creb": "cAMP response element-binding protein. Transcription factor activated downstream of PKA; gates the gene-transcription step that turns early-phase into late-phase LTP and short-term into long-term memory.",
-    "ltp": "Long-term potentiation. Persistent strengthening of a synapse after high-frequency stimulation. NMDA-dependent in CA1. The cellular model for Hebbian learning.",
-    "ltd": "Long-term depression. Persistent weakening of a synapse after low-frequency stimulation. Removes AMPA receptors. Cerebellar LTD underlies motor learning.",
-    "epsp": "Excitatory postsynaptic potential. Small depolarisation; sums spatially and temporally to reach threshold.",
-    "ipsp": "Inhibitory postsynaptic potential. Hyperpolarisation, typically Cl⁻ influx via GABA-A.",
-    "ap": "Action potential. All-or-none spike. ~−55 mV threshold, peaks +30–40 mV. Na⁺ in (depolarise), K⁺ out (repolarise), refractory period, propagates saltatorily on myelinated axons.",
-    "crh": "Corticotropin-releasing hormone. PVN → anterior pituitary. Top of the HPA axis.",
-    "acth": "Adrenocorticotropic hormone. Anterior pituitary → adrenal cortex; drives cortisol release.",
-    "hpa": "Hypothalamic-pituitary-adrenal axis. CRH → ACTH → cortisol. Negative feedback on hippocampus, PVN, pituitary. Chronic stress dysregulates feedback → hippocampal atrophy.",
-    "hpg": "Hypothalamic-pituitary-gonadal axis. GnRH → LH/FSH → testes/ovaries.",
-    "hpt": "Hypothalamic-pituitary-thyroid axis. TRH → TSH → T3/T4.",
-
-    /* Imaging / methods */
-    "fmri": "Functional magnetic resonance imaging. Measures the BOLD signal (deoxyhaemoglobin contrast) as an indirect proxy for neural activity. Spatial mm, temporal seconds.",
-    "bold": "Blood-oxygen-level-dependent signal. The contrast fMRI measures; rises with neural activity because of an over-supply of oxygenated blood (the haemodynamic response).",
-    "pet": "Positron emission tomography. Tracks a radio-labelled tracer (FDG for glucose, raclopride for D2 receptors, etc.). Worse spatial/temporal resolution than fMRI but lets you image specific neurochemistry.",
-    "eeg": "Electroencephalography. Scalp electrodes. Millisecond temporal resolution, poor spatial. Bands: delta <4, theta 4–8, alpha 8–13, beta 13–30, gamma 30–80 Hz.",
-    "erp": "Event-related potential. Time-locked averaging of EEG. Components: P300 (oddball/working memory), N400 (semantic violation), MMN (mismatch negativity), ERN (error-related negativity), CNV (contingent negative variation).",
-    "meg": "Magnetoencephalography. Measures magnetic fields from cortical currents. Same temporal resolution as EEG, better spatial localisation, expensive.",
-    "tms": "Transcranial magnetic stimulation. Pulsed magnetic field induces a current in cortex; can excite or transiently disrupt a region. Used as therapy (rTMS for depression) and to test causal role of a region.",
-    "tdcs": "Transcranial direct current stimulation. Weak DC scalp current; anodal excites, cathodal inhibits. Mostly research, limited therapy evidence.",
-    "dti": "Diffusion tensor imaging. MRI sequence that maps water diffusion to reconstruct white-matter tracts. Used to image disconnections (e.g. callosal damage, schizophrenia).",
-    "ct": "Computed tomography. X-ray; good for bleeds and bone, poor soft-tissue contrast. Quick: first-line in acute stroke.",
-    "mri": "Magnetic resonance imaging. Structural soft-tissue contrast; no ionising radiation. Sequences: T1, T2, FLAIR, DWI.",
-
-    /* Cognitive psych / memory */
-    "wm": "Working memory. Baddeley's model: central executive + phonological loop + visuospatial sketchpad + episodic buffer (added 2000).",
-    "ltm": "Long-term memory. Declarative (episodic + semantic) + procedural; explicit vs implicit.",
-    "stm": "Short-term memory. ~7 ± 2 items, ~20 s without rehearsal (Atkinson-Shiffrin).",
-    "tot": "Tip-of-the-tongue state. Retrieval failure with strong feeling-of-knowing; Brown & McNeill 1966.",
-    "fok": "Feeling of knowing. Metacognitive judgement that one would recognise a non-recalled item.",
-
-    /* Psychiatry */
-    "dsm": "Diagnostic and Statistical Manual of Mental Disorders. APA. Categorical (mostly) classification. DSM-5 (2013), DSM-5-TR (2022).",
-    "icd": "International Classification of Diseases. WHO. ICD-11 became effective 2022. Used clinically worldwide; MET often tests ICD-10/11 codes.",
-    "ocd": "Obsessive-compulsive disorder. Egodystonic obsessions + compulsions. Cortico-striato-thalamo-cortical loop hyperactivity. First-line: SSRI + ERP.",
-    "ptsd": "Post-traumatic stress disorder. Intrusion + avoidance + negative cognition/mood + hyperarousal, >1 month after Criterion-A trauma. Hippocampus shrinks; amygdala overresponds.",
-    "gad": "Generalised anxiety disorder. Excessive worry, ≥6 months, ≥3 of 6 somatic symptoms.",
-    "mdd": "Major depressive disorder. ≥5 of 9 symptoms (SIGECAPS + low mood/anhedonia), ≥2 weeks.",
-    "bpd": "Borderline personality disorder. Affective instability, identity diffusion, impulsivity, fear of abandonment, splitting defence. DBT is first-line.",
-    "asd": "Autism spectrum disorder. Social-communication deficits + restricted/repetitive behaviours, onset early development. (Also sometimes 'acute stress disorder' — context matters.)",
-    "adhd": "Attention-deficit/hyperactivity disorder. Inattention and/or hyperactivity-impulsivity, ≥6 symptoms, ≥6 months, multiple settings, onset <12 (DSM-5).",
-    "sz": "Schizophrenia. Positive (delusions, hallucinations, disorganisation) + negative (avolition, alogia, flat affect, anhedonia) + cognitive symptoms. ≥1 month positive + ≥6 months total course.",
-    "ssri": "Selective serotonin reuptake inhibitor. Blocks SERT. Fluoxetine, sertraline, escitalopram, paroxetine. First-line for MDD, OCD, GAD, PTSD, panic.",
-    "snri": "Serotonin-norepinephrine reuptake inhibitor. Venlafaxine, duloxetine. Depression, anxiety, neuropathic pain.",
-    "tca": "Tricyclic antidepressant. Amitriptyline, imipramine, clomipramine. Blocks SERT/NET + anticholinergic/antihistamine side effects. Lethal in overdose (QT, arrhythmia).",
-    "maoi": "Monoamine oxidase inhibitor. Phenelzine, tranylcypromine, moclobemide (RIMA), selegiline. Tyramine-rich foods → hypertensive crisis.",
-    "ect": "Electroconvulsive therapy. Brief electrical stimulus under GA → generalised seizure. Fastest acting for severe depression, catatonia, treatment-resistant SZ. Side: anterograde amnesia.",
-    "cbt": "Cognitive behavioural therapy. Beck (cognitive) + behavioural techniques. Targets distorted automatic thoughts → core beliefs.",
-    "dbt": "Dialectical behaviour therapy. Linehan. Skills (mindfulness, distress tolerance, emotion regulation, interpersonal effectiveness) + individual + phone coaching + team consult. First-line for BPD.",
-    "emdr": "Eye movement desensitisation and reprocessing. Shapiro 1987. Bilateral stimulation (eye movements) during trauma recall. 8-phase protocol. Effective for PTSD.",
-    "ipt": "Interpersonal psychotherapy. Klerman & Weissman. Targets four foci: grief, role disputes, role transitions, interpersonal deficits. Evidence in MDD, bulimia, perinatal depression.",
-    "act": "Acceptance and commitment therapy. Hayes. Third-wave CBT. Hexaflex: acceptance, defusion, present moment, self-as-context, values, committed action.",
-    "epse": "Extrapyramidal side effects. From D2 blockade. Acute dystonia (hours), akathisia (days), parkinsonism (weeks), tardive dyskinesia (months-years).",
-
-    /* Clinical signs */
-    "kf rings": "Kayser-Fleischer rings. Brown copper deposits at the corneal limbus. Pathognomonic of Wilson's disease (autosomal recessive ATP7B mutation; hepatolenticular degeneration; tremor, dystonia, dysarthria, psychiatric features).",
-    "danish": "Cerebellar signs mnemonic. Dysdiadochokinesia, Ataxia, Nystagmus, Intention tremor, Slurred (scanning) speech, Hypotonia. The classic cerebellar lesion syndrome.",
-    "siadh": "Syndrome of inappropriate antidiuretic hormone secretion. Euvolaemic hyponatraemia with concentrated urine. Drug-induced (SSRIs, carbamazepine, antipsychotics) is common in psychiatry.",
-    "nms": "Neuroleptic malignant syndrome. Antipsychotic reaction: hyperthermia, rigidity (lead-pipe), autonomic instability, altered mental status, raised CK. Mortality ~10%. Treat: stop drug, bromocriptine/dantrolene.",
-    "ss": "Serotonin syndrome. SSRI/MAOI etc. overload: clonus (esp. lower limb), hyperreflexia, agitation, autonomic instability, hyperthermia. Differs from NMS by clonus and faster onset.",
-
-    /* Stats */
-    "anova": "Analysis of variance. Compares means across ≥3 groups via the F-ratio (between/within variance). Fisher.",
-    "ancova": "Analysis of covariance. ANOVA with continuous covariate(s) to control for confounders.",
-    "manova": "Multivariate analysis of variance. Multiple DVs simultaneously. Pillai's, Wilks' lambda, Hotelling's.",
-    "rr": "Relative risk (risk ratio). Risk in exposed / risk in unexposed. Used in cohort studies. RR = 1 → no effect.",
-    "or": "Odds ratio. Odds in cases / odds in controls. Used in case-control studies. OR = 1 → no effect.",
-    "hr": "Hazard ratio. Cox proportional-hazards model; instantaneous risk ratio over time.",
-    "nnt": "Number needed to treat. 1 / absolute risk reduction. The number of patients you must treat to prevent one bad outcome.",
-    "ci": "Confidence interval. Range that would contain the true parameter in a given % of repeated samples (usually 95%). If a 95% CI for a difference crosses 0 (or RR/OR crosses 1), the result is not significant at α=.05.",
-    "sem": "Standard error of the mean. SD / √n. Shrinks with sample size.",
-    "sd": "Standard deviation. Spread of raw scores. ~68% within ±1 SD on a normal curve.",
-    "iqr": "Interquartile range. Q3 − Q1. Robust spread measure for skewed data.",
-
-    /* Researchers / theorists (mini-cards) */
-    "rizzolatti": "Giacomo Rizzolatti (Parma). With di Pellegrino, Fadiga, Gallese, Fogassi, discovered mirror neurons in macaque area F5 of premotor cortex in the early 1990s. Cells fire both when the monkey acts and when it watches another do the same act. Proposed substrate for imitation, action understanding, theory of mind.",
-    "di pellegrino": "Giuseppe di Pellegrino. Co-discoverer of mirror neurons with Rizzolatti's Parma group, 1992.",
-    "gallese": "Vittorio Gallese. Parma group. Extended mirror-neuron work into embodied simulation theory.",
-    "broca": "Paul Broca (1861). Patient 'Tan'. Left inferior frontal gyrus lesion → non-fluent aphasia (effortful, agrammatic, good comprehension).",
-    "wernicke": "Carl Wernicke (1874). Left posterior superior temporal lesion → fluent aphasia (paraphasias, neologisms, poor comprehension).",
-    "geschwind": "Norman Geschwind. Disconnection-syndrome framework; conduction aphasia from arcuate-fasciculus lesion; Geschwind territory (left inferior parietal).",
-    "papez": "James Papez (1937). Proposed the Papez circuit (hippocampus → fornix → mammillary bodies → anterior thalamus → cingulate → hippocampus) as the emotion circuit. Klüver-Bucy and later MacLean expanded it into the limbic system.",
-    "maclean": "Paul MacLean. Triune-brain (reptilian, paleomammalian/limbic, neomammalian) — historically influential, now largely rejected. Coined 'limbic system'.",
-    "kluver": "Heinrich Klüver. With Paul Bucy (1939), described Klüver-Bucy syndrome after bilateral temporal lobectomy in monkeys: hyperorality, hypersexuality, visual agnosia, placidity, hypermetamorphosis.",
-    "hebb": "Donald Hebb (1949). 'Cells that fire together wire together' — the principle underlying LTP.",
-    "kandel": "Eric Kandel. Aplysia gill-withdrawal: habituation, sensitisation, classical conditioning. Showed the cellular and molecular basis of short-term and long-term memory. Nobel 2000.",
-    "olds": "James Olds & Peter Milner (1954). Discovered the brain's reward system via intracranial self-stimulation in rats — septal area, then medial forebrain bundle.",
-    "schultz": "Wolfram Schultz. Showed midbrain dopamine neurons code reward prediction error: fire to unexpected reward, shift to predictive cue, decrease below baseline if predicted reward is omitted.",
-    "damasio": "Antonio Damasio. Somatic-marker hypothesis; vmPFC and the role of bodily feedback in decision-making. Iowa Gambling Task.",
-    "ledoux": "Joseph LeDoux. Mapped the low-road/high-road fear circuit: thalamus → amygdala (fast, crude) vs thalamus → cortex → amygdala (slow, detailed).",
-    "milner": "Brenda Milner. Studied H.M. (Henry Molaison) post bilateral medial-temporal-lobe resection — preserved procedural learning (mirror tracing) despite dense anterograde amnesia. Founded human neuropsychology of memory.",
-    "tulving": "Endel Tulving. Episodic vs semantic memory (1972), encoding-specificity principle, autonoetic consciousness.",
-    "baddeley": "Alan Baddeley. Working-memory model (1974, expanded 2000 with episodic buffer). Phonological loop + visuospatial sketchpad + central executive + episodic buffer.",
-    "atkinson": "Atkinson & Shiffrin (1968). Modal model: sensory register → STM → LTM, with control processes (rehearsal etc.).",
-    "ebbinghaus": "Hermann Ebbinghaus (1885). First experimental memory study; nonsense syllables; forgetting curve; savings method; spacing effect.",
-    "freud": "Sigmund Freud. Psychoanalysis; id/ego/superego; topographic (conscious/preconscious/unconscious); psychosexual stages; defence mechanisms.",
-    "jung": "Carl Jung. Analytical psychology; collective unconscious; archetypes; individuation; introversion/extraversion; word association.",
-    "adler": "Alfred Adler. Individual psychology; inferiority/superiority; striving for superiority; birth order; social interest.",
-    "erikson": "Erik Erikson. 8 psychosocial stages, each a crisis (trust vs mistrust → integrity vs despair).",
-    "piaget": "Jean Piaget. Genetic epistemology; 4 stages (sensorimotor, preoperational, concrete operational, formal operational); schemas; assimilation/accommodation; conservation; egocentrism.",
-    "vygotsky": "Lev Vygotsky. Sociocultural theory; zone of proximal development (ZPD); scaffolding; private/inner speech; cultural tools.",
-    "bandura": "Albert Bandura. Social learning theory; Bobo doll (1961); self-efficacy; reciprocal determinism; observational learning.",
-    "skinner": "B. F. Skinner. Radical behaviourism; operant conditioning; reinforcement schedules; Skinner box; verbal behavior.",
-    "watson": "John B. Watson. Founder of behaviourism (1913); Little Albert (with Rosalie Rayner, 1920); classical conditioning of fear.",
-    "pavlov": "Ivan Pavlov. Classical conditioning; CS/US/CR/UR; salivation in dogs; experimental neurosis; second-signal system.",
-    "thorndike": "Edward Thorndike. Law of effect; puzzle box; cats; connectionism — precursor to operant conditioning.",
-    "tolman": "Edward Tolman. Cognitive maps; latent learning; purposive behaviourism.",
-    "kohler": "Wolfgang Köhler. Gestalt psychology; insight learning in chimpanzees (Sultan, sticks, bananas).",
-    "wertheimer": "Max Wertheimer. Founder of Gestalt; phi phenomenon (1912); laws of perceptual organisation.",
-    "maslow": "Abraham Maslow. Humanistic; hierarchy of needs (physiological → safety → love/belonging → esteem → self-actualisation); B-needs vs D-needs.",
-    "rogers": "Carl Rogers. Person-centred therapy; unconditional positive regard, empathy, congruence; Q-sort; self-concept.",
-    "ellis": "Albert Ellis. Rational emotive behaviour therapy (REBT); ABC model (Activating event → Beliefs → Consequences); irrational beliefs.",
-    "beck": "Aaron T. Beck. Cognitive therapy; cognitive triad (self/world/future); automatic thoughts; cognitive distortions; BDI, BAI, BHS.",
-    "seligman": "Martin Seligman. Learned helplessness; positive psychology; PERMA; explanatory style; authentic happiness.",
-    "ainsworth": "Mary Ainsworth. Strange Situation procedure; attachment classifications: secure, insecure-avoidant, insecure-resistant/ambivalent; later disorganised added by Main & Solomon.",
-    "bowlby": "John Bowlby. Attachment theory; internal working models; monotropy; critical/sensitive period; 44 thieves; ethology-influenced.",
-    "harlow": "Harry Harlow. Rhesus monkey wire vs cloth mother; contact comfort > feeding; social isolation studies.",
-    "bronfenbrenner": "Urie Bronfenbrenner. Ecological systems theory; micro/meso/exo/macro/chrono; later bioecological PPCT model.",
-    "kohlberg": "Lawrence Kohlberg. Moral development; 3 levels × 2 stages: preconventional, conventional, postconventional; Heinz dilemma.",
-    "gilligan": "Carol Gilligan. Critiqued Kohlberg; care vs justice ethic; gender differences in moral reasoning.",
-    "yalom": "Irvin Yalom. Existential therapy and group therapy. 11 therapeutic factors of group therapy; 4 ultimate concerns (death, freedom, isolation, meaninglessness).",
-    "frankl": "Viktor Frankl. Logotherapy; will to meaning; paradoxical intention; 'Man's Search for Meaning'.",
-    "may": "Rollo May. American existential psychology; anxiety as ontological; daimonic.",
-    "perls": "Fritz Perls. Gestalt therapy; here-and-now; empty chair; top-dog/under-dog.",
-    "horney": "Karen Horney. Neo-Freudian; neurotic needs; basic anxiety; womb envy; moving toward/against/away from people.",
-    "fromm": "Erich Fromm. Neo-Freudian/humanistic; escape from freedom; productive vs unproductive orientations.",
-    "sullivan": "Harry Stack Sullivan. Interpersonal theory; chumship; modes of experience (prototaxic/parataxic/syntaxic).",
-    "klein": "Melanie Klein. Object relations; paranoid-schizoid vs depressive position; splitting; projective identification.",
-    "winnicott": "Donald Winnicott. True/false self; good-enough mother; transitional object; holding environment.",
-    "kohut": "Heinz Kohut. Self psychology; selfobject; empathic mirroring; idealising/twinship transferences.",
-    "kernberg": "Otto Kernberg. Object relations; borderline personality organisation; structural interview; transference-focused psychotherapy.",
-    "mahler": "Margaret Mahler. Separation-individuation: normal autistic, normal symbiotic, then sub-phases (differentiation, practising, rapprochement, object constancy).",
-    "linehan": "Marsha Linehan. Developed DBT for borderline personality disorder.",
-    "shapiro": "Francine Shapiro. EMDR (1987); 8-phase protocol.",
-    "wolpe": "Joseph Wolpe. Systematic desensitisation; reciprocal inhibition; SUDS hierarchy.",
-    "lazarus": "Arnold Lazarus (multimodal BASIC ID) or Richard Lazarus (transactional model of stress, appraisal-coping).",
-    "selye": "Hans Selye. General adaptation syndrome (alarm → resistance → exhaustion); coined 'stress'.",
-    "festinger": "Leon Festinger. Cognitive dissonance (1957); social comparison theory.",
-    "asch": "Solomon Asch. Conformity line-judgement (1951); ~33% conformed; informational and normative influence.",
-    "milgram": "Stanley Milgram. Obedience to authority (1963); 65% delivered max shock; six degrees of separation.",
-    "zimbardo": "Philip Zimbardo. Stanford Prison Experiment (1971); deindividuation; situational power.",
-    "tajfel": "Henri Tajfel. Social identity theory; minimal-group paradigm; in-group/out-group bias.",
-    "bartlett": "Frederic Bartlett (1932). 'War of the Ghosts'; schemas; reconstructive memory.",
-    "loftus": "Elizabeth Loftus. Misinformation effect; eyewitness testimony; lost-in-the-mall; false memories.",
-    "binet": "Alfred Binet. With Théodore Simon (1905), first practical intelligence test; mental age; commissioned by the French ministry to identify children needing extra help.",
-    "stern": "William Stern (1912). Coined IQ = (mental age / chronological age) × 100. Quotient IQ.",
-    "terman": "Lewis Terman. Stanford revision of Binet-Simon (Stanford-Binet, 1916). Genetic Studies of Genius longitudinal sample.",
-    "wechsler": "David Wechsler. Wechsler-Bellevue (1939) → WAIS (1955) → WAIS-IV (2008) → WAIS-5 (2024). Deviation IQ (M=100, SD=15). Verbal + performance; later four indices.",
-    "spearman": "Charles Spearman (1904). Two-factor theory of intelligence: g (general) + s (specific). Factor analysis pioneer.",
-    "thurstone": "Louis Thurstone. Primary mental abilities (7 PMAs); against pure g.",
-    "cattell-horn": "Raymond Cattell + John Horn. Fluid (Gf) vs crystallised (Gc) intelligence.",
-    "carroll": "John B. Carroll. Three-stratum theory; integrated into CHC (Cattell-Horn-Carroll) model.",
-    "gardner": "Howard Gardner. Multiple intelligences (linguistic, logical-math, spatial, musical, bodily-kinaesthetic, interpersonal, intrapersonal, naturalist, existential).",
-    "sternberg": "Robert Sternberg. Triarchic theory (analytical, creative, practical); WICS; triangular theory of love.",
-    "goleman": "Daniel Goleman. Popularised emotional intelligence (1995). EI ≠ Mayer-Salovey ability EI; trait/mixed model.",
-    "mayer-salovey": "Peter Salovey & John Mayer. Ability model of emotional intelligence (1990); MSCEIT.",
-
-    /* Mirror-neuron / motor-system specific (the rizzolatti page) */
-    "mirror neurons": "Neurons that fire both when an individual performs a goal-directed action and when they observe another performing it. Discovered by Rizzolatti's Parma group in macaque area F5 (early 1990s). Proposed substrate for action understanding, imitation, empathy and theory of mind. Human homologues: inferior frontal gyrus + inferior parietal lobule + superior temporal sulcus.",
-    "f5": "Area F5 of the macaque premotor cortex. Where mirror neurons were first recorded. Houses both canonical neurons (object-shape coding) and mirror neurons.",
-    "canonical neurons": "Premotor F5 neurons that fire when a graspable object of a particular shape is seen, even without movement. The 'sister population' to mirror neurons.",
-    "premotor cortex": "Lateral BA 6. Plans externally-cued, visually-guided movement (vs SMA, internally generated).",
-    "corticospinal tract": "Pyramidal tract. M1 → internal capsule → cerebral peduncle → medullary pyramid → decussates (~85%) → lateral corticospinal tract → ventral horn motor neurons. Lesion above decussation = contralateral; below = ipsilateral.",
-    "pyramidal decussation": "Crossing of ~85% of corticospinal fibres at the caudal medulla (pyramids), forming the lateral corticospinal tract. The remaining ~15% stay ipsilateral as the ventral corticospinal tract.",
-    "basal ganglia": "Caudate + putamen (striatum) + globus pallidus (internal/external) + substantia nigra + subthalamic nucleus. Action selection. Direct pathway facilitates, indirect inhibits. Parkinson's (DA loss) → indirect dominant; Huntington's (striatal loss) → direct dominant.",
-    "cerebellum": "Coordinates timing and accuracy of movement; motor learning; cognitive/affective via cerebro-cerebellar loops. Cerebellar lesion = DANISH.",
-
-    /* Stress & misc */
-    "gas": "General Adaptation Syndrome. Selye 1936. Alarm → Resistance → Exhaustion.",
-    "ern": "Error-related negativity. Negative ERP peaking ~50–100 ms after an erroneous response. Generated by the ACC.",
-    "mmn": "Mismatch negativity. Pre-attentive ERP component (~150–250 ms) to a deviant in a stream of standards. Auditory cortex generator. Reduced in schizophrenia.",
-    "p300": "Positive ERP component ~300 ms after a task-relevant rare stimulus. Indexes attention/working memory. Reduced amplitude in schizophrenia, alcoholism.",
-    "n400": "Negative ERP ~400 ms to semantic violations ('She buttered her bread with socks'). Kutas & Hillyard 1980. Indexes semantic processing.",
-    "cnv": "Contingent negative variation. Slow negative shift between a warning and a target stimulus. Indexes anticipation/preparation.",
-
-    /* High-frequency exam terms (learning, development, assessment) */
-    "classical conditioning": "Pavlovian learning. A neutral stimulus (CS) paired with an unconditioned stimulus (US) comes to elicit a conditioned response (CR). Acquisition, extinction, spontaneous recovery, generalisation, discrimination. Pavlov, Watson (Little Albert).",
-    "operant conditioning": "Instrumental learning. Behaviour is shaped by its consequences: reinforcement (increases behaviour) vs punishment (decreases it), each positive (add) or negative (remove). Skinner; built on Thorndike's law of effect.",
-    "law of effect": "Thorndike's principle: responses followed by satisfaction are strengthened (stamped in), those followed by discomfort are weakened. The conceptual ancestor of operant conditioning.",
-    "reinforcement": "Any consequence that increases the future probability of a behaviour. Positive = add a pleasant stimulus; negative = remove an aversive one. Not the same as punishment.",
-    "negative reinforcement": "Removing an aversive stimulus to increase a behaviour (e.g. seatbelt alarm stops when you buckle up). Increases behaviour — it is NOT punishment.",
-    "token economy": "Operant behaviour-modification system: target behaviours earn tokens (secondary reinforcers) exchangeable for backup reinforcers. Used in wards, classrooms, with chronic SZ.",
-    "object permanence": "The understanding that objects continue to exist when out of sight. Develops in Piaget's sensorimotor stage (~8 months), tested by hidden-object search; failure → A-not-B error.",
-    "conservation": "Piagetian concept: quantity stays the same despite changes in appearance (number, mass, volume). Acquired in the concrete-operational stage; pre-operational children fail due to centration.",
-    "cognitive triad": "Beck's triad of negative views in depression: negative views of the self, the world, and the future. Targeted by cognitive therapy.",
-    "reliability": "Consistency of a measure. Types: test-retest (stability over time), inter-rater, parallel-forms, internal consistency (Cronbach's alpha, split-half). Necessary but not sufficient for validity.",
-    "validity": "Whether a test measures what it claims to. Types: content, criterion (concurrent + predictive), construct (convergent + discriminant), face. A test can be reliable yet invalid.",
-    "internal consistency": "How well a test's items measure the same construct. Indexed by Cronbach's alpha (and split-half reliability). High alpha → items hang together.",
-    "positive symptoms": "Schizophrenia symptoms that ADD to normal experience: delusions, hallucinations, disorganised speech/behaviour. Linked to mesolimbic dopamine excess; respond to D2 blockade.",
-    "negative symptoms": "Schizophrenia symptoms that SUBTRACT from normal function: blunted affect, alogia, avolition, anhedonia, asociality. Linked to mesocortical dopamine deficit; poorly responsive to typical antipsychotics."
-  };
-
-  /* Aliases: map common written forms to dictionary keys */
-  var ALIASES = {
-    "kayser-fleischer rings": "kf rings",
-    "kayser fleischer rings": "kf rings",
-    "rizzolatti's": "rizzolatti",
-    "rizzolatti et al.": "rizzolatti",
-    "rizzolatti et al": "rizzolatti",
-    "rizzolatti and gallese": "rizzolatti",
-    "di pellegrino, rizzolatti": "rizzolatti",
-    "mirror neuron": "mirror neurons",
-    "supplementary motor area": "sma",
-    "pre-supplementary motor area": "presma",
-    "presupplementary motor area": "presma",
-    "default mode network": "dmn",
-    "default-mode network": "dmn",
-    "hypothalamic-pituitary-adrenal": "hpa",
-    "hypothalamic-pituitary-adrenal axis": "hpa",
-    "hpa axis": "hpa",
-    "long-term potentiation": "ltp",
-    "long term potentiation": "ltp",
-    "long-term depression": "ltd",
-    "action potential": "ap",
-    "event-related potential": "erp",
-    "event related potential": "erp",
-    "functional magnetic resonance imaging": "fmri",
-    "supplementary motor area (sma)": "sma",
-    "ventral tegmental area": "vta",
-    "nucleus accumbens": "nacc",
-    "substantia nigra": "snc",
-    "locus coeruleus": "lc",
-    "dorsal raphe": "drn",
-    "suprachiasmatic nucleus": "scn",
-    "paraventricular nucleus": "pvn",
-    "arcuate nucleus": "arc",
-    "lateral hypothalamus": "lh",
-    "ventromedial hypothalamus": "vmh",
-    "medial temporal lobe": "mtl",
-    "dentate gyrus": "dg",
-    "entorhinal cortex": "ec",
-    "anterior cingulate": "acc",
-    "posterior cingulate": "pcc",
-    "primary motor cortex": "m1",
-    "primary visual cortex": "v1",
-    "primary auditory cortex": "a1",
-    "primary somatosensory cortex": "s1",
-    "ventromedial prefrontal cortex": "vmpfc",
-    "orbitofrontal cortex": "ofc",
-    "dorsolateral prefrontal cortex": "dlpfc",
-    "inferior frontal gyrus": "ifg",
-    "inferior parietal lobule": "ipl",
-    "superior temporal sulcus": "sts",
-    "norepinephrine": "ne",
-    "noradrenaline": "ne",
-    "dopamine": "da",
-    "serotonin": "5-ht",
-    "acetylcholine": "ach",
-    "glutamate": "glu",
-    "borderline personality disorder": "bpd",
-    "major depressive disorder": "mdd",
-    "generalised anxiety disorder": "gad",
-    "generalized anxiety disorder": "gad",
-    "obsessive-compulsive disorder": "ocd",
-    "obsessive compulsive disorder": "ocd",
-    "post-traumatic stress disorder": "ptsd",
-    "posttraumatic stress disorder": "ptsd",
-    "autism spectrum disorder": "asd",
-    "attention-deficit/hyperactivity disorder": "adhd",
-    "attention deficit hyperactivity disorder": "adhd",
-    "schizophrenia": "sz",
-    "transcranial magnetic stimulation": "tms",
-    "transcranial direct current stimulation": "tdcs",
-    "diffusion tensor imaging": "dti",
-    "magnetoencephalography": "meg",
-    "positron emission tomography": "pet",
-    "electroencephalography": "eeg",
-    "electroconvulsive therapy": "ect",
-    "cognitive behavioural therapy": "cbt",
-    "cognitive behavior therapy": "cbt",
-    "cognitive behavioral therapy": "cbt",
-    "dialectical behaviour therapy": "dbt",
-    "dialectical behavior therapy": "dbt",
-    "eye movement desensitisation and reprocessing": "emdr",
-    "interpersonal psychotherapy": "ipt",
-    "acceptance and commitment therapy": "act",
-    "general adaptation syndrome": "gas",
-    "mismatch negativity": "mmn",
-    "error-related negativity": "ern",
-    "contingent negative variation": "cnv",
-    "working memory": "wm",
-    "long-term memory": "ltm",
-    "short-term memory": "stm",
-    "tip-of-the-tongue": "tot",
-    "feeling of knowing": "fok",
-    "rizzolatti": "rizzolatti",
-    "premotor area": "premotor cortex",
-    "area f5": "f5",
-    "kf ring": "kf rings"
-  };
-
-  /* Abbreviations regex — used to wrap things like "SMA", "fMRI", "preSMA",
-     "BDNF", "5-HT", "KF rings" when they appear in plain text (not inside
-     <b>/<strong>, links, headings or code). We exclude single-letter All-caps
-     starts of sentences via word-boundary + minimum length. */
-  /* Non-capturing group: this regex's .source gets nested inside another
-     capturing group when building `combined` for String.split() below. A
-     capturing group here would make split() emit each match twice (outer +
-     inner capture), doubling abbreviations into "EEGEEG"/"ANOVAANOVA". */
-  var ABBR_REGEX = new RegExp(
-    "\\b(?:" +
-      "preSMA|fMRI|SMA|M1|S1|V1|A1|IFG|IPL|STS|DLPFC|VMPFC|OFC|ACC|PCC|MFG|" +
-      "DMN|VTA|SNc|NAcc|PAG|LC|DRN|SCN|PVN|ARC|LH|VMH|MTL|CA1|CA3|DG|EC|" +
-      "NMDA|AMPA|GABA|GLU|5-HT|DA|NE|ACh|BDNF|CREB|LTP|LTD|EPSP|IPSP|AP|" +
-      "CRH|ACTH|HPA|HPG|HPT|BOLD|PET|EEG|ERP|MEG|TMS|tDCS|DTI|CT|MRI|" +
-      "WM|LTM|STM|TOT|FOK|DSM|ICD|OCD|PTSD|GAD|MDD|BPD|ASD|ADHD|SZ|" +
-      "SSRI|SNRI|TCA|MAOI|ECT|CBT|DBT|EMDR|IPT|ACT|EPSE|SIADH|NMS|SS|" +
-      "ANOVA|ANCOVA|MANOVA|RR|OR|HR|NNT|CI|SEM|SD|IQR|GAS|ERN|MMN|P300|N400|CNV|F5" +
-    ")\\b",
-    "g"
-  );
-
-  /* Special phrases that aren't word-boundary friendly */
-  var PHRASE_REGEX = /\bKF rings?\b|\bBOLD signal\b/g;
-
-  /* -------------------- 2. WRAP CONTENT -------------------- */
 
   var root = document.querySelector("main") ||
              document.querySelector(".wrap") ||
              document.body;
   if (!root) return;
 
+  var G = null;      /* window.TP_GLOSSARY once loaded */
+  var reCache = {};
+
+  /* -------------------- 1. LOOKUP -------------------- */
+
+  /* Key rules shared with the glossary build: lowercase, plain hyphens, no
+     quotes, no trailing punctuation or leading article; then a trailing
+     "(ABBR)" dropped, British -our/-ise folded and a plural trimmed. */
+  function norm(s) {
+    return (s || "")
+      .toLowerCase()
+      .replace(/[–—]/g, "-")
+      .replace(/["'`‘’“”]/g, "")
+      .replace(/\s+/g, " ")
+      .trim()
+      .replace(/[:.,;!?\- ]+$/, "")
+      .replace(/^(the|a|an) /, "");
+  }
+
+  function base(s) {
+    s = s.replace(/\s*\([^)]*\)$/, "")
+         .replace(/behaviour/g, "behavior").replace(/colour/g, "color")
+         .replace(/is(e|ed|ing|ation)\b/g, "iz$1");
+    if (s.length > 4 && /ies$/.test(s)) return s.slice(0, -3) + "y";
+    if (s.length > 4 && /[sxz]es$/.test(s)) return s.slice(0, -2);
+    if (s.length > 3 && /s$/.test(s) && !/(ss|is|us)$/.test(s)) return s.slice(0, -1);
+    return s;
+  }
+
+  function termEntry(txt) {
+    var k = base(norm(txt));
+    if (G.terms[k]) return { kind: "t", key: k };
+    if (G.alias[k] && G.terms[G.alias[k]]) return { kind: "t", key: G.alias[k] };
+    return null;
+  }
+
+  function abbrEntry(tok) {
+    tok = tok.trim().replace(/[:.,;]+$/, "");
+    if (G.abbr[tok]) return { kind: "a", key: tok };
+    if (/s$/.test(tok) && G.abbr[tok.slice(0, -1)]) return { kind: "a", key: tok.slice(0, -1) };
+    return null;
+  }
+
+  /* A bolded "Full name (ABBR)" can match on either half */
+  function lookupBold(txt) {
+    var r = termEntry(txt) || abbrEntry(txt);
+    if (r) return r;
+    var m = txt.match(/^(.*?)\s*\(([^)]+)\)\s*[:.,;]?$/);
+    return m ? (termEntry(m[1]) || abbrEntry(m[2])) : null;
+  }
+
+  /* Context a sense is matched against: "page path | nearest heading | paragraph" */
+  var PAGE = location.pathname.toLowerCase();
+  PAGE = PAGE.split("sihan-met-flashcards/")[1] || PAGE.replace(/^\//, "");
+  if (PAGE === "" || /\/$/.test(PAGE)) PAGE += "index.html";
+  var heads = null;
+
+  function headingBefore(el) {
+    if (!heads) heads = Array.prototype.slice.call(document.querySelectorAll("h1, h2, h3"));
+    var lo = 0, hi = heads.length - 1, found = null;
+    while (lo <= hi) { /* last heading that comes before el in the document */
+      var mid = (lo + hi) >> 1;
+      if (heads[mid].compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING) { found = heads[mid]; lo = mid + 1; }
+      else hi = mid - 1;
+    }
+    return found ? found.textContent : "";
+  }
+
+  function contextOf(el, term) {
+    var blk = el.closest("p, li, td, th, dd, dt, blockquote, figcaption, div");
+    var text = (blk ? blk.textContent : el.textContent).replace(/\s+/g, " ");
+    if (text.length > 700) { /* long blocks: only the stretch around the term */
+      var at = Math.max(0, text.indexOf(term));
+      text = text.slice(Math.max(0, at - 350), at + 350);
+    }
+    return (PAGE + " | " + headingBefore(el).replace(/\s+/g, " ").trim() + " | " + text).toLowerCase();
+  }
+
+  /* Index of the first sense that fits here, or -1 (leave the word plain) */
+  function pickSense(r, el, term) {
+    var senses = (r.kind === "a" ? G.abbr : G.terms)[r.key].s;
+    var ctx = null;
+    for (var i = 0; i < senses.length; i++) {
+      var c = senses[i].c;
+      if (!c) return i;
+      if (ctx === null) ctx = contextOf(el, term);
+      var re = reCache[c] || (reCache[c] = new RegExp(c, "i"));
+      if (re.test(ctx)) return i;
+    }
+    return -1;
+  }
+
+  function makeTerm(r, sense, cls) {
+    var span = document.createElement("span");
+    span.className = "tp-term " + cls;
+    span.setAttribute("data-tp-kind", r.kind);
+    span.setAttribute("data-tp-key", r.key);
+    span.setAttribute("data-tp-sense", sense);
+    span.setAttribute("role", "button");
+    span.setAttribute("tabindex", "0");
+    return span;
+  }
+
+  /* -------------------- 2. WRAP CONTENT -------------------- */
+
   var SKIP_TAGS = { SCRIPT:1, STYLE:1, NOSCRIPT:1, TEXTAREA:1, INPUT:1, CODE:1, PRE:1, A:1, BUTTON:1, MARK:1, NAV:1, H1:1, H2:1, H3:1, H4:1, H5:1, H6:1 };
 
   function isSkippable(node) {
     var p = node.parentNode;
     while (p && p !== root) {
-      if (SKIP_TAGS[p.tagName]) return true;
+      if (SKIP_TAGS[p.tagName] || p instanceof SVGElement) return true; /* spans can't live in SVG text */
       if (p.classList && (p.classList.contains("tp-term") || p.classList.contains("jump") || p.classList.contains("tp-skip"))) return true;
       p = p.parentNode;
     }
     return false;
   }
 
-  /* (a) Wrap <b> and <strong> contents as tappable terms */
+  /* (a) Bolded terms the glossary defines, in a sense that fits here */
   function wrapBoldTerms() {
-    var boldTags = root.querySelectorAll("b, strong");
-    boldTags.forEach(function (b) {
-      /* Skip if already wrapped, inside a link/heading, or empty */
+    root.querySelectorAll("b, strong").forEach(function (b) {
       if (b.querySelector(".tp-term")) return;
       if (b.closest("a, h1, h2, h3, h4, h5, h6, nav, button, .tp-skip")) return;
-      var txt = (b.textContent || "").trim();
-      if (!txt || txt.length > 80) return; /* skip very long bolded blocks */
-      /* Only wrap if it has any letters */
-      if (!/[a-zA-Z]/.test(txt)) return;
-      /* CORE FIX: only make a bold term tappable when it resolves to a REAL
-         glossary definition. Previously every <b>/<strong> was wrapped, so
-         tapping a bolded phrase with no entry fell through to a sentence dump
-         or a blank "no definition" card. Underline now means: real def exists. */
-      var resolved = lookupDef(txt.replace(/[—–:.,;]+$/, ""));
-      if (!resolved) return;
-
-      /* Wrap the bold's existing contents in a span */
-      var span = document.createElement("span");
-      span.className = "tp-term tp-bold";
-      span.setAttribute("data-term", txt);
-      span.setAttribute("role", "button");
-      span.setAttribute("tabindex", "0");
+      var txt = (b.textContent || "").replace(/\s+/g, " ").trim();
+      if (!txt || txt.length > 80 || !/[a-zA-Z]/.test(txt)) return;
+      var r = lookupBold(txt);
+      if (!r) return;
+      var sense = pickSense(r, b, txt);
+      if (sense < 0) return;
+      var span = makeTerm(r, sense, "tp-bold");
       while (b.firstChild) span.appendChild(b.firstChild);
       b.appendChild(span);
     });
   }
 
-  /* (b) Walk text nodes and wrap abbreviations in inline spans */
+  /* (b) Glossary abbreviations in running text (case-sensitive, plural "s" ok;
+     not when glued to a hyphen, so "non-REM" is not read as REM) */
   function wrapAbbreviations() {
+    var keys = Object.keys(G.abbr).sort(function (a, b) { return b.length - a.length; })
+      .map(function (k) { return k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); });
+    if (!keys.length) return;
+    var re = new RegExp("(^|[^A-Za-z0-9-])(" + keys.join("|") + ")(s?)(?=$|[^A-Za-z0-9-])", "g");
+
     var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode: function (n) {
         if (!n.nodeValue || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
@@ -439,71 +172,28 @@
     while ((cur = walker.nextNode())) nodes.push(cur);
 
     nodes.forEach(function (node) {
-      var text = node.nodeValue;
-      ABBR_REGEX.lastIndex = 0;
-      PHRASE_REGEX.lastIndex = 0;
-      if (!ABBR_REGEX.test(text) && !PHRASE_REGEX.test(text)) return;
-      ABBR_REGEX.lastIndex = 0;
-      PHRASE_REGEX.lastIndex = 0;
-
-      /* Build a fragment that splits text around matches */
-      var combined = new RegExp("(" + ABBR_REGEX.source + "|" + PHRASE_REGEX.source + ")", "g");
-      var parts = text.split(combined);
-      if (parts.length <= 1) return;
-
-      var frag = document.createDocumentFragment();
-      parts.forEach(function (part) {
-        if (!part) return;
-        combined.lastIndex = 0;
-        if (new RegExp("^(?:" + ABBR_REGEX.source + "|" + PHRASE_REGEX.source + ")$").test(part)) {
-          var span = document.createElement("span");
-          span.className = "tp-term tp-abbr";
-          span.setAttribute("data-term", part);
-          span.setAttribute("role", "button");
-          span.setAttribute("tabindex", "0");
-          span.textContent = part;
-          frag.appendChild(span);
-        } else {
-          frag.appendChild(document.createTextNode(part));
-        }
+      var text = node.nodeValue, m, hits = [];
+      re.lastIndex = 0;
+      while ((m = re.exec(text))) {
+        var r = { kind: "a", key: m[2] };
+        var sense = pickSense(r, node.parentNode, m[2]);
+        if (sense >= 0) hits.push([m.index + m[1].length, m[2].length + m[3].length, r, sense]);
+      }
+      if (!hits.length) return;
+      var frag = document.createDocumentFragment(), pos = 0;
+      hits.forEach(function (h) {
+        if (h[0] > pos) frag.appendChild(document.createTextNode(text.slice(pos, h[0])));
+        var span = makeTerm(h[2], h[3], "tp-abbr");
+        span.textContent = text.substr(h[0], h[1]);
+        frag.appendChild(span);
+        pos = h[0] + h[1];
       });
+      if (pos < text.length) frag.appendChild(document.createTextNode(text.slice(pos)));
       node.parentNode.replaceChild(frag, node);
     });
   }
 
-  /* -------------------- 3. LOOKUP DEFINITION -------------------- */
-
-  function normalise(s) {
-    return (s || "")
-      .toLowerCase()
-      .replace(/[–—]/g, "-") /* en/em dash to hyphen */
-      .replace(/['"`]/g, "")
-      .replace(/\s+/g, " ")
-      .trim();
-  }
-
-  function lookupDef(term) {
-    var key = normalise(term);
-    if (TERM_DEFS[key]) return { def: TERM_DEFS[key], source: "dictionary" };
-    if (ALIASES[key] && TERM_DEFS[ALIASES[key]]) {
-      return { def: TERM_DEFS[ALIASES[key]], source: "dictionary" };
-    }
-    /* try without trailing 's' */
-    if (key.endsWith("s") && TERM_DEFS[key.slice(0, -1)]) {
-      return { def: TERM_DEFS[key.slice(0, -1)], source: "dictionary" };
-    }
-    /* try without trailing apostrophe-s */
-    var keyNoPoss = key.replace(/'s$/, "").replace(/s$/, "");
-    if (TERM_DEFS[keyNoPoss]) return { def: TERM_DEFS[keyNoPoss], source: "dictionary" };
-
-    return null;
-  }
-
-  /* (Removed) findOnPageDef: it returned the whole surrounding <li>/<p> text,
-     which is what produced the "dumps the sentence / blank" behaviour Sihan
-     reported. Definitions now come from the curated glossary only. */
-
-  /* -------------------- 4. POPOVER UI -------------------- */
+  /* -------------------- 3. POPOVER UI -------------------- */
 
   var backdrop = document.createElement("div");
   backdrop.id = "tp-popover-backdrop";
@@ -518,8 +208,7 @@
       '<div class="tp-pop-term"></div>' +
       '<button class="tp-pop-close" aria-label="Close">&times;</button>' +
     '</div>' +
-    '<div class="tp-pop-body"></div>' +
-    '<div class="tp-pop-source"></div>';
+    '<div class="tp-pop-body"></div>';
   document.body.appendChild(pop);
 
   var hint = document.createElement("div");
@@ -558,22 +247,22 @@
   }
 
   function openPopover(termEl) {
-    var raw = termEl.getAttribute("data-term") || termEl.textContent || "";
-    var term = raw.trim().replace(/[—–:.,;]+$/, "");
-    /* Glossary lookup ONLY. We never dump the surrounding sentence anymore —
-       a term is only tappable if it resolved here, so this should always hit. */
-    var lookup = lookupDef(term);
+    var kind = termEl.getAttribute("data-tp-kind");
+    var key = termEl.getAttribute("data-tp-key");
+    var entry = kind === "a" ? G.abbr[key] : G.terms[key];
+    var sense = entry && entry.s[+termEl.getAttribute("data-tp-sense")];
+    if (!sense) return;
 
-    pop.querySelector(".tp-pop-term").textContent = term;
+    pop.querySelector(".tp-pop-term").textContent = kind === "a" ? key : entry.t;
     var body = pop.querySelector(".tp-pop-body");
-    var source = pop.querySelector(".tp-pop-source");
-    if (lookup) {
-      body.textContent = lookup.def;
-      source.textContent = "from the built-in glossary";
-    } else {
-      body.innerHTML = '<em>Not in the glossary yet — tell Sahil to add this term.</em>';
-      source.textContent = "no glossary entry";
+    body.textContent = "";
+    if (sense.x) {
+      var exp = document.createElement("span");
+      exp.className = "tp-pop-exp";
+      exp.textContent = sense.x;
+      body.appendChild(exp);
     }
+    body.appendChild(document.createTextNode(sense.d));
 
     if (activeTerm) activeTerm.classList.remove("tp-active");
     termEl.classList.add("tp-active");
@@ -636,9 +325,24 @@
   window.addEventListener("resize", reposition);
   window.addEventListener("scroll", reposition, { passive: true });
 
-  /* -------------------- 5. INIT -------------------- */
+  /* -------------------- 4. INIT -------------------- */
+
+  function run() {
+    G = window.TP_GLOSSARY;
+    if (!G) return; /* glossary failed to load: underline nothing rather than guess */
+    wrapBoldTerms();
+    wrapAbbreviations();
+  }
 
   function init() {
+    /* Resolve sibling files relative to this script's path */
+    var here = null;
+    var scripts = document.getElementsByTagName("script");
+    for (var i = 0; i < scripts.length; i++) {
+      var src = scripts[i].src || "";
+      if (src.indexOf("term-popover.js") !== -1) { here = src.replace(/term-popover\.js.*$/, ""); break; }
+    }
+    if (!here) here = "/sihan-met-flashcards/notes/";
     /* Inject CSS if it isn't on the page yet (defensive — pages should
        already include term-popover.css, but this keeps it working if a
        page forgot it). */
@@ -647,19 +351,14 @@
       var link = document.createElement("link");
       link.rel = "stylesheet";
       link.id = "tp-popover-link";
-      /* Resolve relative to this script's path */
-      var scripts = document.getElementsByTagName("script");
-      var here = null;
-      for (var i = 0; i < scripts.length; i++) {
-        var src = scripts[i].src || "";
-        if (src.indexOf("term-popover.js") !== -1) { here = src; break; }
-      }
-      link.href = here ? here.replace(/term-popover\.js.*$/, "term-popover.css")
-                       : "/sihan-met-flashcards/notes/term-popover.css";
+      link.href = here + "term-popover.css";
       document.head.appendChild(link);
     }
-    wrapBoldTerms();
-    wrapAbbreviations();
+    if (window.TP_GLOSSARY) return run();
+    var g = document.createElement("script");
+    g.src = here + "term-glossary.js";
+    g.onload = run;
+    document.head.appendChild(g);
   }
 
   if (document.readyState === "loading") {

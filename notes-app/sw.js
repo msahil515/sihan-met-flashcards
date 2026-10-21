@@ -1,7 +1,7 @@
 /* Library — service worker. Own cache, scoped to /notes-app/.
    Precaches the shell + every chapter page so the whole library works offline.
    CACHE name is stamped by build_notes_app.py on each build so updates self-apply. */
-var CACHE = "library-b1b75d8d60";
+var CACHE = "library-t088-glossary";
 var BASE = "/sihan-met-flashcards/notes-app/";
 var SHELL = [
   BASE,
@@ -18,6 +18,7 @@ var SHELL = [
   "/sihan-met-flashcards/notes-style.css",
   "/sihan-met-flashcards/notes/term-popover.css",
   "/sihan-met-flashcards/notes/term-popover.js",
+  "/sihan-met-flashcards/notes/term-glossary.js",
   "/sihan-met-flashcards/force-sync.js"
 ];
 
