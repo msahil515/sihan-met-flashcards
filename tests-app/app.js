@@ -190,8 +190,13 @@
   }
   function paras(text) {
     if (!text) return [];
-    var parts = String(text).replace(/([.!?])\s+(?=[A-Z(<"'‘“])/g, "$1␟").split("␟"), out = [];
-    for (var i = 0; i < parts.length; i += 2) out.push(parts.slice(i, i + 2).join(" ").trim());
+    var parts = String(text).replace(/([.!?])\s+(?=[A-Z(<"'‘“])/g, "$1␟").split("␟"), sents = [], out = [];
+    // re-join splits made after an initial or abbreviation (G. Frederic Kuder, B. F. Skinner, e.g.)
+    for (var k = 0; k < parts.length; k++) {
+      if (sents.length && /(?:^|[\s(])(?:[A-Z]|Dr|Mr|Mrs|Ms|St|Jr|Sr|vs|e\.g|i\.e|cf|al)\.$/.test(sents[sents.length - 1])) sents[sents.length - 1] += " " + parts[k];
+      else sents.push(parts[k]);
+    }
+    for (var i = 0; i < sents.length; i += 2) out.push(sents.slice(i, i + 2).join(" ").trim());
     return out.filter(Boolean);
   }
   function answerBlock(q, figSource) {
