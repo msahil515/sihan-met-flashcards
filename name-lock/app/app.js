@@ -8,7 +8,7 @@ var CARDS = window.NL_CARDS || [], PYQ = window.NL_PYQ || {}, MOCKS = window.NL_
 CARDS.forEach(function(c){ if (!c.qw) c.qw = c.name; if (!c.qwd) c.qwd = c.def; if (!c.qd) c.qd = c.def; });
 var BY = {}; CARDS.forEach(function(c){ BY[c.id] = c; });
 var CATNAME = {effect: "Effect", bias: "Bias", phenomenon: "Phenomenon", experiment: "Experiment", law: "Law", term: "Term"};
-var CATS = [["all", "All"], ["effect", "Effects"], ["bias", "Biases"], ["phenomenon", "Phenomena"], ["experiment", "Experiments"], ["law", "Laws"], ["term", "Terms"], ["pyq", "In PYQs"]];
+var CATS = [["all", "All"], ["effect", "Effects"], ["bias", "Biases"], ["phenomenon", "Phenomena"], ["experiment", "Experiments"], ["law", "Laws"], ["term", "Terms"], ["pyq", "In PYQs"], ["social", "Social psych"]];
 var KEY = "namelock-progress-v1", SKEY = "namelock-app-settings";
 var DAY = 864e5, GAPS = [0, 1, 3, 7, 16, 35];
 var $ = function(s, r){ return (r || document).querySelector(s); };
@@ -465,9 +465,11 @@ function srs(c, ok){
   P.c[c.id] = s; save();
   return cleared;
 }
+function inPile(c, cat){ return cat === "social" ? c.area === "social" : c.cat === cat; }
 function pool(cat){
   if (cat === "miss") return missIds().map(function(id){ return BY[id]; });
   if (cat === "pyq") return CARDS.filter(hasRealPyq);
+  if (cat === "social") return CARDS.filter(function(c){ return c.area === "social"; }).sort(bySoc);
   return cat === "all" ? CARDS.slice() : CARDS.filter(function(c){ return c.cat === cat; });
 }
 function pickRound(cat, n){
@@ -476,7 +478,7 @@ function pickRound(cat, n){
   cs.forEach(function(c){ var s = P.c[c.id];
     if (s && s.d <= now) due.push(c); else if (mi[c.id]) miss.push(c); else if (!s) fresh.push(c); });
   due.sort(function(a, b){ return P.c[a.id].d - P.c[b.id].d; });
-  var r = due.concat(shuffle(miss), shuffle(fresh)).slice(0, n);
+  var r = due.concat(shuffle(miss), cat === "social" ? fresh : shuffle(fresh)).slice(0, n);
   if (r.length < n) r = r.concat(shuffle(cs.filter(function(c){ return r.indexOf(c) < 0; })).slice(0, n - r.length));
   return shuffle(r);
 }
@@ -501,7 +503,8 @@ function revengePool(){ var cut = Date.now() - 7 * DAY;
 function pickBoss(ix){
   var n = bossQ(ix), cs = bossPool(ix);
   var weak = shuffle(cs.filter(function(c){ var s = P.c[c.id]; return s && s.b < 2; })).slice(0, Math.ceil(n / 3));
-  var rest = shuffle(cs.filter(function(c){ return weak.indexOf(c) < 0; }));
+  var rest = cs.filter(function(c){ return weak.indexOf(c) < 0; });
+  rest = bossDef(ix)[0] === "social" ? shuffle(rest.sort(bySoc).slice(0, n * 3)) : shuffle(rest);
   return shuffle(weak.concat(rest).slice(0, n));
 }
 
@@ -525,6 +528,22 @@ function closeSheet(){ $("#sheet-wrap").classList.remove("on"); }
 function sheetOpen(){ return $("#sheet-wrap").classList.contains("on"); }
 $("#sheet-bg").onclick = closeSheet;
 function pyqCount(c){ return (PYQ[c.id] || []).filter(function(h){ return MOCKS[h[0]] && MOCKS[h[0]].p; }).length; }
+/* Social psych pile, most-asked first: cards with real PYQ hits, then the rest; each ordered by how many
+   real PYQ questions hit any social card of the card's researcher (by surname), then by the card's own hits */
+var SOC_RANK = {};
+(function(){
+  var STOP = {colleagues: 1, others: 1, theory: 1, "case": 1};
+  function people(who){ return String(who || "").replace(/\([^)]*\)/g, " ").split(/;|&|,|\band\b/).map(function(s){
+      var w = s.trim().replace(/\s+et al\.?$/i, "").split(/\s+/); return w[w.length - 1].normalize("NFD").replace(/[^A-Za-z-]/g, "").toLowerCase(); })
+    .filter(function(s){ return s.length > 2 && !STOP[s]; }); }
+  var soc = CARDS.filter(function(c){ return c.area === "social"; }), W = {};
+  soc.forEach(function(c){ people(c.who).forEach(function(p){ var s = W[p] || (W[p] = {});
+    (PYQ[c.id] || []).forEach(function(h){ if (MOCKS[h[0]] && MOCKS[h[0]].p) s[h[0] + ":" + h[1]] = 1; }); }); });
+  soc.map(function(c){ return {c: c, own: pyqCount(c), r: Math.max.apply(null, [0].concat(people(c.who).map(function(p){ return Object.keys(W[p]).length; })))}; })
+    .sort(function(a, b){ return (b.own > 0) - (a.own > 0) || b.r - a.r || b.own - a.own || a.c.name.localeCompare(b.c.name); })
+    .forEach(function(x, i){ SOC_RANK[x.c.id] = i; });
+})();
+function bySoc(a, b){ return SOC_RANK[a.id] - SOC_RANK[b.id]; }
 function cardSheet(c){
   var who = [c.who, c.year].filter(Boolean).join(", "), l = resolveLook(c), pq = pyqCount(c);
   var h = '<div class="cd"><span class="pill p-' + c.cat + '">' + CATNAME[c.cat] + '</span>' + (pq ? '<span class="pyq">📝 ' + pq + ' PYQ' + (pq > 1 ? "s" : "") + '</span>' : '') +
@@ -603,7 +622,7 @@ function side(){
 }
 function buildQ(){
   if (L.kind === "duel"){
-    var ps = PAIRS.filter(function(p){ return p[0].cat === L.cat || p[1].cat === L.cat; });
+    var ps = PAIRS.filter(function(p){ return inPile(p[0], L.cat) || inPile(p[1], L.cat); });
     if (!ps.length) ps = PAIRS;
     var p = ps[Math.floor(Math.random() * ps.length)], t = Math.random() < .5 ? p[0] : p[1];
     return {c: t, other: t === p[0] ? p[1] : p[0], mode: "duel", field: "name", opts: shuffle([p[0], p[1]])};
@@ -940,10 +959,11 @@ function openLibrary(cat){
   function draw(){
     var q = norm($("#lib-q").value);
     $("#lib-c").innerHTML = CATS.concat([["miss", "My misses"]]).map(function(x){ return '<button class="chip' + (x[0] === LC ? " on" : "") + '" data-c="' + x[0] + '">' + x[1] + ' <small>' + pool(x[0]).length + '</small></button>'; }).join("");
-    var cs = pool(LC).filter(function(c){ return !q || norm([c.name, c.who, c.year, c.def, c.roots, c.look, (c.aliases || []).join(" ")].join(" ")).indexOf(q) >= 0; })
-      .sort(function(a, b){ return a.name.localeCompare(b.name); });
-    $("#lib-l").innerHTML = cs.slice(0, 200).map(function(c){ return '<button class="lrow" data-card="' + c.id + '"><span class="dot d-' + c.cat + '"></span><span><b>' + esc(c.name) + '</b><small>' +
-      esc([c.who, c.year].filter(Boolean).join(", ") || CATNAME[c.cat]) + '</small></span></button>'; }).join("") +
+    var cs = pool(LC).filter(function(c){ return !q || norm([c.name, c.who, c.year, c.def, c.roots, c.look, (c.aliases || []).join(" ")].join(" ")).indexOf(q) >= 0; });
+    if (LC !== "social") cs.sort(function(a, b){ return a.name.localeCompare(b.name); });
+    $("#lib-l").innerHTML = (LC === "social" && !q ? '<div class="empty" style="padding:6px 4px 12px;text-align:left">Most-asked first: cards that came up in real papers, led by the researchers asked most.</div>' : '') +
+      cs.slice(0, 200).map(function(c){ var pq = LC === "social" ? pyqCount(c) : 0; return '<button class="lrow" data-card="' + c.id + '"><span class="dot d-' + c.cat + '"></span><span><b>' + esc(c.name) + '</b><small>' +
+      esc([c.who, c.year].filter(Boolean).join(", ") || CATNAME[c.cat]) + (pq ? ' · 📝 ' + pq + ' PYQ' + (pq > 1 ? "s" : "") : '') + '</small></span></button>'; }).join("") +
       (cs.length > 200 ? '<div class="empty">Showing 200 of ' + cs.length + '. Search to narrow it down.</div>' : cs.length ? '' : '<div class="empty">No cards match.</div>');
   }
   $("#lib-q").oninput = draw;
