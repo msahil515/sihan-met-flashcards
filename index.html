@@ -645,6 +645,7 @@
             <a href="results/gap-map/">Gap map</a>
             <a href="results/gap-analysis/">Gap analysis (all papers)</a>
             <a href="recall-14/">Your 14 recall Qs + reliability drill</a>
+            <a href="missed-concepts/">NIMHANS 31 May: your 9 concepts</a>
           </div>
           <div class="nav-more-group">
             <span class="nav-more-label">Viva prep</span>
@@ -843,6 +844,18 @@ const MOCKS = [
     scoring: { plus: 1, minus: 0.25 },
     sections: { common: 44, mphil: 8, ugcnet: 8 },
     meta: "60 Q weighted into the common section (the 18-point leak) · sit it as a diagnostic, your misses compile into a 'final study material' sheet on the page · revise that, nothing else",
+    fresh: true,
+    nimhans: true
+  },
+  {
+    id: "nimhans-2026-recall",
+    title: "NIMHANS 2026 Recall: your 9 + cluster",
+    path: "take/screen.html?m=nimhans-2026-recall",
+    total: 27,
+    storageKey: "nimhans-2026-recall-results-v1",
+    scoring: { plus: 1, minus: 0.25 },
+    sections: { recall: 9, cluster: 18 },
+    meta: "Your Qs 36-41 + tamas, dharana, Kegels from the 31 May NIMHANS paper, each widened with 2 cluster Qs · why page + cluster notes at missed-concepts/",
     fresh: true,
     nimhans: true
   },
@@ -1059,6 +1072,7 @@ const RESOURCES = [
 ];
 
 const NEWS = [
+  { date: "2026-10-21", title: "NIMHANS 31 May: the 9 concepts you asked about", desc: "Your Qs 36 to 41 (dissociation's defence level, systematic desensitization, awareness training, flashbulb-memory confidence, paradoxical intention, ICD-11 gender incongruence) plus the Bavisha tamas question, dharana and Kegels. Each has the answer, the concept and why every wrong option is wrong, a notes block on its cluster, and 2 more questions on the neighbours. 27 in all, also a mock in the Tests app and chapter 5 of Requested Topics in the Library.", href: "missed-concepts/" },
   { date: "2026-10-20", title: "Your 14 recall questions + a reliability formula drill", desc: "The 14 you typed from memory on 5 Aug, each with the answer, the concept and why every wrong option is wrong. Six of them were reliability and variance, so 18 drill questions follow with real numbers: Spearman-Brown up and down, length needed, Rulon with variances and SDs, KR-20, KR-21, speed tests, SEM, attenuation. Formula sheet on the page, or take all 32 as a mock.", href: "recall-14/" },
   { date: "2026-10-20", title: "JSS Mock 2: 90 hard, high-yield real PYQs", desc: "Harder than the first one. 800 real past-paper questions rated for difficulty and yield, the top ten in each of JSS's nine subjects kept, doubtful keys dropped, no pure who-proposed-it recall. None repeat from JSS Mock 1 or SGT, and IHBAS 2024/2025 are left out since you have sat both. Result splits by subject.", href: "take/screen.html?m=jss-mock-2" },
   { date: "2026-10-18", title: "Site revamp done: same home, cleaned up, one look everywhere", desc: "You picked option b, so the home keeps everything it had. Syllabus areas and mocks now show six with a Show all button, the old NEW tags are gone and the focus box is tidier. Every remaining page (Results, Notes, Downloads, Practice, Sync, the RML pages, the IHBAS topic list, the backup page) now has the same header, nav and theme switcher as the home.", href: "progress/" },

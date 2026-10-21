@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<script src="/sihan-met-flashcards/sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d1117">
+<title>NIMHANS 31 May: the 9 concepts you asked about</title>
+<link rel="stylesheet" href="../site.css">
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<style>
+  .wrap{max-width:900px;margin:0 auto;padding:18px 16px 90px}
+  .lede{color:var(--muted);font-size:14.5px;line-height:1.7;margin:4px 0 16px}
+  .lede b{color:var(--text)}
+  h2.sec{font-size:16px;margin:34px 0 10px;color:var(--text);scroll-margin-top:14px}
+  h2.sec .cnt{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-left:6px}
+  .drill{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+  .drill a,.drill button{display:inline-block;border:1px solid var(--accent-dim);background:var(--accent-soft);border-radius:9px;padding:10px 14px;
+    font-weight:700;font-size:14px;color:var(--accent);text-decoration:none;font-family:inherit;cursor:pointer}
+  .note{border:1px solid var(--warn);background:var(--warn-soft);border-radius:10px;padding:12px 15px;margin:10px 0;font-size:14px;line-height:1.65;color:var(--text)}
+  .fsheet{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin:10px 0}
+  .fsheet>div{border:1px solid var(--border);background:var(--panel);border-radius:10px;padding:11px 13px;font-size:13.5px;line-height:1.6;color:var(--muted)}
+  .fsheet b{color:var(--text)}
+  .fsheet .f{display:block;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px;color:var(--text);background:var(--panel-2);
+    border-radius:6px;padding:5px 8px;margin:5px 0;overflow-x:auto;white-space:nowrap}
+  details.qq{border:1px solid var(--border);background:var(--panel);border-radius:12px;padding:12px 15px;margin:0 0 10px}
+  details.qq[open]{border-color:var(--accent-dim)}
+  details.qq summary{cursor:pointer;list-style:none;font-size:15px;line-height:1.55;color:var(--text)}
+  details.qq summary::-webkit-details-marker{display:none}
+  .qn{display:inline-block;min-width:30px;font-weight:800;color:var(--accent)}
+  .tp{display:block;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:0 0 3px}
+  ol.opts{list-style:none;margin:8px 0 2px;padding:0}
+  ol.opts li{font-size:14px;line-height:1.5;color:var(--muted);margin:0 0 3px}
+  ol.opts li b{color:var(--text);margin-right:6px}
+  .hint{font-size:11.5px;color:var(--muted);margin-top:4px}
+  details.qq[open] .hint{display:none}
+  .ans{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--good);background:var(--good-soft);border-radius:9px;padding:9px 12px;margin:12px 0 10px}
+  .ans .k{flex:none;min-width:28px;height:28px;border-radius:7px;background:var(--good);color:#04120a;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .ans .t{font-size:15px;line-height:1.45;color:var(--text);font-weight:600}
+  .h{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:12px 0 6px}
+  .body p{font-size:14.5px;line-height:1.7;color:var(--muted);margin:0 0 9px}
+  .trap{display:flex;gap:10px;border-left:3px solid var(--bad);background:var(--bad-soft);border-radius:0 8px 8px 0;padding:8px 12px;margin:0 0 7px}
+  .trap .k{flex:none;font-weight:800;color:var(--bad)}
+  .trap .o{display:block;font-size:13.5px;color:var(--text);font-weight:600;margin-bottom:2px}
+  .trap p{margin:0;font-size:14px;line-height:1.6;color:var(--muted)}
+  .src{font-size:12px;color:var(--muted);line-height:1.7;margin:26px 0}
+  .notes details{border:1px solid var(--border);background:var(--panel);border-radius:12px;padding:12px 15px;margin:0 0 10px}
+  .notes summary{cursor:pointer;font-weight:700;font-size:15px;color:var(--text)}
+  .notes p,.notes li{font-size:14.5px;line-height:1.7;color:var(--muted)}
+  .notes b{color:var(--text)}
+  .notes .tw{overflow-x:auto;margin:8px 0}
+  .notes table{border-collapse:collapse;width:100%;min-width:480px;font-size:13.5px}
+  .notes th,.notes td{border:1px solid var(--border);padding:6px 8px;text-align:left;vertical-align:top;color:var(--muted)}
+  .notes th{color:var(--text);background:var(--panel-2)}
+  .notes .ntrap{border-left:3px solid var(--bad);background:var(--bad-soft);border-radius:0 8px 8px 0;padding:8px 12px;margin:8px 0;font-size:14px;line-height:1.6;color:var(--text)}
+</style>
+<script src="/sihan-met-flashcards/take/theme.js"></script>
+<link rel="stylesheet" href="/sihan-met-flashcards/revamp-skin.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-title">Sihan — Clinical Psych 2026</span>
+      <span class="brand-sub">M.A. / M.Phil Clinical Psychology (RCI) · IHBAS · CIP · JSS Mysuru · DIMHANS Dharwad</span>
+    </div>
+    <nav class="nav">
+      <a href="/sihan-met-flashcards/">Dashboard</a>
+      <a href="/sihan-met-flashcards/tests/">Tests</a>
+      <a href="/sihan-met-flashcards/quiz/practice/">Practice</a>
+      <a href="/sihan-met-flashcards/results/">Results</a>
+      <a href="/sihan-met-flashcards/notes-app/">Library</a>
+      <a href="/sihan-met-flashcards/admissions/">Admissions</a>
+      <a href="/sihan-met-flashcards/progress/">Progress</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+<h1 style="margin:8px 0 2px;font-size:24px;">NIMHANS 31 May: the 9 concepts you asked about</h1>
+<p class="lede">Right after the NIMHANS MClinPsy paper on <b>31 May</b> you sent questions 36 to 41, the Bavisha (tamas) question,
+the two dharana questions and the Kegel one. All nine are here with the answer, the concept from scratch and why every wrong option is wrong.
+Each one is widened into its cluster: a notes block per concept, then <b>18 more questions</b> on the neighbours the paper can swap in
+(Vaillant's levels, flooding vs desensitization, the competing response, Talarico and Rubin, dereflection, ICD-11 Chapter 17,
+rajas, pratyahara, bell-and-pad). Tap a question to open it.</p>
+
+<div class="drill">
+  <a href="../take/screen.html?m=nimhans-2026-recall">Take all 27 as a mock</a>
+  <a href="../tests-app/">Tests app (under NIMHANS &amp; pan-India PYQ)</a>
+  <a href="../notes-app/">Library: Requested Topics, chapter 5</a>
+  <button type="button" id="openAll">Open all answers</button>
+</div>
+
+<div class="note">The stems are from your recall. Where you remembered options they are kept (mature/immature/conscious for Q36,
+Yama alone and Tamas alone for Bavisha, pratyahara and jnana for dharana); the rest are rebuilt to test the same point.
+The dharana question came in two wordings ('concentrating' and 'directing mental energy to one point'), same answer, so it is one question here.</div>
+
+<h2 class="sec" id="notes">The cluster notes <span class="cnt">one block per concept</span></h2>
+<div class="notes">
+<details id="mc-defences"><summary>1. Vaillant&#x27;s ladder of defences (Q36: dissociation)</summary>
+<p>George Vaillant (<i>Adaptation to Life</i>, 1977), working from the Harvard Grant Study, ranked the defences Sigmund and Anna Freud (1936) described into four levels by maturity. Your Q36 asked where dissociation sits: <b>neurotic</b>.</p>
+<div class="tw"><table>
+<thead><tr><th>Level</th><th>Defences</th><th>What it means</th></tr></thead>
+<tbody>
+<tr><td>I. Psychotic</td><td>Delusional projection, psychotic denial (of external reality), distortion</td><td>Reality testing lost; psychosis, dreams, early childhood</td></tr>
+<tr><td>II. Immature</td><td>Projection, schizoid fantasy, hypochondriasis, passive aggression, acting out</td><td>Normal in adolescence; in adults, personality disorders and substance misuse</td></tr>
+<tr><td>III. Neurotic</td><td>Repression, displacement, reaction formation, intellectualization (isolation, undoing), <b>dissociation</b> (neurotic denial)</td><td>Private distress, reality testing intact, the person functions</td></tr>
+<tr><td>IV. Mature</td><td>Altruism, humour, sublimation, <b>suppression</b>, anticipation</td><td>Healthy adults; predicted better health, work and marriage in the Grant Study</td></tr>
+</tbody>
+</table></div>
+<p>The DSM-IV Defensive Functioning Scale (1994) uses seven levels instead; dissociation is at the <b>mental inhibitions (compromise formation)</b> level, with repression, displacement, intellectualization, isolation of affect, reaction formation and undoing. Same neighbours, same verdict.</p>
+<p class="ntrap"><b>Trap:</b> Suppression is conscious and mature; repression is unconscious and neurotic. Projection is immature, but delusional projection is psychotic. Dissociation is not immature, however dramatic dissociative disorders look.</p>
+</details>
+<details id="mc-sd"><summary>2. Systematic desensitization and its neighbours (Q37)</summary>
+<p>Joseph Wolpe, <i>Psychotherapy by Reciprocal Inhibition</i> (1958). Principle: <b>reciprocal inhibition</b> (a term from Charles Sherrington): a response incompatible with anxiety, made in the presence of the feared stimulus, weakens the stimulus-anxiety bond. That is counterconditioning. Steps: (1) relaxation training (Edmund Jacobson's progressive relaxation, 1938); (2) anxiety hierarchy rated on SUDS, 0 to 100 (Wolpe, 1969); (3) imagine each scene while relaxed, moving up only when calm. Forerunner: Mary Cover Jones (1924), little Peter and the rabbit.</p>
+<div class="tw"><table>
+<thead><tr><th>Technique</th><th>What is done</th><th>Mechanism</th></tr></thead>
+<tbody>
+<tr><td>Systematic desensitization</td><td>Relaxation paired with a graded hierarchy, usually imagined</td><td>Counterconditioning</td></tr>
+<tr><td>In vivo desensitization</td><td>Same, with the real stimulus</td><td>Counterconditioning</td></tr>
+<tr><td>Flooding</td><td>Most feared stimulus at full strength, no escape, until anxiety falls</td><td>Extinction</td></tr>
+<tr><td>Implosive therapy (Stampfl and Levis, 1967)</td><td>Flooding in imagination, exaggerated scenes with psychodynamic themes</td><td>Extinction</td></tr>
+<tr><td>Aversion therapy</td><td>Unwanted behaviour paired with an emetic or a shock</td><td>Classical conditioning of an aversion</td></tr>
+<tr><td>Exposure and response prevention (Meyer, 1966)</td><td>Face the obsession's trigger, block the compulsion (OCD)</td><td>Extinction plus blocking negative reinforcement</td></tr>
+</tbody>
+</table></div>
+<p class="ntrap"><b>Trap:</b> Reciprocal inhibition is the principle; systematic desensitization is the technique. 'Gradual' and 'relaxation' mean desensitization; 'full intensity' and 'no escape' mean flooding.</p>
+</details>
+<details id="mc-hrt"><summary>3. Habit reversal training (Q38: awareness training)</summary>
+<p>Nathan Azrin and Gregory Nunn (1973). For tics, Tourette's and body-focused repetitive behaviours: trichotillomania, skin picking, nail biting, also stuttering. Original package, four phases:</p>
+<ol>
+<li><b>Awareness training</b>: response description, response detection, early warning (the urge or first movement), situation awareness. Your Q38.</li>
+<li><b>Competing response training</b>: a physically incompatible, inconspicuous action (clench fists for hair pulling) held about a minute, or three minutes in the original, or until the urge passes.</li>
+<li><b>Habit control motivation</b>: inconvenience review, social support, public display.</li>
+<li><b>Generalization training</b>: rehearsing the routine across situations, often in imagination.</li>
+</ol>
+<p>Simplified HRT (Raymond Miltenberger, Wayne Fuqua and Douglas Woods, 1998): awareness training, competing response training, social support. CBIT (John Piacentini and colleagues, 2010) is HRT plus function-based work, first-line for tics.</p>
+<p class="ntrap"><b>Trap:</b> HRT is not the treatment for OCD (that is ERP), even though trichotillomania and excoriation sit in DSM-5's obsessive-compulsive and related chapter. Negative practice (Knight Dunlap, 1932), performing the habit on purpose until fatigue, is the opposite idea.</p>
+</details>
+<details id="mc-flashbulb"><summary>4. Flashbulb memory (Q39: confidence)</summary>
+<p>Vivid, detailed memories of the circumstances in which you heard shocking news. Canonical details: place, ongoing activity, informant, own feeling, others' feeling, aftermath.</p>
+<div class="tw"><table>
+<thead><tr><th>Study</th><th>Event</th><th>Finding</th></tr></thead>
+<tbody>
+<tr><td>Roger Brown and James Kulik (1977)</td><td>Kennedy assassination, 1963</td><td>Coined the term; proposed a special 'Now Print!' mechanism (Livingston, 1967)</td></tr>
+<tr><td>Ulric Neisser and Nicole Harsch (1992)</td><td>Challenger explosion, 1986</td><td>Re-tested about 2.5 years later: accuracy poor, about a quarter wrong on every major detail, confidence still high</td></tr>
+<tr><td>Jennifer Talarico and David Rubin (2003)</td><td>9/11, against an everyday memory</td><td>Both lost consistency at the same rate; only flashbulb memories kept vividness and belief in accuracy. 'Confidence, not consistency'</td></tr>
+<tr><td>Kathy Pezdek (2003)</td><td>9/11</td><td>Most students 'remembered' seeing the first plane hit live on TV; that footage aired only the next day</td></tr>
+<tr><td>William Hirst and colleagues (2009, 2015)</td><td>9/11, national sample</td><td>Consistency dropped in year one, then levelled off; confidence stayed high</td></tr>
+</tbody>
+</table></div>
+<p>Why vivid: emotional arousal at encoding (amygdala boosting hippocampal consolidation, James McGaugh) plus heavy rehearsal through media and retelling. No special mechanism needed.</p>
+<p class="ntrap"><b>Trap:</b> Subjective confidence is <b>very high</b> and stays high; accuracy (consistency) falls like any memory. 'Confidence falls in step with accuracy' is wrong.</p>
+</details>
+<details id="mc-frankl"><summary>5. Paradoxical intention and Frankl&#x27;s toolkit (Q40)</summary>
+<p>Viktor Frankl, logotherapy, the 'third Viennese school' after Freud and Adler. Primary motive: the will to meaning. Lack of meaning: existential vacuum, noogenic neurosis.</p>
+<div class="tw"><table>
+<thead><tr><th>Technique</th><th>Targets</th><th>Instruction</th></tr></thead>
+<tbody>
+<tr><td><b>Paradoxical intention</b> (first described 1939)</td><td>Anticipatory anxiety, fear of a symptom</td><td>Intend or wish for the feared thing, with humour: 'try to stay awake', 'show them how much you can sweat'</td></tr>
+<tr><td>Dereflection</td><td>Hyper-reflection, excessive self-watching</td><td>Turn attention away from yourself, to the partner, a task, a meaning</td></tr>
+<tr><td>Socratic dialogue</td><td>Loss of meaning</td><td>Questioning that helps the client find meaning</td></tr>
+</tbody>
+</table></div>
+<p>Neighbours: negative practice (Knight Dunlap, 1932: perform the habit on purpose until fatigue); symptom prescription in family therapy (Milton Erickson, Jay Haley, Paul Watzlawick, 1974); for insomnia, stimulus control (Richard Bootzin, 1972: get up if not asleep in about 20 minutes) and sleep restriction (Arthur Spielman, 1987: limit time in bed).</p>
+<p class="ntrap"><b>Trap:</b> 'Doing the opposite of the goal to reach the goal' is paradoxical intention. 'Stop watching yourself' is dereflection. Sensate focus is Masters and Johnson (1970), not Frankl.</p>
+</details>
+<details id="mc-gi"><summary>6. Gender incongruence: where it sits now (Q41)</summary>
+<div class="tw"><table>
+<thead><tr><th>System</th><th>Name</th><th>Where</th><th>Key point</th></tr></thead>
+<tbody>
+<tr><td>ICD-10</td><td>Gender identity disorders, F64 (transsexualism F64.0, dual-role transvestism F64.1, GID of childhood F64.2)</td><td>Chapter V, mental and behavioural</td><td>Framed as a mental disorder</td></tr>
+<tr><td>ICD-11 (adopted 2019, in force 1 Jan 2022)</td><td>Gender incongruence: HA60 adolescence or adulthood, HA61 childhood</td><td><b>Chapter 17, Conditions related to sexual health</b></td><td>No distress needed; code kept for access to care</td></tr>
+<tr><td>DSM-III (1980)</td><td>Transsexualism; GID of childhood</td><td>Mental disorder</td><td></td></tr>
+<tr><td>DSM-IV (1994)</td><td>Gender identity disorder</td><td>Mental disorder</td><td>Identity itself labelled</td></tr>
+<tr><td>DSM-5 (2013), DSM-5-TR (2022)</td><td>Gender dysphoria</td><td>Own chapter</td><td>Distress or impairment; 6 months; 2 of 6 (adults), 6 of 8 (children)</td></tr>
+</tbody>
+</table></div>
+<p>Also moved to ICD-11 Chapter 17: sexual dysfunctions (HA00 to HA03) and sexual pain-penetration disorder (HA20). Stayed in Chapter 6: paraphilic disorders (6D30 to 6D3Z). Sleep-wake disorders moved out of the mental chapter to Chapter 7.</p>
+<p class="ntrap"><b>Trap:</b> Gender incongruence was relocated, not deleted. ICD-11 says gender incongruence; DSM-5 says gender dysphoria.</p>
+</details>
+<details id="mc-gunas"><summary>7. The three gunas (the Bavisha question)</summary>
+<p>From Samkhya (Kapila; Ishvarakrishna's <i>Samkhya Karika</i>) and the Bhagavad Gita (chapters 14, 17, 18). Prakriti, matter including the mind, is made of three gunas, always present together; the dominant one shapes the person. Purusha is pure consciousness, the witness.</p>
+<div class="tw"><table>
+<thead><tr><th>Guna</th><th>Quality</th><th>In a person</th><th>Clinical mapping</th></tr></thead>
+<tbody>
+<tr><td>Sattva</td><td>Light, clarity, balance</td><td>Calm, truthful, content, wise</td><td>Mental health</td></tr>
+<tr><td>Rajas</td><td>Activity, passion</td><td>Restless, ambitious, craving, angry, greedy</td><td>Anxiety, agitation, mania</td></tr>
+<tr><td>Tamas</td><td>Darkness, heaviness, inertia</td><td>Dull, lethargic, withdrawn, deluded, oversleeping</td><td>Depression, apathy</td></tr>
+</tbody>
+</table></div>
+<p>Bavisha, jobless, stressed, not eating, unable to act: shutdown, so <b>tamas alone</b>. Research measure: the Vedic Personality Inventory (David Wolf, 1998).</p>
+<p class="ntrap"><b>Trap:</b> Yama is a limb of yoga (ethical restraints), not a guna or a state, so 'yama' and 'both yama and tamas' are wrong. Stressed and racing would be rajas; stuck and inert is tamas.</p>
+</details>
+<details id="mc-limbs"><summary>8. Patanjali&#x27;s eight limbs (dharana)</summary>
+<p>Yoga Sutras: yoga is 'chitta vritti nirodhah', stilling the mind's fluctuations (1.2). The eight limbs, ashtanga (2.29). Mnemonic: Yogis Never Argue, Peaceful People Don't Disturb Silence.</p>
+<div class="tw"><table>
+<thead><tr><th>#</th><th>Limb</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Yama</td><td>Restraints: ahimsa, satya, asteya, brahmacharya, aparigraha</td></tr>
+<tr><td>2</td><td>Niyama</td><td>Observances: shaucha, santosha, tapas, svadhyaya, ishvara pranidhana</td></tr>
+<tr><td>3</td><td>Asana</td><td>Posture, steady and comfortable (2.46)</td></tr>
+<tr><td>4</td><td>Pranayama</td><td>Breath regulation</td></tr>
+<tr><td>5</td><td>Pratyahara</td><td>Withdrawal of the senses (2.54)</td></tr>
+<tr><td>6</td><td><b>Dharana</b></td><td><b>Concentration: binding the mind to one point (3.1)</b></td></tr>
+<tr><td>7</td><td>Dhyana</td><td>Meditation: unbroken flow of that focus (3.2)</td></tr>
+<tr><td>8</td><td>Samadhi</td><td>Absorption, only the object remains (3.3)</td></tr>
+</tbody>
+</table></div>
+<p>Dharana + dhyana + samadhi on one object = samyama (3.4). Limbs 1 to 5 are bahiranga (outer), 6 to 8 antaranga (inner). Jnana yoga is a path in the Gita (with karma and bhakti), not a limb.</p>
+<p class="ntrap"><b>Trap:</b> Senses in is pratyahara; mind fixed on one point is dharana; focus flowing on its own is dhyana. Pranayama before pratyahara, dharana before dhyana.</p>
+</details>
+<details id="mc-kegel"><summary>9. Kegels and the pelvic floor</summary>
+<p>Arnold Kegel, American gynaecologist, 1948: exercises for urinary incontinence after childbirth. Target: the <b>pelvic floor</b>, mainly the levator ani and its pubococcygeus (PC) part, running from the pubic bone to the tailbone and supporting the bladder, bowel and uterus. Method: squeeze and lift for a few seconds, relax, repeat in sets.</p>
+<ul>
+<li><b>Uses</b>: stress urinary incontinence, postpartum recovery, pelvic organ prolapse, incontinence after prostate surgery, faecal incontinence.</li>
+<li><b>Early biofeedback</b>: Kegel's perineometer, a pressure gauge the patient watched. Biofeedback types: EMG (tension headache, pelvic floor), thermal (migraine, Raynaud's), GSR (arousal), heart rate variability, EEG or neurofeedback (ADHD, epilepsy).</li>
+<li><b>Sex therapy</b>: part of directed masturbation for female orgasmic disorder (Joseph LoPiccolo and W. Charles Lobitz, 1972); an add-on for premature ejaculation; pelvic floor relaxation with graded dilators for vaginismus.</li>
+</ul>
+<p class="ntrap"><b>Trap:</b> Bed-wetting in a child is not a Kegel problem. First-line is the enuresis alarm, the bell-and-pad (O. Hobart Mowrer and Willie Mae Mowrer, 1938), or desmopressin. Squeezing the buttocks or abdomen is not a Kegel.</p>
+</details>
+</div>
+
+<h2 class="sec" id="recall">Your 9 <span class="cnt">NIMHANS 31 May, Qs 36-41 + yoga + Kegels</span></h2>
+<div id="recallList"></div>
+
+<h2 class="sec" id="cluster">The cluster <span class="cnt">18 questions, 2 per concept</span></h2>
+<div id="clusterList"></div>
+
+<p class="src">Source: your WhatsApp messages of 31 May 2026, sent right after the NIMHANS MClinPsy entrance (Qs 36-41, the Bavisha and dharana
+items and the Kegel item). Answers follow Vaillant's Adaptation to Life (1977) and the DSM-IV Defensive Functioning Scale, Wolpe (1958, 1969),
+Azrin and Nunn (1973), Brown and Kulik (1977), Neisser and Harsch (1992), Talarico and Rubin (2003), Frankl's logotherapy writings,
+ICD-11 (WHO, in force 2022) and DSM-5-TR (2022), Patanjali's Yoga Sutras, the Samkhya Karika and the Bhagavad Gita, and Kegel (1948).
+The mock and this page read the same question file, so they always match.</p>
+</div>
+
+<script src="../take/data-nimhans26.js?v=20261021-t010"></script>
+<script>
+(function(){
+  var M = window.PREVIEW_MOCKS["nimhans-2026-recall"], D = window.PREVIEW_DEEP["nimhans-2026-recall"];
+  var esc = function(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); };
+  function paras(t){
+    var parts = String(t).replace(/([.!?])\s+(?=[A-Z(“"'])/g,"$1␟").split("␟"), out = [];
+    for (var i = 0; i < parts.length; i += 2) out.push(parts.slice(i, i + 2).join(" "));
+    return out.map(function(p){ return "<p>" + esc(p) + "</p>"; }).join("");
+  }
+  var counts = { recall: 0, cluster: 0 };
+  M.questions.forEach(function(q, i){
+    var d = D[i], n = ++counts[q.section], L = "abcd".split("").filter(function(l){ return q.options[l]; });
+    var h = '<details class="qq" id="' + q.section + "-" + n + '"><summary><span class="tp">' + esc(q.topic) + "</span>"
+      + '<span class="qn">' + n + ".</span>" + esc(q.q)
+      + '<ol class="opts">' + L.map(function(l){ return "<li><b>" + l.toUpperCase() + "</b>" + esc(q.options[l]) + "</li>"; }).join("") + "</ol>"
+      + '<div class="hint">Tap to see the answer and why</div></summary>'
+      + '<div class="ans"><span class="k">' + q.correct.toUpperCase() + '</span><span class="t">' + esc(q.options[q.correct]) + "</span></div>"
+      + '<div class="h">The concept</div><div class="body">' + paras(d.concept) + "</div>"
+      + '<div class="h">Why the other options are wrong</div>'
+      + L.filter(function(l){ return l !== q.correct; }).map(function(l){
+          return '<div class="trap"><span class="k">' + l.toUpperCase() + '</span><div><span class="o">' + esc(q.options[l]) + "</span><p>" + esc(d.traps[l]) + "</p></div></div>";
+        }).join("")
+      + "</details>";
+    document.getElementById(q.section === "recall" ? "recallList" : "clusterList").insertAdjacentHTML("beforeend", h);
+  });
+  var btn = document.getElementById("openAll"), open = false;
+  btn.addEventListener("click", function(){
+    open = !open;
+    document.querySelectorAll("details.qq, .notes details").forEach(function(x){ x.open = open; });
+    btn.textContent = open ? "Close all answers" : "Open all answers";
+  });
+  if (location.hash) { var t = document.getElementById(location.hash.slice(1)); if (t && t.tagName === "DETAILS") t.open = true; }
+})();
+</script>
+</body>
+</html>

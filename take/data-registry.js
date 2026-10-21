@@ -1,6 +1,19 @@
 // Full mock registry (MOCKS + GROUPS), ported verbatim from tests/index.html.
 const MOCKS = [
   {
+    id: "nimhans-2026-recall",
+    title: "NIMHANS 2026 Recall: your 9 + cluster",
+    sub: "27 Q · your Qs 36-41 + the tamas, dharana and Kegel Qs from the 31 May NIMHANS paper + 18 cluster Qs · untimed Practice",
+    path: "../take/screen.html?m=nimhans-2026-recall",
+    total: 27,
+    storageKey: "nimhans-2026-recall-results-v1",
+    sections: { recall: 9, cluster: 18 },
+    blurb: "The questions you typed from memory right after the NIMHANS MClinPsy paper on 31 May that you asked about by name: Q36 Vaillant's level for dissociation, Q37 systematic desensitization, Q38 awareness training in habit reversal, Q39 confidence in flashbulb memories, Q40 paradoxical intention, Q41 where ICD-11 puts gender incongruence, plus the Bavisha (tamas) question, dharana and Kegels. Stems are yours; options you recalled are kept, the rest rebuilt. Each concept is widened with 2 cluster questions on the neighbours a paper can swap in: suppression vs repression, the immature level, SUDS, flooding, the competing response, HRT vs ERP for OCD, Talarico and Rubin, why flashbulb memories feel vivid, paradoxical intention for insomnia, dereflection, what stayed in ICD-11 Chapter 6, DSM-5 gender dysphoria, rajas, Samkhya, pratyahara, the order of the eight limbs, Kegels vs bell-and-pad, biofeedback. Every card has the concept from scratch and why each wrong option is wrong. Same questions plus cluster notes on the why page (/missed-concepts/) and in the Library (Requested Topics, chapter 5). Independent storage.",
+    fresh: true,
+    deepExp: true,
+    tags: ["your NIMHANS recall", "real paper concepts", "cluster widened", "27 Q", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "recall-14",
     title: "Recall 14 + Reliability Drill",
     sub: "32 Q · your 14 recall Qs from 5 Aug + 18 worked formula Qs (Spearman-Brown, Rulon, KR-20/21, speed tests, variance, SEM) · untimed Practice",
@@ -420,7 +433,7 @@ const GROUPS = [
     members: ["rml-2020", "rml-2021", "rml-2022", "rml-2023", "rml-2024", "rml-2025", "rml-practice-1"] },
   { id: "pyq", title: "NIMHANS & pan-India PYQ",
     sub: "Verbatim NIMHANS M.Phil papers plus the cross-institute PYQ banks",
-    members: ["pyq-real-2025", "pyq-real-2024", "nimhans-mock-1", "pyq-mock-2"] },
+    members: ["nimhans-2026-recall", "pyq-real-2025", "pyq-real-2024", "nimhans-mock-1", "pyq-mock-2"] },
   { id: "met", title: "MET-pattern mocks",
     sub: "Full-length practice built to the MET blueprint — content carries to every RCI paper minus the Language block",
     members: ["met-mock-5", "met-mock-4", "met-mock-3", "met-mock-2", "met-mock-1", "bio-testing-paper"] },
