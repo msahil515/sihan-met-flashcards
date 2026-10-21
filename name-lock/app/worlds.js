@@ -286,6 +286,12 @@ function dive(i){
   WARP.on = true; whoosh(); stopAmb(); buzz([15, 40, 25, 40, 70]);
   setTimeout(function(){ location.href = "index.html#" + (w.id === "bio" || w.id === "dis" || w.id === "jss" ? w.id : "map"); }, 1150);
 }
+/* this screen draws once from localStorage; when sync.js then pulls the other device's progress, redraw (skip the intro, at most every 30s) */
+window.addEventListener("sihan-sync", function(e){
+  if (!e.detail || !e.detail.pulled || document.body.classList.contains("diving")) return;
+  try { if (Date.now() - (+sessionStorage.getItem("nl-wsync") || 0) < 30000) return; sessionStorage.setItem("nl-wsync", Date.now()); } catch(x){ return; }
+  history.replaceState(null, "", location.pathname + "#skip"); location.reload();
+});
 window.addEventListener("pageshow", function(e){ if (e.persisted){ document.body.classList.remove("diving"); $("#flash").classList.remove("on"); WARP.on = false; WARP.v = 0; } });
 
 function shatter(i){

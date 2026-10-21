@@ -388,6 +388,7 @@
           var dev = device();
           var devices = (remote && remote.devices) || {};
           devices[dev.id] = { name: dev.name, ts: new Date().toISOString() };
+          if (window.SIHAN_SYNC_APP) devices[dev.id].app = window.SIHAN_SYNC_APP; /* lets an app list who else is on the code */
 
           return encodePayload({ v: 1, updated: new Date().toISOString(), devices: devices, meta: outMeta, store: store })
             .then(function (body) {

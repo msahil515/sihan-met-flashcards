@@ -1078,11 +1078,24 @@ function showTab(t, keepScroll){
 function refreshTab(){ showTab(TAB, true); }
 /* ================= cross-device sync (../../sync.js, same code as /sync/ on the site) ================= */
 function syncLabel(){ var Y = window.SihanSync, c = Y && Y.getCode(); return c ? Y.prettyCode(c) : "Off"; }
+/* who else is on this code (device list from the last sync), so two different codes show up at a glance */
+function syncWho(st){
+  var d = st.devices; if (st.state !== "ok" || !d) return "";
+  var me = window.SihanSync.device(), by = {}, other = false;
+  Object.keys(d).forEach(function(id){ var x = d[id] || {}, t = Date.parse(x.ts) || 0, mine = id === me.id, k = mine ? "me" : (x.app ? x.app + " on " : "") + x.name;
+    if (x.name !== me.name) other = true;
+    if (!by[k] || by[k].t < t) by[k] = {k: k, t: t, mine: mine}; });
+  var rows = Object.keys(by).map(function(k){ return by[k]; }).sort(function(a, b){ return b.t - a.t; }).slice(0, 5).map(function(r){
+    var m = Math.round((Date.now() - r.t) / 6e4);
+    return r.mine ? "<b>This " + esc(me.name.replace(/^Android /, "")) + "</b>" : "<b>" + esc(r.k) + "</b>, " + (m < 1 ? "just now" : m < 60 ? m + " min ago" : m < 1440 ? Math.round(m / 60) + " h ago" : Math.round(m / 1440) + " days ago"); });
+  return '<p style="margin:0 0 10px;font-size:14px">Synced on this code: ' + rows.join(" · ") + '</p>' +
+    (other ? "" : '<p style="margin:0 0 10px;color:var(--bad);font-weight:700;font-size:14px">Your other device hasn\'t synced to this code yet. If it shows a different code, tap Turn sync off on it, then Scan QR and scan this one. Nothing gets lost.</p>');
+}
 function syncSheet(){
   var Y = window.SihanSync, Q = window.SihanQR; if (!Y){ toast("Sync isn't loaded. Open the app once with internet.", "bad"); return; }
   var c = Y.getCode(), st = Y.status(), when = st.at ? new Date(st.at).toLocaleTimeString([], {hour: "numeric", minute: "2-digit"}) : "", other = Q ? Q.otherApp() : "";
   openSheet('<h2 class="sh" style="margin-top:0">Sync<small>Same code on your phone and tab = same XP, streak, levels, bosses and misses</small></h2>' +
-    (c ? '<p style="margin:0 0 10px">This device is on <b>' + Y.prettyCode(c) + '</b>. ' + (st.state === "ok" ? "Last synced " + when + "." : st.state === "error" ? "Last try failed: " + esc(st.msg) + "." : "") + '</p>' +
+    (c ? '<p style="margin:0 0 10px">This device is on <b>' + Y.prettyCode(c) + '</b>. ' + (st.state === "ok" ? "Last synced " + when + "." : st.state === "error" ? "Last try failed: " + esc(st.msg) + "." : "") + '</p>' + syncWho(st) +
       (Q ? '<div id="sy-qr"></div><p style="margin:10px 0 14px;text-align:center;color:var(--mu);font-weight:700;font-size:14px">On your other device: Sync › <b>Scan QR</b>, point it here. Done once, linked for good.</p>' : '') +
       (other ? '<button class="btn" id="sy-oth" style="margin-bottom:10px">Link ' + esc(other) + ' on this device too</button>' : '') +
       '<button class="btn" id="sy-now">Sync now</button><button class="btn bad" id="sy-off" style="margin-top:10px">Turn sync off here</button>'
