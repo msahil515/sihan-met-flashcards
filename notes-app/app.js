@@ -8,10 +8,61 @@
 
   var app = document.getElementById("app");
   var DATA = null;          // manifest.json
-  var FLAT = [];            // ordered [{slug,title,short,blurb,section,sectionName,grad,minutes,words}]
+  var FLAT = [];            // every book in tile order [{slug,title,short,blurb,shelfName,group,sectionName,acc,minutes,words}]
   var BYSLUG = {};          // slug -> flat entry
   var SEARCH = null;        // lazy search index
   var FS_KEY = "nfe:fs", LAST_KEY = "nfe:last", SCROLL_KEY = "nfe:scroll";
+  var PROG_KEY = "nfe:prog", OPENS_KEY = "nfe:opens";
+
+  /* ---------- where each book is shelved ----------
+     Six subject tiles plus an Archive replace the 17 manifest shelves on the
+     home screen. manifest.json (build_app.py) still owns the books; this only
+     decides which tile each one sits under, in reading order. A book that is
+     not listed lands in Exam prep, so a rebuild that adds one can't hide it. */
+  var SUBJECTS = [
+    { key: "biopsych", name: "Biopsych", acc: "#8B3A2F",
+      sub: "Neurons, the brain, neurotransmitters, sensation",
+      books: ["pinel", "biopsychology", "unit4-biopsych", "psycho-didi-biology"] },
+    { key: "cognitive", name: "Cognitive", acc: "#2F5F66",
+      sub: "Attention, perception, memory, learning, thinking, intelligence",
+      books: ["eysenck", "cognitive", "unit5-cognition1", "unit6-thinking", "psycho-didi-cognitive"] },
+    { key: "clinical", name: "Clinical and DSM", acc: "#5E3A68",
+      sub: "Every disorder, DSM-5-TR, therapy, clinical foundations",
+      books: ["dsm5tr", "abnormal-barlow-durand", "abnormal", "psycho-didi-psychopathology",
+              "clinical-positive-foundations", "therapy", "psycho-didi-interventions", "psycho-didi-health"] },
+    { key: "social", name: "Social and Personality", acc: "#4A6332",
+      sub: "Social, personality, emotion and motivation, lifespan development",
+      books: ["social", "personality", "developmental", "unit7-personality", "unit8-social",
+              "unit9-development", "unit10-emerging", "psycho-didi-personality", "psycho-didi-social",
+              "psycho-didi-developmental"] },
+    { key: "stats", name: "Stats and Tests", acc: "#2D4B73",
+      sub: "Statistics, research methods, psychometrics, every test",
+      books: ["statistics", "research", "research-stats", "psycho-didi-research", "unit3-psychometrics",
+              "assessment", "psych-tests", "psycho-didi-testing"] },
+    { key: "prep", name: "Exam prep", acc: "#8A6420",
+      sub: "Strategy, quick reference, systems and history, mock fixes, interview",
+      books: ["master-guide", "concepts", "lookalikes", "textbook", "requested-topics", "systems-theories",
+              "systems-theories-explained", "psycho-didi-history", "psycho-didi-cheatsheets", "mocks",
+              "exam-papers", "therapy-style"] }
+  ];
+  var ARCHIVE = { key: "archive", name: "Archive", acc: "#6E6150",
+    sub: "Amity, RML, SGT and the Manipal viva sheet. Closed cycles, every page kept.",
+    books: ["amity", "rml-study-material", "sgt-study-material", "manipal-viva"] };
+  var GROUPS = {};          // key -> subject (or ARCHIVE), with .list of entries
+
+  function shelve() {
+    var all = SUBJECTS.concat([ARCHIVE]);
+    function put(g, e) { e.group = g.key; e.sectionName = g.name; e.acc = g.acc; g.list.push(e); }
+    all.forEach(function (g) { GROUPS[g.key] = g; g.list = []; });
+    all.forEach(function (g) {
+      g.books.forEach(function (slug) { var e = BYSLUG[slug]; if (e && !e.group) put(g, e); });
+    });
+    DATA.shelves.forEach(function (sh) {
+      sh.chapters.forEach(function (c) { if (!BYSLUG[c.slug].group) put(GROUPS.prep, BYSLUG[c.slug]); });
+    });
+    all.forEach(function (g) { FLAT = FLAT.concat(g.list); });
+  }
+  function groupHash(key) { return key === "archive" ? "#/archive" : "#/s/" + key; }
 
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
@@ -30,14 +81,14 @@
       DATA = d;
       d.shelves.forEach(function (sh) {
         sh.chapters.forEach(function (c) {
-          var e = {
+          BYSLUG[c.slug] = {
             slug: c.slug, title: c.title, short: c.short || c.title,
-            blurb: c.blurb || "", minutes: c.minutes, words: c.words,
-            section: sh.key, sectionName: sh.name, grad: sh.grad
+            blurb: c.blurb || "", minutes: +c.minutes || 0, words: +c.words || 0,
+            shelfName: sh.name
           };
-          FLAT.push(e); BYSLUG[c.slug] = e;
         });
       });
+      shelve();
       route();
     })
     .catch(function () {
@@ -58,7 +109,10 @@
     document.body.classList.remove("toc-open");
     var h = location.hash || "";
     var m = h.match(/^#\/read\/([a-z0-9\-.]+)/i);
+    var s = h.match(/^#\/s\/([a-z]+)/);
     if (m && BYSLUG[m[1]]) { renderReader(m[1]); }
+    else if (h === "#/archive") { renderGroup("archive"); }
+    else if (s && GROUPS[s[1]]) { renderGroup(s[1]); }
     else { renderLibrary(); }
     /* #/search/<topic>: the "To study" list in the Tests app and Name Lock links here */
     var sq = h.match(/^#\/search\/(.+)$/);
@@ -67,9 +121,52 @@
 
   function go(slug) { location.hash = "#/read/" + slug; }
 
-  /* ---------- library ---------- */
+  /* ---------- reading state ----------
+     nfe:prog  {slug: 0..1}  where you are in each book (written by setProgress)
+     nfe:opens {slug: n}     how many times each book was opened */
+  function readMap(k) {
+    try { return JSON.parse(localStorage.getItem(k) || "{}") || {}; } catch (e) { return {}; }
+  }
+  function writeMap(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function readOpens() {
+    if (localStorage.getItem(OPENS_KEY) !== null) return readMap(OPENS_KEY);
+    // first run after the redesign: every book with a saved place counts as opened once
+    var o = {};
+    [SCROLL_KEY, SPREAD_KEY].forEach(function (k) { Object.keys(readMap(k)).forEach(function (s) { o[s] = 1; }); });
+    var last = localStorage.getItem(LAST_KEY);
+    if (last) o[last] = 1;
+    writeMap(OPENS_KEY, o);
+    return o;
+  }
+  function countOpen(slug) {
+    var o = readOpens(); o[slug] = (o[slug] || 0) + 1; writeMap(OPENS_KEY, o);
+  }
+  function saveProg(slug, frac) {
+    var p = readMap(PROG_KEY); p[slug] = Math.round(frac * 1000) / 1000; writeMap(PROG_KEY, p);
+  }
+  function readState(e, P, O) {
+    var f = P[e.slug];
+    if (f != null) {
+      var pct = Math.floor(f * 100);
+      return { pct: pct, label: pct >= 1 ? pct + "% read" : "Just started" };
+    }
+    return { pct: 0, label: O[e.slug] ? "Opened" : "Not started" };
+  }
+  function groupPct(g, P) {        // share of the subject's words already behind you
+    var w = 0, r = 0;
+    g.list.forEach(function (e) { w += e.words; r += e.words * (P[e.slug] || 0); });
+    return w ? Math.floor(100 * r / w) : 0;
+  }
+  function fmtTime(min) {
+    if (min < 60) return min + " min";
+    return Math.floor(min / 60) + " h" + (min % 60 ? " " + (min % 60) + " min" : "");
+  }
+  function bar(pct) { return '<span class="pbar"><b style="width:' + pct + '%"></b></span>'; }
+
+  /* ---------- library (home) ---------- */
   function renderLibrary() {
     document.body.classList.remove("reading");
+    var P = readMap(PROG_KEY), O = readOpens();
     var last = localStorage.getItem(LAST_KEY);
     var lastE = last && BYSLUG[last];
 
@@ -77,68 +174,123 @@
     html += '<div class="appbar"><span class="brand"><span class="mark">L</span> Library</span>' +
       '<span class="spacer"></span>' +
       bookBtnHTML() +
-      '<button class="iconbtn" id="topSearch" aria-label="Search">&#128269;</button>' +
       '<button class="iconbtn syncbtn" id="libSync" aria-label="Hard refresh to latest version" title="Hard refresh to latest">&#8635;</button></div>';
     html += '<div class="library">';
 
-    // masthead (title page)
-    html += '<div class="masthead">' +
-      '<span class="eyebrow">The Library &middot; MET 2026 &amp; NIMHANS</span>' +
-      '<h1>Library</h1>' +
-      '<p class="sub">Every subject written out as a full textbook, merged so each concept lives in one clean entry. Detail kept, nothing cut. Read it like print.</p>' +
-      '<div class="rule"><span class="orn">&#10086;</span></div>' +
-      '<div class="stats">' +
-        '<span><b>' + DATA.chapters + '</b> Textbooks</span>' +
-        '<span><b>' + Math.round(DATA.words / 1000) + 'k</b> Words</span>' +
-        '<span><b>' + DATA.shelves.length + '</b> Sections</span>' +
-      '</div></div>';
-
-    // search
     html += '<div class="searchbar" id="openSearch">' +
       '<span class="sicon">&#128269;</span>' +
-      '<input type="search" placeholder="Search every textbook…" readonly>' +
-      '<span class="hint">/</span></div>';
+      '<input type="search" placeholder="Search all ' + FLAT.length + ' books" readonly></div>';
 
-    // continue
+    // continue reading: lands you back on the page you left (the reader restores it)
     if (lastE) {
-      html += '<div class="continue" data-go="' + esc(lastE.slug) + '">' +
-        '<div class="cv" style="background:linear-gradient(135deg,' + lastE.grad[0] + ',' + lastE.grad[1] + ')"></div>' +
+      var ls = readState(lastE, P, O);
+      html += '<div class="continue" data-go="' + esc(lastE.slug) + '" style="--acc:' + lastE.acc + '">' +
+        '<div class="cv"></div>' +
         '<div class="meta">' +
           '<div class="kicker">Continue reading</div>' +
           '<div class="ttl">' + esc(lastE.short) + '</div>' +
-          '<div class="sub">' + esc(lastE.sectionName) + ' &middot; ' + lastE.minutes + ' min read</div>' +
+          '<div class="sub">' + esc(lastE.sectionName) + ', ' + ls.label.toLowerCase() + '</div>' +
+          bar(ls.pct) +
         '</div>' +
-        '<button class="go">Resume &#8594;</button></div>';
+        '<button class="go">Resume</button></div>';
     }
 
-    // shelves
-    DATA.shelves.forEach(function (sh) {
-      html += '<section class="shelf">' +
-        '<div class="shelf-head"><h2>' + esc(sh.name) + '</h2>' +
-        '<span class="st">' + esc(sh.subtitle) + '</span>' +
-        '<span class="ct">' + sh.chapters.length + ' ' + (sh.chapters.length === 1 ? 'textbook' : 'textbooks') + '</span></div>' +
-        '<div class="shelf-rule"></div>' +
-        '<div class="shelf-row">';
-      sh.chapters.forEach(function (c) {
-        html += '<a class="book" data-go="' + esc(c.slug) + '" href="#/read/' + esc(c.slug) + '" ' +
-          'style="background:linear-gradient(150deg,' + sh.grad[0] + ',' + sh.grad[1] + ')">' +
-          '<span class="b-kicker">' + esc(sh.name) + '</span>' +
-          '<span class="b-rule"></span>' +
-          '<span class="b-title">' + esc(c.short) + '</span>' +
-          '<span class="b-blurb">' + esc(c.blurb) + '</span>' +
-          '<span class="b-foot">' + c.minutes + ' min &middot; ' + Math.round(c.words / 100) / 10 + 'k words</span>' +
-          '</a>';
+    // the books he opens most, straight below
+    var most = FLAT.filter(function (e) { return O[e.slug] && e !== lastE; })
+      .sort(function (a, b) { return (O[b.slug] - O[a.slug]) || (FLAT.indexOf(a) - FLAT.indexOf(b)); })
+      .slice(0, 4);
+    if (most.length) {
+      html += '<h2 class="lib-label">Most opened</h2><div class="mostrow">';
+      most.forEach(function (e) {
+        var st = readState(e, P, O);
+        html += '<a class="mini" data-go="' + esc(e.slug) + '" href="#/read/' + esc(e.slug) + '" style="--acc:' + e.acc + '">' +
+          '<span class="m-sub">' + esc(e.sectionName) + '</span>' +
+          '<span class="m-ttl">' + esc(e.short) + '</span>' +
+          bar(st.pct) +
+          '<span class="m-meta">' + st.label + '</span></a>';
       });
-      html += '</div></section>';
+      html += '</div>';
+    }
+
+    // six subject tiles; each carries its books as spines that fill as you read
+    html += '<div class="tiles">';
+    SUBJECTS.forEach(function (g) {
+      var pct = groupPct(g, P);
+      html += '<a class="tile" href="' + groupHash(g.key) + '" style="--acc:' + g.acc + '">' +
+        '<span class="t-name">' + esc(g.name) + '</span>' +
+        '<span class="t-sub">' + esc(g.sub) + '</span>' +
+        '<span class="t-shelf">' + spines(g, P) + '</span>' +
+        '<span class="t-foot"><span>' + g.list.length + ' books</span>' +
+        '<span>' + (pct ? pct + '% read' : 'Not started') + '</span></span></a>';
     });
+    html += '</div>';
+
+    html += '<a class="arcrow" href="#/archive">' +
+      '<span class="a-name">Archive</span>' +
+      '<span class="a-sub">' + esc(ARCHIVE.sub) + '</span>' +
+      '<span class="a-ct">' + ARCHIVE.list.length + ' books</span></a>';
 
     html += '</div>';
     app.innerHTML = html;
     wireCommon();
     var os = document.getElementById("openSearch");
     if (os) os.addEventListener("click", openSearch);
-    var ls = document.getElementById("libSync");
-    if (ls) ls.addEventListener("click", forceSync);
+    var lsb = document.getElementById("libSync");
+    if (lsb) lsb.addEventListener("click", forceSync);
+    window.scrollTo(0, 0);
+  }
+
+  /* one spine per book: thicker for longer books, filled from the foot up by
+     how far through it you are */
+  function spines(g, P) {
+    return g.list.map(function (e) {
+      var h = 0;
+      for (var i = 0; i < e.slug.length; i++) h = (h * 31 + e.slug.charCodeAt(i)) % 997;
+      var w = 7 + Math.min(7, Math.round(e.words / 12000));
+      var fill = Math.round(100 * Math.min(1, P[e.slug] || 0));
+      return '<i style="height:' + (64 + h % 36) + '%;width:' + w + 'px" title="' + esc(e.short) + '">' +
+        '<b style="height:' + fill + '%"></b></i>';
+    }).join("");
+  }
+
+  /* ---------- one subject (or the archive): its books as a list ---------- */
+  function renderGroup(key) {
+    document.body.classList.remove("reading");
+    var g = GROUPS[key], P = readMap(PROG_KEY), O = readOpens();
+    var mins = 0; g.list.forEach(function (e) { mins += e.minutes; });
+    var pct = groupPct(g, P);
+
+    var html = '<div class="appbar">' +
+      '<button class="backbtn" id="backBtn"><span>&#8592;</span> Library</button>' +
+      '<span class="spacer"></span>' +
+      bookBtnHTML() +
+      '<button class="iconbtn" id="topSearch" aria-label="Search">&#128269;</button></div>';
+    html += '<div class="library group" style="--acc:' + g.acc + '">';
+    html += '<div class="g-head"><h1>' + esc(g.name) + '</h1>' +
+      '<p class="g-sub">' + esc(g.sub) + '</p>' +
+      '<p class="g-stats">' + g.list.length + ' books, ' + fmtTime(mins) + ' of reading' +
+      (pct ? ', ' + pct + '% read' : '') + '</p></div>';
+
+    html += '<div class="booklist">';
+    g.list.forEach(function (e) {
+      var st = readState(e, P, O);
+      html += '<a class="brow" data-go="' + esc(e.slug) + '" href="#/read/' + esc(e.slug) + '">' +
+        '<span class="b-main">' +
+          '<span class="b-src">' + esc(e.shelfName) + '</span>' +
+          '<span class="b-ttl">' + esc(e.short) + '</span>' +
+          '<span class="b-blurb">' + esc(e.blurb) + '</span>' +
+        '</span>' +
+        '<span class="b-side">' +
+          '<span class="b-state' + (st.pct ? ' on' : '') + '">' + st.label + '</span>' +
+          bar(st.pct) +
+          '<span class="b-len">' + fmtTime(e.minutes) + '</span>' +
+        '</span></a>';
+    });
+    html += '</div></div>';
+
+    app.innerHTML = html;
+    wireCommon();
+    document.getElementById("backBtn").addEventListener("click", function () { location.hash = ""; });
     window.scrollTo(0, 0);
   }
 
@@ -184,17 +336,20 @@
   function renderReader(slug) {
     document.body.classList.add("reading");
     var e = BYSLUG[slug];
-    RSLUG = slug; RIDX = FLAT.indexOf(e);
-    PREV = FLAT[RIDX - 1]; NEXT = FLAT[RIDX + 1];
+    // prev/next (and turning past the last page) stay inside the book's subject
+    var L = GROUPS[e.group].list;
+    RSLUG = slug; RIDX = L.indexOf(e);
+    PREV = L[RIDX - 1]; NEXT = L[RIDX + 1];
     SECS = []; PAGED = false; NSPREADS = 1; CUR = 0;
     SPREAD_PITCH = 0; COL_PITCH = 0; PAD_H = 0;
     localStorage.setItem(LAST_KEY, slug);
+    countOpen(slug);
 
     var html = '<div class="reader">';
 
     // top bar
     html += '<div class="appbar">' +
-      '<button class="backbtn" id="backBtn"><span>&#8592;</span> Library</button>' +
+      '<button class="backbtn" id="backBtn"><span>&#8592;</span> ' + esc(e.sectionName) + '</button>' +
       '<button class="iconbtn tocbtn" id="tocBtn" aria-label="Contents">&#9776;</button>' +
       '<div class="crumb"><span class="sec">' + esc(e.sectionName) + '</span>' +
       '<span class="tt">' + esc(e.short) + '</span></div>' +
@@ -224,7 +379,7 @@
       '<div class="foot-mid">' +
         '<div class="pagelabel" id="pageLabel">&nbsp;</div>' +
         '<div class="progbar"><span id="progBar"></span></div>' +
-        '<div class="booklabel">Textbook ' + (RIDX + 1) + ' of ' + FLAT.length + ' &middot; ' + esc(e.short) + '</div>' +
+        '<div class="booklabel">Book ' + (RIDX + 1) + ' of ' + L.length + ' in ' + esc(e.sectionName) + '</div>' +
       '</div>' +
       '<button class="foot-nav" id="nextBtn" ' + (NEXT ? '' : 'disabled') + '>' + (NEXT ? esc(NEXT.short) : 'End') + ' &#8250;</button>' +
       '</div>';
@@ -249,7 +404,7 @@
       maybeShowTurnHint();
     });
 
-    document.getElementById("backBtn").addEventListener("click", function () { location.hash = ""; });
+    document.getElementById("backBtn").addEventListener("click", function () { location.hash = groupHash(e.group); });
     document.getElementById("readerSearch").addEventListener("click", openSearch);
     document.getElementById("reaSync").addEventListener("click", forceSync);
     // page turns: swipe or tap the page edge (handled in wireGestures); turns
@@ -476,6 +631,7 @@
   function setProgress(frac) {
     var bar = document.getElementById("progBar");
     if (bar) bar.style.width = Math.round(Math.min(1, Math.max(0, frac)) * 100) + "%";
+    if (RSLUG) saveProg(RSLUG, Math.min(1, Math.max(0, frac)));   // feeds the "% read" on the home screen
   }
 
   /* ----- scroll (single page, narrow) ----- */
@@ -907,17 +1063,16 @@
     if (e.key === "/" && document.activeElement.tagName !== "INPUT") { e.preventDefault(); openSearch(); return; }
     var m = (location.hash || "").match(/^#\/read\/([a-z0-9\-.]+)/i);
     if (m && BYSLUG[m[1]]) {
-      var idx = FLAT.indexOf(BYSLUG[m[1]]);
       if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
         // turn a page in the spread; falls through to the next chapter at the end
         if (PAGED) { e.preventDefault(); turnPage(1); }
-        else if (FLAT[idx + 1]) go(FLAT[idx + 1].slug);
+        else if (NEXT) go(NEXT.slug);
       } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
         if (PAGED) { e.preventDefault(); turnPage(-1); }
-        else if (FLAT[idx - 1]) go(FLAT[idx - 1].slug);
+        else if (PREV) go(PREV.slug);
       } else if (e.key === "Home" && PAGED) { e.preventDefault(); goToSpread(0); }
       else if (e.key === "End" && PAGED) { e.preventDefault(); goToSpread(NSPREADS - 1); }
-      else if (e.key === "Escape") { if (document.body.classList.contains("toc-open")) document.body.classList.remove("toc-open"); else location.hash = ""; }
+      else if (e.key === "Escape") { if (document.body.classList.contains("toc-open")) document.body.classList.remove("toc-open"); else location.hash = groupHash(BYSLUG[m[1]].group); }
     }
   });
 })();

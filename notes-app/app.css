@@ -107,175 +107,142 @@ button { font-family: inherit; cursor: pointer; }
 .backbtn:hover { background: #fff; }
 
 /* ============================================================
-   LIBRARY (home)
+   LIBRARY (home): search, continue reading, most opened, six
+   subject tiles and the archive. Kept quiet on purpose: flat
+   paper cards, one binding colour per subject (--acc), and
+   progress shown on everything. The one flourish is the row of
+   spines on each tile, which fill from the foot as you read.
    ============================================================ */
-.library { max-width: 1240px; margin: 0 auto; padding: 8px 22px 96px; }
-
-/* Editorial masthead, set on paper like a title page. */
-.masthead {
-  text-align: center;
-  padding: 40px 16px 30px;
-  position: relative;
-}
-.masthead .eyebrow { display: block; margin-bottom: 14px; }
-.masthead h1 {
-  font-family: var(--serif);
-  font-size: clamp(40px, 7vw, 68px);
-  font-weight: 700; line-height: 1.02;
-  margin: 0; letter-spacing: 0.4px; color: var(--ink);
-  text-wrap: balance;
-}
-.masthead .sub {
-  font-style: italic; color: var(--ink-2);
-  font-size: clamp(15px, 2.2vw, 18px);
-  max-width: 620px; margin: 14px auto 0; line-height: 1.6;
-}
-.masthead .rule {
-  display: flex; align-items: center; justify-content: center; gap: 14px;
-  margin: 26px auto 0; max-width: 560px; color: var(--gold);
-}
-.masthead .rule::before,
-.masthead .rule::after {
-  content: ""; height: 1px; flex: 1;
-  background: linear-gradient(90deg, transparent, var(--rule) 30%, var(--gold) 100%);
-}
-.masthead .rule::after { transform: scaleX(-1); }
-.masthead .rule .orn { font-size: 15px; letter-spacing: 4px; }
-.masthead .stats {
-  display: flex; align-items: center; justify-content: center;
-  flex-wrap: wrap; gap: 8px 22px; margin: 22px 0 0;
-  font-family: var(--sans); font-size: 12.5px; color: var(--ink-soft);
-  letter-spacing: 0.12em; text-transform: uppercase;
-}
-.masthead .stats b {
-  font-family: var(--serif); font-size: 17px; font-weight: 700;
-  color: var(--ink); letter-spacing: 0; text-transform: none; margin-right: 5px;
-}
-.masthead .stats span { display: inline-flex; align-items: baseline; }
+.library { max-width: 1180px; margin: 0 auto; padding: 22px 28px 110px; }
 
 /* Search field, framed like a catalogue lookup. */
 .searchbar {
-  margin: 8px auto 4px; max-width: 540px;
-  display: flex; align-items: center; gap: 11px;
-  background: rgba(255,255,255,0.72); border: 1px solid var(--rule);
-  border-radius: 13px; padding: 13px 17px; box-shadow: var(--shadow-sm);
-  cursor: text; transition: box-shadow .15s ease, background .15s ease;
+  display: flex; align-items: center; gap: 12px;
+  background: var(--bk-card, rgba(255,255,255,0.72)); border: 1px solid var(--rule);
+  border-radius: 14px; padding: 14px 18px;
+  cursor: text; transition: background .15s ease;
 }
-.searchbar:hover { background: #fff; box-shadow: var(--shadow); }
+.searchbar:hover { background: var(--bk-card-lift, #fff); }
 .searchbar input {
-  flex: 1; border: 0; outline: 0; background: transparent;
-  font-size: 16px; color: var(--ink); font-family: var(--sans); cursor: text;
+  flex: 1; border: 0; outline: 0; background: transparent; min-width: 0;
+  font-size: 17px; color: var(--ink); font-family: var(--sans); cursor: text;
 }
+.searchbar input::placeholder { color: var(--ink-soft); }
 .searchbar .sicon { color: var(--gold); font-size: 16px; }
-.searchbar .hint { font-family: var(--sans); font-size: 11px; color: var(--ink-soft);
-  border: 1px solid var(--rule); border-radius: 6px; padding: 2px 7px; }
 
-/* Continue reading — a tucked-in bookmark ribbon. */
+/* thin reading-progress bar, used on every card and row */
+.pbar { display: block; height: 4px; border-radius: 2px; overflow: hidden;
+  background: var(--rule-soft); }
+.pbar b { display: block; height: 100%; border-radius: 2px; background: var(--acc, var(--gold)); }
+
+/* Continue reading: the one raised card on the page. */
 .continue {
-  margin: 26px auto 6px; max-width: 760px;
-  display: flex; align-items: center; gap: 17px;
-  padding: 15px 18px 15px 16px; border-radius: 14px;
-  background: linear-gradient(180deg, #fffdf6, #f5edd9);
+  margin: 18px 0 0;
+  display: flex; align-items: center; gap: 20px;
+  padding: 18px 20px; border-radius: 16px; cursor: pointer;
+  background: var(--bk-leaf, #fffdf6);
   border: 1px solid var(--rule); box-shadow: var(--shadow-sm);
-  position: relative; overflow: hidden;
-}
-.continue::before { /* ribbon */
-  content: ""; position: absolute; left: 30px; top: -6px; width: 16px; height: 46px;
-  background: linear-gradient(180deg, #b23a32, #7d211c);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%);
-  box-shadow: 0 2px 5px rgba(80,10,6,0.3); opacity: .9;
 }
 .continue .cv {
-  width: 50px; height: 68px; border-radius: 4px 8px 8px 4px; flex: none;
-  box-shadow: var(--shadow-sm); border-left: 4px solid rgba(0,0,0,0.28);
-  margin-left: 34px;
+  width: 48px; height: 66px; border-radius: 3px 7px 7px 3px; flex: none;
+  background: var(--acc);
+  border-left: 5px solid rgba(0,0,0,0.26); box-shadow: var(--shadow-sm);
 }
 .continue .meta { flex: 1; min-width: 0; }
-.continue .kicker { font-family: var(--sans); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); font-weight: 700; }
-.continue .ttl { font-family: var(--serif); font-size: 19px; font-weight: 700; margin: 3px 0 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.continue .sub { font-family: var(--sans); font-size: 12.5px; color: var(--ink-soft); }
+.continue .kicker { font-family: var(--sans); font-size: 13px; color: var(--gold); font-weight: 600; }
+.continue .ttl { font-family: var(--serif); font-size: 22px; font-weight: 700; margin: 2px 0 3px;
+  color: var(--bk-maroon, var(--ink)); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.continue .sub { font-family: var(--sans); font-size: 13px; color: var(--ink-soft); margin-bottom: 9px; }
+.continue .pbar { max-width: 360px; }
 .continue .go {
-  flex: none; background: linear-gradient(180deg, #34281a, #211810); color: #f3e6c8; border: 0;
-  padding: 12px 20px; border-radius: 10px; font-weight: 700; font-size: 14px;
-  font-family: var(--sans); box-shadow: var(--shadow-sm); letter-spacing: 0.02em;
-  transition: transform .12s ease;
+  flex: none; background: var(--bk-maroon, #2a2114); color: #F7EBD3; border: 0;
+  padding: 13px 24px; border-radius: 11px; font-weight: 700; font-size: 15px;
+  font-family: var(--sans);
 }
 .continue .go:active { transform: scale(0.97); }
 
-/* Shelves */
-.shelf { margin-top: 46px; }
-.shelf-head { display: flex; align-items: baseline; gap: 13px; margin: 0 4px 6px; }
-.shelf-head h2 { font-family: var(--serif); font-size: 25px; font-weight: 700; margin: 0; color: var(--ink); letter-spacing: 0.2px; }
-.shelf-head .st { font-style: italic; font-size: 14px; color: var(--ink-soft); }
-.shelf-head .ct { margin-left: auto; font-family: var(--sans); font-size: 11px; color: var(--ink-soft); white-space: nowrap; letter-spacing: 0.1em; text-transform: uppercase; }
-.shelf-rule { height: 2px; margin: 0 4px 22px;
-  background: linear-gradient(90deg, var(--gold) 0, var(--rule) 12%, var(--rule-soft) 100%); }
+.lib-label { font-family: var(--serif); font-size: 19px; font-weight: 700; color: var(--ink-2);
+  margin: 34px 2px 12px; }
 
-/* the wooden ledge under each row of books */
-.shelf-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-  gap: 26px 20px;
-  padding: 4px 6px 22px;
-  position: relative;
+/* Most opened: four quiet cards in a row */
+.mostrow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.mini {
+  display: flex; flex-direction: column; gap: 6px; min-height: 120px;
+  padding: 14px 16px 13px; border-radius: 12px;
+  background: var(--bk-card, rgba(255,255,255,0.6)); border: 1px solid var(--rule);
+  border-top: 3px solid var(--acc);
 }
-.shelf-row::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 14px;
-  border-radius: 3px;
-  background:
-    linear-gradient(180deg, #7a5326, #5b3c1a 60%, #4a2f14);
-  box-shadow: 0 10px 18px rgba(40,24,8,0.28), inset 0 1px 0 rgba(255,220,160,0.25);
-}
+.mini .m-sub { font-family: var(--sans); font-size: 12px; color: var(--ink-soft); }
+.mini .m-ttl { font-family: var(--serif); font-size: 17px; font-weight: 700; line-height: 1.25; flex: 1;
+  color: var(--ink); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.mini .m-meta { font-family: var(--sans); font-size: 12px; color: var(--ink-soft); }
 
-/* a cloth-bound book cover */
-.book {
-  position: relative; display: flex; flex-direction: column;
-  min-height: 234px; border-radius: 3px 9px 9px 3px;
-  padding: 20px 18px 16px 22px; color: #fdf6e6;
-  box-shadow: var(--shadow);
-  border-left: 7px solid rgba(0,0,0,0.30);
-  overflow: hidden; isolation: isolate;
-  transition: transform 0.18s cubic-bezier(.2,.7,.3,1), box-shadow 0.18s ease;
+/* Subject tiles */
+.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 34px; }
+.tile {
+  display: flex; flex-direction: column; min-height: 214px;
+  padding: 20px 22px 16px; border-radius: 16px;
+  background: var(--bk-card, rgba(255,255,255,0.6)); border: 1px solid var(--rule);
+  transition: background .15s ease, border-color .15s ease;
 }
-.book::before { /* head/tail bands + page edges on the fore-edge */
-  content: ""; position: absolute; top: 0; right: 0; bottom: 0; width: 9px;
-  background:
-    linear-gradient(180deg, #efe4cb 0 7px, transparent 7px),
-    linear-gradient(0deg, #efe4cb 0 7px, transparent 7px),
-    repeating-linear-gradient(90deg, rgba(247,241,225,0.85) 0 1px, rgba(120,95,55,0.25) 1px 2.5px);
-  border-radius: 0 4px 4px 0; z-index: 2; box-shadow: inset 1px 0 2px rgba(0,0,0,0.3);
+.tile:hover { background: var(--bk-card-lift, #fffdf6); border-color: var(--acc); }
+.tile:active { transform: scale(0.99); }
+.tile .t-name { font-family: var(--serif); font-size: 26px; font-weight: 700; line-height: 1.1;
+  color: var(--bk-maroon, var(--ink)); }
+.tile .t-sub { font-family: var(--sans); font-size: 13.5px; line-height: 1.45; color: var(--ink-soft);
+  margin-top: 6px; }
+/* the mini shelf: one spine per book standing on a ledge */
+.tile .t-shelf {
+  flex: 1; min-height: 64px; margin-top: 14px;
+  display: flex; align-items: flex-end; gap: 3px;
+  border-bottom: 2px solid var(--rule); padding: 0 2px;
 }
-.book::after { /* cloth weave + corner sheen */
-  content: ""; position: absolute; inset: 0; z-index: 1; opacity: 0.5;
-  background:
-    linear-gradient(118deg, rgba(255,255,255,0.20), transparent 38%),
-    repeating-linear-gradient(45deg, rgba(0,0,0,0.05) 0 2px, transparent 2px 4px),
-    repeating-linear-gradient(-45deg, rgba(0,0,0,0.04) 0 2px, transparent 2px 4px);
+.tile .t-shelf i {
+  display: flex; align-items: flex-end; overflow: hidden; max-height: 58px;
+  border-radius: 2px 2px 0 0; background: var(--rule-soft);
+  box-shadow: inset 0 0 0 1px var(--rule);
 }
-.book:hover { transform: translateY(-7px) rotate(-0.4deg); box-shadow: 0 26px 48px rgba(40,24,8,0.34); }
-.book:active { transform: translateY(-2px) scale(0.995); }
-.book > * { position: relative; z-index: 3; }
-.book .b-kicker {
-  font-family: var(--sans); font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase;
-  opacity: 0.85; font-weight: 700;
+.tile .t-shelf i b { display: block; width: 100%; background: var(--acc); }
+.tile .t-foot { display: flex; justify-content: space-between; margin-top: 10px;
+  font-family: var(--sans); font-size: 13px; color: var(--ink-soft); }
+
+/* Archive: one plain row at the foot of the page */
+.arcrow {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: baseline; gap: 6px 18px;
+  margin-top: 30px; padding: 16px 20px; border-radius: 14px;
+  border: 1px dashed var(--rule-firm, var(--rule)); color: var(--ink-soft);
 }
-.book .b-rule { height: 1px; margin: 8px 0 9px; width: 34px;
-  background: rgba(255,255,255,0.55); }
-.book .b-title {
-  font-family: var(--serif); font-size: 20px; font-weight: 700; line-height: 1.18;
-  margin: 0 0 9px; text-shadow: 0 1px 2px rgba(0,0,0,0.32);
-  text-wrap: balance;
+.arcrow:hover { background: var(--bk-card, rgba(255,255,255,0.5)); }
+.arcrow .a-name { font-family: var(--serif); font-size: 19px; font-weight: 700; color: var(--ink-2); }
+.arcrow .a-sub { font-family: var(--sans); font-size: 13.5px; }
+.arcrow .a-ct { font-family: var(--sans); font-size: 13px; white-space: nowrap; }
+
+/* ---------- one subject: its books as a list ---------- */
+.group { max-width: 980px; }
+.g-head { padding: 14px 2px 22px; border-bottom: 3px solid var(--acc); }
+.g-head h1 { font-family: var(--serif); font-size: clamp(32px, 5vw, 44px); line-height: 1.05; margin: 0;
+  color: var(--bk-maroon, var(--ink)); }
+.g-head .g-sub { font-size: 17px; font-style: italic; color: var(--ink-2); margin: 8px 0 0; }
+.g-head .g-stats { font-family: var(--sans); font-size: 13.5px; color: var(--ink-soft); margin: 10px 0 0; }
+
+.booklist { display: flex; flex-direction: column; }
+.brow {
+  display: grid; grid-template-columns: minmax(0, 1fr) 150px; gap: 26px; align-items: center;
+  padding: 18px 6px; border-bottom: 1px solid var(--rule);
 }
-.book .b-blurb {
-  font-family: var(--sans); font-size: 11.5px; line-height: 1.5; opacity: 0.9; flex: 1;
-  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
-}
-.book .b-foot {
-  margin-top: 12px; font-family: var(--sans); font-size: 10.5px; opacity: 0.9;
-  display: flex; align-items: center; gap: 7px; letter-spacing: 0.04em;
-  border-top: 1px solid rgba(255,255,255,0.18); padding-top: 9px;
-}
-.book .b-foot .dot { width: 3px; height: 3px; border-radius: 50%; background: currentColor; opacity: 0.7; }
+.brow:hover { background: var(--bk-card, rgba(255,255,255,0.5)); }
+.brow .b-main { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.brow .b-src { font-family: var(--sans); font-size: 12px; color: var(--ink-soft); }
+.brow .b-ttl { font-family: var(--serif); font-size: 20px; font-weight: 700; line-height: 1.25; color: var(--ink); }
+.brow .b-blurb { font-family: var(--sans); font-size: 13.5px; line-height: 1.5; color: var(--ink-2);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.brow .b-side { display: flex; flex-direction: column; gap: 6px; }
+.brow .b-state { font-family: var(--sans); font-size: 13px; color: var(--ink-soft); }
+.brow .b-state.on { color: var(--ink); font-weight: 700; }
+.brow .b-len { font-family: var(--sans); font-size: 12px; color: var(--ink-soft); }
+
+.tile:focus-visible, .mini:focus-visible, .brow:focus-visible, .arcrow:focus-visible,
+.continue:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 
 /* ============================================================
    READER — the vellum leaf on a walnut desk, with live side rails
@@ -518,12 +485,28 @@ body.toc-open .tocscrim { opacity: 1; pointer-events: auto; }
   .readerfoot .progbar { width: 40%; }
 }
 
+/* tab portrait: two tiles a row */
+@media (max-width: 900px) {
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mostrow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 720px) {
+  .reader .backbtn { max-width: 34vw; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; display: inline-block; line-height: 40px; }
+}
+
 @media (max-width: 600px) {
-  .masthead { padding: 28px 8px 22px; }
-  .shelf-row { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px 14px; }
-  .book { min-height: 200px; padding: 16px 14px 13px 18px; }
-  .book .b-title { font-size: 17px; }
-  .continue { margin-top: 22px; }
+  .library { padding: 16px 14px 100px; }
+  .tiles { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .tile { min-height: 0; }
+  .continue { gap: 14px; padding: 14px; }
+  .continue .cv { display: none; }
+  .continue .ttl { font-size: 18px; }
+  .continue .go { padding: 11px 16px; }
+  .arcrow { grid-template-columns: 1fr auto; }
+  .arcrow .a-sub { grid-column: 1 / -1; grid-row: 2; }
+  .brow { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .brow .b-side { flex-direction: row; align-items: center; gap: 12px; }
+  .brow .b-side .pbar { flex: 1; }
   .appbar .brand { font-size: 18px; }
   .foot-nav { max-width: 32vw; font-size: 12px; padding: 9px 10px; }
   .booklabel { display: none; }

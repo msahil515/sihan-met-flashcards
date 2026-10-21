@@ -79,7 +79,6 @@ html[data-book="on"] {
   --bk-card:      rgba(251, 246, 233, 0.78);
   --bk-card-lift: #FDFAF1;
   --bk-bar:       rgba(239, 229, 207, 0.90);
-  --bk-ledge:     linear-gradient(180deg, #7A5326, #5B3C1A 60%, #4A2F14);
 }
 
 /* ---------- 2. dark mode: warm leather brown, not cold grey ----------
@@ -121,7 +120,6 @@ html[data-book="on"].bk-dark {
   --bk-card:      rgba(42, 33, 26, 0.72);
   --bk-card-lift: #33291F;
   --bk-bar:       rgba(30, 23, 18, 0.92);
-  --bk-ledge:     linear-gradient(180deg, #4A3419, #33230F 60%, #241806);
 }
 
 /* ---------- 3. surfaces app.css paints with literal colours ---------- */
@@ -152,66 +150,19 @@ html[data-book="on"] .searchbar:hover { background: var(--bk-card-lift); }
 html[data-book="on"] .sres:hover { background: var(--bk-card); }
 
 /* headings in deep maroon */
-html[data-book="on"] .masthead h1,
-html[data-book="on"] .shelf-head h2,
 html[data-book="on"] .continue .ttl,
 html[data-book="on"] .sres .tt { color: var(--bk-maroon); }
 
-html[data-book="on"] .shelf-rule {
-  background: linear-gradient(90deg, var(--bk-gold) 0, var(--bk-rule) 12%, var(--rule-soft) 100%);
-}
 
 /* continue-reading ribbon card */
 html[data-book="on"] .continue {
   background: linear-gradient(180deg, var(--bk-leaf), var(--bk-leaf-2));
-}
-html[data-book="on"] .continue::before {
-  background: linear-gradient(180deg, var(--bk-maroon), var(--bk-maroon-2));
 }
 html[data-book="on"] .continue .go {
   background: linear-gradient(180deg, var(--bk-maroon), var(--bk-maroon-2));
   color: #F7EBD3;
 }
 
-html[data-book="on"] .shelf-row::after { background: var(--bk-ledge); }
-
-/* ---------- 4. the spines: a matched set, maroon cloth + gold foil ----------
-   app.js writes a per-shelf gradient inline on every cover, which is what made
-   the library read as a colour-coded dashboard. In book mode every volume is
-   bound the same way — deep maroon cloth, gold lettering, gilt rules — so the
-   shelves look like one textbook set. The shelf name stays, stamped in gold. */
-
-html[data-book="on"] .book {
-  background: linear-gradient(155deg, var(--bk-maroon) 0%, var(--bk-maroon-2) 88%) !important;
-  color: #F7ECD5;
-  border-left: 7px solid rgba(30, 8, 8, 0.55);
-  box-shadow: inset 8px 0 0 -6px var(--bk-gold-2), var(--shadow);
-}
-html[data-book="on"] .book:hover {
-  box-shadow: inset 8px 0 0 -6px var(--bk-gold-2), 0 26px 48px rgba(40, 16, 10, 0.34);
-}
-html[data-book="on"] .book .b-kicker { color: var(--bk-gold-2); opacity: 1; }
-html[data-book="on"] .book .b-rule {
-  background: linear-gradient(90deg, var(--bk-gold-2), rgba(201, 162, 77, 0.15));
-  width: 46px; height: 2px;
-}
-html[data-book="on"] .book .b-title { color: #FBF3E0; }
-html[data-book="on"] .book .b-foot {
-  border-top: 1px solid rgba(201, 162, 77, 0.35);
-  color: var(--bk-gold-soft); opacity: 1;
-}
-html[data-book="on"] .book::before {
-  background:
-    linear-gradient(180deg, var(--bk-leaf-2) 0 7px, transparent 7px),
-    linear-gradient(0deg, var(--bk-leaf-2) 0 7px, transparent 7px),
-    repeating-linear-gradient(90deg, rgba(251, 246, 233, 0.88) 0 1px, rgba(120, 95, 55, 0.26) 1px 2.5px);
-}
-/* the little cover on the continue card, bound to match */
-html[data-book="on"] .continue .cv {
-  background: linear-gradient(155deg, var(--bk-maroon), var(--bk-maroon-2)) !important;
-  border-left: 4px solid rgba(30, 8, 8, 0.5);
-  box-shadow: inset 5px 0 0 -3.5px var(--bk-gold-2), var(--shadow-sm);
-}
 
 /* ---------- 5. reader furniture ---------- */
 
