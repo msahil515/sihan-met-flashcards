@@ -15,6 +15,7 @@ nothing cut short." So the ~44 overlapping notes are merged into 13 clean books:
                         preserved): cognitive, personality, lookalikes, textbook
 
 Outputs: content/<slug>.html (reader pages), manifest.json, search-index.json,
+search-full.json (via build_search.py),
 and stamps sw.js with a content hash.
 """
 import os, re, json, html, hashlib
@@ -362,6 +363,10 @@ def main():
                     f'var CACHE = "library-{stamp}";', sw)
         open(sw_path, "w", encoding="utf-8").write(sw)
         print(f"stamped sw cache: library-{stamp}")
+
+    # the full-text index behind "Search every book" (search-index.json above is capped)
+    import build_search
+    build_search.main()
 
     print(f"built {len(built)} books across {len(shelves)} shelves, {total_words:,} words")
     for sh in shelves:

@@ -1,16 +1,23 @@
 /* Library — service worker. Own cache, scoped to /notes-app/.
    Precaches the shell + every chapter page so the whole library works offline.
    CACHE name is stamped by build_notes_app.py on each build so updates self-apply. */
-var CACHE = "library-20261021-subjects";
+var CACHE = "library-20261021-redesign";
 var BASE = "/sihan-met-flashcards/notes-app/";
 var SHELL = [
   BASE,
   BASE + "index.html",
   BASE + "app.css",
   BASE + "app.js",
-  BASE + "book-skin.css",
   BASE + "book-skin.js",
   BASE + "reader.css",
+  BASE + "fonts/cabin-normal-latin-ext.woff2",
+  BASE + "fonts/cabin-normal-latin.woff2",
+  BASE + "fonts/literata-italic-greek.woff2",
+  BASE + "fonts/literata-italic-latin-ext.woff2",
+  BASE + "fonts/literata-italic-latin.woff2",
+  BASE + "fonts/literata-normal-greek.woff2",
+  BASE + "fonts/literata-normal-latin-ext.woff2",
+  BASE + "fonts/literata-normal-latin.woff2",
   BASE + "book.css",
   BASE + "manifest.json",
   BASE + "manifest.webmanifest",

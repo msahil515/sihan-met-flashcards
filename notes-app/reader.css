@@ -202,8 +202,19 @@ body.nfe-reader.nfe-paged {
   margin: 0 auto;
 }
 .nfe-paged-article p { orphans: 2; widows: 2; }
-/* tables split across pages rather than clip; keep them readable */
-.nfe-paged-article table { font-size: 0.8em; }
+/* tables split across pages rather than clip; keep them readable.
+   notes-style.css makes every table display:block + overflow-x:auto, which
+   turns it into one unbreakable box: a table taller than a page ran off the
+   bottom edge and its last rows could not be read. In the paged book they are
+   real tables again, split between rows. */
+.nfe-paged-article table { font-size: 0.8em; display: table; overflow: visible; }
+.nfe-paged-article th, .nfe-paged-article td { overflow-wrap: break-word; }
+.nfe-paged-article tr { break-inside: avoid; }
+/* app.js tags a table that is still wider than the page: fit it to the page */
+.nfe-paged-article table.nfe-wide { table-layout: fixed; width: 100%; font-size: 0.72em; }
+.nfe-paged-article table.nfe-wide th,
+.nfe-paged-article table.nfe-wide td { overflow-wrap: anywhere; padding: 6px 7px; }
+.nfe-paged-article table.nfe-wide img { max-width: 100%; height: auto; }
 .nfe-paged-article thead { display: table-header-group; }
 
 /* accordion cram pages are forced fully open + linear when printed as a book:
@@ -215,105 +226,130 @@ body.nfe-reader.nfe-paged {
 .nfe-paged-article details > summary { cursor: default; }
 
 /* ============================================================
-   BOOK SKIN — the warm textbook look, inside the reading frame.
+   BOOK SKIN: the page inside the reading frame.
 
    The shell (book-skin.js) mirrors html[data-book] and html[data-mode]
-   onto this iframe's <html>, so the leaf moves with the app. Light is
-   cream paper + off-white leaves + dark brown ink + tan rules, with
-   deep maroon and gold on the headings. Dark is warm leather brown,
-   not cold grey.
+   onto this iframe's <html>, and app.js sets --subj / --subj-night to the
+   book's subject colour, so headings carry the same colour as its cover.
+   Day is warm paper with dark brown ink; Night is a deep green-black page
+   with soft ivory ink, matching the Library's side rail.
 
-   This remaps notes-style.css's tokens (--bg/--panel/--text/--accent…)
-   as well as reader.css's own --leaf-*, so a chapter page is warm
-   whichever stylesheet painted the element.
+   This remaps notes-style.css's tokens (--bg/--panel/--text/--accent...)
+   as well as reader.css's own --leaf-*, so a chapter page follows the
+   Library whichever stylesheet painted the element.
    ============================================================ */
 
+/* bundled type: Literata for the text, Cabin for labels (SIL OFL, fonts/OFL.txt) */
+@font-face{font-family:'Cabin';font-style:normal;font-weight:400 700;font-display:swap;src:url(fonts/cabin-normal-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Cabin';font-style:normal;font-weight:400 700;font-display:swap;src:url(fonts/cabin-normal-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Literata';font-style:italic;font-weight:200 900;font-display:swap;src:url(fonts/literata-italic-greek.woff2) format('woff2');unicode-range:U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;}
+@font-face{font-family:'Literata';font-style:italic;font-weight:200 900;font-display:swap;src:url(fonts/literata-italic-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Literata';font-style:italic;font-weight:200 900;font-display:swap;src:url(fonts/literata-italic-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Literata';font-style:normal;font-weight:200 900;font-display:swap;src:url(fonts/literata-normal-greek.woff2) format('woff2');unicode-range:U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;}
+@font-face{font-family:'Literata';font-style:normal;font-weight:200 900;font-display:swap;src:url(fonts/literata-normal-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Literata';font-style:normal;font-weight:200 900;font-display:swap;src:url(fonts/literata-normal-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+
 html[data-book="on"] {
-  --bk-maroon:  #7B2B2B;
+  --bk-maroon:  var(--subj, #7B2B2B);
   --bk-gold:    #A8802C;
   --bk-gold-2:  #C9A24D;
 
   /* reader.css's leaf */
-  --leaf:      #F3EAD6;
-  --leaf-2:    #EFE5CF;
-  --leaf-ink:  #33261A;
-  --leaf-soft: #877353;
-  --leaf-rule: #DCCBA8;
-  --leaf-gold: #A8802C;
+  --leaf:      #F6F1E6;
+  --leaf-2:    #F6F1E6;
+  --leaf-ink:  #2F271D;
+  --leaf-soft: #85775F;
+  --leaf-rule: #DFD3BC;
+  --leaf-gold: var(--subj, #A8802C);
 
   /* notes-style.css's page */
-  --bg:         #F3EAD6;
-  --panel:      #FBF6E9;
-  --panel-2:    #F4EBD8;
-  --border:     #DCCBA8;
-  --text:       #33261A;
-  --ink2:       #5A4736;
-  --muted:      #877353;
-  --accent:     #7B2B2B;
-  --accent-dim: #E3CBBF;
+  --bg:         #F6F1E6;
+  --panel:      #FCF9F3;
+  --panel-2:    #F0E9DA;
+  --border:     #DFD3BC;
+  --text:       #2F271D;
+  --ink2:       #574838;
+  --muted:      #85775F;
+  --accent:     var(--subj, #7B2B2B);
+  --accent-dim: #E6D8C8;
   --good:       #4F6B3A;
   --bad:        #A8382A;
-  --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Hoefler Text', Charter, Georgia, 'Times New Roman', serif;
+  --serif: 'Literata', 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --sans:  'Cabin', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
 
-html[data-book="on"] body.nfe-reader {
-  background:
-    repeating-linear-gradient(180deg, rgba(120, 96, 40, 0.022) 0 2px, transparent 2px 26px),
-    radial-gradient(120% 80% at 50% 0%, #FBF6E9 0%, var(--leaf) 46%, var(--leaf-2) 100%)
-    !important;
+html[data-book="on"] body.nfe-reader,
+html[data-book="on"] body.nfe-reader.nfe-paged {
+  background: var(--leaf) !important;
+}
+html[data-book="on"] .nfe-article.wrap {
+  font-family: var(--serif);
+  line-height: 1.72;
+  font-feature-settings: "kern" 1, "liga" 1;
 }
 
-/* deep maroon on the chapter and section headings, gold on the eyebrow rules */
+/* the subject colour on the chapter and section headings */
 html[data-book="on"] .nfe-article h1,
-html[data-book="on"] .nfe-article h2 { color: var(--bk-maroon); }
-html[data-book="on"] .nfe-article h3 { color: #4A3324; }
-html[data-book="on"] .nfe-article a  { color: #8A5A1B; }
+html[data-book="on"] .nfe-article h2 { color: var(--bk-maroon); letter-spacing: -0.01em; }
+html[data-book="on"] .nfe-article h1 { font-weight: 650; }
+html[data-book="on"] .nfe-article h2 { font-weight: 620; }
+html[data-book="on"] .nfe-article h3 { color: #3E3226; font-weight: 620; }
+html[data-book="on"] .nfe-article a  { color: var(--bk-maroon); }
 html[data-book="on"] .nfe-article h1,
 html[data-book="on"] .nfe-article h2 { border-bottom-color: var(--leaf-rule); }
+html[data-book="on"] .nfe-article p.lead::after {
+  background: linear-gradient(90deg, var(--leaf-gold), transparent 75%);
+}
 
-/* ---- dark: warm leather brown ---- */
+/* find-in-book match, and figures open full size on tap */
+::highlight(nfe-find) { background-color: rgba(240, 190, 60, 0.55); color: inherit; }
+html[data-mode="dark"] ::highlight(nfe-find) { background-color: rgba(240, 190, 60, 0.42); }
+.nfe-article .bfig img { cursor: zoom-in; }
+/* in the paged book the shell's own first-run hint mentions definitions,
+   so the frame's corner tip (it sat on the page number) stays hidden */
+html.nfe-paged #tp-hint { display: none !important; }
+/* a defined term inside a figure caption stays in the sentence (book.css
+   makes caption spans blocks, which split "( MEG )" over three lines) */
+.nfe-article .bfig figcaption .tp-term { display: inline; margin: 0; font-size: inherit; letter-spacing: normal; color: inherit; }
+
+/* ---- night: deep green-black page ---- */
 html[data-book="on"][data-mode="dark"] {
-  --bk-maroon:  #D9955F;
+  --bk-maroon:  var(--subj-night, #D9955F);
   --bk-gold:    #D9AE62;
   --bk-gold-2:  #EFCB88;
 
-  --leaf:      #221A14;
-  --leaf-2:    #1A140F;
-  --leaf-ink:  #F0E6D2;
-  --leaf-soft: #9C8A6E;
-  --leaf-rule: #46392B;
-  --leaf-gold: #D9AE62;
+  --leaf:      #161C19;
+  --leaf-2:    #161C19;
+  --leaf-ink:  #E7E2D6;
+  --leaf-soft: #939A92;
+  --leaf-rule: #34413A;
+  --leaf-gold: var(--subj-night, #D9AE62);
 
-  --bg:         #221A14;
-  --panel:      #2A211A;
-  --panel-2:    #332920;
-  --border:     #46392B;
-  --text:       #F0E6D2;
-  --ink2:       #CDBDA1;
-  --muted:      #9C8A6E;
-  --accent:     #D9955F;
-  --accent-dim: #4A3527;
+  --bg:         #161C19;
+  --panel:      #1D2521;
+  --panel-2:    #242E29;
+  --border:     #34413A;
+  --text:       #E7E2D6;
+  --ink2:       #C8C2B4;
+  --muted:      #939A92;
+  --accent:     var(--subj-night, #D9955F);
+  --accent-dim: #2E3B34;
   --good:       #90AF74;
   --bad:        #DE8A6D;
 }
-
-html[data-book="on"][data-mode="dark"] body.nfe-reader {
-  background:
-    repeating-linear-gradient(180deg, rgba(217, 174, 98, 0.025) 0 2px, transparent 2px 26px),
-    radial-gradient(120% 80% at 50% 0%, #2A211A 0%, var(--leaf) 46%, var(--leaf-2) 100%)
-    !important;
-}
 /* the frontispiece contents card is painted with literal cream in the light
-   layer above, so it needs its own leather value here */
+   layer above, so it needs its own night value here */
 html[data-book="on"][data-mode="dark"] .nfe-article .booktoc {
-  background: linear-gradient(180deg, #332920, #2A211A);
+  background: linear-gradient(180deg, #242E29, #1D2521);
   border-color: var(--leaf-rule);
-  box-shadow: inset 0 1px 0 rgba(217, 174, 98, 0.10), 0 1px 2px rgba(0, 0, 0, 0.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 1px 2px rgba(0, 0, 0, 0.35);
 }
-html[data-book="on"][data-mode="dark"] .nfe-article .booktoc a { color: var(--bk-gold-2); }
-html[data-book="on"][data-mode="dark"] .nfe-article h3 { color: #E3D3B4; }
-html[data-book="on"][data-mode="dark"] .nfe-article a  { color: var(--bk-gold-2); }
+html[data-book="on"] .nfe-article .booktoc { background: var(--panel); }
+html[data-book="on"][data-mode="dark"] .nfe-article .booktoc a { color: var(--bk-maroon); }
+html[data-book="on"][data-mode="dark"] .nfe-article h3 { color: #DCD5C6; }
+html[data-book="on"][data-mode="dark"] .nfe-article a  { color: var(--bk-maroon); }
 html[data-book="on"][data-mode="dark"] .nfe-article,
 html[data-book="on"][data-mode="dark"] .nfe-article p,
 html[data-book="on"][data-mode="dark"] .nfe-article li { color: var(--text); }
-html[data-book="on"][data-mode="dark"] .nfe-article strong { color: #FFF4DE; }
+html[data-book="on"][data-mode="dark"] .nfe-article strong { color: #FFF8EA; }
+html[data-book="on"][data-mode="dark"] .nfe-article .bfig img { background: #F6F1E6; }
