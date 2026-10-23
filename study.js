@@ -86,7 +86,10 @@
     ".stl-ac{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}.stl-ac a,.stl-ac button{padding:7px 11px;border-radius:10px;border:1.5px solid var(--line);background:var(--s2);color:var(--tx);font:800 13px var(--sans,inherit);text-decoration:none}" +
     ".stl-ac a{border-color:var(--brand)}.stl-ac .stl-x{color:var(--bad);background:none}.stl-empty{text-align:center;color:var(--mu);font-weight:700;padding:28px 12px;line-height:1.5}" +
     ".stl-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:999px;border:1.5px solid var(--gold);background:none;color:var(--gold);font:900 13px var(--sans,inherit);cursor:pointer}" +
-    ".stl-btn.on{background:var(--gold);color:#1a1300}";
+    ".stl-btn.on{background:var(--gold);color:#1a1300}.stl-export-toggle{padding:9px 12px;margin:0 0 12px;border:1.5px solid var(--brand);border-radius:10px;background:var(--s1);color:var(--tx);font:800 14px var(--sans,inherit)}" +
+    ".stl-export{margin:12px 0;padding:12px;border:1.5px solid var(--line);border-radius:14px;background:var(--s1)}" +
+    ".stl-export h2{margin:0 0 6px;font-size:17px}.stl-export p{margin:0 0 10px;color:var(--mu);font-size:13px;line-height:1.4}.stl-export textarea{display:block;width:100%;box-sizing:border-box;min-height:220px;padding:10px;border:1.5px solid var(--line);border-radius:10px;background:var(--s2);color:var(--tx);font:13px/1.45 var(--sans,monospace);white-space:pre;overflow:auto;user-select:text}" +
+    ".stl-export-ac{display:flex;gap:8px;margin-top:8px}.stl-export-ac button{padding:8px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--s2);color:var(--tx);font:800 13px var(--sans,inherit)}.stl-export-status{min-height:1.3em;margin-top:8px;color:var(--mu);font-size:13px}";
   function injectCSS() {
     if (document.getElementById("stl-css")) return;
     var st = document.createElement("style"); st.id = "stl-css"; st.textContent = CSS; document.head.appendChild(st);
@@ -105,20 +108,38 @@
   }
   /* opts: {filter: "open"|"done"|"all", open(it) -> bool (the app can open the source), onChange()} */
   var FILTER = "open";
+  function ordered(items, filter) {
+    var shown = items.filter(function (x) { return filter === "all" ? true : filter === "done" ? !!x.d : !x.d; });
+    return AREAS.reduce(function (out, a) {
+      return out.concat(shown.filter(function (x) { return x.a === a[0]; }).sort(function (p, q) {
+        return (!!p.d - !!q.d) || q.at - p.at;
+      }));
+    }, []);
+  }
+  function exportText(items, filter) {
+    var names = { open: "To study", done: "Done", all: "All" };
+    var rows = ordered(items, filter), date = new Date(), day = date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, "0") + "-" + String(date.getDate()).padStart(2, "0");
+    var out = ["To study list", "Exported: " + day, "Filter: " + names[filter], "Entries: " + rows.length,
+      "Page references are not included yet. A separate mapping update will use the original textbook master.", ""];
+    rows.forEach(function (x, i) {
+      out.push((i + 1) + ". " + x.t, "Area: " + (AREA_NAME[x.a] || AREA_NAME.other), "Source: " + (x.f || "Not recorded"),
+        "Original question/definition: " + (x.q || "Not recorded"), "Reference ID: " + (x.r || "Not recorded"), "Status: " + (x.d ? "Done" : "To study"), "");
+    });
+    return out.join("\n").replace(/\n+$/, "");
+  }
   function render(el, opts) {
     injectCSS(); opts = opts || {};
-    var items = all(), c = counts(), f = FILTER;
-    var shown = items.filter(function (x) { return f === "all" ? true : f === "done" ? !!x.d : !x.d; });
+    var items = all(), c = counts(), f = FILTER, shown = ordered(items, f), exportOpen = !!el._studyExportOpen;
     var groups = {}; shown.forEach(function (x) { (groups[x.a] = groups[x.a] || []).push(x); });
     var h = '<div class="stl"><div class="stl-h"><h1>To study</h1><span>' + c.open + " to go · " + c.done + " done</span></div>" +
       '<div class="stl-seg"><button data-f="open" class="' + (f === "open" ? "on" : "") + '">To study ' + c.open + '</button><button data-f="done" class="' + (f === "done" ? "on" : "") +
       '">Done ' + c.done + '</button><button data-f="all" class="' + (f === "all" ? "on" : "") + '">All ' + c.all + "</button></div>" +
+      '<button class="stl-export-toggle" type="button">' + (exportOpen ? "Close export" : "Export list") + "</button>" +
       '<div class="stl-add"><input id="stl-new" maxlength="120" placeholder="Add a topic yourself"><button id="stl-addb">Add</button></div>';
     if (!shown.length) h += '<div class="stl-empty">' + (c.all ? (f === "done" ? "Nothing ticked off yet." : "All done. Nothing left to study.") :
       "Nothing here yet. Tap <b>☆ Study this</b> on any question in the Tests app or any card in Name Lock and the topic lands here, grouped by area, with a link to its notes.") + "</div>";
     AREAS.forEach(function (a) {
       var g = groups[a[0]]; if (!g) return;
-      g.sort(function (p, q) { return (!!p.d - !!q.d) || q.at - p.at; });
       h += '<div class="stl-area"><span>' + esc(a[1]) + "</span><span>" + g.length + "</span></div>" + g.map(function (x) {
         return '<div class="stl-it' + (x.d ? " done" : "") + '" data-id="' + esc(x.id) + '"><button class="stl-ck" data-a="done" aria-label="Done">' + (x.d ? "✓" : "") + "</button>" +
           '<div class="stl-b"><div class="stl-t">' + esc(x.t) + '</div><div class="stl-f">' + esc(x.f) + "</div>" + (x.q ? '<div class="stl-q">' + esc(x.q) + "</div>" : "") +
@@ -127,9 +148,30 @@
           '<button data-a="ren">Rename</button><button class="stl-x" data-a="rm">Remove</button></div></div></div>';
       }).join("");
     });
+    if (exportOpen) h += '<section class="stl-export" aria-label="Export list"><h2>Copyable list, ' + esc({ open: "To study", done: "Done", all: "All" }[f]) + "</h2>" +
+      '<p>Use Copy or select the text below.</p><textarea readonly aria-label="Selectable exported study list" spellcheck="false"></textarea>' +
+      '<div class="stl-export-ac"><button type="button" data-export-copy>Copy</button></div><div class="stl-export-status" role="status" aria-live="polite"></div></section>';
     el.innerHTML = h + "</div>";
     function redraw() { render(el, opts); if (opts.onChange) opts.onChange(); }
     el.querySelectorAll(".stl-seg button").forEach(function (b) { b.onclick = function () { FILTER = b.getAttribute("data-f"); render(el, opts); }; });
+    el.querySelector(".stl-export-toggle").onclick = function () { el._studyExportOpen = !exportOpen; render(el, opts); };
+    if (exportOpen) {
+      var textarea = el.querySelector(".stl-export textarea"), status = el.querySelector(".stl-export-status");
+      textarea.value = exportText(items, f);
+      el.querySelector("[data-export-copy]").onclick = function () {
+        function fallback() {
+          textarea.focus(); textarea.select();
+          var copied = false;
+          try { copied = !!document.execCommand("copy"); } catch (e) {}
+          status.textContent = copied ? "Copied." : "Copy unavailable. Select and copy the text above.";
+        }
+        var clipboard = window.navigator && window.navigator.clipboard;
+        if (!clipboard || !clipboard.writeText) { fallback(); return; }
+        Promise.resolve().then(function () { return clipboard.writeText(textarea.value); }).then(function () {
+          status.textContent = "Copied.";
+        }).catch(fallback);
+      };
+    }
     var inp = el.querySelector("#stl-new");
     el.querySelector("#stl-addb").onclick = function () {
       var t = inp.value.trim(); if (!t) return;
