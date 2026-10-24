@@ -93,7 +93,7 @@
     var sky = document.getElementById("sky"), fxc = document.getElementById("fx");
     var sx = sky.getContext("2d"), fx = fxc.getContext("2d"), W = 0, H = 0, DPR = Math.min(2, window.devicePixelRatio || 1);
     var stars = [], bits = [], warp = 0, shoot = null, fxOn = false;
-    var HUES = ["#22e5ff", "#ff3df2", "#a78bfa", "#ffd23f", "#39ff88", "#ffffff"];
+    var HUES = ["#91b4c4", "#adb8c2", "#91b4c4", "#c9b582", "#95bda5", "#ffffff"];
     function size() {
       W = window.innerWidth; H = window.innerHeight;
       [sky, fxc].forEach(function (c) { c.width = W * DPR; c.height = H * DPR; c.getContext("2d").setTransform(DPR, 0, 0, DPR, 0, 0); });
@@ -118,7 +118,7 @@
       if (shoot) {
         shoot.l += dt * 0.9;
         var g = sx.createLinearGradient(shoot.x + shoot.l - 90, shoot.y + (shoot.l - 90) * 0.45, shoot.x + shoot.l, shoot.y + shoot.l * 0.45);
-        g.addColorStop(0, "rgba(34,229,255,0)"); g.addColorStop(1, "rgba(255,255,255,.95)");
+        g.addColorStop(0, "rgba(145,180,196,0)"); g.addColorStop(1, "rgba(255,255,255,.95)");
         sx.globalAlpha = 1; sx.strokeStyle = g; sx.lineWidth = 2; sx.beginPath();
         sx.moveTo(shoot.x + shoot.l - 90, shoot.y + (shoot.l - 90) * 0.45); sx.lineTo(shoot.x + shoot.l, shoot.y + shoot.l * 0.45); sx.stroke();
         if (shoot.l > W) shoot = null;
@@ -303,7 +303,7 @@
     var h = '<div class="screen">' + hud() + '<div class="scroll">' +
       '<div class="hero">MOCK <span>ARENA</span></div><div class="hero-s">' + nM + " missions · pick one, rack up XP</div>" +
       '<div class="today"><div class="ring"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="7"/>' +
-      '<circle cx="32" cy="32" r="26" fill="none" stroke="' + (frac >= 1 ? "#39ff88" : "#22e5ff") + '" stroke-width="7" stroke-linecap="round" stroke-dasharray="' + C +
+      '<circle cx="32" cy="32" r="26" fill="none" stroke="' + (frac >= 1 ? "#95bda5" : "#91b4c4") + '" stroke-width="7" stroke-linecap="round" stroke-dasharray="' + C +
       '" stroke-dashoffset="' + C * (1 - frac) + '"/></svg><b>' + done + "</b></div>" +
       '<div class="today-t"><h3>' + (frac >= 1 ? "Daily goal done" : "Daily goal: " + DAILY_GOAL + " questions") + "</h3><p>" +
       (frac >= 1 ? "Streak safe for today. Keep the combo going." : (DAILY_GOAL - done) + " to go today") + "</p></div></div>" +

@@ -51,7 +51,7 @@ var IC = {
 var SL = window.StudyList;
 function studyItem(c){ return {id: "c:" + c.id, t: c.name, a: SL.areaOf(c.area), f: "Name Lock · " + CATNAME[c.cat] + (c.who ? " · " + c.who : ""), q: c.def, r: "c:" + c.id, n: c.name}; }
 function studyBtn(c){ return SL ? SL.buttonHTML("c:" + c.id) : ""; }
-var LOGO = '<svg viewBox="0 0 108 108"><rect width="108" height="108" rx="24" fill="#5B4BDB"/><path d="M0 70L108 40V84a24 24 0 0 1-24 24H24A24 24 0 0 1 0 84z" fill="#4E3FCC"/><path d="M42 50V41a12 12 0 0 1 24 0v9" stroke="#fff" stroke-width="7" stroke-linecap="round" fill="none"/><rect x="32" y="48" width="44" height="33" rx="7" fill="#FFC93C"/><path d="M54 57a5 5 0 0 1 2.5 9.33V72h-5v-5.67A5 5 0 0 1 54 57z" fill="#3B2DB0"/></svg>';
+var LOGO = '<svg viewBox="0 0 108 108"><rect width="108" height="108" rx="24" fill="#345465"/><path d="M0 70L108 40V84a24 24 0 0 1-24 24H24A24 24 0 0 1 0 84z" fill="#26313d"/><path d="M42 50V41a12 12 0 0 1 24 0v9" stroke="#fff" stroke-width="7" stroke-linecap="round" fill="none"/><rect x="32" y="48" width="44" height="33" rx="7" fill="#c9b582"/><path d="M54 57a5 5 0 0 1 2.5 9.33V72h-5v-5.67A5 5 0 0 1 54 57z" fill="#121820"/></svg>';
 
 /* ================= feel: sound + haptics + confetti ================= */
 var AC = null;
@@ -104,7 +104,7 @@ function confetti(n){
   var app = $("#app"), cv = document.createElement("canvas"), W = cv.width = app.clientWidth, H = cv.height = app.clientHeight, x = cv.getContext("2d");
   cv.style.cssText = "position:absolute;inset:0;pointer-events:none;z-index:80";
   app.appendChild(cv);
-  var cols = ["#ffc93c", "#3ddc84", "#4aa3ff", "#ff5a5f", "#a78bfa", "#ff9f1c"], ps = [];
+  var cols = ["#c9b582", "#95bda5", "#91b4c4", "#d39b9d", "#91b4c4", "#c8a184"], ps = [];
   for (var i = 0; i < (n || 140); i++) ps.push({x: W / 2 + (Math.random() - .5) * W * .4, y: H * .38, vx: (Math.random() - .5) * 15, vy: -Math.random() * 14 - 4,
     s: 5 + Math.random() * 7, r: Math.random() * 6, vr: (Math.random() - .5) * .4, c: cols[i % cols.length]});
   var t0 = performance.now();
@@ -118,7 +118,7 @@ function confetti(n){
 /* ---- neon answer screen (same skin as the Tests app): starfield behind, confetti on top ---- */
 var LFX = (function(){
   var CALM = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var HUES = ["#22e5ff", "#ff3df2", "#a78bfa", "#ffd23f", "#39ff88", "#ffffff"];
+  var HUES = ["#91b4c4", "#adb8c2", "#91b4c4", "#c9b582", "#95bda5", "#ffffff"];
   var sky, fxc, sx, fx, W = 0, H = 0, DPR = Math.min(2, window.devicePixelRatio || 1), stars = [], bits = [], warp = 0, shoot = null, run = false, last = 0;
   function size(){
     var el = $("#lesson"); if (!el || !sky) return;
@@ -141,7 +141,7 @@ var LFX = (function(){
     if (shoot){
       shoot.l += dt * .9;
       var x0 = shoot.x + shoot.l - 90, y0 = shoot.y + (shoot.l - 90) * .45, x1 = shoot.x + shoot.l, y1 = shoot.y + shoot.l * .45, g = sx.createLinearGradient(x0, y0, x1, y1);
-      g.addColorStop(0, "rgba(34,229,255,0)"); g.addColorStop(1, "rgba(255,255,255,.95)");
+      g.addColorStop(0, "rgba(145,180,196,0)"); g.addColorStop(1, "rgba(255,255,255,.95)");
       sx.globalAlpha = 1; sx.strokeStyle = g; sx.lineWidth = 2; sx.beginPath(); sx.moveTo(x0, y0); sx.lineTo(x1, y1); sx.stroke();
       if (shoot.l > W) shoot = null;
     }
@@ -1009,14 +1009,14 @@ function tabPractice(){
   h += '<h2 class="sh">Drill<small>Pick a pile, then a mode. Spaced repetition decides what comes up.</small></h2><div class="chips" id="p-c">' +
     CATS.map(function(x){ return '<button class="chip' + (x[0] === PCAT ? " on" : "") + '" data-c="' + x[0] + '">' + x[1] + ' <small>' + pool(x[0]).length + '</small></button>'; }).join("") + '</div>';
   var M = [
-    ["name", "📖", "Name → meaning", "See the name, pick what it means", "#4aa3ff"],
-    ["desc", "🎯", "Meaning → name", "The lookalike is always an option", "#a78bfa"],
-    ["who", "🧑‍🔬", "Who did it?", "Pick the person behind it", "#3ddc84"],
-    ["duel", "⚔️", "Lookalike duels", PAIRS.length + " trap pairs. Combos multiply XP", "#ff9f1c"],
-    ["speed", "⚡", "Speed round", "60 seconds. Best: " + (G().best.speed || 0), "#ffc93c"],
-    ["revenge", "💀", "Revenge", rp ? "This week's misses, 3 hearts" : "Nothing missed this week", "#ff5a5f", rp],
-    ["miss", "🩹", "My misses", mi ? "Two rights in a row clears one" : "Empty for now", "#ff8a5c", mi],
-    ["lib", "📚", "Card library", "Search all " + CARDS.length + " cards", "#94a3b8"]
+    ["name", "📖", "Name → meaning", "See the name, pick what it means", "#91b4c4"],
+    ["desc", "🎯", "Meaning → name", "The lookalike is always an option", "#91b4c4"],
+    ["who", "🧑‍🔬", "Who did it?", "Pick the person behind it", "#95bda5"],
+    ["duel", "⚔️", "Lookalike duels", PAIRS.length + " trap pairs. Combos multiply XP", "#c8a184"],
+    ["speed", "⚡", "Speed round", "60 seconds. Best: " + (G().best.speed || 0), "#c9b582"],
+    ["revenge", "💀", "Revenge", rp ? "This week's misses, 3 hearts" : "Nothing missed this week", "#d39b9d", rp],
+    ["miss", "🩹", "My misses", mi ? "Two rights in a row clears one" : "Empty for now", "#c8a184", mi],
+    ["lib", "📚", "Card library", "Search all " + CARDS.length + " cards", "#adb8c2"]
   ];
   h += '<div class="modes">' + M.map(function(m){ var dis = (m[0] === "revenge" && !rp) || (m[0] === "miss" && !mi);
     return '<button class="mode" data-m="' + m[0] + '"' + (dis ? " disabled" : "") + '><div class="row" style="gap:0"><span class="mi" style="background:' + m[4] + '26">' + m[1] + '</span>' + (m[5] ? '<span class="cnt">' + m[5] + '</span>' : '') + '</div><b>' + m[2] + '</b><span>' + m[3] + '</span></button>'; }).join("") + '</div>';
