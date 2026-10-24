@@ -61,8 +61,9 @@
 
   /* ---------- notes link: the Library app's search, on the live site inside the APKs ---------- */
   var SITE = "https://msahil515.github.io/sihan-met-flashcards/";
+  var STUDY_SCRIPT_URL = document.currentScript && document.currentScript.src || "";
   var ROOT = (function () {
-    var s = document.currentScript && document.currentScript.src;
+    var s = STUDY_SCRIPT_URL;
     if (!s || /androidplatform\.net/.test(s)) return SITE;
     return s.replace(/study\.js(\?.*)?$/, "");
   })();
@@ -73,6 +74,113 @@
     return w.slice(0, 4).join(" ");
   }
   function notesUrl(it) { return ROOT + "notes-app/#/search/" + encodeURIComponent(it.n || notesQuery(it.t)); }
+
+  /* ---------- edition-bound reviewed teaching-page references ---------- */
+  var PAGE_URL = "";
+  try { if (STUDY_SCRIPT_URL) PAGE_URL = new URL("study-pages.json", STUDY_SCRIPT_URL).href; } catch (e) {}
+  var PAGE_STATE = "idle", PAGE_MAP = null, PAGE_PROMISE = null, PAGE_SECTIONS = {};
+  var PAGE_PDF = "https://msahil515.github.io/sihan-met-flashcards/downloads/final-textbook/Final-Exam-Textbook-BW.pdf";
+  function plainText(value) {
+    var node = document.createElement("div"); node.innerHTML = String(value == null ? "" : value);
+    return String(node.textContent || "").trim();
+  }
+  function validPageMap(data) {
+    if (!data || data.schemaVersion !== 2 || !data.edition || data.edition.sha256 !== "fa29764869e9551e9f6049bcd6b1badf6df59ab6c6bab34594e2e5b0980516e8" ||
+        data.edition.pageCount !== 975 || !Array.isArray(data.sections) || !data.refs || typeof data.refs !== "object" || Array.isArray(data.refs)) return false;
+    var sections = {};
+    for (var i = 0; i < data.sections.length; i++) {
+      var section = data.sections[i];
+      if (!section || typeof section.id !== "string" || !section.id || typeof section.title !== "string" || !section.title || sections[section.id]) return false;
+      sections[section.id] = section.title;
+    }
+    var keys = Object.keys(data.refs);
+    for (var j = 0; j < keys.length; j++) {
+      var ref = data.refs[keys[j]], source = ref && ref.source, options = source && source.options;
+      if (!source || typeof source.stem !== "string" || !source.stem.trim() || !options || typeof options !== "object" ||
+          Object.keys(options).sort().join("") !== "abcd" || ["a", "b", "c", "d"].some(function (k) { return typeof options[k] !== "string"; }) ||
+          !/^[abcd]$/.test(source.correct) || !Array.isArray(ref.locations) || !ref.locations.length) return false;
+      for (var k = 0; k < ref.locations.length; k++) {
+        var loc = ref.locations[k], pages = loc && loc.pages;
+        if (!loc || !sections[loc.sectionId] || !Array.isArray(pages) || !pages.length) return false;
+        for (var p = 0; p < pages.length; p++) if (!Number.isInteger(pages[p]) || pages[p] < 1 || pages[p] > data.edition.pageCount || (p && pages[p] <= pages[p - 1])) return false;
+      }
+    }
+    PAGE_SECTIONS = sections;
+    return true;
+  }
+  function loadPageMap() {
+    if (PAGE_PROMISE) return PAGE_PROMISE;
+    PAGE_STATE = "loading";
+    if (!PAGE_URL || !window.fetch) {
+      PAGE_STATE = "unavailable"; PAGE_PROMISE = Promise.resolve(PAGE_STATE); return PAGE_PROMISE;
+    }
+    PAGE_PROMISE = Promise.resolve().then(function () { return window.fetch(PAGE_URL); }).then(function (response) {
+      if (!response || !response.ok) throw new Error("page map unavailable");
+      return response.json();
+    }).then(function (data) {
+      if (!validPageMap(data)) throw new Error("page map validation failed");
+      PAGE_MAP = data; PAGE_STATE = "ready"; return PAGE_STATE;
+    }).catch(function () { PAGE_MAP = null; PAGE_STATE = "unavailable"; return PAGE_STATE; });
+    return PAGE_PROMISE;
+  }
+  function resolvePage(it) {
+    if (PAGE_STATE === "idle" || PAGE_STATE === "loading") return { state: "loading", locations: [] };
+    if (PAGE_STATE !== "ready" || !PAGE_MAP) return { state: "unavailable", locations: [] };
+    var mapping = it && PAGE_MAP.refs[it.r];
+    if (!mapping) return { state: "none", locations: [] };
+    var stored = String(it.q || ""), expected = mapping.source.stem.slice(0, 400);
+    if (!stored || stored !== expected) return { state: "saved-mismatch", locations: [] };
+    if (window.PREVIEW_MOCKS) {
+      var match = /^m:([^:]+):(\d+)$/.exec(it.r), questions = match && window.PREVIEW_MOCKS[match[1]] && window.PREVIEW_MOCKS[match[1]].questions;
+      var q = questions && questions[+match[2]];
+      if (!q || plainText(q.q) !== mapping.source.stem || ["a", "b", "c", "d"].some(function (key) {
+        return plainText(q.options && q.options[key]) !== mapping.source.options[key];
+      }) || q.correct !== mapping.source.correct) return { state: "source-mismatch", locations: [] };
+    }
+    return { state: "matched", locations: mapping.locations };
+  }
+  function pageLabel(pages) {
+    if (pages.length > 1 && pages.every(function (page, index) { return !index || page === pages[index - 1] + 1; })) return pages[0] + "-" + pages[pages.length - 1];
+    return pages.join(", ");
+  }
+  function pageLine(it) {
+    var result = resolvePage(it);
+    if (result.state === "matched") return result.locations.map(function (loc) {
+      var pages = pageLabel(loc.pages), label = "Original textbook p" + (loc.pages.length > 1 ? "p. " : ". ") + pages;
+      return '<div><a href="' + PAGE_PDF + "#page=" + loc.pages[0] + '" target="_blank" rel="noopener">' + esc(label) + "</a> · " + esc(PAGE_SECTIONS[loc.sectionId]) + "</div>";
+    }).join("");
+    var messages = { loading: "Page references loading…", unavailable: "Page references unavailable. Notes remain available.",
+      none: "No verified page match yet.", "saved-mismatch": "Saved question does not match the reviewed source. Notes remain available.",
+      "source-mismatch": "Current question source changed. Notes remain available." };
+    return esc(messages[result.state] || messages.none);
+  }
+  function exportPageText(it) {
+    var result = resolvePage(it);
+    if (result.state === "matched") return result.locations.map(function (loc) {
+      return "Original textbook p" + (loc.pages.length > 1 ? "p. " : ". ") + pageLabel(loc.pages) + " · " + (PAGE_SECTIONS[loc.sectionId] || loc.sectionId);
+    }).join("\n");
+    return ({ loading: "Page references loading…", unavailable: "Page references unavailable; Notes remain available.",
+      none: "No verified page match yet.", "saved-mismatch": "Saved question does not match reviewed source; Notes remain available.",
+      "source-mismatch": "Current question source changed; Notes remain available." })[result.state] || "No verified page match yet.";
+  }
+  var pageRenderSequence = 0;
+  function refreshPageReferences(el, token) {
+    if (el._studyPageRenderSequence !== token || el.isConnected === false ||
+        (typeof document.contains === "function" && !document.contains(el))) return;
+    var items = all();
+    el.querySelectorAll(".stl-page[data-id]").forEach(function (node) {
+      var it = items.find(function (item) { return item.id === node.getAttribute("data-id"); });
+      if (it) node.innerHTML = pageLine(it);
+    });
+    el.querySelectorAll(".stl-map-status").forEach(function (node) {
+      node.textContent = PAGE_STATE === "ready" ? "Original textbook · reviewed page references" :
+        PAGE_STATE === "loading" ? "Page references loading…" : "Original textbook · page references unavailable";
+    });
+    var textarea = el.querySelector(".stl-export textarea");
+    if (textarea && (document.activeElement !== textarea || textarea.selectionStart === textarea.selectionEnd)) {
+      textarea.value = exportText(ordered(items, FILTER), FILTER);
+    }
+  }
 
   /* ---------- the "To study" screen (same markup in both apps, themed by their CSS vars) ---------- */
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
@@ -86,7 +194,7 @@
     ".stl-ac{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}.stl-ac a,.stl-ac button{padding:7px 11px;border-radius:10px;border:1.5px solid var(--line);background:var(--s2);color:var(--tx);font:800 13px var(--sans,inherit);text-decoration:none}" +
     ".stl-ac a{border-color:var(--brand)}.stl-ac .stl-x{color:var(--bad);background:none}.stl-empty{text-align:center;color:var(--mu);font-weight:700;padding:28px 12px;line-height:1.5}" +
     ".stl-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:999px;border:1.5px solid var(--gold);background:none;color:var(--gold);font:900 13px var(--sans,inherit);cursor:pointer}" +
-    ".stl-btn.on{background:var(--gold);color:#1a1300}.stl-export-toggle{padding:9px 12px;margin:0 0 12px;border:1.5px solid var(--brand);border-radius:10px;background:var(--s1);color:var(--tx);font:800 14px var(--sans,inherit)}" +
+    ".stl-page{margin-top:7px;color:var(--mu);font-size:13px;font-weight:700;line-height:1.45}.stl-page a{color:var(--brand)}.stl-map-status{display:block;margin:-5px 0 10px;color:var(--mu);font-size:12px;font-weight:700}.stl-btn.on{background:var(--gold);color:#1a1300}.stl-export-toggle{padding:9px 12px;margin:0 0 12px;border:1.5px solid var(--brand);border-radius:10px;background:var(--s1);color:var(--tx);font:800 14px var(--sans,inherit)}" +
     ".stl-export{margin:12px 0;padding:12px;border:1.5px solid var(--line);border-radius:14px;background:var(--s1)}" +
     ".stl-export h2{margin:0 0 6px;font-size:17px}.stl-export p{margin:0 0 10px;color:var(--mu);font-size:13px;line-height:1.4}.stl-export textarea{display:block;width:100%;box-sizing:border-box;min-height:220px;padding:10px;border:1.5px solid var(--line);border-radius:10px;background:var(--s2);color:var(--tx);font:13px/1.45 var(--sans,monospace);white-space:pre;overflow:auto;user-select:text}" +
     ".stl-export-ac{display:flex;gap:8px;margin-top:8px}.stl-export-ac button{padding:8px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--s2);color:var(--tx);font:800 13px var(--sans,inherit)}.stl-export-status{min-height:1.3em;margin-top:8px;color:var(--mu);font-size:13px}";
@@ -120,18 +228,24 @@
     var names = { open: "To study", done: "Done", all: "All" };
     var rows = ordered(items, filter), date = new Date(), day = date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, "0") + "-" + String(date.getDate()).padStart(2, "0");
     var out = ["To study list", "Exported: " + day, "Filter: " + names[filter], "Entries: " + rows.length,
-      "Page references are not included yet. A separate mapping update will use the original textbook master.", ""];
+      "Edition: Original textbook. Page numbers are reviewed teaching-page references.", PAGE_STATE === "loading" || PAGE_STATE === "idle" ? "Page references loading…" :
+        PAGE_STATE === "unavailable" ? "Page references unavailable; the list remains usable." : "", ""];
     rows.forEach(function (x, i) {
       out.push((i + 1) + ". " + x.t, "Area: " + (AREA_NAME[x.a] || AREA_NAME.other), "Source: " + (x.f || "Not recorded"),
-        "Original question/definition: " + (x.q || "Not recorded"), "Reference ID: " + (x.r || "Not recorded"), "Status: " + (x.d ? "Done" : "To study"), "");
+        "Original question/definition: " + (x.q || "Not recorded"), "Reference ID: " + (x.r || "Not recorded"), "Pages: " + exportPageText(x),
+        "Status: " + (x.d ? "Done" : "To study"), "");
     });
     return out.join("\n").replace(/\n+$/, "");
   }
   function render(el, opts) {
     injectCSS(); opts = opts || {};
+    var renderToken = ++pageRenderSequence;
+    el._studyPageRenderSequence = renderToken;
     var items = all(), c = counts(), f = FILTER, shown = ordered(items, f), exportOpen = !!el._studyExportOpen;
     var groups = {}; shown.forEach(function (x) { (groups[x.a] = groups[x.a] || []).push(x); });
     var h = '<div class="stl"><div class="stl-h"><h1>To study</h1><span>' + c.open + " to go · " + c.done + " done</span></div>" +
+      '<span class="stl-map-status">' + (PAGE_STATE === "unavailable" ? "Original textbook · page references unavailable" :
+        PAGE_STATE === "ready" ? "Original textbook · reviewed page references" : "Page references loading…") + "</span>" +
       '<div class="stl-seg"><button data-f="open" class="' + (f === "open" ? "on" : "") + '">To study ' + c.open + '</button><button data-f="done" class="' + (f === "done" ? "on" : "") +
       '">Done ' + c.done + '</button><button data-f="all" class="' + (f === "all" ? "on" : "") + '">All ' + c.all + "</button></div>" +
       '<button class="stl-export-toggle" type="button">' + (exportOpen ? "Close export" : "Export list") + "</button>" +
@@ -143,6 +257,7 @@
       h += '<div class="stl-area"><span>' + esc(a[1]) + "</span><span>" + g.length + "</span></div>" + g.map(function (x) {
         return '<div class="stl-it' + (x.d ? " done" : "") + '" data-id="' + esc(x.id) + '"><button class="stl-ck" data-a="done" aria-label="Done">' + (x.d ? "✓" : "") + "</button>" +
           '<div class="stl-b"><div class="stl-t">' + esc(x.t) + '</div><div class="stl-f">' + esc(x.f) + "</div>" + (x.q ? '<div class="stl-q">' + esc(x.q) + "</div>" : "") +
+          '<div class="stl-page" data-page-ref data-id="' + esc(x.id) + '">' + pageLine(x) + "</div>" +
           '<div class="stl-ac"><a href="' + esc(notesUrl(x)) + '" target="_blank" rel="noopener">📖 Notes</a>' +
           (opts.canOpen && opts.canOpen(x) ? '<button data-a="open">' + (x.r.charAt(0) === "c" ? "Card" : "Question") + "</button>" : "") +
           '<button data-a="ren">Rename</button><button class="stl-x" data-a="rm">Remove</button></div></div></div>';
@@ -189,9 +304,12 @@
         redraw();
       };
     });
+    loadPageMap().then(function () { refreshPageReferences(el, renderToken); });
   }
 
   window.StudyList = { KEY: KEY, AREAS: AREAS, areaName: function (k) { return AREA_NAME[k] || AREA_NAME.other; }, areaOf: areaOf,
     has: has, get: get, add: add, remove: remove, toggle: toggle, setDone: setDone, rename: rename, all: all, counts: counts,
-    notesUrl: notesUrl, notesQuery: notesQuery, buttonHTML: buttonHTML, paintButtons: paintButtons, render: render };
+    notesUrl: notesUrl, notesQuery: notesQuery, buttonHTML: buttonHTML, paintButtons: paintButtons, render: render,
+    loadPageMap: loadPageMap, resolvePage: resolvePage, exportText: exportText,
+    pageState: function () { return PAGE_STATE; }, pageAssetURL: PAGE_URL };
 })();

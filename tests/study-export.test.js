@@ -83,7 +83,8 @@ assert.ok(root.textarea.value.indexOf("General") < root.textarea.value.indexOf('
 assert.match(root.textarea.value, /First line\n第二行\?/);
 assert.match(root.textarea.value, /Reference ID: m:mock:2/);
 assert.doesNotMatch(root.textarea.value, /Removed|u:removed/);
-assert.match(root.textarea.value, /separate mapping update will use the original textbook master/);
+assert.match(root.textarea.value, /Edition: Original textbook/);
+assert.match(root.textarea.value, /Pages: Page references unavailable/);
 
 const all = root.querySelectorAll(".stl-seg button").find(b => b.getAttribute("data-f") === "all");
 all.onclick();
