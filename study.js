@@ -48,6 +48,12 @@
       r: x.r || "", n: x.n || "", at: old && !old.x ? old.at : now, u: now, d: 0, x: 0 };
     write(o); return o.it[x.id];
   }
+  function addWrong(x) {
+    var o = read(), old = o.it[x.id], now = Date.now();
+    if (old && !old.x && !old.d) return old;
+    if (old) { old.d = 0; old.x = 0; old.u = Math.max(now, (+old.u || 0) + 1); write(o); return old; }
+    return add(x);
+  }
   function remove(id) { return edit(id, function (it) { it.x = 1; }); }
   function toggle(x) { if (has(x.id)) { remove(x.id); return false; } add(x); return true; }
   function setDone(id, on) { return edit(id, function (it) { it.d = on ? Date.now() : 0; }); }
@@ -251,7 +257,7 @@
       '<button class="stl-export-toggle" type="button">' + (exportOpen ? "Close export" : "Export list") + "</button>" +
       '<div class="stl-add"><input id="stl-new" maxlength="120" placeholder="Add a topic yourself"><button id="stl-addb">Add</button></div>';
     if (!shown.length) h += '<div class="stl-empty">' + (c.all ? (f === "done" ? "Nothing ticked off yet." : "All done. Nothing left to study.") :
-      "Nothing here yet. Tap <b>☆ Study this</b> on any question in the Tests app or any card in Name Lock and the topic lands here, grouped by area, with a link to its notes.") + "</div>";
+      "Nothing here yet. Wrong answers are added here automatically. You can also tap <b>☆ Study this</b> on any question in Tests or any card in Name Lock.") + "</div>";
     AREAS.forEach(function (a) {
       var g = groups[a[0]]; if (!g) return;
       h += '<div class="stl-area"><span>' + esc(a[1]) + "</span><span>" + g.length + "</span></div>" + g.map(function (x) {
@@ -308,7 +314,7 @@
   }
 
   window.StudyList = { KEY: KEY, AREAS: AREAS, areaName: function (k) { return AREA_NAME[k] || AREA_NAME.other; }, areaOf: areaOf,
-    has: has, get: get, add: add, remove: remove, toggle: toggle, setDone: setDone, rename: rename, all: all, counts: counts,
+    has: has, get: get, add: add, addWrong: addWrong, remove: remove, toggle: toggle, setDone: setDone, rename: rename, all: all, counts: counts,
     notesUrl: notesUrl, notesQuery: notesQuery, buttonHTML: buttonHTML, paintButtons: paintButtons, render: render,
     loadPageMap: loadPageMap, resolvePage: resolvePage, exportText: exportText,
     pageState: function () { return PAGE_STATE; }, pageAssetURL: PAGE_URL };

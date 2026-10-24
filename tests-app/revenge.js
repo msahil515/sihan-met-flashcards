@@ -205,6 +205,7 @@
     if (!sess.bad) { T.fx.confetti(140); T.fx.boost(1); T.tone([523, 659, 784, 1047]); }
   }
   function addXP(n) { sess.xp += n; }
+  function studyWrong(k) { var x = Q(k); if (x && T.addWrongQuestion) T.addWrongQuestion(x.id, x.q, x.i); }
 
   /* 1. Flip cards */
   function flip() {
@@ -219,7 +220,7 @@
       document.getElementById("rgF").onclick = document.getElementById("rgC").onclick = function () { sess.step = "back"; flip(); var c = document.getElementById("rgC"); c.classList.add("turn"); T.tone([520]); };
     } else {
       document.getElementById("rgY").onclick = function () { var s2 = load(); s2.it[k].f++; save(s2); sess.ok++; addXP(5); cheer(document.getElementById("rgY"), 5); setTimeout(next, 350); };
-      document.getElementById("rgN").onclick = function () { var s2 = load(); var o = s2.it[k]; o.b = Math.min(o.b, 1); o.d = Math.min(o.d, Date.now()); save(s2); sess.bad++; T.buzz([30]); T.toast("Back in the comeback queue"); next(); };
+      document.getElementById("rgN").onclick = function () { studyWrong(k); var s2 = load(); var o = s2.it[k]; o.b = Math.min(o.b, 1); o.d = Math.min(o.d, Date.now()); save(s2); sess.bad++; T.buzz([30]); T.toast("Back in the comeback queue"); next(); };
     }
   }
 
@@ -240,6 +241,7 @@
           addXP(st.firstTry ? 10 : 3); cheer(b, st.firstTry ? 10 : 3);
           st.ph = wrongs.length ? "grill" : "end"; setTimeout(cross, 450);
         } else {
+          studyWrong(k);
           if (st.firstTry) grade(load(), k, false);
           st.firstTry = false; st.tried[l] = 1; st.ph = "relearn"; boo(); setTimeout(cross, 300);
         }
@@ -253,6 +255,7 @@
       if (st.sub === "type") {
         b2 += '<textarea class="rg-ta" id="rgT" placeholder="In your own words: what is it really, and why doesn\'t it fit this question?">' + T.esc(typed) + "</textarea></div>";
         frame((sess.at + 1) + "/" + sess.list.length, b2, '<button class="btn" id="rgK">Check my reason</button>', progress());
+        if (window.NLVoice) NLVoice.attach(document.getElementById("rgT"), { getIdentity: function () { return cur() + ":cross:" + sess.at + ":" + st.j; } });
         document.getElementById("rgK").onclick = function () {
           var v = document.getElementById("rgT").value.trim();
           if (v.length < 4) { T.toast("Write your reason first, even one line"); return; }
@@ -265,7 +268,7 @@
         frame((sess.at + 1) + "/" + sess.list.length, b2, '<button class="btn bad" id="rgOff">I was off</button><button class="btn ok" id="rgOn">Matched</button>', progress());
         scrollTo("rgOn");
         document.getElementById("rgOn").onclick = function () { addXP(5); cheer(document.getElementById("rgOn"), 5); setTimeout(function () { nextGrill(st, wrongs); }, 300); };
-        document.getElementById("rgOff").onclick = function () { st.sub = "re"; st.pickBad = {}; cross(); top(); };
+        document.getElementById("rgOff").onclick = function () { studyWrong(k); st.sub = "re"; st.pickBad = {}; cross(); top(); };
         return;
       }
       /* "re": walk through the concept again, then prove it by picking the right reason */
@@ -277,7 +280,7 @@
       frame((sess.at + 1) + "/" + sess.list.length, b2, null, progress());
       bindOpts(function (c, b) {
         if (c === l) { addXP(2); cheer(b, 2); setTimeout(function () { nextGrill(st, wrongs); }, 400); }
-        else { st.pickBad[c] = 1; boo(); setTimeout(function () { cross(); scrollTo("rgR"); }, 300); }
+        else { studyWrong(k); st.pickBad[c] = 1; boo(); setTimeout(function () { cross(); scrollTo("rgR"); }, 300); }
       });
       return;
     }
@@ -304,6 +307,7 @@
         '<div class="opts locked">' + '<button class="opt wrong"><span class="k">' + o.p + '</span><span class="ot">' + q.options[o.p] + "</span></button></div>" +
         '<div class="rg-grill"><p>What made it look right? Be honest, one line is enough.</p><textarea class="rg-ta" id="rgT" placeholder="It looked right because...">' + T.esc(s.why[keyW] || "") + "</textarea></div>",
         '<button class="btn" id="rgK">Reveal the trap</button>', progress());
+      if (window.NLVoice) NLVoice.attach(document.getElementById("rgT"), { getIdentity: function () { return cur() + ":trap:" + sess.at; } });
       document.getElementById("rgK").onclick = function () {
         var v = document.getElementById("rgT").value.trim();
         if (v.length < 3) { T.toast("Say what pulled you in first"); return; }
@@ -323,7 +327,7 @@
         if (l === q.correct) {
           if (st.firstTry) { grade(load(), k, true); sess.ok++; } else sess.bad++;
           addXP(st.firstTry ? 10 : 3); cheer(b, st.firstTry ? 10 : 3); st.ph = "end"; setTimeout(function () { trap(); scrollTo("rgV"); }, 450);
-        } else { if (st.firstTry) grade(load(), k, false); st.firstTry = false; st.tried[l] = 1; st.ph = "relearn"; boo(); setTimeout(trap, 300); }
+        } else { studyWrong(k); if (st.firstTry) grade(load(), k, false); st.firstTry = false; st.tried[l] = 1; st.ph = "relearn"; boo(); setTimeout(trap, 300); }
       });
       return;
     }
@@ -383,6 +387,7 @@
     bindOpts(function (l, b) {
       sess.ans = l;
       var ok = l === q.correct;
+      if (!ok) studyWrong(k);
       if (sess.fresh[k]) { grade(load(), k, ok); delete sess.fresh[k]; if (ok) sess.ok++; else sess.bad++; }
       if (ok) { sess.c[k]++; addXP(5); cheer(b, 5); if (sess.c[k] === 3) T.banner("CRITICAL HIT", "question cleared"); }
       else { sess.c[k] = 0; sess.hits++; boo(); }
@@ -411,6 +416,7 @@
     if (a) { scrollTo("rgV"); document.getElementById("rgN").onclick = next; return; }
     bindOpts(function (l, b) {
       var ok = l === q.correct, o2 = grade(load(), k, ok);
+      if (!ok) studyWrong(k);
       sess.step = l;
       if (ok) { sess.ok++; addXP(o2.x ? 30 : 10); cheer(b, o2.x ? 30 : 10, o2.x); if (o2.x) T.banner("MASTERED", "revenge complete"); } else { sess.bad++; boo(); }
       comeback();

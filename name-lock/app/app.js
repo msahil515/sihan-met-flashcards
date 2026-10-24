@@ -667,12 +667,15 @@ function flash(kind){ var f = document.createElement("div"); f.className = "flas
 function floatText(t){ var f = document.createElement("div"); f.className = "cflash"; f.textContent = t; $("#lesson").appendChild(f); setTimeout(function(){ f.remove(); }, 1000); }
 var UNMASK = {qd: "def", wl: "who"};  // after answering, show the full text, not the blanked question copy
 function grade(btn){
+  if (!L || !L.q || L.q.graded) return;
+  L.q.graded = true;
   var q = L.q, c = q.c, ok = btn.dataset.id === c.id, cleared = false, mult = 1;
   document.querySelectorAll("#l-body .opt").forEach(function(x){ x.disabled = true; x.classList.remove("sel"); if (x.dataset.id === c.id) x.classList.add("ok", "flash"); });
   if (!ok) btn.classList.add("bad");
   if (L.kind === "duel"){ if (ok){ L.combo++; bump("duels"); mult = Math.min(1 + Math.floor((L.combo - 1) / 3), 5); } else { L.combo = 0; addMiss(c.id); save(); }
     if (setBest("combo", L.combo) && L.combo >= 3) toast("🔥 New best combo: <b>" + L.combo + "</b>", "gold"); L.best = Math.max(L.best, L.combo); }
   else cleared = srs(c, ok);
+  if (!ok && SL) SL.addWrong(studyItem(c));
   if (ok){ L.right++; L.hits.push(c); } else { L.wrongs.push(c); if (L.lives != null) L.lives--; }
   L.streak = ok ? (L.streak || 0) + 1 : 0;
   if (ok){ LFX.boost(.6); LFX.burst(L.streak >= 3 ? 34 : 18, $("#l-body .opt.ok")); }
@@ -885,7 +888,7 @@ function vivaSheet(w, i){
 function startViva(w, i){
   var l = VIVA[w].levels[i], cards = l.final ? vivaFinal(w, l.final) : l.cards.slice(), b = G().boss[vivaKey(w, i)] || (G().boss[vivaKey(w, i)] = {});
   b.tries = (+b.tries || 0) + 1; save();
-  V = {w: w, i: i, l: l, q: cards, total: cards.length, done: 0, first: 0, miss: {}, xp: 0, t0: Date.now()};
+  V = {w: w, i: i, l: l, q: cards, total: cards.length, done: 0, first: 0, miss: {}, drafts: {}, xp: 0, t0: Date.now()};
   holdCeleb = true;
   var el = pushScreen("lesson", '<div class="lhead"><button class="x" id="v-x">' + IC.x + '</button><div class="lprog"><i style="width:0"></i></div><div id="l-side"></div></div>' +
     '<div class="scroll" id="l-body"></div><div class="lfoot" id="l-foot"></div>', vivaQuit);
@@ -899,7 +902,11 @@ function vivaNext(){
   $("#lesson .lprog i").style.width = (V.done * 100 / V.total) + "%";
   $("#l-side").innerHTML = '<span class="vleft">' + V.q.length + ' left</span>';
   $("#l-body").innerHTML = '<div class="qbody"><div class="vk">' + V.l.icon + ' ' + esc(V.l.name) + (V.miss[c.id] ? ' · second go' : '') + '</div><div class="qk">' + esc(c.q) + '</div>' +
-    '<div class="qcard vhint">🎤 Say your answer out loud first, like you are in the room. Then check it.</div><div id="v-ans"></div></div>';
+    '<label class="vk" for="v-answer" style="display:block;margin:14px 0 6px">Your answer</label><textarea id="v-answer" placeholder="Write or dictate your answer here" style="box-sizing:border-box;width:100%;min-height:120px;padding:12px;border:1px solid #647f8d;border-radius:10px;background:#151d26;color:inherit;font:inherit;resize:vertical">' + esc(V.drafts[c.id] || '') + '</textarea><div class="hint" style="margin-top:6px">Drafts last for this session only. Leaving or reloading clears them.</div><div id="v-ans"></div>' +
+    '<div class="qcard vhint">Say or type your answer first, then check the model.</div></div>';
+  var answerField = $("#v-answer");
+  answerField.addEventListener("input", function () { if (V && V.drafts) V.drafts[c.id] = answerField.value; });
+  if (window.NLVoice) NLVoice.attach(answerField, { getIdentity: function () { return V && V.q.length ? V.q[0].id : ""; } });
   $("#l-body").scrollTop = 0;
   $("#l-foot").innerHTML = '<button class="btn" id="v-show">Show model answer</button>';
   $("#v-show").onclick = function(){

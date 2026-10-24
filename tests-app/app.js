@@ -242,11 +242,21 @@
     var w = strip(q.q).split(/\s+/);
     return w.slice(0, 9).join(" ") + (w.length > 9 ? "…" : "");
   }
-  function studyBtn(id, q, idx) {
-    if (!SL) return "";
+  function studyItem(id, q, idx) {
     var sid = "m:" + id + ":" + idx, lab = (P[id].sectionLabels || {})[q.section] || q.section || "";
     SI[sid] = { id: sid, t: q.topic || autoTopic(q), a: SL.areaOf((q.section || "") + " " + lab), f: title_of(id) + " · Q" + (idx + 1), q: strip(q.q), r: sid };
-    return SL.buttonHTML(sid);
+    return SI[sid];
+  }
+  function studyBtn(id, q, idx) {
+    if (!SL) return "";
+    return SL.buttonHTML(studyItem(id, q, idx).id);
+  }
+  function addWrongQuestion(id, q, idx) {
+    if (!SL) return;
+    SL.addWrong(studyItem(id, q, idx));
+  }
+  function studyWrong(id, idx) {
+    addWrongQuestion(id, P[id].questions[idx], idx);
   }
 
   /* ---------- navigation ---------- */
@@ -477,6 +487,7 @@
     var fresh = r.ans[r.i] == null;
     r.ans[r.i] = k;
     if (fresh) { meta.days[today()] = (meta.days[today()] || 0) + 1; }
+    if (practice && k !== q.correct) studyWrong(id, r.i);
     if (!practice) { saveRun(id, r); saveMeta(); buzz([12]); play(); return; }
     var ok = k === q.correct, gain = 0, lvBefore = level();
     if (ok) {
@@ -505,7 +516,10 @@
     var r = getRun(id), sc = score(id, r);
     if (r.mode === "full" && !r.done) {
       var Q = P[id].questions, gain = 0;
-      for (var k in r.ans) if (r.ans[k] === Q[+k].correct) gain += 10;
+      for (var k in r.ans) {
+        if (r.ans[k] === Q[+k].correct) gain += 10;
+        else if (r.ans[k] != null) studyWrong(id, +k);
+      }
       meta.xp += gain; r.xp = gain;
     }
     r.done = true; r.redo = null;
@@ -566,14 +580,14 @@
       '<button class="btn gold" id="fCopy">Copy results</button>' +
       '<button class="btn" data-go="review" data-id="' + id + '">Review every answer</button>' +
       (sc.wrong ? '<button class="btn bad" id="fRedo">Redo the ' + sc.wrong + " wrong</button>" : "") +
-      (SL && sc.wrong ? '<button class="btn ghost" id="fStudy">📌 Put the ' + sc.wrong + " wrong ones in To study</button>" : "") +
+      (SL && sc.wrong ? '<button class="btn ghost" id="fStudy">📌 Add missed questions to To study</button>' : "") +
       '<button class="btn ghost" data-go="home">Back to all tests</button></div></div>';
     document.getElementById("fCopy").onclick = function () { copyText(resultText(id)); };
     var fs = document.getElementById("fStudy");
     if (fs) fs.onclick = function () {
-      var n = 0;
-      Q.forEach(function (q, i) { if (r.ans[i] == null || r.ans[i] === q.correct) return; studyBtn(id, q, i); var sid = "m:" + id + ":" + i; if (!SL.has(sid)) { SL.add(SI[sid]); n++; } });
-      toast(n ? n + " topics added to To study" : "Already all in To study"); fs.remove();
+      var added = 0;
+      Q.forEach(function (q, i) { if (r.ans[i] == null || r.ans[i] === q.correct) return; studyBtn(id, q, i); if (!SL.has("m:" + id + ":" + i)) { SL.add(SI["m:" + id + ":" + i]); added++; } });
+      toast(added ? added + " missed questions added to To study" : "Missed questions are already saved in To study"); fs.remove();
     };
     var fr = document.getElementById("fRedo");
     if (fr) fr.onclick = function () {
@@ -653,6 +667,6 @@
   }
   window.TAPP = { go: go, fx: FX, getRun: getRun, meta: function () { return meta; },
     P: P, DEEP: DEEP, app: app, load: load, store: store, esc: esc, explainHTML: explainHTML, boldFig: boldFig, title_of: title_of, hud: hud,
-    toast: toast, flash: flash, banner: banner, tone: tone, buzz: buzz, floater: floater, gain: gain, closeSheet: closeSheet };
+    toast: toast, flash: flash, banner: banner, tone: tone, buzz: buzz, floater: floater, gain: gain, addWrongQuestion: addWrongQuestion, studyWrong: studyWrong, closeSheet: closeSheet };
   render();
 })();

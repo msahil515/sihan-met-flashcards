@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.speech.RecognizerIntent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -24,6 +25,7 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 /* Tests: a full-screen WebView over the bundled app in assets/www.
    Everything is served from the APK, so it runs with no network at all. */
@@ -34,6 +36,7 @@ public class MainActivity extends Activity {
     private static final String OTHER_PKG = "com.sihan.namelock";
     private static final String OTHER_NAME = "Name Lock";
     private static final String SYNC_EXTRA = "sihan_sync";
+    private static final int VOICE_REQUEST = 41;
     private WebView web;
     private PermissionRequest camReq;
     private String pendingCode;
@@ -41,6 +44,7 @@ public class MainActivity extends Activity {
     static String handoff;
     private boolean loaded;
     private Ota ota;
+    private final VoiceRequestQueue voiceRequests = new VoiceRequestQueue();
 
     @Override
     protected void onCreate(Bundle state) {
@@ -133,6 +137,61 @@ public class MainActivity extends Activity {
         camReq = null;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode != VOICE_REQUEST) return;
+        VoiceRequestQueue.Request completed = voiceRequests.complete();
+        if (completed != null && !completed.cancelled) {
+            if (resultCode != RESULT_OK) { voiceResult(completed.id, "cancel", ""); }
+            else {
+                ArrayList<String> results = data == null ? null : data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                String text = results == null || results.isEmpty() ? "" : results.get(0);
+                voiceResult(completed.id, text.isEmpty() ? "error" : "result", text);
+            }
+        }
+        VoiceRequestQueue.Request next = voiceRequests.current();
+        if (next != null) launchVoice(next.id, next.language);
+    }
+
+    private boolean trustedVoicePage() {
+        Uri uri = web == null || web.getUrl() == null ? null : Uri.parse(web.getUrl());
+        return uri != null && "https".equals(uri.getScheme()) && HOST.equals(uri.getHost())
+                && (uri.getPort() == -1 || uri.getPort() == 443);
+    }
+
+    private void voiceResult(String id, String status, String text) {
+        if (web == null || !trustedVoicePage()) return;
+        web.evaluateJavascript("window.NLVoice&&window.NLVoice.onResult(" + org.json.JSONObject.quote(id) + ","
+                + org.json.JSONObject.quote(status) + "," + org.json.JSONObject.quote(text) + ")", null);
+    }
+
+    @Override
+    protected void onDestroy() {
+        boolean hadVoice = voiceRequests.current() != null;
+        voiceRequests.clear();
+        if (hadVoice) finishActivity(VOICE_REQUEST);
+        super.onDestroy();
+    }
+
+    private void launchVoice(String requestId, String language) {
+        if (!trustedVoicePage()) return;
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, language);
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak your answer, then tap Done");
+        try { startActivityForResult(intent, VOICE_REQUEST); }
+        catch (Exception e) {
+            VoiceRequestQueue.Request next = voiceRequests.failed(requestId);
+            voiceResult(requestId, "error", "");
+            if (next != null) launchVoice(next.id, next.language);
+        }
+    }
+
+    private String cleanVoiceLanguage(String language) {
+        return language != null && language.matches("[A-Za-z0-9_-]{2,16}") ? language : "en-US";
+    }
+
     /* the sister app sent its sync code (via LinkActivity): take it on and sync straight away */
     @Override
     protected void onResume() {
@@ -221,6 +280,29 @@ public class MainActivity extends Activity {
             for (int i = 0; i < parts.length; i++) p[i + 1] = Long.parseLong(parts[i].trim());
             if (Build.VERSION.SDK_INT >= 26) v.vibrate(VibrationEffect.createWaveform(p, -1));
             else v.vibrate(p, -1);
+        }
+
+        @JavascriptInterface
+        public synchronized void startVoice(String requestId, String language) {
+            if (requestId == null || !requestId.matches("[A-Za-z0-9_-]{1,64}")) return;
+            runOnUiThread(new Runnable() {
+                @Override public void run() {
+                    if (!trustedVoicePage()) return;
+                    String safeLanguage = cleanVoiceLanguage(language);
+                    int state = voiceRequests.request(requestId, safeLanguage);
+                    if (state == VoiceRequestQueue.START) launchVoice(requestId, safeLanguage);
+                    else if (state == VoiceRequestQueue.BUSY) voiceResult(requestId, "error", "");
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public synchronized void cancelVoice(String requestId) {
+            runOnUiThread(new Runnable() {
+                @Override public void run() {
+                    if (requestId != null && voiceRequests.cancel(requestId)) finishActivity(VOICE_REQUEST);
+                }
+            });
         }
     }
 }

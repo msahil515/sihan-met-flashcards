@@ -18,7 +18,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "downloads" / "ota"
-SHARED = ("sync.js", "syncqr.js", "qrlib.js", "study.js", "study-pages.json")  # live at the asset root in both apps
+SHARED = ("sync.js", "syncqr.js", "qrlib.js", "study.js", "study-pages.json", "voice-input.js")  # live at the asset root in both apps
 
 
 def _tree(src_dir, prefix=""):
