@@ -259,7 +259,7 @@ details.closed h2.sh{font-size:16px;margin-top:14px}
 #toasts{position:fixed;left:0;right:0;bottom:90px;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:60;pointer-events:none}
 .toast{background:var(--s1);border:1px solid var(--brand);box-shadow:0 3px 0 var(--brand-d);color:#fff;font-weight:800;font-size:14px;padding:10px 16px;border-radius:12px;animation:fadeUp .2s}
 
-@media (prefers-reduced-motion:reduce){.nebula,.crest,.xpbar i::after{animation:none}}
+@media (prefers-reduced-motion:reduce){.nebula,.crest,.xpbar i::after{animation-duration:1ms!important;animation-iteration-count:1!important;animation-delay:0ms!important}}
 
 /* S24-class widths (~360-412px): a touch tighter so 4 options fit without scroll */
 @media (max-width:420px){
@@ -294,3 +294,106 @@ details.closed h2.sh{font-size:16px;margin-top:14px}
   #ps:has(#after:not(:empty)) > #after{grid-column:2;grid-row:1/5}
   #after .verdict{margin-top:4px}
 }
+
+/* Study League: a bright match lobby wrapped around quiet reading cards. */
+:root{
+  --bg:#152844;--s1:#203957;--s2:#2d4968;--s3:#496482;--line:#66809d;
+  --tx:#f4f8ff;--mu:#c7d5e6;--dim:#afc1d6;
+  --brand:#2563eb;--brand-d:#1745ad;--mag:#087f5b;--mag-d:#07583f;
+  --gold:#ffd34e;--gold-d:#b58a13;--ok:#087f5b;--ok-d:#07583f;
+  --bad:#ff755f;--bad-d:#bd493b;--pick:#2563eb;--pick-d:#1745ad;--fire:#ffd34e;
+  --r:22px;--sans:system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+html,body{background:var(--bg);color:var(--tx)}
+.nebula{display:none;animation:none}
+#sky{display:none;opacity:0}
+#fx{display:none}
+.hud,.ptop,.pfoot{background:var(--bg);backdrop-filter:none;-webkit-backdrop-filter:none}
+.hud{border-bottom:2px solid var(--s2)}
+.crest{background:var(--gold);color:var(--bg);border:2px solid #fff1b8;border-radius:14px;box-shadow:0 4px 0 var(--gold-d);animation:none}
+.xpbar{background:#10223b;border:2px solid #496482}
+.xpbar i{background:var(--gold-d)}
+.xpbar i::after{display:none;animation:none}
+.xpbar span{color:#fff;text-shadow:none}
+.streak.lit{color:var(--gold)}
+.hero{font-family:ui-rounded,"SF Pro Rounded","Segoe UI",system-ui,sans-serif;font-size:34px;font-style:normal;letter-spacing:-.025em;color:#fff}
+.hero span{color:var(--gold)}
+.hero-s{color:#d9e6f6;letter-spacing:.08em}
+.today{background:var(--brand);border:2px solid #78a1ff;border-radius:22px;padding:16px;color:#fff;box-shadow:0 6px 0 var(--brand-d);backdrop-filter:none;-webkit-backdrop-filter:none}
+.today-t p{color:#e4edff}
+.ring circle+circle{filter:none}
+.ring .tr{stroke:rgba(255,255,255,.28)}
+.ring .fg{stroke:var(--gold)}
+h2.sh{color:var(--gold);letter-spacing:.08em}
+.gsub,.foot{color:#c7d5e6}
+.mock{background:var(--s1);border:2px solid #66809d;border-radius:18px;box-shadow:0 4px 0 #10223b;backdrop-filter:none;-webkit-backdrop-filter:none;animation:none}
+.mock:nth-of-type(n){animation-delay:0s}
+.mock:active{transform:translateY(2px);box-shadow:0 2px 0 #10223b}
+.mock .mi{background:var(--brand);color:#fff;border:2px solid #78a1ff;box-shadow:0 3px 0 var(--brand-d)}
+.mock.done .mi{background:var(--ok);color:#fff;border-color:#54b995;box-shadow:0 3px 0 var(--ok-d)}
+.mock .ms{color:#d2deed}
+.mock .mbar{background:#152844}.mock .mbar i{background:var(--gold);box-shadow:none}
+.stars{color:rgba(255,255,255,.4)}.stars .on{color:var(--gold)}
+details.closed,.toggles .tg{background:var(--s1);border-color:#66809d}
+details.closed summary small{color:#c7d5e6}
+.tg{color:#d2deed}.tg.on{color:#fff;border-color:var(--gold)}
+.btn{background:var(--brand);color:#fff;box-shadow:0 4px 0 var(--brand-d);text-shadow:none}
+.btn.ok{background:var(--ok);color:#fff;box-shadow:0 4px 0 var(--ok-d)}
+.btn.bad{background:var(--bad);color:var(--bg);box-shadow:0 4px 0 var(--bad-d)}
+.btn.gold{background:var(--gold);color:var(--bg);box-shadow:0 4px 0 var(--gold-d)}
+.btn.ghost{background:var(--s1);border:2px solid #66809d;box-shadow:0 4px 0 #10223b;color:#fff}
+.lob-h{font-family:ui-rounded,"SF Pro Rounded","Segoe UI",system-ui,sans-serif}
+.lob-s{color:#c7d5e6}
+.blurb,.stat,.seg{background:var(--s1);border-color:#66809d;backdrop-filter:none;-webkit-backdrop-filter:none}
+.blurb{color:#e7eff9}
+.stat span{color:#d2deed}
+.seg button.on{background:var(--brand);color:#fff}
+.hint{color:#c7d5e6}
+.qmeta .chip{background:#2d4968;color:#e5eef9}
+.chip.qn{background:#dce8ff;color:#1745ad;box-shadow:0 0 0 1px #8eafff}
+.chip.src{background:#fff1b8;color:#493500;box-shadow:0 0 0 1px #ffd34e}
+.chip.spk{background:#2d4968;color:#fff}
+.chip.spk.on{background:var(--gold);color:var(--bg)}
+.qcard{background:#f4f8ff!important;color:#152844!important;border:2px solid #d1e0f3;border-radius:18px;padding:18px;box-shadow:0 5px 0 #10223b;backdrop-filter:none;-webkit-backdrop-filter:none}
+.qcard *{color:#152844}
+.qcard a{color:#1745ad;text-decoration:underline;text-underline-offset:2px}
+.opts{gap:11px}
+.opt{background:#fff;border:2px solid #b9cce4;color:#152844;box-shadow:0 4px 0 #10223b;backdrop-filter:none;-webkit-backdrop-filter:none;animation:none}
+.opt:nth-child(n){animation-delay:0s}
+.opt .k{background:#e6efff;border:2px solid #8eafff;color:#1745ad!important}
+.opt.pick{border-color:#2563eb;background:#dce8ff;color:#152844;box-shadow:0 4px 0 #1745ad}
+.opt.pick .k{background:#2563eb;border-color:#2563eb;color:#fff!important}
+.opt.right{border-color:#087f5b;background:#d9f4e9;color:#123a30;box-shadow:0 4px 0 #07583f}
+.opt.right .k{background:#087f5b;border-color:#087f5b;color:#fff!important}
+.opt.wrong{border-color:#ff755f;background:#ffe2dc;color:#54231d;box-shadow:0 4px 0 #bd493b}
+.opt.wrong .k{background:#ff755f;border-color:#ff755f;color:#152844!important}
+.opt.fade{opacity:.55}
+.verdict.ok{background:#d9f4e9;color:#07583f;border-color:#087f5b}
+.verdict.bad{background:#ffe2dc;color:#8c2d22;border-color:#ff755f}
+.verdict small{color:#785600}
+.pfoot{border-top:2px solid var(--s2)}
+.pfoot .nav,.pfoot .grid{background:var(--s1);border-color:#66809d;box-shadow:0 4px 0 #10223b}
+.exp{background:#f4f8ff;border:2px solid #d1e0f3;color:#152844}
+.exp *{color:#152844}
+.exp strong,.exp b{color:#152844}
+.exp .exp-h,.exp .exp-answer .alabel,.exp-trap .tflag{color:#1745ad}
+.exp-answer{background:#e1f5ec;border-color:#70b99c}
+.exp-answer .ak{background:#087f5b;color:#fff}
+.exp-answer .exp-fig,.exp-sec p,.exp-trap .tw,.exp .exp-book{color:#29425f}
+.exp-answer .exp-fig strong{color:#07583f}
+.exp-trap{background:#fff0ed;border-color:#f2b0a4}
+.exp-trap .tk{background:var(--bad);color:#152844}
+.exp-trap .tflag{color:#a63b2d}
+.sheet{background:var(--bg);border-color:var(--gold);box-shadow:0 -4px 0 var(--gold-d)}
+:focus-visible{outline-color:var(--gold)}
+@media (prefers-reduced-motion:reduce){.mock,.opt,.today,.btn{transition-duration:1ms!important;transition-delay:0ms!important}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;animation-delay:0ms!important;transition-duration:1ms!important;transition-delay:0ms!important;scroll-behavior:auto!important}}
+
+/* To study utility: keep shared-module controls readable on the dark game surface. */
+#app .stl-page a,#app .stl-ac a{color:#a8caff;text-decoration:underline;text-underline-offset:2px}
+#app .stl-add button{color:#fff}
+#app .stl-add input::placeholder{color:#c7d5e6;opacity:1}
+#app .stl-page a:focus-visible,#app .stl-ac a:focus-visible,#app .stl-ac button:focus-visible,
+#app .stl-add input:focus-visible,#app .stl-add button:focus-visible,#app .stl-seg button:focus-visible,
+#app .stl-ck:focus-visible,#app .stl-btn:focus-visible,#app .stl-export-toggle:focus-visible,
+#app .stl-export-ac button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}

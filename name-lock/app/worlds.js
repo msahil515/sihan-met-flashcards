@@ -50,19 +50,19 @@ var jssT = 0, jssN = 0; JSSL.forEach(function(l){ (l.cards || []).forEach(functi
 
 var WORLDS = [
   {id: "wsw", kick: "WORLD 1", name: "Who Said What", tag: "A city of theorist statues",
-    c: ["#ddd2b4", "#a9976d", "#4b4232"], pc: "#c9b582", pd: "#62543a", spin: 48, built: true, open: true,
+    c: ["#fff1b8", "#ffd34e", "#785600"], pc: "#ffd34e", pd: "#b58a13", spin: 48, built: true, open: true,
     prog: wins / MAP.length, best: +best.combo ? best.combo + " in a row" : "--", next: nextB ? nextB[2] + " " + nextB[1] : "All won 🏆"},
   {id: "bio", kick: "WORLD 2", name: "Biopsych", tag: "A glowing brain with pulsing neurons",
-    c: ["#d3c8dc", "#95849f", "#403546"], pc: "#b2a6bd", pd: "#57485f", spin: 40, built: true, open: true,
+    c: ["#8bb8ff", "#2563eb", "#1745ad"], pc: "#8bb8ff", pd: "#1745ad", spin: 40, built: true, open: true,
     lockText: "", prog: bioW / BIO.length, best: +best.combo ? best.combo + " in a row" : "--", next: nextBio ? nextBio[2] + " " + nextBio[1] : "All won 🏆"},
   {id: "dis", kick: "WORLD 3", name: "Dissertation", tag: "Your own study, the way a viva panel walks it",
-    c: ["#cadbcf", "#789d86", "#2f4438"], pc: "#95bda5", pd: "#345442", spin: 60, built: true, open: true,
+    c: ["#8fe0c0", "#087f5b", "#07583f"], pc: "#54b995", pd: "#07583f", spin: 60, built: true, open: true,
     lockText: "", prog: DIS.length ? disW / DIS.length : 0, best: disN + "/" + disT, bestK: "Nailed", next: nextDis ? nextDis[2] + " " + nextDis[1] : "All cleared 🏆", nextK: "Next level"},
   {id: "jss", kick: "WORLD 4", name: "JSS Interview", tag: "The panel room: openers, your work, cases, ethics, law, definitions",
-    c: ["#dfcbbc", "#aa866c", "#49382d"], pc: "#c8a184", pd: "#664b39", spin: 52, built: true, open: true,
+    c: ["#ffab9d", "#ff755f", "#bd493b"], pc: "#ffab9d", pd: "#bd493b", spin: 52, built: true, open: true,
     lockText: "", prog: JSS.length ? jssW / JSS.length : 0, best: jssN + "/" + jssT, bestK: "Nailed", next: nextJss ? nextJss[2] + " " + nextJss[1] : "All cleared 🏆", nextK: "Next level"},
   {id: "stats", kick: "WORLD 5", name: "Stats and Research", tag: "A lab world of data towers and graphs",
-    c: ["#c9dbe3", "#7899aa", "#2e414d"], pc: "#91b4c4", pd: "#345465", spin: 56, built: false, open: won("pinel-final") || DEMO,
+    c: ["#8bb8ff", "#2563eb", "#1745ad"], pc: "#8bb8ff", pd: "#1745ad", spin: 56, built: false, open: won("pinel-final") || DEMO,
     lockText: "Beat the Pinel Final Boss to unlock", prog: 0, best: "--", next: "Normal Curve Boss"}
 ];
 if (!seen.wsw){ seen.wsw = 1; localStorage.setItem(SEEN, JSON.stringify(seen)); }

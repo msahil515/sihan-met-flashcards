@@ -370,7 +370,7 @@ h2.sh small{display:block;font-size:13px;font-weight:700;color:var(--mu);margin-
 .toast.out{opacity:0;transform:translateY(-10px)}
 @keyframes tIn{from{opacity:0;transform:translateY(-16px) scale(.95)}}
 
-@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:1ms!important;animation-iteration-count:1!important;animation-delay:0ms!important;transition-duration:1ms!important;transition-delay:0ms!important}}
 
 /* ================= 2.0: EA layer ================= */
 /* menu */
@@ -566,7 +566,7 @@ h2.sh small{display:block;font-size:13px;font-weight:700;color:var(--mu);margin-
 #lesson.neon .ft-sb{background:rgba(18,24,32,.7);border:1.5px solid var(--line);box-shadow:none}
 #lesson.neon .ft-row div{background:var(--ns);border:1.5px solid var(--nl)}
 #lesson.neon .missed .chip{background:rgba(211,155,157,.1);box-shadow:none}
-@media (prefers-reduced-motion:reduce){#lesson.neon>.nebula{animation:none}}
+@media (prefers-reduced-motion:reduce){#lesson.neon>.nebula{animation-duration:1ms!important;animation-iteration-count:1!important;animation-delay:0ms!important}}
 
 /* Biopsych world banner */
 .unit.bio{background:linear-gradient(135deg,#57485f,#403546);box-shadow:0 4px 0 #302733}
@@ -636,3 +636,146 @@ h2.sh small{display:block;font-size:13px;font-weight:700;color:var(--mu);margin-
   .fb .why{grid-column:2;grid-row:1/5;margin:0;max-height:calc(46vh - 40px)}
   .fb .btn{grid-column:1;grid-row:4;align-self:end}
 }
+
+/* Name Lock: the green training club, with paper for every answer. */
+:root{
+  --bg:#152844;--s1:#203957;--s2:#2d4968;--s3:#496482;--line:#66809d;
+  --tx:#f4f8ff;--mu:#c7d5e6;--dim:#afc1d6;
+  --brand:#087f5b;--brand-d:#07583f;--gold:#ffd34e;--gold-d:#b58a13;
+  --ok:#087f5b;--ok-d:#07583f;--bad:#ff755f;--bad-d:#bd493b;
+  --fire:#ffd34e;--blue:#2563eb;--blue-d:#1745ad;
+  --c-effect:#2563eb;--c-bias:#ff755f;--c-phenomenon:#ffd34e;--c-experiment:#087f5b;--c-term:#ffd34e;--c-law:#8bb8ff;
+  --r:18px;--sans:system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+html,body{background:var(--bg);color:var(--tx)}
+:focus-visible{outline-color:var(--gold)}
+#tabbar{background:var(--bg);border-top:2px solid var(--s2)}
+#tabbar button.on{color:#8fe0c0}
+#tabbar button.on .tb-ic{background:rgba(8,127,91,.32);border-color:#54b995}
+.hud{background:var(--bg);border-color:var(--s2)}
+.crest{background:var(--gold);color:var(--bg);border:2px solid #fff1b8;box-shadow:0 4px 0 var(--gold-d)}
+.xpbar{background:#10223b;border:2px solid #496482}.xpbar i{background:var(--gold-d)}
+.xpbar i:after{display:none}.xpbar span{text-shadow:none}
+.streak.lit{color:var(--gold)}.streak.lit .fl{animation:none}
+.panel{background:var(--s1);border-color:#66809d}
+.btn{background:var(--brand);color:#fff;box-shadow:0 4px 0 var(--brand-d)}
+.btn.ok{background:var(--ok);color:#fff}.btn.bad{background:var(--bad);color:var(--bg)}
+.btn.gold{background:var(--gold);color:var(--bg)}
+.btn.ghost{background:var(--s1);border-color:#66809d;color:#fff}
+.pbar{background:#152844}.pbar.gold i{background:var(--gold)}
+.chip{background:var(--s1);border-color:#66809d;color:#e5eef9}
+.chip.on{background:#d9f4e9;border-color:#54b995;color:#07583f}
+.search{background-color:#203957;border-color:#66809d;color:#fff}
+.search:focus{border-color:#8fe0c0}
+.quest{border-color:#496482}.quest .qi{background:#2d4968}
+.quest.done .qi{background:#087f5b}.quest.done b{color:#8fe0c0}
+.quest .qn{color:#d2deed}
+.unit{background:#087f5b;box-shadow:0 5px 0 #07583f}
+.unit.bio{background:#2563eb;box-shadow:0 5px 0 #1745ad}
+.unit.dis{background:#087f5b;box-shadow:0 5px 0 #07583f}
+.unit.jss{background:#ff755f;box-shadow:0 5px 0 #bd493b;color:#152844}
+.node{background:#2d4968;box-shadow:0 6px 0 #10223b}
+.node.open{background:#2563eb;box-shadow:0 6px 0 #1745ad;color:#fff}
+.node.won{background:#ffd34e;box-shadow:0 6px 0 #b58a13;color:#152844}
+.node.shut{filter:none;opacity:.58}
+.node .crown{background:#152844;border-color:#66809d}
+.node.cur:before{border-color:#ffd34e;animation:none}
+.node-l{color:#d2deed}
+.mode{background:var(--s1);border-color:#66809d;box-shadow:0 4px 0 #10223b}
+.mode span{color:#d2deed}
+.mode .cnt{background:var(--bad);color:#152844}
+.menu-top{background:var(--bg)}
+.pban{background:#203957;border:2px solid #66809d;backdrop-filter:none;-webkit-backdrop-filter:none}
+.pb-t>span{color:#d2deed}
+.sq{background:var(--gold);color:#152844}
+.mt{border:2px solid rgba(255,255,255,.35);box-shadow:0 5px 0 #10223b;animation:none}
+.mt:before{display:none;animation:none}
+.mt:nth-child(n){animation-delay:0s}
+.mt.big{background:#2563eb;border-color:#78a1ff}
+.mt.season{background:#ffd34e;border-color:#fff1b8;color:#152844}
+.mt.ut{background:#ff755f;border-color:#ffab9d;color:#152844}
+.mt.train{background:#087f5b;border-color:#54b995}
+.mt.prof{background:#2d4968;border-color:#66809d}
+.mt.season>span:not(.mt-k),.mt.ut>span:not(.mt-k){color:#493500;opacity:1}
+.mt.season .mt-k,.mt.ut .mt-k{opacity:1}
+.mt-e{filter:none}
+.mt.big .ring .tr{stroke:rgba(255,255,255,.34)}.mt.big .ring .fg{stroke:var(--gold)}
+.sb{background:#10223b;border-color:#66809d}
+#lesson.neon{
+  --nc:#2563eb;--nm:#29425f;--ng:#087f5b;--nr:#ff755f;--np:#2563eb;--nl:#d1e0f3;--ns:#f4f8ff;
+  background:#152844;color:#152844
+}
+#lesson.neon>.nebula{display:none;animation:none;background:#152844}
+#lesson.neon>.lsky{display:none;opacity:0}
+#lesson.neon>.lfx{display:none}
+#lesson.neon .lhead{background:#152844;border-bottom:2px solid #2d4968;backdrop-filter:none;-webkit-backdrop-filter:none}
+#lesson.neon .x,#lesson.neon .vleft{color:#d2deed}
+#lesson.neon .lprog{background:#10223b;border:1px solid #66809d}
+#lesson.neon .lprog i{background:#ffd34e}
+#lesson.neon .combo{color:#ffd34e}
+#lesson.neon .clock{color:#8bb8ff}#lesson.neon .clock.low{color:#ff755f}
+#lesson.neon .sb{background:#203957;border-color:#66809d}
+#lesson.neon .sb .sc{background:#ffd34e;color:#152844}
+#lesson.neon .qk{color:#fff}
+#lesson.neon .qcard{background:#f4f8ff;border:2px solid #d1e0f3;box-shadow:0 5px 0 #10223b;backdrop-filter:none;-webkit-backdrop-filter:none;color:#152844}
+#lesson.neon .qcard *{color:#152844}
+#lesson.neon .qcard .qn{color:#1745ad}
+#lesson.neon .qcard .qd{color:#152844}#lesson.neon .qcard .qs{color:#496482}
+#lesson.neon .opt{background:#fff;border:2px solid #b9cce4;box-shadow:0 4px 0 #10223b;color:#152844;backdrop-filter:none;-webkit-backdrop-filter:none;animation:none}
+#lesson.neon .opt:nth-child(n){animation-delay:0s}
+#lesson.neon .opt.sel{border-color:#2563eb;background:#dce8ff;box-shadow:0 4px 0 #1745ad;color:#152844}
+#lesson.neon .opt.ok{border-color:#087f5b;background:#d9f4e9;box-shadow:0 4px 0 #07583f;color:#123a30}
+#lesson.neon .opt.bad{border-color:#ff755f;background:#ffe2dc;box-shadow:0 4px 0 #bd493b;color:#54231d}
+#lesson.neon .opt:disabled:not(.ok):not(.bad){opacity:.62}
+#lesson.neon .lfoot{background:#152844;border-top:2px solid #2d4968;backdrop-filter:none;-webkit-backdrop-filter:none}
+#lesson.neon .fb{backdrop-filter:none;-webkit-backdrop-filter:none;color:#152844}
+#lesson.neon .fb.ok{background:#d9f4e9;border-color:#087f5b}
+#lesson.neon .fb.bad{background:#ffe2dc;border-color:#ff755f}
+#lesson.neon .fb .ans,#lesson.neon .fb .why,#lesson.neon .fb .why .f,#lesson.neon .fb .why .f *{color:#152844}
+#lesson.neon .fb .more{color:#29425f}
+#lesson.neon .fb.ok h3{color:#07583f}#lesson.neon .fb.bad h3{color:#8c2d22}
+#lesson.neon .fb.ok h3 .ic{background:#087f5b;color:#fff}#lesson.neon .fb.bad h3 .ic{background:#ff755f;color:#152844}
+#lesson.neon .fb h3 .xp{color:#785600}
+#lesson.neon .fb .why .tell{background:#fff1b8;border-color:#e4c35b;color:#493500}
+#lesson.neon .fb .why .tell *{color:#493500}
+#lesson.neon .fb .why .f i{color:#1745ad}
+#lesson.neon .fb .why .tell i{color:#493500}
+#lesson.neon .btn{background:#087f5b;color:#fff;box-shadow:0 4px 0 #07583f}
+#lesson.neon .btn.ok{background:#087f5b;color:#fff}
+#lesson.neon .btn.bad{background:#ff755f;color:#152844}
+#lesson.neon .btn.gold{background:#ffd34e;color:#152844}
+#lesson.neon .btn.ghost{background:#203957;border-color:#66809d;color:#fff}
+#lesson.neon .btn:disabled{background:#2d4968;border-color:#66809d;color:#d2deed}
+#lesson.neon .flashbg.ok,#lesson.neon .flashbg.bad{background:none}
+#lesson.neon .cflash{color:#ffd34e}
+#lesson.neon .center h1{color:#fff}#lesson.neon .center h1.bad{color:#ff9b8c}
+#lesson.neon .center p,#lesson.neon .ft-sub{color:#d2deed}
+#lesson.neon .rs .rv{background:#203957}
+#lesson.neon .rs.g{color:#ffd34e}#lesson.neon .rs.o{color:#54b995}#lesson.neon .rs.b{color:#8bb8ff}
+#lesson.neon .rs.g .rv{color:#ffd34e}#lesson.neon .rs.o .rv{color:#8fe0c0}#lesson.neon .rs.b .rv{color:#a8c4ff}
+#lesson.neon .ft-sb{background:#203957;border-color:#66809d}
+#lesson.neon .ft-row div{background:#f4f8ff;border-color:#d1e0f3;color:#152844}
+#lesson.neon .missed .chip{background:#ffe2dc}
+#lesson.neon .vk{color:#c7d5e6}
+#lesson.neon .qcard .vk{color:#496482}
+#lesson.neon #v-answer{background:#fff!important;border-color:#9db5d2!important;color:#152844!important}
+#lesson.neon .voice-input-button,#lesson.neon .voice-input-control{background:#2563eb!important;border:2px solid #8bb8ff!important;color:#fff!important;border-radius:10px!important;min-height:44px;padding:8px 13px!important}
+#lesson.neon .voice-input-status{color:#d2deed;opacity:1!important}
+#lesson.neon #l-body .hint{color:#d2deed}
+.unit.bio{background:#2563eb;box-shadow:0 5px 0 #1745ad}
+.unit.dis{background:#087f5b;box-shadow:0 5px 0 #07583f}
+.unit.jss{background:#ff755f;box-shadow:0 5px 0 #bd493b;color:#152844}
+.va .f,.vread .f{color:#e5eef9}.va .f.say{color:#fff}
+.va .f.num,.vread .f.num{color:#ffd34e}
+.rate3 .btn.bad{color:#152844}
+@media (prefers-reduced-motion:reduce){.mt,.node.cur:before{animation-duration:1ms!important;animation-iteration-count:1!important;animation-delay:0ms!important}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;animation-delay:0ms!important;transition-duration:1ms!important;transition-delay:0ms!important;scroll-behavior:auto!important}}
+
+/* To study utility: keep shared-module controls readable on the dark game surface. */
+#app .stl-page a,#app .stl-ac a{color:#a8caff;text-decoration:underline;text-underline-offset:2px}
+#app .stl-add button{color:#fff}
+#app .stl-add input::placeholder{color:#c7d5e6;opacity:1}
+#app .stl-page a:focus-visible,#app .stl-ac a:focus-visible,#app .stl-ac button:focus-visible,
+#app .stl-add input:focus-visible,#app .stl-add button:focus-visible,#app .stl-seg button:focus-visible,
+#app .stl-ck:focus-visible,#app .stl-btn:focus-visible,#app .stl-export-toggle:focus-visible,
+#app .stl-export-ac button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
