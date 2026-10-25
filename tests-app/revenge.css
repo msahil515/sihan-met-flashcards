@@ -1,13 +1,13 @@
 /* Revenge mode (revenge.js): same neon skin, red/magenta accent. */
-.rg-cta{display:flex;align-items:center;gap:12px;width:100%;text-align:left;margin-top:12px;padding:14px;border-radius:var(--r);
-  background:var(--s1);border:1.5px solid var(--bad);
-  box-shadow:0 4px 0 var(--bad-d);animation:cardIn .4s cubic-bezier(.2,.9,.3,1.2) both}
+.rg-cta{display:flex;align-items:center;gap:10px;width:100%;text-align:left;margin-top:12px;padding:10px 12px;border-radius:4px;
+  background:linear-gradient(110deg,#14232a,#10191f);border:1px solid #4a6066;border-left:2px solid var(--gold);
+  box-shadow:0 10px 20px #0007;animation:none}
 .rg-cta:active{transform:translateY(3px)}
-.rg-cta i{flex:none;font-style:normal;font-size:30px;}
+.rg-cta i{flex:none;font-style:normal;font-size:20px;opacity:.8}
 .rg-cta span{flex:1;min-width:0}
-.rg-cta b{display:block;font-size:17px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:var(--bad)}
-.rg-cta small{display:block;font-size:12.5px;font-weight:800;color:#d3b5b8;margin-top:2px}
-.rg-cta em{font-style:normal;font-size:26px;font-weight:900;color:var(--bad)}
+.rg-cta b{display:block;font-size:14px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--gold)}
+.rg-cta small{display:block;font-size:13px;font-weight:700;color:var(--mu);margin-top:2px;line-height:1.2}
+.rg-cta em{font-style:normal;font-size:22px;font-weight:900;color:var(--brand)}
 .rg-master{height:8px;border-radius:9px;background:rgba(255,255,255,.08);margin:12px 2px 4px;overflow:hidden}
 .rg-master i{display:block;height:100%;border-radius:9px;background:var(--bad-d);box-shadow:none}
 .rg-scope{display:flex;gap:7px;overflow-x:auto;margin:12px 0 2px;padding-bottom:4px}
@@ -95,44 +95,39 @@ details.rg-more summary{font-weight:900;font-size:14px;padding:10px 2px;cursor:p
   #rgR .opts{grid-template-columns:1fr}
 }
 
-/* Revenge is the comeback kit: coral identity, readable paper lessons. */
-.rg-cta{background:var(--bad);border:2px solid #ffab9d;border-radius:22px;box-shadow:0 6px 0 var(--bad-d)}
-.rg-cta b,.rg-cta em{color:#152844}
-.rg-cta small{color:#54231d}
-.rg-master{background:#152844}.rg-master i{background:var(--gold)}
-.rg-scope button{background:#203957;color:#e5eef9}
-.rg-scope button.on{background:#ffd34e;color:#152844;border-color:#fff1b8}
-.rg-empty{background:#203957;color:#e5eef9;border-color:#66809d}
-.rg-mode{background:#203957;border:2px solid #66809d;box-shadow:0 4px 0 #10223b}
-.rg-mode b{color:#fff}.rg-mode span{color:#d2deed}
-.rg-mode em{color:#ffd34e}
-.rg-mode.m-boss,.rg-mode.m-comeback{border-color:#ff755f}
-.rg-row{background:#203957;border-color:#66809d}
-.rg-row .rn{background:#ffe2dc;color:#8c2d22}
-.rg-row.won .rn{background:#d9f4e9;color:#07583f}
-.rg-row .rq small{color:#c7d5e6}
-.rg-dots i,.rg-pips i{background:rgba(255,255,255,.35)}
-.rg-dots i.on{background:#087f5b}.rg-pips i.on{background:#ffd34e}
-.rg-card{background:#203957;border:2px solid #ffab9d}
-.rg-card.back{border-color:#70b99c}
-.rg-face{color:#ffd34e}.rg-card.back .rg-face{color:#087f5b}
-.rg-les{background:#f4f8ff;border-color:#d1e0f3;color:#152844}
-.rg-les *{color:#152844}
-.rg-les .exp-h,.rg-les .exp-sec .rg-hook{color:#1745ad!important}
-.rg-flag{background:#fff1b8;border-color:#e4c35b;color:#493500}
-.rg-flag b{color:#785600}
-.rg-fool{background:#fff0ed;border-color:#f2b0a4;color:#54231d}
-.rg-fool .tk{background:#ff755f;color:#152844}
-.rg-hook{color:#07583f!important}
-.rg-grill{background:#f4f8ff;border-color:#d1e0f3;color:#152844}
-.rg-grill p{color:#152844}
-.rg-gh{color:#1745ad}
-.rg-ta{background:#fff;border-color:#9db5d2;color:#152844}
-.rg-you{background:#dce8ff;border-color:#9bb8f2;color:#152844}
-.rg-model{background:#d9f4e9;border-color:#70b99c;color:#152844}
-.rg-you b{color:#1745ad}.rg-model b{color:#07583f}
-.rg-boss{background:#203957;border-color:#ff755f;box-shadow:0 4px 0 #10223b}
-.rg-boss.won{border-color:#087f5b;box-shadow:0 4px 0 #07583f}
-.rg-boss small{color:#d2deed}
-.rg-bossbar{background:#ffe2dc;border-color:#ff755f;color:#54231d}
-.rg-hp{background:#fff;border-color:#f2b0a4;color:#54231d}.rg-hp i{background:#ff755f}
+/* Full Revenge routes share the graphite, cyan, and semantic feedback system. */
+.rg-master{background:#111f29;border:1px solid #40575e}.rg-master i{background:#63dfe5}
+.rg-scope button{min-height:44px;padding:8px 12px;border-radius:3px;background:#111f29;border:1px solid #40575e;color:#afc3ca;font-size:13px;white-space:normal}
+.rg-scope button.on{background:#18323a;color:#e6f1f3;border-color:#63dfe5;box-shadow:none}
+.rg-empty{background:#111f29;color:#afc3ca;border-color:#536c74;border-radius:4px;font-size:14px}
+.rg-mode{min-height:112px;background:linear-gradient(120deg,#14232b,#101a20);border:1px solid #536c74;border-radius:4px;box-shadow:0 9px 18px #0008;backdrop-filter:none;-webkit-backdrop-filter:none}
+.rg-mode b{color:#e6f1f3}.rg-mode span{color:#afc3ca;font-size:13px}.rg-mode em{font-size:13px;color:#e9b85f}
+.rg-mode.m-boss,.rg-mode.m-comeback{border-color:#713e45;border-left:3px solid #f29393}
+.rg-row{min-height:44px;background:linear-gradient(110deg,#14232b,#101a20);border:1px solid #40575e;border-radius:3px;padding:10px 12px}
+.rg-row .rn{min-width:36px;height:30px;border-radius:3px;background:#321d22;color:#ffc4c4;font-size:13px}
+.rg-row.won .rn{background:#153126;color:#b6f0d2}.rg-row .rq small{color:#afc3ca;font-size:13px;line-height:1.25}
+.rg-dots i,.rg-pips i{background:#40575e}.rg-dots i.on,.rg-pips i.on{background:#e9b85f;box-shadow:none}
+.rg-card{background:#111f29;border:1px solid #536c74;border-radius:4px}.rg-card.back{border-color:#568c70}
+.rg-face{font-size:13px;letter-spacing:.12em;color:#9acbd0}.rg-card.back .rg-face{color:#83d5b0}
+.rg-les{margin-top:14px;background:#e6f1f3;border:1px solid #fff;border-radius:4px;color:#14232a;box-shadow:0 16px 34px #0009}
+.rg-les .exp-h,.rg-les .exp-sec .rg-hook{color:#17616a!important}.rg-les .exp-sec,.rg-les .exp-answer,.rg-les .exp-trap{border-color:#b8cccf}
+.rg-flag{background:#29251b;border:1px solid #70582d;border-radius:3px;color:#f0d39b;font-size:14px}
+.rg-flag b{font-size:13px;color:#e9b85f}
+.rg-fool{background:#351e23;border-color:#713e45;color:#ffc4c4;border-radius:3px}
+.rg-fool .tk{background:#f29393;color:#190c0d;border-radius:3px}
+.rg-hook{color:#17616a!important;font-style:normal}
+.rg-grill{background:#111f29;border:1px solid #40575e;border-radius:4px;padding:14px}.rg-grill p{color:#e6f1f3}
+.rg-gh{font-size:13px;letter-spacing:.08em;color:#9acbd0}
+.rg-ta{min-height:96px;border-radius:3px;border:1px solid #536c74;background:#091318;color:#e6f1f3;font:700 15.5px/1.45 var(--sans)}
+.rg-you,.rg-model{border-radius:3px}.rg-you{background:#142730;border-color:#40575e;color:#e6f1f3}.rg-model{background:#142c24;border-color:#568c70;color:#d9f3e5}
+.rg-you b,.rg-model b{font-size:13px}.rg-you b{color:#9acbd0}.rg-model b{color:#83d5b0}
+#rgR .opt .ot{font-size:15px}
+.rg-boss{min-height:44px;background:linear-gradient(110deg,#14232b,#101a20);border:1px solid #713e45;border-left:3px solid #f29393;border-radius:3px;box-shadow:0 8px 18px #0008}
+.rg-boss.won{border-color:#568c70;border-left-color:#83d5b0;box-shadow:0 8px 18px #0008}
+.rg-boss b{font-size:16px}.rg-boss small{font-size:13px;color:#afc3ca;line-height:1.25}
+.rg-bossbar{background:#291d20;border:1px solid #713e45;border-radius:3px;color:#ffc4c4;box-shadow:none}
+.rg-hp{height:20px;border-radius:3px;background:#111f29;border-color:#713e45;color:#e6f1f3}.rg-hp i{background:#f29393}.rg-hp span{font-size:13px}
+details.rg-more{background:#111f29;border:1px solid #40575e;border-radius:3px}details.rg-more summary{min-height:44px;display:flex;align-items:center;font-size:14px;color:#9acbd0}
+.rg-cta{min-height:44px}.rg-cta:focus-visible,.rg-mode:focus-visible,.rg-row:focus-visible,.rg-boss:focus-visible{outline:3px solid #e9b85f;outline-offset:2px}
+.rg-scope button,.rg-mode span,.rg-mode em,.rg-row .rn,.rg-row .rq small,.rg-face,.rg-flag b,.rg-gh,.rg-you b,.rg-model b,.rg-boss small,.rg-hp span{font-size:13px}
+.rg-modes button,.rg-boss,.rg-scope button{min-height:44px}

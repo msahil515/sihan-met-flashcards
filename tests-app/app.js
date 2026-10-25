@@ -303,26 +303,27 @@
       '%"></i></span></span><span class="stars">' + starHTML(st) + "</span></button>";
   }
   function groupHTML(g) {
-    return '<h2 class="sh">' + esc(g.title) + '</h2><p class="gsub">' + esc(g.sub) + "</p><div class=\"mgrid\">" + g.members.map(mockCard).join("") + "</div>";
+    return '<section class="catalog-group"><h2 class="sh">' + esc(g.title) + '</h2><p class="gsub">' + esc(g.sub) + "</p><div class=\"mgrid\">" + g.members.map(mockCard).join("") + "</div></section>";
   }
   function home() {
     var done = meta.days[today()] || 0, frac = Math.min(1, done / DAILY_GOAL), C = 2 * Math.PI * 26;
     var open = GROUPS.filter(function (g) { return !g.archived; }), closed = GROUPS.filter(function (g) { return g.archived; });
     var nQ = 0, nM = 0; GROUPS.forEach(function (g) { g.members.forEach(function (id) { nM++; nQ += P[id].questions.length; }); });
     var last = meta.last && P[meta.last] ? meta.last : null;
-    var h = '<div class="screen">' + hud() + '<div class="scroll">' +
-      '<div class="hero">MOCK <span>ARENA</span></div><div class="hero-s">' + nM + " missions · pick one, rack up XP</div>" +
-      '<div class="today"><div class="ring"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="7"/>' +
+    var h = '<div class="screen home-screen">' + hud() + '<div class="scroll home-scroll">' +
+      '<div class="home-layout"><aside class="briefing"><section class="brief-object"><div class="brief-copy"><h1 class="hero">Tests</h1><p class="hero-s">' + nM + " mock tests to choose from</p>" +
+      '<div class="today compact-meter"><div class="ring"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="7"/>' +
       '<circle cx="32" cy="32" r="26" fill="none" stroke="' + (frac >= 1 ? "#95bda5" : "#91b4c4") + '" stroke-width="7" stroke-linecap="round" stroke-dasharray="' + C +
       '" stroke-dashoffset="' + C * (1 - frac) + '"/></svg><b>' + done + "</b></div>" +
       '<div class="today-t"><h3>' + (frac >= 1 ? "Daily goal done" : "Daily goal: " + DAILY_GOAL + " questions") + "</h3><p>" +
       (frac >= 1 ? "Streak safe for today. Keep the combo going." : (DAILY_GOAL - done) + " to go today") + "</p></div></div>" +
-      (window.REVENGE ? window.REVENGE.cta() : "") +
-      (SL ? '<div class="cont"><button class="btn ghost" data-go="study">📌 To study · ' + SL.counts().open + " open</button></div>" : "") +
-      (last ? '<div class="cont"><button class="btn" data-go="play" data-id="' + last + '">Continue: ' + esc(title_of(last)) + "</button></div>" : "") +
+      (last ? '<button class="btn primary-action" data-go="play" data-id="' + last + '">Continue: ' + esc(title_of(last)) + "</button>" : '<a class="btn primary-action" href="#catalog">Choose a test</a>') +
+      '<svg class="neural-map" viewBox="0 0 360 205" aria-hidden="true"><path d="M176 42c-25-22-66-9-63 20-27 2-41 29-24 48-18 25 3 53 27 47 9 28 40 28 60 12m9-127c25-22 66-9 63 20 27 2 41 29 24 48 18 25-3 53-27 47-9 28-40 28-60 12M180 42v127m-61-105 61 23 58-22m-149 49 91-27 87 27m-126 49 39-22 42 21" fill="none" stroke="#9bdde0" stroke-opacity=".68" stroke-width="2.2"/><path d="M112 62c-8 17-18 31-24 48m153-48c8 17 18 31 24 48m-85-20v79" fill="none" stroke="#d9eff0" stroke-opacity=".4" stroke-width="1.6"/><g fill="#e9b85f"><circle cx="119" cy="64" r="4"/><circle cx="238" cy="64" r="4"/><circle cx="91" cy="113" r="4"/><circle cx="270" cy="113" r="4"/></g><circle cx="180" cy="100" r="5" fill="#e6f1f3"/></svg></div></section>' +
+      '<div class="secondary-tools">' + (window.REVENGE ? window.REVENGE.cta() : "") +
+      (SL ? '<button class="btn ghost" data-go="study">To study · ' + SL.counts().open + ' open</button>' : '') + '</div></aside><main class="catalog" id="catalog">' +
       open.map(groupHTML).join("") +
       (closed.length ? '<details class="closed"><summary>Closed cycles (still playable)<small>' + closed.map(function (g) { return g.title; }).join(", ") +
-        "</small></summary>" + closed.map(groupHTML).join("") + "</details>" : "") +
+        "</small></summary>" + closed.map(groupHTML).join("") + "</details>" : "") + '</main></div>' +
       '<div class="toggles"><button class="tg' + (meta.sound ? " on" : "") + '" id="tgS">Sound ' + (meta.sound ? "on" : "off") + '</button><button class="tg' +
       (meta.haptic ? " on" : "") + '" id="tgH">Vibration ' + (meta.haptic ? "on" : "off") + '</button></div><div class="toggles" style="margin-top:8px"><button class="tg' + (syncCode() ? " on" : "") + '" id="tgY">Sync ' + (syncCode() || "off") + " ›</button></div>" +
       '<div class="foot">' + nM + " mocks · " + nQ.toLocaleString() + " questions · untimed · +1 / −0.25</div></div></div>";

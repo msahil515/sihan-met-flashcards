@@ -106,41 +106,60 @@ body.ready #intro{opacity:0;visibility:hidden;pointer-events:none}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 @media (prefers-reduced-motion:reduce){.spin,.bob,.pulse,.fire,.blink{animation:none}}
 
-/* Worlds are selectable game cartridges with a clear plaque and solid stage. */
-:root{--bg:#152844;--tx:#f4f8ff;--mu:#c7d5e6;--gold:#ffd34e;--w:#ffd34e;--w2:#b58a13;--sans:system-ui,-apple-system,"Segoe UI",sans-serif}
-html,body{background:#152844;color:#f4f8ff}
-#stars{display:none}
-#tint{display:none;background:none}
-#ui{max-width:560px}
-#prof,#mute{background:#203957;border:2px solid #66809d;backdrop-filter:none;-webkit-backdrop-filter:none}
-.crest{background:#ffd34e;color:#152844;box-shadow:0 4px 0 #b58a13}
-.xpbar{background:#10223b}.xpbar i{background:#ffd34e}
-.stage{border-radius:26px;background:#2563eb;border:4px solid #78a1ff;box-shadow:0 8px 0 #1745ad;overflow:visible}
-.slide:nth-child(2) .stage{background:#087f5b;border-color:#54b995;box-shadow:0 8px 0 #07583f}
-.slide:nth-child(3) .stage{background:#ffd34e;border-color:#fff1b8;box-shadow:0 8px 0 #b58a13}
-.slide:nth-child(4) .stage{background:#ff755f;border-color:#ffab9d;box-shadow:0 8px 0 #bd493b}
-.slide:nth-child(5) .stage{background:#2563eb;border-color:#78a1ff;box-shadow:0 8px 0 #1745ad}
-.planet{inset:8%;filter:none!important}
-.locked .planet{filter:grayscale(1) brightness(.7)!important}
-.glow{filter:none!important}
-.spin,.bob,.pulse,.fire,.blink{animation:none!important}
-.ringfg{transition:stroke-dashoffset .5s ease}
-.info{margin-top:18px;padding:14px 16px 16px;background:#203957;border:2px solid #66809d;border-radius:20px}
-.kick{display:inline-block;padding:5px 11px;border-radius:99px;background:#ffd34e;color:#152844;letter-spacing:.08em}
-.info h1{font-family:ui-rounded,"SF Pro Rounded","Segoe UI",system-ui,sans-serif;color:#fff;font-weight:900}
-.info p{color:#d2deed}
-.chip{background:#152844;border:1px solid #66809d;border-radius:12px}
-.chip b{color:#fff}.chip small{color:#c7d5e6}
-.go{border:2px solid rgba(255,255,255,.4);box-shadow:0 4px 0 var(--pd);color:#152844}
-.slide:nth-child(3) .go{color:#152844}
-.locked .go{background:#2d4968;color:#e5eef9;box-shadow:0 4px 0 #10223b}
-#foot{padding-bottom:calc(14px + var(--safe-b))}
-#dots i{background:rgba(255,255,255,.35)}#dots i.on{background:#ffd34e}
-.arr{background:#203957;color:#fff}
-#intro{background:#152844}
-#logo b{background:none;color:#ffd34e;filter:none}
-#logo span,#skip{color:#d2deed}
-#flash{background:#ffd34e}
-#toast{background:#203957;border:2px solid #66809d}
-@media (max-width:380px){.slide{padding-left:16px;padding-right:16px}.stage{width:min(72vw,39vh,300px)}.info{margin-top:12px;padding:12px}}
-@media (prefers-reduced-motion:reduce){.slide,.stage,.info,.go,.arr{transition:none!important}.spin,.bob,.pulse,.fire,.blink{animation:none!important}}
+/* Worlds composition: planet, perspective field and an overlapping command plaque. */
+@font-face{font-family:Rajdhani;src:url("fonts/Rajdhani-SemiBold.woff2") format("woff2");font-style:normal;font-weight:600;font-display:swap}
+:root{--bg:#070d12;--tx:#e6f1f3;--mu:#afc3ca;--gold:#e9b85f;--w:#e9b85f;--w2:#70582d;--sans:system-ui,-apple-system,"Segoe UI",sans-serif}
+html,body{background:radial-gradient(ellipse at 52% 30%,#19323a 0,#0b151b 48%,#070d12 100%);color:#e6f1f3}
+#stars{opacity:.26}#tint{background:radial-gradient(100% 70% at 50% 42%,#63dfe50d,transparent 75%)}
+#ui{max-width:1180px}
+#prof,#mute{background:linear-gradient(110deg,#15252d,#10191f);border:1px solid #526c72;border-radius:5px;box-shadow:0 12px 26px #0008;backdrop-filter:none;-webkit-backdrop-filter:none}
+.crest{background:#203642;color:#63dfe5;box-shadow:inset 0 0 14px #63dfe522;border:1px solid #52747c;border-radius:5px}
+.xpbar{background:#071116;border:1px solid #435d65}.xpbar i{background:#63dfe5}
+.slide{position:relative;align-items:center;justify-content:flex-end;padding:0 18px 6px;isolation:isolate}
+.slide:before{content:"";position:absolute;left:5%;right:5%;top:27%;height:38%;z-index:-1;pointer-events:none;opacity:.2;background:radial-gradient(ellipse at 50% 24%,#8dd5dc22,transparent 60%),repeating-linear-gradient(0deg,transparent 0 17px,#9dcbd011 18px,transparent 19px 34px),repeating-linear-gradient(90deg,transparent 0 28px,#9dcbd00d 29px,transparent 30px 58px);transform:perspective(500px) rotateX(58deg) scale(.96,.86);transform-origin:50% 50%;border:0}
+.stage{position:absolute;top:6%;left:0;right:0;margin:auto;transform:none;width:min(80vw,48vh,390px);border-radius:0;background:transparent;border:0;box-shadow:none;overflow:visible;z-index:2}
+.planet{inset:0;filter:drop-shadow(0 24px 30px #000b)!important}.planet svg{filter:saturate(.62) hue-rotate(140deg) brightness(.9)}.locked .planet{filter:grayscale(1) brightness(.42) contrast(.95)!important}.locked .planet svg{filter:grayscale(1)}.glow{filter:drop-shadow(0 0 10px color-mix(in srgb,#63dfe5 22%,transparent))}
+.spin,.bob,.pulse,.fire,.blink{animation:none!important}.ringfg{transition:stroke-dashoffset .7s ease}
+.info{position:absolute;z-index:3;left:18px;right:18px;bottom:25%;text-align:left;margin:0;padding:14px 16px 15px;max-width:520px;width:auto;background:linear-gradient(115deg,#15252df5,#10191ff2);border:1px solid #526c72;border-left:3px solid #63dfe5;border-radius:3px;box-shadow:0 24px 40px #000c,inset 0 1px #ffffff12}
+.kick{display:inline-block;padding:3px 0;background:transparent;color:var(--pc);letter-spacing:.12em;font-size:11px}
+.info h1{font-family:Rajdhani,system-ui,sans-serif;color:#f1f7f8;font-size:clamp(28px,7vw,38px);font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin:2px 0 4px}.info p{color:#b7c8cc;line-height:1.4;margin:0 0 12px}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
+.chip{background:#0c171c;border:1px solid #3d565d;border-radius:3px;padding:8px 10px;text-align:left;min-width:0}.chip b{color:#e6f1f3;white-space:normal;overflow-wrap:anywhere}.chip small{color:#9eb1b6}.chip.nextboss{grid-column:1/-1;border-left:2px solid #e9b85f}.chip.nextboss b{line-height:1.3}
+.go{border:0;border-left:3px solid #e9b85f;border-radius:3px;box-shadow:0 12px 24px #0009;color:#071014;background:#63dfe5;min-height:50px;text-align:left;padding:14px 16px;font-size:14px;letter-spacing:.1em;text-transform:uppercase}
+.locked .go{background:#1c2a30;color:#d5e0e2;box-shadow:0 12px 24px #0009}.locked .chip b{color:#afc3ca}
+#foot{padding-bottom:calc(12px + var(--safe-b));z-index:4}#dots i{background:#ffffff35}#dots i.on{background:#63dfe5}.arr{background:#15242c;border:1px solid #4c666d;color:#e6f1f3}
+#intro{background:#070d12}#logo b{background:none;color:#e9b85f;filter:drop-shadow(0 0 18px #e9b85f33)}#logo span,#skip{color:#afc3ca}#flash{background:#e9b85f}#toast{background:#15242c;border:1px solid #526c72;border-radius:4px}
+@media(min-width:700px){#top{padding:16px 28px 10px}.slide{flex-direction:row;justify-content:flex-start;padding:0 3%;gap:0}.slide:before{left:2%;right:2%;top:27%;height:38%;transform:perspective(700px) rotateX(60deg) scale(.98,.9)}.stage{position:relative;top:auto;left:auto;right:auto;transform:none;flex:0 0 56%;width:min(56%,72vh,600px);margin-left:0}.info{position:relative;left:auto;right:auto;bottom:auto;width:48%;max-width:520px;margin:0 0 0 -40px;padding:18px 20px 20px}.info h1{font-size:clamp(36px,4vw,54px)}#foot{padding-bottom:calc(16px + var(--safe-b))}}
+@media(max-width:380px){.slide{padding-left:14px;padding-right:14px}.stage{width:min(80vw,48vh,390px);top:6%}.info{left:14px;right:14px;padding:12px 13px 14px}.info h1{font-size:28px}.chip{padding:7px 8px}}
+@media(prefers-reduced-motion:reduce){.spin,.bob,.pulse,.fire,.blink{animation:none!important}}
+.go:focus-visible,.arr:focus-visible,#mute:focus-visible,#skip:focus-visible,#dots i:focus-visible{outline:3px solid #e9b85f;outline-offset:2px}
+.info{overflow-wrap:anywhere}
+
+/* Full-route readability, touch targets, and compact-height layout. */
+.pt span,.xpbar span{font-size:13px;line-height:1.2}
+.kick{font-size:13px;line-height:1.25;letter-spacing:.08em}
+.info p{font-size:15px;line-height:1.4;overflow-wrap:anywhere}
+.chip small{font-size:13px;line-height:1.25;letter-spacing:.04em;text-transform:none}
+.chip b{line-height:1.25}
+.go{min-height:50px;white-space:normal;overflow-wrap:anywhere;line-height:1.25;letter-spacing:.06em}
+.locked .go{min-height:50px;padding:12px;font-size:13px;line-height:1.3;letter-spacing:.02em;text-transform:none;white-space:normal;overflow-wrap:anywhere}
+.arr{width:44px;height:44px;min-width:44px;min-height:44px}
+#foot{gap:4px}
+#dots{gap:4px}
+#dots i,#dots i.on{position:relative;display:grid;flex:none;place-items:center;width:44px;height:44px;border-radius:50%;background:transparent}
+#dots i:before{content:"";display:block;width:8px;height:8px;border-radius:5px;background:#ffffff35;transition:width .2s,background .2s}
+#dots i.on:before{width:26px;background:#63dfe5}
+#mute{min-width:44px;min-height:44px}
+#skip{font-size:13px;min-height:44px;padding:12px 8px}
+@media(max-height:700px) and (max-width:699px){
+  #track{overflow-y:auto;align-items:stretch}
+  .slide{height:auto;min-height:560px;justify-content:flex-start;padding:10px 18px}
+  .slide:before{top:8%;height:48%}
+  .stage{position:relative;top:auto;left:auto;right:auto;width:min(58vw,28vh,200px);margin:0 auto;flex:none}
+  .info{position:relative;left:auto;right:auto;bottom:auto;width:100%;max-width:520px;margin:-38px auto 12px;padding:13px 14px 14px}
+  .info h1{font-size:clamp(26px,7vw,34px)}
+}
+@media(max-height:700px) and (min-width:700px){
+  .stage{width:min(48vw,43vh,430px)}
+  .info{max-height:calc(100% - 20px);overflow-y:auto}
+}

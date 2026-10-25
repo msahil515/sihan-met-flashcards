@@ -251,8 +251,8 @@ function planetSvg(w){
 /* ================= build the carousel ================= */
 var track = $("#track"), dots = $("#dots");
 function chips(w){
-  if (!w.open) return '<div class="chip"><b>🔒</b><small>Locked</small></div><div class="chip"><b>--</b><small>Best</small></div><div class="chip"><b>' + w.next + '</b><small>Boss</small></div>';
-  return '<div class="chip"><b>' + Math.round(w.prog * 100) + '%</b><small>Done</small></div><div class="chip"><b>' + w.best + '</b><small>' + (w.bestK || "Best combo") + '</small></div><div class="chip"><b>' + w.next + '</b><small>' + (w.nextK || "Next boss") + '</small></div>';
+  if (!w.open) return '<div class="chip"><b>🔒</b><small>Locked</small></div><div class="chip"><b>--</b><small>Best</small></div><div class="chip nextboss"><b>' + w.next + '</b><small>Boss</small></div>';
+  return '<div class="chip"><b>' + Math.round(w.prog * 100) + '%</b><small>Done</small></div><div class="chip"><b>' + w.best + '</b><small>' + (w.bestK || "Best combo") + '</small></div><div class="chip nextboss"><b>' + w.next + '</b><small>' + (w.nextK || "Next boss") + '</small></div>';
 }
 function btnText(w){ return !w.open ? "🔒 " + w.lockText : w.built ? "Enter world" : "Being built, next up"; }
 WORLDS.forEach(function(w, i){

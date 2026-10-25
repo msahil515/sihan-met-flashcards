@@ -990,23 +990,22 @@ function ring(a, n){ var C = 2 * Math.PI * 37, p = Math.min(1, a / n);
 function tabHome(){
   var g = G(), d = dayRec(), s = streak(), n = goal(), q = g.q[today()] || {}, cb = curBoss();
   var i = lvInfo(g.xp), sq = squadOvr(), nb = cb >= 0 ? MAP[cb] : null;
-  /* EA-style front menu: player banner, then big tiles */
-  var h = '<div class="menu-top"><div class="pban"><div class="crest">' + i.l + '</div><div class="pb-t"><b>' + esc(pname()) + '</b><span>' + i.rank + ' · Level ' + i.l + '</span>' +
+  var h = '<div class="menu-top compact-status"><div class="pban"><div class="crest">' + i.l + '</div><div class="pb-t"><b>' + esc(pname()) + '</b><span>' + i.rank + ' · Level ' + i.l + '</span>' +
     '<div class="xpbar"><i style="width:' + i.pct + '%"></i><span>' + g.xp + (i.hi != null ? ' / ' + i.hi : '') + ' XP</span></div></div>' +
     '<div class="pb-r"><div class="streak' + (dayDone(d) ? " lit" : "") + '"><span class="fl">🔥</span>' + s + '</div><div class="sq"><b>' + (sq || "--") + '</b><small>SQUAD</small></div></div></div></div>';
-  h += '<div class="tiles-m">' +
-    '<button class="mt big kick" id="h-go"><span class="mt-k">Kick off</span><b>' + (d.a ? "Continue today" : "Daily lesson") + '</b><span>' + (d.a >= n ? "Goal done. " + (s > 1 ? s + " day streak." : "Streak started.") : (n - d.a) + " answers to " + (s ? "keep your " + s + " day streak" : "start a streak")) + '</span>' + ring(d.a, n) + '</button>' +
-    '<button class="mt season" id="h-boss"><span class="mt-k">Season</span><b>' + (nb ? "vs " + nb[1].replace(/ Boss$/, "") : "Season won") + '</b><span>' + bossWins() + ' / ' + MAP.length + ' matches won</span><i class="mt-e">' + (nb ? nb[3] : "🏆") + '</i></button>' +
-    '<button class="mt ut" data-tab="collection"><span class="mt-k">Ultimate Team</span><b>' + thUnlocked() + ' / ' + TH_LIST.length + '</b><span>theorist cards</span><i class="mt-e">🃏</i></button>' +
-    '<button class="mt train" data-tab="practice"><span class="mt-k">Training</span><b>Skill games</b><span>Duels, speed, revenge</span><i class="mt-e">⚡</i></button>' +
-    '<button class="mt prof" data-tab="me"><span class="mt-k">Profile</span><b>' + Object.keys(g.bdg).length + ' badges</b><span>Stats + streak</span><i class="mt-e">🏅</i></button></div>';
+  h += '<div class="tiles-m home-console"><section class="lesson-brief"><svg class="neural-art" viewBox="0 0 360 220" aria-hidden="true"><path d="M176 47c-27-22-68-8-65 21-28 1-43 30-24 51-17 25 4 53 28 46 9 29 40 31 62 13m9-131c27-22 68-8 65 21 28 1 43 30 24 51 17 25-4 53-28 46-9 29-40 31-62 13M180 46v132m-65-107 65 26 64-24" fill="none" stroke="#a8dfe1" stroke-opacity=".7" stroke-width="2.2"/><path d="M113 65c-9 18-18 36-26 53m158-53c9 18 18 36 26 53m-91-10v68" fill="none" stroke="#e7f3f3" stroke-opacity=".34" stroke-width="1.5"/><g fill="#e9b85f"><circle cx="115" cy="67" r="4"/><circle cx="245" cy="67" r="4"/><circle cx="87" cy="121" r="4"/><circle cx="273" cy="121" r="4"/></g><circle cx="180" cy="112" r="5" fill="#e6f1f3"/></svg>' +
+    '<button class="mt big kick" id="h-go"><span class="mt-k">Daily lesson</span><b>' + (d.a ? "Continue today" : "Begin today") + '</b><span>' + (d.a >= n ? "Daily goal complete. " + (s > 1 ? s + " day streak." : "Streak started.") : (n - d.a) + " answers to " + (s ? "keep your " + s + " day streak" : "start a streak")) + '</span>' + ring(d.a, n) + '</button></section>' +
+    '<aside class="home-rail"><button class="mt season" id="h-boss"><span class="mt-k">Season map</span><b>' + (nb ? "Next boss: " + nb[1].replace(/ Boss$/, "") : "Season won") + '</b><span>' + bossWins() + ' / ' + MAP.length + ' matches won</span><i class="mt-e">' + (nb ? nb[3] : "🏆") + '</i></button>' +
+    '<nav class="utility-rows" aria-label="Study tools"><button class="utility-row" data-tab="collection"><b>Theorists</b><span>' + thUnlocked() + ' of ' + TH_LIST.length + ' collected</span></button>' +
+    '<button class="utility-row" data-tab="practice"><b>Training</b><span>Duels, speed, Revenge</span></button>' +
+    '<button class="utility-row" data-tab="me"><b>Profile</b><span>' + Object.keys(g.bdg).length + ' badges · Stats and settings</span></button></nav></aside></div>';
   h += '<h2 class="sh">Daily objectives<small>+' + QUEST_XP + ' XP each, +' + QUEST_ALL_XP + ' for all three</small></h2><div class="panel">' + todaysQuests().map(function(Q){
     var v = Math.min(q[Q.id] || 0, Q.n), done = v >= Q.n;
     return '<div class="quest' + (done ? " done" : "") + '"><div class="qi">' + (done ? "✅" : Q.e) + '</div><div class="qb"><b>' + Q.t + '</b><div class="pbar gold"><i style="width:' + (v * 100 / Q.n) + '%"></i></div></div><span class="qn">' + v + '/' + Q.n + '</span></div>'; }).join("") + '</div>';
   h += '<div class="path"><div class="unit"><a class="wlink" href="worlds.html#skip">🪐 Worlds</a><b>Season map</b><span>' + bossWins() + ' of ' + MAP.length + ' won. Each win opens the next match.</span></div>' + MAP.map(function(m, ix){
-    var b = g.boss[m[0]] || {}, open = bossOpen(ix), st = b.w ? "won" : open ? "open" : "shut", off = Math.round(Math.sin(ix * 0.9) * 70);
-    return '<div class="node-wrap"><button class="node ' + st + (ix === cb ? " cur" : "") + '" data-boss="' + ix + '" style="transform:translateX(' + off + 'px)">' + (ix === cb ? '<span class="bubble">' + (b.tries ? "FIGHT" : "START") + '</span>' : '') +
-      (open || b.w ? m[3] : "🔒") + (b.w ? '<span class="crown">' + (b.bl === 3 ? "👑" : "✓") + '</span>' : '') + '</button><span class="node-l" style="transform:translateX(' + off + 'px)">' + m[1] + '</span></div>'; }).join("") + '</div>';
+    var b = g.boss[m[0]] || {}, open = bossOpen(ix), st = b.w ? "won" : open ? "open" : "shut";
+    return '<div class="node-wrap"><button class="node ' + st + (ix === cb ? " cur" : "") + '" data-boss="' + ix + '">' + (ix === cb ? '<span class="bubble">' + (b.tries ? "FIGHT" : "START") + '</span>' : '') +
+      (open || b.w ? m[3] : "🔒") + (b.w ? '<span class="crown">' + (b.bl === 3 ? "👑" : "✓") + '</span>' : '') + '</button><span class="node-l">' + m[1] + '</span></div>'; }).join("") + '</div>';
   return h;
 }
 function tabPractice(){
@@ -1038,7 +1037,7 @@ function dexHtml(){
 }
 function tabCollection(){
   var unl = thUnlocked(), cr = TH_LIST.filter(function(t){ return thState(t.k) === "cracked"; }).length;
-  var h = hudHtml() + '<h2 class="sh" style="margin-top:12px">Ultimate Team<small>3 rights opens a theorist\'s pack. Lock in all their cards to make them shiny. Squad rating ' + squadOvr() + '</small></h2>' +
+  var h = hudHtml() + '<h2 class="sh" style="margin-top:12px">Theorist collection<small>3 rights opens a theorist\'s pack. Lock in all their cards to make them shiny. Squad rating ' + squadOvr() + '</small></h2>' +
     '<div class="dexbar"><div class="pbar gold"><i style="width:' + (unl * 100 / TH_LIST.length) + '%"></i></div><b>' + unl + ' / ' + TH_LIST.length + '</b></div>' +
     '<div class="chips" id="c-f">' + [["all", "All"], ["ok", "Unlocked"], ["cracked", "Cracked" + (cr ? " " + cr : "")], ["locked", "Locked"], ["gold", "Gold"], ["shiny", "Shiny"]].map(function(x){
       return '<button class="chip' + (THF === x[0] ? " on" : "") + '" data-f="' + x[0] + '">' + x[1] + '</button>'; }).join("") + '</div>' +
@@ -1071,7 +1070,7 @@ function tabMe(){
   return h;
 }
 function tabStudy(){ return '<div id="nl-stl" style="padding-top:12px"></div>'; }
-var TABS = [["home", "Home", IC.home], ["practice", "Training", IC.practice], ["collection", "Squad", IC.cards]].concat(SL ? [["study", "To study", IC.study]] : []).concat([["me", "Profile", IC.me]]);
+var TABS = [["home", "Home", IC.home], ["practice", "Training", IC.practice], ["collection", "Theorists", IC.cards]].concat(SL ? [["study", "To study", IC.study]] : []).concat([["me", "Profile", IC.me]]);
 function tabIx(t){ for (var i = 0; i < TABS.length; i++) if (TABS[i][0] === t) return i; return 0; }
 function drawTabbar(){ $("#tabbar").innerHTML = TABS.map(function(t){ return '<button data-tab="' + t[0] + '" class="' + (TAB === t[0] ? "on" : "") + '"><span class="tb-ic">' + t[2] + '</span>' + t[1] + '</button>'; }).join(""); }
 function showTab(t, keepScroll){
