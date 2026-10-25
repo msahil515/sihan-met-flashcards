@@ -28,7 +28,13 @@ EXPECTED_REFS = {
     "m:jss-mock-2:36", "m:jss-mock-2:27", "m:jss-mock-2:9", "m:jss-mock-2:37",
     "m:jss-mock-2:28", "m:jss-mock-2:1", "m:jss-mock-2:20", "m:jss-mock-2:30",
     "m:jss-mock-2:21", "m:jss-mock-2:22", "m:jss-mock-2:15", "m:jss-mock-2:6",
-    "m:jss-mock-2:35",
+    "m:jss-mock-2:35", "m:jss-mock-2:81", "m:jss-mock-2:82", "m:jss-mock-2:64",
+    "m:jss-mock-2:38", "m:jss-mock-2:29", "m:jss-mock-2:2", "m:jss-mock-2:83",
+    "m:jss-mock-2:47", "m:jss-mock-2:57", "m:jss-mock-2:48", "m:jss-mock-2:39",
+    "m:jss-mock-2:67", "m:jss-mock-2:14", "m:jss-mock-2:86", "m:jss-mock-2:77",
+    "m:jss-mock-2:68", "m:jss-mock-2:50", "m:jss-mock-2:51", "m:jss-mock-2:42",
+    "m:jss-mock-2:78", "m:jss-mock-2:69", "m:jss-mock-2:61", "m:jss-mock-2:52",
+    "m:jss-mock-2:8", "m:jss-mock-2:89", "m:jss-mock-2:80", "m:jss-mock-2:53",
 }
 
 
@@ -105,7 +111,7 @@ def reviewed_refs(root: Path, section_ids: set[str], page_count: int) -> dict:
         raise ValueError("review registry must contain only the refs dictionary")
     refs = registry.get("refs")
     if not isinstance(refs, dict) or set(refs) != EXPECTED_REFS:
-        raise ValueError("review registry must contain exactly the 13 approved refs")
+        raise ValueError("review registry must contain exactly the 40 approved refs")
     questions = load_current_questions(root)
     seen_indices: set[int] = set()
     for ref, mapping in refs.items():
@@ -311,11 +317,16 @@ def make_report(data: dict, total_sections: int, unresolved: list[dict]) -> str:
             lines.append(f"| `{ref}` | `{location['sectionId']}` | {', '.join(map(str, location['pages']))} |")
     lines.extend([
         "", "## Limits and review caveats", "",
-        "Section starts remain navigation context only and are never used as question-page fallback. The 13 refs have no aliases, inferred end pages, area fallback or user-specific fields.",
+        "Section starts remain navigation context only and are never used as question-page fallback. The 40 refs have no aliases, inferred end pages, area fallback or user-specific fields.",
         "- Bateson Q16's current full stem is 720 characters; the exported saved question is exactly its first 400 characters. This prefix uniquely matches current mock index 15. The unseen historical suffix and options cannot be established from the export.",
+        "- Groupthink Q39's current full stem is 442 characters; its saved 400-character prefix uniquely matches current mock index 38. The mapping snapshot retains the complete current stem, options and key.",
         "- The borderline item says object-relations theory while its keyed explanation invokes Kohut. The page mapping preserves that wording distinction and does not equate the theories.",
         "- MISIC's mapped page supports administration from age 6 and describes ages 6 to 15. The mock explanation's upper-age wording is not harmonised.",
         "- The TAT mapping supports Lindzey's construction classification. It does not merge that taxonomy with Frank's classification.",
+        "- Construct-validity Q83 has an awkward option that overlaps convergent-validity language. Page 155 teaches the construct/theory interpretation; construct and convergent validity are not treated as synonyms.",
+        "- F-distribution Q81 labels a distribution one-tailed. Page 911 supports an upper-tail ANOVA test, which is not the same as claiming that a distribution itself is a testing rule. The mapping does not alter the question.",
+        "- Endophenotype Q53 uses genetic-mechanism wording. Page 745 supports measurable intermediate traits; the mapping does not restate these as direct DNA or genotype measures.",
+        "- Formal-operations Q15 requires the postformal contrast on page 561; a generic section start is not substituted.",
         "- Sihan confirmed printed numbering against the original master. No byte/page equivalence with the three supplied volume PDFs was reviewed; no volume offsets are inferred.",
         "- This is source-grounded exam navigation, not an independent scholarly review of textbook claims.",
         "",
