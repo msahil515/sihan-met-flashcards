@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="A concise, source-bounded YourDOST therapy answer and completed dissertation interview brief.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f3efe6'/%3E%3Cpath d='M7 16h18' stroke='%23315fae' stroke-width='3'/%3E%3C/svg%3E">
+  <title>Interview brief</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f3efe6;
+      --surface: #fbf9f3;
+      --surface-soft: #f1ece1;
+      --rule: #d8d1c3;
+      --ink: #272a31;
+      --ink-soft: #4f5560;
+      --muted: #626875;
+      --blue: #315fae;
+      --blue-soft: #e7edf8;
+      --focus: #154995;
+      --serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--paper); scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--ink); background: var(--paper);
+      font: 17px/1.65 var(--serif); -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--blue); text-underline-offset: .16em; }
+    a:hover { color: #204b91; }
+    a:focus-visible, button:focus-visible, summary:focus-visible, textarea:focus-visible {
+      outline: 3px solid var(--focus); outline-offset: 3px;
+    }
+    .skip-link {
+      position: absolute; left: 1rem; top: -5rem; z-index: 2;
+      padding: .55rem .8rem; background: var(--surface); color: var(--ink);
+      font: 600 15px/1.3 var(--sans); border: 2px solid var(--focus);
+    }
+    .skip-link:focus { top: 1rem; }
+    main { width: min(100% - 2rem, 790px); margin: 0 auto; padding: 1.25rem 0 4rem; }
+    .site-nav {
+      display: flex; flex-wrap: wrap; gap: .5rem 1.2rem;
+      padding: 0 0 .8rem; margin: 0 0 2rem; border-bottom: 1px solid var(--rule);
+      font: 600 14px/1.4 var(--sans);
+    }
+    .kicker { margin: 0 0 .45rem; color: var(--blue); font: 650 14px/1.4 var(--sans); }
+    h1, h2, h3 { color: var(--ink); }
+    h1 { max-width: 19ch; margin: 0; font: 700 clamp(2.2rem, 6vw, 3.35rem)/1.08 var(--serif); letter-spacing: -.025em; }
+    .dek { max-width: 60ch; margin: .8rem 0 1.2rem; color: var(--ink-soft); font-size: 1.08rem; line-height: 1.55; }
+    .context {
+      margin: 1.2rem 0 1.5rem; padding: .75rem 1rem; border-left: 4px solid var(--blue);
+      background: var(--blue-soft); color: var(--ink); font: 600 15px/1.5 var(--sans);
+    }
+    .copy-row { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem; margin: 0 0 1.5rem; font-family: var(--sans); }
+    button {
+      min-height: 44px; padding: .6rem .95rem; border: 1px solid var(--blue); border-radius: 5px;
+      color: #fff; background: var(--blue); font: 650 15px/1.25 var(--sans); cursor: pointer;
+    }
+    button:hover { background: #244f98; }
+    #copy-status { min-height: 1.5em; color: var(--ink-soft); font-size: 14px; }
+    .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    details.copy-fallback { margin: -.9rem 0 1.5rem; font: 600 14px/1.5 var(--sans); }
+    summary { width: fit-content; color: var(--blue); cursor: pointer; text-underline-offset: .15em; }
+    textarea {
+      display: block; width: 100%; min-height: 19rem; margin-top: .7rem; padding: .8rem;
+      border: 1px solid var(--rule); border-radius: 4px; background: var(--surface); color: var(--ink);
+      font: 14px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .brief-section { padding: 1.15rem 0 1.3rem; border-top: 1px solid var(--rule); }
+    .section-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: .35rem .8rem; margin: 0 0 .65rem; }
+    h2 { margin: 0; font: 700 1.55rem/1.25 var(--serif); letter-spacing: -.01em; }
+    .section-tag { color: var(--muted); font: 600 13px/1.4 var(--sans); }
+    .brief-section p { margin: .5rem 0; }
+    .spoken { font-size: 1.08rem; line-height: 1.62; }
+    .compact-label { font: 700 14px/1.45 var(--sans); }
+    .dissertation-copy { color: var(--ink); }
+    .warning {
+      margin: .8rem 0 .25rem; padding: .7rem .9rem; background: var(--surface-soft);
+      color: var(--ink-soft); font-size: .96rem; line-height: 1.55;
+    }
+    .proposed-link { display: block; margin-top: .75rem; font: 600 14px/1.5 var(--sans); }
+    .source-details { margin-top: 1.3rem; padding-top: .9rem; border-top: 1px solid var(--rule); font-size: 15px; }
+    .source-details h3 { margin: 1rem 0 .25rem; font: 700 15px/1.4 var(--sans); }
+    .source-details p, .source-details li { color: var(--ink-soft); }
+    .source-details ul { padding-left: 1.25rem; }
+    .source-details li { margin: .45rem 0; }
+    .source-details q { quotes: "“" "”"; }
+    footer { margin-top: 2rem; padding-top: .8rem; border-top: 1px solid var(--rule); color: var(--muted); font: 14px/1.5 var(--sans); }
+    @media (max-width: 520px) {
+      main { width: min(100% - 1.25rem, 790px); padding-top: .85rem; }
+      .site-nav { margin-bottom: 1.4rem; }
+      .brief-section { padding-top: .9rem; }
+    }
+    @media print {
+      html, body { background: #fff; color: #111; font-size: 11pt; }
+      main { width: 100%; padding: 0; }
+      .site-nav, .copy-row, .copy-fallback { display: none; }
+      .context, .warning { background: #fff; }
+      details.source-details:not([open]) > :not(summary) { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to the interview brief</a>
+  <main id="main">
+    <nav class="site-nav" aria-label="Site navigation">
+      <a href="../">Home</a>
+    </nav>
+    <header>
+      <p class="kicker">Interview notes</p>
+      <h1>A therapy answer and dissertation brief</h1>
+      <p class="dek">A first-person YourDOST answer and a short summary of the completed dissertation.</p>
+      <p class="context">Therapy answer based on saved YourDOST records; confirm this matches your work.</p>
+    </header>
+
+    <div class="copy-row">
+      <button id="copy-button" type="button" aria-describedby="copy-status">Copy both sections with context</button>
+      <span id="copy-status" role="status" aria-live="polite"></span>
+    </div>
+    <details class="copy-fallback" id="copy-fallback">
+      <summary>Open a selectable plain-text copy</summary>
+      <label class="visually-hidden" for="copy-text">Both brief sections, headings and context</label>
+      <textarea id="copy-text" readonly spellcheck="false">What techniques did I use in therapy? (YourDOST counselling work)
+Based on saved YourDOST records; confirm this matches your work. This is a paraphrase, not a verbatim historical statement.
+
+“In my YourDOST counselling work, I used a person-centred approach with CBT-informed techniques. I used active listening, validation and psychoeducation, helped clients notice automatic thoughts and unhelpful patterns, and worked towards small, manageable behavioural steps. I also used thought labelling, self-compassion prompts, grounding and paced breathing. When someone was overwhelmed, I slowed down and focused on support before exploring further.”
+
+Completed dissertation: very short revision card (2024 study; reported results, not a new reanalysis)
+Variables: Big Five traits (BFI-10), aggression (BPAQ-SF), sexual compulsivity (SCS), pornography ever-use, frequency and perceived control; age and sex were also recorded.
+Original hypotheses, in brief: H1 males report more frequent use; H2 greater compulsivity relates to greater frequency; H3 higher conscientiousness relates to greater perceived control; H4 lower neuroticism and agreeableness relate to a higher likelihood of ever-use; H5 compulsivity and personality relate to control; H6 higher aggression relates to more “problematic” use; H7 aggression relates positively to compulsivity among consumers.
+Reported regression results: compulsivity and neuroticism were significant for ever-use; compulsivity alone for frequency; conscientiousness, compulsivity and aggression for control. Aggression and compulsivity correlated positively in the full sample. Other model coefficients were nonsignificant.
+Important limits: This cross-sectional study of 214 people supports association statements, not causes. The displayed sex-by-ever-use result does not establish a sex-frequency analysis for H1. The full-sample correlation does not establish H7's consumer-only association. Today's proposed hypotheses are revised wording, not the original hypotheses or a claim that they were prespecified.
+
+The reported significance summary uses the dissertation's printed, unadjusted p-values at .05; these results were not independently reanalysed.</textarea>
+    </details>
+
+    <section class="brief-section" aria-labelledby="therapy-title">
+      <div class="section-head">
+        <h2 id="therapy-title">What techniques did I use in therapy?</h2>
+        <span class="section-tag">YourDOST counselling work</span>
+      </div>
+      <p class="spoken">“In my YourDOST counselling work, I used a person-centred approach with CBT-informed techniques. I used active listening, validation and psychoeducation, helped clients notice automatic thoughts and unhelpful patterns, and worked towards small, manageable behavioural steps. I also used thought labelling, self-compassion prompts, grounding and paced breathing. When someone was overwhelmed, I slowed down and focused on support before exploring further.”</p>
+      <p class="warning">This is a paraphrase of saved YourDOST records. Confirm that it matches your work before using it.</p>
+    </section>
+
+    <section class="brief-section" aria-labelledby="dissertation-title">
+      <div class="section-head">
+        <h2 id="dissertation-title">Completed dissertation: very short revision card</h2>
+        <span class="section-tag">2024 study</span>
+      </div>
+      <div class="dissertation-copy">
+        <p><span class="compact-label">Variables.</span> Big Five traits (BFI-10), aggression (BPAQ-SF), sexual compulsivity (SCS), and pornography ever-use, frequency and perceived control; age and sex were also recorded.</p>
+        <p><span class="compact-label">Original hypotheses, in brief.</span> H1 males report more frequent use; H2 greater compulsivity relates to greater frequency; H3 higher conscientiousness relates to greater perceived control; H4 lower neuroticism and agreeableness relate to a higher likelihood of ever-use; H5 compulsivity and personality relate to control; H6 higher aggression relates to more “problematic” use; H7 aggression relates positively to compulsivity among consumers.</p>
+        <p><span class="compact-label">Reported results.</span> In the regression tables, compulsivity and neuroticism were significant for ever-use; compulsivity alone for frequency; conscientiousness, compulsivity and aggression for control. Aggression and compulsivity correlated positively in the full sample. Other model coefficients were nonsignificant.</p>
+      </div>
+      <p class="warning">Cross-sectional study, N=214: these are associations, not causes. The displayed sex-by-ever-use result does not establish the sex-frequency analysis for H1. The full-sample correlation does not establish H7's consumer-only association. Today's proposed hypotheses are revised wording, not the original tested set.</p>
+      <a class="proposed-link" href="../dissertation-hypotheses/">Today's proposed revisions, separate post-results wording, not the original hypotheses or reported results.</a>
+    </section>
+
+    <details class="source-details">
+      <summary>Source notes and one optional example</summary>
+      <h3>YourDOST answer</h3>
+      <p>Based on the saved transcript-derived YourDOST profile, sections 1-4, and the attributed examples in the therapy-style notes. This pass reviewed those saved summaries, not every original session transcript. The answer paraphrases saved material and does not claim a complete manualised CBT, ACT, ERP or DBT protocol, specialist certification, a particular supervision history or measured improvement.</p>
+      <p>If asked for one illustration: “For self-critical thoughts, I helped the client label the thought as a critical voice rather than automatically treating it as fact.” Do not add a client name, diagnosis, rating change or outcome.</p>
+      <h3>Dissertation source and interpretation</h3>
+      <ul>
+        <li>Original hypotheses: printed p. 29, physical PDF p. 30. Study design and sample: printed pp. 31-32. Measures and item wording: printed pp. 33-34 and appendices pp. 65-72.</li>
+        <li>Table 4.1, printed pp. 36-37, reports an all-sample aggression-compulsivity correlation (N=214), not the consumer-only H7 test. Its sex association is with ever-use, not frequency.</li>
+        <li>Tables 4.2-4.4, printed pp. 37-40, report the ever-use, frequency and control regressions. “Significant” above summarizes the dissertation's printed unadjusted p-values at .05, not corrected tests or a new reanalysis.</li>
+        <li>Codebook/output review is still needed for numeric coding, missing/N/A handling, model-specific N, score construction and assumptions. H6's “problematic” outcome was not defined as a clinical measure.</li>
+      </ul>
+      <p>The source document is the completed 2024 dissertation. This card does not resolve coding, eligibility or missing-analysis questions.</p>
+    </details>
+    <footer>Interview preparation only. Confirm the therapy answer fits your own experience. The dissertation summary describes reported results, not causal findings.</footer>
+  </main>
+  <script>
+    (function () {
+      var button = document.getElementById("copy-button");
+      var details = document.getElementById("copy-fallback");
+      var text = document.getElementById("copy-text");
+      var status = document.getElementById("copy-status");
+      button.addEventListener("click", async function () {
+        try {
+          if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error("Clipboard unavailable");
+          await navigator.clipboard.writeText(text.value);
+          status.textContent = "Copied both sections with headings and context.";
+        } catch (error) {
+          details.open = true;
+          text.focus();
+          text.select();
+          status.textContent = "The brief is selected below. Copy it with your keyboard or browser menu.";
+        }
+      });
+    }());
+  </script>
+</body>
+</html>
