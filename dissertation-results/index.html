@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="description" content="A transparent post-results reorganization of the completed dissertation findings, with an editable Markdown chapter.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f3efe6'/%3E%3Cpath d='M7 16h18' stroke='%23315fae' stroke-width='3'/%3E%3C/svg%3E">
+<title>Dissertation results revision</title>
+<style>
+:root{color-scheme:light;--paper:#f3efe6;--surface:#fbf9f3;--surface-soft:#f1ece1;--rule:#d8d1c3;--ink:#272a31;--soft:#4f5560;--muted:#626875;--blue:#315fae;--blue-soft:#e7edf8;--focus:#154995;--serif:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+*{box-sizing:border-box}html{background:var(--paper);scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--paper);font:17px/1.65 var(--serif);-webkit-font-smoothing:antialiased}a{color:var(--blue);text-underline-offset:.16em}a:hover{color:#204b91}a:focus-visible,button:focus-visible,summary:focus-visible,textarea:focus-visible,.table-wrap:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.skip-link{position:absolute;left:1rem;top:-5rem;z-index:5;padding:.55rem .8rem;background:var(--surface);color:var(--ink);font:600 15px/1.3 var(--sans);border:2px solid var(--focus)}.skip-link:focus{top:1rem}main{width:min(100% - 2rem,920px);margin:0 auto;padding:1.25rem 0 4rem}.site-nav{display:flex;gap:.5rem 1.2rem;flex-wrap:wrap;padding:0 0 .8rem;margin:0 0 1.8rem;border-bottom:1px solid var(--rule);font:600 14px/1.4 var(--sans)}
+.kicker{margin:0 0 .4rem;color:var(--blue);font:650 14px/1.4 var(--sans)}h1,h2,h3,h4{color:var(--ink)}h1{max-width:20ch;margin:0;font:700 clamp(2.2rem,6vw,3.4rem)/1.08 var(--serif);letter-spacing:-.025em}.dek{max-width:68ch;margin:.75rem 0 1.1rem;color:var(--soft);font-size:1.08rem;line-height:1.55}.status{margin:1rem 0 1.2rem;padding:.85rem 1rem;border-left:4px solid var(--blue);background:var(--blue-soft);font:600 15px/1.55 var(--sans)}.status p{margin:0}.status p+p{margin-top:.45rem}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:.65rem;margin:0 0 1.5rem;font-family:var(--sans)}button,.download{min-height:44px;padding:.62rem .9rem;border:1px solid var(--blue);border-radius:5px;background:var(--blue);color:white;font:650 15px/1.25 var(--sans);text-decoration:none;cursor:pointer}button:hover,.download:hover{background:#244f98;color:white}button:disabled{opacity:.65;cursor:wait}#copy-status{min-height:1.5em;color:var(--soft);font-size:14px}.download{display:inline-flex;align-items:center}.fallback{margin:-.75rem 0 1.5rem;font:600 14px/1.5 var(--sans)}summary{width:fit-content;color:var(--blue);cursor:pointer;text-underline-offset:.15em}.fallback textarea{display:block;width:100%;min-height:18rem;margin-top:.7rem;padding:.8rem;border:1px solid var(--rule);border-radius:4px;background:var(--surface);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+#revision{max-width:100%}#revision h2{margin:2rem 0 .65rem;padding-bottom:.45rem;border-bottom:1px solid var(--rule);font:700 1.65rem/1.25 var(--serif)}#revision h3{margin:1.6rem 0 .4rem;font:700 1.2rem/1.35 var(--serif)}#revision h4{margin:1.2rem 0 .35rem;font:700 1.02rem/1.4 var(--sans)}#revision p{margin:.65rem 0}#revision ul,#revision ol{padding-left:1.4rem}#revision li{margin:.35rem 0}#revision blockquote{margin:1rem 0;padding:.75rem 1rem;border-left:3px solid var(--blue);background:var(--surface-soft);color:var(--soft)}
+.table-wrap{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;margin:1rem 0 1.5rem;border:1px solid var(--rule);background:var(--surface);scrollbar-color:#9ba6ba var(--surface-soft)}table{border-collapse:collapse;width:100%;min-width:780px;font:14px/1.45 var(--sans);font-variant-numeric:tabular-nums}caption{text-align:left;padding:.75rem;background:var(--surface-soft);font-weight:650}th,td{padding:.6rem .65rem;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}thead th{position:sticky;top:0;background:#e9e3d7;color:var(--ink);font-weight:700}tbody th{font-weight:650;background:#f6f2e9}tbody tr:nth-child(even){background:#f6f2e9}tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}.table-numeric th:not(:first-child),.table-numeric td{text-align:right;white-space:nowrap}.table-numeric th+th,.table-numeric td+td{border-left:1px solid var(--rule)}.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+#revision a{overflow-wrap:anywhere}.source-note{color:var(--muted);font-size:.94rem}footer{margin-top:3rem;padding-top:.9rem;border-top:1px solid var(--rule);color:var(--muted);font:14px/1.5 var(--sans)}
+.table-numeric table{min-width:900px}.table-rationale table{min-width:900px}
+@media(max-width:520px){main{width:min(100% - 1.25rem,920px);padding-top:.85rem}.site-nav{margin-bottom:1.3rem}.status{font-size:14px}#revision h2{font-size:1.45rem}table{min-width:760px}}
+@media print{html,body{background:#fff;color:#111;font-size:10pt}main{width:100%;padding:0}.site-nav,.actions,.fallback{display:none}.status{background:#fff;border-color:#555}a{color:#111;text-decoration:none}.table-wrap{overflow:visible;border:0;break-inside:avoid}table,.table-numeric table,.table-rationale table{min-width:0;width:100%;font-size:8pt;break-inside:auto}thead{display:table-header-group}tr{break-inside:avoid}th,td{padding:3pt}.status,#revision h2,#revision h3{break-after:avoid}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#revision">Skip to the revised Results chapter</a>
+<main id="main">
+<nav class="site-nav" aria-label="Site navigation"><a href="../">Home</a><a href="../interview-brief/">Interview brief</a><a href="../dissertation-hypotheses/">Today's proposed hypotheses</a></nav>
+<header>
+<p class="kicker">Completed 2024 dissertation</p>
+<h1>Results revision</h1>
+<p class="dek">A source-grounded reporting reorganization, with the editable chapter text available as Markdown.</p>
+<div class="status" aria-label="Post-results reporting notice"><p><strong>Post-results revision.</strong> These ten proposed hypotheses were formulated after the results were available. This page reorganizes printed findings, does not reanalyse data, and does not claim prespecified confirmatory testing. The original dissertation remains unchanged.</p><p><strong>Not established by the displayed analyses:</strong> R1, the sex-frequency comparison; R7, the ever-consumer-only correlation.</p></div>
+</header>
+<div class="actions"><button id="copy-button" type="button" disabled aria-describedby="copy-status">Copy full revision with context</button><a class="download" href="results-revision.md" download="results-revision.md">Download editable Markdown</a><span id="copy-status" role="status" aria-live="polite">Preparing the Markdown text…</span></div>
+<details class="fallback" id="copy-fallback"><summary>Open selectable Markdown copy</summary><label class="visually-hidden" for="copy-text">Full Results revision and methodology rationale in Markdown</label><textarea id="copy-text" readonly spellcheck="false" aria-describedby="copy-status"></textarea></details>
+<article id="revision" aria-label="Results revision and analysis rationale">
+<h2>Revised Results: organization by the ten proposed hypotheses</h2>
+<h3>Reporting note</h3>
+<p>This section reorganizes the findings reported in the completed 2024 dissertation under ten subsequently proposed, non-directional hypotheses. The revised hypotheses were formulated after the results were available. This is a reporting revision, not a reanalysis or a claim of prespecified confirmatory testing. Printed numerical results have been retained; missing analyses are identified rather than inferred. The original dissertation remains unchanged.</p>
+<h3>Study sample and analytical context</h3>
+<p>The dissertation reports a cross-sectional convenience sample of 214 participants: 101 males and 113 females, aged 18-28 years, with a mean age of 23.28 years (Methods, printed pp.31-32; abstract, PDF p.6). Personality was assessed using the BFI-10, aggression using the BPAQ-SF and sexual compulsivity using the SCS. Screening items measured whether participants had ever consumed pornography, consumption frequency and perceived control over consumption. These are distinct outcomes.</p>
+<p>The reported analyses comprised Spearman correlations (Table 4.1), a binary logistic model for ever-consumption (Table 4.2), and ordinal logistic models for frequency and perceived control (Tables 4.3 and 4.4). Each regression included extraversion, agreeableness, conscientiousness, neuroticism, openness to experience, aggression and sexual compulsivity. Thus, the reported regression coefficients describe adjusted associations conditional on the other listed predictors. Age and sex do not appear among these regression predictors.</p>
+<p>The significance descriptions below use the printed, unadjusted p-values and a .05 reporting threshold; no new multiple-testing adjustment has been applied. Values printed as .000 are reported as p&lt;.001, not as zero. N=214 is the overall sample and the N printed for the correlation matrix, not a verified denominator for every regression or subgroup. Coding, missing/N/A treatment, model-specific sample sizes and assumption diagnostics require the original output or dataset. Numerical coefficient signs are preserved, but are not translated into “more use” or “less control” without verified coding and model orientation.</p>
+<h3>Findings by revised hypothesis</h3>
+<h4>R1. Self-reported pornography-consumption frequency differs between the male and female participant groups.</h4>
+<p><strong>Not established by the displayed analyses.</strong> Table 4.1 reports an association between sex and whether participants had ever consumed pornography (rho=.264, p&lt;.001; printed p.36 / PDF p.37). This is a different outcome from frequency. Sex is absent from the displayed frequency regression. Therefore, no sex-frequency effect estimate or significance decision for R1 can be reported from these tables. The discussion's sex odds ratio of 2.752 and p=.004 has no corresponding displayed regression table and is not used as evidence here.</p>
+<h4>R2. Sexual compulsivity score is associated with self-reported pornography-consumption frequency.</h4>
+<p>Table 4.3 reports a sexual-compulsivity coefficient of B=.115, SE=.036, Wald=10.488, df=1, p=.001, with a 95% confidence interval for B of [.046, .185] (printed p.38 / PDF p.39). This is a statistically significant adjusted association in the reported frequency model at the unadjusted .05 threshold. The interval is for the logit coefficient, not an odds-ratio interval. The interpretation remains subject to verification of category coding, eligible respondents and ordinal-model assumptions.</p>
+<h4>R3. Conscientiousness score is associated with perceived control over pornography consumption.</h4>
+<p>Table 4.4 reports B=-.349, SE=.134, Wald=6.830, df=1, p=.009, with a 95% confidence interval for B of [-.611, -.087] (printed p.39 / PDF p.40). This is a statistically significant adjusted association in the reported control model. The negative coefficient is retained without treating it as proof of greater or lesser perceived control before the numeric outcome coding is verified.</p>
+<h4>R4a. Neuroticism score is associated with whether participants report ever consuming pornography.</h4>
+<p>Table 4.2 reports B=-.465, SE=.127, Wald=13.380, df=1, p&lt;.001, Exp(B)=.628 (printed p.37 / PDF p.38). This is a statistically significant adjusted association with the binary consumption outcome. Exp(B) is an odds ratio for the modeled event, not a risk ratio or change in probability. The event coding must be verified before a substantive directional interpretation is finalized.</p>
+<h4>R4b. Agreeableness score is associated with whether participants report ever consuming pornography.</h4>
+<p>Table 4.2 reports B=.144, SE=.137, Wald=1.106, df=1, p=.293, Exp(B)=1.154 (printed p.37 / PDF p.38). This does not meet the unadjusted .05 threshold. The reported model therefore does not provide statistically significant evidence for the adjusted association proposed in R4b. It does not establish that the association is zero.</p>
+<h4>R5. Sexual compulsivity score is associated with perceived control over pornography consumption.</h4>
+<p>Table 4.4 reports B=.126, SE=.040, Wald=9.666, df=1, p=.002, with a 95% confidence interval for B of [.046, .205] (printed p.40 / PDF p.41). This is a statistically significant adjusted association in the reported control model. Interpretation of the positive coefficient in terms of more or less control awaits coding verification.</p>
+<h4>R6a. Aggression score is associated with whether participants report ever consuming pornography.</h4>
+<p>Table 4.2 reports B=-.022, SE=.021, Wald=1.072, df=1, p=.300, Exp(B)=.979 (printed p.37 / PDF p.38). This adjusted association does not meet the unadjusted .05 threshold. Separately, Table 4.1 reports a positive bivariate aggression-ever-use correlation, rho=.152, p=.026 (printed p.37 / PDF p.38). These are different analyses with different adjustment: the bivariate finding does not override the nonsignificant adjusted coefficient. Their difference does not establish mediation.</p>
+<h4>R6b. Aggression score is associated with self-reported pornography-consumption frequency.</h4>
+<p>Table 4.3 reports B=-.010, SE=.022, Wald=.220, df=1, p=.639, with a 95% confidence interval for B of [-.054, .033] (printed p.38 / PDF p.39). This does not provide statistically significant evidence for an adjusted association at the unadjusted .05 threshold. It is not evidence that aggression has no relationship with frequency in every population or analysis.</p>
+<h4>R6c. Aggression score is associated with perceived control over pornography consumption.</h4>
+<p>Table 4.4 reports B=.059, SE=.028, Wald=4.309, df=1, p=.038, with a 95% confidence interval for B of [.003, .115] (printed p.40 / PDF p.41). This meets the unadjusted .05 threshold in the reported control model. It is not a multiplicity-corrected conclusion. Perceived control is a single author-created item and is not equivalent to a validated clinical measure of problematic pornography use.</p>
+<h4>R7. Aggression score is associated with sexual compulsivity score among participants who report ever consuming pornography.</h4>
+<p><strong>Not established for the specified subgroup.</strong> Table 4.1 reports a positive aggression-sexual-compulsivity correlation in the full sample, rho=.376, p&lt;.001, N=214 (printed p.37 / PDF p.38). It does not report the correlation restricted to participants answering yes to ever-consumption. The full-sample association can be reported as a separate finding, but cannot be presented as the consumer-only test of R7. The subgroup's N, correlation and p-value are not available in the supplied tables.</p>
+<h3>Remaining reported regression coefficients</h3>
+<p>For completeness, the following table retains all seven predictor coefficients from each reported regression. These are the original models, not ten newly fitted models. Findings beyond the specific revised hypothesis mapping are retained as additional reported analyses, without asserting that their exploratory/confirmatory status was documented prospectively.</p>
+<div class="table-wrap table-numeric" tabindex="0" role="region" aria-label="Remaining reported regression coefficients"><table><caption class="visually-hidden">Seven-predictor coefficients reported in Tables 4.2 to 4.4. B and p are shown for each of three models; Exp(B) is shown for the binary ever-use model.</caption>
+<thead>
+<tr>
+<th scope="col">Predictor</th>
+<th scope="col" style="text-align: right;">Ever-use B</th>
+<th scope="col" style="text-align: right;">p</th>
+<th scope="col" style="text-align: right;">Printed Exp(B)</th>
+<th scope="col" style="text-align: right;">Frequency B</th>
+<th scope="col" style="text-align: right;">p</th>
+<th scope="col" style="text-align: right;">Control B</th>
+<th scope="col" style="text-align: right;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">Extraversion</th>
+<td style="text-align: right;">-.126</td>
+<td style="text-align: right;">.392</td>
+<td style="text-align: right;">.882</td>
+<td style="text-align: right;">.024</td>
+<td style="text-align: right;">.861</td>
+<td style="text-align: right;">.114</td>
+<td style="text-align: right;">.477</td>
+</tr>
+<tr>
+<th scope="row">Agreeableness</th>
+<td style="text-align: right;">.144</td>
+<td style="text-align: right;">.293</td>
+<td style="text-align: right;">1.154</td>
+<td style="text-align: right;">-.157</td>
+<td style="text-align: right;">.187</td>
+<td style="text-align: right;">.176</td>
+<td style="text-align: right;">.218</td>
+</tr>
+<tr>
+<th scope="row">Conscientiousness</th>
+<td style="text-align: right;">-.105</td>
+<td style="text-align: right;">.430</td>
+<td style="text-align: right;">.900</td>
+<td style="text-align: right;">-.096</td>
+<td style="text-align: right;">.368</td>
+<td style="text-align: right;">-.349</td>
+<td style="text-align: right;">.009</td>
+</tr>
+<tr>
+<th scope="row">Neuroticism</th>
+<td style="text-align: right;">-.465</td>
+<td style="text-align: right;">&lt;.001</td>
+<td style="text-align: right;">.628</td>
+<td style="text-align: right;">-.125</td>
+<td style="text-align: right;">.231</td>
+<td style="text-align: right;">-.108</td>
+<td style="text-align: right;">.384</td>
+</tr>
+<tr>
+<th scope="row">Openness to experience</th>
+<td style="text-align: right;">.092</td>
+<td style="text-align: right;">.585</td>
+<td style="text-align: right;">1.096</td>
+<td style="text-align: right;">-.053</td>
+<td style="text-align: right;">.749</td>
+<td style="text-align: right;">-.131</td>
+<td style="text-align: right;">.508</td>
+</tr>
+<tr>
+<th scope="row">Aggression</th>
+<td style="text-align: right;">-.022</td>
+<td style="text-align: right;">.300</td>
+<td style="text-align: right;">.979</td>
+<td style="text-align: right;">-.010</td>
+<td style="text-align: right;">.639</td>
+<td style="text-align: right;">.059</td>
+<td style="text-align: right;">.038</td>
+</tr>
+<tr>
+<th scope="row">Sexual compulsivity</th>
+<td style="text-align: right;">.438</td>
+<td style="text-align: right;">&lt;.001</td>
+<td style="text-align: right;">1.549</td>
+<td style="text-align: right;">.115</td>
+<td style="text-align: right;">.001</td>
+<td style="text-align: right;">.126</td>
+<td style="text-align: right;">.002</td>
+</tr>
+</tbody>
+</table></div>
+<p>Sources: Table 4.2, printed p.37 / PDF p.38; Table 4.3, printed p.38 / PDF p.39; Table 4.4, printed pp.39-40 / PDF pp.40-41. The binary model also prints an intercept of B=-1.449, SE=2.537, Wald=.326, df=1, p=.568, Exp(B)=.235. Ordinal threshold parameters are cutpoints, not predictor effects or tests of the substantive hypotheses; they remain in the original tables. The original Table 4.1 remains the full correlation matrix; only correlations directly relevant to this reorganization are quoted here.</p>
+<p>The binary model's SCS odds ratio of 1.549 must not be described as the frequency-model odds ratio. Table 4.3 gives B=.115 for frequency; the surrounding prose's Exp(B)=1.158 is inconsistent with that coefficient. If an odds ratio is needed, exp(.115) is approximately 1.122, explicitly calculated from the rounded printed B, not recovered from original SPSS output. This revision uses the printed coefficient and its confidence interval to avoid implying that a new model was fitted.</p>
+<h3>Normality and other diagnostic reporting</h3>
+<p>No normality-test name, table, statistic, p-value or interpretation is reported in the supplied dissertation. It is therefore not possible to state that Shapiro-Wilk or Kolmogorov-Smirnov was performed, or that the variables passed or failed a normality test. The absence of a report does not prove that the analysis was never performed. Any available original diagnostic output should be checked before adding a factual normality result.</p>
+<p>Similarly, the supplied results do not establish that proportional-odds/parallel-lines assumptions, separation, continuous-predictor functional form, multicollinearity, convergence or model fit were assessed adequately. No omnibus model-fit p-value, pseudo-R-squared, normality statistic, subgroup size or missing-data count is supplied by this rewrite. N/A responses must not be assumed to mean Never or complete control. The original questionnaire directs non-consumers to N/A on related items, so the analysis populations require verification.</p>
+<h3>Proposed supplementary diagnostics</h3>
+<p>The following wording is a proposed addition only. It does not describe a test as having been performed and does not change the historical “not reported” finding.</p>
+<h4>Proposed Methods wording</h4>
+<p>“For a supplementary diagnostic check, Shapiro-Wilk tests and normal Q-Q plots are proposed for the approximately continuous personality, aggression and sexual-compulsivity scores, after scoring and missing-data rules are verified; these diagnostics have not yet been performed or verified for this revision.”</p>
+<h4>Proposed Results wording</h4>
+<p>“No normality-test results are available in the supplied dissertation. Shapiro-Wilk tests and normal Q-Q plots have been proposed as supplementary diagnostics, but no statistic, p-value or distributional conclusion is reported here.”</p>
+<h4>Scope and interpretation</h4>
+<p>The proposed score diagnostics are limited to the five BFI-10 trait scores, aggression score and sexual-compulsivity score, after scoring, BFI-10 reverse coding and missing-data rules are verified. Do not apply them to sex, binary ever-use, ordered frequency categories or the single perceived-control item. Do not include N/A as a numeric observation. The scores are bounded and discrete; the two-item BFI-10 traits may have few distinct values and substantial ties. Interpret any test alongside the normal Q-Q plots and the scores' bounded, discrete nature. A small p-value is evidence against a normal-distribution null; a nonsignificant p-value does not prove normality. A rejection alone does not make a score unusable. The eligible N may differ by score and analysis, so do not automatically use N=214 for every diagnostic.</p>
+<p>These proposed distributional checks do not change the rationale for the reported binary and ordinal logistic models, which follows the yes/no and ordered outcomes. They do not establish coding, independence, logit functional form, collinearity, sparse-cell/separation, convergence or parallel-lines checks.</p>
+<h3>Summary</h3>
+<p>At the printed, unadjusted .05 threshold, the reported coefficients corresponding to R2, R3, R4a, R5 and R6c were statistically significant; those corresponding to R4b, R6a and R6b were not. R1 and R7 were not established by the displayed outcome-specific or subgroup-specific analyses. These are post-results mappings to the revised statements, not new confirmations of prespecified hypotheses. The cross-sectional self-report design permits reporting associations, not causal effects or mediation, and neither the wording revision nor the nominal p-values resolve the unverified coding and diagnostic issues.</p>
+<hr />
+<h2>Why these analyses were used, and what still needs checking</h2>
+<p>The dissertation documents which analyses were performed. The explanations below give their methodological rationale; they should not be presented as the authors' documented decision process where no such reason was reported.</p>
+<div class="table-wrap table-rationale" tabindex="0" role="region" aria-label="Why these analyses were used, and what still needs checking"><table><caption class="visually-hidden">Reported analyses, methodological rationale, and limits or checks not established by the dissertation.</caption>
+<thead>
+<tr>
+<th scope="col">Analysis</th>
+<th scope="col">What the draft actually reports</th>
+<th scope="col">Methodological rationale</th>
+<th scope="col">Limits/checks not established</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">Descriptive statistics</th>
+<td>Overall N, sex counts, age range and mean</td>
+<td>Describe the sample; these are summaries, not hypothesis tests.</td>
+<td>Age SD, eligible/model Ns and category counts are not supplied here; N alone does not establish power.</td>
+</tr>
+<tr>
+<th scope="row">Spearman rank correlation</th>
+<td>Table 4.1, two-tailed significance, N=214</td>
+<td>Measures pairwise rank association; useful for ordered data or monotonic relationships without requiring bivariate normality. It does not require the association to be linear.</td>
+<td>The draft does not say verified non-normality was the reason for choosing it. Independence and meaningful ordering/monotonic interpretation matter. Binary coded variables introduce ties; the sign depends on their codes. It is not an adjusted regression, a causal test or a normality test. <a href="https://www.ibm.com/docs/en/spss-statistics/30.0.0?topic=features-bivariate-correlations">IBM correlation documentation</a></td>
+</tr>
+<tr>
+<th scope="row">Binary logistic regression</th>
+<td>Table 4.2, ever-use outcome and seven predictors</td>
+<td>Appropriate model family for a binary yes/no outcome; estimates associations with modeled-event log odds conditional on other predictors. Exp(B) is an odds ratio.</td>
+<td>Normality of raw predictors or normally distributed errors is not a requirement. Verify event coding, independent observations, continuous-predictor form on the logit scale, separation, collinearity, sample information and fit. These were not shown to have passed. <a href="https://www.ibm.com/docs/en/spss-statistics/31.0.0?topic=regression-logistic">IBM logistic documentation</a></td>
+</tr>
+<tr>
+<th scope="row">Ordinal logistic regression</th>
+<td>Tables 4.3-4.4, logit link; ordered frequency and control outcomes</td>
+<td>Uses outcome order without assuming equally spaced numerical categories. Adjusted coefficients address each named predictor.</td>
+<td>Verify category direction, eligible respondents, sparse cells, convergence and proportional odds/parallel lines. N/A is not an ordered level. Normality of categorical outcomes is not the selection criterion. <a href="https://www.ibm.com/docs/en/spss-statistics/32.0.0?topic=features-ordinal-regression">IBM ordinal documentation</a></td>
+</tr>
+<tr>
+<th scope="row">Wald coefficient tests</th>
+<td>Wald, df=1 and Sig. columns in the three regression tables</td>
+<td>Tests a specified coefficient against zero conditional on the model; approximately (B/SE)^2 with one degree of freedom. This explains the reported predictor p-values.</td>
+<td>Do not recalculate published Wald values from rounded B/SE and call differences errors. A coefficient test is not the omnibus model test, goodness-of-fit test, causal test or effect-size measure. <a href="https://www.ibm.com/docs/en/spss-statistics/30.0.0?topic=risk-logistic-regression-coefficients">IBM coefficients</a></td>
+</tr>
+<tr>
+<th scope="row">Normality testing</th>
+<td>NOT REPORTED in supplied draft</td>
+<td>If undertaken, Shapiro-Wilk tests a normal-distribution null; SPSS Explore can also report Kolmogorov-Smirnov with Lilliefors adjustment. These are possible procedures, not verified procedures used here.</td>
+<td>At a stated alpha, a small p-value is evidence against normality; a larger one does not prove normality. Inspect plots and the relevant model assumptions rather than automatically selecting every test by normality alone. <a href="https://www.itl.nist.gov/div898/handbook/prc/section2/prc213.htm">NIST Shapiro-Wilk</a>, <a href="https://www.ibm.com/docs/en/spss-statistics/30.0.0?topic=explore-plots">IBM Explore</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3>Short explanation of normality</h3>
+<p>“A normality test checks whether a variable's distribution is compatible with a normal distribution. In Shapiro-Wilk, the null hypothesis is normality: a small p-value suggests departure, while a nonsignificant result does not prove normality. My supplied dissertation does not report a normality test, so I cannot name a test or result without the original output. Spearman does not require bivariate normality, and logistic regression was appropriate to consider because the outcomes were binary or ordered, not because they necessarily failed normality.”</p>
+<h4>Further explanation if asked</h4>
+<p>Normality is not one property that can be certified for an entire mixed-variable dataset. Binary yes/no and ordered response categories are not continuous normal outcomes. For procedures that use normal errors, such as standard linear-model inference, the relevant issue can be residual distributions rather than a blanket test of every predictor. A large sample can detect small deviations and a small sample can miss important ones; plots and context matter. Do not invent the rule “N&gt;50 means use K-S rather than Shapiro-Wilk.” Levene's test concerns equality of variances, not normality, and no Levene result is reported here. No t-test, ANOVA, Mann-Whitney, consumer-only correlation or parallel-lines result is being claimed as newly performed.</p>
+</article>
+<footer>Prepared as a transparent post-results reporting revision. Numerical claims refer to the supplied dissertation tables. This page is not a reanalysis, validation study, or causal account.</footer>
+</main>
+<script>
+(function(){
+  const button=document.getElementById('copy-button');
+  const details=document.getElementById('copy-fallback');
+  const text=document.getElementById('copy-text');
+  const status=document.getElementById('copy-status');
+  let markdownText='';
+  fetch('results-revision.md').then(r=>{if(!r.ok)throw new Error('Markdown unavailable');return r.text()}).then(value=>{markdownText=value;text.value=value;button.disabled=false;status.textContent='Markdown ready to copy or download.'}).catch(()=>{status.textContent='Could not load the Markdown file. Use the download link or retry loading this page.'});
+  button.addEventListener('click',async function(){
+    if(!markdownText){status.textContent='Markdown is not ready. Use the download link or retry loading this page.';return}
+    try{if(!navigator.clipboard||!navigator.clipboard.writeText)throw new Error('Clipboard unavailable');await navigator.clipboard.writeText(markdownText);status.textContent='Copied the full revision with reporting context.'}
+    catch(error){details.open=true;text.focus();text.select();status.textContent='Clipboard unavailable. The full Markdown is selected below for manual copying.'}
+  });
+}());
+</script>
+</body>
+</html>
