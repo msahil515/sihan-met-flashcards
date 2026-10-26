@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="A transparent proposed revision of ten non-directional dissertation hypotheses, with the original H1-H7 crosswalk and analysis checks.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f3efe6'/%3E%3Cpath d='M7 16h18' stroke='%23315fae' stroke-width='3'/%3E%3C/svg%3E">
+  <title>Proposed dissertation hypotheses</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f3efe6;
+      --surface: #fbf9f3;
+      --surface-soft: #f1ece1;
+      --rule: #d8d1c3;
+      --ink: #272a31;
+      --ink-soft: #4f5560;
+      --muted: #626875;
+      --blue: #315fae;
+      --blue-soft: #e7edf8;
+      --focus: #154995;
+      --serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--paper); scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font: 17px/1.68 var(--serif);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--blue); text-underline-offset: .16em; }
+    a:hover { color: #204b91; }
+    a:focus-visible, button:focus-visible, summary:focus-visible, textarea:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+    .skip-link {
+      position: absolute; left: 1rem; top: -5rem; z-index: 2;
+      padding: .55rem .8rem; background: var(--surface); color: var(--ink);
+      font: 600 15px/1.3 var(--sans); border: 2px solid var(--focus);
+    }
+    .skip-link:focus { top: 1rem; }
+    main {
+      width: min(100% - 2rem, 850px);
+      margin: 0 auto;
+      padding: 1.25rem 0 4rem;
+    }
+    .site-nav {
+      display: flex; flex-wrap: wrap; gap: .5rem 1.2rem;
+      padding: 0 0 .8rem; margin: 0 0 2rem;
+      border-bottom: 1px solid var(--rule);
+      font: 600 14px/1.4 var(--sans);
+    }
+    .site-nav a { text-decoration-thickness: 1px; }
+    .kicker {
+      margin: 0 0 .5rem;
+      color: var(--blue);
+      font: 650 14px/1.4 var(--sans);
+      letter-spacing: .015em;
+    }
+    h1, h2, h3 { color: var(--ink); }
+    h1 {
+      max-width: 17ch; margin: 0;
+      font: 700 clamp(2.15rem, 6vw, 3.4rem)/1.08 var(--serif);
+      letter-spacing: -.025em;
+    }
+    .dek {
+      max-width: 64ch; margin: .9rem 0 1.25rem;
+      color: var(--ink-soft); font-size: 1.08rem; line-height: 1.55;
+    }
+    .status-note {
+      margin: 1.25rem 0 1.5rem; padding: .9rem 1.1rem;
+      border-left: 4px solid var(--blue); background: var(--blue-soft);
+      color: var(--ink); font-size: .96rem; line-height: 1.55;
+    }
+    .status-note p { margin: 0; }
+    .status-note p + p { margin-top: .55rem; }
+    .status-note strong { font-family: var(--sans); }
+    .section-head {
+      margin: 2.7rem 0 .75rem; padding-bottom: .55rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    h2 { margin: 0; font: 700 1.55rem/1.25 var(--serif); letter-spacing: -.01em; }
+    h3 { margin: 1.65rem 0 .35rem; font: 700 1.12rem/1.3 var(--sans); }
+    .section-intro { max-width: 70ch; margin: .65rem 0 1rem; color: var(--ink-soft); }
+    .copy-row {
+      display: flex; align-items: center; flex-wrap: wrap; gap: .75rem;
+      margin: 0 0 .7rem; font-family: var(--sans);
+    }
+    button {
+      min-height: 44px; padding: .6rem .95rem;
+      border: 1px solid var(--blue); border-radius: 5px;
+      color: #fff; background: var(--blue);
+      font: 650 15px/1.25 var(--sans); cursor: pointer;
+    }
+    button:hover { background: #244f98; }
+    #copy-status { min-height: 1.5em; color: var(--ink-soft); font-size: 14px; }
+    details { margin: .25rem 0 1.15rem; font: 600 14px/1.5 var(--sans); }
+    summary { width: fit-content; color: var(--blue); cursor: pointer; text-underline-offset: .15em; }
+    .copy-text {
+      display: block; width: 100%; min-height: 15rem; margin-top: .75rem; padding: .8rem;
+      border: 1px solid var(--rule); border-radius: 4px; background: var(--surface);
+      color: var(--ink); font: 14px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+    .hypotheses { list-style: none; margin: .4rem 0 0; padding: 0; counter-reset: none; }
+    .hypotheses li {
+      display: grid; grid-template-columns: 3.4rem minmax(0, 1fr); gap: .45rem;
+      align-items: start; padding: .95rem 0 1.05rem; border-bottom: 1px solid var(--rule);
+    }
+    .rid { padding-top: .15rem; color: var(--blue); font: 700 15px/1.5 var(--sans); }
+    .statement { margin: 0; max-width: 66ch; font-size: 1.08rem; line-height: 1.55; }
+    .crosswalk { margin: 0; }
+    .crosswalk dt {
+      margin: 1.25rem 0 .25rem; color: var(--ink);
+      font: 700 15px/1.5 var(--sans);
+    }
+    .crosswalk dt .old-id { display: inline-block; min-width: 3.6rem; color: var(--blue); }
+    .crosswalk dd { margin: 0 0 1rem 3.6rem; padding: 0 0 1rem; border-bottom: 1px solid var(--rule); }
+    .crosswalk q { quotes: "“" "”"; }
+    .crosswalk .mapping { display: block; margin-top: .35rem; color: var(--ink-soft); }
+    .outcomes { margin: 0; }
+    .outcomes div { padding: .8rem 0; border-bottom: 1px solid var(--rule); }
+    .outcomes dt { font: 700 16px/1.45 var(--sans); }
+    .outcomes dd { margin: .2rem 0 0; color: var(--ink-soft); }
+    .practical-list { padding-left: 1.35rem; }
+    .practical-list li { padding-left: .2rem; margin: .75rem 0; }
+    .caution {
+      margin: 1.2rem 0; padding: .9rem 1.1rem;
+      border: 1px solid var(--rule); background: var(--surface-soft);
+      color: var(--ink-soft); font-size: .96rem; line-height: 1.6;
+    }
+    .sources { padding-left: 1.2rem; }
+    .sources li { margin: .55rem 0; }
+    .source-note { color: var(--muted); font-size: .92rem; }
+    footer {
+      margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--rule);
+      color: var(--muted); font: 14px/1.55 var(--sans);
+    }
+    @media (max-width: 520px) {
+      main { width: min(100% - 1.25rem, 850px); padding-top: .85rem; }
+      .site-nav { margin-bottom: 1.45rem; }
+      .hypotheses li { grid-template-columns: 2.8rem minmax(0, 1fr); gap: .25rem; }
+      .crosswalk dd { margin-left: 0; }
+    }
+    @media print {
+      html, body { background: #fff; color: #111; font-size: 11pt; }
+      main { width: 100%; padding: 0; }
+      .site-nav, .copy-row, details { display: none; }
+      .status-note, .caution { background: #fff; }
+      a { color: #111; }
+      h2, h3 { break-after: avoid; }
+      .hypotheses li, .crosswalk dd, .outcomes div { break-inside: avoid; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to the proposed statements</a>
+  <main id="main">
+    <nav class="site-nav" aria-label="Site navigation">
+      <a href="../dissertation/">Dissertation interview sheet</a>
+      <a href="../">Home</a>
+    </nav>
+
+    <header>
+      <p class="kicker">Research clarification draft</p>
+      <h1>Ten proposed hypotheses</h1>
+      <p class="dek">Non-directional wording for the dissertation's original questions, with a visible crosswalk to the analyses they would require.</p>
+      <aside class="status-note" aria-label="Draft status">
+        <p><strong>Proposed after the results were available.</strong> This page concerns a completed 2024 study. These statements are not evidence of hypotheses specified before analysis, and they do not replace the historical wording.</p>
+        <p>The intended use is still to be confirmed: a transparent clarification of the completed dissertation or planning for a new study. Treat this as a review draft, not an approved protocol.</p>
+      </aside>
+    </header>
+
+    <section aria-labelledby="proposed-title">
+      <div class="section-head"><h2 id="proposed-title">The ten statements</h2></div>
+      <p class="section-intro">Each statement names one relationship and one outcome. The wording is non-directional: it does not promise an effect or statistical significance.</p>
+      <div class="copy-row">
+        <button id="copy-button" type="button" aria-describedby="copy-status">Copy the 10 statements</button>
+        <span id="copy-status" role="status" aria-live="polite"></span>
+      </div>
+      <details id="plain-copy">
+        <summary>Open a selectable plain-text version</summary>
+        <label class="visually-hidden" for="copy-text">Ten proposed statements with their R identifiers</label>
+        <textarea class="copy-text" id="copy-text" readonly spellcheck="false">R1. Self-reported pornography-consumption frequency differs between the male and female participant groups.
+R2. Sexual compulsivity score is associated with self-reported pornography-consumption frequency.
+R3. Conscientiousness score is associated with perceived control over pornography consumption.
+R4a. Neuroticism score is associated with whether participants report ever consuming pornography.
+R4b. Agreeableness score is associated with whether participants report ever consuming pornography.
+R5. Sexual compulsivity score is associated with perceived control over pornography consumption.
+R6a. Aggression score is associated with whether participants report ever consuming pornography.
+R6b. Aggression score is associated with self-reported pornography-consumption frequency.
+R6c. Aggression score is associated with perceived control over pornography consumption.
+R7. Aggression score is associated with sexual compulsivity score among participants who report ever consuming pornography.</textarea>
+      </details>
+      <ol class="hypotheses" aria-label="Ten proposed non-directional statements">
+        <li><span class="rid">R1</span><p class="statement">Self-reported pornography-consumption frequency differs between the male and female participant groups.</p></li>
+        <li><span class="rid">R2</span><p class="statement">Sexual compulsivity score is associated with self-reported pornography-consumption frequency.</p></li>
+        <li><span class="rid">R3</span><p class="statement">Conscientiousness score is associated with perceived control over pornography consumption.</p></li>
+        <li><span class="rid">R4a</span><p class="statement">Neuroticism score is associated with whether participants report ever consuming pornography.</p></li>
+        <li><span class="rid">R4b</span><p class="statement">Agreeableness score is associated with whether participants report ever consuming pornography.</p></li>
+        <li><span class="rid">R5</span><p class="statement">Sexual compulsivity score is associated with perceived control over pornography consumption.</p></li>
+        <li><span class="rid">R6a</span><p class="statement">Aggression score is associated with whether participants report ever consuming pornography.</p></li>
+        <li><span class="rid">R6b</span><p class="statement">Aggression score is associated with self-reported pornography-consumption frequency.</p></li>
+        <li><span class="rid">R6c</span><p class="statement">Aggression score is associated with perceived control over pornography consumption.</p></li>
+        <li><span class="rid">R7</span><p class="statement">Aggression score is associated with sexual compulsivity score among participants who report ever consuming pornography.</p></li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="crosswalk-title">
+      <div class="section-head"><h2 id="crosswalk-title">How the original seven map to these statements</h2></div>
+      <p class="section-intro">The original hypotheses were printed in the dissertation with a mix of directional, predictive, and broad wording. This crosswalk preserves their scope while making the proposed statements specific and non-directional.</p>
+      <dl class="crosswalk">
+        <dt><span class="old-id">H1</span> <q>Males will consume pornography more frequently than females.</q></dt>
+        <dd><span class="mapping">Revised as R1. The displayed sex association is with ever-consumption, not frequency. R1 needs a sex-by-frequency analysis that is not shown in the reported tables.</span></dd>
+
+        <dt><span class="old-id">H2</span> <q>Higher levels of sexual compulsivity will be positively associated with a higher frequency of pornography consumption.</q></dt>
+        <dd><span class="mapping">Revised as R2. The reported ordinal frequency model includes sexual compulsivity, subject to confirming the analysis population, coding, and model assumptions.</span></dd>
+
+        <dt><span class="old-id">H3</span> <q>Certain personality traits, such as higher conscientiousness, will be associated with greater perceived control over pornography consumption.</q></dt>
+        <dd><span class="mapping">Revised as R3 for the specifically named conscientiousness relationship. Other personality-trait associations with control remain exploratory unless separately justified.</span></dd>
+
+        <dt><span class="old-id">H4</span> <q>Lower levels of neuroticism and agreeableness will be associated with a higher likelihood of consuming pornography.</q></dt>
+        <dd><span class="mapping">Revised as R4a and R4b. The two traits are separate statements, and the outcome is ever-consumption, a binary measure, not frequency.</span></dd>
+
+        <dt><span class="old-id">H5</span> <q>Factors such as sexual compulsivity and personality traits will significantly predict individuals' perceived control over their pornography consumption.</q></dt>
+        <dd><span class="mapping">Revised as R3 and R5 for conscientiousness-control and sexual-compulsivity-control. The remaining personality-control questions are exploratory; the model's overall test is not a substitute for each named coefficient.</span></dd>
+
+        <dt><span class="old-id">H6</span> <q>Higher levels of aggression will be associated with more problematic pornography consumption behaviors.</q></dt>
+        <dd><span class="mapping">Proposed as R6a, R6b, and R6c across ever-consumption, frequency, and perceived control. This is an operationalization proposal. The original draft does not define “problematic,” and perceived control is not a clinical measure of problematic use.</span></dd>
+
+        <dt><span class="old-id">H7</span> <q>Aggression will be positively correlated with sexual compulsivity among individuals who consume pornography.</q></dt>
+        <dd><span class="mapping">Revised as R7, retaining the ever-consumer subgroup. The displayed correlation uses the full sample of 214, so it does not establish this subgroup association. A subgroup analysis is needed.</span></dd>
+      </dl>
+    </section>
+
+    <section aria-labelledby="outcomes-title">
+      <div class="section-head"><h2 id="outcomes-title">Keep the three outcomes separate</h2></div>
+      <dl class="outcomes">
+        <div><dt>Ever consumed</dt><dd>Screening Q1 is yes/no. R4a, R4b, and R6a refer to this binary outcome. Do not substitute it for frequency.</dd></div>
+        <div><dt>Consumption frequency</dt><dd>Q3 uses ordered response categories and has no explicit recall window. R1, R2, and R6b refer to frequency. The displayed sex-by-ever-use result does not test R1.</dd></div>
+        <div><dt>Perceived control</dt><dd>Q8 is a single author-created ordered item with Complete, Some, Little, No, and N/A responses. N/A is not an ordered response category. R3, R5, and R6c refer to this item, not to a validated problematic-use scale.</dd></div>
+      </dl>
+      <p class="caution">For R2 through R6c, the existing regression tables list seven predictors. The adjusted version tests the named predictor's coefficient conditional on the other listed predictors, not only whether the whole model is significant. R1 requires a new frequency comparison. R7 requires the specified consumer-only correlation. Neither should be described as already tested by a different outcome or population.</p>
+    </section>
+
+    <section aria-labelledby="checks-title">
+      <div class="section-head"><h2 id="checks-title">What to confirm before treating this as a protocol</h2></div>
+      <ol class="practical-list">
+        <li><strong>Eligibility and missing answers.</strong> The form directs people answering “No” to Q1 to mark related items N/A. A proposed analysis population for frequency and control is Q1=yes with valid applicable responses, pending the codebook and actual output. Keep a “Never” response only if it was validly answered and coded for that group. Do not recode N/A as Never or as complete control.</li>
+        <li><strong>Scoring and model setup.</strong> Verify response order and numeric value labels, reverse-scored BFI-10 items, scale totals or means, missing-item rules, and model-specific N. Check ordinal parallel-lines assumptions, sparse categories and convergence; check binary-model separation and predictor form. The codebook/output is needed to interpret coefficient signs.</li>
+        <li><strong>Retrospective reporting.</strong> These ten statements were drafted after the existing results were available. Keep them separate from the historical hypotheses, retain nonsignificant relationships, report the full tested set, and do not select statements because their p-values are small.</li>
+        <li><strong>Design limits.</strong> The study is cross-sectional, convenience-sampled, and self-reported. It supports association questions, not causal effects or mediation. Wording alone cannot guarantee measurement or design validity, establish power from N=214 alone, or justify generalization to all young adults.</li>
+        <li><strong>If this is a new study.</strong> Justify the hypotheses from independent literature, define outcomes, eligibility, analysis and the test family before collecting new data, and consider prospective registration. A new protocol should not be presented as if it had governed the completed study.</li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="sources-title">
+      <div class="section-head"><h2 id="sources-title">Method references</h2></div>
+      <ul class="sources">
+        <li><a href="https://www.cos.io/initiatives/prereg">Center for Open Science: Preregistration</a>, for distinguishing prespecified analyses from later exploratory work.</li>
+        <li><a href="https://www.cos.io/initiatives/registered-reports">Center for Open Science: Registered Reports</a>, a prospective review route before results are known.</li>
+        <li><a href="https://www.ibm.com/docs/en/spss-statistics/32.0.0?topic=features-ordinal-regression">IBM SPSS Statistics: Ordinal Regression</a>, including the parallel-lines diagnostic.</li>
+      </ul>
+      <p class="source-note">Source review references the completed dissertation's original hypotheses (printed p. 29, physical PDF p. 30), research questions (printed p. 28, physical PDF p. 29), Methods, results tables, and screening appendices. The dissertation PDF is not reproduced here.</p>
+    </section>
+
+    <footer>
+      Draft for independent review. The choice between clarifying the completed dissertation and planning a new study remains open. This page is not a final approved protocol.
+    </footer>
+  </main>
+  <script>
+    (function () {
+      var button = document.getElementById("copy-button");
+      var details = document.getElementById("plain-copy");
+      var text = document.getElementById("copy-text");
+      var status = document.getElementById("copy-status");
+      button.addEventListener("click", async function () {
+        try {
+          if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error("Clipboard unavailable");
+          await navigator.clipboard.writeText(text.value);
+          status.textContent = "Copied the ten statements.";
+        } catch (error) {
+          details.open = true;
+          text.focus();
+          text.select();
+          status.textContent = "The statements are selected below. Copy them with your keyboard or browser menu.";
+        }
+      });
+    }());
+  </script>
+</body>
+</html>
