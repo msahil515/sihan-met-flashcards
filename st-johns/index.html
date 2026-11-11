@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html.gate-locked body{display:none!important}</style>
+<script>document.documentElement.classList.add("gate-locked")</script>
+<script src="/sihan-met-flashcards/gate.js"></script>
+<script src="/sihan-met-flashcards/force-sync.js"></script>
+<script src="/sihan-met-flashcards/sync.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>St John's MClinPsy: entrance and interview, 25 Nov 2026</title>
+<link rel="stylesheet" href="/sihan-met-flashcards/notes-style.css">
+<!-- PWA:met-prep -->
+<link rel="manifest" href="/sihan-met-flashcards/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MET Prep">
+<link rel="apple-touch-icon" href="/sihan-met-flashcards/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/sihan-met-flashcards/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/sihan-met-flashcards/icons/favicon-16.png">
+<meta name="theme-color" content="#0d1117">
+<style>
+  .lede{color:var(--ink2);font-size:16px;background:var(--panel-2);border:1px solid var(--border);
+    border-radius:8px;padding:14px 18px;margin:18px 0 6px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px;font-family:var(--sans);font-size:13px}
+  .chip{background:var(--panel-2);border:1px solid var(--border);border-radius:20px;padding:4px 12px;color:var(--ink2)}
+  .chip b{color:#14161b}
+  .toc{font-family:var(--sans);font-size:14px;background:var(--panel-2);border:1px solid var(--border);
+    border-radius:8px;padding:14px 18px;margin:18px 0}
+  .toc a{display:inline-block;margin:3px 14px 3px 0;color:var(--accent);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  .yr{margin-top:40px;border-top:3px solid var(--accent-dim);padding-top:6px}
+  .qa{background:var(--panel-2);border:1px solid var(--border);border-radius:8px;padding:4px 18px 14px;margin:16px 0}
+  .qa .q{font-family:var(--sans);font-weight:700;color:#14161b;margin:14px 0 6px;font-size:15.5px}
+  .qa .q::before{content:attr(data-n) "  ";color:var(--accent);font-weight:800}
+  .qa .a{margin:0 0 6px;line-height:1.62}
+  .qa .a::before{content:"Say:  ";font-family:var(--sans);font-weight:700;color:#1f6b3a;font-size:12px;letter-spacing:.03em;text-transform:uppercase}
+  .qa .push{margin:0 0 6px;line-height:1.6;font-size:15px;color:var(--ink2);
+    border-left:2px solid var(--accent-dim);padding-left:12px}
+  .qa .push::before{content:"Then they push:  ";font-family:var(--sans);font-weight:700;color:#1d4e89;font-size:11.5px;letter-spacing:.03em;text-transform:uppercase}
+  .qa .why{margin:0 0 10px;font-size:13.5px;color:var(--muted);line-height:1.55}
+  .qa .why::before{content:"Why this works:  ";font-family:var(--sans);font-weight:700;color:#8a6a1d;font-size:11.5px;letter-spacing:.03em;text-transform:uppercase}
+  .clin-focus{border-left:3px solid var(--accent);background:rgba(61,111,208,.06);padding:10px 16px;margin:16px 0;border-radius:0 6px 6px 0}
+  .verify{border-left:3px solid #8a6a1d;background:rgba(230,180,40,.09);padding:10px 16px;margin:16px 0;border-radius:0 6px 6px 0}
+  .verify b{color:#8a6a1d}
+  .go{display:inline-block;font-family:var(--sans);font-weight:700;font-size:15px;background:var(--accent);color:#fff!important;
+    text-decoration:none;border-radius:8px;padding:10px 18px;margin:6px 10px 6px 0}
+  table.nums{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:13.5px;margin:14px 0}
+  table.nums th,table.nums td{border:1px solid var(--border);padding:7px 10px;text-align:left;vertical-align:top}
+  table.nums th{background:var(--panel-2);color:#14161b}
+  .src{font-size:13px;color:var(--muted)}
+  .bar{position:sticky;top:0;z-index:20;background:var(--panel-2);border:1px solid var(--border);
+    border-radius:8px;padding:10px 14px;margin:16px 0;font-family:var(--sans);font-size:14px;
+    display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .bar button{font:inherit;font-size:14px;font-weight:700;padding:7px 14px;border:1px solid var(--border);
+    border-radius:6px;background:#fff;color:#14161b;cursor:pointer}
+  .bar button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .bar span.hint{color:var(--muted);font-size:13px}
+  body.drill .qa .a,body.drill .qa .push,body.drill .qa .why{display:none}
+  body.drill .qa.open .a,body.drill .qa.open .push,body.drill .qa.open .why{display:block}
+  body.drill .qa{cursor:pointer}
+  body.drill .qa .q::after{content:"   tap to reveal";font-family:var(--sans);font-weight:500;
+    font-size:11.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+  body.drill .qa.open .q::after{content:""}
+</style>
+<script src="/sihan-met-flashcards/take/theme.js"></script>
+<link rel="stylesheet" href="/sihan-met-flashcards/revamp-skin.css">
+</head>
+<body>
+<div class="wrap">
+<nav><a href="../take/screen.html?m=sjmc-mock-1">St John's Mock 1</a> <a href="../name-lock/app/index.html#jss">Interview world</a> <a href="../dissertation/">Dissertation</a> <a href="../jss-interview/">JSS sheet</a> <a href="../">Home</a></nav>
+
+<h1>St John's MClinPsy: paper and interview</h1>
+<p style="color: var(--muted); font-size: 14px; margin-top:-6px;">Master of Clinical Psychology (RCI and RGUHS), St John's National Academy of Health Sciences, Bengaluru. Entrance and interview both on <b>Wed 25 Nov 2026</b>, report <b>8:45 AM</b> at St John's Medical College with your hall ticket. Apply by <b>Thu 19 Nov</b>. Built 11 Nov 2026, fourteen days out.</p>
+
+<div class="meta-row">
+  <span class="chip">Paper <b>100 MCQs, 90 min, offline</b></span>
+  <span class="chip">Interview <b>straight after the paper</b></span>
+  <span class="chip">Seats <b>5</b></span>
+  <span class="chip">Stipend <b>₹7,000 a month</b></span>
+  <span class="chip">Results <b>25 Nov</b>, admission <b>26 Nov</b></span>
+</div>
+
+<div class="lede">
+<b>Two things make St John's different from JSS.</b> First, the interview is the same morning, right after the paper, so you walk into the room tired and possibly rattled by a question you just got wrong. That gets rehearsed, not hoped for (the dress rehearsals in section 1, the reset routine in section 6). Second, there are only five seats. With five seats the interview decides more than it did anywhere else this year, and "why St John's" needs a real answer about this department, not a general one (section 4).
+</div>
+
+<div class="toc">
+Jump to:
+<a href="#apply">0 · Apply by 19 Nov</a>
+<a href="#plan">1 · The 14 days</a>
+<a href="#paper">2 · The paper and Mock 1</a>
+<a href="#panel">3 · What the panel marks</a>
+<a href="#cards">4 · St John's interview cards</a>
+<a href="#world">5 · Practice in Name Lock</a>
+<a href="#day">6 · The day</a>
+<a href="#check">7 · Check before the 25th</a>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="apply" class="yr">0 · Apply by Thu 19 Nov</h2>
+
+<p>If you have already applied and have the hall ticket, skip to section 1. If not, this is today's job, because without a hall ticket you cannot sit the paper.</p>
+
+<table class="nums">
+<tr><th>Step</th><th>What</th></tr>
+<tr><td>Where</td><td>Online only, on the St John's admissions portal, <a href="https://cmis.stjohns.in/">cmis.stjohns.in</a>. Post and courier are not accepted.</td></tr>
+<tr><td>Fee</td><td>₹1,000, non-refundable. Card, net banking or UPI.</td></tr>
+<tr><td>Photo</td><td>Taken after January 2026. JPEG or JPG, 150 × 200 pixels, 340 KB at most.</td></tr>
+<tr><td>Upload</td><td>Bachelor's marks cards for every year. Keep the M.Sc marks cards ready too.</td></tr>
+<tr><td>Eligibility</td><td>Full-time two-year MA or M.Sc in Psychology from a UGC-recognised university, 50% aggregate or more. Distance, part-time, online and correspondence degrees are out. Your Jain M.Sc (2022 to 2024, full-time) fits.</td></tr>
+<tr><td>Hall ticket</td><td>Applications are approved in about three days. No hall ticket within three days: email <b>sjmc.admission@stjohns.in</b> and call <b>080-49466030 / 6031</b>.</td></tr>
+<tr><td>Once submitted</td><td>Final. Incomplete applications are rejected, so check every field before you pay.</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="plan" class="yr">1 · The 14 days</h2>
+
+<p>Mornings go to the paper, because it is still most of the selection. Every day also has a fixed interview block of 45 to 60 minutes, said out loud. When you tell me which part of JSS hurt most, the paper or the interview, this table gets retuned towards that part.</p>
+
+<table class="nums">
+<tr><th>Day</th><th>Date</th><th>Paper (morning)</th><th>Interview block</th></tr>
+<tr><td>1</td><td>Wed 11 Nov</td><td>Apply if not done (section 0). Nothing else, you have just come out of JSS.</td><td>Read sections 3 and 4 once, no drilling.</td></tr>
+<tr><td>2</td><td>Thu 12 Nov</td><td><b>St John's Mock 1</b>, all 100, in one go with a 90-minute timer on your phone.</td><td>S1 to S4 out loud. Record "tell us about yourself" on your phone and watch it once.</td></tr>
+<tr><td>3</td><td>Fri 13 Nov</td><td>Mock 1 review: every wrong one. Tap "Put the wrong ones in To study" on the result screen.</td><td>Name Lock, Interview world: <b>Openers</b>. Say St John's where the card says JSS.</td></tr>
+<tr><td>4</td><td>Sat 14 Nov</td><td>Your two weakest subjects from the Mock 1 result, in the Library.</td><td>Name Lock: <b>Your work</b>, then S5 to S8.</td></tr>
+<tr><td>5</td><td>Sun 15 Nov</td><td>To study list, the Mock 1 topics.</td><td>Name Lock: <b>Case vignettes</b>, then the five St John's vignettes, S12 to S16.</td></tr>
+<tr><td>6</td><td>Mon 16 Nov</td><td>Next two weakest subjects.</td><td>Name Lock: <b>Ethics</b> and <b>RCI and the law</b>. Then S11 (professional responsibilities).</td></tr>
+<tr><td>7</td><td>Tue 17 Nov</td><td>To study list, the JSS Mock 1 and 2 topics still open.</td><td>Name Lock: <b>Concept quick-fire</b> and the five <b>Define it</b> levels.</td></tr>
+<tr><td>8</td><td>Wed 18 Nov</td><td><b>Dress rehearsal 1.</b> A 100-question paper on a 90-minute timer: the <a href="../take/screen.html?m=sgt-pyq">SGT PYQ Master Mock</a>.</td><td>Straight after, no break: the <b>Panel Final</b> in Name Lock. This is what the 25th feels like.</td></tr>
+<tr><td>9</td><td>Thu 19 Nov</td><td><b>Application deadline.</b> If no hall ticket yet, email and call today. Weak subjects.</td><td>Name Lock: <b>Pragyan</b> and <b>YourDOST</b>, your ABA and counselling work, which is what S2 and S4 rest on.</td></tr>
+<tr><td>10</td><td>Fri 20 Nov</td><td>Weak subjects.</td><td>This page in drill mode, only the cards you hesitated on.</td></tr>
+<tr><td>11</td><td>Sat 21 Nov</td><td><b>Dress rehearsal 2.</b> St John's Mock 1, the Wrong filter only, on a timer.</td><td>Straight after: S1 to S10 in drill mode, out loud.</td></tr>
+<tr><td>12</td><td>Sun 22 Nov</td><td>To study list, whatever is still open.</td><td>Re-record "tell us about yourself" and compare it with day 2.</td></tr>
+<tr><td>13</td><td>Mon 23 Nov</td><td>Light. To study list only.</td><td>S1, S2 and S10 once each.</td></tr>
+<tr><td>14</td><td>Tue 24 Nov</td><td>Nothing new.</td><td>Pack the documents (section 6). Check the route to Sarjapur Road and the travel time at 8 AM. Sleep.</td></tr>
+<tr><td>Exam</td><td>Wed 25 Nov</td><td colspan="2">Report 8:45 AM. Paper, then the interview straight after. Results the same day on the St John's site and the Medical College notice board. Admission on 26 Nov.</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="paper" class="yr">2 · The paper and St John's Mock 1</h2>
+
+<p><a class="go" href="../take/screen.html?m=sjmc-mock-1">Start St John's Mock 1 (100 Qs)</a></p>
+
+<p>The notice gives the syllabus as "psychology subjects at Bachelor's and Master's level". In practice that is the core of an MA in Psychology: general and cognitive psychology, biopsychology, developmental, social, personality, assessment and psychometrics, psychopathology, clinical psychology and therapy, and research methods and statistics. Mock 1 is built on those nine.</p>
+
+<table class="nums">
+<tr><th>Mock 1</th><th>What it is</th></tr>
+<tr><td>Questions</td><td>100 real past-paper questions, the real paper's length. No St John's papers exist anywhere yet (the course is new), so these come from the real papers already on the site: NIMHANS 2024 and 2025, RML 2020 to 2025, IHBAS 2020, Amity 2023, JEMAS(PG) 2025.</td></tr>
+<tr><td>Fresh</td><td>Nothing from JSS Mock 1, JSS Mock 2 or the SGT Master Mock. IHBAS 2024 and 2025 left out, you have sat both.</td></tr>
+<tr><td>Checked</td><td>Every candidate question was rated for subject, difficulty and yield, and any with a doubtful or wrong key was dropped.</td></tr>
+<tr><td>Mix</td><td>Mixed difficulty like a real paper, mostly concept questions, very little pure who-proposed-it. The result splits by the nine subjects.</td></tr>
+<tr><td>Each card</td><td>Source paper, the concept from scratch, why each wrong option is wrong, and the Study this button.</td></tr>
+</table>
+
+<div class="clin-focus">
+<b>Pace for 100 in 90 minutes:</b> 54 seconds a question. Be at Q25 by 22 minutes, Q50 by 45, Q75 by 67, finish the first pass by 80, and use the last 10 for the ones you marked. Anything you can't answer in a minute: mark it, pick your best guess, move on.<br><br>
+<b>Negative marking:</b> the notice does not say. Check the hall ticket and the instructions on the paper. If there is none, answer all 100. If there is, skip only true blind guesses; if you can strike out two options, answer it.
+</div>
+
+<!-- ============================================================ -->
+<h2 id="panel" class="yr">3 · What the panel marks</h2>
+
+<p>The admission information lists what the interview assesses: your academic background, subject knowledge, motivation for clinical psychology, understanding of the field's professional responsibilities, communication, critical thinking, interpersonal skills, and interest in mental healthcare. Selection is on the paper and the interview together.</p>
+
+<table class="nums">
+<tr><th>They mark</th><th>Where it is practised</th></tr>
+<tr><td>Academic background, motivation</td><td>S1, S6, S7, S10 here, and the Openers level in Name Lock</td></tr>
+<tr><td>Why this place</td><td>S2 to S5 here</td></tr>
+<tr><td>Subject knowledge</td><td>Concept quick-fire and the Define it levels in Name Lock</td></tr>
+<tr><td>Professional responsibilities</td><td>S11 here, the Ethics and RCI and the law levels in Name Lock</td></tr>
+<tr><td>Critical thinking</td><td>The five vignettes S12 to S16, built on the department's own services, and the Case vignettes level</td></tr>
+<tr><td>Communication, interpersonal</td><td>Every card, said out loud: first sentence, one example, stop</td></tr>
+</table>
+
+<p>The department, from its own pages on stjohns.in: Psychiatry at St John's was founded in 1966 and covers adult, child and adolescent, geriatric, perinatal, addiction and consultation-liaison psychiatry. Its special services include <b>BIG</b> (alcohol dependence), <b>AMAS</b> (people after a suicide attempt), <b>ROSHNI</b> (recovery-oriented day-care rehabilitation), <b>MAANASI</b> (community psychiatry at the Mugalur sub-centre), a Child Guidance Clinic, an autism clinic, and two autism programmes: <b>CARE ADD</b> (adolescents and young adults with autism) and <b>COM-DEALL</b> (early intervention for developmental delay and autism). The clinical psychologists sit inside the Department of Psychiatry. The institution is run by the Catholic Bishops' Conference of India (CBCI Society for Medical Education).</p>
+
+<!-- ============================================================ -->
+<h2 id="cards" class="yr">4 · St John's interview cards</h2>
+
+<div class="bar">
+  <button id="drillBtn">Drill mode: off</button>
+  <button id="allBtn">Reveal all</button>
+  <span class="hint">Drill mode hides every answer. Say it out loud first, then tap the card to check yourself.</span>
+</div>
+
+<p>Only what is different at St John's is here. The rest of the panel (your work, ethics, the law, concepts) is already in the Interview world in Name Lock, section 5.</p>
+
+<div class="qa">
+<p class="q" data-n="S1">Tell us about yourself.</p>
+<p class="a">"Good morning sir, good morning ma'am. I'm Mohammed Sihan. I did my M.Sc in Clinical Psychology at Jain Deemed-to-be University here in Bangalore, from 2022 to 2024. I've worked in four settings: de-addiction and psychiatric rehabilitation centres; as an ABA therapist with children, mostly with autism and ADHD; in special education; and as a counsellor on YourDOST, an online platform, where I've seen over 250 clients across about 473 sessions. My dissertation was a quantitative study of 214 young adults on pornography use, personality, aggression and sexual compulsivity. What I don't have yet is supervised assessment and diagnosis in a hospital on an RCI programme. That's why I'm here."</p>
+<p class="push">"You said ABA with autistic children. What exactly did you do?" That is the opening for S4. Have the Pragyan level in Name Lock ready.</p>
+<p class="why">Forty-five seconds: training, work, research, then why here. It is morning on the 25th, so "good morning", and it ends on the gap the course fills, which hands them the next question.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="S2">Why St John's?</p>
+<p class="a">"Three reasons, sir. First, the training sits in a psychiatry department of a teaching hospital that covers the whole range, adult, child and adolescent, geriatric, perinatal, addiction and liaison work, so in two years I'd see presentations I've only read about. Second, the department runs services that connect to what I've already done and want to learn properly: the autism programmes, CARE ADD and COM-DEALL, connect to my ABA work with autistic children, and the BIG service and ROSHNI connect to my rehab work. Third, it's five seats, RCI-recognised, so the supervision is close and it ends in registration."</p>
+<p class="push">"Which of those would you want to work in first?" Go to S4.</p>
+<p class="why">Every fact is from the department's own page. Name two services that link to your work, not all seven: reciting the full list sounds rehearsed, linking two to your own hours sounds like a reason.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="S3">What do you know about our department?</p>
+<p class="a">"I know Psychiatry here goes back to 1966, and that beyond the OPD and wards there are special services: BIG for alcohol dependence, AMAS for people after a suicide attempt, ROSHNI for day-care rehabilitation, MAANASI for community psychiatry at Mugalur, the Child Guidance Clinic, and the autism programmes, CARE ADD and COM-DEALL. What I'd like to understand better is how trainees rotate through them over the two years."</p>
+<p class="why">Facts, then a question about training. Do not name faculty to their faces or guess at bed numbers. If they ask whose work you know, only name something you have actually read.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="S4">Which of our services would you most want to work in?</p>
+<p class="a">"The child and autism services, the Child Guidance Clinic and CARE ADD or COM-DEALL. I've done ABA with children with autism and ADHD, so I know the behavioural side: finding the function of a behaviour, teaching skills step by step, prompting and fading, getting the parents to carry it on at home. What I haven't done is the assessment side: the developmental assessment, telling autism apart from intellectual disability or a language disorder, and the feedback to parents. That's the part I'd come here to learn."</p>
+<p class="push">"And adults?" "The BIG service. I've worked in de-addiction after detox, motivational interviewing and relapse prevention, but never with the medical side alongside, withdrawal and complications. A hospital service is where I'd see that."</p>
+<p class="why">A reason tied to real hours, and an honest gap the course fills. Only claim the parts of the ABA and rehab work you actually did.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="S5">This is a Catholic institution. Does that matter to you?</p>
+<p class="a">"It matters in a good way, sir. As I understand it, St John's was built around service, not only treatment, and a service ethos means seeing people who can't afford private care, the people clinical psychology in India reaches least. In the room, my job is the same with every patient, whatever their faith or mine: respect their beliefs, work within their values, and keep my own out of the session. And when someone's faith is part of how they cope, it goes into the formulation as a strength."</p>
+<p class="why">They are checking two things: that you value working with people who can't pay, and that you keep your own beliefs out of clinical work. Say that much and stop. Don't discuss religion beyond it.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="S6">The stipend is ₹7,000 a month. Can you manage for two years?</p>
+<p class="a">"Yes, sir. I've planned for the two years."</p>
+<p class="why">One calm line, and only if it is true. The course fee is not in the notice: get it from the bulletin or the admissions office before the 25th, never from the panel. Don't ask about fees, hostel or results in the room.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="S7">You already have an M.Sc in Clinical Psychology. Why this course?</p>
+<p class="a">"The M.Sc gave me the theory and the research training, and I've used both. What it didn't give me is supervised clinical practice in a hospital and RCI registration. Without registration I can't practise as a clinical psychologist in India, however much I know. So I'm not repeating a degree, I'm adding the supervised training and the licence my present qualification doesn't carry."</p>
+<p class="why">Own it in the first sentence. Any hesitation here reads as "he couldn't get in anywhere else".</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="S8">Do you speak Kannada? Many of our patients do.</p>
+<p class="a">If yes: "Yes, sir, I can take a history in Kannada." If partly or no: "Not fluently yet, sir." Name the languages you do speak, then: "I'd start learning clinical Kannada from the first week, history-taking phrases and the MSE questions first, and use an interpreter or a co-therapist until then. A history taken across a language gap loses things, so I'd treat it as a priority, not an extra."</p>
+<p class="why">A practical question at a Bengaluru hospital, not a trick. They want a plan, not an apology. MAANASI at Mugalur is rural, so this matters more for the community postings.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="S9">How did the paper go?</p>
+<p class="a">"It was a fair paper, sir. Some of it I was sure of, some I had to think through." If they ask which part: "There was a question on [topic] I wasn't sure about. I'll be going back to it."</p>
+<p class="why">This one is likely, because the paper was an hour ago. They are watching how you carry a bad moment, not grading the paper. Never say it went badly, never blame the paper, never argue an answer key. The same holds for JSS if they ask: one line, then stop.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="S10">There are five seats and a hall full of candidates. Why should we pick you?</p>
+<p class="a">"I can't compare myself with people I haven't met, sir. What I can say is that I come in with three things already done: a master's in this subject, a quantitative dissertation, and real client hours in four settings, rehab, ABA with autistic children, special education, and over 250 clients online. So what I need from you is the supervised hospital training, not the basics. And the services here, the autism work especially, are where my hours already point."</p>
+<p class="why">No comparison with others, three facts, and one line that ties you to this department. The last line is what makes it a St John's answer and not the JSS one.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="S11">What are the professional responsibilities of a clinical psychologist?</p>
+<p class="a">"Five, sir. Competence: work only within what I'm trained and supervised to do, and refer beyond it. Confidentiality and its limits, told to the client at the start: risk to self or others, child sexual abuse, which POCSO makes mandatory to report, and court orders. Informed consent, for assessment and for therapy. Accountability: practising as a clinical psychologist needs RCI registration, and the Mental Healthcare Act 2017 counts clinical psychologists as mental health professionals. And the patient's rights under that Act: dignity, confidentiality, and the right to make their own decisions, including advance directives."</p>
+<p class="push">"What does the Act say about someone who attempts suicide?" "Section 115: a person who attempts suicide is presumed to have severe stress unless shown otherwise, is not to be punished for it, and the government has a duty to provide care and rehabilitation."</p>
+<p class="why">The notice names "professional responsibilities" as something the panel assesses, so expect it in some form. Five headings, one line each, then stop.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="S12">Vignette (child and autism services): a 4-year-old boy is brought because he isn't talking and doesn't respond to his name. The parents ask, "Is he autistic?"</p>
+<p class="a">"I wouldn't answer that on the first visit. First, a hearing test, because a child who doesn't respond to his name may simply not hear. Then a developmental history: milestones, whether he had words and lost them, eye contact, pointing and showing, pretend play, repetitive movements, routines, sensory reactions. Then I'd watch him play and with his parents. For assessment, a developmental scale and an autism rating, the Indian Scale for Assessment of Autism or CARS-2, and adaptive behaviour with the VSMS. The rule-outs are hearing loss, global developmental delay or intellectual disability, a language disorder, and neglect. Then plain feedback to the parents, early intervention without waiting for a perfect label, and ISAA certification under the RPwD Act if he meets criteria."</p>
+<p class="push">"Why not the M-CHAT?" "The M-CHAT-R is a screener for 16 to 30 months. At four he's past its range."</p>
+<p class="why">Hearing first is the mark most candidates miss. ISAA: 40 items in 6 domains, each rated 1 to 5. A total under 70 is no autism, 70 to 106 mild, 107 to 153 moderate, above 153 severe.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="S13">Vignette (BIG service): a 42-year-old man is brought by his wife. He has drunk daily for ten years and missed work, and his last drink was yesterday morning. He is shaking and sweating.</p>
+<p class="a">"Medical first. He's in alcohol withdrawal, and withdrawal can go on to seizures or delirium tremens, so the psychiatrist manages detox now, with thiamine to protect against Wernicke's. My part starts alongside: a history of quantity, pattern, past attempts to stop and complications; screening for depression and suicide risk, which run high in alcohol dependence; and how the family is coping. Withdrawal severity is tracked on the CIWA-Ar. Once he's through detox and thinking clearly, motivational interviewing to find where he is in the stages of change, then relapse prevention: his high-risk situations, a coping plan for each, refusal skills, and the family brought in."</p>
+<p class="push">"Stages of change?" "Prochaska and DiClemente: precontemplation, contemplation, preparation, action, maintenance, with relapse as part of the cycle, not the end of it."</p>
+<p class="why">The trap is starting counselling on a man in withdrawal. Saying "medical first, and who manages it" is what shows you can work in a hospital team.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="S14">Vignette (AMAS): a 19-year-old college student is in casualty after taking an overdose of her mother's tablets. She is medically stable now. You are asked to see her.</p>
+<p class="a">"Somewhere private, sitting down, no rush. Then the attempt itself: what she took and how much she thought it would do, whether it was planned, whether she tried not to be found, any note, and how she feels about having survived. Then now: thoughts of dying today, a plan, intent, access to means, hopelessness. What led up to it, any depression or substance use, and what holds her: people, reasons, future plans. Then a written safety plan with her, the tablets at home locked away, and her family involved, with her consent where possible, because risk is a limit to confidentiality. Follow-up within days, and admission if the risk stays high."</p>
+<p class="push">"Is attempted suicide a crime?" "Under the Mental Healthcare Act 2017, Section 115, a person who attempts suicide is presumed to be under severe stress and is not to be punished for it. The government has a duty to provide care and rehabilitation."</p>
+<p class="why">Regret at surviving and taking precautions not to be found are the two strongest signs of high intent. Asking directly about suicide does not plant the idea; panels like hearing you say so.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="S15">Vignette (perinatal): three weeks after delivery, a 26-year-old mother cries most days, can't sleep even when the baby sleeps, and says she is a bad mother.</p>
+<p class="a">"This is past the baby blues. The blues start in the first few days, peak around day 3 to 5 and settle within about two weeks. Three weeks of low mood, insomnia even when the baby is asleep, and guilt about being a bad mother point to postpartum depression, which DSM-5-TR codes as depression with peripartum onset. I'd screen with the Edinburgh Postnatal Depression Scale, ten items, where the last item asks about self-harm. I'd ask her directly about thoughts of harming herself and about thoughts of harming the baby. I'd check for psychosis, confusion, hallucinations or strange beliefs about the baby, because that's an emergency. Thyroid and anaemia go to the doctors. Treatment is CBT or interpersonal therapy, practical support with the baby and sleep, the family brought in, and the psychiatrist if medication is needed, keeping breastfeeding in mind."</p>
+<p class="push">"What is postpartum psychosis?" "Rare, about 1 to 2 per 1,000 births, usually starting in the first two weeks, often on the bipolar spectrum: confusion, rapid mood swings, delusions. It's a psychiatric emergency because of the risk of suicide and infanticide, so she's admitted."</p>
+<p class="why">Blues, depression and psychosis on a timeline is the whole answer. Asking about harm to the baby, gently and directly, is the mark.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="S16">Vignette (geriatric clinic): a 68-year-old retired teacher is brought by her son. She has been forgetful for six months, has lost interest in things, and sleeps badly. He asks, "Is it dementia?"</p>
+<p class="a">"It could be depression, dementia, or both, and the history tells them apart. Depression in older people can look like dementia, which is called pseudodementia: the onset is quicker, she complains about her memory herself, answers 'I don't know' rather than trying, and mood and sleep changes came first. Dementia is slower and steady, the family notices more than she does, she covers up or gives near-miss answers, and it keeps getting worse. Delirium, sudden and fluctuating with poor attention, is a medical problem and has to be ruled out first. I'd take the history from both of them, do a cognitive screen like the MMSE or the Hindi Mental State Examination, a depression scale like the Geriatric Depression Scale, and ask about daily functioning. Thyroid and B12 go to the doctors. If depression is there, treat it, then test her memory again."</p>
+<p class="push">"Delirium versus dementia?" "Delirium: sudden onset, fluctuates through the day, attention is impaired, usually reversible once the cause is treated. Dementia: gradual, progressive, attention fairly well kept early on."</p>
+<p class="why">Saying "treat the depression, then retest" shows you know a cognitive score in a depressed patient isn't the final word.</p>
+</div>
+
+<div class="qa">
+<p class="q" data-n="S17">Do you have any questions for us?</p>
+<p class="a">"Two, sir. How do trainees rotate across the department's services over the two years, for example the child and autism work, the addiction service and the community programme at Mugalur? And how is supervision set up, and how early do trainees start doing assessments themselves?"</p>
+<p class="why">Two questions, both about training, both showing you read about the department. Never fees, hostel or results.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="world" class="yr">5 · Practice in Name Lock</h2>
+
+<p>The panel practice lives in the <a href="../name-lock/app/index.html#jss"><b>Interview world</b></a> in Name Lock (World 4). It was built for JSS, but apart from the "why JSS" cards everything in it is what any RCI panel asks. Your dissertation is in the <a href="../name-lock/app/index.html#dis">Dissertation world</a> (World 3), with the corrected numbers.</p>
+<ul>
+<li>One question at a time. Say your answer out loud, in full sentences, 30 to 45 seconds.</li>
+<li>Then check it: model answer, how to land it, the trap, the follow-up.</li>
+<li>Rate yourself Blanked, Shaky or Nailed it. Anything not nailed comes back at the end of the round.</li>
+<li>Wherever a card says JSS, say St John's. Swap J3 (why JSS) and J6 (the JSS fee) for S2 and S6 on this page.</li>
+</ul>
+<table class="nums">
+<tr><th>Level</th><th>When</th></tr>
+<tr><td>Openers, Your work</td><td>Days 3 and 4</td></tr>
+<tr><td>Case vignettes</td><td>Day 5, with S12 to S16</td></tr>
+<tr><td>Ethics, RCI and the law</td><td>Day 6, with S11</td></tr>
+<tr><td>Concept quick-fire, Define it (five levels)</td><td>Day 7</td></tr>
+<tr><td>Panel Final</td><td>Day 8, straight after the dress-rehearsal paper</td></tr>
+<tr><td>Pragyan, YourDOST</td><td>Day 9</td></tr>
+<tr><td>Dissertation world</td><td>Any evening: the pitch twice out loud, then one level</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="day" class="yr">6 · The day</h2>
+
+<table class="nums">
+<tr><th>Thing</th><th>What to do</th></tr>
+<tr><td>Where and when</td><td>St John's Medical College, Sarjapur Road, Bengaluru. Report <b>8:45 AM</b>. Paper (100 MCQs, 90 minutes), then the interview straight after.</td></tr>
+<tr><td>Bring</td><td>The hall ticket (no hall ticket, no exam), photo ID, the application printout, black ball pens, water and something to eat. Because admission is the next day, also carry your marks cards and degree certificates, originals plus two sets of photocopies, and passport photos. Admission stays provisional until RGUHS approves the documents.</td></tr>
+<tr><td>Between paper and interview</td><td>Five minutes, every time: drink water, eat something, two physiological sighs (two short breaths in through the nose, one long breath out through the mouth), then say S1 once under your breath. Do not go over answers with other candidates. Whatever happened in the paper is finished.</td></tr>
+<tr><td>Dress</td><td>Full formal. Plain shirt, trousers, formal shoes.</td></tr>
+<tr><td>Walking in</td><td>"Good morning sir, good morning ma'am." Wait to be offered the chair. Sit back, both feet down.</td></tr>
+<tr><td>Every answer</td><td>One second's pause, then first sentence, one example, stop. 20 to 40 seconds. Silence after your answer is theirs to fill.</td></tr>
+<tr><td>Don't know</td><td>"I'm not certain, sir. My understanding is ___, but I'd want to check that." Then stop.</td></tr>
+<tr><td>Challenged on a right answer</td><td>"My understanding was ___, but I'd take your correction." Hold once, politely, then let it go.</td></tr>
+<tr><td>Results</td><td>Same day, on the St John's website and the Medical College notice board. No individual messages are sent, so check both. Admission is on 26 Nov.</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="check" class="yr">7 · Check before the 25th</h2>
+
+<div class="verify">
+<b>Where these facts come from.</b> The dates, the 100 MCQs in 90 minutes, five seats, the ₹7,000 stipend, eligibility and the application steps are from the admission information as reported on 11 Nov by UPS Education and Power Within Psychology. St John's had not put the notice on its own site when this was built. The department facts in sections 3 and 4 are from the Psychiatry pages on stjohns.in.<br><br>
+<b>Check yourself:</b> (1) the hall ticket, for the reporting time, venue and any instructions on marking; (2) whether there is negative marking; (3) the course fee, from the bulletin or the admissions office, not the panel; (4) the official notice on stjohns.in once it is up, in case anything moved.
+</div>
+
+<div class="clin-focus" style="margin-top:26px">
+<b>Last thing.</b> JSS is done, and whatever went wrong there is the most useful thing you have for this one. Tell me which part it was, the paper or the interview, and this page gets rebuilt around it. Until then: first sentence, one example, then stop.
+</div>
+
+<p class="src" style="margin-top:30px">Built 11 Nov 2026 for the St John's MClinPsy entrance and interview on 25 Nov 2026. Sources: <a href="https://www.upseducation.in/update/st-johns-mclinpsy-rci-admissions-2026-27/">UPS Education</a>, <a href="https://blog.powerwithinpsychology.com/st-johns-college-of-allied-health-sciences-m-clin-psy-rci-admission/">Power Within Psychology</a>, <a href="https://www.stjohns.in/medicalcollege/departments-details/psychiatry">St John's Psychiatry (Medical College)</a>, <a href="https://www.stjohns.in/hospital/departments-services-details/psychiatry">St John's Psychiatry (Hospital)</a>. Companion pages: <a href="../jss-interview/">JSS interview sheet</a>, <a href="../manipal-viva/">full viva sheet</a>, <a href="../dissertation/">dissertation defence</a>, <a href="../notes/therapy-style/">your therapeutic style</a>.</p>
+
+</div>
+
+<script>
+(function(){
+  var LS = "stJohnsInterview.drill";
+  var body = document.body,
+      drillBtn = document.getElementById("drillBtn"),
+      allBtn = document.getElementById("allBtn"),
+      cards = Array.prototype.slice.call(document.querySelectorAll(".qa"));
+
+  function setDrill(on){
+    body.classList.toggle("drill", on);
+    drillBtn.classList.toggle("on", on);
+    drillBtn.textContent = "Drill mode: " + (on ? "on" : "off");
+    allBtn.style.display = on ? "" : "none";
+    if(!on) cards.forEach(function(c){ c.classList.remove("open"); });
+    try{ localStorage.setItem(LS, on ? "1" : "0"); }catch(e){}
+  }
+
+  drillBtn.addEventListener("click", function(){ setDrill(!body.classList.contains("drill")); });
+
+  allBtn.addEventListener("click", function(){
+    var anyClosed = cards.some(function(c){ return !c.classList.contains("open"); });
+    cards.forEach(function(c){ c.classList.toggle("open", anyClosed); });
+    allBtn.textContent = anyClosed ? "Hide all" : "Reveal all";
+  });
+
+  cards.forEach(function(c){
+    c.addEventListener("click", function(){
+      if(!body.classList.contains("drill")) return;
+      c.classList.toggle("open");
+    });
+  });
+
+  var saved = "0";
+  try{ saved = localStorage.getItem(LS) || "0"; }catch(e){}
+  setDrill(saved === "1");
+})();
+</script>
+
+</body>
+</html>

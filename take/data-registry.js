@@ -27,6 +27,19 @@ const MOCKS = [
     tags: ["your recall set", "reliability formulas", "worked numbers", "32 Q", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "sjmc-mock-1",
+    title: "St John's Mock 1 (25 Nov entrance)",
+    sub: "100 real past-paper Qs · the real paper's length · 9 subjects · sit it on a 90-minute timer · results by subject · untimed Practice",
+    path: "../take/screen.html?m=sjmc-mock-1",
+    total: 100,
+    storageKey: "sjmc-mock-1-results-v1",
+    sections: { general: 14, assessment: 12, social: 10, personality: 10, physio: 10, dev: 10, clinical: 12, disorders: 12, research: 10 },
+    blurb: "Built for the St John's MClinPsy entrance on 25 Nov: 100 MCQs in 90 minutes on Bachelor's and Master's level psychology, with the interview straight after. No St John's papers exist yet, so all 100 are genuine past-paper questions from the real papers on the site (NIMHANS 2024 and 2025, RML 2020 to 2025, IHBAS 2020, Amity 2023, JEMAS(PG) 2025). None repeat from JSS Mock 1, JSS Mock 2 or the SGT Master Mock, and IHBAS 2024 and 2025 are left out because you have sat both. All 766 candidates were rated for subject, difficulty, yield and key; anything with a doubtful or wrong key and anything that was pure who-proposed-it recall was dropped, and only one question per concept was kept. Mixed difficulty like a real paper, split across the nine core subjects, so the result shows what to study. Every card carries its source paper, the concept from scratch and why each wrong option is wrong, plus a Study this button. Negative marking is not stated in the notice; the site scores +1 / −0.25. Exam and interview prep is on the St John's page (st-johns/). Independent storage.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "St John's", "100 Q", "9 subjects", "source-badged", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "jss-mock-2",
     title: "JSS Mock 2 (hard + high yield)",
     sub: "90 real past-paper Qs · JSS's 9 subjects × 10 · the hardest, highest-yield items · mostly concept, almost no who-said-what · results by subject · untimed Practice",
@@ -419,6 +432,9 @@ const MOCKS = [
 ];
 
 const GROUPS = [
+  { id: "sjmc", title: "St John's Bengaluru (25 Nov)",
+    sub: "St John's MClinPsy entrance: 100 MCQs, 90 minutes, interview straight after the paper. Interview prep on the St John's page",
+    members: ["sjmc-mock-1"] },
   { id: "jss", title: "JSS Mysuru (27 Oct)",
     sub: "JSS AHER MA Clinical Psychology entrance: 90 MCQs, 60 minutes, no negative marking, nine published subjects",
     members: ["jss-mock-2", "jss-pyq"] },
