@@ -25,7 +25,20 @@
   var meta = loadMeta();
   function saveMeta() { store("tapp-meta-v1", meta); }
   function runKey(id) { return "tapp-run-" + id + "-v1"; }
-  function getRun(id) { return Object.assign({ i: 0, ans: {}, mode: "practice", done: false, redo: null, xp: 0 }, load(runKey(id)) || {}); }
+  /* One mode (Sihan, 20 Nov 2026): the answer and explanation show right after each pick. A Full run left
+     half-done gets its held-back XP (+10 per right) and files its misses in To study once, then carries on. */
+  function getRun(id) {
+    var r = Object.assign({ i: 0, ans: {}, mode: "practice", done: false, redo: null, xp: 0 }, load(runKey(id)) || {});
+    if (r.mode !== "practice") {
+      var Q = P[id].questions, g = 0, miss = [];
+      if (!r.done) for (var k in r.ans) { if (!Q[+k] || r.ans[k] == null) continue; if (r.ans[k] === Q[+k].correct) g += 10; else miss.push(+k); }
+      meta.xp += g; r.xp = (r.xp || 0) + g; r.mode = "practice";
+      saveRun(id, r); saveMeta();
+      /* after saving: filing a miss re-renders home, which reads this run again */
+      miss.forEach(function (i) { studyWrong(id, i); });
+    }
+    return r;
+  }
   function saveRun(id, r) { store(runKey(id), r); }
 
   /* ---------- helpers ---------- */
@@ -423,29 +436,25 @@
   });
 
   /* ---------- lobby ---------- */
+  /* registry subs are shared with the site: drop their old mode notes ("untimed Practice + Full run", "90-minute timer") here */
+  function subOf(s) { return String(s || "").split(" · ").filter(function (x) { return !/^untimed\b|\btimer\b|full run/i.test(x); }).join(" · "); }
   function lobby() {
     var id = cur.id, M = P[id], R = REG[id] || {}, r = getRun(id), sc = score(id, r);
     var wrongN = sc.wrong;
     var h = '<div class="screen lobby-screen"><div class="ptop"><button class="xbtn" data-go="home" aria-label="Back to all tests">' + I.back + '</button><div style="flex:1"></div></div><div class="scroll narrow">' +
-      '<h1 class="lob-h">' + esc(title_of(id)) + '</h1><p class="lob-s">' + esc(R.sub || M.sub || "") + "</p>" +
+      '<h1 class="lob-h">' + esc(title_of(id)) + '</h1><p class="lob-s">' + esc(subOf(R.sub || M.sub)) + "</p>" +
       (R.blurb ? '<div class="blurb clip" id="blurb">' + esc(R.blurb) + "</div>" : "") +
       '<section class="glass lob-card"><div class="stats"><div class="stat"><b>' + sc.answered + "/" + sc.N + '</b><span>Answered</span></div><div class="stat"><b>' + fmt(sc.marks) +
       '</b><span>Score</span></div><div class="stat"><b>' + (meta.best[id] != null ? meta.best[id] + "%" : "–") + "</b><span>Best</span></div></div>" +
-      '<div class="seg"><button data-m="practice" class="' + (r.mode === "practice" ? "on" : "") + '">Practice</button><button data-m="full" class="' +
-      (r.mode === "full" ? "on" : "") + '">Full run</button></div><p class="hint">' +
-      (r.mode === "practice" ? "Answer shows instantly with the full explanation. Combos and XP on every right answer." :
-        "Answers stay hidden till you finish, like the real paper. Change answers freely, then review everything at the end.") + "</p>" +
+      '<p class="hint">The answer and full explanation show right after each pick. +1 right, −0.25 wrong. Combos and XP on every right answer.</p>' +
       '<button class="btn" id="bPlay">' + (r.done ? "Play again" : sc.answered ? "Continue (Q" + (r.i + 1) + ")" : "Start") + "</button>" +
       (r.done || sc.answered ? '<button class="btn ghost" data-go="' + (r.done ? "finish" : "review") + '" data-id="' + id + '">' + (r.done ? "Last result" : "Review answers") + "</button>" : "") +
       (wrongN ? '<button class="btn bad" id="bRedo">Redo the ' + wrongN + " wrong</button>" : "") +
       (sc.answered ? '<button class="btn ghost" id="bReset">Reset this mock</button>' : "") + "</section></div></div>";
     app.innerHTML = h;
     var bl = document.getElementById("blurb"); if (bl) bl.onclick = function () { bl.classList.toggle("clip"); };
-    app.querySelectorAll(".seg button").forEach(function (b) {
-      b.onclick = function () { r.mode = b.getAttribute("data-m"); saveRun(id, r); lobby(); };
-    });
     document.getElementById("bPlay").onclick = function () {
-      if (r.done) { r = { i: 0, ans: {}, mode: r.mode, done: false, redo: null, xp: 0 }; saveRun(id, r); }
+      if (r.done) { r = { i: 0, ans: {}, mode: "practice", done: false, redo: null, xp: 0 }; saveRun(id, r); }
       go("play", id);
     };
     var bR = document.getElementById("bRedo");
@@ -460,7 +469,7 @@
     var bX = document.getElementById("bReset");
     if (bX) bX.onclick = function () {
       if (!confirm("Wipe your answers on this mock and start fresh?")) return;
-      saveRun(id, { i: 0, ans: {}, mode: r.mode, done: false, redo: null, xp: 0 }); lobby();
+      saveRun(id, { i: 0, ans: {}, mode: "practice", done: false, redo: null, xp: 0 }); lobby();
     };
   }
 
@@ -472,25 +481,24 @@
     if (r.i >= N || r.i < 0) r.i = 0;
     var list = r.redo && r.redo.length ? r.redo : null;
     var pos = list ? Math.max(0, list.indexOf(r.i)) : r.i, len = list ? list.length : N;
-    var q = Q[r.i], a = r.ans[r.i], practice = r.mode === "practice", shown = practice && a != null;
+    var q = Q[r.i], a = r.ans[r.i], shown = a != null;
     var sec = (M.sectionLabels || {})[q.section], src = srcOf(id, q);
     var opts = L.filter(function (k) { return q.options[k] != null; }).map(function (k) {
       var cls = "opt";
       if (shown) cls += k === q.correct ? " right" : k === a ? " wrong" : " fade";
-      else if (a === k) cls += " pick";
       return '<button class="' + cls + '" data-k="' + k + '"><span class="k">' + k + '</span><span class="ot">' + q.options[k] + "</span></button>";
     }).join("");
     var lastStep = pos >= len - 1;
     var nextLbl = a == null ? (lastStep ? "Finish" : "Skip") : lastStep ? "Finish" : "Continue";
     app.innerHTML = '<div class="screen play-screen"><div class="ptop play-top"><button class="xbtn" id="pX" aria-label="Back to the paper">' + I.close + '</button><div class="pmid"><b>' + esc(title_of(id)) +
       "</b><span>" + (list ? "Redo " + (pos + 1) + " of " + len : "Question " + (r.i + 1) + " of " + N) + "</span></div>" +
-      (practice ? '<div class="pill xpp" id="xpp">' + I.spark + '<span id="xpn">' + meta.xp.toLocaleString("en-IN") + "</span></div>" : '<div class="pill score">' + score(id, r).answered + "/" + N + "</div>") + "</div>" +
-      '<div class="pstrip"><div class="pbar"><i style="width:' + Math.round(100 * (pos + (a != null ? 1 : 0)) / len) + '%"></i></div>' + (practice ? '<div id="heat">' + heat(combo) + "</div>" : "") + "</div>" +
+      '<div class="pill xpp" id="xpp">' + I.spark + '<span id="xpn">' + meta.xp.toLocaleString("en-IN") + "</span></div></div>" +
+      '<div class="pstrip"><div class="pbar"><i style="width:' + Math.round(100 * (pos + (a != null ? 1 : 0)) / len) + '%"></i></div><div id="heat">' + heat(combo) + "</div></div>" +
       '<div class="scroll" id="ps"><div class="qmeta"><span class="chip qn">' + (list ? "Redo " + (pos + 1) + "/" + len + " · " : "") + "Q" + (r.i + 1) + " of " + N + "</span>" +
       (sec ? '<span class="chip">' + esc(sec) + "</span>" : "") + (src ? '<span class="chip src">' + esc(src) + "</span>" : "") +
       (window.Speak && Speak.ok ? '<button class="chip spk" id="spk">🔊 Listen</button>' : "") + studyBtn(id, q, r.i) + "</div>" +
       '<div class="qcard">' + q.q + '</div><div class="opts' + (shown ? " locked" : "") + '" id="opts">' + opts + '</div><div id="after">' + (shown ? afterHTML(id, q, r.i, a) : "") + "</div></div>" +
-      '<div class="pfoot"><button class="nav" id="pPrev">‹</button><button class="grid" id="pGrid">☰ ' + (r.i + 1) + '</button><button class="btn' + (shown ? (a === q.correct ? " ok" : " bad") : a != null ? "" : " ghost") +
+      '<div class="pfoot"><button class="nav" id="pPrev">‹</button><button class="grid" id="pGrid">☰ ' + (r.i + 1) + '</button><button class="btn' + (shown ? (a === q.correct ? " ok" : " bad") : " ghost") +
       '" id="pNext">' + nextLbl + "</button></div></div>";
     saveRun(id, r);
 
@@ -539,13 +547,10 @@
   }
   function answer(id, k) {
     var r = getRun(id), q = P[id].questions[r.i];
-    var practice = r.mode === "practice";
-    if (practice && r.ans[r.i] != null) return;
-    var fresh = r.ans[r.i] == null;
+    if (r.ans[r.i] != null) return;
     r.ans[r.i] = k;
-    if (fresh) { meta.days[today()] = (meta.days[today()] || 0) + 1; }
-    if (practice && k !== q.correct) studyWrong(id, r.i);
-    if (!practice) { saveRun(id, r); saveMeta(); buzz([12]); play(); return; }
+    meta.days[today()] = (meta.days[today()] || 0) + 1;
+    if (k !== q.correct) studyWrong(id, r.i);
     var ok = k === q.correct, gain = 0, lvBefore = level(), hadCombo = combo;
     if (ok) {
       combo++; gain = 10 + (combo >= 3 ? 5 : 0) + (combo >= 10 ? 5 : 0);
@@ -581,16 +586,6 @@
   }
   function finishRun(id) {
     var r = getRun(id), sc = score(id, r);
-    if (r.mode === "full" && !r.done) {
-      var Q = P[id].questions, gain = 0;
-      for (var k in r.ans) {
-        if (r.ans[k] === Q[+k].correct) gain += 10;
-        else if (r.ans[k] != null) studyWrong(id, +k);
-      }
-      var lvBefore = level();
-      meta.xp += gain; r.xp = gain;
-      if (level() > lvBefore) setTimeout(function () { levelUp(); tone([523, 659, 784, 1047]); }, 2300);
-    }
     r.done = true; r.redo = null;
     var pct = Math.max(0, Math.round(100 * sc.marks / sc.N));
     if (meta.best[id] == null || pct > meta.best[id]) meta.best[id] = pct;
@@ -606,17 +601,16 @@
   /* ---------- question grid sheet ---------- */
   function closeSheet() { app.querySelectorAll(".sheet,.sheet-bg").forEach(function (n) { n.remove(); }); }
   function gridSheet(id) {
-    var r = getRun(id), Q = P[id].questions, practice = r.mode === "practice";
+    var r = getRun(id), Q = P[id].questions;
     var cells = Q.map(function (q, i) {
       var a = r.ans[i], c = "gq";
-      if (a != null) c += practice ? (a === q.correct ? " r" : " w") : " p";
+      if (a != null) c += a === q.correct ? " r" : " w";
       if (i === r.i) c += " cur";
       return '<button class="' + c + '" data-i="' + i + '">' + (i + 1) + "</button>";
     }).join("");
     var bg = document.createElement("div"); bg.className = "sheet-bg"; bg.onclick = closeSheet;
     var sh = document.createElement("div"); sh.className = "sheet";
-    sh.innerHTML = "<h3>Jump to a question</h3>" + (practice ? '<div class="legend"><span style="color:var(--ok)">■ right</span><span style="color:var(--bad)">■ wrong</span><span>■ not done</span></div>' :
-      '<div class="legend"><span style="color:var(--pick)">■ answered</span><span>■ not done</span></div>') + '<div class="gridq">' + cells + "</div>" +
+    sh.innerHTML = "<h3>Jump to a question</h3>" + '<div class="legend"><span style="color:var(--ok)">■ right</span><span style="color:var(--bad)">■ wrong</span><span>■ not done</span></div>' + '<div class="gridq">' + cells + "</div>" +
       '<button class="btn gold" style="margin-top:12px" id="gFin">Finish and see score</button>';
     app.appendChild(bg); app.appendChild(sh);
     sh.querySelectorAll(".gq").forEach(function (b) {
