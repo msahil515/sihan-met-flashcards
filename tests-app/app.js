@@ -17,7 +17,7 @@
   function store(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
   /* meta can arrive from another device via sync, and it goes into innerHTML: keep the numbers numbers */
   function loadMeta() {
-    var m = Object.assign({ xp: 0, days: {}, best: {}, last: null, sound: true, haptic: true, bestCombo: 0 }, load("tapp-meta-v1") || {});
+    var m = Object.assign({ xp: 0, days: {}, best: {}, last: null, sound: true, haptic: true, bestCombo: 0, autoAdd: true }, load("tapp-meta-v1") || {});
     m.xp = +m.xp || 0; m.bestCombo = +m.bestCombo || 0;
     ["days", "best"].forEach(function (f) { var o = m[f] && typeof m[f] === "object" ? m[f] : {}; m[f] = {}; for (var k in o) m[f][k] = +o[k] || 0; });
     return m;
@@ -239,36 +239,48 @@
       (fig ? '<span class="exp-fig">Key figure: <strong>' + fig + "</strong></span>" : "") + "</div>";
   }
   function pblock(arr) { return arr.map(function (p) { return "<p>" + boldFig(p) + "</p>"; }).join(""); }
-  function explainHTML(id, q, idx) {
-    var d = DEEP[id] && DEEP[id][idx];
-    var ok = d && !(d.q && q.q && d.q.trim() !== q.q.trim()) && d.concept;
+  /* each section folds (open by default); o.noAnswer / o.skipFirst when the debrief card above already shows the answer + first lines */
+  function expSec(title, inner) { return '<details class="exp-sec" open><summary class="exp-h">' + title + "</summary>" + inner + "</details>"; }
+  function deepOf(id, q, idx) { var d = DEEP[id] && DEEP[id][idx]; return d && !(d.q && q.q && d.q.trim() !== q.q.trim()) && d.concept ? d : null; }
+  function conceptSplit(concept) {
+    var cut = concept.search(/[.!?]\s+Options?\s+[a-d]\b/);
+    return cut > 40 ? [concept.slice(0, cut + 1).trim(), concept.slice(cut + 1).trim()] : [concept, ""];
+  }
+  function explainHTML(id, q, idx, o) {
+    o = o || {};
+    var d = deepOf(id, q, idx), LN = window.LEARN;
     var h = '<div class="exp">';
-    if (ok) {
-      h += answerBlock(q, d.concept);
-      var def = d.concept, why = "", cut = d.concept.search(/[.!?]\s+Options?\s+[a-d]\b/);
-      if (cut > 40) { def = d.concept.slice(0, cut + 1).trim(); why = d.concept.slice(cut + 1).trim(); }
-      h += '<div class="exp-sec"><div class="exp-h">The concept</div>' + pblock(paras(def)) + "</div>";
-      if (why) h += '<div class="exp-sec"><div class="exp-h">Why ' + q.correct.toUpperCase() + " is right</div>" + pblock(paras(why)) + "</div>";
+    if (d) {
+      if (!o.noAnswer) h += answerBlock(q, d.concept);
+      var cs = conceptSplit(d.concept), def = paras(cs[0]).slice(o.skipFirst ? 1 : 0);
+      if (def.length) h += expSec("The concept", pblock(def));
+      if (cs[1]) h += expSec("Why " + q.correct.toUpperCase() + " is right", pblock(paras(cs[1])));
       var traps = d.traps || {};
       var wrong = L.filter(function (k) { return q.options[k] && k !== q.correct && traps[k]; });
       if (wrong.length) {
-        h += '<div class="exp-sec"><div class="exp-h">Why the other options are wrong</div><div class="exp-traps">' + wrong.map(function (k) {
+        h += expSec("Why the other options are wrong", '<div class="exp-traps">' + wrong.map(function (k) {
           return '<div class="exp-trap"><span class="tk">' + k + '</span><span class="tb"><span class="to">' + q.options[k] +
-            '</span><p class="tw"><span class="tflag">The trap</span>' + boldFig(traps[k]) + "</p></span></div>";
-        }).join("") + "</div></div>";
+            '</span><p class="tw"><span class="tflag">The trap</span>' + boldFig(traps[k]) + "</p>" + (LN ? LN.trapTag(id, idx, k) : "") + "</span></div>";
+        }).join("") + "</div>");
       }
     } else {
-      h += answerBlock(q, q.explanation || "");
-      var body = paras(q.explanation || "");
-      if (body.length) h += '<div class="exp-sec"><div class="exp-h">Why ' + q.correct.toUpperCase() + " is right</div>" + pblock(body) + "</div>";
+      if (!o.noAnswer) h += answerBlock(q, q.explanation || "");
+      var body = paras(q.explanation || "").slice(o.skipFirst ? 1 : 0);
+      if (body.length) h += expSec("Why " + q.correct.toUpperCase() + " is right", pblock(body));
     }
     return h + "</div>";
+  }
+  /* the first lines of the concept, for the debrief card */
+  function takeaway(id, q, idx) {
+    var d = deepOf(id, q, idx);
+    return paras(d ? conceptSplit(d.concept)[0] : q.explanation || "")[0] || "";
   }
   var normStem = function (s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim(); };
   function srcOf(id, q) { var m = SRCS[id]; return m ? (m[normStem(q.q)] || null) : null; }
 
   /* ---------- "Study this" (../study.js, the list Name Lock shares) ---------- */
   var SL = window.StudyList, SI = {};
+  if (SL && SL.setLabels) SL.setLabels("★ In the Safehouse", "☆ Study this");
   function autoTopic(q) {
     var a = strip(q.options[q.correct] || "");
     if (a && a.split(/\s+/).length <= 6 && !/^(all|none|both|only|neither)\b|above|\ba and b\b|^(true|false)$/i.test(a)) return a;
@@ -294,25 +306,28 @@
 
   /* ---------- navigation ---------- */
   var cur = { s: "home", id: null };
-  function go(s, id) { if (window.Speak && Speak.stop) Speak.stop(); cur = { s: s, id: id || cur.id }; render(); }
+  function go(s, id) { if (window.Speak && Speak.stop) Speak.stop(); if (window.LEARN) LEARN.leave(); cur = { s: s, id: id || cur.id }; render(); }
   function render() {
     document.body.setAttribute("data-s", cur.s);
-    ({ home: home, lobby: lobby, play: play, finish: finish, review: review, study: study, revenge: function () { window.REVENGE.enter(); } })[cur.s]();
+    var LN = window.LEARN;
+    ({ home: home, lobby: lobby, play: play, finish: finish, review: review, study: LN ? LN.safehouse : study, brief: LN ? LN.brief : study, drill: LN ? LN.drill : study,
+      revenge: function () { window.REVENGE.enter(); } })[cur.s]();
   }
   window.nlBack = function () {
     var sh = app.querySelector(".sheet");
     if (sh) { closeSheet(); return true; }
     if (cur.s === "revenge") { if (!window.REVENGE.back()) go("home"); return true; }
-    var up = { lobby: "home", play: "lobby", finish: "lobby", review: "finish", study: "home" }[cur.s];
+    var up = { lobby: "home", play: "lobby", finish: "lobby", review: "finish", study: "home", brief: "study", drill: "study" }[cur.s];
     if (!up) return false;
     go(up); return true;
   };
   app.addEventListener("click", function (e) {
+    if (window.LEARN && LEARN.click(e)) return;
     var sb = e.target.closest("[data-study]");
     if (sb && SL) {
       var it = SI[sb.getAttribute("data-study")]; if (!it) return;
       var on = SL.toggle(it); SL.paintButtons(app); buzz([12]);
-      toast(on ? "Added to To study: " + it.t : "Taken off To study");
+      toast(on ? "In the Safehouse: " + it.t : "Taken out of the Safehouse");
       return;
     }
     var b = e.target.closest("[data-go]");
@@ -380,17 +395,19 @@
       (meta.bestCombo ? '<span class="chip sun">' + I.spark + " Best combo " + meta.bestCombo + "</span>" : "") +
       '<div class="bar"><i style="width:' + Math.round(100 * frac) + '%"></i></div><p>' + (frac >= 1 ? "Streak safe for today. Keep the combo going." : (DAILY_GOAL - done) + " to go today") + "</p></div>" +
       '<div class="secondary-tools">' + (window.REVENGE ? window.REVENGE.cta() : "") +
-      (SL ? '<button class="btn ghost" data-go="study">To study · ' + SL.counts().open + " open</button>" : "") + '</div></aside><main class="catalog" id="catalog"><h2 class="sec">Papers</h2>' +
+      (SL ? '<button class="btn ghost" data-go="study">Safehouse · ' + SL.counts().open + " to study</button>" : "") + '</div></aside><main class="catalog" id="catalog"><h2 class="sec">Papers</h2>' +
       open.map(groupHTML).join("") +
       (closed.length ? '<details class="closed"><summary>Closed cycles (still playable)<small>' + closed.map(function (g) { return g.title; }).join(", ") +
         "</small></summary>" + closed.map(function (g, i) { return groupHTML(g, open.length + i); }).join("") + "</details>" : "") + "</main></div>" +
       '<div class="toggles"><button class="tg' + (meta.sound ? " on" : "") + '" id="tgS">Sound ' + (meta.sound ? "on" : "off") + '</button><button class="tg' +
-      (meta.haptic ? " on" : "") + '" id="tgH">Vibration ' + (meta.haptic ? "on" : "off") + '</button></div><div class="toggles" style="margin-top:8px"><button class="tg' + (syncCode() ? " on" : "") + '" id="tgY">Sync ' + (syncCode() || "off") + " ›</button></div>" +
+      (meta.haptic ? " on" : "") + '" id="tgH">Vibration ' + (meta.haptic ? "on" : "off") + '</button></div><div class="toggles" style="margin-top:8px"><button class="tg' + (syncCode() ? " on" : "") + '" id="tgY">Sync ' + (syncCode() || "off") + " ›</button>" +
+      '<button class="tg' + (meta.autoAdd !== false ? " on" : "") + '" id="tgA">Misses to Safehouse ' + (meta.autoAdd !== false ? "on" : "off") + "</button></div>" +
       '<div class="foot">' + nM + " mocks · " + nQ.toLocaleString() + " questions · untimed · +1 / −0.25</div></div></div>";
     app.innerHTML = h;
     document.getElementById("tgS").onclick = function () { meta.sound = !meta.sound; saveMeta(); home(); };
     document.getElementById("tgH").onclick = function () { meta.haptic = !meta.haptic; saveMeta(); home(); };
     document.getElementById("tgY").onclick = syncSheet;
+    document.getElementById("tgA").onclick = function () { meta.autoAdd = meta.autoAdd === false; saveMeta(); home(); toast(meta.autoAdd ? "Every miss goes to the Safehouse" : "Misses stay out unless you tap ☆ Study this"); };
   }
 
   /* ---------- cross-device sync (../sync.js, same code as /sync/ on the site) ---------- */
@@ -432,6 +449,8 @@
   window.addEventListener("sihan-sync", function (e) {
     if (!e.detail || !e.detail.pulled) return;
     meta = loadMeta();
+    var ae = document.activeElement;
+    if (cur.s === "study" && ae && app.contains(ae) && /INPUT|TEXTAREA|SELECT/.test(ae.tagName)) return;
     if (cur.s === "home" || cur.s === "lobby" || cur.s === "study") render();
   });
 
@@ -486,7 +505,8 @@
     var opts = L.filter(function (k) { return q.options[k] != null; }).map(function (k) {
       var cls = "opt";
       if (shown) cls += k === q.correct ? " right" : k === a ? " wrong" : " fade";
-      return '<button class="' + cls + '" data-k="' + k + '"><span class="k">' + k + '</span><span class="ot">' + q.options[k] + "</span></button>";
+      return '<button class="' + cls + ' has-tag" data-k="' + k + '"><span class="k">' + k + '</span><span class="ot">' + q.options[k] + "</span>" +
+        (window.LEARN ? LEARN.otag(id, r.i, k) : "") + "</button>";
     }).join("");
     var lastStep = pos >= len - 1;
     var nextLbl = a == null ? (lastStep ? "Finish" : "Skip") : lastStep ? "Finish" : "Continue";
@@ -513,7 +533,7 @@
       if (Speak.onstate) Speak.onstate(paint);
     }
     app.querySelectorAll("#opts .opt").forEach(function (b) {
-      b.onclick = function () { answer(id, b.getAttribute("data-k")); };
+      b.onclick = function (e) { if (e.target.closest(".otag")) return; answer(id, b.getAttribute("data-k")); };
     });
 
     function step(dir) {
@@ -540,17 +560,23 @@
     return '<div class="heat"><span class="lbl' + (c ? "" : " cold") + '">' + I.flame + (c ? c + " in a row" : crack ? "Combo broken" : "No combo yet") + "</span>" +
       '<div class="ticks' + (crack ? " crack" : "") + '">' + t + "</div></div>";
   }
+  /* debrief: answer + the first lines + where to read it + note, then the full explanation (folds) */
   function afterHTML(id, q, idx, a) {
-    var ok = a === q.correct;
+    var ok = a === q.correct, tk = takeaway(id, q, idx), LN = window.LEARN, d = deepOf(id, q, idx);
+    var nudge = !ok && SL && !SL.has("m:" + id + ":" + idx);
     return '<div class="verdict ' + (ok ? "ok" : "bad") + '">' + (ok ? "✓ Correct" : "✗ Not quite, it's " + q.correct.toUpperCase()) +
-      "<small>" + (ok ? "+1" : "−0.25") + "</small></div>" + explainHTML(id, q, idx);
+      "<small>" + (ok ? "+1" : "−0.25") + "</small></div>" +
+      '<div class="db">' + answerBlock(q, d ? d.concept : q.explanation || "") + (tk ? '<div class="db-take"><span class="db-l">In short</span><p>' + boldFig(tk) + "</p></div>" : "") +
+      (LN ? LN.debriefBadge(id, idx) : "") +
+      '<div class="db-ac' + (nudge ? " nudge" : "") + '">' + studyBtn(id, q, idx) + (LN ? '<button class="db-b" data-qnote="' + esc(id + "|" + idx) + '">✎ Quick note</button>' : "") + "</div>" +
+      (LN ? LN.noteRow(id, idx) : "") + "</div>" + explainHTML(id, q, idx, { noAnswer: 1, skipFirst: !!tk });
   }
   function answer(id, k) {
     var r = getRun(id), q = P[id].questions[r.i];
     if (r.ans[r.i] != null) return;
     r.ans[r.i] = k;
     meta.days[today()] = (meta.days[today()] || 0) + 1;
-    if (k !== q.correct) studyWrong(id, r.i);
+    if (k !== q.correct && meta.autoAdd !== false) studyWrong(id, r.i);
     var ok = k === q.correct, gain = 0, lvBefore = level(), hadCombo = combo;
     if (ok) {
       combo++; gain = 10 + (combo >= 3 ? 5 : 0) + (combo >= 10 ? 5 : 0);
@@ -690,7 +716,8 @@
     var bg = document.createElement("div"); bg.className = "sheet-bg"; bg.onclick = closeSheet;
     var sh = document.createElement("div"); sh.className = "sheet"; sh.style.overflowY = "auto";
     sh.innerHTML = '<p class="hint" style="margin:0 4px 8px">' + esc(title_of(id)) + " · Q" + (i + 1) + '</p><div class="qcard">' + q.q + "</div>" +
-      L.filter(function (k) { return q.options[k] != null; }).map(function (k) { return '<div class="opt' + (k === q.correct ? " right" : " fade") + '"><span class="k">' + k + '</span><span class="ot">' + q.options[k] + "</span></div>"; }).join("") +
+      L.filter(function (k) { return q.options[k] != null; }).map(function (k) { return '<div class="opt has-tag' + (k === q.correct ? " right" : " fade") + '"><span class="k">' + k + '</span><span class="ot">' + q.options[k] + "</span>" +
+        (window.LEARN ? LEARN.otag(id, i, k) : "") + "</div>"; }).join("") +
       explainHTML(id, q, i);
     app.appendChild(bg); app.appendChild(sh);
   }
@@ -731,6 +758,7 @@
   }
   window.TAPP = { go: go, fx: FX, icons: I, countUp: countUp, getRun: getRun, meta: function () { return meta; },
     P: P, DEEP: DEEP, app: app, load: load, store: store, esc: esc, explainHTML: explainHTML, boldFig: boldFig, title_of: title_of, hud: hud,
-    toast: toast, flash: flash, banner: banner, tone: tone, buzz: buzz, floater: floater, gain: gain, addWrongQuestion: addWrongQuestion, studyWrong: studyWrong, closeSheet: closeSheet };
+    toast: toast, flash: flash, banner: banner, tone: tone, buzz: buzz, floater: floater, gain: gain, addWrongQuestion: addWrongQuestion, studyWrong: studyWrong, closeSheet: closeSheet,
+    questionSheet: questionSheet, studyItem: studyItem, copyText: copyText, cur: function () { return cur; } };
   render();
 })();

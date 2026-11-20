@@ -5,7 +5,10 @@
    Shape: {it: {<id>: {t, a, f, q, r, n, at, u, d, x}}}
      t topic, a area key, f where it came from, q the question/definition,
      r ref ("m:<mock>:<idx>" or "c:<cardId>"), n notes search words,
-     at added ms, u last edit ms, d done ms (0 = still to study), x removed. */
+     at added ms, u last edit ms, d done ms (0 = still to study), x removed.
+   Tests app Safehouse extras (Name Lock ignores them): o option letter (the item is one
+     option of question r), h 1 = amber (default red; done = green), m my note,
+     s Final Textbook section override, pg my page number, c drill clears. */
 (function () {
   "use strict";
   var KEY = "study-topics-v1";
@@ -44,9 +47,18 @@
   function get(id) { var it = read().it[id]; return it && !it.x ? it : null; }
   function add(x) {
     var o = read(), now = Date.now(), old = o.it[x.id];
-    o.it[x.id] = { t: String(x.t || "Untitled topic").slice(0, 120), a: x.a || "other", f: x.f || "", q: String(x.q || "").slice(0, 400),
+    var it = { t: String(x.t || "Untitled topic").slice(0, 120), a: x.a || "other", f: x.f || "", q: String(x.q || "").slice(0, 400),
       r: x.r || "", n: x.n || "", at: old && !old.x ? old.at : now, u: now, d: 0, x: 0 };
-    write(o); return o.it[x.id];
+    if (x.o) it.o = x.o;
+    /* re-adding keeps what was written on it (note, textbook spot) */
+    if (old) ["m", "s", "pg"].forEach(function (f) { if (old[f]) it[f] = old[f]; });
+    o.it[x.id] = it;
+    write(o); return it;
+  }
+  /* Safehouse fields only: heat, note, textbook spot, drill clears, done, topic */
+  var SETTABLE = { h: 1, m: 1, s: 1, pg: 1, c: 1, d: 1, t: 1 };
+  function update(id, patch) {
+    return edit(id, function (it) { for (var f in patch) if (SETTABLE[f]) { if (patch[f] == null || patch[f] === "") delete it[f]; else it[f] = patch[f]; } });
   }
   function addWrong(x) {
     var o = read(), old = o.it[x.id], now = Date.now();
@@ -209,15 +221,17 @@
     var st = document.createElement("style"); st.id = "stl-css"; st.textContent = CSS; document.head.appendChild(st);
   }
   /* the "Study this" toggle: markup + a delegated click handler that flips it in place */
+  var LBL_ON = "★ In To study", LBL_OFF = "☆ Study this"; /* the Tests app calls the list the Safehouse */
+  function setLabels(on, off) { LBL_ON = on; LBL_OFF = off; }
   function buttonHTML(id) {
     injectCSS();
     var on = has(id);
-    return '<button class="stl-btn' + (on ? " on" : "") + '" data-study="' + esc(id) + '">' + (on ? "★ In To study" : "☆ Study this") + "</button>";
+    return '<button class="stl-btn' + (on ? " on" : "") + '" data-study="' + esc(id) + '">' + (on ? LBL_ON : LBL_OFF) + "</button>";
   }
   function paintButtons(root) {
     (root || document).querySelectorAll("[data-study]").forEach(function (b) {
       var on = has(b.getAttribute("data-study"));
-      b.classList.toggle("on", on); b.textContent = on ? "★ In To study" : "☆ Study this";
+      b.classList.toggle("on", on); b.textContent = on ? LBL_ON : LBL_OFF;
     });
   }
   /* opts: {filter: "open"|"done"|"all", open(it) -> bool (the app can open the source), onChange()} */
@@ -314,8 +328,8 @@
   }
 
   window.StudyList = { KEY: KEY, AREAS: AREAS, areaName: function (k) { return AREA_NAME[k] || AREA_NAME.other; }, areaOf: areaOf,
-    has: has, get: get, add: add, addWrong: addWrong, remove: remove, toggle: toggle, setDone: setDone, rename: rename, all: all, counts: counts,
-    notesUrl: notesUrl, notesQuery: notesQuery, buttonHTML: buttonHTML, paintButtons: paintButtons, render: render,
+    has: has, get: get, add: add, addWrong: addWrong, remove: remove, toggle: toggle, setDone: setDone, rename: rename, update: update, all: all, counts: counts, root: ROOT,
+    notesUrl: notesUrl, notesQuery: notesQuery, buttonHTML: buttonHTML, paintButtons: paintButtons, setLabels: setLabels, render: render,
     loadPageMap: loadPageMap, resolvePage: resolvePage, exportText: exportText,
     pageState: function () { return PAGE_STATE; }, pageAssetURL: PAGE_URL };
 })();
