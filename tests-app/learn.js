@@ -293,7 +293,7 @@
       var secs = SEC_LIST.filter(function (s) { return s.ch === c[0] && bySec[s.id]; });
       if (!secs.length) return;
       var all = []; secs.forEach(function (s) { all = all.concat(bySec[s.id]); });
-      h += '<details class="sh-ch" data-ch="' + c[0] + '"' + (openCh[c[0]] ? " open" : "") + '><summary><span class="sh-cn">Ch ' + c[0] + '</span><span class="sh-ct">' + esc(c[1]) +
+      h += '<details class="sh-ch" data-ch="' + c[0] + '"' + (openCh[c[0]] !== false ? " open" : "") + '><summary><span class="sh-cn">Ch ' + c[0] + '</span><span class="sh-ct">' + esc(c[1]) +
         '</span><span class="sh-cc">' + counts(all) + "</span></summary>" + groupBtns("ch:" + c[0], all.length) +
         secs.map(function (s) {
           var g = bySec[s.id].sort(byHeat);
@@ -450,8 +450,8 @@
     var bg = document.createElement("div"); bg.className = "sheet-bg"; bg.onclick = TA.closeSheet;
     var sh = document.createElement("div"); sh.className = "sheet";
     sh.innerHTML = "<h3>Run drill</h3><p class=\"hint\" style=\"margin:0 4px 14px\">" + esc(scopeName(scope)) + ". Right twice and it asks to lock the item in green.</p>" +
-      '<button class="btn" id="drQ"' + (qs.length ? "" : " disabled") + ">Question drill · " + qs.length + " MCQs</button>" +
-      '<button class="btn ghost" id="drC"' + (items.length ? "" : " disabled") + ">Flashcards · " + items.length + " cards</button>";
+      '<button class="btn" id="drQ"' + (qs.length ? "" : " disabled") + ">Question drill · " + qs.length + (qs.length === 1 ? " MCQ" : " MCQs") + "</button>" +
+      '<button class="btn ghost" id="drC"' + (items.length ? "" : " disabled") + ">Flashcards · " + items.length + (items.length === 1 ? " card" : " cards") + "</button>";
     TA.app.appendChild(bg); TA.app.appendChild(sh);
     document.getElementById("drQ").onclick = function () { TA.closeSheet(); startDrill(scope, "q"); };
     document.getElementById("drC").onclick = function () { TA.closeSheet(); startDrill(scope, "c"); };
