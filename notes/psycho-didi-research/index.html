@@ -140,6 +140,18 @@
 
 <div class="rule"><b>Key:</b> <b>Test power</b> is the probability that the test will reject the null hypothesis when the alternate hypothesis is true, i.e., it will not make a Type II error.</div>
 
+<h4>The decision table (conclusion vs true state of nature)</h4>
+<p>The small red and green table in the diagram crosses <b>what you conclude</b> from your data (rows) with <b>what is actually true</b> in the population (columns). You never know the true state; the table lists the four possible outcomes. The framework of Type I and Type II errors comes from <b>Jerzy Neyman and Egon Pearson</b> (papers of 1928 and 1933).</p>
+<table class="t">
+  <thead><tr><th>Your conclusion</th><th>H<sub>0</sub> is actually true</th><th>H<sub>a</sub> is actually true (H<sub>0</sub> false)</th></tr></thead>
+  <tbody>
+    <tr><td><b>Support H<sub>0</sub> / reject H<sub>a</sub></b></td><td>Correct conclusion (probability 1 − α)</td><td><b>Type II error</b> (probability β), a "miss"</td></tr>
+    <tr><td><b>Support H<sub>a</sub> / reject H<sub>0</sub></b></td><td><b>Type I error</b> (probability α), a "false alarm"</td><td>Correct conclusion = <b>power</b> (probability 1 − β)</td></tr>
+  </tbody>
+</table>
+<p class="eg">Example: H<sub>0</sub> = "the new therapy has no effect." If the therapy really does nothing but your study finds a significant improvement, that is a Type I error. If the therapy really works but your study finds no significant difference (say, because the sample was too small), that is a Type II error. Correctly detecting a therapy that works is power.</p>
+<div class="trap"><b>Trap:</b> Power = 1 − β, not 1 − α (1 − α is the chance of correctly keeping a true H<sub>0</sub>). Making α stricter (.05 to .01) cuts Type I errors but raises Type II errors, so power falls. Power rises with a larger sample, a larger effect size, a more lenient α and a one-tailed test. Jacob Cohen (1988) suggested .80 as the usual minimum power.</div>
+
 <table class="t">
   <thead><tr><th>Feature</th><th>Parametric test</th><th>Non-parametric test</th></tr></thead>
   <tbody>
@@ -181,19 +193,40 @@
   <tbody>
     <tr><td><b>Independent variable (IV)</b></td><td>Manipulated.</td></tr>
     <tr><td><b>Dependent variable (DV)</b></td><td>Not manipulated; changes with change in IV.</td></tr>
-    <tr><td><b>Extraneous variables</b></td><td>Controlled.</td></tr>
+    <tr><td><b>Extraneous variables</b></td><td>Any variable other than the IV that could affect the DV. Two kinds (as in the diagram): <b>controlled</b> and <b>confounding</b>.</td></tr>
+    <tr><td><b>Controlled (extraneous) variables</b></td><td>Extraneous variables the researcher has dealt with: removed, held constant for everyone, matched across groups, or spread evenly by random assignment.</td></tr>
     <tr><td><b>Confounding variables</b></td><td>Uncontrolled extraneous variables that affect results.</td></tr>
     <tr><td><b>Stimulus variable</b></td><td>e.g. light (always IV).</td></tr>
     <tr><td><b>Organismic variable</b></td><td>e.g. age.</td></tr>
     <tr><td><b>Behavioural / response variable</b></td><td>e.g. response rate (always DV).</td></tr>
   </tbody>
 </table>
+<p class="eg">Example: testing whether music (IV) improves memory scores (DV). Room noise is an extraneous variable; testing everyone in the same quiet room makes it a controlled variable. If the music group is tested in the morning and the no-music group in the evening, time of day becomes a confounding variable: you cannot tell whether the music or the time caused the difference.</p>
+<div class="trap"><b>Trap:</b> "Extraneous" is the umbrella term. A confounding variable is an extraneous variable that was <b>not</b> controlled and changes along with the IV, so it threatens internal validity.</div>
 
 <h2 class="sec" id="designs">4 · Research Designs</h2>
 <div class="bfigs pd-figs"><figure class="bfig" id="pd-p010-a"><a href="/sihan-met-flashcards/notes/psycho-didi-figs/p010-a.webp" target="_blank" rel="noopener"><img src="/sihan-met-flashcards/notes/psycho-didi-figs/p010-a.webp" width="2153" height="1544" style="max-width:1292px" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('pd-off')" alt="Research: steps, variables and types of research"></a><figcaption><b>Research: steps, variables and types of research.</b> A flowchart branching from types of research into experiment, observation, correlation and special designs, alongside boxes on research steps, the definition of research and variables. <span>Psycho Didi notes &middot; p.&nbsp;10</span></figcaption></figure></div>
 
 
 
+<p><b>How the flowchart reads:</b> "Types of research" branches into four designs: <b>experiment</b>, <b>observation</b>, <b>correlation</b> and <b>special designs</b>. "Special designs" then branches into three: <b>longitudinal</b>, <b>cross-sectional</b> and <b>cohort-sequential</b>. The first three differ in how much control the researcher has; the special designs are about <b>time and age</b> and are used mostly in developmental research.</p>
+<table class="t">
+  <thead><tr><th>Design</th><th>What the researcher does</th><th>Can it show cause and effect?</th></tr></thead>
+  <tbody>
+    <tr><td><b>Experiment</b></td><td>Manipulates the IV and controls extraneous variables.</td><td>Yes (most control)</td></tr>
+    <tr><td><b>Observation</b></td><td>Watches and records behaviour without manipulating anything.</td><td>No (describes)</td></tr>
+    <tr><td><b>Correlation</b></td><td>Measures two variables as they naturally occur and checks how they go together.</td><td>No (association and direction only)</td></tr>
+    <tr><td><b>Special designs</b></td><td>Plan when and whom to measure so that change with age can be studied.</td><td>Mainly describe change over time</td></tr>
+  </tbody>
+</table>
+<table class="t">
+  <thead><tr><th>Special design</th><th>How it works</th><th>Example</th><th>Main weakness</th></tr></thead>
+  <tbody>
+    <tr><td><b>Longitudinal</b></td><td>The same group (cohort) is measured again and again over years.</td><td>Lewis Terman's study of gifted children, begun in 1921.</td><td>Slow and costly; drop-outs (attrition); practice effects from repeated testing.</td></tr>
+    <tr><td><b>Cross-sectional</b></td><td>Different age groups are measured once, at the same time.</td><td>Comparing memory in 20-, 40- and 60-year-olds this year.</td><td><b>Cohort effects:</b> differences may come from the era each group grew up in, not from age itself.</td></tr>
+    <tr><td><b>Cohort-sequential</b></td><td>Several age groups are each followed over time (cross-sectional + longitudinal). Proposed by K. Warner Schaie (1965).</td><td>Schaie's Seattle Longitudinal Study of adult intelligence (from 1956).</td><td>Separates age effects from cohort effects, but complex and expensive.</td></tr>
+  </tbody>
+</table>
 
 <h3>Experiment</h3>
 <ul>
@@ -216,7 +249,20 @@
 <ul>
   <li>Can be <b>naturalistic</b> or <b>controlled</b>.</li>
   <li>Can be <b>participant</b> or <b>non-participant</b>.</li>
+  <li><b>Tools used:</b> survey, interviews, questionnaires, observation.</li>
+  <li>Usually used to check <b>attitude</b> towards something.</li>
 </ul>
+<p>In the diagram, "Observation" is used broadly for <b>non-experimental, descriptive research</b>: the researcher records behaviour or opinions as they are, without manipulating any variable. The four kinds of observation:</p>
+<table class="t">
+  <thead><tr><th>Kind</th><th>Meaning</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td><b>Naturalistic</b></td><td>Behaviour watched in its real setting, without interfering.</td><td>Recording how children share toys in a school playground.</td></tr>
+    <tr><td><b>Controlled</b> (laboratory)</td><td>Behaviour watched in a set-up, standardised setting.</td><td>Mary Ainsworth's Strange Situation, run in a lab playroom.</td></tr>
+    <tr><td><b>Participant</b></td><td>The observer joins the group being studied.</td><td>A researcher living in a village to study its customs.</td></tr>
+    <tr><td><b>Non-participant</b></td><td>The observer stays outside the group.</td><td>Watching a classroom through a one-way mirror.</td></tr>
+  </tbody>
+</table>
+<div class="why"><b>Survey vs observation:</b> standard textbooks (e.g. Baron; Ciccarelli &amp; White) treat the <b>survey method</b> as its own descriptive method: a large group is asked questions through questionnaires or interviews about their attitudes, opinions or behaviour. That is why attitude measurement sits in this box. Observation records what people do; a survey records what people say. Survey traps: the sample must be representative, and answers can be distorted by social desirability (people giving the "nice" answer).</div>
 
 <h3>Special Designs</h3>
 <h4>Longitudinal design</h4>
@@ -230,8 +276,6 @@
 <p>Various age groups are compared at the same time.</p>
 <h4>Cohort-sequential (cross-sequential)</h4>
 <p>Cross-sectional + longitudinal; also known as cross-sequential.</p>
-<h4>Survey</h4>
-<p>Uses questionnaires and observation; usually used to check attitude towards something. Tools used: survey, interviews; can be participant or non-participant.</p>
 <div class="founder"><b>Who → what:</b> Lewis Terman — associated with eugenics and long-term longitudinal cohort study.</div>
 
 <h2 class="sec" id="descriptive">5 · Descriptive Statistics</h2>
@@ -255,12 +299,15 @@
 <h3>Variance / Dispersion</h3>
 <p>How the scores are spread around the mean.</p>
 <ul>
-  <li><b>Range</b> = highest frequency − lowest frequency.</li>
+  <li><b>Range</b> = highest score − lowest score (scores, not frequencies: marks from 12 to 47 give a range of 35).</li>
   <li><b>Standard deviation:</b> spread of scores around the mean.</li>
   <li><b>Variance:</b> standard deviation squared.</li>
   <li><b>Average deviation:</b> mean of absolute deviations.</li>
   <li><b>Quartile deviation</b> (for median values): QD = (Q3 − Q1) / 2.</li>
 </ul>
+<div class="rule"><b>Formulas:</b> <b>Standard deviation</b> σ = √[ Σ(x<sub>i</sub> − μ)² / N ]. <b>Average (mean) deviation</b> AD = Σ|x<sub>i</sub> − μ| / N. Here x<sub>i</sub> = each score, μ = the mean, N = number of scores, Σ = "add them all up", and | | means ignore the minus sign.</div>
+<p class="eg">Worked example: scores 2, 4, 6. Mean = 4. Deviations from the mean: −2, 0, +2. SD: squares are 4, 0, 4; sum = 8; 8 / 3 = 2.67 (this is the variance); √2.67 = 1.63. AD: absolute deviations 2, 0, 2; sum = 4; 4 / 3 = 1.33.</p>
+<div class="trap"><b>Heads up:</b> the diagram writes the average deviation as Σ(x<sub>i</sub> − μ) / N, without the absolute-value bars. Raw deviations from the mean always add up to 0, so the bars are essential: AD = Σ|x<sub>i</sub> − μ| / N. Also, σ with N in the denominator is the <b>population</b> SD; the <b>sample</b> SD (s) divides by n − 1.</div>
 
 <h2 class="sec" id="inferential">6 · Inferential Statistics: t-test &amp; ANOVA</h2>
 <h3>t-test</h3>
@@ -280,12 +327,31 @@
   <thead><tr><th>Type</th><th>Description</th><th>Degrees of freedom</th><th>Non-parametric equivalent</th></tr></thead>
   <tbody>
     <tr><td><b>One way</b></td><td>Compares levels of a single independent variable over the dependent variable.</td><td>Main: K − 1; Error: N − K; Total: N − 1</td><td>Kruskal Wallis H test</td></tr>
-    <tr><td><b>Repeated measures</b></td><td>Single group of participants measured at multiple levels.</td><td>K − 1; Interaction: (K − 1)(N − 1); Total: N − 1</td><td>Friedman's ANOVA</td></tr>
-    <tr><td><b>Two way</b></td><td>Effect of two independent variables.</td><td>K − 1; (K1 − 1) × (K2 − 1); N − K; N − 1</td><td>Friedman's ANOVA</td></tr>
-    <tr><td><b>MANOVA</b></td><td>Assessing multiple dependent variables simultaneously.</td><td>K − 1; (K1 − 1) × (K2 − 1); N − 1</td><td>—</td></tr>
-    <tr><td><b>ANCOVA</b></td><td>Adjusts for the influence of a covariate in testing.</td><td>K − 1; (K1 − 1) × (K2 − 1); N − K − 1; N − 1</td><td>—</td></tr>
+    <tr><td><b>Repeated measures</b></td><td>Single group of participants measured at multiple levels.</td><td>Main (conditions): K − 1; Subjects: n − 1; Error: (K − 1)(n − 1); Total: N − 1 (n = participants, N = n × K scores)</td><td>Friedman's ANOVA</td></tr>
+    <tr><td><b>Two way</b></td><td>Effect of two independent variables.</td><td>Main: K − 1 for each factor (K1 − 1 and K2 − 1); Interaction: (K1 − 1) × (K2 − 1); Error: N − K (K = number of cells, K1 × K2); Total: N − 1</td><td>No simple rank test for a full factorial design. Friedman's test is called a "two-way ANOVA by ranks" only because its two ways are subjects and conditions, so it is really the repeated-measures equivalent.</td></tr>
+    <tr><td><b>MANOVA</b></td><td>Assessing multiple dependent variables simultaneously.</td><td>Main: K − 1; Interaction (two-factor designs): (K1 − 1) × (K2 − 1); Error: N − K; Total: N − 1</td><td>—</td></tr>
+    <tr><td><b>ANCOVA</b></td><td>Adjusts for the influence of a covariate in testing.</td><td>Main: K − 1; Interaction (two-factor designs): (K1 − 1) × (K2 − 1); Error: N − K − 1 (one extra df lost for the covariate); Total: N − 1</td><td>—</td></tr>
   </tbody>
 </table>
+<h4>Reading the degrees-of-freedom columns</h4>
+<ul>
+  <li><b>Main</b> = df of an IV's effect (between groups or between conditions) = K − 1, where K = number of groups or levels.</li>
+  <li><b>Interaction</b> = df of the A × B effect = (K1 − 1)(K2 − 1). It exists only when there are two or more IVs, which is why it is blank for one-way and repeated-measures ANOVA.</li>
+  <li><b>Error</b> = within-groups (residual) df, the denominator of the F ratio. One-way: N − K.</li>
+  <li><b>Total</b> = N − 1, where N = total number of scores. The parts (main + interaction + error, plus subjects or covariate where present) always add up to the total.</li>
+</ul>
+<table class="t">
+  <thead><tr><th>Design</th><th>Set-up</th><th>df worked out</th><th>Reported as</th></tr></thead>
+  <tbody>
+    <tr><td><b>One way</b></td><td>3 groups of 10 (N = 30)</td><td>Main 2; Error 27; Total 29</td><td>F(2, 27)</td></tr>
+    <tr><td><b>Repeated measures</b></td><td>10 people, each tested in 3 conditions (N = 30 scores)</td><td>Conditions 2; Subjects 9; Error 2 × 9 = 18; Total 29</td><td>F(2, 18)</td></tr>
+    <tr><td><b>Two way</b></td><td>2 × 3 design, 10 per cell (N = 60, 6 cells)</td><td>A 1; B 2; A × B 2; Error 60 − 6 = 54; Total 59</td><td>F(1, 54) for A; F(2, 54) for B and for A × B</td></tr>
+    <tr><td><b>MANOVA</b> (one-way)</td><td>3 groups of 10, 2 DVs</td><td>Main 2; Error 27; Total 29 (same as one-way ANOVA)</td><td>Wilks' lambda, converted to an approximate F</td></tr>
+    <tr><td><b>ANCOVA</b></td><td>3 groups of 10, 1 covariate</td><td>Main 2; Covariate 1; Error 30 − 3 − 1 = 26; Total 29</td><td>F(2, 26)</td></tr>
+  </tbody>
+</table>
+<div class="why"><b>Why repeated measures has no "interaction" column entry:</b> each person is measured in every condition, so the total variability (N − 1) splits into between-subjects (n − 1) and within-subjects; the within-subjects part splits into conditions (K − 1) and error (K − 1)(n − 1). That error term is technically the <b>subjects × conditions interaction</b>, which is why some books call it "interaction", but it is the error term (the F denominator), so in this table it belongs in the <b>Error</b> column, as the diagram shows.</div>
+<div class="trap"><b>Trap:</b> in the diagram's repeated-measures row, the N inside (K − 1)(N − 1) means the number of <b>participants</b>, while the N under Total means the number of <b>scores</b>. With 10 people and 3 conditions, error df = (3 − 1)(10 − 1) = 18, but total df = 30 − 1 = 29, not 10 − 1. This page writes participants as n to keep the two apart.</div>
 
 <h2 class="sec" id="factor">7 · Factor Analysis &amp; PCA</h2>
 <div class="bfigs pd-figs"><figure class="bfig" id="pd-p012-a"><a href="/sihan-met-flashcards/notes/psycho-didi-figs/p012-a.webp" target="_blank" rel="noopener"><img src="/sihan-met-flashcards/notes/psycho-didi-figs/p012-a.webp" width="2430" height="1646" style="max-width:1458px" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('pd-off')" alt="Factor analysis, PCA and regression"></a><figcaption><b>Factor analysis, PCA and regression.</b> An overview of factor analysis, its confirmatory and exploratory types, PCA with a scree plot, factor rotation, regression and research ethics. <span>Psycho Didi notes &middot; p.&nbsp;12</span></figcaption></figure></div>
@@ -302,6 +368,9 @@
     <tr><td><b>Confirmatory</b></td><td>For verifying another theory.</td><td>Changes cannot be made.</td></tr>
   </tbody>
 </table>
+<p><b>The arrow in the diagram</b> runs from "Method: principal component method" (under Exploratory, unique variance) to the <b>PCA</b> box. It means the PCA box describes that same method: PCA is the most common way to <b>extract</b> factors in an exploratory analysis (it is the default extraction in SPSS), and the PCA box explains how to decide how many to keep.</p>
+<div class="why"><b>Unique vs common variance:</b> the variance of each item has a part it shares with the other items (<b>common variance</b>) and a part special to that item, including measurement error (<b>unique variance</b>). <b>PCA</b> (Karl Pearson, 1901; developed by Harold Hotelling, 1933) analyses the <b>total</b> variance, common plus unique, and condenses many variables into a few components. The <b>common-factor methods</b> (principal axis, maximum likelihood, generalized least squares) analyse only the <b>shared</b> variance, looking for hidden factors that make the items correlate. That is the logic of the diagram's split: the method that keeps unique variance in (PCA) versus the methods that use common variance only.</div>
+<div class="trap"><b>Trap:</b> strictly, PCA is a data-reduction technique rather than "true" factor analysis, even though it is run from the factor analysis menu. Every extraction method first gives an <b>unrotated</b> solution; rotation (below) comes afterwards.</div>
 
 <h3>PCA (Principal Component Analysis)</h3>
 <div class="bfigs pd-figs"><figure class="bfig" id="pd-p012-d"><a href="/sihan-met-flashcards/notes/psycho-didi-figs/p012-d.webp" target="_blank" rel="noopener"><img src="/sihan-met-flashcards/notes/psycho-didi-figs/p012-d.webp" width="531" height="375" style="max-width:319px" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('pd-off')" alt="Scree plot"></a><figcaption><b>Scree plot.</b> A scree plot of eigenvalues against component number for 18 components, with arrows pointing to the 5th and 8th factors. <span>Psycho Didi notes &middot; p.&nbsp;12</span></figcaption></figure></div>
@@ -315,6 +384,10 @@
   <li>In a scree plot: x-axis = order of factors; y-axis = unreduced eigenvalues.</li>
   <li><b>Identity matrix:</b> all the factors have 0 correlation with each other except with themselves.</li>
 </ul>
+<h4>Reading the scree plot</h4>
+<p>A <b>scree plot</b> (Raymond Cattell, 1966) graphs each factor's eigenvalue (y-axis) against its order (x-axis). The first factors explain a lot of variance, so the line drops steeply; later factors explain little, so it flattens out. "Scree" is the loose rubble at the foot of a cliff: the flat tail is the rubble you discard. <b>Rule:</b> find the <b>elbow</b>, where the steep slope turns into the flat tail, and keep the factors before it.</p>
+<p class="eg">In the example plot (18 components), the eigenvalues fall from about 5.5 for the 1st to about 1.1 for the 5th, drop below 1 from the 6th onwards, and the line is almost flat from about the 8th. So the two arrows mark two possible cut-offs: the <b>5th factor</b> is the last one with an eigenvalue above 1 (the Kaiser–Guttman rule would keep 5), and the <b>8th factor</b> is where the curve levels off into scree (the elbow).</p>
+<div class="trap"><b>Trap:</b> the Kaiser–Guttman rule (Louis Guttman, 1954; Henry Kaiser, 1960) keeps every factor with an eigenvalue greater than 1; the scree test keeps the factors above the elbow. The two rules can give different numbers, as in this plot, so researchers also check whether the factors make theoretical sense. Spotting the elbow is a judgement call, which is the scree test's main weakness.</div>
 
 <h3>Factor Rotation</h3>
 <p>Allows us to decide if a second round of FA is required.</p>
@@ -354,30 +427,43 @@
   <tbody>
     <tr><td><b>Test–retest</b></td><td>Give the test to the same group after some time gap, and correlate the two tests (2 administrations).</td><td>Source of error: practice effect, time sampling error, carryover effects.</td></tr>
     <tr><td><b>Parallel / equivalent forms</b></td><td>Correlate the new test with a previous version of the test or a similar test.</td><td>Can be done with or without a time gap.</td></tr>
-    <tr><td><b>Split half</b></td><td>Comparing the first half of the score with the 2nd half; odd-even method may be used.</td><td>Formula: r = 2r / (1 + r). Similar to Cronbach's alpha but can only be used for dichotomous items.</td></tr>
-    <tr><td><b>Internal consistency</b></td><td>Correlating performance on each item with overall performance across participants.</td><td>—</td></tr>
-    <tr><td><b>Kuder–Richardson method</b></td><td>Internal consistency for dichotomous items.</td><td>—</td></tr>
+    <tr><td><b>Split half</b></td><td>Comparing the first half of the score with the 2nd half; odd-even method may be used.</td><td>Formula: r = 2r / (1 + r), i.e. full-test r = 2 × (half-test r) / (1 + half-test r). This is the Spearman–Brown formula with K = 2: each half is only half as long as the real test, so the raw correlation between halves underestimates reliability. Example: halves correlate .60, so full-test reliability = 1.20 / 1.60 = .75. Works for any item format.</td></tr>
+    <tr><td><b>Internal consistency</b></td><td>Correlating performance on each item with overall performance across participants.</td><td>Methods (as in the diagram): Cronbach's alpha, Kuder–Richardson, Spearman–Brown correction.</td></tr>
+    <tr><td><b>Kuder–Richardson method</b></td><td>Internal consistency for dichotomous items.</td><td>Similar to Cronbach's alpha but can only be used for dichotomous items.</td></tr>
     <tr><td><b>Inter-rater</b></td><td>Agreement of raters with regards to performance of participants.</td><td>Cohen's kappa is used (r should be &gt; .8).</td></tr>
   </tbody>
 </table>
 <div class="rule"><b>Key — Spearman–Brown correction:</b> used to correct for the effect of the length of the test. Formula: Kr / (1 + (K − 1)r), where K = test length; r = correlation.</div>
 <div class="rule"><b>Key — Cronbach's alpha:</b> average of all possible split halves; applicable to dichotomous and polytomous items.</div>
+<h4>The three internal consistency methods</h4>
+<p>In the diagram, Cronbach's alpha, Spearman–Brown and Kuder–Richardson all branch off <b>internal consistency</b> as its methods: each estimates reliability from a <b>single administration</b> by checking whether the items of one test hang together.</p>
+<table class="t">
+  <thead><tr><th>Method</th><th>Who / when</th><th>Item type</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><b>Cronbach's alpha</b></td><td>Lee Cronbach, 1951</td><td>Any: dichotomous or polytomous (e.g. Likert)</td><td>Average of all possible split halves; the most commonly reported reliability coefficient.</td></tr>
+    <tr><td><b>Kuder–Richardson</b> (KR-20, KR-21)</td><td>G. Frederic Kuder and M. W. Richardson, 1937</td><td>Dichotomous only (right/wrong, yes/no)</td><td>Same idea as alpha: KR-20 is what alpha becomes when items are scored 0/1. KR-21 is a shortcut that assumes all items are equally difficult.</td></tr>
+    <tr><td><b>Spearman–Brown correction</b></td><td>Charles Spearman and William Brown, 1910</td><td>Any</td><td>Not a separate coefficient: it adjusts a reliability for test length, most often stepping a split-half correlation up to full length (K = 2), or predicting reliability if a test is lengthened or shortened.</td></tr>
+  </tbody>
+</table>
+<div class="trap"><b>Trap:</b> "similar to Cronbach's alpha but only for dichotomous items" describes <b>Kuder–Richardson</b>, not split half; split half works with any item format. Most testing textbooks also count split half itself as an internal consistency method, since it needs only one administration.</div>
 
 <h2 class="sec" id="validity">10 · Validity &amp; Threats</h2>
 <div class="bfigs pd-figs"><figure class="bfig" id="pd-p013-b"><a href="/sihan-met-flashcards/notes/psycho-didi-figs/p013-b.webp" target="_blank" rel="noopener"><img src="/sihan-met-flashcards/notes/psycho-didi-figs/p013-b.webp" width="1683" height="857" style="max-width:1010px" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('pd-off')" alt="Types of validity"></a><figcaption><b>Types of validity.</b> A four-part validity wheel (face, content, criterion and construct) with definitions and the concurrent, predictive, convergent and divergent sub-types. <span>Psycho Didi notes &middot; p.&nbsp;13</span></figcaption></figure></div>
 
 
 
+<p><b>Validity</b> (the centre of the wheel) refers to the <b>accuracy of the test</b>: whether it measures what it claims to measure. A test can be reliable (consistent) without being valid, but it cannot be valid without being reliable. Example: a bathroom scale that always reads 2 kg too heavy is reliable but not valid. The four quarters of the wheel are four kinds of evidence for that accuracy.</p>
 
 <table class="t">
   <thead><tr><th>Validity</th><th>Meaning</th></tr></thead>
   <tbody>
     <tr><td><b>Face validity</b></td><td>What a judge or expert thinks about the test; how much a test appears to be accurate (MMPI (Starke Hathaway and J. Charnley McKinley, 1943) has poor face validity).</td></tr>
     <tr><td><b>Content validity</b></td><td>Items are relevant and representative of the target construct.</td></tr>
-    <tr><td><b>Construct validity</b></td><td>Used to validate a theory. Comparing a new test with another test that correlates to the same construct. Refers to the accuracy of the test.</td></tr>
+    <tr><td><b>Construct validity</b></td><td>Used to validate a theory. Comparing a new test with another test that correlates to the same construct. The extent to which the test measures the theoretical trait (construct) it claims to, such as anxiety or intelligence (Lee Cronbach and Paul Meehl, 1955).</td></tr>
     <tr><td><b>Criterion validity</b></td><td>The extent to which the test fulfills the criteria made by another source.</td></tr>
   </tbody>
 </table>
+<div class="trap"><b>Trap:</b> "refers to the accuracy of the test" defines <b>validity as a whole</b> (the centre of the wheel), not construct validity alone. The confusion has a source: the modern unified view (Samuel Messick, 1989) treats all validity evidence as ultimately evidence for construct validity. For an MCQ asking for the general definition, answer "validity".</div>
 <h3>Sub-types</h3>
 <ul>
   <li><b>Concurrent validity</b> (criterion): the extent that a measure simultaneously relates to another measure that it is supposed to relate to, e.g. comparing a new personality questionnaire with the 16PF (Raymond Cattell).</li>
