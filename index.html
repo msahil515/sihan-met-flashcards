@@ -710,7 +710,7 @@
     <b>Current focus: the live four.</b> SGT, Amity, RML, NIMHANS and Manipal are closed for 2026 and sit in the <a href="archive/">Archive</a>, nothing deleted, every mock still playable from the folded block at the bottom of Tests. What's left to actually sit:
     <ul>
       <li><b>IHBAS Delhi</b> — four real papers live as mocks (2020, 2024, April 2024 Series D, 2025) and the 100-question blueprint checked against 292 of its own questions. Next notification not out yet, watched twice a day. <a href="quiz/ihbas-2025/">Latest mock →</a> · <a href="syllabus/#ihbas">syllabus →</a></li>
-      <li><b>CIP Ranchi</b> — syllabus rebuilt from the real CIP 2020 paper, all 100 items classified. CBT historically ~Feb, next cycle late 2026 / early 2027. <a href="syllabus/#cip">Syllabus →</a></li>
+      <li><b>CIP Ranchi</b> — the real CIP 2020 paper is live as a mock (100 Qs, key checked) and the syllabus is rebuilt from it, all 100 items classified. CBT historically ~Feb, next cycle late 2026 / early 2027. <a href="take/screen.html?m=cip-2020">CIP 2020 mock →</a> · <a href="syllabus/#cip">Syllabus →</a></li>
       <li><b>JSS Mysuru</b> — the only one with a hard published date: <b>27 Oct 2026</b> test (10 AM, report 9 AM) + viva 27 afternoon to 28 Oct, moved from 16 Oct by JSS notice of 23 Sep. Hall ticket downloadable from 9 Oct. Official nine-subject syllabus quoted verbatim off the brochure. <a href="syllabus/#jss">Syllabus →</a></li>
       <li><b>DIMHANS Dharwad</b> — both courses mapped, Karnataka-domicile requirement flagged. Confirming which one is the RCI-approved course before anything else gets built. <a href="syllabus/#dimhans">Syllabus →</a></li>
     </ul>
@@ -895,6 +895,18 @@ const MOCKS = [
     scoring: { plus: 1, minus: 0.25 },
     sections: { general: 14, assessment: 12, social: 10, personality: 10, physio: 10, dev: 10, clinical: 12, disorders: 12, research: 10 },
     meta: "100 more real past-paper Qs, none of Mock 1's questions or concepts · nine core subjects, same split as Mock 1 · keys checked twice · none repeat from JSS Mock 1, JSS Mock 2 or SGT · results split by subject",
+    fresh: true,
+    nimhans: false
+  },
+  {
+    id: "cip-2020",
+    title: "CIP Ranchi 2020 (real paper)",
+    path: "take/screen.html?m=cip-2020",
+    total: 100,
+    storageKey: "cip-2020-results-v1",
+    scoring: { plus: 1, minus: 0.25 },
+    sections: { general: 27, disorders: 24, physio: 15, research: 9, assessment: 7, personality: 7, dev: 6, clinical: 4, social: 1 },
+    meta: "CIP Ranchi's own 2020 M.Phil paper · all 100 Qs word for word · key from the Panwar pack, re-checked (Q90 to Q100 set from standard texts, the pack's page is missing) · concept + trap per wrong option · results split by subject",
     fresh: true,
     nimhans: false
   },
@@ -1111,6 +1123,7 @@ const RESOURCES = [
 ];
 
 const NEWS = [
+  { date: "2026-11-20", title: "CIP Ranchi 2020: the real paper, all 100 Qs", desc: "CIP's own 2020 M.Phil Clinical Psychology entrance, word for word from the Panwar copy in your 76-page pack. Answers from the pack for Q1 to Q89, every one re-checked; the pack's page for Q90 to Q100 is missing, so those keys come from standard texts and say so. Q1's printed letter was wrong (the pack explains sensation but prints adaptation). Every card has the concept, why each wrong option is wrong and the Final Textbook section. The real paper is 60 minutes with no negative marking.", href: "take/screen.html?m=cip-2020" },
   { date: "2026-11-20", title: "IHBAS April 2024 (MP-2024 Series D): the real paper, keyed", desc: "The \"IHBAS 2024 april\" scan you sent is a separate sitting from the October 2024 booklet, coded MP-2024, Series D. All 99 questions on the scan are up word for word (the page with Q100 is missing from the file), every answer from the signed final key on its last page. The four figure questions show the figure from the paper. Each question has the concept from scratch, why each wrong option is wrong and where it is in your Final Textbook; 7 carry a key-debate note where the official key is arguable.", href: "take/screen.html?m=ihbas-2024-d" },
   { date: "2026-11-20", title: "St John's Mock 2: 100 more real PYQs for the 25th", desc: "A second full-length St John's paper. 100 genuine past-paper questions with none of Mock 1's questions or concepts, none from the JSS mocks or SGT, and IHBAS 2024/2025 left out. Same nine-subject split as Mock 1 so the two results compare. Keys checked twice, repeats of one concept capped. Source badge, full explanation and traps on every card.", href: "take/screen.html?m=sjmc-mock-2" },
   { date: "2026-11-11", title: "St John's: Mock 1 (100 Qs) + paper and interview prep for the 25th", desc: "St John's MClinPsy entrance and interview are both on 25 Nov, report 8:45 AM, apply by 19 Nov. Mock 1 is the real paper's length: 100 genuine past-paper questions across the nine core subjects, none repeated from the JSS mocks or SGT, keys checked. The St John's page has the application steps, a 14-day plan, pacing for 100 in 90 minutes, what the panel marks, 17 interview cards built on the department's own services (autism, alcohol, suicide-attempt, perinatal and geriatric work), and the day itself, with drill mode.", href: "st-johns/" },
