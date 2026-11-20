@@ -37,7 +37,7 @@ test("new interview levels are appended, stable, and complete", () => {
 });
 
 test("all card IDs remain unique and experience prompts are explicitly fill-in", () => {
-  const ids = ["dis", "jss"].flatMap(world => viva[world].levels.flatMap(level => (level.cards || []).map(card => card.id)));
+  const ids = ["dis", "jss", "sjc"].flatMap(world => viva[world].levels.flatMap(level => (level.cards || []).map(card => card.id)));
   assert.equal(new Set(ids).size, ids.length);
   for (const level of viva.jss.levels.slice(-2)) {
     const card = level.cards.find(item => item.id.endsWith("-exp1"));
@@ -72,4 +72,18 @@ test("specific theory cards cite sources that cover their definitions", () => {
   assert.match(sld.q, /specific learning disorder \(SLD\)/);
   assert.match(sld.a, /general learning difficulty/);
   assert.ok(sld.n.includes("psychiatry.org/patients-families/specific-learning-disorder/what-is-specific-learning-disorder"));
+});
+
+test("St John's world: complete cards, a Panel Final, and a fill-in for the JSS result", () => {
+  const levels = viva.sjc.levels;
+  assert.deepEqual(Array.from(levels, level => level.k), ["open", "dept", "fit", "case", "tools", "final"]);
+  assert.equal(levels.at(-1).final, 12);
+  const cards = levels.flatMap(level => level.cards || []);
+  assert.equal(cards.length, 49);
+  assert.ok(cards.every(card => card.id.startsWith("sjc-") && card.q && card.a));
+  assert.ok(cards.every(card => !card.f === !card.fa), "follow-up always has its answer");
+  assert.ok(cards.every(card => !/\u2014/.test(JSON.stringify(card))), "no em dashes");
+  const jssResult = cards.find(card => card.id === "sjc-o6");
+  assert.match(jssResult.a, /Personal experience template/);
+  assert.match(jssResult.h, /Never invent/);
 });
