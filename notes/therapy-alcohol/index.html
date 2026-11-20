@@ -179,4 +179,5 @@
  button.addEventListener('click',async function(){if(!markdownText){status.textContent='Markdown is not ready. Use the download link or retry loading this page.';return}try{if(!navigator.clipboard||!navigator.clipboard.writeText)throw new Error('Clipboard unavailable');await navigator.clipboard.writeText(markdownText);status.textContent='Copied the full study notes, context and source registry.'}catch(error){details.open=true;textarea.focus();textarea.select();status.textContent='Clipboard access was denied. The full Markdown is selected below for manual copying.'}});
 }());
 </script>
+<script src="/sihan-met-flashcards/notes/note-highlight.js"></script>
 </body></html>
