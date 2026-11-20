@@ -258,6 +258,19 @@ const MOCKS = [
     tags: ["deep explanations", "100% real PYQ", "official key", "real distractors", "IHBAS 2024", "untimed practice"]
   },
   {
+    id: "ihbas-2024-d",
+    title: "IHBAS April 2024: MP-2024 Series D (real paper)",
+    sub: "99 real Qs · the paper you filed as IHBAS April 2024 (coded MP-2024, Series D) · official signed key · untimed Practice + Full run",
+    path: "../take/screen.html?m=ihbas-2024-d",
+    total: 99,
+    storageKey: "ihbas-2024-d-results-v1",
+    sections: { general: 27, personality: 15, disorders: 14, dev: 12, social: 11, research: 8, clinical: 6, assessment: 4, physio: 2 },
+    blurb: "The \"IHBAS 2024 april\" scan you sent: a separate 100-question sitting coded MP-2024, Series D, not the October 2024 booklet (none of its questions are in that one). The college is not printed anywhere on it. All 99 questions on the scan are transcribed word for word; the page with Q100 is missing from the file. Every answer comes from the signed final key on the last page, converted with the rule written under it (Series D Q1 = Series A Q76). The four figure questions (Guilford's cube, the Poggendorff illusion, Jung's psyche, the extinction-burst graph) show the figure from the paper. Each question has the concept from scratch, why each wrong option is wrong, and where it sits in your Final Textbook. 7 items carry a \u26a0 key-debate note where the official key is arguable (Hurlock's stages, adrenaline vs epinephrine, the stress question and four more); the official key is still what scores.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "official key", "MP-2024 Series D", "99 Q", "figures from the paper", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "ihbas-2025",
     title: "IHBAS 2025 PYQ Mock (real paper)",
     sub: "100 real Qs · IHBAS Delhi M.Phil Clinical Psychology (MPCP) entrance 2025 · Series A · official key · untimed Practice + Full run",
@@ -456,7 +469,7 @@ const GROUPS = [
     members: ["amity-2023", "amity-recall"] },
   { id: "ihbas", title: "IHBAS",
     sub: "IHBAS Delhi M.Phil Clinical Psychology entrances, real papers with verified keys",
-    members: ["ihbas-2025", "ihbas-2024", "ihbas-2020"] },
+    members: ["ihbas-2025", "ihbas-2024-d", "ihbas-2024", "ihbas-2020"] },
   { id: "rml", archived: true, title: "RML",
     sub: "2026 cycle closed — kept live as drill. ABVIMS / Dr RML Hospital + GGSIPU papers, the CET-166 depth-calibration set, 2020 through 2025",
     members: ["rml-2020", "rml-2021", "rml-2022", "rml-2023", "rml-2024", "rml-2025", "rml-practice-1"] },
