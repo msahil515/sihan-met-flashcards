@@ -284,6 +284,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "CIP 2020", "key checked", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "cip-2023",
+    title: "CIP Ranchi 2023: recall set",
+    sub: "79 Qs · one on every topic students recalled from the CIP 2023 exam · keyed from standard texts · untimed",
+    path: "../take/screen.html?m=cip-2023",
+    total: 79,
+    storageKey: "cip-2023-results-v1",
+    sections: { general: 16, assessment: 12, research: 11, social: 11, disorders: 7, physio: 6, personality: 6, dev: 6, clinical: 4 },
+    blurb: "No CIP 2023 paper exists. What you sent as \"CIP 2023.pdf\" is the list students made after the exam, \"Topics from where the questions in CIP 2023 Entrance Exam were asked\", 75 lines. This set has one question on every line of it (79 in all; the two lines that say 2 to 3 questions came, validity and reliability and social identity theory, get 3 each), written to the topic the way CIP asks it and keyed from standard texts. Where the list remembers something wrong or unclear (MMPI-2-RF validity scales, the F test's tails, the triad of depression, the poem question's options) a Key note says so. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Real CIP: 100 MCQs, 60 minutes, no negative marking.",
+    fresh: true,
+    deepExp: true,
+    tags: ["CIP 2023 topics", "built from the recall list", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "ihbas-2025",
     title: "IHBAS 2025 PYQ Mock (real paper)",
     sub: "100 real Qs · IHBAS Delhi M.Phil Clinical Psychology (MPCP) entrance 2025 · Series A · official key · untimed Practice + Full run",
@@ -484,8 +497,8 @@ const GROUPS = [
     sub: "IHBAS Delhi M.Phil Clinical Psychology entrances, real papers with verified keys",
     members: ["ihbas-2025", "ihbas-2024-d", "ihbas-2024", "ihbas-2020"] },
   { id: "cip", title: "CIP Ranchi",
-    sub: "CIP Ranchi M.Phil Clinical Psychology entrance: 100 MCQs in 60 minutes, 1 mark each, no negative marking. Real papers",
-    members: ["cip-2020"] },
+    sub: "CIP Ranchi M.Phil Clinical Psychology entrance: 100 MCQs in 60 minutes, 1 mark each, no negative marking. The real 2020 paper and the 2023 recall set",
+    members: ["cip-2020", "cip-2023"] },
   { id: "rml", archived: true, title: "RML",
     sub: "2026 cycle closed — kept live as drill. ABVIMS / Dr RML Hospital + GGSIPU papers, the CET-166 depth-calibration set, 2020 through 2025",
     members: ["rml-2020", "rml-2021", "rml-2022", "rml-2023", "rml-2024", "rml-2025", "rml-practice-1"] },

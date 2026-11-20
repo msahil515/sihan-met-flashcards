@@ -710,7 +710,7 @@
     <b>Current focus: the live four.</b> SGT, Amity, RML, NIMHANS and Manipal are closed for 2026 and sit in the <a href="archive/">Archive</a>, nothing deleted, every mock still playable from the folded block at the bottom of Tests. What's left to actually sit:
     <ul>
       <li><b>IHBAS Delhi</b> — four real papers live as mocks (2020, 2024, April 2024 Series D, 2025) and the 100-question blueprint checked against 292 of its own questions. Next notification not out yet, watched twice a day. <a href="quiz/ihbas-2025/">Latest mock →</a> · <a href="syllabus/#ihbas">syllabus →</a></li>
-      <li><b>CIP Ranchi</b> — the real CIP 2020 paper is live as a mock (100 Qs, key checked) and the syllabus is rebuilt from it, all 100 items classified. CBT historically ~Feb, next cycle late 2026 / early 2027. <a href="take/screen.html?m=cip-2020">CIP 2020 mock →</a> · <a href="syllabus/#cip">Syllabus →</a></li>
+      <li><b>CIP Ranchi</b> — the real CIP 2020 paper is live as a mock (100 Qs, key checked) and the syllabus is rebuilt from it, all 100 items classified. A 79-question set covers every topic students recalled from CIP 2023. CBT historically ~Feb, next cycle late 2026 / early 2027. <a href="take/screen.html?m=cip-2020">CIP 2020 mock →</a> · <a href="take/screen.html?m=cip-2023">CIP 2023 recall set →</a> · <a href="syllabus/#cip">Syllabus →</a></li>
       <li><b>JSS Mysuru</b> — the only one with a hard published date: <b>27 Oct 2026</b> test (10 AM, report 9 AM) + viva 27 afternoon to 28 Oct, moved from 16 Oct by JSS notice of 23 Sep. Hall ticket downloadable from 9 Oct. Official nine-subject syllabus quoted verbatim off the brochure. <a href="syllabus/#jss">Syllabus →</a></li>
       <li><b>DIMHANS Dharwad</b> — both courses mapped, Karnataka-domicile requirement flagged. Confirming which one is the RCI-approved course before anything else gets built. <a href="syllabus/#dimhans">Syllabus →</a></li>
     </ul>
@@ -907,6 +907,18 @@ const MOCKS = [
     scoring: { plus: 1, minus: 0.25 },
     sections: { general: 27, disorders: 24, physio: 15, research: 9, assessment: 7, personality: 7, dev: 6, clinical: 4, social: 1 },
     meta: "CIP Ranchi's own 2020 M.Phil paper · all 100 Qs word for word · key from the Panwar pack, re-checked (Q90 to Q100 set from standard texts, the pack's page is missing) · concept + trap per wrong option · results split by subject",
+    fresh: true,
+    nimhans: false
+  },
+  {
+    id: "cip-2023",
+    title: "CIP Ranchi 2023: recall set",
+    path: "take/screen.html?m=cip-2023",
+    total: 79,
+    storageKey: "cip-2023-results-v1",
+    scoring: { plus: 1, minus: 0.25 },
+    sections: { general: 16, assessment: 12, research: 11, social: 11, disorders: 7, physio: 6, personality: 6, dev: 6, clinical: 4 },
+    meta: "No real CIP 2023 paper exists · one question on every topic students recalled from the exam, 79 in all · keyed from standard texts, Key notes where the recall is shaky · concept + trap per wrong option · results split by subject",
     fresh: true,
     nimhans: false
   },
@@ -1123,6 +1135,7 @@ const RESOURCES = [
 ];
 
 const NEWS = [
+  { date: "2026-11-20", title: "CIP Ranchi 2023: a question on every recalled topic", desc: "There is no CIP 2023 paper, only the list students made of what came in the exam (your 7-page \"CIP 2023.pdf\"). This set turns every line of that list into a question, 79 in all: MMPI-2-RF items, Bonferroni, HARKing, Premack, Paranjpe's caste book, Rorschach determinants, social identity theory and the rest. Each one has the concept, why each wrong option is wrong and the Final Textbook section. Where the list itself is shaky a Key note says so.", href: "take/screen.html?m=cip-2023" },
   { date: "2026-11-20", title: "CIP Ranchi 2020: the real paper, all 100 Qs", desc: "CIP's own 2020 M.Phil Clinical Psychology entrance, word for word from the Panwar copy in your 76-page pack. Answers from the pack for Q1 to Q89, every one re-checked; the pack's page for Q90 to Q100 is missing, so those keys come from standard texts and say so. Q1's printed letter was wrong (the pack explains sensation but prints adaptation). Every card has the concept, why each wrong option is wrong and the Final Textbook section. The real paper is 60 minutes with no negative marking.", href: "take/screen.html?m=cip-2020" },
   { date: "2026-11-20", title: "IHBAS April 2024 (MP-2024 Series D): the real paper, keyed", desc: "The \"IHBAS 2024 april\" scan you sent is a separate sitting from the October 2024 booklet, coded MP-2024, Series D. All 99 questions on the scan are up word for word (the page with Q100 is missing from the file), every answer from the signed final key on its last page. The four figure questions show the figure from the paper. Each question has the concept from scratch, why each wrong option is wrong and where it is in your Final Textbook; 7 carry a key-debate note where the official key is arguable.", href: "take/screen.html?m=ihbas-2024-d" },
   { date: "2026-11-20", title: "St John's Mock 2: 100 more real PYQs for the 25th", desc: "A second full-length St John's paper. 100 genuine past-paper questions with none of Mock 1's questions or concepts, none from the JSS mocks or SGT, and IHBAS 2024/2025 left out. Same nine-subject split as Mock 1 so the two results compare. Keys checked twice, repeats of one concept capped. Source badge, full explanation and traps on every card.", href: "take/screen.html?m=sjmc-mock-2" },
