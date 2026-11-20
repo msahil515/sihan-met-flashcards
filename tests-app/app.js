@@ -87,90 +87,110 @@
   }
 
 
-  /* ---------- live starfield + confetti (neon game skin) ---------- */
+  /* ---------- sunset world: dust motes on #sky, spark bursts on #fx ---------- */
   var CALM = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   var FX = (function () {
     var sky = document.getElementById("sky"), fxc = document.getElementById("fx");
     var sx = sky.getContext("2d"), fx = fxc.getContext("2d"), W = 0, H = 0, DPR = Math.min(2, window.devicePixelRatio || 1);
-    var stars = [], bits = [], warp = 0, shoot = null, fxOn = false;
-    var HUES = ["#91b4c4", "#adb8c2", "#91b4c4", "#c9b582", "#95bda5", "#ffffff"];
+    var motes = [], bits = [], warp = 0, fxOn = false;
+    var PC = ["#FFE7A0", "#FFC24B", "#FF8257", "#3FD8BF", "#FFF6E0"];
     function size() {
       W = window.innerWidth; H = window.innerHeight;
       [sky, fxc].forEach(function (c) { c.width = W * DPR; c.height = H * DPR; c.getContext("2d").setTransform(DPR, 0, 0, DPR, 0, 0); });
-      var n = Math.round(Math.min(220, W * H / 3200));
-      stars = [];
-      for (var i = 0; i < n; i++) stars.push({ x: Math.random() * W, y: Math.random() * H, z: 0.3 + Math.random() * 1.7, t: Math.random() * 6.3, c: Math.random() < 0.18 ? HUES[i % 3] : "#fff" });
+      var n = Math.round(Math.max(18, Math.min(46, W * H / 12000)));
+      motes = [];
+      for (var i = 0; i < n; i++) motes.push({ x: Math.random() * W, y: Math.random() * H, r: 0.6 + Math.random() * 1.8, s: 0.012 + Math.random() * 0.03, p: Math.random() * 6.28 });
     }
-    function drawSky(dt) {
+    function drawSky(dt, t) {
       sx.clearRect(0, 0, W, H);
-      var sp = (0.012 + warp * 0.5) * dt;
+      var sp = 1 + warp * 5;
       warp = Math.max(0, warp - dt * 0.0012);
-      for (var i = 0; i < stars.length; i++) {
-        var s = stars[i];
-        s.y += sp * s.z; s.t += dt * 0.002 * s.z;
-        if (s.y > H + 4) { s.y = -4; s.x = Math.random() * W; }
-        var a = 0.35 + 0.65 * Math.abs(Math.sin(s.t)), r = s.z * 0.8;
-        sx.globalAlpha = a; sx.fillStyle = s.c;
-        if (warp > 0.05) { sx.fillRect(s.x - r / 2, s.y - warp * 18 * s.z, r, warp * 18 * s.z + r); }
-        else { sx.beginPath(); sx.arc(s.x, s.y, r, 0, 6.283); sx.fill(); }
+      sx.fillStyle = "#FFE2B0"; sx.shadowColor = "#FFC27A"; sx.shadowBlur = 8;
+      for (var i = 0; i < motes.length; i++) {
+        var d = motes[i];
+        d.y -= d.s * dt * sp;
+        if (d.y < -6) { d.y = H + 6; d.x = Math.random() * W; }
+        sx.globalAlpha = 0.25 + 0.3 * (1 + Math.sin(t / 900 + d.p)) / 2 + Math.min(0.3, warp * 0.3);
+        sx.beginPath(); sx.arc(d.x + Math.sin(t / 2400 + d.p) * 10, d.y, d.r, 0, 6.283); sx.fill();
       }
-      if (!shoot && Math.random() < dt / 7000) shoot = { x: Math.random() * W * 0.8, y: Math.random() * H * 0.4, l: 0 };
-      if (shoot) {
-        shoot.l += dt * 0.9;
-        var g = sx.createLinearGradient(shoot.x + shoot.l - 90, shoot.y + (shoot.l - 90) * 0.45, shoot.x + shoot.l, shoot.y + shoot.l * 0.45);
-        g.addColorStop(0, "rgba(145,180,196,0)"); g.addColorStop(1, "rgba(255,255,255,.95)");
-        sx.globalAlpha = 1; sx.strokeStyle = g; sx.lineWidth = 2; sx.beginPath();
-        sx.moveTo(shoot.x + shoot.l - 90, shoot.y + (shoot.l - 90) * 0.45); sx.lineTo(shoot.x + shoot.l, shoot.y + shoot.l * 0.45); sx.stroke();
-        if (shoot.l > W) shoot = null;
-      }
-      sx.globalAlpha = 1;
+      sx.globalAlpha = 1; sx.shadowBlur = 0;
     }
     function drawFx(dt) {
+      var f = dt / 16.7;
       fx.clearRect(0, 0, W, H);
       for (var i = bits.length - 1; i >= 0; i--) {
         var b = bits[i];
-        b.vy += 0.0009 * dt; b.vx *= 0.995; b.x += b.vx * dt; b.y += b.vy * dt; b.r += b.vr * dt; b.life -= dt;
-        if (b.life <= 0 || b.y > H + 20) { bits.splice(i, 1); continue; }
-        fx.save(); fx.globalAlpha = Math.min(1, b.life / 400); fx.translate(b.x, b.y); fx.rotate(b.r);
-        fx.fillStyle = b.c; fx.shadowColor = b.c; fx.shadowBlur = 8;
-        fx.fillRect(-b.w / 2, -b.h / 2, b.w, b.h * Math.abs(Math.cos(b.r * 2)) + 1); fx.restore();
+        b.x += b.vx * f; b.y += b.vy * f; b.vy += 0.22 * f; b.vx *= Math.pow(0.98, f); b.life -= b.fade * f;
+        if (b.life <= 0 || b.y > H + 30) { bits.splice(i, 1); continue; }
+        fx.globalAlpha = Math.max(0, Math.min(1, b.life)); fx.fillStyle = b.c; fx.shadowColor = b.c; fx.shadowBlur = 10;
+        if (b.star) {
+          fx.save(); fx.translate(b.x, b.y); fx.rotate(b.life * 6);
+          fx.fillRect(-b.r * 1.4, -b.r * 0.35, b.r * 2.8, b.r * 0.7); fx.fillRect(-b.r * 0.35, -b.r * 1.4, b.r * 0.7, b.r * 2.8); fx.restore();
+        } else { fx.beginPath(); fx.arc(b.x, b.y, b.r, 0, 6.283); fx.fill(); }
       }
+      fx.globalAlpha = 1; fx.shadowBlur = 0;
       if (!bits.length) { fx.clearRect(0, 0, W, H); fxOn = false; }
     }
     var last = 0;
     function frame(t) {
       var dt = Math.min(50, t - (last || t)); last = t;
-      if (!document.hidden) { drawSky(dt); if (fxOn) drawFx(dt); }
+      if (!document.hidden) { drawSky(dt, t); if (fxOn) drawFx(dt); }
       requestAnimationFrame(frame);
     }
     size(); window.addEventListener("resize", size);
-    if (CALM) drawSky(0); else requestAnimationFrame(frame);
+    if (CALM) drawSky(0, 0); else requestAnimationFrame(frame);
+    /* spark burst from (x, y); same name the game code (and revenge.js) already calls */
     function confetti(n, x, y) {
       if (CALM) return;
       x = x == null ? W / 2 : x; y = y == null ? H * 0.35 : y;
+      n = Math.min(n, 420 - bits.length);
       for (var i = 0; i < n; i++) {
-        var a = Math.random() * 6.283, v = 0.25 + Math.random() * 0.75;
-        bits.push({ x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 0.55, r: Math.random() * 6, vr: (Math.random() - 0.5) * 0.02,
-          w: 5 + Math.random() * 6, h: 8 + Math.random() * 8, c: HUES[i % HUES.length], life: 1600 + Math.random() * 1200 });
+        var a = Math.random() * 6.283, v = 3 + Math.random() * (n > 60 ? 10 : 7);
+        bits.push({ x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 3, life: 1, fade: 0.014 + Math.random() * 0.008,
+          r: 2 + Math.random() * 3.5, c: PC[i % PC.length], star: i % 4 === 0 });
       }
       fxOn = true;
     }
     return { confetti: confetti, boost: function (k) { warp = Math.min(1.4, warp + (k || 1)); } };
   })();
-  function flash(kind) {
+  /* one-shot screen light: warm at the tapped option on a hit, rose at the edges on a miss */
+  function flash(kind, rc) {
     var el = document.createElement("div"); el.className = "flash " + kind;
-    document.body.appendChild(el); setTimeout(function () { el.remove(); }, 520);
+    if (rc) { el.style.setProperty("--fx", Math.round(rc.left + rc.width / 2) + "px"); el.style.setProperty("--fy", Math.round(rc.top + rc.height / 2) + "px"); }
+    document.body.appendChild(el); setTimeout(function () { el.remove(); }, 650);
   }
   function banner(big, small) {
     var el = document.createElement("div"); el.className = "banner"; el.innerHTML = big + (small ? "<small>" + small + "</small>" : "");
     document.body.appendChild(el); setTimeout(function () { el.remove(); }, 1350);
   }
+  var I = {
+    flame: '<svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path fill="url(#g-flame)" d="M12.6 2.2c.6 3.2 4.9 5.3 4.9 10.6a5.6 5.6 0 0 1-11.2.3c0-2.4 1.2-4.1 2.4-5.2.1 2 1 3.2 2.1 3.5-.4-3.3-.3-6.4 1.8-9.2z"/><path fill="#FFF1C2" opacity=".85" d="M12.2 13.4c1.6 1.4 2.6 2.6 2.6 4.2a2.8 2.8 0 0 1-5.6 0c0-1.3.9-2.2 1.6-2.8.1.9.6 1.4 1.1 1.5-.2-1.1-.1-2 .3-2.9z"/></svg>',
+    spark: '<svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path fill="url(#g-star)" d="M12 1.5l2.4 7.9 8 2.6-8 2.6L12 22.5l-2.4-7.9-8-2.6 8-2.6z"/></svg>',
+    next: '<svg viewBox="0 0 24 24" class="ico nx" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    back: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    close: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>',
+    star: function (on) { return '<svg viewBox="0 0 24 24" class="' + (on ? "on" : "off") + '" aria-hidden="true"><path fill="' + (on ? "url(#g-star)" : "rgba(255,240,220,.16)") + '" stroke="' + (on ? "#FFF3C9" : "rgba(255,240,220,.3)") + '" stroke-width="1" d="M12 2.2l2.9 6.2 6.7.8-5 4.6 1.4 6.7L12 17.1l-6 3.4 1.4-6.7-5-4.6 6.7-.8z"/></svg>'; }
+  };
   function levelUp() {
+    var lv = level(), t = title(), newTitle = Math.floor((lv - 2) / 2) !== Math.floor((lv - 1) / 2);
     var el = document.createElement("div"); el.className = "lvup";
-    el.innerHTML = '<div class="lv-card"><div class="lv-k">LEVEL UP</div><div class="lv-n">' + level() + '</div><div class="lv-t">' + title() + '</div><div class="lv-s">tap to keep going</div></div>';
+    el.innerHTML = '<div class="bg"></div><div class="rays"></div><div class="inner"><div class="disc"><b>' + lv + "</b></div><h2>Level up</h2>" +
+      "<p>Level " + lv + " · " + t + "</p>" + '<div class="chips">' + (newTitle ? '<span class="chip sun">' + I.spark + " New title: " + t + "</span>" : "") +
+      '<span class="chip">' + meta.xp.toLocaleString("en-IN") + " XP</span></div>" + '<button class="btn">Keep going ' + I.next + "</button></div>";
     el.onclick = function () { el.remove(); };
-    document.body.appendChild(el); setTimeout(function () { el.remove(); }, 2600);
-    FX.confetti(140); FX.boost(1.2); buzz([30, 50, 30, 50, 80]);
+    document.body.appendChild(el); setTimeout(function () { el.remove(); }, 4200);
+    setTimeout(function () { FX.confetti(110, window.innerWidth / 2, window.innerHeight * 0.38); }, 250);
+    FX.boost(1.2); buzz([30, 50, 30, 50, 80]);
+  }
+  function countUp(el, to, ms) {
+    var dec = Math.round(to * 100) % 100 ? 2 : 0, end = fmt(to);
+    if (CALM || !el) { if (el) el.textContent = end; return; }
+    var t0 = performance.now();
+    (function step(t) {
+      var k = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - k, 3);
+      el.textContent = k < 1 ? (to * e).toFixed(dec) : end;
+      if (k < 1) requestAnimationFrame(step);
+    })(t0);
   }
 
   /* ---------- explanation renderer (ported from take/screen.html) ---------- */
@@ -263,6 +283,7 @@
   var cur = { s: "home", id: null };
   function go(s, id) { if (window.Speak && Speak.stop) Speak.stop(); cur = { s: s, id: id || cur.id }; render(); }
   function render() {
+    document.body.setAttribute("data-s", cur.s);
     ({ home: home, lobby: lobby, play: play, finish: finish, review: review, study: study, revenge: function () { window.REVENGE.enter(); } })[cur.s]();
   }
   window.nlBack = function () {
@@ -288,42 +309,68 @@
   function hud() {
     var lv = level(), lo = 60 * Math.pow(lv - 1, 2), hi = 60 * Math.pow(lv, 2), pct = Math.round(100 * (meta.xp - lo) / (hi - lo));
     var s = streak();
-    return '<div class="hud"><div class="crest">' + lv + '</div><div class="hud-mid"><div class="hud-t">' + title() + " · " + meta.xp + " XP</div>" +
-      '<div class="xpbar"><i style="width:' + pct + '%"></i><span>' + (hi - meta.xp) + " XP to level " + (lv + 1) + "</span></div></div>" +
-      '<div class="streak' + (s ? " lit" : "") + '"><span class="fl">🔥</span>' + s + "</div></div>";
+    return '<div class="hud"><div class="crest" style="--p:' + pct + '%"><b>' + lv + '</b></div><div class="hud-mid"><div class="hud-t"><b>' + title() + "</b><span>" +
+      meta.xp.toLocaleString("en-IN") + ' XP</span></div><div class="xpbar"><i style="width:' + pct + '%"></i></div><div class="xpnote">' + (hi - meta.xp).toLocaleString("en-IN") +
+      " XP to level " + (lv + 1) + '</div></div><div class="pill streak' + (s ? " lit" : "") + '" title="Day streak">' + I.flame + "<b>" + s + "</b><small>" + (s === 1 ? "day" : "days") + "</small></div></div>";
   }
 
   /* ---------- home ---------- */
-  function mockCard(id) {
+  var STUB = ["linear-gradient(180deg,#FF9A62,#E2553C)", "linear-gradient(180deg,#3FD8BF,#118C80)", "linear-gradient(180deg,#FFC85A,#E68A2E)",
+    "linear-gradient(180deg,#F86A8F,#C23762)", "linear-gradient(180deg,#2FA7B5,#0E6E73)"];
+  function mockCard(id, c) {
     var r = getRun(id), sc = score(id, r), best = meta.best[id], pct = Math.round(100 * sc.answered / sc.N);
     var st = best != null ? starsFor(best) : 0;
     var status = r.done ? "Finished · " + fmt(sc.marks) + " / " + sc.N : sc.answered ? pct + "% done · " + sc.right + " right" : "Not started";
-    return '<button class="mock' + (r.done ? " done" : "") + '" data-go="lobby" data-id="' + id + '"><span class="mi">' + sc.N + '</span><span class="mb"><span class="mt">' +
-      esc(title_of(id)) + '</span><span class="ms">' + status + (best != null ? " · best " + best + "%" : "") + '</span><span class="mbar"><i style="width:' + pct +
-      '%"></i></span></span><span class="stars">' + starHTML(st) + "</span></button>";
+    return '<button class="mock ticket' + (r.done ? " done" : "") + '" data-go="lobby" data-id="' + id + '"><span class="stub" style="--c:' + c + '">' + sc.N + "<small>Qs</small></span>" +
+      '<span class="mb"><span class="mt">' + esc(title_of(id)) + '</span><span class="ms">' + status + '</span><span class="mbar"><i style="width:' + pct + '%"></i></span></span>' +
+      '<span class="best">' + (best != null ? best + "%<small>best</small>" : "<small>new</small>") + '<span class="stars">' + starHTML(st) + "</span></span></button>";
   }
-  function groupHTML(g) {
-    return '<section class="catalog-group"><h2 class="sh">' + esc(g.title) + '</h2><p class="gsub">' + esc(g.sub) + "</p><div class=\"mgrid\">" + g.members.map(mockCard).join("") + "</div></section>";
+  function groupHTML(g, gi) {
+    var c = STUB[(gi || 0) % STUB.length];
+    return '<section class="catalog-group"><h2 class="sh">' + esc(g.title) + '</h2><p class="gsub">' + esc(g.sub) + "</p><div class=\"mgrid\">" +
+      g.members.map(function (id) { return mockCard(id, c); }).join("") + "</div></section>";
+  }
+  /* nearest open exam with a date in its group title, e.g. "St John's Bengaluru (25 Nov)" */
+  var MON = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
+  function nextExam() {
+    var now = new Date(), best = null; now.setHours(0, 0, 0, 0);
+    GROUPS.forEach(function (g) {
+      var m = !g.archived && /\((\d{1,2})\s+([A-Za-z]{3})[a-z]*\)/.exec(g.title), mo = m && MON[m[2].toLowerCase()];
+      if (!m || mo == null) return;
+      var d = new Date(now.getFullYear(), mo, +m[1]), days = Math.round((d - now) / 864e5);
+      if (days < -180) { d.setFullYear(d.getFullYear() + 1); days = Math.round((d - now) / 864e5); }
+      if (days < 0 || days > 120 || (best && best.days <= days)) return;
+      best = { g: g, days: days, name: g.title.replace(/\s*\(.*?\)\s*/, " ").trim() };
+    });
+    return best;
   }
   function home() {
-    var done = meta.days[today()] || 0, frac = Math.min(1, done / DAILY_GOAL), C = 2 * Math.PI * 26;
+    var done = meta.days[today()] || 0, frac = Math.min(1, done / DAILY_GOAL);
     var open = GROUPS.filter(function (g) { return !g.archived; }), closed = GROUPS.filter(function (g) { return g.archived; });
     var nQ = 0, nM = 0; GROUPS.forEach(function (g) { g.members.forEach(function (id) { nM++; nQ += P[id].questions.length; }); });
-    var last = meta.last && P[meta.last] ? meta.last : null;
-    var h = '<div class="screen home-screen">' + hud() + '<div class="scroll home-scroll">' +
-      '<div class="home-layout"><aside class="briefing"><section class="brief-object"><div class="brief-copy"><h1 class="hero">Tests</h1><p class="hero-s">' + nM + " mock tests to choose from</p>" +
-      '<div class="today compact-meter"><div class="ring"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="7"/>' +
-      '<circle cx="32" cy="32" r="26" fill="none" stroke="' + (frac >= 1 ? "#95bda5" : "#91b4c4") + '" stroke-width="7" stroke-linecap="round" stroke-dasharray="' + C +
-      '" stroke-dashoffset="' + C * (1 - frac) + '"/></svg><b>' + done + "</b></div>" +
-      '<div class="today-t"><h3>' + (frac >= 1 ? "Daily goal done" : "Daily goal: " + DAILY_GOAL + " questions") + "</h3><p>" +
-      (frac >= 1 ? "Streak safe for today. Keep the combo going." : (DAILY_GOAL - done) + " to go today") + "</p></div></div>" +
-      (last ? '<button class="btn primary-action" data-go="play" data-id="' + last + '">Continue: ' + esc(title_of(last)) + "</button>" : '<a class="btn primary-action" href="#catalog">Choose a test</a>') +
-      '<svg class="neural-map" viewBox="0 0 360 205" aria-hidden="true"><path d="M176 42c-25-22-66-9-63 20-27 2-41 29-24 48-18 25 3 53 27 47 9 28 40 28 60 12m9-127c25-22 66-9 63 20 27 2 41 29 24 48 18 25-3 53-27 47-9 28-40 28-60 12M180 42v127m-61-105 61 23 58-22m-149 49 91-27 87 27m-126 49 39-22 42 21" fill="none" stroke="#9bdde0" stroke-opacity=".68" stroke-width="2.2"/><path d="M112 62c-8 17-18 31-24 48m153-48c8 17 18 31 24 48m-85-20v79" fill="none" stroke="#d9eff0" stroke-opacity=".4" stroke-width="1.6"/><g fill="#e9b85f"><circle cx="119" cy="64" r="4"/><circle cx="238" cy="64" r="4"/><circle cx="91" cy="113" r="4"/><circle cx="270" cy="113" r="4"/></g><circle cx="180" cy="100" r="5" fill="#e6f1f3"/></svg></div></section>' +
+    var last = meta.last && P[meta.last] ? meta.last : null, ex = nextExam();
+    var poster = ex ? '<section class="poster"><div class="kick">Next exam</div><h1>' + esc(ex.name) + '<span class="soft">' +
+        (ex.days === 0 ? "today" : ex.days === 1 ? "tomorrow" : "in " + ex.days + " days") + "</span></h1><p>" + esc(String(ex.g.sub).split(/\.\s/)[0].replace(/\.$/, "")) + ".</p></section>"
+      : '<section class="poster"><h1>Tests<span class="soft">' + nM + " mocks ready</span></h1><p>" + nQ.toLocaleString() + " questions. Untimed, +1 / −0.25.</p></section>";
+    var resume;
+    if (last) {
+      var lr = getRun(last), ls = score(last, lr), lp = Math.round(100 * ls.answered / ls.N);
+      resume = '<section class="glass resume"><div class="ring" style="--p:' + lp + '"><b>' + ls.answered + "<small>of " + ls.N + "</small></b></div>" +
+        "<div><h3>" + esc(title_of(last)) + "</h3><p>" + (lr.done ? "Finished · " + fmt(ls.marks) + " / " + ls.N : ls.answered ? "Score so far " + fmt(ls.marks) + ", " + ls.right + " right" : "Not started yet") +
+        (meta.best[last] != null ? " · best " + meta.best[last] + "%" : "") + "</p></div>" +
+        '<button class="btn primary-action" data-go="play" data-id="' + last + '">Continue ' + I.next + "</button></section>";
+    } else {
+      resume = '<section class="glass resume none"><div><h3>Pick a paper</h3><p>' + nM + " mocks, " + nQ.toLocaleString() + ' questions. Every right answer feeds your combo.</p></div><a class="btn primary-action" href="#catalog">Choose a test ' + I.next + "</a></section>";
+    }
+    var h = '<div class="screen home-screen">' + hud() + '<div class="scroll home-scroll"><div class="home-layout"><aside class="briefing">' + poster + resume +
+      '<div class="today' + (frac >= 1 ? " met" : "") + '"><b>' + (frac >= 1 ? "Daily goal done" : done + " of " + DAILY_GOAL + " today") + "</b>" +
+      (meta.bestCombo ? '<span class="chip sun">' + I.spark + " Best combo " + meta.bestCombo + "</span>" : "") +
+      '<div class="bar"><i style="width:' + Math.round(100 * frac) + '%"></i></div><p>' + (frac >= 1 ? "Streak safe for today. Keep the combo going." : (DAILY_GOAL - done) + " to go today") + "</p></div>" +
       '<div class="secondary-tools">' + (window.REVENGE ? window.REVENGE.cta() : "") +
-      (SL ? '<button class="btn ghost" data-go="study">To study · ' + SL.counts().open + ' open</button>' : '') + '</div></aside><main class="catalog" id="catalog">' +
+      (SL ? '<button class="btn ghost" data-go="study">To study · ' + SL.counts().open + " open</button>" : "") + '</div></aside><main class="catalog" id="catalog"><h2 class="sec">Papers</h2>' +
       open.map(groupHTML).join("") +
       (closed.length ? '<details class="closed"><summary>Closed cycles (still playable)<small>' + closed.map(function (g) { return g.title; }).join(", ") +
-        "</small></summary>" + closed.map(groupHTML).join("") + "</details>" : "") + '</main></div>' +
+        "</small></summary>" + closed.map(function (g, i) { return groupHTML(g, open.length + i); }).join("") + "</details>" : "") + "</main></div>" +
       '<div class="toggles"><button class="tg' + (meta.sound ? " on" : "") + '" id="tgS">Sound ' + (meta.sound ? "on" : "off") + '</button><button class="tg' +
       (meta.haptic ? " on" : "") + '" id="tgH">Vibration ' + (meta.haptic ? "on" : "off") + '</button></div><div class="toggles" style="margin-top:8px"><button class="tg' + (syncCode() ? " on" : "") + '" id="tgY">Sync ' + (syncCode() || "off") + " ›</button></div>" +
       '<div class="foot">' + nM + " mocks · " + nQ.toLocaleString() + " questions · untimed · +1 / −0.25</div></div></div>";
@@ -379,10 +426,10 @@
   function lobby() {
     var id = cur.id, M = P[id], R = REG[id] || {}, r = getRun(id), sc = score(id, r);
     var wrongN = sc.wrong;
-    var h = '<div class="screen"><div class="ptop"><button class="xbtn" data-go="home">‹</button><div style="flex:1"></div></div><div class="scroll narrow">' +
+    var h = '<div class="screen lobby-screen"><div class="ptop"><button class="xbtn" data-go="home" aria-label="Back to all tests">' + I.back + '</button><div style="flex:1"></div></div><div class="scroll narrow">' +
       '<h1 class="lob-h">' + esc(title_of(id)) + '</h1><p class="lob-s">' + esc(R.sub || M.sub || "") + "</p>" +
       (R.blurb ? '<div class="blurb clip" id="blurb">' + esc(R.blurb) + "</div>" : "") +
-      '<div class="stats"><div class="stat"><b>' + sc.answered + "/" + sc.N + '</b><span>Answered</span></div><div class="stat"><b>' + fmt(sc.marks) +
+      '<section class="glass lob-card"><div class="stats"><div class="stat"><b>' + sc.answered + "/" + sc.N + '</b><span>Answered</span></div><div class="stat"><b>' + fmt(sc.marks) +
       '</b><span>Score</span></div><div class="stat"><b>' + (meta.best[id] != null ? meta.best[id] + "%" : "–") + "</b><span>Best</span></div></div>" +
       '<div class="seg"><button data-m="practice" class="' + (r.mode === "practice" ? "on" : "") + '">Practice</button><button data-m="full" class="' +
       (r.mode === "full" ? "on" : "") + '">Full run</button></div><p class="hint">' +
@@ -391,7 +438,7 @@
       '<button class="btn" id="bPlay">' + (r.done ? "Play again" : sc.answered ? "Continue (Q" + (r.i + 1) + ")" : "Start") + "</button>" +
       (r.done || sc.answered ? '<button class="btn ghost" data-go="' + (r.done ? "finish" : "review") + '" data-id="' + id + '">' + (r.done ? "Last result" : "Review answers") + "</button>" : "") +
       (wrongN ? '<button class="btn bad" id="bRedo">Redo the ' + wrongN + " wrong</button>" : "") +
-      (sc.answered ? '<button class="btn ghost" id="bReset">Reset this mock</button>' : "") + "</div></div>";
+      (sc.answered ? '<button class="btn ghost" id="bReset">Reset this mock</button>' : "") + "</section></div></div>";
     app.innerHTML = h;
     var bl = document.getElementById("blurb"); if (bl) bl.onclick = function () { bl.classList.toggle("clip"); };
     app.querySelectorAll(".seg button").forEach(function (b) {
@@ -435,8 +482,10 @@
     }).join("");
     var lastStep = pos >= len - 1;
     var nextLbl = a == null ? (lastStep ? "Finish" : "Skip") : lastStep ? "Finish" : "Continue";
-    app.innerHTML = '<div class="screen"><div class="ptop"><button class="xbtn" id="pX">✕</button><div class="pbar"><i style="width:' + Math.round(100 * (pos + (a != null ? 1 : 0)) / len) +
-      '%"></i></div>' + (practice ? '<div class="combo' + (combo >= 3 ? " hot" : "") + '">🔥 ' + combo + "</div>" : '<div class="score">' + score(id, r).answered + "/" + N + "</div>") + "</div>" +
+    app.innerHTML = '<div class="screen play-screen"><div class="ptop play-top"><button class="xbtn" id="pX" aria-label="Back to the paper">' + I.close + '</button><div class="pmid"><b>' + esc(title_of(id)) +
+      "</b><span>" + (list ? "Redo " + (pos + 1) + " of " + len : "Question " + (r.i + 1) + " of " + N) + "</span></div>" +
+      (practice ? '<div class="pill xpp" id="xpp">' + I.spark + '<span id="xpn">' + meta.xp.toLocaleString("en-IN") + "</span></div>" : '<div class="pill score">' + score(id, r).answered + "/" + N + "</div>") + "</div>" +
+      '<div class="pstrip"><div class="pbar"><i style="width:' + Math.round(100 * (pos + (a != null ? 1 : 0)) / len) + '%"></i></div>' + (practice ? '<div id="heat">' + heat(combo) + "</div>" : "") + "</div>" +
       '<div class="scroll" id="ps"><div class="qmeta"><span class="chip qn">' + (list ? "Redo " + (pos + 1) + "/" + len + " · " : "") + "Q" + (r.i + 1) + " of " + N + "</span>" +
       (sec ? '<span class="chip">' + esc(sec) + "</span>" : "") + (src ? '<span class="chip src">' + esc(src) + "</span>" : "") +
       (window.Speak && Speak.ok ? '<button class="chip spk" id="spk">🔊 Listen</button>' : "") + studyBtn(id, q, r.i) + "</div>" +
@@ -476,6 +525,13 @@
       document.getElementById("ps").scrollTop = 0;
     }
   }
+  var TCOL = ["#FFD36B", "#FFC24B", "#FFB04F", "#FF9C55", "#FF8257", "#FF7360", "#F9646B", "#F45872", "#F04E78", "#F04E78"];
+  function heat(c, crack) {
+    var t = "";
+    for (var i = 0; i < 10; i++) t += '<i class="' + (i < c ? "on" : "") + '" style="--tc:' + TCOL[i] + '"></i>';
+    return '<div class="heat"><span class="lbl' + (c ? "" : " cold") + '">' + I.flame + (c ? c + " in a row" : crack ? "Combo broken" : "No combo yet") + "</span>" +
+      '<div class="ticks' + (crack ? " crack" : "") + '">' + t + "</div></div>";
+  }
   function afterHTML(id, q, idx, a) {
     var ok = a === q.correct;
     return '<div class="verdict ' + (ok ? "ok" : "bad") + '">' + (ok ? "✓ Correct" : "✗ Not quite, it's " + q.correct.toUpperCase()) +
@@ -490,7 +546,7 @@
     if (fresh) { meta.days[today()] = (meta.days[today()] || 0) + 1; }
     if (practice && k !== q.correct) studyWrong(id, r.i);
     if (!practice) { saveRun(id, r); saveMeta(); buzz([12]); play(); return; }
-    var ok = k === q.correct, gain = 0, lvBefore = level();
+    var ok = k === q.correct, gain = 0, lvBefore = level(), hadCombo = combo;
     if (ok) {
       combo++; gain = 10 + (combo >= 3 ? 5 : 0) + (combo >= 10 ? 5 : 0);
       meta.xp += gain; r.xp = (r.xp || 0) + gain; meta.bestCombo = Math.max(meta.bestCombo || 0, combo);
@@ -498,17 +554,27 @@
     saveRun(id, r); saveMeta();
     play();
     var opts = document.getElementById("opts");
-    var hit = opts.querySelector('[data-k="' + k + '"]');
+    var hit = opts.querySelector('[data-k="' + k + '"]'), rc = hit.getBoundingClientRect();
     if (ok) {
-      hit.classList.add("pop"); buzz([18]); tone(combo >= 3 ? [660, 880, 1100] : [660, 880]); floater("+" + gain + " XP" + (combo >= 3 ? "  🔥" + combo : ""));
-      flash("ok"); FX.boost(0.6);
-      var rc = hit.getBoundingClientRect(); FX.confetti(combo >= 3 ? 34 : 18, rc.left + rc.width / 2, rc.top + rc.height / 2);
+      hit.classList.add("pop"); buzz([18]); tone(combo >= 3 ? [660, 880, 1100] : [660, 880]);
+      var gn = document.createElement("span"); gn.className = "gain"; gn.textContent = "+" + gain + " XP"; hit.appendChild(gn);
+      if (combo >= 2) { var stp = document.createElement("div"); stp.className = "stamp"; stp.innerHTML = "x" + combo + "<small>combo</small>"; document.querySelector("#ps .qcard").appendChild(stp); }
+      var xpn = document.getElementById("xpn"), xpp = document.getElementById("xpp");
+      if (xpn) {
+        xpn.textContent = (meta.xp - gain).toLocaleString("en-IN");
+        setTimeout(function () { xpn.textContent = meta.xp.toLocaleString("en-IN"); xpp.classList.remove("bump"); void xpp.offsetWidth; xpp.classList.add("bump"); }, 480);
+      }
+      flash("ok", rc); FX.boost(0.6);
+      FX.confetti(combo >= 3 ? 40 : 26, rc.left + rc.width / 2, rc.top + rc.height / 2);
       if (combo === 3 || combo === 5 || combo % 10 === 0) {
         banner("COMBO x" + combo, combo >= 10 ? "UNSTOPPABLE" : combo >= 5 ? "ON FIRE" : "HEATING UP");
         FX.confetti(combo >= 5 ? 110 : 60); tone([784, 988, 1175, 1568]); buzz([20, 30, 20, 30, 40]);
       }
     }
-    else { opts.classList.add("shake"); flash("bad"); buzz([40, 60, 40]); tone([300, 220]); }
+    else {
+      hit.classList.add("shake"); flash("bad", rc); buzz([40, 60, 40]); tone([300, 220]);
+      var ht = document.getElementById("heat"); if (ht && hadCombo) ht.innerHTML = heat(0, true);
+    }
     if (level() > lvBefore) setTimeout(function () { levelUp(); tone([523, 659, 784, 1047]); }, 700);
     var ps = document.getElementById("ps"), after = document.getElementById("after");
     setTimeout(function () { ps.scrollTo({ top: Math.max(0, after.offsetTop - 160), behavior: "smooth" }); }, 250);
@@ -521,16 +587,19 @@
         if (r.ans[k] === Q[+k].correct) gain += 10;
         else if (r.ans[k] != null) studyWrong(id, +k);
       }
+      var lvBefore = level();
       meta.xp += gain; r.xp = gain;
+      if (level() > lvBefore) setTimeout(function () { levelUp(); tone([523, 659, 784, 1047]); }, 2300);
     }
     r.done = true; r.redo = null;
     var pct = Math.max(0, Math.round(100 * sc.marks / sc.N));
     if (meta.best[id] == null || pct > meta.best[id]) meta.best[id] = pct;
     saveRun(id, r); saveMeta(); combo = 0;
     go("finish", id);
+    countUp(document.getElementById("fBig"), sc.marks, 1100);
     tone([523, 659, 784, 1047]); buzz([20, 40, 20, 40, 60]);
     var st = starsFor(pct);
-    FX.confetti(60 + st * 70); FX.boost(1);
+    FX.confetti(60 + st * 50, window.innerWidth / 2, window.innerHeight * 0.24); FX.boost(1);
     if (st) setTimeout(function () { FX.confetti(st * 60, window.innerWidth * 0.2, window.innerHeight * 0.3); FX.confetti(st * 60, window.innerWidth * 0.8, window.innerHeight * 0.3); }, 450);
   }
 
@@ -569,11 +638,11 @@
     var keys = Object.keys(secs);
     var secHTML = keys.length > 1 ? '<div class="secs">' + keys.map(function (s) {
       var x = secs[s], p = Math.round(100 * x.r / x.n);
-      return '<div class="secrow' + (p < 50 ? " weak" : "") + '"><div class="sl"><span>' + esc(labels[s] || s) + "</span><span>" + x.r + "/" + x.n + '</span></div><div class="sb"><i style="width:' + p + '%"></i></div></div>';
+      return '<div class="secrow' + (p < 50 ? " weak" : p >= 75 ? " strong" : "") + '"><div class="sl"><span>' + esc(labels[s] || s) + "</span><span>" + x.r + "/" + x.n + '</span></div><div class="sb"><i style="width:' + p + '%"></i></div></div>';
     }).join("") + "</div>" : "";
-    app.innerHTML = '<div class="screen"><div class="ptop"><button class="xbtn" data-go="home">✕</button><div style="flex:1"></div></div><div class="scroll narrow">' +
-      '<div class="fin-stars">' + starHTML(st) + '</div><div class="fin-h">' + head + '</div><div class="fin-s">' + esc(title_of(id)) + "</div>" +
-      '<div class="big">' + fmt(sc.marks) + "<small> / " + sc.N + "</small></div>" +
+    app.innerHTML = '<div class="screen finish-screen"><div class="ptop"><button class="xbtn" data-go="home" aria-label="Back to all tests">' + I.close + '</button><div style="flex:1"></div></div><div class="scroll narrow">' +
+      '<div class="fin-s">' + esc(title_of(id)) + '</div><div class="big"><span id="fBig">' + fmt(sc.marks) + "</span><small>out of " + sc.N + "</small></div>" +
+      '<div class="fin-stars">' + I.star(st > 0) + I.star(st > 1) + I.star(st > 2) + '</div><div class="fin-h">' + head + "</div>" +
       '<div class="stats"><div class="stat"><b style="color:var(--ok)">' + sc.right + '</b><span>Right</span></div><div class="stat"><b style="color:var(--bad)">' + sc.wrong +
       '</b><span>Wrong</span></div><div class="stat"><b>' + sc.skipped + "</b><span>Skipped</span></div></div>" +
       '<div class="stats" style="grid-template-columns:1fr 1fr"><div class="stat"><b>' + pct + '%</b><span>Score</span></div><div class="stat"><b style="color:var(--gold)">+' + (r.xp || 0) +
@@ -615,7 +684,7 @@
 
   /* ---------- To study (shared with Name Lock via study.js + sync) ---------- */
   function study() {
-    app.innerHTML = '<div class="screen"><div class="ptop"><button class="xbtn" data-go="home">‹</button><div style="flex:1"></div></div><div class="scroll narrow" id="stl"></div></div>';
+    app.innerHTML = '<div class="screen"><div class="ptop"><button class="xbtn" data-go="home" aria-label="Back">' + I.back + '</button><div style="flex:1"></div></div><div class="scroll narrow" id="stl"></div></div>';
     SL.render(document.getElementById("stl"), {
       canOpen: function (x) { var m = /^m:(.+):(\d+)$/.exec(x.r); return !!(m && P[m[1]] && P[m[1]].questions[+m[2]]); },
       open: function (x) { var m = /^m:(.+):(\d+)$/.exec(x.r); questionSheet(m[1], +m[2]); }
@@ -640,7 +709,7 @@
     var items = Q.map(function (q, i) { return { q: q, i: i, a: r.ans[i] }; }).filter(function (x) {
       return rvFilter === "all" ? true : rvFilter === "miss" ? x.a !== x.q.correct : x.a === x.q.correct;
     });
-    app.innerHTML = '<div class="screen"><div class="ptop"><button class="xbtn" data-go="lobby" data-id="' + id + '">‹</button><div style="flex:1;font-weight:900">Review</div></div><div class="scroll narrow">' +
+    app.innerHTML = '<div class="screen"><div class="ptop"><button class="xbtn" data-go="lobby" data-id="' + id + '" aria-label="Back">' + I.back + '</button><div class="ptitle">Review</div></div><div class="scroll narrow">' +
       '<div class="seg"><button data-f="miss" class="' + (rvFilter === "miss" ? "on" : "") + '">Missed</button><button data-f="right" class="' + (rvFilter === "right" ? "on" : "") +
       '">Right</button><button data-f="all" class="' + (rvFilter === "all" ? "on" : "") + '">All</button></div><p class="hint">' + items.length + " questions. Tap one to open the explanation.</p>" +
       items.map(function (x) {
@@ -666,7 +735,7 @@
     meta.xp += n; meta.days[today()] = (meta.days[today()] || 0) + 1; saveMeta();
     if (level() > lvBefore) setTimeout(function () { levelUp(); tone([523, 659, 784, 1047]); }, 700);
   }
-  window.TAPP = { go: go, fx: FX, getRun: getRun, meta: function () { return meta; },
+  window.TAPP = { go: go, fx: FX, icons: I, countUp: countUp, getRun: getRun, meta: function () { return meta; },
     P: P, DEEP: DEEP, app: app, load: load, store: store, esc: esc, explainHTML: explainHTML, boldFig: boldFig, title_of: title_of, hud: hud,
     toast: toast, flash: flash, banner: banner, tone: tone, buzz: buzz, floater: floater, gain: gain, addWrongQuestion: addWrongQuestion, studyWrong: studyWrong, closeSheet: closeSheet };
   render();

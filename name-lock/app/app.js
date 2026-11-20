@@ -45,13 +45,16 @@ var IC = {
   cards: '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="5" width="12" height="16" rx="2.5" transform="rotate(-8 9 13)" opacity=".55"/><rect x="9" y="3" width="12" height="16" rx="2.5"/></svg>',
   me: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.5"/><path d="M3.5 20.5c0-4.2 3.8-7 8.5-7s8.5 2.8 8.5 7c0 .6-.4 1-1 1h-15c-.6 0-1-.4-1-1z"/></svg>',
   x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
-  study: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 2.5h11A1.5 1.5 0 0 1 19 4v17.2c0 .8-.9 1.2-1.5.7L12 17.6l-5.5 4.3c-.6.5-1.5.1-1.5-.7V4a1.5 1.5 0 0 1 1.5-1.5z"/></svg>'
+  study: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 2.5h11A1.5 1.5 0 0 1 19 4v17.2c0 .8-.9 1.2-1.5.7L12 17.6l-5.5 4.3c-.6.5-1.5.1-1.5-.7V4a1.5 1.5 0 0 1 1.5-1.5z"/></svg>',
+  spark: '<svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path fill="url(#g-star)" d="M12 1.5l2.4 7.9 8 2.6-8 2.6L12 22.5l-2.4-7.9-8-2.6 8-2.6z"/></svg>',
+  flame: '<svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path fill="url(#g-flame)" d="M12.6 2.2c.6 3.2 4.9 5.3 4.9 10.6a5.6 5.6 0 0 1-11.2.3c0-2.4 1.2-4.1 2.4-5.2.1 2 1 3.2 2.1 3.5-.4-3.3-.3-6.4 1.8-9.2z"/><path fill="#FFF1C2" opacity=".85" d="M12.2 13.4c1.6 1.4 2.6 2.6 2.6 4.2a2.8 2.8 0 0 1-5.6 0c0-1.3.9-2.2 1.6-2.8.1.9.6 1.4 1.1 1.5-.2-1.1-.1-2 .3-2.9z"/></svg>',
+  star: function(on){ return '<svg viewBox="0 0 24 24" class="' + (on ? "" : "off") + '" aria-hidden="true"><path fill="' + (on ? "url(#g-star)" : "rgba(255,240,220,.18)") + '" stroke="' + (on ? "#FFF3C9" : "rgba(255,240,220,.3)") + '" stroke-width="1" d="M12 2.2l2.9 6.2 6.7.8-5 4.6 1.4 6.7L12 17.1l-6 3.4 1.4-6.7-5-4.6 6.7-.8z"/></svg>'; }
 };
 /* "Study this": the shared To study list (../../study.js), same one the Tests app writes to */
 var SL = window.StudyList;
 function studyItem(c){ return {id: "c:" + c.id, t: c.name, a: SL.areaOf(c.area), f: "Name Lock · " + CATNAME[c.cat] + (c.who ? " · " + c.who : ""), q: c.def, r: "c:" + c.id, n: c.name}; }
 function studyBtn(c){ return SL ? SL.buttonHTML("c:" + c.id) : ""; }
-var LOGO = '<svg viewBox="0 0 108 108"><rect width="108" height="108" rx="24" fill="#345465"/><path d="M0 70L108 40V84a24 24 0 0 1-24 24H24A24 24 0 0 1 0 84z" fill="#26313d"/><path d="M42 50V41a12 12 0 0 1 24 0v9" stroke="#fff" stroke-width="7" stroke-linecap="round" fill="none"/><rect x="32" y="48" width="44" height="33" rx="7" fill="#c9b582"/><path d="M54 57a5 5 0 0 1 2.5 9.33V72h-5v-5.67A5 5 0 0 1 54 57z" fill="#121820"/></svg>';
+var LOGO = '<svg viewBox="0 0 108 108"><defs><linearGradient id="lg-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFB36B"/><stop offset=".55" stop-color="#F06A5A"/><stop offset="1" stop-color="#0E6E73"/></linearGradient><radialGradient id="lg-gold" cx="35%" cy="28%" r="80%"><stop offset="0" stop-color="#FFF0B8"/><stop offset=".45" stop-color="#FFB24F"/><stop offset="1" stop-color="#E2603F"/></radialGradient></defs><rect width="108" height="108" rx="26" fill="url(#lg-sky)"/><circle cx="54" cy="44" r="26" fill="#FFE2A0" opacity=".35"/><path d="M0 78c18-8 34-10 54-6s36 2 54-6v18a24 24 0 0 1-24 24H24A24 24 0 0 1 0 84z" fill="#06242C" opacity=".55"/><path d="M42 50V41a12 12 0 0 1 24 0v9" stroke="#FFF6E6" stroke-width="7" stroke-linecap="round" fill="none"/><rect x="32" y="48" width="44" height="33" rx="8" fill="url(#lg-gold)" stroke="#FFF6E6" stroke-width="2"/><path d="M54 57a5 5 0 0 1 2.5 9.33V72h-5v-5.67A5 5 0 0 1 54 57z" fill="#2B140C"/></svg>';
 
 /* ================= feel: sound + haptics + confetti ================= */
 var AC = null;
@@ -104,7 +107,7 @@ function confetti(n){
   var app = $("#app"), cv = document.createElement("canvas"), W = cv.width = app.clientWidth, H = cv.height = app.clientHeight, x = cv.getContext("2d");
   cv.style.cssText = "position:absolute;inset:0;pointer-events:none;z-index:80";
   app.appendChild(cv);
-  var cols = ["#c9b582", "#95bda5", "#91b4c4", "#d39b9d", "#91b4c4", "#c8a184"], ps = [];
+  var cols = ["#FFE7A0", "#FFC24B", "#FF8257", "#3FD8BF", "#F04E78", "#FFF6E0"], ps = [];
   for (var i = 0; i < (n || 140); i++) ps.push({x: W / 2 + (Math.random() - .5) * W * .4, y: H * .38, vx: (Math.random() - .5) * 15, vy: -Math.random() * 14 - 4,
     s: 5 + Math.random() * 7, r: Math.random() * 6, vr: (Math.random() - .5) * .4, c: cols[i % cols.length]});
   var t0 = performance.now();
@@ -115,75 +118,46 @@ function confetti(n){
     if (t - t0 < 2800) requestAnimationFrame(f); else cv.remove();
   })(t0);
 }
-/* ---- neon answer screen (same skin as the Tests app): starfield behind, confetti on top ---- */
+/* ---- Sunset City answer screen: the painted city behind (blurred), warm motes drifting up, sparks on top ---- */
 var LFX = (function(){
   var CALM = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var HUES = ["#91b4c4", "#adb8c2", "#91b4c4", "#c9b582", "#95bda5", "#ffffff"];
-  var sky, fxc, sx, fx, W = 0, H = 0, DPR = Math.min(2, window.devicePixelRatio || 1), stars = [], bits = [], warp = 0, shoot = null, run = false, last = 0;
+  var sky, sx, W = 0, H = 0, DPR = Math.min(2, window.devicePixelRatio || 1), motes = [], warp = 0, run = false, last = 0;
   function size(){
     var el = $("#lesson"); if (!el || !sky) return;
     W = el.clientWidth; H = el.clientHeight;
-    [sky, fxc].forEach(function(c){ c.width = W * DPR; c.height = H * DPR; c.getContext("2d").setTransform(DPR, 0, 0, DPR, 0, 0); });
-    stars = [];
-    for (var i = 0, n = Math.round(Math.min(200, W * H / 3200)); i < n; i++) stars.push({x: Math.random() * W, y: Math.random() * H, z: .3 + Math.random() * 1.7, t: Math.random() * 6.3, c: Math.random() < .18 ? HUES[i % 3] : "#fff"});
+    sky.width = W * DPR; sky.height = H * DPR; sx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    motes = [];
+    for (var i = 0, n = Math.round(Math.min(60, W * H / 9000)); i < n; i++) motes.push({x: Math.random() * W, y: Math.random() * H, z: .4 + Math.random() * 1.4, p: Math.random() * 6.3});
   }
-  function drawSky(dt){
+  function drawSky(dt, t){
     sx.clearRect(0, 0, W, H);
-    var sp = (.012 + warp * .5) * dt; warp = Math.max(0, warp - dt * .0012);
-    for (var i = 0; i < stars.length; i++){
-      var s = stars[i]; s.y += sp * s.z; s.t += dt * .002 * s.z;
-      if (s.y > H + 4){ s.y = -4; s.x = Math.random() * W; }
-      var r = s.z * .8; sx.globalAlpha = .35 + .65 * Math.abs(Math.sin(s.t)); sx.fillStyle = s.c;
-      if (warp > .05) sx.fillRect(s.x - r / 2, s.y - warp * 18 * s.z, r, warp * 18 * s.z + r);
-      else { sx.beginPath(); sx.arc(s.x, s.y, r, 0, 6.283); sx.fill(); }
+    var sp = (.012 + warp * .25) * dt; warp = Math.max(0, warp - dt * .0012);
+    sx.fillStyle = "#FFE2B0"; sx.shadowColor = "#FFC27A"; sx.shadowBlur = 8;
+    for (var i = 0; i < motes.length; i++){
+      var m = motes[i]; m.y -= sp * m.z; if (m.y < -6){ m.y = H + 6; m.x = Math.random() * W; }
+      sx.globalAlpha = .3 + .35 * Math.sin((t || 0) / 900 + m.p);
+      sx.beginPath(); sx.arc(m.x + Math.sin((t || 0) / 2400 + m.p) * 6, m.y, .6 + m.z * .9, 0, 6.283); sx.fill();
     }
-    if (!shoot && Math.random() < dt / 7000) shoot = {x: Math.random() * W * .8, y: Math.random() * H * .4, l: 0};
-    if (shoot){
-      shoot.l += dt * .9;
-      var x0 = shoot.x + shoot.l - 90, y0 = shoot.y + (shoot.l - 90) * .45, x1 = shoot.x + shoot.l, y1 = shoot.y + shoot.l * .45, g = sx.createLinearGradient(x0, y0, x1, y1);
-      g.addColorStop(0, "rgba(145,180,196,0)"); g.addColorStop(1, "rgba(255,255,255,.95)");
-      sx.globalAlpha = 1; sx.strokeStyle = g; sx.lineWidth = 2; sx.beginPath(); sx.moveTo(x0, y0); sx.lineTo(x1, y1); sx.stroke();
-      if (shoot.l > W) shoot = null;
-    }
-    sx.globalAlpha = 1;
-  }
-  function drawFx(dt){
-    fx.clearRect(0, 0, W, H);
-    for (var i = bits.length - 1; i >= 0; i--){
-      var b = bits[i]; b.vy += .0009 * dt; b.vx *= .995; b.x += b.vx * dt; b.y += b.vy * dt; b.r += b.vr * dt; b.life -= dt;
-      if (b.life <= 0 || b.y > H + 20){ bits.splice(i, 1); continue; }
-      fx.save(); fx.globalAlpha = Math.min(1, b.life / 400); fx.translate(b.x, b.y); fx.rotate(b.r);
-      fx.fillStyle = b.c; fx.shadowColor = b.c; fx.shadowBlur = 8;
-      fx.fillRect(-b.w / 2, -b.h / 2, b.w, b.h * Math.abs(Math.cos(b.r * 2)) + 1); fx.restore();
-    }
+    sx.globalAlpha = 1; sx.shadowBlur = 0;
   }
   function frame(t){
-    if (!sky || !sky.isConnected){ run = false; sky = null; bits = []; return; }
+    if (!sky || !sky.isConnected){ run = false; sky = null; return; }
     var dt = Math.min(50, t - (last || t)); last = t;
-    if (!document.hidden){ drawSky(dt); if (bits.length) drawFx(dt); }
+    if (!document.hidden) drawSky(dt, t);
     requestAnimationFrame(frame);
   }
   window.addEventListener("resize", size);
   /* (re)attach the background layers; call after every innerHTML write to #lesson */
   function skin(el){
     el.classList.add("neon");
-    el.insertAdjacentHTML("afterbegin", '<div class="nebula"></div><canvas class="lsky"></canvas><canvas class="lfx"></canvas>');
-    sky = $(".lsky", el); fxc = $(".lfx", el); sx = sky.getContext("2d"); fx = fxc.getContext("2d"); bits = [];
+    el.insertAdjacentHTML("afterbegin", '<div class="lscene" aria-hidden="true"><div class="art"></div><div class="glow"></div></div><canvas class="lsky" aria-hidden="true"></canvas>');
+    sky = $(".lsky", el); sx = sky.getContext("2d");
     size();
-    if (CALM){ drawSky(0); return; }
+    if (CALM){ drawSky(0, 0); return; }
     if (!run){ run = true; last = 0; requestAnimationFrame(frame); }
   }
-  /* burst of neon confetti from the centre of an element (or the screen) */
-  function burst(n, from){
-    if (CALM || !fxc) return;
-    var x = W / 2, y = H * .35;
-    if (from){ var a = from.getBoundingClientRect(), o = fxc.getBoundingClientRect(); x = a.left - o.left + a.width / 2; y = a.top - o.top + a.height / 2; }
-    for (var i = 0; i < n; i++){
-      var an = Math.random() * 6.283, v = .25 + Math.random() * .75;
-      bits.push({x: x, y: y, vx: Math.cos(an) * v, vy: Math.sin(an) * v - .55, r: Math.random() * 6, vr: (Math.random() - .5) * .02,
-        w: 5 + Math.random() * 6, h: 8 + Math.random() * 8, c: HUES[i % HUES.length], life: 1600 + Math.random() * 1200});
-    }
-  }
+  /* burst of sunset sparks from the centre of an element (or the top of the screen) */
+  function burst(n, from){ if (window.SUN) SUN.burstAt(from, n); }
   function banner(big, small){
     var el = $("#lesson"); if (!el) return;
     var b = document.createElement("div"); b.className = "nbanner"; b.innerHTML = esc(big) + (small ? '<small>' + esc(small) + '</small>' : '');
@@ -402,8 +376,9 @@ function flushCeleb(){
     h = '<div class="k">Daily quests</div><div class="big">📜</div><h2>All 3 done</h2><p>+' + QUEST_ALL_XP + ' XP bonus. New quests at midnight.</p>';
     SFX.win(); buzz(HAP.big); confetti(160); }
   var m = $("#modal");
-  m.innerHTML = '<div class="mbox' + (c.t === "theorist" ? " packed" : "") + '">' + h + '<button class="btn gold" id="m-ok">Continue</button></div>';
+  m.innerHTML = '<div class="mbg" aria-hidden="true"></div><div class="mbox' + (c.t === "theorist" ? " packed" : "") + ' t-' + c.t + '">' + h + '<button class="btn gold" id="m-ok">Continue</button></div>';
   m.classList.add("on");
+  if (window.SUN && c.t !== "theorist") setTimeout(function(){ SUN.burst(innerWidth / 2, innerHeight * .38, c.t === "level" ? 90 : 50); }, 250);
   $("#m-ok").onclick = closeModal;
 }
 function closeModal(){ $("#modal").classList.remove("on"); $("#modal").innerHTML = ""; setTimeout(flushCeleb, 150); refreshTab(); }
@@ -589,7 +564,8 @@ function startLesson(o){
   // boss: the scoreboard sits IN the top bar (in place of the progress bar) so it never eats a row and covers the question
   var el = pushScreen("lesson", '<div class="lhead' + (o.kind === "boss" ? ' hasb' : '') + '"><button class="x" id="l-x">' + IC.x + '</button><div class="lprog"><i style="width:0"></i></div>' +
     (o.kind === "boss" ? '<div class="sb"><div class="tm me"><span class="crest">' + level(G().xp) + '</span><b>' + esc(pname()) + '</b></div><div class="sc"><b id="sb-a">0</b><i>:</i><b id="sb-b">0</b><small id="sb-m">KICK OFF</small></div>' +
-      '<div class="tm bo"><b>' + bossDef(o.ix)[1].replace(/ Boss$/, "") + '</b><span class="be">' + bossDef(o.ix)[3] + '</span></div></div>' : '') + '<div id="l-side"></div></div>' +
+      '<div class="tm bo"><b>' + bossDef(o.ix)[1].replace(/ Boss$/, "") + '</b><span class="be">' + bossDef(o.ix)[3] + '</span></div></div>' : '<span class="xpp" id="l-xpp">' + IC.spark + '<b id="l-xpn">0</b></span>') + '<div id="l-side"></div></div>' +
+    (o.kind !== "boss" ? '<div class="heat" id="l-heat"></div>' : '') +
     '<div class="scroll" id="l-body"></div><div class="lfoot" id="l-foot"></div>', quitAsk);
   LFX.skin(el);
   $("#l-x", el).onclick = quitAsk;
@@ -640,7 +616,7 @@ function nextQ(){
     L.pen = 1; L.total++; SFX.whistle(true); buzz(HAP.big); stingerText("PENALTIES", "Sudden death. Score this one to win."); $("#sb-m").textContent = "PENS"; }
   if (L.kind !== "speed" && (L.lives === 0 || L.i >= L.total)) return finish();
   var q = L.q = buildQ(), c = q.c, pill = '<span class="pill p-' + c.cat + '">' + CATNAME[c.cat] + '</span>';
-  $("#l-side").innerHTML = side();
+  $("#l-side").innerHTML = side(); heat();
   if (L.kind !== "speed") $("#lesson .lprog i").style.width = (L.i * 100 / L.total) + "%";
   if (L.kind === "boss" && !L.pen) $("#sb-m").textContent = matchMin(L.i + 1) + "'";
   var k, card;
@@ -663,6 +639,22 @@ function nextQ(){
   if (!instant) $("#l-check").onclick = function(){ if (sel) grade(sel); };
   if (L.kind === "speed") tick();
 }
+/* combo heat meter: 10 ticks warming from sun to rose; cracks when a run breaks */
+var HEATC = ["#FFD36B", "#FFC24B", "#FFB04F", "#FF9C55", "#FF8257", "#FF7360", "#F9646B", "#F45872", "#F04E78", "#F04E78"];
+function heat(crack){
+  var el = $("#l-heat"); if (!el || !L) return;
+  var n = L.streak || 0, t = "";
+  for (var i = 0; i < 10; i++) t += '<i class="' + (i < n ? "on" : "") + '" style="--tc:' + HEATC[i] + '"></i>';
+  el.innerHTML = '<span class="lbl' + (n ? "" : " cold") + '">' + IC.flame + (n ? n + " in a row" : crack ? "Combo broken" : "Build a combo") + '</span><span class="ticks' + (crack ? " crack" : "") + '">' + t + '</span>';
+}
+/* right answer: "+N XP" floats off the option, a combo stamp lands on the card, the XP pill bumps */
+function hitFx(btn, xp){
+  if (btn && xp){ var g = document.createElement("span"); g.className = "gain"; g.textContent = "+" + xp + " XP"; btn.appendChild(g); }
+  var card = $("#l-body .qcard");
+  if (card && L.streak >= 2 && L.kind !== "boss"){ var st = document.createElement("div"); st.className = "stamp"; st.innerHTML = "x" + L.streak + "<small>combo</small>"; card.appendChild(st); }
+  var pill = $("#l-xpp"), num = $("#l-xpn");
+  if (pill && num){ setTimeout(function(){ if (!L) return; num.textContent = L.xp; pill.classList.remove("bump"); void pill.offsetWidth; pill.classList.add("bump"); }, 420); }
+}
 function flash(kind){ var f = document.createElement("div"); f.className = "flashbg " + kind; $("#lesson").appendChild(f); setTimeout(function(){ f.remove(); }, 400); }
 function floatText(t){ var f = document.createElement("div"); f.className = "cflash"; f.textContent = t; $("#lesson").appendChild(f); setTimeout(function(){ f.remove(); }, 1000); }
 var UNMASK = {qd: "def", wl: "who"};  // after answering, show the full text, not the blanked question copy
@@ -677,12 +669,15 @@ function grade(btn){
   else cleared = srs(c, ok);
   if (!ok && SL) SL.addWrong(studyItem(c));
   if (ok){ L.right++; L.hits.push(c); } else { L.wrongs.push(c); if (L.lives != null) L.lives--; }
+  var hadRun = (L.streak || 0) > 0;
   L.streak = ok ? (L.streak || 0) + 1 : 0;
+  heat(!ok && hadRun);
   if (ok){ LFX.boost(.6); LFX.burst(L.streak >= 3 ? 34 : 18, $("#l-body .opt.ok")); }
   if (ok && L.kind !== "boss" && L.kind !== "duel" && (L.streak === 3 || L.streak === 5 || L.streak % 10 === 0)){
     LFX.banner(L.streak >= 10 ? "UNSTOPPABLE" : L.streak >= 5 ? "ON FIRE" : "COMBO", L.streak + " in a row"); LFX.burst(L.streak >= 5 ? 90 : 50); LFX.boost(1); }
   var xp = answer({c: c, ok: ok, src: L.kind === "lesson" ? "drill" : L.kind, mode: q.mode, mult: mult, combo: L.kind === "duel" ? L.combo : null, cleared: cleared});
   L.xp += xp;
+  if (ok) hitFx($("#l-body .opt.ok"), xp);
   if (L.kind === "boss"){} else if (ok){ SFX.ok(); buzz(HAP.ok); flash("ok"); if (L.kind === "duel" && L.combo >= 3){ SFX.combo(L.combo); floatText(L.combo + " in a row!"); } }
   else { SFX.bad(); buzz(HAP.bad); flash("bad"); }
   if (L.kind === "boss"){ flash(ok ? "ok" : "bad"); }
@@ -747,11 +742,15 @@ function finish(){
   var miss = L.wrongs.length ? '<div class="missed"><div class="k">Review these</div>' + L.wrongs.filter(function(c, i, a){ return a.indexOf(c) === i; }).map(function(c){ return '<button class="chip" data-card="' + c.id + '">' + esc(c.name) + '</button>'; }).join("") + '</div>' : '';
   h = '<div class="scroll"><div class="center">' + (L.kind === "boss" ? '<div class="boss-hero' + (L.lives > 0 ? " won" : "") + '">' + hero + '</div>' : '<div class="hero-e">' + hero + '</div>') +
     '<h1 class="' + cls + '">' + esc(title) + '</h1>' + (sub ? '<p>' + esc(sub) + '</p>' : '') +
+    (L.kind !== "speed" && answered ? '<div class="score"><div class="big" id="r-big">' + L.right + '</div><div class="of">right out of ' + answered + '</div><div class="stars">' +
+      [50, 75, 90].map(function(t){ return IC.star(acc >= t); }).join("") + '</div></div>' : '') +
     '<div class="rstats"><div class="rs g"><div class="rk">Total XP</div><div class="rv" data-count="' + L.xp + '">0</div></div>' +
     '<div class="rs o"><div class="rk">' + (L.kind === "speed" ? "Right" : "Accuracy") + '</div><div class="rv">' + (L.kind === "speed" ? L.right : acc + "%") + '</div></div>' +
-    '<div class="rs b"><div class="rk">Time</div><div class="rv">' + fmtTime(Date.now() - L.t0) + '</div></div></div>' + miss + '</div></div>' +
+    '<div class="rs b"><div class="rk">Time</div><div class="rv">' + fmtTime(Date.now() - L.t0) + '</div></div></div>' + lvBar(L.xp) + miss + '</div></div>' +
     '<div class="lfoot"><button class="btn" id="r-done">Continue</button><button class="btn ghost" id="r-again" style="margin-top:10px">' + again + '</button></div>';
   var el = $("#lesson"); el.innerHTML = h; LFX.skin(el); el.style.animation = "none"; void el.offsetWidth; el.style.animation = "";
+  if (window.SUN){ SUN.countUp($("#r-big", el), L.right, 900); setTimeout(function(){ SUN.burst(innerWidth / 2, innerHeight * .24, acc >= 80 ? 70 : 36); }, 300); }
+  fillLv(el);
   var cnt = $("[data-count]", el), target = L.xp, t0 = performance.now();
   (function up(t){ var p = Math.min(1, (t - t0) / 900); cnt.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(up); })(t0);
   var spec = {kind: L.kind, ix: L.ix, bio: L.bio, mode: L.mode, cat: L.cat, title: L.title, cards: L.cards};
@@ -759,6 +758,13 @@ function finish(){
   $("#r-again").onclick = function(){ again2(spec); };
   holdCeleb = false; setTimeout(flushCeleb, 900);
 }
+/* level bar on the results: fills from where this round started to where it ended (a new level fills to the top, then the level-up screen) */
+function lvBar(earned){
+  var g = G(), now = lvInfo(g.xp), was = lvInfo(Math.max(0, g.xp - (earned || 0))), from = was.l < now.l ? 0 : was.pct, to = was.l < now.l ? 100 : now.pct;
+  return '<div class="rxp"><div class="rxl"><b>Level ' + now.l + '</b><span>' + now.rank + '</span><span class="nx">' + (now.hi != null ? (now.hi - g.xp) + ' XP to level ' + (now.l + 1) : 'Max level') + '</span></div>' +
+    '<div class="xpbar"><i style="width:' + from + '%" data-w="' + to + '%"></i></div></div>';
+}
+function fillLv(el){ var i = $(".rxp .xpbar i", el); if (i) setTimeout(function(){ i.style.width = i.dataset.w; }, 450); }
 /* ---- match helpers ---- */
 function pname(){ return (S.name || "Sihan").trim() || "Sihan"; }
 function matchMin(i){ return Math.round(i * 90 / Math.max(L.total - L.pen, 1)); }
@@ -833,7 +839,7 @@ function openBio(){
   var g = G(), cur = -1, w = bioWins();
   for (var i = 0; i < BIO.length; i++) if (!(g.boss[BIO[i][0]] || {}).w){ cur = i; break; }
   var el = pushScreen("bio", '<div class="lhead"><button class="x" id="bio-x">' + IC.x + '</button><b style="font-size:19px;font-weight:900">🧠 Biopsych world</b></div><div class="scroll" style="padding:0 16px"><div class="path">' +
-    '<div class="unit bio"><a class="wlink" href="worlds.html#skip">🪐 Worlds</a><b>Pinel, all 18 chapters</b><span>' + w + ' of ' + BIO.length + ' won. ' + bossPool(BIO0 + BIO.length - 1).length + ' Pinel cards. Each win opens the next level.</span></div>' +
+    '<div class="unit bio"><a class="wlink" href="worlds.html#skip">🗺️ Worlds</a><b>Pinel, all 18 chapters</b><span>' + w + ' of ' + BIO.length + ' won. ' + bossPool(BIO0 + BIO.length - 1).length + ' Pinel cards. Each win opens the next level.</span></div>' +
     BIO.map(function(m, i){
       var b = g.boss[m[0]] || {}, open = bioOpen(i), st = b.w ? "won" : open ? "open" : "shut", off = Math.round(Math.sin(i * 0.9) * 70);
       return '<div class="node-wrap"><button class="node ' + st + (i === cur ? " cur" : "") + '" data-bio="' + i + '" style="transform:translateX(' + off + 'px)">' + (i === cur ? '<span class="bubble">' + (b.tries ? "FIGHT" : "START") + '</span>' : '') +
@@ -864,7 +870,7 @@ function openViva(w){
   var W = VIVA[w], g = G(), cur = -1; if (!W) return;
   var won = W.levels.filter(function(l, i){ var b = g.boss[vivaKey(w, i)]; if (cur < 0 && !(b && b.w)) cur = i; return b && b.w; }).length;
   var el = pushScreen("viva", '<div class="lhead"><button class="x" id="vw-x">' + IC.x + '</button><b style="font-size:19px;font-weight:900">' + W.icon + ' ' + esc(W.name) + ' world</b></div><div class="scroll" style="padding:0 16px"><div class="path">' +
-    '<div class="unit ' + w + '"><a class="wlink" href="worlds.html#skip">🪐 Worlds</a><b>' + esc(W.unit) + '</b><span>' + esc(W.blurb) + ' ' + won + ' of ' + W.levels.length + ' levels cleared, ' + vivaNailed(w) + ' of ' + vivaAll(w).length + ' answers nailed. Every level is open.</span></div>' +
+    '<div class="unit ' + w + '"><a class="wlink" href="worlds.html#skip">🗺️ Worlds</a><b>' + esc(W.unit) + '</b><span>' + esc(W.blurb) + ' ' + won + ' of ' + W.levels.length + ' levels cleared, ' + vivaNailed(w) + ' of ' + vivaAll(w).length + ' answers nailed. Every level is open.</span></div>' +
     W.levels.map(function(l, i){
       var b = g.boss[vivaKey(w, i)] || {}, off = Math.round(Math.sin(i * 0.9) * 70);
       return '<div class="node-wrap"><button class="node ' + (b.w ? "won" : "open") + (i === cur ? " cur" : "") + '" data-v="' + i + '" style="transform:translateX(' + off + 'px)">' + (i === cur ? '<span class="bubble">' + (b.tries ? "GO" : "START") + '</span>' : '') +
@@ -982,7 +988,7 @@ function openLibrary(cat){
 var TAB = "home", PCAT = "all", THF = "all", THQ = "", THN = 60;
 function hudHtml(){
   var g = G(), i = lvInfo(g.xp), s = streak(), lit = dayDone(dayRec());
-  return '<div class="hud"><button class="crest" data-tab="me">' + i.l + '</button><div class="xpbar"><i style="width:' + i.pct + '%"></i><span>' + g.xp + (i.hi != null ? ' / ' + i.hi : '') + ' XP</span></div>' +
+  return '<div class="hud"><button class="crest" data-tab="me" style="--p:' + i.pct + '%" aria-label="Level ' + i.l + ', profile"><b>' + i.l + '</b></button><div class="xpbar"><i style="width:' + i.pct + '%"></i><span>' + g.xp + (i.hi != null ? ' / ' + i.hi : '') + ' XP</span></div>' +
     '<div class="streak' + (lit ? " lit" : "") + '"><span class="fl">🔥</span>' + s + '</div></div>';
 }
 function ring(a, n){ var C = 2 * Math.PI * 37, p = Math.min(1, a / n);
@@ -990,10 +996,11 @@ function ring(a, n){ var C = 2 * Math.PI * 37, p = Math.min(1, a / n);
 function tabHome(){
   var g = G(), d = dayRec(), s = streak(), n = goal(), q = g.q[today()] || {}, cb = curBoss();
   var i = lvInfo(g.xp), sq = squadOvr(), nb = cb >= 0 ? MAP[cb] : null;
-  var h = '<div class="menu-top compact-status"><div class="pban"><div class="crest">' + i.l + '</div><div class="pb-t"><b>' + esc(pname()) + '</b><span>' + i.rank + ' · Level ' + i.l + '</span>' +
+  var h = '<div class="menu-top compact-status"><div class="pban"><div class="crest" style="--p:' + i.pct + '%"><b>' + i.l + '</b></div><div class="pb-t"><b>' + esc(pname()) + '</b><span>' + i.rank + ' · Level ' + i.l + '</span>' +
     '<div class="xpbar"><i style="width:' + i.pct + '%"></i><span>' + g.xp + (i.hi != null ? ' / ' + i.hi : '') + ' XP</span></div></div>' +
     '<div class="pb-r"><div class="streak' + (dayDone(d) ? " lit" : "") + '"><span class="fl">🔥</span>' + s + '</div><div class="sq"><b>' + (sq || "--") + '</b><small>SQUAD</small></div></div></div></div>';
-  h += '<div class="tiles-m home-console"><section class="lesson-brief"><svg class="neural-art" viewBox="0 0 360 220" aria-hidden="true"><path d="M176 47c-27-22-68-8-65 21-28 1-43 30-24 51-17 25 4 53 28 46 9 29 40 31 62 13m9-131c27-22 68-8 65 21 28 1 43 30 24 51 17 25-4 53-28 46-9 29-40 31-62 13M180 46v132m-65-107 65 26 64-24" fill="none" stroke="#a8dfe1" stroke-opacity=".7" stroke-width="2.2"/><path d="M113 65c-9 18-18 36-26 53m158-53c9 18 18 36 26 53m-91-10v68" fill="none" stroke="#e7f3f3" stroke-opacity=".34" stroke-width="1.5"/><g fill="#e9b85f"><circle cx="115" cy="67" r="4"/><circle cx="245" cy="67" r="4"/><circle cx="87" cy="121" r="4"/><circle cx="273" cy="121" r="4"/></g><circle cx="180" cy="112" r="5" fill="#e6f1f3"/></svg>' +
+  h += '<div class="poster"><span class="kick">World 1 · Name Lock</span><h1>Who Said What</h1><p>A city of theorist statues. ' + CARDS.length + ' cards, ' + TH_LIST.length + ' theorists, ' + MAP.length + ' bosses.</p></div>';
+  h += '<div class="tiles-m home-console"><section class="lesson-brief">' +
     '<button class="mt big kick" id="h-go"><span class="mt-k">Daily lesson</span><b>' + (d.a ? "Continue today" : "Begin today") + '</b><span>' + (d.a >= n ? "Daily goal complete. " + (s > 1 ? s + " day streak." : "Streak started.") : (n - d.a) + " answers to " + (s ? "keep your " + s + " day streak" : "start a streak")) + '</span>' + ring(d.a, n) + '</button></section>' +
     '<aside class="home-rail"><button class="mt season" id="h-boss"><span class="mt-k">Season map</span><b>' + (nb ? "Next boss: " + nb[1].replace(/ Boss$/, "") : "Season won") + '</b><span>' + bossWins() + ' / ' + MAP.length + ' matches won</span><i class="mt-e">' + (nb ? nb[3] : "🏆") + '</i></button>' +
     '<nav class="utility-rows" aria-label="Study tools"><button class="utility-row" data-tab="collection"><b>Theorists</b><span>' + thUnlocked() + ' of ' + TH_LIST.length + ' collected</span></button>' +
@@ -1002,7 +1009,7 @@ function tabHome(){
   h += '<h2 class="sh">Daily objectives<small>+' + QUEST_XP + ' XP each, +' + QUEST_ALL_XP + ' for all three</small></h2><div class="panel">' + todaysQuests().map(function(Q){
     var v = Math.min(q[Q.id] || 0, Q.n), done = v >= Q.n;
     return '<div class="quest' + (done ? " done" : "") + '"><div class="qi">' + (done ? "✅" : Q.e) + '</div><div class="qb"><b>' + Q.t + '</b><div class="pbar gold"><i style="width:' + (v * 100 / Q.n) + '%"></i></div></div><span class="qn">' + v + '/' + Q.n + '</span></div>'; }).join("") + '</div>';
-  h += '<div class="path"><div class="unit"><a class="wlink" href="worlds.html#skip">🪐 Worlds</a><b>Season map</b><span>' + bossWins() + ' of ' + MAP.length + ' won. Each win opens the next match.</span></div>' + MAP.map(function(m, ix){
+  h += '<div class="path"><div class="unit"><a class="wlink" href="worlds.html#skip">🗺️ Worlds</a><b>Season map</b><span>' + bossWins() + ' of ' + MAP.length + ' won. Each win opens the next match.</span></div>' + MAP.map(function(m, ix){
     var b = g.boss[m[0]] || {}, open = bossOpen(ix), st = b.w ? "won" : open ? "open" : "shut";
     return '<div class="node-wrap"><button class="node ' + st + (ix === cb ? " cur" : "") + '" data-boss="' + ix + '">' + (ix === cb ? '<span class="bubble">' + (b.tries ? "FIGHT" : "START") + '</span>' : '') +
       (open || b.w ? m[3] : "🔒") + (b.w ? '<span class="crown">' + (b.bl === 3 ? "👑" : "✓") + '</span>' : '') + '</button><span class="node-l">' + m[1] + '</span></div>'; }).join("") + '</div>';

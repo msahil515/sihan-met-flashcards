@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#070D12">
+<meta name="theme-color" content="#06242C">
 <title>Name Lock</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -12,10 +12,14 @@
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="icon" href="icon.svg">
+<link rel="preload" href="fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/figtree.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="app.css">
 </head>
 <body>
 <div id="app">
+  <div id="world" aria-hidden="true"><div class="art"></div><div class="rays"></div><div class="glow"></div></div>
+  <canvas id="motes" aria-hidden="true"></canvas>
   <div id="tabview"></div>
   <nav id="tabbar"></nav>
   <div id="screens"></div>
@@ -23,6 +27,12 @@
   <div id="modal"></div>
   <div id="toasts"></div>
 </div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="g-flame" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#F04E78"/><stop offset=".5" stop-color="#FF8257"/><stop offset="1" stop-color="#FFD36B"/></linearGradient>
+    <linearGradient id="g-star" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE7A0"/><stop offset="1" stop-color="#FFAE45"/></linearGradient>
+  </defs>
+</svg>
 <script>window.SIHAN_SYNC_QUIET = true; window.SIHAN_SYNC_APP = "Name Lock";</script>
 <script src="../../sync.js"></script>
 <script src="../../syncqr.js"></script>
@@ -30,7 +40,9 @@
 <script src="../../voice-input.js"></script>
 <script src="../data.js"></script>
 <script src="viva.js"></script>
+<script src="sun.js"></script>
 <script src="app.js"></script>
+<script>if (window.SUN) SUN.motes(document.getElementById("motes"), 26);</script>
 <script src="pwa.js"></script>
 </body>
 </html>
