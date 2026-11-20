@@ -68,7 +68,7 @@ var WORLDS = [
   {id: "jss", x: .265, y: .52, kick: "WORLD 4", name: "JSS Interview", tag: "The panel room: openers, your work, cases, ethics, law, definitions",
     c: ["#ffab9d", "#ff755f", "#bd493b"], pc: "#ffab9d", pd: "#bd493b", spin: 52, built: true, open: true,
     lockText: "", prog: JSS.length ? jssW / JSS.length : 0, best: jssN + "/" + jssT, bestK: "Nailed", next: nextJss ? nextJss[2] + " " + nextJss[1] : "All cleared 🏆", nextK: "Next level"},
-  {id: "sjc", x: .44, y: .61, kick: "WORLD 5", name: "St John's Interview", tag: "Their panel on 25 Nov: why St John's, their services, their cases, their tools",
+  {id: "sjc", x: .47, y: .55, kick: "WORLD 5", name: "St John's Interview", tag: "Their panel on 25 Nov: why St John's, their services, their cases, their tools",
     c: ["#ffe2a8", "#f2a93b", "#9a5a12"], pc: "#ffd08a", pd: "#9a5a12", spin: 50, built: true, open: true,
     lockText: "", prog: SJC.length ? sjcW / SJC.length : 0, best: sjcN + "/" + sjcT, bestK: "Nailed", next: nextSjc ? nextSjc[2] + " " + nextSjc[1] : "All cleared 🏆", nextK: "Next level"},
   {id: "stats", x: .43, y: .17, kick: "WORLD 6", name: "Stats and Research", tag: "A lab world of data towers and graphs",
