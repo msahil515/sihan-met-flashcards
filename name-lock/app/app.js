@@ -544,8 +544,8 @@ function theoristSheet(t){
 }
 document.addEventListener("click", function(e){
   var sb = e.target.closest("[data-study]");
-  if (sb && SL){ var c = BY[sb.dataset.study.slice(2)]; if (!c) return;
-    var on = SL.toggle(studyItem(c)); SL.paintButtons(); buzz(HAP.tap); toast(on ? "Added to To study: <b>" + esc(c.name) + "</b>" : "Taken off To study", on ? "good" : ""); return; }
+  if (sb && SL){ var sid = sb.dataset.study, sq = /^s:/.test(sid) && STQ[sid.slice(2)], c = !sq && BY[sid.slice(2)]; if (!c && !sq) return;
+    var on = SL.toggle(sq ? stItem(sq.q, sq.l) : studyItem(c)); SL.paintButtons(); buzz(HAP.tap); toast(on ? "Added to To study: <b>" + esc(sq ? sq.l.name + " question" : c.name) + "</b>" : "Taken off To study", on ? "good" : ""); return; }
   var b = e.target.closest("[data-card]"); if (b && !b.closest(".opts")){ cardSheet(BY[b.dataset.card]); return; }
   var t = e.target.closest("[data-th]"); if (t && !t.closest(".mbox") && !t.closest(".th-big")) theoristSheet(TH[t.dataset.th]);
 });
@@ -641,9 +641,9 @@ function nextQ(){
 }
 /* combo heat meter: 10 ticks warming from sun to rose; cracks when a run breaks */
 var HEATC = ["#FFD36B", "#FFC24B", "#FFB04F", "#FF9C55", "#FF8257", "#FF7360", "#F9646B", "#F45872", "#F04E78", "#F04E78"];
-function heat(crack){
-  var el = $("#l-heat"); if (!el || !L) return;
-  var n = L.streak || 0, t = "";
+function heat(crack, st){
+  st = st || L; var el = $("#l-heat"); if (!el || !st) return;
+  var n = st.streak || 0, t = "";
   for (var i = 0; i < 10; i++) t += '<i class="' + (i < n ? "on" : "") + '" style="--tc:' + HEATC[i] + '"></i>';
   el.innerHTML = '<span class="lbl' + (n ? "" : " cold") + '">' + IC.flame + (n ? n + " in a row" : crack ? "Combo broken" : "Build a combo") + '</span><span class="ticks' + (crack ? " crack" : "") + '">' + t + '</span>';
 }
@@ -963,6 +963,147 @@ function vivaQuit(){
 }
 function endViva(){ var w = V ? V.w : "dis"; V = null; holdCeleb = false; clearScreens(); openViva(w); setTimeout(flushCeleb, 350); }
 
+/* ================= Stats and Research world (stats.js): read the study, pick an answer, then see why every option is right or wrong ================= */
+var STW = window.NL_STATS || {levels: []}, STQ = {}, X = null;
+STW.levels.forEach(function(l){ l.qs.forEach(function(q){ STQ[q.id] = {q: q, l: l}; }); });
+/* the stats book: on the site it sits two folders up; inside the APK the link opens the live site in the browser */
+var STB = (window.NLNative ? "https://msahil515.github.io/sihan-met-flashcards/" : "../../") + "notes/statistics/index.html#";
+var STSEC = {s1: "Variables and scales", s2: "Frequency distributions", s3: "Central tendency", s4: "Dispersion", s5: "Skewness and kurtosis",
+  s6: "The normal curve and standard scores", s7: "Probability and sampling", s8: "Hypothesis testing, errors, power", s9: "The t tests", s10: "ANOVA",
+  s11: "ANCOVA, MANOVA, MANCOVA", s12: "Correlation", s13: "Regression", s14: "Non-parametric tests", s15: "Reliability, validity, item analysis",
+  s16: "Which test to use", s18: "Problems, hypotheses and variables", s19: "Validity of a study, extraneous variables", s20: "Experimental and quasi designs",
+  s21: "Correlational, developmental, epidemiological", s22: "Single-subject designs", s23: "Observation, interviews, scaling", s24: "Qualitative and mixed methods",
+  s25: "Clinical trials and meta-analysis", s26: "Research ethics"};
+function stKey(i){ return "st-" + STW.levels[i].k; }
+function stSt(id){ var g = G(), s = g.sq || (g.sq = {}); return s[id] || (s[id] = {n: 0, k: 0, m: 0}); }
+function stSolved(){ var s = G().sq || {}; return Object.keys(STQ).filter(function(id){ return s[id] && +s[id].k; }).length; }
+/* the boss also deals your weakest question from each game (most missed first, unseen next) */
+function stLen(l){ return l.qs.length + (l.boss ? STW.levels.length - 1 : 0); }
+function stDeck(l){
+  if (!l.boss) return l.qs.slice();
+  var s = G().sq || {};
+  var mix = STW.levels.filter(function(x){ return !x.boss; }).map(function(x){
+    return x.qs.map(function(q){ var t = s[q.id]; return [q, (t ? (+t.m || 0) - (+t.k || 0) : 0) + Math.random() * .9]; })
+      .sort(function(a, b){ return b[1] - a[1]; })[0][0]; });
+  return shuffle(l.qs.concat(mix));
+}
+function stItem(q, l){ return {id: "s:" + q.id, t: q.q.length > 90 ? q.q.slice(0, 88).replace(/\s+\S*$/, "") + "..." : q.q, a: "research",
+  f: "Name Lock · Stats and Research · " + l.name, q: "Answer: " + q.o[0] + ". " + q.w[0], r: "s:" + q.id, n: l.n}; }
+function stRead(q){ return STSEC[q.r] ? '<a class="st-read" href="' + STB + q.r + '" target="_blank" rel="noopener">📖 Stats book, ' + q.r.slice(1) + ' ' + esc(STSEC[q.r]) + '</a>' : ''; }
+/* why each option is right or wrong; pick < 0 when nothing was picked (reading it back later) */
+function stWhy(q, pick, tell){
+  var h = '<div class="f ' + tell + '"><i>Why ' + esc(q.o[0]) + '</i>' + esc(q.w[0]) + '</div>';
+  if (pick > 0) h += '<div class="f trap"><i>You picked ' + esc(q.o[pick]) + '</i>' + esc(q.w[pick]) + '</div>';
+  q.o.forEach(function(o, j){ if (j && j !== pick) h += '<div class="f trap"><i>Not ' + esc(o) + '</i>' + esc(q.w[j]) + '</div>'; });
+  return h + '<div class="f">' + stRead(q) + '</div>';
+}
+function stQSheet(q){ openSheet('<div class="cd"><h2 style="font-size:19px">' + esc(q.q) + '</h2><div class="vread">' + stWhy(q, -1, "tip") + '</div>' + (SL ? SL.buttonHTML("s:" + q.id) : '') + '</div>'); }
+function openStats(){
+  var g = G(), cur = -1;
+  var won = STW.levels.filter(function(l, i){ var b = g.boss[stKey(i)]; if (cur < 0 && !(b && b.w)) cur = i; return b && b.w; }).length;
+  var el = pushScreen("stats", '<div class="lhead"><button class="x" id="sw-x">' + IC.x + '</button><b style="font-size:19px;font-weight:900">' + STW.icon + ' ' + esc(STW.name) + ' world</b></div><div class="scroll" style="padding:0 16px"><div class="path">' +
+    '<div class="unit stats"><a class="wlink" href="worlds.html#skip">🗺️ Worlds</a><b>' + esc(STW.unit) + '</b><span>' + esc(STW.blurb) + ' ' + won + ' of ' + STW.levels.length + ' levels cleared, ' + stSolved() + ' of ' + Object.keys(STQ).length + ' questions solved. Every level is open.</span></div>' +
+    STW.levels.map(function(l, i){
+      var b = g.boss[stKey(i)] || {}, off = Math.round(Math.sin(i * 0.9) * 70);
+      return '<div class="node-wrap"><button class="node ' + (b.w ? "won" : "open") + (i === cur ? " cur" : "") + '" data-s="' + i + '" style="transform:translateX(' + off + 'px)">' + (i === cur ? '<span class="bubble">' + (b.tries ? "GO" : "START") + '</span>' : '') +
+        l.icon + (b.w ? '<span class="crown">' + (b.bl === 3 ? "👑" : "✓") + '</span>' : '') + '</button><span class="node-l" style="transform:translateX(' + off + 'px)">' + esc(l.name) + ' · ' + stLen(l) + ' Qs</span></div>'; }).join("") +
+    '</div></div>', popScreen);
+  $("#sw-x", el).onclick = popScreen;
+  $(".path", el).onclick = function(e){ var b = e.target.closest("[data-s]"); if (b) stSheet(+b.dataset.s); };
+}
+function stSheet(i){
+  var l = STW.levels[i], b = G().boss[stKey(i)] || {}, n = stLen(l);
+  openSheet('<div class="cd"><h2>' + l.icon + ' ' + esc(l.name) + '</h2><div class="who">' + esc(l.sub) + ' · ' + plural(n, "question") + (b.w ? ' · cleared ' + b.w + 'x' : '') + '</div>' +
+    '<p class="vp">' + (l.boss ? 'No second goes. Get ' + Math.ceil(l.pass * n) + ' of ' + n + ' right to beat the boss. Every answer still shows why each option is right or wrong.'
+      : 'Pick an answer, then read why every option is right or wrong. Misses come back at the end until you get them.') + '</p>' +
+    '<button class="btn" id="ss-go">' + (b.w ? "Play again" : "Start") + '</button></div>');
+  $("#ss-go").onclick = function(){ closeSheet(); wipe(function(){ startStats(i); }); };
+}
+function startStats(i){
+  var l = STW.levels[i], deck = stDeck(l), b = G().boss[stKey(i)] || (G().boss[stKey(i)] = {}); /* deck first: G() rebuilds the boss records */
+  b.tries = (+b.tries || 0) + 1; save();
+  X = {i: i, l: l, q: deck, total: deck.length, need: l.boss ? Math.ceil(l.pass * deck.length) : 0, done: 0, first: 0, miss: {}, wrong: [], xp: 0, t0: Date.now(), streak: 0};
+  holdCeleb = true;
+  var el = pushScreen("lesson", '<div class="lhead"><button class="x" id="s-x">' + IC.x + '</button><div class="lprog"><i style="width:0"></i></div><span class="xpp" id="l-xpp">' + IC.spark + '<b id="l-xpn">0</b></span><div id="l-side"></div></div>' +
+    '<div class="heat" id="l-heat"></div><div class="scroll" id="l-body"></div><div class="lfoot" id="l-foot"></div>', stQuit);
+  LFX.skin(el);
+  $("#s-x", el).onclick = stQuit;
+  stNext();
+}
+function stNext(){
+  if (!X.q.length) return stFinish();
+  var q = X.q[0], ord = shuffle(q.o.map(function(o, j){ return j; })), sel = null;
+  X.lock = false;
+  $("#lesson .lprog i").style.width = (X.done * 100 / X.total) + "%";
+  $("#l-side").innerHTML = '<span class="vleft">' + (X.l.boss ? X.first + ' right · need ' + X.need : X.q.length + ' left') + '</span>';
+  heat(false, X);
+  $("#l-body").innerHTML = '<div class="qbody"><div class="vk">' + X.l.icon + ' ' + esc(X.l.name) + (X.miss[q.id] ? ' · second go' : '') + '</div><div class="qcard"><div class="qd" style="margin-top:0">' + esc(q.q) + '</div></div>' +
+    '<div class="opts' + (q.o.length === 2 ? " two" : "") + '">' + ord.map(function(j){ return '<button class="opt" data-o="' + j + '">' + esc(q.o[j]) + '</button>'; }).join("") + '</div></div>';
+  $("#l-body").scrollTop = 0;
+  $("#l-foot").innerHTML = '<button class="btn" id="l-check" disabled>Check</button>';
+  $("#l-body .opts").onclick = function(e){
+    var b = e.target.closest(".opt"); if (!b || b.disabled) return;
+    document.querySelectorAll("#l-body .opt").forEach(function(x){ x.classList.toggle("sel", x === b); });
+    sel = b; $("#l-check").disabled = false;
+  };
+  $("#l-check").onclick = function(){ if (sel) stGrade(+sel.dataset.o); };
+}
+function stGrade(pick){
+  if (X.lock) return; X.lock = true;
+  var q = X.q.shift(), ok = pick === 0, again = X.miss[q.id], s = stSt(q.id), hadRun = X.streak > 0;
+  document.querySelectorAll("#l-body .opt").forEach(function(x){ var j = +x.dataset.o; x.disabled = true; x.classList.remove("sel");
+    if (j === 0) x.classList.add("ok", "flash"); else if (j === pick) x.classList.add("bad"); });
+  s.n = (+s.n || 0) + 1;
+  if (ok){ s.k = (+s.k || 0) + 1; if (!again) X.first++; }
+  else { s.m = (+s.m || 0) + 1; if (X.wrong.indexOf(q) < 0) X.wrong.push(q); if (SL) SL.addWrong(stItem(q, STQ[q.id].l)); }
+  if (ok || X.l.boss) X.done++; else { X.miss[q.id] = 1; X.q.push(q); }
+  var xp = answer({c: {id: "s:" + q.id}, ok: ok, src: "stats", mode: "stats", mult: again ? .5 : 1});
+  X.xp += xp;
+  X.streak = ok ? X.streak + 1 : 0;
+  heat(!ok && hadRun, X);
+  if (ok){
+    SFX.ok(); buzz(HAP.ok); flash("ok"); LFX.boost(.6); LFX.burst(X.streak >= 3 ? 34 : 18, $("#l-body .opt.ok"));
+    if (X.streak === 3 || X.streak === 5 || X.streak % 10 === 0){ LFX.banner(X.streak >= 10 ? "UNSTOPPABLE" : X.streak >= 5 ? "ON FIRE" : "COMBO", X.streak + " in a row"); LFX.burst(X.streak >= 5 ? 90 : 50); LFX.boost(1); }
+    var g = document.createElement("span"); g.className = "gain"; g.textContent = "+" + xp + " XP"; $("#l-body .opt.ok").appendChild(g);
+    var pill = $("#l-xpp"); $("#l-xpn").textContent = X.xp; pill.classList.remove("bump"); void pill.offsetWidth; pill.classList.add("bump");
+  } else { SFX.bad(); buzz(HAP.bad); flash("bad"); }
+  if (X.l.boss) $("#l-side").innerHTML = '<span class="vleft">' + X.first + ' right · need ' + X.need + '</span>';
+  var praise = ["Nice!", "Locked in!", "Correct!", "Sharp!", "You got it!"][Math.floor(Math.random() * 5)];
+  $("#l-foot").insertAdjacentHTML("beforeend", '<div class="fb ' + (ok ? "ok" : "bad") + '"><h3><span class="ic">' + (ok ? "✓" : "✕") + '</span>' + (ok ? praise : "Not quite") +
+    (xp ? '<span class="xp">+' + xp + ' XP</span>' : '') + '</h3>' + (ok ? '' : '<div class="ans">Correct answer: ' + esc(q.o[0]) + (X.l.boss ? '' : '. It comes back at the end.') + '</div>') +
+    '<div class="why">' + stWhy(q, pick, "tell") + '</div>' + (SL ? '<div style="margin:0 0 10px">' + SL.buttonHTML("s:" + q.id) + '</div>' : '') +
+    '<button class="btn ' + (ok ? "ok" : "bad") + '" id="l-next">' + (X.q.length ? "Continue" : "Finish") + '</button></div>');
+  $("#l-next").onclick = stNext;
+}
+function stFinish(){
+  var g = G(), l = X.l, b = g.boss[stKey(X.i)], win = !l.boss || X.first >= X.need, clean = X.first === X.total, bx = !win ? 0 : l.boss ? (clean ? 200 : 150) : clean ? 75 : 50;
+  if (win){ b.w = (+b.w || 0) + 1; if (clean) b.bl = 3; if (l.boss){ bump("boss"); questTick({c: {}, bossWin: true}); } }
+  addXP(bx); X.xp += bx; X.fin = true; badgeCheck(); save();
+  if (win){ SFX.win(); buzz(HAP.big); confetti(clean ? 200 : 120); } else { SFX.bad(); buzz(HAP.bad); }
+  var el = $("#lesson");
+  el.innerHTML = '<div class="scroll"><div class="center"><div class="hero-e">' + (win ? (clean ? "💯" : l.icon) : "😤") + '</div><h1 class="gold">' + esc(l.name) + (win ? (l.boss ? " beaten" : " cleared") : " wins this time") + '</h1>' +
+    '<p>' + (l.boss ? X.first + ' of ' + X.total + ' right' + (win ? '.' : ', ' + X.need + ' needed. Read the misses below and take it on again.')
+      : clean ? 'Every answer right first time.' : X.first + ' of ' + X.total + ' right first time, the rest on the second go.') + '</p>' +
+    '<div class="rstats"><div class="rs g"><div class="rk">Total XP</div><div class="rv">' + X.xp + '</div></div><div class="rs o"><div class="rk">First time</div><div class="rv">' + Math.round(X.first * 100 / X.total) + '%</div></div>' +
+    '<div class="rs b"><div class="rk">Time</div><div class="rv">' + fmtTime(Date.now() - X.t0) + '</div></div></div>' +
+    (X.wrong.length ? '<div class="missed"><div class="k">Read these again</div>' + X.wrong.map(function(q){ return '<button class="chip" data-sq="' + q.id + '">' + esc(q.o[0]) + '</button>'; }).join("") + '</div>' : '') +
+    '</div></div><div class="lfoot"><button class="btn" id="r-done">Continue</button><button class="btn ghost" id="r-again" style="margin-top:10px">Play again</button></div>';
+  LFX.skin(el);
+  el.querySelector(".scroll").onclick = function(e){ var x = e.target.closest("[data-sq]"); if (x) stQSheet(STQ[x.dataset.sq].q); };
+  var i = X.i;
+  $("#r-done").onclick = endStats;
+  $("#r-again").onclick = function(){ popScreen(); X = null; startStats(i); };
+  holdCeleb = false; setTimeout(flushCeleb, 900);
+}
+function stQuit(){
+  if (!X || X.fin) return endStats();
+  openSheet('<div class="center" style="padding:6px 4px 0"><div class="hero-e" style="font-size:64px">🚪</div><h1>Leave this round?</h1><p>Your answers so far are saved. The level only clears when you finish it.</p></div>' +
+    '<button class="btn" id="q-stay" style="margin-top:14px">Keep going</button><button class="btn ghost" id="q-quit" style="margin-top:10px">Leave</button>');
+  $("#q-stay").onclick = closeSheet;
+  $("#q-quit").onclick = function(){ closeSheet(); endStats(); };
+}
+function endStats(){ X = null; holdCeleb = false; clearScreens(); openStats(); setTimeout(flushCeleb, 350); }
+
 /* ================= library ================= */
 function openLibrary(cat){
   var LC = cat || "all";
@@ -1160,7 +1301,8 @@ function bindTab(){
       startLesson({kind: "drill", mode: m, cat: PCAT, cards: pickRound(PCAT, 15)}); };
   }
   if (TAB === "study"){
-    SL.render($("#nl-stl"), {canOpen: function(x){ return /^c:/.test(x.r) && !!BY[x.r.slice(2)]; }, open: function(x){ cardSheet(BY[x.r.slice(2)]); }});
+    SL.render($("#nl-stl"), {canOpen: function(x){ return /^c:/.test(x.r) ? !!BY[x.r.slice(2)] : /^s:/.test(x.r) && !!STQ[x.r.slice(2)]; },
+      open: function(x){ if (/^s:/.test(x.r)) stQSheet(STQ[x.r.slice(2)].q); else cardSheet(BY[x.r.slice(2)]); }});
   }
   if (TAB === "collection"){
     $("#c-f").onclick = function(e){ var b = e.target.closest(".chip"); if (b){ THF = b.dataset.f; THN = 60; refreshTab(); } };
@@ -1221,6 +1363,7 @@ if (location.hash === "#map"){ history.replaceState(null, "", location.pathname)
   while (sc && sc !== document.body && !(sc.scrollHeight > sc.clientHeight && /auto|scroll/.test(getComputedStyle(sc).overflowY))) sc = sc.parentNode;
   if (p && sc && sc !== document.body) sc.scrollTop += p.getBoundingClientRect().top - sc.getBoundingClientRect().top - 8; }); }
 if (location.hash === "#bio"){ history.replaceState(null, "", location.pathname); openBio(); }
+if (location.hash === "#stats"){ history.replaceState(null, "", location.pathname); openStats(); }
 if (VIVA[location.hash.slice(1)]){ var vw = location.hash.slice(1); history.replaceState(null, "", location.pathname); openViva(vw); }
 if (!S.onboarded && !G().xp) onboarding();
 document.addEventListener("visibilitychange", function(){ if (!document.hidden && !STACK.length) refreshTab(); });

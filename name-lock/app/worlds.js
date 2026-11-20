@@ -54,6 +54,12 @@ var SJC = SJCL.map(function(l){ return ["sjc-" + l.k, l.name, l.icon]; });
 var sjcW = SJC.filter(function(m){ return won(m[0]); }).length;
 var nextSjc = SJC.filter(function(m){ return !won(m[0]); })[0];
 var sjcT = 0, sjcN = 0; SJCL.forEach(function(l){ (l.cards || []).forEach(function(c){ sjcT++; if (gv[c.id] && +gv[c.id].k) sjcN++; }); });
+/* Stats and Research levels come from stats.js ("st-" + level key); a question counts as solved once you get it right */
+var STL = (window.NL_STATS || {levels: []}).levels, gsq = g.sq || {};
+var STA = STL.map(function(l){ return ["st-" + l.k, l.name, l.icon]; });
+var stW = STA.filter(function(m){ return won(m[0]); }).length;
+var nextSt = STA.filter(function(m){ return !won(m[0]); })[0];
+var stT = 0, stN = 0; STL.forEach(function(l){ l.qs.forEach(function(q){ stT++; if (gsq[q.id] && +gsq[q.id].k) stN++; }); });
 
 var WORLDS = [
   {id: "wsw", x: .105, y: .42, kick: "WORLD 1", name: "Who Said What", tag: "A city of theorist statues",
@@ -71,9 +77,9 @@ var WORLDS = [
   {id: "sjc", x: .47, y: .55, kick: "WORLD 5", name: "St John's Interview", tag: "Their panel on 25 Nov: why St John's, their services, their cases, their tools",
     c: ["#ffe2a8", "#f2a93b", "#9a5a12"], pc: "#ffd08a", pd: "#9a5a12", spin: 50, built: true, open: true,
     lockText: "", prog: SJC.length ? sjcW / SJC.length : 0, best: sjcN + "/" + sjcT, bestK: "Nailed", next: nextSjc ? nextSjc[2] + " " + nextSjc[1] : "All cleared 🏆", nextK: "Next level"},
-  {id: "stats", x: .43, y: .17, kick: "WORLD 6", name: "Stats and Research", tag: "A lab world of data towers and graphs",
-    c: ["#8bb8ff", "#2563eb", "#1745ad"], pc: "#8bb8ff", pd: "#1745ad", spin: 56, built: false, open: won("pinel-final") || DEMO,
-    lockText: "Beat the Pinel Final Boss to unlock", prog: 0, best: "--", next: "Normal Curve Boss"}
+  {id: "stats", x: .43, y: .17, kick: "WORLD 6", name: "Stats and Research", tag: "A lab of data towers: six games and the Normal Curve Boss",
+    c: ["#8bb8ff", "#2563eb", "#1745ad"], pc: "#8bb8ff", pd: "#1745ad", spin: 56, built: true, open: true,
+    lockText: "", prog: STA.length ? stW / STA.length : 0, best: stN + "/" + stT, bestK: "Solved", next: nextSt ? nextSt[2] + " " + nextSt[1] : "All cleared 🏆", nextK: "Next level"}
 ];
 if (!seen.wsw){ seen.wsw = 1; localStorage.setItem(SEEN, JSON.stringify(seen)); }
 
@@ -217,7 +223,7 @@ function dive(i){
   document.body.classList.add("diving");
   f.style.setProperty("--fx", (r.left + r.width / 2) + "px"); f.style.setProperty("--fy", (r.top + r.height / 2) + "px"); f.classList.add("on");
   aim(true, 2.6); if (window.SUN) SUN.burstAt(pins[i], 50); whoosh(); stopAmb(); buzz([15, 40, 25, 40, 70]);
-  setTimeout(function(){ location.href = "index.html#" + (w.id === "bio" || w.id === "dis" || w.id === "jss" || w.id === "sjc" ? w.id : "map"); }, 1150);
+  setTimeout(function(){ location.href = "index.html#" + (w.id === "bio" || w.id === "dis" || w.id === "jss" || w.id === "sjc" || w.id === "stats" ? w.id : "map"); }, 1150);
 }
 /* this screen draws once from localStorage; when sync.js then pulls the other device's progress, redraw (skip the intro, at most every 30s) */
 window.addEventListener("sihan-sync", function(e){

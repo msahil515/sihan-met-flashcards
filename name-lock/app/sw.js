@@ -1,8 +1,8 @@
 /* Name Lock web app (iPhone/iPad "Add to Home Screen") - offline service worker.
    Network-first so a deploy shows up on next open; the cache is the offline fallback.
    Never caches a non-200. Not registered inside the Android APK (window.NLNative). */
-const CACHE = "namelock-app-20261120-sjc";
-const FILES = ["worlds.html", "worlds.css", "worlds.js", "index.html", "app.css", "app.js", "viva.js", "pwa.js",
+const CACHE = "namelock-app-20261120-stats";
+const FILES = ["worlds.html", "worlds.css", "worlds.js", "index.html", "app.css", "app.js", "viva.js", "stats.js", "pwa.js",
   "sun.js", "fonts/bricolage.woff2", "fonts/figtree.woff2", "assets/memory-city.webp", "assets/sunset-coast.webp",
   "icon.svg", "manifest.webmanifest", "icons/icon-180.png", "icons/icon-192.png", "icons/icon-512.png", "../data.js", "../../sync.js", "../../syncqr.js", "../../qrlib.js", "../../study.js", "../../study-pages.json", "../../voice-input.js"];
 
