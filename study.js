@@ -49,7 +49,7 @@
     var o = read(), now = Date.now(), old = o.it[x.id];
     var it = { t: String(x.t || "Untitled topic").slice(0, 120), a: x.a || "other", f: x.f || "", q: String(x.q || "").slice(0, 400),
       r: x.r || "", n: x.n || "", at: old && !old.x ? old.at : now, u: now, d: 0, x: 0 };
-    if (x.o) it.o = x.o;
+    if (/^[a-d]$/.test(x.o)) it.o = x.o;
     /* re-adding keeps what was written on it (note, textbook spot) */
     if (old) ["m", "s", "pg"].forEach(function (f) { if (old[f]) it[f] = old[f]; });
     o.it[x.id] = it;

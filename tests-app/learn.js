@@ -247,7 +247,7 @@
         (ex && ex.text ? '<p class="sh-ex">' + T().boldFig(esc(ex.text)) + "</p>" : '<p class="sh-ex">No breakdown for this option yet. The answer is ' + rf.q.correct.toUpperCase() + ") " + esc(strip(rf.q.options[rf.q.correct])) + ".</p>");
     } else if (x.q) body = '<div class="sh-q">' + esc(x.q) + "</div>";
     return '<div class="sh-it h-' + h + '" data-id="' + esc(x.id) + '"><button class="sh-heat" data-act="heat" aria-label="Change mastery">' + HEAT[h] + "</button>" +
-      '<div class="sh-t">' + (x.o ? '<span class="sh-ol">' + x.o.toUpperCase() + "</span> " : "") + esc(x.t) + "</div>" +
+      '<div class="sh-t">' + (x.o ? '<span class="sh-ol">' + esc(String(x.o).toUpperCase()) + "</span> " : "") + esc(x.t) + "</div>" +
       '<div class="sh-f">' + esc(x.f) + "</div>" + body + (x.m ? '<div class="db-my"><span>Your note</span>' + esc(x.m) + "</div>" : "") +
       '<div class="sh-loc">' + esc(shortLoc(lc, x)) + "</div>" +
       '<div class="sh-ac">' + (rf ? '<button data-act="open">' + (x.o ? "Show question" : "Open") + "</button>" : '<a href="' + esc(SL.notesUrl(x)) + '" target="_blank" rel="noopener">📖 Notes</a>') +
@@ -434,7 +434,7 @@
           '<div class="bf-stem">' + q.q + '</div><ol class="bf-opts">' + L4.filter(function (k) { return q.options[k] != null; }).map(function (k) {
             return '<li class="' + (k === q.correct ? "ok" : "") + (tagged[k] ? " tg" : "") + '"><b>' + k.toUpperCase() + "</b> " + q.options[k] + (k === q.correct ? " ✓" : "") + (tagged[k] ? ' <span class="bf-tg">you tagged this</span>' : "") + "</li>";
           }).join("") + "</ol>" + TA.explainHTML(rf.id, q, rf.i) +
-          mine.filter(function (y) { return y.m; }).map(function (y) { return '<div class="db-my"><span>Your note' + (y.o ? " on " + y.o.toUpperCase() : "") + "</span>" + esc(y.m) + "</div>"; }).join("") + "</article>";
+          mine.filter(function (y) { return y.m; }).map(function (y) { return '<div class="db-my"><span>Your note' + (y.o ? " on " + esc(String(y.o).toUpperCase()) : "") + "</span>" + esc(y.m) + "</div>"; }).join("") + "</article>";
       });
       h += "</section>";
     });
@@ -513,7 +513,7 @@
       if (!D.rev) h += '<button class="btn" id="drRev">Reveal</button>';
       else {
         if (x.o && rf) h += '<div class="exp"><div class="exp-answer"><span class="ak">' + rf.q.correct.toUpperCase() + '</span><span class="abody"><span class="alabel">Correct answer</span><span class="atext">' + rf.q.options[rf.q.correct] + "</span></span></div>" +
-          (ex && ex.text ? '<div class="exp-sec"><div class="exp-h">' + (ex.right ? "The concept" : "Why " + x.o.toUpperCase() + " is a trap") + "</div><p>" + TA.boldFig(esc(ex.text)) + "</p></div>" : "") + "</div>";
+          (ex && ex.text ? '<div class="exp-sec"><div class="exp-h">' + (ex.right ? "The concept" : "Why " + esc(String(x.o).toUpperCase()) + " is a trap") + "</div><p>" + TA.boldFig(esc(ex.text)) + "</p></div>" : "") + "</div>";
         else if (rf) h += TA.explainHTML(rf.id, rf.q, rf.i);
         else h += '<div class="exp"><p>' + esc(x.m || "No explanation saved for this one. Open the notes.") + '</p><a class="bf-l" href="' + esc(SL.notesUrl(x)) + '" target="_blank" rel="noopener">📖 Notes</a></div>';
         if (x.m && rf) h += '<div class="db-my"><span>Your note</span>' + esc(x.m) + "</div>";
