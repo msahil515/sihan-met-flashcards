@@ -40,6 +40,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "St John's", "100 Q", "9 subjects", "source-badged", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "sjmc-mock-2",
+    title: "St John's Mock 2 (25 Nov entrance)",
+    sub: "100 more real past-paper Qs · none from Mock 1 · the real paper's length · 9 subjects · sit it on a 90-minute timer · results by subject · untimed Practice",
+    path: "../take/screen.html?m=sjmc-mock-2",
+    total: 100,
+    storageKey: "sjmc-mock-2-results-v1",
+    sections: { general: 14, assessment: 12, social: 10, personality: 10, physio: 10, dev: 10, clinical: 12, disorders: 12, research: 10 },
+    blurb: "The second St John's paper: 100 more genuine past-paper questions from the same real papers (NIMHANS 2024 and 2025, RML 2020 to 2025, IHBAS 2020, Amity 2023, JEMAS(PG) 2025), with none of Mock 1's questions and none of its concepts. Nothing from JSS Mock 1, JSS Mock 2 or the SGT Master Mock, and IHBAS 2024 and 2025 left out because you have sat both. All 654 remaining candidates were rated for subject, difficulty, yield and key; doubtful or wrong keys and pure who-proposed-it recall were dropped, repeats of one concept were capped (at most two projective-test items, one Tuckman, one desensitization), and the final 100 had their keys checked a second time by a separate checker. Same split as Mock 1 across the nine core subjects, so the two results compare directly. Every card carries its source paper, the concept from scratch and why each wrong option is wrong, plus a Study this button. Negative marking is not stated in the notice; the site scores +1 / −0.25. Exam and interview prep is on the St John's page (st-johns/). Independent storage.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "St John's", "100 Q", "9 subjects", "none from Mock 1", "source-badged", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "jss-mock-2",
     title: "JSS Mock 2 (hard + high yield)",
     sub: "90 real past-paper Qs · JSS's 9 subjects × 10 · the hardest, highest-yield items · mostly concept, almost no who-said-what · results by subject · untimed Practice",
@@ -434,7 +447,7 @@ const MOCKS = [
 const GROUPS = [
   { id: "sjmc", title: "St John's Bengaluru (25 Nov)",
     sub: "St John's MClinPsy entrance: 100 MCQs, 90 minutes, interview straight after the paper. Interview prep on the St John's page",
-    members: ["sjmc-mock-1"] },
+    members: ["sjmc-mock-1", "sjmc-mock-2"] },
   { id: "jss", title: "JSS Mysuru (27 Oct)",
     sub: "JSS AHER MA Clinical Psychology entrance: 90 MCQs, 60 minutes, no negative marking, nine published subjects",
     members: ["jss-mock-2", "jss-pyq"] },
