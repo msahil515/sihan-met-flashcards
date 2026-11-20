@@ -79,6 +79,9 @@ BOOKS = [
     dict(slug="requested-topics", shelf="requested", kind="merged", search_cap=40000,
          short="Requested Topics: diathesis-stress, Bleuler's four A's, planned behaviour, brain scans, NIMHANS 31 May nine",
          blurb="Topics you asked for, each taught from scratch: the diathesis-stress model from Meehl's schizotaxia through Zubin and Spring to differential susceptibility; Bleuler's four A's against Kraepelin's dementia praecox and Schneider's first-rank symptoms; the theory of planned behaviour grown out of the theory of reasoned action, with its path diagram; and every kind of brain scan (CT, MRI, fMRI and BOLD, DTI, PET, SPECT, EEG and ERPs, MEG, fNIRS, angiography) with what each measures, its resolution and the traps. Chapter 5 is the nine concepts you asked about after the NIMHANS paper on 31 May (Vaillant's level for dissociation, systematic desensitization, awareness training in habit reversal, flashbulb-memory confidence, paradoxical intention, where ICD-11 puts gender incongruence, the gunas, dharana and the eight limbs, Kegels and the pelvic floor), each with its neighbours. Each chapter ends with a self-check in MCQ form."),
+    dict(slug="blatt-spitz-depression", shelf="requested", kind="note", src="blatt-spitz-depression",
+         short="Blatt & Spitz: anaclitic vs introjective depression",
+         blurb="The two psychodynamic names from the NIMHANS paper that share one word: Sidney Blatt's adult anaclitic (dependent) vs introjective (self-critical) depression, with the DEQ, Beck's sociotropy and autonomy, and perfectionism and suicide; and René Spitz's infant anaclitic depression vs hospitalism, with the foundling-home study and the bridge to Bowlby."),
     # --- Core Subjects (one merged book per subject) ---
     dict(slug="biopsychology", shelf="core", kind="merged",
          short="Biopsychology & Neuroscience",
