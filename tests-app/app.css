@@ -493,6 +493,28 @@ details.closed .catalog-group{margin-top:10px}
   #ps:has(#after:not(:empty)) > #after{grid-column:2;grid-row:1/5;padding-top:14px}
   #after .verdict{margin-top:0}
 }
+/* ---------- Galaxy Tab S6 build only (Tests-TabS6.apk adds html.s6): portrait-locked, 800x1280.
+   Its CSS px are ~20% smaller on the glass than the S11 Ultra's, so reading text goes up
+   and the options stack full width. The phone and S11 builds never get this class. ---------- */
+html.s6 .qmeta{margin:20px 0 14px}
+html.s6 .qmeta .chip{font-size:15px}
+html.s6 .pmid b{font-size:20px}
+html.s6 .pmid span{font-size:15px}
+html.s6 .qcard{margin-bottom:20px;padding:28px 30px 30px;font-size:26px}
+html.s6 .opts{grid-template-columns:1fr;gap:14px}
+html.s6 .opt{grid-template-columns:50px minmax(0,1fr) 30px;gap:18px;min-height:80px;padding:15px 20px;font-size:21.5px}
+html.s6 .opt .k{width:50px;height:50px;font-size:23px}
+html.s6 .verdict{font-size:26px}
+html.s6 .exp-answer .atext{font-size:20.5px}
+html.s6 .exp-sec p{font-size:19.5px}
+html.s6 .exp-trap .to,html.s6 .exp-trap .tw{font-size:17.5px}
+html.s6 .pfoot .nav,html.s6 .pfoot .grid,html.s6 .pfoot .btn{height:62px;min-height:62px}
+html.s6 .pfoot .btn{font-size:21px}
+html.s6 .poster p,html.s6 .lob-s{font-size:18px}
+html.s6 .blurb{font-size:17px}
+html.s6 .resume p{font-size:16px}
+html.s6 .ticket .mt{font-size:20px}
+html.s6 .ticket .ms{font-size:15px}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;animation-delay:0ms!important;transition-duration:1ms!important;transition-delay:0ms!important;scroll-behavior:auto!important}
 }

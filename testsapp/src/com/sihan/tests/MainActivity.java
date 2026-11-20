@@ -31,6 +31,8 @@ import java.util.ArrayList;
    Everything is served from the APK, so it runs with no network at all. */
 public class MainActivity extends Activity {
     private static final String HOST = "appassets.androidplatform.net";
+    /* "" in Tests.apk and Tests-Tab.apk. build.py --s6 sets " SihanTabS6" so the web app adds html.s6 */
+    private static final String UA_TAG = "";
     private static final String START = "https://" + HOST + "/index.html";
     /* sister app: one QR scan here hands the sync code over to it (see syncqr.js) */
     private static final String OTHER_PKG = "com.sihan.namelock";
@@ -64,6 +66,7 @@ public class MainActivity extends Activity {
         s.setMediaPlaybackRequiresUserGesture(false);
         s.setTextZoom(100);
         s.setAllowFileAccess(false);
+        if (!UA_TAG.isEmpty()) s.setUserAgentString(s.getUserAgentString() + UA_TAG);
         web.addJavascriptInterface(new Bridge(), "NLNative");
         web.setWebViewClient(new WebViewClient() {
             @Override

@@ -12,6 +12,9 @@ android-commandlinetools), Pillow, and the shared keystore from build_apk.py.
 Usage: python3 testsapp/build.py          (phone, portrait-locked)
        python3 testsapp/build.py --tab    (tab: downloads/Tests-Tab.apk, same package,
        rotates with the device incl. keyboard dock, so it installs over the phone build)
+       python3 testsapp/build.py --s6     (Galaxy Tab S6: downloads/Tests-TabS6.apk, same package,
+       locked to portrait, no restart on keyboard dock, tags its WebView user agent so
+       tests-app/app.css applies the html.s6 sizes; phone and S11 builds never get them)
 """
 import os
 import shutil
@@ -33,8 +36,9 @@ KEYSTORE = Path(os.environ.get("SIHAN_MET_KEYSTORE", Path.home() / ".sihan-met-k
 KS_PASS = os.environ.get("SIHAN_MET_KS_PASS", "sihanmet2026")
 KS_ALIAS = os.environ.get("SIHAN_MET_KS_ALIAS", "sihanmet")
 TAB = "--tab" in sys.argv
-OUT = ROOT / "downloads" / ("Tests-Tab.apk" if TAB else "Tests.apk")
-W = Path("/tmp/tests-apk-build" + ("-tab" if TAB else ""))
+S6 = "--s6" in sys.argv
+OUT = ROOT / "downloads" / ("Tests-TabS6.apk" if S6 else "Tests-Tab.apk" if TAB else "Tests.apk")
+W = Path("/tmp/tests-apk-build" + ("-s6" if S6 else "-tab" if TAB else ""))
 
 
 def run(*cmd):
@@ -77,6 +81,18 @@ def main():
         assert "fullSensor" in m and "|keyboard|" in m
         manifest = W / "AndroidManifest.xml"
         manifest.write_text(m)
+    src = HERE / "src"
+    if S6:  # stays portrait-locked like the phone build; keyboard dock + user agent tag only
+        m = manifest.read_text().replace('keyboardHidden|', 'keyboardHidden|keyboard|navigation|')
+        assert 'screenOrientation="portrait"' in m and "|keyboard|" in m
+        manifest = W / "AndroidManifest.xml"
+        manifest.write_text(m)
+        src = W / "src"
+        shutil.copytree(HERE / "src", src)
+        act = src / "com" / "sihan" / "tests" / "MainActivity.java"
+        j = act.read_text().replace('UA_TAG = "";', 'UA_TAG = " SihanTabS6";')
+        assert 'UA_TAG = " SihanTabS6";' in j
+        act.write_text(j)
 
     print("[1/4] resources")
     run(BT / "aapt2", "compile", "--dir", res, "-o", W / "res.zip")
@@ -85,7 +101,7 @@ def main():
 
     print("[2/4] java -> dex")
     cls.mkdir()
-    srcs = [str(p) for p in (HERE / "src").rglob("*.java")]
+    srcs = [str(p) for p in src.rglob("*.java")]
     run("javac", "-source", "8", "-target", "8", "-nowarn", "-Xlint:-options", "-bootclasspath", JAR, "-d", cls, *srcs)
     run(BT / "d8", "--min-api", "24", "--lib", JAR, "--output", W, *[str(p) for p in cls.rglob("*.class")])
     run("zip", "-qj", W / "base.apk", W / "classes.dex")
