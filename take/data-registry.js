@@ -349,6 +349,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "JEPAS(PG) 2020", "marked-copy key, checked", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "imhans-2025",
+    title: "IMHANS Kozhikode 2025 (real paper)",
+    sub: "75 real Qs · the M.Phil Clinical Psychology paper, booklet 25035 A · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=imhans-2025",
+    total: 75,
+    storageKey: "imhans-2025-results-v1",
+    sections: { research: 21, clinical: 16, physio: 13, assessment: 9, disorders: 6, general: 5, dev: 3, personality: 1, social: 1 },
+    blurb: "The IMHANS Kozhikode (Institute of Mental Health and Neurosciences, Kerala) 2025 M.Phil in Clinical Psychology entrance, booklet 25035 A, 60 minutes, all 75 questions from the paper you sent. There is no official key, and the pencil dots on the copy are one candidate's guesses (some wrong, many blank), so every answer is worked out from standard texts. It is a modern, concept-heavy paper: research methods and statistics (MANOVA, ANCOVA, SEM, IRT, meta-analysis, non-parametric tests), therapy (ACT, DBT, REBT, MI, person-centred, Bowen), biopsych (VLPO, somatic markers, ACC, refractory period) and 13 Assertion-Reason items. Three of those have both statements false with no 'both false' option, and one option is worded backwards; each carries a Key note. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. The booklet does not print its marking scheme; the site scores +1 / -0.25 like every other mock.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "IMHANS 2025", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "ihbas-2025",
     title: "IHBAS 2025 PYQ Mock (real paper)",
     sub: "100 real Qs · IHBAS Delhi M.Phil Clinical Psychology (MPCP) entrance 2025 · Series A · official key · untimed Practice + Full run",
@@ -572,6 +585,9 @@ const GROUPS = [
   { id: "jepas", title: "JEPAS(PG), West Bengal",
     sub: "The West Bengal board's Joint Entrance for Post Graduate Admission: the M.Phil Clinical Psychology paper, real questions",
     members: ["jepas-2020"] },
+  { id: "imhans", title: "IMHANS Kozhikode",
+    sub: "Institute of Mental Health and Neurosciences, Kozhikode (Kerala): the M.Phil Clinical Psychology entrance, real questions",
+    members: ["imhans-2025"] },
   { id: "gmch", title: "GMCH Chandigarh",
     sub: "Government Medical College and Hospital, Chandigarh: M.Phil Clinical Psychology entrance papers, real questions with the official key",
     members: ["gmch-2025"] },
