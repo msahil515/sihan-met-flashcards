@@ -297,6 +297,19 @@ const MOCKS = [
     tags: ["CIP 2023 topics", "built from the recall list", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "gmch-2025",
+    title: "GMCH Chandigarh 2025 (real paper)",
+    sub: "100 real Qs · GMCH's own 2025 M.Phil Clinical Psychology paper · official key · untimed",
+    path: "../take/screen.html?m=gmch-2025",
+    total: 100,
+    storageKey: "gmch-2025-results-v1",
+    sections: { clinical: 45, research: 15, disorders: 13, general: 13, physio: 6, assessment: 4, dev: 2, social: 1, personality: 1 },
+    blurb: "The GMCH Chandigarh (Government Medical College and Hospital) 2025 M.Phil Clinical Psychology entrance, all 100 questions word for word from the paper you sent (pages 1 to 8 of the 26-page file; the rest is the Psychiatric Social Work and Nursing papers). Every answer is from the official GMCH key that came with it. Almost half the paper is therapy (45 Qs: CBT, DBT, ACT, MBCT, Gestalt, REBT, family and existential therapy), then research and qualitative methods, psychopathology and general. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Where the official key is arguable a Key note says so (construct validity, selective abstraction, IPT, IQ as ordinal, Skinner vs Thorndike and a few more); the key still scores. The paper repeats itself twice (OCD and ERP, Beck's triad), as printed.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "official key", "GMCH 2025", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "ihbas-2025",
     title: "IHBAS 2025 PYQ Mock (real paper)",
     sub: "100 real Qs · IHBAS Delhi M.Phil Clinical Psychology (MPCP) entrance 2025 · Series A · official key · untimed Practice + Full run",
@@ -517,6 +530,9 @@ const GROUPS = [
   { id: "jemas", title: "JEMAS(PG) — West Bengal",
     sub: "The JEMAS(PG) Clinical Psychology entrance paper — real questions, source-badged, folded in page by page",
     members: ["jemas-2025"] },
+  { id: "gmch", title: "GMCH Chandigarh",
+    sub: "Government Medical College and Hospital, Chandigarh: M.Phil Clinical Psychology entrance papers, real questions with the official key",
+    members: ["gmch-2025"] },
   { id: "sgt", archived: true, title: "SGT University",
     sub: "2026 cycle closed — but this is 100 real PYQs re-sorted into a general-psych shape, so it is still the best all-round drill on the site for IHBAS / CIP / JSS / DIMHANS",
     members: ["sgt-pyq"] }
