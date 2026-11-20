@@ -128,10 +128,10 @@
 <div class="stats">
   <div class="stat all"><div class="n">53</div><div class="l">real papers</div></div>
   <div class="stat all"><div class="n">16</div><div class="l">colleges</div></div>
-  <div class="stat built"><div class="n">16</div><div class="l">built into mocks</div></div>
+  <div class="stat built"><div class="n">18</div><div class="l">built into mocks</div></div>
   <div class="stat part"><div class="n">1</div><div class="l">built partly</div></div>
-  <div class="stat queue"><div class="n">36</div><div class="l">not built</div></div>
-  <div class="stat keyed"><div class="n">13</div><div class="l">unbuilt <i>and</i> keyed</div></div>
+  <div class="stat queue"><div class="n">34</div><div class="l">not built</div></div>
+  <div class="stat keyed"><div class="n">11</div><div class="l">unbuilt <i>and</i> keyed</div></div>
 </div>
 
 
@@ -273,8 +273,6 @@ const QUEUE = [
   {n:23, t:"NFSU 2024, M.Sc Clinical / Forensic Psychology", m:"9 photos &middot; <em>answer explanations are in the shot</em> &middot; p1 cropped down the left column, p9 upside down &middot; <b>upgraded on the scan pass</b>"},
   {n:20, t:"IMHANS Kozhikode 2025", m:"13 pp &middot; <b>75 Qs, not 100</b> &middot; booklet 25035&ndash;A, 60 min &middot; <em>pencilled ticks run the whole way through</em> &middot; <b>upgraded on the scan pass</b>"},
   {n:21, t:"\"Entrance Test 2023, M.Phil Clinical Psychology\" (filed as KU 2023)", m:"9 pp &middot; <b>70 Qs</b> &middot; <em>ticked throughout in pen</em> &middot; <b>the paper never names the university &ndash; Kashmir or Kurukshetra?</b>"},
-  {n:3, t:"Gurugram University 2025, M.Phil Clinical Psychology", m:"11 pp &middot; 60 Qs &middot; <em>official key, printed in the university's own notice</em>"},
-  {n:4, t:"Gurugram University 2025, M.A. Clinical Psychology", m:"9 pp &middot; 70 Qs &middot; <em>official key, same notice</em>"},
   {n:5, t:"JEMAS(PG) 2022", m:"8 pp &middot; <em>answers circled in blue pen through the whole copy</em>"},
   {n:6, t:"GMCH Chandigarh 2023", m:"10 pp booklet + pack pp55&ndash;68 &middot; 100 Qs &middot; <em>the pack copy prints the full worked key</em> &middot; upgraded today"},
   {n:19, t:"RINPAS 2024", m:"16 pp booklet + pack pp16&ndash;30 &middot; 100 Qs &middot; <em>pack copy prints answers + explanations for all 100</em> &middot; moved up today"},
@@ -351,13 +349,13 @@ const DATA = [
     {yr:"2023", nm:"GMCH 2023, entrance test held 02.09.2023", pg:"10 + 14", key:"copy", src:["you","pack"], st:"queue",
      note:"This is the file labelled \"GMCC 2023\". Full official booklet, 100 Qs, and it's also inside \"Mphil past papers Compiled.pdf\". <b>Corrected today:</b> the pack block is pp55&ndash;68, not pp55&ndash;57, and it prints answers <i>with explanations</i> for all 100 &ndash; I'd written it off as hand ticks on the first 40. <b>Build queue #6.</b>"}
   ]},
-  {college:"Gurugram University", sub:"Haryana &middot; both 2025 papers, both officially keyed", rows:[
-    {yr:"2025", nm:"Gurugram 2025, M.Phil Clinical Psychology", pg:"11", key:"off", src:["you","drive"], st:"queue",
-     note:"Inside the university's own notice PDF, with the official answer key on the page after it. 60 Qs. <b>Build queue #3.</b>"},
-    {yr:"2025", nm:"Gurugram 2025, M.A. Clinical Psychology", pg:"9", key:"off", src:["you","drive"], st:"queue",
-     note:"Same notice PDF, 70 Qs, its own official key. <b>Build queue #4.</b>"},
+  {college:"Gurugram University", sub:"Haryana &middot; both 2025 papers, both officially keyed, both built", rows:[
+    {yr:"2025", nm:"Gurugram 2025, M.Phil Clinical Psychology", pg:"11", key:"off", src:["you","drive"], st:"live", href:"../take/screen.html?m=gurugram-2025-mphil",
+     note:"<b>BUILT 20 Nov 2026:</b> live as a mock, all 60 questions word for word, every key from the official key in the university's notice (pp2&ndash;13 of the notice PDF)."},
+    {yr:"2025", nm:"Gurugram 2025, M.A. Clinical Psychology", pg:"9", key:"off", src:["you","drive"], st:"live", href:"../take/screen.html?m=gurugram-2025-ma",
+     note:"<b>BUILT 20 Nov 2026:</b> live as a mock, all 70 questions word for word, every key from its own official key in the same notice (pp14&ndash;23)."},
     {yr:"2025", nm:"plus a solved version by Anukriti", pg:"16", key:"copy", src:["you","drive"], st:"queue",
-     note:"Third-party worked solutions of the same exam. Useful as a cross-check against the official key, not a separate paper."}
+     note:"<b>Corrected 20 Nov 2026:</b> not a copy of the notice. It is a 60-question version in different wording: about a third match the notice paper word for word, many more are the same topic reworded, and roughly 20 are not in the notice at all (Weber's law, myelin, corpus callosum, Barnum effect, directive counselling and more). The answers are Anukriti's own, not official. Not built."}
   ]},
   {college:"JEMAS (PG)", sub:"West Bengal &middot; 5 papers, 1 built partly", rows:[
     {yr:"2025", nm:"JEMAS(PG) 2025, CP booklet", pg:"14 photos", key:"none", src:["you"], st:"part", href:"../quiz/jemas-2025/",

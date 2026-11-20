@@ -310,6 +310,32 @@ const MOCKS = [
     tags: ["100% real PYQ", "official key", "GMCH 2025", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "gurugram-2025-mphil",
+    title: "Gurugram 2025 M.Phil (real paper)",
+    sub: "60 real Qs · Gurugram University's own 2025 M.Phil Clinical Psychology paper · official key · untimed",
+    path: "../take/screen.html?m=gurugram-2025-mphil",
+    total: 60,
+    storageKey: "gurugram-2025-mphil-results-v1",
+    sections: { disorders: 16, research: 9, general: 7, assessment: 6, physio: 6, dev: 6, clinical: 5, social: 3, personality: 2 },
+    blurb: "Gurugram University's own 2025 M.Phil Clinical Psychology entrance (held 18 July 2025), all 60 questions word for word from the university's notice PDF, and every answer from the official key printed in that notice. It is a broad, mostly fact-level paper: psychopathology (16 Qs), research and statistics, assessment, biopsych, development, learning, memory and thinking. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Where the official key is arguable a Key note says so (naturalistic observation vs correlational study, contrasted groups as concurrent validity, how far the reticular formation runs, REBT vs CBT); the key still scores. Typos are as printed in the paper.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "official key", "Gurugram 2025", "M.Phil", "trap per wrong option", "untimed practice"]
+  },
+  {
+    id: "gurugram-2025-ma",
+    title: "Gurugram 2025 M.A. (real paper)",
+    sub: "70 real Qs · Gurugram University's own 2025 M.A. Clinical Psychology paper · official key · untimed",
+    path: "../take/screen.html?m=gurugram-2025-ma",
+    total: 70,
+    storageKey: "gurugram-2025-ma-results-v1",
+    sections: { disorders: 13, general: 10, research: 10, social: 8, dev: 6, assessment: 6, personality: 6, clinical: 6, physio: 5 },
+    blurb: "Gurugram University's own 2025 M.A. Clinical Psychology entrance (held 18 July 2025), all 70 questions word for word from the same notice PDF, every answer from its official key. It covers development, social, research and statistics, psychopathology (anxiety disorders heavily), therapy, personality and biopsych. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Where the official key is arguable a Key note says so (Stern vs Terman for the IQ formula, denial vs rationalisation as the defence Freud did not propose, DSM-5 schizophrenia subtypes, the 'best' criterion of abnormality, panic symptoms); the key still scores. The paper prints two questions twice (Cluster B, and the non-positive symptom of schizophrenia), as printed.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "official key", "Gurugram 2025", "M.A.", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "ihbas-2025",
     title: "IHBAS 2025 PYQ Mock (real paper)",
     sub: "100 real Qs · IHBAS Delhi M.Phil Clinical Psychology (MPCP) entrance 2025 · Series A · official key · untimed Practice + Full run",
@@ -533,6 +559,9 @@ const GROUPS = [
   { id: "gmch", title: "GMCH Chandigarh",
     sub: "Government Medical College and Hospital, Chandigarh: M.Phil Clinical Psychology entrance papers, real questions with the official key",
     members: ["gmch-2025"] },
+  { id: "gurugram", title: "Gurugram University",
+    sub: "Gurugram University, Haryana: the 2025 M.Phil and M.A. Clinical Psychology entrance papers, real questions with the official key",
+    members: ["gurugram-2025-mphil", "gurugram-2025-ma"] },
   { id: "sgt", archived: true, title: "SGT University",
     sub: "2026 cycle closed — but this is 100 real PYQs re-sorted into a general-psych shape, so it is still the best all-round drill on the site for IHBAS / CIP / JSS / DIMHANS",
     members: ["sgt-pyq"] }
