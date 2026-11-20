@@ -336,6 +336,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "official key", "Gurugram 2025", "M.A.", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "jepas-2020",
+    title: "JEPAS(PG) 2020, West Bengal (real paper)",
+    sub: "100 real Qs · the WBJEEB M.Phil Clinical Psychology paper, Set A · answers from a marked copy, checked · untimed",
+    path: "../take/screen.html?m=jepas-2020",
+    total: 100,
+    storageKey: "jepas-2020-results-v1",
+    sections: { research: 17, physio: 16, disorders: 13, aptitude: 12, dev: 12, general: 9, assessment: 9, clinical: 8, personality: 2, social: 2 },
+    blurb: "The West Bengal JEPAS(PG) 2020 M.Phil in Clinical Psychology entrance (Set A, 90 minutes, minus a quarter mark per wrong answer), all 100 questions from the paper you sent. The copy has every answer marked in yellow by hand, so each key was read off it and checked; two marks were plainly or arguably wrong and are set from the evidence with a Key note (Q11 childhood anxiety treatment, CAMS 2008; Q73 OCD lifetime prevalence 2.5%). It is a broad paper: research methods and statistics, biopsych and sleep, psychopathology, development, assessment, therapy, plus 12 aptitude questions (permutations, odd one out, English usage, teaching and communication). Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "JEPAS(PG) 2020", "marked-copy key, checked", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "ihbas-2025",
     title: "IHBAS 2025 PYQ Mock (real paper)",
     sub: "100 real Qs · IHBAS Delhi M.Phil Clinical Psychology (MPCP) entrance 2025 · Series A · official key · untimed Practice + Full run",
@@ -556,6 +569,9 @@ const GROUPS = [
   { id: "jemas", title: "JEMAS(PG) — West Bengal",
     sub: "The JEMAS(PG) Clinical Psychology entrance paper — real questions, source-badged, folded in page by page",
     members: ["jemas-2025"] },
+  { id: "jepas", title: "JEPAS(PG), West Bengal",
+    sub: "The West Bengal board's Joint Entrance for Post Graduate Admission: the M.Phil Clinical Psychology paper, real questions",
+    members: ["jepas-2020"] },
   { id: "gmch", title: "GMCH Chandigarh",
     sub: "Government Medical College and Hospital, Chandigarh: M.Phil Clinical Psychology entrance papers, real questions with the official key",
     members: ["gmch-2025"] },
