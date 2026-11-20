@@ -71,19 +71,61 @@
     if (!meta.haptic) return;
     try { if (window.NLNative) NLNative.vibrate(p.join(",")); else if (navigator.vibrate) navigator.vibrate(p); } catch (e) {}
   }
-  var actx = null;
-  function tone(freqs) {
-    if (!meta.sound) return;
-    try {
-      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
-      freqs.forEach(function (f, i) {
-        var o = actx.createOscillator(), g = actx.createGain(), t = actx.currentTime + i * 0.09;
-        o.type = "triangle"; o.frequency.value = f; o.connect(g); g.connect(actx.destination);
-        g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.18, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.18);
-        o.start(t); o.stop(t + 0.2);
-      });
-    } catch (e) {}
+  /* ---------- procedural sound (Web Audio, no audio files), all behind the Sound toggle ---------- */
+  var actx = null, nbuf = null;
+  function audio() {
+    if (!meta.sound) return null;
+    try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); if (actx.state === "suspended") actx.resume(); return actx; } catch (e) { return null; }
   }
+  function voice(a, type, f0, f1, t, dur, peak, dest) {
+    var o = a.createOscillator(), g = a.createGain();
+    o.type = type; o.frequency.setValueAtTime(f0, t); if (f1) o.frequency.exponentialRampToValueAtTime(f1, t + dur);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + 0.006); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(dest || a.destination); o.start(t); o.stop(t + dur + 0.02);
+  }
+  function hiss(a, t, dur, peak, type, freq, q) {
+    if (!nbuf) { nbuf = a.createBuffer(1, Math.floor(a.sampleRate * 0.6), a.sampleRate); var d = nbuf.getChannelData(0); for (var i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; }
+    var s = a.createBufferSource(), f = a.createBiquadFilter(), g = a.createGain();
+    s.buffer = nbuf; f.type = type; f.frequency.value = freq; f.Q.value = q || 1;
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + 0.004); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    s.connect(f); f.connect(g); g.connect(a.destination); s.start(t); s.stop(t + dur + 0.02);
+  }
+  function tone(freqs) {
+    var a = audio(); if (!a) return;
+    try { freqs.forEach(function (f, i) { voice(a, "triangle", f, 0, a.currentTime + i * 0.09, 0.18, 0.18); }); } catch (e) {}
+  }
+  var SFX = {
+    /* metallic mechanical click: option press, prev / next / grid */
+    click: function () { var a = audio(); if (!a) return; try { var t = a.currentTime; hiss(a, t, 0.035, 0.3, "bandpass", 3400, 5); voice(a, "square", 2200, 1100, t, 0.03, 0.035); } catch (e) {} },
+    /* harmonic chime, a semitone higher for every right answer in the current run */
+    chime: function (c) {
+      var a = audio(); if (!a) return;
+      try {
+        var t = a.currentTime, f = 523.25 * Math.pow(2, Math.min(Math.max(c, 1) - 1, 15) / 12);
+        [[1, 0.13], [2, 0.05], [3, 0.025]].forEach(function (h) { voice(a, "sine", f * h[0], 0, t, 0.42, h[1]); voice(a, "sine", f * 1.5 * h[0], 0, t + 0.07, 0.5, h[1] * 0.8); });
+      } catch (e) {}
+    },
+    /* heavy metal slam when a wanted star locks in */
+    slam: function () {
+      var a = audio(); if (!a) return;
+      try {
+        var t = a.currentTime;
+        voice(a, "sine", 140, 42, t, 0.38, 0.5); hiss(a, t, 0.16, 0.35, "lowpass", 1100, 0.7);
+        [317, 541, 829, 1173].forEach(function (f, i) { voice(a, "sine", f, 0, t + 0.005, 0.7 - i * 0.1, 0.045); });
+      } catch (e) {}
+    },
+    /* distorted sub-bass thud plus a burst of radio static on a miss */
+    thud: function () {
+      var a = audio(); if (!a) return;
+      try {
+        var t = a.currentTime, ws = a.createWaveShaper(), cv = new Float32Array(256);
+        for (var i = 0; i < 256; i++) cv[i] = Math.tanh(4 * (i / 128 - 1));
+        ws.curve = cv; ws.connect(a.destination);
+        voice(a, "sine", 82, 36, t, 0.42, 0.55, ws);
+        [0.02, 0.07, 0.12].forEach(function (d) { hiss(a, t + d, 0.035, 0.16, "bandpass", 1900, 1.4); });
+      } catch (e) {}
+    }
+  };
   function floater(t) {
     var el = document.createElement("div"); el.className = "floater"; el.textContent = t;
     app.appendChild(el); setTimeout(function () { el.remove(); }, 1000);
@@ -100,33 +142,151 @@
   }
 
 
-  /* ---------- sunset world: dust motes on #sky, spark bursts on #fx ---------- */
+  /* ---------- night pursuit world (heist look, Sihan's spec section 1) ----------
+     #city: skyline, road and horizon haze, drawn once per resize. #sky, every frame: rain, lane
+     dashes, street lamps sweeping past, traffic light trails, speed lines, overdrive embers.
+     #fx: spark bursts over the UI. Heat follows the live combo (setHeat): 0 cool night,
+     1 police lights (3-7 in a row), 2 overdrive (8+). Cinematic FX Low (this device only,
+     tapp-fx-v1): no rain, no glass blur, fewer lights, 30 fps. */
   var CALM = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var FXQ = load("tapp-fx-v1") === "low" ? "low" : "high";
+  document.documentElement.classList.toggle("fx-low", FXQ === "low");
+  function heatOf(c) { return c >= 8 ? 2 : c >= 3 ? 1 : 0; }
   var FX = (function () {
-    var sky = document.getElementById("sky"), fxc = document.getElementById("fx");
-    var sx = sky.getContext("2d"), fx = fxc.getContext("2d"), W = 0, H = 0, DPR = Math.min(2, window.devicePixelRatio || 1);
-    var motes = [], bits = [], warp = 0, fxOn = false;
-    var PC = ["#FFE7A0", "#FFC24B", "#FF8257", "#3FD8BF", "#FFF6E0"];
-    function size() {
-      W = window.innerWidth; H = window.innerHeight;
-      [sky, fxc].forEach(function (c) { c.width = W * DPR; c.height = H * DPR; c.getContext("2d").setTransform(DPR, 0, 0, DPR, 0, 0); });
-      var n = Math.round(Math.max(18, Math.min(46, W * H / 12000)));
-      motes = [];
-      for (var i = 0; i < n; i++) motes.push({ x: Math.random() * W, y: Math.random() * H, r: 0.6 + Math.random() * 1.8, s: 0.012 + Math.random() * 0.03, p: Math.random() * 6.28 });
+    var city = document.getElementById("city"), sky = document.getElementById("sky"), fxc = document.getElementById("fx");
+    var cc = city.getContext("2d"), sx = sky.getContext("2d"), fx = fxc.getContext("2d");
+    var W = 0, H = 0, VX = 0, VY = 0, DPR = Math.min(2, window.devicePixelRatio || 1);
+    var heat = 0, speed = 1, warp = 0, paused = false, dash = 0, emberAt = 0;
+    var bits = [], fxOn = false, rain = [], lamps = [], cars = [], lines = [], embers = [];
+    var PAL = { gold: ["#FFF3C4", "#FFD25E", "#FFB627", "#FF8A1F", "#FFFFFF"], bad: ["#FF3B5C", "#FF7A8E", "#C9D3E0", "#7E8A9C", "#FF2E4D"] };
+    function glow(r, rgb) {
+      var c = document.createElement("canvas"); c.width = c.height = r * 2;
+      var g = c.getContext("2d"), gr = g.createRadialGradient(r, r, 0, r, r, r);
+      gr.addColorStop(0, "rgba(" + rgb + ",1)"); gr.addColorStop(0.2, "rgba(" + rgb + ",.5)"); gr.addColorStop(1, "rgba(" + rgb + ",0)");
+      g.fillStyle = gr; g.fillRect(0, 0, r * 2, r * 2); return c;
     }
-    function drawSky(dt, t) {
+    var LAMP = glow(64, "255,168,70"), HEAD = glow(32, "200,235,255"), TAIL = glow(32, "255,45,70");
+    function low() { return FXQ === "low"; }
+    function rnd(a, b) { return a + Math.random() * (b - a); }
+    /* depth z: 0 at the horizon, 1 at the viewer. lateral x: road edges at -1 and +1 */
+    function py(z) { return VY + (H * 1.06 - VY) * z * z; }
+    function px(x, z) { return VX + x * W * 0.95 * z * z; }
+    /* oncoming traffic on the left (headlights, fast), cars we're passing on the right (tail lights, slow) */
+    function car(z) { var on = Math.random() < 0.5; return { on: on, x: on ? (Math.random() < 0.5 ? -0.75 : -0.28) : (Math.random() < 0.5 ? 0.28 : 0.75), z: z, v: on ? rnd(0.5, 0.8) : rnd(0.12, 0.25) }; }
+    function size() {
+      W = window.innerWidth; H = window.innerHeight; VX = W / 2; VY = Math.round(H * 0.3);
+      var cd = Math.min(1.5, DPR), sd = low() ? 1 : Math.min(1.5, DPR);
+      city.width = W * cd; city.height = H * cd; cc.setTransform(cd, 0, 0, cd, 0, 0);
+      sky.width = W * sd; sky.height = H * sd; sx.setTransform(sd, 0, 0, sd, 0, 0);
+      fxc.width = W * DPR; fxc.height = H * DPR; fx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      drawCity();
+      var nr = low() ? 0 : Math.round(Math.min(150, W * H / 8000)), nl = low() ? 4 : 7, nc = low() ? 4 : 10;
+      rain = []; lamps = []; cars = []; lines = []; embers = [];
+      for (var i = 0; i < nr; i++) rain.push({ x: Math.random() * W, y: Math.random() * H, l: rnd(10, 26), v: rnd(0.7, 1.2) });
+      for (var j = 0; j < nl; j++) lamps.push({ z: j / nl * 1.2, side: j % 2 ? 1 : -1 });
+      for (var k = 0; k < nc; k++) cars.push(car(rnd(0.05, 1)));
+      for (var m = 0; m < 24; m++) lines.push({ a: rnd(0, 6.283), r: rnd(0, Math.max(W, H)) });
+      if (CALM) drawSky(0);
+    }
+    function drawCity() {
+      cc.clearRect(0, 0, W, H);
+      var hz = cc.createRadialGradient(VX, VY, 0, VX, VY, Math.max(W, H) * 0.7);
+      hz.addColorStop(0, "rgba(255,140,60,.26)"); hz.addColorStop(0.22, "rgba(80,110,200,.12)"); hz.addColorStop(1, "rgba(0,0,0,0)");
+      cc.fillStyle = hz; cc.fillRect(0, 0, W, H);
+      var seed = 11; function sr() { seed = seed * 16807 % 2147483647; return (seed - 1) / 2147483646; }
+      [[0.55, "#0C1528", 0.09], [1, "#060A14", 0.14]].forEach(function (row) {
+        var x = -12, hmax = H * 0.2 * row[0] + 30;
+        while (x < W + 12) {
+          var bw = 16 + sr() * 48, bh = 18 + sr() * hmax;
+          cc.fillStyle = row[1]; cc.fillRect(x, VY - bh, bw + 1, bh + 2);
+          for (var wy = VY - bh + 6; wy < VY - 5; wy += 7) for (var wx = x + 4; wx < x + bw - 4; wx += 6) {
+            if (sr() < row[2]) { cc.fillStyle = sr() < 0.72 ? "rgba(255,190,110,.6)" : "rgba(120,220,255,.55)"; cc.fillRect(wx, wy, 2, 3); }
+          }
+          if (sr() < 0.18) { cc.fillStyle = "rgba(255,50,70,.8)"; cc.fillRect(x + bw / 2 - 1, VY - bh - 4, 2, 2); }
+          x += bw + sr() * 5;
+        }
+      });
+      cc.fillStyle = "#04070D"; cc.fillRect(0, VY, W, H - VY);
+      var rg = cc.createLinearGradient(0, VY, 0, H);
+      rg.addColorStop(0, "#111A2C"); rg.addColorStop(0.5, "#0A111E"); rg.addColorStop(1, "#060A12");
+      cc.fillStyle = rg; cc.beginPath(); cc.moveTo(VX - 3, VY); cc.lineTo(VX + 3, VY); cc.lineTo(px(1.15, 1), py(1)); cc.lineTo(px(-1.15, 1), py(1)); cc.closePath(); cc.fill();
+      cc.lineWidth = 2; cc.strokeStyle = "rgba(255,180,80,.22)";
+      [-1, 1].forEach(function (s) { cc.beginPath(); cc.moveTo(VX, VY); cc.lineTo(px(s, 1), py(1)); cc.stroke(); });
+      cc.strokeStyle = "rgba(255,196,60,.2)";
+      [-0.025, 0.025].forEach(function (s) { cc.beginPath(); cc.moveTo(VX, VY); cc.lineTo(px(s, 1), py(1)); cc.stroke(); });
+      var hl = cc.createLinearGradient(0, 0, W, 0);
+      hl.addColorStop(0, "rgba(255,150,60,0)"); hl.addColorStop(0.5, "rgba(255,170,80,.55)"); hl.addColorStop(1, "rgba(255,150,60,0)");
+      cc.fillStyle = hl; cc.fillRect(0, VY - 1, W, 2);
+    }
+    function drawSky(dt) {
+      var target = [1, 1.8, 2.8][heat] + warp * 2;
+      speed += (target - speed) * Math.min(1, dt * 0.003); warp = Math.max(0, warp - dt * 0.0012);
       sx.clearRect(0, 0, W, H);
-      var sp = 1 + warp * 5;
-      warp = Math.max(0, warp - dt * 0.0012);
-      sx.fillStyle = "#FFE2B0"; sx.shadowColor = "#FFC27A"; sx.shadowBlur = 8;
-      for (var i = 0; i < motes.length; i++) {
-        var d = motes[i];
-        d.y -= d.s * dt * sp;
-        if (d.y < -6) { d.y = H + 6; d.x = Math.random() * W; }
-        sx.globalAlpha = 0.25 + 0.3 * (1 + Math.sin(t / 900 + d.p)) / 2 + Math.min(0.3, warp * 0.3);
-        sx.beginPath(); sx.arc(d.x + Math.sin(t / 2400 + d.p) * 10, d.y, d.r, 0, 6.283); sx.fill();
+      sx.globalCompositeOperation = "lighter";
+      var i, z, p, s, c;
+      for (i = 0; i < lamps.length; i++) {
+        c = lamps[i]; c.z += speed * dt * 0.00042; if (c.z > 1.2) c.z -= 1.2;
+        z = c.z; p = z * z; s = 6 + 90 * p;
+        sx.globalAlpha = Math.min(1, z * 3) * 0.85;
+        sx.drawImage(LAMP, px(c.side * 1.35, z) - s, VY - (VY + H * 0.15) * p - s, s * 2, s * 2);
+        sx.globalAlpha = Math.min(1, z * 3) * 0.2;
+        sx.drawImage(LAMP, px(c.side, z) - s * 0.5, py(z) - s * 0.25, s, s * 3.2);
       }
-      sx.globalAlpha = 1; sx.shadowBlur = 0;
+      dash = (dash + speed * dt * 0.00042) % 1;
+      sx.globalAlpha = 1; sx.strokeStyle = "rgba(190,215,255,.32)";
+      for (i = 0; i < 14; i++) {
+        z = (i / 14 + dash) % 1; var z2 = Math.min(1.1, z + 0.035);
+        sx.lineWidth = 1 + 6 * z * z;
+        sx.beginPath(); sx.moveTo(px(-0.5, z), py(z)); sx.lineTo(px(-0.5, z2), py(z2)); sx.moveTo(px(0.5, z), py(z)); sx.lineTo(px(0.5, z2), py(z2)); sx.stroke();
+      }
+      for (i = 0; i < cars.length; i++) {
+        c = cars[i]; c.z += c.v * speed * dt * 0.00035; if (c.z > 1.15) cars[i] = c = car(0.01);
+        z = c.z; p = z * z; s = 2 + 26 * p;
+        var zt = Math.max(0, z - 0.07 - 0.05 * speed), spr = c.on ? HEAD : TAIL;
+        sx.globalAlpha = Math.min(1, z * 4);
+        sx.strokeStyle = c.on ? "rgba(200,235,255,.22)" : "rgba(255,45,70,.26)"; sx.lineWidth = Math.max(1, s * 0.3);
+        sx.beginPath();
+        [-0.05, 0.05].forEach(function (o) { sx.moveTo(px(c.x + o, zt), py(zt)); sx.lineTo(px(c.x + o, z), py(z)); });
+        sx.stroke();
+        sx.drawImage(spr, px(c.x - 0.05, z) - s, py(z) - s, s * 2, s * 2);
+        sx.drawImage(spr, px(c.x + 0.05, z) - s, py(z) - s, s * 2, s * 2);
+      }
+      var nLines = heat ? (heat === 2 ? 22 : 10) + Math.round(warp * 6) : Math.round(warp * 8), maxR = Math.max(W, H) * 1.1;
+      if (nLines) {
+        sx.globalAlpha = 1; sx.lineWidth = heat === 2 ? 2 : 1.4; sx.strokeStyle = heat === 2 ? "rgba(255,200,90,.24)" : "rgba(210,230,255,.12)";
+        sx.beginPath();
+        for (i = 0; i < Math.min(nLines, lines.length); i++) {
+          c = lines[i]; c.r += dt * (0.5 + 0.45 * speed) * (0.4 + c.r / maxR);
+          if (c.r > maxR) { c.r = H * 0.12; c.a = rnd(0, 6.283); }
+          if (c.r < H * 0.18) continue;
+          var ca = Math.cos(c.a), sa = Math.sin(c.a), len = c.r * 0.22;
+          sx.moveTo(VX + ca * c.r, VY + sa * c.r); sx.lineTo(VX + ca * (c.r + len), VY + sa * (c.r + len));
+        }
+        sx.stroke();
+      }
+      if (heat === 2 && !low()) {
+        emberAt -= dt;
+        if (emberAt <= 0) { emberAt = 55; var lf = Math.random() < 0.5; embers.push({ x: lf ? rnd(0, W * 0.2) : rnd(W * 0.8, W), y: H + 4, vx: (lf ? 1 : -1) * rnd(0.6, 2.4), vy: -rnd(7, 12), l: 1 }); }
+      }
+      if (embers.length) {
+        sx.fillStyle = "#FFC24B";
+        for (i = embers.length - 1; i >= 0; i--) {
+          c = embers[i]; var f = dt / 16.7; c.x += c.vx * f; c.y += c.vy * f; c.vy += 0.16 * f; c.l -= 0.012 * f;
+          if (c.l <= 0 || c.y > H + 10) { embers.splice(i, 1); continue; }
+          sx.globalAlpha = c.l; sx.fillRect(c.x, c.y, 2.2, 2.2); sx.fillRect(c.x - c.vx, c.y - c.vy, 1.4, 1.4);
+        }
+      }
+      sx.globalCompositeOperation = "source-over";
+      if (rain.length) {
+        sx.globalAlpha = 1; sx.lineWidth = 1; sx.strokeStyle = "rgba(170,200,235,.2)"; sx.beginPath();
+        for (i = 0; i < rain.length; i++) {
+          c = rain[i]; c.y += c.v * dt * (1 + 0.25 * speed); c.x -= c.v * dt * 0.12;
+          if (c.y > H + 30) { c.y = -30; c.x = Math.random() * (W + 60); }
+          sx.moveTo(c.x, c.y); sx.lineTo(c.x + c.l * 0.18, c.y - c.l);
+        }
+        sx.stroke();
+      }
+      sx.globalAlpha = 1;
     }
     function drawFx(dt) {
       var f = dt / 16.7;
@@ -135,36 +295,46 @@
         var b = bits[i];
         b.x += b.vx * f; b.y += b.vy * f; b.vy += 0.22 * f; b.vx *= Math.pow(0.98, f); b.life -= b.fade * f;
         if (b.life <= 0 || b.y > H + 30) { bits.splice(i, 1); continue; }
-        fx.globalAlpha = Math.max(0, Math.min(1, b.life)); fx.fillStyle = b.c; fx.shadowColor = b.c; fx.shadowBlur = 10;
-        if (b.star) {
-          fx.save(); fx.translate(b.x, b.y); fx.rotate(b.life * 6);
-          fx.fillRect(-b.r * 1.4, -b.r * 0.35, b.r * 2.8, b.r * 0.7); fx.fillRect(-b.r * 0.35, -b.r * 1.4, b.r * 0.7, b.r * 2.8); fx.restore();
-        } else { fx.beginPath(); fx.arc(b.x, b.y, b.r, 0, 6.283); fx.fill(); }
+        fx.globalAlpha = Math.max(0, Math.min(1, b.life)); fx.fillStyle = b.c;
+        if (b.shard) {
+          fx.save(); fx.translate(b.x, b.y); fx.rotate(b.life * 8); fx.fillRect(-b.r, -b.r * 0.3, b.r * 2, b.r * 0.6); fx.restore();
+        } else {
+          fx.strokeStyle = b.c; fx.lineWidth = b.r * 0.7; fx.beginPath(); fx.moveTo(b.x, b.y); fx.lineTo(b.x - b.vx * 2.2, b.y - b.vy * 2.2); fx.stroke();
+        }
       }
-      fx.globalAlpha = 1; fx.shadowBlur = 0;
+      fx.globalAlpha = 1;
       if (!bits.length) { fx.clearRect(0, 0, W, H); fxOn = false; }
     }
-    var last = 0;
+    var last = 0, odd = false;
     function frame(t) {
-      var dt = Math.min(50, t - (last || t)); last = t;
-      if (!document.hidden) { drawSky(dt, t); if (fxOn) drawFx(dt); }
       requestAnimationFrame(frame);
+      if (document.hidden || paused) { last = t; return; }
+      if (low() && (odd = !odd)) return;
+      var dt = Math.min(50, t - (last || t)); last = t;
+      drawSky(dt); if (fxOn) drawFx(dt);
     }
     size(); window.addEventListener("resize", size);
-    if (CALM) drawSky(0, 0); else requestAnimationFrame(frame);
-    /* spark burst from (x, y); same name the game code (and revenge.js) already calls */
-    function confetti(n, x, y) {
+    if (!CALM) requestAnimationFrame(frame);
+    /* spark burst from (x, y): gold on a hit, crimson and steel shards on a miss. Same name revenge.js calls */
+    function confetti(n, x, y, pal) {
       if (CALM) return;
       x = x == null ? W / 2 : x; y = y == null ? H * 0.35 : y;
+      var pc = PAL[pal] || PAL.gold;
       n = Math.min(n, 420 - bits.length);
       for (var i = 0; i < n; i++) {
         var a = Math.random() * 6.283, v = 3 + Math.random() * (n > 60 ? 10 : 7);
-        bits.push({ x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 3, life: 1, fade: 0.014 + Math.random() * 0.008,
-          r: 2 + Math.random() * 3.5, c: PC[i % PC.length], star: i % 4 === 0 });
+        bits.push({ x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 3, life: 1, fade: 0.016 + Math.random() * 0.01,
+          r: 1.6 + Math.random() * 2.6, c: pc[i % pc.length], shard: pal === "bad" ? i % 2 === 0 : i % 5 === 0 });
       }
       fxOn = true;
     }
-    return { confetti: confetti, boost: function (k) { warp = Math.min(1.4, warp + (k || 1)); } };
+    return {
+      confetti: confetti,
+      boost: function (k) { warp = Math.min(1.4, warp + (k || 1)); },
+      setHeat: function (h) { if (h === heat && document.body.getAttribute("data-heat") === String(h)) return; heat = h; document.body.setAttribute("data-heat", h); if (CALM) drawSky(0); },
+      pause: function (p) { paused = !!p; },
+      quality: function (q) { FXQ = q; store("tapp-fx-v1", q); document.documentElement.classList.toggle("fx-low", q === "low"); size(); }
+    };
   })();
   /* one-shot screen light: warm at the tapped option on a hit, rose at the edges on a miss */
   function flash(kind, rc) {
@@ -182,6 +352,7 @@
     next: '<svg viewBox="0 0 24 24" class="ico nx" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     back: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     close: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>',
+    wstar: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2l2.9 6.2 6.7.8-5 4.6 1.4 6.7L12 17.1l-6 3.4 1.4-6.7-5-4.6 6.7-.8z"/></svg>',
     star: function (on) { return '<svg viewBox="0 0 24 24" class="' + (on ? "on" : "off") + '" aria-hidden="true"><path fill="' + (on ? "url(#g-star)" : "rgba(255,240,220,.16)") + '" stroke="' + (on ? "#FFF3C9" : "rgba(255,240,220,.3)") + '" stroke-width="1" d="M12 2.2l2.9 6.2 6.7.8-5 4.6 1.4 6.7L12 17.1l-6 3.4 1.4-6.7-5-4.6 6.7-.8z"/></svg>'; }
   };
   function levelUp() {
@@ -309,6 +480,8 @@
   function go(s, id) { if (window.Speak && Speak.stop) Speak.stop(); if (window.LEARN) LEARN.leave(); cur = { s: s, id: id || cur.id }; render(); }
   function render() {
     document.body.setAttribute("data-s", cur.s);
+    if (cur.s !== "play") FX.setHeat(0);
+    FX.pause(cur.s === "brief");
     var LN = window.LEARN;
     ({ home: home, lobby: lobby, play: play, finish: finish, review: review, study: LN ? LN.safehouse : study, brief: LN ? LN.brief : study, drill: LN ? LN.drill : study,
       revenge: function () { window.REVENGE.enter(); } })[cur.s]();
@@ -327,7 +500,7 @@
     if (sb && SL) {
       var it = SI[sb.getAttribute("data-study")]; if (!it) return;
       var on = SL.toggle(it); SL.paintButtons(app); buzz([12]);
-      toast(on ? "In the Safehouse: " + it.t : "Taken out of the Safehouse");
+      toast(on ? "Intel logged → Safehouse: " + it.t : "Taken out of the Safehouse");
       return;
     }
     var b = e.target.closest("[data-go]");
@@ -343,8 +516,8 @@
   }
 
   /* ---------- home ---------- */
-  var STUB = ["linear-gradient(180deg,#FF9A62,#E2553C)", "linear-gradient(180deg,#3FD8BF,#118C80)", "linear-gradient(180deg,#FFC85A,#E68A2E)",
-    "linear-gradient(180deg,#F86A8F,#C23762)", "linear-gradient(180deg,#2FA7B5,#0E6E73)"];
+  var STUB = ["linear-gradient(180deg,#22C6E8,#0A6E96)", "linear-gradient(180deg,#FFB627,#B86E08)", "linear-gradient(180deg,#FF5C7A,#B3132F)",
+    "linear-gradient(180deg,#9D8CFF,#5A3FD1)", "linear-gradient(180deg,#2BE4C8,#0B7F6E)"];
   function mockCard(id, c) {
     var r = getRun(id), sc = score(id, r), best = meta.best[id], pct = Math.round(100 * sc.answered / sc.N);
     var st = best != null ? starsFor(best) : 0;
@@ -377,7 +550,7 @@
     var open = GROUPS.filter(function (g) { return !g.archived; }), closed = GROUPS.filter(function (g) { return g.archived; });
     var nQ = 0, nM = 0; GROUPS.forEach(function (g) { g.members.forEach(function (id) { nM++; nQ += P[id].questions.length; }); });
     var last = meta.last && P[meta.last] ? meta.last : null, ex = nextExam();
-    var poster = ex ? '<section class="poster"><div class="kick">Next exam</div><h1>' + esc(ex.name) + '<span class="soft">' +
+    var poster = ex ? '<section class="poster"><div class="kick">Next job</div><h1>' + esc(ex.name) + '<span class="soft">' +
         (ex.days === 0 ? "today" : ex.days === 1 ? "tomorrow" : "in " + ex.days + " days") + "</span></h1><p>" + esc(String(ex.g.sub).split(/\.\s/)[0].replace(/\.$/, "")) + ".</p></section>"
       : '<section class="poster"><h1>Tests<span class="soft">' + nM + " mocks ready</span></h1><p>" + nQ.toLocaleString() + " questions. Untimed, +1 / −0.25.</p></section>";
     var resume;
@@ -402,11 +575,13 @@
       '<div class="toggles"><button class="tg' + (meta.sound ? " on" : "") + '" id="tgS">Sound ' + (meta.sound ? "on" : "off") + '</button><button class="tg' +
       (meta.haptic ? " on" : "") + '" id="tgH">Vibration ' + (meta.haptic ? "on" : "off") + '</button></div><div class="toggles" style="margin-top:8px"><button class="tg' + (syncCode() ? " on" : "") + '" id="tgY">Sync ' + (syncCode() || "off") + " ›</button>" +
       '<button class="tg' + (meta.autoAdd !== false ? " on" : "") + '" id="tgA">Misses to Safehouse ' + (meta.autoAdd !== false ? "on" : "off") + "</button></div>" +
+      '<div class="toggles" style="margin-top:8px"><button class="tg' + (FXQ === "high" ? " on" : "") + '" id="tgF">Cinematic FX: ' + (FXQ === "high" ? "High" : "Low (battery saver)") + "</button></div>" +
       '<div class="foot">' + nM + " mocks · " + nQ.toLocaleString() + " questions · untimed · +1 / −0.25</div></div></div>";
     app.innerHTML = h;
     document.getElementById("tgS").onclick = function () { meta.sound = !meta.sound; saveMeta(); home(); };
     document.getElementById("tgH").onclick = function () { meta.haptic = !meta.haptic; saveMeta(); home(); };
     document.getElementById("tgY").onclick = syncSheet;
+    document.getElementById("tgF").onclick = function () { FX.quality(FXQ === "high" ? "low" : "high"); home(); toast(FXQ === "high" ? "Cinematic FX on full" : "Battery saver: lighter effects, same look"); };
     document.getElementById("tgA").onclick = function () { meta.autoAdd = meta.autoAdd === false; saveMeta(); home(); toast(meta.autoAdd ? "Every miss goes to the Safehouse" : "Misses stay out unless you tap ☆ Study this"); };
   }
 
@@ -508,24 +683,28 @@
       return '<button class="' + cls + ' has-tag" data-k="' + k + '"><span class="k">' + k + '</span><span class="ot">' + q.options[k] + "</span>" +
         (window.LEARN ? LEARN.otag(id, r.i, k) : "") + "</button>";
     }).join("");
-    var lastStep = pos >= len - 1;
-    var nextLbl = a == null ? (lastStep ? "Finish" : "Skip") : lastStep ? "Finish" : "Continue";
+    var lastStep = pos >= len - 1, sc = score(id, r);
+    var nextLbl = a == null ? (lastStep ? "Finish" : "Skip · override") : lastStep ? "Finish" : "Continue";
+    FX.setHeat(heatOf(combo));
     app.innerHTML = '<div class="screen play-screen"><div class="ptop play-top"><button class="xbtn" id="pX" aria-label="Back to the paper">' + I.close + '</button><div class="pmid"><b>' + esc(title_of(id)) +
-      "</b><span>" + (list ? "Redo " + (pos + 1) + " of " + len : "Question " + (r.i + 1) + " of " + N) + "</span></div>" +
+      "</b><span>Score " + fmt(sc.marks) + " · " + sc.right + " right · " + sc.wrong + " wrong</span></div>" +
       '<div class="pill xpp" id="xpp">' + I.spark + '<span id="xpn">' + meta.xp.toLocaleString("en-IN") + "</span></div></div>" +
-      '<div class="pstrip"><div class="pbar"><i style="width:' + Math.round(100 * (pos + (a != null ? 1 : 0)) / len) + '%"></i></div><div id="heat">' + heat(combo) + "</div></div>" +
-      '<div class="scroll" id="ps"><div class="qmeta"><span class="chip qn">' + (list ? "Redo " + (pos + 1) + "/" + len + " · " : "") + "Q" + (r.i + 1) + " of " + N + "</span>" +
+      '<div class="pstrip"><div id="heat">' + wanted(combo) + "</div></div>" +
+      '<div class="scroll" id="ps"><div class="qmeta">' +
       (sec ? '<span class="chip">' + esc(sec) + "</span>" : "") + (src ? '<span class="chip src">' + esc(src) + "</span>" : "") +
       (window.Speak && Speak.ok ? '<button class="chip spk" id="spk">🔊 Listen</button>' : "") + studyBtn(id, q, r.i) + "</div>" +
-      '<div class="qcard">' + q.q + '</div><div class="opts' + (shown ? " locked" : "") + '" id="opts">' + opts + '</div><div id="after">' + (shown ? afterHTML(id, q, r.i, a) : "") + "</div></div>" +
-      '<div class="pfoot"><button class="nav" id="pPrev">‹</button><button class="grid" id="pGrid">☰ ' + (r.i + 1) + '</button><button class="btn' + (shown ? (a === q.correct ? " ok" : " bad") : " ghost") +
+      '<div class="qcard"><div class="tele"><span class="live">Heist: ' + esc(title_of(id)) + "</span><b>" + (list ? "Redo " + (pos + 1) + "/" + len + " // " : "") +
+      "Q" + pad2(r.i + 1) + " of " + N + "</b></div>" + q.q + '</div><div class="opts' + (shown ? " locked" : "") + '" id="opts">' + opts + '</div><div id="after">' + (shown ? afterHTML(id, q, r.i, a) : "") + "</div></div>" +
+      '<div class="pfoot"><div class="hstrip"><div class="pbar"><i style="width:' + Math.round(100 * (pos + (a != null ? 1 : 0)) / len) + '%"></i></div><span class="pct">' +
+      (list ? pos + (a != null ? 1 : 0) + " / " + len + " redone" : sc.answered + " / " + N + " cracked") + "</span></div>" +
+      '<button class="nav" id="pPrev" aria-label="Previous question">‹</button><button class="grid" id="pGrid">☰ ' + (r.i + 1) + '</button><button class="btn' + (shown ? (a === q.correct ? " ok" : " bad") : lastStep ? " ghost" : " hazard") +
       '" id="pNext">' + nextLbl + "</button></div></div>";
     saveRun(id, r);
 
     document.getElementById("pX").onclick = function () { go("lobby", id); };
-    document.getElementById("pPrev").onclick = function () { step(-1); };
-    document.getElementById("pNext").onclick = function () { step(1); };
-    document.getElementById("pGrid").onclick = function () { gridSheet(id); };
+    document.getElementById("pPrev").onclick = function () { SFX.click(); step(-1); };
+    document.getElementById("pNext").onclick = function () { SFX.click(); step(1); };
+    document.getElementById("pGrid").onclick = function () { SFX.click(); gridSheet(id); };
     var spk = document.getElementById("spk");
     if (spk) {
       var paint = function () { var on = Speak.speaking() === "q"; spk.classList.toggle("on", on); spk.textContent = on ? "■ Stop" : "🔊 Listen"; };
@@ -533,7 +712,7 @@
       if (Speak.onstate) Speak.onstate(paint);
     }
     app.querySelectorAll("#opts .opt").forEach(function (b) {
-      b.onclick = function (e) { if (e.target.closest(".otag")) return; answer(id, b.getAttribute("data-k")); };
+      b.onclick = function (e) { if (e.target.closest(".otag")) return; SFX.click(); answer(id, b.getAttribute("data-k")); };
     });
 
     function step(dir) {
@@ -553,18 +732,22 @@
       document.getElementById("ps").scrollTop = 0;
     }
   }
-  var TCOL = ["#FFD36B", "#FFC24B", "#FFB04F", "#FF9C55", "#FF8257", "#FF7360", "#F9646B", "#F45872", "#F04E78", "#F04E78"];
-  function heat(c, crack) {
-    var t = "";
-    for (var i = 0; i < 10; i++) t += '<i class="' + (i < c ? "on" : "") + '" style="--tc:' + TCOL[i] + '"></i>';
-    return '<div class="heat"><span class="lbl' + (c ? "" : " cold") + '">' + I.flame + (c ? c + " in a row" : crack ? "Combo broken" : "No combo yet") + "</span>" +
-      '<div class="ticks' + (crack ? " crack" : "") + '">' + t + "</div></div>";
+  function pad2(n) { return n < 10 ? "0" + n : String(n); }
+  /* 5-star wanted level: a star for every 3 in a row, HEAT MAX at 5 stars (15 in a row, 2x XP).
+     broke = stars lit when a miss ended the run (-1: a run under 3); they shatter */
+  function stars(c) { return Math.min(5, Math.floor(c / 3)); }
+  function wanted(c, broke) {
+    var n = broke ? Math.max(0, broke) : stars(c), h = "";
+    for (var i = 0; i < 5; i++) h += '<i class="ws' + (i < n ? " on" : "") + '">' + I.wstar + "</i>";
+    var lbl = broke ? "Busted · heat lost" : c >= 15 ? "Heat max · 2x XP" : c ? c + " in a row" : "3 in a row = 1 star";
+    return '<div class="wanted' + (c >= 15 ? " max" : "") + (broke ? " shatter" : "") + '"><span class="wl">' + lbl + "</span>" +
+      '<span class="wstars" role="img" aria-label="Wanted level ' + n + ' of 5">' + h + "</span></div>";
   }
   /* debrief: answer + the first lines + where to read it + note, then the full explanation (folds) */
   function afterHTML(id, q, idx, a) {
     var ok = a === q.correct, tk = takeaway(id, q, idx), LN = window.LEARN, d = deepOf(id, q, idx);
     var nudge = !ok && SL && !SL.has("m:" + id + ":" + idx);
-    return '<div class="verdict ' + (ok ? "ok" : "bad") + '">' + (ok ? "✓ Correct" : "✗ Not quite, it's " + q.correct.toUpperCase()) +
+    return '<div class="verdict ' + (ok ? "ok" : "bad") + '">' + (ok ? "✓ Hack successful" : "✗ Busted. It's " + q.correct.toUpperCase()) +
       "<small>" + (ok ? "+1" : "−0.25") + "</small></div>" +
       '<div class="db">' + answerBlock(q, d ? d.concept : q.explanation || "") + (tk ? '<div class="db-take"><span class="db-l">In short</span><p>' + boldFig(tk) + "</p></div>" : "") +
       (LN ? LN.debriefBadge(id, idx) : "") +
@@ -580,31 +763,40 @@
     var ok = k === q.correct, gain = 0, lvBefore = level(), hadCombo = combo;
     if (ok) {
       combo++; gain = 10 + (combo >= 3 ? 5 : 0) + (combo >= 10 ? 5 : 0);
+      if (combo >= 15) gain *= 2; /* HEAT MAX: five stars, double XP */
       meta.xp += gain; r.xp = (r.xp || 0) + gain; meta.bestCombo = Math.max(meta.bestCombo || 0, combo);
     } else combo = 0;
     saveRun(id, r); saveMeta();
     play();
-    var opts = document.getElementById("opts");
-    var hit = opts.querySelector('[data-k="' + k + '"]'), rc = hit.getBoundingClientRect();
+    var scr = app.querySelector(".play-screen"), card = app.querySelector("#ps .qcard"), opts = document.getElementById("opts");
+    var hit = opts.querySelector('[data-k="' + k + '"]'), rc = hit.getBoundingClientRect(), cx = rc.left + rc.width / 2, cy = rc.top + rc.height / 2;
+    function jolt(el, cls, ms) { if (CALM || !el) return; el.classList.add(cls); setTimeout(function () { el.classList.remove(cls); }, ms); }
     if (ok) {
-      hit.classList.add("pop"); buzz([18]); tone(combo >= 3 ? [660, 880, 1100] : [660, 880]);
+      jolt(scr, "punch", 120); hit.classList.add("pop"); buzz([18]); SFX.chime(combo);
+      var lk = document.createElement("span"); lk.className = "lockon"; lk.textContent = "Target locked"; hit.appendChild(lk);
       var gn = document.createElement("span"); gn.className = "gain"; gn.textContent = "+" + gain + " XP"; hit.appendChild(gn);
-      if (combo >= 2) { var stp = document.createElement("div"); stp.className = "stamp"; stp.innerHTML = "x" + combo + "<small>combo</small>"; document.querySelector("#ps .qcard").appendChild(stp); }
       var xpn = document.getElementById("xpn"), xpp = document.getElementById("xpp");
       if (xpn) {
         xpn.textContent = (meta.xp - gain).toLocaleString("en-IN");
         setTimeout(function () { xpn.textContent = meta.xp.toLocaleString("en-IN"); xpp.classList.remove("bump"); void xpp.offsetWidth; xpp.classList.add("bump"); }, 480);
       }
       flash("ok", rc); FX.boost(0.6);
-      FX.confetti(combo >= 3 ? 40 : 26, rc.left + rc.width / 2, rc.top + rc.height / 2);
-      if (combo === 3 || combo === 5 || combo % 10 === 0) {
-        banner("COMBO x" + combo, combo >= 10 ? "UNSTOPPABLE" : combo >= 5 ? "ON FIRE" : "HEATING UP");
-        FX.confetti(combo >= 5 ? 110 : 60); tone([784, 988, 1175, 1568]); buzz([20, 30, 20, 30, 40]);
+      FX.confetti(combo >= 3 ? 44 : 30, cx, cy, "gold");
+      if (combo % 3 === 0 && combo <= 15) {
+        var st = stars(combo), ws = app.querySelectorAll("#heat .ws")[st - 1];
+        if (ws) ws.classList.add("slam");
+        setTimeout(function () { SFX.slam(); }, 120); buzz([20, 30, 20, 30, 40]);
+        banner(st === 5 ? "HEAT MAX" : "★ " + st + (st > 1 ? " STARS" : " STAR"), st === 5 ? "OVERDRIVE · 2x XP" : "WANTED LEVEL UP");
+        FX.confetti(st === 5 ? 140 : 50, null, null, "gold"); if (st === 5) FX.boost(1.4);
+      } else if (combo > 15 && combo % 10 === 0) {
+        banner("HEAT MAX x" + combo, "UNSTOPPABLE"); FX.confetti(110, null, null, "gold"); setTimeout(function () { SFX.slam(); }, 120);
       }
     }
     else {
-      hit.classList.add("shake"); flash("bad", rc); buzz([40, 60, 40]); tone([300, 220]);
-      var ht = document.getElementById("heat"); if (ht && hadCombo) ht.innerHTML = heat(0, true);
+      jolt(scr, "jolt", 260); jolt(card, "glitch", 300); hit.classList.add("shake");
+      flash("bad", rc); buzz([40, 60, 40]); SFX.thud();
+      FX.confetti(24, cx, cy, "bad");
+      var ht = document.getElementById("heat"); if (ht && hadCombo) ht.innerHTML = wanted(0, stars(hadCombo) || -1);
     }
     if (level() > lvBefore) setTimeout(function () { levelUp(); tone([523, 659, 784, 1047]); }, 700);
     var ps = document.getElementById("ps"), after = document.getElementById("after");

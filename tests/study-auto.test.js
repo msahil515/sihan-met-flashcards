@@ -1,9 +1,11 @@
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
-const { chromium } = require("playwright");
+let pw; try { pw = require("playwright"); } catch (e) { pw = require("playwright-core"); }
+const { chromium } = pw;
 
-// Run with NODE_PATH=/Users/sahil/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules node tests/study-auto.test.js
+// Serve the repo root on 8766 (python3 -m http.server 8766), then
+// NODE_PATH=<dir with playwright or playwright-core> node tests/study-auto.test.js
 
 const store = new Map();
 let writes = 0, events = 0;
@@ -52,44 +54,40 @@ assert.ok(count[0] > 0 && count[1] > 0);
     await page.waitForFunction(() => !!window.TAPP && !!window.StudyList);
     const mockId = "jss-mock-2";
     await page.locator(`[data-go="lobby"][data-id="${mockId}"]`).click();
-    await page.locator('[data-m="practice"]').click();
     await page.locator("#app button").filter({ hasText: "Start" }).click();
     const q = await page.evaluate(id => ({ q: TAPP.P[id].questions[0], id }), mockId);
     const wrong = ["a", "b", "c", "d"].find(k => k !== q.q.correct && q.q.options[k]);
     await page.locator(`#opts [data-k="${wrong}"]`).click();
     let saved = await page.evaluate(() => JSON.parse(localStorage.getItem("study-topics-v1") || "{}").it || {});
-    assert.ok(saved[`m:${mockId}:0`], "practice wrong answer adds the original mock item");
+    assert.ok(saved[`m:${mockId}:0`], "a wrong answer adds the original mock item");
     assert.equal(saved[`m:${mockId}:0`].r, `m:${mockId}:0`);
     await page.evaluate(id => StudyList.remove(`m:${id}:0`), mockId);
     await page.reload({ waitUntil: "domcontentloaded" });
     await page.waitForFunction(() => !!window.TAPP);
     await page.evaluate(() => TAPP.go("home"));
     saved = await page.evaluate(() => JSON.parse(localStorage.getItem("study-topics-v1") || "{}").it || {});
-    assert.equal(saved[`m:${mockId}:0`].x, 1, "reload/history does not restore a removed practice miss");
+    assert.equal(saved[`m:${mockId}:0`].x, 1, "reload/history does not restore a removed miss");
 
+    /* one mode since 20 Nov 2026: the answer locks on the first pick, a miss is filed straight away */
     const examId = "amity-recall";
     await page.evaluate(id => TAPP.go("lobby", id), examId);
-    await page.locator('[data-m="full"]').click();
     await page.locator("#app button").filter({ hasText: "Start" }).click();
     const examQ = await page.evaluate(id => TAPP.P[id].questions[0], examId);
-    const examWrong = ["a", "b", "c", "d"].find(k => k !== examQ.correct && examQ.options[k]);
-    await page.locator(`#opts [data-k="${examWrong}"]`).click();
-    saved = await page.evaluate(() => JSON.parse(localStorage.getItem("study-topics-v1") || "{}").it || {});
-    assert.equal(saved[`m:${examId}:0`], undefined, "full exam keeps the study list unchanged before finish");
     await page.locator(`#opts [data-k="${examQ.correct}"]`).click();
+    assert.equal(await page.locator("#opts.locked").count(), 1, "options lock after the first pick");
     await page.locator("#pNext").click();
     const second = await page.evaluate(id => TAPP.P[id].questions[1], examId);
     const secondWrong = ["a", "b", "c", "d"].find(k => k !== second.correct && second.options[k]);
     await page.locator(`#opts [data-k="${secondWrong}"]`).click();
+    saved = await page.evaluate(() => JSON.parse(localStorage.getItem("study-topics-v1") || "{}").it || {});
+    assert.equal(saved[`m:${examId}:0`], undefined, "a right answer stays out of the list");
+    assert.ok(saved[`m:${examId}:1`], "a wrong answer is filed straight away");
     await page.locator("#pGrid").click();
     await page.locator("#gFin").click();
-    saved = await page.evaluate(() => JSON.parse(localStorage.getItem("study-topics-v1") || "{}").it || {});
-    assert.equal(saved[`m:${examId}:0`], undefined, "a wrong selection changed to correct stays out of the final list");
-    assert.ok(saved[`m:${examId}:1`], "first full-exam finish adds the final answered wrong question");
     await page.evaluate(id => StudyList.remove(`m:${id}:1`), examId);
     await page.getByText("Review every answer").click();
     saved = await page.evaluate(() => JSON.parse(localStorage.getItem("study-topics-v1") || "{}").it || {});
-    assert.equal(saved[`m:${examId}:1`].x, 1, "reviewing a completed exam does not resurrect a removed miss");
+    assert.equal(saved[`m:${examId}:1`].x, 1, "reviewing a completed mock does not resurrect a removed miss");
 
     await page.evaluate(() => REVENGE.enter());
     await page.locator('.rg-mode[data-m="flip"]').evaluate(el => el.click());
