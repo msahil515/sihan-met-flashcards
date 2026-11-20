@@ -768,11 +768,14 @@
     } else combo = 0;
     saveRun(id, r); saveMeta();
     play();
-    var scr = app.querySelector(".play-screen"), card = app.querySelector("#ps .qcard"), opts = document.getElementById("opts");
+    app.querySelector(".play-screen").classList.add("settled"); /* same question re-drawn: no fade-in, the hit effects carry it */
+    var card = app.querySelector("#ps .qcard"), opts = document.getElementById("opts");
     var hit = opts.querySelector('[data-k="' + k + '"]'), rc = hit.getBoundingClientRect(), cx = rc.left + rc.width / 2, cy = rc.top + rc.height / 2;
-    function jolt(el, cls, ms) { if (CALM || !el) return; el.classList.add(cls); setTimeout(function () { el.classList.remove(cls); }, ms); }
+    /* camera moves go on #app (no entry animation to restart when the class comes off); the card's glitch class
+       stays until the next render, since taking it off would replay the card's rise-in */
+    function jolt(cls, ms) { if (CALM) return; app.classList.remove("punch", "jolt"); void app.offsetWidth; app.classList.add(cls); setTimeout(function () { app.classList.remove(cls); }, ms); }
     if (ok) {
-      jolt(scr, "punch", 120); hit.classList.add("pop"); buzz([18]); SFX.chime(combo);
+      jolt("punch", 120); hit.classList.add("pop"); buzz([18]); SFX.chime(combo);
       var lk = document.createElement("span"); lk.className = "lockon"; lk.textContent = "Target locked"; hit.appendChild(lk);
       var gn = document.createElement("span"); gn.className = "gain"; gn.textContent = "+" + gain + " XP"; hit.appendChild(gn);
       var xpn = document.getElementById("xpn"), xpp = document.getElementById("xpp");
@@ -793,7 +796,7 @@
       }
     }
     else {
-      jolt(scr, "jolt", 260); jolt(card, "glitch", 300); hit.classList.add("shake");
+      jolt("jolt", 260); if (!CALM) card.classList.add("glitch"); hit.classList.add("shake");
       flash("bad", rc); buzz([40, 60, 40]); SFX.thud();
       FX.confetti(24, cx, cy, "bad");
       var ht = document.getElementById("heat"); if (ht && hadCombo) ht.innerHTML = wanted(0, stars(hadCombo) || -1);
