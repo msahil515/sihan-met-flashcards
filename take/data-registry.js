@@ -596,6 +596,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "Jammu 2015", "CNW-25353-B", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "jammu-2014",
+    title: "University of Jammu 2014 M.A. (real paper)",
+    sub: "60 real Qs · the M.A. Psychology entrance, series A, code CLM-53718-A · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=jammu-2014",
+    total: 60,
+    storageKey: "jammu-2014-results-v1",
+    sections: { general: 14, social: 13, research: 11, clinical: 9, personality: 4, dev: 3, assessment: 3, disorders: 3 },
+    blurb: "The University of Jammu M.A. Psychology entrance 2014, booklet series A, code CLM-53718-A. All 60 questions, read off a clean scan of the paper. There is no official key, so every answer is worked out from standard texts. An easy, broad recall paper: perception (Gestalt, what shapes it), maturation, classical conditioning, proactive inhibition, motivation, James-Lange, Kelley's group factors, personality (Allport's traits, Jung's types, determinants, Adler's inferiority), research and stats (sampling, measurement, the t-test, SD, mean, histogram, range, naturalistic observation, variables, Stevens's scales), assessment (content validity, validity and reliability, stanines), attitude scales (Likert, Guttman), social psychology (socialisation, dyads, Lewin's leaders, Byrne's law of attraction, prejudice, Argyle on non-verbal communication), environmental psychology (population, air pollution, noise), phobias and anxiety neurosis, counselling and guidance (Parsons, counselling vs psychotherapy, Gestalt, family and group counselling, guidance principles, vocational guidance, genograms, ethics), Guilford's fluency and creativity, span and fluctuation of attention, Donders's reaction times, the method of limits, Hurlock's developmental tasks and Taylor's interpretation of symptoms. Where an answer is arguable a Key note says so. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / -0.25 like the other Jammu papers.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "Jammu 2014", "CLM-53718-A", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "mphil-cp-2021",
     title: "M.Phil CP Entrance 2021 (college not printed)",
     sub: "70 real Qs · 1 mark each, no negative marking · no official key, every answer worked out · untimed",
@@ -888,7 +901,7 @@ const GROUPS = [
     members: ["pgibams-2023"] },
   { id: "jammu", title: "University of Jammu",
     sub: "University of Jammu (School of Education and Behavioural Sciences): the M.A. Psychology entrance, real questions, worked out from standard texts",
-    members: ["jammu-2023", "jammu-2021", "jammu-2020", "jammu-2018", "jammu-2017", "jammu-2016", "jammu-2015", "jammu-hfo"] },
+    members: ["jammu-2023", "jammu-2021", "jammu-2020", "jammu-2018", "jammu-2017", "jammu-2016", "jammu-2015", "jammu-2014", "jammu-hfo"] },
   { id: "unnamed", title: "College not printed",
     sub: "Real M.Phil Clinical Psychology entrance papers whose cover never names the institute: the 2021 booklet A paper and the 2023 paper filed as KU, 70 Qs each, worked out from standard texts",
     members: ["mphil-cp-2021", "mphil-cp-2023"] },
