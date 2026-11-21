@@ -479,6 +479,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "IMHANS 2021", "keyed from standard texts", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "imhans-2020",
+    title: "IMHANS Kozhikode 2020 (real paper)",
+    sub: "59 real Qs · the M.Phil Clinical Psychology paper, from a coaching-book reprint · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=imhans-2020",
+    total: 59,
+    storageKey: "imhans-2020-results-v1",
+    sections: { physio: 16, general: 12, research: 10, assessment: 10, disorders: 7, personality: 3, clinical: 1 },
+    blurb: "The IMHANS Kozhikode (Institute of Mental Health and Neurosciences, Kerala) 2020 M.Phil in Clinical Psychology entrance, from the coaching-book reprint you sent: 59 questions. Printed Q56 is left out because none of its options can be a correlation, and Q61 because the page cuts off after option b. There is no official key, so every answer is worked out from standard texts. A hard textbook-detail paper: cognition (illusory conjunctions, Collins and Quillian, Rescorla-Wagner and blocking, Hull's fractional goal response, Guthrie's threshold method), a big neuropsychology and biopsych block (P600, Kluver-Bucy taming, akinetic mutism, the corticospinal tract, the caudate, PAG and opiates, transcortical motor aphasia, the optic chiasm, nucleus accumbens, Kandel's Aplysia, rhodopsin, curare, finger agnosia and dressing apraxia), statistics (intercept, canonical analysis, Solomon four-group, sphericity, alpha and Type II error, Kruskal-Wallis, multiple correlation), assessment (Rorschach F+%, MMPI two-point codes, KABC-II, item difficulty, Spearman-Brown, WRAML-2) and disorders (double depression, X-linked conditions, narcolepsy, conversion, Jellinek's types). Where an answer is arguable a Key note says so (F+%, taming vs training, Collins and Quillian, the caudate vs globus pallidus, the R1.23 range, WRAML-2, functional autonomy and sublimation, mirror neurons, the locus coeruleus and dreaming, the misprinted option on reliability and validity). Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. The site scores +1 / -0.25 like every other mock.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "IMHANS 2020", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "imhans-2019",
     title: "IMHANS Kozhikode 2019 (real paper)",
     sub: "75 real Qs · the M.Phil Clinical Psychology paper, booklet 19034 A · no official key, every answer worked out · untimed",
@@ -729,8 +742,8 @@ const GROUPS = [
     sub: "The West Bengal board's Joint Entrance for Post Graduate Admission: the M.Phil Clinical Psychology paper, real questions",
     members: ["jepas-2020"] },
   { id: "imhans", title: "IMHANS Kozhikode",
-    sub: "Institute of Mental Health and Neurosciences, Kozhikode (Kerala): the M.Phil Clinical Psychology entrance papers, real questions (2025, 2024, 2021 and 2019, all worked out from standard texts)",
-    members: ["imhans-2025", "imhans-2024", "imhans-2021", "imhans-2019"] },
+    sub: "Institute of Mental Health and Neurosciences, Kozhikode (Kerala): the M.Phil Clinical Psychology entrance papers, real questions (2025, 2024, 2021, 2020 and 2019, all worked out from standard texts)",
+    members: ["imhans-2025", "imhans-2024", "imhans-2021", "imhans-2020", "imhans-2019"] },
   { id: "gmch", title: "GMCH Chandigarh",
     sub: "Government Medical College and Hospital, Chandigarh: M.Phil Clinical Psychology entrance papers, real questions (2025 with the official key, 2024 worked out from standard texts, 2023 with a printed worked key)",
     members: ["gmch-2025", "gmch-2024", "gmch-2023"] },
