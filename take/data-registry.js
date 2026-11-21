@@ -544,6 +544,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "Jammu 2017", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "jammu-2016",
+    title: "University of Jammu 2016 M.A. (real paper)",
+    sub: "60 real Qs · the M.A. Psychology entrance, series A · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=jammu-2016",
+    total: 60,
+    storageKey: "jammu-2016-results-v1",
+    sections: { research: 15, general: 12, assessment: 9, clinical: 8, social: 5, personality: 4, disorders: 4, dev: 3 },
+    blurb: "The University of Jammu (Faculty of Social Science) 2016 M.A. Psychology entrance, booklet series A: all 60 questions, 70 minutes in the real exam, minus a quarter per wrong answer, read off the scan page by page. There is no official key, so every answer is worked out from standard texts. A broad, mostly easy recall paper: memory and perception (proactive interference, Pragnanz, semantic LTM, discrimination cues, sensory adaptation, subliminal perception, brightness, transduction), development (stage theories, preoperational thought, infancy), personality (Jung's archetypes, Cattell's abnormal traits, sems), attitude scales (Likert labels, attitude statements), social (the contrast effect, legitimate power, ethnocentrism, groupthink), intelligence (Spearman, Terman and Oden, Thorndike), Schachter and Singer, disorders (externalising, hyperventilation in panic, preparedness, the biopsychosocial model), a big research and stats block (field experiment, effect size, single blind, interactions, the mean, sum of squares, purposive sampling, Pearson vs Spearman, Stevens, ratio data, the control group), assessment (norms, inter-rater reliability, Cronbach's alpha, the 5 stages of test development, Rorschach scoring and inquiry, TAT cards, projective methods) and counselling (family therapy, informed consent, structural family therapy, desensitisation hierarchy, career counselling, reflection). Where an answer is arguable a Key note says so. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / -0.25 like the real paper.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "Jammu 2016", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "mphil-cp-2021",
     title: "M.Phil CP Entrance 2021 (college not printed)",
     sub: "70 real Qs · 1 mark each, no negative marking · no official key, every answer worked out · untimed",
@@ -836,7 +849,7 @@ const GROUPS = [
     members: ["pgibams-2023"] },
   { id: "jammu", title: "University of Jammu",
     sub: "University of Jammu (School of Education and Behavioural Sciences): the M.A. Psychology entrance, real questions, worked out from standard texts",
-    members: ["jammu-2023", "jammu-2021", "jammu-2020", "jammu-2017"] },
+    members: ["jammu-2023", "jammu-2021", "jammu-2020", "jammu-2017", "jammu-2016"] },
   { id: "unnamed", title: "College not printed",
     sub: "Real M.Phil Clinical Psychology entrance papers whose cover never names the institute: the 2021 booklet A paper and the 2023 paper filed as KU, 70 Qs each, worked out from standard texts",
     members: ["mphil-cp-2021", "mphil-cp-2023"] },
