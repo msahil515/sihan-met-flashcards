@@ -310,6 +310,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "official key", "GMCH 2025", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "gmch-2023",
+    title: "GMCH Chandigarh 2023 (real paper)",
+    sub: "100 real Qs · GMCH's 2023 M.Phil Clinical Psychology paper, held 2 Sep 2023 · printed worked key, checked · untimed",
+    path: "../take/screen.html?m=gmch-2023",
+    total: 100,
+    storageKey: "gmch-2023-results-v1",
+    sections: { general: 28, clinical: 17, research: 14, physio: 14, disorders: 10, personality: 7, dev: 5, assessment: 4, social: 1 },
+    blurb: "The GMCH Chandigarh (Government Medical College and Hospital) 2023 M.Phil Clinical Psychology entrance, held on 2 September 2023, all 100 questions from the paper in your PYQ pack. Every answer is from the pack's printed worked key, each one checked. It reads like a medical college paper: research design, biostatistics and epidemiology (case-control vs cohort, standard error, secular trend, levels of prevention, impairment vs disability vs handicap), then learning, perception, memory and emotion, biopsych (split brain, EEG waves, Parkinson's, the amygdala's fast route), psychopathology and treatment (TMS, CPT for PTSD, GAD, OCD, insomnia). Where an answer is arguable a Key note says so (the 'hypercalcaemic' tetany misprint, clairvoyance vs precognition, who coined 'ambivert', thought stopping vs ERP and a few more); the printed answer still scores. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. The site scores +1 / -0.25 like every other mock.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "GMCH 2023", "printed worked key, checked", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "gurugram-2025-mphil",
     title: "Gurugram 2025 M.Phil (real paper)",
     sub: "60 real Qs · Gurugram University's own 2025 M.Phil Clinical Psychology paper · official key · untimed",
@@ -590,7 +603,7 @@ const GROUPS = [
     members: ["imhans-2025"] },
   { id: "gmch", title: "GMCH Chandigarh",
     sub: "Government Medical College and Hospital, Chandigarh: M.Phil Clinical Psychology entrance papers, real questions with the official key",
-    members: ["gmch-2025"] },
+    members: ["gmch-2025", "gmch-2023"] },
   { id: "gurugram", title: "Gurugram University",
     sub: "Gurugram University, Haryana: the 2025 M.Phil and M.A. Clinical Psychology entrance papers, real questions with the official key",
     members: ["gurugram-2025-mphil", "gurugram-2025-ma"] },
