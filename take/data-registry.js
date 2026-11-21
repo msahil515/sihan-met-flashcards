@@ -92,6 +92,19 @@ const MOCKS = [
     tags: ["100% real paper", "JEMAS(PG) 2025", "clinical psychology", "source-badged", "trap per wrong option", "untimed practice", "verbatim scan", "36 Q"]
   },
   {
+    id: "jemas-2022",
+    title: "JEMAS(PG) 2022 (real paper)",
+    sub: "100 real Qs · the West Bengal M.Phil Clinical Psychology paper · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=jemas-2022",
+    total: 100,
+    storageKey: "jemas-2022-results-v1",
+    sections: { general: 21, physio: 16, dev: 12, personality: 12, clinical: 12, disorders: 10, assessment: 9, social: 5, research: 3 },
+    blurb: "The West Bengal JEMAS(PG) 2022 M.Phil Clinical Psychology entrance, all 100 questions, word for word from the official booklet and checked against the copy you sent. There is no official key, and the blue ticks on your copy are a candidate's guesses (a dozen are plainly wrong, like Q9 punishment, Q12 Beck's triad and Q35 endocrine glands), so every answer is worked out from standard texts. It is mostly intro-level: memory, language, learning, perception, Piaget and Erikson, biopsych basics, then a psychopathology block (childhood anxiety treatment and the CAMS trial, BPD, OCD prevalence, conduct disorder, Alzheimer's, psychosis risk) and a run of harder who-said-it items (Kernberg, Winnicott, Rank, Fromm, Kohut, Horney, Cloninger, Gerstmann, the RCI Act). The paper repeats one question (Q16 and Q31). Where an answer is arguable a Key note says so (Hurlock's infancy vs neonatal, Stern vs Terman, Freud vs Rank on birth trauma, Wundt not being an option for the first lab, census vs survey and a few more). Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / -0.25 like every other mock.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "JEMAS(PG) 2022", "no official key, worked out", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "systems-theories",
     title: "Systems & Theories Mock (Panwar bank)",
     sub: "119 MCQs · Amit Panwar \"Systems & Theories of Psychology\" unit bank · common-section drilling · official key + full revamp depth · untimed Practice + Full run",
@@ -619,8 +632,8 @@ const GROUPS = [
     sub: "Sit-once diagnostics and the common-section banks that decide the gap — misses compile into a study sheet on the page",
     members: ["recall-14", "diagnostic-1", "systems-theories", "flight-mock-100"] },
   { id: "jemas", title: "JEMAS(PG) — West Bengal",
-    sub: "The JEMAS(PG) Clinical Psychology entrance paper — real questions, source-badged, folded in page by page",
-    members: ["jemas-2025"] },
+    sub: "The West Bengal JEMAS(PG) M.Phil / Clinical Psychology entrance: 2022 in full, 2025 from the readable booklet pages, real questions",
+    members: ["jemas-2022", "jemas-2025"] },
   { id: "jepas", title: "JEPAS(PG), West Bengal",
     sub: "The West Bengal board's Joint Entrance for Post Graduate Admission: the M.Phil Clinical Psychology paper, real questions",
     members: ["jepas-2020"] },
