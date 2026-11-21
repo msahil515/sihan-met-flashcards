@@ -401,6 +401,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "official key", "Gurugram 2025", "M.A.", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "gurugram-2025-solved",
+    title: "Gurugram 2025 (solved version, Anukriti)",
+    sub: "60 Qs · a differently worded version of the 2025 exam · her answers re-checked · untimed",
+    path: "../take/screen.html?m=gurugram-2025-solved",
+    total: 60,
+    storageKey: "gurugram-2025-solved-results-v1",
+    sections: { physio: 11, disorders: 10, research: 9, general: 8, dev: 6, assessment: 6, clinical: 5, social: 3, personality: 2 },
+    blurb: "A solved version of the Gurugram University 2025 psychology entrance by Anukriti: 60 questions in different wording from the university's own notice. About half are the same questions as the official M.A. and M.Phil papers, reworded; the rest are extra. Her answers are her own, so every answer was re-checked against standard texts and the official key (her key table slips on Q15, fixed with a Key note). It covers proactive interference, Maslow's D and B needs, defence mechanisms, vicarious learning, Cannon-Bard, the spacing effect, linear perspective, Weber's law, divided attention, Piaget, Gesell, Erikson, Kohlberg's gender constancy and moral stages, Harlow, the forebrain, reticular formation, the limbic system, the corpus callosum, myelin, the resting potential, synaptic vesicles, operational definitions, stratified sampling, the null hypothesis, Type II error, construct validity, the ratio scale, correlation, Kothari's statistical design, skew, Heider's balance theory, mere exposure, diffusion of responsibility, Stern's IQ, the Hawthorne effect, Wechsler scales, deviation IQ, the MMPI, the Barnum effect, Parkinson's, panic disorder, Cluster B, PTSD, schizophrenia subtypes and symptoms, dopamine, Type A, criteria of abnormality, psychoneurosis, Wolpe, biofeedback, directive therapy, Gestalt therapy, specific phobia, preparedness and CBT for social phobia. Where an answer is arguable a Key note says so. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section.",
+    fresh: true,
+    deepExp: true,
+    tags: ["PYQ version", "Gurugram 2025", "solved copy", "answers re-checked", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "rinpas-2024",
     title: "RINPAS 2024 (real paper)",
     sub: "100 real Qs · RINPAS Ranchi's 2024 M.Phil / Ph.D Clinical Psychology paper · printed worked key, checked · untimed",
@@ -956,8 +969,8 @@ const GROUPS = [
     sub: "Government Medical College and Hospital, Chandigarh: M.Phil Clinical Psychology entrance papers, real questions (2025 with the official key, 2024 worked out from standard texts, 2023 with a printed worked key)",
     members: ["gmch-2025", "gmch-2024", "gmch-2023"] },
   { id: "gurugram", title: "Gurugram University",
-    sub: "Gurugram University, Haryana: the 2025 M.Phil and M.A. Clinical Psychology entrance papers, real questions with the official key",
-    members: ["gurugram-2025-mphil", "gurugram-2025-ma"] },
+    sub: "Gurugram University, Haryana: the 2025 M.Phil and M.A. Clinical Psychology entrance papers, real questions with the official key, plus Anukriti's solved version of the same exam",
+    members: ["gurugram-2025-mphil", "gurugram-2025-ma", "gurugram-2025-solved"] },
   { id: "rinpas", title: "RINPAS Ranchi",
     sub: "Ranchi Institute of Neuro-Psychiatry and Allied Sciences: the M.Phil / Ph.D Clinical Psychology entrance, real questions with a printed worked key",
     members: ["rinpas-2024", "rinpas-2019"] },
