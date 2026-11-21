@@ -544,6 +544,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "M.Phil CP 2021", "college not printed", "keyed from standard texts", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "mphil-cp-2023",
+    title: "M.Phil CP Entrance Test 2023 (college not printed)",
+    sub: "70 real Qs · filed as KU 2023, the university is not printed · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=mphil-cp-2023",
+    total: 70,
+    storageKey: "mphil-cp-2023-results-v1",
+    sections: { physio: 12, research: 12, general: 11, personality: 9, assessment: 9, social: 7, disorders: 6, clinical: 4 },
+    blurb: "An M.Phil Clinical Psychology entrance test from 2023: all 70 questions, read off the scan page by page. It was filed as \"KU 2023\", but the header names no university, booklet code, time or marking scheme. There is no official key, so every answer is worked out from standard texts. A mixed paper: social psychology and cognition (self-serving bias, implicit personality theory, Asch, realistic conflict, ELM, the Stanford Prison Experiment, effort justification, attentional blink, levels of processing, flashbulb memories, prospect theory, the Wason task, Whorf, pragmatics), personality (Winnicott, Lewin's life space, Eysenck, Kelly, the 16PF, reciprocal determinism), stats and research (central limit theorem, Bayes, Mann-Whitney U, MANCOVA, qualitative software, Miles and Huberman, line transect sampling, blinding, cohort studies), assessment (Full Scale IQ, the EQ formula, Galton, Luria-Nebraska, Halstead-Reitan, Rorschach cards, word association), a genetics and physiology block (Mendel's laws, Watson and Crick, chromosomes 1 and Y, tRNA shape, monohybrid ratios, Sherrington, cardiac pacemaker cells, post-inhibitory rebound, opiates) and clinical (ICD-11, DSM-5 personality disorders, schizophrenia, dopamine and Parkinsonism, tardive dyskinesia, the lateral hypothalamus, the DID host, chronic fatigue syndrome, Gestalt therapy, Hilde Bruch, IPT, Lazarus's BASIC ID). Where an answer is arguable a Key note says so. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / 0, since no negative marking is printed.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "M.Phil CP 2023", "college not printed", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "imhans-2019",
     title: "IMHANS Kozhikode 2019 (real paper)",
     sub: "75 real Qs · the M.Phil Clinical Psychology paper, booklet 19034 A · no official key, every answer worked out · untimed",
@@ -812,8 +825,8 @@ const GROUPS = [
     sub: "University of Jammu (School of Education and Behavioural Sciences): the M.A. Psychology entrance, real questions, worked out from standard texts",
     members: ["jammu-2023", "jammu-2021", "jammu-2020"] },
   { id: "unnamed", title: "College not printed",
-    sub: "Real M.Phil Clinical Psychology entrance papers whose cover never names the institute: the 2021 booklet A paper, 70 Qs, worked out from standard texts",
-    members: ["mphil-cp-2021"] },
+    sub: "Real M.Phil Clinical Psychology entrance papers whose cover never names the institute: the 2021 booklet A paper and the 2023 paper filed as KU, 70 Qs each, worked out from standard texts",
+    members: ["mphil-cp-2021", "mphil-cp-2023"] },
   { id: "sgt", archived: true, title: "SGT University",
     sub: "2026 cycle closed — but this is 100 real PYQs re-sorted into a general-psych shape, so it is still the best all-round drill on the site for IHBAS / CIP / JSS / DIMHANS",
     members: ["sgt-pyq"] }

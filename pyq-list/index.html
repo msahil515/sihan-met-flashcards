@@ -127,11 +127,11 @@
 
 <div class="stats">
   <div class="stat all"><div class="n">55</div><div class="l">real papers</div></div>
-  <div class="stat all"><div class="n">16</div><div class="l">colleges</div></div>
-  <div class="stat built"><div class="n">37</div><div class="l">built into mocks</div></div>
+  <div class="stat all"><div class="n">15</div><div class="l">colleges</div></div>
+  <div class="stat built"><div class="n">38</div><div class="l">built into mocks</div></div>
   <div class="stat part"><div class="n">1</div><div class="l">built partly</div></div>
-  <div class="stat queue"><div class="n">17</div><div class="l">not built</div></div>
-  <div class="stat keyed"><div class="n">5</div><div class="l">unbuilt <i>and</i> keyed</div></div>
+  <div class="stat queue"><div class="n">16</div><div class="l">not built</div></div>
+  <div class="stat keyed"><div class="n">4</div><div class="l">unbuilt <i>and</i> keyed</div></div>
 </div>
 
 
@@ -270,7 +270,6 @@ const QUEUE = [
  {g:"Keyed: these get built exact", items:[
   {n:25, t:"Exam-portal sheet, section \"MPHIL CP\" (filed as NFSU 2020)", m:"34 pp &middot; 100 Qs &middot; <em>correct option green-ticked on every question</em> &middot; questions are images &middot; <b>upgraded: I'd called this chosen-options-only. It isn't. But the college is not printed anywhere.</b>"},
   {n:23, t:"NFSU 2024, M.Sc Clinical / Forensic Psychology", m:"9 photos &middot; <em>answer explanations are in the shot</em> &middot; p1 cropped down the left column, p9 upside down &middot; <b>upgraded on the scan pass</b>"},
-  {n:21, t:"\"Entrance Test 2023, M.Phil Clinical Psychology\" (filed as KU 2023)", m:"9 pp &middot; <b>70 Qs</b> &middot; <em>ticked throughout in pen</em> &middot; <b>the paper never names the university &ndash; Kashmir or Kurukshetra?</b>"},
   {n:26, t:"LGBRIMH Tezpur 2025 (GURET)", m:"9 pp &middot; ~62 Qs &middot; memory-based recall with <em>answers written in</em>, but the compiler says they're his own findings, not the university's &middot; <b>NEW, found in the Drive</b>"}
  ]},
  {g:"Clean text, no key: fast to build, I work the answers out", items:[
@@ -385,10 +384,6 @@ const DATA = [
     {yr:"2020", nm:"JEPAS(PG) 2020, M.Phil Clinical Psychology, Set A", pg:"12", key:"copy", src:["you","drive"], st:"live", href:"../take/screen.html?m=jepas-2020",
      note:"<b>BUILT 20 Nov 2026:</b> live as a mock, all 100 questions, keys read off the yellow marks (a dot on a first attempt, a word highlight on the correction where the dot was wrong) and checked one by one; Q11 and Q73 set from the evidence with a Key note because the marks there are wrong or arguable. <b>SCAN PASS &ndash; it's solved, and I'd marked it unkeyed.</b> Cover reads JEPAS(PG)&ndash;2020, Subject: M.Phil in Clinical Psychology, 90 minutes, full marks 100, quarter-mark negative for a wrong answer. <b>All 100 answers are highlighted in yellow</b>, right through to Q100. Amit Panwar's coaching book prints this same paper as &quot;JEMAS 2020&quot; (see the JEMAS row). Keyed, exact build. <b>Build queue #22.</b>"}
   ]},
-  {college:"KU", sub:"", rows:[
-    {yr:"2023", nm:"\"Entrance Test 2023, M.Phil Clinical Psychology\" &ndash; filed as KU 2023", pg:"9", key:"hand", src:["you","drive"], st:"queue",
-     note:"<b>SCAN PASS.</b> <b>70 questions</b>, ticked all the way through in pen, so a complete hand key &ndash; useful, not authoritative. The header I just quoted is the <i>entire</i> header: no letterhead, no booklet code, no centre, nothing naming a university. Not the same paper as the unnamed 2021 one at queue #27, and none of its questions appear in the compiled file. <b>Tell me whether KU is Kashmir or Kurukshetra and I build it under the right name.</b> <b>Build queue #21.</b>"}
-  ]},
   {college:"PGIBAMS Raipur", sub:"Post Graduate Institute of Behavioural &amp; Medical Sciences, Chhattisgarh", rows:[
     {yr:"2023", nm:"PGIBAMS 2023, M.Phil Clinical Psychology", pg:"Word file", key:"none", src:["you","drive"], st:"live", href:"../take/screen.html?m=pgibams-2023",
      note:"<b>BUILT 21 Nov 2026:</b> live as a mock, all 100 questions from the typed Word file (1 hour, no negative marking). No official key exists, so every answer is worked out from standard texts, with Key notes where one is arguable (Q14 hypothalamus vs amygdala, Q40 the code that swaps Bandura and Lewin, Q61 Dorothea Dix vs Clifford Beers, Q76 factor analysis, Q81 Hebb vs Luria, Q87 borderline personality vs a depressive episode). Q11 and Q51 are the same question in the booklet."}
@@ -414,7 +409,9 @@ const DATA = [
     {yr:"2011", nm:"Jammu M.A. Psychology entrance 2011", pg:"~15", key:"none", src:["in"], st:"queue", note:"<b>NEW.</b> Scan."},
     {yr:"2010", nm:"Jammu M.A. Psychology entrance 2010", pg:"~15", key:"none", src:["in"], st:"queue", note:"<b>NEW.</b> Oldest paper in your whole collection. Typewriter-set scan."}
   ]},
-  {college:"College not printed on the paper", sub:"one paper I can't put a name to &middot; built", rows:[
+  {college:"College not printed on the paper", sub:"two papers I can't put a name to &middot; both built", rows:[
+    {yr:"2023", nm:"\"Entrance Test 2023, M.Phil Clinical Psychology\" &ndash; filed as KU 2023", pg:"9", key:"none", src:["you","drive"], st:"live", href:"../take/screen.html?m=mphil-cp-2023",
+     note:"<b>BUILT 21 Nov 2026:</b> live as a mock, all 70 questions, read off the scan. The header names no university, booklet code, time or marking scheme, so it sits here next to the 2021 paper rather than under KU (Kashmir or Kurukshetra was never confirmed). The pen strokes on it turned out to be faint and patchy, one candidate's picks that sometimes land on a plainly wrong option, so they are not used as a key: every answer is worked out from standard texts, with Key notes where one is arguable (Q7, Q8, Q9, Q13, Q16, Q19, Q22, Q24, Q25, Q29, Q39, Q41, Q47, Q49, Q54, Q56, Q57, Q58, Q61, Q65, Q66, Q69). If you know whose paper it is, tell me and I rename it."},
     {yr:"2021", nm:"M.Phil (Clinical Psychology) Entrance Examination 2021, Test Booklet Code A", pg:"7", key:"none", src:["in"], st:"live", href:"../take/screen.html?m=mphil-cp-2021",
      note:"<b>BUILT 21 Nov 2026:</b> live as a mock, all 70 questions, under a neutral name since the cover never names the college (Tests app: College not printed group). No official key, so every answer is worked out from standard texts, with Key notes where one is arguable (Q8, Q17, Q26, Q28, Q33, Q40, Q60, Q62, Q65, Q66, Q67, Q68, Q69). 11 of its questions also sit on other site papers (IHBAS 2024 Q21 to Q23, RML 2020, Gurugram 2025, CIP 2020, IMHANS 2020, JEMAS 2022), so it comes from the same question banks. If you know whose paper it is, tell me and I rename it. Earlier note: First 7 pages of \"Mphil past papers Compiled.pdf\". 70 questions, 1 hour, 70 marks, no negative marking, two OMR sheets (Q1&ndash;50 on the first, Q51&ndash;70 on the second). Clean text, and <b>the cover page never names the institute</b>."}
   ]},
