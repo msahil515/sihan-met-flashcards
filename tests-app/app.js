@@ -527,10 +527,44 @@
       '<span class="mb"><span class="mt">' + esc(title_of(id)) + '</span><span class="ms">' + status + '</span><span class="mbar"><i style="width:' + pct + '%"></i></span></span>' +
       '<span class="best">' + (best != null ? best + "%<small>best</small>" : "<small>new</small>") + '<span class="stars">' + starHTML(st) + "</span></span></button>";
   }
-  function groupHTML(g, gi) {
-    var c = STUB[(gi || 0) % STUB.length];
-    return '<section class="catalog-group"><h2 class="sh">' + esc(g.title) + '</h2><p class="gsub">' + esc(g.sub) + "</p><div class=\"mgrid\">" +
-      g.members.map(function (id) { return mockCard(id, c); }).join("") + "</div></section>";
+  /* Paper picker (Sihan, 21 Nov 2026: "instead of an endless wall of paper list and colleges"): one short row per
+     college with done / total, tap it to open its papers. Search and the status filter redraw only #cat, so the
+     keyboard stays up; the state lives here, so coming back from a paper finds the same college open. */
+  var pick = { q: "", f: "all", open: {}, cl: false, y: 0 };
+  function statusOf(id) { var r = getRun(id); return r.done ? "done" : score(id, r).answered ? "prog" : "new"; }
+  function matches(g, id) {
+    var hay = (g.title + " " + id + " " + title_of(id)).toLowerCase();
+    return pick.q.toLowerCase().split(/\s+/).every(function (w) { return hay.indexOf(w) >= 0; });
+  }
+  function collegeHTML(g, gi, st, auto) {
+    var ids = g.members.filter(function (id) { return (pick.f === "all" || st[id] === pick.f) && matches(g, id); });
+    if (!ids.length) return "";
+    var n = g.members.length, done = 0, prog = 0, c = STUB[gi % STUB.length];
+    g.members.forEach(function (id) { if (st[id] === "done") done++; else if (st[id] === "prog") prog++; });
+    var open = pick.open[g.id] != null ? pick.open[g.id] : auto, narrowed = ids.length < n;
+    return '<section class="college' + (open ? " open" : "") + '"><button class="crow" data-col="' + esc(g.id) + '" aria-expanded="' + open + '" style="--c:' + c + '">' +
+      '<span class="cn"><b>' + esc(g.title) + "</b><small>" + (narrowed ? ids.length + " of " + n + " papers" : n + (n === 1 ? " paper" : " papers")) + (prog ? " · " + prog + " in progress" : "") + "</small></span>" +
+      '<span class="cdone' + (done === n ? " all" : "") + '"><b>' + done + "</b>/" + n + "<small>done</small></span>" +
+      '<span class="chev">›</span><span class="cprog"><i style="width:' + Math.round(100 * done / n) + '%"></i></span></button>' +
+      '<div class="cpapers mgrid">' + ids.map(function (id) { return mockCard(id, c); }).join("") + "</div></section>";
+  }
+  function renderCat(st) {
+    var box = document.getElementById("cat"); if (!box) return;
+    var filtered = !!pick.q.trim() || pick.f !== "all", hits = 0;
+    if (filtered) GROUPS.forEach(function (g) { g.members.forEach(function (id) { if ((pick.f === "all" || st[id] === pick.f) && matches(g, id)) hits++; }); });
+    var auto = filtered && hits <= 8;   /* a short result opens straight away; a long one stays as college rows */
+    var open = "", closed = "";
+    GROUPS.forEach(function (g, gi) { var h = collegeHTML(g, gi, st, auto); if (g.archived) closed += h; else open += h; });
+    var names = GROUPS.filter(function (g) { return g.archived; }).map(function (g) { return g.title; }).join(", ");
+    box.innerHTML = (open || closed ? open : '<p class="hint">No paper matches. Clear the search or pick All.</p>') +
+      (closed ? '<details class="closed"' + (pick.cl || (filtered && !open) ? " open" : "") + "><summary>Closed colleges (still playable)<small>" + esc(names) + "</small></summary>" + closed + "</details>" : "");
+    var d = box.querySelector("details.closed"); if (d) d.ontoggle = function () { pick.cl = d.open; };
+    box.querySelectorAll(".crow").forEach(function (b) {
+      b.onclick = function () {
+        var s = b.parentNode, on = !s.classList.contains("open");
+        s.classList.toggle("open", on); b.setAttribute("aria-expanded", on); pick.open[b.getAttribute("data-col")] = on; SFX.click();
+      };
+    });
   }
   /* nearest open exam with a date in its group title, e.g. "St John's Bengaluru (25 Nov)" */
   var MON = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
@@ -548,37 +582,58 @@
   }
   function home() {
     var done = meta.days[today()] || 0, frac = Math.min(1, done / DAILY_GOAL);
-    var open = GROUPS.filter(function (g) { return !g.archived; }), closed = GROUPS.filter(function (g) { return g.archived; });
     var nQ = 0, nM = 0; GROUPS.forEach(function (g) { g.members.forEach(function (id) { nM++; nQ += P[id].questions.length; }); });
-    var last = meta.last && P[meta.last] ? meta.last : null, ex = nextExam();
+    var ex = nextExam(), st = {}, cnt = { "new": 0, prog: 0, done: 0 }, half = [];
+    GROUPS.forEach(function (g) { g.members.forEach(function (id) { var s = st[id] = statusOf(id); cnt[s]++; if (s === "prog") half.push(id); }); });
+    half.sort(function (a, b) { return (b === meta.last) - (a === meta.last); });   /* the last one played leads */
+    var last = half[0] || null;
     var poster = ex ? '<section class="poster"><div class="kick">Next job</div><h1>' + esc(ex.name) + '<span class="soft">' +
         (ex.days === 0 ? "today" : ex.days === 1 ? "tomorrow" : "in " + ex.days + " days") + "</span></h1><p>" + esc(String(ex.g.sub).split(/\.\s/)[0].replace(/\.$/, "")) + ".</p></section>"
       : '<section class="poster"><h1>Tests<span class="soft">' + nM + " mocks ready</span></h1><p>" + nQ.toLocaleString() + " questions. Untimed, +1 / −0.25.</p></section>";
     var resume;
     if (last) {
       var lr = getRun(last), ls = score(last, lr), lp = Math.round(100 * ls.answered / ls.N);
-      resume = '<section class="glass resume"><div class="ring" style="--p:' + lp + '"><b>' + ls.answered + "<small>of " + ls.N + "</small></b></div>" +
+      resume = '<h2 class="sec">Continue</h2><section class="glass resume"><div class="ring" style="--p:' + lp + '"><b>' + ls.answered + "<small>of " + ls.N + "</small></b></div>" +
         "<div><h3>" + esc(title_of(last)) + "</h3><p>" + (lr.done ? "Finished · " + fmt(ls.marks) + " / " + ls.N : ls.answered ? "Score so far " + fmt(ls.marks) + ", " + ls.right + " right" : "Not started yet") +
         (meta.best[last] != null ? " · best " + meta.best[last] + "%" : "") + "</p></div>" +
-        '<button class="btn primary-action" data-go="play" data-id="' + last + '">Continue ' + I.next + "</button></section>";
+        '<button class="btn primary-action" data-go="play" data-id="' + last + '">Continue ' + I.next + "</button></section>" +
+        (half.length > 1 ? '<p class="gsub more">Also half done</p><div class="mgrid">' + half.slice(1).map(function (id) { return mockCard(id, STUB[1]); }).join("") + "</div>" : "");
     } else {
       resume = '<section class="glass resume none"><div><h3>Pick a paper</h3><p>' + nM + " mocks, " + nQ.toLocaleString() + ' questions. Every right answer feeds your combo.</p></div><a class="btn primary-action" href="#catalog">Choose a test ' + I.next + "</a></section>";
     }
-    var h = '<div class="screen home-screen">' + hud() + '<div class="scroll home-scroll"><div class="home-layout"><aside class="briefing">' + poster + resume +
+    var upnext = "";
+    if (ex) {
+      var exDone = ex.g.members.filter(function (id) { return st[id] === "done"; }).length;
+      upnext = '<h2 class="sec">Up next</h2><p class="gsub">' + esc(ex.g.title) + " · " + exDone + "/" + ex.g.members.length + ' done</p><div class="mgrid">' +
+        ex.g.members.map(function (id) { return mockCard(id, STUB[0]); }).join("") + "</div>";
+    }
+    var FL = [["all", "All", nM], ["new", "Not started", cnt["new"]], ["prog", "In progress", cnt.prog], ["done", "Done", cnt.done]];
+    var h = '<div class="screen home-screen">' + hud() + '<div class="scroll home-scroll"><div class="home-layout"><aside class="briefing">' + poster + resume + upnext +
       '<div class="today' + (frac >= 1 ? " met" : "") + '"><b>' + (frac >= 1 ? "Daily goal done" : done + " of " + DAILY_GOAL + " today") + "</b>" +
       (meta.bestCombo ? '<span class="chip sun">' + I.spark + " Best combo " + meta.bestCombo + "</span>" : "") +
       '<div class="bar"><i style="width:' + Math.round(100 * frac) + '%"></i></div><p>' + (frac >= 1 ? "Streak safe for today. Keep the combo going." : (DAILY_GOAL - done) + " to go today") + "</p></div>" +
       '<div class="secondary-tools">' + (window.REVENGE ? window.REVENGE.cta() : "") +
-      (SL ? '<button class="btn ghost" data-go="study">Safehouse · ' + SL.counts().open + " to study</button>" : "") + '</div></aside><main class="catalog" id="catalog"><h2 class="sec">Papers</h2>' +
-      open.map(groupHTML).join("") +
-      (closed.length ? '<details class="closed"><summary>Closed cycles (still playable)<small>' + closed.map(function (g) { return g.title; }).join(", ") +
-        "</small></summary>" + closed.map(function (g, i) { return groupHTML(g, open.length + i); }).join("") + "</details>" : "") + "</main></div>" +
+      (SL ? '<button class="btn ghost" data-go="study">Safehouse · ' + SL.counts().open + " to study</button>" : "") + '</div></aside><main class="catalog" id="catalog"><h2 class="sec">All colleges</h2>' +
+      '<input id="pq" class="pq" type="search" enterkeyhint="search" autocomplete="off" placeholder="Search a college or year" value="' + esc(pick.q) + '">' +
+      '<div class="seg fseg" id="pf">' + FL.map(function (f) { return '<button data-f="' + f[0] + '" class="' + (pick.f === f[0] ? "on" : "") + '">' + f[1] + "<small>" + f[2] + "</small></button>"; }).join("") + "</div>" +
+      '<div id="cat"></div></main></div>' +
       '<div class="toggles"><button class="tg' + (meta.sound ? " on" : "") + '" id="tgS">Sound ' + (meta.sound ? "on" : "off") + '</button><button class="tg' +
       (meta.haptic ? " on" : "") + '" id="tgH">Vibration ' + (meta.haptic ? "on" : "off") + '</button></div><div class="toggles" style="margin-top:8px"><button class="tg' + (syncCode() ? " on" : "") + '" id="tgY">Sync ' + (syncCode() || "off") + " ›</button>" +
       '<button class="tg' + (meta.autoAdd !== false ? " on" : "") + '" id="tgA">Misses to Safehouse ' + (meta.autoAdd !== false ? "on" : "off") + "</button></div>" +
       '<div class="toggles" style="margin-top:8px"><button class="tg' + (FXQ === "high" ? " on" : "") + '" id="tgF">Cinematic FX: ' + (FXQ === "high" ? "High" : "Low (battery saver)") + "</button></div>" +
       '<div class="foot">' + nM + " mocks · " + nQ.toLocaleString() + " questions · untimed · +1 / −0.25</div></div></div>";
     app.innerHTML = h;
+    renderCat(st);
+    var pq = document.getElementById("pq");
+    pq.oninput = function () { pick.q = pq.value; pick.open = {}; renderCat(st); };
+    pq.onkeydown = function (e) { if (e.key === "Enter") pq.blur(); };
+    document.getElementById("pf").onclick = function (e) {
+      var b = e.target.closest("[data-f]"); if (!b) return;
+      pick.f = b.getAttribute("data-f"); pick.open = {}; SFX.click();
+      this.querySelectorAll("button").forEach(function (x) { x.classList.toggle("on", x === b); });
+      renderCat(st);
+    };
+    var hs = app.querySelector(".home-scroll"); hs.scrollTop = pick.y; hs.onscroll = function () { pick.y = hs.scrollTop; };
     document.getElementById("tgS").onclick = function () { meta.sound = !meta.sound; saveMeta(); home(); };
     document.getElementById("tgH").onclick = function () { meta.haptic = !meta.haptic; saveMeta(); home(); };
     document.getElementById("tgY").onclick = syncSheet;
@@ -626,7 +681,7 @@
     if (!e.detail || !e.detail.pulled) return;
     meta = loadMeta();
     var ae = document.activeElement;
-    if (cur.s === "study" && ae && app.contains(ae) && /INPUT|TEXTAREA|SELECT/.test(ae.tagName)) return;
+    if ((cur.s === "study" || cur.s === "home") && ae && app.contains(ae) && /INPUT|TEXTAREA|SELECT/.test(ae.tagName)) return;
     if (cur.s === "home" || cur.s === "lobby" || cur.s === "study") render();
   });
 
