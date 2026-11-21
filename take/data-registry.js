@@ -518,6 +518,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "Jammu 2021", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "jammu-2020",
+    title: "University of Jammu 2020 M.A. (real paper)",
+    sub: "60 real Qs · the M.A. Psychology entrance · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=jammu-2020",
+    total: 60,
+    storageKey: "jammu-2020-results-v1",
+    sections: { social: 16, research: 12, general: 9, disorders: 8, assessment: 5, personality: 4, clinical: 4, physio: 2 },
+    blurb: "The University of Jammu (School of Education and Behavioural Sciences) 2020 M.A. Psychology entrance, booklet series B: all 60 questions, 70 minutes in the real exam, minus a quarter per wrong answer, read off the scan page by page. There is no official key, so every answer is worked out from standard texts. Harder and more textbook-driven than 2021 and 2023: a big social psychology block (elaboration likelihood model, Kelley, dissonance, correspondent inference, the reinforcement-affect model, Omoto and Snyder's volunteer process model, reparative altruism, catharsis, constructive conflict, Fiedler, social identity theory, Robbers Cave, the relational self, Aristotle, Triplett, Milgram), abnormal psychology (comorbidity, the supernatural tradition, the 1844 classification, diathesis-stress, preparedness, la belle indifference, clanging, PTSD, MDD, OCD and GAD treatment), stats and research (scales, Patton's interview types, dispersion, kurtosis, z scores, non-parametric tests, the experimental method, double-blind, confounds, hermeneutics), assessment (MMPI, concurrent validity, reliability, Binet-Simon, projective tests) and general psychology (Stroop, closure, backward conditioning, Bandura, state-dependent retrieval, Yerkes-Dodson, Sternberg, CCK, Cannon-Bard, cathexis, introjection, NEO-PI-R). Where an answer is arguable a Key note says so. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / -0.25 like the real paper.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "Jammu 2020", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "mphil-cp-2021",
     title: "M.Phil CP Entrance 2021 (college not printed)",
     sub: "70 real Qs · 1 mark each, no negative marking · no official key, every answer worked out · untimed",
@@ -797,7 +810,7 @@ const GROUPS = [
     members: ["pgibams-2023"] },
   { id: "jammu", title: "University of Jammu",
     sub: "University of Jammu (School of Education and Behavioural Sciences): the M.A. Psychology entrance, real questions, worked out from standard texts",
-    members: ["jammu-2023", "jammu-2021"] },
+    members: ["jammu-2023", "jammu-2021", "jammu-2020"] },
   { id: "unnamed", title: "College not printed",
     sub: "Real M.Phil Clinical Psychology entrance papers whose cover never names the institute: the 2021 booklet A paper, 70 Qs, worked out from standard texts",
     members: ["mphil-cp-2021"] },
