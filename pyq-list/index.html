@@ -128,9 +128,9 @@
 <div class="stats">
   <div class="stat all"><div class="n">53</div><div class="l">real papers</div></div>
   <div class="stat all"><div class="n">16</div><div class="l">colleges</div></div>
-  <div class="stat built"><div class="n">26</div><div class="l">built into mocks</div></div>
+  <div class="stat built"><div class="n">28</div><div class="l">built into mocks</div></div>
   <div class="stat part"><div class="n">1</div><div class="l">built partly</div></div>
-  <div class="stat queue"><div class="n">26</div><div class="l">not built</div></div>
+  <div class="stat queue"><div class="n">24</div><div class="l">not built</div></div>
   <div class="stat keyed"><div class="n">5</div><div class="l">unbuilt <i>and</i> keyed</div></div>
 </div>
 
@@ -274,8 +274,6 @@ const QUEUE = [
   {n:26, t:"LGBRIMH Tezpur 2025 (GURET)", m:"9 pp &middot; ~62 Qs &middot; memory-based recall with <em>answers written in</em>, but the compiler says they're his own findings, not the university's &middot; <b>NEW, found in the Drive</b>"}
  ]},
  {g:"Clean text, no key: fast to build, I work the answers out", items:[
-  {n:7, t:"PGIBAMS Raipur 2023", m:"Word file, clean text, 100 Qs, no negative marking. Easiest build on the list."},
-  {n:8, t:"JEMAS(PG) 2020", m:"7 pp &middot; full 100 Qs &middot; clean text layer"},
   {n:11, t:"NFSU 2025", m:"9 pp &middot; official M.Phil CP booklet"},
   {n:12, t:"GMCH Chandigarh 2024", m:"7 pp &middot; 100 Qs"},
   {n:14, t:"IMHANS Kozhikode 2024", m:"10 pp &middot; booklet A, 60 minutes"},
@@ -348,7 +346,7 @@ const DATA = [
     {yr:"2025", nm:"plus a solved version by Anukriti", pg:"16", key:"copy", src:["you","drive"], st:"queue",
      note:"<b>Corrected 20 Nov 2026:</b> not a copy of the notice. It is a 60-question version in different wording: about a third match the notice paper word for word, many more are the same topic reworded, and roughly 20 are not in the notice at all (Weber's law, myelin, corpus callosum, Barnum effect, directive counselling and more). The answers are Anukriti's own, not official. Not built."}
   ]},
-  {college:"JEMAS (PG)", sub:"West Bengal &middot; 5 papers, 3 built, 1 built partly", rows:[
+  {college:"JEMAS (PG)", sub:"West Bengal &middot; 5 papers, 4 built, 1 built partly", rows:[
     {yr:"2025", nm:"JEMAS(PG) 2025, CP booklet", pg:"14 photos", key:"none", src:["you"], st:"part", href:"../quiz/jemas-2025/",
      note:"36 of 100 Qs built from the 5 readable photo pages. Missing Q1&ndash;14, 29&ndash;58, 67&ndash;74, 89+ and the key."},
     {yr:"2024", nm:"JEMAS(PG) 2024", pg:"15", key:"none", src:["you","drive"], st:"live", href:"../take/screen.html?m=jemas-2024",
@@ -357,7 +355,8 @@ const DATA = [
      note:"<b>BUILT 21 Nov 2026:</b> live as a mock, all 100 questions word for word from the clean official booklet (the same booklet sits twice inside \"Mphil past papers Compiled.pdf\"). No official key exists, so every answer is worked out from standard texts, with Key notes where one is arguable (Q37 adaptation level vs frames of reference, Q63 false alarm vs false positive, Q76 cerebellum vs basal ganglia, Q77 Stern vs Terman, Q92 perceptual thinking). The booklet prints Q6's options a and d identically. 17 questions repeat JEMAS 2022 and JEPAS 2020."},
     {yr:"2022", nm:"JEMAS(PG) 2022", pg:"8 + 15", key:"none", src:["you","drive"], st:"live", href:"../take/screen.html?m=jemas-2022",
      note:"<b>BUILT 21 Nov 2026:</b> live as a mock, all 100 questions, text from the clean official booklet copy inside \"Mphil past papers Compiled.pdf\" and checked against your 8-page Power Within Psychology scan. The blue ticks on the scan turned out to be a candidate's picks, not a key: a dozen are plainly wrong (Q9 punishment, Q12 Beck's triad, Q35 endocrine, Q44, Q61 Beck), so every answer is worked out from standard texts, with Key notes where one is arguable (Q37 infancy vs neonatal, Q42 Stern vs Terman, Q66 Rank vs Freud, Q87 census, Q90 Wundt not an option, Q99 EEG). The paper repeats one question (Q16 = Q31)."},
-    {yr:"2020", nm:"JEMAS(PG) 2020", pg:"7", key:"none", src:["you","drive"], st:"queue", note:"Full 100 Qs, clean text layer."}
+    {yr:"2020", nm:"JEMAS(PG) 2020", pg:"7", key:"none", src:["you","drive"], st:"live", href:"../take/screen.html?m=jepas-2020",
+     note:"<b>SAME PAPER as JEPAS(PG) 2020, already live (21 Nov 2026 check):</b> this 7-page file is Amit Panwar's Power Within &quot;Previous year mock test series, JEMAS 2020&quot;, and its 100 questions are the 100 questions of the official JEPAS(PG) 2020 Set A booklet below, mostly in the same order (6 sit in swapped slots, e.g. Type I error is Q34 here and Q98 there). So nothing new to build: take it as JEPAS(PG) 2020. The page is a phone scan with a garbled text layer, not clean text as first noted."}
   ]},
   {college:"IMHANS Kozhikode", sub:"Institute of Mental Health &amp; Neuro Sciences &middot; 5 papers, 1 built", rows:[
     {yr:"2025", nm:"IMHANS 2025", pg:"13", key:"none", src:["you","drive"], st:"live", href:"../take/screen.html?m=imhans-2025",
@@ -386,15 +385,15 @@ const DATA = [
   ]},
   {college:"JEPAS", sub:"Joint Entrance for Post Graduate Admission", rows:[
     {yr:"2020", nm:"JEPAS(PG) 2020, M.Phil Clinical Psychology, Set A", pg:"12", key:"copy", src:["you","drive"], st:"live", href:"../take/screen.html?m=jepas-2020",
-     note:"<b>BUILT 20 Nov 2026:</b> live as a mock, all 100 questions, keys read off the yellow marks (a dot on a first attempt, a word highlight on the correction where the dot was wrong) and checked one by one; Q11 and Q73 set from the evidence with a Key note because the marks there are wrong or arguable. <b>SCAN PASS &ndash; it's solved, and I'd marked it unkeyed.</b> Cover reads JEPAS(PG)&ndash;2020, Subject: M.Phil in Clinical Psychology, 90 minutes, full marks 100, quarter-mark negative for a wrong answer. <b>All 100 answers are highlighted in yellow</b>, right through to Q100. A separate exam from JEMAS(PG), however close the names look. Keyed, exact build. <b>Build queue #22.</b>"}
+     note:"<b>BUILT 20 Nov 2026:</b> live as a mock, all 100 questions, keys read off the yellow marks (a dot on a first attempt, a word highlight on the correction where the dot was wrong) and checked one by one; Q11 and Q73 set from the evidence with a Key note because the marks there are wrong or arguable. <b>SCAN PASS &ndash; it's solved, and I'd marked it unkeyed.</b> Cover reads JEPAS(PG)&ndash;2020, Subject: M.Phil in Clinical Psychology, 90 minutes, full marks 100, quarter-mark negative for a wrong answer. <b>All 100 answers are highlighted in yellow</b>, right through to Q100. Amit Panwar's coaching book prints this same paper as &quot;JEMAS 2020&quot; (see the JEMAS row). Keyed, exact build. <b>Build queue #22.</b>"}
   ]},
   {college:"KU", sub:"", rows:[
     {yr:"2023", nm:"\"Entrance Test 2023, M.Phil Clinical Psychology\" &ndash; filed as KU 2023", pg:"9", key:"hand", src:["you","drive"], st:"queue",
      note:"<b>SCAN PASS.</b> <b>70 questions</b>, ticked all the way through in pen, so a complete hand key &ndash; useful, not authoritative. The header I just quoted is the <i>entire</i> header: no letterhead, no booklet code, no centre, nothing naming a university. Not the same paper as the unnamed 2021 one at queue #27, and none of its questions appear in the compiled file. <b>Tell me whether KU is Kashmir or Kurukshetra and I build it under the right name.</b> <b>Build queue #21.</b>"}
   ]},
   {college:"PGIBAMS Raipur", sub:"Post Graduate Institute of Behavioural &amp; Medical Sciences, Chhattisgarh", rows:[
-    {yr:"2023", nm:"PGIBAMS 2023, M.Phil Clinical Psychology", pg:"Word file", key:"none", src:["you","drive"], st:"queue",
-     note:"1 hour, 100 questions, no negative marking. Comes as clean typed text, so it's the quickest build on the whole unbuilt list. <b>Build queue #7.</b>"}
+    {yr:"2023", nm:"PGIBAMS 2023, M.Phil Clinical Psychology", pg:"Word file", key:"none", src:["you","drive"], st:"live", href:"../take/screen.html?m=pgibams-2023",
+     note:"<b>BUILT 21 Nov 2026:</b> live as a mock, all 100 questions from the typed Word file (1 hour, no negative marking). No official key exists, so every answer is worked out from standard texts, with Key notes where one is arguable (Q14 hypothalamus vs amygdala, Q40 the code that swaps Bandura and Lewin, Q61 Dorothea Dix vs Clifford Beers, Q76 factor analysis, Q81 Hebb vs Luria, Q87 borderline personality vs a depressive episode). Q11 and Q51 are the same question in the booklet."}
   ]},
   {college:"LGBRIMH Tezpur", sub:"Lokopriya Gopinath Bordoloi Regional Institute of Mental Health, Assam &middot; NEW", rows:[
     {yr:"2025", nm:"LGBRIMH 2025 (GURET), memory based", pg:"9", key:"copy", src:["drive"], st:"queue",

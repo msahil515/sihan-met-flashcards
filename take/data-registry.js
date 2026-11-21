@@ -440,6 +440,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "IMHANS 2025", "keyed from standard texts", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "pgibams-2023",
+    title: "PGIBAMS Raipur 2023 (real paper)",
+    sub: "100 real Qs · the M.Phil Clinical Psychology paper · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=pgibams-2023",
+    total: 100,
+    storageKey: "pgibams-2023-results-v1",
+    sections: { general: 18, clinical: 14, assessment: 13, disorders: 13, physio: 12, research: 11, personality: 9, dev: 5, social: 5 },
+    blurb: "The PGIBAMS Raipur (Post Graduate Institute of Behavioural and Medical Sciences, Chhattisgarh) 2023 M.Phil Clinical Psychology entrance, all 100 questions from the typed paper you sent (1 hour, no negative marking in the real exam). There is no official key, so every answer is worked out from standard texts. Fast, broad recall: biopsych (hypothalamus, reflexes, ghrelin, sleep stages, aphasias), intelligence and assessment (Binet, Stern, Thurstone, Sternberg, Gardner, Flynn effect, MMPI, CAT, the five Rorschach systems, speed tests, concurrent and face validity), personality (Allport, Cattell, Rollo May, the lexical hypothesis), social (Festinger, Asch, Tuckman, halo, foot-in-the-door), psychopathology (functional hallucination, paraschemazia, Pfropf schizophrenia, overvalued ideas, a borderline case vignette) and clinical practice and law (the five Ps, diagnostic vs case formulation, MHCA 2017 Section 115, the RPwD Act definition, BSCT, PECS). Where an answer is arguable a Key note says so (hypothalamus vs amygdala as the centre of emotion, Dorothea Dix vs Clifford Beers, Hebb vs Luria, the swapped Bandura and Lewin pair, factor analysis, BPD vs a depressive episode and a few more). Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / -0.25 like every other mock.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "PGIBAMS 2023", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "ihbas-2025",
     title: "IHBAS 2025 PYQ Mock (real paper)",
     sub: "100 real Qs · IHBAS Delhi M.Phil Clinical Psychology (MPCP) entrance 2025 · Series A · official key · untimed Practice + Full run",
@@ -675,6 +688,9 @@ const GROUPS = [
   { id: "rinpas", title: "RINPAS Ranchi",
     sub: "Ranchi Institute of Neuro-Psychiatry and Allied Sciences: the M.Phil / Ph.D Clinical Psychology entrance, real questions with a printed worked key",
     members: ["rinpas-2024", "rinpas-2019"] },
+  { id: "pgibams", title: "PGIBAMS Raipur",
+    sub: "Post Graduate Institute of Behavioural and Medical Sciences, Raipur (Chhattisgarh): the M.Phil Clinical Psychology entrance, real questions",
+    members: ["pgibams-2023"] },
   { id: "sgt", archived: true, title: "SGT University",
     sub: "2026 cycle closed — but this is 100 real PYQs re-sorted into a general-psych shape, so it is still the best all-round drill on the site for IHBAS / CIP / JSS / DIMHANS",
     members: ["sgt-pyq"] }
