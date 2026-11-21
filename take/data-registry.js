@@ -453,6 +453,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "IMHANS 2025", "keyed from standard texts", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "imhans-2024",
+    title: "IMHANS Kozhikode 2024 (real paper)",
+    sub: "75 real Qs · the M.Phil Clinical Psychology paper, booklet 24036 A · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=imhans-2024",
+    total: 75,
+    storageKey: "imhans-2024-results-v1",
+    sections: { clinical: 19, physio: 17, research: 15, dev: 11, assessment: 5, general: 4, disorders: 2, personality: 2 },
+    blurb: "The IMHANS Kozhikode (Institute of Mental Health and Neurosciences, Kerala) 2024 M.Phil in Clinical Psychology entrance, booklet 24036 A, 60 minutes, all 75 questions from the paper you sent. There is no official key, and the yellow highlights on the copy are one candidate's picks, so every answer is worked out from standard texts. A modern, applied paper: research methods and stats (grounded theory, factor rotation, MANOVA, mixed methods designs, phi, SEM fit, power analysis, a mean calculation), biopsych (action potentials, ghrelin and leptin, the hypothalamus, vmPFC, HPA axis, oxytocin, LTP, adult neurogenesis, optogenetics, sensory gating), therapy and counselling (REBT, MBCT, DBT, Gestalt, existential, positive psychotherapy, family triangulation, VR exposure for PTSD), development (Kohlberg, Vygotsky, Werner, Rowe and Kahn, Bronfenbrenner) and educational psychology (Hattie, self-determination theory, grit), with 7 Assertion-Reason items. Several stems say 'recent research'; where an answer is arguable a Key note says so (Rowe and Kahn, sensory gating, AI in neuropsych testing, fMRI vs PET, grit vs SES, the hypothalamus A-R, optogenetics, power analysis, Scarr-Rowe). Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. The site scores +1 / -0.25 like every other mock.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "IMHANS 2024", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "pgibams-2023",
     title: "PGIBAMS Raipur 2023 (real paper)",
     sub: "100 real Qs · the M.Phil Clinical Psychology paper · no official key, every answer worked out · untimed",
@@ -690,8 +703,8 @@ const GROUPS = [
     sub: "The West Bengal board's Joint Entrance for Post Graduate Admission: the M.Phil Clinical Psychology paper, real questions",
     members: ["jepas-2020"] },
   { id: "imhans", title: "IMHANS Kozhikode",
-    sub: "Institute of Mental Health and Neurosciences, Kozhikode (Kerala): the M.Phil Clinical Psychology entrance, real questions",
-    members: ["imhans-2025"] },
+    sub: "Institute of Mental Health and Neurosciences, Kozhikode (Kerala): the M.Phil Clinical Psychology entrance papers, real questions (2025 and 2024, both worked out from standard texts)",
+    members: ["imhans-2025", "imhans-2024"] },
   { id: "gmch", title: "GMCH Chandigarh",
     sub: "Government Medical College and Hospital, Chandigarh: M.Phil Clinical Psychology entrance papers, real questions (2025 with the official key, 2024 worked out from standard texts, 2023 with a printed worked key)",
     members: ["gmch-2025", "gmch-2024", "gmch-2023"] },
