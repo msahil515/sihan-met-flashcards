@@ -583,6 +583,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "Jammu", "year not printed", "keyed from standard texts", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "lgbrimh-2025",
+    title: "LGBRIMH Tezpur 2025 (memory-based)",
+    sub: "62 recalled Qs · M.Phil Clinical Psychology entrance (GURET) · options filled where the recall had gaps · every answer worked out · untimed",
+    path: "../take/screen.html?m=lgbrimh-2025",
+    total: 62,
+    storageKey: "lgbrimh-2025-results-v1",
+    sections: { general: 20, clinical: 12, research: 10, disorders: 6, personality: 5, social: 3, physio: 3, assessment: 2, dev: 1 },
+    blurb: "The LGBRIMH Tezpur M.Phil Clinical Psychology entrance 2025 (GURET), rebuilt from a candidate's recall of the exam: all 62 items he remembered. His answers were his own, not official, so every answer is worked out from standard texts (two of his answers were wrong and are fixed with a Key note). Where he could not recall an option it is filled with a standard distractor, and the few lines that were only a topic get one question written to that topic. An M.Phil-level paper: Vidya Sagar's family tents at Amritsar, N. C. Bordoloi's Padma Shri, M'Naghten, the JJ Act 2015 Section 21, Kitchener's ethics, narcoanalysis, World No Tobacco Day, the Health Belief Model, form vs stream of thought, ICD-11 trait domains, functional hallucinations, the cognitive models of OCD and social anxiety, PTSD, specific learning disorder, partial eta squared, repeated measures df, skew, Thurstone's law of comparative judgement, memoing, interim analysis, emic and etic, z scores, box plots, ROC curves, the IQR, Watson's subvocal speech, Bruner and Goodman's coins, sensory memory, Piaget's substage 4, heuristics, Fiedler's LPC, Vroom, Cattell's dynamic lattice, Wolpe, R. D. Laing, Adler, the MMPI, Parkinson's tremor, albedo, Paivio's dual coding, Zuckerman's Alternative Five, the trigunas, social loafing, eidetic imagery, Lazarus's appraisal, James-Lange, logotherapy, the Ponzo illusion, phi, Atkinson, Sternberg, functional fixedness, Guilford, fluid vs crystallised intelligence, Fredrickson, alpha and beta pride. Where an answer is arguable a Key note says so. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section.",
+    fresh: true,
+    deepExp: true,
+    tags: ["memory-based PYQ", "LGBRIMH", "GURET 2025", "M.Phil CP", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "jammu-2018",
     title: "University of Jammu 2018 M.A. (real paper)",
     sub: "60 real Qs · the M.A. Psychology entrance, series A, code FDM-2542-A · no official key, every answer worked out · untimed",
@@ -951,6 +964,9 @@ const GROUPS = [
   { id: "pgibams", title: "PGIBAMS Raipur",
     sub: "Post Graduate Institute of Behavioural and Medical Sciences, Raipur (Chhattisgarh): the M.Phil Clinical Psychology entrance, real questions",
     members: ["pgibams-2023"] },
+  { id: "lgbrimh", title: "LGBRIMH Tezpur",
+    sub: "Lokopriya Gopinath Bordoloi Regional Institute of Mental Health, Tezpur (Assam): the M.Phil Clinical Psychology entrance (GURET), rebuilt from a candidate's recall, worked out from standard texts",
+    members: ["lgbrimh-2025"] },
   { id: "jammu", title: "University of Jammu",
     sub: "University of Jammu (School of Education and Behavioural Sciences): the M.A. Psychology entrance, real questions, worked out from standard texts",
     members: ["jammu-2023", "jammu-2021", "jammu-2020", "jammu-2018", "jammu-2017", "jammu-2016", "jammu-2015", "jammu-2014", "jammu-2013", "jammu-2011", "jammu-2010", "jammu-hfo", "jammu-psy"] },
