@@ -570,6 +570,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "Jammu", "HFO-20622-A", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "jammu-psy",
+    title: "University of Jammu, year not printed (real paper)",
+    sub: "60 real Qs · Psychology entrance, no cover page, footer Psy. · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=jammu-psy",
+    total: 60,
+    storageKey: "jammu-psy-results-v1",
+    sections: { research: 11, clinical: 10, general: 10, disorders: 9, social: 8, personality: 4, dev: 3, assessment: 3, physio: 2 },
+    blurb: "A University of Jammu Psychology entrance paper with no cover page, so the year and booklet code are not printed (every page footer just says Psy.). All 60 questions, read off the scan page by page. There is no official key, so every answer is worked out from standard texts. An easy, broad recall paper with lots of Both, All the three and None of the three options: guidance and its types, Frank Parsons, the 1954 Central Bureau of Educational and Vocational Guidance, appraisal, the cumulative record card, rapport, Rogers's non-directive counselling, counselee and client, remedial classes, sampling, the IV, Stevens's scales, one group, parallel group and rotation group designs, case study, participant observation, reliability, validity, the median, the SD formula, perfect correlation, what psychology and social psychology study, Wundt's Leipzig lab, Gestalt closure, transfer of learning, Kohler and Thorndike, attention to a crying child, Spearman, convergent thinking, creativity and intelligence, sensation, abnormality, delusions, hallucinations, OCD, hypochondria, psychosis, nyctophobia, paranoid PD, the old idiot, imbecile and moron labels, Mendel's dominance, the thyroid, Erikson's identity crisis, sociometry, sociability, socialisation, group cohesiveness, Bogardus, prejudice, social loafing, delinquency, the 16PF, TAT and Rorschach, id, ego and superego, Maslow. Where an answer is arguable a Key note says so. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / -0.25 like the other Jammu papers.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "Jammu", "year not printed", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "jammu-2018",
     title: "University of Jammu 2018 M.A. (real paper)",
     sub: "60 real Qs · the M.A. Psychology entrance, series A, code FDM-2542-A · no official key, every answer worked out · untimed",
@@ -940,7 +953,7 @@ const GROUPS = [
     members: ["pgibams-2023"] },
   { id: "jammu", title: "University of Jammu",
     sub: "University of Jammu (School of Education and Behavioural Sciences): the M.A. Psychology entrance, real questions, worked out from standard texts",
-    members: ["jammu-2023", "jammu-2021", "jammu-2020", "jammu-2018", "jammu-2017", "jammu-2016", "jammu-2015", "jammu-2014", "jammu-2013", "jammu-2011", "jammu-2010", "jammu-hfo"] },
+    members: ["jammu-2023", "jammu-2021", "jammu-2020", "jammu-2018", "jammu-2017", "jammu-2016", "jammu-2015", "jammu-2014", "jammu-2013", "jammu-2011", "jammu-2010", "jammu-hfo", "jammu-psy"] },
   { id: "unnamed", title: "College not printed",
     sub: "Real M.Phil Clinical Psychology entrance papers whose cover never names the institute: the 2021 booklet A paper and the 2023 paper filed as KU, 70 Qs each, worked out from standard texts",
     members: ["mphil-cp-2021", "mphil-cp-2023"] },
