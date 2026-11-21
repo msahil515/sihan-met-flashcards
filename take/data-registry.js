@@ -466,6 +466,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "IMHANS 2024", "keyed from standard texts", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "imhans-2021",
+    title: "IMHANS Kozhikode 2021 (real paper)",
+    sub: "75 real Qs · the M.Phil Clinical Psychology paper, booklet 21020 A · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=imhans-2021",
+    total: 75,
+    storageKey: "imhans-2021-results-v1",
+    sections: { assessment: 25, research: 18, clinical: 7, general: 7, dev: 5, personality: 5, physio: 4, social: 2, disorders: 2 },
+    blurb: "The IMHANS Kozhikode (Institute of Mental Health and Neurosciences, Kerala) 2021 M.Phil in Clinical Psychology entrance, booklet 21020 A, 60 minutes, all 75 questions from the paper you sent. There is no official key, and the pen ticks on the copy are one candidate's picks (several plainly wrong), so every answer is worked out from standard texts. A psychometrics and research methods paper: reliability and validity, SEM, item characteristic curves, acquiescence and social desirability, GATB, ratio IQ, Rorschach scoring, 16PF and factor-analytic inventories, then ANCOVA, Latin squares, runs, organismic variables, quota sampling, the F-test, mixed methods designs and the non-parametric tests (median, Kruskal-Wallis, Friedman). Also therapy (genogram, Gestalt exaggeration, REBT shame attacking, CBT phases, DBT, transactional analysis), learning and memory (Premack, autoshaping, encoding specificity, chunking), development (Vygotsky, three mountain task, Gilligan, personal fable) and 7 Assertion-Reason items. Where an answer is arguable a Key note says so (Vygotsky's stage, analogue observation, concurrent validity, examiner variance, cognitive remediation, surgery and lesions, encoding specificity, the IQ bands, quota sampling, trait tests, topographic maps, the F-test). Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. The site scores +1 / -0.25 like every other mock.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "IMHANS 2021", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "pgibams-2023",
     title: "PGIBAMS Raipur 2023 (real paper)",
     sub: "100 real Qs · the M.Phil Clinical Psychology paper · no official key, every answer worked out · untimed",
@@ -703,8 +716,8 @@ const GROUPS = [
     sub: "The West Bengal board's Joint Entrance for Post Graduate Admission: the M.Phil Clinical Psychology paper, real questions",
     members: ["jepas-2020"] },
   { id: "imhans", title: "IMHANS Kozhikode",
-    sub: "Institute of Mental Health and Neurosciences, Kozhikode (Kerala): the M.Phil Clinical Psychology entrance papers, real questions (2025 and 2024, both worked out from standard texts)",
-    members: ["imhans-2025", "imhans-2024"] },
+    sub: "Institute of Mental Health and Neurosciences, Kozhikode (Kerala): the M.Phil Clinical Psychology entrance papers, real questions (2025, 2024 and 2021, all worked out from standard texts)",
+    members: ["imhans-2025", "imhans-2024", "imhans-2021"] },
   { id: "gmch", title: "GMCH Chandigarh",
     sub: "Government Medical College and Hospital, Chandigarh: M.Phil Clinical Psychology entrance papers, real questions (2025 with the official key, 2024 worked out from standard texts, 2023 with a printed worked key)",
     members: ["gmch-2025", "gmch-2024", "gmch-2023"] },
