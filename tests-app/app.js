@@ -404,7 +404,8 @@
     return out.filter(Boolean);
   }
   function answerBlock(q, figSource) {
-    var fig = findFigure(figSource);
+    // a question can name its own key figure (q.fig, "" hides the line); otherwise guess from the text
+    var fig = q.fig != null ? q.fig : findFigure(figSource);
     return '<div class="exp-answer"><span class="ak">' + q.correct.toUpperCase() + '</span><span class="abody"><span class="alabel">Correct answer</span>' +
       '<span class="atext">' + (q.options[q.correct] || "") + "</span></span>" +
       (fig ? '<span class="exp-fig">Key figure: <strong>' + fig + "</strong></span>" : "") + "</div>";

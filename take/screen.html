@@ -458,6 +458,7 @@ button{font-family:inherit;cursor:pointer}
 <script src="data-rinpas24.js?v=20261121-rinpas24"></script>
 <script src="data-rinpas19.js?v=20261121-rinpas19"></script>
 <script src="data-jemas22.js?v=20261121-jemas22"></script>
+<script src="data-jemas23.js?v=20261121-jemas23"></script>
 <script src="data-recall14.js?v=20261020-recall14"></script>
 <script src="data-nimhans26.js?v=20261021-t010"></script>
 <script src="speak.js?v=20260805-qonly-samsung"></script>
@@ -535,7 +536,8 @@ function paras(text){
   return out.filter(Boolean);
 }
 function answerBlock(q, figSource){
-  const fig = findFigure(figSource);
+  // a question can name its own key figure (q.fig, "" hides the line); otherwise guess from the text
+  const fig = q.fig != null ? q.fig : findFigure(figSource);
   return `<div class="exp-answer">
       <span class="ak">${q.correct.toUpperCase()}</span>
       <span class="abody"><span class="alabel">Correct answer</span>

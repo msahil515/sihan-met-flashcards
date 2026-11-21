@@ -105,6 +105,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "JEMAS(PG) 2022", "no official key, worked out", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "jemas-2023",
+    title: "JEMAS(PG) 2023 (real paper)",
+    sub: "100 real Qs · the West Bengal M.Phil Clinical Psychology paper · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=jemas-2023",
+    total: 100,
+    storageKey: "jemas-2023-results-v1",
+    sections: { general: 22, physio: 20, clinical: 15, assessment: 13, disorders: 10, dev: 6, personality: 6, research: 4, social: 4 },
+    blurb: "The West Bengal JEMAS(PG) 2023 M.Phil Clinical Psychology entrance, all 100 questions, word for word from the official booklet. There is no official key, so every answer is worked out from standard texts. It is mostly intro-level and fast: perception (Gestalt laws, Gibson, apparent motion, figure-ground), learning and memory, motivation and emotion (Herzberg, Alderfer, Schachter-Singer), Piaget, Erikson, Kohlberg and Thomas & Chess, then a big biopsych block (cerebellum, split brain, hypothalamus, RBD, melatonin), assessment (MMPI-2 scale 7, MCMI-III, Binet, Porteus, Guilford, Sternberg) and who-said-it items (Szasz, Foucault, Melanie Klein, Kernberg, Mesmer, Koch, Moreno, Klerman, Yalom). 17 questions are repeats from JEMAS 2022 and JEPAS 2020. Where an answer is arguable a Key note says so (adaptation level vs frames of reference, false alarm vs false positive, cerebellum vs basal ganglia for procedural memory, Stern vs Terman for IQ, the two identical Piaget options and a few more). Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / -0.25 like every other mock.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "JEMAS(PG) 2023", "no official key, worked out", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "systems-theories",
     title: "Systems & Theories Mock (Panwar bank)",
     sub: "119 MCQs · Amit Panwar \"Systems & Theories of Psychology\" unit bank · common-section drilling · official key + full revamp depth · untimed Practice + Full run",
@@ -632,8 +645,8 @@ const GROUPS = [
     sub: "Sit-once diagnostics and the common-section banks that decide the gap — misses compile into a study sheet on the page",
     members: ["recall-14", "diagnostic-1", "systems-theories", "flight-mock-100"] },
   { id: "jemas", title: "JEMAS(PG) — West Bengal",
-    sub: "The West Bengal JEMAS(PG) M.Phil / Clinical Psychology entrance: 2022 in full, 2025 from the readable booklet pages, real questions",
-    members: ["jemas-2022", "jemas-2025"] },
+    sub: "The West Bengal JEMAS(PG) M.Phil / Clinical Psychology entrance: 2022 and 2023 in full, 2025 from the readable booklet pages, real questions",
+    members: ["jemas-2022", "jemas-2023", "jemas-2025"] },
   { id: "jepas", title: "JEPAS(PG), West Bengal",
     sub: "The West Bengal board's Joint Entrance for Post Graduate Admission: the M.Phil Clinical Psychology paper, real questions",
     members: ["jepas-2020"] },
