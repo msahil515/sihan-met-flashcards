@@ -492,6 +492,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "IMHANS 2020", "keyed from standard texts", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "jammu-2023",
+    title: "University of Jammu 2023 M.A. (real paper)",
+    sub: "60 real Qs · the M.A. Psychology entrance · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=jammu-2023",
+    total: 60,
+    storageKey: "jammu-2023-results-v1",
+    sections: { social: 16, general: 11, disorders: 8, clinical: 8, research: 7, dev: 5, personality: 2, assessment: 2, aptitude: 1 },
+    blurb: "The University of Jammu (School of Education and Behavioural Sciences) 2023 M.A. Psychology entrance, booklet series A: all 60 questions, 70 minutes in the real exam, minus a quarter per wrong answer. There is no official key, so every answer is worked out from standard texts. A broad undergraduate-level paper with a quirky setter: foundations (psychology as a positive science, psychoanalysis, indirect experiments), cognition (ERPs, the self-reference effect, feeling tone and memory, de Bono's holes), social (person perception, attribution, attitude, groupthink, Lewin's leadership styles, the rs4950 leadership gene), disorders (DSM-5 facts on phobia and panic, F29, cyclothymia as bipolar III), assessment (SAPS, SANS, CAINS, reliability), therapy (sertraline, TMS, reality therapy, APA's fidelity principle, Rogers, family therapy, Frank Parsons), stats (scales, z scores and correlation, chi-square, Kruskal-Wallis), development (Piaget, Erikson, Kohlberg, Vygotsky), health and organisational psychology (health belief model, World Happiness Report 2022, Selye, Luthans, Alderfer, Spector, leadership styles, structures) and one NATO alphabet item. Where an answer is arguable a Key note says so. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / -0.25 like the real paper.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "Jammu 2023", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "imhans-2019",
     title: "IMHANS Kozhikode 2019 (real paper)",
     sub: "75 real Qs · the M.Phil Clinical Psychology paper, booklet 19034 A · no official key, every answer worked out · untimed",
@@ -756,6 +769,9 @@ const GROUPS = [
   { id: "pgibams", title: "PGIBAMS Raipur",
     sub: "Post Graduate Institute of Behavioural and Medical Sciences, Raipur (Chhattisgarh): the M.Phil Clinical Psychology entrance, real questions",
     members: ["pgibams-2023"] },
+  { id: "jammu", title: "University of Jammu",
+    sub: "University of Jammu (School of Education and Behavioural Sciences): the M.A. Psychology entrance, real questions, worked out from standard texts",
+    members: ["jammu-2023"] },
   { id: "sgt", archived: true, title: "SGT University",
     sub: "2026 cycle closed — but this is 100 real PYQs re-sorted into a general-psych shape, so it is still the best all-round drill on the site for IHBAS / CIP / JSS / DIMHANS",
     members: ["sgt-pyq"] }
