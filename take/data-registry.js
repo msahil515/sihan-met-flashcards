@@ -602,7 +602,7 @@ const GROUPS = [
     sub: "Institute of Mental Health and Neurosciences, Kozhikode (Kerala): the M.Phil Clinical Psychology entrance, real questions",
     members: ["imhans-2025"] },
   { id: "gmch", title: "GMCH Chandigarh",
-    sub: "Government Medical College and Hospital, Chandigarh: M.Phil Clinical Psychology entrance papers, real questions with the official key",
+    sub: "Government Medical College and Hospital, Chandigarh: M.Phil Clinical Psychology entrance papers, real questions (2025 with the official key, 2023 with a printed worked key)",
     members: ["gmch-2025", "gmch-2023"] },
   { id: "gurugram", title: "Gurugram University",
     sub: "Gurugram University, Haryana: the 2025 M.Phil and M.A. Clinical Psychology entrance papers, real questions with the official key",
