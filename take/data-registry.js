@@ -414,6 +414,19 @@ const MOCKS = [
     tags: ["PYQ version", "Gurugram 2025", "solved copy", "answers re-checked", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "ugc-net-2013-dec",
+    title: "UGC NET Dec 2013, Psychology Paper II",
+    sub: "50 Qs · the real NET paper · official UGC key · untimed",
+    path: "../take/screen.html?m=ugc-net-2013-dec",
+    total: 50,
+    storageKey: "ugc-net-2013-dec-results-v1",
+    sections: { general: 24, physio: 9, assessment: 8, research: 5, personality: 2, dev: 2 },
+    blurb: "The real UGC NET December 2013 Psychology Paper II (booklet D-04-13): all 50 questions, with the official UGC key after grievances. This is the file you sent twice as \"IHBAS PY\": it is not an IHBAS paper, it is the NET paper the Freshersnow mirror filed under IHBAS. M.Phil papers borrow from the NET a lot (IMHANS 2021 and 2019, Amity 2023 and JEMAS 2024 repeat 9 of these questions), and it drills the NET formats: assertion-reason, match the lists, put in order. It covers the visible spectrum, Lewin's conflicts, Marr's computational vision, priming, ethology, glia, the action potential, the five brain divisions, the inverted retina, the resting potential, chi-square df, retest reliability of projectives, Galton, Eysenck, Horn and Binet, ex post facto research, parts of the eye, luminance and brightness, Kerlinger's control of variance, the hunger cycle, achievement motivation, Tulving's memory systems, Bandura, Tolman, Pavlov and Vygotsky, critical flicker frequency, CS and CR, schedules of reinforcement, generalisation, the serial position curve, Kelly's permeability, Cattell's humour test, chunking, Sapir-Whorf, telegraphic speech, syntax vs semantics, Hubel and Wiesel, sleep, sympathetic arousal, Thurstone, Spearman's g, kinship correlations, Adler, Jung and Horney, gene-environment correlation, types of variables, and a Classical Test Theory block (reliability as true variance, Cronbach's alpha, interscorer reliability, concurrent validity, factor analysis). Where the official answer is arguable a Key note says so. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. No negative marking in the real paper.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "official key", "UGC NET 2013", "assertion-reason", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "rinpas-2024",
     title: "RINPAS 2024 (real paper)",
     sub: "100 real Qs · RINPAS Ranchi's 2024 M.Phil / Ph.D Clinical Psychology paper · printed worked key, checked · untimed",
@@ -953,6 +966,9 @@ const GROUPS = [
   { id: "pep", title: "Entrance-prep mocks (UGC-NET + M.Phil)",
     sub: "The psychologyentranceprep.com mock tests, rebuilt to run offline",
     members: ["pep-mock-1", "pep-mock-2"] },
+  { id: "ugcnet", title: "UGC NET Psychology",
+    sub: "Real UGC NET Psychology papers with the official UGC key. M.Phil entrances borrow from the NET, and it drills assertion-reason, match the lists and sequence items",
+    members: ["ugc-net-2013-dec"] },
   { id: "diag", title: "Diagnostics & common-section drills",
     sub: "Sit-once diagnostics and the common-section banks that decide the gap — misses compile into a study sheet on the page",
     members: ["recall-14", "diagnostic-1", "systems-theories", "flight-mock-100"] },
