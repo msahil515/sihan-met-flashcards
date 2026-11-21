@@ -557,6 +557,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "Jammu 2016", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "jammu-hfo",
+    title: "University of Jammu M.A., code HFO-20622-A (year not printed)",
+    sub: "60 real Qs · the M.A. Psychology entrance, series A, no cover page · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=jammu-hfo",
+    total: 60,
+    storageKey: "jammu-hfo-results-v1",
+    sections: { research: 14, general: 11, personality: 10, disorders: 8, clinical: 7, physio: 5, assessment: 5 },
+    blurb: "A University of Jammu M.A. Psychology entrance, booklet series A, code HFO-20622-A. The cover page is missing, so the year is not printed. All 60 questions, read off the scan page by page. There is no official key, so every answer is worked out from standard texts. A broad, mostly easy recall paper: general psychology (William James's Principles, the goals of psychology, operant conditioning, Stevens's magnitude estimation, haptic memory, Hebb's rule, hippocampal field CA3, consolidation, display rules, Hohmann's spinal cord study, mental chronometry, Deiters' cells, place and rate codes, gustducin, algorithms), a stats block (SD as the unit, quartiles, the normal curve, managerial vs statistical significance), personality (neuroticism, alleles, Freud, Maslow's peak experiences, Adler's fictional finalism, Cattell's sems and ergs, Allport, Rogers's 19 propositions, the 16PF Vigilance factor), disorders (posttraumatic growth, OCD and procedural memory, nomophobia, panic disorder, the catecholamine hypothesis, SAD, DSM-5 clusters, narcissistic PD), therapy (desensitisation, cognitive therapy, the existentialists, informed consent, free association, SUDS) and research and assessment (Stevens's scales, ratio data, composite reliability, construct validity, alternate forms, Murray and Melville, Rorschach's Psychodiagnostik, mixed methods, sampling laws, data preparation ethics, grade correlation, the t-test, chi-square goodness of fit). Where an answer is arguable a Key note says so. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / -0.25 like the other Jammu papers.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "Jammu", "HFO-20622-A", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "mphil-cp-2021",
     title: "M.Phil CP Entrance 2021 (college not printed)",
     sub: "70 real Qs · 1 mark each, no negative marking · no official key, every answer worked out · untimed",
@@ -849,7 +862,7 @@ const GROUPS = [
     members: ["pgibams-2023"] },
   { id: "jammu", title: "University of Jammu",
     sub: "University of Jammu (School of Education and Behavioural Sciences): the M.A. Psychology entrance, real questions, worked out from standard texts",
-    members: ["jammu-2023", "jammu-2021", "jammu-2020", "jammu-2017", "jammu-2016"] },
+    members: ["jammu-2023", "jammu-2021", "jammu-2020", "jammu-2017", "jammu-2016", "jammu-hfo"] },
   { id: "unnamed", title: "College not printed",
     sub: "Real M.Phil Clinical Psychology entrance papers whose cover never names the institute: the 2021 booklet A paper and the 2023 paper filed as KU, 70 Qs each, worked out from standard texts",
     members: ["mphil-cp-2021", "mphil-cp-2023"] },
