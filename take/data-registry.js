@@ -362,6 +362,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "RINPAS 2024", "printed worked key, checked", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "rinpas-2019",
+    title: "RINPAS 2019 (real paper)",
+    sub: "100 real Qs · RINPAS Ranchi's 2019 Ph.D / M.Phil Clinical Psychology paper · printed worked key, checked · untimed",
+    path: "../take/screen.html?m=rinpas-2019",
+    total: 100,
+    storageKey: "rinpas-2019-results-v1",
+    sections: { history: 24, general: 17, physio: 15, clinical: 14, personality: 8, dev: 7, disorders: 6, social: 5, assessment: 4 },
+    blurb: "The RINPAS (Ranchi Institute of Neuro-Psychiatry and Allied Sciences) 2019 Ph.D / M.Phil Clinical Psychology entrance, booklet B (IR-1B/19), all 100 questions from the paper in your PYQ pack. Every answer is from the pack's printed worked key, each one checked; one printed answer was plainly wrong (Q43, the myth that people with a mental illness are usually dangerous) and is corrected with a Key note. A quarter of the paper is history: who coined neurosis, psychiatry, dementia praecox, schizophrenia, hypnotism and catatonia, who started insulin coma and ECT, and the years (Wundt's lab, APA, the first Indian psychology department, the Indian Psychological Association, DSM-I and DSM-5). The rest is intro-level general psych, biopsych (lobes, hypothalamus, reticular formation), therapy (Ellis, Beck, Wolpe, Rogers), personality and development. Where a date or answer is arguable a Key note says so (aggression, Morel vs Kraepelin, 1915 vs 1916, IPA 1924 vs 1925 and a few more); the printed answer still scores. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. The real paper had no negative marking; the site scores +1 / -0.25 like every other mock, so your right count is your RINPAS score.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "RINPAS 2019", "printed worked key, checked", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "jepas-2020",
     title: "JEPAS(PG) 2020, West Bengal (real paper)",
     sub: "100 real Qs · the WBJEEB M.Phil Clinical Psychology paper, Set A · answers from a marked copy, checked · untimed",
@@ -622,7 +635,7 @@ const GROUPS = [
     members: ["gurugram-2025-mphil", "gurugram-2025-ma"] },
   { id: "rinpas", title: "RINPAS Ranchi",
     sub: "Ranchi Institute of Neuro-Psychiatry and Allied Sciences: the M.Phil / Ph.D Clinical Psychology entrance, real questions with a printed worked key",
-    members: ["rinpas-2024"] },
+    members: ["rinpas-2024", "rinpas-2019"] },
   { id: "sgt", archived: true, title: "SGT University",
     sub: "2026 cycle closed — but this is 100 real PYQs re-sorted into a general-psych shape, so it is still the best all-round drill on the site for IHBAS / CIP / JSS / DIMHANS",
     members: ["sgt-pyq"] }
