@@ -622,6 +622,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "Jammu 2013", "CMN-45540-A", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "jammu-2011",
+    title: "University of Jammu 2011 M.A. (real paper)",
+    sub: "60 real Qs · the M.A. Psychology entrance, code TLV-17113 · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=jammu-2011",
+    total: 60,
+    storageKey: "jammu-2011-results-v1",
+    sections: { general: 14, research: 10, assessment: 10, social: 8, clinical: 8, disorders: 4, personality: 3, dev: 2, physio: 1 },
+    blurb: "The University of Jammu M.A. Psychology entrance 2011, booklet code TLV-17113. All 60 questions, read off a clean scan of the paper. There is no official key, so every answer is worked out from standard texts. An easy, broad recall paper: the humanistic approach, the survey method, Curt Stern's rubber band, love withdrawal as discipline, latent learning, acquisition in classical conditioning, chunking, Maslow's esteem and belongingness needs, James-Lange, ratio IQ, divergent thinking, Guilford's SOI model, socialisation, studying taboos, charismatic leaders, communication channels, the ABC of attitudes, discrimination, the MUM effect, greenhouse gases, Jung's analytical psychology, the thyroid, Allport's definition, the phallic stage, demonology, DSM-IV Axis I, obsessions, delinquency, Wundt, the control group, the absolute threshold, confounds, closure, monocular cues, the chronoscope, Cattell's span of attention, a statistics block (discrete data, the empirical mode, the frequency polygon, SD, purposive sampling, perfect negative correlation, critical t values), test basics (measurement vs evaluation, planning, the reliability ceiling on validity, concurrent validity, split-half), behavioural assessment, Lawrence Frank, Rorschach content, clerical aptitude, and a counselling and guidance block (directive counselling, the group leader, rapport, Frank Parsons, Kitchener's ethical principles). Where an answer is arguable a Key note says so. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / -0.25 like the other Jammu papers.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "Jammu 2011", "TLV-17113", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "mphil-cp-2021",
     title: "M.Phil CP Entrance 2021 (college not printed)",
     sub: "70 real Qs · 1 mark each, no negative marking · no official key, every answer worked out · untimed",
@@ -914,7 +927,7 @@ const GROUPS = [
     members: ["pgibams-2023"] },
   { id: "jammu", title: "University of Jammu",
     sub: "University of Jammu (School of Education and Behavioural Sciences): the M.A. Psychology entrance, real questions, worked out from standard texts",
-    members: ["jammu-2023", "jammu-2021", "jammu-2020", "jammu-2018", "jammu-2017", "jammu-2016", "jammu-2015", "jammu-2014", "jammu-2013", "jammu-hfo"] },
+    members: ["jammu-2023", "jammu-2021", "jammu-2020", "jammu-2018", "jammu-2017", "jammu-2016", "jammu-2015", "jammu-2014", "jammu-2013", "jammu-2011", "jammu-hfo"] },
   { id: "unnamed", title: "College not printed",
     sub: "Real M.Phil Clinical Psychology entrance papers whose cover never names the institute: the 2021 booklet A paper and the 2023 paper filed as KU, 70 Qs each, worked out from standard texts",
     members: ["mphil-cp-2021", "mphil-cp-2023"] },
