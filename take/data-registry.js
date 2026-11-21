@@ -505,6 +505,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "Jammu 2023", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "jammu-2021",
+    title: "University of Jammu 2021 M.A. (real paper)",
+    sub: "60 real Qs · the M.A. Psychology entrance · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=jammu-2021",
+    total: 60,
+    storageKey: "jammu-2021-results-v1",
+    sections: { social: 18, disorders: 9, general: 7, research: 6, clinical: 5, dev: 5, assessment: 4, physio: 3, personality: 3 },
+    blurb: "The University of Jammu (School of Education and Behavioural Sciences) 2021 M.A. Psychology entrance, booklet series A: all 60 questions, 70 minutes in the real exam, minus a quarter per wrong answer. There is no official key, so every answer is worked out from standard texts. A broad undergraduate-level paper in the same quirky style as 2023: foundations (positive science, mathematical psychology, cognitive ergonomics, the power law learning curve, multilayer perceptrons), biopsych (cortico-basal ganglia-thalamo-cortical loops, voxel-based morphometry, the MAOA gene), personality (Big Five, superego, Maslow's peak and plateau experiences), social (Jane Elliott's blue eyes / brown eyes, person perception, attribution theorists, bias, Tuckman, conflicts, grapevine), disorders (activity anorexia in rats, DSM-5, social phobia, OCD and procedural memory, bipolar I vs II, positive symptoms), assessment (LNNB, Rorschach and Exner, MTMM), therapy and counselling (ECT, ethics, permissive counselling), stats (scales, the NPC, parametric tests, Mean plus or minus SD groups, Spearman), development (Santrock's socioemotional processes, Babinski, Bronfenbrenner, animism), health (health belief model and COVID-19, Selye's GAS, World Happiness Report 2021) and organisational psychology (PsyCap, Herzberg, Hawthorne, transactional leadership). Where an answer is arguable a Key note says so. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / -0.25 like the real paper.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "Jammu 2021", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "imhans-2019",
     title: "IMHANS Kozhikode 2019 (real paper)",
     sub: "75 real Qs · the M.Phil Clinical Psychology paper, booklet 19034 A · no official key, every answer worked out · untimed",
@@ -771,7 +784,7 @@ const GROUPS = [
     members: ["pgibams-2023"] },
   { id: "jammu", title: "University of Jammu",
     sub: "University of Jammu (School of Education and Behavioural Sciences): the M.A. Psychology entrance, real questions, worked out from standard texts",
-    members: ["jammu-2023"] },
+    members: ["jammu-2023", "jammu-2021"] },
   { id: "sgt", archived: true, title: "SGT University",
     sub: "2026 cycle closed — but this is 100 real PYQs re-sorted into a general-psych shape, so it is still the best all-round drill on the site for IHBAS / CIP / JSS / DIMHANS",
     members: ["sgt-pyq"] }
