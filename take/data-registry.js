@@ -570,6 +570,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "Jammu", "HFO-20622-A", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "jammu-2018",
+    title: "University of Jammu 2018 M.A. (real paper)",
+    sub: "60 real Qs · the M.A. Psychology entrance, series A, code FDM-2542-A · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=jammu-2018",
+    total: 60,
+    storageKey: "jammu-2018-results-v1",
+    sections: { research: 18, general: 13, personality: 8, disorders: 8, clinical: 8, assessment: 5 },
+    blurb: "The University of Jammu M.A. Psychology Entrance Test 2018, booklet series A, code FDM-2542-A. The cover page is missing from the scan, but the year shows through from it in reverse on the first page. All 60 questions, read off the scan page by page. There is no official key, so every answer is worked out from standard texts. A broad recall paper, much of it from Western textbook test banks: research basics and perspectives (experimental group, behavioural vs psychodynamic vs humanistic, field vs lab experiments), learning (negative reinforcement, extinction), the sensory register, Wechsler's definition of intelligence, Cannon-Bard, motivation (extrinsic, Maslow's deficiency motives, Hull's drive), perception (subliminal, stroboscopic motion, Gestalt grouping), Wallas's stages of creativity, a stats block (parameter, coefficient of variation, skew, the mode), personality (criticisms of psychoanalysis, projection, heritability, Rogers, Adler's masculine protest, factor analysis, functional autonomy, nomothetic), disorders (comorbidity, defining abnormality, depression as the common cold, histrionic PD, the dopamine hypothesis, culture-bound syndromes, OCD contamination, PTSD vs acute stress disorder), therapy (CBT, behaviour analysis, person-centred goals, reattribution, theory and context) and research and assessment (untestable hypotheses, external validity, internal validity threats, projective tests, Exner, behavioural assessment, sampling vs non-sampling error, authorship, debriefing, r, the related t-test, omega squared). Where an answer is arguable a Key note says so. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / -0.25 like the other Jammu papers.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "Jammu 2018", "FDM-2542-A", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "mphil-cp-2021",
     title: "M.Phil CP Entrance 2021 (college not printed)",
     sub: "70 real Qs · 1 mark each, no negative marking · no official key, every answer worked out · untimed",
@@ -862,7 +875,7 @@ const GROUPS = [
     members: ["pgibams-2023"] },
   { id: "jammu", title: "University of Jammu",
     sub: "University of Jammu (School of Education and Behavioural Sciences): the M.A. Psychology entrance, real questions, worked out from standard texts",
-    members: ["jammu-2023", "jammu-2021", "jammu-2020", "jammu-2017", "jammu-2016", "jammu-hfo"] },
+    members: ["jammu-2023", "jammu-2021", "jammu-2020", "jammu-2018", "jammu-2017", "jammu-2016", "jammu-hfo"] },
   { id: "unnamed", title: "College not printed",
     sub: "Real M.Phil Clinical Psychology entrance papers whose cover never names the institute: the 2021 booklet A paper and the 2023 paper filed as KU, 70 Qs each, worked out from standard texts",
     members: ["mphil-cp-2021", "mphil-cp-2023"] },
