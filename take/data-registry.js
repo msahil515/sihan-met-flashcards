@@ -635,6 +635,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "Jammu 2011", "TLV-17113", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "jammu-2010",
+    title: "University of Jammu 2010 M.A. (real paper)",
+    sub: "60 real Qs · the M.A. Psychology entrance, code ELW-6733 · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=jammu-2010",
+    total: 60,
+    storageKey: "jammu-2010-results-v1",
+    sections: { general: 14, assessment: 10, research: 9, social: 9, clinical: 9, personality: 4, disorders: 3, dev: 1, physio: 1 },
+    blurb: "The University of Jammu M.A. Psychology entrance 2010, booklet code ELW-6733. All 60 questions, read off a scan of the paper. There is no official key, so every answer is worked out from standard texts. The oldest Jammu paper and the most loosely worded, an easy, broad recall paper: fields of psychology, psychology vs sociology, heredity, environment and time, the CR and the CS, Tolman's cognitive maps, Ebbinghaus's forgetting curve, Lewin's conflicts, Spearman's g and s, Watson on emotion, Maslow's basic needs, personal space, Weber's definition of sociology, leader traits, Torrance's B-26 bomber crews, the wheel network, Thurstone and Likert, proximity and attraction, Copenhagen 2009, psychodynamics, the CNS, Adler's inferiority, Jung's collective unconscious, Cattell's 16PF and surface traits, abnormality as a continuum, anxiety neurosis, OCD, de-addiction, Y = f(X), confounds, perceptual constancy, Gestalt laws, reaction time, span of attention, continuous data, the ogive, dispersion, a counselling block (underachievers, rapport, empathy, personal counselling, CBT, Rogers, vocational guidance), Bhatia's battery, measurement, sampling, chi-square, test length and reliability, construct validity, item analysis, personality assessment, the EPI, aptitude and clerical aptitude. Where an answer is arguable a Key note says so. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / -0.25 like the other Jammu papers.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "Jammu 2010", "ELW-6733", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "mphil-cp-2021",
     title: "M.Phil CP Entrance 2021 (college not printed)",
     sub: "70 real Qs · 1 mark each, no negative marking · no official key, every answer worked out · untimed",
@@ -927,7 +940,7 @@ const GROUPS = [
     members: ["pgibams-2023"] },
   { id: "jammu", title: "University of Jammu",
     sub: "University of Jammu (School of Education and Behavioural Sciences): the M.A. Psychology entrance, real questions, worked out from standard texts",
-    members: ["jammu-2023", "jammu-2021", "jammu-2020", "jammu-2018", "jammu-2017", "jammu-2016", "jammu-2015", "jammu-2014", "jammu-2013", "jammu-2011", "jammu-hfo"] },
+    members: ["jammu-2023", "jammu-2021", "jammu-2020", "jammu-2018", "jammu-2017", "jammu-2016", "jammu-2015", "jammu-2014", "jammu-2013", "jammu-2011", "jammu-2010", "jammu-hfo"] },
   { id: "unnamed", title: "College not printed",
     sub: "Real M.Phil Clinical Psychology entrance papers whose cover never names the institute: the 2021 booklet A paper and the 2023 paper filed as KU, 70 Qs each, worked out from standard texts",
     members: ["mphil-cp-2021", "mphil-cp-2023"] },
