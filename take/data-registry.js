@@ -518,6 +518,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "Jammu 2021", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "mphil-cp-2021",
+    title: "M.Phil CP Entrance 2021 (college not printed)",
+    sub: "70 real Qs · 1 mark each, no negative marking · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=mphil-cp-2021",
+    total: 70,
+    storageKey: "mphil-cp-2021-results-v1",
+    sections: { general: 17, clinical: 9, assessment: 9, personality: 8, disorders: 7, physio: 6, dev: 5, research: 5, social: 4 },
+    blurb: "An M.Phil Clinical Psychology Entrance Examination 2021, booklet A: all 70 questions, 1 hour in the real exam, 1 mark each, no negative marking. The cover page never names the institute. There is no official key, so every answer is worked out from standard texts. An easy, recall-heavy paper straight from the standard M.Phil question banks (11 of its questions also sit on the IHBAS 2024, RML 2020, Gurugram, CIP 2020, IMHANS 2020 and JEMAS 2022 papers): schools and history (structuralism, Titchener, Gestalt, information processing), learning and memory (classical conditioning, Premack, levels of processing, recognition), perception (interposition, the visual cliff, DL), development (Erikson, Baumrind, Piaget, Bowlby), personality (projection, anima, Allport, Big Five, self-efficacy, Type A), disorders (autism, catatonia, Korsakoff, dementia praecox, DSM-IV personality disorders), biopsych (Wernicke, dopamine, Klinefelter, the adrenal gland, thoracolumbar outflow, polysomnography), assessment (ratio IQ, WCST, Stanford-Binet, MMPI vs CPI, Rorschach card colours and Lindzey's classes, Luria-Nebraska scales), therapy (flooding, paradoxical intention, mand training, Wolberg's definition, prevention levels) and research (ex post facto, the laboratory experiment, ratio scales). Where an answer is arguable a Key note says so. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / 0 like the real paper.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "M.Phil CP 2021", "college not printed", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "imhans-2019",
     title: "IMHANS Kozhikode 2019 (real paper)",
     sub: "75 real Qs · the M.Phil Clinical Psychology paper, booklet 19034 A · no official key, every answer worked out · untimed",
@@ -785,6 +798,9 @@ const GROUPS = [
   { id: "jammu", title: "University of Jammu",
     sub: "University of Jammu (School of Education and Behavioural Sciences): the M.A. Psychology entrance, real questions, worked out from standard texts",
     members: ["jammu-2023", "jammu-2021"] },
+  { id: "unnamed", title: "College not printed",
+    sub: "Real M.Phil Clinical Psychology entrance papers whose cover never names the institute: the 2021 booklet A paper, 70 Qs, worked out from standard texts",
+    members: ["mphil-cp-2021"] },
   { id: "sgt", archived: true, title: "SGT University",
     sub: "2026 cycle closed — but this is 100 real PYQs re-sorted into a general-psych shape, so it is still the best all-round drill on the site for IHBAS / CIP / JSS / DIMHANS",
     members: ["sgt-pyq"] }
