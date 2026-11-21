@@ -128,10 +128,10 @@
 <div class="stats">
   <div class="stat all"><div class="n">53</div><div class="l">real papers</div></div>
   <div class="stat all"><div class="n">16</div><div class="l">colleges</div></div>
-  <div class="stat built"><div class="n">21</div><div class="l">built into mocks</div></div>
+  <div class="stat built"><div class="n">22</div><div class="l">built into mocks</div></div>
   <div class="stat part"><div class="n">1</div><div class="l">built partly</div></div>
-  <div class="stat queue"><div class="n">31</div><div class="l">not built</div></div>
-  <div class="stat keyed"><div class="n">8</div><div class="l">unbuilt <i>and</i> keyed</div></div>
+  <div class="stat queue"><div class="n">30</div><div class="l">not built</div></div>
+  <div class="stat keyed"><div class="n">7</div><div class="l">unbuilt <i>and</i> keyed</div></div>
 </div>
 
 
@@ -272,7 +272,6 @@ const QUEUE = [
   {n:23, t:"NFSU 2024, M.Sc Clinical / Forensic Psychology", m:"9 photos &middot; <em>answer explanations are in the shot</em> &middot; p1 cropped down the left column, p9 upside down &middot; <b>upgraded on the scan pass</b>"},
   {n:21, t:"\"Entrance Test 2023, M.Phil Clinical Psychology\" (filed as KU 2023)", m:"9 pp &middot; <b>70 Qs</b> &middot; <em>ticked throughout in pen</em> &middot; <b>the paper never names the university &ndash; Kashmir or Kurukshetra?</b>"},
   {n:5, t:"JEMAS(PG) 2022", m:"8 pp &middot; <em>answers circled in blue pen through the whole copy</em>"},
-  {n:19, t:"RINPAS 2024", m:"16 pp booklet + pack pp16&ndash;30 &middot; 100 Qs &middot; <em>pack copy prints answers + explanations for all 100</em> &middot; moved up today"},
   {n:18, t:"RINPAS 2019", m:"12 pp scan + pack pp31&ndash;42 &middot; 100 Qs &middot; <em>pack copy prints answers + explanations for all 100</em> &middot; moved up today"},
   {n:26, t:"LGBRIMH Tezpur 2025 (GURET)", m:"9 pp &middot; ~62 Qs &middot; memory-based recall with <em>answers written in</em>, but the compiler says they're his own findings, not the university's &middot; <b>NEW, found in the Drive</b>"}
  ]},
@@ -283,7 +282,6 @@ const QUEUE = [
   {n:10, t:"JEMAS(PG) 2024", m:"15 pp &middot; 100 Qs &middot; official booklet, QB No 4102800001"},
   {n:11, t:"NFSU 2025", m:"9 pp &middot; official M.Phil CP booklet"},
   {n:12, t:"GMCH Chandigarh 2024", m:"7 pp &middot; 100 Qs"},
-  {n:13, t:"RINPAS booklet", m:"same paper as 19 &ndash; the 16-page official booklet copy. Build 19 and this is done."},
   {n:14, t:"IMHANS Kozhikode 2024", m:"10 pp &middot; booklet A, 60 minutes"},
   {n:15, t:"IMHANS Kozhikode 2021", m:"11 pp &middot; booklet A, 60 minutes"},
   {n:16, t:"IMHANS Kozhikode 2019", m:"10 pp &middot; booklet A, 60 minutes"},
@@ -382,9 +380,9 @@ const DATA = [
     {yr:"2020", nm:"Exam-portal sheet, section \"MPHIL CP\" &ndash; filed as NFSU 2020", pg:"34", key:"off", src:["you","drive"], st:"queue",
      note:"<b>SCAN PASS &ndash; I was wrong about this one.</b> I'd called it a candidate's response sheet with chosen options only. It's the same portal format as RML 2022: <b>the correct option is green-ticked on all 100 questions</b>, separately from what the candidate picked. Fully keyed. Two problems: the questions are images, and <b>no page in the 34 carries an institute, a date or a centre</b>. NFSU doesn't run an M.Phil in Clinical Psychology, so the filename is probably wrong. Best unbuilt paper on this list and I can't put a name on it. <b>Build queue #25.</b>"}
   ]},
-  {college:"RINPAS", sub:"Ranchi Institute of Neuro-Psychiatry &middot; 2 papers, both keyed, none built", rows:[
-    {yr:"2024", nm:"RINPAS 2024, M.Phil / Ph.D Entrance Test", pg:"16 + 15", key:"copy", src:["you","pack"], st:"queue",
-     note:"<b>Corrected today.</b> I had this as two separate half-things: an undated \"RINPAS Booklet\" and a 4-page partial in the pack. They're the same exam. The booklet (code HD&ndash;2A/7, subject code 23, 2 hrs, 200 marks) is the official paper, clean text, and it also sits inside \"Mphil past papers Compiled.pdf\". The pack copy runs pp16&ndash;30, not pp16&ndash;19, and it prints <b>answers with explanations for all 100</b>. So this is a keyed, exact build. <b>Build queue #19.</b>"},
+  {college:"RINPAS", sub:"Ranchi Institute of Neuro-Psychiatry &middot; 2 papers, both keyed, 1 built", rows:[
+    {yr:"2024", nm:"RINPAS 2024, M.Phil / Ph.D Entrance Test", pg:"16 + 15", key:"copy", src:["you","pack"], st:"live", href:"../take/screen.html?m=rinpas-2024",
+     note:"<b>BUILT 21 Nov 2026:</b> live as a mock, all 100 questions, every answer from the pack's printed worked key (pp22&ndash;30), each one checked. One printed answer was plainly wrong and is corrected with a Key note (Q9: DSM-5 lists cerebral palsy among the physical causes of speech sound problems, so the odd one out is small frontal lobes); Key notes where an answer is arguable (Q4 tapping vs hoarding, Q15 Rett's under DSM-5, Q37 alpha vs beta, Q57 attitude scales, Q66 illness behaviour). <b>Corrected today.</b> I had this as two separate half-things: an undated \"RINPAS Booklet\" and a 4-page partial in the pack. They're the same exam. The booklet (code HD&ndash;2A/7, subject code 23, 2 hrs, 200 marks) is the official paper, clean text, and it also sits inside \"Mphil past papers Compiled.pdf\". The pack copy runs pp16&ndash;30, not pp16&ndash;19, and it prints <b>answers with explanations for all 100</b>. So this is a keyed, exact build. <b>Build queue #19.</b>"},
     {yr:"2019", nm:"RINPAS 2019", pg:"12 + 12", key:"copy", src:["you","pack"], st:"queue",
      note:"<b>Corrected today.</b> <b>SCAN PASS:</b> the scan is booklet <b>B</b>, code IR&ndash;1B/19, \"Ph.D. / M.Phil. Entrance Test, 2019\", subject Clinical Psychology, 2&frac12; hours, 100 marks, no negative marking, and it runs a full 100 questions. CamScanner scan plus pack pp31&ndash;42 &ndash; and pp37&ndash;42 of the pack are the <b>full answers with explanations</b>, which I'd missed by stopping the block at p38. Keyed, exact build. <b>Build queue #18.</b>"}
   ]},

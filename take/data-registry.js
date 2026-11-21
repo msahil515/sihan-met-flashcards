@@ -349,6 +349,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "official key", "Gurugram 2025", "M.A.", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "rinpas-2024",
+    title: "RINPAS 2024 (real paper)",
+    sub: "100 real Qs · RINPAS Ranchi's 2024 M.Phil / Ph.D Clinical Psychology paper · printed worked key, checked · untimed",
+    path: "../take/screen.html?m=rinpas-2024",
+    total: 100,
+    storageKey: "rinpas-2024-results-v1",
+    sections: { physio: 24, disorders: 15, clinical: 12, research: 11, dev: 10, general: 10, assessment: 9, personality: 6, social: 3 },
+    blurb: "The RINPAS (Ranchi Institute of Neuro-Psychiatry and Allied Sciences) 2024 M.Phil / Ph.D Clinical Psychology entrance, booklet HD-2A/7, all 100 questions from the paper in your PYQ pack. Every answer is from the pack's printed worked key, each one checked; one printed answer was plainly wrong (Q9, phonological disorder) and is corrected with a Key note. It leans on biopsych (hypothalamus, reticular formation, fear circuit, prefrontal areas, EEG and REM) and psychopathology (child speech and language disorders, autism, OCD, fugue, pseudodementia), then therapy (DBT modules, CBT distortions, Rogers), assessment (Rorschach card V, MMPI-2 scales, hold subtests, WCST), development and research methods. Where an answer is arguable a Key note says so (tapping vs hoarding, Rett's under DSM-5, alpha vs beta, attitude scales, illness behaviour and a few more); the printed answer still scores. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. The site scores +1 / -0.25 like every other mock.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "RINPAS 2024", "printed worked key, checked", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "jepas-2020",
     title: "JEPAS(PG) 2020, West Bengal (real paper)",
     sub: "100 real Qs · the WBJEEB M.Phil Clinical Psychology paper, Set A · answers from a marked copy, checked · untimed",
@@ -607,6 +620,9 @@ const GROUPS = [
   { id: "gurugram", title: "Gurugram University",
     sub: "Gurugram University, Haryana: the 2025 M.Phil and M.A. Clinical Psychology entrance papers, real questions with the official key",
     members: ["gurugram-2025-mphil", "gurugram-2025-ma"] },
+  { id: "rinpas", title: "RINPAS Ranchi",
+    sub: "Ranchi Institute of Neuro-Psychiatry and Allied Sciences: the M.Phil / Ph.D Clinical Psychology entrance, real questions with a printed worked key",
+    members: ["rinpas-2024"] },
   { id: "sgt", archived: true, title: "SGT University",
     sub: "2026 cycle closed — but this is 100 real PYQs re-sorted into a general-psych shape, so it is still the best all-round drill on the site for IHBAS / CIP / JSS / DIMHANS",
     members: ["sgt-pyq"] }
