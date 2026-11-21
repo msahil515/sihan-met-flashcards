@@ -503,7 +503,7 @@ try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.answers){st={...st,...
 function writeSummary(){
   let right=0,wrong=0;
   for(const k in st.answers){ if(st.answers[k]===Q[+k].correct)right++; else wrong++; }
-  const sum={answered:right+wrong,total:N,right:right,wrong:wrong,flagged:flaggedCount(),marked:markedCount(),ts:Date.now()};
+  const sum={answered:right+wrong,total:N,right:right,wrong:wrong,flagged:flaggedCount(),marked:markedCount(),ts:Date.now(),rs:st.rs||0};
   try{localStorage.setItem("take-summary-"+MID,JSON.stringify(sum))}catch(e){}
 }
 function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){} writeSummary();}
@@ -811,7 +811,7 @@ document.getElementById("resetBtn").onclick=()=>{
   if(!confirm("Reset this test? Your answers on this mock will be cleared and you start from question 1. Other tests are not affected.")) return;
   try{localStorage.removeItem(KEY);}catch(e){}
   try{localStorage.removeItem("take-summary-"+MID);}catch(e){}
-  st={i:0, answers:{}, flags:{}, marks:{}, revealed:{}, visited:{0:1}, filter:"all", wrongSet:null};
+  st={i:0, answers:{}, flags:{}, marks:{}, revealed:{}, visited:{0:1}, filter:"all", wrongSet:null, rs:Date.now()};
   save(); renderQ(); syncNav(); updateProg();
   window.scrollTo(0,0);
 };
@@ -1002,6 +1002,7 @@ function finish(){
     if(!wrongIdx.length){alert("No wrong answers to redo — clean run.");return;}
     st.wrongSet=wrongIdx; st.filter="wrong";
     wrongIdx.forEach(i=>{delete st.answers[i]; delete st.revealed[i];});  // clear so you re-attempt
+    st.rs=Date.now();  // sync: this wiped copy beats the older one (sync.js newerReset)
     save();
     backToQuiz();
     document.getElementById("fWrong").style.display="";
@@ -1024,7 +1025,7 @@ function finish(){
   document.getElementById("backBtn2").onclick=backToQuiz;
   document.getElementById("restartBtn").onclick=()=>{
     if(!confirm("Clear all answers, flags and bookmarks and start "+M.title+" fresh?"))return;
-    st={i:0,answers:{},flags:{},marks:{},revealed:{},visited:{0:1},filter:"all",wrongSet:null};save();
+    st={i:0,answers:{},flags:{},marks:{},revealed:{},visited:{0:1},filter:"all",wrongSet:null,rs:Date.now()};save();
     document.getElementById("fWrong").style.display="none";
     document.querySelectorAll("#navFilters button").forEach(x=>x.classList.toggle("on",x.dataset.f==="all"));
     backToQuiz(); renderQ(); syncNav(); updateProg();

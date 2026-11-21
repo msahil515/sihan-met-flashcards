@@ -21,6 +21,11 @@
    That means an offline attempt on the tablet still survives a sync that
    happened on the phone first.
 
+   One exception: a reset. Reset, Play again, Restart and Redo the wrong
+   stamp the run with rs (the time it was wiped). Two copies with different
+   stamps are different attempts, so the newer one wins whole and the wiped
+   answers are not merged back in from the other device.
+
    Safety rule: if the remote blob can't be read (corrupt / unreadable),
    we ABORT the whole cycle instead of pushing over it. A bad read must
    never destroy the other device's work.
@@ -271,8 +276,18 @@
     out.it = it;
     return out;
   }
+  /* rs = when the run was last wiped (reset / redo). Different stamps: the
+     copy with the newer stamp wins whole. Same stamp (or none): null, so the
+     caller merges as usual. */
+  function newerReset(l, r) {
+    if (!isObj(l) || !isObj(r)) return null;
+    var lr = +l.rs || 0, rr = +r.rs || 0;
+    return lr === rr ? null : (rr > lr ? r : l);
+  }
   /* take-summary-*: derived counts — the more-attempted one is the truth */
   function pickSummary(l, r) {
+    var nr = newerReset(l, r);
+    if (nr) return nr;
     var la = (l && l.answered) || 0, ra = (r && r.answered) || 0;
     if (ra !== la) return ra > la ? r : l;
     var lt = (l && l.ts) || 0, rt = (r && r.ts) || 0;
@@ -289,9 +304,9 @@
     var merged;
     if (Array.isArray(l) && Array.isArray(r)) merged = unionArray(l, r);
     else if (/^take-summary-/.test(key)) merged = pickSummary(l, r);
-    else if (/^revamp-preview-/.test(key)) merged = mergeTakeState(l, r, mode);
+    else if (/^revamp-preview-/.test(key)) merged = newerReset(l, r) || mergeTakeState(l, r, mode);
     else if (key === "tapp-meta-v1" && isObj(l) && isObj(r)) merged = mergeObj(l, r, mode, { maxNum: true });
-    else if (/^tapp-run-/.test(key) && isObj(l) && isObj(r)) merged = mergeObj(l, r, mode, { pickArr: true });
+    else if (/^tapp-run-/.test(key) && isObj(l) && isObj(r)) merged = newerReset(l, r) || mergeObj(l, r, mode, { pickArr: true });
     else if (key === "namelock-progress-v1" && isObj(l) && isObj(r)) {
       /* P.c (spaced repetition) + P.m (misses) merge per card as usual;
          P.g (XP, streak days, levels, bosses, bests) keeps the higher number */
@@ -477,6 +492,7 @@
     status: status,
     keys: syncKeys,
     device: device,
-    isSyncKey: isSyncKey
+    isSyncKey: isSyncKey,
+    mergeValue: mergeValue /* exposed for tests/sync-reset.test.js */
   };
 })();

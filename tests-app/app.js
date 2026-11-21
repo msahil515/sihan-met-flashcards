@@ -649,7 +649,7 @@
     app.innerHTML = h;
     var bl = document.getElementById("blurb"); if (bl) bl.onclick = function () { bl.classList.toggle("clip"); };
     document.getElementById("bPlay").onclick = function () {
-      if (r.done) { r = { i: 0, ans: {}, mode: "practice", done: false, redo: null, xp: 0 }; saveRun(id, r); }
+      if (r.done) { r = { i: 0, ans: {}, mode: "practice", done: false, redo: null, xp: 0, rs: Date.now() }; saveRun(id, r); }
       go("play", id);
     };
     var bR = document.getElementById("bRedo");
@@ -658,13 +658,13 @@
       for (var k in r.ans) if (r.ans[k] !== Q[+k].correct) list.push(+k);
       list.sort(function (a, b) { return a - b; });
       list.forEach(function (k) { delete r.ans[k]; });
-      r.redo = list; r.i = list[0]; r.done = false; r.mode = "practice"; r.xp = 0; saveRun(id, r);
+      r.redo = list; r.i = list[0]; r.done = false; r.mode = "practice"; r.xp = 0; r.rs = Date.now(); saveRun(id, r);
       go("play", id);
     };
     var bX = document.getElementById("bReset");
     if (bX) bX.onclick = function () {
       if (!confirm("Wipe your answers on this mock and start fresh?")) return;
-      saveRun(id, { i: 0, ans: {}, mode: "practice", done: false, redo: null, xp: 0 }); lobby();
+      saveRun(id, { i: 0, ans: {}, mode: "practice", done: false, redo: null, xp: 0, rs: Date.now() }); lobby();
     };
   }
 
@@ -881,7 +881,7 @@
       for (var k in r.ans) if (r.ans[k] !== Q[+k].correct) list.push(+k);
       list.sort(function (a, b) { return a - b; });
       list.forEach(function (k) { delete r.ans[k]; });
-      r.redo = list; r.i = list[0]; r.done = false; r.mode = "practice"; r.xp = 0; saveRun(id, r);
+      r.redo = list; r.i = list[0]; r.done = false; r.mode = "practice"; r.xp = 0; r.rs = Date.now(); saveRun(id, r);
       go("play", id);
     };
   }
