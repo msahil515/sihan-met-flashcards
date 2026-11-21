@@ -609,6 +609,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "Jammu 2014", "CLM-53718-A", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "jammu-2013",
+    title: "University of Jammu 2013 M.A. (real paper)",
+    sub: "60 real Qs · the M.A. Psychology entrance, series A, code CMN-45540-A · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=jammu-2013",
+    total: 60,
+    storageKey: "jammu-2013-results-v1",
+    sections: { general: 16, research: 10, assessment: 10, social: 8, clinical: 6, personality: 5, disorders: 4, dev: 1 },
+    blurb: "The University of Jammu M.A. Psychology entrance 2013, booklet series A, code CMN-45540-A. All 60 questions, read off a scan of the paper. There is no official key, so every answer is worked out from standard texts. An easy, broad recall paper: research methods (natural settings, exploratory research, sampling, Stevens's scales, discrete vs continuous data), the schools (humanistic, structuralism, behaviourism, psychoanalysis, introspection), Piaget's assimilation, operant conditioning, Miller's 7 plus or minus 2, drive, primary reinforcers, James-Lange, Thurstone's primary mental abilities, divergent thinking, William Stern and the IQ, sociometry, socialisation, transformational leadership, non-verbal communication, attitudes and discrimination, the greenhouse effect, protection motivation theory, temperament, Freud's anal stage, Jung's shadow, Allport's common traits, DSM-IV-TR axes, PTSD and GAD, Fechner's psychophysical methods, the JND, the phi phenomenon, the chronoscope, binocular depth, statistics (pie chart, dispersion, mean, median and mode, negative correlation), test basics (norms, standardisation, split-half reliability, external validity), the TAT, projective tests, Rorschach, aptitude vs achievement, and a counselling block (Williamson, counsellor vs psychiatrist, Rogers's self theory, rapport, REBT, group selection, gifted IQ). Where an answer is arguable a Key note says so. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / -0.25 like the other Jammu papers.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "Jammu 2013", "CMN-45540-A", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "mphil-cp-2021",
     title: "M.Phil CP Entrance 2021 (college not printed)",
     sub: "70 real Qs · 1 mark each, no negative marking · no official key, every answer worked out · untimed",
@@ -901,7 +914,7 @@ const GROUPS = [
     members: ["pgibams-2023"] },
   { id: "jammu", title: "University of Jammu",
     sub: "University of Jammu (School of Education and Behavioural Sciences): the M.A. Psychology entrance, real questions, worked out from standard texts",
-    members: ["jammu-2023", "jammu-2021", "jammu-2020", "jammu-2018", "jammu-2017", "jammu-2016", "jammu-2015", "jammu-2014", "jammu-hfo"] },
+    members: ["jammu-2023", "jammu-2021", "jammu-2020", "jammu-2018", "jammu-2017", "jammu-2016", "jammu-2015", "jammu-2014", "jammu-2013", "jammu-hfo"] },
   { id: "unnamed", title: "College not printed",
     sub: "Real M.Phil Clinical Psychology entrance papers whose cover never names the institute: the 2021 booklet A paper and the 2023 paper filed as KU, 70 Qs each, worked out from standard texts",
     members: ["mphil-cp-2021", "mphil-cp-2023"] },
