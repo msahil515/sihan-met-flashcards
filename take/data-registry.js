@@ -531,6 +531,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "Jammu 2020", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "jammu-2017",
+    title: "University of Jammu 2017 (real paper)",
+    sub: "60 real Qs · the Psychology entrance, series B · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=jammu-2017",
+    total: 60,
+    storageKey: "jammu-2017-results-v1",
+    sections: { research: 16, general: 12, clinical: 10, personality: 8, assessment: 6, disorders: 5, physio: 3 },
+    blurb: "The University of Jammu (School of Education and Behavioural Sciences) 2017 Psychology entrance, booklet series B: all 60 questions, 70 minutes in the real exam, minus a quarter per wrong answer, read off the scan page by page. There is no official key, so every answer is worked out from standard texts. A broad, mostly easy recall paper: personality (self-concept, Maslow's self-actualisers, the weak spot of behavioural theories, adjective checklists, the genital stage, Cattell, Allport, Adler), disorders (the statistical approach, probands, GAD, Linehan's biosocial theory, histrionic PD, DMDD), therapy and counselling (ERP, MAOIs, Wolpe, desensitisation, REBT, Rogers, eclecticism, nonmaleficence, justice, the counselling stages), assessment (concurrent validity, Cronbach's alpha, rating scales, projective validity, the Rorschach inquiry), a big research and stats block (operational definitions, interval vs ratio, research ethics, cluster and simple random sampling, slope, chi-square goodness of fit, the t distribution, homoscedasticity, confounding, SD, the mean, coefficient of variation) and general psychology (introspection, the axon, delay conditioning, programmed learning, Thorndike, Thurstone, growth motivation, James-Lange, Cannon's cats, timbre, perceptual constancy, bottom-up processing). Where an answer is arguable a Key note says so. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / -0.25 like the real paper.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "Jammu 2017", "M.A.", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "mphil-cp-2021",
     title: "M.Phil CP Entrance 2021 (college not printed)",
     sub: "70 real Qs · 1 mark each, no negative marking · no official key, every answer worked out · untimed",
@@ -823,7 +836,7 @@ const GROUPS = [
     members: ["pgibams-2023"] },
   { id: "jammu", title: "University of Jammu",
     sub: "University of Jammu (School of Education and Behavioural Sciences): the M.A. Psychology entrance, real questions, worked out from standard texts",
-    members: ["jammu-2023", "jammu-2021", "jammu-2020"] },
+    members: ["jammu-2023", "jammu-2021", "jammu-2020", "jammu-2017"] },
   { id: "unnamed", title: "College not printed",
     sub: "Real M.Phil Clinical Psychology entrance papers whose cover never names the institute: the 2021 booklet A paper and the 2023 paper filed as KU, 70 Qs each, worked out from standard texts",
     members: ["mphil-cp-2021", "mphil-cp-2023"] },

@@ -53,6 +53,9 @@ assert.ok(count[0] > 0 && count[1] > 0);
     await page.goto("http://127.0.0.1:8766/tests-app/index.html", { waitUntil: "domcontentloaded" });
     await page.waitForFunction(() => !!window.TAPP && !!window.StudyList);
     const mockId = "jss-mock-2";
+    /* since the 21 Nov picker redesign, cards sit folded inside their college row */
+    const col = page.locator('.college:not(.open) .crow[data-col="jss"]');
+    if (await col.count()) await col.click();
     await page.locator(`[data-go="lobby"][data-id="${mockId}"]`).click();
     await page.locator("#app button").filter({ hasText: "Start" }).click();
     const q = await page.evaluate(id => ({ q: TAPP.P[id].questions[0], id }), mockId);
