@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 Lay out the Final Exam Textbook's past-paper explanations in the structured format (T108).
+Also the full General Psychology book (final-general-NN), same markup with newlines between tags.
 
 Sihan, 3 Jul: the explanation under each question "should look well structured and not
 just paragraphs", then "Put it in the notes app". Each question in the "From the past
@@ -19,8 +20,8 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 MERGED = os.path.join(ROOT, "merged")
 DATA = os.path.join(ROOT, "pyq-structured")
 
-OLD = re.compile(r'<li><p class="q">(.*?)</p><p class="opts">(.*?)</p><p class="a">'
-                 r'<b>Answer( \(keyed\):| keyed:|:) \(([a-e])\)\s*(.*?)</b>\s*(.*?)</p></li>', re.S)
+OLD = re.compile(r'<li><p class="q">(.*?)</p>\s*<p class="opts">(.*?)</p>\s*<p class="a">'
+                 r'<b>Answer( \(keyed\):| keyed:| as keyed:| \(as keyed\):|:) \(([a-e])\)\s*(.*?)</b>\s*(.*?)</p></li>', re.S)
 NEG = re.compile(r'\b(NOT|INCORRECT|EXCEPT|FALSE|incorrect|not true|not correct)\b')
 
 
@@ -87,4 +88,5 @@ def main(names):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:] or [f"final-book-{n:02d}" for n in range(1, 10)])
+    main(sys.argv[1:] or [f"final-book-{n:02d}" for n in range(1, 10)]
+         + [f"final-general-{n:02d}" for n in range(1, 12)])
