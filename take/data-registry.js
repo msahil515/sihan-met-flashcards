@@ -195,6 +195,19 @@ const MOCKS = [
     tags: ["flight mock", "100 Q", "full-depth answers", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "diagnostic-2",
+    title: "Gap Diagnostic 2: your weak areas (60 real PYQs)",
+    sub: "60 real past-paper Qs · weighted to the subjects your 39 misses came from · nothing from a paper you have sat · sit it once · results by subject · untimed Practice",
+    path: "../take/screen.html?m=diagnostic-2",
+    total: 60,
+    storageKey: "diagnostic-2-results-v1",
+    sections: { general: 12, assessment: 5, social: 6, personality: 5, physio: 6, dev: 5, clinical: 11, disorders: 5, research: 5 },
+    blurb: "The diagnostic rebuilt from real past papers and weighted to where your marks actually leak. All 60 are genuine past-paper questions (NIMHANS 2024 and 2025, RML 2021 to 2025, IHBAS 2020, Amity 2023, JEMAS(PG) 2025, Jammu 2020, M.Phil CP 2023, PGIBAMS 2023), and none come from a paper you have already sat (RML 2020, IHBAS 2024 and 2025, both JSS mocks, both St John's mocks, MET Mock 1). The split follows your 39 misses across RML 2020, IHBAS 2024, the JSS PYQ mock and MET Mock 1 (the gap analysis page): General and theories 12 and Clinical and therapy 11, because those tie at 9 misses each, then social 6, biopsych 6 and 5 each for the other five subjects. Inside General it leans on history and schools, perception theorists, stress and positive psychology (topics you rated 0 on 14 Oct); inside Clinical on which therapy and which technique belongs to whom. 15 are name-to-idea questions, your biggest leak (35% missed against 10% on everything else). Keys were re-solved blind by two separate checkers and both matched all 60. Sit it once, then read the results by subject: the lowest ones are what to study next, and Study this on each miss opens its Final Textbook section. Every card has its source paper, the concept from scratch and why each wrong option is wrong. Replaces the May MET common-section diagnostic. +1 / −0.25. Independent storage.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "diagnostic", "weighted to your misses", "60 Q", "9 subjects", "source-badged", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "diagnostic-1",
     title: "Gap Diagnostic — Common-Section Focus (60 Q)",
     sub: "60 Q · diagnostic · common-section weighted · misses → final study material",
@@ -1013,7 +1026,7 @@ const GROUPS = [
     members: ["ugc-net-2013-dec"] },
   { id: "diag", title: "Diagnostics & common-section drills",
     sub: "Sit-once diagnostics and the common-section banks that decide the gap — misses compile into a study sheet on the page",
-    members: ["recall-14", "diagnostic-1", "systems-theories", "flight-mock-100"] },
+    members: ["diagnostic-2", "recall-14", "systems-theories", "flight-mock-100"] },
   { id: "jemas", title: "JEMAS(PG) — West Bengal",
     sub: "The West Bengal JEMAS(PG) M.Phil / Clinical Psychology entrance: 2022, 2023 and 2024 in full, 2025 from the readable booklet pages, real questions",
     members: ["jemas-2022", "jemas-2023", "jemas-2024", "jemas-2025"] },
