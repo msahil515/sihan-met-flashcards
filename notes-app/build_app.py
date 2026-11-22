@@ -60,6 +60,13 @@ BOOKS = [
     dict(slug="master-guide", shelf="strategy", kind="merged", search_cap=40000,
          short="Master Guide for Clinical Psychology (Amit Panwar)",
          blurb="The cheat-map of exactly what CIP, IHBAS, RML and NIMHANS test: the exam pattern analysis, the questions that actually repeat across papers, the high-yield strategy, plus an A–Z terminology glossary, 24 named therapies (founder · concepts · techniques) and 25 landmark experiments (who · year · where · what)."),
+    # hand-written pages (May 2026), lost from content/ in a1c0449, back as merged books (T178)
+    dict(slug="high-yield-gaps", shelf="strategy", kind="merged", search_cap=40000,
+         short="High-Yield Gap Closer",
+         blurb="The 34 topics the past-paper audit found missing or too thin in the other books, each built deep: the lead fact, the contrast tables, worked past-paper stems and the exact trap. Part A: Indian intelligence and developmental tests, which statistical test, nonparametric tests, special correlations, Indian mental health law, neuropsych batteries, amnesia, IRT, item analysis, sampling, defence levels, emotion theories, ICD-11 changes, projective scoring, reinforcement schedules, reliability and validity. Part B: every topic from the 30 May NIMHANS PhD paper widened into its own cluster. Part C: the carpentered-world illusion and who coined which term in psychiatry."),
+    dict(slug="nimhans-2026-paper", shelf="strategy", kind="merged",
+         short="NIMHANS 2026 Paper: Topic Clusters",
+         blurb="The topics you recalled from the NIMHANS PhD paper of 30 May 2026 (items 1 to 18 and 28 to 30), each with the exam answer, the lead fact, the concepts around it and a trap box: Nagy and Minuchin family therapy, CGI, AUDIT, RAVLT, the Mental Healthcare Act, Gazette-notified tests, levodopa, Glasgow Coma Scale, Durkheim on suicide, special correlations, NMHS prevalence, functional hallucinations, PANSS, WASI, affect attunement, R squared, Floortime, levels of prevention and Heschl's gyrus."),
     # --- Textbooks in Full Depth (the un-condensing pass) ---
     dict(slug="pinel", shelf="depth", kind="merged", search_cap=40000,
          short="Biopsychology (Pinel & Barnes), full depth",
@@ -308,7 +315,8 @@ def main():
             styles = ""
             tm = re.search(r"<h1[^>]*>(.*?)</h1>", content, re.S | re.I)
             title = strip_tags(tm.group(1)) if tm else b["short"]
-            plain = strip_tags(content)
+            # a book's own <style> block is not text (word count, search snippet)
+            plain = strip_tags(re.sub(r"<style[^>]*>.*?</style>", " ", content, flags=re.S | re.I))
         else:  # passthrough note
             src = b["src"]
             p = os.path.join(NOTES, src, "index.html")

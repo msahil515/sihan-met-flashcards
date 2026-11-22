@@ -66,7 +66,7 @@
     { key: "prep", name: "Exam prep", short: "Exam prep",
       acc: "#CF721C", ink: "#9E500E", night: "#EFA75F",
       sub: "Strategy, quick reference, systems and history, mock fixes, interview",
-      books: ["master-guide", "concepts", "lookalikes", "textbook", "requested-topics", "systems-theories",
+      books: ["master-guide", "high-yield-gaps", "nimhans-2026-paper", "concepts", "lookalikes", "textbook", "requested-topics", "systems-theories",
               "systems-theories-explained", "psycho-didi-history", "psycho-didi-cheatsheets", "mocks",
               "exam-papers", "therapy-style"] }
   ];
