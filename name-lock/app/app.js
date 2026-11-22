@@ -1048,7 +1048,7 @@ function stNext(){
   $("#lesson .lprog i").style.width = (X.done * 100 / X.total) + "%";
   $("#l-side").innerHTML = '<span class="vleft">' + (X.l.boss ? X.first + ' right · need ' + X.need : X.q.length + ' left') + '</span>';
   heat(false, X);
-  $("#l-body").innerHTML = '<div class="qbody"><div class="vk">' + X.l.icon + ' ' + esc(X.l.name) + (X.miss[q.id] ? ' · second go' : '') + '</div><div class="qcard">' + stFig(q) + '<div class="qd" style="margin-top:0">' + esc(q.q) + '</div></div>' +
+  $("#l-body").innerHTML = '<div class="qbody"><div class="vk">' + X.l.icon + ' ' + esc(X.l.name) + (X.miss[q.id] ? ' · second go' : '') + '</div><div class="qcard' + (q.fig ? ' fig' : '') + '">' + stFig(q) + '<div class="qd" style="margin-top:0">' + esc(q.q) + '</div></div>' +
     '<div class="opts' + (q.o.length === 2 ? " two" : "") + '">' + ord.map(function(j){ return '<button class="opt" data-o="' + j + '">' + esc(q.o[j]) + '</button>'; }).join("") + '</div></div>';
   $("#l-body").scrollTop = 0;
   $("#l-foot").innerHTML = '<button class="btn" id="l-check" disabled>Check</button>';
