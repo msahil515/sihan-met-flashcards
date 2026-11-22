@@ -486,6 +486,7 @@ button{font-family:inherit;cursor:pointer}
 <script src="data-pgibams23.js?v=20261121-pgibams23"></script>
 <script src="data-recall14.js?v=20261020-recall14"></script>
 <script src="data-nimhans26.js?v=20261021-t010"></script>
+<script src="data-fig.js?v=20261121-fig"></script>
 <script src="speak.js?v=20260805-qonly-samsung"></script>
 <script>
 /* pick the mock from ?m=<id>; fall back to met-mock-2 (or first available) */
@@ -511,6 +512,8 @@ const Speak = window.Speak || {ok:false,say(){},stop(){},speaking(){return"";},
 const SRC_MAP = (window.PREVIEW_SRC || {})[MID] || null;
 const normStem = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
 function srcOf(q){ return SRC_MAP ? (SRC_MAP[normStem(q.q)] || null) : null; }
+const FIG_MAP = (window.PREVIEW_FIG || {})[MID] || null;
+function figOf(q){ return FIG_MAP ? (FIG_MAP[normStem(q.q)] || "") : ""; }
 
 let st = {i:0, answers:{}, flags:{}, marks:{}, revealed:{}, visited:{0:1}, filter:"all", wrongSet:null};
 try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.answers){st={...st,...s};st.marks=st.marks||{};if(st.filter==="marked"||st.filter==="wrong"){}else{st.filter="all";}}}catch(e){}
@@ -539,14 +542,6 @@ function boldFig(seg){
     return STOP_LEAD.test(m)?m:'<strong>'+m+'</strong>';});
   return seg;
 }
-function findFigure(text){
-  if(!text) return null;
-  let m = String(text).match(/\b([A-Z][a-z]{2,})(?:'|’)s\b/);
-  if(m && !/^(This|That|These|Those|Option|Both|Here|There|Latin|Greek|Its|Their|Each|Every|Thus|Hence)$/.test(m[1])) return m[1];
-  m = String(text).match(/\b(?:by|after|per|from|of)\s+([A-Z][a-z]+\s+[A-Z][a-z]+)\b/);
-  if(m && !STOP_LEAD.test(m[1])) return m[1];
-  return null;
-}
 function paras(text){
   if(!text) return [];
   // split into sentences (lookahead only — no lookbehind, older-Safari safe),
@@ -560,9 +555,9 @@ function paras(text){
   const out=[]; for(let i=0;i<sents.length;i+=2) out.push(sents.slice(i,i+2).join(' ').trim());
   return out.filter(Boolean);
 }
-function answerBlock(q, figSource){
-  // a question can name its own key figure (q.fig, "" hides the line); otherwise guess from the text
-  const fig = q.fig != null ? q.fig : findFigure(figSource);
+function answerBlock(q){
+  // key figure: the question's own q.fig, else the take/data-fig.js entry for older mocks; none = no line ("" hides it too)
+  const fig = q.fig != null ? q.fig : figOf(q);
   return `<div class="exp-answer">
       <span class="ak">${q.correct.toUpperCase()}</span>
       <span class="abody"><span class="alabel">Correct answer</span>
@@ -575,7 +570,7 @@ function explainHTML(q, idx){
   const deepOK = d && !(d.q && q.q && d.q.trim()!==q.q.trim()) && d.concept;
   let h = `<div class="exp">`;
   if(deepOK){
-    h += answerBlock(q, d.concept);
+    h += answerBlock(q);
     // peel the "Option x captures…" justification sentence off the definition
     let def=d.concept, why="";
     const cut=d.concept.search(/[.!?]\s+Options?\s+[a-d]\b/);
@@ -596,7 +591,7 @@ function explainHTML(q, idx){
   } else {
     // not-yet-deepened mock: still lead with the answer block, then structure
     // whatever single-string explanation exists into short paragraphs.
-    h += answerBlock(q, q.explanation||"");
+    h += answerBlock(q);
     const body=paras(q.explanation||"");
     if(body.length) h += `<div class="exp-sec"><div class="exp-h">Why ${q.correct.toUpperCase()} is right</div>${
       body.map(p=>`<p>${boldFig(p)}</p>`).join("")}</div>`;

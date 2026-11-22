@@ -3,7 +3,7 @@
    so the app and the site never drift. Untimed, +1 / -0.25 everywhere. */
 (function () {
   "use strict";
-  var P = window.PREVIEW_MOCKS || {}, DEEP = window.PREVIEW_DEEP || {}, SRCS = window.PREVIEW_SRC || {};
+  var P = window.PREVIEW_MOCKS || {}, DEEP = window.PREVIEW_DEEP || {}, SRCS = window.PREVIEW_SRC || {}, FIGS = window.PREVIEW_FIG || {};
   var REG = {}; (window.MOCKS || []).forEach(function (m) { REG[m.id] = m; });
   var GROUPS = (window.GROUPS || []).map(function (g) {
     return { id: g.id, title: g.title, sub: g.sub, archived: !!g.archived, members: g.members.filter(function (id) { return P[id]; }) };
@@ -384,14 +384,6 @@
     seg = seg.replace(/\b([A-Z][a-z]{2,}(?:'|’)s)\b/g, "<strong>$1</strong>");
     return seg.replace(/\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2})\b/g, function (m) { return STOP_LEAD.test(m) ? m : "<strong>" + m + "</strong>"; });
   }
-  function findFigure(text) {
-    if (!text) return null;
-    var m = String(text).match(/\b([A-Z][a-z]{2,})(?:'|’)s\b/);
-    if (m && !/^(This|That|These|Those|Option|Both|Here|There|Latin|Greek|Its|Their|Each|Every|Thus|Hence)$/.test(m[1])) return m[1];
-    m = String(text).match(/\b(?:by|after|per|from|of)\s+([A-Z][a-z]+\s+[A-Z][a-z]+)\b/);
-    if (m && !STOP_LEAD.test(m[1])) return m[1];
-    return null;
-  }
   function paras(text) {
     if (!text) return [];
     var parts = String(text).replace(/([.!?])\s+(?=[A-Z(<"'‘“])/g, "$1␟").split("␟"), sents = [], out = [];
@@ -403,9 +395,9 @@
     for (var i = 0; i < sents.length; i += 2) out.push(sents.slice(i, i + 2).join(" ").trim());
     return out.filter(Boolean);
   }
-  function answerBlock(q, figSource) {
-    // a question can name its own key figure (q.fig, "" hides the line); otherwise guess from the text
-    var fig = q.fig != null ? q.fig : findFigure(figSource);
+  function answerBlock(id, q) {
+    // key figure: the question's own q.fig, else the take/data-fig.js entry for older mocks; none = no line ("" hides it too)
+    var fig = q.fig != null ? q.fig : figOf(id, q);
     return '<div class="exp-answer"><span class="ak">' + q.correct.toUpperCase() + '</span><span class="abody"><span class="alabel">Correct answer</span>' +
       '<span class="atext">' + (q.options[q.correct] || "") + "</span></span>" +
       (fig ? '<span class="exp-fig">Key figure: <strong>' + fig + "</strong></span>" : "") + "</div>";
@@ -423,7 +415,7 @@
     var d = deepOf(id, q, idx), LN = window.LEARN;
     var h = '<div class="exp">';
     if (d) {
-      if (!o.noAnswer) h += answerBlock(q, d.concept);
+      if (!o.noAnswer) h += answerBlock(id, q);
       var cs = conceptSplit(d.concept), def = paras(cs[0]).slice(o.skipFirst ? 1 : 0);
       if (def.length) h += expSec("The concept", pblock(def));
       if (cs[1]) h += expSec("Why " + q.correct.toUpperCase() + " is right", pblock(paras(cs[1])));
@@ -436,7 +428,7 @@
         }).join("") + "</div>");
       }
     } else {
-      if (!o.noAnswer) h += answerBlock(q, q.explanation || "");
+      if (!o.noAnswer) h += answerBlock(id, q);
       var body = paras(q.explanation || "").slice(o.skipFirst ? 1 : 0);
       if (body.length) h += expSec("Why " + q.correct.toUpperCase() + " is right", pblock(body));
     }
@@ -449,6 +441,7 @@
   }
   var normStem = function (s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim(); };
   function srcOf(id, q) { var m = SRCS[id]; return m ? (m[normStem(q.q)] || null) : null; }
+  function figOf(id, q) { var m = FIGS[id]; return m ? (m[normStem(q.q)] || "") : ""; }
 
   /* ---------- "Study this" (../study.js, the list Name Lock shares) ---------- */
   var SL = window.StudyList, SI = {};
@@ -801,11 +794,11 @@
   }
   /* debrief: answer + the first lines + where to read it + note, then the full explanation (folds) */
   function afterHTML(id, q, idx, a) {
-    var ok = a === q.correct, tk = takeaway(id, q, idx), LN = window.LEARN, d = deepOf(id, q, idx);
+    var ok = a === q.correct, tk = takeaway(id, q, idx), LN = window.LEARN;
     var nudge = !ok && SL && !SL.has("m:" + id + ":" + idx);
     return '<div class="verdict ' + (ok ? "ok" : "bad") + '">' + (ok ? "✓ Hack successful" : "✗ Busted. It's " + q.correct.toUpperCase()) +
       "<small>" + (ok ? "+1" : "−0.25") + "</small></div>" +
-      '<div class="db">' + answerBlock(q, d ? d.concept : q.explanation || "") + (tk ? '<div class="db-take"><span class="db-l">In short</span><p>' + boldFig(tk) + "</p></div>" : "") +
+      '<div class="db">' + answerBlock(id, q) + (tk ? '<div class="db-take"><span class="db-l">In short</span><p>' + boldFig(tk) + "</p></div>" : "") +
       (LN ? LN.debriefBadge(id, idx) : "") +
       '<div class="db-ac' + (nudge ? " nudge" : "") + '">' + studyBtn(id, q, idx) + (LN ? '<button class="db-b" data-qnote="' + esc(id + "|" + idx) + '">✎ Quick note</button>' : "") + "</div>" +
       (LN ? LN.noteRow(id, idx) : "") + "</div>" + explainHTML(id, q, idx, { noAnswer: 1, skipFirst: !!tk });

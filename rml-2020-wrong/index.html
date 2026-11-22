@@ -218,6 +218,7 @@ CET code 157 (9 Sept 2020, 426 candidates) and notification 237/2020 &mdash; sou
 
 </div>
 <script src="data.js"></script>
+<script src="/sihan-met-flashcards/take/data-fig.js?v=20261121-fig"></script>
 <script>
 (function(){
 "use strict";
@@ -240,22 +241,17 @@ function boldFig(seg){
     return STOP_LEAD.test(m)?m:'<strong>'+m+'</strong>';});
   return seg;
 }
-function findFigure(text){
-  if(!text) return null;
-  let m = String(text).match(/\b([A-Z][a-z]{2,})(?:'|’)s\b/);
-  if(m && !/^(This|That|These|Those|Option|Both|Here|There|Latin|Greek|Its|Their|Each|Every|Thus|Hence)$/.test(m[1])) return m[1];
-  m = String(text).match(/\b(?:by|after|per|from|of)\s+([A-Z][a-z]+\s+[A-Z][a-z]+)\b/);
-  if(m && !STOP_LEAD.test(m[1])) return m[1];
-  return null;
-}
+// key figure per question from take/data-fig.js (same as the test screen); none = no line
+const FIG_MAP = (window.PREVIEW_FIG || {})["rml-2020"] || {};
+function figOf(q){ return FIG_MAP[String(q.q).toLowerCase().replace(/[^a-z0-9]+/g," ").trim()] || ""; }
 function paras(text){
   if(!text) return [];
   const parts = String(text).replace(/([.!?])\s+(?=[A-Z(<"'‘“])/g,'$1␟').split('␟');
   const out=[]; for(let i=0;i<parts.length;i+=2) out.push(parts.slice(i,i+2).join(' ').trim());
   return out.filter(Boolean);
 }
-function answerBlock(q, figSource){
-  const fig = findFigure(figSource);
+function answerBlock(q){
+  const fig = figOf(q);
   return '<div class="exp-answer"><span class="ak">'+q.correct.toUpperCase()+'</span>'
     +'<span class="abody"><span class="alabel">Correct answer</span>'
     +'<span class="atext">'+esc(q.options[q.correct]||"")+'</span></span>'
@@ -266,7 +262,7 @@ function explainHTML(q, idx){
   const deepOK = d && !(d.q && q.q && d.q.trim()!==q.q.trim()) && d.concept;
   let h = '<div class="exp">';
   if(deepOK){
-    h += answerBlock(q, d.concept);
+    h += answerBlock(q);
     let def=d.concept, why="";
     const cut=d.concept.search(/[.!?]\s+Options?\s+[a-d]\b/);
     if(cut>40){ def=d.concept.slice(0,cut+1).trim(); why=d.concept.slice(cut+1).trim(); }
@@ -284,7 +280,7 @@ function explainHTML(q, idx){
       h += '</div></div>';
     }
   } else {
-    h += answerBlock(q, q.explanation||"");
+    h += answerBlock(q);
     const body=paras(q.explanation||"");
     if(body.length) h += '<div class="exp-sec"><div class="exp-h">Why '+q.correct.toUpperCase()+' is right</div>'
       + body.map(p=>'<p>'+boldFig(esc(p))+'</p>').join("")+'</div>';
