@@ -272,6 +272,9 @@ button{font-family:inherit;cursor:pointer}
   border-radius:50%;background:var(--amber);border:2px solid var(--surface)}
 .chip.marked{border-color:var(--primary)}
 .chip.marked::before{content:"★";position:absolute;bottom:-3px;left:-3px;font-size:10px;line-height:1;color:var(--primary)}
+.chip.right{background:var(--good);border-color:var(--good);color:var(--surface)}
+.chip.wrong{background:var(--bad);border-color:var(--bad);color:var(--surface)}
+.chip.skipped{border-style:dashed;border-color:var(--amber);color:var(--amber)}
 .chip.hide{display:none}
 .legend{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);
   display:flex;flex-direction:column;gap:9px;font-size:12px;color:var(--muted)}
@@ -280,6 +283,9 @@ button{font-family:inherit;cursor:pointer}
 .swatch.answered{background:var(--primary-wash);border-color:var(--primary)}
 .swatch.flag::after{content:"";position:absolute;top:-4px;right:-4px;width:9px;height:9px;border-radius:50%;
   background:var(--amber);border:2px solid var(--surface)}
+.swatch.right{background:var(--good);border-color:var(--good)}
+.swatch.wrong{background:var(--bad);border-color:var(--bad)}
+.swatch.skipped{border-style:dashed;border-color:var(--amber)}
 .swatch.mark{border-color:var(--primary)}
 .swatch.mark::before{content:"★";position:absolute;bottom:-3px;left:-2px;font-size:9px;line-height:1;color:var(--primary)}
 
@@ -420,7 +426,10 @@ button{font-family:inherit;cursor:pointer}
     <div class="grid" id="navGrid"></div>
     <div class="legend">
       <div><span class="swatch"></span> Not answered yet</div>
-      <div><span class="swatch answered"></span> Answered</div>
+      <div><span class="swatch answered"></span> Answered, explanation not opened</div>
+      <div><span class="swatch right"></span> Right</div>
+      <div><span class="swatch wrong"></span> Wrong</div>
+      <div><span class="swatch skipped"></span> Skipped (opened, left blank)</div>
       <div><span class="swatch flag"></span> Flagged for review</div>
       <div><span class="swatch mark"></span> Bookmarked (saved)</div>
     </div>
@@ -767,7 +776,11 @@ function syncNav(){
   const wl=activeList(), wset=wl?new Set(wl):null;
   document.querySelectorAll(".chip").forEach(c=>{
     const i=+c.dataset.i, ans=st.answers[i]!=null, fl=!!st.flags[i], mk=!!st.marks[i];
-    c.classList.toggle("answered",ans);
+    const shown=ans&&!!st.revealed[i], ok=st.answers[i]===Q[i].correct;
+    c.classList.toggle("answered",ans&&!shown);
+    c.classList.toggle("right",shown&&ok);
+    c.classList.toggle("wrong",shown&&!ok);
+    c.classList.toggle("skipped",!ans&&!!st.visited[i]&&i!==st.i);
     c.classList.toggle("flagged",fl);
     c.classList.toggle("marked",mk);
     c.classList.toggle("current",i===st.i);
@@ -1011,7 +1024,7 @@ function finish(){
     Q.forEach((q,i)=>{ if(st.answers[i]!=null && st.answers[i]!==q.correct) wrongIdx.push(i); });
     if(!wrongIdx.length){alert("No wrong answers to redo — clean run.");return;}
     st.wrongSet=wrongIdx; st.filter="wrong";
-    wrongIdx.forEach(i=>{delete st.answers[i]; delete st.revealed[i];});  // clear so you re-attempt
+    wrongIdx.forEach(i=>{delete st.answers[i]; delete st.revealed[i]; delete st.visited[i];});  // clear so you re-attempt
     st.rs=Date.now();  // sync: this wiped copy beats the older one (sync.js newerReset)
     save();
     backToQuiz();
@@ -1050,6 +1063,31 @@ function backToQuiz(){
   window.scrollTo({top:0});
 }
 document.getElementById("finishBtn").onclick=finish;
+
+/* swipe left = next, right = previous (T102). Only a quick, mostly sideways flick counts, so scrolling never
+   jumps, and a swipe never finishes the test: that stays on the Review & finish button */
+(function(){
+  const rd=document.getElementById("reader"); let t0=null;
+  function sideScroller(el){
+    for(;el&&el!==rd;el=el.parentElement)
+      if(el.scrollWidth>el.clientWidth+2&&/auto|scroll/.test(getComputedStyle(el).overflowX)) return true;
+    return false;
+  }
+  rd.addEventListener("touchstart",e=>{
+    t0=e.touches.length===1&&!sideScroller(e.target)?{x:e.touches[0].clientX,y:e.touches[0].clientY,t:Date.now()}:null;
+  },{passive:true});
+  rd.addEventListener("touchend",e=>{
+    if(!t0) return;
+    const p=e.changedTouches[0], dx=p.clientX-t0.x, dy=p.clientY-t0.y, ms=Date.now()-t0.t; t0=null;
+    if(ms>700||Math.abs(dx)<70||Math.abs(dx)<2*Math.abs(dy)) return;
+    if(String(window.getSelection?window.getSelection():"")) return;
+    e.preventDefault();  // a flick read as a tap would click an option on the question it lands on
+    const pos=ctxPos();
+    if(dx<0&&pos>=ctxLen()-1) return;
+    if(dx>0&&pos<=0) return;
+    step(dx<0?1:-1);
+  },{passive:false});
+})();
 
 /* keyboard: 1-4 pick, arrows move, f flag */
 document.addEventListener("keydown",e=>{

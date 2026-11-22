@@ -515,7 +515,7 @@
   function mockCard(id, c) {
     var r = getRun(id), sc = score(id, r), best = meta.best[id], pct = Math.round(100 * sc.answered / sc.N);
     var st = best != null ? starsFor(best) : 0;
-    var status = r.done ? "Finished · " + fmt(sc.marks) + " / " + sc.N : sc.answered ? pct + "% done · " + sc.right + " right" : "Not started";
+    var status = r.done ? "Finished · " + fmt(sc.marks) + " / " + sc.N : sc.answered ? pct + "% done · score " + fmt(sc.marks) : "Not started";
     return '<button class="mock ticket' + (r.done ? " done" : "") + '" data-go="lobby" data-id="' + id + '"><span class="stub" style="--c:' + c + '">' + sc.N + "<small>Qs</small></span>" +
       '<span class="mb"><span class="mt">' + esc(title_of(id)) + '</span><span class="ms">' + status + '</span><span class="mbar"><i style="width:' + pct + '%"></i></span></span>' +
       '<span class="best">' + (best != null ? best + "%<small>best</small>" : "<small>new</small>") + '<span class="stars">' + starHTML(st) + "</span></span></button>";
@@ -705,7 +705,7 @@
       var Q = M.questions, list = [];
       for (var k in r.ans) if (r.ans[k] !== Q[+k].correct) list.push(+k);
       list.sort(function (a, b) { return a - b; });
-      list.forEach(function (k) { delete r.ans[k]; });
+      list.forEach(function (k) { delete r.ans[k]; if (r.seen) delete r.seen[k]; });
       r.redo = list; r.i = list[0]; r.done = false; r.mode = "practice"; r.xp = 0; r.rs = Date.now(); saveRun(id, r);
       go("play", id);
     };
@@ -725,6 +725,8 @@
     var list = r.redo && r.redo.length ? r.redo : null;
     var pos = list ? Math.max(0, list.indexOf(r.i)) : r.i, len = list ? list.length : N;
     var q = Q[r.i], a = r.ans[r.i], shown = a != null;
+    if (!r.seen || typeof r.seen !== "object") r.seen = {};
+    r.seen[r.i] = 1;   /* opened: left blank after this, the grid shows it as skipped */
     var sec = (M.sectionLabels || {})[q.section], src = srcOf(id, q);
     var opts = L.filter(function (k) { return q.options[k] != null; }).map(function (k) {
       var cls = "opt";
@@ -763,6 +765,22 @@
     app.querySelectorAll("#opts .opt").forEach(function (b) {
       b.onclick = function (e) { if (e.target.closest(".otag")) return; SFX.click(); answer(id, b.getAttribute("data-k")); };
     });
+    /* swipe left = next, right = previous. Only a quick, mostly sideways flick counts, so scrolling a long
+       explanation never jumps; a swipe never finishes the mock (that stays on the Finish button) */
+    var ps = document.getElementById("ps"), t0 = null;
+    ps.addEventListener("touchstart", function (e) {
+      t0 = e.touches.length === 1 && !sideScroller(e.target, ps) ? { x: e.touches[0].clientX, y: e.touches[0].clientY, t: Date.now() } : null;
+    }, { passive: true });
+    ps.addEventListener("touchend", function (e) {
+      if (!t0) return;
+      var p = e.changedTouches[0], dx = p.clientX - t0.x, dy = p.clientY - t0.y, ms = Date.now() - t0.t; t0 = null;
+      if (ms > 700 || Math.abs(dx) < 70 || Math.abs(dx) < 2 * Math.abs(dy)) return;
+      if (String(window.getSelection ? window.getSelection() : "")) return;   /* selecting text, not swiping */
+      e.preventDefault();   /* a flick read as a tap would click an option on the question it lands on */
+      if (dx < 0 && lastStep) { toast("Last question. Tap Finish when you're done"); return; }
+      if (dx > 0 && pos === 0) return;
+      SFX.click(); step(dx < 0 ? 1 : -1);
+    }, { passive: false });
 
     function step(dir) {
       var rr = getRun(id);
@@ -780,6 +798,13 @@
       saveRun(id, rr); play();
       document.getElementById("ps").scrollTop = 0;
     }
+  }
+  /* true if the touch is inside something that scrolls sideways (a wide table): that drag is for scrolling */
+  function sideScroller(el, stop) {
+    for (; el && el !== stop; el = el.parentElement) {
+      if (el.scrollWidth > el.clientWidth + 2 && /auto|scroll/.test(getComputedStyle(el).overflowX)) return true;
+    }
+    return false;
   }
   function pad2(n) { return n < 10 ? "0" + n : String(n); }
   /* 5-star wanted level: a star for every 3 in a row, HEAT MAX at 5 stars (15 in a row, 2x XP).
@@ -875,12 +900,13 @@
     var cells = Q.map(function (q, i) {
       var a = r.ans[i], c = "gq";
       if (a != null) c += a === q.correct ? " r" : " w";
+      else if (r.seen && r.seen[i] && i !== r.i) c += " s";
       if (i === r.i) c += " cur";
       return '<button class="' + c + '" data-i="' + i + '">' + (i + 1) + "</button>";
     }).join("");
     var bg = document.createElement("div"); bg.className = "sheet-bg"; bg.onclick = closeSheet;
     var sh = document.createElement("div"); sh.className = "sheet";
-    sh.innerHTML = "<h3>Jump to a question</h3>" + '<div class="legend"><span style="color:var(--ok)">■ right</span><span style="color:var(--bad)">■ wrong</span><span>■ not done</span></div>' + '<div class="gridq">' + cells + "</div>" +
+    sh.innerHTML = "<h3>Jump to a question</h3>" + '<div class="legend"><span style="color:var(--ok)">■ right</span><span style="color:var(--bad)">■ wrong</span><span style="color:var(--sun)">■ skipped</span><span>■ not done</span></div>' + '<div class="gridq">' + cells + "</div>" +
       '<button class="btn gold" style="margin-top:12px" id="gFin">Finish and see score</button>';
     app.appendChild(bg); app.appendChild(sh);
     sh.querySelectorAll(".gq").forEach(function (b) {
@@ -928,7 +954,7 @@
       var list = [];
       for (var k in r.ans) if (r.ans[k] !== Q[+k].correct) list.push(+k);
       list.sort(function (a, b) { return a - b; });
-      list.forEach(function (k) { delete r.ans[k]; });
+      list.forEach(function (k) { delete r.ans[k]; if (r.seen) delete r.seen[k]; });
       r.redo = list; r.i = list[0]; r.done = false; r.mode = "practice"; r.xp = 0; r.rs = Date.now(); saveRun(id, r);
       go("play", id);
     };

@@ -267,6 +267,7 @@ const EGROUPS=(()=>{
 const DONE_KEY="take-done-v1";
 function doneSet(){try{return new Set(JSON.parse(localStorage.getItem(DONE_KEY))||[])}catch(e){return new Set()}}
 function saveDone(s){try{localStorage.setItem(DONE_KEY,JSON.stringify([...s]))}catch(e){}}
+function fmtNet(x){ return String(Math.round(x*100)/100); }
 function summary(id){try{return JSON.parse(localStorage.getItem("take-summary-"+id))}catch(e){return null}}
 /* status: new | progress | done  (+ hasWrong flag) */
 function statusOf(m){
@@ -274,7 +275,8 @@ function statusOf(m){
   const manualDone=doneSet().has(m.id);
   const done = manualDone || (tot>0 && ans>=tot);
   const status = done?"done":(ans>0?"progress":"new");
-  return {status, answered:ans, total:tot, wrong:s?s.wrong||0:0, ts:s?s.ts||0:0, manualDone};
+  const right=s?s.right||0:0, wrong=s?s.wrong||0:0;
+  return {status, answered:ans, total:tot, wrong, net:right-0.25*wrong, ts:s?s.ts||0:0, manualDone};
 }
 
 /* view + filter state (persisted where it makes sense) */
@@ -316,7 +318,7 @@ function render(){
       const pct = st.total? Math.round(st.answered/st.total*100):0;
       const pstat = st.status==="done" ? (st.manualDone?"Marked done":"All answered")
         : st.status==="progress" ? `${st.answered}/${st.total} answered` : "Not started";
-      const wrongTag = st.wrong>0 ? ` · ${st.wrong} wrong` : "";
+      const wrongTag = (st.wrong>0 ? ` · ${st.wrong} wrong` : "") + (st.answered ? ` · score ${fmtNet(st.net)}` : "");
       const doneLabel = st.manualDone ? "Reopen" : "Mark done";
       cardsHtml+=`<div class="card ${st.status==="done"?"isdone":""}" data-id="${m.id}" data-href="../take/screen.html?m=${m.id}" style="--dot:${DOTS[g.id]||'var(--primary)'}">
         ${badge}
@@ -382,7 +384,7 @@ function refreshResume(){
   const box=document.getElementById("resume");
   if(!best){box.classList.remove("show");return;}
   document.getElementById("resumeTitle").textContent=best.m.title;
-  document.getElementById("resumeProg").textContent=`${best.st.answered} of ${best.st.total} answered${best.st.wrong?` · ${best.st.wrong} wrong so far`:""}`;
+  document.getElementById("resumeProg").textContent=`${best.st.answered} of ${best.st.total} answered${best.st.wrong?` · ${best.st.wrong} wrong so far`:""} · score ${fmtNet(best.st.net)}`;
   document.getElementById("resumeGo").href="../take/screen.html?m="+best.m.id;
   box.classList.add("show");
 }
