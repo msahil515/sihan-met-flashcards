@@ -37,7 +37,7 @@ test("new interview levels are appended, stable, and complete", () => {
 });
 
 test("all card IDs remain unique and experience prompts are explicitly fill-in", () => {
-  const ids = ["dis", "jss", "sjc"].flatMap(world => viva[world].levels.flatMap(level => (level.cards || []).map(card => card.id)));
+  const ids = ["dis", "jss", "sjc", "cv"].flatMap(world => viva[world].levels.flatMap(level => (level.cards || []).map(card => card.id)));
   assert.equal(new Set(ids).size, ids.length);
   for (const level of viva.jss.levels.slice(-2)) {
     const card = level.cards.find(item => item.id.endsWith("-exp1"));
@@ -86,4 +86,18 @@ test("St John's world: complete cards, a Panel Final, and a fill-in for the JSS 
   const jssResult = cards.find(card => card.id === "sjc-o6");
   assert.match(jssResult.a, /Personal experience template/);
   assert.match(jssResult.h, /Never invent/);
+});
+
+test("Concept Viva world: 8 levels of 11 full cards, a Panel Final, no repeats of other worlds", () => {
+  const levels = viva.cv.levels;
+  assert.deepEqual(Array.from(levels, level => level.k), ["dis", "pair", "why", "ther", "test", "pers", "learn", "bio", "final"]);
+  assert.equal(levels.at(-1).final, 12);
+  for (const level of levels.slice(0, -1)) assert.equal(level.cards.length, 11, level.k);
+  const cards = levels.flatMap(level => level.cards || []);
+  assert.ok(cards.every(card => card.id.startsWith("cv-") && card.q && card.a && card.n && card.t && card.f && card.fa));
+  assert.ok(cards.every(card => !/[\u2013\u2014]/.test(JSON.stringify(card))), "no em or en dashes");
+  const words = text => text.split(/\s+/).filter(Boolean).length;
+  assert.ok(cards.every(card => words(card.a) >= 60 && words(card.a) <= 130), "model answers are 30 to 45 seconds out loud");
+  const others = new Set(["jss", "sjc"].flatMap(world => viva[world].levels.flatMap(level => (level.cards || []).map(card => card.q.toLowerCase()))));
+  assert.ok(cards.every(card => !others.has(card.q.toLowerCase())), "no question repeats a JSS or St John's card");
 });
