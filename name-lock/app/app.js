@@ -840,12 +840,14 @@ function openBio(){
   for (var i = 0; i < BIO.length; i++) if (!(g.boss[BIO[i][0]] || {}).w){ cur = i; break; }
   var el = pushScreen("bio", '<div class="lhead"><button class="x" id="bio-x">' + IC.x + '</button><b style="font-size:19px;font-weight:900">🧠 Biopsych world</b></div><div class="scroll" style="padding:0 16px"><div class="path">' +
     '<div class="unit bio"><a class="wlink" href="worlds.html#skip">🗺️ Worlds</a><b>Pinel, all 18 chapters</b><span>' + w + ' of ' + BIO.length + ' won. ' + bossPool(BIO0 + BIO.length - 1).length + ' Pinel cards. Each win opens the next level.</span></div>' +
+    (BGW.levels.length ? '<button class="btn lab-go" id="bio-lab">' + BGW.icon + ' ' + esc(BGW.name) + ' · ' + BGW.levels.length + ' games · ' + stSolved(BGW) + ' of ' + stIds(BGW).length + ' solved</button>' : '') +
     BIO.map(function(m, i){
       var b = g.boss[m[0]] || {}, open = bioOpen(i), st = b.w ? "won" : open ? "open" : "shut", off = Math.round(Math.sin(i * 0.9) * 70);
       return '<div class="node-wrap"><button class="node ' + st + (i === cur ? " cur" : "") + '" data-bio="' + i + '" style="transform:translateX(' + off + 'px)">' + (i === cur ? '<span class="bubble">' + (b.tries ? "FIGHT" : "START") + '</span>' : '') +
         (open || b.w ? m[3] : "🔒") + (b.w ? '<span class="crown">' + (b.bl === 3 ? "👑" : "✓") + '</span>' : '') + '</button><span class="node-l" style="transform:translateX(' + off + 'px)">' + m[1] + ' · ' + m[2].split(" · ")[0] + '</span></div>'; }).join("") +
     '</div></div>', popScreen);
   $("#bio-x", el).onclick = popScreen;
+  if (BGW.levels.length) $("#bio-lab", el).onclick = function(){ openStats(BGW); };
   $(".path", el).onclick = function(e){ var b = e.target.closest("[data-bio]"); if (!b) return; var i = +b.dataset.bio;
     if (!bioOpen(i)){ buzz(HAP.bad); toast("🔒 Beat " + BIO[i - 1][1] + " first", "bad"); return; } startBoss(BIO0 + i); };
 }
@@ -963,33 +965,40 @@ function vivaQuit(){
 }
 function endViva(){ var w = V ? V.w : "dis"; V = null; holdCeleb = false; clearScreens(); openViva(w); setTimeout(flushCeleb, 350); }
 
-/* ================= Stats and Research world (stats.js): read the study, pick an answer, then see why every option is right or wrong ================= */
-var STW = window.NL_STATS || {levels: []}, STQ = {}, X = null;
-STW.levels.forEach(function(l){ l.qs.forEach(function(q){ STQ[q.id] = {q: q, l: l}; }); });
-/* the stats book: on the site it sits two folders up; inside the APK the link opens the live site in the browser */
-var STB = (window.NLNative ? "https://msahil515.github.io/sihan-met-flashcards/" : "../../") + "notes/statistics/index.html#";
+/* ================= games worlds: Stats and Research (stats.js) and the Biopsych Lab (biolab.js), same engine W =================
+   read the item, pick an answer, then see why every option is right or wrong; progress keys are W.pre + "-" + level key */
+var STW = window.NL_STATS || {levels: []}, BGW = window.NL_BIOG || {levels: []}, STQ = {}, X = null;
+STW.pre = STW.pre || "st"; STW.cls = STW.cls || "stats"; BGW.cls = BGW.cls || "bio";
+[STW, BGW].forEach(function(W){ W.levels.forEach(function(l){ l.qs.forEach(function(q){ STQ[q.id] = {q: q, l: l, w: W}; }); }); });
+/* the notes: on the site they sit two folders up; inside the APK the link opens the live site in the browser */
+var STBASE = window.NLNative ? "https://msahil515.github.io/sihan-met-flashcards/" : "../../", STB = STBASE + "notes/statistics/index.html#";
 var STSEC = {s1: "Variables and scales", s2: "Frequency distributions", s3: "Central tendency", s4: "Dispersion", s5: "Skewness and kurtosis",
   s6: "The normal curve and standard scores", s7: "Probability and sampling", s8: "Hypothesis testing, errors, power", s9: "The t tests", s10: "ANOVA",
   s11: "ANCOVA, MANOVA, MANCOVA", s12: "Correlation", s13: "Regression", s14: "Non-parametric tests", s15: "Reliability, validity, item analysis",
   s16: "Which test to use", s18: "Problems, hypotheses and variables", s19: "Validity of a study, extraneous variables", s20: "Experimental and quasi designs",
   s21: "Correlational, developmental, epidemiological", s22: "Single-subject designs", s23: "Observation, interviews, scaling", s24: "Qualitative and mixed methods",
   s25: "Clinical trials and meta-analysis", s26: "Research ethics"};
-function stKey(i){ return "st-" + STW.levels[i].k; }
+function stKey(W, i){ return W.pre + "-" + W.levels[i].k; }
 function stSt(id){ var g = G(), s = g.sq || (g.sq = {}); return s[id] || (s[id] = {n: 0, k: 0, m: 0}); }
-function stSolved(){ var s = G().sq || {}; return Object.keys(STQ).filter(function(id){ return s[id] && +s[id].k; }).length; }
+function stIds(W){ return Object.keys(STQ).filter(function(id){ return STQ[id].w === W; }); }
+function stSolved(W){ var s = G().sq || {}; return stIds(W).filter(function(id){ return s[id] && +s[id].k; }).length; }
 /* the boss also deals your weakest question from each game (most missed first, unseen next) */
-function stLen(l){ return l.qs.length + (l.boss ? STW.levels.length - 1 : 0); }
-function stDeck(l){
+function stLen(W, l){ return l.qs.length + (l.boss ? W.levels.length - 1 : 0); }
+function stDeck(W, l){
   if (!l.boss) return l.qs.slice();
   var s = G().sq || {};
-  var mix = STW.levels.filter(function(x){ return !x.boss; }).map(function(x){
+  var mix = W.levels.filter(function(x){ return !x.boss; }).map(function(x){
     return x.qs.map(function(q){ var t = s[q.id]; return [q, (t ? (+t.m || 0) - (+t.k || 0) : 0) + Math.random() * .9]; })
       .sort(function(a, b){ return b[1] - a[1]; })[0][0]; });
   return shuffle(l.qs.concat(mix));
 }
-function stItem(q, l){ return {id: "s:" + q.id, t: q.q.length > 90 ? q.q.slice(0, 88).replace(/\s+\S*$/, "") + "..." : q.q, a: "research",
-  f: "Name Lock · Stats and Research · " + l.name, q: "Answer: " + q.o[0] + ". " + q.w[0], r: "s:" + q.id, n: l.n}; }
-function stRead(q){ return STSEC[q.r] ? '<a class="st-read" href="' + STB + q.r + '" target="_blank" rel="noopener">📖 Stats book, ' + q.r.slice(1) + ' ' + esc(STSEC[q.r]) + '</a>' : ''; }
+function stItem(q, l){ var W = STQ[q.id].w; return {id: "s:" + q.id, t: q.q.length > 90 ? q.q.slice(0, 88).replace(/\s+\S*$/, "") + "..." : q.q, a: W.area || "research",
+  f: "Name Lock · " + W.name + " · " + l.name, q: "Answer: " + q.o[0] + ". " + q.w[0], r: "s:" + q.id, n: l.n}; }
+function stRead(q){ var W = STQ[q.id].w, s = W.secs && W.secs[q.r];
+  if (W.secs) return s ? '<a class="st-read" href="' + STBASE + s[0] + '" target="_blank" rel="noopener">📖 ' + esc(s[1]) + '</a>' : '';
+  return STSEC[q.r] ? '<a class="st-read" href="' + STB + q.r + '" target="_blank" rel="noopener">📖 Stats book, ' + q.r.slice(1) + ' ' + esc(STSEC[q.r]) + '</a>' : ''; }
+/* a world can draw a figure for a question (biolab.js: the Brain Map) */
+function stFig(q){ var W = STQ[q.id].w; return typeof W.fig === "function" && q.fig ? W.fig(q.fig) : ""; }
 /* why each option is right or wrong; pick < 0 when nothing was picked (reading it back later) */
 function stWhy(q, pick, tell){
   var h = '<div class="f ' + tell + '"><i>Why ' + esc(q.o[0]) + '</i>' + esc(q.w[0]) + '</div>';
@@ -997,32 +1006,34 @@ function stWhy(q, pick, tell){
   q.o.forEach(function(o, j){ if (j && j !== pick) h += '<div class="f trap"><i>Not ' + esc(o) + '</i>' + esc(q.w[j]) + '</div>'; });
   return h + '<div class="f">' + stRead(q) + '</div>';
 }
-function stQSheet(q){ openSheet('<div class="cd"><h2 style="font-size:19px">' + esc(q.q) + '</h2><div class="vread">' + stWhy(q, -1, "tip") + '</div>' + (SL ? SL.buttonHTML("s:" + q.id) : '') + '</div>'); }
-function openStats(){
+function stQSheet(q){ openSheet('<div class="cd">' + stFig(q) + '<h2 style="font-size:19px">' + esc(q.q) + '</h2><div class="vread">' + stWhy(q, -1, "tip") + '</div>' + (SL ? SL.buttonHTML("s:" + q.id) : '') + '</div>'); }
+function openStats(W){
+  W = W || STW;
   var g = G(), cur = -1;
-  var won = STW.levels.filter(function(l, i){ var b = g.boss[stKey(i)]; if (cur < 0 && !(b && b.w)) cur = i; return b && b.w; }).length;
-  var el = pushScreen("stats", '<div class="lhead"><button class="x" id="sw-x">' + IC.x + '</button><b style="font-size:19px;font-weight:900">' + STW.icon + ' ' + esc(STW.name) + ' world</b></div><div class="scroll" style="padding:0 16px"><div class="path">' +
-    '<div class="unit stats"><a class="wlink" href="worlds.html#skip">🗺️ Worlds</a><b>' + esc(STW.unit) + '</b><span>' + esc(STW.blurb) + ' ' + won + ' of ' + STW.levels.length + ' levels cleared, ' + stSolved() + ' of ' + Object.keys(STQ).length + ' questions solved. Every level is open.</span></div>' +
-    STW.levels.map(function(l, i){
-      var b = g.boss[stKey(i)] || {}, off = Math.round(Math.sin(i * 0.9) * 70);
+  var won = W.levels.filter(function(l, i){ var b = g.boss[stKey(W, i)]; if (cur < 0 && !(b && b.w)) cur = i; return b && b.w; }).length;
+  var el = pushScreen(W === STW ? "stats" : "biolab", '<div class="lhead"><button class="x" id="sw-x">' + IC.x + '</button><b style="font-size:19px;font-weight:900">' + W.icon + ' ' + esc(W.head || W.name + " world") + '</b></div><div class="scroll" style="padding:0 16px"><div class="path">' +
+    '<div class="unit ' + W.cls + '"><a class="wlink" href="worlds.html#skip">🗺️ Worlds</a><b>' + esc(W.unit) + '</b><span>' + esc(W.blurb) + ' ' + won + ' of ' + W.levels.length + ' levels cleared, ' + stSolved(W) + ' of ' + stIds(W).length + ' questions solved. Every level is open.</span></div>' +
+    W.levels.map(function(l, i){
+      var b = g.boss[stKey(W, i)] || {}, off = Math.round(Math.sin(i * 0.9) * 70);
       return '<div class="node-wrap"><button class="node ' + (b.w ? "won" : "open") + (i === cur ? " cur" : "") + '" data-s="' + i + '" style="transform:translateX(' + off + 'px)">' + (i === cur ? '<span class="bubble">' + (b.tries ? "GO" : "START") + '</span>' : '') +
-        l.icon + (b.w ? '<span class="crown">' + (b.bl === 3 ? "👑" : "✓") + '</span>' : '') + '</button><span class="node-l" style="transform:translateX(' + off + 'px)">' + esc(l.name) + ' · ' + stLen(l) + ' Qs</span></div>'; }).join("") +
+        l.icon + (b.w ? '<span class="crown">' + (b.bl === 3 ? "👑" : "✓") + '</span>' : '') + '</button><span class="node-l" style="transform:translateX(' + off + 'px)">' + esc(l.name) + ' · ' + stLen(W, l) + ' Qs</span></div>'; }).join("") +
     '</div></div>', popScreen);
   $("#sw-x", el).onclick = popScreen;
-  $(".path", el).onclick = function(e){ var b = e.target.closest("[data-s]"); if (b) stSheet(+b.dataset.s); };
+  $(".path", el).onclick = function(e){ var b = e.target.closest("[data-s]"); if (b) stSheet(+b.dataset.s, W); };
 }
-function stSheet(i){
-  var l = STW.levels[i], b = G().boss[stKey(i)] || {}, n = stLen(l);
+function stSheet(i, W){
+  var l = W.levels[i], b = G().boss[stKey(W, i)] || {}, n = stLen(W, l);
   openSheet('<div class="cd"><h2>' + l.icon + ' ' + esc(l.name) + '</h2><div class="who">' + esc(l.sub) + ' · ' + plural(n, "question") + (b.w ? ' · cleared ' + b.w + 'x' : '') + '</div>' +
     '<p class="vp">' + (l.boss ? 'No second goes. Get ' + Math.ceil(l.pass * n) + ' of ' + n + ' right to beat the boss. Every answer still shows why each option is right or wrong.'
       : 'Pick an answer, then read why every option is right or wrong. Misses come back at the end until you get them.') + '</p>' +
     '<button class="btn" id="ss-go">' + (b.w ? "Play again" : "Start") + '</button></div>');
-  $("#ss-go").onclick = function(){ closeSheet(); wipe(function(){ startStats(i); }); };
+  $("#ss-go").onclick = function(){ closeSheet(); wipe(function(){ startStats(i, W); }); };
 }
-function startStats(i){
-  var l = STW.levels[i], deck = stDeck(l), b = G().boss[stKey(i)] || (G().boss[stKey(i)] = {}); /* deck first: G() rebuilds the boss records */
+function startStats(i, W){
+  W = W || STW;
+  var l = W.levels[i], deck = stDeck(W, l), b = G().boss[stKey(W, i)] || (G().boss[stKey(W, i)] = {}); /* deck first: G() rebuilds the boss records */
   b.tries = (+b.tries || 0) + 1; save();
-  X = {i: i, l: l, q: deck, total: deck.length, need: l.boss ? Math.ceil(l.pass * deck.length) : 0, done: 0, first: 0, miss: {}, wrong: [], xp: 0, t0: Date.now(), streak: 0};
+  X = {W: W, i: i, l: l, q: deck, total: deck.length, need: l.boss ? Math.ceil(l.pass * deck.length) : 0, done: 0, first: 0, miss: {}, wrong: [], xp: 0, t0: Date.now(), streak: 0};
   holdCeleb = true;
   var el = pushScreen("lesson", '<div class="lhead"><button class="x" id="s-x">' + IC.x + '</button><div class="lprog"><i style="width:0"></i></div><span class="xpp" id="l-xpp">' + IC.spark + '<b id="l-xpn">0</b></span><div id="l-side"></div></div>' +
     '<div class="heat" id="l-heat"></div><div class="scroll" id="l-body"></div><div class="lfoot" id="l-foot"></div>', stQuit);
@@ -1037,7 +1048,7 @@ function stNext(){
   $("#lesson .lprog i").style.width = (X.done * 100 / X.total) + "%";
   $("#l-side").innerHTML = '<span class="vleft">' + (X.l.boss ? X.first + ' right · need ' + X.need : X.q.length + ' left') + '</span>';
   heat(false, X);
-  $("#l-body").innerHTML = '<div class="qbody"><div class="vk">' + X.l.icon + ' ' + esc(X.l.name) + (X.miss[q.id] ? ' · second go' : '') + '</div><div class="qcard"><div class="qd" style="margin-top:0">' + esc(q.q) + '</div></div>' +
+  $("#l-body").innerHTML = '<div class="qbody"><div class="vk">' + X.l.icon + ' ' + esc(X.l.name) + (X.miss[q.id] ? ' · second go' : '') + '</div><div class="qcard">' + stFig(q) + '<div class="qd" style="margin-top:0">' + esc(q.q) + '</div></div>' +
     '<div class="opts' + (q.o.length === 2 ? " two" : "") + '">' + ord.map(function(j){ return '<button class="opt" data-o="' + j + '">' + esc(q.o[j]) + '</button>'; }).join("") + '</div></div>';
   $("#l-body").scrollTop = 0;
   $("#l-foot").innerHTML = '<button class="btn" id="l-check" disabled>Check</button>';
@@ -1076,7 +1087,7 @@ function stGrade(pick){
   $("#l-next").onclick = stNext;
 }
 function stFinish(){
-  var g = G(), l = X.l, b = g.boss[stKey(X.i)], win = !l.boss || X.first >= X.need, clean = X.first === X.total, bx = !win ? 0 : l.boss ? (clean ? 200 : 150) : clean ? 75 : 50;
+  var g = G(), l = X.l, b = g.boss[stKey(X.W, X.i)], win = !l.boss || X.first >= X.need, clean = X.first === X.total, bx = !win ? 0 : l.boss ? (clean ? 200 : 150) : clean ? 75 : 50;
   if (win){ b.w = (+b.w || 0) + 1; if (clean) b.bl = 3; if (l.boss){ bump("boss"); questTick({c: {}, bossWin: true}); } }
   addXP(bx); X.xp += bx; X.fin = true; badgeCheck(); save();
   if (win){ SFX.win(); buzz(HAP.big); confetti(clean ? 200 : 120); } else { SFX.bad(); buzz(HAP.bad); }
@@ -1090,9 +1101,9 @@ function stFinish(){
     '</div></div><div class="lfoot"><button class="btn" id="r-done">Continue</button><button class="btn ghost" id="r-again" style="margin-top:10px">Play again</button></div>';
   LFX.skin(el);
   el.querySelector(".scroll").onclick = function(e){ var x = e.target.closest("[data-sq]"); if (x) stQSheet(STQ[x.dataset.sq].q); };
-  var i = X.i;
+  var i = X.i, W = X.W;
   $("#r-done").onclick = endStats;
-  $("#r-again").onclick = function(){ popScreen(); X = null; startStats(i); };
+  $("#r-again").onclick = function(){ popScreen(); X = null; startStats(i, W); };
   holdCeleb = false; setTimeout(flushCeleb, 900);
 }
 function stQuit(){
@@ -1102,7 +1113,7 @@ function stQuit(){
   $("#q-stay").onclick = closeSheet;
   $("#q-quit").onclick = function(){ closeSheet(); endStats(); };
 }
-function endStats(){ X = null; holdCeleb = false; clearScreens(); openStats(); setTimeout(flushCeleb, 350); }
+function endStats(){ var W = (X && X.W) || STW; X = null; holdCeleb = false; clearScreens(); if (W !== STW) openBio(); openStats(W); setTimeout(flushCeleb, 350); }
 
 /* ================= library ================= */
 function openLibrary(cat){
@@ -1364,6 +1375,7 @@ if (location.hash === "#map"){ history.replaceState(null, "", location.pathname)
   if (p && sc && sc !== document.body) sc.scrollTop += p.getBoundingClientRect().top - sc.getBoundingClientRect().top - 8; }); }
 if (location.hash === "#bio"){ history.replaceState(null, "", location.pathname); openBio(); }
 if (location.hash === "#stats"){ history.replaceState(null, "", location.pathname); openStats(); }
+if (location.hash === "#biolab"){ history.replaceState(null, "", location.pathname); openBio(); openStats(BGW); }
 if (VIVA[location.hash.slice(1)]){ var vw = location.hash.slice(1); history.replaceState(null, "", location.pathname); openViva(vw); }
 if (!S.onboarded && !G().xp) onboarding();
 document.addEventListener("visibilitychange", function(){ if (!document.hidden && !STACK.length) refreshTab(); });

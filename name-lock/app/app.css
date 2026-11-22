@@ -577,6 +577,38 @@ h2.sh small{display:block;font-size:13px;font-weight:700;color:var(--mu);margin-
 .unit.cv{background:linear-gradient(135deg,#4f3a6b,#38294d);box-shadow:0 4px 0 #2b2040}
 .unit.stats{background:linear-gradient(135deg,#2f4a78,#253a5c);box-shadow:0 4px 0 #1c2c46}
 .st-read{color:var(--gold);font-weight:800;text-decoration:none}
+/* Biopsych Lab Brain Map (biolab.js): one region glows */
+.bmap{margin:0 0 12px;padding:8px;border-radius:16px;background:linear-gradient(160deg,#2b2333,#3a2c3f)}
+.bmap svg{display:block;width:100%;max-width:520px;height:auto;margin:0 auto}
+.bmap path,.bmap ellipse,.bmap circle{stroke:rgba(238,230,255,.5);stroke-width:1.1;stroke-linejoin:round}
+.bmap [data-r]{transition:fill .3s,stroke .3s}
+.bmap [data-r=frontal]{fill:#4b5487}
+.bmap [data-r=parietal]{fill:#5d4b82}
+.bmap [data-r=temporal]{fill:#365f6c}
+.bmap [data-r=occipital]{fill:#3d5b82}
+.bmap [data-r=cerebellum]{fill:#524d7c}
+.bmap [data-r=brainstem],.bmap [data-r=medulla]{fill:#475571}
+.bmap .cx{fill:#3c3858}
+.bmap [data-r=cc]{fill:#736c8f}
+.bmap [data-r=fornix]{fill:#8780a6}
+.bmap [data-r=cingulate]{fill:#3a6370}
+.bmap [data-r=thalamus]{fill:#6754a0}
+.bmap [data-r=hypothalamus]{fill:#4a66a0}
+.bmap [data-r=pineal]{fill:#6a76b8}
+.bmap [data-r=pituitary]{fill:#3f7a7c}
+.bmap [data-r=midbrain]{fill:#545e98}
+.bmap [data-r=pons]{fill:#5b5793}
+.bmap .dc{fill:#57526e;stroke:rgba(238,230,255,.32)}
+.bmap .sub{fill:none;stroke:none}
+.bmap .deep{fill:rgba(255,226,190,.05);stroke:rgba(255,232,200,.78);stroke-dasharray:3 2.4}
+.bmap .sl{fill:none;stroke:rgba(240,232,255,.26);stroke-width:1;stroke-linecap:round;pointer-events:none}
+.bmap .sl.k{stroke:rgba(244,238,255,.62);stroke-width:1.7}
+.bmap .sl.av{stroke:rgba(240,232,255,.5);stroke-width:1.5}
+.bmap .fr{fill:rgba(255,240,230,.5);font:700 8.5px system-ui,sans-serif;letter-spacing:.16em}
+.bmap [data-on]{fill:#ffc24b;stroke:#fff3d8;stroke-width:1.6;filter:drop-shadow(0 0 5px rgba(255,170,64,.9));animation:bmPulse 1.8s ease-in-out infinite}
+.bmap .deep[data-on]{stroke-dasharray:none;fill:#ffb347}
+@keyframes bmPulse{50%{fill:#ff8a4c;filter:drop-shadow(0 0 11px rgba(255,138,76,.95))}}
+@media (prefers-reduced-motion:reduce){.bmap [data-on]{animation:none}}
 .vk{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);margin:0 0 8px}
 #lesson.neon .vk{color:#adb8c2}
 .vleft{font-size:13px;font-weight:900;color:var(--mu);white-space:nowrap}
@@ -811,6 +843,7 @@ h2.sh small{font:600 14px/1.35 var(--text);color:var(--sand2);margin-top:5px}
 .unit b{font:800 26px/1 var(--display);font-stretch:85%;color:#FFF6E8;margin-bottom:4px}
 .unit span{font:600 14px/1.4 var(--text);color:var(--sand2);opacity:1}
 .unit.bio{border-left:4px solid #A8DCFF}.unit.dis{border-left:4px solid var(--teal)}.unit.jss{border-left:4px solid var(--coral)}.unit.sjc{border-left:4px solid var(--gold)}.unit.cv{border-left:4px solid #C9A8FF}.unit.stats{border-left:4px solid #8bb8ff}
+.path .lab-go{align-self:stretch;margin:0 0 16px}
 .wlink{float:right;display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-left:10px;padding:8px 13px;border-radius:14px;text-decoration:none;
   font:800 15px var(--display);color:var(--ink);background:linear-gradient(180deg,#FFE7A0,#FF9C55);box-shadow:0 4px 0 #B9472A,inset 0 1px 0 rgba(255,255,255,.6)}
 .wlink:active{transform:translateY(3px);box-shadow:0 1px 0 #B9472A}
@@ -1167,7 +1200,7 @@ h2.sh small{font:600 14px/1.35 var(--text);color:var(--sand2);margin-top:5px}
   .mt.big{min-height:168px}
   .mt.big>b{font-size:40px}
   .path{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:0 12px}
-  .path .unit{grid-column:1/-1}
+  .path .unit,.path .lab-go{grid-column:1/-1}
   #lesson.neon>.lscene{height:min(56vh,560px)}
   #lesson.neon .qk{font-size:30px}
   #lesson.neon .qcard .qn{font-size:44px} #lesson.neon .qcard .qd{font-size:23px}
