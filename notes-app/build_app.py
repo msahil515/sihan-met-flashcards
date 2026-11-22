@@ -154,7 +154,7 @@ BOOKS = [
          blurb="Research paradigms and methods, designs and sampling, the t-tests, ANOVA and experimental designs, MANOVA and ANCOVA, and the non-parametric family, with a which-test-when decision table."),
     dict(slug="exam-papers", shelf="syllabus", kind="merged", search_cap=40000,
          short="UGC NET Psychology — Past Papers & Syllabus",
-         blurb="The official ten-unit syllabus, how the exam works, and three past papers (2020, December 2019 and June 2019) reproduced question by question. December 2019 has every answer worked out and explained (concept plus why each other option is wrong); the key once printed against it did not line up with the paper."),
+         blurb="The official ten-unit syllabus, how the exam works, and three past papers (2020, December 2019 and June 2019) reproduced question by question. All three now have every answer worked out and explained (concept plus why each other option is wrong); no official key exists for June 2019 or 2020, and the one once printed against December 2019 did not line up with the paper."),
     # --- Statistics & Psychometrics ---
     dict(slug="statistics", shelf="stats", kind="note", src="statistics", search_cap=40000,
          short="Statistics & Research Methods, from scratch with diagrams",

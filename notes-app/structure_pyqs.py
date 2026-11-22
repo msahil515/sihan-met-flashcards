@@ -3,7 +3,7 @@
 Lay out the Final Exam Textbook's past-paper explanations in the structured format (T108).
 Also the full General Psychology book (final-general-NN), same markup with newlines between tags,
 the Systems & Theories Explained book (div.qx cards, see main_qx), the UGC NET Dec 2019
-paper in exam-papers (main_ep) and the Requested Topics self-check MCQs (main_rt).
+paper in exam-papers (main_ep; June 2019 and 2020 in main_ep_nokey) and the Requested Topics self-check MCQs (main_rt).
 
 Sihan, 3 Jul: the explanation under each question "should look well structured and not
 just paragraphs", then "Put it in the notes app". Each question in the "From the past
@@ -148,7 +148,9 @@ def render_ep(li, d):
     concept = "".join(f'<p><span class="px-k">{c["h"]}</span>{c["t"]}</p>' for c in d["concept"])
     if d.get("doubt"):
         concept += f'<p><span class="px-k">Not certain</span>{d["doubt"]}</p>'
-    if d["old_key"] is None:
+    if "old_key" not in d:  # June 2019 / 2020: no key was ever printed, nothing to unlearn
+        pass
+    elif d["old_key"] is None:
         concept += ('<p><span class="px-k">Old key</span>This page used to mark this question as withdrawn. '
                     'That key does not line up with this paper, so it is answered here like the rest.</p>')
     elif d["old_key"] != k:
@@ -208,6 +210,65 @@ def main_ep(name):
     print(f"{name}: {len(data)} Dec 2019 questions laid out, {changed} keyed answers changed, {unsure} best-answer")
 
 
+# UGC NET June 2019 and 2020 papers (same page, sections sec-jun2019 and sec-2020). No answer key
+# was ever found for either, so every item said "Answer: not in key" (2020 also showed one
+# candidate's pick from a response sheet). Answers worked out from standard textbooks and
+# checked against a second, blind solve. Data: pyq-structured/exam-papers-jun2019.json, -2020.json.
+EP_NOKEY = [
+    ("sec-jun2019", "sec-2020", "exam-papers-jun2019",
+     '<h2 id="sec-jun2019">4. June 2019 NET paper (answers worked out)</h2>\n'
+     '<p>This is the UGC NET Psychology June 2019 question paper, reproduced verbatim from the source document. '
+     'No official answer key was ever found for it, so every answer below is worked out from the standard '
+     'textbooks and checked against a second, separate solve. Each question shows the answer and who it comes '
+     'from, the concept in short chunks, and one line on why each other option is wrong. The paper is heavy on '
+     'Assertion-Reason items, Match List I with List II items, and two passage-based statistics clusters '
+     '(Q91 to 95 and Q96 to 100), each preceded by its passage.</p>\n'),
+    ("sec-2020", None, "exam-papers-2020",
+     '<h2 id="sec-2020">5. 2020 NET paper (answers worked out)</h2>\n'
+     '<p>This is the UGC NET Psychology 2020 paper, reproduced from a candidate\'s computer-based-test response '
+     'sheet (digialm portal). No official answer key was ever found for it, so every answer below is worked out '
+     'from the standard textbooks and checked against a second, separate solve. The picks that candidate made '
+     'are no longer shown: they were one test-taker\'s choices, not answers. Each question shows the answer and '
+     'who it comes from, the concept in short chunks, and one line on why each other option is wrong.</p>\n'),
+]
+
+
+def main_ep_nokey(name):
+    path = os.path.join(MERGED, f"{name}.html")
+    s = open(path, encoding="utf-8").read()
+    for sid, nxt, data_name, intro in EP_NOKEY:
+        data = json.load(open(os.path.join(DATA, f"{data_name}.json"), encoding="utf-8"))
+        a = s.find(f'<h2 id="{sid}">')
+        b = s.find(f'<h2 id="{nxt}">') if nxt else len(s)
+        sec = s[a:b]
+        if 'class="px"' in sec:
+            print(f"{name}: {sid} already structured, skipped")
+            continue
+        o1, o2 = sec.find('<ol>') + 4, sec.rfind('</ol>')
+        items = re.findall(r'<li><p>.*?</li>\s*(?=<li><p>|$)', sec[o1:o2], re.S)
+        assert len(items) == len(data) == 100, (sid, len(items), len(data))
+        body = "\n".join(render_ep(li[4:].strip()[:-5], d) for li, d in zip(items, data))
+        sec = sec[:o1] + "\n" + body + "\n" + sec[o2:]
+        unsure = sum(1 for d in data if d["confidence"] == "unsure")
+        trap = ('<div class="callout trap"><div class="co-h">Trap</div><p>These answers are worked out, not an '
+                f'official key. <strong>Best answer</strong> marks the {unsure} questions that are ambiguous, '
+                'come from a niche source or look miscopied; read the "Not certain" line there, it names the '
+                'runner-up option.</p></div>\n')
+        sec = re.sub(rf'<h2 id="{sid}">.*?(<ol>)', lambda m: intro + trap + m.group(1), sec, count=1, flags=re.S)
+        s = s[:a] + sec + s[b:]
+        print(f"{name}: {len(data)} {sid} questions laid out, {unsure} best-answer")
+    s = s.replace('the June 2019 paper and the 2020 paper are reproduced verbatim from the source documents, and '
+                  'because no official answer key was supplied for them, every question there is marked "Answer: '
+                  'not in key" rather than guessed.',
+                  'the June 2019 and 2020 papers had no answer key at all, so every answer there is worked out '
+                  'and explained the same way.', 1)
+    s = s.replace('<a href="#sec-jun2019">June 2019 NET paper</a>',
+                  '<a href="#sec-jun2019">June 2019 NET paper (answers worked out)</a>', 1)
+    s = s.replace('<a href="#sec-2020">2020 NET paper</a>',
+                  '<a href="#sec-2020">2020 NET paper (answers worked out)</a>', 1)
+    open(path, "w", encoding="utf-8").write(s)
+
+
 # Requested Topics (merged/requested-topics.html): 49 self-check MCQs, "stem<br>(a) ..<br>..
 # <b>Answer:</b> (x). one line". Data: pyq-structured/requested-topics.json.
 RT_LI = re.compile(r'<li>((?:(?!</?li>).)*?<b>Answer:</b>(?:(?!</?li>).)*?)</li>', re.S)
@@ -254,6 +315,7 @@ def main(names):
             continue
         if name == "exam-papers":
             main_ep(name)
+            main_ep_nokey(name)
             continue
         if name == "requested-topics":
             main_rt(name)
