@@ -163,6 +163,31 @@
   margin-bottom: 4px;
 }
 .nfe-article .trap strong { color: var(--accent); }
+/* The same card layout as the Final Textbook past papers (T108): options one per line,
+   green Answer box, the concept in labelled chunks, red box with one line per wrong
+   option. Copied from textbook.css so books without it (Systems & Theories
+   Explained) get it too. */
+.nfe-article .px-o { list-style: none; padding: 0; margin: 0 0 .65em; font-size: .94em; }
+.nfe-article .px-o li { padding: .12em 0 .12em 1.9em; text-indent: -1.9em; }
+.nfe-article .px-o .px-l { display: inline-block; width: 1.9em; text-indent: 0; font-family: "Cabin", sans-serif; font-weight: 700; opacity: .7; }
+.nfe-article .px-o .px-l::before { content: "("; } .nfe-article .px-o .px-l::after { content: ")"; }
+.nfe-article .px-a { background: rgba(62,124,69,.11); border-left: 4px solid #3E7C45; border-radius: 0 4px 4px 0; padding: .5em .85em; margin: 0 0 .7em; }
+.nfe-article .px-v { font-family: "Cabin", sans-serif; font-weight: 700; color: #3E7C45; }
+.nfe-article .px-who { font-family: "Cabin", sans-serif; font-size: .86em; opacity: .85; margin-top: .15em; }
+.nfe-article .px-h { font-family: "Cabin", system-ui, sans-serif; font-weight: 700; font-size: .72em; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin: 0 0 .3em; }
+.nfe-article .px-c { margin: 0 0 .7em; }
+.nfe-article .px-c p { margin: 0 0 .35em; line-height: 1.6; }
+.nfe-article .px-k { font-family: "Cabin", sans-serif; font-weight: 700; font-size: .86em; color: var(--accent); margin-right: .45em; }
+.nfe-article .px-k::after { content: ":"; }
+.nfe-article .px-w { background: rgba(192,70,45,.07); border-left: 4px solid #C0462D; border-radius: 0 4px 4px 0; padding: .5em .85em .3em; }
+.nfe-article .px-w .px-h { color: #C0462D; }
+.nfe-article .px-w ul { list-style: none; padding: 0; margin: 0; }
+.nfe-article .px-w li { margin: 0 0 .6em; line-height: 1.55; }
+.nfe-article .px-w .px-l { display: block; font-family: "Cabin", sans-serif; font-weight: 700; font-size: .9em; color: #A8382A; }
+html[data-book="on"][data-mode="dark"] .nfe-article .px-v { color: #8FC79A; }
+html[data-book="on"][data-mode="dark"] .nfe-article .px-a { border-left-color: #6FAF7B; background: rgba(111,175,123,.13); }
+html[data-book="on"][data-mode="dark"] .nfe-article .px-w { border-left-color: #E0786A; background: rgba(224,120,106,.09); }
+html[data-book="on"][data-mode="dark"] .nfe-article .px-w .px-h, html[data-book="on"][data-mode="dark"] .nfe-article .px-w .px-l { color: #F0A090; }
 
 /* ---- textbook figures (the "Textbooks in Full Depth" shelf) --------------
    One or more real book figures sitting under the sub-heading they belong to.
