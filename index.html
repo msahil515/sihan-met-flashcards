@@ -652,6 +652,7 @@
             <a href="st-johns/">St John's prep (25 Nov)</a>
             <a href="take/screen.html?m=sjmc-mock-1">St John's Mock 1 (100 Qs)</a>
             <a href="take/screen.html?m=sjmc-mock-2">St John's Mock 2 (100 Qs)</a>
+            <a href="take/screen.html?m=repeats-1">Repeated PYQs: Panwar's list + 3+ papers (75 Qs)</a>
             <a href="take/screen.html?m=jss-mock-2">JSS Mock 2 (90 hard Qs)</a>
             <a href="take/screen.html?m=jss-pyq">JSS PYQ mock (90 Qs)</a>
             <a href="jss-misses/">JSS mock: your 20 misses</a>
@@ -895,6 +896,42 @@ const MOCKS = [
     scoring: { plus: 1, minus: 0.25 },
     sections: { general: 14, assessment: 12, social: 10, personality: 10, physio: 10, dev: 10, clinical: 12, disorders: 12, research: 10 },
     meta: "100 more real past-paper Qs, none of Mock 1's questions or concepts · nine core subjects, same split as Mock 1 · keys checked twice · none repeat from JSS Mock 1, JSS Mock 2 or SGT · results split by subject",
+    fresh: true,
+    nimhans: false
+  },
+  {
+    id: "repeats-1",
+    title: "Repeats Drill 1: Panwar's list + 3 or more papers",
+    path: "take/screen.html?m=repeats-1",
+    total: 75,
+    storageKey: "repeats-1-results-v1",
+    scoring: { plus: 1, minus: 0.25 },
+    sections: { general: 10, assessment: 13, personality: 8, physio: 17, dev: 4, clinical: 9, disorders: 8, research: 6 },
+    meta: "Amit Panwar's repeated stems first, each as the real question from the papers here, then the 45 questions asked in 3 to 7 papers, most repeated first · papers named on every card · concept + trap per wrong option · results split by subject",
+    fresh: true,
+    nimhans: false
+  },
+  {
+    id: "repeats-2",
+    title: "Repeats Drill 2: asked in 2 papers (part 1)",
+    path: "take/screen.html?m=repeats-2",
+    total: 62,
+    storageKey: "repeats-2-results-v1",
+    scoring: { plus: 1, minus: 0.25 },
+    sections: { general: 13, assessment: 7, social: 3, personality: 5, physio: 10, dev: 2, clinical: 8, disorders: 6, research: 8 },
+    meta: "62 questions asked in exactly 2 real papers, part 1 · papers named on every card · concept + trap per wrong option · results split by subject",
+    fresh: true,
+    nimhans: false
+  },
+  {
+    id: "repeats-3",
+    title: "Repeats Drill 3: asked in 2 papers (part 2)",
+    path: "take/screen.html?m=repeats-3",
+    total: 62,
+    storageKey: "repeats-3-results-v1",
+    scoring: { plus: 1, minus: 0.25 },
+    sections: { general: 12, assessment: 7, social: 3, personality: 6, physio: 9, dev: 3, clinical: 7, disorders: 7, research: 8 },
+    meta: "62 more questions asked in exactly 2 real papers, part 2 · papers named on every card · concept + trap per wrong option · results split by subject",
     fresh: true,
     nimhans: false
   },
@@ -1555,6 +1592,7 @@ const RESOURCES = [
 ];
 
 const NEWS = [
+  { date: "2026-11-22", title: "Repeated PYQs: Panwar's list and every question asked in 2+ papers", desc: "Three new drills in a Repeated PYQs group. Drill 1 (75 Qs) starts with every stem on Amit Panwar's repeated-question list, each as the real question from the papers here, then the questions asked in 3 to 7 different papers (the term IQ is in 7, Cronbach's alpha in 6). Drills 2 and 3 (62 + 62 Qs) are the questions asked in exactly 2 papers. Found by matching every question of the 47 real papers on stem, options and key, then checked by hand. Each card names the papers it came up in, with the concept, why each wrong option is wrong and the Final Textbook section.", href: "take/screen.html?m=repeats-1" },
   { date: "2026-11-21", title: "UGC NET December 2013 Psychology Paper II, with the official key", desc: "The real UGC NET December 2013 Psychology Paper II: all 50 questions with the official UGC key after grievances. It is the file sent as \"IHBAS PY\" (the Freshersnow mirror filed it under IHBAS; the mirrors have no older IHBAS years). Covers the visible spectrum, Lewin's conflicts, Marr's computational vision, priming, ethology, glia, the action potential, the five brain divisions, the inverted retina, the resting potential, chi-square df, retest reliability of projectives, Galton, Eysenck, Horn and Binet, ex post facto research, parts of the eye, luminance and brightness, Kerlinger's control of variance, the hunger cycle, achievement motivation, Tulving's memory systems, Bandura, Tolman, Pavlov and Vygotsky, critical flicker frequency, CS and CR, schedules of reinforcement, generalisation, the serial position curve, Kelly's permeability, Cattell's humour test, chunking, Sapir-Whorf, telegraphic speech, syntax vs semantics, Hubel and Wiesel, sleep, sympathetic arousal, Thurstone, Spearman's g, kinship correlations, Adler, Jung and Horney, gene-environment correlation, types of variables, and a Classical Test Theory block (reliability as true variance, Cronbach's alpha, interscorer reliability, concurrent validity, factor analysis). Each card has the concept, why each wrong option is wrong and the Final Textbook section. It sits in the new UGC NET Psychology group.", href: "take/screen.html?m=ugc-net-2013-dec" },
   { date: "2026-11-21", title: "Gurugram 2025: Anukriti's solved version of the exam", desc: "Anukriti's solved version of the Gurugram University 2025 psychology entrance: all 60 questions, worded differently from the university's notice. About half are the official M.A. and M.Phil questions reworded, the rest are extra. Her answers were re-checked against standard texts and the official key (her key table slips on Q15, fixed with a Key note). Covers proactive interference, Maslow's D and B needs, defence mechanisms, vicarious learning, Cannon-Bard, the spacing effect, linear perspective, Weber's law, divided attention, Piaget, Gesell, Erikson, Kohlberg's gender constancy and moral stages, Harlow, the forebrain, reticular formation, the limbic system, the corpus callosum, myelin, the resting potential, synaptic vesicles, operational definitions, stratified sampling, the null hypothesis, Type II error, construct validity, the ratio scale, correlation, Kothari's statistical design, skew, Heider's balance theory, mere exposure, diffusion of responsibility, Stern's IQ, the Hawthorne effect, Wechsler scales, deviation IQ, the MMPI, the Barnum effect, Parkinson's, panic disorder, Cluster B, PTSD, schizophrenia subtypes and symptoms, dopamine, Type A, criteria of abnormality, psychoneurosis, Wolpe, biofeedback, directive therapy, Gestalt therapy, specific phobia, preparedness and CBT for social phobia. Each card has the concept, why each wrong option is wrong and the Final Textbook section. It sits in the Gurugram University group.", href: "take/screen.html?m=gurugram-2025-solved" },
   { date: "2026-11-21", title: "LGBRIMH Tezpur 2025: the memory-based M.Phil entrance paper", desc: "The LGBRIMH Tezpur M.Phil Clinical Psychology entrance 2025 (GURET), rebuilt from a candidate's recall: all 62 items he remembered. His answers were his own, so every answer is worked out from standard texts (Q28 and Q39 differ from his, with Key notes). Missing options are filled with standard distractors and topic-only lines get one question each. Covers Vidya Sagar's family tents at Amritsar, N. C. Bordoloi's Padma Shri, M'Naghten, the JJ Act 2015 Section 21, Kitchener's ethics, narcoanalysis, World No Tobacco Day, the Health Belief Model, form vs stream of thought, ICD-11 trait domains, functional hallucinations, the cognitive models of OCD and social anxiety, PTSD, specific learning disorder, partial eta squared, repeated measures df, skew, Thurstone's law of comparative judgement, memoing, interim analysis, emic and etic, z scores, box plots, ROC curves, the IQR, Watson's subvocal speech, Bruner and Goodman's coins, sensory memory, Piaget's substage 4, heuristics, Fiedler's LPC, Vroom, Cattell's dynamic lattice, Wolpe, R. D. Laing, Adler, the MMPI, Parkinson's tremor, albedo, Paivio's dual coding, Zuckerman's Alternative Five, the trigunas, social loafing, eidetic imagery, Lazarus's appraisal, James-Lange, logotherapy, the Ponzo illusion, phi, Atkinson, Sternberg, functional fixedness, Guilford, fluid vs crystallised intelligence, Fredrickson, alpha and beta pride. Each card has the concept, why each wrong option is wrong and the Final Textbook section. It sits in a new LGBRIMH Tezpur group.", href: "take/screen.html?m=lgbrimh-2025" },
