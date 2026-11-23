@@ -2468,7 +2468,7 @@ window.QUESTION_BANK = {
                c: "Self esteem and self efficacy",
                d: "Self esteem and self confidence" },
     correct: "a",
-    explanation: "Research (e.g. Grant and Gino) finds that gratitude promotes prosocial behaviour mainly by raising helpers' sense of self-worth (feeling socially valued) and self-efficacy, rather than through mood alone." },
+    explanation: "Key note: the keyed answer (a) pairs the two feelings Adam Grant and Francesca Gino (2010) proposed in 'A Little Thanks Goes a Long Way': self-worth (feeling socially valued) and self-efficacy (Albert Bandura, 1977). In their four experiments the rise in helping ran through social worth, not self-efficacy or mood, so if a question asks which one did the work, the answer is self-worth. Options built on self-esteem or self-confidence name constructs the studies did not test." },
   { id: "pep2_co80", section: "common",
     q: "In a POX relationship triad, balance exists when there are",
     options: { a: "1 negative and 2 positives",
