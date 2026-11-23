@@ -59,6 +59,8 @@
     flex: 1; min-width: 150px; background: var(--panel); border: 1px solid var(--border);
     border-radius: 10px; padding: 12px 14px;
   }
+  .roll a.box { text-decoration: none; }
+  .grp-title { scroll-margin-top: 130px; }
   .roll .n { font-size: 22px; font-weight: 800; color: var(--text); font-variant-numeric: tabular-nums; }
   .roll .l { font-size: 11.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
 </style>
@@ -87,19 +89,13 @@
 
 <div class="wrap">
   <h1 style="margin:8px 0 2px;font-size:24px;">Progress board</h1>
-  <p class="lede">Every open thing, straight read, no inflating. <b>13 items went live since the last board</b>: sync, untimed site-wide, the archive, Pinel at full depth, the stats book, the PYQ list, the syllabus hub. <b>Eight things are sitting on you</b>, and each is one line to unblock. Nothing at 0% is forgotten.</p>
-  <p class="stamp" id="stamp">Last updated 20 Oct 2026</p>
+  <p class="lede" id="lede">Every open thing, straight read, no inflating.</p>
+  <p class="stamp" id="stamp">Last checked 23 Nov 2026 against the repo and the live site</p>
 
-  <div class="roll">
-    <div class="box"><div class="n" id="rShipped">30</div><div class="l">Live now</div></div>
-    <div class="box"><div class="n" id="rActive">7</div><div class="l">Building</div></div>
-    <div class="box"><div class="n" id="rBlocked">7</div><div class="l">Waiting on you</div></div>
-    <div class="box"><div class="n" id="rQueued">1</div><div class="l">Blocked elsewhere</div></div>
-    <div class="box"><div class="n" id="rLive">1</div><div class="l">Live watch</div></div>
-  </div>
+  <div class="roll" id="roll"></div>
 
   <div class="prio">
-    <b>How to read this:</b> anything green is live, open it now. "Building" is where the hours are going. The seven under <b>Waiting on you</b> each need one word or one photo from you. Answer them in a single message and all seven move the same day.
+    <b>How to read this:</b> anything green is live, open it now. <b>Still owed</b> is the queue, in the order the work run takes it, top first, and you get the link each time one goes live. Everything under <b>Waiting on you</b> needs one line from you. Answer them in one message and they all move.
   </div>
 
   <div id="board"></div>
@@ -109,7 +105,7 @@
 var TASKS = [
   { group: "Live now, go open these", items: [
     { t: "RCI tracker: fee / seats / hostel cells", pct: 100, tag: "live",
-      n: "Seats are in and are exact, straight off the 25-05-2026 RCI approval PDF and re-checked against the 03-07-2026 list (22 Nov: P.D. Cl.Psy. added, 93 colleges), including the supernumerary EWS/PwD seats. <b>Fees and hostel are not in that PDF</b>, so those cells read 'unknown' rather than a guess, and get filled college by college off official portals. <b>23 Nov:</b> filled for the 15 Strong-rated rows + Calcutta, Christ, SRM and RRU (stipends too). <b>Later on 23 Nov:</b> all 26 Good-rated rows, then the last 44 (OK and Weak), so every row has been checked. Where a college prints no fee, or has dropped the course, the cell says unknown with the reason.",
+      n: "Seats are in and are exact, straight off the 25-05-2026 RCI approval PDF and re-checked against the 03-07-2026 list (22 Nov: P.D. Cl.Psy. added), including the supernumerary EWS/PwD seats. <b>Fees and hostel are not in that PDF</b>, so those cells read 'unknown' rather than a guess, and get filled college by college off official portals. <b>23 Nov:</b> filled for the 15 Strong-rated rows + Calcutta, Christ, SRM and RRU (stipends too). <b>Later on 23 Nov:</b> all 26 Good-rated rows, then the last 44 (OK and Weak), so every row has been checked. Where a college prints no fee, or has dropped the course, the cell says unknown with the reason.",
       link: "../admissions/", linkText: "Tracker" },
     { t: "RML: how its seats really get filled", pct: 100, tag: "live",
       n: "Checked on GGSIPU's own notices. CET-166 (the 4 Jul test) only fed Ashtavakra and Tecnia; RML was never on its seat matrix. RML's 13 seats are the M.Phil (Cl.Psy.), filled by GGSIPU's separate CET code 157: offline form, 100 MCQ, no negative, 90% test + 10% interview. 2025-26 ran forms 26 Sep to 27 Oct 2025, CET 9 Nov, 13 selected 15 Dec. The 2026-27 round is not out yet; the News board watches for it twice a day. RCI list: approved to 2025-26, 2026-27 not printed yet (same as IHBAS).",
@@ -118,20 +114,53 @@ var TASKS = [
       n: "Every 'approx, verify' value is gone: each one was checked on the college's own page and either replaced with the official value or set to unknown. SGT's RCI MA is ₹6,50,000 a year, not ₹1,75,000 (that was the non-RCI M.Sc), and SGT never printed 2026 dates. Amity's form is ₹1,500, its RCI course is a written test plus interview, and the Jaipur row's shifted cells are fixed. RML's CET-166 closed 19 Jun with the test on 4 Jul.",
       link: "../admissions/", linkText: "Tracker" },
     { t: "Tracker: college quality, distance from Udupi, language fit", pct: 100, tag: "live",
-      n: "Three new columns on all 93 colleges in the big table. Quality (Strong / Good / OK / Weak) with the reason in the cell, rated on govt or private, own hospital and who runs the course. Road distance from Udupi (OpenStreetMap routing). Language fit for Hindi, English and manageable Kannada, with small-town campuses flagged.",
+      n: "Three new columns on every college in the big table. Quality (Strong / Good / OK / Weak) with the reason in the cell, rated on govt or private, own hospital and who runs the course. Road distance from Udupi (OpenStreetMap routing). Language fit for Hindi, English and manageable Kannada, with small-town campuses flagged.",
       link: "../admissions/#quality-key", linkText: "Tracker" },
     { t: "Metro-city RCI shortlist, approved qualifications only", pct: 100, tag: "live",
       n: "27 RCI M.Phil / M.Clin.Psy. colleges in the 8 big metros (Delhi NCR, Bengaluru, Chennai, Hyderabad, Kolkata, Mumbai region, Pune, Ahmedabad-Gandhinagar), each with how you get in, the 2026 dates off its own notice, and what is open now. Four that are on the RCI list but not admitting in 2026-27 are listed separately.",
       link: "../admissions/#metro", linkText: "Metro shortlist" },
-    { t: "JEMAS(PG) 2025: full 100-question paper", pct: 100, tag: "live",
-      n: "All 100 questions are up word for word, page 12 included, on the same test screen as every other mock. No official key exists, so the answers are worked out from standard texts, with key-debate notes on Q64 and Q65. The old standalone copy is retired, so there is only one version.",
-      link: "../take/screen.html?m=jemas-2025", linkText: "JEMAS mock" },
-    { t: "St John's (25 Nov): Mock 1 + paper and interview prep", pct: 100, tag: "live",
-      n: "<b>Done 11 Nov:</b> St John's Mock 1, 100 real past-paper questions across the nine core subjects, none from the JSS mocks or SGT, keys checked, also in the Tests app under St John's. The St John's page: apply by 19 Nov, a 14-day plan, pacing for 100 in 90 minutes, what the panel marks, 17 interview cards built on the department's services, and the day itself. Still need from you: whether you applied, and which part of JSS went wrong, the paper or the interview.",
+    { t: "IHBAS cut-offs: all three sittings", pct: 100, tag: "live",
+      n: "Off IHBAS's own notice board. Oct 2024 (your paper): top 96, last UR seat 93. Apr 2024: top 90, General 89. Sep 2025: top 95, UR 94 on the PG % tie-break. Every category for each sitting, plus all 1,647 Sep 2025 marks as a score-to-rank converter.",
+      link: "../ihbas-cutoff/", linkText: "Cut-offs" },
+    { t: "St John's (25 Nov): Mock 1, Mock 2 and the Interview world", pct: 100, tag: "live",
+      n: "Two 100-question mocks of real past-paper questions, none repeated between them or from the JSS mocks or SGT, keys checked, both in the Tests app under St John's. The St John's page has the plan, pacing for 100 in 90 minutes, what the panel marks and the day itself. Name Lock World 5, <b>St John's Interview</b>, is the panel practice to say out loud.",
       link: "../st-johns/", linkText: "Open" },
+    { t: "Concept Viva: core concepts said out loud", pct: 100, tag: "live",
+      n: "Your 22 Nov ask: MCQ prep is not the same as explaining a concept to a panel. Name Lock World 7 is 88 panel questions across the core subjects (\"Explain schizophrenia\" and so on), each with a model answer you say out loud, built on the same engine as the interview worlds.",
+      link: "../name-lock/app/index.html#cv", linkText: "Open" },
+    { t: "Every PYQ paper you sent is a mock now", pct: 100, tag: "live",
+      n: "50 papers built off the PYQ list, the official key where one exists, otherwise keyed from standard texts with a Key note on every arguable one: IHBAS Series D, CIP 2020 plus the CIP 2023 topic set, GMCH 2023-25, Gurugram, JEPAS 2020, JEMAS 2022-25, IMHANS (5 papers), RINPAS, PGIBAMS, all 13 Jammu papers, LGBRIMH 2025, UGC NET Dec 2013 and more. The only ones left are the 5 NFSU papers, which you dropped. All of them are in the Tests app.",
+      link: "../pyq-list/", linkText: "PYQ list" },
+    { t: "Gap Diagnostic 2, Repeated PYQs drills, PYQ Diagnostic with no repeats", pct: 100, tag: "live",
+      n: "Gap Diagnostic 2: 60 real PYQs split by your 39 measured misses, leaning on your 0-rated topics, nothing from a paper you have sat. Repeated PYQs: three drills of the questions that came up in 2 or more real papers (75 + 62 + 62). The 234-question PYQ Diagnostic no longer repeats anything from a mock you have sat.",
+      link: "../take/screen.html?m=diagnostic-2", linkText: "Diagnostic 2" },
+    { t: "Tests app: learn mode, heist look, swipe, cleaner paper picker", pct: 100, tag: "live",
+      n: "Tag the options you don't know, the Safehouse sorted by Final Textbook chapter, the briefing sheet, the drill and red / amber / green. The heist look. Swipe between questions, skipped shown next to right and wrong on the grid, your score on the list. The picker is Continue, Up next, then one row per college with a search box and filters, instead of the endless wall. Reset this mock now stays reset after a sync. There's a Tab S6 build locked to portrait.",
+      link: "../tests-app/", linkText: "Tests app" },
+    { t: "Name Lock: Stats and Research world + Biopsych Lab", pct: 100, tag: "live",
+      n: "World 6: Test Picker, Design Detective, Variable Sort, Reliability vs Validity duels, Sampling Run, Error Hunt and the Normal Curve Boss. Biopsych Lab: Brain Map, Lesion Detective, Neurotransmitter Lab, Action Potential Run, Sleep Cycle and Hormone Hunt, 76 questions. Every option explained, with a link to the book section.",
+      link: "../name-lock/app/index.html#stats", linkText: "Stats world" },
+    { t: "Pinel, Schultz and Eysenck & Keane, all at full depth", pct: 100, tag: "live",
+      n: "In the Textbook Library. <b>Pinel:</b> all 18 chapters rewritten in full prose off the 11th edition with every one of its 319 figures and tables; a check of every heading in the contents finds 905 of 905 topics covered (the old notes covered 68%). <b>Schultz:</b> all 15 chapters. <b>Eysenck &amp; Keane:</b> all 16 chapters. The Eysenck figures are described from their captions because your PDF has no pictures (see Waiting on you).",
+      link: "https://msahil515.github.io/sihan-psych-notes/", linkText: "Textbook Library" },
+    { t: "Textbook Library: the newer books moved in", pct: 100, tag: "live",
+      n: "Each one is its own book there now: the Final Exam Textbook (all 9 subjects, 115 chapters), Stats &amp; Research Methods (28 chapters, 64 diagrams), the DSM-5-TR exam cut (21 chapters, 81 disorder cards), Psycho Didi (12 chapters, 311 diagrams), RML CET-166 (15) and SGT (15). Trimming the prep site down to tests and trackers is waiting on your OK (below).",
+      link: "https://msahil515.github.io/sihan-psych-notes/", linkText: "Textbook Library" },
     { t: "Final Exam Textbook: one book, all 9 JSS subjects, 975 pages", pct: 100, tag: "live",
-      n: "<b>Done 23 Oct:</b> all nine subjects in JSS order, colour and B&amp;W A4 PDFs (identical pages, double sided) + Library, one book per chapter. Every section was written from the papers and source books, then checked by a second reader (every site question for that subject answerable, names, years and DSM-5-TR criteria checked). Then a blind test per chapter: real past-paper questions answered from the book alone, 1,140 of 1,155 right (chapters 2 to 9). The misses are papers whose official key is wrong or doubtful, where the book teaches the right answer in a trap box, plus one question whose text was cut off in the test.",
+      n: "<b>Done 23 Oct:</b> all nine subjects in JSS order, colour and B&amp;W A4 PDFs (identical pages, double sided) + Library, one book per chapter. Every section was written from the papers and source books, then checked by a second reader (every site question for that subject answerable, names, years and DSM-5-TR criteria checked). Then a blind test per chapter: real past-paper questions answered from the book alone, 1,140 of 1,155 right (chapters 2 to 9). The misses are papers whose official key is wrong or doubtful, where the book teaches the right answer in a trap box, plus one question whose text was cut off in the test. The full-length edition of subjects 2 to 9 is still owed (below).",
       link: "../downloads/#final-textbook", linkText: "PDFs" },
+    { t: "Barlow &amp; Durand finished + DSM-5-TR cards complete", pct: 100, tag: "live",
+      n: "The Abnormal book got its health psychology and legal / ethics chapters, and Blatt and Spitz sit side by side in the mood chapter. All 81 DSM-5-TR disorder cards now have specifiers, course and what changed from DSM-IV to DSM-5 to DSM-5-TR, with 25 errors in the old card text fixed.",
+      link: "../notes-app/", linkText: "Library" },
+    { t: "IHBAS 2025 locked to the official key", pct: 100, tag: "live",
+      n: "IHBAS did publish the Set A key. Q77 and Q86 were fixed to it on 20 Oct (both C, concept and traps rewritten), so the mock now matches the official key on all 100.",
+      link: "../take/screen.html?m=ihbas-2025", linkText: "IHBAS 2025" },
+    { t: "Theorist named at every theory", pct: 100, tag: "live",
+      n: "<b>Done 21 Oct:</b> the full name goes in at the first mention in every section and every trap box, across all 28 Library books and 69 notes pages (4,283 names added). Every mock explanation carries the theorist and the year.",
+      link: "../notes/theorists/", linkText: "Theorists" },
+    { t: "Apps update themselves", pct: 100, tag: "live",
+      n: "Tests and Name Lock pull new mocks and cards off the site when they open, so new content needs no new APK. MET-Prep.apk is rebuilt off the live site every day (checked on the emulator 22 Nov, works offline), and the site loads fresh first and only falls back to the saved copy with no signal. The offline desktop pack was rebuilt from the current site on 22 Nov.",
+      link: "../downloads/", linkText: "Downloads" },
     { t: "NIMHANS 31 May: the 9 concepts you asked about", pct: 100, tag: "live",
       n: "Qs 36 to 41, the Bavisha tamas question, dharana and Kegels from your 31 May paper, each with the answer, the concept and the trap under every wrong option, a notes block on its cluster, and 18 more cluster questions. Take all 27 as a mock (Tests app, NIMHANS group) or read the notes in the Library, Requested Topics chapter 5.",
       link: "../missed-concepts/", linkText: "Open" },
@@ -139,61 +168,58 @@ var TASKS = [
       n: "<b>Done 20-21 Oct:</b> IHBAS 2025, PEP 1-2, MET 1-4, diagnostic 1, the bio + testing paper and NIMHANS mock 1, 1,041 Qs in all, now teach the concept from scratch (about 250 words, theorist + year) with a trap for every wrong option. Fixed on the way: 3 wrong PEP 1 keys (EMDR phases, empathy components, Gestalt reversal), 7 faulty MET items (two-right-answer grammar Qs, ICD-11 gaming disorder, OCD 1 hour not 30 minutes, folie a deux now ICD-10, a sampling option), and the bio paper's LTD option (prolonged, not brief, low-frequency stimulation).",
       link: "../tests/", linkText: "Tests" },
     { t: "Your 14 recall questions + reliability formula drill", pct: 100, tag: "live",
-      n: "The 14 you typed from memory on 5 Aug, each with the answer, the concept and the trap under every wrong option. Plus 18 worked formula questions (Spearman-Brown, Rulon, KR-20/21, speed tests, variance, SEM, attenuation) and a one-screen formula sheet. Take all 32 as a mock, or in the Tests app under Diagnostics. Still need from you: which exam and year the 14 came from, so they get filed with the real papers.",
+      n: "The 14 you typed from memory on 5 Aug, each with the answer, the concept and the trap under every wrong option. Plus 18 worked formula questions (Spearman-Brown, Rulon, KR-20/21, speed tests, variance, SEM, attenuation) and a one-screen formula sheet. Take all 32 as a mock, or in the Tests app under Diagnostics.",
       link: "../recall-14/", linkText: "Open" },
     { t: "Gap analysis: every paper you've sat, every miss", pct: 100, tag: "live",
       n: "All 39 misses from RML 2020, IHBAS 2024, the JSS PYQ Mock and MET Mock 1, by JSS subject and by why each went, joined into 8 gaps across papers. Biggest: name-to-idea questions (you missed 8 of 23, 35%, against 10% on everything else) and option-reading slips (9 misses, 11.25 marks). Each gap has its own study block with tables and a self-test.",
       link: "../results/gap-analysis/", linkText: "Open" },
     { t: "Study this + To study list, in the Tests app and Name Lock", pct: 100, tag: "live",
-      n: "Tap <b>☆ Study this</b> on any question (while you take the test and on the review screen) or on any Name Lock card (the card sheet and the answer screen). The topic lands in one shared <b>To study</b> list: Tests app home screen, Name Lock's new To study tab. Grouped by area, each topic has a Notes link into the Library, a button to reopen the question or card, and a tick for when it is covered. After a mock, one tap puts every wrong one in. Marks sync between phone, tab and both apps on the same sync code. Tests v2.4, Name Lock v3.8.",
+      n: "Tap <b>☆ Study this</b> on any question (while you take the test and on the review screen) or on any Name Lock card (the card sheet and the answer screen). The topic lands in one shared <b>To study</b> list: Tests app home screen, Name Lock's To study tab. Grouped by area, each topic has a Notes link into the Library, a button to reopen the question or card, and a tick for when it is covered. After a mock, one tap puts every wrong one in. Marks sync between phone, tab and both apps on the same sync code.",
       link: "../tests-app/", linkText: "Open" },
     { t: "JSS Mock 2: 90 hard, high-yield real PYQs", pct: 100, tag: "live",
       n: "Ten from each of JSS's nine subjects, all genuine past-paper questions (NIMHANS 2024/2025, RML 2020 to 2025, IHBAS 2020, Amity 2023, JEMAS 2025). Picked as the hardest and highest-yield out of 800 candidates, doubtful keys dropped, mostly concept questions with no pure who-proposed-it recall. None repeat from JSS Mock 1 or SGT. Your result splits by subject so you can see what to study; every card has the source, the concept from scratch and why each wrong option is wrong. Also in the Tests app under JSS.",
       link: "../take/screen.html?m=jss-mock-2", linkText: "Take it" },
     { t: "Revenge mode: every wrong question, 5 game modes", pct: 100, tag: "live",
-      n: "In the Tests app (v2.3), right under the daily goal. Every question you have got wrong in any mock lands here on its own and stays until you master it: <b>Flip cards</b>, <b>Cross questioning</b> (defend why each wrong option is wrong in your own words; if you are off, it re-teaches the concept and makes you pick the right reason), <b>Spot the trap</b>, <b>Boss battles</b> (one per topic, every question right 3 times in a row) and the <b>Comeback timer</b> (10 min, 1 day, 3, 7, 21 days; a miss sends it back sooner). Your 20 JSS misses are loaded first, each with a from-scratch lesson, why your pick fooled you and a memory hook. Q52 and Q79 carry a disputed-key note.",
+      n: "In the Tests app, right under the daily goal. Every question you have got wrong in any mock lands here on its own and stays until you master it: <b>Flip cards</b>, <b>Cross questioning</b> (defend why each wrong option is wrong in your own words; if you are off, it re-teaches the concept and makes you pick the right reason), <b>Spot the trap</b>, <b>Boss battles</b> (one per topic, every question right 3 times in a row) and the <b>Comeback timer</b> (10 min, 1 day, 3, 7, 21 days; a miss sends it back sooner). Your 20 JSS misses are loaded first, each with a from-scratch lesson, why your pick fooled you and a memory hook. Q52 and Q79 carry a disputed-key note.",
       link: "../tests-app/", linkText: "Play it" },
-    { t: "Tab APKs: full screen sideways + one-time QR sync", pct: 100, tag: "live",
-      n: "Name Lock v3.6 and Tests v2.2. On the tab, sideways, both apps use the whole width: Tests puts the question and options on the left and the full explanation on the right; Name Lock puts the card left, options right. Sync is one QR scan now: the phone shows a QR under Sync, the tab taps <b>Scan QR</b>, and the tab can pass the link straight to the other app. Install the -Tab files over the current ones on the tab, the normal ones on the phone.",
+    { t: "Tab APKs: full screen sideways, Tab S6 portrait, one-time QR sync", pct: 100, tag: "live",
+      n: "On the tab, sideways, both apps use the whole width: Tests puts the question and options on the left and the full explanation on the right; Name Lock puts the card left, options right. Tests-TabS6.apk is the upright build for the S6: locked to portrait, bigger text, options stacked full width. Sync is one QR scan: the phone shows a QR under Sync, the tab taps <b>Scan QR</b>, and the tab can pass the link straight to the other app.",
       link: "../downloads/", linkText: "Downloads" },
     { t: "Declutter + full site rebuild, one look every page", pct: 100, tag: "live",
       n: "Home keeps everything it had, just tidier: syllabus areas and mocks show six with a Show all button, the stale NEW tags are gone, and the focus box is cleaned up. Every page now shares the same header, nav and theme switcher, including Results, Notes, Downloads, Practice, Sync, the RML pages and the IHBAS topic list.",
       link: "../", linkText: "Dashboard" },
     { t: "JSS PYQ Mock: 90 Qs on the JSS syllabus", pct: 100, tag: "live",
-      n: "90 real past-paper questions, ten from each of the nine subjects in the JSS brochure, same length as the 27 Oct paper. Sit it once in 60 minutes, then go back through in Practice. Send any real JSS paper and it goes in as its own mock.",
+      n: "90 real past-paper questions, ten from each of the nine subjects in the JSS brochure, same length as the 27 Oct paper. Sit it once in 60 minutes, then go back through in Practice. One key (Q52) is being fixed, see Still owed.",
       link: "../take/screen.html?m=jss-pyq", linkText: "Take it" },
     { t: "JSS interview prep: sheet + Name Lock Interview and Dissertation worlds", pct: 100, tag: "live",
       n: "78 questions with model answers for the JSS viva on 27 to 28 Oct, plus two Name Lock worlds to practise out loud: <b>JSS Interview</b> (92 panel questions: your work, case vignettes, ethics, RCI and MHCA) and <b>Dissertation</b> (60 questions on your own study, with the draft's errors corrected).",
       link: "../name-lock/app/index.html#jss", linkText: "Open" },
     { t: "Name Lock: who-did-what + terminology app", pct: 100, tag: "live",
-      n: "478 cards across effects, biases, phenomena, experiments, laws and terms. Three drill modes with spaced repetition, lookalike duels, term breakdowns, and a misses feed that pulls from every mock you take. Speed round and family tree are not in; say if you want them.",
+      n: "1,252 cards across effects, biases, phenomena, experiments, laws and terms, none of them giving the answer away on the question side, with the social psych pile dealt most-asked researcher first. Seven worlds: Who Said What, Biopsych, Dissertation, JSS Interview, St John's Interview, Stats and Research, Concept Viva. Speed round and family tree are not in; say if you want them.",
       link: "../name-lock/", linkText: "Drill" },
     { t: "IHBAS 2024 topic list with rating scale + study material", pct: 100, tag: "live",
-      n: "All 100 questions and every option, as 84 topics (45 to 84 are the topics hiding in the wrong options). Rate each 0 to 3 on the page and leave a comment on any topic. Every topic is already written up from scratch underneath, and the order re-sorts to your 0s and 1s as you rate. Send the ratings when done and I tighten whatever comes back 0 or 1.",
+      n: "All 100 questions and every option, as 84 topics (45 to 84 are the topics hiding in the wrong options). Rate each 0 to 3 on the page and leave a comment on any topic. Every topic is already written up from scratch underneath, and the order re-sorts to your 0s and 1s as you rate.",
       link: "../ihbas-2024-topics/", linkText: "Rate + study" },
     { t: "Foundations of clinical psychology and positive psychology: notes", pct: 100, tag: "live",
       n: "Sixteen chapters built off the four references on your course list, taught from scratch in full prose: clinical psychology first, positive psychology second. On its own MA Coursework shelf in the Library. If your unit list has something not in it, send it.",
       link: "../notes/clinical-positive-foundations/", linkText: "Read it" },
     { t: "Result sync across devices", pct: 100, tag: "live",
-      n: "Built and live, no go-ahead needed any more. Open <b>/sync/</b> on the phone, get a code, punch it in on the laptop and both devices carry the same attempts, the same wrong-question pool and the same done-flags. Merge is order-independent, so it does not matter which device syncs first.",
+      n: "Open <b>/sync/</b> on the phone, get a code, punch it in on the laptop and both devices carry the same attempts, the same wrong-question pool and the same done-flags. Merge is order-independent, so it does not matter which device syncs first.",
       link: "../sync/", linkText: "Sync" },
     { t: "Timed settings removed site-wide", pct: 100, tag: "live",
-      n: "Every timer, countdown and clock setting is gone. All 28 classic quiz pages now redirect straight into the untimed engine, so there is one way to sit a paper and no clock anywhere on the site.",
+      n: "Every timer, countdown and clock setting is gone. All the old quiz pages redirect straight into the untimed engine, so there is one way to sit a paper and no clock anywhere on the site.",
       link: "../take/", linkText: "Take a paper" },
     { t: "SGT / Amity / RML archived off the main view", pct: 100, tag: "live",
-      n: "The three closed cycles are folded out of the dashboard, tests page and tracker. <b>Nothing was deleted</b>. Every mock, note and brief is indexed on the Archive page and still opens. The live set is IHBAS, CIP, JSS, DIMHANS.",
+      n: "The closed cycles are folded out of the dashboard, tests page and tracker. <b>Nothing was deleted</b>. Every mock, note and brief is indexed on the Archive page and still opens. RML's row is back on the tracker since 23 Nov, because its real route (the GGSIPU M.Phil, code 157) has a 2026-27 round still to come.",
       link: "../archive/", linkText: "Archive" },
-    { t: "Pinel at full depth, original figures", pct: 100, tag: "live",
-      n: "The un-condensing is done for book one: Pinel rebuilt as 18 full chapters, ~47,000 words, with the real figures rather than my redraws. It reads as the textbook, not a summary of it. Sitting on its own shelf in the Library.",
-      link: "../notes-app/", linkText: "Library" },
-    { t: "Statistics textbook with diagrams", pct: 100, tag: "live",
-      n: "From-scratch stats book, 17 sections, 27 hand-built diagrams. Starts below the level any entrance paper assumes and walks up, so you are not expected to already know it.",
+    { t: "Stats and research methods, one book with diagrams", pct: 100, tag: "live",
+      n: "Part I is the from-scratch stats book, 17 sections. Part II, research methods, sits in the same book (sections 18 to 27: designs, validity threats, single-case, sampling and data collection, qualitative, RCTs and meta-analysis, ethics). 64 diagrams in all. Starts below the level any entrance paper assumes and walks up.",
       link: "../notes/statistics/", linkText: "Read it" },
-    { t: "Library: renamed + warm book theme", pct: 100, tag: "live",
-      n: "The notes app is now called <b>Library</b> and wears the warm paper skin with the two-page spread on wide screens, one page on the phone.",
+    { t: "Library: renamed, warm book look, Day / Night switch", pct: 100, tag: "live",
+      n: "The notes app is called <b>Library</b> and wears the warm paper skin with the two-page spread on wide screens, one page on the phone. A Day / Night / Auto switch is in the toolbar; Auto follows the phone's own setting.",
       link: "../notes-app/", linkText: "Library" },
     { t: "Master PYQ list, full sweep", pct: 100, tag: "live",
-      n: "Three passes across everything you have sent, including the camera scans. <b>53 papers</b> listed with source, whether a key exists, and whether it is already a mock on the site.",
+      n: "Every paper you have sent, including the camera scans, with source, whether a key exists and a link to its mock. Everything else you sent that isn't a paper (question banks, syllabi, coaching guides, textbooks and manuals, admissions files) has its own entry too, saying what it covers and what the site built from it.",
       link: "../pyq-list/", linkText: "PYQ list" },
     { t: "Syllabus hunt: IHBAS, CIP, JSS, DIMHANS", pct: 100, tag: "live",
       n: "One hub with all four. JSS's nine-subject syllabus quoted verbatim off the brochure, IHBAS's 100-question blueprint checked against 292 real questions from its own 2020/2024/2025 papers, CIP rebuilt from the real 2020 paper with all 100 items classified.",
@@ -201,54 +227,92 @@ var TASKS = [
     { t: "DIMHANS: RCI-approved course confirmed", pct: 100, tag: "live",
       n: "Confirmed off the 25-05-2026 RCI list, and again by DIMHANS's own 2026-27 notice of 7 Nov 2026: Master of Clinical Psychology, approved by RCI, affiliated to RGUHS, 5 seats, <b>Karnataka domicile only</b>. Forms closed 17 Nov and the exam was 19 Nov.",
       link: "../syllabus/#dimhans", linkText: "DIMHANS" },
-    { t: "RML textbook expanded to full comprehensiveness", pct: 100, tag: "live",
-      n: "The CET-166 book is out of outline form. Full-depth sections across the paper, plus the social-work strand added as section 13 after four of your nine RML 2020 misses turned out to be social work.",
+    { t: "RML (CET-166) textbook, 15 chapters", pct: 100, tag: "live",
+      n: "Full sections across the CET-166 paper, plus the social-work strand as section 13 after four of your nine RML 2020 misses turned out to be social work. Heads up: CET-166 never led to RML (see the RML card above); for RML's own M.Phil test, the RML 2020 to 2025 mocks are the right practice.",
       link: "../notes/rml-study-material/", linkText: "Read it" },
     { t: "Psycho Didi shelf rebuilt", pct: 100, tag: "live",
-      n: "All 127 pages rebuilt as 12 proper chapters. Every diagram kept, and the thin bits written out to teaching depth instead of bullet stubs.",
+      n: "All 127 pages rebuilt as 12 proper chapters with all 311 original diagrams under their headings. All 196 thin spots written out to teaching depth, and every place the text and the PDF disagreed is fixed or flagged under its diagram.",
       link: "../notes-app/", linkText: "Library" },
-    { t: "RML 2020 cut-off, official numbers", pct: 75, tag: "live",
-      n: "Official numbers are up: top scored 360/400, UR cut-off 344, and the CET code is 157 not 166. <b>Still open:</b> the forum dig for who actually topped it; every lead so far is a dead ipu.ac.in link that serves a fake PDF.",
+    { t: "RML 2020 cut-off, official numbers", pct: 100, tag: "live",
+      n: "Top scored 360/400, UR cut-off 344, CET code 157. The forum dig for who topped it was dropped: every lead was a dead ipu.ac.in link and the 2020 cycle is long closed.",
       link: "../rml-2020-cutoff/", linkText: "Cut-off page" },
     { t: "MET theme 1 polish: done", pct: 100, tag: "live",
-      n: "Theme 1 on the test screens is finished. Structured deep explanation on every question across all mocks, per-distractor traps, the 'No clock' tag gone site-wide, and now the <b>S24 layout fix</b>: the sticky bar was wrapping onto three lines and eating 168px of your 780px screen, it is 88px now and holds one line. The reading column went from 271px to 310px wide, so a four-line option no longer wraps to six, and jumping to a question stops parking the stem under the bar.",
+      n: "Structured deep explanation on every question across all mocks, per-distractor traps, the 'No clock' tag gone site-wide, and the S24 layout fix: the sticky bar holds one line (88px, was 168px), the reading column is wider, and jumping to a question no longer parks the stem under the bar.",
       link: "../take/", linkText: "New look" },
+    { t: "JEMAS(PG) 2025: full 100-question paper", pct: 100, tag: "live",
+      n: "All 100 questions are up word for word, page 12 included, on the same test screen as every other mock. No official key exists, so the answers are worked out from standard texts, with key-debate notes on Q64 and Q65. The old standalone copy is retired, so there is only one version.",
+      link: "../take/screen.html?m=jemas-2025", linkText: "JEMAS mock" },
   ]},
-  { group: "Building now", items: [
-    { t: "Theorist named at every theory", pct: 45, tag: "building",
-      n: "Every theory carries the person and the year. New material already complies; sweeping the older notes and quiz explanations into the same shape.",
-      link: "../notes/theorists/", linkText: "Theorists" },
-    { t: "MET prep app not self-updating", pct: 35, tag: "building",
-      n: "The APK caches too hard and sits on an old copy of the site. Fixing it in two parts: the service worker goes network-first and never caches a failed page, and the app rebuilds off the live site on a schedule so a fresh install is never stale.",
+  { group: "Still owed, in the order they get done", items: [
+    { t: "JSS PYQ Mock Q52: wrong key", pct: 0, tag: "queued",
+      n: "The ignored-tantrums question is keyed 'operant escape', while its own explanation and the same question in Amity 2023 say extinction, so picking extinction scores wrong. Next up: re-key to extinction with a key note.",
+      link: "../take/screen.html?m=jss-pyq", linkText: "JSS PYQ Mock" },
+    { t: "Build guide PDF in plain words", pct: 10, tag: "queued",
+      n: "The old guide is full of Python. The plain version (what each part of the site and the apps does and how updates reach you, no code) is not written yet." },
+    { t: "Entrance books page", pct: 0, tag: "queued",
+      n: "Which books to read for the entrances, by subject, on one page. The list was only ever in chat; it is not on the site yet." },
+    { t: "Full-length Final Textbook, subjects 2 to 9", pct: 11, tag: "queued",
+      n: "General Psychology has its full-length edition (Library + its own A4 PDFs). The other 8 subjects exist only in the short edition so far. 1 of 9 done.",
+      link: "../downloads/#final-textbook", linkText: "PDFs" },
+    { t: "MET-Notes.apk opens blank", pct: 0, tag: "queued",
+      n: "The notes-only APK is missing the site's lock-screen script, so its pages never unlock. MET-Prep.apk has the same notes and works, use that until this is fixed.",
       link: "../downloads/", linkText: "Downloads" },
+    { t: "A 'by when' date on every open item", pct: 0, tag: "queued",
+      n: "Each card under Still owed gets a target date, and a missed date gets called out instead of going quiet." },
+    { t: "The full pending list at the end of every message", pct: 50, tag: "queued",
+      n: "Chat replies carry a Pending list; the work-run messages only show the next 1 to 3. Both should show everything that's open." },
   ]},
   { group: "Waiting on you (one line each and it moves)", items: [
-    { t: "Which book second: Eysenck or Schultz", pct: 0, tag: "blocked",
-      n: "Pinel is done. Say <b>Eysenck</b> or <b>Schultz</b> and the next full-depth rebuild starts on it." },
-    { t: "Stats alone, or stats + research methods in one book", pct: 0, tag: "blocked",
-      n: "The stats book is live. Say <b>stats alone</b> and I leave it, or <b>combined</b> and I fold research methods into the same book so designs, sampling and stats read as one thing." },
-    { t: "Library: warm as default, or switchable", pct: 0, tag: "blocked",
-      n: "Warm paper is on right now. Say <b>default</b> to lock it, or <b>switchable</b> and I put a warm/dark toggle in the Library toolbar." },
-    { t: "PYQ list: papers only, or banks + syllabi too", pct: 0, tag: "blocked",
-      n: "53 papers are on it. Say <b>papers only</b> and it stays a clean PYQ index, or <b>everything</b> and question banks and syllabi go on the same page." },
-    { t: "CIP 2020: give me the go", pct: 0, tag: "blocked",
-      n: "I have the full CIP 2020 paper and all 100 items are already classified for the syllabus hub. Say <b>go</b> and it becomes a real untimed mock with deep answers, same as IHBAS 2025." },
-    { t: "Common section: the 32 wrong Qs", pct: 0, tag: "blocked",
-      n: "Both specific sections were 100%. The whole gap is the common section, 31 wrong. Send those 32 questions and you get a page breaking down every single miss." },
+    { t: "Calcutta M.Clin.Psy 2026-28: apply, yes or no?", pct: 0, tag: "blocked",
+      n: "Form closes <b>2 Dec, 2 PM IST</b>; written test 8 Dec (75 MCQ, 1 hour, -0.25). About ₹66,000 a year, no stipend. Say yes and prep for it starts.",
+      link: "../admissions/", linkText: "Tracker" },
+    { t: "IHBAS 2026-28: did the form go in by 21 Nov?", pct: 0, tag: "blocked",
+      n: "Entrance 29 Nov (tentative). If yes, IHBAS prep goes to the top right after St John's." },
+    { t: "DIMHANS: did you apply by 17 Nov?", pct: 0, tag: "blocked",
+      n: "The exam was 19 Nov. Only matters if you applied; if you did, say so and the result and counselling get tracked." },
+    { t: "Pinel depth: right, or too long?", pct: 0, tag: "blocked",
+      n: "Read any rewritten Pinel chapter in the Textbook Library and say <b>right</b> or <b>too long</b>. Schultz and Eysenck were done at the same depth, so your answer sets all three.",
+      link: "https://msahil515.github.io/sihan-psych-notes/", linkText: "Textbook Library" },
+    { t: "AccAED counselling manual: full book or high-yield cut", pct: 0, tag: "blocked",
+      n: "The 1,412-page manual becomes its own shelf as soon as you pick. The therapy-only mock you were offered gets built off it after." },
+    { t: "OK to trim the prep site?", pct: 0, tag: "blocked",
+      n: "The books now live in the Textbook Library. Say <b>ok</b> and the prep site keeps just the tests and trackers. Nothing gets deleted; the old copies go on a hidden shelf." },
+    { t: "IHBAS 2024 topics 45 to 84: your ratings", pct: 0, tag: "blocked",
+      n: "Rate them 0 to 3 on the page, or send them like '45-2, 46-0', and every 0 and 1 gets a depth pass.",
+      link: "../ihbas-2024-topics/", linkText: "Rate" },
+    { t: "Eysenck figures: a PDF with the pictures", pct: 0, tag: "blocked",
+      n: "Your Eysenck &amp; Keane PDF is text only, so the chapters describe figures from their captions. Send a copy with the artwork and the real figures go in." },
     { t: "Study material for MD: what does MD mean", pct: 0, tag: "blocked",
-      n: "Still blocked on one word. Tell me which exam or subject <b>MD</b> is and I start building it the same day." },
-  ]},
-  { group: "Blocked, but not on you", items: [
-    { t: "Lock IHBAS 2025 answers against the official key", pct: 0, tag: "blocked",
-      n: "IHBAS has <b>not released a key</b> for the 2025 paper, I checked. All 100 answers are currently expert-set from DSM-5, ICD and the canonical theorists, with the genuinely arguable ones carrying a ⚠ key-debate flag so you know exactly which ones to not trust. The moment a real key surfaces I lock them against it.",
-      link: "../quiz/ihbas-2025/", linkText: "IHBAS 2025" },
+      n: "Tell me which exam or subject <b>MD</b> is, or say it meant the Amity study pack, and it gets built or closed." },
+    { t: "Recall 14: which exam and year", pct: 0, tag: "blocked",
+      n: "So the 14 questions you typed from memory get filed with the real papers.",
+      link: "../recall-14/", linkText: "Recall 14" },
+    { t: "JEMAS 2025 official key, if you have one", pct: 0, tag: "blocked",
+      n: "No key is published, so the answers are worked out from standard texts. Send it if you get it and the mock gets locked to it." },
+    { t: "PEP Lite notes (88 PDFs)", pct: 0, tag: "blocked",
+      n: "They need a signed-in psychologyentranceprep.com login, or the PDFs downloaded while signed in. The free window ended 31 May." },
+    { t: "Sep / Oct photos: a Drive link", pct: 0, tag: "blocked",
+      n: "WhatsApp deleted them before they could be downloaded. If any were papers, put them in a Drive folder and send the link; if not, they get dropped." },
   ]},
   { group: "Live watch", items: [
-    { t: "IHBAS + CIP 2026 windows, and the RML/GGSIPU fallout", pct: null, tag: "live",
-      n: "Running twice a day, 8am and 3pm IST. IHBAS dropped 5 Nov (entrance 29 Nov). Still watching CIP, and GGSIPU's code-157 notices for RML's 2026-27 M.Phil round.",
+    { t: "IHBAS, CIP, GGSIPU (RML code 157) and the open-now colleges", pct: null, tag: "live",
+      n: "Runs twice a day, 8 AM and 3 PM IST, and stamps 'Last refreshed' on the News board and the tracker. IHBAS dropped 5 Nov (entrance 29 Nov). Calcutta is open till 2 Dec and Christ Bengaluru till 28 Mar 2027. Still watching for CIP and GGSIPU's code-157 round for RML.",
       link: "../news/", linkText: "News board" },
+    { t: "Work run, every 15 minutes", pct: null, tag: "live",
+      n: "Takes the top item under Still owed, ships it, and you get a message with the link. Its card moves to Live here when it does." },
   ]},
 ];
+
+var ROLL = { "Live now, go open these": "Live now", "Still owed, in the order they get done": "Still owed",
+  "Waiting on you (one line each and it moves)": "Waiting on you", "Live watch": "Live watch" };
+var counts = {};
+TASKS.forEach(function(g){ counts[g.group] = g.items.length; });
+document.getElementById("roll").innerHTML = TASKS.map(function(g, i){
+  return '<a class="box" href="#g' + i + '"><div class="n">' + g.items.length + '</div><div class="l">' + (ROLL[g.group] || g.group) + '</div></a>';
+}).join("");
+document.getElementById("lede").innerHTML = "Every open thing, straight read, no inflating. <b>" +
+  counts["Still owed, in the order they get done"] + " still owed</b>, worked top down, and <b>" +
+  counts["Waiting on you (one line each and it moves)"] + " are waiting on one line from you</b>. Nothing done is listed as open, and nothing open is listed as done.";
 
 function barColor(pct){
   if (pct === null) return "var(--good)";
@@ -267,6 +331,7 @@ var board = document.getElementById("board");
 TASKS.forEach(function(g){
   var h = document.createElement("div");
   h.className = "grp-title";
+  h.id = "g" + TASKS.indexOf(g);
   h.textContent = g.group;
   board.appendChild(h);
   g.items.forEach(function(it){
