@@ -120,15 +120,15 @@ const MOCKS = [
   {
     id: "jemas-2025",
     title: "JEMAS(PG) 2025 · Clinical Psychology",
-    sub: "36 real Qs · JEMAS(PG) 2025 CP · pages 5,6,11,13,14 (Q15–28, Q59–66, Q75–88) · verbatim · source-badged · untimed Practice",
-    path: "../quiz/jemas-2025/",
-    total: 36,
+    sub: "100 real Qs · the West Bengal M.Phil Clinical Psychology paper · full booklet, Q1–100 · no official key, every answer worked out · untimed",
+    path: "../take/screen.html?m=jemas-2025",
+    total: 100,
     storageKey: "jemas-2025-results-v1",
-    sections: { psychodynamic: 2, personality: 6, biopsych: 2, research: 2, clinical: 11, development: 4, cognitive: 4, stats: 5 },
-    blurb: "The real JEMAS(PG) 2025 Clinical Psychology entrance paper, built into a native untimed mock. It now covers pages 5, 6, 11, 13 and 14 — questions 15–28, 59–66 and 75–88 (36 items) — transcribed verbatim off the booklet scans Sihan sent: defence mechanisms, Adler, temperament and traits, projective tests, the Rorschach, DSM-5 ASD and SLD, procedural-learning circuits, Piaget, validity and distributions, z-scores, learned helplessness, hallucination vs delusion, Schneider's first-rank symptoms, Sternberg, object permanence and more. There is no official answer key yet, so keys are authored from standard sources; Q64 and Q65 are flagged key-debate. Page 12 (Q67–74) landed cut off and is held back until a clean scan. Every card carries a JEMAS(PG) 2025 source badge with its original question number plus a full explanation and per-distractor trap. Untimed, scored +1 / −0.25 / 0. Independent storage.",
+    sections: { psychodynamic: 3, personality: 13, biopsych: 11, research: 6, clinical: 30, development: 11, cognitive: 21, stats: 5 },
+    blurb: "The West Bengal JEMAS(PG) 2025 Clinical Psychology entrance, all 100 questions, word for word off the 14 booklet photos you sent (pages 3 to 16). There is no official answer key, so every answer is worked out from standard texts; Q64 and Q65 carry a key-debate note because the answer is arguable. Heavy on clinical and psychopathology (30 Qs) and cognition, learning and intelligence (21): defence mechanisms, Adler, projective tests and the Rorschach, DSM-5 ASD and SLD, Kluver-Bucy, Schneider's first-rank symptoms, Piaget and object permanence, sampling, validity and z-scores. Every card carries a JEMAS(PG) 2025 source badge with its original question number, a full explanation and a line on why each wrong option is wrong. Untimed, scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
     deepExp: true,
-    tags: ["100% real paper", "JEMAS(PG) 2025", "clinical psychology", "source-badged", "trap per wrong option", "untimed practice", "verbatim scan", "36 Q"]
+    tags: ["100% real paper", "JEMAS(PG) 2025", "clinical psychology", "no official key, worked out", "trap per wrong option", "untimed practice", "100 Q"]
   },
   {
     id: "jemas-2022",

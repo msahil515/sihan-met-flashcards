@@ -91,15 +91,15 @@
   <p class="stamp" id="stamp">Last updated 20 Oct 2026</p>
 
   <div class="roll">
-    <div class="box"><div class="n" id="rShipped">14</div><div class="l">Live now</div></div>
+    <div class="box"><div class="n" id="rShipped">30</div><div class="l">Live now</div></div>
     <div class="box"><div class="n" id="rActive">7</div><div class="l">Building</div></div>
-    <div class="box"><div class="n" id="rBlocked">8</div><div class="l">Waiting on you</div></div>
+    <div class="box"><div class="n" id="rBlocked">7</div><div class="l">Waiting on you</div></div>
     <div class="box"><div class="n" id="rQueued">1</div><div class="l">Blocked elsewhere</div></div>
     <div class="box"><div class="n" id="rLive">1</div><div class="l">Live watch</div></div>
   </div>
 
   <div class="prio">
-    <b>How to read this:</b> anything green is live, open it now. "Building" is where the hours are going. The eight under <b>Waiting on you</b> each need one word or one photo from you. Answer them in a single message and all eight move the same day.
+    <b>How to read this:</b> anything green is live, open it now. "Building" is where the hours are going. The seven under <b>Waiting on you</b> each need one word or one photo from you. Answer them in a single message and all seven move the same day.
   </div>
 
   <div id="board"></div>
@@ -108,6 +108,9 @@
 <script>
 var TASKS = [
   { group: "Live now, go open these", items: [
+    { t: "JEMAS(PG) 2025: full 100-question paper", pct: 100, tag: "live",
+      n: "All 100 questions are up word for word, page 12 included, on the same test screen as every other mock. No official key exists, so the answers are worked out from standard texts, with key-debate notes on Q64 and Q65. The old standalone copy is retired, so there is only one version.",
+      link: "../take/screen.html?m=jemas-2025", linkText: "JEMAS mock" },
     { t: "St John's (25 Nov): Mock 1 + paper and interview prep", pct: 100, tag: "live",
       n: "<b>Done 11 Nov:</b> St John's Mock 1, 100 real past-paper questions across the nine core subjects, none from the JSS mocks or SGT, keys checked, also in the Tests app under St John's. The St John's page: apply by 19 Nov, a 14-day plan, pacing for 100 in 90 minutes, what the panel marks, 17 interview cards built on the department's services, and the day itself. Still need from you: whether you applied, and which part of JSS went wrong, the paper or the interview.",
       link: "../st-johns/", linkText: "Open" },
@@ -221,9 +224,6 @@ var TASKS = [
       n: "53 papers are on it. Say <b>papers only</b> and it stays a clean PYQ index, or <b>everything</b> and question banks and syllabi go on the same page." },
     { t: "CIP 2020: give me the go", pct: 0, tag: "blocked",
       n: "I have the full CIP 2020 paper and all 100 items are already classified for the syllabus hub. Say <b>go</b> and it becomes a real untimed mock with deep answers, same as IHBAS 2025." },
-    { t: "JEMAS(PG) 2025: key + page 12", pct: 0, tag: "blocked",
-      n: "36 questions are up verbatim. I need two things from you: the <b>official answer key</b>, and a <b>clean photo of page 12</b> (Q67–74). The one you sent is cut off at the margin, so those eight are held back.",
-      link: "../quiz/jemas-2025/", linkText: "JEMAS mock" },
     { t: "Common section: the 32 wrong Qs", pct: 0, tag: "blocked",
       n: "Both specific sections were 100%. The whole gap is the common section, 31 wrong. Send those 32 questions and you get a page breaking down every single miss." },
     { t: "Study material for MD: what does MD mean", pct: 0, tag: "blocked",
