@@ -53,6 +53,8 @@
   .tag.live { background: var(--good-soft); color: var(--good); }
   .tag.queued { background: var(--panel-3); color: var(--muted); }
   .tag.building { background: var(--accent-soft); color: var(--accent); }
+  .by { margin-top: 8px; display: flex; flex-direction: column; gap: 3px; font-size: 12.5px; color: var(--text); }
+  .by .miss { color: var(--bad); font-weight: 700; }
   .card a { color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--accent); }
   .roll { display: flex; gap: 14px; flex-wrap: wrap; margin: 18px 0 4px; }
   .roll .box {
@@ -95,7 +97,7 @@
   <div class="roll" id="roll"></div>
 
   <div class="prio">
-    <b>How to read this:</b> anything green is live, open it now. <b>Still owed</b> is the queue, in the order the work run takes it, top first, and you get the link each time one goes live. Everything under <b>Waiting on you</b> needs one line from you. Answer them in one message and they all move.
+    <b>How to read this:</b> anything green is live, open it now. <b>Still owed</b> is the queue, in the order the work run takes it, top first, and you get the link each time one goes live. Each one has a <b>By</b> date; if a date passes before it is live, it turns red and says <b>Missed</b>. Everything under <b>Waiting on you</b> needs one line from you. Answer them in one message and they all move.
   </div>
 
   <div id="board"></div>
@@ -104,6 +106,8 @@
 <script>
 var TASKS = [
   { group: "Live now, go open these", items: [
+    { t: "A 'by when' date on every open item", pct: 100, tag: "live",
+      n: "<b>Done 23 Nov:</b> every card under Still owed now shows a <b>By</b> date for each step. When a date passes before the work is live, the line turns red and says <b>Missed</b>, and the count at the top says how many dates were missed, so nothing slips quietly." },
     { t: "MET-Notes.apk: note pages open again", pct: 100, tag: "live",
       n: "The notes-only app was missing the lock screen and theme files, so every note page stayed blank. They're in now, tested on an Android emulator offline and online. Links to pages the notes app doesn't carry (tests, tracker) go back to the notes home instead of a blank screen. Reinstall it over the old one.",
       link: "../downloads/", linkText: "Downloads" },
@@ -258,11 +262,11 @@ var TASKS = [
   { group: "Still owed, in the order they get done", items: [
     { t: "Full-length Final Textbook, subjects 2 to 9", pct: 25, tag: "building",
       n: "General Psychology has its full-length edition (Library + its own A4 PDFs). Clinical is now complete in the Library: all 10 chapters, about 750,000 words: Ch 1 (the profession, its history in the West and in India, what counts as abnormal, the models incl. biopsychosocial and diathesis-stress, ethics and Tarasoff, Indian mental health law from the Lunacy Act to the MHCA 2017 and RPwD 2016), Ch 2 (interview, MSE, risk, behavioural assessment, formulation, classification), Ch 3 (psychodynamic therapies, IPT, Jung/Adler/Horney/Sullivan, TA, supportive work, hypnosis, narcoanalysis), Ch 4 (behaviour therapy), Ch 5 (CBT and the third wave), Ch 6 (humanistic, existential, brief therapies, MI), Ch 7 (family, couples, sex and group therapy, psychodrama, therapeutic communities), Ch 8 (does therapy work: Eysenck, meta-analysis, the dodo bird verdict, common factors, the alliance, trials, reliable change, supervision and burnout) and Ch 9 (health psychology, community mental health, crisis, rehab) and Ch 10 (children and play therapy, child CBT, parent and school work, autism and learning disability, child abuse and POCSO, older adults, counselling, forensic work and the insanity defence, creative and digital therapies). Each is fact-checked against the source books and every past-paper question for it, with its own High-yield sheet. Clinical's A4 colour and B&amp;W PDFs next. Then the other 7 subjects.",
+      by: [["2026-11-24", "Clinical A4 colour and B&amp;W PDFs"], ["2026-11-30", "the next subject complete in the Library"], ["2026-12-31", "all 7 remaining subjects in the Library"]],
       link: "../notes-app/#/read/final-clinical-01", linkText: "Clinical Ch 1" },
-    { t: "A 'by when' date on every open item", pct: 0, tag: "queued",
-      n: "Each card under Still owed gets a target date, and a missed date gets called out instead of going quiet." },
     { t: "The full pending list at the end of every message", pct: 50, tag: "queued",
-      n: "Chat replies carry a Pending list; the work-run messages only show the next 1 to 3. Both should show everything that's open." },
+      n: "Chat replies carry a Pending list; the work-run messages only show the next 1 to 3. Both should show everything that's open, and this page is that full list.",
+      by: [["2026-11-25", "every work-run message ends with a link to this full list"]] },
   ]},
   { group: "Waiting on you (one line each and it moves)", items: [
     { t: "Calcutta M.Clin.Psy 2026-28: apply, yes or no?", pct: 0, tag: "blocked",
@@ -315,7 +319,20 @@ document.getElementById("roll").innerHTML = TASKS.map(function(g, i){
 document.getElementById("lede").innerHTML = "Every open thing, straight read, no inflating. <b>" +
   counts["Still owed, in the order they get done"] + " still owed</b>, worked top down, and <b>" +
   counts["Waiting on you (one line each and it moves)"] + " are waiting on one line from you</b>. Nothing done is listed as open, and nothing open is listed as done.";
+var missedN = 0;
+TASKS.forEach(function(g){ g.items.forEach(function(it){ (it.by || []).forEach(function(m){ if (isMissed(m[0])) missedN++; }); }); });
+if (missedN) document.getElementById("lede").innerHTML += ' <b style="color:var(--bad)">' + missedN + (missedN === 1 ? " date" : " dates") + ' missed.</b>';
 
+var MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function isMissed(iso){ return Date.now() > new Date(iso + "T23:59:59+05:30").getTime(); }
+function dayText(iso){ var p = iso.split("-"); return (+p[2]) + " " + MON[+p[1] - 1]; }
+function byHtml(by){
+  if (!by) return "";
+  return '<div class="by">' + by.map(function(m){
+    return isMissed(m[0]) ? '<span class="miss">Missed ' + dayText(m[0]) + ': ' + m[1] + '</span>'
+                          : '<span><b>By ' + dayText(m[0]) + ':</b> ' + m[1] + '</span>';
+  }).join("") + '</div>';
+}
 function barColor(pct){
   if (pct === null) return "var(--good)";
   if (pct === 0) return "var(--bad)";
@@ -347,7 +364,7 @@ TASKS.forEach(function(g){
         '<span class="tag ' + it.tag + '">' + it.tag + '</span></div>' +
         '<div class="pct" style="color:' + pctColor(it.pct) + '">' + pctText + '</div></div>' +
       '<div class="bar"><span style="width:' + fill + '%;background:' + barColor(it.pct) + '"></span></div>' +
-      '<div class="note">' + it.n + link + '</div>';
+      '<div class="note">' + it.n + link + '</div>' + byHtml(it.by);
     board.appendChild(c);
   });
 });
