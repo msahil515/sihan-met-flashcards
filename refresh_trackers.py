@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Refresh the Admissions Tracker + News Board — for real, not cosmetically.
 
-Runs on a schedule (GitHub Actions, 8 AM & 3 PM IST) and on manual dispatch.
+Runs at 8 AM & 3 PM IST: dispatched on time from the Mac (launchd
+com.sahil.sihan-tracker-refresh), with GitHub's own cron as a late fallback that
+skips a slot already refreshed (--skip-if-slot-done). Also runs on manual dispatch.
 What it actually does each run:
 
   1. SOURCE FETCH (the real work): goes out to every source URL the board and
@@ -328,6 +330,21 @@ def refresh_news_json(news_data, dt):
     return True
 
 
+SLOT_HOURS = (8, 15)   # the 8 AM and 3 PM IST refresh slots
+
+
+def slot_already_done(last_refreshed, dt):
+    """True if a refresh already ran at or after the latest 8 AM / 3 PM IST slot."""
+    try:
+        last = datetime.fromisoformat(last_refreshed)
+    except (TypeError, ValueError):
+        return False
+    slots = [dt.replace(hour=h, minute=0, second=0, microsecond=0) for h in SLOT_HOURS]
+    past = [s for s in slots if s <= dt]
+    latest = max(past) if past else slots[-1] - timedelta(days=1)
+    return last >= latest
+
+
 def main():
     dt = now_ist()
     print(f"=== refresh run @ {human_stamp(dt)} ===")
@@ -338,6 +355,13 @@ def main():
         news_data = json.loads(news_path.read_text(encoding="utf-8"))
     else:
         print("skip (missing): news/news.json")
+
+    # GitHub's cron fires hours late; the Mac dispatches the on-time run, so a
+    # late scheduled run skips when its slot has already been refreshed.
+    if "--skip-if-slot-done" in sys.argv and news_data is not None \
+            and slot_already_done(news_data.get("last_refreshed"), dt):
+        print(f"slot already refreshed at {news_data['last_refreshed']}, skipping")
+        return 0
 
     if news_data is not None:
         print("-- checking sources --")
