@@ -105,9 +105,10 @@ def build_assets_full(assets: Path):
         if item.name in skip_top:
             continue
         _copy(item, assets / item.name)
-    # Never nest APKs or build cruft inside the APK.
+    # Never nest APKs, build cruft or the desktop offline pack (MET-Prep-Offline.zip,
+    # ~78 MB; it pushed the APK past GitHub's 100 MB limit on 23 Nov) inside the APK.
     dl = assets / "downloads"
-    for junk in set(dl.glob("*.apk")):
+    for junk in set(dl.glob("*.apk")) | set(dl.glob("*.zip")):
         junk.unlink()
     drop_live_only(assets)
 
