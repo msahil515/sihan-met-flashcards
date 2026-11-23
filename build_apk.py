@@ -55,10 +55,6 @@ _BT = Path("/opt/homebrew/share/android-commandlinetools/build-tools/34.0.0")
 ZIPALIGN = _find_tool("zipalign", _BT / "zipalign")
 APKSIGNER = _find_tool("apksigner", _BT / "apksigner")
 
-# Sections to drop from the notes-only build (everything that isn't "the notes").
-NOTES_EXCLUDE_TOP = {"quiz", "tests", "results", "plan", "checklist", "games"}
-
-
 def run(cmd):
     print("  $", " ".join(str(c) for c in cmd))
     subprocess.run(cmd, check=True)
@@ -119,7 +115,11 @@ def build_assets_full(assets: Path):
 def build_assets_notes(assets: Path):
     """Notes-only: notes pages + shared css/icons + offline epub/pdf + a notes home."""
     assets.mkdir(parents=True, exist_ok=True)
-    for name in ("site.css", "notes-style.css", "manifest.webmanifest", "sw.js"):
+    # Root scripts/styles every notes page loads. Without gate.js the page keeps
+    # html.gate-locked and stays blank (the 404 page gets parsed as JS).
+    for name in ("site.css", "notes-style.css", "manifest.webmanifest", "sw.js",
+                 "gate.js", "sync.js", "force-sync.js", "nav-toggle.js",
+                 "revamp-skin.css", "take/theme.js"):
         if (ROOT / name).exists():
             _copy(ROOT / name, assets / name)
     _copy(ROOT / "icons", assets / "icons")
@@ -132,19 +132,38 @@ def build_assets_notes(assets: Path):
         if f.suffix.lower() in {".epub", ".pdf"}:
             _copy(f, dl_dst / f.name)
 
-    rewrite_notes_links(assets / "notes")
     write_notes_home(assets / "index.html")
     write_notes_downloads_index(dl_dst / "index.html")
+    rewrite_notes_links(assets)
 
 
-def rewrite_notes_links(notes_dir: Path):
-    """Neutralise links that point at sections not bundled in the notes build."""
-    excl = "|".join(NOTES_EXCLUDE_TOP)
-    # any href reaching into an excluded top-level section -> notes home
-    pat_href = re.compile(r'href="[^"]*?/(?:' + excl + r')/[^"]*"')
-    for html in notes_dir.rglob("index.html"):
+def rewrite_notes_links(assets: Path):
+    """Point links at pages not bundled in the notes build to the notes home.
+
+    A link to a missing asset (tests, admissions, rml, ...) opens a blank page
+    in the app, so any href that doesn't resolve inside `assets` is rewritten.
+    """
+    notes_dir = assets / "notes"
+    base = "/sihan-met-flashcards/"
+
+    def bundled(html: Path, url: str) -> bool:
+        path = url.split("#")[0].split("?")[0]
+        if path.startswith(base):
+            target = assets / path[len(base):]
+        else:
+            target = html.parent / path
+        target = target.resolve()
+        return target.is_file() or (target / "index.html").is_file()
+
+    def fix(html: Path, m) -> str:
+        url = m.group(1)
+        if re.match(r"[a-z]+:|#|$", url) or bundled(html, url):
+            return m.group(0)
+        return f'href="{base}notes/"'
+
+    for html in notes_dir.rglob("*.html"):
         txt = html.read_text(encoding="utf-8")
-        if html.parent == notes_dir:
+        if html == notes_dir / "index.html":
             # notes landing page: replace the full top nav with a notes-only nav
             txt = re.sub(
                 r'<nav class="nav">.*?</nav>',
@@ -154,7 +173,7 @@ def rewrite_notes_links(notes_dir: Path):
                 '      <a href="../downloads/">Downloads</a>\n'
                 '    </nav>',
                 txt, flags=re.DOTALL)
-        txt = pat_href.sub('href="/sihan-met-flashcards/notes/"', txt)
+        txt = re.sub(r'href="([^"]*)"', lambda m: fix(html, m), txt)
         html.write_text(txt, encoding="utf-8")
 
 
