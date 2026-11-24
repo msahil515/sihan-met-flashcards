@@ -33,6 +33,7 @@ html[data-theme] {
   /* text */
   --text: var(--ink);
   --fg: var(--ink);
+  --ink2: var(--ink-soft);
 
   /* accent family */
   --accent: var(--primary);
@@ -72,3 +73,29 @@ html[data-theme][data-mode="light"] {
 html[data-theme] body {
   transition: background-color .2s ease, color .2s ease;
 }
+
+/* Night mode for copy-pasted page styles. Many study pages carry their own
+   <style> with label colours picked for light paper (.why/.warn b brown,
+   .founder b teal, .chip b / .qa .q / table heads near-black), which fall to
+   1.3-2.5:1 on the dark palettes. Light mode keeps each page's own colours. */
+html[data-mode="dark"] .why b,
+html[data-mode="dark"] .warn b,
+html[data-mode="dark"] .cl .trap,
+html[data-mode="dark"] .verify b,
+html[data-mode="dark"] .qa .why::before { color: var(--amber); }
+html[data-mode="dark"] .trap b { color: var(--bad); }
+html[data-mode="dark"] .founder b,
+html[data-mode="dark"] .qa .a::before { color: var(--good); }
+html[data-mode="dark"] .chip b,
+html[data-mode="dark"] .qa .q,
+html[data-mode="dark"] table.nums th,
+html[data-mode="dark"] table.t th,
+html[data-mode="dark"] table.t td b,
+html[data-mode="dark"] .cl b,
+html[data-mode="dark"] .mod b,
+html[data-mode="dark"] .block b,
+html[data-mode="dark"] .rapid dt { color: var(--ink); }
+/* white text on accent/good fills: those fills turn pale at night */
+html[data-mode="dark"] .acts a.go,
+html[data-mode="dark"] .mo.right .mk,
+html[data-mode="dark"] .exp-answer .ak { color: var(--bg); }
