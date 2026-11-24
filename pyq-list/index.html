@@ -74,7 +74,7 @@
     padding:3px 6px;white-space:nowrap}
   .t-live{background:#2f9e57} .t-part{background:#d29922} .t-queue{background:#c0392b} .t-flag{background:#7d3c98}
   .k-off{background:#2f9e57} .k-mark{background:#4d8fbf} .k-hand{background:#8a6d3b} .k-none{background:#4b5563}
-  .s-you{background:#7a5cbf} .s-drive{background:#2f7f8f} .s-pack{background:#b06b2c} .s-in{background:#8a3b6b}
+  .s-you{background:#7a5cbf} .s-drive{background:#2f7f8f} .s-pack{background:#b06b2c} .s-in{background:#8a3b6b} .s-web{background:#3d6fb0}
   @media(max-width:760px){
     .row,.hd{flex-wrap:wrap}
     .hd .pg,.row .pg{width:42px}
@@ -127,14 +127,22 @@
 <p class="updated">Every past paper that exists anywhere in your material. College, year, <b>where it came from</b> (you, the Mimaansa Drive, or buried inside a file you sent), how many pages, whether there's an answer key, and whether it's built into a mock yet. Pulled out of the WhatsApp log and the Drive folder, then <b>every file actually opened and read</b>, not taken from the filename. <b>Third pass, 26 July 2026:</b> every camera-scanned PDF opened and read page by page off the image, because a scan has no text layer and the filename is the only thing a search can see. Six papers turned out to have an answer key I said they didn't have, one I'd called built isn't, and three papers don't print the college anywhere.</p>
 
 <div class="stats">
-  <div class="stat all"><div class="n">57</div><div class="l">real papers</div></div>
+  <div class="stat all"><div class="n">59</div><div class="l">real papers</div></div>
   <div class="stat all"><div class="n">15</div><div class="l">colleges</div></div>
-  <div class="stat built"><div class="n">52</div><div class="l">built into mocks</div></div>
+  <div class="stat built"><div class="n">54</div><div class="l">built into mocks</div></div>
   <div class="stat part"><div class="n">0</div><div class="l">built partly</div></div>
   <div class="stat queue"><div class="n">5</div><div class="l">not built</div></div>
   <div class="stat keyed"><div class="n">2</div><div class="l">unbuilt <i>and</i> keyed</div></div>
 </div>
 
+
+<div class="flagbox" id="searched-again">
+<p><b>Searched again, 24 Nov 2026: JSS, SGT and Amity 2020.</b> A fresh pass over each college's own site, UPS Education (site, paid course lists, Telegram), Power Within Psychology, ePsychology, bestpsychologycoaching, Mimaansa, Psysium, Scribd, Studocu, Course Hero, Reddit, Quora and YouTube. Straight answer:</p>
+<p><b>1. JSS Mysuru: no paper exists online, and no recall either.</b> JSS makes you hand the booklet back and bans taking questions out, so nothing leaks. JSS's own brochures, syllabi and notices (2017 to 2026) carry no sample or past paper. The only JSS-labelled papers anywhere are "JSS Mysore PDCP 2016" and "2019", sold only inside UPS coaching courses (Rs 35,000 to 45,000), and those labels are doubtful because JSS only started the PDCP in 2025-26. What JSS does print: 2025 M.Phil was 90 MCQs in 60 minutes, no negative marking, interview 10 marks; 2026 M.A. and PDCP was one 1-hour MCQ paper, no negative marking, plus a viva (no question count given).</p>
+<p><b>2. SGT Gurugram: no written paper or recall exists online.</b> SGT also takes the booklet back. What is out there: interview recalls only. 2026 M.A. (Reddit): dopamine pathways, what you would do if someone had a panic attack in front of you, an example of formal thought disorder; written paper called easy to moderate, interview trickier. 2025 M.Phil (UPS video): internship, the MMPI, comorbidities and their treatment, your favourite school of thought, Carl Rogers. The "SGT prediction" sets on Scribd say themselves they are not official. SGT's own pattern: 70 MCQs, half subject and half research methods, 1 mark each, no negative marking, then a 30-mark interview the same day.</p>
+<p><b>3. Amity 2020: no free copy and no recall exists.</b> The only one anywhere is "Amity (Noida) Entrance Test 2020", 100 Qs, listed inside UPS's paid course bundle (Rs 41,000), along with Amity Noida 2017, 2019 and 2021, which can't be opened without enrolling. Amity's own site publishes no sample paper or pattern beyond "written test, interview and practical". So Amity 2023 (built) stays the only real Amity paper you have.</p>
+<p><b>4. The real find: Gurugram University posts its papers.</b> Its 11 July 2026 M.A. Clinical Psychology (70 Qs) and PDCP (60 Qs) papers are on its own site with the official keys. Both are built now, in the Gurugram University group below and in the Tests app.</p>
+</div>
 
 <div class="flagbox scanbox">
 <p><b>Third pass: the camera scans.</b> Everything up to now leaned on the text layer inside a PDF. <b>21 of your files don't have one</b> &ndash; they're photographs of paper, so nothing but the filename was ever readable. I opened all of them and read the pages off the image. That's where the misses were.</p>
@@ -200,6 +208,7 @@
   <span><span class="chip s-drive">DRIVE</span> <b>&nbsp;only in the Mimaansa Drive, never sent</b></span>
   <span><span class="chip s-pack">PACK</span> <b>&nbsp;inside the 76-page pyqs.pdf</b></span>
   <span><span class="chip s-in">BURIED</span> <b>&nbsp;buried inside a multi-paper file you sent</b></span>
+  <span><span class="chip s-web">WEB</span> <b>&nbsp;found online, on the college's own site</b></span>
 </div>
 
 <div id="root"></div>
@@ -341,7 +350,11 @@ const DATA = [
     {yr:"2023", nm:"GMCH 2023, entrance test held 02.09.2023", pg:"10 + 14", key:"copy", src:["you","pack"], st:"live", href:"../take/screen.html?m=gmch-2023",
      note:"<b>BUILT 21 Nov 2026:</b> live as a mock, all 100 questions, every answer from the pack's printed worked key (pp61&ndash;68), each one checked; Key notes where an answer is arguable (Q24 says \"hypercalcaemic\" tetany, which is really hypocalcaemic; Q44 is strictly precognition; Q83 \"ambivert\" was coined after Jung; Q98 thought stopping vs ERP). This is the file labelled \"GMCC 2023\". Full official booklet, 100 Qs, and it's also inside \"Mphil past papers Compiled.pdf\". <b>Corrected today:</b> the pack block is pp55&ndash;68, not pp55&ndash;57, and it prints answers <i>with explanations</i> for all 100 &ndash; I'd written it off as hand ticks on the first 40. <b>Build queue #6.</b>"}
   ]},
-  {college:"Gurugram University", sub:"Haryana &middot; both 2025 papers officially keyed, plus Anukriti's solved version, all 3 built", rows:[
+  {college:"Gurugram University", sub:"Haryana &middot; the 2026 and 2025 papers, all officially keyed, plus Anukriti's solved version, all 5 built", rows:[
+    {yr:"2026", nm:"Gurugram 2026, M.A. Clinical Psychology (booklet T-101)", pg:"16", key:"off", src:["web"], st:"live", href:"../take/screen.html?m=gurugram-2026-ma",
+     note:"<b>BUILT 24 Nov 2026:</b> found on Gurugram University's own site (notice GUG/COE/2026/Psy01, exam held 11 Jul 2026). Live as a mock, all 70 questions, read off the scanned booklet and checked word by word against the scans, every key from the official key in the notice (p2)."},
+    {yr:"2026", nm:"Gurugram 2026, Professional Diploma in Clinical Psychology (booklet T-102)", pg:"17", key:"off", src:["web"], st:"live", href:"../take/screen.html?m=gurugram-2026-pdcp",
+     note:"<b>BUILT 24 Nov 2026:</b> same notice, same day. Live as a mock, all 60 questions word for word off the text layer, every key from its own official key (p19)."},
     {yr:"2025", nm:"Gurugram 2025, M.Phil Clinical Psychology", pg:"11", key:"off", src:["you","drive"], st:"live", href:"../take/screen.html?m=gurugram-2025-mphil",
      note:"<b>BUILT 20 Nov 2026:</b> live as a mock, all 60 questions word for word, every key from the official key in the university's notice (pp2&ndash;13 of the notice PDF)."},
     {yr:"2025", nm:"Gurugram 2025, M.A. Clinical Psychology", pg:"9", key:"off", src:["you","drive"], st:"live", href:"../take/screen.html?m=gurugram-2025-ma",
@@ -462,7 +475,7 @@ const DATA = [
 
 const TAGS = {live:["t-live","BUILT"], part:["t-part","PARTIAL"], queue:["t-queue","NOT BUILT"], flag:["t-flag","NOT A PAPER"]};
 const KEYS = {off:["k-off","OFFICIAL"], copy:["k-mark","IN COPY"], hand:["k-hand","HAND"], none:["k-none","NONE"]};
-const SRCS = {you:["s-you","YOU"], drive:["s-drive","DRIVE"], pack:["s-pack","PACK"], in:["s-in","BURIED"]};
+const SRCS = {you:["s-you","YOU"], drive:["s-drive","DRIVE"], pack:["s-pack","PACK"], in:["s-in","BURIED"], web:["s-web","WEB"]};
 
 function render(){
   document.getElementById("root").innerHTML = DATA.map(c => {

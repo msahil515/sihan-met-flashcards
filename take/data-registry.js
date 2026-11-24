@@ -427,6 +427,32 @@ const MOCKS = [
     tags: ["100% real PYQ", "GMCH 2023", "printed worked key, checked", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "gurugram-2026-ma",
+    title: "Gurugram 2026 M.A. (real paper)",
+    sub: "70 real Qs · Gurugram University's own 2026 M.A. Clinical Psychology paper · official key · untimed",
+    path: "../take/screen.html?m=gurugram-2026-ma",
+    total: 70,
+    storageKey: "gurugram-2026-ma-results-v1",
+    sections: { general: 20, assessment: 11, physio: 8, research: 7, clinical: 7, disorders: 6, dev: 6, social: 3, personality: 2 },
+    blurb: "Gurugram University's own 2026 M.A. Clinical Psychology entrance (held 11 July 2026), all 70 questions from the university's notice GUG/COE/2026/Psy01, read off the scanned booklet (T-101) and checked word by word against the scans, every answer from the official key in the same notice. Heavier on learning, memory, thinking and assessment than the 2025 paper, plus research and statistics, biopsych, development, therapy and psychopathology. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Key notes where the key is arguable (Skinner vs Thorndike as the reinforcement pioneer, what is unique to REM sleep); the key still scores. Typos are as printed.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "official key", "Gurugram 2026", "M.A.", "trap per wrong option", "untimed practice"]
+  },
+  {
+    id: "gurugram-2026-pdcp",
+    title: "Gurugram 2026 PDCP (real paper)",
+    sub: "60 real Qs · Gurugram University's own 2026 Professional Diploma in Clinical Psychology paper · official key · untimed",
+    path: "../take/screen.html?m=gurugram-2026-pdcp",
+    total: 60,
+    storageKey: "gurugram-2026-pdcp-results-v1",
+    sections: { physio: 11, disorders: 11, research: 10, assessment: 6, general: 6, dev: 6, social: 4, clinical: 4, personality: 2 },
+    blurb: "Gurugram University's own 2026 Professional Diploma in Clinical Psychology entrance (held 11 July 2026), all 60 questions word for word from the same notice (booklet T-102), every answer from its official key. Mostly direct fact questions: research and statistics, assessment, biopsych, development, psychopathology and a Bollywood one (Bhool Bhulaiyaa). Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Key notes where the key is arguable (\"Binet Stanford\" for the IQ formula, cannabis and visual hallucinations, focused vs selective attention); the key still scores.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "official key", "Gurugram 2026", "PDCP", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "gurugram-2025-mphil",
     title: "Gurugram 2025 M.Phil (real paper)",
     sub: "60 real Qs · Gurugram University's own 2025 M.Phil Clinical Psychology paper · official key · untimed",
@@ -1040,8 +1066,8 @@ const GROUPS = [
     sub: "Government Medical College and Hospital, Chandigarh: M.Phil Clinical Psychology entrance papers, real questions (2025 with the official key, 2024 worked out from standard texts, 2023 with a printed worked key)",
     members: ["gmch-2025", "gmch-2024", "gmch-2023"] },
   { id: "gurugram", title: "Gurugram University",
-    sub: "Gurugram University, Haryana: the 2025 M.Phil and M.A. Clinical Psychology entrance papers, real questions with the official key, plus Anukriti's solved version of the same exam",
-    members: ["gurugram-2025-mphil", "gurugram-2025-ma", "gurugram-2025-solved"] },
+    sub: "Gurugram University, Haryana: the 2026 M.A. and PDCP and the 2025 M.Phil and M.A. Clinical Psychology entrance papers, real questions with the official key, plus Anukriti's solved version of the 2025 exam",
+    members: ["gurugram-2026-ma", "gurugram-2026-pdcp", "gurugram-2025-mphil", "gurugram-2025-ma", "gurugram-2025-solved"] },
   { id: "rinpas", title: "RINPAS Ranchi",
     sub: "Ranchi Institute of Neuro-Psychiatry and Allied Sciences: the M.Phil / Ph.D Clinical Psychology entrance, real questions with a printed worked key",
     members: ["rinpas-2024", "rinpas-2019"] },
