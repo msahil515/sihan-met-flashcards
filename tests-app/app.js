@@ -718,10 +718,13 @@
 
   /* ---------- play ---------- */
   var combo = 0;
+  var spoken = "";   /* mock:question last rendered, so reading stops only when the question changes */
   function play() {
     var id = cur.id, M = P[id], Q = M.questions, N = Q.length, r = getRun(id);
     meta.last = id; saveMeta();
     if (r.i >= N || r.i < 0) r.i = 0;
+    if (window.Speak && Speak.ok && spoken !== id + ":" + r.i) Speak.stop();
+    spoken = id + ":" + r.i;
     var list = r.redo && r.redo.length ? r.redo : null;
     var pos = list ? Math.max(0, list.indexOf(r.i)) : r.i, len = list ? list.length : N;
     var q = Q[r.i], a = r.ans[r.i], shown = a != null;
@@ -761,6 +764,7 @@
       var paint = function () { var on = Speak.speaking() === "q"; spk.classList.toggle("on", on); spk.textContent = on ? "■ Stop" : "🔊 Listen"; };
       spk.onclick = function () { if (Speak.speaking() === "q") Speak.stop(); else Speak.say("Question " + (r.i + 1) + ". " + Speak.text(q.q), "q"); paint(); };
       if (Speak.onstate) Speak.onstate(paint);
+      paint();
     }
     app.querySelectorAll("#opts .opt").forEach(function (b) {
       b.onclick = function (e) { if (e.target.closest(".otag")) return; SFX.click(); answer(id, b.getAttribute("data-k")); };

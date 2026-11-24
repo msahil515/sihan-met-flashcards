@@ -40,7 +40,12 @@
   "use strict";
 
   var synth = window.speechSynthesis;
-  var OK = !!(synth && window.SpeechSynthesisUtterance);
+  var WEB = !!(synth && window.SpeechSynthesisUtterance);
+  // The Tests APK's WebView has no speechSynthesis at all; its MainActivity
+  // offers the phone's own TTS engine instead (NLNative.ttsSpeak/ttsBusy/ttsStop).
+  // Older APKs lack those methods, so they stay without read aloud as before.
+  var NATIVE = !WEB && !!(window.NLNative && window.NLNative.ttsSpeak);
+  var OK = WEB || NATIVE;
   var K = "met-speak-v1";
   var SAMSUNG = /SamsungBrowser/i.test(navigator.userAgent || "");
 
@@ -57,7 +62,7 @@
   /* ---------- voices ---------- */
   var voices = [];
   function loadVoices() {
-    if (!OK) return;
+    if (!WEB) return;
     var all = synth.getVoices() || [];
     voices = all.filter(function (v) { return /^en/i.test(v.lang || ""); });
     if (!voices.length) voices = all;
@@ -80,13 +85,13 @@
      So poll for ~6s from load instead of trusting the event. */
   var voiceTries = 0;
   function warmVoices() {
-    if (!OK) return;
+    if (!WEB) return;
     loadVoices();
     if (voices.length) { refreshPanel(); return; }
     if (voiceTries++ > 24) return;
     setTimeout(warmVoices, 250);
   }
-  if (OK) {
+  if (WEB) {
     loadVoices();
     try { synth.addEventListener("voiceschanged", function () { loadVoices(); refreshPanel(); }); } catch (e) {}
     if (!voices.length) setTimeout(warmVoices, 200);
@@ -137,13 +142,18 @@
     token++;
     liveTag = "";
     // cancel() on an idle engine is a no-op on Chrome but can wedge Samsung's,
-    // so only reach for it when something is actually queued or talking
-    if (OK && busy()) { try { synth.cancel(); } catch (e) {} }
+    // so only reach for it when something is actually queued or talking. The
+    // native engine is safe to stop any time, and must be: it reports busy only
+    // once audio starts, so a stop in that first second would otherwise miss.
+    if (NATIVE || (OK && busy())) cancel();
     fire();
   }
 
   function busy() {
-    try { return !!(synth.speaking || synth.pending); } catch (e) { return false; }
+    try { return NATIVE ? !!NLNative.ttsBusy() : !!(synth.speaking || synth.pending); } catch (e) { return false; }
+  }
+  function cancel() {
+    try { if (NATIVE) NLNative.ttsStop(); else synth.cancel(); } catch (e) {}
   }
 
   /* Speak every chunk of one run. All of them are queued in the SAME task, on
@@ -167,7 +177,11 @@
       if (mine === token) { liveTag = ""; fire(); }
     }
 
-    for (var i = 0; i < parts.length; i++) {
+    if (NATIVE) {
+      var queued = false;
+      try { queued = NLNative.ttsSpeak(JSON.stringify(parts), rate); } catch (e) {}
+      if (!queued) { finish(); return; }
+    } else for (var i = 0; i < parts.length; i++) {
       var u = new SpeechSynthesisUtterance(parts[i]);
       // No voice resolved: leave lang alone. Forcing a tag the engine does not
       // ship (en-IN on most Samsung builds) makes it stay silent instead of
@@ -203,13 +217,13 @@
     var wasBusy = busy();
     token++;                               // invalidate anything in flight
     liveTag = "";
-    if (wasBusy) { try { synth.cancel(); } catch (e) {} }
+    if (wasBusy) cancel();
     if (!body) { fire(); return; }
     gestured = true;
     liveTag = tag || "on";
     var mine = token;
     fire();
-    try { if (synth.paused) synth.resume(); } catch (e) {}
+    try { if (WEB && synth.paused) synth.resume(); } catch (e) {}
     // Always start inside the tap's own task: Samsung Internet only permits
     // speech begun in the gesture, and a setTimeout here loses it. When we did
     // have to cancel first, the watchdog re-issues once for Chrome's sake.

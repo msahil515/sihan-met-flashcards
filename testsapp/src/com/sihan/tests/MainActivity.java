@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /* Tests: a full-screen WebView over the bundled app in assets/www.
    Everything is served from the APK, so it runs with no network at all. */
@@ -47,11 +49,25 @@ public class MainActivity extends Activity {
     private boolean loaded;
     private Ota ota;
     private final VoiceRequestQueue voiceRequests = new VoiceRequestQueue();
+    /* Read aloud: Android WebView has no speechSynthesis, so take/speak.js talks through
+       the phone's own TTS engine via NLNative.tts* instead */
+    private TextToSpeech tts;
+    private volatile boolean ttsReady;
 
     @Override
     protected void onCreate(Bundle state) {
         super.onCreate(state);
         ota = new Ota(this, "tests");
+        tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status != TextToSpeech.SUCCESS) return;
+                /* same preference as the site: Indian English when the engine has it */
+                Locale in = new Locale("en", "IN");
+                if (tts.isLanguageAvailable(in) >= TextToSpeech.LANG_AVAILABLE) tts.setLanguage(in);
+                ttsReady = true;
+            }
+        });
         Window w = getWindow();
         w.setStatusBarColor(Color.parseColor("#101418"));
         w.setNavigationBarColor(Color.parseColor("#101418"));
@@ -174,6 +190,8 @@ public class MainActivity extends Activity {
         boolean hadVoice = voiceRequests.current() != null;
         voiceRequests.clear();
         if (hadVoice) finishActivity(VOICE_REQUEST);
+        ttsReady = false;
+        if (tts != null) tts.shutdown();
         super.onDestroy();
     }
 
@@ -297,6 +315,33 @@ public class MainActivity extends Activity {
                     else if (state == VoiceRequestQueue.BUSY) voiceResult(requestId, "error", "");
                 }
             });
+        }
+
+        /* parts: JSON array of text chunks, queued back to back; rate 1 = normal */
+        @JavascriptInterface
+        public boolean ttsSpeak(String parts, float rate) {
+            if (!ttsReady) return false;
+            try {
+                org.json.JSONArray a = new org.json.JSONArray(parts);
+                tts.setSpeechRate(Math.max(0.5f, Math.min(2f, rate)));
+                for (int i = 0; i < a.length(); i++) {
+                    int mode = i == 0 ? TextToSpeech.QUEUE_FLUSH : TextToSpeech.QUEUE_ADD;
+                    if (tts.speak(a.getString(i), mode, null, "q" + i) != TextToSpeech.SUCCESS) return false;
+                }
+                return a.length() > 0;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+
+        @JavascriptInterface
+        public boolean ttsBusy() {
+            return ttsReady && tts.isSpeaking();
+        }
+
+        @JavascriptInterface
+        public void ttsStop() {
+            if (ttsReady) tts.stop();
         }
 
         @JavascriptInterface
