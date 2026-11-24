@@ -234,15 +234,15 @@ const MOCKS = [
   {
     id: "rml-2024",
     title: "RML 2024 PYQ Mock (verbatim paper)",
-    sub: "100 verbatim Qs · ABVIMS / Dr RML Hospital M.Phil 2024 (CET-157) · official key · untimed Practice + Full run",
+    sub: "100 verbatim Qs · ABVIMS / Dr RML Hospital M.Phil 2024 (CET-157) · GGSIPU key, checked · untimed Practice + Full run",
     path: "../quiz/rml-2024/",
     total: 100,
     storageKey: "rml-2024-results-v1",
     sections: { general: 38, biopsych: 18, abnormal: 14, therapy: 13, biostats: 6, assessment: 6, dev: 3, social: 2 },
-    blurb: "The full 2024 RML / ABVIMS (Dr RML Hospital, Delhi) M.Phil Clinical Psychology entrance paper, all 100 questions verbatim with the paper's official answer key (the source marks each correct option in bold). Nothing synthesised. This is the M.Phil (CET-157) paper, the best real depth-calibration for the RML MA route, pulled from your Drive library. Untimed Practice mode by default (instant reveal + explanation per question); flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. Independent storage.",
+    blurb: "The full 2024 RML / ABVIMS (Dr RML Hospital, Delhi) M.Phil Clinical Psychology entrance paper, all 100 questions verbatim with GGSIPU's answer key (the source marks each correct option in bold), checked on 24 Nov 2026: five plainly wrong keys (Q2, Q41, Q51, Q89, Q98) now mark the textbook answer, each with a Key note. Nothing synthesised. This is the M.Phil (CET-157) paper, the best real depth-calibration for the RML MA route, pulled from your Drive library. Untimed Practice mode by default (instant reveal + explanation per question); flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
     deepExp: true,
-    tags: ["deep explanations", "100% real PYQ", "official key", "real distractors", "RML 2024", "untimed practice"]
+    tags: ["deep explanations", "100% real PYQ", "GGSIPU key checked", "real distractors", "RML 2024", "untimed practice"]
   },
   {
     id: "rml-2020",
@@ -273,15 +273,15 @@ const MOCKS = [
   {
     id: "rml-2022",
     title: "RML 2022 PYQ Mock (verbatim paper)",
-    sub: "100 verbatim Qs · GGSIPU M.Phil Clinical Psychology 2022 (RML prep paper) · official key · deep answers · untimed Practice + Full run",
+    sub: "100 verbatim Qs · GGSIPU M.Phil Clinical Psychology 2022 (RML prep paper) · GGSIPU key, checked · deep answers · untimed Practice + Full run",
     path: "../quiz/rml-2022/",
     total: 100,
     storageKey: "rml-2022-results-v1",
-    sections: {"psychopathology": 15, "stats": 6, "development": 14, "biopsych": 7, "general": 10, "social": 8, "assessment": 19, "cognitive": 6, "therapy": 15},
-    blurb: "The full 2022 RML paper (GGSIPU M.Phil Clinical Psychology 2022 (RML prep paper)), all 100 questions verbatim with the paper's official printed answer key. Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. Independent storage.",
+    sections: {"psychopathology": 15, "stats": 7, "development": 14, "biopsych": 7, "general": 10, "social": 8, "assessment": 19, "cognitive": 6, "therapy": 14},
+    blurb: "The full 2022 RML paper (GGSIPU M.Phil Clinical Psychology 2022 (RML prep paper)), all 100 questions verbatim with GGSIPU's answer key, checked on 24 Nov 2026 against the exam-portal sheet: the scatter plot question that had been left out is back (now Q100) in place of a duplicate, and the one wrong official key (Q89, circadian rhythm) has a Key note. Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
     deepExp: true,
-    tags: ["deep explanations", "100% real PYQ", "official key", "real distractors", "RML 2022", "untimed practice"]
+    tags: ["deep explanations", "100% real PYQ", "GGSIPU key checked", "real distractors", "RML 2022", "untimed practice"]
   },
   {
     id: "rml-2023",
@@ -299,15 +299,15 @@ const MOCKS = [
   {
     id: "rml-2025",
     title: "RML 2025 PYQ Mock (verbatim paper)",
-    sub: "100 verbatim Qs · GGSIPU M.Phil Clinical Psychology 2025 (RML prep paper) · official key · deep answers · untimed Practice + Full run",
+    sub: "100 verbatim Qs · GGSIPU M.Phil Clinical Psychology 2025 (RML prep paper) · GGSIPU key, checked · deep answers · untimed Practice + Full run",
     path: "../quiz/rml-2025/",
     total: 100,
     storageKey: "rml-2025-results-v1",
     sections: {"biopsych": 18, "cognitive": 10, "psychopathology": 8, "stats": 12, "development": 8, "assessment": 22, "general": 20, "therapy": 1, "social": 1},
-    blurb: "The full 2025 RML paper (GGSIPU M.Phil Clinical Psychology 2025 (RML prep paper)), all 100 questions verbatim with the paper's official printed answer key. Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. Independent storage.",
+    blurb: "The full 2025 RML paper (GGSIPU M.Phil Clinical Psychology 2025 (RML prep paper)), all 100 questions verbatim with GGSIPU's published answer key, checked on 24 Nov 2026: the two plainly wrong keys (Q39 Maslow, Q89 father of Indian psychology) now mark the textbook answer, each with a Key note. Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
     deepExp: true,
-    tags: ["deep explanations", "100% real PYQ", "official key", "real distractors", "RML 2025", "untimed practice"]
+    tags: ["deep explanations", "100% real PYQ", "GGSIPU key checked", "real distractors", "RML 2025", "untimed practice"]
   },
   {
     id: "rml-practice-1",
