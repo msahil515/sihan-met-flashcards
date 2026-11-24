@@ -27,6 +27,12 @@ li{padding-left:.15rem;margin:.35rem 0}
 .example{margin-top:.8rem;padding-top:.8rem;border-top:1px solid var(--line)}
 .question{font-size:1.12rem;font-weight:650;margin-bottom:.45rem}
 .small{font-size:.9rem;color:var(--muted)}
+.cards{display:grid;gap:.8rem}
+.study-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1rem 1.15rem}
+.study-card h3{font-size:1.08rem;line-height:1.3;margin:.05rem 0 .5rem}
+.study-card p{margin-bottom:.55rem}
+.study-card p:last-child{margin-bottom:0}
+.optional{color:var(--muted);font-size:.94rem;border-top:1px solid var(--line);padding-top:.55rem;margin-top:.65rem}
 footer{border-top:1px solid var(--line);padding-top:1.2rem;margin-top:2rem;color:var(--muted);font-size:.9rem}
 @media(max-width:480px){html{font-size:17px}.notice,.card,.sources{padding:1rem}}
 </style>
@@ -53,21 +59,58 @@ footer{border-top:1px solid var(--line);padding-top:1.2rem;margin-top:2rem;color
   <p>Begin with familiar topics. If it feels comfortable, you could briefly read the card aloud or listen to audio while keeping the same text available as a transcript. Skip audio if sound is uncomfortable. Audio files may not be available for every card.</p>
 </section>
 
-<section class="card" aria-label="Worked study card example">
-  <span class="label">Example card · learning</span>
-  <h2>Positive and negative reinforcement</h2>
-  <p><strong>Definition:</strong> Both positive and negative reinforcement increase a behavior. Positive reinforcement adds a valued outcome; negative reinforcement removes an unpleasant condition.</p>
-  <div class="example">
-    <span class="label">One example</span>
-    <p>A car’s seatbelt alarm stops when you buckle up. If this increases future buckling, it is negative reinforcement. The sound being removed alone does not establish reinforcement.</p>
-  </div>
-  <div class="example">
-    <span class="label">Optional comparison</span>
-    <p>Positive adds something valued; negative removes something unpleasant. In both cases, the behavior increases.</p>
-  </div>
-  <div class="example">
-    <span class="label">Optional recall, with answer visible</span>
-    <p><strong>Question:</strong> Does negative reinforcement decrease behavior?<br><strong>Answer:</strong> No. Reinforcement increases behavior; “negative” means something unpleasant is removed.</p>
+<section aria-labelledby="high-yield-heading">
+  <h2 id="high-yield-heading">Eight high-yield cards</h2>
+  <p class="small">Definitions and examples are shown up front. Distinctions and recall prompts are optional; every answer stays visible.</p>
+  <div class="cards">
+    <article class="study-card">
+      <span class="label">1 · Learning</span><h3>Positive and negative reinforcement</h3>
+      <p><strong>Definition:</strong> Reinforcement increases future behavior. Positive reinforcement adds a consequence; negative reinforcement removes an unpleasant condition.</p>
+      <p><strong>Example:</strong> A car’s seatbelt alarm stops when you buckle up. If this increases future buckling, it is negative reinforcement. The sound being removed alone does not establish reinforcement.</p>
+      <p class="optional"><strong>Optional distinction:</strong> Punishment decreases behavior. “Negative” means removal, not decrease.</p>
+    </article>
+    <article class="study-card">
+      <span class="label">2 · Psychometrics</span><h3>Reliability and validity</h3>
+      <p><strong>Definition:</strong> Reliability is consistency of measurement. Validity is whether a test measures what it claims to measure.</p>
+      <p><strong>Example:</strong> A bathroom scale that gives the same wrong reading each time is consistent, but it is not accurate for your weight.</p>
+      <p class="optional"><strong>Optional distinction:</strong> A measure can be reliable without being valid; validity depends on reliable measurement.</p>
+    </article>
+    <article class="study-card">
+      <span class="label">3 · Research methods</span><h3>Type I and Type II errors</h3>
+      <p><strong>Definition:</strong> Type I error rejects a true null hypothesis (false positive). Type II error fails to reject a false null (false negative).</p>
+      <p><strong>Example:</strong> In a screening study, calling someone positive when the condition is absent resembles Type I; missing a present condition resembles Type II.</p>
+      <p class="optional"><strong>Optional recall:</strong> Which error is beta? <strong>Answer:</strong> Type II; power is 1 − beta.</p>
+    </article>
+    <article class="study-card">
+      <span class="label">4 · Personality and disorders</span><h3>OCD and OCPD</h3>
+      <p><strong>Definition:</strong> OCD involves obsessions and/or compulsions. OCPD is a longstanding pattern of perfectionism, orderliness and control.</p>
+      <p><strong>Example:</strong> Repeated unwanted checking that causes distress suggests an OCD-type symptom; insisting that a preferred way of organizing is the only right way may fit an OCPD trait pattern.</p>
+      <p class="optional"><strong>Optional distinction:</strong> OCD symptoms are often unwanted and resisted; OCPD traits are often experienced as fitting the person’s standards. They can co-occur.</p>
+    </article>
+    <article class="study-card">
+      <span class="label">5 · OCD</span><h3>Obsessions and compulsions</h3>
+      <p><strong>Definition:</strong> Obsessions are recurrent, intrusive, unwanted thoughts, images or urges. Compulsions are repetitive behaviors or mental acts a person feels driven to perform, often to reduce anxiety or prevent something feared.</p>
+      <p><strong>Example:</strong> Fear of leaving the gas on can be an obsession; repeatedly checking the knobs can be a compulsion.</p>
+      <p class="optional"><strong>Optional distinction:</strong> A compulsion can be mental, such as repeating a phrase, not only a visible action.</p>
+    </article>
+    <article class="study-card">
+      <span class="label">6 · Older adult assessment</span><h3>Delirium and dementia</h3>
+      <p><strong>Definition:</strong> Delirium is typically sudden and fluctuating, with impaired attention. Dementia is generally gradual and progressive, with attention often relatively preserved early on.</p>
+      <p><strong>Example:</strong> A sudden, variable change in attention over a day contrasts with a gradual decline in memory and daily abilities over time.</p>
+      <p class="optional"><strong>Optional recall:</strong> Which pattern should be considered first when change is sudden? <strong>Answer:</strong> Delirium; the source describes it as a medical problem to rule out first.</p>
+    </article>
+    <article class="study-card">
+      <span class="label">7 · Formulation</span><h3>Diathesis–stress model</h3>
+      <p><strong>Definition:</strong> A narrower causal model in which vulnerability (diathesis) and a trigger or stressor combine in relation to a disorder.</p>
+      <p><strong>Example:</strong> A hypothetical person has a vulnerability and then faces a major stressor; the model asks how those factors relate, without assuming either alone explains the outcome.</p>
+      <p class="optional"><strong>Optional distinction:</strong> The biopsychosocial model is a broader framework for considering biological, psychological and social factors.</p>
+    </article>
+    <article class="study-card">
+      <span class="label">8 · Psychosis</span><h3>Negative symptoms</h3>
+      <p><strong>Definition:</strong> Negative symptoms are reductions or losses in usual functions, such as blunted affect, reduced speech (alogia), reduced drive (avolition), reduced pleasure (anhedonia) and reduced social interest (asociality).</p>
+      <p><strong>Example:</strong> A person may show little facial expression, speak very little and struggle to initiate ordinary activities.</p>
+      <p class="optional"><strong>Optional distinction:</strong> Hallucinations and delusions are positive symptoms, experiences added to the person’s usual functioning. Depression and medication effects can resemble negative symptoms.</p>
+    </article>
   </div>
 </section>
 
