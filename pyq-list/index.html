@@ -74,7 +74,7 @@
     padding:3px 6px;white-space:nowrap}
   .t-live{background:#2f9e57} .t-part{background:#d29922} .t-queue{background:#c0392b} .t-flag{background:#7d3c98}
   .k-off{background:#2f9e57} .k-mark{background:#4d8fbf} .k-hand{background:#8a6d3b} .k-none{background:#4b5563}
-  .s-you{background:#7a5cbf} .s-drive{background:#2f7f8f} .s-pack{background:#b06b2c} .s-in{background:#8a3b6b} .s-web{background:#3d6fb0}
+  .s-you{background:#7a5cbf} .s-drive{background:#2f7f8f} .s-pack{background:#b06b2c} .s-in{background:#8a3b6b} .s-web{background:#3d6fb0} .s-vid{background:#a0522d}
   @media(max-width:760px){
     .row,.hd{flex-wrap:wrap}
     .hd .pg,.row .pg{width:42px}
@@ -127,9 +127,9 @@
 <p class="updated">Every past paper that exists anywhere in your material. College, year, <b>where it came from</b> (you, the Mimaansa Drive, or buried inside a file you sent), how many pages, whether there's an answer key, and whether it's built into a mock yet. Pulled out of the WhatsApp log and the Drive folder, then <b>every file actually opened and read</b>, not taken from the filename. <b>Third pass, 26 July 2026:</b> every camera-scanned PDF opened and read page by page off the image, because a scan has no text layer and the filename is the only thing a search can see. Six papers turned out to have an answer key I said they didn't have, one I'd called built isn't, and three papers don't print the college anywhere.</p>
 
 <div class="stats">
-  <div class="stat all"><div class="n">59</div><div class="l">real papers</div></div>
+  <div class="stat all"><div class="n">60</div><div class="l">real papers</div></div>
   <div class="stat all"><div class="n">15</div><div class="l">colleges</div></div>
-  <div class="stat built"><div class="n">54</div><div class="l">built into mocks</div></div>
+  <div class="stat built"><div class="n">55</div><div class="l">built into mocks</div></div>
   <div class="stat part"><div class="n">0</div><div class="l">built partly</div></div>
   <div class="stat queue"><div class="n">5</div><div class="l">not built</div></div>
   <div class="stat keyed"><div class="n">2</div><div class="l">unbuilt <i>and</i> keyed</div></div>
@@ -140,7 +140,7 @@
 <p><b>Searched again, 24 Nov 2026: JSS, SGT and Amity 2020.</b> A fresh pass over each college's own site, UPS Education (site, paid course lists, Telegram), Power Within Psychology, ePsychology, bestpsychologycoaching, Mimaansa, Psysium, Scribd, Studocu, Course Hero, Reddit, Quora and YouTube. Straight answer:</p>
 <p><b>1. JSS Mysuru: no paper exists online, and no recall either.</b> JSS makes you hand the booklet back and bans taking questions out, so nothing leaks. JSS's own brochures, syllabi and notices (2017 to 2026) carry no sample or past paper. The only JSS-labelled papers anywhere are "JSS Mysore PDCP 2016" and "2019", sold only inside UPS coaching courses (Rs 35,000 to 45,000), and those labels are doubtful because JSS only started the PDCP in 2025-26. What JSS does print: 2025 M.Phil was 90 MCQs in 60 minutes, no negative marking, interview 10 marks; 2026 M.A. and PDCP was one 1-hour MCQ paper, no negative marking, plus a viva (no question count given).</p>
 <p><b>2. SGT Gurugram: no written paper or recall exists online.</b> SGT also takes the booklet back. What is out there: interview recalls only. 2026 M.A. (Reddit): dopamine pathways, what you would do if someone had a panic attack in front of you, an example of formal thought disorder; written paper called easy to moderate, interview trickier. 2025 M.Phil (UPS video): internship, the MMPI, comorbidities and their treatment, your favourite school of thought, Carl Rogers. The "SGT prediction" sets on Scribd say themselves they are not official. SGT's own pattern: 70 MCQs, half subject and half research methods, 1 mark each, no negative marking, then a 30-mark interview the same day.</p>
-<p><b>3. Amity 2020: no free copy and no recall exists.</b> The only one anywhere is "Amity (Noida) Entrance Test 2020", 100 Qs, listed inside UPS's paid course bundle (Rs 41,000), along with Amity Noida 2017, 2019 and 2021, which can't be opened without enrolling. Amity's own site publishes no sample paper or pattern beyond "written test, interview and practical". So Amity 2023 (built) stays the only real Amity paper you have.</p>
+<p><b>3. Amity 2020: no free copy and no recall exists.</b> The only one anywhere is "Amity (Noida) Entrance Test 2020", 100 Qs, listed inside UPS's paid course bundle (Rs 41,000), along with Amity Noida 2017, 2019 and 2021, which can't be opened without enrolling. Amity's own site publishes no sample paper or pattern beyond "written test, interview and practical". So Amity 2023 (built) stays the only full Amity paper you have. <b>Follow-up the same day:</b> a 2021 YouTube video (PSYCHOLOGY SOLUTION) shows the 60 questions of Amity Mumbai's 2021 M.Phil entrance slide by slide; that is built now as a mock, answers worked out since no key exists.</p>
 <p><b>4. The real find: Gurugram University posts its papers.</b> Its 11 July 2026 M.A. Clinical Psychology (70 Qs) and PDCP (60 Qs) papers are on its own site with the official keys. Both are built now, in the Gurugram University group below and in the Tests app.</p>
 </div>
 
@@ -209,6 +209,7 @@
   <span><span class="chip s-pack">PACK</span> <b>&nbsp;inside the 76-page pyqs.pdf</b></span>
   <span><span class="chip s-in">BURIED</span> <b>&nbsp;buried inside a multi-paper file you sent</b></span>
   <span><span class="chip s-web">WEB</span> <b>&nbsp;found online, on the college's own site</b></span>
+  <span><span class="chip s-vid">VIDEO</span> <b>&nbsp;copied off a coaching channel's video</b></span>
 </div>
 
 <div id="root"></div>
@@ -467,7 +468,9 @@ const DATA = [
     {yr:"2023", nm:"NIMHANS 2023 + 2023 memory based", pg:"4 + 16 + 8", key:"copy", src:["you","pack"], st:"live", href:"../quiz/nimhans-mock-1/",
      note:"<b>SCAN PASS &ndash; the 4-page one is not a paper.</b> I read it: a typed recall list (\"Risk ratio 1 meaning\", \"MHA 2017, treatment of minors\", \"Marshmallow delayed gratification\"), topics only, no options, no key. Different thing from the memory-based paper, same year. What's real here is the 16-page memory-based write-up plus pack pp69&ndash;76, and the pack copy ends with printed answers and explanations."}
   ]},
-  {college:"Amity", sub:"Noida / Jaipur &middot; MA Clinical Psychology &middot; 2026 cycle archived", rows:[
+  {college:"Amity", sub:"Noida / Jaipur / Mumbai &middot; MA and M.Phil Clinical Psychology &middot; 2026 cycle archived", rows:[
+    {yr:"2021", nm:"Amity Mumbai 2021, M.Phil Clinical Psychology", pg:"60 slides", key:"none", src:["vid"], st:"live", href:"../take/screen.html?m=amity-mumbai-2021",
+     note:"<b>BUILT 24 Nov 2026:</b> the 60 questions shown slide by slide in PSYCHOLOGY SOLUTION's YouTube video of 10 Oct 2021 (no narration, no answers). Copied word for word off the frames. No key exists, so each answer was solved twice separately: 58/60 agreed, the other 2 settled by the source textbook sentence. Key notes on the arguable ones."},
     {yr:"2023", nm:"Amity 2023", pg:"6", key:"copy", src:["you","drive"], st:"live", href:"../quiz/amity-2023/",
      note:"Coaching-book reproduction with the correct option highlighted in yellow throughout. 96 Qs built. Also the base for the Amity recall mock."}
   ]}
@@ -475,7 +478,7 @@ const DATA = [
 
 const TAGS = {live:["t-live","BUILT"], part:["t-part","PARTIAL"], queue:["t-queue","NOT BUILT"], flag:["t-flag","NOT A PAPER"]};
 const KEYS = {off:["k-off","OFFICIAL"], copy:["k-mark","IN COPY"], hand:["k-hand","HAND"], none:["k-none","NONE"]};
-const SRCS = {you:["s-you","YOU"], drive:["s-drive","DRIVE"], pack:["s-pack","PACK"], in:["s-in","BURIED"], web:["s-web","WEB"]};
+const SRCS = {you:["s-you","YOU"], drive:["s-drive","DRIVE"], pack:["s-pack","PACK"], in:["s-in","BURIED"], web:["s-web","WEB"], vid:["s-vid","VIDEO"]};
 
 function render(){
   document.getElementById("root").innerHTML = DATA.map(c => {

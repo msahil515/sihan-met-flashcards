@@ -843,6 +843,19 @@ const MOCKS = [
     tags: ["deep explanations", "100% real PYQ", "official key", "real distractors", "IHBAS 2025", "untimed practice"]
   },
   {
+    id: "amity-mumbai-2021",
+    title: "Amity Mumbai 2021 M.Phil (recall video)",
+    sub: "60 real Qs · Amity University Mumbai M.Phil Clinical Psychology entrance 2021 · off a coaching video · answers worked out, no key published · untimed",
+    path: "../take/screen.html?m=amity-mumbai-2021",
+    total: 60,
+    storageKey: "amity-mumbai-2021-results-v1",
+    sections: { research: 15, clinical: 12, general: 7, physio: 7, disorders: 6, personality: 5, assessment: 5, social: 3 },
+    blurb: "The 60 questions of Amity University Mumbai's 2021 M.Phil Clinical Psychology entrance, as shown slide by slide in a coaching channel's video (PSYCHOLOGY SOLUTION, 10 Oct 2021). Every stem and option is copied off the slides word for word, typos and all. The video shows no answers and Amity never publishes a key, so each answer was worked out from the standard texts by two separate solves: 58 of 60 agreed, and the other 2 were settled by the textbook sentence the question was lifted from. 20 questions carry a Key note where a second answer can be argued. Heavy on research methods and therapy, with A-R and match-the-following items in Amity's style. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section.",
+    fresh: true,
+    deepExp: true,
+    tags: ["real PYQ (video)", "Amity Mumbai 2021", "M.Phil", "answers worked out", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "amity-2023",
     title: "Amity 2023 PYQ Mock (real paper)",
     sub: "96 real Qs · Amity University M.A. Clinical Psychology entrance 2023 · Amit Panwar PYM reproduction · source key · untimed Practice + Full run",
@@ -1027,8 +1040,8 @@ const GROUPS = [
     sub: "JSS AHER MA Clinical Psychology entrance: 90 MCQs, 60 minutes, no negative marking, nine published subjects",
     members: ["jss-mock-2", "jss-pyq"] },
   { id: "amity", archived: true, title: "Amity",
-    sub: "2026 cycle closed — kept live as drill. Real Amity M.A. Clinical Psychology entrance papers; the interview brief is on the /archive/ page",
-    members: ["amity-2023", "amity-recall"] },
+    sub: "2026 cycle closed — kept live as drill. Real Amity entrance papers (Mumbai 2021 M.Phil, 2023 M.A. Clinical Psychology); the interview brief is on the /archive/ page",
+    members: ["amity-mumbai-2021", "amity-2023", "amity-recall"] },
   { id: "ihbas", title: "IHBAS",
     sub: "IHBAS Delhi M.Phil Clinical Psychology entrances, real papers with verified keys",
     members: ["ihbas-2025", "ihbas-2024-d", "ihbas-2024", "ihbas-2020"] },
