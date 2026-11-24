@@ -14,6 +14,7 @@ import hashlib
 import os
 import re
 import shutil
+import struct
 import subprocess
 import sys
 import zlib
@@ -378,6 +379,57 @@ def patch_cache_mode(path: Path):
     print("  classes.dex: WebView cache mode LOAD_CACHE_ELSE_NETWORK -> normal")
 
 
+# The template's manifest asks for no permissions, so the WebView can't reach
+# github.io: force-sync.js never hops to the live site and the Update pill can't
+# pull it (audit T080, emulator check 2026-11-24). Add
+# <uses-permission android:name="android.permission.INTERNET"/> to the binary
+# manifest: append two strings to its UTF-16 string pool (appending keeps every
+# existing index and the attribute resource map valid), then insert the element
+# right after </uses-sdk>, encoded like the template's <action android:name>.
+INTERNET = "android.permission.INTERNET"
+
+
+def patch_internet_permission(path: Path):
+    d = path.read_bytes()
+    if INTERNET.encode("utf-16-le") in d:
+        print("  manifest: INTERNET permission already there")
+        return
+    typ, hsz, pool_size, count, styles, flags, start, _ = struct.unpack_from("<HHIIIIII", d, 8)
+    assert (typ, hsz, styles) == (0x0001, 28, 0) and not flags & 0x100, "unexpected string pool"
+    base = 8 + start
+    offs = list(struct.unpack_from(f"<{count}I", d, 36))
+    strings, data_end = [], 0
+    for o in offs:
+        n = struct.unpack_from("<H", d, base + o)[0]
+        strings.append(d[base + o + 2: base + o + 2 + 2 * n].decode("utf-16-le"))
+        data_end = max(data_end, base + o + 2 + 2 * n + 2)
+    data = bytearray(d[base:data_end])
+    for s in ("uses-permission", INTERNET):
+        offs.append(len(data))
+        data += struct.pack("<H", len(s)) + s.encode("utf-16-le") + b"\0\0"
+    data += b"\0" * (-len(data) % 4)
+    offsets = struct.pack(f"<{len(offs)}I", *offs)
+    pool = struct.pack("<HHIIIIII", 0x0001, 28, 28 + len(offsets) + len(data), len(offs),
+                       0, flags, 28 + len(offsets), 0) + offsets + bytes(data)
+    tag, value = count, count + 1
+    none = 0xFFFFFFFF
+    elem = (struct.pack("<HHIIIIIHHHHHH", 0x0102, 16, 56, 0, none, none, tag, 0x14, 0x14, 1, 0, 0, 0)
+            + struct.pack("<IIIHBBI", strings.index("http://schemas.android.com/apk/res/android"),
+                          strings.index("name"), value, 8, 0, 0x03, value)
+            + struct.pack("<HHIIIII", 0x0103, 16, 24, 0, none, none, tag))
+    # Walk the chunks after the pool to the end of <uses-sdk>, insert there.
+    rest, off = d[8 + pool_size:], 0
+    uses_sdk = strings.index("uses-sdk")
+    while True:
+        ctyp, _, csz = struct.unpack_from("<HHI", rest, off)
+        off += csz
+        if ctyp == 0x0103 and struct.unpack_from("<I", rest, off - 4)[0] == uses_sdk:
+            break
+    body = pool + rest[:off] + elem + rest[off:]
+    path.write_bytes(struct.pack("<HHI", 0x0003, 8, 8 + len(body)) + body)
+    print("  manifest: INTERNET permission added")
+
+
 def patch_arsc(path: Path):
     data = bytearray(path.read_bytes())
     # package name (UTF-16, fixed-width null-padded field)
@@ -449,6 +501,7 @@ def build(kind: str):
     patch_cache_mode(workdir / "classes.dex")
     if kind == "full":
         build_assets_full(assets)
+        patch_internet_permission(workdir / "AndroidManifest.xml")
         out = ROOT / "downloads" / "MET-Prep.apk"
     elif kind == "notes":
         build_assets_notes(assets)
