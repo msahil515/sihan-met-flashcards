@@ -33,7 +33,7 @@
       -webkit-font-smoothing: antialiased;
     }
     a { color: var(--blue); text-underline-offset: .16em; }
-    a:hover { color: #204b91; }
+    a:hover { color: var(--focus); }
     a:focus-visible, button:focus-visible, summary:focus-visible, textarea:focus-visible {
       outline: 3px solid var(--focus);
       outline-offset: 3px;
@@ -94,10 +94,10 @@
     button {
       min-height: 44px; padding: .6rem .95rem;
       border: 1px solid var(--blue); border-radius: 5px;
-      color: #fff; background: var(--blue);
+      color: var(--surface); background: var(--blue);
       font: 650 15px/1.25 var(--sans); cursor: pointer;
     }
-    button:hover { background: #244f98; }
+    button:hover { background: var(--focus); }
     #copy-status { min-height: 1.5em; color: var(--ink-soft); font-size: 14px; }
     details { margin: .25rem 0 1.15rem; font: 600 14px/1.5 var(--sans); }
     summary { width: fit-content; color: var(--blue); cursor: pointer; text-underline-offset: .15em; }
@@ -163,6 +163,12 @@
       html { scroll-behavior: auto; }
     }
   </style>
+<script src="/sihan-met-flashcards/take/theme.js"></script>
+<link rel="stylesheet" href="/sihan-met-flashcards/revamp-skin.css">
+<style>/* shared theme: this page's own tokens follow the picked palette; print keeps the paper colours */
+html[data-mode="dark"]{color-scheme:dark}
+@media print{html[data-theme][data-mode]{color-scheme:light;--bg:#f3efe6;--surface:#fbf9f3;--surface-2:#f1ece1;--line:#d8d1c3;--ink:#272a31;--ink-soft:#4f5560;--muted:#626875;--primary:#315fae;--primary-ink:#154995;--primary-wash:#e7edf8}body>button{display:none!important}}
+</style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to the proposed statements</a>

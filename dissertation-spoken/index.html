@@ -15,7 +15,7 @@
     h1 { max-width:22ch; margin:0; font:700 clamp(2.1rem,6vw,3.1rem)/1.1 var(--serif); letter-spacing:-.025em; }
     .scenario { margin:1rem 0 1.2rem; padding:.7rem .95rem; border-left:4px solid var(--blue); background:var(--blue-soft); font:600 15px/1.5 var(--sans); }
     .copy-row { display:flex; align-items:center; flex-wrap:wrap; gap:.7rem; margin:0 0 1.2rem; font-family:var(--sans); }
-    button { min-height:44px; padding:.6rem .95rem; border:1px solid var(--blue); border-radius:5px; color:#fff; background:var(--blue); font:650 15px/1.25 var(--sans); cursor:pointer; } button:hover { background:#244f98; }
+    button { min-height:44px; padding:.6rem .95rem; border:1px solid var(--blue); border-radius:5px; color:var(--surface); background:var(--blue); font:650 15px/1.25 var(--sans); cursor:pointer; } button:hover { background:var(--focus); }
     button:focus-visible,summary:focus-visible,textarea:focus-visible { outline:3px solid var(--focus); outline-offset:3px; }
     #copy-status { min-height:1.5em; color:var(--soft); font:14px/1.5 var(--sans); }
     .visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
@@ -25,6 +25,13 @@
     @media(max-width:520px) { main { width:min(100% - 1.25rem,790px); padding-top:1rem; } .answer { padding:.85rem 0 1rem; } }
     @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
   </style>
+<script src="/sihan-met-flashcards/take/theme.js"></script>
+<link rel="stylesheet" href="/sihan-met-flashcards/revamp-skin.css">
+<style>/* shared theme: this page's own tokens follow the picked palette; print keeps the paper colours */
+html[data-theme]{--soft:var(--ink-soft)}
+html[data-mode="dark"]{color-scheme:dark}
+@media print{html[data-theme][data-mode]{color-scheme:light;--bg:#f3efe6;--surface:#fbf9f3;--surface-2:#f1ece1;--line:#d8d1c3;--ink:#272a31;--ink-soft:#4f5560;--muted:#626875;--primary:#315fae;--primary-ink:#154995;--primary-wash:#e7edf8}body>button{display:none!important}}
+</style>
 </head>
 <body>
   <main>

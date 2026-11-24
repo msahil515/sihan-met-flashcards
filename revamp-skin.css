@@ -48,6 +48,24 @@ html[data-theme] {
   /* misc legacy accents */
   --purple: var(--primary-ink);
   --purple-soft: var(--primary-wash);
+
+  /* paper notes pages (dissertation-hypotheses/-results/-spoken,
+     interview-brief, notes/therapy-alcohol); --soft means text on
+     some and a surface on others, so each page maps that one itself */
+  --paper: var(--bg);
+  --surface-soft: var(--surface-2);
+  --rule: var(--line);
+  --blue: var(--primary);
+  --blue-soft: var(--primary-wash);
+  --focus: var(--primary-ink);
+}
+
+/* Light palettes: --primary is a mid tone (3-4:1 on --bg), too faint for
+   the small link/kicker text those paper pages set in --blue, so they get
+   the deeper ink there and the mid tone for hover/focus. */
+html[data-theme][data-mode="light"] {
+  --blue: var(--primary-ink);
+  --focus: var(--primary);
 }
 
 /* Smooth the flip between palettes/modes on the big surfaces. */
