@@ -247,15 +247,15 @@ const MOCKS = [
   {
     id: "rml-2020",
     title: "RML 2020 PYQ Mock (verbatim paper)",
-    sub: "100 verbatim Qs · ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2020 · expert-verified key · deep answers · untimed Practice + Full run",
+    sub: "100 verbatim Qs · ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2020 · GGSIPU key, checked · deep answers · untimed Practice + Full run",
     path: "../quiz/rml-2020/",
     total: 100,
     storageKey: "rml-2020-results-v1",
     sections: {"psychopathology": 19, "biopsych": 9, "social": 16, "stats": 8, "assessment": 9, "cognitive": 9, "systems": 10, "therapy": 8, "development": 9, "general": 3},
-    blurb: "The full 2020 RML paper (ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2020), all 100 questions verbatim with an expert-determined answer key (no official key was printed on this paper). Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. Independent storage.",
+    blurb: "The full 2020 RML paper (ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2020), all 100 questions checked against GGSIPU's own exam-portal sheet for this paper, which marks the right answer on every question. Wording now matches GGSIPU's paper where the coaching copy had changed it. 2 of GGSIPU's keys are plainly wrong (fiduciary duty, longitudinal research): those mark the textbook answer with a Key note; 2 arguable ones follow GGSIPU (prompting, law of inclusion), also with a Key note. Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
     deepExp: true,
-    tags: ["deep explanations", "100% real PYQ", "expert-verified key", "real distractors", "RML 2020", "untimed practice"]
+    tags: ["deep explanations", "100% real PYQ", "GGSIPU key checked", "real distractors", "RML 2020", "untimed practice"]
   },
   {
     id: "rml-2021",
