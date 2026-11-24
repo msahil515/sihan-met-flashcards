@@ -1048,14 +1048,14 @@ Jump to:
 
 <div class="qa" data-notap>
 <p class="q" data-n="Q132">Tell us about your dissertation.</p>
-<p class="a">"We studied how pornography consumption relates to personality, aggression and sexual compulsivity in young adults in India. Quantitative, cross-sectional survey design, 214 participants aged 18 to 28, recruited online, using the BFI-10 for the Big Five, the Buss-Perry Aggression Questionnaire short form, and the Sexual Compulsivity Scale, with a screening section on consumption habits. Analysed in SPSS with Spearman's rank correlation and logistic regression. The findings: men were about 2.75 times more likely to consume, sexual compulsivity was the strongest predictor of both whether and how often, higher neuroticism predicted lower consumption, and aggression and sexual compulsivity were positively correlated. So impulse control and personality, rather than aggression on its own, tracked the consumption pattern."</p>
+<p class="a">"We studied how pornography consumption relates to personality, aggression and sexual compulsivity in young adults in India. Quantitative, cross-sectional survey design, 214 participants aged 18 to 28, recruited online, using the BFI-10 for the Big Five, the Buss-Perry Aggression Questionnaire short form, and the Sexual Compulsivity Scale, with a screening section on consumption habits. Analysed in SPSS with Spearman's rank correlation and logistic regression. The findings: sexual compulsivity was the strongest predictor of whether people had watched, how often, and how little control they felt, men were more likely to have ever watched, higher neuroticism went with lower odds of ever having watched, and aggression and sexual compulsivity were positively correlated. So impulse control and personality, rather than aggression on its own, tracked the consumption pattern."</p>
 </div>
 
 <table class="nums">
 <tr><th>They ask</th><th>You say</th></tr>
 <tr><td>Why Spearman and not Pearson?</td><td>Ordinal data and non-normal distributions. Spearman works on ranks, assumes only a monotonic relationship, not normality or linearity.</td></tr>
 <tr><td>Why logistic regression?</td><td>The outcome was categorical. Binary logistic for consumed or not, ordinal logistic for frequency. Linear regression on a categorical outcome would violate its assumptions and can predict impossible values.</td></tr>
-<tr><td>What does Exp(B) = 2.752 mean?</td><td>The odds ratio. Being male multiplied the odds of consumption by about 2.75, holding the other predictors constant. Odds, not probability, and say it that way.</td></tr>
+<tr><td>What does Exp(B) mean? Use one of yours.</td><td>The odds ratio. Compulsivity's 1.549 in the ever-watched model: each SCS point multiplied the odds of having watched by about 1.55, about 55% higher, holding the other predictors constant. Odds, not probability, and say it that way. Never quote the draft's 2.752 for sex: sex is in no regression table.</td></tr>
 <tr><td>Why is neuroticism predicting <i>lower</i> consumption?</td><td>Report it as found rather than explaining it away. Possible reading: higher neuroticism carrying more guilt, shame and anxiety around the behaviour, plus greater self-report suppression on a taboo topic. Name it as a hypothesis for a follow-up, not a conclusion.</td></tr>
 <tr><td>Biggest limitation?</td><td>Convenience sampling through social media, so not representative; self-report on a taboo topic, so under-reporting is likely; cross-sectional, so no causal claim; and the BFI-10 has two items per trait, so low internal consistency.</td></tr>
 <tr><td>Your role, on a shared dissertation?</td><td>Name your part concretely: design, data collection, the SPSS analysis, the write-up. Don't claim all of it, don't disappear into "we".</td></tr>
@@ -1132,7 +1132,7 @@ Jump to:
 
 <div class="qa" data-notap>
 <p class="q" data-n="SC10">Then why does it matter in your study?</p>
-<p class="a">"Because it was the variable that carried the result. Sexual compulsivity correlated with frequency at rho = .397, it predicted ever having consumed at Exp(B) = 1.549, p &lt; .001, it predicted frequency at Exp(B) = 1.158, p = .001, and it predicted lower perceived control at p = .002. Aggression correlated with consumption and correlated strongly with compulsivity at rho = .376, but it dropped out as a predictor once compulsivity was in the model, which suggests the aggression link runs through compulsivity rather than directly. So the clinical reading of my data is that the risk marker is impulse control, not consumption volume, and that is a screening implication: you screen for dysregulation, not for use."</p>
+<p class="a">"Because it was the variable that carried the result. Sexual compulsivity correlated with ever having consumed at rho = .397, it predicted ever having consumed at Exp(B) = 1.549, p &lt; .001, it predicted frequency at an odds ratio of 1.12, p = .001, and it predicted lower perceived control at p = .002. Aggression correlated with consumption and with compulsivity at rho = .376, but it did not predict consumption in either regression; whether it runs through compulsivity is a mediation question I never tested. So the clinical reading of my data is that the risk marker is impulse control, not consumption volume, and that is a screening implication: you screen for dysregulation, not for use."</p>
 <p class="why">This is where your definition and your data meet. Saying the definition and then immediately showing that your own numbers behave the way the definition predicts is the strongest thirty seconds available to you in the whole defence.</p>
 </div>
 
@@ -1237,21 +1237,21 @@ Jump to:
 <table class="nums">
 <tr><th>Predictor</th><th>Statistic</th><th>How to say it</th></tr>
 <tr><td>Sexual compulsivity</td><td><code>B = .126, p = .002</code></td><td>Significantly predicted <b>lower</b> perceived control. Your strongest effect here.</td></tr>
-<tr><td>Conscientiousness</td><td><code>B = &minus;.349, p = .009</code></td><td>Significantly predicted perceived control. <b>State significance, not direction</b>, unless you have checked the coding.</td></tr>
+<tr><td>Conscientiousness</td><td><code>B = &minus;.349, p = .009</code></td><td>Significantly predicted <b>more</b> perceived control. Control was coded 1 = complete to 4 = no control, so a negative B means more control.</td></tr>
 <tr><td>Aggression (BPAQ-SF total)</td><td><code>B = .059, p = .038</code></td><td>Small but significant, in the direction of slightly less control.</td></tr>
 <tr><td>Neuroticism, extraversion, openness, agreeableness</td><td>ns</td><td>Not significant. Say "did not reach significance", not "had no effect".</td></tr>
 </table>
 </div>
 
 <div class="verify">
-<b>Check this before you walk in.</b> Conscientiousness came out at <b>B = &minus;.349</b>, a <i>negative</i> coefficient, and the substantive reading everyone wants to give it is "more conscientious, more control." That reading is only correct if the perceived-control item is scored so that a higher code means <i>less</i> control, i.e. if the item is really a loss-of-control item. Open your methods chapter and look at how that item is coded and which way its categories are ordered. Until you have looked, do not state a direction in the room. Say: <b>"conscientiousness significantly predicted perceived control, B = &minus;.349, p = .009"</b> and stop. Significance is a fact from your output. Direction is a fact about your codebook, and guessing it wrong in front of a panel that can read a sign is the worst way to lose this question.
+<b>Checked 24 Nov against your draft.</b> Conscientiousness came out at <b>B = &minus;.349</b>, a <i>negative</i> coefficient. Your control item (screening section) runs 1 = complete control, 2 = some control, 3 = little control, 4 = no control, so a higher code means <i>less</i> control, and a negative B means more conscientious people sat toward the complete-control end. Your own discussion reads it the same way. So the direction is safe to say: <b>"more conscientious people reported more control over their use, B = &minus;.349, p = .009."</b> The same coding is why compulsivity's positive B (.126) and aggression's (.059) mean less control.
 </div>
 
 <div class="qa" data-notap>
 <p class="q" data-n="PC8">Conscientiousness has a negative B. Does that mean more conscientious people felt <i>less</i> in control?</p>
-<p class="a">"Conscientiousness significantly predicted perceived control, B = &minus;.349, p = .009. The sign has to be read against how the perceived-control variable is coded and ordered, because on this item a higher code corresponds to a particular end of the control scale, and the substantive interpretation flips with that coding. I would not want to state the direction from memory. What I can say is that of the five traits, conscientiousness was the only one that significantly predicted perceived control, which fits it being the self-regulation and self-discipline trait."</p>
-<p class="push">If they push again: "I would go back to my codebook rather than guess, sir." That is a completely acceptable viva answer and it is a much stronger one than a confident wrong direction.</p>
-<p class="why">Panels mark the honesty of an answer about your own data more heavily than they mark recall. Saying "I would check the coding before I state that" demonstrates you understand that a sign is meaningless without a codebook, which is exactly the point of the question.</p>
+<p class="a">"No, the opposite. The control item was coded 1 for complete control up to 4 for no control, so a higher score means less control. A negative B means that as conscientiousness rises, people are less likely to be in the low-control categories, so more conscientious people felt more in control: B = &minus;.349, p = .009, odds ratio about .71. Of the five traits, it was the only one that predicted control, which fits it being the self-regulation and self-discipline trait."</p>
+<p class="push">If they push again: "The sign only means something against the coding, and on my item a higher code is less control." Saying the coding out loud is what shows you can read your own output.</p>
+<p class="why">Panels mark the honesty of an answer about your own data more heavily than they mark recall. Naming the coding first and the direction second shows you understand that a sign is meaningless without a codebook, which is exactly the point of the question.</p>
 </div>
 
 <div class="qa" data-notap>
