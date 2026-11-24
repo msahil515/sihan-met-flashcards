@@ -115,7 +115,7 @@
     padding: 14px; margin-top: 16px; }
   .export-area h3 { font-size: 13px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0; }
   .export-note { font-size: 12px; color: var(--muted); margin: 0 0 10px 0; }
-  .export-btn { width: 100%; background: var(--accent-dim); color: white; border: 1px solid var(--accent);
+  .export-btn { width: 100%; background: var(--accent-dim); color: var(--on-accent,#fff); border: 1px solid var(--accent);
     border-radius: 8px; padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer; }
   .export-btn:hover:not(:disabled) { background: var(--accent); }
   .stats { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
@@ -184,7 +184,7 @@
     border-radius: 8px; padding: 4px; margin-bottom: 12px; }
   .mode-btn { flex: 1; background: transparent; border: 0; border-radius: 6px; padding: 10px;
     font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; }
-  .mode-btn.active { background: var(--accent-dim); color: #fff; }
+  .mode-btn.active { background: var(--accent-dim); color: var(--on-accent,#fff); }
   .mode-hint { font-size: 11px; color: var(--muted); text-align: center; margin: -4px 0 14px 0; }
   /* ---- exam bar ---- */
   .exam-bar { position: sticky; top: 0; z-index: 50; background: var(--panel);
@@ -199,7 +199,7 @@
     padding: 16px; margin-bottom: 14px; }
   .exam-intro h3 { margin: 0 0 6px 0; font-size: 14px; color: var(--accent); }
   .exam-intro p { margin: 0 0 12px 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
-  .exam-start-btn { width: 100%; background: var(--accent-dim); color: #fff; border: 1px solid var(--accent);
+  .exam-start-btn { width: 100%; background: var(--accent-dim); color: var(--on-accent,#fff); border: 1px solid var(--accent);
     border-radius: 8px; padding: 13px; font-size: 15px; font-weight: 600; }
   /* ---- flag + secondary controls ---- */
   .secondary-controls { display: flex; gap: 8px; margin-top: 8px; }
@@ -1695,7 +1695,7 @@ function showResultText() {
   bar.setAttribute("style", "padding:12px 16px;border-top:1px solid var(--border,#ddd);display:flex;gap:10px;");
   var copyBtn = document.createElement("button");
   copyBtn.textContent = "📋 Copy all";
-  copyBtn.setAttribute("style", "flex:1;padding:12px;border:none;border-radius:10px;background:var(--accent,#2d6cdf);color:#fff;font-weight:700;font-size:15px;cursor:pointer;");
+  copyBtn.setAttribute("style", "flex:1;padding:12px;border:none;border-radius:10px;background:var(--accent,#2d6cdf);color:var(--on-accent,#fff);font-weight:700;font-size:15px;cursor:pointer;");
   function doCopy() {
     ta.focus(); ta.select(); ta.setSelectionRange(0, ta.value.length);
     var done = function () { copyBtn.textContent = "✓ Copied — now paste to Sahil"; setTimeout(function(){ copyBtn.textContent = "📋 Copy all"; }, 2500); };

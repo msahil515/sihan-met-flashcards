@@ -68,7 +68,7 @@
   .paste-area textarea:focus { outline: none; border-color: var(--accent-dim); }
   .paste-controls { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
   .paste-controls button { font-size: 13px; padding: 8px 16px; border-radius: 6px;
-    border: 1px solid var(--accent-dim); background: var(--accent-dim); color: white; font-weight: 600; cursor: pointer; }
+    border: 1px solid var(--accent-dim); background: var(--accent-dim); color: var(--on-accent,#fff); font-weight: 600; cursor: pointer; }
   .paste-controls button.ghost { background: transparent; color: var(--text); border-color: var(--border); font-weight: 500; }
   .paste-controls button:hover { background: var(--accent); }
   .paste-controls button.ghost:hover { background: var(--panel-2); border-color: var(--border-strong); color: var(--accent); }
@@ -189,7 +189,7 @@
         <div style="font-size:12px;color:var(--muted);line-height:1.55;">Pulls from MET Mock 1, 2, 3, NIMHANS Mock 1 + PYQ Mock 2. Filter by source or section. Re-shuffle anytime for a fresh order. Live count below.</div>
         <div id="remixSummary" style="font-size:12px;color:var(--muted);margin-top:6px;">—</div>
       </div>
-      <a href="../quiz/wrong-remix/" class="btn-link" style="background:var(--accent-dim);color:white;border:1px solid var(--accent);padding:10px 16px;border-radius:8px;font-weight:600;text-decoration:none;font-size:14px;white-space:nowrap;">Open remix →</a>
+      <a href="../quiz/wrong-remix/" class="btn-link" style="background:var(--accent-dim);color:var(--on-accent,#fff);border:1px solid var(--accent);padding:10px 16px;border-radius:8px;font-weight:600;text-decoration:none;font-size:14px;white-space:nowrap;">Open remix →</a>
     </div>
   </section>
 
@@ -241,7 +241,7 @@ Biostats / Research:    14/15 (93%)  solid 12  guessed 2  wrong 1  skip 0
     <div class="card" id="syncCard">
       <p class="help-text" id="syncCardText">Set one short code on every device and every attempt lands in the same history, by itself. No login, nothing to remember after the first time.</p>
       <div class="paste-controls">
-        <a href="../sync/" class="btn-link" id="syncCardBtn" style="display:inline-block;background:var(--accent-dim);border:1px solid var(--accent);color:#fff;font-weight:600;border-radius:6px;padding:9px 14px;font-size:13px;">Set up sync →</a>
+        <a href="../sync/" class="btn-link" id="syncCardBtn" style="display:inline-block;background:var(--accent-dim);border:1px solid var(--accent);color:var(--on-accent,#fff);font-weight:600;border-radius:6px;padding:9px 14px;font-size:13px;">Set up sync →</a>
       </div>
     </div>
   </section>
@@ -468,7 +468,7 @@ function renderMocks() {
       </div>
       <div class="sec-bars">${secBarsHtml}</div>
       <div class="mock-actions">
-        <a href="analysis/?mock=${m.id}" style="background:var(--accent-dim);color:white;border-color:var(--accent);font-weight:600;">Full analysis →</a>
+        <a href="analysis/?mock=${m.id}" style="background:var(--accent-dim);color:var(--on-accent,#fff);border-color:var(--accent);font-weight:600;">Full analysis →</a>
         <a href="${m.path}">Open mock</a>
         <button data-snap="${m.id}">Snapshot current</button>
       </div>

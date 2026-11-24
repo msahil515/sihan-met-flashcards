@@ -64,8 +64,8 @@ button{font-family:inherit;cursor:pointer}
 .btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);
   font-weight:600;font-size:13.5px;padding:9px 15px;border-radius:11px;transition:.15s}
 .btn:hover{border-color:var(--primary);color:var(--primary)}
-.btn.primary{background:var(--primary);border-color:var(--primary);color:#fff}
-.btn.primary:hover{background:var(--primary-ink);color:#fff}
+.btn.primary{background:var(--primary);border-color:var(--primary);color:var(--on-accent,#fff)}
+.btn.primary:hover{background:var(--primary-ink);color:var(--on-accent,#fff)}
 .btn.ghost{border-color:transparent;background:transparent;color:var(--muted)}
 .btn.ghost:hover{background:var(--surface-2);color:var(--ink)}
 .btn:disabled{opacity:.4;cursor:not-allowed}
@@ -146,11 +146,11 @@ button{font-family:inherit;cursor:pointer}
   border:1px solid var(--line);display:grid;place-items:center;font-family:var(--font-ui);
   font-weight:700;font-size:14px;color:var(--ink-soft);text-transform:uppercase;transition:.14s;margin-top:1px}
 .opt.sel{border-color:var(--primary);background:var(--primary-wash)}
-.opt.sel .key{background:var(--primary);border-color:var(--primary);color:#fff}
+.opt.sel .key{background:var(--primary);border-color:var(--primary);color:var(--on-accent,#fff)}
 .opt.correct{border-color:var(--good);background:var(--good-wash)}
-.opt.correct .key{background:var(--good);border-color:var(--good);color:#fff}
+.opt.correct .key{background:var(--good);border-color:var(--good);color:var(--on-accent,#fff)}
 .opt.wrong{border-color:var(--bad);background:var(--bad-wash)}
-.opt.wrong .key{background:var(--bad);border-color:var(--bad);color:#fff}
+.opt.wrong .key{background:var(--bad);border-color:var(--bad);color:var(--on-accent,#fff)}
 .opt.locked{cursor:default}
 .reveal{margin-top:22px;border-top:1px dashed var(--line);padding-top:20px;display:none}
 .reveal.show{display:block;animation:fade .3s ease}
@@ -161,7 +161,7 @@ button{font-family:inherit;cursor:pointer}
 .deep-concept p{margin:0 0 10px}
 .deep-traps{margin-top:4px;display:flex;flex-direction:column;gap:10px}
 .trap{display:flex;gap:12px;align-items:flex-start;background:var(--bad-wash);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
-.trap-k{flex:0 0 26px;height:26px;border-radius:7px;background:var(--bad);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);margin-top:2px}
+.trap-k{flex:0 0 26px;height:26px;border-radius:7px;background:var(--bad);color:var(--on-accent,#fff);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);margin-top:2px}
 .trap-body{min-width:0}
 .trap-body .to{font-family:var(--font-read);font-weight:600;color:var(--ink);font-size:15.5px;display:block;margin-bottom:3px}
 .trap-body p{font-size:15.5px;line-height:1.5}
@@ -182,7 +182,7 @@ button{font-family:inherit;cursor:pointer}
   background:var(--good-wash);border:1px solid var(--good);border-left:4px solid var(--good);
   border-radius:12px;padding:14px 16px}
 .exp-answer .ak{flex:none;min-width:30px;height:30px;padding:0 9px;border-radius:8px;background:var(--good);
-  color:#fff;font-family:var(--font-ui);font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center}
+  color:var(--on-accent,#fff);font-family:var(--font-ui);font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center}
 .exp-answer .abody{min-width:0;flex:1}
 .exp-answer .alabel{font-family:var(--font-ui);font-size:10.5px;font-weight:700;letter-spacing:.09em;
   text-transform:uppercase;color:var(--good);display:block;margin-bottom:2px}
@@ -199,7 +199,7 @@ button{font-family:inherit;cursor:pointer}
 .exp-traps{display:flex;flex-direction:column;gap:10px}
 .exp-trap{display:flex;gap:12px;align-items:flex-start;background:var(--bad-wash);
   border:1px solid var(--line);border-left:3px solid var(--bad);border-radius:12px;padding:12px 14px}
-.exp-trap .tk{flex:0 0 26px;height:26px;border-radius:7px;background:var(--bad);color:#fff;font-weight:700;
+.exp-trap .tk{flex:0 0 26px;height:26px;border-radius:7px;background:var(--bad);color:var(--on-accent,#fff);font-weight:700;
   font-size:13px;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);margin-top:1px}
 .exp-trap .tb{min-width:0}
 .exp-trap .to{font-family:var(--font-read);font-weight:600;color:var(--ink);font-size:15.5px;display:block;margin-bottom:4px}
@@ -310,7 +310,7 @@ button{font-family:inherit;cursor:pointer}
 .rev-note{font-family:var(--font-read);font-size:16px;line-height:1.55;color:var(--ink-soft);
   margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
 .tag-you{font-family:var(--font-ui);font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:6px;margin-left:auto;align-self:center}
-.tag-you.no{background:var(--bad);color:#fff} .tag-you.ok{background:var(--good);color:#fff}
+.tag-you.no{background:var(--bad);color:var(--on-accent,#fff)} .tag-you.ok{background:var(--good);color:var(--on-accent,#fff)}
 </style>
 <script src="/sihan-met-flashcards/take/theme.js"></script>
 <link rel="stylesheet" href="/sihan-met-flashcards/revamp-skin.css">

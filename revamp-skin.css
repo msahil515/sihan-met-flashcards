@@ -95,6 +95,21 @@ html[data-mode="dark"] .cl b,
 html[data-mode="dark"] .mod b,
 html[data-mode="dark"] .block b,
 html[data-mode="dark"] .rapid dt { color: var(--ink); }
+/* Text on a theme fill (background var(--accent|--accent-dim|--primary|
+   --good|--bad)): pages write color:var(--on-accent,#fff), so light mode
+   keeps white and night mode gets the dark page colour on the pale fill. */
+html[data-theme][data-mode="dark"] { --on-accent: var(--bg); }
+/* Same idea for one-off label colours hard-coded for light paper
+   (green/red/amber/blue/purple/near-black): pages write
+   color:var(--night-good,#1a7f37) etc., so day mode keeps the page's own
+   colour and night mode takes the theme's matching token. */
+html[data-theme][data-mode="dark"] {
+  --night-good: var(--good);
+  --night-bad: var(--bad);
+  --night-amber: var(--amber);
+  --night-blue: var(--primary-ink);
+  --night-ink: var(--ink);
+}
 /* white text on accent/good fills: those fills turn pale at night */
 html[data-mode="dark"] .acts a.go,
 html[data-mode="dark"] .mo.right .mk,

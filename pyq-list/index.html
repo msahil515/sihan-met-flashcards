@@ -26,20 +26,20 @@
   .stat .n{font-size:25px;font-weight:800;line-height:1}
   .stat .l{font-size:11.5px;color:var(--muted);margin-top:5px;line-height:1.3}
   .stat.all .n{color:var(--accent)} .stat.built .n{color:#2f9e57}
-  .stat.part .n{color:#d29922} .stat.queue .n{color:#c0392b} .stat.keyed .n{color:#2f9e57}
+  .stat.part .n{color:#d29922} .stat.queue .n{color:var(--night-bad,#c0392b)} .stat.keyed .n{color:#2f9e57}
 
   /* ---- red build-queue block ---- */
   .queuebox{border:1px solid rgba(192,57,43,.45);background:rgba(192,57,43,.06);border-radius:11px;
     padding:0;margin:22px 0 10px;overflow:hidden;font-family:var(--sans)}
   .queuebox > h2{margin:0;font-size:17px;padding:12px 16px;background:rgba(192,57,43,.14);
-    border-bottom:1px solid rgba(192,57,43,.3);color:#e05a4c;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+    border-bottom:1px solid rgba(192,57,43,.3);color:var(--night-bad,#e05a4c);display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
   .queuebox > h2 span{font-size:12px;font-weight:500;color:var(--ink2)}
   .qintro{font-size:13.5px;color:var(--ink2);padding:12px 16px 4px;margin:0;line-height:1.5}
   .qgroup{font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);
     padding:14px 16px 4px;border-top:1px solid rgba(192,57,43,.18);margin-top:8px}
   .qgroup:first-of-type{border-top:0}
   .qrow{display:flex;gap:10px;padding:7px 16px;font-size:13.5px;line-height:1.4;align-items:flex-start}
-  .qrow .num{flex:none;width:22px;font-weight:800;color:#e05a4c;font-variant-numeric:tabular-nums}
+  .qrow .num{flex:none;width:22px;font-weight:800;color:var(--night-bad,#e05a4c);font-variant-numeric:tabular-nums}
   .qrow .body{flex:1}
   .qrow .body b{color:var(--text)}
   .qrow .body .meta{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
@@ -49,7 +49,7 @@
   .filters{display:flex;gap:7px;flex-wrap:wrap;margin:22px 0 2px;font-family:var(--sans)}
   .filters button{background:var(--panel);border:1px solid var(--border);color:var(--ink2);border-radius:999px;
     padding:6px 13px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:var(--sans)}
-  .filters button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  .filters button.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent,#fff)}
   .college{margin:22px 0 0;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--panel)}
   .college h2{margin:0;font-family:var(--sans);font-size:16px;padding:10px 14px;background:var(--panel-2);
     border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
