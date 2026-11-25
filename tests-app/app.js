@@ -60,6 +60,11 @@
     var N = Q.length;
     return { N: N, right: right, wrong: wrong, skipped: N - right - wrong, marks: right - 0.25 * wrong, answered: right + wrong };
   }
+  /* "Redo the wrong" clears the misses, so the first sitting's answers are kept in r.first when a redo starts:
+     the real score, Best and the by-subject split come from it, not from the redone answers. Play again and
+     Reset start a new run without it. */
+  function keepFirst(r) { if (!r.first) r.first = Object.assign({}, r.ans); }
+  function firstScore(id, r) { return score(id, r.first ? { ans: r.first } : r); }
   function starsFor(pct) { return pct >= 90 ? 3 : pct >= 75 ? 2 : pct >= 60 ? 1 : 0; }
   function starHTML(n) { var h = ""; for (var i = 0; i < 3; i++) h += '<span class="' + (i < n ? "on" : "") + '">★</span>'; return h; }
   function fmt(x) { return (Math.round(x * 100) / 100).toString(); }
@@ -515,7 +520,7 @@
   function mockCard(id, c) {
     var r = getRun(id), sc = score(id, r), best = meta.best[id], pct = Math.round(100 * sc.answered / sc.N);
     var st = best != null ? starsFor(best) : 0;
-    var status = r.done ? "Finished · " + fmt(sc.marks) + " / " + sc.N : sc.answered ? pct + "% done · score " + fmt(sc.marks) : "Not started";
+    var status = r.done ? "Finished · " + fmt(firstScore(id, r).marks) + " / " + sc.N : sc.answered ? pct + "% done · score " + fmt(sc.marks) : "Not started";
     return '<button class="mock ticket' + (r.done ? " done" : "") + '" data-go="lobby" data-id="' + id + '"><span class="stub" style="--c:' + c + '">' + sc.N + "<small>Qs</small></span>" +
       '<span class="mb"><span class="mt">' + esc(title_of(id)) + '</span><span class="ms">' + status + '</span><span class="mbar"><i style="width:' + pct + '%"></i></span></span>' +
       '<span class="best">' + (best != null ? best + "%<small>best</small>" : "<small>new</small>") + '<span class="stars">' + starHTML(st) + "</span></span></button>";
@@ -687,7 +692,7 @@
     var h = '<div class="screen lobby-screen"><div class="ptop"><button class="xbtn" data-go="home" aria-label="Back to all tests">' + I.back + '</button><div style="flex:1"></div></div><div class="scroll narrow">' +
       '<h1 class="lob-h">' + esc(title_of(id)) + '</h1><p class="lob-s">' + esc(subOf(R.sub || M.sub)) + "</p>" +
       (R.blurb ? '<div class="blurb clip" id="blurb">' + esc(R.blurb) + "</div>" : "") +
-      '<section class="glass lob-card"><div class="stats"><div class="stat"><b>' + sc.answered + "/" + sc.N + '</b><span>Answered</span></div><div class="stat"><b>' + fmt(sc.marks) +
+      '<section class="glass lob-card"><div class="stats"><div class="stat"><b>' + sc.answered + "/" + sc.N + '</b><span>Answered</span></div><div class="stat"><b>' + fmt((r.done ? firstScore(id, r) : sc).marks) +
       '</b><span>Score</span></div><div class="stat"><b>' + (meta.best[id] != null ? meta.best[id] + "%" : "–") + "</b><span>Best</span></div></div>" +
       '<p class="hint">The answer and full explanation show right after each pick. +1 right, −0.25 wrong. Combos and XP on every right answer.</p>' +
       '<button class="btn" id="bPlay">' + (r.done ? "Play again" : sc.answered ? "Continue (Q" + (r.i + 1) + ")" : "Start") + "</button>" +
@@ -705,6 +710,7 @@
       var Q = M.questions, list = [];
       for (var k in r.ans) if (r.ans[k] !== Q[+k].correct) list.push(+k);
       list.sort(function (a, b) { return a - b; });
+      keepFirst(r);
       list.forEach(function (k) { delete r.ans[k]; if (r.seen) delete r.seen[k]; });
       r.redo = list; r.i = list[0]; r.done = false; r.mode = "practice"; r.xp = 0; r.rs = Date.now(); saveRun(id, r);
       go("play", id);
@@ -884,7 +890,7 @@
     setTimeout(function () { ps.scrollTo({ top: Math.max(0, after.offsetTop - 160), behavior: "smooth" }); }, 250);
   }
   function finishRun(id) {
-    var r = getRun(id), sc = score(id, r);
+    var r = getRun(id), sc = firstScore(id, r);
     r.done = true; r.redo = null;
     var pct = Math.max(0, Math.round(100 * sc.marks / sc.N));
     if (meta.best[id] == null || pct > meta.best[id]) meta.best[id] = pct;
@@ -922,12 +928,14 @@
   /* ---------- finish ---------- */
   function finish() {
     var id = cur.id, M = P[id], Q = M.questions, r = getRun(id), sc = score(id, r);
-    var pct = Math.max(0, Math.round(100 * sc.marks / sc.N)), st = starsFor(pct);
+    var A = r.first || r.ans, f = firstScore(id, r);   /* the first sitting: same as now unless a redo cleared misses */
+    var pct = Math.max(0, Math.round(100 * f.marks / f.N)), st = starsFor(pct);
     var head = st === 3 ? "Topper run" : st === 2 ? "Strong run" : st === 1 ? "Solid, keep going" : "Building up";
-    var secs = {}, labels = M.sectionLabels || {};
+    var secs = {}, labels = M.sectionLabels || {}, missed = 0, fixed = 0;
     Q.forEach(function (q, i) {
       var s = q.section || "all"; secs[s] = secs[s] || { n: 0, r: 0 }; secs[s].n++;
-      if (r.ans[i] === q.correct) secs[s].r++;
+      if (A[i] === q.correct) secs[s].r++;
+      else if (r.first && A[i] != null) { missed++; if (r.ans[i] === q.correct) fixed++; }
     });
     var keys = Object.keys(secs);
     var secHTML = keys.length > 1 ? '<div class="secs">' + keys.map(function (s) {
@@ -935,10 +943,11 @@
       return '<div class="secrow' + (p < 50 ? " weak" : p >= 75 ? " strong" : "") + '"><div class="sl"><span>' + esc(labels[s] || s) + "</span><span>" + x.r + "/" + x.n + '</span></div><div class="sb"><i style="width:' + p + '%"></i></div></div>';
     }).join("") + "</div>" : "";
     app.innerHTML = '<div class="screen finish-screen"><div class="ptop"><button class="xbtn" data-go="home" aria-label="Back to all tests">' + I.close + '</button><div style="flex:1"></div></div><div class="scroll narrow">' +
-      '<div class="fin-s">' + esc(title_of(id)) + '</div><div class="big"><span id="fBig">' + fmt(sc.marks) + "</span><small>out of " + sc.N + "</small></div>" +
+      '<div class="fin-s">' + esc(title_of(id)) + '</div><div class="big"><span id="fBig">' + fmt(f.marks) + "</span><small>out of " + f.N + "</small></div>" +
       '<div class="fin-stars">' + I.star(st > 0) + I.star(st > 1) + I.star(st > 2) + '</div><div class="fin-h">' + head + "</div>" +
-      '<div class="stats"><div class="stat"><b style="color:var(--ok)">' + sc.right + '</b><span>Right</span></div><div class="stat"><b style="color:var(--bad)">' + sc.wrong +
-      '</b><span>Wrong</span></div><div class="stat"><b>' + sc.skipped + "</b><span>Skipped</span></div></div>" +
+      (r.first ? '<p class="hint" style="text-align:center">First sitting. Redo the wrong: ' + fixed + " of " + missed + " now right.</p>" : "") +
+      '<div class="stats"><div class="stat"><b style="color:var(--ok)">' + f.right + '</b><span>Right</span></div><div class="stat"><b style="color:var(--bad)">' + f.wrong +
+      '</b><span>Wrong</span></div><div class="stat"><b>' + f.skipped + "</b><span>Skipped</span></div></div>" +
       '<div class="stats" style="grid-template-columns:1fr 1fr"><div class="stat"><b>' + pct + '%</b><span>Score</span></div><div class="stat"><b style="color:var(--gold)">+' + (r.xp || 0) +
       "</b><span>XP earned</span></div></div>" + secHTML +
       '<button class="btn gold" id="fCopy">Copy results</button>' +
@@ -958,6 +967,7 @@
       var list = [];
       for (var k in r.ans) if (r.ans[k] !== Q[+k].correct) list.push(+k);
       list.sort(function (a, b) { return a - b; });
+      keepFirst(r);
       list.forEach(function (k) { delete r.ans[k]; if (r.seen) delete r.seen[k]; });
       r.redo = list; r.i = list[0]; r.done = false; r.mode = "practice"; r.xp = 0; r.rs = Date.now(); saveRun(id, r);
       go("play", id);
@@ -965,10 +975,10 @@
   }
   function strip(s) { var d = document.createElement("div"); d.innerHTML = s; return d.textContent.trim(); }
   function resultText(id) {
-    var M = P[id], Q = M.questions, r = getRun(id), sc = score(id, r), labels = M.sectionLabels || {};
-    var out = [title_of(id), "Score: " + fmt(sc.marks) + " / " + sc.N + " (+1 / -0.25)", "Right " + sc.right + " · Wrong " + sc.wrong + " · Skipped " + sc.skipped, ""];
+    var M = P[id], Q = M.questions, r = getRun(id), sc = firstScore(id, r), labels = M.sectionLabels || {}, A = r.first || r.ans;
+    var out = [title_of(id), "Score: " + fmt(sc.marks) + " / " + sc.N + " (+1 / -0.25)" + (r.first ? ", first sitting" : ""), "Right " + sc.right + " · Wrong " + sc.wrong + " · Skipped " + sc.skipped, ""];
     Q.forEach(function (q, i) {
-      var a = r.ans[i];
+      var a = A[i];
       if (a === q.correct) return;
       out.push("Q" + (i + 1) + (labels[q.section] ? " [" + labels[q.section] + "]" : "") + ": " + strip(q.q));
       out.push("  You: " + (a ? a.toUpperCase() + ") " + strip(q.options[a]) : "skipped") + "  |  Correct: " + q.correct.toUpperCase() + ") " + strip(q.options[q.correct]));

@@ -879,7 +879,7 @@ function buildExport(mode){
   Q.forEach((q,i)=>{
     const s=q.section; secAgg[s]=secAgg[s]||{n:0,c:0,w:0,b:0};
     secAgg[s].n++;
-    const a=st.answers[i];
+    const a=(st.first||st.answers)[i];   // first sitting, kept when a redo pass clears the misses
     if(a==null){ skipped++; secAgg[s].b++; misses.push({i,a:null,q,s}); }
     else if(a===q.correct){ right++; secAgg[s].c++; }
     else { wrong++; secAgg[s].w++; misses.push({i,a,q,s}); }
@@ -889,7 +889,7 @@ function buildExport(mode){
   L.push(`${(M.fullTitle||M.title||"MOCK").toUpperCase()} — RESULTS EXPORT`);
   L.push(`Mock id: ${MID}`);
   L.push(`Generated: ${new Date().toISOString()}`);
-  L.push(`Score: ${score.toFixed(2).replace(/\.00$/,"")} / ${N} (${right} right, ${wrong} wrong, ${skipped} blank)`);
+  L.push(`Score: ${score.toFixed(2).replace(/\.00$/,"")} / ${N} (${right} right, ${wrong} wrong, ${skipped} blank)${st.first?", first sitting":""}`);
   L.push(`Scoring: +1 / −0.25 · accuracy on attempted ${answered?Math.round(right/answered*100):0}%`);
   L.push("");
   L.push(misses.length?`MISSED & BLANK — all ${misses.length}`:"MISSED & BLANK — none, clean run");
@@ -944,19 +944,23 @@ function downloadExport(){
 /* ---------- results ---------- */
 function finish(){
   Speak.stop();
-  let right=0,wrong=0,skipped=0;
+  let wrong=0,skipped=0;                // current answers: review filters + redo button
+  let fRight=0,fWrong=0,fixed=0;        // first sitting (the same unless a redo pass cleared the misses)
+  const A=st.first||st.answers;
   const secAgg={};
   Q.forEach((q,i)=>{
     const s=q.section; secAgg[s]=secAgg[s]||{n:0,c:0};
     secAgg[s].n++;
     const a=st.answers[i];
     if(a==null)skipped++;
-    else if(a===q.correct){right++;secAgg[s].c++;}
-    else wrong++;
+    else if(a!==q.correct)wrong++;
+    const f=A[i];
+    if(f===q.correct){fRight++;secAgg[s].c++;}
+    else if(f!=null){fWrong++; if(a===q.correct)fixed++;}
   });
-  const score=(right*1 - wrong*0.25);
-  const answered=right+wrong;
-  const accAnswered=answered?Math.round(right/answered*100):0;
+  const score=(fRight*1 - fWrong*0.25);
+  const answered=fRight+fWrong;
+  const accAnswered=answered?Math.round(fRight/answered*100):0;
   const secHtml=Object.keys(SL).filter(s=>secAgg[s]).map(s=>{
     const {n,c}=secAgg[s]; const p=Math.round(c/n*100);
     return `<div class="secrow"><div class="nm">${SL[s]}</div>
@@ -989,11 +993,11 @@ function finish(){
     <div class="score-card">
       <div class="score-eyebrow">${M.title} · untimed · scored +1 / −0.25</div>
       <div class="score-big">${score.toFixed(2).replace(/\.00$/,'')}<small> / ${N}</small></div>
-      <div class="score-sub">${right} of ${answered} answered right (${accAnswered}%)${skipped?` · ${skipped} left blank`:""}</div>
+      <div class="score-sub">${fRight} of ${answered} answered right (${accAnswered}%)${N-answered?` · ${N-answered} left blank`:""}${st.first?` · first sitting; redo the wrong: ${fixed} of ${fWrong} now right`:""}</div>
       <div class="score-stats">
-        <div class="stat g"><b>${right}</b><span>Correct</span></div>
-        <div class="stat r"><b>${wrong}</b><span>Wrong</span></div>
-        <div class="stat"><b>${skipped}</b><span>Skipped</span></div>
+        <div class="stat g"><b>${fRight}</b><span>Correct</span></div>
+        <div class="stat r"><b>${fWrong}</b><span>Wrong</span></div>
+        <div class="stat"><b>${N-answered}</b><span>Skipped</span></div>
         <div class="stat a"><b>${flaggedCount()}</b><span>Flagged</span></div>
       </div>
     </div>
@@ -1028,6 +1032,7 @@ function finish(){
     const wrongIdx=[];
     Q.forEach((q,i)=>{ if(st.answers[i]!=null && st.answers[i]!==q.correct) wrongIdx.push(i); });
     if(!wrongIdx.length){alert("No wrong answers to redo — clean run.");return;}
+    if(!st.first) st.first={...st.answers};  // keep the first sitting: the score card, section split and export stay on it
     st.wrongSet=wrongIdx; st.filter="wrong";
     wrongIdx.forEach(i=>{delete st.answers[i]; delete st.revealed[i]; delete st.visited[i];});  // clear so you re-attempt
     st.rs=Date.now();  // sync: this wiped copy beats the older one (sync.js newerReset)
