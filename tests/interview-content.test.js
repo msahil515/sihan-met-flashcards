@@ -76,10 +76,10 @@ test("specific theory cards cite sources that cover their definitions", () => {
 
 test("St John's world: complete cards, a Panel Final, and a fill-in for the JSS result", () => {
   const levels = viva.sjc.levels;
-  assert.deepEqual(Array.from(levels, level => level.k), ["open", "dept", "fit", "case", "tools", "dev", "final"]);
+  assert.deepEqual(Array.from(levels, level => level.k), ["open", "dept", "fit", "case", "tools", "dev", "gen", "final"]);
   assert.equal(levels.at(-1).final, 12);
   const cards = levels.flatMap(level => level.cards || []);
-  assert.equal(cards.length, 71);
+  assert.equal(cards.length, 92);
   assert.ok(cards.every(card => card.id.startsWith("sjc-") && card.q && card.a));
   assert.ok(cards.every(card => !card.f === !card.fa), "follow-up always has its answer");
   assert.ok(cards.every(card => !/\u2014/.test(JSON.stringify(card))), "no em dashes");
