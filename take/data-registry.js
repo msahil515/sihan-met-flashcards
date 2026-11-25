@@ -403,15 +403,15 @@ const MOCKS = [
   {
     id: "gmch-2024",
     title: "GMCH Chandigarh 2024 (real paper)",
-    sub: "100 real Qs · GMCH's 2024 M.Phil Clinical Psychology paper · no official key, every answer worked out · untimed",
+    sub: "100 real Qs · GMCH's 2024 M.Phil Clinical Psychology paper, held 7 Sep 2024 · official key, checked · untimed",
     path: "../take/screen.html?m=gmch-2024",
     total: 100,
     storageKey: "gmch-2024-results-v1",
     sections: { clinical: 22, general: 20, assessment: 13, personality: 13, disorders: 11, research: 8, physio: 6, social: 5, dev: 2 },
-    blurb: "The GMCH Chandigarh (Government Medical College and Hospital) 2024 M.Phil Clinical Psychology entrance, all 100 questions from the typed paper you sent. There is no official key, so every answer is worked out from standard texts. Intro to intermediate recall, heavy on therapy and counselling (Gestalt empty chair, ACT, systematic desensitisation, REBT, CBT, Wolberg's re-educative and reconstructive therapies, person-centred brief work), then assessment (ratio IQ, MMPI, WAIS-IV subtests, the Bhatia battery, MISIC, IDEAS, TAMANNA, Rorschach cards, split-half formulas), learning (Pavlov, schedules, punishment), personality (Horney, Jung, Adler, Kelly, TA), psychopathology, social and nonverbal communication, research basics and the Indian Lunacy Act. Where an answer is arguable a Key note says so (the ratio IQ of a 40-year-old, Kohs Block vs the Pass-Along test, how many Rorschach cards are chromatic, Stern vs Terman, Rulon and Flanagan vs KR-20, schizoid vs avoidant, Pavlov and reinforcement, BPD mood swings). Q16 and Q28 are the same question in the paper, as are Q53 and Q71. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. The site scores +1 / -0.25 like every other mock.",
+    blurb: "The GMCH Chandigarh (Government Medical College and Hospital) 2024 M.Phil Clinical Psychology entrance, held on 7 September 2024, all 100 questions from the typed paper you sent (the same paper GMCH posts on its site). Every answer is checked against GMCH's official key: 93 of 100 matched, 3 now follow GMCH (Q1 the ratio IQ of a 40-year-old, Q54 field experiment, Q79 personal motives), and on 4 the key is plainly wrong, so the textbook answer stays with a Key note saying what GMCH printed (Q22, Q27, Q68, Q81). Intro to intermediate recall, heavy on therapy and counselling (Gestalt empty chair, ACT, systematic desensitisation, REBT, CBT, Wolberg's re-educative and reconstructive therapies, person-centred brief work), then assessment (ratio IQ, MMPI, WAIS-IV subtests, the Bhatia battery, MISIC, IDEAS, TAMANNA, Rorschach cards, split-half formulas), learning (Pavlov, schedules, punishment), personality (Horney, Jung, Adler, Kelly, TA), psychopathology, social and nonverbal communication, research basics and the Indian Lunacy Act. Where an answer is arguable a Key note says so (the ratio IQ of a 40-year-old, Kohs Block vs the Pass-Along test, how many Rorschach cards are chromatic, Stern vs Terman, Rulon and Flanagan vs KR-20, schizoid vs avoidant, Pavlov and reinforcement, BPD mood swings). Q16 and Q28 are the same question in the paper, as are Q53 and Q71. Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. The site scores +1 / -0.25 like every other mock.",
     fresh: true,
     deepExp: true,
-    tags: ["100% real PYQ", "GMCH 2024", "keyed from standard texts", "trap per wrong option", "untimed practice"]
+    tags: ["100% real PYQ", "official key", "GMCH 2024", "trap per wrong option", "untimed practice"]
   },
   {
     id: "gmch-2023",
@@ -1076,7 +1076,7 @@ const GROUPS = [
     sub: "Institute of Mental Health and Neurosciences, Kozhikode (Kerala): the M.Phil Clinical Psychology entrance papers, real questions (2025, 2024, 2021, 2020 and 2019, all worked out from standard texts)",
     members: ["imhans-2025", "imhans-2024", "imhans-2021", "imhans-2020", "imhans-2019"] },
   { id: "gmch", title: "GMCH Chandigarh",
-    sub: "Government Medical College and Hospital, Chandigarh: M.Phil Clinical Psychology entrance papers, real questions (2025 with the official key, 2024 worked out from standard texts, 2023 with a printed worked key)",
+    sub: "Government Medical College and Hospital, Chandigarh: M.Phil Clinical Psychology entrance papers, real questions (2025 and 2024 with the official key, 2023 with a printed worked key)",
     members: ["gmch-2025", "gmch-2024", "gmch-2023"] },
   { id: "gurugram", title: "Gurugram University",
     sub: "Gurugram University, Haryana: the 2026 M.A. and PDCP and the 2025 M.Phil and M.A. Clinical Psychology entrance papers, real questions with the official key, plus Anukriti's solved version of the 2025 exam",
