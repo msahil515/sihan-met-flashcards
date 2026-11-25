@@ -83,8 +83,8 @@
 
 <!-- ============ PINNED ============ -->
 <section id="pinnedSection" hidden>
-  <h2 class="grp pin">Pinned &mdash; closing soon</h2>
-  <p class="pin-sub">Live countdowns, soonest first. Get the earliest one in today.</p>
+  <h2 class="grp pin">Pinned: coming up</h2>
+  <p class="pin-sub">Exams and closing dates with a live countdown, soonest first.</p>
   <div id="pinnedList"></div>
 </section>
 
@@ -101,9 +101,80 @@ This board pulls its data on a schedule on its own, you don't have to ask it to.
 /* Embedded fallback so the board renders instantly and offline (PWA).
    Live data is fetched from news.json and overrides this on every load + every 5 min. */
 window.__NEWS_FALLBACK = {
-  "updated": "2026-07-26T11:15+05:30",
+  "updated": "2026-11-25T15:00+05:30",
   "note": "Live exam + admissions feed for the four live targets (IHBAS, CIP Ranchi, JSS Mysuru, DIMHANS Dharwad). SGT, Amity and RML closed for 2026 and moved to the Archive. Pinned items up top with countdowns; everything else newest-first. Each item carries its source so it's not just me saying it.",
   "pinned": [
+    {
+      "id": "ihbas-date-2026-11-24",
+      "category": "Exam date",
+      "title": "IHBAS entrance confirmed: Sunday 29 Nov 2026",
+      "date": "2026-11-24",
+      "body": "IHBAS posted a University of Delhi Examination Branch letter (dated 23 Nov 2026, to the Head, Dept of Clinical Psychology) on 24 Nov. DU has approved the Master in Clinical Psychology Entrance Exam 2026 for the 2026-2028 session and fixed the date as 29.11.2026, a Sunday. The 5 Nov notice had it as tentative. The letter gives no exam time, centre or admit card details, and the prospectus with the paper pattern is still not on the IHBAS site as of 24 Nov. Last year's (2025-27) paper was 100 MCQ, no negative marking, no interview. Only applies if the paper form reached IHBAS by 21 Nov.",
+      "source": {
+        "label": "DU letter on the IHBAS site (PDF)",
+        "url": "https://ihbas.delhi.gov.in/sites/default/files/ihbas/circulars-orders/mphil2026.pdf"
+      },
+      "deadline": "2026-11-29T23:59:59+05:30",
+      "countdown": "exam"
+    },
+    {
+      "id": "christ-macp-2027",
+      "category": "Notification",
+      "title": "Christ University M.A. Clinical Psychology (RCI) 2027 is open: apply by 28 Mar 2027, test 4 Apr",
+      "date": "2026-11-21",
+      "body": "CHRIST (Deemed to be University), Bangalore Yeshwanthpur campus, opened applications for its RCI-recognised 2-year M.A. Clinical Psychology on 21 Nov 2026, open until 28 Mar 2027, 11:45 PM. Proposed schedule: entrance test 4 Apr 2027, offline at the Yeshwanthpur campus (120 MCQ, 1 mark each, 90 min; modules: general psychology, biological bases, personality and social, clinical, research methods and stats, cognitive). Results by 7 to 9 Apr; shortlisted candidates come back on 15 Apr for a written essay, a 90-second micro presentation and a 10-minute interview. Merit = test 70% + that round 30%. Eligibility: 4-year BA/BSc Psychology, or a 3-year degree plus the bridge year or 1st year of an MA Psychology, 55%. Fee Rs 5,25,000 a year (Rs 5,05,000 Karnataka domicile) + Rs 8,000 registration. Marks cards must be uploaded within 5 days of applying. Christ calls the dates a proposed schedule.",
+      "source": {
+        "label": "Christ course page",
+        "url": "https://christuniversity.in/courses/OTA2"
+      },
+      "deadline": "2027-03-28T23:45:00+05:30"
+    }
+  ],
+  "feed": [
+    {
+      "id": "ups-check-2026-11-24",
+      "category": "Notification",
+      "title": "UPS Education's admissions list checked against official sites: only Calcutta and Christ are open for you",
+      "date": "2026-11-24",
+      "body": "Every clinical psychology listing on UPS Education's Latest Psychology Admissions page was checked on 24 Nov 2026. Open and verified on the official pages: University of Calcutta M.Clin.Psy (apply by 2 Dec, test 8 Dec) and Christ Bengaluru M.A. Clinical Psychology (RCI) (apply by 28 Mar 2027, test 4 Apr). Left off: Mody University's M.Clin.Psy (last date 30 Nov) is for women only per the only source, is not on RCI's approved list up to 23 Oct 2026, and has no notice on Mody's own site; Christ's PG Psychology 2027 (last date 25 Nov) is the non-RCI M.Sc courses. All 48 other clinical listings show closed. RCI's 23 Oct 2026 list adds M.Clin.Psy from 2026-27 at MGM University Chhatrapati Sambhajinagar (14), NIMHR Sehore (12), IILDR Dausa (10), Variyar School Salem (16) and IIS Jaipur (10): watch them next cycle. Details in the Open now box on the admissions tracker. Later on 24 Nov you said no to Calcutta, so only Christ is left.",
+      "source": {
+        "label": "RCI approved list, 23 Oct 2026 (PDF)",
+        "url": "https://cdnbbsr.s3waas.gov.in/s34f4eeef3a8c90dfceaddd5c6d64e4ebb/uploads/2026/10/202610231165187228.pdf"
+      }
+    },
+    {
+      "id": "rml-code157-2026",
+      "category": "Correction",
+      "title": "RML's 13 seats go through GGSIPU's M.Phil CET (code 157), not CET-166. The 2026-27 round is not out yet",
+      "date": "2026-11-23",
+      "body": "Checked on GGSIPU's own notices, 23 Nov 2026. CET-166 (Master in Clinical Psychology, the one sat on 4 Jul) was counselled only at Ashtavakra Institute and Tecnia Institute: the 1st and 2nd counselling seat matrices for 2026-27 list just those two (intake 10 each). RML was never on it. RML's own course is the M.Phil (Clinical Psychology) at the Dept of Clinical Psychology, ABVIMS and Dr RML Hospital, with the degree from GGSIPU and 13 seats (RCI list: 12 + 1 EWS, approved to 2025-26; 2026-27 not printed yet, same as IHBAS). It is filled by GGSIPU's separate M.Phil CET, code 157. The 2025-26 round: brochure 26 Sep 2025, offline forms till 27 Oct 2025 (printed form + Rs 2,500 demand draft to 'Registrar, GGSIPU', handed in at the Facilitation Centre, Dwarka), CET 9 Nov 2025 at Dwarka, 100 MCQ in 2 hours, 4 marks each, no negative, 50% to qualify, 3 per seat called for interview, final rank 90% CET + 10% interview, 13 selected on 15 Dec 2025. Eligibility: master's in psychology, 55% (50% reserved), not by distance or part time. Earlier rounds ran at other times (CET 2 Jun 2024; 2022-23 selection 23 Nov 2022), so the 2026-27 notice can drop any time. This board now watches GGSIPU's code-157 notice list twice a day.",
+      "source": {
+        "label": "GGSIPU code-157 notices",
+        "url": "https://www.ipu.ac.in/notices.php?search=157&limit=25"
+      }
+    },
+    {
+      "id": "ihbas-2026",
+      "category": "Notification",
+      "title": "IHBAS Delhi 2026-28 notification is out: forms closed 21 Nov, entrance 29 Nov",
+      "date": "2026-11-05",
+      "body": "IHBAS posted the Master in Clinical Psychology (RCI, University of Delhi) 2026-28 admission notice on 5 Nov 2026. 28 seats: UR 11, SC 4, ST 2, OBC 7, EWS 3, PwD 1. Eligibility: 4-year BA/BSc in Psychology, or a 3-year degree plus the bridge year or an MA/MSc in Psychology, 55% (50% reserved). Fee Rs 3,000 (Rs 1,500 reserved) paid into the IHBAS SBI account. The paper form, mark sheets, category certificate and fee slip had to reach the Head, Dept of Clinical Psychology, Room 122, Academic Block, IHBAS, by speed/registered post or by hand on or before 21 Nov 2026; email and online forms are not accepted. Entrance 29 Nov 2026 (listed as tentative here; confirmed by DU on 23 Nov, see the newer item); counselling and document verification to be notified after it. Stipend Rs 25,000/month. The prospectus (pattern, syllabus) was promised 'within a few days' and is not on the site yet as of 22 Nov IST. The notice also says '21th November 2025' in one line; the dates table says 21.11.2026.",
+      "source": {
+        "label": "IHBAS notice + form (PDF)",
+        "url": "https://ihbas.delhi.gov.in/sites/default/files/ihbas/circulars-orders/admission_mcp.pdf"
+      }
+    },
+    {
+      "id": "dimhans-2026",
+      "category": "Notification",
+      "title": "DIMHANS Dharwad 2026-27 notice was out 7 Nov: forms closed 17 Nov, exam was 19 Nov",
+      "date": "2026-11-07",
+      "body": "DIMHANS posted its Master of Clinical Psychology 2026-27 notice (Ref DIMHANS/AHS/M.Clin./2026-27, dated 7 Nov 2026). Course approved by RCI, affiliated to RGUHS. 5 seats: UR 3, SC 1, Cat-IIB 1. Karnataka domicile only (certificate from the Tahasildar). Eligibility: 2-year Master's in Clinical, Counselling or Applied Psychology, or Psychology, 55% (50% SC/ST), with Psychology in every UG year. App fee Rs 1,000 (Rs 500 SC/ST) online; form from dimhans.karnataka.gov.in, emailed to dimhanscp@gmail.com with the documents. Online application 8 to 17 Nov 2026 (5 PM). Entrance 19 Nov 2026, 11:00 AM to 12:30 PM at DIMHANS Dharwad: offline, 100 MCQ, 90 min, -0.25 per wrong answer, 50% to qualify (45% SC/ST), then seats by counselling on merit. Both dates have passed; the old watcher missed this notice, and DIMHANS is now on the watch list. The DIMHANS site does not load from outside India, so the link is the scan of the official notice posted by Power Within Psychology.",
+      "source": {
+        "label": "DIMHANS notice (scan, PDF)",
+        "url": "https://blog.powerwithinpsychology.com/wp-content/uploads/2026/11/official-notification.pdf"
+      }
+    },
     {
       "id": "jss-2026-postponed",
       "category": "Exam date",
@@ -116,20 +187,6 @@ window.__NEWS_FALLBACK = {
       }
     },
     {
-      "id": "sgt-2026",
-      "category": "Deadline",
-      "title": "SGT University — MA Clinical Psychology (RCI) application closes",
-      "deadline": "2026-07-04T23:59:00+05:30",
-      "date": "2026-06-21",
-      "body": "Open right now, and the only one of your five flagged colleges with a live near-term window. MA Clinical Psychology (RCI) (the old M.Phil, renamed), 10 seats, app fee Rs 1,500. Form by ~4 Jul, written entrance ~11 Jul 2026 at the Gurugram campus. Dates are aggregator-sourced (UPS Education / Power Within) and tagged tentative, so confirm on the portal, but treat 4 Jul as your apply-by.",
-      "source": {
-        "label": "Apply: admission.sgtuniversity.ac.in",
-        "url": "https://admission.sgtuniversity.ac.in/"
-      }
-    }
-  ],
-  "feed": [
-    {
       "id": "archive-sgt-amity-rml-2026",
       "category": "Site",
       "title": "SGT, Amity and RML archived — 2026 cycles closed, nothing deleted",
@@ -138,6 +195,17 @@ window.__NEWS_FALLBACK = {
       "source": {
         "label": "Open the archive",
         "url": "https://msahil515.github.io/sihan-met-flashcards/archive/"
+      }
+    },
+    {
+      "id": "sgt-2026",
+      "category": "Deadline",
+      "title": "SGT University — MA Clinical Psychology (RCI) application closes",
+      "date": "2026-06-21",
+      "body": "Open right now, and the only one of your five flagged colleges with a live near-term window. MA Clinical Psychology (RCI) (the old M.Phil, renamed), 10 seats, app fee Rs 1,500. Form by ~4 Jul, written entrance ~11 Jul 2026 at the Gurugram campus. Dates are aggregator-sourced (UPS Education / Power Within) and tagged tentative, so confirm on the portal, but treat 4 Jul as your apply-by.",
+      "source": {
+        "label": "Apply: admission.sgtuniversity.ac.in",
+        "url": "https://admission.sgtuniversity.ac.in/"
       }
     },
     {
@@ -174,95 +242,14 @@ window.__NEWS_FALLBACK = {
       }
     },
     {
-      "id": "ihbas-2026",
-      "category": "Notification",
-      "title": "IHBAS Delhi 2026-28 notification is out: forms closed 21 Nov, entrance 29 Nov",
-      "date": "2026-11-05",
-      "body": "IHBAS posted the Master in Clinical Psychology (RCI, University of Delhi) 2026-28 admission notice on 5 Nov 2026. 28 seats: UR 11, SC 4, ST 2, OBC 7, EWS 3, PwD 1. Eligibility: 4-year BA/BSc in Psychology, or a 3-year degree plus the bridge year or an MA/MSc in Psychology, 55% (50% reserved). Fee Rs 3,000 (Rs 1,500 reserved) paid into the IHBAS SBI account. The paper form, mark sheets, category certificate and fee slip had to reach the Head, Dept of Clinical Psychology, Room 122, Academic Block, IHBAS, by speed/registered post or by hand on or before 21 Nov 2026; email and online forms are not accepted. Entrance 29 Nov 2026 (tentative); counselling and document verification to be notified after it. Stipend Rs 25,000/month. The prospectus (pattern, syllabus) was promised 'within a few days' and is not on the site yet as of 22 Nov IST. The notice also says '21th November 2025' in one line; the dates table says 21.11.2026.",
-      "source": {
-        "label": "IHBAS notice + form (PDF)",
-        "url": "https://ihbas.delhi.gov.in/sites/default/files/ihbas/circulars-orders/admission_mcp.pdf"
-      }
-    },
-    {
       "id": "cip-2026",
       "category": "Notification",
-      "title": "CIP Ranchi — 2026 M.Phil notification NOT out yet",
+      "title": "CIP Ranchi: 2026 notification still NOT out (re-checked 22 Nov 2026)",
       "date": "2026-06-21",
-      "body": "Both the official site (cipranchi.nic.in) and the application portal (hllcip.cbtexam.in) carry only 2025-session content; no 2026 notification, prospectus or dates exist yet. The 2025 cycle ran online forms 19 Mar to 15 Apr 2025, CBT 27 Apr, practical + viva 13 to 15 May, so the next window is likely around March. Selection is CBT (100) + interview/practical (50), ~21 seats. Watch out: the '30 Aug 2026' date floating around is NEET-PG for MD Psychiatry, not this program.",
+      "body": "Re-checked 22 Nov 2026 IST: no 2026 MA Clinical Psychology notice on the CIP application portal (hllcip.cbtexam.in, unchanged since its 2025-session content) or in UPS Education's CIP category; the official site cipranchi.nic.in does not load from outside India. No 2026 intake was published at all. The 2025 cycle (official prospectus) ran online forms 19 Mar to 15 Apr 2025, CBT 27 Apr, practical + viva 13 to 15 May, so the next window is likely around March. App fee Rs 1,000 (Rs 500 OBC/SC/ST/PwD), scholarship Rs 25,000/mo, 210-bed hostel. Selection is CBT (100) + interview/practical (50), ~21 seats. Watch out: the '30 Aug 2026' date floating around is NEET-PG for MD Psychiatry, not this program.",
       "source": {
-        "label": "CIP Ranchi",
-        "url": "https://cipranchi.nic.in"
-      }
-    },
-    {
-      "id": "src-change-6da27897cc",
-      "category": "Notification",
-      "title": "Portal updated — re-verify: Open the source",
-      "date": "2026-06-21",
-      "body": "This source page changed since the last auto-check. A deadline, status, or notice may have moved, so confirm the current date on the portal before acting on it.",
-      "source": {
-        "label": "Open the source",
-        "url": "https://nfsuadm.samarth.edu.in"
-      },
-      "auto": true
-    },
-    {
-      "id": "src-change-ee1ab8496c",
-      "category": "Notification",
-      "title": "Portal updated — re-verify: Open the source",
-      "date": "2026-06-19",
-      "body": "This source page changed since the last auto-check. A deadline, status, or notice may have moved, so confirm the current date on the portal before acting on it.",
-      "source": {
-        "label": "Open the source",
-        "url": "https://www.upseducation.in/update/abvims-rml-ma-clinical-psychology-rci-admission-2026/"
-      },
-      "auto": true
-    },
-    {
-      "id": "src-change-cc639f85c9",
-      "category": "Notification",
-      "title": "Portal updated — re-verify: Open the source",
-      "date": "2026-06-19",
-      "body": "This source page changed since the last auto-check. A deadline, status, or notice may have moved, so confirm the current date on the portal before acting on it.",
-      "source": {
-        "label": "Open the source",
-        "url": "https://www.upseducation.in/update/nfsu-gandhinagar-ma-clinical-psychology-rci-2026/"
-      },
-      "auto": true
-    },
-    {
-      "id": "src-change-07d84a1472",
-      "category": "Notification",
-      "title": "Portal updated — re-verify: Open the source",
-      "date": "2026-06-19",
-      "body": "This source page changed since the last auto-check. A deadline, status, or notice may have moved, so confirm the current date on the portal before acting on it.",
-      "source": {
-        "label": "Open the source",
-        "url": "https://ipu.admissions.nic.in/"
-      },
-      "auto": true
-    },
-    {
-      "id": "nfsu-dl-2026",
-      "category": "Deadline",
-      "title": "NFSU Delhi — MA Clinical Psychology (RCI) application closes",
-      "date": "2026-06-02",
-      "body": "Same program, Delhi campus, same CUET-PG-based selection, 22 seats. Apply to both NFSU campuses off the one Samarth portal, two more shots for the same effort.",
-      "source": {
-        "label": "Apply: nfsuadm.samarth.edu.in",
-        "url": "https://nfsuadm.samarth.edu.in"
-      }
-    },
-    {
-      "id": "nfsu-gn-2026",
-      "category": "Deadline",
-      "title": "NFSU Gandhinagar — MA Clinical Psychology (RCI) application closes",
-      "date": "2026-06-02",
-      "body": "Selection is on your CUET-PG 2026 score, not a separate NFSU test. 24 seats. Apply off the Samarth portal. Eligibility: 4-yr BA/BSc Psych, or 3-yr + bridge, min 55%.",
-      "source": {
-        "label": "Apply: nfsuadm.samarth.edu.in",
-        "url": "https://nfsuadm.samarth.edu.in"
+        "label": "CIP 2025 prospectus (PDF)",
+        "url": "https://hllcip.cbtexam.in/Home/Prospectus2025/Prospectus_A_19032025_U.pdf"
       }
     },
     {
@@ -318,16 +305,6 @@ window.__NEWS_FALLBACK = {
       }
     },
     {
-      "category": "Deadline",
-      "title": "NFSU Gandhinagar + Delhi windows open (due 10 June)",
-      "date": "2026-05-31",
-      "body": "Both NFSU RCI MA Clinical Psych campuses are taking applications, due 10 June, selected on CUET-PG score. This corrects the earlier 'NFSU own entrance' line, there's no separate NFSU test.",
-      "source": {
-        "label": "Details — NFSU Gandhinagar",
-        "url": "https://www.upseducation.in/update/nfsu-gandhinagar-ma-clinical-psychology-rci-2026/"
-      }
-    },
-    {
       "category": "Structural",
       "title": "M.Phil Clinical Psychology replaced by the RCI MA",
       "date": "2026-01-15",
@@ -346,14 +323,25 @@ window.__NEWS_FALLBACK = {
         "label": "Closed-for-2026 group",
         "url": "../admissions/#closed"
       }
+    },
+    {
+      "id": "calcutta-2026",
+      "category": "Notification",
+      "title": "University of Calcutta M.Clin.Psy 2026-28: you said no (24 Nov)",
+      "date": "2026-11-06",
+      "body": "You said no on 24 Nov, so it is off the pinned list and nothing gets built for it. For reference: University of Calcutta (Clinical Psychology Centre) invited online applications for its RCI-approved 2-year Masters in Clinical Psychology (M.Clin.Psy), session 2026-2028, notice dated 6 Nov 2026. Online form and fee 10 Nov to 2 Dec 2026 up to 2:00 PM. Hall ticket 5 Dec. Written test 8 Dec 2026, 11 AM to 12 noon (report 10 AM), offline at Rajabazar Science College campus, 92 A.P.C. Road, Kolkata: 75 MCQ in 1 hour, 0.25 negative per wrong answer. Viva (25 marks) 10 and 11 Dec. 24 seats (UR 13, SC 5, ST 1, OBC 2, EWS 2, PwD 1); reservation applies to West Bengal domicile only, so other states compete in the open seats. Eligibility: 4-year BA/BSc Psychology, or 3-year degree plus the bridge year or the 1st or both years of an MA/MSc in Psychology, 55% (50% SC/ST/PwD). Test fee Rs 1,000 (Rs 500 SC/ST/PwD). Course fee: Rs 5,000 admission a year, Rs 5,000 a month tuition, Rs 1,000 exam fee a year.",
+      "source": {
+        "label": "Calcutta notice (PDF)",
+        "url": "https://www.caluniv-ucsta.net/m_phill/notice-2026/Admission%20notice%20M.clin.psy%202026.pdf"
+      }
     }
   ],
-  "last_refreshed": "2026-06-21T22:10+05:30",
+  "last_refreshed": "2026-11-25T15:00+05:30",
   "source_check": {
-    "ran_at": "2026-06-21T22:10+05:30",
-    "checked": 34,
-    "reachable": 19,
-    "manual": 15,
+    "ran_at": "2026-11-25T15:00+05:30",
+    "checked": 254,
+    "reachable": 120,
+    "manual": 134,
     "changed": 0
   }
 };
@@ -376,7 +364,7 @@ window.__NEWS_FALLBACK = {
   }
 
   function itemHTML(it, pinned){
-    var cd = it.deadline ? '<span class="countdown" data-deadline="'+esc(it.deadline)+'"></span>' : '';
+    var cd = it.deadline ? '<span class="countdown" data-deadline="'+esc(it.deadline)+'"'+(it.countdown==="exam"?' data-kind="exam"':'')+'></span>' : '';
     var src = (it.source && it.source.url)
       ? '<div class="src"><a href="'+esc(it.source.url)+'" target="_blank" rel="noopener">'+esc(it.source.label||"Source")+' &rarr;</a></div>'
       : '';
@@ -422,8 +410,14 @@ window.__NEWS_FALLBACK = {
       el.classList.remove("urgent","passed");
       if(isNaN(dl.getTime())){ el.textContent=""; return; }
       var ms = dl - now;
-      if(ms<=0){ el.classList.add("passed"); el.textContent="Closed — verify on the portal"; return; }
+      var exam = el.getAttribute("data-kind") === "exam";  // deadline = 23:59 on the exam day
+      if(ms<=0){ el.classList.add("passed"); el.textContent = exam ? "Exam done" : "Closed — verify on the portal"; return; }
       var d=Math.floor(ms/86400000), h=Math.floor((ms%86400000)/3600000), m=Math.floor((ms%3600000)/60000);
+      if(exam){
+        el.textContent = d>1 ? "Exam in "+d+" days" : (d===1 ? "Exam tomorrow" : "Exam today");
+        if(ms < 48*3600000) el.classList.add("urgent");
+        return;
+      }
       el.textContent = "Closes in " + (d>0? d+"d ":"") + h+"h " + m+"m";
       if(ms < 48*3600000) el.classList.add("urgent");
     });

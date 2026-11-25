@@ -29,7 +29,8 @@ What it actually does each run:
      both /admissions/ and /news/ (between the <!--LR--> ... <!--/LR--> markers).
 
   3. Writes last_refreshed into news.json and re-evaluates pinned deadlines,
-     moving any that have already closed out of the pinned block.
+     moving any that have already closed out of the pinned block, then copies
+     news.json into the fallback embedded in news/index.html (first paint + offline).
 
 The commit it produces triggers a GitHub Pages rebuild, so the live site
 reflects the new data within a couple of minutes of each scheduled run.
@@ -51,6 +52,7 @@ ROOT = Path(__file__).resolve().parent
 STATE_PATH = ROOT / "news" / "sources_state.json"
 
 LR_RE = re.compile(r"(<!--LR-->).*?(<!--/LR-->)", re.DOTALL)
+FALLBACK_RE = re.compile(r"(window\.__NEWS_FALLBACK = ).*?(;\n</script>)", re.DOTALL)
 
 FETCH_TIMEOUT = 12          # seconds per source
 MAX_BYTES = 1_500_000       # don't pull more than ~1.5 MB of any one page
@@ -340,6 +342,22 @@ def stamp_html(path: Path, dt):
     return False
 
 
+def sync_news_fallback(news_data):
+    """Copy news.json into the page's embedded fallback (first paint + offline)."""
+    p = ROOT / "news" / "index.html"
+    html = p.read_text(encoding="utf-8")
+    blob = json.dumps(news_data, indent=2, ensure_ascii=False).replace("</", "<\\/")
+    html2, n = FALLBACK_RE.subn(lambda m: m.group(1) + blob + m.group(2), html, count=1)
+    if not n:
+        print("WARN: no __NEWS_FALLBACK block in news/index.html")
+        return False
+    if html2 != html:
+        p.write_text(html2, encoding="utf-8")
+        print("synced fallback: news/index.html")
+        return True
+    return False
+
+
 def refresh_news_json(news_data, dt):
     iso = dt.isoformat(timespec="minutes")
     news_data["last_refreshed"] = iso
@@ -415,6 +433,7 @@ def main():
         news_path.write_text(
             json.dumps(news_data, indent=2, ensure_ascii=False) + "\n",
             encoding="utf-8")
+        sync_news_fallback(news_data)
         changed = True
 
     print("done" if changed else "nothing changed")
