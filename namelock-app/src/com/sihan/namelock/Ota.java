@@ -1,7 +1,6 @@
 package com.sihan.namelock;
 
 import android.app.Activity;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,10 +17,10 @@ import java.util.Iterator;
 
 /* Live-site content updates without a new APK (manifest built by ota.py).
    filesDir/ota/<v>/ holds every file that differs from what the APK bundles, for
-   manifest version v. The version in use is fixed when the app starts, so a page
-   never mixes old and new files; a download finishes in the background and is
-   picked up on the next launch. Every file is sha256-checked against the manifest,
-   and any failure leaves the current version untouched. Only one update runs per
+   manifest version v. A download finishes in the background and waits as `next`;
+   the app switches to it with adopt() only at a top-level page load, so a page
+   never mixes old and new files and no restart is needed. Every file is
+   sha256-checked against the manifest, and any failure leaves the current version untouched. Only one update runs per
    process: reopening the app (or an activity restart) while a download is in flight
    must not start a second one, which used to commit a half-filled version dir. */
 final class Ota {
@@ -32,7 +31,8 @@ final class Ota {
     private final String app;
     private final File root;
     private final String stamp; /* install/update time of this APK: a new APK resets OTA */
-    private File live;          /* dir served this run, or null for bundled only */
+    private volatile File live; /* dir served now, or null for bundled only */
+    private volatile File next; /* downloaded version not served yet (adopt() switches) */
     private static boolean running; /* an update thread is in flight in this process */
 
     Ota(Activity act, String app) {
@@ -58,7 +58,18 @@ final class Ota {
         return act.getAssets().open("www" + path);
     }
 
-    void checkAsync() {
+    /* call only at a top-level page load: everything that page asks for then comes
+       from the same version. True if it switched. */
+    synchronized boolean adopt() {
+        File n = next;
+        if (n == null) return false;
+        live = n;
+        next = null;
+        return true;
+    }
+
+    /* ready runs on the UI thread once a new version is waiting in next */
+    void checkAsync(final Runnable ready) {
         synchronized (Ota.class) {
             if (running) return;
             running = true;
@@ -67,8 +78,8 @@ final class Ota {
             @Override
             public void run() {
                 try {
-                    if (update()) toast("Content updated. Close and reopen the app to load it.");
-                } catch (Exception e) { /* offline or mid-deploy: try again next launch */
+                    if (update()) act.runOnUiThread(ready);
+                } catch (Exception e) { /* offline or mid-deploy: try again on the next open */
                 } finally {
                     synchronized (Ota.class) { running = false; }
                 }
@@ -82,7 +93,8 @@ final class Ota {
         if (stale != null) for (File f : stale) if (f.getName().endsWith(".part")) rm(f);
         byte[] body = get(SITE + "downloads/ota/" + app + ".json?t=" + System.currentTimeMillis());
         String v = sha(body).substring(0, 16);
-        if (live != null && live.getName().equals(v)) return false;
+        File latest = next != null ? next : live; /* newest version already on disk */
+        if (latest != null && latest.getName().equals(v)) return false;
         JSONObject files = new JSONObject(new String(body, "UTF-8")).getJSONObject("files");
         JSONObject base = new JSONObject(new String(readAll(act.getAssets().open("ota-base.json")), "UTF-8")).getJSONObject("files");
         File tmp = new File(root, v + ".part");
@@ -96,7 +108,7 @@ final class Ota {
                 JSONArray b = base.optJSONArray(path);
                 if (b != null && want.equals(b.getString(1))) continue; /* bundled copy is current */
                 File dst = new File(tmp, path);
-                File have = live == null ? null : new File(live, path);
+                File have = latest == null ? null : new File(latest, path);
                 byte[] data = have != null && have.isFile() ? readAll(new FileInputStream(have)) : null;
                 if (data != null && want.equals(sha(data))) reused++;
                 else { data = get(SITE + e.getString(0) + "?v=" + want.substring(0, 12)); fetched++; }
@@ -115,12 +127,13 @@ final class Ota {
             FileOutputStream out = new FileOutputStream(c);
             try { out.write((v + "\n" + stamp).getBytes("UTF-8")); } finally { out.close(); }
             if (!c.renameTo(new File(root, "current"))) throw new Exception("rename current");
+            synchronized (this) { next = dir; }
         } finally {
             rm(tmp);
         }
         /* tell only when what the app serves changes: something new was fetched,
            or a previously downloaded file is no longer used (back to the bundled copy) */
-        return fetched > 0 || (live != null && reused != count(live));
+        return fetched > 0 || (latest != null && reused != count(latest));
     }
 
     private static int count(File f) {
@@ -129,13 +142,6 @@ final class Ota {
         int n = 0;
         for (File k : kids) n += count(k);
         return n;
-    }
-
-    private void toast(final String t) {
-        act.runOnUiThread(new Runnable() {
-            @Override
-            public void run() { Toast.makeText(act, t, Toast.LENGTH_LONG).show(); }
-        });
     }
 
     private static byte[] get(String url) throws Exception {
