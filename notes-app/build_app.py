@@ -245,6 +245,20 @@ def strip_tags(s):
     s = html.unescape(s)
     return re.sub(r"\s+", " ", s).strip()
 
+def rebase_links(content, src_dir, out_dir=OUT_CONTENT):
+    """A copied page's relative links point from its own folder; re-point them
+    from out_dir, where the copy is served, so they still reach the same pages."""
+    def fix(m):
+        url = m.group(2)
+        if not url or re.match(r"[#/$?]|[a-z][a-z0-9+.-]*:", url, re.I):
+            return m.group(0)
+        path, rest = re.match(r"([^?#]*)(.*)", url, re.S).groups()
+        new = os.path.relpath(os.path.join(src_dir, path), out_dir).replace(os.sep, "/")
+        if path.endswith("/"):
+            new += "/"
+        return '%s="%s%s"' % (m.group(1), new, rest)
+    return re.sub(r'\b(href|src)="([^"]*)"', fix, content)
+
 def extract_note(html_text):
     """For passthrough notes: return (title, styles, content_html, plain)."""
     styles = []
@@ -325,6 +339,7 @@ def main():
             with open(p, encoding="utf-8") as f:
                 raw = f.read()
             title, styles, content, plain = extract_note(raw)
+            content = rebase_links(content, os.path.dirname(p))
             if not title:
                 title = b["short"]
 

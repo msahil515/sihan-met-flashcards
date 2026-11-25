@@ -18,6 +18,7 @@ each source becoming a titled part. build_app.py then carries it into the app as
 the "Amity" book (kind="note", chrome stripped, scoped styles preserved).
 """
 import os, re, html
+from build_app import rebase_links
 
 ROOT = os.path.dirname(os.path.abspath(__file__))     # .../notes-app
 SITE = os.path.dirname(ROOT)                           # repo root
@@ -89,6 +90,8 @@ def main():
         raw = read(slug)
         all_styles += collect_styles(raw, seen)
         src_h1, content = inner_content(raw)
+        content = rebase_links(content, os.path.join(SITE, slug),
+                               os.path.join(SITE, "notes", "amity-book"))
         if key == "brief":
             # drop the admin "Curate Amity material here" section (a placeholder
             # for folding in future sends, not study content)
