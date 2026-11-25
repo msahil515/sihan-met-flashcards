@@ -120,15 +120,15 @@ const MOCKS = [
   {
     id: "jemas-2025",
     title: "JEMAS(PG) 2025 · Clinical Psychology",
-    sub: "100 real Qs · the West Bengal M.Phil Clinical Psychology paper · full booklet, Q1–100 · no official key, every answer worked out · untimed",
+    sub: "100 real Qs · the West Bengal M.Phil Clinical Psychology paper · full booklet, Q1–100 · checked against WBJEEB's official key · untimed",
     path: "../take/screen.html?m=jemas-2025",
     total: 100,
     storageKey: "jemas-2025-results-v1",
     sections: { psychodynamic: 3, personality: 13, biopsych: 11, research: 6, clinical: 30, development: 11, cognitive: 21, stats: 5 },
-    blurb: "The West Bengal JEMAS(PG) 2025 Clinical Psychology entrance, all 100 questions, word for word off the 14 booklet photos you sent (pages 3 to 16). There is no official answer key, so every answer is worked out from standard texts; Q64 and Q65 carry a key-debate note because the answer is arguable. Heavy on clinical and psychopathology (30 Qs) and cognition, learning and intelligence (21): defence mechanisms, Adler, projective tests and the Rorschach, DSM-5 ASD and SLD, Kluver-Bucy, Schneider's first-rank symptoms, Piaget and object permanence, sampling, validity and z-scores. Every card carries a JEMAS(PG) 2025 source badge with its original question number, a full explanation and a line on why each wrong option is wrong. Untimed, scored +1 / −0.25 / 0. Independent storage.",
+    blurb: "The West Bengal JEMAS(PG) 2025 Clinical Psychology entrance, all 100 questions, word for word off the 14 booklet photos you sent (pages 3 to 16). Every answer was worked out from standard texts, then checked against WBJEEB's final answer key (21 Aug 2026): 95 of the 97 it scored agreed. Q4 (concept formation: observation, generalisation, discrimination, abstraction) and Q8 (aptitude) now follow WBJEEB with a Key note, and Q10, Q65 and Q72, which WBJEEB dropped, say so. Heavy on clinical and psychopathology (30 Qs) and cognition, learning and intelligence (21): defence mechanisms, Adler, projective tests and the Rorschach, DSM-5 ASD and SLD, Kluver-Bucy, Schneider's first-rank symptoms, Piaget and object permanence, sampling, validity and z-scores. Every card carries a JEMAS(PG) 2025 source badge with its original question number, a full explanation and a line on why each wrong option is wrong. Untimed, scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
     deepExp: true,
-    tags: ["100% real paper", "JEMAS(PG) 2025", "clinical psychology", "no official key, worked out", "trap per wrong option", "untimed practice", "100 Q"]
+    tags: ["100% real paper", "JEMAS(PG) 2025", "clinical psychology", "WBJEEB official key", "trap per wrong option", "untimed practice", "100 Q"]
   },
   {
     id: "jemas-2022",
@@ -146,28 +146,28 @@ const MOCKS = [
   {
     id: "jemas-2023",
     title: "JEMAS(PG) 2023 (real paper)",
-    sub: "100 real Qs · the West Bengal M.Phil Clinical Psychology paper · no official key, every answer worked out · untimed",
+    sub: "100 real Qs · the West Bengal M.Phil Clinical Psychology paper · checked against WBJEEB's official key · untimed",
     path: "../take/screen.html?m=jemas-2023",
     total: 100,
     storageKey: "jemas-2023-results-v1",
     sections: { general: 22, physio: 20, clinical: 15, assessment: 13, disorders: 10, dev: 6, personality: 6, research: 4, social: 4 },
-    blurb: "The West Bengal JEMAS(PG) 2023 M.Phil Clinical Psychology entrance, all 100 questions, word for word from the official booklet. There is no official key, so every answer is worked out from standard texts. It is mostly intro-level and fast: perception (Gestalt laws, Gibson, apparent motion, figure-ground), learning and memory, motivation and emotion (Herzberg, Alderfer, Schachter-Singer), Piaget, Erikson, Kohlberg and Thomas & Chess, then a big biopsych block (cerebellum, split brain, hypothalamus, RBD, melatonin), assessment (MMPI-2 scale 7, MCMI-III, Binet, Porteus, Guilford, Sternberg) and who-said-it items (Szasz, Foucault, Melanie Klein, Kernberg, Mesmer, Koch, Moreno, Klerman, Yalom). 17 questions are repeats from JEMAS 2022 and JEPAS 2020. Where an answer is arguable a Key note says so (adaptation level vs frames of reference, false alarm vs false positive, cerebellum vs basal ganglia for procedural memory, Stern vs Terman for IQ, the two identical Piaget options and a few more). Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / -0.25 like every other mock.",
+    blurb: "The West Bengal JEMAS(PG) 2023 M.Phil Clinical Psychology entrance, all 100 questions, word for word from the official booklet. Every answer was worked out from standard texts, then checked against WBJEEB's own final answer key: 99 of 100 agreed, and Q37 now follows WBJEEB (frames of reference, not adaptation level) with a Key note. It is mostly intro-level and fast: perception (Gestalt laws, Gibson, apparent motion, figure-ground), learning and memory, motivation and emotion (Herzberg, Alderfer, Schachter-Singer), Piaget, Erikson, Kohlberg and Thomas & Chess, then a big biopsych block (cerebellum, split brain, hypothalamus, RBD, melatonin), assessment (MMPI-2 scale 7, MCMI-III, Binet, Porteus, Guilford, Sternberg) and who-said-it items (Szasz, Foucault, Melanie Klein, Kernberg, Mesmer, Koch, Moreno, Klerman, Yalom). 17 questions are repeats from JEMAS 2022 and JEPAS 2020. Where an answer is arguable a Key note says so (adaptation level vs frames of reference, false alarm vs false positive, cerebellum vs basal ganglia for procedural memory, Stern vs Terman for IQ, the two identical Piaget options and a few more). Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / -0.25 like every other mock.",
     fresh: true,
     deepExp: true,
-    tags: ["100% real PYQ", "JEMAS(PG) 2023", "no official key, worked out", "trap per wrong option", "untimed practice"]
+    tags: ["100% real PYQ", "JEMAS(PG) 2023", "WBJEEB official key", "trap per wrong option", "untimed practice"]
   },
   {
     id: "jemas-2024",
     title: "JEMAS(PG) 2024 (real paper)",
-    sub: "100 real Qs · the West Bengal M.Phil Clinical Psychology paper · no official key, every answer worked out · untimed",
+    sub: "100 real Qs · the West Bengal M.Phil Clinical Psychology paper · checked against WBJEEB's official key · untimed",
     path: "../take/screen.html?m=jemas-2024",
     total: 100,
     storageKey: "jemas-2024-results-v1",
     sections: { general: 20, personality: 14, disorders: 14, clinical: 14, assessment: 10, dev: 10, research: 9, physio: 6, social: 3 },
-    blurb: "The West Bengal JEMAS(PG) 2024 M.Phil Clinical Psychology entrance, all 100 questions, word for word from the official booklet. There is no official key, so every answer is worked out from standard texts. Broad and fast: development (Gesell, Hartshorne and May, Parten, Piaget, Erikson, Kubler-Ross, attachment), learning and memory (Dollard and Miller, learned helplessness, pegwords, schedules), defences and personality theorists (Jung, Freud, Horney, Murray, Lewin, Kernberg, Kohut), assessment (WAIS-IV indexes, MMSE, ISAA, Vineland SQ and the disability Gazette), psychopathology signs (Schneider's first-rank symptoms, Kluver-Bucy, Ganser, pica, waxy flexibility, ICD-10 codes) and therapy (IPT, ERP, logotherapy, third wave, Wolberg's classes). 26 questions repeat earlier JEMAS, JEPAS and RINPAS papers word for word. Where an answer is arguable a Key note says so (closure vs good figure, the two identical attachment lists, fixed interval vs fixed ratio, confirmation bias, door-in-the-face vs reciprocity and a few more). Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / -0.25 like every other mock.",
+    blurb: "The West Bengal JEMAS(PG) 2024 M.Phil Clinical Psychology entrance, all 100 questions, word for word from the official booklet. Every answer was worked out from standard texts, then checked against WBJEEB's own final answer key: 98 of the 99 it scored agreed, Q92 now follows WBJEEB (frames of reference, not adaptation level), and Q59 (Ebbinghaus), which WBJEEB dropped, carries a Key note. Broad and fast: development (Gesell, Hartshorne and May, Parten, Piaget, Erikson, Kubler-Ross, attachment), learning and memory (Dollard and Miller, learned helplessness, pegwords, schedules), defences and personality theorists (Jung, Freud, Horney, Murray, Lewin, Kernberg, Kohut), assessment (WAIS-IV indexes, MMSE, ISAA, Vineland SQ and the disability Gazette), psychopathology signs (Schneider's first-rank symptoms, Kluver-Bucy, Ganser, pica, waxy flexibility, ICD-10 codes) and therapy (IPT, ERP, logotherapy, third wave, Wolberg's classes). 26 questions repeat earlier JEMAS, JEPAS and RINPAS papers word for word. Where an answer is arguable a Key note says so (closure vs good figure, the two identical attachment lists, fixed interval vs fixed ratio, confirmation bias, door-in-the-face vs reciprocity and a few more). Every question has the concept from scratch, why each wrong option is wrong and its Final Textbook section. Scored +1 / -0.25 like every other mock.",
     fresh: true,
     deepExp: true,
-    tags: ["100% real PYQ", "JEMAS(PG) 2024", "no official key, worked out", "trap per wrong option", "untimed practice"]
+    tags: ["100% real PYQ", "JEMAS(PG) 2024", "WBJEEB official key", "trap per wrong option", "untimed practice"]
   },
   {
     id: "systems-theories",
@@ -1067,7 +1067,7 @@ const GROUPS = [
     sub: "Sit-once diagnostics and the common-section banks that decide the gap — misses compile into a study sheet on the page",
     members: ["diagnostic-2", "recall-14", "systems-theories", "flight-mock-100"] },
   { id: "jemas", title: "JEMAS(PG) — West Bengal",
-    sub: "The West Bengal JEMAS(PG) M.Phil / Clinical Psychology entrance: 2022, 2023 and 2024 in full, 2025 from the readable booklet pages, real questions",
+    sub: "The West Bengal JEMAS(PG) M.Phil / Clinical Psychology entrance: 2022 to 2025 in full, real questions; 2023, 2024 and 2025 checked against WBJEEB's official keys",
     members: ["jemas-2022", "jemas-2023", "jemas-2024", "jemas-2025"] },
   { id: "jepas", title: "JEPAS(PG), West Bengal",
     sub: "The West Bengal board's Joint Entrance for Post Graduate Admission: the M.Phil Clinical Psychology paper, real questions",
