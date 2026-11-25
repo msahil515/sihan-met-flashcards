@@ -1056,7 +1056,7 @@ const MOCKS = [
 ];
 
 const GROUPS = [
-  { id: "sjmc", title: "St John's Bengaluru (25 Nov)",
+  { id: "sjmc", title: "St John's Bengaluru (sat 25 Nov)",
     sub: "St John's MClinPsy entrance: 100 MCQs, 90 minutes, interview straight after the paper. Interview prep on the St John's page",
     members: ["sjmc-mock-1", "sjmc-mock-2"] },
   { id: "repeats", title: "Repeated PYQs",
@@ -1068,8 +1068,8 @@ const GROUPS = [
   { id: "amity", archived: true, title: "Amity",
     sub: "2026 cycle closed — kept live as drill. Real Amity entrance papers (Mumbai 2021 M.Phil, 2023 M.A. Clinical Psychology); the interview brief is on the /archive/ page",
     members: ["amity-mumbai-2021", "amity-2023", "amity-recall"] },
-  { id: "ihbas", title: "IHBAS",
-    sub: "IHBAS Delhi M.Phil Clinical Psychology entrances, real papers with verified keys",
+  { id: "ihbas", title: "IHBAS Delhi (29 Nov)",
+    sub: "IHBAS Delhi Master in Clinical Psychology entrance: 100 MCQs, 90 minutes, no negative marking, no interview. Mocks 1 and 2 first, then the real 2025, 2024 and 2020 papers with verified keys",
     members: ["ihbas-mock-1", "ihbas-mock-2", "ihbas-2025", "ihbas-2024-d", "ihbas-2024", "ihbas-2020"] },
   { id: "cip", title: "CIP Ranchi",
     sub: "CIP Ranchi M.Phil Clinical Psychology entrance: 100 MCQs in 60 minutes, 1 mark each, no negative marking. The real 2020 paper and the 2023 recall set",
