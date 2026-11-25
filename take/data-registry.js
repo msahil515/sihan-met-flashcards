@@ -260,15 +260,15 @@ const MOCKS = [
   {
     id: "rml-2021",
     title: "RML 2021 PYQ Mock (verbatim paper)",
-    sub: "100 verbatim Qs · ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2021 · expert-verified key · deep answers · untimed Practice + Full run",
+    sub: "100 Qs · ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2021 (Power Within copy) · key checked blind · deep answers · untimed Practice + Full run",
     path: "../quiz/rml-2021/",
     total: 100,
     storageKey: "rml-2021-results-v1",
     sections: {"biopsych": 6, "social": 8, "development": 18, "cognitive": 3, "general": 4, "psychopathology": 13, "stats": 19, "assessment": 15, "therapy": 11, "systems": 3},
-    blurb: "The full 2021 RML paper (ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2021), all 100 questions verbatim with an expert-determined answer key (no official key was printed on this paper). Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. Independent storage.",
+    blurb: "The full 2021 RML paper (ABVIMS / Dr RML Hospital M.Phil Clinical Psychology 2021), all 100 questions as Power Within Psychology's mock series printed them. GGSIPU held this entrance in September 2021 and never posted a public key (its 2021 CET keys were shown only on the candidate objection portal), so the answers are worked out from standard texts; on 25 Nov 2026 two independent blind solves agreed with 97 and 98 of the 100, and the few arguable ones (Guilford's 120, Thomas and Chess, action research, standardisation) say why in the answer. Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
     deepExp: true,
-    tags: ["deep explanations", "100% real PYQ", "expert-verified key", "real distractors", "RML 2021", "untimed practice"]
+    tags: ["deep explanations", "100% real PYQ", "key checked blind", "real distractors", "RML 2021", "untimed practice"]
   },
   {
     id: "rml-2022",
@@ -285,16 +285,16 @@ const MOCKS = [
   },
   {
     id: "rml-2023",
-    title: "RML 2023 PYQ Mock (verbatim paper)",
-    sub: "70 verbatim Qs · ABVIMS / Dr RML Hospital Psychology CET 2023 (Code 135) · expert-verified key · deep answers · untimed Practice + Full run",
+    title: "Psychology CET 2023, code 135 (filed as RML 2023)",
+    sub: "70 verbatim Qs · CET-2023 Psychology, subject code 135, booklet P (not an RML / GGSIPU paper) · key checked blind · deep answers · untimed Practice + Full run",
     path: "../quiz/rml-2023/",
     total: 70,
     storageKey: "rml-2023-results-v1",
     sections: {"stats": 21, "general": 17, "assessment": 3, "systems": 8, "cognitive": 9, "biopsych": 7, "development": 2, "social": 2, "psychopathology": 1},
-    blurb: "The full 2023 RML paper (ABVIMS / Dr RML Hospital Psychology CET 2023 (Code 135)), all 70 questions verbatim with an expert-determined answer key (no official key was printed on this paper). Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. Independent storage.",
+    blurb: "A real printed paper, CET-2023 Psychology, subject code 135, booklet series P, all 70 questions verbatim. It was filed as RML 2023, but it is not RML's paper: GGSIPU's code 135 is its B.Sc. Environmental Science, GGSIPU's notice board shows no M.Phil Clinical Psychology entrance in 2023 (its entrances were June 2022, then June 2024), and the booklet never names the university. The format (35 research methodology + 35 psychology, 70 marks) is the UGC Ph.D. entrance pattern. No key was ever published, so the answers are worked out from standard texts; on 25 Nov 2026 two independent blind solves agreed with 67 of the 70, and 2 answers that had followed the underlines on the circulated copy were fixed (Q19 conclusion, Q49 hypothalamus), each with a Key note. Nothing synthesised. Every question carries a full-depth explanation that teaches the concept from scratch and names the theorist behind each theory, plus a per-distractor trap under every wrong option. Untimed Practice mode by default (instant reveal + explanation); flip to Full run for a scored, no-feedback pass. Scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
     deepExp: true,
-    tags: ["deep explanations", "100% real PYQ", "expert-verified key", "real distractors", "RML 2023", "untimed practice"]
+    tags: ["deep explanations", "100% real PYQ", "key checked blind", "real distractors", "CET-2023 code 135", "untimed practice"]
   },
   {
     id: "rml-2025",
