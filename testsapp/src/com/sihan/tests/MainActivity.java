@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
@@ -48,6 +49,28 @@ public class MainActivity extends Activity {
     static String handoff;
     private boolean loaded;
     private Ota ota;
+    private long lastOtaCheck;
+    /* a new content version is downloaded. On Home (no sheet open): reload now, so new
+       papers and fixes show with no restart. Anywhere else (lobby, a mock, review, the
+       Safehouse): never cut in; reload the moment the app is back on Home. The reload is
+       a top-level page load, which is where shouldInterceptRequest switches versions. */
+    private final Runnable otaReady = new Runnable() {
+        @Override
+        public void run() {
+            if (isDestroyed()) return;
+            web.evaluateJavascript("(function(){function ok(){return document.body.getAttribute('data-s')==='home'&&!document.querySelector('.sheet');}"
+                    + "if(ok()){location.reload();return true;}"
+                    + "if(!window.__otaWait){window.__otaWait=new MutationObserver(function(){if(ok())location.reload();});"
+                    + "window.__otaWait.observe(document.body,{attributes:true,attributeFilter:['data-s']});}return false;})()",
+                    new android.webkit.ValueCallback<String>() {
+                        @Override
+                        public void onReceiveValue(String v) {
+                            Toast.makeText(MainActivity.this, "true".equals(v) ? "New papers and fixes loaded"
+                                    : "New papers and fixes are in. They load when you go back to Home.", Toast.LENGTH_LONG).show();
+                        }
+                    });
+        }
+    };
     private final VoiceRequestQueue voiceRequests = new VoiceRequestQueue();
     /* Read aloud: Android WebView has no speechSynthesis, so take/speak.js talks through
        the phone's own TTS engine via NLNative.tts* instead */
@@ -87,6 +110,7 @@ public class MainActivity extends Activity {
         web.setWebViewClient(new WebViewClient() {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView v, WebResourceRequest r) {
+                if (r.isForMainFrame()) ota.adopt(); /* whole page from one version */
                 return serve(r.getUrl());
             }
 
@@ -120,7 +144,6 @@ public class MainActivity extends Activity {
             }
         });
         setContentView(web);
-        ota.checkAsync();
         if (state != null) web.restoreState(state);
         else web.loadUrl(START);
     }
@@ -217,6 +240,12 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        /* every open, including back from recents, not just a cold start; at most once a minute */
+        long now = SystemClock.elapsedRealtime();
+        if (lastOtaCheck == 0 || now - lastOtaCheck > 60000) {
+            lastOtaCheck = now;
+            ota.checkAsync(otaReady);
+        }
         String c = cleanCode(handoff);
         handoff = null;
         if (c != null) {
