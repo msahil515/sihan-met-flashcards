@@ -114,6 +114,8 @@ def main():
 .amity-part-h { margin-top: 6px; padding-top: 18px; border-top: 3px solid var(--accent, #1d4ed8); }
 #amity-brief .amity-part-h { border-top: none; padding-top: 0; }
 .amity-part-blurb { color: var(--muted); font-size: 14px; margin: -2px 0 18px; max-width: 60ch; }
+table.t { display: block; overflow-x: auto; }
+.wrap { overflow-wrap: break-word; }
 """
 
     toc = (
