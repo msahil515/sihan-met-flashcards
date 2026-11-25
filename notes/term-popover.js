@@ -215,9 +215,9 @@
   hint.id = "tp-hint";
   hint.textContent = "tip: tap any underlined term for its definition";
   document.body.appendChild(hint);
-  /* Hide hint after first interaction */
+  /* Hide hint after first interaction (any touch or click; the hint itself lets taps through) */
   function hideHint() { hint.classList.add("tp-hide"); try { sessionStorage.setItem("tp-hint-seen", "1"); } catch(e) {} }
-  hint.addEventListener("click", hideHint);
+  document.addEventListener("pointerdown", hideHint, { capture: true, once: true });
   try { if (sessionStorage.getItem("tp-hint-seen")) hint.classList.add("tp-hide"); } catch(e) {}
 
   var activeTerm = null;
