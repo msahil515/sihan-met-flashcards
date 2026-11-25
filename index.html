@@ -650,6 +650,7 @@
           <div class="nav-more-group">
             <span class="nav-more-label">Viva prep</span>
             <a href="take/screen.html?m=ihbas-mock-1">IHBAS Mock 1 (29 Nov, 100 Qs)</a>
+            <a href="take/screen.html?m=ihbas-mock-2">IHBAS Mock 2 (29 Nov, 100 Qs)</a>
             <a href="st-johns/">St John's prep (25 Nov)</a>
             <a href="take/screen.html?m=sjmc-mock-1">St John's Mock 1 (100 Qs)</a>
             <a href="take/screen.html?m=sjmc-mock-2">St John's Mock 2 (100 Qs)</a>
@@ -713,7 +714,7 @@
   <div class="callout focus">
     <b>Current focus: the live four.</b> SGT, Amity, RML, NIMHANS and Manipal are closed for 2026 and sit in the <a href="archive/">Archive</a>, nothing deleted, every mock still playable from the folded block at the bottom of Tests. What's left to actually sit:
     <ul>
-      <li><b>IHBAS Delhi</b> — four real papers live as mocks (2020, 2024, April 2024 Series D, 2025) and the 100-question blueprint checked against 292 of its own questions. 2026-28 notification out 5 Nov: forms closed 21 Nov, entrance Sun 29 Nov, confirmed by DU on 23 Nov, <a href="https://ihbas.delhi.gov.in/sites/default/files/ihbas/circulars-orders/admission_mcp.pdf" target="_blank" rel="noopener">notice</a> · <a href="https://ihbas.delhi.gov.in/sites/default/files/ihbas/circulars-orders/mphil2026.pdf" target="_blank" rel="noopener">date letter</a>. <a href="take/screen.html?m=ihbas-mock-1">IHBAS Mock 1 (new, 100 Qs) →</a> · <a href="quiz/ihbas-2025/">Latest mock →</a> · <a href="syllabus/#ihbas">syllabus →</a></li>
+      <li><b>IHBAS Delhi</b> — four real papers live as mocks (2020, 2024, April 2024 Series D, 2025) and the 100-question blueprint checked against 292 of its own questions. 2026-28 notification out 5 Nov: forms closed 21 Nov, entrance Sun 29 Nov, confirmed by DU on 23 Nov, <a href="https://ihbas.delhi.gov.in/sites/default/files/ihbas/circulars-orders/admission_mcp.pdf" target="_blank" rel="noopener">notice</a> · <a href="https://ihbas.delhi.gov.in/sites/default/files/ihbas/circulars-orders/mphil2026.pdf" target="_blank" rel="noopener">date letter</a>. <a href="take/screen.html?m=ihbas-mock-1">IHBAS Mock 1 (100 Qs) →</a> · <a href="take/screen.html?m=ihbas-mock-2">Mock 2 (new, 100 Qs) →</a> · <a href="quiz/ihbas-2025/">Latest mock →</a> · <a href="syllabus/#ihbas">syllabus →</a></li>
       <li><b>CIP Ranchi</b> — the real CIP 2020 paper is live as a mock (100 Qs, key checked) and the syllabus is rebuilt from it, all 100 items classified. A 79-question set covers every topic students recalled from CIP 2023. No 2026 intake published; the 2025 cycle ran forms 19 Mar to 15 Apr, CBT 27 Apr, viva 13 to 15 May. <a href="take/screen.html?m=cip-2020">CIP 2020 mock →</a> · <a href="take/screen.html?m=cip-2023">CIP 2023 recall set →</a> · <a href="syllabus/#cip">Syllabus →</a></li>
       <li><b>JSS Mysuru</b> — the only one with a hard published date: <b>27 Oct 2026</b> test (10 AM, report 9 AM) + viva 27 afternoon to 28 Oct, moved from 16 Oct by JSS notice of 23 Sep. Hall ticket downloadable from 9 Oct. Official nine-subject syllabus quoted verbatim off the brochure. <a href="syllabus/#jss">Syllabus →</a></li>
       <li><b>DIMHANS Dharwad</b> — 2026-27 notice out 7 Nov: Master of Clinical Psychology (RCI, RGUHS), 5 seats, Karnataka domicile only. Forms closed 17 Nov, exam was 19 Nov (100 MCQ, 90 min, −0.25), <a href="https://blog.powerwithinpsychology.com/wp-content/uploads/2026/11/official-notification.pdf" target="_blank" rel="noopener">notice PDF</a>. <a href="syllabus/#dimhans">Syllabus →</a></li>
@@ -1431,6 +1432,18 @@ const MOCKS = [
     nimhans: false
   },
   {
+    id: "ihbas-mock-2",
+    title: "IHBAS Mock 2 (29 Nov entrance)",
+    path: "take/screen.html?m=ihbas-mock-2",
+    total: 100,
+    storageKey: "ihbas-mock-2-results-v1",
+    scoring: { plus: 1, minus: 0.25 },
+    sections: { clinical: 15, disorders: 16, general: 12, personality: 9, physio: 11, social: 10, dev: 10, research: 10, assessment: 7 },
+    meta: "100 more real past-paper Qs you have not sat, none from Mock 1 · same IHBAS blueprint (clinical + psychopathology 31) · one Q per concept · keys checked blind twice · sit it in 90 minutes · results split by subject",
+    fresh: true,
+    nimhans: false
+  },
+  {
     id: "ihbas-2024-d",
     title: "IHBAS April 2024: MP-2024 Series D",
     path: "take/screen.html?m=ihbas-2024-d",
@@ -1643,6 +1656,7 @@ const RESOURCES = [
 ];
 
 const NEWS = [
+  { date: "2026-11-25", title: "IHBAS Mock 2: 100 more real PYQs for Sun 29 Nov", desc: "A second IHBAS-length paper: 100 more genuine past-paper questions from other M.Phil and M.A. entrances, none from Mock 1 and none a repeat of anything you have sat. Same IHBAS blueprint, so clinical, therapy and psychopathology carry 31. Every key checked blind twice. Sit it in 90 minutes; IHBAS has no negative marking, so answer everything.", href: "take/screen.html?m=ihbas-mock-2" },
   { date: "2026-11-25", title: "IHBAS Mock 1: 100 real PYQs for Sun 29 Nov", desc: "A full IHBAS-length paper: 100 genuine past-paper questions from other M.Phil and M.A. entrances, none of them a repeat of anything you have sat. Split to IHBAS's blueprint and its own last three papers, so clinical, therapy and psychopathology carry 31. Every key checked blind twice. Sit it in 90 minutes; IHBAS has no negative marking, so answer everything.", href: "take/screen.html?m=ihbas-mock-1" },
   { date: "2026-11-24", title: "Amity Mumbai 2021 M.Phil: 60 real questions as a mock", desc: "A coaching channel's 2021 video shows Amity University Mumbai's M.Phil Clinical Psychology entrance questions slide by slide: all 60, copied word for word. The video gives no answers and Amity never posts a key, so each answer was worked out from the standard texts twice, separately (58 of 60 agreed; the other 2 were settled by the textbook line the question came from). Lots of research methods, therapy, A-R and match-the-following. In the Tests app under Amity.", href: "take/screen.html?m=amity-mumbai-2021" },
   { date: "2026-11-24", title: "Gurugram 2026: the real M.A. and PDCP papers, official key", desc: "Gurugram University posted its 11 July 2026 entrance papers with the official keys: the M.A. Clinical Psychology paper (70 Qs) and the Professional Diploma in Clinical Psychology paper (60 Qs). Both are now mocks, every answer from the official key, each card with the concept, why each wrong option is wrong and the Final Textbook section. Found on a fresh search for JSS, SGT and Amity 2020 papers, none of which exist online for free.", href: "take/screen.html?m=gurugram-2026-ma" },

@@ -843,6 +843,19 @@ const MOCKS = [
     tags: ["100% real PYQ", "IHBAS", "100 Q", "IHBAS blueprint", "none seen before", "source-badged", "trap per wrong option", "untimed practice"]
   },
   {
+    id: "ihbas-mock-2",
+    title: "IHBAS Mock 2 (29 Nov entrance)",
+    sub: "100 more real past-paper Qs you have not sat, none from Mock 1 · IHBAS blueprint · 9 subjects · sit it on a 90-minute timer · results by subject · untimed Practice",
+    path: "../take/screen.html?m=ihbas-mock-2",
+    total: 100,
+    storageKey: "ihbas-mock-2-results-v1",
+    sections: { clinical: 15, disorders: 16, general: 12, personality: 9, physio: 11, social: 10, dev: 10, research: 10, assessment: 7 },
+    blurb: "A second full IHBAS-length paper for the 29 Nov entrance: 100 more genuine past-paper questions you have not seen, and none of them is in IHBAS Mock 1. Same split as Mock 1, following IHBAS's published blueprint and its own 2020, 2024 and 2025 papers: clinical and therapy 15, psychopathology 16, general and cognitive 12, personality 9, biopsych 11, social 10, developmental 10, stats and research 10, assessment 7. Questions come from other M.Phil and M.A. entrances (GMCH 2025 12, GMCH 2024 8, IMHANS 2024 8, RINPAS 2024 8, RML 2025 5, JEMAS 2022 5, JEMAS 2025 5, RML 2021 4 and more), and none repeats a question from any IHBAS paper on the site, RML 2020, both JSS mocks, both St John's mocks, SGT, MET Mock 1, Gap Diagnostic 2, the Repeats drills or the CIP papers. Every key was re-solved blind by two separate checkers and both had to match; questions where a checker called the key a judgement call were left out. One question per concept. Mostly core textbook items with a few hard ones, like the real paper: sit it in 90 minutes, about 54 seconds a question. IHBAS has no negative marking, so answer every question; the site still scores +1 / -0.25 like every other mock, and your right count is your IHBAS score. Every card has its source paper, the concept from scratch, why each wrong option is wrong and a Study this button. Independent storage.",
+    fresh: true,
+    deepExp: true,
+    tags: ["100% real PYQ", "IHBAS", "100 Q", "IHBAS blueprint", "none seen before", "source-badged", "trap per wrong option", "untimed practice"]
+  },
+  {
     id: "ihbas-2025",
     title: "IHBAS 2025 PYQ Mock (real paper)",
     sub: "100 real Qs · IHBAS Delhi M.Phil Clinical Psychology (MPCP) entrance 2025 · Series A · official key · untimed Practice + Full run",
@@ -1057,7 +1070,7 @@ const GROUPS = [
     members: ["amity-mumbai-2021", "amity-2023", "amity-recall"] },
   { id: "ihbas", title: "IHBAS",
     sub: "IHBAS Delhi M.Phil Clinical Psychology entrances, real papers with verified keys",
-    members: ["ihbas-mock-1", "ihbas-2025", "ihbas-2024-d", "ihbas-2024", "ihbas-2020"] },
+    members: ["ihbas-mock-1", "ihbas-mock-2", "ihbas-2025", "ihbas-2024-d", "ihbas-2024", "ihbas-2020"] },
   { id: "cip", title: "CIP Ranchi",
     sub: "CIP Ranchi M.Phil Clinical Psychology entrance: 100 MCQs in 60 minutes, 1 mark each, no negative marking. The real 2020 paper and the 2023 recall set",
     members: ["cip-2020", "cip-2023"] },
