@@ -186,7 +186,9 @@
       btn = document.createElement("button");
       btn.type = "button";
       btn.innerHTML = btnHtml;
-      btn.style.cssText = "position:fixed;z-index:210;right:14px;bottom:16px;display:inline-flex;align-items:center;gap:6px;" +
+      /* the fullscreen circle (.fs-toggle, 46px at right:14px) sits in the same corner: go to its left */
+      var right = document.querySelector(".fs-toggle") ? 70 : 14;
+      btn.style.cssText = "position:fixed;z-index:210;right:" + right + "px;bottom:16px;display:inline-flex;align-items:center;gap:6px;" +
         "border:1px solid var(--line,#ddd);background:var(--surface,#fff);color:var(--ink,#111);" +
         "font:600 13px/1 var(--font-ui,system-ui,sans-serif);padding:11px 15px;border-radius:99px;cursor:pointer;" +
         "box-shadow:0 6px 20px rgba(0,0,0,.18)";
