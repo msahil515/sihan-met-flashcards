@@ -13,9 +13,11 @@ What it actually does each run:
      It compares that fingerprint against the snapshot stored in
      news/sources_state.json from the previous run.
         - First time a URL is seen -> record a baseline, no notice.
-        - Page changed since last run -> for a tracked (pinned/curated) source,
-          drop a dated "portal updated — re-verify" notice into the feed so a
-          new deadline / status flip / fresh notice surfaces on its own.
+        - Page changed since last run -> recorded in the state only. A feed
+          notice goes up only for a tracked (pinned/curated) source that shows
+          a NEW psychology-related line (REL_RE), and the notice quotes that
+          line. Whole-page changes were all false alarms (visitor counters,
+          "Last Updated" / "Today Date" stamps, unrelated pharmacy notices).
         - Unreachable / behind a login / hard 4xx-5xx -> counted as "needs
           manual" and logged, NOT pretended to be fresh. This is the honest
           caveat made mechanical: it can only auto-read what's reachable and
@@ -33,11 +35,13 @@ The commit it produces triggers a GitHub Pages rebuild, so the live site
 reflects the new data within a couple of minutes of each scheduled run.
 """
 import hashlib
+import html
 import json
 import re
 import ssl
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
@@ -69,6 +73,13 @@ VOLATILE_RE = [
 ]
 WS_RE = re.compile(r"\s+")
 
+# A line of page text that could be a clinical psychology notice. Only a NEW
+# line matching this puts a notice in Sihan's feed.
+REL_RE = re.compile(r"psycholog|psychiatric social|m\.?\s?phil|m\.?\s?clin|"
+                    r"code[\s-]*157|cet[\s-]*(?:code[\s-]*)?166|"
+                    r"post\s?graduate courses", re.IGNORECASE)
+OWN_SITE = "msahil515.github.io"   # our own pages are not sources
+
 
 def now_ist():
     return datetime.now(timezone.utc).astimezone(IST)
@@ -97,8 +108,23 @@ def fingerprint(html_bytes):
     return hashlib.sha256(text.encode("utf-8")).hexdigest(), len(text)
 
 
+def relevant_lines(html_bytes):
+    """Visible text lines that match REL_RE, keyed by a short hash."""
+    text = html_bytes.decode("utf-8", "ignore")
+    text = re.sub(r"(?is)<(script|style)\b.*?</\1>|<!--.*?-->", " ", text)
+    text = html.unescape(re.sub(r"<[^>]+>", "\n", text))
+    out = {}
+    for line in text.split("\n"):
+        line = WS_RE.sub(" ", line).strip()
+        if 8 <= len(line) <= 400 and REL_RE.search(line):
+            out[hashlib.sha1(line.lower().encode("utf-8")).hexdigest()[:12]] = line
+    return out
+
+
 def fetch(url):
-    """Fetch a URL over verified TLS. Returns (status, fingerprint, length, note).
+    """Fetch a URL over verified TLS. Returns (status, fingerprint, length, note, rel).
+
+    rel is relevant_lines() of the page when status is 'ok', else None.
 
     status is 'ok' or 'manual'. 'manual' means we could not safely auto-read it
     (login wall, broken cert, hard error, unreachable, PDF, or JS-rendered) and a
@@ -115,27 +141,27 @@ def fetch(url):
             ctype = (r.headers.get("Content-Type") or "").lower()
             data = r.read(MAX_BYTES)
             if "pdf" in ctype or url.lower().endswith(".pdf"):
-                return "manual", None, 0, "pdf (read by hand)"
+                return "manual", None, 0, "pdf (read by hand)", None
             if not data:
-                return "manual", None, 0, "empty response"
+                return "manual", None, 0, "empty response", None
             fp, length = fingerprint(data)
             if length < 80:
                 # almost no visible text => JS-rendered / login splash
-                return "manual", fp, length, "thin/JS-rendered (verify by hand)"
-            return "ok", fp, length, f"http {code}"
+                return "manual", fp, length, "thin/JS-rendered (verify by hand)", None
+            return "ok", fp, length, f"http {code}", relevant_lines(data)
     except urllib.error.HTTPError as e:
         if e.code in (401, 403):
-            return "manual", None, 0, f"http {e.code} (login wall)"
+            return "manual", None, 0, f"http {e.code} (login wall)", None
         if e.code == 404:
-            return "manual", None, 0, "http 404 (link moved)"
-        return "manual", None, 0, f"http {e.code}"
+            return "manual", None, 0, "http 404 (link moved)", None
+        return "manual", None, 0, f"http {e.code}", None
     except (urllib.error.URLError, TimeoutError, OSError) as e:
         reason = str(getattr(e, "reason", e))
         if "CERTIFICATE" in reason.upper() or "SSL" in reason.upper():
-            return "manual", None, 0, "cert/TLS issue (verify by hand)"
-        return "manual", None, 0, f"unreachable: {reason[:60]}"
+            return "manual", None, 0, "cert/TLS issue (verify by hand)", None
+        return "manual", None, 0, f"unreachable: {reason[:60]}", None
     except Exception as e:  # noqa: BLE001 - never let one source kill the run
-        return "manual", None, 0, f"error: {str(e)[:60]}"
+        return "manual", None, 0, f"error: {str(e)[:60]}", None
 
 
 def collect_sources(news_data):
@@ -149,7 +175,7 @@ def collect_sources(news_data):
     tracked, seen = [], set()
 
     def add(url, label):
-        if not url or not url.lower().startswith("http"):
+        if not url or not url.lower().startswith("http") or OWN_SITE in url:
             return
         u = url.strip()
         if u in seen:
@@ -167,22 +193,26 @@ def collect_sources(news_data):
         html = adm.read_text(encoding="utf-8")
         for m in re.finditer(r'href="(https?://[^"]+)"', html):
             u = m.group(1)
-            if u not in seen and u not in directory:
+            if u not in seen and u not in directory and OWN_SITE not in u:
                 directory.append(u)
 
     return tracked, directory
 
 
-def make_notice(url, label, dt):
+def make_notice(url, new_lines, dt):
+    host = urllib.parse.urlparse(url).netloc.removeprefix("www.")
+    quoted = "; ".join(f"\u201c{line[:160]}\u201d" for line in new_lines[:3])
+    first = new_lines[0]
+    short = first if len(first) <= 90 else first[:90].rsplit(" ", 1)[0] + "..."
     return {
         "id": "src-change-" + hashlib.sha1(url.encode()).hexdigest()[:10],
         "category": "Notification",
-        "title": f"Portal updated — re-verify: {label}",
+        "title": f"New on {host}: {short}",
         "date": dt.strftime("%Y-%m-%d"),
-        "body": ("This source page changed since the last auto-check. A deadline, "
-                 "status, or notice may have moved, so confirm the current date "
-                 "on the portal before acting on it."),
-        "source": {"label": "Open the source", "url": url},
+        "body": (f"Found by the auto-check, not read by hand yet. New on this page "
+                 f"since the last check: {quoted}. Open it and read the notice "
+                 f"before acting on it."),
+        "source": {"label": f"Open {host}", "url": url},
         "auto": True,
     }
 
@@ -206,7 +236,7 @@ def check_sources(news_data, dt):
 
     all_sources = tracked + [(u, None) for u in directory]
     for url, label in all_sources:
-        status, fp, length, note = fetch(url)
+        status, fp, length, note, rel = fetch(url)
         counts["checked"] += 1
         prev = prior.get(url) or {}
         entry = {
@@ -219,6 +249,10 @@ def check_sources(news_data, dt):
         if status == "ok":
             counts["reachable"] += 1
             entry["fp"] = fp
+            entry["rel"] = sorted(rel)
+            prev_rel = prev.get("rel")   # None before the first run that stored it
+            new_lines = [] if prev_rel is None else \
+                [line for h, line in rel.items() if h not in set(prev_rel)]
             prev_fp = prev.get("fp")
             if prev_fp is None:
                 counts["new_baseline"] += 1
@@ -226,13 +260,15 @@ def check_sources(news_data, dt):
                 print(f"  baseline  {url}  ({note})")
             elif prev_fp != fp:
                 entry["change"] = "changed"
-                # Only curated/tracked sources surface a feed notice + count in
-                # the user-facing summary. Directory homepages (banners, tickers)
-                # change often and are audit-only, recorded in state but not shown.
-                if entry["tracked"]:
+                # Only a tracked source with a NEW psychology line surfaces a feed
+                # notice + counts in the user-facing summary. Anything else (stamps,
+                # counters, unrelated notices, directory homepages) is audit-only.
+                if entry["tracked"] and new_lines:
                     counts["changed"] += 1
-                    changed_urls.append((url, label))
-                    print(f"  CHANGED   {url}  ({note}) [tracked -> feed notice]")
+                    changed_urls.append((url, new_lines))
+                    print(f"  CHANGED   {url}  ({note}) [new: {new_lines[0][:80]}]")
+                elif entry["tracked"]:
+                    print(f"  changed   {url}  ({note}) [no new psychology line]")
                 else:
                     counts["dir_changed"] += 1
                     print(f"  changed   {url}  ({note}) [directory, audit-only]")
@@ -245,16 +281,18 @@ def check_sources(news_data, dt):
             # reset the baseline and then false-alarm on recovery
             if prev.get("fp"):
                 entry["fp"] = prev["fp"]
+            if "rel" in prev:
+                entry["rel"] = prev["rel"]
             entry["change"] = "manual"
             print(f"  manual    {url}  ({note})")
         new_state[url] = entry
 
     # Insert / refresh a feed notice for each tracked source that changed.
-    for url, label in changed_urls:
-        notice = make_notice(url, label, dt)
+    for url, new_lines in changed_urls:
+        notice = make_notice(url, new_lines, dt)
         feed[:] = [f for f in feed if f.get("id") != notice["id"]]
         feed.insert(0, notice)
-        print(f"  -> feed notice: {label}")
+        print(f"  -> feed notice: {notice['title']}")
 
     news_data["feed"] = feed
     news_data["source_check"] = {
