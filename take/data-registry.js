@@ -239,7 +239,7 @@ const MOCKS = [
     total: 100,
     storageKey: "rml-2024-results-v1",
     sections: { general: 38, biopsych: 18, abnormal: 14, therapy: 13, biostats: 6, assessment: 6, dev: 3, social: 2 },
-    blurb: "The full 2024 RML / ABVIMS (Dr RML Hospital, Delhi) M.Phil Clinical Psychology entrance paper, all 100 questions verbatim with GGSIPU's answer key (the source marks each correct option in bold), checked on 24 Nov 2026: five plainly wrong keys (Q2, Q41, Q51, Q89, Q98) now mark the textbook answer, each with a Key note. Nothing synthesised. This is the M.Phil (CET-157) paper, the best real depth-calibration for the RML MA route, pulled from your Drive library. Scored +1 / −0.25 / 0. Independent storage.",
+    blurb: "The full 2024 RML / ABVIMS (Dr RML Hospital, Delhi) M.Phil Clinical Psychology entrance paper, all 100 questions verbatim with GGSIPU's answer key (the source marks each correct option in bold), checked on 24 Nov 2026: five plainly wrong keys (Q2, Q41, Q51, Q89, Q98) now mark the textbook answer, each with a Key note; Q91 (one eye's visual field, 160 not 180) followed on 26 Nov. Nothing synthesised. This is the M.Phil (CET-157) paper, the best real depth-calibration for the RML MA route, pulled from your Drive library. Scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
     deepExp: true,
     tags: ["deep explanations", "100% real PYQ", "GGSIPU key checked", "real distractors", "RML 2024", "untimed practice"]
