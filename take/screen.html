@@ -461,6 +461,7 @@ html[data-mode="dark"]{--on-accent:var(--bg)}
 <script src="data-ihbas-m1.js?v=20261126-jemasdeep"></script>
 <script src="data-ihbas-m2.js?v=20261126-jemasdeep"></script>
 <script src="data-ihbas24d.js?v=20261120-seriesd"></script>
+<script src="data-ihbas-rank.js?v=20261126-rank"></script>
 <script src="data-cip20.js?v=20261120-cip20"></script>
 <script src="data-cip23.js?v=20261120-cip23"></script>
 <script src="data-gmch25.js?v=20261120-gmch25"></script>
@@ -891,6 +892,8 @@ function buildExport(mode){
   L.push(`Generated: ${new Date().toISOString()}`);
   L.push(`Score: ${score.toFixed(2).replace(/\.00$/,"")} / ${N} (${right} right, ${wrong} wrong, ${skipped} blank)${st.first?", first sitting":""}`);
   L.push(`Scoring: +1 / −0.25 · accuracy on attempted ${answered?Math.round(right/answered*100):0}%`);
+  const ihbas=window.ihbasLine?ihbasLine(MID,right,N):"";
+  if(ihbas) L.push(ihbas);
   L.push("");
   L.push(misses.length?`MISSED & BLANK — all ${misses.length}`:"MISSED & BLANK — none, clean run");
   misses.forEach(m=>{
@@ -961,6 +964,7 @@ function finish(){
   const score=(fRight*1 - fWrong*0.25);
   const answered=fRight+fWrong;
   const accAnswered=answered?Math.round(fRight/answered*100):0;
+  const ihbas=window.ihbasLine?ihbasLine(MID,fRight,N):"";   // IHBAS papers: the +1 / 0 score and its 2025 rank
   const secHtml=Object.keys(SL).filter(s=>secAgg[s]).map(s=>{
     const {n,c}=secAgg[s]; const p=Math.round(c/n*100);
     return `<div class="secrow"><div class="nm">${SL[s]}</div>
@@ -994,6 +998,7 @@ function finish(){
       <div class="score-eyebrow">${M.title} · untimed · scored +1 / −0.25</div>
       <div class="score-big">${score.toFixed(2).replace(/\.00$/,'')}<small> / ${N}</small></div>
       <div class="score-sub">${fRight} of ${answered} answered right (${accAnswered}%)${N-answered?` · ${N-answered} left blank`:""}${st.first?` · first sitting; redo the wrong: ${fixed} of ${fWrong} now right`:""}</div>
+      ${ihbas?`<div class="score-sub">${ihbas}</div>`:""}
       <div class="score-stats">
         <div class="stat g"><b>${fRight}</b><span>Correct</span></div>
         <div class="stat r"><b>${fWrong}</b><span>Wrong</span></div>

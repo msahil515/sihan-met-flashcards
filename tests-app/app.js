@@ -931,6 +931,7 @@
     var A = r.first || r.ans, f = firstScore(id, r);   /* the first sitting: same as now unless a redo cleared misses */
     var pct = Math.max(0, Math.round(100 * f.marks / f.N)), st = starsFor(pct);
     var head = st === 3 ? "Topper run" : st === 2 ? "Strong run" : st === 1 ? "Solid, keep going" : "Building up";
+    var ihbas = window.ihbasLine ? window.ihbasLine(id, f.right, f.N) : "";
     var secs = {}, labels = M.sectionLabels || {}, missed = 0, fixed = 0;
     Q.forEach(function (q, i) {
       var s = q.section || "all"; secs[s] = secs[s] || { n: 0, r: 0 }; secs[s].n++;
@@ -946,6 +947,7 @@
       '<div class="fin-s">' + esc(title_of(id)) + '</div><div class="big"><span id="fBig">' + fmt(f.marks) + "</span><small>out of " + f.N + "</small></div>" +
       '<div class="fin-stars">' + I.star(st > 0) + I.star(st > 1) + I.star(st > 2) + '</div><div class="fin-h">' + head + "</div>" +
       (r.first ? '<p class="hint" style="text-align:center">First sitting. Redo the wrong: ' + fixed + " of " + missed + " now right.</p>" : "") +
+      (ihbas ? '<p class="hint" style="text-align:center">' + ihbas + "</p>" : "") +
       '<div class="stats"><div class="stat"><b style="color:var(--ok)">' + f.right + '</b><span>Right</span></div><div class="stat"><b style="color:var(--bad)">' + f.wrong +
       '</b><span>Wrong</span></div><div class="stat"><b>' + f.skipped + "</b><span>Skipped</span></div></div>" +
       '<div class="stats" style="grid-template-columns:1fr 1fr"><div class="stat"><b>' + pct + '%</b><span>Score</span></div><div class="stat"><b style="color:var(--gold)">+' + (r.xp || 0) +
@@ -977,6 +979,8 @@
   function resultText(id) {
     var M = P[id], Q = M.questions, r = getRun(id), sc = firstScore(id, r), labels = M.sectionLabels || {}, A = r.first || r.ans;
     var out = [title_of(id), "Score: " + fmt(sc.marks) + " / " + sc.N + " (+1 / -0.25)" + (r.first ? ", first sitting" : ""), "Right " + sc.right + " · Wrong " + sc.wrong + " · Skipped " + sc.skipped, ""];
+    var ih = window.ihbasLine ? window.ihbasLine(id, sc.right, sc.N) : "";
+    if (ih) out.splice(3, 0, ih);
     Q.forEach(function (q, i) {
       var a = A[i];
       if (a === q.correct) return;
