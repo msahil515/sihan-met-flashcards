@@ -921,15 +921,15 @@ const MOCKS = [
   },
   {
     id: "pep-mock-2",
-    title: "Psych Entrance Mock 2 — UGC-NET + MPhil Clinical (120 Q)",
-    sub: "120 Q · 120 min · +1 / −0.25 · MPhil-specific + UGC-NET + common",
+    title: "Psych Entrance Mock 2 — UGC-NET + MPhil Clinical (121 Q)",
+    sub: "121 Q · 120 min · +1 / −0.25 · MPhil-specific + UGC-NET + common",
     path: "../quiz/pep-mock-2/",
-    total: 120,
+    total: 121,
     storageKey: "pep-mock-2-results-v1",
-    sections: { mphil: 20, ugcnet: 20, common: 80 },
-    blurb: "The full 120-question Mock Test 2 from psychologyentranceprep.com, rebuilt natively so it runs offline in the app (the original was a locked-in embedded Google form with no shareable link). Three sections: 20 MPhil-specific (clinical ethics, law, psychopathology), 20 UGC-NET specific (Indian psychology, philosophy of science, positive psych), and 80 common to both NET and MPhil clinical entrances (learning, cognition, perception, biopsych, assessment, stats, social). Every question has a worked explanation. Scored +1 / −0.25, target 90+/120. Independent storage, full analysis page, copy-to-WhatsApp export.",
+    sections: { mphil: 20, ugcnet: 21, common: 80 },
+    blurb: "The full 120-question Mock Test 2 from psychologyentranceprep.com plus one added Indian-psych scenario (121 Q), rebuilt natively so it runs offline in the app (the original was a locked-in embedded Google form with no shareable link). Three sections: 20 MPhil-specific (clinical ethics, law, psychopathology), 21 UGC-NET specific (Indian psychology, philosophy of science, positive psych), and 80 common to both NET and MPhil clinical entrances (learning, cognition, perception, biopsych, assessment, stats, social). Every question has a worked explanation. Scored +1 / −0.25, target 90+/121. Independent storage, full analysis page, copy-to-WhatsApp export.",
     fresh: true,
-    tags: ["120 Q", "UGC-NET + MPhil", "+1 / −0.25", "real paper"]
+    tags: ["121 Q", "UGC-NET + MPhil", "+1 / −0.25", "real paper"]
   },
   {
     id: "met-mock-5",
