@@ -330,7 +330,7 @@ const MOCKS = [
     total: 92,
     storageKey: "ihbas-2020-results-v1",
     sections: { general: 15, biopsych: 7, abnormal: 11, therapy: 22, biostats: 9, assessment: 7, dev: 10, social: 11 },
-    blurb: "The 2020 IHBAS (Institute of Human Behaviour & Allied Sciences, Delhi) M.Phil Clinical Psychology entrance paper, real questions transcribed from the previous-year paper in your Drive library. Every answer is verified against the paper's marked key and standard clinical-psychology sources, nothing invented. 8 of the original 100 dropped (one exact duplicate plus a few genuinely ambiguous items), so 92 verified questions. Therapy-heavy paper (22 Q), with a real Indian-psychology / Indian clinical-psych load (Erna Hoch, Malavika Kapur, IACP, ISAA vs CARS) that tracks the MET pattern. Scored +1 / −0.25 / 0. Independent storage.",
+    blurb: "The 2020 IHBAS (Institute of Human Behaviour & Allied Sciences, Delhi) M.Phil Clinical Psychology entrance paper, real questions transcribed from the previous-year paper in your Drive library. Every answer is verified against the paper's marked key and standard clinical-psychology sources, nothing invented; Q45 (autism disability tool) follows IHBAS's own 2024 key, ISAA, over the marked CARS, with a Key note. 8 of the original 100 dropped (one exact duplicate plus a few genuinely ambiguous items), so 92 verified questions. Therapy-heavy paper (22 Q), with a real Indian-psychology / Indian clinical-psych load (Erna Hoch, Malavika Kapur, IACP, ISAA vs CARS) that tracks the MET pattern. Scored +1 / −0.25 / 0. Independent storage.",
     fresh: true,
     deepExp: true,
     tags: ["deep explanations", "real PYQ", "verified key", "real distractors", "IHBAS 2020", "untimed practice"]
