@@ -6676,7 +6676,7 @@ window.QUESTION_BANK = {
                c: "Conversion disorder (functional neurological symptom disorder)",
                d: "Bipolar mania" },
     correct: "c",
-    explanation: "La belle indifférence describes the surprisingly calm, unconcerned attitude some patients show toward a dramatic conversion symptom (e.g. paralysis, blindness). Historically linked to conversion disorder, though it is neither sensitive nor specific and DSM-5 no longer requires it. The symptom is genuine and unconsciously produced." },
+    explanation: "La belle indifférence describes the surprisingly calm, unconcerned attitude some patients show toward a dramatic conversion symptom (e.g. paralysis, blindness). Historically linked to conversion disorder, though it is neither sensitive nor specific, and DSM-5 says it should not be used to make the diagnosis (it was never a required criterion). The symptom is genuine and unconsciously produced." },
   { id: "m5_abn07", section: "abnormal",
     q: "The DSM-5 dissociative disorder featuring two or more distinct personality states with gaps in memory is:",
     options: { a: "Dissociative identity disorder",
