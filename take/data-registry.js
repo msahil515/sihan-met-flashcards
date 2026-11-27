@@ -1048,7 +1048,7 @@ const MOCKS = [
     total: 100,
     storageKey: "sgt-pyq-results-v1",
     sections: { biopsych: 16, abnormal: 16, assessment: 14, therapy: 14, dev: 12, research: 14, general: 14 },
-    blurb: "One SGT-shaped paper built purely from real past-paper questions already on the system: Amity 2023, IHBAS 2020 & 2024, RML 2020-2025 and NIMHANS 2025. Nothing synthesised. Filtered to the seven areas SGT tests as a general-psychology aptitude paper (SGT publishes no syllabus PDF) and re-balanced into 100 questions across biological/physiological, abnormal/clinical, assessment, therapy/counselling, developmental, research methods & statistics, and general/history & systems. Every card keeps its full deep explanation + per-distractor trap breakdown and shows the real paper it came from. Independent storage.",
+    blurb: "One SGT-shaped paper built purely from real past-paper questions already on the system: Amity 2023, IHBAS 2020 & 2024, RML 2020-2025 and NIMHANS 2025. Nothing synthesised. Filtered to the seven areas SGT tests as a general-psychology aptitude paper (SGT publishes no syllabus PDF) and re-balanced into 100 questions across biological/physiological, abnormal/clinical, assessment, therapy/counselling, developmental, research methods & statistics, and general/history & systems. Every card keeps its full deep explanation + per-distractor trap breakdown and shows the real paper it came from. Independent storage. Fact-checked 27 Nov 2026: the 67 cards copied from papers already checked carry those fixes, the other 33 were checked against the source, 5 cards fixed, no answer changed.",
     fresh: true,
     deepExp: true,
     tags: ["100% real PYQ", "10 papers merged", "SGT-shaped", "full explanations", "untimed + exam", "100 Q"]
