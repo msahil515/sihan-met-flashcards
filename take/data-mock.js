@@ -461,7 +461,7 @@ const QUESTIONS = [
                c: "Apathy, Anxiety, Anger, Aphasia",
                d: "Audible thoughts, Anhedonia, Anosognosia, Asociality" },
     correct: "b",
-    explanation: "Bleuler (1911) coined 'schizophrenia' and proposed primary symptoms: loose Associations, flat Affect, Ambivalence, Autism (withdrawal into inner world). Hallucinations and delusions were 'accessory' in his scheme — later Schneider's first-rank symptoms reversed the emphasis." },
+    explanation: "Bleuler coined 'schizophrenia' (1908; monograph 1911) and proposed primary symptoms: loose Associations, flat Affect, Ambivalence, Autism (withdrawal into inner world). Hallucinations and delusions were 'accessory' in his scheme — later Schneider's first-rank symptoms reversed the emphasis." },
   { id: "m2_abn03", section: "abnormal",
     q: "Persistent depressive disorder (dysthymia) in adults requires depressed mood for at least:",
     options: { a: "6 months",
