@@ -13,7 +13,7 @@ const viva = context.window.NL_VIVA;
 test("legacy dissertation and JSS levels retain their IDs and content", () => {
   const expected = {
     dis: "f11e94a8f46e6794517ebba1956d72fdc67b973762eaa7fa4d477c748dd30de4",
-    jss: "101ce6d3084e98848bb1bbb9d8ac3d5dd16f4cd67800c9dd4e5ec8aad27c267b", // re-pinned 28 Nov 2026: fact-check, 9 legacy cards edited, IDs unchanged
+    jss: "402d54d995eed96c93531cc71c3ba3cabe676483960a945d9f3c3f9e8a2e22af", // re-pinned 28 Nov 2026: fact-checks (9 legacy cards, then jss-l2 M.Clin.Psy rename), IDs unchanged
   };
   for (const world of Object.keys(expected)) {
     const originalLevels = viva[world].levels.slice(0, world === "dis" ? 10 : 14);
