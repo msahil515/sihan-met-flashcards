@@ -417,7 +417,7 @@
     if (!ps.length){ el.innerHTML = '<div class="empty">No pairs in this pile.</div>'; return; }
     var p = ps[Math.floor(Math.random() * ps.length)], t = Math.random() < .5 ? p[0] : p[1], o = t === p[0] ? p[1] : p[0];
     var two = shuffle([p[0], p[1]]);
-    el.innerHTML = '<div class="prog">' + DS.r + ' / ' + DS.n + ' right this session &middot; ' + ps.length + ' pairs</div><div class="card"><div class="prompt-k">Which one is this?</div><div class="prompt small">' + esc(t.def) + '</div>' +
+    el.innerHTML = '<div class="prog">' + DS.r + ' / ' + DS.n + ' right this session &middot; ' + ps.length + ' pairs</div><div class="card"><div class="prompt-k">Which one is this?</div><div class="prompt small">' + esc(t.qd) + '</div>' +
       '<div class="duel">' + two.map(function(c){ return '<button class="opt" data-id="' + c.id + '">' + esc(c.name) + '</button>'; }).join("") + '</div><div id="drv"></div></div>';
     el.querySelector(".duel").onclick = function(e){
       var b = e.target.closest(".opt"); if (!b || b.disabled) return;
