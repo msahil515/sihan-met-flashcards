@@ -698,7 +698,7 @@ function feedback(ok, q, btn, xp){
   var who = [c.who, c.year].filter(Boolean).join(", ");
   if (q.mode === "duel"){
     var o = q.other;
-    why = '<div class="f tell"><i>The tell</i>' + esc(c.tell || o.tell || "") + '</div>' +
+    why = '<div class="f tell"><i>The tell</i>' + esc((resolveLook(o) === c ? o.tell : c.tell) || c.tell || o.tell || "") + '</div>' +
       '<div class="f"><b>' + esc(c.name) + '</b>' + (c.who ? ' (' + esc(c.who) + ')' : '') + ': ' + esc(c.def) + '</div>' +
       '<div class="f"><b>' + esc(o.name) + '</b>' + (o.who ? ' (' + esc(o.who) + ')' : '') + ': ' + esc(o.def) + '</div>';
   } else {

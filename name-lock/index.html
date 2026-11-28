@@ -425,7 +425,7 @@
       save();
       el.querySelectorAll(".opt").forEach(function(x){ x.disabled = true; if (x.dataset.id === t.id) x.classList.add("ok"); });
       if (!ok) b.classList.add("bad");
-      var tell = t.tell || o.tell || "", gx = window.NLG ? NLG.duel(t, ok) : "";
+      var tell = (resolveLook(o) === t ? o.tell : t.tell) || t.tell || o.tell || "", gx = window.NLG ? NLG.duel(t, ok) : "";
       document.getElementById("drv").innerHTML = '<div class="reveal">' + gx + '<div class="fld look"><i>The tell</i>' + esc(tell) + '</div>' +
         '<div class="fld"><b>' + esc(t.name) + '</b>' + (t.who ? ' (' + esc([t.who, t.year].filter(Boolean).join(", ")) + ')' : '') + ': ' + esc(t.def) + '</div>' +
         '<div class="fld"><b>' + esc(o.name) + '</b>' + (o.who ? ' (' + esc([o.who, o.year].filter(Boolean).join(", ")) + ')' : '') + ': ' + esc(o.def) + '</div>' +
