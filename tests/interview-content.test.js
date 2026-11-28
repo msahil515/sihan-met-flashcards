@@ -12,7 +12,7 @@ const viva = context.window.NL_VIVA;
 
 test("legacy dissertation and JSS levels retain their IDs and content", () => {
   const expected = {
-    dis: "f11e94a8f46e6794517ebba1956d72fdc67b973762eaa7fa4d477c748dd30de4",
+    dis: "11cf7d59f762ecb42aff1d031daa050c15ce8a273f89cbb61300eb5ed55703fc", // re-pinned 28 Nov 2026: full fact-check (13 cards), IDs unchanged
     jss: "402d54d995eed96c93531cc71c3ba3cabe676483960a945d9f3c3f9e8a2e22af", // re-pinned 28 Nov 2026: fact-checks (9 legacy cards, then jss-l2 M.Clin.Psy rename), IDs unchanged
   };
   for (const world of Object.keys(expected)) {
